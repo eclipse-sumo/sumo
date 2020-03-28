@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2015-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2015-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSParkingArea.cpp
 /// @author  Mirco Sturari
@@ -14,11 +18,6 @@
 ///
 // A area where vehicles can park next to the road
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -71,7 +70,7 @@ MSParkingArea::MSParkingArea(const std::string& id,
         myLength = spaceDim;
     }
 
-    const double offset = MSNet::getInstance()->lefthand() ? -1 : 1;
+    const double offset = MSGlobals::gLefthand ? -1 : 1;
     myShape = lane.getShape().getSubpart(
                   lane.interpolateLanePosToGeometryPos(begPos),
                   lane.interpolateLanePosToGeometryPos(endPos));
@@ -119,23 +118,25 @@ MSParkingArea::addLotEntry(double x, double y, double z,
                 lsd.myEndPos = this->getLane().getLength() - POSITION_EPS;
             }
         }
-        // Work out the angle of the lot relative to the lane  (+90 parallels the way the bay is drawn )
-        int relativeAngle = static_cast<int>(lsd.myRotation + 90. - RAD2DEG(this->getLane().getShape().rotationAtOffset(lsd.myEndPos)));
-        if (relativeAngle < 0) {
-            relativeAngle += 360;
+        // Work out the angle of the lot relative to the lane  (-90 adjusts for the way the bay is drawn )
+        double relativeAngle = fmod(lsd.myRotation - 90., 360) - fmod(RAD2DEG(this->getLane().getShape().rotationAtOffset(lsd.myEndPos)), 360) + 0.5;
+        if (relativeAngle < 0.) {
+            relativeAngle += 360.;
         }
+        lsd.myManoeuverAngle = relativeAngle;
 
-        // use this to set the manoeuver angle - real life manoeuver will always be < 180 degrees - hence the modulus
         //   if p2.y is -ve the lot is on LHS of lane relative to lane direction
+        //    we need to know this because it inverts the complexity of the parking manoeuver 
         Position p2 = this->getLane().getShape().transformToVectorCoordinates(lsd.myPosition);
         if (p2.y() < (0. + POSITION_EPS)) {
-            lsd.myManoeuverAngle = abs(relativeAngle) % 180;
-        } else { // lot is on RHS of lane
-            lsd.myManoeuverAngle = abs(abs(relativeAngle) % 180 - 180) % 180;
+            lsd.mySideIsLHS = true;
+        } else {
+            lsd.mySideIsLHS = false;
         }
     } else {
         lsd.myEndPos = myEndPos;
         lsd.myManoeuverAngle = int(angle); // unused unless gModelParkingManoeuver is true
+        lsd.mySideIsLHS = true;
     }
 
 
@@ -148,9 +149,25 @@ int
 MSParkingArea::getLastFreeLotAngle() const {
     assert(myLastFreeLot >= 0);
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
-    return (mySpaceOccupancies[myLastFreeLot].myManoeuverAngle);
-}
 
+    const LotSpaceDefinition& lsd = mySpaceOccupancies[myLastFreeLot];
+    if ( lsd.mySideIsLHS )
+        return abs(int(lsd.myManoeuverAngle)) % 180;
+    else
+        return abs(abs(int(lsd.myManoeuverAngle)) % 180 - 180) % 180;
+    }
+
+double
+MSParkingArea::getLastFreeLotGUIAngle() const {
+    assert(myLastFreeLot >= 0);
+    assert(myLastFreeLot < (int)mySpaceOccupancies.size());
+
+    const LotSpaceDefinition &lsd = mySpaceOccupancies[myLastFreeLot];
+    if (lsd.myManoeuverAngle > 180.)
+        return DEG2RAD(lsd.myManoeuverAngle - 360.);
+    else
+        return DEG2RAD(lsd.myManoeuverAngle);
+}
 
 
 double
@@ -197,17 +214,45 @@ MSParkingArea::getVehicleAngle(const SUMOVehicle& forVehicle) const {
     return 0;
 }
 
+double
+MSParkingArea::getGUIAngle(const SUMOVehicle& forVehicle) const {
+    for (const auto& lsd : mySpaceOccupancies) {
+        if (lsd.vehicle == &forVehicle) {
+            if (lsd.myManoeuverAngle > 180.)
+                return DEG2RAD(lsd.myManoeuverAngle - 360.);
+            else
+                return DEG2RAD(lsd.myManoeuverAngle);
+        }
+    }
+    return 0.;
+}
+
+int
+MSParkingArea::getManoeuverAngle(const SUMOVehicle& forVehicle) const {
+    for (const auto& lsd : mySpaceOccupancies) {
+        if (lsd.vehicle == &forVehicle) {
+            if (lsd.mySideIsLHS)
+                return abs(int(lsd.myManoeuverAngle)) % 180;
+            else
+                return abs(abs(int(lsd.myManoeuverAngle)) % 180 - 180) % 180;
+        }
+    }
+    return 0;
+}
+
 
 void
-MSParkingArea::enter(SUMOVehicle* what, double beg, double end) {
+MSParkingArea::enter(SUMOVehicle* veh) {
+    double beg = veh->getPositionOnLane() + veh->getVehicleType().getMinGap();
+    double end = veh->getPositionOnLane() - veh->getVehicleType().getLength();
     assert(myLastFreePos >= 0);
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
     if (myUpdateEvent == nullptr) {
         myUpdateEvent = new WrappingCommand<MSParkingArea>(this, &MSParkingArea::updateOccupancy);
         MSNet::getInstance()->getEndOfTimestepEvents()->addEvent(myUpdateEvent);
     }
-    mySpaceOccupancies[myLastFreeLot].vehicle = what;
-    myEndPositions[what] = std::pair<double, double>(beg, end);
+    mySpaceOccupancies[myLastFreeLot].vehicle = veh;
+    myEndPositions[veh] = std::pair<double, double>(beg, end);
     computeLastFreePos();
 }
 
@@ -365,5 +410,6 @@ void
 MSParkingArea::notifyEgressBlocked() {
     computeLastFreePos();
 }
+
 
 /****************************************************************************/

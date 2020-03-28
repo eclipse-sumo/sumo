@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RORouteDef.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Base class for a vehicle's route definition
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -51,7 +50,9 @@ bool RORouteDef::myUsingJTRR(false);
 RORouteDef::RORouteDef(const std::string& id, const int lastUsed,
                        const bool tryRepair, const bool mayBeDisconnected) :
     Named(StringUtils::convertUmlaute(id)),
-    myPrecomputed(nullptr), myLastUsed(lastUsed), myTryRepair(tryRepair), myMayBeDisconnected(mayBeDisconnected) {
+    myPrecomputed(nullptr), myLastUsed(lastUsed), myTryRepair(tryRepair),
+    myMayBeDisconnected(mayBeDisconnected),
+    myDiscardSilent(false) {
 }
 
 
@@ -169,7 +170,8 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
     if (initialSize == 1) {
         if (myUsingJTRR) {
             /// only ROJTRRouter is supposed to handle this type of input
-            router.compute(oldEdges.front(), nullptr, &veh, begin, newEdges);
+            bool ok = router.compute(oldEdges.front(), nullptr, &veh, begin, newEdges);
+            myDiscardSilent = ok && newEdges.size() == 0;
         } else {
             newEdges = oldEdges;
         }
@@ -222,15 +224,20 @@ RORouteDef::repairCurrentRoute(SUMOAbstractRouter<ROEdge, ROVehicle>& router,
         int lastMandatory = 0;
         for (ConstROEdgeVector::const_iterator i = targets.begin() + 1;
                 i != targets.end() && nextMandatory != mandatory.end(); ++i) {
-            if ((*(i - 1))->isConnectedTo(*i, &veh)) {
+            if ((*(i - 1))->isConnectedTo(**i, veh.getVClass())) {
                 newEdges.push_back(*i);
             } else {
                 if (initialSize > 2) {
                     // only inform if the input is (probably) not a trip
                     WRITE_MESSAGE("Edge '" + (*(i - 1))->getID() + "' not connected to edge '" + (*i)->getID() + "' for vehicle '" + veh.getID() + "'.");
                 }
-                const ROEdge* const last = newEdges.back();
+                const ROEdge* last = newEdges.back();
                 newEdges.pop_back();
+                if (last->isTazConnector() && newEdges.size() > 1) {
+                    // assume this was a viaTaz
+                    last = newEdges.back();
+                    newEdges.pop_back();
+                }
                 if (!router.compute(last, *i, &veh, begin, newEdges)) {
                     // backtrack: try to route from last mandatory edge to next mandatory edge
                     // XXX add option for backtracking in smaller increments

@@ -1,10 +1,6 @@
 set(utils_iodevices_STAT_SRCS
    OutputDevice.cpp
    OutputDevice.h
-   BinaryFormatter.cpp
-   BinaryFormatter.h
-   BinaryInputDevice.cpp
-   BinaryInputDevice.h
    OutputDevice_CERR.cpp
    OutputDevice_CERR.h
    OutputDevice_COUT.cpp

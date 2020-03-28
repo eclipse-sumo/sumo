@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSTLLogicControl.cpp
 /// @author  Daniel Krajzewicz
@@ -19,9 +23,6 @@
 ///
 // A class that stores and controls tls and switching of their programs
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -38,6 +39,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
 
+#define TRACI_PROGRAM "online"
 
 // ===========================================================================
 // method definitions
@@ -155,20 +157,20 @@ void
 MSTLLogicControl::TLSLogicVariants::setStateInstantiatingOnline(MSTLLogicControl& tlc,
         const std::string& state) {
     // build only once...
-    MSTrafficLightLogic* logic = getLogic("online");
+    MSTrafficLightLogic* logic = getLogic(TRACI_PROGRAM);
     if (logic == nullptr) {
         MSPhaseDefinition* phase = new MSPhaseDefinition(DELTA_T, state, -1);
         std::vector<MSPhaseDefinition*> phases;
         phases.push_back(phase);
-        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), "online", TLTYPE_STATIC, phases, 0,
+        logic = new MSSimpleTrafficLightLogic(tlc, myCurrentProgram->getID(), TRACI_PROGRAM, TLTYPE_STATIC, phases, 0,
                                               MSNet::getInstance()->getCurrentTimeStep() + DELTA_T,
                                               std::map<std::string, std::string>());
-        addLogic("online", logic, true, true);
+        addLogic(TRACI_PROGRAM, logic, true, true);
         MSNet::getInstance()->createTLWrapper(logic);
     } else {
         MSPhaseDefinition nphase(DELTA_T, state, -1);
         *(dynamic_cast<MSSimpleTrafficLightLogic*>(logic)->getPhases()[0]) = nphase;
-        switchTo(tlc, "online");
+        switchTo(tlc, TRACI_PROGRAM);
     }
 }
 
@@ -683,7 +685,7 @@ MSTLLogicControl::switchTo(const std::string& id, const std::string& programID) 
 
 void
 MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string& id,
-                          const std::string& startProg) {
+                          const std::string& startProg, SUMOTime period) {
     // check whether the waut was already defined
     if (myWAUTs.find(id) != myWAUTs.end()) {
         // report an error if so
@@ -693,6 +695,7 @@ MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string& id,
     w->id = id;
     w->refTime = refTime;
     w->startProg = startProg;
+    w->period = period;
     myWAUTs[id] = w;
 }
 
@@ -706,9 +709,13 @@ MSTLLogicControl::addWAUTSwitch(const std::string& wautid,
         throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
     }
     // build and save the waut switch definition
+    WAUT* waut = myWAUTs[wautid];
     WAUTSwitch s;
     s.to = to;
-    s.when = (myWAUTs[wautid]->refTime + when) % 86400000;
+    s.when = (waut->refTime + when);
+    if (waut->period > 0) {
+        s.when = s.when % waut->period;
+    }
     myWAUTs[wautid]->switches.push_back(s);
 }
 
@@ -789,7 +796,8 @@ SUMOTime
 MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
     const std::string& wautid = cmd.getWAUTID();
     int& index = cmd.getIndex();
-    WAUTSwitch s = myWAUTs[wautid]->switches[index];
+    WAUT* waut = myWAUTs[wautid];
+    WAUTSwitch s = waut->switches[index];
     for (std::vector<WAUTJunction>::iterator i = myWAUTs[wautid]->junctions.begin(); i != myWAUTs[wautid]->junctions.end(); ++i) {
         // get the current program and the one to instantiate
         TLSLogicVariants* vars = myLogics.find((*i).junction)->second;
@@ -813,8 +821,15 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand& cmd) {
         myCurrentlySwitched.push_back(p);
     }
     index++;
-    if (index == static_cast<int>(myWAUTs[wautid]->switches.size())) {
-        return 0;
+    if (index == (int)waut->switches.size()) {
+        if (waut->period <= 0) {
+            return 0;
+        } else {
+            index = 0; // start over
+            for (WAUTSwitch& ws : waut->switches) {
+                ws.when += waut->period;
+            }
+        }
     }
     return myWAUTs[wautid]->switches[index].when - MSNet::getInstance()->getCurrentTimeStep();
 }
@@ -826,7 +841,10 @@ MSTLLogicControl::check2Switch(SUMOTime step) {
         const WAUTSwitchProcess& proc = *i;
         if (proc.proc->trySwitch(step)) {
             delete proc.proc;
-            switchTo((*i).to->getID(), (*i).to->getProgramID());
+            // do not switch away from TraCI control
+            if (getActive(proc.to->getID())->getProgramID() != TRACI_PROGRAM) {
+                switchTo(proc.to->getID(), proc.to->getProgramID());
+            }
             i = myCurrentlySwitched.erase(i);
         } else {
             ++i;
@@ -849,5 +867,5 @@ MSTLLogicControl::switchOffAll() {
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

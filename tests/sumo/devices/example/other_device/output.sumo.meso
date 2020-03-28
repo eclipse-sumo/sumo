@@ -4,4 +4,4 @@ initialized device 'example_veh0' with myCustomValue1=23.00, myCustomValue2=-1.0
 device 'example_veh0' notifyEnter: reason=0 currentEdge=right2end
 device 'example_veh0' notifyLeave: reason=2 currentEdge=right2end
 device 'example_veh0' notifyEnter: reason=2 currentEdge=right2end
-device 'example_veh0' notifyLeave: reason=6 currentEdge=right2end
+device 'example_veh0' notifyLeave: reason=7 currentEdge=right2end

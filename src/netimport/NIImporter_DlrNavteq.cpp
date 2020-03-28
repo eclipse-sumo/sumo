@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_DlrNavteq.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Importer for networks stored in Elmar's format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -376,7 +375,7 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         geoms.push_back(to->getPosition());
         const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? id : "";
         e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
-                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, origID, LANESPREAD_CENTER);
+                       NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, origID, LaneSpreadFunction::CENTER);
     }
 
     // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used
@@ -488,8 +487,8 @@ NIImporter_DlrNavteq::TrafficlightsHandler::report(const std::string& result) {
         WRITE_WARNINGF("The traffic light edge '%' could not be found.", edgeID);
     } else {
         NBNode* node = edge->getToNode();
-        if (node->getType() != NODETYPE_TRAFFIC_LIGHT) {
-            node->reinit(node->getPosition(), NODETYPE_TRAFFIC_LIGHT);
+        if (node->getType() != SumoXMLNodeType::TRAFFIC_LIGHT) {
+            node->reinit(node->getPosition(), SumoXMLNodeType::TRAFFIC_LIGHT);
             // @note. There may be additional information somewhere in the GDF files about traffic light type ...
             TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
             // @note actually we could use the navteq node ID here
@@ -813,7 +812,7 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         const bool warnOnly = st.size() > 7;
         myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true,
                                             NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
-                                            NBEdge::UNSPECIFIED_SPEED, PositionVector::EMPTY, false, warnOnly);
+                                            NBEdge::UNSPECIFIED_SPEED, NBEdge::UNSPECIFIED_LOADED_LENGTH, PositionVector::EMPTY, false, warnOnly);
     }
     // ensure that connections for other lanes are guessed if not specified
     from->declareConnectionsAsLoaded(NBEdge::EdgeBuildingStep::INIT);

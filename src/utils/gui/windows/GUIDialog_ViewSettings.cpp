@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIDialog_ViewSettings.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // The dialog to change the view (gui) settings.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <fstream>
@@ -97,10 +96,10 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         }
         mySchemeName->setNumVisible(5);
 
-        new FXButton(frame0, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(ICON_SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tRemove the setting from registry", GUIIconSubSys::getIcon(ICON_REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tExport setting to file", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
-        new FXButton(frame0, "\t\tLoad setting from file", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tSave the setting to registry", GUIIconSubSys::getIcon(GUIIcon::SAVEDB), this, MID_SIMPLE_VIEW_SAVE, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tRemove the setting from registry", GUIIconSubSys::getIcon(GUIIcon::REMOVEDB), this, MID_SIMPLE_VIEW_DELETE, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tExport setting to file", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMPLE_VIEW_EXPORT, GUIDesignButtonToolbar);
+        new FXButton(frame0, "\t\tLoad setting from file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT, GUIDesignButtonToolbar);
 
         new FXVerticalSeparator(frame0);
         new FXLabel(frame0, "Export includes:", nullptr, GUIDesignViewSettingsLabel1);
@@ -172,6 +171,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
                                           (BUTTON_DEFAULT | FRAME_RAISED | FRAME_THICK | LAYOUT_TOP | LAYOUT_LEFT), 0, 0, 0, 0, 20, 20, 4, 4);
         myLaneColorRainbowCheck = new FXCheckButton(m24, "hide below threshold", this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignCheckButtonViewSettings);
         myLaneColorRainbowThreshold = new FXRealSpinner(m24, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, REALSPIN_NOMIN | GUIDesignViewSettingsSpinDial2);
+        myLaneColorRainbowThreshold->setRange(-100000, 100000);
 
         new FXHorizontalSeparator(frame2, GUIDesignHorizontalSeparator);
         //  ... scale settings
@@ -221,12 +221,12 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
         new FXLabel(m22, "Exaggerate width by", nullptr, GUIDesignViewSettingsLabel1);
         myLaneWidthUpscaleDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
-        myLaneWidthUpscaleDialer->setRange(0, 10000);
+        myLaneWidthUpscaleDialer->setRange(0, 1000000);
         myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
 
         new FXLabel(m22, "Minimum size", nullptr, GUIDesignViewSettingsLabel1);
         myLaneMinWidthDialer = new FXRealSpinner(m22, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial2);
-        myLaneMinWidthDialer->setRange(0, 10000);
+        myLaneMinWidthDialer->setRange(0, 1000000);
         myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
         // edge name
@@ -406,7 +406,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myInternalJunctionNamePanel = new NamePanel(m42, this, "Show internal junction name", mySettings->internalJunctionName);
         myInternalEdgeNamePanel = new NamePanel(m42, this, "Show internal edge name", mySettings->internalEdgeName);
         myCwaEdgeNamePanel = new NamePanel(m42, this, "Show crossing and walkingarea name", mySettings->cwaEdgeName);
-        myTLSPhaseIndexPanel = new NamePanel(m42, this, "Show traffic light phase", mySettings->tlsPhaseIndex);
+        myTLSPhaseIndexPanel = new NamePanel(m42, this, "Show traffic light phase index", mySettings->tlsPhaseIndex);
+        myTLSPhaseNamePanel = new NamePanel(m42, this, "Show traffic light phase name", mySettings->tlsPhaseName);
     }
     {
         // detectors / triggers
@@ -507,6 +508,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         mySelectedPersonColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedPersonColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
         new FXLabel(m102, "PersonPlan", nullptr, GUIDesignViewSettingsLabel1);
         mySelectedPersonPlanColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedPersonPlanColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
+        new FXLabel(m102, "edgeData", nullptr, GUIDesignViewSettingsLabel1);
+        mySelectedEdgeDataColor = new FXColorWell(m102, MFXUtils::getFXColor(settings->colorSettings.selectedEdgeDataColor), this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsColorWell);
     }
     {
         // Legend
@@ -550,7 +553,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
     initial->setFocus();
 
     rebuildColorMatrices(false);
-    setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     loadWindowSize();
 }
 
@@ -561,6 +564,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myInternalJunctionNamePanel;
     delete myInternalEdgeNamePanel;
     delete myTLSPhaseIndexPanel;
+    delete myTLSPhaseNamePanel;
     delete myCwaEdgeNamePanel;
     delete myStreetNamePanel;
     delete myEdgeValuePanel;
@@ -652,6 +656,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
         mySelectedVehicleColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedVehicleColor));
         mySelectedPersonColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonColor));
         mySelectedPersonPlanColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedPersonPlanColor));
+        mySelectedEdgeDataColor->setRGBA(MFXUtils::getFXColor(mySettings->colorSettings.selectedEdgeDataColor));
     }
 
     myLaneEdgeColorMode->setCurrentItem((FXint) mySettings->getLaneEdgeMode());
@@ -705,6 +710,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myJunctionNamePanel->update(mySettings->junctionName);
     myInternalJunctionNamePanel->update(mySettings->internalJunctionName);
     myTLSPhaseIndexPanel->update(mySettings->tlsPhaseIndex);
+    myTLSPhaseNamePanel->update(mySettings->tlsPhaseName);
     myJunctionSizePanel->update(mySettings->junctionSize);
 
     myAddNamePanel->update(mySettings->addName);
@@ -869,7 +875,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         tmpSettings.colorSettings.selectedVehicleColor = MFXUtils::getRGBColor(mySelectedVehicleColor->getRGBA());
         tmpSettings.colorSettings.selectedPersonColor = MFXUtils::getRGBColor(mySelectedPersonColor->getRGBA());
         tmpSettings.colorSettings.selectedPersonPlanColor = MFXUtils::getRGBColor(mySelectedPersonPlanColor->getRGBA());
-
+        tmpSettings.colorSettings.selectedEdgeDataColor = MFXUtils::getRGBColor(mySelectedEdgeDataColor->getRGBA());
     }
 
     tmpSettings.showGrid = (myShowGrid->getCheck() != FALSE);
@@ -949,6 +955,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.junctionName = myJunctionNamePanel->getSettings();
     tmpSettings.internalJunctionName = myInternalJunctionNamePanel->getSettings();
     tmpSettings.tlsPhaseIndex = myTLSPhaseIndexPanel->getSettings();
+    tmpSettings.tlsPhaseName = myTLSPhaseNamePanel->getSettings();
     tmpSettings.junctionSize = myJunctionSizePanel->getSettings();
 
     tmpSettings.addName = myAddNamePanel->getSettings();
@@ -1167,7 +1174,7 @@ GUIDialog_ViewSettings::saveDecals(OutputDevice& dev) const {
     for (j = myDecals->begin(); j != myDecals->end(); ++j) {
         GUISUMOAbstractView::Decal& d = *j;
         dev.openTag(SUMO_TAG_VIEWSETTINGS_DECAL);
-        dev.writeAttr("filename", d.filename);
+        dev.writeAttr("file", d.filename);
         dev.writeAttr(SUMO_ATTR_CENTER_X, d.centerX);
         dev.writeAttr(SUMO_ATTR_CENTER_Y, d.centerY);
         dev.writeAttr(SUMO_ATTR_CENTER_Z, d.centerZ);
@@ -1278,7 +1285,7 @@ GUIDialog_ViewSettings::onUpdDeleteSetting(FXObject* sender, FXSelector, void* p
 
 long
 GUIDialog_ViewSettings::onCmdExportSetting(FXObject*, FXSelector, void* /*data*/) {
-    FXString file = MFXUtils::getFilename2Write(this, "Export view settings", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Export view settings", ".xml", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -1327,7 +1334,7 @@ GUIDialog_ViewSettings::onUpdExportSetting(FXObject* sender, FXSelector, void* p
 long
 GUIDialog_ViewSettings::onCmdImportSetting(FXObject*, FXSelector, void* /*data*/) {
     FXFileDialog opendialog(this, "Import view settings");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
@@ -1344,7 +1351,7 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*, FXSelector, void* /*data*/
 long
 GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*, FXSelector, void* /*data*/) {
     FXFileDialog opendialog(this, "Load Decals");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
@@ -1360,7 +1367,7 @@ GUIDialog_ViewSettings::onCmdLoadDecals(FXObject*, FXSelector, void* /*data*/) {
 
 long
 GUIDialog_ViewSettings::onCmdSaveDecals(FXObject*, FXSelector, void* /*data*/) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Decals", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Save Decals", ".xml", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -1458,8 +1465,17 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
             FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
-            buttons.push_back(new FXButton(m, "Add", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
-            buttons.push_back(new FXButton(m, "Remove", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+            if (*threshIt == GUIVisualizationSettings::MISSING_DATA) {
+                threshDialer->disable();
+                threshDialer->hide();
+                buttons.push_back(new FXButton(m, "", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.back()->hide();
+                buttons.push_back(new FXButton(m, "No Data", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.back()->disable();
+            } else {
+                buttons.push_back(new FXButton(m, "Add", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+                buttons.push_back(new FXButton(m, "Remove", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));
+            }
         }
         colIt++;
         threshIt++;
@@ -1814,7 +1830,7 @@ GUIDialog_ViewSettings::NamePanel::NamePanel(
     FXMatrix* m1 = new FXMatrix(parent, 2, GUIDesignViewSettingsMatrix5);
     new FXLabel(m1, "Size", nullptr, GUIDesignViewSettingsLabel1);
     mySizeDial = new FXRealSpinner(m1, 10, target, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsSpinDial1);
-    mySizeDial->setRange(10, 1000);
+    mySizeDial->setRange(5, 1000);
     mySizeDial->setValue(settings.size);
     FXMatrix* m2 = new FXMatrix(parent, 4, GUIDesignViewSettingsMatrix5);
     new FXLabel(m2, "Color", nullptr, GUIDesignViewSettingsLabel1);
@@ -1904,5 +1920,5 @@ GUIDialog_ViewSettings::loadWindowSize() {
     setHeight(MAX2(getApp()->reg().readIntEntry("VIEWSETTINGS", "height", 500), minSize));
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

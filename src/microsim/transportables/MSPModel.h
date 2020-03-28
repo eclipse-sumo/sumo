@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2014-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSPModel.h
 /// @author  Jakob Erdmann
@@ -13,12 +17,7 @@
 ///
 // The pedestrian following model (prototype)
 /****************************************************************************/
-#ifndef MSPModel_h
-#define MSPModel_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -46,24 +45,19 @@ typedef std::pair<const MSPerson*, double> PersonDist;
 // ===========================================================================
 /**
  * @class MSPModel
- * @brief The pedestrian following model
+ * @brief The pedestrian (and also sometimes container) movement model
  *
  */
 class MSPModel {
 public:
 
-    static MSPModel* getModel();
-
-    /// @brief remove state at simulation end
-    static void cleanup();
-
     virtual ~MSPModel() {};
 
     /// @brief register the given person as a pedestrian
-    virtual PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) = 0;
+    virtual MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now) = 0;
 
     /// @brief remove the specified person from the pedestrian simulation
-    virtual void remove(PedestrianState* state) = 0;
+    virtual void remove(MSTransportableStateAdapter* state) = 0;
 
     /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
      * @param[in] lane The crossing to check
@@ -96,10 +90,8 @@ public:
         UNUSED_PARAMETER(minRight);
         UNUSED_PARAMETER(maxLeft);
         UNUSED_PARAMETER(stopTime);
-        return PersonDist((const MSPerson*)0, -1);
+        return PersonDist(nullptr, -1);
     }
-
-    virtual void cleanupHelper() {};
 
     // @brief walking directions
     static const int FORWARD;
@@ -120,43 +112,33 @@ public:
     /// @brief whether movements on intersections are modelled
     virtual bool usingInternalLanes() = 0;
 
-protected:
-#ifdef HAVE_FOX
-    /// @brief the mutex for model initialization
-    static FXMutex myInitializationMutex;
-#endif
-
-
-private:
-    static MSPModel* myModel;
-
 };
 
 
 /// @brief abstract base class for managing callbacks to retrieve various state information from the model
-class PedestrianState {
+class MSTransportableStateAdapter {
 public:
-    virtual ~PedestrianState() {};
+    virtual ~MSTransportableStateAdapter() {};
 
     /// @brief return the offset from the start of the current edge measured in its natural direction
-    virtual double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
+    virtual double getEdgePos(const MSStageMoving& stage, SUMOTime now) const = 0;
 
-    /// @brief return the network coordinate of the person
-    virtual Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
+    /// @brief return the network coordinate of the transportable
+    virtual Position getPosition(const MSStageMoving& stage, SUMOTime now) const = 0;
 
-    /// @brief return the direction in which the person faces in degrees
-    virtual double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
+    /// @brief return the direction in which the transportable faces in degrees
+    virtual double getAngle(const MSStageMoving& stage, SUMOTime now) const = 0;
 
-    /// @brief return the time the person spent standing
-    virtual SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const = 0;
+    /// @brief return the time the transportable spent standing
+    virtual SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const = 0;
 
-    /// @brief return the current speed of the person
-    virtual double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const = 0;
+    /// @brief return the current speed of the transportable
+    virtual double getSpeed(const MSStageMoving& stage) const = 0;
 
-    /// @brief return the list of internal edges if the pedestrian is on an intersection
-    virtual const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const = 0;
+    /// @brief return the list of internal edges if the transportable is on an intersection
+    virtual const MSEdge* getNextEdge(const MSStageMoving& stage) const = 0;
 
-    /// @brief try to move person to the given position
+    /// @brief try to move transportable to the given position
     virtual void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                           double lanePosLat, double angle, int routeOffset,
                           const ConstMSEdgeVector& edges, SUMOTime t) {
@@ -169,35 +151,12 @@ public:
         UNUSED_PARAMETER(routeOffset);
         UNUSED_PARAMETER(edges);
         UNUSED_PARAMETER(t);
-        WRITE_WARNING("moveToXY is ignored by the current pedestrian model");
+        WRITE_WARNING("moveToXY is ignored by the current movement model");
+    }
+
+    /// @brief whether the transportable is jammed
+    virtual bool isJammed() const {
+        return false;
     }
 
 };
-
-
-class DummyState : public PedestrianState {
-
-public:
-    double getEdgePos(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
-        return 0.;
-    }
-    Position getPosition(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
-        return Position::INVALID;
-    }
-    double getAngle(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
-        return 0.;
-    }
-    SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking&, SUMOTime) const {
-        return 0;
-    }
-    double getSpeed(const MSPerson::MSPersonStage_Walking&) const {
-        return 0.;
-    }
-    const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking&) const {
-        return nullptr;
-    }
-};
-
-
-#endif /* MSPModel_h */
-

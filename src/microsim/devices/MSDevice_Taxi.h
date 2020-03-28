@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_Taxi.h
 /// @author  Jakob Erdmann
@@ -13,13 +17,7 @@
 ///
 // A device which controls a taxi
 /****************************************************************************/
-#ifndef MSDevice_Taxi_h
-#define MSDevice_Taxi_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
@@ -50,7 +48,7 @@ class MSDevice_Taxi : public MSVehicleDevice {
 public:
 
     enum TaxiState {
-        EMPTY = 0, // available for servicing customers
+        EMPTY = 0, // empty (available for servicing customers)
         PICKUP = 1, // driving to pick up customer
         OCCUPIED = 2 // occupied with customer
     };
@@ -75,13 +73,18 @@ public:
 
     /// add new reservation
     static void addReservation(MSTransportable* person,
-            SUMOTime reservationTime, 
-            SUMOTime pickupTime,
-            const MSEdge* from, double fromPos,
-            const MSEdge* to, double toPos);
-    
+                               const std::set<std::string>& lines,
+                               SUMOTime reservationTime,
+                               SUMOTime pickupTime,
+                               const MSEdge* from, double fromPos,
+                               const MSEdge* to, double toPos,
+                               const std::string& group);
+
     /// @brief period command to trigger the dispatch algorithm
-    static SUMOTime triggerDispatch(SUMOTime currentTime); 
+    static SUMOTime triggerDispatch(SUMOTime currentTime);
+
+    /// @brief check whether there are still (servable) reservations in the system
+    static bool hasServableReservations();
 
     /// @brief resets counters
     static void cleanup();
@@ -135,18 +138,30 @@ public:
         return "taxi";
     }
 
+    /// @brief whether the taxi is empty
+    bool isEmpty();
+
     TaxiState getState() const {
         return myState;
     }
 
+    /// @brief returns a taxi if any exist or nullptr
+    static SUMOVehicle* getTaxi();
+
     /// @brief service the given reservation
     void dispatch(const Reservation& res);
+
+    /// @brief service the given reservations
+    void dispatchShared(const std::vector<const Reservation*> reservations);
+
+    /// @brief whether the given person is allowed to board this taxi
+    bool allowsBoarding(MSTransportable* t) const;
 
     /// @brief called by MSDevice_Transportable upon loading a person
     void customerEntered();
 
     /// @brief called by MSDevice_Transportable upon unloading a person
-    void customerArrived();
+    void customerArrived(const MSTransportable* person);
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
     std::string getParameter(const std::string& key) const;
@@ -172,6 +187,11 @@ private:
      */
     MSDevice_Taxi(SUMOVehicle& holder, const std::string& id);
 
+    /// @brief prepare stop for the given action
+    void prepareStop(ConstMSEdgeVector& edges,
+                     std::vector<SUMOVehicleParameter::Stop>& stops,
+                     double& lastPos, const MSEdge* stopEdge, double stopPos,
+                     const std::string& action);
 
     /// @brief determine stopping lane for taxi
     MSLane* getStopLane(const MSEdge* edge);
@@ -188,6 +208,12 @@ private:
     double myOccupiedDistance = 0;
     /// @brief time spent driving with customers
     SUMOTime myOccupiedTime = 0;
+    /// @brief the time at which the taxi service ends (end the vehicle may leave the simulation)
+    SUMOTime myServiceEnd = SUMOTime_MAX;
+    /// @brief whether the vehicle is currently stopped
+    bool myIsStopped = false;
+    /// @brief the customer of the current reservation
+    std::set<const MSTransportable*> myCustomers;
 
     /// @brief the time between successive calls to the dispatcher
     static SUMOTime myDispatchPeriod;
@@ -207,9 +233,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 21 22:13:52 2019 by Eclipse SUMO netgenerate Version v1_3_1+0985-d8cef81c9e
+<!-- generated on Thu Mar  5 10:18:40 2020 by Eclipse SUMO netgenerate Version v1_5_0+0517-ca1f5da
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -85,6 +85,8 @@
         <perturb-y value="0" type="STR" help="Apply random spatial pertubation in y direction according the the given distribution"/>
         <perturb-z value="0" type="STR" help="Apply random spatial pertubation in z direction according the the given distribution"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
+        <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
+        <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
         <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge edge geometries with a grade in above the warning threshold."/>
@@ -96,6 +98,7 @@
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
         <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
+        <fringe.guess value="false" type="BOOL" help="Enable guessing of network fringe nodes"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
     </processing>
@@ -103,6 +106,7 @@
     <building_defaults>
         <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
+        <default.spreadtype value="right" type="STR" help="The default method for computing lane shapes from edge shapes"/>
         <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.type value="" type="STR" help="The default edge type"/>
@@ -112,6 +116,7 @@
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
+        <default.connection-length value="-1" type="FLOAT" help="The default length when overriding connection lengths"/>
         <default.right-of-way value="default" type="STR" help="The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;)"/>
         <default-junction-type value="" synonymes="j junctions" type="STR" help="[traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types)"/>
     </building_defaults>
@@ -144,6 +149,8 @@
         <tls.layout value="opposites" type="STR" help="Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;]"/>
         <tls.min-dur value="5" type="INT" help="Default minimum phase duration for traffic lights with variable phase length"/>
         <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
+        <tls.group-signals value="false" type="BOOL" help="Assign the same tls link index to connections that share the same states"/>
+        <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
     </tls_building>
 
     <edge_removal>
@@ -169,6 +176,8 @@
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
         <no-turnarounds.geometry value="true" type="BOOL" help="Disables building turnarounds at geometry-like junctions"/>
         <no-turnarounds.except-deadend value="false" type="BOOL" help="Disables building turnarounds except at dead end junctions"/>
+        <no-turnarounds.except-turnlane value="false" type="BOOL" help="Disables building turnarounds except at at junctions with a dedicated turning lane"/>
+        <no-turnarounds.fringe value="false" type="BOOL" help="Disables building turnarounds at fringe junctions"/>
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>

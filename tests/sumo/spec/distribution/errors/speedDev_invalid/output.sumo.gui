@@ -1,5 +1,7 @@
-Loading net-file from 'net.net.xml' ... done (0ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading done.
+Simulation ended at time: 0.00
+Reason: All vehicles have left the simulation.
 Performance: 
  Duration: 0ms
 Vehicles: 
@@ -8,6 +10,7 @@ Vehicles:
  Waiting: 0
 Statistics (avg):
  RouteLength: 0.00
+ Speed: 0.00
  Duration: 0.00
  WaitingTime: 0.00
  TimeLoss: 0.00

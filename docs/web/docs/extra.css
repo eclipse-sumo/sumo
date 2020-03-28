@@ -161,10 +161,6 @@ a {
     color: #0645ad;
 }
 
-.col-md-3 {
-    max-width: 350px;
-}
-
 @media (max-width: 768px) {
     .col-md-3 {
         max-width: 800px;

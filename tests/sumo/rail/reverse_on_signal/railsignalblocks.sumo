@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Mar 13 11:08:44 2020 by Eclipse SUMO Version v1_5_0+0705-cb3e5fa
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="11">
+        <link linkIndex="0" from="h_0" to=":11_0_0">
+            <driveWay edges="branch">
+                <forward lanes=":11_0_0 branch_0"/>
+                <bidi lanes=":11_1_0 -branch_0"/>
+                <flank lanes=""/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+        <link linkIndex="1" from="-branch_0" to=":11_1_0">
+            <driveWay edges="-h g end">
+                <forward lanes=":11_1_0 -h_0 :10_0_0 g_0 :2_0_0 end_0"/>
+                <bidi lanes=":11_0_0 h_0"/>
+                <flank lanes=":2_1_0 b_0 :1_1_0 :10_1_0 f_0 :1_0_0"/>
+                <conflictLinks signals=""/>
+            </driveWay>
+        </link>
+    </railSignal>
+</railsignal-block-output>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2007-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    TraCIServer.cpp
 /// @author  Axel Wegener
@@ -23,10 +27,6 @@
 ///
 // TraCI server used to control sumo by a remote TraCI client (e.g., ns2)
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -77,6 +77,15 @@
 #include "TraCIServerAPI_Edge.h"
 #include "TraCIServerAPI_Simulation.h"
 #include "TraCIServerAPI_Person.h"
+#include "TraCIServerAPI_Calibrator.h"
+#include "TraCIServerAPI_BusStop.h"
+#include "TraCIServerAPI_ParkingArea.h"
+#include "TraCIServerAPI_ChargingStation.h"
+#include "TraCIServerAPI_RouteProbe.h"
+#include "TraCIServerAPI_Rerouter.h"
+#include "TraCIServerAPI_VariableSpeedSign.h"
+#include "TraCIServerAPI_MeanData.h"
+#include "TraCIServerAPI_OverheadWire.h"
 
 
 // ===========================================================================
@@ -221,13 +230,31 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
     myExecutors[libsumo::CMD_SET_SIM_VARIABLE] = &TraCIServerAPI_Simulation::processSet;
     myExecutors[libsumo::CMD_GET_PERSON_VARIABLE] = &TraCIServerAPI_Person::processGet;
     myExecutors[libsumo::CMD_SET_PERSON_VARIABLE] = &TraCIServerAPI_Person::processSet;
+    myExecutors[libsumo::CMD_GET_CALIBRATOR_VARIABLE] = &TraCIServerAPI_Calibrator::processGet;
+    myExecutors[libsumo::CMD_SET_CALIBRATOR_VARIABLE] = &TraCIServerAPI_Calibrator::processSet;
+    myExecutors[libsumo::CMD_GET_BUSSTOP_VARIABLE] = &TraCIServerAPI_BusStop::processGet;
+    myExecutors[libsumo::CMD_SET_BUSSTOP_VARIABLE] = &TraCIServerAPI_BusStop::processSet;
+    myExecutors[libsumo::CMD_GET_PARKINGAREA_VARIABLE] = &TraCIServerAPI_ParkingArea::processGet;
+    myExecutors[libsumo::CMD_SET_PARKINGAREA_VARIABLE] = &TraCIServerAPI_ParkingArea::processSet;
+    myExecutors[libsumo::CMD_GET_CHARGINGSTATION_VARIABLE] = &TraCIServerAPI_ChargingStation::processGet;
+    myExecutors[libsumo::CMD_SET_CHARGINGSTATION_VARIABLE] = &TraCIServerAPI_ChargingStation::processSet;
+    myExecutors[libsumo::CMD_GET_ROUTEPROBE_VARIABLE] = &TraCIServerAPI_RouteProbe::processGet;
+    myExecutors[libsumo::CMD_SET_ROUTEPROBE_VARIABLE] = &TraCIServerAPI_RouteProbe::processSet;
+    myExecutors[libsumo::CMD_GET_REROUTER_VARIABLE] = &TraCIServerAPI_Rerouter::processGet;
+    myExecutors[libsumo::CMD_SET_REROUTER_VARIABLE] = &TraCIServerAPI_Rerouter::processSet;
+    myExecutors[libsumo::CMD_GET_VARIABLESPEEDSIGN_VARIABLE] = &TraCIServerAPI_VariableSpeedSign::processGet;
+    myExecutors[libsumo::CMD_SET_VARIABLESPEEDSIGN_VARIABLE] = &TraCIServerAPI_VariableSpeedSign::processSet;
+    myExecutors[libsumo::CMD_GET_MEANDATA_VARIABLE] = &TraCIServerAPI_MeanData::processGet;
+    //myExecutors[libsumo::CMD_SET_MEANDATA_VARIABLE] = &TraCIServerAPI_MeanData::processSet;
+    myExecutors[libsumo::CMD_GET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processGet;
+    myExecutors[libsumo::CMD_SET_OVERHEADWIRE_VARIABLE] = &TraCIServerAPI_OverheadWire::processSet;
 
     myParameterSizes[libsumo::VAR_LEADER] = 9;
 
     myDoCloseConnection = false;
 
     // display warning if internal lanes are not used
-    if (!MSGlobals::gUsingInternalLanes) {
+    if (!MSGlobals::gUsingInternalLanes && !MSGlobals::gUseMesoSim) {
         WRITE_WARNING("Starting TraCI without using internal lanes!");
         MsgHandler::getWarningInstance()->inform("Vehicles will jump over junctions.", false);
         MsgHandler::getWarningInstance()->inform("Use without option --no-internal-links to avoid unexpected behavior", false);
@@ -995,8 +1022,6 @@ TraCIServer::initialiseSubscription(libsumo::Subscription& s) {
             writeStatusCmd(s.commandId, libsumo::RTYPE_ERR, "Subscription has ended.");
         } else {
             if (libsumo::Helper::needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
-                mySubscriptions.push_back(s);
-                modifiedSubscription = &mySubscriptions.back();
                 // Add new subscription to subscription cache (note: seems a bit inefficient)
                 if (s.beginTime < MSNet::getInstance()->getCurrentTimeStep()) {
                     // copy new subscription into cache
@@ -1013,7 +1038,9 @@ TraCIServer::initialiseSubscription(libsumo::Subscription& s) {
             }
             writeStatusCmd(s.commandId, libsumo::RTYPE_OK, "");
         }
-        if (modifiedSubscription != nullptr && isVehicleToVehicleContextSubscription(*modifiedSubscription)) {
+        if (modifiedSubscription != nullptr && (
+                    modifiedSubscription->isVehicleToVehicleContextSubscription()
+                    || modifiedSubscription->isVehicleToPersonContextSubscription())) {
             // Set last modified vehicle context subscription active for filter modifications
             myLastContextSubscription = modifiedSubscription;
         } else {
@@ -1032,7 +1059,7 @@ TraCIServer::removeSubscription(int commandId, const std::string& id, int domain
     bool found = false;
     std::vector<libsumo::Subscription>::iterator j;
     for (j = mySubscriptions.begin(); j != mySubscriptions.end();) {
-        if (j->id == id && j->commandId == commandId && (domain < 0 || j->contextDomain == domain)) {
+        if (j->id == id && j->commandId == commandId && j->contextDomain == domain) {
             j = mySubscriptions.erase(j);
             if (j != mySubscriptions.end() && myLastContextSubscription == &(*j)) {
                 // Remove also reference for filter additions
@@ -1049,11 +1076,6 @@ TraCIServer::removeSubscription(int commandId, const std::string& id, int domain
     } else {
         writeStatusCmd(commandId, libsumo::RTYPE_ERR, "The subscription to remove was not found.");
     }
-}
-
-bool
-TraCIServer::isVehicleToVehicleContextSubscription(const libsumo::Subscription& s) {
-    return (s.commandId == libsumo::CMD_SUBSCRIBE_VEHICLE_CONTEXT && s.contextDomain == libsumo::CMD_GET_VEHICLE_VARIABLE);
 }
 
 
@@ -1180,8 +1202,8 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         }
     }
     // check subscribe/unsubscribe
-    if (variables.size() == 0) {
-        removeSubscription(commandId, id, -1);
+    if (variables.empty()) {
+        removeSubscription(commandId, id, domain);
         return true;
     }
     // process subscription
@@ -1260,6 +1282,12 @@ TraCIServer::addSubscriptionFilter() {
             myInputStorage.readByte();  // read type double
             double angle = myInputStorage.readDouble();
             addSubscriptionFilterFieldOfVision(angle);
+        }
+        break;
+        case libsumo::FILTER_TYPE_LATERAL_DIST: {
+            myInputStorage.readByte();  // read type double
+            double dist = myInputStorage.readDouble();
+            addSubscriptionFilterLateralDistance(dist);
         }
         break;
         default:
@@ -1360,6 +1388,15 @@ TraCIServer::addSubscriptionFilterFieldOfVision(double openingAngle) {
 #endif
     myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_FIELD_OF_VISION;
     myLastContextSubscription->filterFieldOfVisionOpeningAngle = openingAngle;
+}
+
+void
+TraCIServer::addSubscriptionFilterLateralDistance(double dist) {
+#ifdef DEBUG_SUBSCRIPTION_FILTERS
+    std::cout << "Adding lateral dist filter (dist=" << toString(dist) << ")" << std::endl;
+#endif
+    myLastContextSubscription->activeFilters = myLastContextSubscription->activeFilters | libsumo::SUBS_FILTER_LATERAL_DIST;
+    myLastContextSubscription->filterLateralDist = dist;
 }
 
 void

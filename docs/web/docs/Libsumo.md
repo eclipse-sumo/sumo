@@ -12,7 +12,7 @@ cross-platform, cross-language, and networked interaction with
 communication overhead due to the protocol and the socket communication.
 To have a more efficient coupling without the need for socket
 communication, the TraCI API is provided as a C++ library with the
-followin properties:
+following properties:
 
 - C++ interface based on static functions and a few simple wrapper
   classes for results which can be linked directly to the client code
@@ -24,18 +24,15 @@ followin properties:
 
 # Limitations
 
-The following things currently do not work:
+The following things currently do not work (or work differently than with the TraCI Python client):
 
 - running with [SUMO-GUI](SUMO-GUI.md)
-- subscriptions that require additional arguments
-  (*vehicle.getLeader*)
-
-# Downloading Libsumo
-
-Libsumo is not part of the default package. It can be downloaded from
-the extended package
-[\[1\]](http://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip) as part of the
-[nightly build](Downloads.md#nightly_snapshots).
+- subscriptions that require additional arguments (except for *vehicle.getLeader*)
+- stricter type checking
+  - the TraCI client sometimes accepts any iterable object where Libsumo wants a list
+  - TraCI client may accept any object where Libsumo needs a boolean value
+- using traci.init or traci.connect is not possible (you always need to use libsumo.start)
+- with traci every TraCIException will generate a message on stderr, Libsumo does not generate this message
 
 # Building it
 
@@ -43,10 +40,12 @@ It currently requires cmake and swig being installed together with the
 developer packages for Python (and Java if needed), for Windows see
 [Installing/Windows_CMake](Installing/Windows_CMake.md). You
 need to (re-)compile sumo yourself under Windows following the remarks
-above, under Linux it is probably just a matter of calling cmake and
-make. For the python bindings you will get a libsumo.py and a
+above, under Linux see [Installing/Linux_Build](Installing/Linux_Build.md)
+(it is probably just a matter of calling cmake and
+make again if you previously did a build without swig).
+For the python bindings you will get a libsumo.py and a
 _libsumo.so (or .pyd on Windows). If you place them somewhere on your
-python path you should be able to use them like that:
+python path you should be able to use them as described below.
 
 # Using libsumo
 
@@ -54,7 +53,7 @@ python path you should be able to use them like that:
 
 ```
 import libsumo
-libsumo.start(["-c", "test.sumocfg"])
+libsumo.start(["sumo", "-c", "test.sumocfg"])
 libsumo.simulationStep()
 ```
 
@@ -64,5 +63,6 @@ Existing traci scripts can mostly be reused by calling
 import libsumo as traci
 ```
 
-In this case, it is not possible to use the *traci.connect* and
-*traci.init* API functions. You must always use *traci.start*.
+In case you have a lot of scripts you can also set the environment
+variable `LIBSUMO_AS_TRACI` to a non empty value which will trigger the
+import as above.

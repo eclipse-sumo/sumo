@@ -301,3 +301,6 @@ on Linux). On Windows you will need to add it by copying the existing
 python.exe in your python3 installation to python3.exe (in the same
 directory) and adding that directory to the end of your PATH (if it is
 not already there).
+
+# Running tests outside TextTest
+Different methods to extract TextTest tests (offline and online) are explained [here](../Tutorials.md#using_examples_from_the_test_suite).

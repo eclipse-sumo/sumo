@@ -1,0 +1,6 @@
+Warning: Discarding unusable type 'waterway.river' (first occurence for edge '181412435').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '332907828').
+Warning: Discarding unknown compound 'railway.crossing' in type 'highway.footway|railway.crossing' (first occurence for edge '601605353').
+Warning: Ignoring join-cluster 'cluster_3151786679_3151786679s' because it has size '1'.
+Warning: The traffic light '34672430' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '34672430'

@@ -1,3 +1,8 @@
+add_subdirectory(common)
+add_subdirectory(network)
+add_subdirectory(demand)
+add_subdirectory(data)
+
 set(netedit_frames_SRCS
    GNEFrame.h
    GNEFrame.cpp
@@ -5,42 +10,6 @@ set(netedit_frames_SRCS
    GNEFrameModuls.cpp
    GNEFrameAttributesModuls.h
    GNEFrameAttributesModuls.cpp
-   GNEInspectorFrame.h
-   GNEInspectorFrame.cpp
-   GNESelectorFrame.h
-   GNESelectorFrame.cpp
-   GNEConnectorFrame.h
-   GNEConnectorFrame.cpp
-   GNETLSEditorFrame.h
-   GNETLSEditorFrame.cpp
-   GNEAdditionalFrame.h
-   GNEAdditionalFrame.cpp
-   GNECrossingFrame.h
-   GNECrossingFrame.cpp
-   GNETAZFrame.h
-   GNETAZFrame.cpp
-   GNEDeleteFrame.h
-   GNEDeleteFrame.cpp
-   GNEPolygonFrame.h
-   GNEPolygonFrame.cpp
-   GNECreateEdgeFrame.h
-   GNECreateEdgeFrame.cpp
-   GNERouteFrame.h
-   GNERouteFrame.cpp
-   GNEStopFrame.h
-   GNEStopFrame.cpp
-   GNEPersonFrame.h
-   GNEPersonFrame.cpp
-   GNEPersonPlanFrame.h
-   GNEPersonPlanFrame.cpp
-   GNEVehicleFrame.h
-   GNEVehicleFrame.cpp
-   GNEVehicleTypeFrame.h
-   GNEVehicleTypeFrame.cpp
-   GNEPersonTypeFrame.h
-   GNEPersonTypeFrame.cpp
-   GNEProhibitionFrame.h
-   GNEProhibitionFrame.cpp
    )
 
 add_library(netedit_frames STATIC ${netedit_frames_SRCS})

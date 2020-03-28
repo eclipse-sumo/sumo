@@ -4,6 +4,9 @@ basic
 # Test for not giving program with id 0
 wrong_id
 
+# Test for not giving program id
+missing_id
+
 # Test for using plain XML as input
 plain_input
 
@@ -16,5 +19,5 @@ type_only
 # only modify the link indices for selected links
 linkIndex_only
 
-#trying to add an tll file to plain input without having connections
+# trying to add an tll file to plain input without having connections
 no_plain_conns

@@ -4,8 +4,17 @@ save2_deprecated_delimiter
 # save 2 states
 save2
 
+# save 2 states with human readable times
+save2_H
+
+# state saving times are not reached
+save2_mismatch
+
 # save multiple states
 save_at_interval
+
+# saving interval does not match step-length
+save_at_interval_mismatch
 
 # save multiple states with human-readable times (no colons)
 save_at_interval_H
@@ -66,3 +75,9 @@ load_shifted
 
 # save routeProbe data as part of state
 save_routeProbe
+
+# save vehicle in the middle of cyclic route with stops
+save_cyclic_stops
+
+# load state with cyclic stops
+load_cyclic_stops

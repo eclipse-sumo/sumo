@@ -2,7 +2,7 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding calibrator 'calibratorA' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Inserting parameter 'KeyA1|valueA1' into additional calibrator.
 Debug: Inserting parameter 'KeyA3|valueA2' into additional calibrator.
 Debug: Inserting parameter 'KeyA2|valueA3' into additional calibrator.
@@ -14,7 +14,7 @@ Debug: Adding routeProbe 'RouteProbeA' in GNEChange_Additional
 Debug: Adding routeProbe 'RouteProbeB' in GNEChange_Additional
 Debug: Adding routeProbe 'customRouteProbeName' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -28,8 +28,6 @@ Debug: Setting new attribute selected 'true' into calibrator 'calibratorB'
 Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeA'
 Debug: Setting new attribute selected 'true' into routeProbe 'RouteProbeB'
 Debug: Setting new attribute selected 'true' into routeProbe 'customRouteProbeName'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into calibrator 'calibratorA'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into calibrator 'calibratorB'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into calibrator 'calibratorA'
@@ -44,8 +42,6 @@ Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=v
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into calibrator 'calibratorB'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into calibrator 'calibratorA'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into calibrator 'calibratorB'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into calibrator 'calibratorB'
@@ -89,8 +85,6 @@ Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
 Debug: Setting previous attribute selected '0' into edge 'gneE1'
 Debug: Setting previous attribute selected '0' into junction 'gneJ0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
@@ -145,34 +139,34 @@ Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced routeProbe 'customRouteProbeName'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced routeProbe 'RouteProbeB'
 Debug: Deleting unreferenced routeProbe 'RouteProbeA'
 Debug: Deleting unreferenced calibrator 'calibratorB'
 Debug: Deleting unreferenced calibrator 'calibratorA'
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE3_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE3_1togneE2_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ0_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ0_c1' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ1_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':gneJ1_c1' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

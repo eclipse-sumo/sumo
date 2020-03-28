@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSActuatedTrafficLightLogic.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // An actuated (adaptive) traffic light logic
 /****************************************************************************/
-#ifndef MSActuatedTrafficLightLogic_h
-#define MSActuatedTrafficLightLogic_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utility>
@@ -144,6 +142,15 @@ protected:
     /// @brief get the green phase following step
     int getTarget(int step);
 
+    /// @brief whether the current phase cannot be continued due to linkMaxDur constraints
+    bool maxLinkDurationReached();
+
+    /// @brief whether the target phase is acceptable in light of linkMaxDur constraints
+    bool canExtendLinkGreen(int target);
+
+    /// @brief the minimum duratin for keeping the current phase due to linkMinDur constraints
+    SUMOTime getLinkMinDuration(int target) const;
+
 protected:
     /// @brief A map from phase to induction loops to be used for gap control
     InductLoopMap myInductLoopsForPhase;
@@ -175,10 +182,12 @@ protected:
     /// Whether detector output separates by vType
     std::string myVehicleTypes;
 
+    /// @brief last time trySwitch was called
+    SUMOTime myLastTrySwitchTime;
+    /// @brief consecutive time that the given link index has been green
+    std::vector<SUMOTime> myLinkGreenTimes;
+    /// @brief maximum consecutive time that the given link may remain green
+    std::vector<SUMOTime> myLinkMaxGreenTimes;
+    /// @brief minimum consecutive time that the given link must remain green
+    std::vector<SUMOTime> myLinkMinGreenTimes;
 };
-
-
-#endif
-
-/****************************************************************************/
-

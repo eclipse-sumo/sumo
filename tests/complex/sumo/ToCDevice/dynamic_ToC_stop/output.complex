@@ -507,8 +507,8 @@ Time 81.0: Current lane of veh 'ToC_veh': WE_1
 time 81.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 0.0
-  state = AUTOMATED
+  currentSpeed = 2.6
+  state = PREPARING_TOC
 Time 82.0: Current lane of veh 'ToC_veh': WE_1
 time 82.0
 ToC device infos for vehicle 'ToC_veh'
@@ -531,156 +531,132 @@ Time 85.0: Current lane of veh 'ToC_veh': WE_1
 time 85.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 2.6
+  currentSpeed = 2.399
   state = PREPARING_TOC
 Time 86.0: Current lane of veh 'ToC_veh': WE_1
 time 86.0
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 2.399
-  state = PREPARING_TOC
-Time 87.0: Current lane of veh 'ToC_veh': WE_1
-time 87.0
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 0.0
-  state = PREPARING_TOC
-Time 88.0: Current lane of veh 'ToC_veh': WE_1
-time 88.0
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 0.0
-  state = PREPARING_TOC
-Time 89.0: Current lane of veh 'ToC_veh': WE_1
-time 89.0
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 0.0
-  state = PREPARING_TOC
-Time 90.0: Current lane of veh 'ToC_veh': WE_1
-time 90.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.25
   currentSpeed = 0.0
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
-Time 91.0: Current lane of veh 'ToC_veh': WE_0
-time 91.0
+Time 87.0: Current lane of veh 'ToC_veh': WE_0
+time 87.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.35
   currentSpeed = 0.0
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
-Time 92.0: Current lane of veh 'ToC_veh': :gneJ1_0_0
-time 92.0
+Time 88.0: Current lane of veh 'ToC_veh': :gneJ1_0_0
+time 88.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.45
   currentSpeed = 2.02962438348
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
-Time 93.0: Current lane of veh 'ToC_veh': :gneJ1_0_0
-time 93.0
+Time 89.0: Current lane of veh 'ToC_veh': :gneJ1_0_0
+time 89.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.55
   currentSpeed = 3.47131305318
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
-Time 94.0: Current lane of veh 'ToC_veh': NS_0
-time 94.0
+Time 90.0: Current lane of veh 'ToC_veh': NS_0
+time 90.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.65
   currentSpeed = 5.14507167998
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
-Time 95.0: Current lane of veh 'ToC_veh': NS_0
-time 95.0
+Time 91.0: Current lane of veh 'ToC_veh': NS_0
+time 91.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.75
   currentSpeed = 6.89572451087
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
-Time 96.0: Current lane of veh 'ToC_veh': NS_0
-time 96.0
+Time 92.0: Current lane of veh 'ToC_veh': NS_0
+time 92.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.85
   currentSpeed = 8.80191252737
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
-Time 97.0: Current lane of veh 'ToC_veh': NS_0
-time 97.0
+Time 93.0: Current lane of veh 'ToC_veh': NS_0
+time 93.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.95
   currentSpeed = 10.89163241
   state = RECOVERING
 Switched to manual mode: Allowing LCs!
+Time 94.0: Current lane of veh 'ToC_veh': NS_0
+time 94.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.4748316411
+  state = MANUAL
+Time 95.0: Current lane of veh 'ToC_veh': NS_0
+time 95.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.8827611456
+  state = MANUAL
+Time 96.0: Current lane of veh 'ToC_veh': NS_0
+time 96.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.3776624331
+  state = MANUAL
+Time 97.0: Current lane of veh 'ToC_veh': NS_0
+time 97.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.030603554
+  state = MANUAL
 Time 98.0: Current lane of veh 'ToC_veh': NS_0
 time 98.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 12.4748316411
+  currentSpeed = 13.376184722
   state = MANUAL
 Time 99.0: Current lane of veh 'ToC_veh': NS_0
 time 99.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 12.8827611456
+  currentSpeed = 13.4538270686
   state = MANUAL
 Time 100.0: Current lane of veh 'ToC_veh': NS_0
 time 100.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 13.3776624331
+  currentSpeed = 13.2572022797
   state = MANUAL
 Time 101.0: Current lane of veh 'ToC_veh': NS_0
 time 101.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 13.030603554
+  currentSpeed = 13.213813084
   state = MANUAL
 Time 102.0: Current lane of veh 'ToC_veh': NS_0
 time 102.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 13.376184722
+  currentSpeed = 13.2721661489
   state = MANUAL
 Time 103.0: Current lane of veh 'ToC_veh': NS_0
 time 103.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 13.4538270686
+  currentSpeed = 12.6957209738
   state = MANUAL
 Time 104.0: Current lane of veh 'ToC_veh': NS_0
 time 104.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 13.2572022797
+  currentSpeed = 12.6187684935
   state = MANUAL
 Time 105.0: Current lane of veh 'ToC_veh': NS_0
 time 105.0
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 13.213813084
-  state = MANUAL
-Time 106.0: Current lane of veh 'ToC_veh': NS_0
-time 106.0
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 13.2721661489
-  state = MANUAL
-Time 107.0: Current lane of veh 'ToC_veh': NS_0
-time 107.0
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 12.6957209738
-  state = MANUAL
-Time 108.0: Current lane of veh 'ToC_veh': NS_0
-time 108.0
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 12.6187684935
-  state = MANUAL
-Time 109.0: Current lane of veh 'ToC_veh': NS_0
-time 109.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 13.1617800001

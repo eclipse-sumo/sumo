@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNERouteDialog.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,16 +17,12 @@
 ///
 // Dialog for edit calibrator routes
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/demandelements/GNERoute.h>
+#include <netedit/elements/demand/GNERoute.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
@@ -34,7 +34,7 @@
 // ===========================================================================
 
 FXDEFMAP(GNERouteDialog) GNERouteDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CALIBRATORDIALOG_SET_VARIABLE,  GNERouteDialog::onCmdSetVariable),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNERouteDialog::onCmdSetVariable),
 };
 
 // Object implementation
@@ -58,15 +58,15 @@ GNERouteDialog::GNERouteDialog(GNEDemandElement* editedCalibratorRoute, bool upd
 
     // create ID's elements
     new FXLabel(columnLeft, toString(SUMO_ATTR_ID).c_str(), nullptr, GUIDesignLabelLeftThick);
-    myTextFieldRouteID = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    myTextFieldRouteID = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // create list of edge's elements
     new FXLabel(columnLeft, toString(SUMO_ATTR_EDGES).c_str(), nullptr, GUIDesignLabelLeftThick);
-    myTextFieldEdges = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    myTextFieldEdges = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // create color's elements
     new FXLabel(columnLeft, toString(SUMO_ATTR_COLOR).c_str(), nullptr, GUIDesignLabelLeftThick);
-    myTextFieldColor = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_CALIBRATORDIALOG_SET_VARIABLE, GUIDesignTextField);
+    myTextFieldColor = new FXTextField(columnRight, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // update tables
     updateCalibratorRouteValues();
@@ -180,5 +180,6 @@ GNERouteDialog::updateCalibratorRouteValues() {
     myTextFieldEdges->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_EDGES).c_str());
     myTextFieldColor->setText(myEditedDemandElement->getAttribute(SUMO_ATTR_COLOR).c_str());
 }
+
 
 /****************************************************************************/

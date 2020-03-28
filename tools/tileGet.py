@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    tileGet.py
 # @author  Michael Behrisch
@@ -16,11 +20,14 @@ from __future__ import print_function
 from __future__ import division
 import math
 import os
+
 try:
     # python3
     import urllib.request as urllib
+    from urllib.error import HTTPError as urlerror
 except ImportError:
     import urllib
+    from urllib2 import HTTPError as urlerror
 
 import optparse
 
@@ -68,7 +75,7 @@ def getZoomWidthHeight(south, west, north, east, maxTileSize):
     return center, zoom, width, height
 
 
-def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix, net):
+def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix, net, layer, output_dir):
     zoom = 20
     numTiles = tiles + 1
     while numTiles > tiles:
@@ -80,14 +87,21 @@ def retrieveMapServerTiles(url, tiles, west, south, east, north, decals, prefix,
         for y in range(sy, ey + 1):
             request = "%s/%s/%s/%s" % (url, zoom, y, x)
 #            print(request)
-            urllib.urlretrieve(request, "%s%s_%s.jpeg" % (prefix, x, y))
-            lat, lon = fromTileToLatLon(x, y, zoom)
-            upperLeft = net.convertLonLat2XY(lon, lat)
-            lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
-            center = net.convertLonLat2XY(lon, lat)
-            print('    <decal file="%s%s_%s.jpeg" centerX="%s" centerY="%s" width="%s" height="%s"/>' %
-                  (prefix, x, y, center[0], center[1],
-                   2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1])), file=decals)
+#            opener = urllib.build_opener()
+#            opener.addheaders = [('User-agent', 'Mozilla/5.0')]
+#            urllib.install_opener(opener)
+            try:
+                urllib.urlretrieve(request, "%s%s_%s.jpeg" % (os.path.join(output_dir, prefix), x, y))
+                lat, lon = fromTileToLatLon(x, y, zoom)
+                upperLeft = net.convertLonLat2XY(lon, lat)
+                lat, lon = fromTileToLatLon(x + 0.5, y + 0.5, zoom)
+                center = net.convertLonLat2XY(lon, lat)
+                print('    <decal file="%s%s_%s.jpeg" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+                      (prefix, x, y, center[0], center[1],
+                       2 * (center[0] - upperLeft[0]), 2 * (upperLeft[1] - center[1]), layer), file=decals)
+            except urlerror as e:
+                print("Tile server returned HTTP response code: " + str(e.code))
+                raise ValueError
 
 
 optParser = optparse.OptionParser()
@@ -97,6 +111,8 @@ optParser.add_option("-t", "--tiles", type="int",
                      default=1, help="maximum number of tiles the output gets split into")
 optParser.add_option("-d", "--output-dir", default=".", help="optional output directory (must already exist)")
 optParser.add_option("-s", "--decals-file", default="settings.xml", help="name of decals settings file")
+optParser.add_option("-l", "--layer", type="int", default=0,
+                     help="(int) layer at which the image will appear, default 0")
 optParser.add_option("-x", "--polygon", help="calculate bounding box from polygon data in file")
 optParser.add_option("-n", "--net", help="get bounding box from net file")
 optParser.add_option("-k", "--key", help="API key to use")
@@ -105,6 +121,7 @@ optParser.add_option("-u", "--url",
                      default="services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile",
                      help="Download from the given tile server")
 # alternatives: open.mapquestapi.com/staticmap/v4/getmap, maps.googleapis.com/maps/api/staticmap
+
 
 def get(args=None):
     options, _ = optParser.parse_args(args=args)
@@ -143,7 +160,7 @@ def get(args=None):
         sumolib.xml.writeHeader(decals, root="viewsettings")
         if "MapServer" in options.url:
             retrieveMapServerTiles(options.url, options.tiles, west, south, east, north,
-                                   decals, options.prefix, net)
+                                   decals, options.prefix, net, options.layer, options.output_dir)
         else:
             b = west
             for i in range(options.tiles):
@@ -159,11 +176,15 @@ def get(args=None):
                 request = ("%s?%s&center=%.6f,%.6f&zoom=%s&%s&key=%s" %
                            (options.url, size, c[0], c[1], z, maptype, options.key))
     #            print(request)
-                urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
-                print('    <decal file="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s"/>' %
-                      (options.prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
-                       offset, bbox[1][1] - bbox[0][1]), file=decals)
-                b = e
+                try:
+                    urllib.urlretrieve(request, "%s%s.png" % (prefix, i))
+                    print('    <decal file="%s%s.png" centerX="%s" centerY="%s" width="%s" height="%s" layer="%d"/>' %
+                          (options.prefix, i, bbox[0][0] + (i + 0.5) * offset, (bbox[0][1] + bbox[1][1]) / 2,
+                           offset, bbox[1][1] - bbox[0][1], options.layer), file=decals)
+                    b = e
+                except urlerror as e:
+                    print("Tile server returned HTTP response code: " + str(e.code))
+                    raise ValueError
         print("</viewsettings>", file=decals)
 
 

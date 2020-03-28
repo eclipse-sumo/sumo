@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2007-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    edgesInDistricts.py
 # @author  Daniel Krajzewicz
@@ -20,10 +24,12 @@ the relevant taz.
 """
 from __future__ import print_function
 from __future__ import absolute_import
+import os
 import sys
+import argparse
 import collections
-from optparse import OptionParser
 from xml.sax import parse
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], 'tools'))
 import sumolib  # noqa
 
 
@@ -75,7 +81,7 @@ class DistrictEdgeComputer:
 
     def getEdgeDistrictMap(self):
         result = {}
-        for edge, districts in self._edgeDistricts.iteritems():
+        for edge, districts in self._edgeDistricts.items():
             if len(districts) == 1:
                 result[edge] = districts[0]
         return result
@@ -84,10 +90,11 @@ class DistrictEdgeComputer:
         fd = open(options.output, "w")
         sumolib.xml.writeHeader(fd, "$Id$", "tazs", "taz_file.xsd")  # noqa
         lastId = None
-        lastEdges = None
+        lastEdges = set()
         key = (lambda i: i[0].attributes[options.merge_param]) if options.merge_param else None
         for idx, (district, edges) in enumerate(sorted(self._districtEdges.items(), key=key)):
-            filtered = [edge for edge in edges if edge not in self._invalidatedEdges]
+            filtered = [edge for edge in edges if edge not in self._invalidatedEdges and edge.getLength() >
+                        options.min_length]
             if len(filtered) == 0:
                 print("District '" + district.id + "' has no edges!")
             else:
@@ -137,45 +144,50 @@ class DistrictEdgeComputer:
         return edge.getLength() * edge.getLaneNumber()
 
 
-def fillOptions(optParser):
-    optParser.add_option("-v", "--verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
-    optParser.add_option("-c", "--complete", action="store_true",
-                         default=False, help="assign edges only if they are not in more than one district")
-    optParser.add_option("-n", "--net-file",
-                         help="read SUMO network from FILE (mandatory)", metavar="FILE")
-    optParser.add_option("-t", "--taz-files",
-                         help="read districts from FILEs", metavar="FILE")
-    optParser.add_option("-o", "--output", default="districts.taz.xml",
-                         help="write results to FILE (default: %default)", metavar="FILE")
-    optParser.add_option("-x", "--max-speed", type="float", dest="maxspeed",
-                         default=1000.0, help="use lanes where speed is not greater than this (m/s) " +
-                         "(default: %default)")
-    optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
-                         default=0., help="use lanes where speed is greater than this (m/s) (default: %default)")
-    optParser.add_option("-w", "--weighted", action="store_true",
-                         default=False, help="Weights sources/sinks by lane number and length")
-    optParser.add_option("-f", "--assign-from", action="store_true",
-                         default=False, help="Assign the edge always to the district where the \"from\" node " +
-                         "is located")
-    optParser.add_option("-i", "--internal", action="store_true",
-                         default=False, help="Include internal edges in output")
-    optParser.add_option("-l", "--vclass", help="Include only edges allowing VCLASS")
-    optParser.add_option("-s", "--shapeinfo", action="store_true",
-                         default=False, help="write also the shape info in the file")
-    optParser.add_option("--merge-separator",
-                         help="merge edge lists of taz starting with the same string up to the given separator")
-    optParser.add_option("--merge-param",
-                         help="merge edge lists of taz/polygons having the same value for the given parameter")
+def fillOptions(argParser):
+    argParser.add_argument("-v", "--verbose", action="store_true",
+                           default=False, help="tell me what you are doing")
+    argParser.add_argument("--complete", action="store_true",
+                           default=False, help="assign edges only if they are not in more than one district")
+    argParser.add_argument("-n", "--net-file",
+                           help="read SUMO network from FILE (mandatory)", metavar="FILE")
+    argParser.add_argument("-t", "--taz-files",
+                           help="read districts from FILEs", metavar="FILE")
+    argParser.add_argument("-o", "--output", default="districts.taz.xml",
+                           help="write results to FILE", metavar="FILE")
+    argParser.add_argument("-x", "--max-speed", type=float, dest="maxspeed",
+                           default=1000.0, help="use lanes where speed is not greater than this (m/s)")
+    argParser.add_argument("-m", "--min-speed", type=float, dest="minspeed",
+                           default=0., help="use lanes where speed is greater than this (m/s)")
+    argParser.add_argument("-w", "--weighted", action="store_true",
+                           default=False, help="Weights sources/sinks by lane number and length")
+    argParser.add_argument("-f", "--assign-from", action="store_true",
+                           default=False, help="Assign the edge always to the district where the \"from\" node " +
+                           "is located")
+    argParser.add_argument("-i", "--internal", action="store_true",
+                           default=False, help="Include internal edges in output")
+    argParser.add_argument("-l", "--vclass", help="Include only edges allowing VCLASS")
+    argParser.add_argument("-s", "--shapeinfo", action="store_true",
+                           default=False, help="write also the shape info in the file")
+    argParser.add_argument("--merge-separator",
+                           help="merge edge lists of taz starting with the same string up to the given separator")
+    argParser.add_argument("--merge-param",
+                           help="merge edge lists of taz/polygons having the same value for the given parameter")
+    argParser.add_argument("--min-length", type=float,
+                           default=0., help="use edges where length is greater than this (m)")
+
+
+def parse_args(args=None):
+    argParser = sumolib.options.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    fillOptions(argParser)
+    return argParser.parse_args(args), argParser
 
 
 if __name__ == "__main__":
-    optParser = OptionParser()
-    fillOptions(optParser)
-    (options, args) = optParser.parse_args()
+    options, argParser = parse_args()
     if not options.net_file:
-        optParser.print_help()
-        optParser.exit("Error! Providing a network is mandatory")
+        argParser.print_help()
+        argParser.exit("Error! Providing a network is mandatory")
 
     if options.verbose:
         print("Reading net '" + options.net_file + "'")

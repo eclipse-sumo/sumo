@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIViewTraffic.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // A view on the simulation; this view is a microscopic one
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_FFMPEG
@@ -116,47 +115,47 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow& v) {
     // for junctions
     new FXButton(v.getLocatorPopup(),
                  "\tLocate Junction\tLocate a junction within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), &v, MID_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
     new FXButton(v.getLocatorPopup(),
                  "\tLocate Street\tLocate a street within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEEDGE), &v, MID_LOCATEEDGE,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), &v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for vehicles
     new FXButton(v.getLocatorPopup(),
                  "\tLocate Vehicle\tLocate a vehicle within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), &v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 
     // for persons
     if (!MSGlobals::gUseMesoSim) { // there are no persons in mesosim (yet)
         new FXButton(v.getLocatorPopup(),
                      "\tLocate Vehicle\tLocate a person within the network.",
-                     GUIIconSubSys::getIcon(ICON_LOCATEPERSON), &v, MID_LOCATEPERSON,
+                     GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), &v, MID_LOCATEPERSON,
                      ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     }
 
     // for tls
     new FXButton(v.getLocatorPopup(),
                  "\tLocate TLS\tLocate a tls within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATETLS), &v, MID_LOCATETLS,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), &v, MID_LOCATETLS,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for additional stuff
     new FXButton(v.getLocatorPopup(),
                  "\tLocate Additional\tLocate an additional structure within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEADD), &v, MID_LOCATEADD,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), &v, MID_LOCATEADD,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for pois
     new FXButton(v.getLocatorPopup(),
                  "\tLocate PoI\tLocate a PoI within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEPOI), &v, MID_LOCATEPOI,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), &v, MID_LOCATEPOI,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for polygons
     new FXButton(v.getLocatorPopup(),
                  "\tLocate Polygon\tLocate a Polygon within the network.",
-                 GUIIconSubSys::getIcon(ICON_LOCATEPOLY), &v, MID_LOCATEPOLY,
+                 GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), &v, MID_LOCATEPOLY,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
 }
 
@@ -196,12 +195,18 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
         for (MSEdgeVector::const_iterator it = edges.begin(); it != edges.end(); ++it) {
             if (MSGlobals::gUseMesoSim) {
                 const double val = static_cast<GUIEdge*>(*it)->getColorValue(s, active);
+                if (val == s.MISSING_DATA) {
+                    continue;
+                }
                 minValue = MIN2(minValue, val);
                 maxValue = MAX2(maxValue, val);
             } else {
                 const std::vector<MSLane*>& lanes = (*it)->getLanes();
                 for (std::vector<MSLane*>::const_iterator it_l = lanes.begin(); it_l != lanes.end(); it_l++) {
                     const double val = static_cast<GUILane*>(*it_l)->getColorValue(s, active);
+                    if (val == s.MISSING_DATA) {
+                        continue;
+                    }
                     minValue = MIN2(minValue, val);
                     maxValue = MAX2(maxValue, val);
                 }
@@ -241,8 +246,12 @@ GUIViewTraffic::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorSch
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
+        if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_EDGEDATA_NUMERICAL) {
+            scheme.addColor(RGBColor(204, 204, 204), std::numeric_limits<double>::max(), "missing data");
+        }
         if (hide) {
-            minValue = MAX2(hideThreshold + 1, minValue);
+            const double rawRange = maxValue - minValue;
+            minValue = MAX2(hideThreshold + MIN2(1.0, rawRange / 100.0), minValue);
             scheme.addColor(RGBColor(204, 204, 204), hideThreshold);
         }
         double range = maxValue - minValue;

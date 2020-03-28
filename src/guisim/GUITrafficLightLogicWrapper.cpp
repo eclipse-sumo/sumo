@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUITrafficLightLogicWrapper.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // A wrapper for tl-logics to allow their visualisation and interaction
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -37,6 +36,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
 #include <gui/GUIApplicationWindow.h>
@@ -102,8 +102,13 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowDete
     assert(myObject->getType() == GLO_TLLOGIC);
     GUITrafficLightLogicWrapper* w = static_cast<GUITrafficLightLogicWrapper*>(myObject);
     MSActuatedTrafficLightLogic* act = dynamic_cast<MSActuatedTrafficLightLogic*>(&w->getTLLogic());
-    assert(act != 0);
-    act->setShowDetectors(!act->showDetectors());
+    if (act == nullptr) {
+        MSDelayBasedTrafficLightLogic* db = dynamic_cast<MSDelayBasedTrafficLightLogic*>(&w->getTLLogic());
+        assert(db != 0);
+        db->setShowDetectors(!db->showDetectors());
+    } else {
+        act->setShowDetectors(!act->showDetectors());
+    }
     return 1;
 }
 
@@ -154,17 +159,21 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
         for (i = logics.begin(); i != logics.end(); ++i, ++index) {
             if (!vars.isActive(*i)) {
                 new FXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
-                                  GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
+                                  GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
             }
         }
         new FXMenuSeparator(ret);
     }
-    new FXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH_OFF);
+    new FXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_SWITCH_OFF);
     new FXMenuCommand(ret, "Track Phases", nullptr, ret, MID_TRACKPHASES);
     new FXMenuCommand(ret, "Show Phases", nullptr, ret, MID_SHOWPHASES);
     MSActuatedTrafficLightLogic* act = dynamic_cast<MSActuatedTrafficLightLogic*>(&myTLLogic);
     if (act != nullptr) {
         new FXMenuCommand(ret, act->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
+    }
+    MSDelayBasedTrafficLightLogic* db = dynamic_cast<MSDelayBasedTrafficLightLogic*>(&myTLLogic);
+    if (db != nullptr) {
+        new FXMenuCommand(ret, db->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
     }
     new FXMenuSeparator(ret);
     MSTrafficLightLogic* tll = getActiveTLLogic();
@@ -207,9 +216,9 @@ GUITrafficLightLogicWrapper::showPhases() {
 GUIParameterTableWindow*
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 9 + (int)myTLLogic.getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     ret->mkItem("tlLogic [id]", false, myTLLogic.getID());
+    ret->mkItem("type", false, toString(myTLLogic.getLogicType()));
     ret->mkItem("program", false, myTLLogic.getProgramID());
     ret->mkItem("phase", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentPhase));
     ret->mkItem("phase name", true, new FunctionBindingString<GUITrafficLightLogicWrapper>(this, &GUITrafficLightLogicWrapper::getCurrentPhaseName));
@@ -341,4 +350,3 @@ GUITrafficLightLogicWrapper::getRunningDuration() const {
 
 
 /****************************************************************************/
-

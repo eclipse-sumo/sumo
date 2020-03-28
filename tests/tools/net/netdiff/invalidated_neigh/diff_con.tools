@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Copied Elements -->
+    <!-- Deleted Elements -->
+    <delete from="CE" fromLane="1" to="EC" toLane="1"/>
+    <delete from="CN" fromLane="1" to="NC" toLane="1"/>
+    <delete from="CS" fromLane="1" to="SC" toLane="1"/>
+    <delete from="EC" fromLane="0" to="CN" toLane="0"/>
+    <delete from="EC" fromLane="0" to="CW" toLane="0"/>
+    <delete from="EC" fromLane="1" to="CW" toLane="1"/>
+    <delete from="EC" fromLane="1" to="CS" toLane="1"/>
+    <delete from="EC" fromLane="1" to="CE" toLane="1"/>
+    <delete from="NC" fromLane="1" to="CE" toLane="1"/>
+    <delete from="NC" fromLane="1" to="CN" toLane="1"/>
+    <delete from="SC" fromLane="0" to="CE" toLane="0"/>
+    <delete from="SC" fromLane="0" to="CN" toLane="0"/>
+    <delete from="SC" fromLane="1" to="CN" toLane="1"/>
+    <delete from="SC" fromLane="1" to="CW" toLane="1"/>
+    <delete from="SC" fromLane="1" to="CS" toLane="1"/>
+    <delete from="WC" fromLane="0" to="CS" toLane="0"/>
+    <delete from="WC" fromLane="0" to="CE" toLane="0"/>
+    <delete from="WC" fromLane="1" to="CE" toLane="1"/>
+    <delete from="WC" fromLane="1" to="CN" toLane="1"/>
+    <delete from="WC" fromLane="1" to="CW" toLane="1"/>
+    <!-- Created Elements -->
+    <connection from="CN" fromLane="0" to="NC" toLane="1" />
+    <connection from="NC" fromLane="0" to="CW" toLane="1" />
+    <connection from="NC" fromLane="1" to="CN" toLane="0" />
+    <connection from="WC" fromLane="0" to="WC.42" toLane="0" />
+    <connection from="WC" fromLane="1" to="WC.42" toLane="1" />
+    <connection from="WC.42" fromLane="0" to="CS" toLane="0" />
+    <connection from="WC.42" fromLane="1" to="CS" toLane="1" />
+    <connection from="WC.42" fromLane="1" to="CN" toLane="0" />
+    <connection from="WC.42" fromLane="1" to="CW" toLane="1" />
+    <!-- Changed Elements -->
+</connections>

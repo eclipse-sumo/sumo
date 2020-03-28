@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBEdgeCont.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // Storage for edges, including some functionality operating on multiple edges
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -232,6 +231,10 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
             myNeedGeoTransformedPruningBoundary = false;
         }
         if (!(edge->getGeometry().getBoxBoundary().grow(POSITION_EPS).overlapsWith(myPruningBoundary))) {
+            return true;
+        } else if (!(edge->getGeometry().partialWithin(myPruningBoundary, 2 * POSITION_EPS) || edge->getGeometry().intersects(myPruningBoundary))) {
+            // a more detailed check is necessary because the bounding box may be much bigger than the edge 
+            // @note: overlapsWith implicitly closes the edge shape but this is not wanted here
             return true;
         }
     }
@@ -529,14 +532,14 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             int maxLeft = (*i).lanes.back();
             double offset = (*i).offset;
             if (maxLeft < noLanesMax) {
-                if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT) {
+                if (e->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT) {
                     offset += (*i).offsetFactor * SUMO_const_laneWidthAndOffset * (noLanesMax - 1 - maxLeft);
                 } else {
                     offset += (*i).offsetFactor * SUMO_const_halfLaneAndOffset * (noLanesMax - 1 - maxLeft);
                 }
             }
             int maxRight = (*i).lanes.front();
-            if (maxRight > 0 && e->getLaneSpreadFunction() == LANESPREAD_CENTER) {
+            if (maxRight > 0 && e->getLaneSpreadFunction() == LaneSpreadFunction::CENTER) {
                 offset -= (*i).offsetFactor * SUMO_const_halfLaneAndOffset * maxRight;
             }
             //std::cout << " processSplits " << origID << " splitOffset=" << (*i).offset << " offset=" << offset << "\n";
@@ -835,9 +838,9 @@ NBEdgeCont::recheckLanes() {
 
 
 void
-NBEdgeCont::appendTurnarounds(bool noTLSControlled, bool onlyDeadends, bool noGeometryLike) {
+NBEdgeCont::appendTurnarounds(bool noTLSControlled, bool noFringe, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike) {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); i++) {
-        (*i).second->appendTurnaround(noTLSControlled, onlyDeadends, noGeometryLike, true);
+        (*i).second->appendTurnaround(noTLSControlled, noFringe, onlyDeadends, onlyTurnlane, noGeometryLike, true);
     }
 }
 
@@ -845,7 +848,7 @@ NBEdgeCont::appendTurnarounds(bool noTLSControlled, bool onlyDeadends, bool noGe
 void
 NBEdgeCont::appendTurnarounds(const std::set<std::string>& ids, bool noTLSControlled) {
     for (std::set<std::string>::const_iterator it = ids.begin(); it != ids.end(); it++) {
-        myEdges[*it]->appendTurnaround(noTLSControlled, false, false, false);
+        myEdges[*it]->appendTurnaround(noTLSControlled, false, false, false, false, false);
     }
 }
 
@@ -1025,10 +1028,10 @@ NBEdgeCont::recheckLaneSpread() {
     for (EdgeCont::iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
         NBEdge* opposite = getOppositeByID(i->first);
         if (opposite != nullptr) {
-            i->second->setLaneSpreadFunction(LANESPREAD_RIGHT);
-            opposite->setLaneSpreadFunction(LANESPREAD_RIGHT);
+            i->second->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
+            opposite->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
         } else {
-            i->second->setLaneSpreadFunction(LANESPREAD_CENTER);
+            i->second->setLaneSpreadFunction(LaneSpreadFunction::CENTER);
         }
     }
 }
@@ -1050,9 +1053,10 @@ NBEdgeCont::getByID(const std::string& edgeID) const {
 // ----- other
 void
 NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
-                                     bool keepClear, double contPos, double visibility, double speed,
+                                     bool keepClear, double contPos, double visibility, double speed, double length,
                                      const PositionVector& customShape, bool uncontrolled, bool warnOnly, SVCPermissions permissions) {
-    myConnections[from].push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility, speed, customShape, uncontrolled, warnOnly, permissions));
+    myConnections[from].push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility,
+                speed, length, customShape, uncontrolled, warnOnly, permissions));
 }
 
 bool
@@ -1082,7 +1086,9 @@ NBEdgeCont::recheckPostProcessConnections() {
             NBEdge* to = retrievePossiblySplit((*i).to, false);
             if (from == nullptr || to == nullptr ||
                     !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass,
-                                                  (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customShape, (*i).uncontrolled)) {
+                                                  (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customLength, (*i).customShape,
+                                                  (*i).uncontrolled, SVC_UNSPECIFIED,
+                                                  true)) {
                 const std::string msg = "Could not insert connection between '" + (*i).from + "' and '" + (*i).to + "' after build.";
                 if (warnOnly || (*i).warnOnly) {
                     WRITE_WARNING(msg);
@@ -1202,7 +1208,7 @@ NBEdgeCont::guessRoundabouts() {
 #endif
             visited.insert(e);
             const EdgeVector& edges = e->getToNode()->getEdges();
-            if (e->getToNode()->getType() == NODETYPE_RIGHT_BEFORE_LEFT && !e->getToNode()->typeWasGuessed()) {
+            if (e->getToNode()->getType() == SumoXMLNodeType::RIGHT_BEFORE_LEFT && !e->getToNode()->typeWasGuessed()) {
                 doLoop = false;
 #ifdef DEBUG_GUESS_ROUNDABOUT
                 if (gDebugFlag1) {
@@ -1410,7 +1416,7 @@ NBEdgeCont::generateStreetSigns() {
         }
         const SumoXMLNodeType nodeType = e->getToNode()->getType();
         switch (nodeType) {
-            case NODETYPE_PRIORITY:
+            case SumoXMLNodeType::PRIORITY:
                 // yield or major?
                 if (e->getJunctionPriority(e->getToNode()) > 0) {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_PRIORITY, offset));
@@ -1418,7 +1424,7 @@ NBEdgeCont::generateStreetSigns() {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_YIELD, offset));
                 }
                 break;
-            case NODETYPE_PRIORITY_STOP:
+            case SumoXMLNodeType::PRIORITY_STOP:
                 // yield or major?
                 if (e->getJunctionPriority(e->getToNode()) > 0) {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_PRIORITY, offset));
@@ -1426,10 +1432,10 @@ NBEdgeCont::generateStreetSigns() {
                     e->addSign(NBSign(NBSign::SIGN_TYPE_STOP, offset));
                 }
                 break;
-            case NODETYPE_ALLWAY_STOP:
+            case SumoXMLNodeType::ALLWAY_STOP:
                 e->addSign(NBSign(NBSign::SIGN_TYPE_ALLWAY_STOP, offset));
                 break;
-            case NODETYPE_RIGHT_BEFORE_LEFT:
+            case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                 e->addSign(NBSign(NBSign::SIGN_TYPE_RIGHT_BEFORE_LEFT, offset));
                 break;
             default:
@@ -1469,7 +1475,13 @@ NBEdgeCont::guessSpecialLanes(SUMOVehicleClass svc, double width, double minSpee
 
 int
 NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix, NBPTStopCont& sc) {
-    std::vector<std::string> avoid = getAllNames();
+    bool startGiven = !OptionsCont::getOptions().isDefault("numerical-ids.edge-start");
+    std::vector<std::string> avoid;
+    if (startGiven) {
+        avoid.push_back(toString(OptionsCont::getOptions().getInt("numerical-ids.edge-start") - 1));
+    } else {
+        avoid = getAllNames();
+    }
     std::set<std::string> reserve;
     if (reservedIDs) {
         NBHelpers::loadPrefixedIDsFomFile(OptionsCont::getOptions().getString("reserved-ids"), "edge:", reserve);
@@ -1478,6 +1490,10 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     IDSupplier idSupplier("", avoid);
     std::set<NBEdge*, ComparatorIdLess> toChange;
     for (EdgeCont::iterator it = myEdges.begin(); it != myEdges.end(); it++) {
+        if (startGiven) {
+            toChange.insert(it->second);
+            continue;
+        }
         if (numericaIDs) {
             try {
                 StringUtils::toLong(it->first);
@@ -1496,10 +1512,11 @@ NBEdgeCont::remapIDs(bool numericaIDs, bool reservedIDs, const std::string& pref
     }
 
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
-    for (std::set<NBEdge*, ComparatorIdLess>::iterator it = toChange.begin(); it != toChange.end(); ++it) {
-        NBEdge* edge = *it;
+    for (NBEdge* edge : toChange) {
+        myEdges.erase(edge->getID());
+    }
+    for (NBEdge* edge : toChange) {
         const std::string origID = edge->getID();
-        myEdges.erase(origID);
         if (origNames) {
             edge->setOrigID(origID);
         }
@@ -1547,7 +1564,7 @@ NBEdgeCont::checkOverlap(double threshold, double zThreshold) const {
                 outline2.append(e2->getCCWBoundaryLine(*e2->getToNode()));
                 const double overlap = outline1.getOverlapWith(outline2, zThreshold);
                 if (overlap > threshold) {
-                    WRITE_WARNING("Edge '" + e1->getID() + "' overlaps with edge '" + e2->getID() + "' by " + toString(overlap) + ".");
+                    WRITE_WARNINGF("Edge '%' overlaps with edge '%' by %.", e1->getID(), e2->getID(), toString(overlap));
                 }
             }
         }
@@ -1563,9 +1580,9 @@ NBEdgeCont::checkGrade(double threshold) const {
             double maxJump = 0;
             const double grade = edge->getLaneShape(i).getMaxGrade(maxJump);
             if (maxJump > 0.01) {
-                WRITE_WARNING("Edge '" + edge->getID() + "' has a vertical jump of " + toString(maxJump) + "m.");
+                WRITE_WARNINGF("Edge '%s' has a vertical jump of %sm.", edge->getID(), toString(maxJump));
             } else if (grade > threshold) {
-                WRITE_WARNING("Edge '" + edge->getID() + "' has a grade of " + toString(grade * 100) + "%.");
+                WRITE_WARNINGF("Edge '%' has a grade of %%.", edge->getID(), toString(grade * 100), "%");
                 break;
             }
         }
@@ -1575,9 +1592,9 @@ NBEdgeCont::checkGrade(double threshold) const {
             double maxJump = 0;
             const double grade = MAX2(c.shape.getMaxGrade(maxJump), c.viaShape.getMaxGrade(maxJump));
             if (maxJump > 0.01) {
-                WRITE_WARNING("Connection '" + c.getDescription(edge) + "' has a vertical jump of " + toString(maxJump) + "m.");
+                WRITE_WARNINGF("Connection '%' has a vertical jump of %m.", c.getDescription(edge), toString(maxJump));
             } else if (grade > threshold) {
-                WRITE_WARNING("Connection '" + c.getDescription(edge) + "' has a grade of " + toString(grade * 100) + "%.");
+                WRITE_WARNINGF("Connection '%' has a grade of %%.", c.getDescription(edge), toString(grade * 100), "%");
                 break;
             }
         }
@@ -1610,5 +1627,24 @@ NBEdgeCont::getAllRouterEdges() const {
     EdgeVector all = getAllEdges();
     return RouterEdgeVector(all.begin(), all.end());
 }
+
+bool
+NBEdgeCont::checkConsistency(const NBNodeCont& nc) {
+    bool ok = true;
+    for (const auto& item : myEdges) {
+        NBEdge* e = item.second;
+        if (nc.retrieve(e->getFromNode()->getID()) == nullptr) {
+            WRITE_ERROR("Edge's '" + e->getID() + "' from-node '" + e->getFromNode()->getID() + "' is not known.");
+            ok = false;
+        }
+        if (nc.retrieve(e->getToNode()->getID()) == nullptr) {
+            WRITE_ERROR("Edge's '" + e->getID() + "' to-node '" + e->getToNode()->getID() + "' is not known.");
+            ok = false;
+        }
+
+    }
+    return ok;
+}
+
 
 /****************************************************************************/

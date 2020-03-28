@@ -293,10 +293,19 @@ client version and SUMO version match.
 
 ### Can SUMO simulate lefthand traffic?
 
-  Yes. It is supported since version 0.24.0. To build a network for
-  lefthand traffic, the option **--lefthand** must be set. Note, that this option
+  Yes. It is supported since version 0.24.0. To create a new network for
+  lefthand traffic, the option **--lefthand** must be set.
   
-  in earlier versions but only works correctly since 0.24.0.
+  To convert an existing network to lefthand driving, there are two options. Abstract networks (no geo-reference, coordinates do not matter much) can be processed with netconvert:
+```
+    netconvert -s righthand.net.xml --flip-y-axis -o lefthand.net.xml
+```
+
+   To convert an existing network and preserve coordinates, the network must first be disaggregated into nodes and edges and then re-assembled:
+```
+    netconvert -s righthand.net.xml --plain-output-prefix righthand
+    netconvert -e righthand.edg.xml -n righthand.nod.xml --lefthand -o lefthand.net.xml
+```
 
 ### Can SUMO generate movement traces?
 
@@ -323,15 +332,23 @@ client version and SUMO version match.
 
 ### Can SUMO be run in parallel (on multiple cores or computers)?
 
-  The simulation itself always runs on a single core. However, routing
+  The simulation itself runs on a single core. However, routing
   in [SUMO](SUMO.md) or [DUAROUTER](DUAROUTER.md) can
   be parallelized by setting the option **--device.rerouting.threads** {{DT_INT}} and **--routing-threads** {{DT_INT}} respectively.
-
+  When these optionsare are used, multiple cores on the machine are used.
+  
+  There is no support for multi-node parallelization.
+  
+  When running [SUMO-GUI](SUMO-GUI.md), an additional thread is used for visualization.
+  
   The python TraCI library allows controlling multiple simulations
   from a single script either by calling *traci.connect* and storing
   the returned connection object or by calling
   *traci.start(label=...)* and retrieving the connection object with
   *traci.getConnection(label)*.
+  
+  The work to make the core (microscopic) simulation run in parallel is ongoing (Issue #4767). 
+  Some parts of the simulation can already be run in parallel when setting option **--threads** but this does not lead to meaningful speedup yet.
 
 ## Building / Installation
 
@@ -629,27 +646,16 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   There are different methods for accomplishing this. In either case
   the simulation itself should be constraint using options **--begin**, **--end**.
 
-- You can use the option **--max-num-vehicles** to set the desired number. Vehicle
-  insertions are delayed whenever this number would be exceeded. To
-  avoid a large number of delayed vehicles it is recommended to also
-  use the option **--max-depart-delay**. When using this approach you must ensure that there
-  is a sufficient number of vehicles that are ready for insertion at
-  all times. Note, that the number of distinct vehicle IDs over the
-  whole simulation is much larger the specified value because some
-  vehicles leave the simulation and new vehicles with distinct IDs are
-  inserted to replace them.
-
-!!! caution
-    Up to version 0.24.0, option **--max-num-vehicles** terminates the simulation when exceeding the specified number
-
 - You can use [rerouters](Simulation/Rerouter.md) in the
   simulation. Rerouters, assign a new route for vehicles driving
   across them and thus prevent them from leaving the network. For an
   example with a simple circle see [{{SUMO}}/tests/sumo/cf_model/drive_in_circles]({{Source}}tests/sumo/cf_model/drive_in_circles)
+  - The tool [generateContinuousRerouters.py](Tools/Misc.md#generatecontinuousrerouterspy) can be used to generate
+    rerouters for continuous operation with configurable turning ratios.
   - If the networks is not circular to begin with (i.e a single
     road) you can make the network circular in a non-geometrical way
-    by adding a return edge and declaring it's length to be very
-    short (minimum 0.1m).
+    by adding a return edge that and declaring it's length to be very
+    short (minimum 0.1m). The return edge should have a sensible geometry (i.e. a detour loop) but the length can be made very short so that it does not affect vehicle routes.
 - You can generate long trips going around the network with lots of
   detours. This can be accomplished using
   [randomTrips.py](Tools/Trip.md#randomtripspy) by setting
@@ -663,6 +669,20 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   - **-r** <output route file\>
 
 - You can use [JTRROUTER](JTRROUTER.md) to [generate vehicles which drive randomly around the network with configurable turning ratios](Tutorials/Manhattan.md#generating_vehicles)
+
+- You can use the option **--max-num-vehicles** to set the desired number. Vehicle
+  insertions are delayed whenever this number would be exceeded. To
+  avoid a large number of delayed vehicles it is recommended to also
+  use the option **--max-depart-delay**. When using this approach you must ensure that there
+  is a sufficient number of vehicles that are ready for insertion at
+  all times. Note, that the number of distinct vehicle IDs over the
+  whole simulation is much larger the specified value because some
+  vehicles leave the simulation and new vehicles with distinct IDs are
+  inserted to replace them.
+
+!!! caution
+    Up to version 0.24.0, option **--max-num-vehicles** terminates the simulation when exceeding the specified number
+
 
 ### A vehicle cannot reach its target or takes a circuitous route. Why?
 
@@ -819,9 +839,7 @@ Deadlocks in a scenario can have many causes:
     starting on the same edge).
 4.  invalid routing
   - only shortest path were used instead of [a user assignment algorithm](Demand/Dynamic_User_Assignment.md)
-  - to many vehicles start/end their route with a turn-around. This
-    can be avoided by using [TAZ for bidirectional departure](Tools/District.md#generatebididistrictspy)
-    or using [DUAROUTER option **--remove-loops**](DUAROUTER.md).
+  - to many vehicles start/end their route with a [turn-around](Simulation/Turnarounds.md).
 5.  invalid insertion (vehicles being inserted on the wrong lane close
     to the end of an edge where they need to change to another turn
     lane). This can be fixed by setting the vehicle attribute `departLane="best"`

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUITransportableControl.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // GUI-version of the person control for building gui persons
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -33,7 +32,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUITransportableControl::GUITransportableControl() {}
+GUITransportableControl::GUITransportableControl(const bool isPerson) : MSTransportableControl(isPerson) {}
 
 
 GUITransportableControl::~GUITransportableControl() {
@@ -58,7 +57,7 @@ void
 GUITransportableControl::insertPersonIDs(std::vector<GUIGlID>& into) {
     into.reserve(myTransportables.size());
     for (std::map<std::string, MSTransportable*>::const_iterator it = myTransportables.begin(); it != myTransportables.end(); ++it) {
-        if (it->second->getCurrentStageType() != MSTransportable::WAITING_FOR_DEPART) {
+        if (it->second->getCurrentStageType() != MSStageType::WAITING_FOR_DEPART) {
             into.push_back(static_cast<const GUIPerson*>(it->second)->getGlID());
         }
     }

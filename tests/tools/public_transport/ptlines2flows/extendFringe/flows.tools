@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-02 13:25:23.129343 by $Id$
+<!-- generated on 2020-03-12 11:36:24.806080 by ptlines2flows.py v1_5_0+0673-e4a6910
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>min-stops 0 <doubleminus>extend-to-fringe <doubleminus>verbose
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -15,19 +15,19 @@
     <route id="bus_0:0" edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1" >
     </route>
     <route id="bus_1:0" edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1" >
-        <stop busStop="3959807220" duration="30.00" until="67.0"/> <!-- Kolonnenbrücke -->
+        <stop busStop="3959807220" duration="30.00" until="66.0"/> <!-- Kolonnenbrücke -->
     </route>
     <route id="bus_3:0" edges="53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1" >
-        <stop busStop="4032629819" duration="30.00" until="51.0"/> <!-- Monumentenstraße -->
-        <stop busStop="2029039199" duration="30.00" until="110.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="4032629819" duration="30.00" until="50.0"/> <!-- Monumentenstraße -->
+        <stop busStop="2029039199" duration="30.00" until="108.0"/> <!-- Dudenstraße/Katzbachstraße -->
     </route>
     <route id="bus_5:0" edges="53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1" >
-        <stop busStop="4032629819" duration="30.00" until="51.0"/> <!-- Monumentenstraße -->
-        <stop busStop="2029039199" duration="30.00" until="143.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="4032629819" duration="30.00" until="50.0"/> <!-- Monumentenstraße -->
+        <stop busStop="2029039199" duration="30.00" until="140.0"/> <!-- Dudenstraße/Katzbachstraße -->
     </route>
     <route id="bus_2:0" edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3" >
-        <stop busStop="4032629819" duration="30.00" until="58.0"/> <!-- Monumentenstraße -->
-        <stop busStop="2029039199" duration="30.00" until="188.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="4032629819" duration="30.00" until="57.0"/> <!-- Monumentenstraße -->
+        <stop busStop="2029039199" duration="30.00" until="183.0"/> <!-- Dudenstraße/Katzbachstraße -->
     </route>
     <flow id="bus_0:0" type="bus" route="bus_0:0" begin="0.0" end="3600.0" period="600" line="0:0" >
         <param key="name" value="noStop"/>

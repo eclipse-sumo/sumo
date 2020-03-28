@@ -93,7 +93,7 @@ found in [{{SUMO}}/data/typemap/osmNetconvertPedestrians.typ.xml]({{Source}}data
 
 A third option which can be used if no edge types are available is a
 heuristic based on edge speed. It adds a sidewalk for all edges within a
-given speed range. This is controlled by using the following options:
+given speed range. This is controlled by using the following [NETCONVERT](../NETCONVERT.md) options:
 
 | Option                                 | Description                                                                       |
 |----------------------------------------|-----------------------------------------------------------------------------------|
@@ -150,7 +150,7 @@ Crossings may be defined explicitly in plain XML input when describing
 They can also be placed with [NETEDIT](../NETEDIT.md#crossings).
 
 The second available method for adding crossing information to a network
-is with the option **--crossings.guess** {{DT_BOOL}}. This enables a heuristic which adds crossings
+is with the [NETCONVERT](../NETCONVERT.md) option **--crossings.guess** {{DT_BOOL}}. This enables a heuristic which adds crossings
 wherever sidewalks with similar angle are separated by lanes which
 forbid pedestrians. If the edges to be crossed have sufficient distance
 between them or vary a by a sufficient angle, two crossings with an
@@ -168,7 +168,7 @@ for the network.
 At every junction corner multiple sidewalks footpaths and pedestrian
 crossings may meet. The connectivity between these elements is modeled
 with a *walkingarea*. These walkingareas are generated automatically as
-long as the option **--crossings.guess** is set or there is at least one user-defined
+long as the [NETCONVERT](../NETCONVERT.md) option **--crossings.guess** is set or there is at least one user-defined
 crossing in the network. If no crossings are wanted in the network it is
 also possible to enable the creation of walkingareas by setting the
 option **--walkingareas**.

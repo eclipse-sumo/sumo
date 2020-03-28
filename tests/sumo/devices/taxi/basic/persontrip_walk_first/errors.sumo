@@ -1,0 +1,3 @@
+Warning: Ignoring vehicle type 'DEFAULT_VEHTYPE' when routing person 'p_mustwalk' because it is not allowed on the start edge.
+Warning: p0 at edge 'A1A0' position 475.60 cannot use waiting vehicle 'trip_0' at position 19.99 because it is too far away.
+Warning: Vehicle 'trip_0' aborted waiting for a person or container that will never come.

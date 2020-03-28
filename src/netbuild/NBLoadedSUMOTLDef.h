@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBLoadedSUMOTLDef.h
 /// @author  Jakob Erdmann
@@ -15,13 +19,7 @@
 // A complete traffic light logic loaded from a sumo-net. (opted to reimplement
 // since NBLoadedTLDef is quite vissim specific)
 /****************************************************************************/
-#ifndef NBLoadedSUMOTLDef_h
-#define NBLoadedSUMOTLDef_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -56,11 +54,16 @@ public:
      * @param[in] def The definition to copy
      * @param[in] logic The computed logic of the given def
      */
-    NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic);
+    NBLoadedSUMOTLDef(const NBTrafficLightDefinition& def, const NBTrafficLightLogic& logic);
 
 
     /// @brief Destructor
     ~NBLoadedSUMOTLDef();
+
+    /** @brief Sets the programID
+     * @param[in] programID The new ID of the program (subID)
+     */
+    void setProgramID(const std::string& programID);
 
     /** @brief Informs edges about being controlled by a tls
      */
@@ -150,6 +153,16 @@ public:
     /// @brief heuristically add minDur and maxDur when switching from tlType fixed to actuated
     void guessMinMaxDuration();
 
+    /// @brief let connections with the same state use the same link index
+    void groupSignals();
+
+    /// @brief let all connections use a distinct link index
+    void ungroupSignals();
+
+    /// @brief copy the assignment of link indices to connections from the given definition and rebuilt the states to match
+    // Note: Issues a warning when the grouping of def is incompatible with the current states
+    void copyIndices(NBTrafficLightDefinition* def);
+
 protected:
     /** @brief Collects the links participating in this traffic light
      *    (only if not previously loaded)
@@ -176,6 +189,18 @@ protected:
 
     ///@brief Returns the maximum index controlled by this traffic light
     int getMaxValidIndex();
+
+    /// @brief get all states for the given link index
+    std::string getStates(int index);
+
+    /// @brief return whether the given link index is used by any connectons
+    bool isUsed(int index);
+
+    /// @brief replace the given link index in all connections
+    void replaceIndex(int oldIndex, int newIndex);
+
+    /// brief retrieve all edges with connections that use the given traffic light index
+    std::set<const NBEdge*> getEdgesUsingIndex(int index) const;
 
 private:
 
@@ -229,9 +254,3 @@ private:
     };
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

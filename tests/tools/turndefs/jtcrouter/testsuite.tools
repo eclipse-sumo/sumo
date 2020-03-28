@@ -1,0 +1,11 @@
+# Copy of default
+default
+
+# only start flows on network fringe
+fringe_flows
+
+# passing option -D to jtrrouter
+discount-sources
+
+# setting additional flow attributes
+attrs

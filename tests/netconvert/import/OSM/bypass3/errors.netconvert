@@ -1,0 +1,4 @@
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '36590984').
+Warning: Discarding unknown compound 'cycleway.sidepath' in type 'cycleway.sidepath|highway.cycleway' (first occurence for edge '158325374').
+Warning: Speed of straight connection '58492509#0_0->254565590#2_0' reduced by 12.73 due to turning radius of 16.37 (length=7.63, angle=43.06).
+Warning: Speed of straight connection '254565591#0_0->36590984#0_0' reduced by 8.61 due to turning radius of 27.18 (length=8.99, angle=34.52).

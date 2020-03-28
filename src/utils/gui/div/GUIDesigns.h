@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIDesigns.h
 /// @author  Pablo Alvarez Lopez
@@ -13,12 +17,7 @@
 ///
 // File with the definitions of standard style of FXObjects in SUMO
 /****************************************************************************/
-#ifndef GUIDesigns_h
-#define GUIDesigns_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <fx.h>
@@ -32,8 +31,11 @@
 /// @brief text field extended over Frame with thick frame
 #define GUIDesignTextField                  (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief text field with thick frame and size of 100x23
-#define GUIDesignTextFielWidth100           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
+/// @brief text field with thick frame and size of 50x23
+#define GUIDesignTextFielWidth50           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, 23, 2, 2, 2, 2
+
+/// @brief text field with thick frame and size of 50x23 and limited to doubles
+#define GUIDesignTextFielWidth50Real       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, 23, 2, 2, 2, 2
 
 /// @brief text field with thick frame, size of 180x23 /doubles (Used in GNEVehicleType)
 #define GUIDesignTextFielWidth180           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, 23, 2, 2, 2, 2
@@ -204,14 +206,20 @@
 /// @brief Combo box editable extended over the all frame
 #define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief Combo box static     (not editable)
+/// @brief Combo box static (not editable)
 #define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
+
+/// @brief Combo box static (not editable) extended over the all frame
+#define GUIDesignComboBoxStaticExtended     (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief Combo box static     (cannot be edited) extended over the matrix column
 #define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief comboBox with thick frame, size of 180x23 /doubles (Used in GNEVehicleType)
+/// @brief comboBox with thick frame, size of 180x23 (Used in GNEVehicleType)
 #define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, 23, 2, 2, 2, 2
+
+/// @brief comboBox with thick frame, size of 120x23
+#define GUIDesignComboBoxWidth120           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 120, 23, 2, 2, 2, 2
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
@@ -523,7 +531,3 @@
 
 /// @brief desgin for TabBooks
 #define GUIDesignTabBook                        (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT)
-
-#endif
-
-/****************************************************************************/

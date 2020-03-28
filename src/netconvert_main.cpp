@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    netconvert_main.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Main for NETCONVERT
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -127,9 +126,8 @@ main(int argc, char** argv) {
         // load data
         NILoader nl(nb);
         nl.load(oc);
-        if (oc.getBool("ignore-errors")) {
-            MsgHandler::getErrorInstance()->clear();
-        }
+        // flush aggregated errors and optionally ignore them
+        MsgHandler::getErrorInstance()->clear(oc.getBool("ignore-errors"));
         // check whether any errors occurred
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();
@@ -141,6 +139,7 @@ main(int argc, char** argv) {
         }
         NWFrame::writeNetwork(oc, nb);
     } catch (const ProcessError& e) {
+        MsgHandler::getErrorInstance()->clear(false);
         if (std::string(e.what()) != std::string("Process Error") && std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
@@ -148,12 +147,14 @@ main(int argc, char** argv) {
         ret = 1;
 #ifndef _DEBUG
     } catch (const std::exception& e) {
+        MsgHandler::getErrorInstance()->clear(false);
         if (std::string(e.what()) != std::string("")) {
             WRITE_ERROR(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
     } catch (...) {
+        MsgHandler::getErrorInstance()->clear(false);
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
 #endif
@@ -168,6 +169,4 @@ main(int argc, char** argv) {
 }
 
 
-
 /****************************************************************************/
-

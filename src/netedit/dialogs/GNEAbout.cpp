@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEAbout.cpp
 /// @author  Jakob Erdmann
@@ -13,11 +17,6 @@
 ///
 // The "About" - dialog for NETEDIT, (adapted from GUIDialog_AboutSUMO)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -38,13 +37,13 @@
 GNEAbout::GNEAbout(FXWindow* parent) :
     FXDialogBox(parent, "About Eclipse SUMO netedit", GUIDesignDialogBox) {
     // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(ICON_NETEDIT));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT));
 
     // create frame for main info
     FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
 
     // Netedit icon
-    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(ICON_SUMO_LOGO), GUIDesignLabelIcon);
+    new FXLabel(mainInfoFrame, "", GUIIconSubSys::getIcon(GUIIcon::SUMO_LOGO), GUIDesignLabelIcon);
 
     // "SUMO <VERSION>"
     FXVerticalFrame* descriptionFrame = new FXVerticalFrame(mainInfoFrame, GUIDesignLabelAboutInfo);
@@ -63,7 +62,7 @@ GNEAbout::GNEAbout(FXWindow* parent) :
     WRITE_DEBUG(("Modules: " + modules).c_str());
 
     // copyright notice
-    new FXLabel(this, "Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(this, "Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, "This application is based on code provided by the Eclipse SUMO project.", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(this, "These core components are available under the conditions of the Eclipse Public License v2.", nullptr, GUIDesignLabelAboutInfo);
     (new FXLinkLabel(this, "SPDX-License-Identifier: EPL-2.0", nullptr, GUIDesignLabelAboutInfo))->setTipText("https://www.eclipse.org/legal/epl-v20.html");
@@ -74,7 +73,7 @@ GNEAbout::GNEAbout(FXWindow* parent) :
     // centered ok-button
     FXHorizontalFrame* buttonFrame = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
-    FXButton* OKButton = new FXButton(buttonFrame, "&OK\t\t", GUIIconSubSys::getIcon(ICON_ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
+    FXButton* OKButton = new FXButton(buttonFrame, "&OK\t\t", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(buttonFrame, GUIDesignAuxiliarHorizontalFrame);
 
     // focus OK button

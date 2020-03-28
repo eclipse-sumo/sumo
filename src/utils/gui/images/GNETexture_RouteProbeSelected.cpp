@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNETexture_RouteProbeSelected.cpp
 /// @author  Pablo Alvarez Lopez
@@ -134,5 +138,6 @@ const unsigned char GNETexture_RouteProbeSelected[] = {
     0x26, 0x0a, 0x26, 0x15, 0x49, 0x9d, 0x14, 0xa7, 0x48, 0xc5, 0x84, 0x78, 0x24, 0x26, 0x55, 0xcc,
     0xa2, 0x16, 0x35, 0xe2, 0x91, 0x80, 0x00, 0x00, 0x3b
 };
+
 
 /****************************************************************************/

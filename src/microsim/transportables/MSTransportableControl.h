@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSTransportableControl.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // Stores all persons or containers in the net and handles their waiting for cars.
 /****************************************************************************/
-#ifndef MSTransportableControl_h
-#define MSTransportableControl_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -35,6 +33,7 @@
 // class declarations
 // ===========================================================================
 class MSNet;
+class MSPModel;
 
 
 // ===========================================================================
@@ -59,7 +58,7 @@ public:
 
 public:
     /// @brief Constructor
-    MSTransportableControl();
+    MSTransportableControl(const bool isPerson);
 
 
     /// @brief Destructor
@@ -204,6 +203,21 @@ public:
 
     /// @}
 
+    /** @brief Returns the default movement model for this kind of transportables
+     * @return The movement model
+     */
+    inline MSPModel* getMovementModel() {
+        return myMovementModel;
+    }
+
+    /** @brief Returns the non interacting movement model (for tranship and "beaming")
+     * @return The non interacting movement model
+     */
+    inline MSPModel* getNonInteractingModel() {
+        return myNonInteractingModel;
+    }
+
+
 protected:
     /// all currently created transportables by id
     std::map<std::string, MSTransportable*> myTransportables;
@@ -232,9 +246,9 @@ protected:
     /// @brief whether a new transportable waiting for a vehicle has been added in the last step
     bool myHaveNewWaiting;
 
+private:
+    MSPModel* myMovementModel;
+
+    MSPModel* myNonInteractingModel;
+
 };
-
-
-#endif
-
-/****************************************************************************/

@@ -1,0 +1,23 @@
+# secondary passenger has the same origin and destination
+same_trip
+
+# secondary passenger has the same origin and destination but arrives a bit later
+same_trip_wait
+
+# secondary passenger has the same origin and the destination is along the direct route
+same_from
+
+# secondary passenger has the same origin and the destination takes a small detour direct route
+same_from_detour
+
+# secondary passenger has the same origin and the destination comes after the original destination
+same_from2
+
+# secondary passenger has the same origin and the comes after the primary destination. (detour for the second passenger compared to it's direct route)
+same_from2_detour
+
+# secondary passenger can be picked up on direct path
+same_to
+
+# secondary passenger can be picked up with detour direct path
+same_to_detour

@@ -89,6 +89,10 @@ Distribution](https://en.wikipedia.org/wiki/Poisson_distribution) for
 small probabilities). When modeling such a flow on a multi-lane road it
 is recommended to define a `<flow>` for each individual lane.
 
+When simulating with subsecond time resolution, the random decision for insertion is take in every simulation step and the probability for insertion is scaled with step-length so that the per-second probability of insertion is independent of the step-length. 
+!!! note
+    The effective flow may be higher at lower step-length because the discretization error is reduced (vehicles usually cannot be inserted in subsequent seconds due to safety constraints and insertion in every other second does not achieve maximum flow).
+
 # Departure and arrival attributes
 
 The `<flow>`, `<trip>` and `<vehicle>` elements support the value "random" for their attributes `departLane`, `departPos`,

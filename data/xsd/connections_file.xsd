@@ -38,6 +38,7 @@
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
         <xsd:attribute name="speed" type="xsd:float" use="optional"/>
+        <xsd:attribute name="length" type="xsd:float" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
     </xsd:complexType>
 

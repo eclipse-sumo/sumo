@@ -29,6 +29,24 @@ set(libsumostatic_STAT_SRCS
     Polygon.cpp
     Route.h
     Route.cpp
+    Calibrator.h
+    Calibrator.cpp
+    BusStop.h
+    BusStop.cpp
+    ParkingArea.h
+    ParkingArea.cpp
+    ChargingStation.h
+    ChargingStation.cpp
+    RouteProbe.h
+    RouteProbe.cpp
+    Rerouter.h
+    Rerouter.cpp
+    VariableSpeedSign.h
+    VariableSpeedSign.cpp
+    MeanData.h
+    MeanData.cpp
+    OverheadWire.h
+    OverheadWire.cpp
     Simulation.cpp
     Simulation.h
     Subscription.h
@@ -47,6 +65,7 @@ set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
 
 set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
 set(ENABLE_JAVA_BINDINGS ON CACHE BOOL "Build Java Bindings")
+set(DEFAULT_LIBSUMO_PYTHON ON CACHE BOOL "Include Python Bindings in the ALL target")
 
 if(SWIG_FOUND)
     include(${SWIG_USE_FILE})
@@ -88,12 +107,18 @@ if(SWIG_FOUND)
     if(ENABLE_PYTHON_BINDINGS)
         if (MSVC)
             # recheck that the platform of the generator and python matches
-            execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import sys; print(sys.version)"
-                            OUTPUT_VARIABLE PYTHON_FULL_VERSION OUTPUT_STRIP_TRAILING_WHITESPACE)
-            string(FIND ${PYTHON_FULL_VERSION} "64 bit" IS_PYTHON64)
-            if(${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64" AND ${IS_PYTHON64} EQUAL -1)
-                message(STATUS "Did not find Python 64 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
-                set(PYTHONLIBS_FOUND OFF)
+            execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import sys; print(sys.maxsize > 2**32)"
+                            OUTPUT_VARIABLE IS_PYTHON64 OUTPUT_STRIP_TRAILING_WHITESPACE)
+            if (${CMAKE_MODULE_LINKER_FLAGS} STREQUAL "/machine:x64")
+                if (${IS_PYTHON64} STREQUAL "False")
+                    message(STATUS "Did not find Python 64 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
+                    set(PYTHONLIBS_FOUND OFF)
+                endif()
+            else()
+                if (${IS_PYTHON64} STREQUAL "True")
+                    message(STATUS "Did not find Python 32 bit. Please set PYTHON_EXECUTABLE, PYTHON_INCLUDE_DIR and PYTHON_LIBRARY manually.")
+                    set(PYTHONLIBS_FOUND OFF)
+                endif()
             endif()
         endif()
         if(PYTHONLIBS_FOUND)
@@ -112,6 +137,10 @@ if(SWIG_FOUND)
                 else()
                     SWIG_ADD_MODULE(libsumo python libsumo.i)
                 endif()
+                if (NOT DEFAULT_LIBSUMO_PYTHON)
+                    # needed to selectively build the python module on the build server
+                    set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_ALL TRUE)
+                endif()
                 if (MSVC OR APPLE)
                     # disable python module for the debug build because virtually no one has a python debug dll to link against
                     set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD_DEBUG TRUE)
@@ -127,7 +156,7 @@ if(SWIG_FOUND)
                 endif()
             endif()
         else()
-            message(WARNING "ENABLE_PYTHON_BINDINGS is set but python libraries were not found.")
+            message(WARNING "ENABLE_PYTHON_BINDINGS is set but Python libraries were not found.")
         endif()
     endif()
 

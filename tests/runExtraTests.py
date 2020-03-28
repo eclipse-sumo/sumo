@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runExtraTests.py
 # @author  Michael Behrisch
@@ -53,8 +57,8 @@ def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=Tr
     env["GUISIM_BINARY"] = os.path.join(root, "..", "bin", "sumo-gui" + suffix)
     env["MAROUTER_BINARY"] = os.path.join(
         root, "..", "bin", "marouter" + suffix)
-    apps = "sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel,netconvert.gdal,polyconvert.gdal"
-    apps += ",complex.meso,duarouter.astar"
+    apps = "sumo.extra,sumo.meso,sumo.ballistic,sumo.idm,sumo.sublanes,sumo.astar,sumo.parallel"
+    apps += ",netconvert.gdal,polyconvert.gdal,complex.meso,duarouter.astar"
     if chrouter:
         apps += ",duarouter.chrouter,duarouter.chwrapper"
     ttBin = 'texttest.py'
@@ -66,15 +70,15 @@ def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=Tr
             ttBin = 'texttestc.py'
         else:
             ttBin += "w"
-    if os.name == "nt" and subprocess.call(['where.exe', 'texttest.exe']) == 0:
+    if os.name == "nt" and subprocess.call(['where.exe', 'texttest.exe'], stdout=open(os.devnull, "w")) == 0:
         ttBin = 'texttest.exe'
     try:
-        subprocess.call(['python3', '-V'])
+        subprocess.call(['python3', '-V'], stdout=open(os.devnull, "w"), shell=True)
         apps += ',complex.python3,tools.python3,complex.libsumo.python3'
     except Exception:
         pass
     if guiTests:
-        apps += ",sumo.meso.gui"
+        apps += ",sumo.meso.gui,sumo.gui.osg"
     subprocess.call("%s %s -a %s" % (ttBin, args, apps), env=os.environ,
                     stdout=out, stderr=out, shell=True)
 

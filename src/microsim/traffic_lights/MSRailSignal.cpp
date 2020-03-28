@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSRailSignal.cpp
 /// @author  Melanie Weber
@@ -14,11 +18,6 @@
 ///
 // A rail signal logic
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -294,7 +293,7 @@ MSRailSignal::writeBlocks(OutputDevice& od) const {
 
 bool
 MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
-    if (link->getJunction()->getType() == NODETYPE_RAIL_SIGNAL && link->getState() == LINKSTATE_TL_RED) {
+    if (link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL && link->getState() == LINKSTATE_TL_RED) {
         const MSEdge* bidi = link->getLaneBefore()->getEdge().getBidiEdge();
         if (bidi == nullptr) {
             return false;
@@ -456,8 +455,9 @@ void
 MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) {
     MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(veh->getDevice(typeid(MSDevice_Routing)));
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    if (rDev != nullptr &&
-            (myLastRerouteVehicle != veh
+    if (rDev != nullptr 
+            && rDev->mayRerouteRailSignal()
+            && (myLastRerouteVehicle != veh
              // reroute each vehicle only once if no periodic routing is allowed,
              // otherwise with the specified period
              || (rDev->getPeriod() > 0 && myLastRerouteTime + rDev->getPeriod() <= now))) {
@@ -489,7 +489,9 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
 
 bool
 MSRailSignal::DriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
-    if (conflictLaneOccupied()) {
+    const SUMOVehicleParameter::Stop* stop = closest.first->getNextStopParameter();
+    const std::string joinVehicle = stop != nullptr ? stop->join : "";
+    if (conflictLaneOccupied(joinVehicle)) {
         for (MSLane* bidi : myBidi) {
             if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
                 occupied.push_back(&bidi->getBidiLane()->getEdge());
@@ -605,14 +607,31 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
 
 
 bool
-MSRailSignal::DriveWay::conflictLaneOccupied() const {
+MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle) const {
     for (const MSLane* lane : myConflictLanes) {
         if (!lane->isEmpty()) {
 #ifdef DEBUG_SIGNALSTATE
             if (gDebugFlag4) {
                 std::cout << SIMTIME << " conflictLane " << lane->getID() << " occupied\n";
+                if (joinVehicle != "") {
+                    std::cout << "  joinVehicle=" << joinVehicle << " occupant=" << toString(lane->getVehiclesSecure()) << "\n";
+                    lane->releaseVehicles();
+                }
             }
 #endif
+            if (lane->getVehicleNumber() == 1 && joinVehicle != "") {
+                std::vector<MSVehicle*> vehs = lane->getVehiclesSecure();
+                const bool ignoreJoinTarget = vehs.front()->getID() == joinVehicle && vehs.front()->isStopped();
+                lane->releaseVehicles();
+                if (ignoreJoinTarget) {
+#ifdef DEBUG_SIGNALSTATE
+                    if (gDebugFlag4) {
+                        std::cout << "    ignore join-target '" << joinVehicle << ";\n";
+                    }
+#endif
+                    continue;
+                }
+            }
             return true;
         }
     }
@@ -919,4 +938,3 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet
 
 
 /****************************************************************************/
-

@@ -87,6 +87,8 @@ edges. Alternatively, the flow for a single edge can be restricted with an input
 <FLOW1> <EDGE1>
 ```
 
+The tool [implausibleRoutes.py](Routes.md#implausibleroutespy) can be used to generate restrictions for routes that are implausible according to a configurable heuristic.
+
 # flowFromRoutes.py
 
 This script does the reverse of flowrouter.py and

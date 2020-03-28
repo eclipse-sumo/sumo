@@ -6,3 +6,6 @@ dfrouter
 
 # memory-efficient sort
 big_file
+
+# persons and triggered trips
+person_plans

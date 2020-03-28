@@ -76,7 +76,7 @@ A vehicle may be defined using the following attributes:
 | color           | [color](#colors)                                                   | This vehicle's color       |
 | **depart**      | float (s) or one of *triggered*, *containerTriggered*                         | The time step at which the vehicle shall enter the network; see [\#depart](#depart). Alternatively the vehicle departs once a [person enters](Specification/Persons.md#rides) or a [container is loaded](Specification/Containers.md) |
 | departLane      | int/string (≥0, "random", "free", "allowed", "best", "first")                 | The lane on which the vehicle shall be inserted; see [\#departLane](#departlane). *default: "first"*                                                                                                                                                  |
-| departPos       | float(m)/string ("random", "free", "random_free", "base", "last")            | The position at which the vehicle shall enter the net; see [\#departPos](#departpos). *default: "base"*                                                                                                                                               |
+| departPos       | float(m)/string ("random", "free", "random_free", "base", "last", "stop")            | The position at which the vehicle shall enter the net; see [\#departPos](#departpos). *default: "base"*                                                                                                                                               |
 | departSpeed     | float(m/s)/string (≥0, "random", "max", "desired", "speedLimit")              | The speed with which the vehicle shall enter the network; see [\#departSpeed](#departspeed). *default: 0*                                                                                                                                             |
 | arrivalLane     | int/string (≥0,"current")                                                     | The lane at which the vehicle shall leave the network; see [\#arrivalLane](#arrivallane). *default: "current"*                                                                                                                                        |
 | arrivalPos      | float(m)/string (≥0<sup>(1)</sup>, "random", "max")                           | The position at which the vehicle shall leave the network; see [\#arrivalPos](#arrivalpos). *default: "max"*                                                                                                                                          |
@@ -126,7 +126,9 @@ are:
 | -------------- | --------------------------- | ----------------------------------------------------------------------------------- |
 | **id**         | id (string)                 | The name of the route                                                               |
 | **edges**      | id list                     | The edges the vehicle shall drive along, given as their ids, separated using spaces |
-| color          | [color](#colors) | This route's color                                                                  |
+| color          | [color](#colors) | This route's color                 |
+| repeat         | int | The number of times that the edges of this route shall be repeated (default 0)  |
+| period         | time (s) | When defining a repeating route with stops and those stops use the `until` attribute, the times will be shifted forward by 'period' on each repeat |
 
 There are a few important things to consider when building your own
 routes:
@@ -162,7 +164,7 @@ Demand information for the simulation may also take the form of origin
 and destination edges instead of a complete list of edges. In this case
 the simulation performs fastest-path routing based on the traffic
 conditions found in the network at the time of departure/flow begin.
-Optionally, a list of intermediate edges can be specified with the
+Optionally, a list of intermediate edges can be specified with the `via`
 attribute. The input format is exactly the same as that for the
 [DUAROUTER](DUAROUTER.md) application [and can be found here](Demand/Shortest_or_Optimal_Path_Routing.md).
 
@@ -192,7 +194,7 @@ empty-network travel times as default). When loading trips into
 used as determined by the [rerouting
 device](Demand/Automatic_Routing.md).
 
-```
+```xml
 <routes>
   <trip id="t" depart="0" fromTaz="taz1" toTaz="taz2"/>
 </routes>
@@ -214,6 +216,9 @@ traffic assignment zone.
 
 !!! caution
     When using TAZ with [SUMO](SUMO.md) and [DUAROUTER](DUAROUTER.md), their edges will be selected to minimize travel time. This is different from TAZ usage in [OD2TRIPS](OD2TRIPS.md) where edges are selected according to a probability distribution.
+    
+### Routing between Junctions
+Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the SUMO option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
 
 ## A Vehicle's depart and arrival parameter
 
@@ -270,6 +275,7 @@ vehicle if the first try fails
 back be at the beginning of the lane (vehicle's front
 position=vehicle length)
 - `"last"`: the vehicle is inserted with the given speed as close as possible
+- `"stop"`: if the vehicle has a stop defined, it will depart at the endPos of the stop. If no stop is defined, the behavior defaults to `"base"`
 behind the last vehicle on the lane. If the lane is empty it is
 inserted at the end of the lane instead. When departSpeed="max" is set, vehicle speed will not be adapted.
 
@@ -324,7 +330,7 @@ Determines the speed at which the vehicle should end its route;
 
 A vehicle is defined using the `vType`-element as shown below:
 
-```
+```xml
 <routes>
     <vType id="type1" accel="2.6" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
 </routes>
@@ -334,7 +340,7 @@ Having defined this, one can build vehicles of type "type1". The values
 used above are the ones most of the examples use. They resemble a
 standard vehicle as used within the Stefan Krauß' thesis.
 
-```
+```xml
 <routes>
     <vType id="type1" accel="2.6" decel="4.5" sigma="0.5" length="5" maxSpeed="70"/>
     <vehicle id="veh1" type="type1" depart="0">
@@ -388,6 +394,7 @@ These values have the following meanings:
 | emissionClass     | emission class (enum)             | ["PC_G_EU4"](Models/Emissions/HBEFA3-based.md)            | An [emission class (see below)](#vehicle_emission_classes). By default a gasoline passenger car conforming to emission standard *EURO 4* is used.                                                           |
 | guiShape          | shape (enum)                      | "unknown"                                                           | [a vehicle shape for drawing](#visualization). By default a standard passenger car body is drawn.                                                                                                           |
 | width             | float                             | 1.8                                                                 | The vehicle's width \[m\] (used only for visualization with the default model, affects [sublane model](Simulation/SublaneModel.md))                                                                            |
+| height            | float                             | 1.5                                                                 | The vehicle's height \[m\]                                                                            |
 | collisionMinGapFactor | float                             | depends on carFollowModel (1.0 for most models)                                                                | The minimum fraction of minGap that must be maintained to the leader vehicle to avoid a collision event                                                                            |
 | imgFile           | filename (string)                 | ""                                                                  | Image file for rendering vehicles of this type (should be grayscale to allow functional coloring)                                                                                                                      |
 | osgFile           | filename (string)                 | ""                                                                  | Object file for rendering with OpenSceneGraph (any of the file types supported by the available OSG-plugins)                                                                                                           |
@@ -759,7 +766,10 @@ lists which parameter are used by which model(s).
 | lcOvertakeRight         | The probability for violating rules gainst overtaking on the right *default: 0, range \[0-1\[*                                                                                                                                                           | LC2013         |
 | lcOpposite              | The eagerness for overtaking through the opposite-direction lane. Higher values result in more lane-changing. *default: 1.0, range \[0-inf\[*                                                                                                            | LC2013         |
 | lcLookaheadLeft         | Factor for configuring the strategic lookahead distance when a change to the left is necessary (relative to right lookahead). *default: 2.0, range \]0-inf\[*                                                                                            | LC2013, SL2015 |
-| lcSpeedGainRight        | Factor for configuring the treshold asymmetry when changing to the left or to the right for speed gain. By default the decision for changing to the right takes more deliberation. Symmetry is achieved when set to 1.0. *default: 0.1, range \]0-inf\[* | LC2013, SL2015 |
+| lcSpeedGainRight        | Factor for configuring the threshold asymmetry when changing to the left or to the right for speed gain. By default the decision for changing to the right takes more deliberation. Symmetry is achieved when set to 1.0. *default: 0.1, range \]0-inf\[* | LC2013, SL2015 |
+| lcSpeedGainLookahead    | Lookahead time in seconds for anticipating slow down. *default: 0, range \]0-inf\[* | LC2013, SL2015 |
+| lcCooperativeRoundabout | Factor that increases willingness to move to the inside lane in a multi-lane roundabout. *default: lcCooperative, range \]0-1[* | LC2013, SL2015 |
+| lcCooperativeSpeed      | Factor for cooperative speed adjustments. *default: lcCooperative, range \]0-1\[* | LC2013, SL2015 |
 | lcSublane               | The eagerness for using the configured lateral alignment within the lane. Higher values result in increased willingness to sacrifice speed for alignment. *default: 1.0, range \[0-inf\]*                                                                | SL2015         |
 | lcPushy                 | Willingness to encroach laterally on other drivers. ''default: 0, range 0 to 1                                                                                                                                                                           | SL2015         |
 | lcPushyGap              | Minimum lateral gap when encroaching laterally on other drives (alternative way to define lcPushy). ''default: minGapLat, range 0 to minGapLat                                                                                                           | SL2015         |
@@ -963,6 +973,12 @@ Stops can be childs of vehicles, routes, persons or containers.
 
 !!! note
     Bus stops must have a length of at least 10
+    
+## startPos and endPos
+- by default vehicles will try to stop and the given endPos
+- if the vehicle comes to a halt earlier (i.e. due to a jam) then the stop counts as reached if the vehicle front is between startPos and endPos
+- if the vehicle picks up a person or container, it can do so as long as the person is between startPos and endPos
+- if the stop uses attribute 'speed', than that speed will be maintained between startPos and endPos
 
 # Colors
 
@@ -998,17 +1014,19 @@ as output (device.fcd) or behavior (device.rerouting).
 The following device names are supported and can be used for the
 placeholder `<DEVICENAME>` below
 
-- emission
-- battery
-- btreiver
-- btsender
-- bluelight
-- rerouting
+- [emission](Models/Emissions.md)
+- [battery](Models/Electric.md)
+- [elechybrid](Models/ElectricHybrid.md)
+- [btreiver](Simulation/Bluetooth.md)
+- [btsender](Simulation/Bluetooth.md)
+- [bluelight](Simulation/Emergency.md)
+- [rerouting](Demand/Automatic_Routing.md)
 - [ssm](Simulation/Output/SSM_Device.md)
 - [toc](ToC_Device.md)
 - [driverstate](Driver_State.md)
-- fcd
-- example
+- [fcd](Simulation/Output/FCDOutput.md)
+- [Demand Responsive Transport (Taxis)](Simulation/Taxi.md)
+- [example](Developer/How_To/Device.md)
 
 ## Automatic assignment
 

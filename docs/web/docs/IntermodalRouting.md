@@ -43,8 +43,10 @@ available car must be specified for the personTrip:
 
 # Defining public transport
 
-Every vehicle with a line attribute is considered public transport and
-will be used for routing regardless of its capacity.
+In order to be included by in the public transport routing, flows (also vehicles or trips) must be defined
+with a [public transport schedule](Simulation/Public_Transport.md#public_transport_schedules).
+
+An example for a bus line and a person that may uses this line are given below:
 
 ```xml
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -58,15 +60,8 @@ will be used for routing regardless of its capacity.
     </person>
 </routes>
 ```
-
-- In order to define a route-able bus schedule all `<stop>`-definitions must
-  use the *until*-attribute.
-- Stops that are declared as child elements of a flow must have until
-  times appropriate for the first vehicle in the flow. The until times
-  for later vehicles will be shifted forward by the flow period
-- Stops that are declared as child element of a stand-alone route
-  (external to a flow or vehicle) must have until times that are
-  offsets from the departure time of the respective vehicles.
+!!! note 
+    A vehicle/flow/trip must define the `line` attribute to be considered as public transport. Every vehicle with a line attribute is considered public transport and may be used for routing regardless of its capacity.
 
 # Intermodal Cost Function
 

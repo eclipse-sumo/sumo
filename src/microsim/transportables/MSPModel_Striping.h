@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2014-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSPModel_Striping.h
 /// @author  Jakob Erdmann
@@ -14,12 +18,7 @@
 ///
 // The pedestrian following model (prototype)
 /****************************************************************************/
-#ifndef MSPModel_Striping_h
-#define MSPModel_Striping_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -59,13 +58,10 @@ public:
     ~MSPModel_Striping();
 
     /// @brief register the given person as a pedestrian
-    PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now);
-
-    /// @brief put the given state on lane
-    void add(PedestrianState* pState, const MSLane* lane);
+    MSTransportableStateAdapter* add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now);
 
     /// @brief remove the specified person from the pedestrian simulation
-    void remove(PedestrianState* state);
+    void remove(MSTransportableStateAdapter* state);
 
     /** @brief whether a pedestrian is blocking the crossing of lane for the given vehicle bondaries
      * @param[in] lane The crossing to check
@@ -87,9 +83,6 @@ public:
 
     /// @brief returns the next pedestrian beyond minPos that is laterally between minRight and maxLeft or 0
     PersonDist nextBlocking(const MSLane* lane, double minPos, double minRight, double maxLeft, double stopTime = 0);
-
-    /// @brief remove state at simulation end
-    void cleanupHelper();
 
     /// @brief model parameters
     ///@{
@@ -130,8 +123,8 @@ public:
     static const double SQUEEZE;
 
     // @brief fraction of the leftmost lanes to reserve for oncoming traffic
-    static const double RESERVE_FOR_ONCOMING_FACTOR;
-    static const double RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
+    static double RESERVE_FOR_ONCOMING_FACTOR;
+    static double RESERVE_FOR_ONCOMING_FACTOR_JUNCTIONS;
 
     // @brief the time pedestrians take to reach maximum impatience
     static const double MAX_WAIT_TOLERANCE;
@@ -165,7 +158,7 @@ protected:
     typedef std::map<const MSLane*, Pedestrians, lane_by_numid_sorter> ActiveLanes;
     typedef std::vector<Obstacle> Obstacles;
     typedef std::map<const MSLane*, Obstacles, lane_by_numid_sorter> NextLanesObstacles;
-    typedef std::map<std::pair<const MSLane*, const MSLane*>, WalkingAreaPath> WalkingAreaPaths;
+    typedef std::map<std::pair<const MSLane*, const MSLane*>, const WalkingAreaPath> WalkingAreaPaths;
     typedef std::map<const MSLane*, double> MinNextLengths;
 
     struct NextLaneInfo {
@@ -222,21 +215,21 @@ protected:
     };
 
     struct WalkingAreaPath {
-        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape) :
+        WalkingAreaPath(const MSLane* _from, const MSLane* _walkingArea, const MSLane* _to, const PositionVector& _shape, int _dir) :
             from(_from),
             to(_to),
             lane(_walkingArea),
             shape(_shape),
+            dir(_dir),
             length(_shape.length()) {
         }
 
-        WalkingAreaPath(): from(0), to(0), lane(0) {};
-
-        const MSLane* from;
-        const MSLane* to;
-        const MSLane* lane; // the walkingArea;
-        PositionVector shape; // actually const but needs to be copyable by some stl code
-        double length;
+        const MSLane* const from;
+        const MSLane* const to;
+        const MSLane* const lane; // the walkingArea;
+        const PositionVector shape;
+        const int dir; // the direction when entering this path
+        const double length;
 
     };
 
@@ -261,29 +254,30 @@ protected:
      * @class PState
      * @brief Container for pedestrian state and individual position update function
      */
-    class PState : public PedestrianState {
+    class PState : public MSTransportableStateAdapter {
     public:
 
         /// @brief abstract methods inherited from PedestrianState
         /// @{
-        double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const;
-        double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const;
-        const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const;
+        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const;
+        Position getPosition(const MSStageMoving& stage, SUMOTime now) const;
+        double getAngle(const MSStageMoving& stage, SUMOTime now) const;
+        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const;
+        double getSpeed(const MSStageMoving& stage) const;
+        const MSEdge* getNextEdge(const MSStageMoving& stage) const;
         void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                       double lanePosLat, double angle, int routeOffset,
                       const ConstMSEdgeVector& edges, SUMOTime t);
 
+        bool isJammed() const;
         /// @}
 
-        PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, const MSLane* lane);
+        PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);
 
 
         ~PState() {};
         MSPerson* myPerson;
-        MSPerson::MSPersonStage_Walking* myStage;
+        MSStageMoving* myStage;
         /// @brief the current lane of this pedestrian
         const MSLane* myLane;
         /// @brief the advancement along the current lane
@@ -301,7 +295,7 @@ protected:
         /// @brief information about the upcoming lane
         NextLaneInfo myNLI;
         /// @brief the current walkingAreaPath or 0
-        WalkingAreaPath* myWalkingAreaPath;
+        const WalkingAreaPath* myWalkingAreaPath;
         /// @brief whether the person is jammed
         bool myAmJammed;
         /// @brief remote-controlled position
@@ -447,7 +441,7 @@ private:
     static void initWalkingAreaPaths(const MSNet* net);
 
     /// @brief return an arbitrary path across the given walkingArea
-    static WalkingAreaPath* getArbitraryPath(const MSEdge* walkingArea);
+    static const WalkingAreaPath* getArbitraryPath(const MSEdge* walkingArea);
 
     /// @brief return the maximum number of pedestrians walking side by side
     static int numStripes(const MSLane* lane);
@@ -501,5 +495,4 @@ private:
 };
 
 
-#endif /* MSPModel_Striping_h */
 

@@ -1,5 +1,5 @@
-Eclipse SUMO Version v1_4_0+0122-6806fa5
- Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO Version v1_5_0+0923-da2e985785
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
 Usage: sumo [OPTION]*
@@ -25,6 +25,9 @@ Input Options:
                                          state by the given offset
   --load-state.remove-vehicles STR[]   Removes vehicles with the given IDs from
                                          the loaded state
+  --junction-taz                       Initialize a TAZ for every junction to
+                                         use attributes toJunction and
+                                         fromJunction
 
 Output Options:
   --write-license                      Include license info into every output
@@ -67,6 +70,9 @@ Output Options:
                                          output (brake lights etc.)
   --fcd-output.distance                Add kilometrage to the FCD output
                                          (linear referencing)
+  --fcd-output.acceleration            Add acceleration to the FCD output
+  --fcd-output.params STR[]            Add generic parameter values to the FCD
+                                         output
   --fcd-output.filter-edges.input-file FILE  Restrict fcd output to the edge
                                          selection from the given input file
   --full-output FILE                   Save a lot of information for each
@@ -100,6 +106,8 @@ Output Options:
                                          transport vehicles
   --vehroute-output.incomplete         Include invalid routes and route stubs
                                          in vehroute output
+  --vehroute-output.stop-edges         Include information about edges between
+                                         stops
   --link-output FILE                   Save links states into FILE
   --railsignal-block-output FILE       Save railsignal-blocks into FILE
   --bt-output FILE                     Save bluetooth visibilities into FILE
@@ -109,18 +117,18 @@ Output Options:
                                          motivations for all vehicles into FILE
   --lanechange-output.started          Record start of lane change manoeuvres
   --lanechange-output.ended            Record end of lane change manoeuvres
+  --lanechange-output.xy               Record coordinates of lane change
+                                         manoeuvres
   --stop-output FILE                   Record stops and loading/unloading of
                                          passenger and containers for all
                                          vehicles into FILE
-  --movereminder-output FILE           Save movereminder states of selected
-                                         vehicles into FILE
-  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
-                                         their movereminder states
-  --save-state.times INT[]             Use INT[] as times at which a network
+  --statistic-output FILE              Write overall statistics into FILE
+  --save-state.times STR[]             Use TIME[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
   --save-state.prefix FILE             Prefix for network states
-  --save-state.suffix STR              Suffix for network states (.sbx or .xml)
+  --save-state.suffix STR              Suffix for network states (.xml.gz or
+                                         .xml)
   --save-state.files FILE              Files for network states
 
 Time Options:
@@ -248,6 +256,11 @@ Processing Options:
                                          jam while on a pedestrian crossing when
                                          using model 'striping' (non-positive
                                          values disable squeezing)
+  --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
+                                         for oncoming pedestrians
+  --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
+                                         to reserve for oncoming pedestrians on
+                                         crossings and walkingareas
   --pedestrian.remote.address STR      The address (host:port) of the external
                                          simulation
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
@@ -264,6 +277,8 @@ Routing Options:
   --weights.minor-penalty FLOAT        Apply the given time penalty when
                                          computing minimum routing costs for
                                          minor-link internal lanes
+  --weights.priority-factor FLOAT      Consider edge priorities in addition to
+                                         travel times, weighted by factor
   --astar.all-distances FILE           Initialize lookup table for astar from
                                          the given file (generated by marouter
                                          --all-pairs-output)
@@ -274,7 +289,8 @@ Routing Options:
   --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
                                          walking allowed (possible values:
                                          'parkingAreas', 'ptStops',
-                                         'allJunctions' and combinations)
+                                         'allJunctions', 'taxi' and
+                                         combinations)
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                          'rerouting' device
   --device.rerouting.explicit STR[]    Assign a 'rerouting' device to named
@@ -299,6 +315,10 @@ Routing Options:
                                          used for rerouting
   --device.rerouting.synchronize       Let rerouting happen at the same time
                                          for all vehicles
+  --device.rerouting.railsignal        Allow rerouting triggered by rail
+                                         signals.
+  --device.rerouting.bike-speeds       Compute separate average speeds for
+                                         bicycles
   --device.rerouting.output FILE       Save adapting weights to FILE
   --person-device.rerouting.probability FLOAT  The probability for a person to
                                          have a 'rerouting' device
@@ -332,6 +352,8 @@ Report Options:
   -t, --duration-log.statistics        Enable statistics on vehicle trips
   --no-step-log                        Disable console output of current
                                          simulation step
+  --step-log.period INT                Number of simulation steps between
+                                         step-log outputs
 
 Emissions Options:
   --phemlight-path FILE                Determines where to load PHEMlight
@@ -538,7 +560,13 @@ Taxi Device Options:
   --device.taxi.explicit STR[]         Assign a 'taxi' device to named vehicles
   --device.taxi.deterministic          The 'taxi' devices are set deterministic
                                          using a fraction of 1000
-  --device.taxi.dispatch-algorithm STR  The dispatch algorithm [greedy]
+  --device.taxi.dispatch-algorithm STR  The dispatch algorithm
+                                         [greedy|greedyClosest|greedyShared]
+  --device.taxi.dispatch-algorithm.output STR  Write information from the
+                                         dispatch algorithm to FILE
+  --device.taxi.dispatch-algorithm.params STR  Load dispatch algorithm
+                                         parameters in format
+                                         KEY1:VALUE1[,KEY2:VALUE]
   --device.taxi.dispatch-period TIME   The period between successive calls to
                                          the dispatcher
 
@@ -623,8 +651,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

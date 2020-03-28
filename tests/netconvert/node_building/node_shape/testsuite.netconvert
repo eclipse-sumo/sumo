@@ -23,3 +23,6 @@ t_intersection
 
 # roundabout with many geometry points
 roundabout_dense_geometry
+
+# see #6585
+high_overlap

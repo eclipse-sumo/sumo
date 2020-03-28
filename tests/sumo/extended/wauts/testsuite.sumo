@@ -14,13 +14,14 @@ begin100
 # simulation starts at time=150
 begin150
 
-
-
 # testing for correctness (bug reported as #1964433)
 bug1964433
-
-
 
 # tests for false waut definitions
 errors
 
+# switch through different plans over the course of one week and then start over
+week
+
+# switch through different plans over the course of one week and stop switch after one week
+week_norepeat

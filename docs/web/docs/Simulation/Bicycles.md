@@ -137,3 +137,7 @@ the road) must yield to straight-going vehicles.
 
 !!! caution
     The trajectories of left-turning bicycles use a wide curve rather than going straight twice. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../Networks/PlainXML.md#custom_shapes_for_internal_lanes_crossings_and_walkingareas).
+    
+# Bicycle routing
+
+When [routing bicycles in the simulation](../Demand/Automatic_Routing.md) the option **--device.rerouting.bike-speeds** can be used to enable separate tracking of bicycle speeds. This ensure that routing for bicycles which can use a dedicated bicycle lane is not affected by jammed cars.

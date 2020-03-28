@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ROJTRTurnDefLoader.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Loader for the of turning percentages and source/sink definitions
 /****************************************************************************/
-#ifndef ROJTRTurnDefLoader_h
-#define ROJTRTurnDefLoader_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <set>
@@ -108,6 +106,10 @@ private:
      */
     void addToEdge(const SUMOSAXAttributes& attrs);
 
+    /** @brief Parses the probability to use a certain incoming-outgoing edge relation
+     * @param[in] attrs The SAX-attributes to parse the destination edge and the probability to use it from
+     */
+    void addEdgeRel(const SUMOSAXAttributes& attrs);
 
 private:
     /// @brief The network to set the information into
@@ -119,11 +121,13 @@ private:
     /// @brief The current incoming edge the turning probabilities are set into
     ROJTREdge* myEdge;
 
+    /// @brief whether all sources are sinks
+    bool mySourcesAreSinks;
+
+    /// @brief whether upstream flows should be discounted from source flows
+    bool myDiscountSources;
+
+    /// @brief whether the warning for the deprecated format has been issued
+    bool myHaveWarnedAboutDeprecatedFormat;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -5,11 +5,14 @@ dijkstra_HC
 dijkstra_NOx
 dijkstra_PMx
 
+# use custom weight attribute
+dijkstra_custom
+
 # This are the correct (plain) one
 dijkstra_TT
+dijkstra_edge_priority_inactive
+dijkstra_edge_priority
 dijkstra_plain
-
 
 # Further tests for time line processing
 timeline
-

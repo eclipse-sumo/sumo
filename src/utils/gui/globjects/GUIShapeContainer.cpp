@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIShapeContainer.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Storage for geometrical objects extended by mutexes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GUIShapeContainer.h"
@@ -108,12 +107,12 @@ GUIShapeContainer::addPolygonDynamics(double simtime,
 SUMOTime
 GUIShapeContainer::polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) {
     FXMutexLock locker(myLock);
+    GUIPolygon* p = dynamic_cast<GUIPolygon*>(pd->getPolygon());
+    assert(p != nullptr);
+    myVis.removeAdditionalGLObject(p);
     SUMOTime next = ShapeContainer::polygonDynamicsUpdate(t, pd);
     if (next != 0) {
         // Update polygon position in RTree
-        GUIPolygon* p = dynamic_cast<GUIPolygon*>(pd->getPolygon());
-        assert(p != nullptr);
-        myVis.removeAdditionalGLObject(p);
         myVis.addAdditionalGLObject(p);
     }
     return next;
@@ -195,5 +194,5 @@ GUIShapeContainer::getPolygonIDs() const {
     return ret;
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

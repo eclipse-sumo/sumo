@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2017-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Helper.cpp
 /// @author  Laura Bieker-Walz
@@ -15,12 +19,9 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
+#include <cstring>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <microsim/MSNet.h>
@@ -57,15 +58,18 @@
 //#define DEBUG_MOVEXY_ANGLE
 //#define DEBUG_SURROUNDING
 
-
 void
 LaneStoringVisitor::add(const MSLane* const l) const {
     switch (myDomain) {
         case libsumo::CMD_GET_VEHICLE_VARIABLE: {
-            const MSLane::VehCont& vehs = l->getVehiclesSecure();
-            for (MSLane::VehCont::const_iterator j = vehs.begin(); j != vehs.end(); ++j) {
-                if (myShape.distance2D((*j)->getPosition()) <= myRange) {
-                    myObjects.insert(*j);
+            for (const MSVehicle* veh : l->getVehiclesSecure()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
+                }
+            }
+            for (const MSVehicle* veh : l->getParkingVehicles()) {
+                if (myShape.distance2D(veh->getPosition()) <= myRange) {
+                    myObjects.insert(veh);
                 }
             }
             l->releaseVehicles();
@@ -105,6 +109,7 @@ namespace libsumo {
 // static member initializations
 // ===========================================================================
 std::vector<Subscription> Helper::mySubscriptions;
+Subscription* Helper::myLastContextSubscription = nullptr;
 std::map<int, std::shared_ptr<VariableWrapper> > Helper::myWrapper;
 Helper::VehicleStateListener Helper::myVehicleStateListener;
 std::map<int, NamedRTree*> Helper::myObjects;
@@ -116,27 +121,57 @@ std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
+
+void
+Helper::debugPrint(const SUMOTrafficObject* veh) {
+    if (veh != nullptr) {
+        if (veh->isVehicle()) {
+            std::cout << "  '" << veh->getID() << "' on lane '" << ((SUMOVehicle*)veh)->getLane()->getID() << "'\n";
+        } else {
+            std::cout << "  '" << veh->getID() << "' on edge '" << veh->getEdge()->getID() << "'\n";
+        }
+    }
+}
+
+
 void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
                   const double beginTime, const double endTime, const int contextDomain, const double range) {
+    myLastContextSubscription = nullptr;
     if (variables.empty()) {
         for (std::vector<libsumo::Subscription>::iterator j = mySubscriptions.begin(); j != mySubscriptions.end();) {
-            if (j->id == id && j->commandId == commandId && (contextDomain < 0 || j->contextDomain == contextDomain)) {
+            if (j->id == id && j->commandId == commandId && j->contextDomain == contextDomain) {
                 j = mySubscriptions.erase(j);
             } else {
                 ++j;
             }
         }
+        return;
     }
-    std::vector<std::vector<unsigned char> > parameters;
+    std::vector<std::vector<unsigned char> > parameters(variables.size());
     const SUMOTime begin = beginTime == INVALID_DOUBLE_VALUE ? 0 : TIME2STEPS(beginTime);
     const SUMOTime end = endTime == INVALID_DOUBLE_VALUE || endTime > STEPS2TIME(SUMOTime_MAX) ? SUMOTime_MAX : TIME2STEPS(endTime);
     libsumo::Subscription s(commandId, id, variables, parameters, begin, end, contextDomain, range);
+    if (s.variables.size() == 1 && s.variables.front() == -1) {
+        s.variables.clear();
+    }
     handleSingleSubscription(s);
     libsumo::Subscription* modifiedSubscription = nullptr;
-    if (needNewSubscription(s, mySubscriptions, modifiedSubscription)) {
-        mySubscriptions.push_back(s);
+    needNewSubscription(s, mySubscriptions, modifiedSubscription);
+    if (modifiedSubscription->isVehicleToVehicleContextSubscription()
+            || modifiedSubscription->isVehicleToPersonContextSubscription()) {
+        // Set last modified vehicle context subscription active for filter modifications
+        myLastContextSubscription = modifiedSubscription;
     }
+}
+
+
+void
+Helper::addSubscriptionParam(double param) {
+    std::vector<unsigned char> dest(sizeof(param));
+    std::memcpy(dest.data(), &param, sizeof(param));
+    mySubscriptions.back().parameters.pop_back();
+    mySubscriptions.back().parameters.emplace_back(dest);
 }
 
 
@@ -144,6 +179,18 @@ void
 Helper::handleSubscriptions(const SUMOTime t) {
     for (auto& wrapper : myWrapper) {
         wrapper.second->clear();
+    }
+    for (std::vector<libsumo::Subscription>::iterator i = mySubscriptions.begin(); i != mySubscriptions.end();) {
+        const libsumo::Subscription& s = *i;
+        const bool isArrivedVehicle = (s.commandId == CMD_SUBSCRIBE_VEHICLE_VARIABLE || s.commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT)
+                                      && (find(getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED).begin(), getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED).end(), s.id) != getVehicleStateChanges(MSNet::VEHICLE_STATE_ARRIVED).end());
+        const bool isArrivedPerson = (s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE || s.commandId == libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT)
+                                     && MSNet::getInstance()->getPersonControl().get(s.id) == nullptr;
+        if (s.endTime < t || isArrivedVehicle || isArrivedPerson) {
+            i = mySubscriptions.erase(i);
+            continue;
+        }
+        ++i;
     }
     for (const libsumo::Subscription& s : mySubscriptions) {
         if (s.beginTime <= t) {
@@ -172,6 +219,8 @@ Helper::needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>&
             return false;
         }
     }
+    subscriptions.push_back(s);
+    modifiedSubscription = &subscriptions.back();
     return true;
 }
 
@@ -179,6 +228,18 @@ Helper::needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>&
 void
 Helper::clearSubscriptions() {
     mySubscriptions.clear();
+    myLastContextSubscription = nullptr;
+}
+
+
+Subscription*
+Helper::addSubscriptionFilter(SubscriptionFilterType filter) {
+    if (myLastContextSubscription != nullptr) {
+        myLastContextSubscription->activeFilters |= filter;
+    } else {
+        WRITE_WARNING("addSubscriptionFilter: No previous vehicle context subscription exists to apply the context filter.");
+    }
+    return myLastContextSubscription;
 }
 
 
@@ -219,19 +280,27 @@ Helper::handleSingleSubscription(const Subscription& s) {
     std::shared_ptr<VariableWrapper> handler = wrapper->second;
     VariableWrapper* container = handler.get();
     if (s.contextDomain > 0) {
-        handler->setContext(s.id);
         auto containerWrapper = myWrapper.find(s.commandId + 0x20);
         if (containerWrapper == myWrapper.end()) {
             throw TraCIException("Unsupported domain specified");
         }
         container = containerWrapper->second.get();
+        container->setContext(s.id);
     } else {
-        handler->setContext("");
+        container->setContext("");
     }
     for (const std::string& objID : objIDs) {
         if (!s.variables.empty()) {
+            std::vector<std::vector<unsigned char> >::const_iterator k = s.parameters.begin();
             for (const int variable : s.variables) {
+                if (!k->empty()) {
+                    container->setParams(&*k);
+                }
                 handler->handle(objID, variable, container);
+                if (!k->empty()) {
+                    container->setParams(nullptr);
+                }
+                ++k;
             }
         } else {
             if (s.contextDomain == 0 && getCommandId == libsumo::CMD_GET_VEHICLE_VARIABLE) {
@@ -245,6 +314,7 @@ Helper::handleSingleSubscription(const Subscription& s) {
         }
     }
 }
+
 
 
 void
@@ -380,19 +450,62 @@ Helper::convertCartesianToRoadMap(const Position& pos, const SUMOVehicleClass vC
 }
 
 
-MSVehicle*
+double
+Helper::getDrivingDistance(std::pair<const MSLane*, double>& roadPos1, std::pair<const MSLane*, double>& roadPos2) {
+    if (roadPos1.first == roadPos2.first && roadPos1.second <= roadPos2.second) {
+        // same edge
+        return roadPos2.second - roadPos1.second;
+    }
+    double distance = 0.0;
+    ConstMSEdgeVector newRoute;
+    while (roadPos2.first->isInternal() && roadPos2.first != roadPos1.first) {
+        distance += roadPos2.second;
+        roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
+        roadPos2.second = roadPos2.first->getLength();
+    }
+    MSNet::getInstance()->getRouterTT(0).compute(&roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, SIMSTEP, newRoute, true);
+    if (newRoute.empty()) {
+        return libsumo::INVALID_DOUBLE_VALUE;
+    }
+    MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+    return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
+}
+
+
+MSBaseVehicle*
 Helper::getVehicle(const std::string& id) {
     SUMOVehicle* sumoVehicle = MSNet::getInstance()->getVehicleControl().getVehicle(id);
     if (sumoVehicle == nullptr) {
         throw TraCIException("Vehicle '" + id + "' is not known.");
     }
-    MSVehicle* v = dynamic_cast<MSVehicle*>(sumoVehicle);
+    MSBaseVehicle* v = dynamic_cast<MSBaseVehicle*>(sumoVehicle);
     if (v == nullptr) {
-        throw TraCIException("Vehicle '" + id + "' is not a micro-simulation vehicle.");
+        throw TraCIException("Vehicle '" + id + "' is not a proper vehicle.");
     }
     return v;
 }
 
+
+MSPerson*
+Helper::getPerson(const std::string& personID) {
+    MSTransportableControl& c = MSNet::getInstance()->getPersonControl();
+    MSPerson* p = dynamic_cast<MSPerson*>(c.get(personID));
+    if (p == nullptr) {
+        throw TraCIException("Person '" + personID + "' is not known");
+    }
+    return p;
+}
+
+SUMOTrafficObject*
+Helper::getTrafficObject(int domain, const std::string& id) {
+    if (domain == CMD_GET_VEHICLE_VARIABLE) {
+        return getVehicle(id);
+    } else if (domain == CMD_GET_PERSON_VARIABLE) {
+        return getPerson(id);
+    } else {
+        throw TraCIException("Cannot retrieve traffic object for domain " + toString(domain));
+    }
+}
 
 const MSVehicleType&
 Helper::getVehicleType(const std::string& vehicleID) {
@@ -536,7 +649,7 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
 void
 Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& objIDs) {
 #ifdef DEBUG_SURROUNDING
-    MSVehicle* _veh = getVehicle(s.id);
+    MSBaseVehicle* _veh = getVehicle(s.id);
     std::cout << SIMTIME << " applySubscriptionFilters for vehicle '" << _veh->getID() << "' on lane '" << _veh->getLane()->getID() << "'"
               << "\n       on edge '" << _veh->getLane()->getEdge().getID() << "' (" << toString(_veh->getLane()->getEdge().getLanes()) << ")\n"
               << "objIDs = " << toString(objIDs) << std::endl;
@@ -561,10 +674,10 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
     // TODO: Treat case, where ego vehicle is currently on opposite lane
 
-    std::set<const MSVehicle*> vehs;
-    if ((s.activeFilters & SUBS_FILTER_NO_RTREE) != 0) {
-        // Set defaults for upstream and downstream distances
-        double downstreamDist = s.range, upstreamDist = s.range;
+    std::set<const SUMOTrafficObject*> vehs;
+    if (s.activeFilters & SUBS_FILTER_NO_RTREE) {
+        // Set defaults for upstream/downstream/lateral distances
+        double downstreamDist = s.range, upstreamDist = s.range, lateralDist = s.range;
         if (s.activeFilters & SUBS_FILTER_DOWNSTREAM_DIST) {
             // Specifies maximal downstream distance for vehicles in context subscription result
             downstreamDist = s.filterDownstreamDist;
@@ -573,7 +686,15 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Specifies maximal downstream distance for vehicles in context subscription result
             upstreamDist = s.filterUpstreamDist;
         }
-        MSVehicle* v = getVehicle(s.id);
+        if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
+            // Specifies maximal lateral distance for vehicles in context subscription result
+            lateralDist = s.filterLateralDist;
+        }
+        MSBaseVehicle* veh = getVehicle(s.id);
+        MSVehicle* v = dynamic_cast<MSVehicle*>(veh);
+        if (v == nullptr) {
+            throw TraCIException("Subscription filter not yet implemented for meso vehicle");
+        }
         if (!v->isOnRoad()) {
             return;
         }
@@ -597,6 +718,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         std::cout << "Filter lanes: " << toString(filterLanes) << std::endl;
         std::cout << "Downstream distance: " << downstreamDist << std::endl;
         std::cout << "Upstream distance: " << upstreamDist << std::endl;
+        std::cout << "Lateral distance: " << lateralDist << std::endl;
 #endif
 
         if ((s.activeFilters & SUBS_FILTER_MANEUVER) != 0) {
@@ -683,13 +805,40 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #ifdef DEBUG_SURROUNDING
             std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
             for (auto veh : vehs) {
-                if (veh != nullptr) {
-                    std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
-                }
+                debugPrint(veh);
             }
 #endif
+        } else if (s.activeFilters & SUBS_FILTER_LATERAL_DIST) {
+            assert(vehs.size() == 0);
+            assert(objIDs.size() == 0);
+
+            // collect all vehicles within maximum range of interest to get an upper bound
+            PositionVector vehShape;
+            findObjectShape(s.commandId, s.id, vehShape);
+            double range = MAX3(downstreamDist, upstreamDist, lateralDist);
+            collectObjectIDsInRange(s.contextDomain, vehShape, range, objIDs);
+
+#ifdef DEBUG_SURROUNDING
+            std::cout << "FILTER_LATERAL_DIST: collected object IDs (range " << range << "):" << std::endl;
+            for (std::string i : objIDs) {
+                std::cout << i << std::endl;
+            }
+#endif
+
+#ifdef DEBUG_SURROUNDING
+            std::cout << "FILTER_LATERAL_DIST: myLane is '" << v->getLane()->getID() << "'" << std::endl;
+#endif
+            // 1st pass: downstream (make sure that the whole length of the vehicle is included in the match)
+            const double backPosOnLane = MAX2(0.0, v->getPositionOnLane() - v->getVehicleType().getLength());
+            applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getUpcomingLanesUntil(downstreamDist),
+                    backPosOnLane, v->getLateralPositionOnLane(), true);
+            // 2nd pass: upstream
+            applySubscriptionFilterLateralDistanceSinglePass(s, objIDs, vehs, v->getPastLanesUntil(upstreamDist),
+                    v->getPositionOnLane(), v->getLateralPositionOnLane(), false);
+
+            objIDs.clear();
         } else {
-            // No maneuver filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
+            // No maneuver or lateral distance filters requested, but only lanes filter (directly, or indirectly by specifying downstream or upstream distance)
             assert(filterLanes.size() > 0);
             // This is to remember the lanes checked in the driving direction of the vehicle (their opposites can be added in a second pass)
             auto checkedLanesInDrivingDir = std::make_shared<LaneCoverageInfo>();
@@ -771,9 +920,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 #ifdef DEBUG_SURROUNDING
                 std::cout << SIMTIME << " applySubscriptionFilters() for veh '" << v->getID() << "'. Found the following vehicles:\n";
                 for (auto veh : vehs) {
-                    if (veh != nullptr) {
-                        std::cout << "  '" << veh->getID() << "' on lane '" << veh->getLane()->getID() << "'\n";
-                    }
+                    debugPrint(veh);
                 }
 #endif
             }
@@ -803,7 +950,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             }
         }
         // Write vehs IDs in objIDs
-        for (const MSVehicle* veh : vehs) {
+        for (const SUMOTrafficObject* veh : vehs) {
             if (veh != nullptr) {
                 objIDs.insert(objIDs.end(), veh->getID());
             }
@@ -813,7 +960,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Only return vehicles of the given vClass in context subscription result
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
-                MSVehicle* veh = getVehicle(*i);
+                MSBaseVehicle* veh = getVehicle(*i);
                 if ((veh->getVehicleType().getVehicleClass() & s.filterVClasses) == 0) {
                     i = objIDs.erase(i);
                 } else {
@@ -825,7 +972,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Only return vehicles of the given vType in context subscription result
             auto i = objIDs.begin();
             while (i != objIDs.end()) {
-                MSVehicle* veh = getVehicle(*i);
+                MSBaseVehicle* veh = getVehicle(*i);
                 if (s.filterVTypes.find(veh->getVehicleType().getID()) == s.filterVTypes.end()) {
                     i = objIDs.erase(i);
                 } else {
@@ -847,7 +994,7 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
         return;
     }
 
-    MSVehicle* egoVehicle = getVehicle(s.id);
+    MSBaseVehicle* egoVehicle = getVehicle(s.id);
     Position egoPosition = egoVehicle->getPosition();
     double openingAngle = DEG2RAD(s.filterFieldOfVisionOpeningAngle);
 
@@ -861,16 +1008,80 @@ Helper::applySubscriptionFilterFieldOfVision(const Subscription& s, std::set<std
             ++i;
             continue;
         }
-        MSVehicle* veh = getVehicle(*i);
-        double angleEgoToVeh = egoPosition.angleTo2D(veh->getPosition());
+        SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
+        double angleEgoToVeh = egoPosition.angleTo2D(obj->getPosition());
         double alpha = GeomHelper::angleDiff(egoVehicle->getAngle(), angleEgoToVeh);
 
 #ifdef DEBUG_SURROUNDING
-        std::cout << "FOVFILTER: veh '" << *i << "' dist  = " << toString(egoPosition.distanceTo2D(veh->getPosition())) << std::endl;
-        std::cout << "FOVFILTER: veh '" << *i << "' alpha = " << toString(RAD2DEG(alpha)) << " (deg)" << std::endl;
+        const std::string objType = s.isVehicleToPersonContextSubscription() ? "person" : "veh";
+        std::cout << "FOVFILTER: " << objType << " '" << *i << "' dist  = " << toString(egoPosition.distanceTo2D(obj->getPosition())) << std::endl;
+        std::cout << "FOVFILTER: " << objType << " '" << *i << "' alpha = " << toString(RAD2DEG(alpha)) << " (deg)" << std::endl;
 #endif
 
         if (abs(alpha) > openingAngle * 0.5) {
+            i = objIDs.erase(i);
+        } else {
+            ++i;
+        }
+    }
+}
+
+void
+Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, std::set<std::string>& objIDs,
+        std::set<const SUMOTrafficObject*>& vehs,
+        const std::vector<const MSLane*>& lanes, double posOnLane, double posLat, bool isDownstream) {
+    const double streamDist = isDownstream ? s.filterDownstreamDist : s.filterUpstreamDist;
+    double distRemaining = streamDist;
+    bool isFirstLane = true;
+    PositionVector combinedShape;
+    for (const MSLane* lane : lanes) {
+#ifdef DEBUG_SURROUNDING
+        std::cout << "FILTER_LATERAL_DIST: current lane " << (isDownstream ? "down" : "up") << " is '" << lane->getID() << "', length " << lane->getLength()
+                  << ", pos " << posOnLane << ", distRemaining " << distRemaining << std::endl;
+#endif
+        PositionVector laneShape = lane->getShape();
+        if (isFirstLane) {
+            isFirstLane = false;
+            if (posOnLane == 0) {
+                if (!isDownstream) {
+                    continue;
+                }
+            } else {
+                double geometryPos = lane->interpolateLanePosToGeometryPos(posOnLane);
+                auto pair = laneShape.splitAt(geometryPos, false);
+                laneShape = isDownstream ? pair.second : pair.first;
+            }
+        }
+        double laneLength = lane->interpolateGeometryPosToLanePos(laneShape.length());
+        if (distRemaining - laneLength < 0.) {
+            double geometryPos = lane->interpolateLanePosToGeometryPos(isDownstream ? distRemaining : laneLength - distRemaining);
+            auto pair = laneShape.splitAt(geometryPos, false);
+            laneShape = isDownstream ? pair.first : pair.second;
+        }
+        distRemaining -= laneLength;
+        try {
+            laneShape.move2side(-posLat);
+        } catch (ProcessError&) {
+            WRITE_WARNING("addSubscriptionFilterLateralDistance could not determine shape of lane '" + lane->getID() + "' with lateral shift of " + toString(posLat));
+        }
+#ifdef DEBUG_SURROUNDING
+        std::cout << "   posLat=" << posLat << " laneShape=" << laneShape << "\n";
+#endif
+        combinedShape.append(laneShape);
+        if (distRemaining <= 0) {
+            break;
+        }
+    }
+    // check remaining objects' distances to the combined shape
+    auto i = objIDs.begin();
+    while (i != objIDs.end()) {
+        SUMOTrafficObject* obj = getTrafficObject(s.contextDomain, *i);
+        double minPerpendicularDist = combinedShape.distance2D(obj->getPosition(), true);
+#ifdef DEBUG_SURROUNDING
+        std::cout << " obj " << obj->getID() << " dist=" << minPerpendicularDist << " filterDist=" << s.filterLateralDist << "\n";
+#endif
+        if ((minPerpendicularDist != GeomHelper::INVALID_OFFSET) && (minPerpendicularDist <= s.filterLateralDist)) {
+            vehs.insert(obj);
             i = objIDs.erase(i);
         } else {
             ++i;
@@ -1222,6 +1433,12 @@ Helper::SubscriptionWrapper::SubscriptionWrapper(VariableWrapper::SubscriptionHa
 void
 Helper::SubscriptionWrapper::setContext(const std::string& refID) {
     myActiveResults = refID == "" ? &myResults : &myContextResults[refID];
+}
+
+
+void
+Helper::SubscriptionWrapper::setParams(const std::vector<unsigned char>* params) {
+    myParams = params;
 }
 
 

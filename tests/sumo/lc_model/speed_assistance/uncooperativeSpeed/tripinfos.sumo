@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 30 08:56:56 2020 by Eclipse SUMO Version v1_4_0+0854-58e4384
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.2"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="speedAssist" depart="0.00" departLane="end_0" departPos="180.00" departSpeed="3.00" departDelay="0.00" arrival="89.60" arrivalLane="end2_0" arrivalPos="2996.00" arrivalSpeed="36.00" duration="89.60" routeLength="3016.21" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="5.73" rerouteNo="0" devices="tripinfo_speedAssist" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="needsHelp" depart="0.00" departLane="end_1" departPos="191.99" departSpeed="0.00" departDelay="0.00" arrival="93.40" arrivalLane="end2_0" arrivalPos="2996.00" arrivalSpeed="36.00" duration="93.40" routeLength="3004.22" waitingTime="3.00" waitingCount="1" stopTime="0.00" timeLoss="9.82" rerouteNo="0" devices="tripinfo_needsHelp" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

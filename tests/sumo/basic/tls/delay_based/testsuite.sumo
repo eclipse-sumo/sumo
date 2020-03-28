@@ -9,3 +9,6 @@ specified_in_netfile
 
 # Specifying delay-based program in an additional file
 specified_in_additional_file
+
+# use a custom detector
+custom_detector

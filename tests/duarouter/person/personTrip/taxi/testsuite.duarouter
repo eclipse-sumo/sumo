@@ -1,0 +1,14 @@
+# use mode taxi
+basic
+
+# walk and then use taxi (all persons walks because taxi option is not set)
+walk_first
+
+# walk and then use taxi (taxi transfer enabled with option)
+walk_first_transferTaxi
+
+# use taxi and then walk (all persons walks because taxi option is not set)
+walk_last
+
+# use taxi and then walk (taxi transfer enabled with option)
+walk_last_transferTaxi

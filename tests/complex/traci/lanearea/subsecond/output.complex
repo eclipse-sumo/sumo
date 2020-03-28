@@ -1,0 +1,230 @@
+Loading configuration ... done.
+ Retrying in 1 seconds
+step 0.5
+step 1.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+step 1.5
+step 2.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+step 2.5
+step 3.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+step 3.5
+step 4.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 11.2135635952
+     vehIDs ('veh0',)
+     occupancy 20.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 10.2534543709
+     vehIDs ('veh1',)
+     occupancy 1.25
+laneareas ('det0', 'det1')
+lanearea count 2
+subscriptionResults:  {16: 1}
+subscriptionResults:  {16: 1}
+step 4.5
+subscriptionResults:  {16: 1}
+subscriptionResults:  {16: 1}
+step 5.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 11.4660982608
+     vehIDs ('veh0',)
+     occupancy 20.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 10.2133653531
+     vehIDs ('veh1',)
+     occupancy 1.25
+subscriptionResults:  {16: 1}
+subscriptionResults:  {16: 1}
+step 5.5
+subscriptionResults:  {16: 1}
+subscriptionResults:  {16: 1}
+step 6.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 0
+     haltNum 0
+     meanSpeed 11.6908957189
+     vehIDs ()
+     occupancy 0.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 9.95338603251
+     vehIDs ('veh1',)
+     occupancy 1.25
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}
+step 6.5
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}
+step 7.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 9.81377619395
+     vehIDs ('veh1',)
+     occupancy 1.25
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}
+step 7.5
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}
+step 8.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 10.3491704225
+     vehIDs ('veh1',)
+     occupancy 1.25
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}
+step 8.5
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}
+step 9.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 9.86836170696
+     vehIDs ('veh1',)
+     occupancy 1.25
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}
+step 9.5
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}
+step 10.0
+  examining det0
+     pos 100.0
+     length 25.0
+     lane 2fi_0
+     vehNum 0
+     haltNum 0
+     meanSpeed -1.0
+     vehIDs ()
+     occupancy 0.0
+  examining det1
+     pos 148.5
+     length 400.0
+     lane 2o_0
+     vehNum 1
+     haltNum 0
+     meanSpeed 10.03617893
+     vehIDs ('veh1',)
+     occupancy 1.25
+subscriptionResults:  {16: 0}
+subscriptionResults:  {16: 1}

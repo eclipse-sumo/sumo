@@ -30,3 +30,12 @@ multimodal_actuated_tram
 
 # guess tls for one-way nodes
 oneway
+
+# create tls program with signal groups
+group-signals
+
+# create tls program with signal groups
+group-signals2
+
+# set distinct tls index for every connection
+ungroup-signals

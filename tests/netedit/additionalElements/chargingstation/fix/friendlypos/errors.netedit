@@ -7,12 +7,12 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding chargingStation 'chargingStationA' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding chargingStation 'chargingStationB' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStationC' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStationD' in GNEChange_Additional
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -21,8 +21,8 @@ Debug: Setting new attribute selected 'true' into chargingStation 'chargingStati
 Debug: Setting new attribute selected 'true' into chargingStation 'chargingStationB'
 Debug: Setting new attribute selected 'true' into chargingStation 'chargingStationC'
 Debug: Setting new attribute selected 'true' into chargingStation 'chargingStationD'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 1, Additionals: 1, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 1, Additionals: 1, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 1, Additionals: 1, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Setting new attribute friendlyPos 'false' into chargingStation 'chargingStationA'
 Debug: Setting new attribute friendlyPos 'false' into chargingStation 'chargingStationB'
 Debug: Setting new attribute friendlyPos 'false' into chargingStation 'chargingStationC'
@@ -53,20 +53,20 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced chargingStation 'chargingStationD'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced chargingStation 'chargingStationC'
 Debug: Deleting unreferenced chargingStation 'chargingStationB'
 Debug: Deleting unreferenced chargingStation 'chargingStationA'
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

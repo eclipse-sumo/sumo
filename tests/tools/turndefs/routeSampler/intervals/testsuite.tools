@@ -1,0 +1,19 @@
+# test output style options
+# 
+output-styles
+
+# handle count input with multiple data intervals
+2_intervals
+
+# handle count input with multiple data intervals
+custom_begin_end
+
+# aggregate counts from multiple data intervals
+custom_interval_combine
+
+# split counts into multiple intervals
+custom_interval_split
+
+# handle count input with multiple data intervals
+mismatch-output
+optimize_verbose

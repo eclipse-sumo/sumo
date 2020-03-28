@@ -96,6 +96,9 @@ vehicle.
 
 ## Filtering / Restricting Output
 
+!!! caution
+    The generated output files can become quite large. To write [gzipped](https://en.wikipedia.org/wiki/Gzip) output files, simply name the output file with an `.gz` extension.
+
 ### Restricting the set of vehicles that generate output
 Output can be restricted to specific vehicle types or vehicle ids by [controlling the set of vehicles that are equipped](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)   with the **fcd**-device. The following example restricts output to a
   single vehicle called *ego*:
@@ -117,10 +120,13 @@ When not all vehicles are equipped with an **fcd**-device, other ehicles and per
 
 ## Further Options
 
-- using the option **--fcd-output.geo** will toggle output coordinates to WGS84 (for
+- **--fcd-output.geo** will toggle output coordinates to WGS84 (for
   geo-referenced networks)
-- using the option **--fcd-output.signals** will add [signal state
+- **--fcd-output.signals** will add [signal state
   information](../../TraCI/Vehicle_Signalling.md) to the output
+- **--fcd-output.distance** will add [kilometrage](../Railways.md#kilometrage-mileage-chainage) information to the output
+- **--fcd-output.acceleration** will add acceleration data to the output (also lateral acceleration when using the [sublane model](../SublaneModel.md)
+- **--fcd-output.params KEY1,KEY2,...** adds generic parameters](Simulation/GenericParameters.md) to the output
 
 ## NOTES
 

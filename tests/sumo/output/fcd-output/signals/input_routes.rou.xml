@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <trip id="0" depart="0" from="WC" to="CE">
+        <stop lane="WC_0" endPos="50" duration="10"/>
+    </trip>
+    <trip id="1" depart="5" from="WC" to="CE">
+        <stop lane="WC_1" endPos="70" duration="10"/>
+    </trip>
+    <trip id="2" depart="7" from="WC" to="CE">
+        <stop lane="WC_0" endPos="40" duration="10" parking="true"/>
+    </trip>
+</routes>

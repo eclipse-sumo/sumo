@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLCM_SL2015.h
 /// @author  Jakob Erdmann
@@ -14,13 +18,7 @@
 ///
 // A lane change model for heterogeneous traffic (based on sub-lanes)
 /****************************************************************************/
-#ifndef MSLCM_SL2015_h
-#define MSLCM_SL2015_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "MSAbstractLaneChangeModel.h"
@@ -246,7 +244,7 @@ protected:
     static CLeaderDist getSlowest(const MSLeaderDistanceInfo& ldi);
 
     /// @brief restrict latDist to permissible speed and determine blocking state depending on that distance
-    int checkBlocking(const MSLane& neighLane, double& latDist, double& maneuverDist, int laneOffset,
+    int checkBlocking(const MSLane& neighLane, double& latDist, double maneuverDist, int laneOffset,
                       const MSLeaderDistanceInfo& leaders,
                       const MSLeaderDistanceInfo& followers,
                       const MSLeaderDistanceInfo& blockers,
@@ -412,6 +410,12 @@ protected:
     double mySpeedGainRight;
     // @brief lane discipline factor
     double myLaneDiscipline;
+    // @brief lookahead for speedGain in seconds
+    double mySpeedGainLookahead;
+    // @brief bounus factor staying on the inside of multi-lane roundabout
+    double myRoundaboutBonus;
+    // @brief factor for cooperative speed adjustment
+    double myCooperativeSpeed;
     //@}
 
     /// @name derived parameters
@@ -428,9 +432,3 @@ protected:
     //@}
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

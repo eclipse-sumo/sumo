@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIMEVehicle.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/globjects/GLIncludes.h>
@@ -60,8 +59,7 @@ GUIMEVehicle::~GUIMEVehicle() { }
 GUIParameterTableWindow*
 GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 21 + (int)getParameter().getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("edge [id]", true, new FunctionBindingString<GUIMEVehicle>(this, &GUIMEVehicle::getEdgeID));
     ret->mkItem("segment [#]", true,  new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getSegmentIndex));
@@ -106,7 +104,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getFuelConsumption));
     //ret->mkItem("noise (Harmonoise) [dB]", true,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getHarmonoise_NoiseEmissions));
-    ret->mkItem("devices", false, toString(myDevices));
+    ret->mkItem("devices", false, getDeviceDescription());
     //ret->mkItem("persons", true,
     //            new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getPersonNumber));
     //ret->mkItem("containers", true,
@@ -126,8 +124,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIMEVehicle::getTypeParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 9 + (int)myType->getParameter().getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myType->getID());
@@ -257,5 +254,6 @@ void
 GUIMEVehicle::selectBlockingFoes() const {
     // @todo possibly we could compute something reasonable here
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

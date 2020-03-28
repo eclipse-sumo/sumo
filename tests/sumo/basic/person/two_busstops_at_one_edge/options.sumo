@@ -1,1 +1,2 @@
 --no-step-log --no-duration-log --net-file=three_split.net.xml -r=input_routes.rou.xml --tripinfo-output=tripinfos.xml --fcd-output fcd.xml  -e 150
+-a input_additional.add.xml

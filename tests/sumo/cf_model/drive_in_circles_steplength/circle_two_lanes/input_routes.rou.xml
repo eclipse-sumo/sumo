@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!-- custom type is defined in input_additional2.add.xml for each test case -->
+    <vType id="fast" sigma="0.5" speedFactor="normc(1,0.2,0.5,2)" />
+    <vType id="slow" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" guiShape="passenger/van"/>
+    <flow id="slowflow" type="slow" begin="0" end="60" period="2" departPos="last">
+        <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1"/>
+    </flow>
+    <flow id="fastflow" type="fast" begin="0" end="60" period="2" departPos="last">
+        <route edges="5/1to6/1 6/1to7/1 7/1to8/1 8/1to9/1 9/1to10/1 10/1to1/1"/>
+    </flow>
+</routes>

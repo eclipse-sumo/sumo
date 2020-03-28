@@ -10,19 +10,19 @@ GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary -0.10,-
 GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary 15.80,-10.60,34.20,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Adding vehicle 'vehicle' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding embeddedRoute 'embeddedRoute_0' in GNEChange_DemandElement
 Debug: Adding stopParkingArea 'vehiclestopParkingArea1' in GNEChange_DemandElement
 Debug: Adding stopParkingArea 'vehiclestopParkingArea2' in GNEChange_DemandElement
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -45,16 +45,12 @@ Debug: Setting new attribute selected 'true' into embeddedRoute 'embeddedRoute_0
 Debug: Setting new attribute selected 'true' into vehicle 'vehicle'
 Debug: Setting new attribute selected 'true' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute selected 'true' into stopParkingArea 'vehiclestopParkingArea2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 0, Additionals: 1, DemandElements: 1, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute actType 'dummy' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute actType 'dummy' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Setting new attribute actType 'waiting' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute actType 'waiting' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Setting new attribute actType 'singing' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute actType 'singing' into stopParkingArea 'vehiclestopParkingArea2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute actType 'waiting' into stopParkingArea 'vehiclestopParkingArea2'
@@ -67,8 +63,6 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute actType '' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Setting previous attribute actType '' into stopParkingArea 'vehiclestopParkingArea1'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute actType 'dummy' into stopParkingArea 'vehiclestopParkingArea1'
@@ -82,8 +76,6 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute actType 'singing' into stopParkingArea 'vehiclestopParkingArea1'
 Debug: Setting new attribute actType 'singing' into stopParkingArea 'vehiclestopParkingArea2'
 Debug: Additionals saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
@@ -103,26 +95,26 @@ GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 1
 GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Deleting unreferenced stopParkingArea 'vehiclestopParkingArea2'
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced stopParkingArea 'vehiclestopParkingArea1'
 Debug: Deleting unreferenced embeddedRoute 'embeddedRoute_0'
 Debug: Deleting unreferenced vehicle 'vehicle'
 Debug: Deleting unreferenced parkingArea 'parkingAreaB'
 GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingAreaA'
 GLDebug: 	Removed object parkingArea:parkingAreaA from SUMORTree with boundary 15.80,-10.60,34.20,-2.20
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

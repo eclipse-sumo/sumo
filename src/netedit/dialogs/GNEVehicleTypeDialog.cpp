@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEVehicleTypeDialog.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,16 +17,12 @@
 ///
 // Dialog for edit vehicleTypes
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/demandelements/GNEVehicleType.h>
+#include <netedit/elements/demand/GNEVehicleType.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -158,90 +158,90 @@ void
 GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVClassLabelImage() {
     // by default vclass is passenger
     if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS).empty()) {
-        myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_PASSENGER));
+        myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_PASSENGER));
     } else {
         // set Icon in label depending of current VClass
         switch (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getVClass()) {
             case SVC_PRIVATE:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_PRIVATE));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_PRIVATE));
                 break;
             case SVC_EMERGENCY:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_EMERGENCY));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_EMERGENCY));
                 break;
             case SVC_AUTHORITY:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_AUTHORITY));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_AUTHORITY));
                 break;
             case SVC_ARMY:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_ARMY));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_ARMY));
                 break;
             case SVC_VIP:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_VIP));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_VIP));
                 break;
             case SVC_PASSENGER:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_PASSENGER));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_PASSENGER));
                 break;
             case SVC_HOV:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_HOV));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_HOV));
                 break;
             case SVC_TAXI:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_TAXI));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_TAXI));
                 break;
             case SVC_BUS:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_BUS));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_BUS));
                 break;
             case SVC_COACH:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_COACH));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_COACH));
                 break;
             case SVC_DELIVERY:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_DELIVERY));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_DELIVERY));
                 break;
             case SVC_TRUCK:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_TRUCK));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_TRUCK));
                 break;
             case SVC_TRAILER:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_TRAILER));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_TRAILER));
                 break;
             case SVC_TRAM:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_TRAM));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_TRAM));
                 break;
             case SVC_RAIL_URBAN:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_RAIL_URBAN));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_URBAN));
                 break;
             case SVC_RAIL:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_RAIL));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL));
                 break;
             case SVC_RAIL_ELECTRIC:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_RAIL_ELECTRIC));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_ELECTRIC));
                 break;
             case SVC_RAIL_FAST:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_RAIL_ELECTRIC));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_RAIL_ELECTRIC));
                 break;
             case SVC_MOTORCYCLE:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_MOTORCYCLE));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_MOTORCYCLE));
                 break;
             case SVC_MOPED:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_MOPED));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_MOPED));
                 break;
             case SVC_BICYCLE:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_BICYCLE));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_BICYCLE));
                 break;
             case SVC_PEDESTRIAN:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_PEDESTRIAN));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_PEDESTRIAN));
                 break;
             case SVC_E_VEHICLE:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_EVEHICLE));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_EVEHICLE));
                 break;
             case SVC_SHIP:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_SHIP));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_SHIP));
                 break;
             case SVC_CUSTOM1:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_CUSTOM1));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_CUSTOM1));
                 break;
             case SVC_CUSTOM2:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_CUSTOM2));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_CUSTOM2));
                 break;
             default:
-                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_IGNORING));
+                myComboBoxVClassLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_IGNORING));
                 break;
         }
     }
@@ -302,89 +302,89 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVShapeLabelImage() {
     // set Icon in label depending of current VClass
     switch (getVehicleShapeID(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_GUISHAPE))) {
         case SVS_UNKNOWN:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_UNKNOWN));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_UNKNOWN));
             break;
         case SVS_PEDESTRIAN:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PEDESTRIAN));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PEDESTRIAN));
             break;
         case SVS_BICYCLE:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BICYCLE));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BICYCLE));
             break;
         case SVS_MOPED:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_MOPED));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_MOPED));
             break;
         case SVS_MOTORCYCLE:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_MOTORCYCLE));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_MOTORCYCLE));
             break;
         case SVS_PASSENGER:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER));
             break;
         case SVS_PASSENGER_SEDAN:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER_SEDAN));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER_SEDAN));
             break;
         case SVS_PASSENGER_HATCHBACK:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER_HATCHBACK));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER_HATCHBACK));
             break;
         case SVS_PASSENGER_WAGON:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER_WAGON));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER_WAGON));
             break;
         case SVS_PASSENGER_VAN:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_PASSENGER_VAN));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_PASSENGER_VAN));
             break;
         case SVS_DELIVERY:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_DELIVERY));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_DELIVERY));
             break;
         case SVS_TRUCK:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_TRUCK));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_TRUCK));
             break;
         case SVS_TRUCK_SEMITRAILER:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_TRUCK_SEMITRAILER));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_TRUCK_SEMITRAILER));
             break;
         case SVS_TRUCK_1TRAILER:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_TRUCK_1TRAILER));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_TRUCK_1TRAILER));
             break;
         case SVS_BUS:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BUS));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BUS));
             break;
         case SVS_BUS_COACH:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BUS_COACH));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BUS_COACH));
             break;
         case SVS_BUS_FLEXIBLE:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BUS_FLEXIBLE));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BUS_FLEXIBLE));
             break;
         case SVS_BUS_TROLLEY:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_BUS_TROLLEY));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_BUS_TROLLEY));
             break;
         case SVS_RAIL:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RAIL));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RAIL));
             break;
         case SVS_RAIL_CAR:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RAIL_CAR));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RAIL_CAR));
             break;
         case SVS_RAIL_CARGO:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RAIL_CARGO));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RAIL_CARGO));
             break;
         case SVS_E_VEHICLE:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_E_VEHICLE));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_E_VEHICLE));
             break;
         case SVS_ANT:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_ANT));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_ANT));
             break;
         case SVS_SHIP:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_SHIP));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_SHIP));
             break;
         case SVS_EMERGENCY:
         case SVS_FIREBRIGADE:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_EMERGENCY));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_EMERGENCY));
             break;
         case SVS_POLICE:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_POLICE));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_POLICE));
             break;
         case SVS_RICKSHAW:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VSHAPE_RICKSHAW));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VSHAPE_RICKSHAW));
             break;
         default:
-            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(ICON_VCLASS_IGNORING));
+            myComboBoxShapeLabelImage->setIcon(GUIIconSubSys::getIcon(GUIIcon::VCLASS_IGNORING));
             break;
     }
 }
@@ -601,7 +601,7 @@ void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openImageFileDialog() {
     // get the new image file
     FXFileDialog opendialog(this, "Open Image");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_VTYPE));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("All files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -628,7 +628,7 @@ void
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openOSGFileDialog() {
     // get the new file name
     FXFileDialog opendialog(this, "Open OSG File");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_VTYPE));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::VTYPE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("OSG file (*.obj)");
     if (gCurrentFolder.length() != 0) {
@@ -1589,5 +1589,6 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::updateV
         myTextField->setTextColor(FXRGB(195, 195, 195));
     }
 }
+
 
 /****************************************************************************/

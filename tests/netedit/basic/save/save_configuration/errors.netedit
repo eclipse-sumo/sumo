@@ -1,7 +1,7 @@
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from1_1to5_1' in retrieveGNEConnection()
 Debug: Created connection 'from2_1to6_1' in retrieveGNEConnection()
@@ -29,23 +29,23 @@ Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced edge '1' in GNENet destructor
+Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from1_1to5_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '2' in GNENet destructor
+Debug: Deleting unreferenced edge '2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '2_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from2_1to6_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '3' in GNENet destructor
+Debug: Deleting unreferenced edge '3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '3_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from3_1to7_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '4' in GNENet destructor
+Debug: Deleting unreferenced edge '4' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '4_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '4_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from4_1to8_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '5' in GNENet destructor
+Debug: Deleting unreferenced edge '5' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '5_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '5_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from5_0to4_0' in GNEEdge destructor
@@ -53,7 +53,7 @@ Debug: Deleting unreferenced connection 'from5_0to2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from5_1to2_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from5_1to3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from5_1to1_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '6' in GNENet destructor
+Debug: Deleting unreferenced edge '6' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '6_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '6_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from6_0to3_0' in GNEEdge destructor
@@ -61,7 +61,7 @@ Debug: Deleting unreferenced connection 'from6_0to1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from6_1to1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from6_1to4_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from6_1to2_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '7' in GNENet destructor
+Debug: Deleting unreferenced edge '7' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '7_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '7_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_0to1_0' in GNEEdge destructor
@@ -69,7 +69,7 @@ Debug: Deleting unreferenced connection 'from7_0to4_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_1to4_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_1to2_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_1to3_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge '8' in GNENet destructor
+Debug: Deleting unreferenced edge '8' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '8_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '8_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from8_0to2_0' in GNEEdge destructor
@@ -77,14 +77,14 @@ Debug: Deleting unreferenced connection 'from8_0to3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from8_1to3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from8_1to1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from8_1to4_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'A' in GNENet destructor
-Debug: Deleting unreferenced junction 'B' in GNENet destructor
-Debug: Deleting unreferenced junction 'C' in GNENet destructor
-Debug: Deleting unreferenced junction 'Center' in GNENet destructor
+Debug: Deleting unreferenced junction 'A' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'D' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'D' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

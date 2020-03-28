@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    version.py
 # @author  Michael Behrisch
@@ -32,8 +36,11 @@ sys.path.append(dirname(dirname(abspath(__file__))))
 import sumolib  # noqa
 
 
-GITFILE = "index"
-verbose = False  # set to true if you want some more debug statements
+SUMO_ROOT = abspath(join(dirname(__file__), '..', '..'))
+
+
+def get_version(padZero=True):
+    return sumolib.version.gitDescribe(gitDir=join(SUMO_ROOT, ".git"), padZero=padZero)
 
 
 def create_version_file(versionFile, revision, vcsFile):
@@ -43,28 +50,22 @@ def create_version_file(versionFile, revision, vcsFile):
 
 
 def main():
-    sumoRoot = abspath(join(dirname(__file__), '..', '..'))
-    gitDir = join(sumoRoot, ".git")
     # determine output file
     if len(sys.argv) > 1:
         versionDir = sys.argv[1]
         if sys.argv[1] == "-":
-            sys.stdout.write(sumolib.version.gitDescribe())
+            sys.stdout.write(get_version())
             return
     else:
-        versionDir = join(sumoRoot, "src")
+        versionDir = join(SUMO_ROOT, "src")
     versionFile = join(versionDir, 'version.h')
 
-    if verbose:
-      print('pwd      = %s'    % os.getcwd())
-      print('sumoRoot = %s'    % sumoRoot)
-    vcsFile = join(gitDir, GITFILE)
+    vcsFile = join(SUMO_ROOT, ".git", "index")
     if exists(vcsFile):
         if not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
             # vcsFile is newer. lets update the revision number
             try:
-                revision = sumolib.version.gitDescribe(gitDir=gitDir)
-                create_version_file(versionFile, revision, vcsFile)
+                create_version_file(versionFile, get_version(), vcsFile)
             except Exception as e:
                 print("Error creating", versionFile, e)
     else:

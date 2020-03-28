@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-02-25 15:27:29.522528 by matsim_importPlans.py v1_5_0+0249-678b429
+  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <trip id="10040_1_0" depart="triggered" from="576273431" to="52799758"/>
+   <person id="10040_1" depart="0:0:0">
+       <stop lane="576273431_0" until="02:47:20" actType="h" />
+       <ride lines="10040_1_0" to="52799758"  />
+       <stop lane="52799758_0" until="24:0:0" actType="h" />
+   </person>
+   <trip id="10280_1_0" depart="triggered" from="576273431" to="52799758"/>
+   <person id="10280_1" depart="0:0:0">
+       <stop lane="576273431_0" until="02:51:20" actType="h" />
+       <ride lines="10280_1_0" to="52799758"  />
+       <stop lane="52799758_0" until="24:0:0" actType="h" />
+   </person>
+   <trip id="10280_2_0" depart="triggered" from="576273431" to="52799758"/>
+   <person id="10280_2" depart="0:0:0">
+       <stop lane="576273431_0" until="02:51:20" actType="h" />
+       <ride lines="10280_2_0" to="52799758"  />
+       <stop lane="52799758_0" until="24:0:0" actType="h" />
+   </person>
+</routes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Subscription.h
 /// @author  Michael Behrisch
@@ -13,15 +17,10 @@
 ///
 // Subscription representation for libsumo and TraCI
 /****************************************************************************/
-#ifndef Subscription_h
-#define Subscription_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -53,13 +52,13 @@ enum SubscriptionFilterType {
     // Only return vehicles within field of vision in context subscription result
     // NOTE: relies on rTree, therefore incompatible with SUBS_FILTER_NO_RTREE
     SUBS_FILTER_FIELD_OF_VISION = 1 << 9,
+    // Only return vehicles within the given lateral distance in context subscription result
+    SUBS_FILTER_LATERAL_DIST = 1 << 10,
     // Filter category for measuring distances along the road network instead of using the usual rtree query
-    SUBS_FILTER_NO_RTREE = SUBS_FILTER_DOWNSTREAM_DIST | SUBS_FILTER_UPSTREAM_DIST | SUBS_FILTER_LANES | SUBS_FILTER_TURN | SUBS_FILTER_LEAD_FOLLOW,
+    SUBS_FILTER_NO_RTREE = SUBS_FILTER_LANES | SUBS_FILTER_DOWNSTREAM_DIST | SUBS_FILTER_UPSTREAM_DIST | SUBS_FILTER_LEAD_FOLLOW | SUBS_FILTER_TURN | SUBS_FILTER_LATERAL_DIST,
     // Filter category for maneuver filters
-    SUBS_FILTER_MANEUVER = SUBS_FILTER_TURN | SUBS_FILTER_LEAD_FOLLOW,
+    SUBS_FILTER_MANEUVER = SUBS_FILTER_LEAD_FOLLOW | SUBS_FILTER_TURN,
 };
-
-
 
 /** @class Subscription
  * @brief Representation of a subscription
@@ -94,7 +93,16 @@ public:
           filterUpstreamDist(-1),
           filterVTypes(),
           filterVClasses(0),
-          filterFieldOfVisionOpeningAngle(-1) {}
+          filterFieldOfVisionOpeningAngle(-1),
+          filterLateralDist(-1) {}
+
+    bool isVehicleToVehicleContextSubscription() const {
+        return commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT && contextDomain == CMD_GET_VEHICLE_VARIABLE;
+    }
+
+    bool isVehicleToPersonContextSubscription() const {
+        return commandId == CMD_SUBSCRIBE_VEHICLE_CONTEXT && contextDomain == CMD_GET_PERSON_VARIABLE;
+    }
 
     /// @brief commandIdArg The command id of the subscription
     int commandId;
@@ -127,6 +135,8 @@ public:
     int filterVClasses;
     /// @brief Opening angle (in deg) specified by the field of vision filter
     double filterFieldOfVisionOpeningAngle;
+    /// @brief Lateral distance specified by the lateral distance filter
+    double filterLateralDist;
 };
 
 class VariableWrapper {
@@ -136,6 +146,10 @@ public:
     VariableWrapper(SubscriptionHandler handler = nullptr) : handle(handler) {}
     SubscriptionHandler handle;
     virtual void setContext(const std::string& /* refID */) {}
+    virtual void setParams(const std::vector<unsigned char>* /* params */) {}
+    virtual const std::vector<unsigned char>* getParams() const {
+        return nullptr;
+    }
     virtual void clear() {}
     virtual bool wrapDouble(const std::string& objID, const int variable, const double value) = 0;
     virtual bool wrapInt(const std::string& objID, const int variable, const int value) = 0;
@@ -148,4 +162,3 @@ public:
 }
 
 
-#endif

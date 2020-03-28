@@ -3,21 +3,22 @@ Success.
 Loading configuration ... done.
 Reading up to time step: 0.00Reading up to time step: 200.00Success.
 Loading configuration ... done.
-Loading net-file from 'data/net.net.xml' ... done (206ms).
+Loading net-file from 'data/net.net.xml' ... done (126ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation version v1_4_0+0445-9b28cc45c1 started with time: 0.00
 Simulation ended at time: 1000.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 2037ms
- Real time factor: 490.918
- UPS: 49086.892489
+ Duration: 987ms
+ Real time factor: 1013.17
+ UPS: 101306.990881
 Vehicles: 
  Inserted: 100
  Running: 100
  Waiting: 0
 Statistics (avg):
  RouteLength: 0.00
+ Speed: 0.00
  Duration: 0.00
  WaitingTime: 0.00
  TimeLoss: 0.00

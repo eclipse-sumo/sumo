@@ -12,3 +12,6 @@ small
 
 # mix of passenger cars and trucks
 mixed
+
+# disable cooperative lanechanging within the roundabout
+no_cooperation

@@ -2,17 +2,13 @@ GLDebug: initJunctionsAndEdges function called in GNENet constructor
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Enabled auto opposite edge throught alt + 4
 Debug: Enabled chain edges throught alt + 3
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ0' into net
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,55.00,12.00,79.00
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Adding junction 'gneJ1' into net
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 7.00,55.00,31.00,79.00
 Debug: Adding edge 'gneE0' from net
@@ -29,8 +25,6 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE0'
 Debug: invalidating (removing) connections of edge '-gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ2' into net
 GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary 7.00,36.00,31.00,60.00
 Debug: Adding edge 'gneE1' from net
@@ -51,8 +45,6 @@ Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE1'
 Debug: invalidating (removing) connections of edge '-gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding junction 'gneJ3' into net
 GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary -12.00,36.00,12.00,60.00
 Debug: Adding edge 'gneE2' from net
@@ -73,8 +65,6 @@ Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE2'
 Debug: invalidating (removing) connections of edge '-gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Adding edge 'gneE3' from net
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary -10.00,38.00,11.60,77.00
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
@@ -135,8 +125,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
@@ -233,8 +221,6 @@ Debug: Removing junction 'gneJ1' from net
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 5.80,53.80,32.20,80.20
 Debug: Removing junction 'gneJ0' from net
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,53.80,13.20,80.20
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding junction 'gneJ0' into net
@@ -359,36 +345,36 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced edge '-gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE0_0to-gneE3_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE1_0to-gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE2' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE2_0to-gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge '-gneE3' in GNENet destructor
+Debug: Deleting unreferenced edge '-gneE3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE3_0to-gneE2_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE2_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE3_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 12

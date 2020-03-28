@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUINet.cpp
 /// @author  Daniel Krajzewicz
@@ -16,9 +20,6 @@
 ///
 // A MSNet extended by some values for usage within the gui
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utility>
@@ -51,6 +52,7 @@
 #include <guisim/GUITransportableControl.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>
+#include <guisim/GUICalibrator.h>
 #include <guisim/GUITrafficLightLogicWrapper.h>
 #include <guisim/GUIJunctionWrapper.h>
 #include <guisim/GUIVehicleControl.h>
@@ -103,6 +105,10 @@ GUINet::~GUINet() {
     for (std::vector<GUIDetectorWrapper*>::iterator i = myDetectorWrapper.begin(); i != myDetectorWrapper.end(); ++i) {
         delete *i;
     }
+    //  of calibrators
+    for (GUICalibrator* cw : myCalibratorWrapper) {
+        delete cw;
+    }
     for (auto& item : myLoadedEdgeData) {
         delete item.second;
     }
@@ -118,7 +124,7 @@ GUINet::getBoundary() const {
 MSTransportableControl&
 GUINet::getPersonControl() {
     if (myPersonControl == nullptr) {
-        myPersonControl = new GUITransportableControl();
+        myPersonControl = new GUITransportableControl(true);
     }
     return *myPersonControl;
 }
@@ -127,7 +133,7 @@ GUINet::getPersonControl() {
 MSTransportableControl&
 GUINet::getContainerControl() {
     if (myContainerControl == nullptr) {
-        myContainerControl = new GUITransportableControl();
+        myContainerControl = new GUITransportableControl(false);
     }
     return *myContainerControl;
 }
@@ -265,6 +271,12 @@ GUINet::initGUIStructures() {
                 myGrid.addAdditionalGLObject(wrapper);
             }
         }
+    }
+    // initialise calibrators
+    for (auto& item : MSCalibrator::getInstances()) {
+        GUICalibrator* wrapper = new GUICalibrator(item.second);
+        myCalibratorWrapper.push_back(wrapper);
+        myGrid.addAdditionalGLObject(wrapper);
     }
     // initialise the tl-map
     initTLMap();
@@ -421,8 +433,7 @@ GUINet::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUINet::getParameterWindow(GUIMainWindow& app,
                            GUISUMOAbstractView& parent) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 36);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("loaded vehicles [#]", true,
                 new FunctionBinding<MSVehicleControl, int>(&getVehicleControl(), &MSVehicleControl::getLoadedVehicleNo));
@@ -553,10 +564,10 @@ GUINet::getEdgeData(const MSEdge* edge, const std::string& attr) {
         if (found) {
             return value;
         } else {
-            return -1;
+            return GUIVisualizationSettings::MISSING_DATA;
         }
     } else {
-        return -2;
+        return GUIVisualizationSettings::MISSING_DATA;
     }
 }
 
@@ -566,6 +577,12 @@ GUINet::DiscoverAttributes::myStartElement(int element, const SUMOSAXAttributes&
     if (element == SUMO_TAG_EDGE || element == SUMO_TAG_LANE) {
         std::vector<std::string> tmp = attrs.getAttributeNames();
         edgeAttrs.insert(tmp.begin(), tmp.end());
+    } else if (element == SUMO_TAG_EDGEREL) {
+        for (const std::string& a : attrs.getAttributeNames()) {
+            if (a != "from" && a != "to") {
+                edgeAttrs.insert(a);
+            }
+        }
     } else if (element == SUMO_TAG_INTERVAL) {
         bool ok;
         lastIntervalEnd = MAX2(lastIntervalEnd, attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok));
@@ -589,6 +606,27 @@ GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeWeight(const std::string& id,
     }
 }
 
+void
+GUINet::EdgeFloatTimeLineRetriever_GUI::addEdgeRelWeight(const std::string& from, const std::string& to,
+        double val, double beg, double end) const {
+    MSEdge* fromEdge = MSEdge::dictionary(from);
+    MSEdge* toEdge = MSEdge::dictionary(to);
+    if (fromEdge != nullptr && toEdge != nullptr) {
+        for (auto item : fromEdge->getViaSuccessors()) {
+            if (item.first == toEdge) {
+                const MSEdge* edge = item.second;
+                while (edge != nullptr && edge->isInternal()) {
+                    myWeightStorage->addEffort(edge, beg, end, val);
+                    edge = edge->getViaSuccessors().front().second;
+                }
+            }
+        }
+    } else if (fromEdge == nullptr) {
+        WRITE_ERROR("Trying to set the effort for the unknown edge '" + from + "'.");
+    } else {
+        WRITE_ERROR("Trying to set the effort for the unknown edge '" + to + "'.");
+    }
+}
 
 bool
 GUINet::loadEdgeData(const std::string& file) {
@@ -647,5 +685,5 @@ GUINet::updateColor(const GUIVisualizationSettings& s) {
 }
 #endif
 
-/****************************************************************************/
 
+/****************************************************************************/

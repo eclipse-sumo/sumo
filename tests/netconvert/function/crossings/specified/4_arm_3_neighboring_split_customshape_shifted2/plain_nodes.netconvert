@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jan 17 12:02:49 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:07 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,12 +31,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<nodes version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+<nodes version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
     <location netOffset="300.00,140.00" convBoundary="200.00,40.00,400.00,240.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <node id="C" x="300.00" y="140.00" type="traffic_light" tl="C" shape="284.16,165.68 318.80,158.59 318.80,157.77 319.55,157.16 319.95,124.22 318.90,123.61 318.54,122.85 318.29,121.78 318.14,120.41 318.11,118.73 307.33,118.68 301.13,121.55 294.73,118.87 284.06,118.86 283.33,120.06 282.40,120.81 281.11,121.67 279.45,122.62 277.41,123.68 282.28,133.43 282.75,144.99 278.69,155.10 280.77,156.87 281.71,158.41 282.59,160.39 283.41,162.82 284.16,165.68"/>

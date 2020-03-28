@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OutputDevice.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // Static storage of an output device and its base (abstract) implementation
 /****************************************************************************/
-#ifndef OutputDevice_h
-#define OutputDevice_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -30,7 +28,6 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "PlainXMLFormatter.h"
-#include "BinaryFormatter.h"
 
 
 // ===========================================================================
@@ -136,7 +133,7 @@ public:
     /// @{
 
     /// @brief Constructor
-    OutputDevice(const bool binary = false, const int defaultIndentation = 0, const std::string& filename = "");
+    OutputDevice(const int defaultIndentation = 0, const std::string& filename = "");
 
 
     /// @brief Destructor
@@ -185,9 +182,6 @@ public:
 
     template <typename E>
     bool writeHeader(const SumoXMLTag& rootElement) {
-        if (myAmBinary) {
-            return static_cast<BinaryFormatter*>(myFormatter)->writeHeader<E>(getOStream(), rootElement);
-        }
         return static_cast<PlainXMLFormatter*>(myFormatter)->writeHeader(getOStream(), rootElement);
     }
 
@@ -231,17 +225,7 @@ public:
     /** @brief writes a line feed if applicable
      */
     void lf() {
-        if (!myAmBinary) {
-            getOStream() << "\n";
-        }
-    }
-
-
-    /** @brief Returns whether we have a binary output
-     * @return whether we have a binary output
-     */
-    bool isBinary() const {
-        return myAmBinary;
+        getOStream() << "\n";
     }
 
 
@@ -253,11 +237,7 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const SumoXMLAttr attr, const T& val) {
-        if (myAmBinary) {
-            BinaryFormatter::writeAttr(getOStream(), attr, val);
-        } else {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
-        }
+        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         return *this;
     }
 
@@ -270,11 +250,7 @@ public:
      */
     template <typename T>
     OutputDevice& writeAttr(const std::string& attr, const T& val) {
-        if (myAmBinary) {
-            BinaryFormatter::writeAttr(getOStream(), attr, val);
-        } else {
-            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
-        }
+        PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         return *this;
     }
 
@@ -353,8 +329,6 @@ private:
     /// @brief The formatter for XML
     OutputFormatter* myFormatter;
 
-    const bool myAmBinary;
-
 protected:
     std::string myFilename;
 
@@ -368,9 +342,3 @@ private:
     OutputDevice& operator=(const OutputDevice&);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

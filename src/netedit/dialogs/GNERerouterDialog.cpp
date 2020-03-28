@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNERerouterDialog.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,16 +17,12 @@
 ///
 // Dialog for edit rerouters
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/additionals/GNERerouter.h>
+#include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
@@ -55,10 +55,10 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
-    myAddInterval = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
+    myAddInterval = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), nullptr, GUIDesignLabelThick);
     // create Button and Label for sort intervals
-    mySortIntervals = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
+    mySortIntervals = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table
@@ -196,7 +196,7 @@ GNERerouterDialog::updateIntervalTable() {
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_END).c_str());
         myIntervalTable->setItem(indexRow, 1, item);
         // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myIntervalTable->setItem(indexRow, 2, item);
@@ -204,5 +204,6 @@ GNERerouterDialog::updateIntervalTable() {
         indexRow++;
     }
 }
+
 
 /****************************************************************************/

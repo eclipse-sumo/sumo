@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MESegment.h
 /// @author  Daniel Krajzewicz
@@ -13,13 +17,7 @@
 ///
 // A single mesoscopic segment (cell)
 /****************************************************************************/
-#ifndef MESegment_h
-#define MESegment_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -33,9 +31,9 @@
 class MSEdge;
 class MSLink;
 class MSMoveReminder;
+class MSDetectorFileOutput;
 class MSVehicleControl;
 class MEVehicle;
-class BinaryInputDevice;
 class OutputDevice;
 
 
@@ -257,7 +255,7 @@ public:
      * @param[in] currentTime the current time
      * @return Whether vaporization was successful
      * @note: cars removed via this method do NOT count as arrivals */
-    bool vaporizeAnyCar(SUMOTime currentTime);
+    bool vaporizeAnyCar(SUMOTime currentTime, const MSDetectorFileOutput* filter);
 
     /** @brief Returns the edge this segment belongs to
      * @return the edge this segment belongs to
@@ -292,6 +290,9 @@ public:
     inline double getEntryBlockTimeSeconds() const {
         return STEPS2TIME(myEntryBlockTime);
     }
+
+    /// @brief Get the waiting time for vehicles in all queues
+    double getWaitingSeconds() const; 
 
     /// @name State saving/loading
     /// @{
@@ -340,6 +341,10 @@ public:
     /// @brief whether the given segment is 0 or encodes vaporization
     static inline bool isInvalid(const MESegment* segment) {
         return segment == 0 || segment == &myVaporizationTarget;
+    }
+
+    static MESegment* getVaporizationTarget() {
+        return &myVaporizationTarget;
     }
 
     /// @brief return a time after earliestEntry at which a vehicle may be inserted at full speed
@@ -517,8 +522,3 @@ private:
     /// @brief constructor for dummy segment
     MESegment(const std::string& id);
 };
-
-
-#endif
-
-/****************************************************************************/

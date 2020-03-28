@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  2 08:11:53 2019 by Eclipse SUMO netconvert Version v1_2_0+0096-85458c5
+<!-- generated on Tue Feb 18 19:59:51 2020 by Eclipse SUMO netconvert Version v1_5_0+0151-fa16b8df33
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,10 +8,14 @@
         <edge-files value="input_edges.edg.xml"/>
     </input>
 
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,990.00,700.00" origBoundary="0.00,0.00,990.00,700.00" projParameter="!"/>
 

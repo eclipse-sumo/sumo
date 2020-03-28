@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNENet.h
 /// @author  Jakob Erdmann
@@ -22,50 +26,9 @@
 //   call NBNetBuilder::buildLoaded to save results
 //
 /****************************************************************************/
-#ifndef GNENet_h
-#define GNENet_h
+#pragma once
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
-#include <fx.h>
-#include <foreign/rtree/SUMORTree.h>
-#include <netbuild/NBTrafficLightLogicCont.h>
-#include <netedit/changes/GNEChange.h>
-#include <utils/common/IDSupplier.h>
-#include <utils/common/SUMOVehicleClass.h>
-#include <utils/geom/Boundary.h>
-#include <utils/geom/PositionVector.h>
-#include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gui/globjects/GUIShapeContainer.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
-#include <utils/shapes/ShapeContainer.h>
-#include <utils/xml/SUMOXMLDefinitions.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class NBNetBuilder;
-class GNEAdditional;
-class GNEDemandElement;
-class GNEApplicationWindow;
-class GNEAttributeCarrier;
-class GNEConnection;
-class GNECrossing;
-class GNEEdge;
-class GNEJunction;
-class GNELane;
-class GNENetElement;
-class GNEPOI;
-class GNEPoly;
-class GNEShape;
-class GNEUndoList;
-class GNEViewNet;
+#include "GNENetHelper.h"
 
 // ===========================================================================
 // class definitions
@@ -74,39 +37,17 @@ class GNEViewNet;
  * @class GNENet
  * @brief A NBNetBuilder extended by visualisation and editing capabilities
  */
-class GNENet : public GUIGlObject, public ShapeContainer {
+class GNENet : public GUIGlObject {
 
     /// @brief declare friend class
-    friend class GNEAdditionalHandler;
-    friend class GNERouteHandler;
     friend class GNEChange_Junction;
     friend class GNEChange_Edge;
     friend class GNEChange_Lane;
     friend class GNEChange_Connection;
-    friend class GNEChange_Shape;
     friend class GNEChange_CalibratorItem;
-    friend class GNEChange_Additional;
-    friend class GNEChange_DemandElement;
+    friend class GNEChange_DataSet;
 
 public:
-    /// @brief struct used for saving all attribute carriers of net, in different formats
-    struct AttributeCarriers {
-        /// @brief map with the name and pointer to junctions of net
-        std::map<std::string, GNEJunction*> junctions;
-
-        /// @brief map with the name and pointer to edges of net
-        std::map<std::string, GNEEdge*> edges;
-
-        /// @brief map with the name and pointer to additional elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > additionals;
-
-        /// @brief map with the name and pointer to demand elements of net
-        std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > demandElements;
-
-        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
-        std::map<std::string, GNEDemandElement*> vehicleDepartures;
-    };
-
     /**@brief Constructor
      * @param[in] netbuilder the netbuilder which may already have been filled
      * GNENet becomes responsible for cleaning this up
@@ -115,6 +56,12 @@ public:
 
     /// @brief Destructor
     ~GNENet();
+
+    /// @brief retrieve all attribute carriers of Net
+    GNENetHelper::AttributeCarriers* getAttributeCarriers() const;
+
+    /// @brief obtain instance of PathCalculator
+    GNENetHelper::PathCalculator* getPathCalculator();
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -151,49 +98,6 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
-    /// @}
-
-    /// @name inherited from ShapeHandler
-    /// @{
-
-    /**@brief Builds a polygon using the given values and adds it to the container
-    * @param[in] id The name of the polygon
-    * @param[in] type The (abstract) type of the polygon
-    * @param[in] color The color of the polygon
-    * @param[in] layer The layer of the polygon
-    * @param[in] angle The rotation of the polygon
-    * @param[in] imgFile The raster image of the polygon
-    * @param[in] relativePath set image file as relative path
-    * @param[in] shape The shape of the polygon
-    * @param[in] geo specify if shape was loaded as GEO coordinate
-    * @param[in] fill Whether the polygon shall be filled
-    * @param[in] lineWidth The widht for drawing unfiled polygon
-    * @return whether the polygon could be added
-    */
-    bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-                    double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
-                    bool geo, bool fill, double lineWidth, bool ignorePruning = false);
-
-    /**@brief Builds a POI using the given values and adds it to the container
-    * @param[in] id The name of the POI
-    * @param[in] type The (abstract) type of the POI
-    * @param[in] color The color of the POI
-    * @param[in] pos The position of the POI
-    * @param[in[ geo use GEO coordinates (lon/lat)
-    * @param[in] lane The Lane in which this POI is placed
-    * @param[in] posOverLane The position over Lane
-    * @param[in] posLat The position lateral over Lane
-    * @param[in] layer The layer of the POI
-    * @param[in] angle The rotation of the POI
-    * @param[in] imgFile The raster image of the POI
-    * @param[in] relativePath set image file as relative path
-    * @param[in] width The width of the POI image
-    * @param[in] height The height of the POI image
-    * @return whether the poi could be added
-    */
-    bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-                const std::string& lane, double posOverLane, double posLat, double layer, double angle,
-                const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
     /// @}
 
     /// @brief returns the bounder of the network
@@ -287,6 +191,24 @@ public:
      */
     void deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoList);
 
+    /**@brief remove data set
+     * @param[in] dataSet The data set to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList);
+
+    /**@brief remove data interval
+     * @param[in] dataInterval The data interval to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteDataInterval(GNEDataInterval* dataInterval, GNEUndoList* undoList);
+
+    /**@brief remove generic data
+     * @param[in] genericData The generic data to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList);
+
     /**@brief duplicates lane
      * @param[in] lane The lane to be duplicated
      * @param[in] undoList The undolist in which to mark changes
@@ -347,9 +269,6 @@ public:
      */
     void mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList);
 
-    /// @brief retrieve all attribute carriers of Net
-    const AttributeCarriers& getAttributeCarriers() const;
-
     /**@brief get junction by id
      * @param[in] id The id of the desired junction
      * @param[in] failHard Whether attempts to retrieve a nonexisting junction should result in an exception
@@ -370,20 +289,6 @@ public:
      * @throws UnknownElement
      */
     GNEEdge* retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard = true) const;
-
-    /**@brief get Polygon by id
-    * @param[in] id The id of the desired polygon
-    * @param[in] failHard Whether attempts to retrieve a nonexisting polygon should result in an exception
-    * @throws UnknownElement
-    */
-    GNEPoly* retrievePolygon(const std::string& id, bool failHard = true) const;
-
-    /**@brief get POI by id
-    * @param[in] id The id of the desired POI
-    * @param[in] failHard Whether attempts to retrieve a nonexisting POI should result in an exception
-    * @throws UnknownElement
-    */
-    GNEPOI* retrievePOI(const std::string& id, bool failHard = true) const;
 
     /**@brief get Connection by id
     * @param[in] id The id of the desired Connection
@@ -485,12 +390,6 @@ public:
     /// @brief add GL Object into net
     void removeGLObjectFromGrid(GUIGlObject* o);
 
-    /// @brief updates the map and reserves new id
-    void renameEdge(GNEEdge* edge, const std::string& newID);
-
-    /// @brief updates the map and reserves new id
-    void renameJunction(GNEJunction* junction, const std::string& newID);
-
     /// @brief modifies endpoins of the given edge
     void changeEdgeEndpoints(GNEEdge* edge, const std::string& newSourceID, const std::string& newDestID);
 
@@ -518,13 +417,19 @@ public:
      * param[in] volatileOptions enable or disable volatile options
      * param[in] additionalPath path in wich additionals were saved before recomputing with volatile options
      * param[in] demandPath path in wich demand elements were saved before recomputing with volatile options
+     * param[in] dataPath path in wich data elements were saved before recomputing with volatile options
      */
-    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "");
+    void computeNetwork(GNEApplicationWindow* window, bool force = false, bool volatileOptions = false, std::string additionalPath = "", std::string demandPath = "", std::string dataPath = "");
 
     /**@brief compute demand elements
      * param[in] window The window to inform about delay
      */
     void computeDemandElements(GNEApplicationWindow* window);
+
+    /**@brief compute data elements
+     * param[in] window The window to inform about delay
+     */
+    void computeDataElements(GNEApplicationWindow* window);
 
     /**@brief join selected junctions
      * @note difference to mergeJunctions:
@@ -605,11 +510,6 @@ public:
      */
     int getNumberOfAdditionals(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /**@brief update additional ID in container
-    * @note this function is automatically called when user changes the ID of an additional
-    */
-    void updateAdditionalID(const std::string& oldID, GNEAdditional* additional);
-
     /// @brief inform that additionals has to be saved
     void requireSaveAdditionals(bool value);
 
@@ -647,11 +547,6 @@ public:
      */
     int getNumberOfDemandElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /**@brief update demand element ID in container
-    * @note this function is automatically called when user changes the ID of an demand element
-    */
-    void updateDemandElementID(const std::string& oldID, GNEDemandElement* demandElement);
-
     /**@brief update demand element begin in container
     * @note this function is automatically called when user changes the begin/departure of an demand element
     */
@@ -673,18 +568,80 @@ public:
 
     /// @}
 
-    /// @name Functions related to Shapes
+    /// @name Functions related to DataSet Items
     /// @{
 
+    /**@brief Returns the named data set
+     * @param[in] id The id of the data set to return.
+     * @param[in] failHard Whether attempts to retrieve a nonexisting data set should result in an exception
+     */
+    GNEDataSet* retrieveDataSet(const std::string& id, bool hardFail = true) const;
+
+    ///@brief return all data sets
+    std::vector<GNEDataSet*> retrieveDataSets() const;
+
+    /**@brief return all generic datas
+    * @param[in] onlySelected Whether to return only selected generic datas
+    */
+    std::vector<GNEGenericData*> retrieveGenericDatas(bool onlySelected = false) const;
+
+    /**@brief Returns the number of data sets of the net
+     * @return Number of data sets of the net
+     */
+    int getNumberOfDataSets() const;
+
+    /// @brief inform that data sets has to be saved
+    void requireSaveDataElements(bool value);
+
+    /**@brief save data set elements of the network
+    * @param[in] filename name of the file in wich save data sets
+    */
+    void saveDataElements(const std::string& filename);
+
+    /// @brief check if data sets are saved
+    bool isDataElementsSaved() const;
+
+    /// @brief generate data set id
+    std::string generateDataSetID(const std::string& prefix) const;
+
+    /// @brief return a set of parameters for the given data Interval
+    std::set<std::string> retrieveGenericDataParameters(const SumoXMLTag genericDataTag, const double begin, const double end) const;
+
+    /// @brief return a set of parameters for the given dataSet and data Interval
+    std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& beginStr, const std::string& endStr) const;
+    
+    /// @brief get minimum interval
+    double getDataSetIntervalMinimumBegin() const;
+
+    /// @brief get maximum interval
+    double getDataSetIntervalMaximumEnd() const;
+
+    /// @}
+
+    /// @name Functions related with Shapes
+    /// @{
+
+    /**@brief Returns the named shape
+     * @param[in] type tag with the type of shape
+     * @param[in] id The id of the shape to return.
+     * @param[in] failHard Whether attempts to retrieve a nonexisting shape should result in an exception
+     */
+    GNEShape* retrieveShape(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+    /**@brief return all shapes
+     * @param[in] onlySelected Whether to return only selected shapes
+     */
+    std::vector<GNEShape*> retrieveShapes(bool onlySelected = false) const;
+
     /**@brief Builds a special polygon used for edit Junctions's shapes
-     * @param[in] netElement GNENetElement to be edited
+     * @param[in] networkElement GNENetworkElement to be edited
      * @param[in] shape shape to be edited
      * @param[in] fill enable or disable fill polygon
      * @param[in] col The color for drawing the polygon
      * @throw processError if shape is empty
      * @return created GNEPoly
      */
-    GNEPoly* addPolygonForEditShapes(GNENetElement* netElement, const PositionVector& shape, bool fill, RGBColor col);
+    GNEPoly* addPolygonForEditShapes(GNENetworkElement* networkElement, const PositionVector& shape, bool fill, RGBColor col);
 
     /// @brief remove Polygon for edit shapes
     void removePolygonForEditShapes(GNEPoly* polygon);
@@ -692,11 +649,11 @@ public:
     /// @brief generate Shape ID
     std::string generateShapeID(SumoXMLTag shapeTag) const;
 
-    /// @brief change Shape ID
-    void changeShapeID(GNEShape* s, const std::string& OldID);
-
-    /// @brief get number of shapes
-    int getNumberOfShapes() const;
+    /**@brief Returns the number of shapes of the net
+     * @param[in] type type of shape to count. SUMO_TAG_NOTHING will count all shapes
+     * @return Number of shapes of the net
+     */
+    int getNumberOfShapes(SumoXMLTag type = SUMO_TAG_NOTHING) const;
     /// @}
 
     /// @name Functions related to TLS Programs
@@ -737,7 +694,10 @@ protected:
     NBNetBuilder* myNetBuilder;
 
     /// @brief AttributeCarriers of net
-    AttributeCarriers myAttributeCarriers;
+    GNENetHelper::AttributeCarriers *myAttributeCarriers;
+
+    /// @brief PathCalculator instance
+    GNENetHelper::PathCalculator* myPathCalculator;
 
     /// @name ID Suppliers for newly created edges and junctions
     // @{
@@ -763,42 +723,27 @@ protected:
     /// @brief Flag to check if demand elements has to be saved
     bool myDemandElementsSaved;
 
+    /// @brief Flag to check if data elements has to be saved
+    bool myDataElementsSaved;
+
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled;
 
-    /// @name Insertion and erasing of GNEAdditionals items
+    /// @name Insertion and erasing of GNEDataSets items
     /// @{
 
-    /// @brief return true if additional exist (use pointer instead ID)
-    bool additionalExist(GNEAdditional* additional) const;
+    /// @brief return true if data set exist (use pointer instead ID)
+    bool dataSetExist(GNEDataSet* dataSet) const;
 
-    /**@brief Insert a additional element int GNENet container.
+    /**@brief Insert a data set element int GNENet container.
      * @throw processError if route was already inserted
      */
-    void insertAdditional(GNEAdditional* additional);
+    void insertDataSet(GNEDataSet* dataSet);
 
-    /**@brief delete additional element of GNENet container
-     * @throw processError if additional wasn't previously inserted
+    /**@brief delete data set element of GNENet container
+     * @throw processError if data set wasn't previously inserted
      */
-    bool deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting);
-
-    /// @}
-
-    /// @name Insertion and erasing of GNEDemandElements items
-    /// @{
-
-    /// @brief return true if demand element exist (use pointer instead ID)
-    bool demandElementExist(GNEDemandElement* demandElement) const;
-
-    /**@brief Insert a demand element element int GNENet container.
-     * @throw processError if route was already inserted
-     */
-    void insertDemandElement(GNEDemandElement* demandElement);
-
-    /**@brief delete demand element element of GNENet container
-     * @throw processError if demand element wasn't previously inserted
-     */
-    bool deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting);
+    bool deleteDataSet(GNEDataSet* dataSet);
 
     /// @}
 
@@ -824,12 +769,6 @@ private:
     /// @brief deletes a single edge
     void deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting);
 
-    /// @brief insert shape
-    void insertShape(GNEShape* shape, bool updateViewAfterDeleting);
-
-    /// @brief remove created shape (but NOT delete)
-    void removeShape(GNEShape* shape, bool updateViewAfterDeleting);
-
     /// @brief notify myViewNet
     void update();
 
@@ -848,6 +787,9 @@ private:
     /// @brief save demand elements after confirming invalid objects
     void saveDemandElementsConfirmed(const std::string& filename);
 
+    /// @brief save data elements after confirming invalid objects
+    void saveDataElementsConfirmed(const std::string& filename);
+
     static void replaceInListAttribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& which, const std::string& by, GNEUndoList* undoList);
 
     /// @brief the z boundary (stored in the x-coordinate), values of 0 are ignored
@@ -859,60 +801,9 @@ private:
     /// @brief map with the Edges and their number of lanes
     std::map<std::string, int> myEdgesAndNumberOfLanes;
 
-    /// @brief flag used to indicate if shaped created can be undo
-    bool myAllowUndoShapes;
+    /// @brief Invalidated copy constructor.
+    GNENet(const GNENet&) = delete;
 
-    /// @brief class for GNEChange_ReplaceEdgeInTLS
-    class GNEChange_ReplaceEdgeInTLS : public GNEChange {
-        FXDECLARE_ABSTRACT(GNEChange_ReplaceEdgeInTLS)
-
-    public:
-        /// @brief constructor
-        GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
-            GNEChange(0, true),
-            myTllcont(tllcont), myReplaced(replaced), myBy(by) { }
-
-        /// @bief destructor
-        ~GNEChange_ReplaceEdgeInTLS() {};
-
-        /// @brief undo name
-        FXString undoName() const {
-            return "Redo replace in TLS";
-        }
-
-        /// @brief get Redo name
-        FXString redoName() const {
-            return "Undo replace in TLS";
-        }
-
-        /// @brief undo action
-        void undo() {
-            myTllcont.replaceRemoved(myBy, -1, myReplaced, -1);
-        }
-
-        /// @brief redo action
-        void redo() {
-            myTllcont.replaceRemoved(myReplaced, -1, myBy, -1);
-        }
-
-        /// @brief wether original and new value differ
-        bool trueChange() {
-            return myReplaced != myBy;
-        }
-
-    private:
-        /// @brief container for traffic light logic
-        NBTrafficLightLogicCont& myTllcont;
-
-        /// @brief replaced NBEdge
-        NBEdge* myReplaced;
-
-        /// @brief replaced by NBEdge
-        NBEdge* myBy;
-    };
-
+    /// @brief Invalidated assignment operator.
+    GNENet& operator=(const GNENet&) = delete;
 };
-
-#endif
-
-/****************************************************************************/

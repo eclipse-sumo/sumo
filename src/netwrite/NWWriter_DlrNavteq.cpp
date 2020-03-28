@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NWWriter_DlrNavteq.cpp
 /// @author  Jakob Erdmann
@@ -14,11 +18,6 @@
 ///
 // Exporter writing networks using DlrNavteq (Elmar) format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <algorithm>
 #include <ctime>
@@ -148,14 +147,14 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
             // negated edge id to determine spread type. We may need to do some
             // shifting to make this consistent
             const bool hasOppositeID = ec.getOppositeByID(e->getID()) != nullptr;
-            if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT && !hasOppositeID) {
+            if (e->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT && !hasOppositeID) {
                 // need to write center-line geometry instead
                 try {
                     geom.move2side(e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
                     WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
                 }
-            } else if (e->getLaneSpreadFunction() == LANESPREAD_CENTER && hasOppositeID) {
+            } else if (e->getLaneSpreadFunction() == LaneSpreadFunction::CENTER && hasOppositeID) {
                 // need to write left-border geometry instead
                 try {
                     geom.move2side(-e->getTotalWidth() / 2);
@@ -554,5 +553,5 @@ NWWriter_DlrNavteq::writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc) {
     device.close();
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

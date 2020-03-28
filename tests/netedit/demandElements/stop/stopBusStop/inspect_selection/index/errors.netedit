@@ -7,15 +7,15 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding busStop 'busStopB' in GNEChange_Additional
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding stopBusStop 'route_0stopBusStop0' in GNEChange_DemandElement
 Debug: Adding stopBusStop 'route_0stopBusStop1' in GNEChange_DemandElement
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -33,8 +33,6 @@ Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into route 'route_0'
 Debug: Setting new attribute selected 'true' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting new attribute selected 'true' into stopBusStop 'route_0stopBusStop1'
-Debug: ObjectsUnderCursor: GUIGlObjects: 4, AttributeCarriers: 4, NetElements: 0, Additionals: 1, DemandElements: 3, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 5, AttributeCarriers: 5, NetElements: 1, Additionals: 1, DemandElements: 3, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Value 'dummyValue' for attribute index of stopBusStop isn't valid
 Debug: Value '-5' for attribute index of stopBusStop isn't valid
 Debug: Setting new attribute index '0' into stopBusStop 'route_0stopBusStop0'
@@ -44,8 +42,6 @@ Debug: Setting new attribute index 'fit' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting new attribute index 'fit' into stopBusStop 'route_0stopBusStop1'
 Debug: Setting new attribute index 'end' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting new attribute index 'end' into stopBusStop 'route_0stopBusStop1'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute index 'fit' into stopBusStop 'route_0stopBusStop1'
@@ -74,8 +70,6 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStopB' in GNEChange_Additional
 Debug: Removing busStop 'busStopA' in GNEChange_Additional
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStopA' in GNEChange_Additional
@@ -103,8 +97,6 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute index 'end' into stopBusStop 'route_0stopBusStop0'
 Debug: Setting new attribute index 'end' into stopBusStop 'route_0stopBusStop1'
 Debug: Additionals saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
@@ -120,23 +112,23 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop1'
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced stopBusStop 'route_0stopBusStop0'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced busStop 'busStopB'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced busStop 'busStopA'
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

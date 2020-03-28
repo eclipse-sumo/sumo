@@ -10,10 +10,10 @@ also internal electric parameters of an partial trolleybus, i.e. a vehicle that 
 has also a battery pack installed, that is being charged from the overhead wires. The model allows not only for vehicle 
 simulation, but the simulation may also include detialed electrical simulation of the overhead wire circuit behaviour.
 It was implemented by Jakub Ševčík and Jan Přikryl from the [RICE FEL UWB Pilen](https://rice.zcu.cz/en). 
-The core of the model is implemented in the [vehicle device](../Developer/How_To/Device.md) *device.elecHybrid*. Additional
+The core of the model is implemented in the [vehicle device](../Developer/How_To/Device.md) *device.elechybrid*. Additional
 features are a set of overhead wires (which can be placed on any lane in the
 network) including wire clamps, a traction substation powering these wires, and a new output options
-**--elecHybrid-output** {{DT_FILE}}, **--overheadWireSegments-output** {{DT_FILE}} and **--substations-output** {{DT_FILE}}.
+**--elechybrid-output** {{DT_FILE}}, **--overheadwiresegments-output** {{DT_FILE}} and **--substations-output** {{DT_FILE}}.
 
 You can find a test case for these implementations at
 [\[1\]](?????)
@@ -21,8 +21,8 @@ You can find a test case for these implementations at
 ## Defining Partial Trolleybuses
 
 To define an electric vehicle with in-motion charging system, it must be equipped with a hybrid electric device.
-This may be done using the option **--device.elecHybrid.explicit <vehID1,vehID2,...\>** or simply setting
-**--device.elecHybrid.probability 1** to equip all vehicles. Alternatively, the device may be specified using
+This may be done using the option **--device.elechybrid.explicit <vehID1,vehID2,...\>** or simply setting
+**--device.elechybrid.probability 1** to equip all vehicles. Alternatively, the device may be specified using
 [Generic vehicle parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
 
 Additional properties of the vehicle and its electrical components must then be defined via

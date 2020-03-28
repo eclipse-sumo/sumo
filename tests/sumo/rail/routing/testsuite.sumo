@@ -1,0 +1,17 @@
+# vehicle needs to continue more edges past the switch to enable reversal
+reversal_possible
+
+# vehicle cannot reach reverse because there is insufficient space after the switch
+reversal_impossible
+
+# vehicle has sufficient space after the switch but no turn-around connection is defined
+missing_turnaround
+
+# test reversal at a short buffer stop edge
+short_buffer
+
+# find reversal route when the starting edge is shorter than the train
+reverse_short_start
+
+# find reversal route when the starting edge is shorter than the train (route define via stops)
+reverse_short_start_stops

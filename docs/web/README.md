@@ -1,4 +1,4 @@
-# SUMO Documentation :book:
+# SUMO Documentation
 
 The SUMO Documentation is generated using [MkDocs](https://www.mkdocs.org/).
 
@@ -10,17 +10,18 @@ You can read the Documentation online at: <https://sumo.dlr.de/docs/>
 - Python > 3.5 (the *mkdocs-macros-plugin* requires it)
 
 ### Installation
-First step is to install MkDocs and some MkDocs plugins:
-```
-pip install mkdocs mkdocs-macros-plugin==0.2.4 mdx_gh_links pymdown-extensions mkdocs-git-revision-date-plugin mdx_truly_sane_lists
-```
 
-Next step is to clone this repository (if not already done):
+Clone this repository (if not already done):
 ```
 git clone https://github.com/eclipse/sumo.git
 ```
 
 Navigate to this path (`sumo/docs/web`).
+
+Install MkDocs and some MkDocs plugins as well as plantuml:
+```
+pip install -r requirements.txt
+```
 
 To run the built-in development server, use:
 ```

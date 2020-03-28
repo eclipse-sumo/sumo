@@ -64,35 +64,10 @@ the data set. The following is recommenced:
 - **speedFactor**: the maximum (or high percentile) quotient of
   speed/speedLimit for each vehicle
 
-# generateTurnDefs.py
 
-This script allows generation of the turn definitions based on the
-number of lanes allowing particular turns. The basic functionality
-distributes the traffic uniformly, that is:
+# extractTest.py
 
-1.  distribute the incoming traffic uniformly across the lanes forming
-    the road
-2.  distribute the amount of traffic assigned to each lane uniformly
-    among the destinations that the lane allows turns to.
-3.  sum up the values for each of the destinations that the road being
-    processed allows turning to.
-
-Example use
-
-```
-<SUMO_HOME>/tools/turn-defs/generateTurnDefs.py --connections-file connections.con.xml --turn-definitions-file output.turndefs.xml
-```
-
-The script allows to be extended with new traffic distribution policies
-(for example, based on Gaussian distribution) easily. See the
-*DestinationWeightCalculator* class for details.
-
-The script processes the connections given in the provided *\*.con.xml*
-file. For usage details, execute the *generateTurnDefs.py* script with
-*--help* option.
-
-!!! note
-    You can generate a connections file with all the connections in the network using [NETCONVERT](../NETCONVERT.md) - see the *--plain-output-prefix* option.
+This scripts extracts test scenarios if you like to run a simulation scenario which is included in the test folder <SUMO_HOME>/tests. In order to do so you can either download the complete sumo package or use the online test extraction. I In order to do so you can either [download the complete sumo package](../Downloads.md#all-inclusive-tarball) or use the [online test extraction](https://sumo.dlr.de/extractTest.php). In the online tool you enter the path to the test you like (e.g. [{{SUMO}}/tests/sumo/extended/rerouter/use_routing_device](https://github.com/eclipse/sumo/blob/master/tests/sumo/extended/rerouter/use_routing_device) into the form and get a zip containing all the files.
 
 # generateParkingLots.py
 
@@ -169,3 +144,25 @@ Example use
 ```
 python <SUMO_HOME>/tools/averageRuns.py example.sumocfg -n 100
 ```
+
+# tileGet.py
+
+This script retrieves background images from ESRI ArcGIS tile servers and other imaging APIs
+such as Google Maps and MapQuest. The simplest usage is to call it with a SUMO
+network file only. It will generate a settings file containing the coordinates which
+can be loaded with sumo-gui or netedit. The most useful options are -t for the
+(maximum) number of tiles to retrieve and -u to give the URL of the tile server.
+
+Example use (retrieving data from the public ArcGIS online instance)
+
+```
+python <SUMO_HOME>/tools/tileGet.py -n test.net.xml -t 10
+sumo-gui -n test.net.xml -g settings.xml
+```
+
+Retrieving satellite data from Google or MapQuest (Requires obtaining an API-key first):
+```
+python <SUMO_HOME>/tools/tileGet.py -n test.net.xml -t 10 --url maps.googleapis.com/maps/api/staticmap --key YOURKEY
+python <SUMO_HOME>/tools/tileGet.py -n test.net.xml -t 10 --url open.mapquestapi.com/staticmap/v4/getmap --key YOURKEY
+```
+

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NWWriter_XML.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // Exporter writing networks using XML (native input) format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
@@ -149,10 +148,10 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
         if (n->getKeepClear() == false) {
             device.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, n->getKeepClear());
         }
-        if (n->getRightOfWay() != RIGHT_OF_WAY_DEFAULT) {
+        if (n->getRightOfWay() != RightOfWay::DEFAULT) {
             device.writeAttr<std::string>(SUMO_ATTR_RIGHT_OF_WAY, toString(n->getRightOfWay()));
         }
-        if (n->getFringeType() != FRINGE_TYPE_DEFAULT) {
+        if (n->getFringeType() != FringeType::DEFAULT) {
             device.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n->getFringeType()));
         }
         n->writeParams(device);
@@ -186,6 +185,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
     OutputDevice& cdevice = OutputDevice::getDevice(oc.getString("plain-output-prefix") + ".con.xml");
     cdevice.writeXMLHeader("connections", "connections_file.xsd", attrs);
     const bool writeNames = oc.getBool("output.street-names");
+    LaneSpreadFunction defaultSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(oc.getString("default.spreadtype"));
     for (std::map<std::string, NBEdge*>::const_iterator i = ec.begin(); i != ec.end(); ++i) {
         // write the edge itself to the edges-files
         NBEdge* e = (*i).second;
@@ -210,7 +210,7 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             writeShape(edevice, gch, e->getGeometry(), SUMO_ATTR_SHAPE, useGeo, geoAccuracy);
         }
         // write the spread type if not default ("right")
-        if (e->getLaneSpreadFunction() != LANESPREAD_RIGHT) {
+        if (e->getLaneSpreadFunction() != defaultSpread) {
             edevice.writeAttr(SUMO_ATTR_SPREADTYPE, toString(e->getLaneSpreadFunction()));
         }
         // write the length if it was specified
@@ -424,7 +424,7 @@ NWWriter_XML::writePTStops(const OptionsCont& oc, NBPTStopCont& sc) {
 }
 void NWWriter_XML::writePTLines(const OptionsCont& oc, NBPTLineCont& lc, NBEdgeCont& ec) {
     OutputDevice& device = OutputDevice::getDevice(oc.getString("ptline-output"));
-    device.writeXMLHeader("additional", "additional_file.xsd");
+    device.writeXMLHeader("ptLines", "ptlines_file.xsd");
     for (const auto& item : lc.getLines()) {
         item.second->write(device, ec);
     }

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    IntermodalRouter.h
 /// @author  Jakob Erdmann
@@ -14,13 +18,7 @@
 ///
 // The IntermodalRouter builds a special network and (delegates to a SUMOAbstractRouter)
 /****************************************************************************/
-#ifndef IntermodalRouter_h
-#define IntermodalRouter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -103,6 +101,10 @@ public:
         return new IntermodalRouter<E, L, N, V>(myIntermodalNet, myCarWalkTransfer, myRoutingAlgorithm, myRoutingMode, myExternalEffort);
     }
 
+    int getCarWalkTransfer() const {
+        return myCarWalkTransfer;
+    }
+
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E* from, const E* to, const double departPos, const double arrivalPos,
@@ -167,6 +169,9 @@ public:
                     into.back().traveltime += time - prevTime;
                     into.back().cost += effort - prevEffort;
                     into.back().length += length - prevLength;
+                    if (into.back().depart < 0) {
+                        into.back().depart = prevTime;
+                    }
                 }
             }
         }
@@ -247,10 +252,6 @@ private:
                                                gWeightsRandomFactor > 1 ? & _IntermodalEdge::getTravelTimeStaticRandomized : & _IntermodalEdge::getTravelTimeStatic)),
         myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
 
-    static inline double getEffortAggregated(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
-        return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
-    }
-
     static inline double getCombined(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
         return edge->getTravelTime(trip, time) + trip->externalFactor * trip->calc->getEffort(edge->getNumericalID());
     }
@@ -271,7 +272,7 @@ private:
                     }
                     break;
                 case 1:
-                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &getEffortAggregated, &_IntermodalEdge::getTravelTimeStatic, false, nullptr, true);
+                    myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getTravelTimeAggregated, nullptr, false, nullptr, true);
                     break;
                 case 2:
                     myInternalRouter = new _InternalDijkstra(myIntermodalNet->getAllEdges(), true, &_IntermodalEdge::getEffortStatic, &_IntermodalEdge::getTravelTimeStatic, false, nullptr, true);
@@ -306,8 +307,3 @@ private:
     IntermodalRouter& operator=(const IntermodalRouter& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/

@@ -1,14 +1,14 @@
-Loading net-file from 'net.net.xml' ... done (62ms).
-Loading additional-files from 'input_additional.add.xml' ... done (0ms).
+Loading net-file from 'net.net.xml' ... done (48ms).
+Loading additional-files from 'input_additional.add.xml' ... done (1ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
-Simulation ended at time: 251.20
+Simulation version v1_5_0+0662-a598ecae47 started with time: 0.00
+Simulation ended at time: 251.10
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 63ms
- Real time factor: 3987.3
- UPS: 53936.507937
- UPS-Persons: 79222.222222
+ Duration: 47ms
+ Real time factor: 5342.55
+ UPS: 72212.765957
+ UPS-Persons: 106127.659574
 Vehicles: 
  Inserted: 3
  Running: 0

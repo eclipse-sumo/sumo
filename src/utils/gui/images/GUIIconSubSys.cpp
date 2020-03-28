@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIIconSubSys.cpp
 /// @author  Daniel Krajzewicz
@@ -15,15 +19,10 @@
 ///
 // Helper for icons loading and usage
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
-#include <fx.h>
-#include <cassert>
+#include <utils/common/UtilExceptions.h>
+
 #include "GUIIcons.h"
 #include "GUIIconSubSys.h"
 
@@ -136,13 +135,16 @@
 
 #include "cut.xpm"
 #include "ext.xpm"
+#include "tracker.xpm"
 
-#include "savenetelements.xpm"
+#include "savenetworkelements.xpm"
 #include "saveaditionalelements.xpm"
 #include "savedemandelements.xpm"
+#include "savedataelements.xpm"
 
 #include "supermodenetwork.xpm"
 #include "supermodedemand.xpm"
+#include "supermodedata.xpm"
 
 #include "modeadditional.xpm"
 #include "modeconnection.xpm"
@@ -164,6 +166,9 @@
 #include "modepersontype.xpm"
 #include "modeperson.xpm"
 #include "modepersonplan.xpm"
+
+#include "modeedgedata.xpm"
+#include "modeedgereldata.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -229,6 +234,11 @@
 #include "personcontainerstop.xpm"
 #include "personlanestop.xpm"
 
+#include "dataset.xpm"
+#include "datainterval.xpm"
+#include "edgedata.xpm"
+#include "edgereldata.xpm"
+
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
 #include "vclass_emergency.xpm"
@@ -288,7 +298,7 @@
 #include "accept.xpm"
 #include "cancel.xpm"
 #include "correct.xpm"
-#include "error.xpm"
+#include "incorrect.xpm"
 #include "reset.xpm"
 #include "warning.xpm"
 
@@ -309,314 +319,327 @@ GUIIconSubSys* GUIIconSubSys::myInstance = nullptr;
 
 GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     // build icons
-    myIcons[ICON_SUMO] = new FXXPMIcon(a, sumo_icon64_xpm);
-    myIcons[ICON_SUMO_MINI] = new FXXPMIcon(a, sumo_icon16_xpm);
-    myIcons[ICON_SUMO_LOGO] = new FXXPMIcon(a, sumo_logo_xpm);
-    myIcons[ICON_EMPTY] = new FXXPMIcon(a, empty_xpm);
-    myIcons[ICON_OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
-    myIcons[ICON_OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
-    myIcons[ICON_OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
-    myIcons[ICON_OPEN_ADDITIONALS] = new FXXPMIcon(a, shapeopen_xpm);
-    myIcons[ICON_OPEN_TLSPROGRAMS] = new FXXPMIcon(a, shapeopen_xpm);
-    myIcons[ICON_RELOAD] = new FXXPMIcon(a, reload_xpm);
-    myIcons[ICON_SAVE] = new FXXPMIcon(a, filesave_xpm);
-    myIcons[ICON_CLOSE] = new FXXPMIcon(a, empty_xpm);  /** temporal **/
-    myIcons[ICON_HELP] = new FXXPMIcon(a, empty_xpm);   /** temporal **/
-    myIcons[ICON_START] = new FXXPMIcon(a, play_xpm);
-    myIcons[ICON_STOP] = new FXXPMIcon(a, stop_xpm);
-    myIcons[ICON_STEP] = new FXXPMIcon(a, step_xpm);
-    myIcons[ICON_MICROVIEW] = new FXXPMIcon(a, new_window_xpm);
-    myIcons[ICON_OSGVIEW] = new FXXPMIcon(a, new_window_3d_xpm);
-    myIcons[ICON_RECENTERVIEW] = new FXXPMIcon(a, recenter_view_xpm);
-    myIcons[ICON_ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
-    myIcons[ICON_EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);
-    myIcons[ICON_ZOOMSTYLE] = new FXXPMIcon(a, zoomstyle_xpm);
+    myIcons[GUIIcon::SUMO] = new FXXPMIcon(a, sumo_icon64_xpm);
+    myIcons[GUIIcon::SUMO_MINI] = new FXXPMIcon(a, sumo_icon16_xpm);
+    myIcons[GUIIcon::SUMO_LOGO] = new FXXPMIcon(a, sumo_logo_xpm);
+    myIcons[GUIIcon::EMPTY] = new FXXPMIcon(a, empty_xpm);
+    myIcons[GUIIcon::OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
+    myIcons[GUIIcon::OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
+    myIcons[GUIIcon::OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
+    myIcons[GUIIcon::OPEN_ADDITIONALS] = new FXXPMIcon(a, shapeopen_xpm);
+    myIcons[GUIIcon::OPEN_TLSPROGRAMS] = new FXXPMIcon(a, shapeopen_xpm);
+    myIcons[GUIIcon::RELOAD] = new FXXPMIcon(a, reload_xpm);
+    myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, filesave_xpm);
+    myIcons[GUIIcon::CLOSE] = new FXXPMIcon(a, empty_xpm);  /** temporal **/
+    myIcons[GUIIcon::HELP] = new FXXPMIcon(a, empty_xpm);   /** temporal **/
+    myIcons[GUIIcon::START] = new FXXPMIcon(a, play_xpm);
+    myIcons[GUIIcon::STOP] = new FXXPMIcon(a, stop_xpm);
+    myIcons[GUIIcon::STEP] = new FXXPMIcon(a, step_xpm);
+    myIcons[GUIIcon::MICROVIEW] = new FXXPMIcon(a, new_window_xpm);
+    myIcons[GUIIcon::OSGVIEW] = new FXXPMIcon(a, new_window_3d_xpm);
+    myIcons[GUIIcon::RECENTERVIEW] = new FXXPMIcon(a, recenter_view_xpm);
+    myIcons[GUIIcon::ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
+    myIcons[GUIIcon::EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);
+    myIcons[GUIIcon::ZOOMSTYLE] = new FXXPMIcon(a, zoomstyle_xpm);
 
-    myIcons[ICON_APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
-    myIcons[ICON_APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);
-    myIcons[ICON_APP_BREAKPOINTS] = new FXXPMIcon(a, app_breakpoints_xpm);
-    myIcons[ICON_APP_TLSTRACKER] = new FXXPMIcon(a, app_tlstracker_xpm);
-    myIcons[ICON_APP_TABLE] = new FXXPMIcon(a, app_table_xpm);
-    myIcons[ICON_APP_SELECTOR] = new FXXPMIcon(a, app_selector_xpm);
+    myIcons[GUIIcon::APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
+    myIcons[GUIIcon::APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);
+    myIcons[GUIIcon::APP_BREAKPOINTS] = new FXXPMIcon(a, app_breakpoints_xpm);
+    myIcons[GUIIcon::APP_TLSTRACKER] = new FXXPMIcon(a, app_tlstracker_xpm);
+    myIcons[GUIIcon::APP_TABLE] = new FXXPMIcon(a, app_table_xpm);
+    myIcons[GUIIcon::APP_SELECTOR] = new FXXPMIcon(a, app_selector_xpm);
 
-    myIcons[ICON_LOCATE] = new FXXPMIcon(a, locate_xpm);
-    myIcons[ICON_LOCATEJUNCTION] = new FXXPMIcon(a, locate_junction_xpm);
-    myIcons[ICON_LOCATEEDGE] = new FXXPMIcon(a, locate_edge_xpm);
-    myIcons[ICON_LOCATEVEHICLE] = new FXXPMIcon(a, locate_vehicle_xpm);
-    myIcons[ICON_LOCATEROUTE] = new FXXPMIcon(a, locate_route_xpm);
-    myIcons[ICON_LOCATESTOP] = new FXXPMIcon(a, locate_stop_xpm);
-    myIcons[ICON_LOCATEPERSON] = new FXXPMIcon(a, locate_person_xpm);
-    myIcons[ICON_LOCATETLS] = new FXXPMIcon(a, locate_tls_xpm);
-    myIcons[ICON_LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
-    myIcons[ICON_LOCATEPOI] = new FXXPMIcon(a, locate_poi_xpm);
-    myIcons[ICON_LOCATEPOLY] = new FXXPMIcon(a, locate_poly_xpm);
+    myIcons[GUIIcon::LOCATE] = new FXXPMIcon(a, locate_xpm);
+    myIcons[GUIIcon::LOCATEJUNCTION] = new FXXPMIcon(a, locate_junction_xpm);
+    myIcons[GUIIcon::LOCATEEDGE] = new FXXPMIcon(a, locate_edge_xpm);
+    myIcons[GUIIcon::LOCATEVEHICLE] = new FXXPMIcon(a, locate_vehicle_xpm);
+    myIcons[GUIIcon::LOCATEROUTE] = new FXXPMIcon(a, locate_route_xpm);
+    myIcons[GUIIcon::LOCATESTOP] = new FXXPMIcon(a, locate_stop_xpm);
+    myIcons[GUIIcon::LOCATEPERSON] = new FXXPMIcon(a, locate_person_xpm);
+    myIcons[GUIIcon::LOCATETLS] = new FXXPMIcon(a, locate_tls_xpm);
+    myIcons[GUIIcon::LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
+    myIcons[GUIIcon::LOCATEPOI] = new FXXPMIcon(a, locate_poi_xpm);
+    myIcons[GUIIcon::LOCATEPOLY] = new FXXPMIcon(a, locate_poly_xpm);
 
-    myIcons[ICON_GREENEDGE] = new FXXPMIcon(a, green_edge_xpm);
-    myIcons[ICON_GREENVEHICLE] = new FXXPMIcon(a, green_vehicle_xpm);
-    myIcons[ICON_GREENPERSON] = new FXXPMIcon(a, green_person_xpm);
-    myIcons[ICON_YELLOWEDGE] = new FXXPMIcon(a, yellow_edge_xpm);
-    myIcons[ICON_YELLOWVEHICLE] = new FXXPMIcon(a, yellow_vehicle_xpm);
-    myIcons[ICON_YELLOWPERSON] = new FXXPMIcon(a, yellow_person_xpm);
+    myIcons[GUIIcon::GREENEDGE] = new FXXPMIcon(a, green_edge_xpm);
+    myIcons[GUIIcon::GREENVEHICLE] = new FXXPMIcon(a, green_vehicle_xpm);
+    myIcons[GUIIcon::GREENPERSON] = new FXXPMIcon(a, green_person_xpm);
+    myIcons[GUIIcon::YELLOWEDGE] = new FXXPMIcon(a, yellow_edge_xpm);
+    myIcons[GUIIcon::YELLOWVEHICLE] = new FXXPMIcon(a, yellow_vehicle_xpm);
+    myIcons[GUIIcon::YELLOWPERSON] = new FXXPMIcon(a, yellow_person_xpm);
 
-    myIcons[ICON_COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
-    myIcons[ICON_SAVEDB] = new FXXPMIcon(a, savedb_xpm);
-    myIcons[ICON_REMOVEDB] = new FXXPMIcon(a, removedb_xpm);
-    myIcons[ICON_SHOWTOOLTIPS] = new FXXPMIcon(a, show_tooltips_xpm);
-    myIcons[ICON_YES] = new FXXPMIcon(a, yes_xpm);
-    myIcons[ICON_NO] = new FXXPMIcon(a, no_xpm);
-    myIcons[ICON_FLAG] = new FXGIFIcon(a, flag);
-    myIcons[ICON_FLAG_PLUS] = new FXGIFIcon(a, flag_plus);
-    myIcons[ICON_FLAG_MINUS] = new FXGIFIcon(a, flag_minus);
+    myIcons[GUIIcon::COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
+    myIcons[GUIIcon::SAVEDB] = new FXXPMIcon(a, savedb_xpm);
+    myIcons[GUIIcon::REMOVEDB] = new FXXPMIcon(a, removedb_xpm);
+    myIcons[GUIIcon::SHOWTOOLTIPS] = new FXXPMIcon(a, show_tooltips_xpm);
+    myIcons[GUIIcon::YES] = new FXXPMIcon(a, yes_xpm);
+    myIcons[GUIIcon::NO] = new FXXPMIcon(a, no_xpm);
+    myIcons[GUIIcon::FLAG] = new FXGIFIcon(a, flag);
+    myIcons[GUIIcon::FLAG_PLUS] = new FXGIFIcon(a, flag_plus);
+    myIcons[GUIIcon::FLAG_MINUS] = new FXGIFIcon(a, flag_minus);
     // window arrangements
-    myIcons[ICON_WINDOWS_CASCADE] = new FXXPMIcon(a, windows_cascade_xpm);
-    myIcons[ICON_WINDOWS_TILE_VERT] = new FXXPMIcon(a, windows_tile_vertically_xpm);
-    myIcons[ICON_WINDOWS_TILE_HORI] = new FXXPMIcon(a, windows_tile_horizontally_xpm);
+    myIcons[GUIIcon::WINDOWS_CASCADE] = new FXXPMIcon(a, windows_cascade_xpm);
+    myIcons[GUIIcon::WINDOWS_TILE_VERT] = new FXXPMIcon(a, windows_tile_vertically_xpm);
+    myIcons[GUIIcon::WINDOWS_TILE_HORI] = new FXXPMIcon(a, windows_tile_horizontally_xpm);
     // manipulate
-    myIcons[ICON_MANIP] = new FXGIFIcon(a, manip);
-    myIcons[ICON_CAMERA] = new FXXPMIcon(a, camera_xpm);
-    myIcons[ICON_EXTRACT] = new FXXPMIcon(a, extract_streets_xpm);
-    myIcons[ICON_DILATE] = new FXXPMIcon(a, dilate_xpm);
-    myIcons[ICON_ERODE] = new FXXPMIcon(a, erode_xpm);
-    myIcons[ICON_OPENING] = new FXXPMIcon(a, opening_xpm);
-    myIcons[ICON_CLOSING] = new FXXPMIcon(a, closing_xpm);
-    myIcons[ICON_ERASE_STAINS] = new FXXPMIcon(a, erase_stains_xpm);
-    myIcons[ICON_CLOSE_GAPS] = new FXXPMIcon(a, close_gaps_xpm);
-    myIcons[ICON_SKELETONIZE] = new FXXPMIcon(a, skeletonize_xpm);
-    myIcons[ICON_RARIFY] = new FXXPMIcon(a, rarify_xpm);
-    myIcons[ICON_CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
-    myIcons[ICON_OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
-    myIcons[ICON_EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
-    myIcons[ICON_PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
-    myIcons[ICON_PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
-    myIcons[ICON_PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
-    myIcons[ICON_PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
-    myIcons[ICON_PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
-    myIcons[ICON_RUBBER1X] = new FXXPMIcon(a, rubber1x_xpm);
-    myIcons[ICON_RUBBER2X] = new FXXPMIcon(a, rubber2x_xpm);
-    myIcons[ICON_RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);
-    myIcons[ICON_RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
-    myIcons[ICON_RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
-    myIcons[ICON_EDITGRAPH] = new FXXPMIcon(a, edit_graph_xpm);
+    myIcons[GUIIcon::MANIP] = new FXGIFIcon(a, manip);
+    myIcons[GUIIcon::CAMERA] = new FXXPMIcon(a, camera_xpm);
+    myIcons[GUIIcon::EXTRACT] = new FXXPMIcon(a, extract_streets_xpm);
+    myIcons[GUIIcon::DILATE] = new FXXPMIcon(a, dilate_xpm);
+    myIcons[GUIIcon::ERODE] = new FXXPMIcon(a, erode_xpm);
+    myIcons[GUIIcon::OPENING] = new FXXPMIcon(a, opening_xpm);
+    myIcons[GUIIcon::CLOSING] = new FXXPMIcon(a, closing_xpm);
+    myIcons[GUIIcon::ERASE_STAINS] = new FXXPMIcon(a, erase_stains_xpm);
+    myIcons[GUIIcon::CLOSE_GAPS] = new FXXPMIcon(a, close_gaps_xpm);
+    myIcons[GUIIcon::SKELETONIZE] = new FXXPMIcon(a, skeletonize_xpm);
+    myIcons[GUIIcon::RARIFY] = new FXXPMIcon(a, rarify_xpm);
+    myIcons[GUIIcon::CREATE_GRAPH] = new FXXPMIcon(a, create_graph_xpm);
+    myIcons[GUIIcon::OPEN_BMP_DIALOG] = new FXXPMIcon(a, open_bmp_dialog_xpm);
+    myIcons[GUIIcon::EYEDROP] = new FXXPMIcon(a, eyedrop_xpm);
+    myIcons[GUIIcon::PAINTBRUSH1X] = new FXXPMIcon(a, paintbrush1x_xpm);
+    myIcons[GUIIcon::PAINTBRUSH2X] = new FXXPMIcon(a, paintbrush2x_xpm);
+    myIcons[GUIIcon::PAINTBRUSH3X] = new FXXPMIcon(a, paintbrush3x_xpm);
+    myIcons[GUIIcon::PAINTBRUSH4X] = new FXXPMIcon(a, paintbrush4x_xpm);
+    myIcons[GUIIcon::PAINTBRUSH5X] = new FXXPMIcon(a, paintbrush5x_xpm);
+    myIcons[GUIIcon::RUBBER1X] = new FXXPMIcon(a, rubber1x_xpm);
+    myIcons[GUIIcon::RUBBER2X] = new FXXPMIcon(a, rubber2x_xpm);
+    myIcons[GUIIcon::RUBBER3X] = new FXXPMIcon(a, rubber3x_xpm);
+    myIcons[GUIIcon::RUBBER4X] = new FXXPMIcon(a, rubber4x_xpm);
+    myIcons[GUIIcon::RUBBER5X] = new FXXPMIcon(a, rubber5x_xpm);
+    myIcons[GUIIcon::EDITGRAPH] = new FXXPMIcon(a, edit_graph_xpm);
 
-    myIcons[ICON_UNDO] = new FXXPMIcon(a, undo_xpm);
-    myIcons[ICON_REDO] = new FXXPMIcon(a, redo_xpm);
-    myIcons[ICON_NETEDIT] = new FXXPMIcon(a, netedit_icon64_xpm);
-    myIcons[ICON_NETEDIT_MINI] = new FXXPMIcon(a, netedit_icon16_xpm);
-    myIcons[ICON_LOCK] = new FXXPMIcon(a, lock_xpm);
-    myIcons[ICON_ADD] = new FXXPMIcon(a, add_xpm);
-    myIcons[ICON_REMOVE] = new FXXPMIcon(a, remove_xpm);
-    myIcons[ICON_BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xmp);
-    myIcons[ICON_BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xmp);
+    myIcons[GUIIcon::UNDO] = new FXXPMIcon(a, undo_xpm);
+    myIcons[GUIIcon::REDO] = new FXXPMIcon(a, redo_xpm);
+    myIcons[GUIIcon::NETEDIT] = new FXXPMIcon(a, netedit_icon64_xpm);
+    myIcons[GUIIcon::NETEDIT_MINI] = new FXXPMIcon(a, netedit_icon16_xpm);
+    myIcons[GUIIcon::LOCK] = new FXXPMIcon(a, lock_xpm);
+    myIcons[GUIIcon::ADD] = new FXXPMIcon(a, add_xpm);
+    myIcons[GUIIcon::REMOVE] = new FXXPMIcon(a, remove_xpm);
+    myIcons[GUIIcon::BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xmp);
+    myIcons[GUIIcon::BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xmp);
 
-    myIcons[ICON_ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
-    myIcons[ICON_ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);
-    myIcons[ICON_ARROW_LEFT] = new FXXPMIcon(a, arrowleft_xpm);
-    myIcons[ICON_ARROW_RIGHT] = new FXXPMIcon(a, arrowright_xpm);
+    myIcons[GUIIcon::ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
+    myIcons[GUIIcon::ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);
+    myIcons[GUIIcon::ARROW_LEFT] = new FXXPMIcon(a, arrowleft_xpm);
+    myIcons[GUIIcon::ARROW_RIGHT] = new FXXPMIcon(a, arrowright_xpm);
 
-    myIcons[ICON_LANEPEDESTRIAN] = new FXXPMIcon(a, lanepedestrian);
-    myIcons[ICON_LANEBUS] = new FXXPMIcon(a, lanebus);
-    myIcons[ICON_LANEBIKE] = new FXXPMIcon(a, lanebike);
-    myIcons[ICON_LANEGREENVERGE] = new FXXPMIcon(a, lanegreenverge);
+    myIcons[GUIIcon::LANEPEDESTRIAN] = new FXXPMIcon(a, lanepedestrian);
+    myIcons[GUIIcon::LANEBUS] = new FXXPMIcon(a, lanebus);
+    myIcons[GUIIcon::LANEBIKE] = new FXXPMIcon(a, lanebike);
+    myIcons[GUIIcon::LANEGREENVERGE] = new FXXPMIcon(a, lanegreenverge);
 
-    myIcons[ICON_EXT] = new FXXPMIcon(a, ext_xpm);
-    myIcons[ICON_CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
+    myIcons[GUIIcon::EXT] = new FXXPMIcon(a, ext_xpm);
+    myIcons[GUIIcon::CUT_SWELL] = new FXXPMIcon(a, cut_xpm);
+    myIcons[GUIIcon::TRACKER] = new FXXPMIcon(a, tracker_xpm);
 
-    myIcons[ICON_SAVENETELEMENTS] = new FXXPMIcon(a, savenetelements_xpm);
-    myIcons[ICON_SAVEADDITIONALS] = new FXXPMIcon(a, saveadditionalelements_xpm);
-    myIcons[ICON_SAVEDEMANDELEMENTS] = new FXXPMIcon(a, savedemandelements_xpm);
+    myIcons[GUIIcon::SAVENETWORKELEMENTS] = new FXXPMIcon(a, savenetworkelements_xpm);
+    myIcons[GUIIcon::SAVEADDITIONALELEMENTS] = new FXXPMIcon(a, saveadditionalelements_xpm);
+    myIcons[GUIIcon::SAVEDEMANDELEMENTS] = new FXXPMIcon(a, savedemandelements_xpm);
+    myIcons[GUIIcon::SAVEDATAELEMENTS] = new FXXPMIcon(a, savedataelements_xpm);
 
-    myIcons[ICON_SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
-    myIcons[ICON_SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);
+    myIcons[GUIIcon::SUPERMODENETWORK] = new FXXPMIcon(a, supermodenetwork_xpm);
+    myIcons[GUIIcon::SUPERMODEDEMAND] = new FXXPMIcon(a, supermodedemand_xpm);
+    myIcons[GUIIcon::SUPERMODEDATA] = new FXXPMIcon(a, supermodedata_xpm);
 
-    myIcons[ICON_MODEADDITIONAL] = new FXXPMIcon(a, modeadditional_xpm);
-    myIcons[ICON_MODECONNECTION] = new FXXPMIcon(a, modeconnection_xpm);
-    myIcons[ICON_MODECREATEEDGE] = new FXXPMIcon(a, modecreateedge_xpm);
-    myIcons[ICON_MODECROSSING] = new FXXPMIcon(a, modecrossing_xpm);
-    myIcons[ICON_MODETAZ] = new FXXPMIcon(a, modetaz_xpm);
-    myIcons[ICON_MODEDELETE] = new FXXPMIcon(a, modedelete_xpm);
-    myIcons[ICON_MODEINSPECT] = new FXXPMIcon(a, modeinspect_xpm);
-    myIcons[ICON_MODEMOVE] = new FXXPMIcon(a, modemove_xpm);
-    myIcons[ICON_MODESELECT] = new FXXPMIcon(a, modeselect_xpm);
-    myIcons[ICON_MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
-    myIcons[ICON_MODEPOLYGON] = new FXXPMIcon(a, modepolygon_xpm);
-    myIcons[ICON_MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
+    myIcons[GUIIcon::MODEADDITIONAL] = new FXXPMIcon(a, modeadditional_xpm);
+    myIcons[GUIIcon::MODECONNECTION] = new FXXPMIcon(a, modeconnection_xpm);
+    myIcons[GUIIcon::MODECREATEEDGE] = new FXXPMIcon(a, modecreateedge_xpm);
+    myIcons[GUIIcon::MODECROSSING] = new FXXPMIcon(a, modecrossing_xpm);
+    myIcons[GUIIcon::MODETAZ] = new FXXPMIcon(a, modetaz_xpm);
+    myIcons[GUIIcon::MODEDELETE] = new FXXPMIcon(a, modedelete_xpm);
+    myIcons[GUIIcon::MODEINSPECT] = new FXXPMIcon(a, modeinspect_xpm);
+    myIcons[GUIIcon::MODEMOVE] = new FXXPMIcon(a, modemove_xpm);
+    myIcons[GUIIcon::MODESELECT] = new FXXPMIcon(a, modeselect_xpm);
+    myIcons[GUIIcon::MODETLS] = new FXXPMIcon(a, modetrafficlight_xpm);
+    myIcons[GUIIcon::MODEPOLYGON] = new FXXPMIcon(a, modepolygon_xpm);
+    myIcons[GUIIcon::MODEPROHIBITION] = new FXXPMIcon(a, modeprohibition_xpm);
 
-    myIcons[ICON_MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
-    myIcons[ICON_MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
-    myIcons[ICON_MODEVEHICLETYPE] = new FXXPMIcon(a, modevehicletype_xpm);
-    myIcons[ICON_MODESTOP] = new FXXPMIcon(a, modestop_xpm);
-    myIcons[ICON_MODEPERSONTYPE] = new FXXPMIcon(a, modepersontype_xpm);
-    myIcons[ICON_MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
-    myIcons[ICON_MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
+    myIcons[GUIIcon::MODEROUTE] = new FXXPMIcon(a, moderoute_xpm);
+    myIcons[GUIIcon::MODEVEHICLE] = new FXXPMIcon(a, modevehicle_xpm);
+    myIcons[GUIIcon::MODEVEHICLETYPE] = new FXXPMIcon(a, modevehicletype_xpm);
+    myIcons[GUIIcon::MODESTOP] = new FXXPMIcon(a, modestop_xpm);
+    myIcons[GUIIcon::MODEPERSONTYPE] = new FXXPMIcon(a, modepersontype_xpm);
+    myIcons[GUIIcon::MODEPERSON] = new FXXPMIcon(a, modeperson_xpm);
+    myIcons[GUIIcon::MODEPERSONPLAN] = new FXXPMIcon(a, modepersonplan_xpm);
 
-    myIcons[ICON_COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
-    myIcons[ICON_CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
-    myIcons[ICON_JOINJUNCTIONS] = new FXXPMIcon(a, joinjunctions_xpm);
-    myIcons[ICON_COMPUTEDEMAND] = new FXXPMIcon(a, computedemand_xpm);
-    myIcons[ICON_CLEANROUTES] = new FXXPMIcon(a, cleanroutes_xpm);
-    myIcons[ICON_JOINROUTES] = new FXXPMIcon(a, joinroutes_xpm);
+    myIcons[GUIIcon::MODEEDGEDATA] = new FXXPMIcon(a, modeedgedata_xpm);
+    myIcons[GUIIcon::MODEEDGERELDATA] = new FXXPMIcon(a, modeedgereldata_xpm);
 
-    myIcons[ICON_OPTIONS] = new FXXPMIcon(a, options_xpm);
+    myIcons[GUIIcon::COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
+    myIcons[GUIIcon::CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
+    myIcons[GUIIcon::JOINJUNCTIONS] = new FXXPMIcon(a, joinjunctions_xpm);
+    myIcons[GUIIcon::COMPUTEDEMAND] = new FXXPMIcon(a, computedemand_xpm);
+    myIcons[GUIIcon::CLEANROUTES] = new FXXPMIcon(a, cleanroutes_xpm);
+    myIcons[GUIIcon::JOINROUTES] = new FXXPMIcon(a, joinroutes_xpm);
 
-    myIcons[ICON_JUNCTION] = new FXXPMIcon(a, junction_xpm);
-    myIcons[ICON_EDGE] = new FXXPMIcon(a, edge_xpm);
-    myIcons[ICON_LANE] = new FXXPMIcon(a, lane_xpm);
-    myIcons[ICON_CONNECTION] = new FXXPMIcon(a, connection_xpm);
-    myIcons[ICON_PROHIBITION] = new FXXPMIcon(a, prohibition_xpm);
-    myIcons[ICON_CROSSING] = new FXXPMIcon(a, crossing_xpm);
+    myIcons[GUIIcon::OPTIONS] = new FXXPMIcon(a, options_xpm);
 
-    myIcons[ICON_BUSSTOP] = new FXXPMIcon(a, busstop_xpm);
-    myIcons[ICON_ACCESS] = new FXXPMIcon(a, access_xpm);
-    myIcons[ICON_CONTAINERSTOP] = new FXXPMIcon(a, containerstop_xpm);
-    myIcons[ICON_CHARGINGSTATION] = new FXXPMIcon(a, chargingstation_xpm);
-    myIcons[ICON_PARKINGAREA] = new FXXPMIcon(a, parkingarea_xpm);
-    myIcons[ICON_PARKINGSPACE] = new FXXPMIcon(a, parkingspace_xpm);
-    myIcons[ICON_E1] = new FXXPMIcon(a, e1_xpm);
-    myIcons[ICON_E2] = new FXXPMIcon(a, e2_xpm);
-    myIcons[ICON_E3] = new FXXPMIcon(a, e3_xpm);
-    myIcons[ICON_E3ENTRY] = new FXXPMIcon(a, e3entry_xpm);
-    myIcons[ICON_E3EXIT] = new FXXPMIcon(a, e3exit_xpm);
-    myIcons[ICON_E1INSTANT] = new FXXPMIcon(a, e1instant_xpm);
-    myIcons[ICON_REROUTER] = new FXXPMIcon(a, rerouter_xpm);
-    myIcons[ICON_ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
-    myIcons[ICON_VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
-    myIcons[ICON_VARIABLESPEEDSIGN] = new FXXPMIcon(a, variablespeedsign_xpm);
-    myIcons[ICON_CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
-    myIcons[ICON_REROUTERINTERVAL] = new FXXPMIcon(a, rerouterinterval_xpm);
-    myIcons[ICON_VSSSTEP] = new FXXPMIcon(a, vssstep_xpm);
-    myIcons[ICON_CLOSINGREROUTE] = new FXXPMIcon(a, closingreroute_xpm);
-    myIcons[ICON_CLOSINGLANEREROUTE] = new FXXPMIcon(a, closinglanereroute_xpm);
-    myIcons[ICON_DESTPROBREROUTE] = new FXXPMIcon(a, destprobreroute_xpm);
-    myIcons[ICON_PARKINGZONEREROUTE] = new FXXPMIcon(a, parkingzonereroute_xpm);
-    myIcons[ICON_ROUTEPROBREROUTE] = new FXXPMIcon(a, routeprobreroute_xpm);
-    myIcons[ICON_TAZ] = new FXXPMIcon(a, taz_xpm);
-    myIcons[ICON_TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
+    myIcons[GUIIcon::JUNCTION] = new FXXPMIcon(a, junction_xpm);
+    myIcons[GUIIcon::EDGE] = new FXXPMIcon(a, edge_xpm);
+    myIcons[GUIIcon::LANE] = new FXXPMIcon(a, lane_xpm);
+    myIcons[GUIIcon::CONNECTION] = new FXXPMIcon(a, connection_xpm);
+    myIcons[GUIIcon::PROHIBITION] = new FXXPMIcon(a, prohibition_xpm);
+    myIcons[GUIIcon::CROSSING] = new FXXPMIcon(a, crossing_xpm);
 
-    myIcons[ICON_ROUTE] = new FXXPMIcon(a, route_xpm);
-    myIcons[ICON_VTYPE] = new FXXPMIcon(a, vtype_xpm);
-    myIcons[ICON_PTYPE] = new FXXPMIcon(a, ptype_xpm);
-    myIcons[ICON_VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
-    myIcons[ICON_TRIP] = new FXXPMIcon(a, trip_xpm);
-    myIcons[ICON_FLOW] = new FXXPMIcon(a, flow_xpm);
-    myIcons[ICON_ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
-    myIcons[ICON_STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
-    myIcons[ICON_PERSON] = new FXXPMIcon(a, person_xpm);
-    myIcons[ICON_PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
-    myIcons[ICON_PERSONTRIP_FROMTO] = new FXXPMIcon(a, persontripfromto_xpm);
-    myIcons[ICON_PERSONTRIP_BUSSTOP] = new FXXPMIcon(a, persontripbusstop_xpm);
-    myIcons[ICON_WALK_EDGES] = new FXXPMIcon(a, walkedges_xpm);
-    myIcons[ICON_WALK_FROMTO] = new FXXPMIcon(a, walkfromto_xpm);
-    myIcons[ICON_WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
-    myIcons[ICON_WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
-    myIcons[ICON_RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
-    myIcons[ICON_RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
-    myIcons[ICON_PERSON_BUSSTOP] = new FXXPMIcon(a, personbusstop_xpm);
-    myIcons[ICON_PERSON_CONTAINERSTOP] = new FXXPMIcon(a, personcontainerstop_xpm);
-    myIcons[ICON_PERSON_LANESTOP] = new FXXPMIcon(a, personlanestop_xpm);
+    myIcons[GUIIcon::BUSSTOP] = new FXXPMIcon(a, busstop_xpm);
+    myIcons[GUIIcon::ACCESS] = new FXXPMIcon(a, access_xpm);
+    myIcons[GUIIcon::CONTAINERSTOP] = new FXXPMIcon(a, containerstop_xpm);
+    myIcons[GUIIcon::CHARGINGSTATION] = new FXXPMIcon(a, chargingstation_xpm);
+    myIcons[GUIIcon::PARKINGAREA] = new FXXPMIcon(a, parkingarea_xpm);
+    myIcons[GUIIcon::PARKINGSPACE] = new FXXPMIcon(a, parkingspace_xpm);
+    myIcons[GUIIcon::E1] = new FXXPMIcon(a, e1_xpm);
+    myIcons[GUIIcon::E2] = new FXXPMIcon(a, e2_xpm);
+    myIcons[GUIIcon::E3] = new FXXPMIcon(a, e3_xpm);
+    myIcons[GUIIcon::E3ENTRY] = new FXXPMIcon(a, e3entry_xpm);
+    myIcons[GUIIcon::E3EXIT] = new FXXPMIcon(a, e3exit_xpm);
+    myIcons[GUIIcon::E1INSTANT] = new FXXPMIcon(a, e1instant_xpm);
+    myIcons[GUIIcon::REROUTER] = new FXXPMIcon(a, rerouter_xpm);
+    myIcons[GUIIcon::ROUTEPROBE] = new FXXPMIcon(a, routeprobe_xpm);
+    myIcons[GUIIcon::VAPORIZER] = new FXXPMIcon(a, vaporizer_xpm);
+    myIcons[GUIIcon::VARIABLESPEEDSIGN] = new FXXPMIcon(a, variablespeedsign_xpm);
+    myIcons[GUIIcon::CALIBRATOR] = new FXXPMIcon(a, calibrator_xpm);
+    myIcons[GUIIcon::REROUTERINTERVAL] = new FXXPMIcon(a, rerouterinterval_xpm);
+    myIcons[GUIIcon::VSSSTEP] = new FXXPMIcon(a, vssstep_xpm);
+    myIcons[GUIIcon::CLOSINGREROUTE] = new FXXPMIcon(a, closingreroute_xpm);
+    myIcons[GUIIcon::CLOSINGLANEREROUTE] = new FXXPMIcon(a, closinglanereroute_xpm);
+    myIcons[GUIIcon::DESTPROBREROUTE] = new FXXPMIcon(a, destprobreroute_xpm);
+    myIcons[GUIIcon::PARKINGZONEREROUTE] = new FXXPMIcon(a, parkingzonereroute_xpm);
+    myIcons[GUIIcon::ROUTEPROBREROUTE] = new FXXPMIcon(a, routeprobreroute_xpm);
+    myIcons[GUIIcon::TAZ] = new FXXPMIcon(a, taz_xpm);
+    myIcons[GUIIcon::TAZEDGE] = new FXXPMIcon(a, tazedge_xpm);
 
-    myIcons[ICON_VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
-    myIcons[ICON_VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
-    myIcons[ICON_VCLASS_EMERGENCY] = new FXXPMIcon(a, vclass_emergency_xpm);
-    myIcons[ICON_VCLASS_AUTHORITY] = new FXXPMIcon(a, vclass_authority_xpm);
-    myIcons[ICON_VCLASS_ARMY] = new FXXPMIcon(a, vclass_army_xpm);
-    myIcons[ICON_VCLASS_VIP] = new FXXPMIcon(a, vclass_vip_xpm);
-    myIcons[ICON_VCLASS_PASSENGER] = new FXXPMIcon(a, vclass_passenger_xpm);
-    myIcons[ICON_VCLASS_HOV] = new FXXPMIcon(a, vclass_hov_xpm);
-    myIcons[ICON_VCLASS_TAXI] = new FXXPMIcon(a, vclass_taxi_xpm);
-    myIcons[ICON_VCLASS_BUS] = new FXXPMIcon(a, vclass_bus_xpm);
-    myIcons[ICON_VCLASS_COACH] = new FXXPMIcon(a, vclass_coach_xpm);
-    myIcons[ICON_VCLASS_DELIVERY] = new FXXPMIcon(a, vclass_delivery_xpm);
-    myIcons[ICON_VCLASS_TRUCK] = new FXXPMIcon(a, vclass_truck_xpm);
-    myIcons[ICON_VCLASS_TRAILER] = new FXXPMIcon(a, vclass_trailer_xpm);
-    myIcons[ICON_VCLASS_TRAM] = new FXXPMIcon(a, vclass_tram_xpm);
-    myIcons[ICON_VCLASS_RAIL_URBAN] = new FXXPMIcon(a, vclass_rail_urban_xpm);
-    myIcons[ICON_VCLASS_RAIL] = new FXXPMIcon(a, vclass_rail_xpm);
-    myIcons[ICON_VCLASS_RAIL_ELECTRIC] = new FXXPMIcon(a, vclass_rail_electric_xpm);
-    myIcons[ICON_VCLASS_MOTORCYCLE] = new FXXPMIcon(a, vclass_motorcycle_xpm);
-    myIcons[ICON_VCLASS_MOPED] = new FXXPMIcon(a, vclass_moped_xpm);
-    myIcons[ICON_VCLASS_BICYCLE] = new FXXPMIcon(a, vclass_bicycle_xpm);
-    myIcons[ICON_VCLASS_PEDESTRIAN] = new FXXPMIcon(a, vclass_pedestrian_xpm);
-    myIcons[ICON_VCLASS_EVEHICLE] = new FXXPMIcon(a, vclass_evehicle_xpm);
-    myIcons[ICON_VCLASS_SHIP] = new FXXPMIcon(a, vclass_ship_xpm);
-    myIcons[ICON_VCLASS_CUSTOM1] = new FXXPMIcon(a, vclass_custom1_xpm);
-    myIcons[ICON_VCLASS_CUSTOM2] = new FXXPMIcon(a, vclass_custom2_xpm);
+    myIcons[GUIIcon::ROUTE] = new FXXPMIcon(a, route_xpm);
+    myIcons[GUIIcon::VTYPE] = new FXXPMIcon(a, vtype_xpm);
+    myIcons[GUIIcon::PTYPE] = new FXXPMIcon(a, ptype_xpm);
+    myIcons[GUIIcon::VEHICLE] = new FXXPMIcon(a, vehicle_xpm);
+    myIcons[GUIIcon::TRIP] = new FXXPMIcon(a, trip_xpm);
+    myIcons[GUIIcon::FLOW] = new FXXPMIcon(a, flow_xpm);
+    myIcons[GUIIcon::ROUTEFLOW] = new FXXPMIcon(a, routeflow_xpm);
+    myIcons[GUIIcon::STOPELEMENT] = new FXXPMIcon(a, stopelement_xpm);
+    myIcons[GUIIcon::PERSON] = new FXXPMIcon(a, person_xpm);
+    myIcons[GUIIcon::PERSONFLOW] = new FXXPMIcon(a, personflow_xpm);
+    myIcons[GUIIcon::PERSONTRIP_FROMTO] = new FXXPMIcon(a, persontripfromto_xpm);
+    myIcons[GUIIcon::PERSONTRIP_BUSSTOP] = new FXXPMIcon(a, persontripbusstop_xpm);
+    myIcons[GUIIcon::WALK_EDGES] = new FXXPMIcon(a, walkedges_xpm);
+    myIcons[GUIIcon::WALK_FROMTO] = new FXXPMIcon(a, walkfromto_xpm);
+    myIcons[GUIIcon::WALK_BUSSTOP] = new FXXPMIcon(a, walkbusstop_xpm);
+    myIcons[GUIIcon::WALK_ROUTE] = new FXXPMIcon(a, walkroute_xpm);
+    myIcons[GUIIcon::RIDE_FROMTO] = new FXXPMIcon(a, ridefromto_xpm);
+    myIcons[GUIIcon::RIDE_BUSSTOP] = new FXXPMIcon(a, ridebusstop_xpm);
+    myIcons[GUIIcon::PERSON_BUSSTOP] = new FXXPMIcon(a, personbusstop_xpm);
+    myIcons[GUIIcon::PERSON_CONTAINERSTOP] = new FXXPMIcon(a, personcontainerstop_xpm);
+    myIcons[GUIIcon::PERSON_LANESTOP] = new FXXPMIcon(a, personlanestop_xpm);
 
-    myIcons[ICON_VSHAPE_PEDESTRIAN] = new FXXPMIcon(a, vshape_pedestrian_xpm);
-    myIcons[ICON_VSHAPE_BICYCLE] = new FXXPMIcon(a, vshape_bicycle_xpm);
-    myIcons[ICON_VSHAPE_MOPED] = new FXXPMIcon(a, vshape_moped_xpm);
-    myIcons[ICON_VSHAPE_MOTORCYCLE] = new FXXPMIcon(a, vshape_motorcycle_xpm);
-    myIcons[ICON_VSHAPE_PASSENGER] = new FXXPMIcon(a, vshape_passenger_xpm);
-    myIcons[ICON_VSHAPE_PASSENGER_SEDAN] = new FXXPMIcon(a, vshape_passenger_sedan_xpm);
-    myIcons[ICON_VSHAPE_PASSENGER_HATCHBACK] = new FXXPMIcon(a, vshape_passenger_hatchback_xpm);
-    myIcons[ICON_VSHAPE_PASSENGER_WAGON] = new FXXPMIcon(a, vshape_passenger_wagon_xpm);
-    myIcons[ICON_VSHAPE_PASSENGER_VAN] = new FXXPMIcon(a, vshape_passenger_van_xpm);
-    myIcons[ICON_VSHAPE_DELIVERY] = new FXXPMIcon(a, vshape_delivery_xpm);
-    myIcons[ICON_VSHAPE_TRUCK] = new FXXPMIcon(a, vshape_truck_xpm);
-    myIcons[ICON_VSHAPE_TRUCK_SEMITRAILER] = new FXXPMIcon(a, vshape_truck_semitrailer_xpm);
-    myIcons[ICON_VSHAPE_TRUCK_1TRAILER] = new FXXPMIcon(a, vshape_truck_1trailer_xpm);
-    myIcons[ICON_VSHAPE_BUS] = new FXXPMIcon(a, vshape_bus_xpm);
-    myIcons[ICON_VSHAPE_BUS_COACH] = new FXXPMIcon(a, vshape_bus_coach_xpm);
-    myIcons[ICON_VSHAPE_BUS_FLEXIBLE] = new FXXPMIcon(a, vshape_bus_flexible_xpm);
-    myIcons[ICON_VSHAPE_BUS_TROLLEY] = new FXXPMIcon(a, vshape_bus_trolley_xpm);
-    myIcons[ICON_VSHAPE_RAIL] = new FXXPMIcon(a, vshape_rail_xpm);
-    myIcons[ICON_VSHAPE_RAIL_CAR] = new FXXPMIcon(a, vshape_rail_car_xpm);
-    myIcons[ICON_VSHAPE_RAIL_CARGO] = new FXXPMIcon(a, vshape_rail_cargo_xpm);
-    myIcons[ICON_VSHAPE_E_VEHICLE] = new FXXPMIcon(a, vshape_e_vehicle_xpm);
-    myIcons[ICON_VSHAPE_ANT] = new FXXPMIcon(a, vshape_ant_xpm);
-    myIcons[ICON_VSHAPE_SHIP] = new FXXPMIcon(a, vshape_ship_xpm);
-    myIcons[ICON_VSHAPE_EMERGENCY] = new FXXPMIcon(a, vshape_emergency_xpm);
-    myIcons[ICON_VSHAPE_FIREBRIGADE] = new FXXPMIcon(a, vshape_firebrigade_xpm);
-    myIcons[ICON_VSHAPE_POLICE] = new FXXPMIcon(a, vshape_police_xpm);
-    myIcons[ICON_VSHAPE_RICKSHAW] = new FXXPMIcon(a, vshape_rickshaw_xpm);
-    myIcons[ICON_VSHAPE_UNKNOWN] = new FXXPMIcon(a, vshape_unknown_xpm);
+    myIcons[GUIIcon::DATASET] = new FXXPMIcon(a, dataset_xpm);
+    myIcons[GUIIcon::DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);
+    myIcons[GUIIcon::EDGEDATA] = new FXXPMIcon(a, edgedata_xpm);
+    myIcons[GUIIcon::EDGERELDATA] = new FXXPMIcon(a, edgereldata_xpm);
 
-    myIcons[ICON_OK] = new FXXPMIcon(a, accept_xpm);    // @todo create ok icon
-    myIcons[ICON_ACCEPT] = new FXXPMIcon(a, accept_xpm);
-    myIcons[ICON_CANCEL] = new FXXPMIcon(a, cancel_xpm);
-    myIcons[ICON_CORRECT] = new FXXPMIcon(a, correct_xpm);
-    myIcons[ICON_ERROR] = new FXXPMIcon(a, error_xpm);
-    myIcons[ICON_RESET] = new FXXPMIcon(a, reset_xpm);
-    myIcons[ICON_WARNING] = new FXXPMIcon(a, warning_xpm);
+    myIcons[GUIIcon::VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
+    myIcons[GUIIcon::VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);
+    myIcons[GUIIcon::VCLASS_EMERGENCY] = new FXXPMIcon(a, vclass_emergency_xpm);
+    myIcons[GUIIcon::VCLASS_AUTHORITY] = new FXXPMIcon(a, vclass_authority_xpm);
+    myIcons[GUIIcon::VCLASS_ARMY] = new FXXPMIcon(a, vclass_army_xpm);
+    myIcons[GUIIcon::VCLASS_VIP] = new FXXPMIcon(a, vclass_vip_xpm);
+    myIcons[GUIIcon::VCLASS_PASSENGER] = new FXXPMIcon(a, vclass_passenger_xpm);
+    myIcons[GUIIcon::VCLASS_HOV] = new FXXPMIcon(a, vclass_hov_xpm);
+    myIcons[GUIIcon::VCLASS_TAXI] = new FXXPMIcon(a, vclass_taxi_xpm);
+    myIcons[GUIIcon::VCLASS_BUS] = new FXXPMIcon(a, vclass_bus_xpm);
+    myIcons[GUIIcon::VCLASS_COACH] = new FXXPMIcon(a, vclass_coach_xpm);
+    myIcons[GUIIcon::VCLASS_DELIVERY] = new FXXPMIcon(a, vclass_delivery_xpm);
+    myIcons[GUIIcon::VCLASS_TRUCK] = new FXXPMIcon(a, vclass_truck_xpm);
+    myIcons[GUIIcon::VCLASS_TRAILER] = new FXXPMIcon(a, vclass_trailer_xpm);
+    myIcons[GUIIcon::VCLASS_TRAM] = new FXXPMIcon(a, vclass_tram_xpm);
+    myIcons[GUIIcon::VCLASS_RAIL_URBAN] = new FXXPMIcon(a, vclass_rail_urban_xpm);
+    myIcons[GUIIcon::VCLASS_RAIL] = new FXXPMIcon(a, vclass_rail_xpm);
+    myIcons[GUIIcon::VCLASS_RAIL_ELECTRIC] = new FXXPMIcon(a, vclass_rail_electric_xpm);
+    myIcons[GUIIcon::VCLASS_MOTORCYCLE] = new FXXPMIcon(a, vclass_motorcycle_xpm);
+    myIcons[GUIIcon::VCLASS_MOPED] = new FXXPMIcon(a, vclass_moped_xpm);
+    myIcons[GUIIcon::VCLASS_BICYCLE] = new FXXPMIcon(a, vclass_bicycle_xpm);
+    myIcons[GUIIcon::VCLASS_PEDESTRIAN] = new FXXPMIcon(a, vclass_pedestrian_xpm);
+    myIcons[GUIIcon::VCLASS_EVEHICLE] = new FXXPMIcon(a, vclass_evehicle_xpm);
+    myIcons[GUIIcon::VCLASS_SHIP] = new FXXPMIcon(a, vclass_ship_xpm);
+    myIcons[GUIIcon::VCLASS_CUSTOM1] = new FXXPMIcon(a, vclass_custom1_xpm);
+    myIcons[GUIIcon::VCLASS_CUSTOM2] = new FXXPMIcon(a, vclass_custom2_xpm);
 
-    myIcons[ICON_GRID1] = new FXXPMIcon(a, grid1_xpm);
-    myIcons[ICON_GRID2] = new FXXPMIcon(a, grid2_xpm);
-    myIcons[ICON_GRID3] = new FXXPMIcon(a, grid3_xpm);
+    myIcons[GUIIcon::VSHAPE_PEDESTRIAN] = new FXXPMIcon(a, vshape_pedestrian_xpm);
+    myIcons[GUIIcon::VSHAPE_BICYCLE] = new FXXPMIcon(a, vshape_bicycle_xpm);
+    myIcons[GUIIcon::VSHAPE_MOPED] = new FXXPMIcon(a, vshape_moped_xpm);
+    myIcons[GUIIcon::VSHAPE_MOTORCYCLE] = new FXXPMIcon(a, vshape_motorcycle_xpm);
+    myIcons[GUIIcon::VSHAPE_PASSENGER] = new FXXPMIcon(a, vshape_passenger_xpm);
+    myIcons[GUIIcon::VSHAPE_PASSENGER_SEDAN] = new FXXPMIcon(a, vshape_passenger_sedan_xpm);
+    myIcons[GUIIcon::VSHAPE_PASSENGER_HATCHBACK] = new FXXPMIcon(a, vshape_passenger_hatchback_xpm);
+    myIcons[GUIIcon::VSHAPE_PASSENGER_WAGON] = new FXXPMIcon(a, vshape_passenger_wagon_xpm);
+    myIcons[GUIIcon::VSHAPE_PASSENGER_VAN] = new FXXPMIcon(a, vshape_passenger_van_xpm);
+    myIcons[GUIIcon::VSHAPE_DELIVERY] = new FXXPMIcon(a, vshape_delivery_xpm);
+    myIcons[GUIIcon::VSHAPE_TRUCK] = new FXXPMIcon(a, vshape_truck_xpm);
+    myIcons[GUIIcon::VSHAPE_TRUCK_SEMITRAILER] = new FXXPMIcon(a, vshape_truck_semitrailer_xpm);
+    myIcons[GUIIcon::VSHAPE_TRUCK_1TRAILER] = new FXXPMIcon(a, vshape_truck_1trailer_xpm);
+    myIcons[GUIIcon::VSHAPE_BUS] = new FXXPMIcon(a, vshape_bus_xpm);
+    myIcons[GUIIcon::VSHAPE_BUS_COACH] = new FXXPMIcon(a, vshape_bus_coach_xpm);
+    myIcons[GUIIcon::VSHAPE_BUS_FLEXIBLE] = new FXXPMIcon(a, vshape_bus_flexible_xpm);
+    myIcons[GUIIcon::VSHAPE_BUS_TROLLEY] = new FXXPMIcon(a, vshape_bus_trolley_xpm);
+    myIcons[GUIIcon::VSHAPE_RAIL] = new FXXPMIcon(a, vshape_rail_xpm);
+    myIcons[GUIIcon::VSHAPE_RAIL_CAR] = new FXXPMIcon(a, vshape_rail_car_xpm);
+    myIcons[GUIIcon::VSHAPE_RAIL_CARGO] = new FXXPMIcon(a, vshape_rail_cargo_xpm);
+    myIcons[GUIIcon::VSHAPE_E_VEHICLE] = new FXXPMIcon(a, vshape_e_vehicle_xpm);
+    myIcons[GUIIcon::VSHAPE_ANT] = new FXXPMIcon(a, vshape_ant_xpm);
+    myIcons[GUIIcon::VSHAPE_SHIP] = new FXXPMIcon(a, vshape_ship_xpm);
+    myIcons[GUIIcon::VSHAPE_EMERGENCY] = new FXXPMIcon(a, vshape_emergency_xpm);
+    myIcons[GUIIcon::VSHAPE_FIREBRIGADE] = new FXXPMIcon(a, vshape_firebrigade_xpm);
+    myIcons[GUIIcon::VSHAPE_POLICE] = new FXXPMIcon(a, vshape_police_xpm);
+    myIcons[GUIIcon::VSHAPE_RICKSHAW] = new FXXPMIcon(a, vshape_rickshaw_xpm);
+    myIcons[GUIIcon::VSHAPE_UNKNOWN] = new FXXPMIcon(a, vshape_unknown_xpm);
+
+    myIcons[GUIIcon::OK] = new FXXPMIcon(a, accept_xpm);
+    myIcons[GUIIcon::ACCEPT] = new FXXPMIcon(a, accept_xpm);
+    myIcons[GUIIcon::CANCEL] = new FXXPMIcon(a, cancel_xpm);
+    myIcons[GUIIcon::CORRECT] = new FXXPMIcon(a, correct_xpm);
+    myIcons[GUIIcon::INCORRECT] = new FXXPMIcon(a, incorrect_xpm);
+    myIcons[GUIIcon::RESET] = new FXXPMIcon(a, reset_xpm);
+    myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
+
+    myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);
+    myIcons[GUIIcon::GRID2] = new FXXPMIcon(a, grid2_xpm);
+    myIcons[GUIIcon::GRID3] = new FXXPMIcon(a, grid3_xpm);
 
     // ... and create them
-    for (int i = 0; i < ICON_MAX; i++) {
-        if (myIcons[i] != nullptr) {
-            myIcons[i]->create();
-        }
+    for (const auto &icon : myIcons) {
+        icon.second->create();
     }
 }
 
 
 GUIIconSubSys::~GUIIconSubSys() {
-    for (int i = 0; i < ICON_MAX; i++) {
-        delete myIcons[i];
+    // remove all icons
+    for (const auto& icon : myIcons) {
+        delete icon.second;
     }
 }
 
 
 void
 GUIIconSubSys::initIcons(FXApp* a) {
-    assert(myInstance == 0);
-    myInstance = new GUIIconSubSys(a);
+    if (myInstance) {
+        throw ProcessError("Instance was previously created");
+    } else {
+        myInstance = new GUIIconSubSys(a);
+    }
 }
 
 
 FXIcon*
-GUIIconSubSys::getIcon(GUIIcon which) {
-    return myInstance->myIcons[which];
+GUIIconSubSys::getIcon(const GUIIcon which) {
+    return myInstance->myIcons.at(which);
 }
 
 
 void
 GUIIconSubSys::close() {
+    // delete instance and set null
     delete myInstance;
     myInstance = nullptr;
 }
 
 
 /****************************************************************************/
-

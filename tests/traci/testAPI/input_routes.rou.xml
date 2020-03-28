@@ -13,4 +13,5 @@
     </person>
 
     <vehicle id="3" depart="10" departSpeed="10" departPos="100" route="r1" type="t1"/>
+    <vehicle id="4" depart="15" departSpeed="10" departPos="100" route="r1" type="t1"/>
 </routes>

@@ -71,5 +71,11 @@ taz_astar_landmark_empty
 auto_trip_with_stop
 auto_trip_single_edge_depart_beyond_arrival
 
+# factor edge-priority into routing search
+priority-factor
+
+# track separate speeds for bicycles
+bike-speeds
+
 # Errors on assignment
 errors

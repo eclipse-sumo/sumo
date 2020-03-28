@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 11 13:08:31 2019 by Eclipse SUMO netconvert Version v1_3_1+0580-e6dd46c
+<!-- generated on Mon Feb 17 15:30:58 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,12 +23,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-406666.67,-5794742.44" convBoundary="0.00,0.00,712.02,1964.47" origBoundary="13.624665,52.295097,13.643611,52.312764" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -107,7 +108,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":293604102_1_0" index="0" allow="rail" speed="29.16" length="37.95" shape="22.52,385.23 21.61,377.95 20.18,366.39 18.86,354.82 18.25,347.52"/>
     </edge>
     <edge id=":293605247_0" function="internal">
-        <lane id=":293605247_0_0" index="0" allow="rail rail_electric rail_fast" speed="44.44" length="0.10" shape="17.71,300.90 17.71,300.90"/>
+        <lane id=":293605247_0_0" index="0" allow="rail" speed="44.44" length="0.10" shape="17.71,300.90 17.71,300.90"/>
     </edge>
     <edge id=":293605248_0" function="internal">
         <lane id=":293605248_0_0" index="0" allow="rail_urban" speed="27.78" length="2.99" shape="9.61,382.70 9.53,379.71"/>

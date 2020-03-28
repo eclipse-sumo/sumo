@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RONetHandler.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // The handler for SUMO-Networks
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -173,7 +172,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     std::string to;
     int priority;
     myCurrentEdge = nullptr;
-    if (func == EDGEFUNC_INTERNAL || func == EDGEFUNC_CROSSING || func == EDGEFUNC_WALKINGAREA) {
+    if (func == SumoXMLEdgeFunc::INTERNAL || func == SumoXMLEdgeFunc::CROSSING || func == SumoXMLEdgeFunc::WALKINGAREA) {
         assert(myCurrentName[0] == ':');
         const std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
         from = junctionID;
@@ -208,6 +207,10 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (myNet.addEdge(myCurrentEdge)) {
         fromNode->addOutgoing(myCurrentEdge);
         toNode->addIncoming(myCurrentEdge);
+        const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, myCurrentName.c_str(), ok, "");
+        if (bidi != "") {
+            myBidiEdges[myCurrentEdge] = bidi;
+        }
     } else {
         myCurrentEdge = nullptr;
     }
@@ -259,7 +262,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    if (attrs.getNodeType(ok) == NODETYPE_INTERNAL) {
+    if (attrs.getNodeType(ok) == SumoXMLNodeType::INTERNAL) {
         return;
     }
     myUnseenNodeIDs.erase(id);
@@ -412,5 +415,6 @@ RONetHandler::setLocation(const SUMOSAXAttributes& attrs) {
         GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
     }
 }
+
 
 /****************************************************************************/

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEChange_Crossing.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,15 +17,11 @@
 ///
 // A network change in which a single junction is created or deleted
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/netelements/GNECrossing.h>
-#include <netedit/netelements/GNEJunction.h>
+#include <netedit/elements/network/GNECrossing.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNEViewNet.h>
 
@@ -40,7 +40,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, nullptr, 0)
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges,
                                        double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
-    GNEChange(junctionParent->getNet(), forward),
+    GNEChange(junctionParent->getNet(), junctionParent, junctionParent, forward),
     myJunctionParent(junctionParent),
     myEdges(edges),
     myWidth(width),
@@ -49,7 +49,6 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::v
     myCustomTLIndex2(customTLIndex2),
     myCustomShape(customShape),
     mySelected(selected) {
-    assert(myNet);
 }
 
 
@@ -109,7 +108,7 @@ void GNEChange_Crossing::undo() {
         // Update view
         myNet->getViewNet()->update();
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 
@@ -151,7 +150,7 @@ void GNEChange_Crossing::redo() {
         // Update view
         myNet->getViewNet()->update();
     }
-    // enable save netElements
+    // enable save networkElements
     myNet->requireSaveNet(true);
 }
 

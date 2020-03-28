@@ -45,6 +45,8 @@
         <xsd:attribute name="limitTurnSpeed" type="xsd:float"/>
         <xsd:attribute name="checkLaneFoesAll" type="boolType"/>
         <xsd:attribute name="checkLaneFoesRoundabout" type="boolType"/>
+        <xsd:attribute name="tlsIgnoreInternalJunctionJam" type="boolType"/>
+        <xsd:attribute name="spreadType" type="spreadTypeType"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">
@@ -74,16 +76,17 @@
         <xsd:attribute name="type" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeTypeTwo" use="optional"/>
         <xsd:attribute name="distance" type="xsd:float"/>
-        <xsd:attribute name="spreadType" use="optional">
-            <xsd:simpleType>
-                <xsd:restriction base="xsd:string">
-                    <xsd:enumeration value="center"/>
-                    <xsd:enumeration value="right"/>
-                </xsd:restriction>
-            </xsd:simpleType>
-        </xsd:attribute>
+        <xsd:attribute name="spreadType" type="spreadTypeType" use="optional"/>
         <xsd:attribute name="crossingEdges" type="xsd:string" use="optional"/>
     </xsd:complexType>
+
+    <xsd:simpleType name="spreadTypeType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="center"/>
+            <xsd:enumeration value="roadCenter"/>
+            <xsd:enumeration value="right"/>
+        </xsd:restriction>
+    </xsd:simpleType>
 
     <xsd:complexType name="laneType">
         <xsd:choice  minOccurs="0" maxOccurs="unbounded">
@@ -203,6 +206,7 @@
         <xsd:attribute name="allow" type="xsd:string" use="optional"/>
         <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
         <xsd:attribute name="speed" type="xsd:float" use="optional"/>
+        <xsd:attribute name="length" type="xsd:float" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="uncontrolled" type="boolType" use="optional"/>
         <xsd:attribute name="via" type="xsd:string" use="optional"/>

@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    neteditTestFunctions.py
 # @author  Pablo Alvarez Lopez
@@ -343,14 +347,23 @@ def setupAndStart(testRoot, extraParameters=[], debugInformation=True, waitTime=
 
 def supermodeNetwork():
     """
-    @brief select Network Supermode
+    @brief select supermode Network
     """
-    typeKey('F3')
+    typeKey('F2')
 
 
 def supermodeDemand():
     """
-    @brief select Demand Supermode
+    @brief select supermode Demand
+    """
+    typeKey('F3')
+    # wait for output
+    time.sleep(DELAY_RECOMPUTE)
+
+
+def supermodeData():
+    """
+    @brief select supermode Data
     """
     typeKey('F4')
     # wait for output
@@ -398,7 +411,7 @@ def focusOnFrame():
     """
     @brief select focus on upper element of current frame
     """
-    typeKey('F12')
+    typeTwoKeys('shift', 'F12')
 
 
 def undo(referencePosition, number):
@@ -677,8 +690,8 @@ def openAboutDialog(waitingTime=DELAY_QUESTION):
     """
     @brief open and close about dialog
     """
-    # type F2 to open about dialog
-    typeKey('F2')
+    # type F12 to open about dialog
+    typeKey('F12')
     # wait before closing
     time.sleep(waitingTime)
     # press enter to close dialog (Ok must be focused)

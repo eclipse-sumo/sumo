@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLane.cpp
 /// @author  Christian Roessel
@@ -21,11 +25,6 @@
 ///
 // Representation of a lane in the micro simulation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -49,6 +48,7 @@
 #include <utils/emissions/HelpersHarmonoise.h>
 #include <utils/geom/GeomHelper.h>
 #include <microsim/transportables/MSPModel.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSNet.h"
@@ -1373,7 +1373,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                     double high = (*veh)->getPositionOnLane(this);
                     double low = (*veh)->getBackPositionOnLane(this);
                     for (AnyVehicleIterator veh2 = bidiLane->anyVehiclesBegin(); veh2 != bidiLane->anyVehiclesEnd(); ++veh2) {
-                        // self-collisions might ligitemately occur when a long train loops back on itself
+                        // self-collisions might legitemately occur when a long train loops back on itself
                         //if (*veh == *veh2) {
                         //    // no self-collision (when performing a turn-around)
                         //    continue;
@@ -1381,6 +1381,13 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         double low2 = myLength - (*veh2)->getPositionOnLane(bidiLane);
                         double high2 = myLength - (*veh2)->getBackPositionOnLane(bidiLane);
                         if (!(high < low2 || high2 < low)) {
+#ifdef DEBUG_COLLISIONS
+                            if (DEBUG_COND) {
+                                std::cout << SIMTIME << " bidi-collision veh=" << (*veh)->getID() << " bidiVeh=" << (*veh2)->getID() 
+                                    << " vehFurther=" << toString((*veh)->getFurtherLanes())
+                                    << " high=" << high << " low=" << low << " high2=" << high2 << " low2=" << low2 << "\n";
+                            }
+#endif
                             // the faster vehicle is at fault
                             MSVehicle* collider = const_cast<MSVehicle*>(*veh);
                             MSVehicle* victim = const_cast<MSVehicle*>(*veh2);
@@ -1435,7 +1442,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     }
 
 
-    if (myEdge->getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(this)) {
+    if (myEdge->getPersons().size() > 0 && hasPedestrians()) {
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " detect pedestrian collisions stage=" << stage << " lane=" << getID() << "\n";
@@ -1447,7 +1454,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
             const double back = v->getBackPositionOnLane(this);
             const double length = v->getVehicleType().getLength();
             const double right = v->getRightSideOnEdge(this) - getRightSideOnEdge();
-            PersonDist leader = MSPModel::getModel()->nextBlocking(this, back, right, right + v->getVehicleType().getWidth());
+            PersonDist leader = nextBlocking(back, right, right + v->getVehicleType().getWidth());
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
             if (DEBUG_COND && DEBUG_COND2(v)) {
                 std::cout << SIMTIME << " back=" << back << " right=" << right << " person=" << Named::getIDSecure(leader.first) << " dist=" << leader.second << "\n";
@@ -1474,7 +1481,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
         if (toTeleport.count(veh) > 0) {
             MSVehicleTransfer::getInstance()->add(timestep, veh);
         } else {
-            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+            veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_COLLISION);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         }
     }
@@ -1484,7 +1491,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 void
 MSLane::detectPedestrianJunctionCollision(const MSVehicle* collider, const PositionVector& colliderBoundary, const MSLane* foeLane,
         SUMOTime timestep, const std::string& stage) {
-    if (foeLane->getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(foeLane)) {
+    if (foeLane->getEdge().getPersons().size() > 0 && foeLane->hasPedestrians()) {
 #ifdef DEBUG_PEDESTRIAN_COLLISIONS
         if (DEBUG_COND) {
             std::cout << SIMTIME << " detect pedestrian junction collisions stage=" << stage << " lane=" << getID() << " foeLane=" << foeLane->getID() << "\n";
@@ -1738,7 +1745,7 @@ MSLane::executeMovements(const SUMOTime t) {
         } else if (target != nullptr && moved) {
             if (target->getEdge().isVaporizing()) {
                 // vehicle has reached a vaporizing edge
-                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_VAPORIZER);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             } else {
                 // vehicle has entered a new lane (leaveLane and workOnMoveReminders were already called in MSVehicle::executeMove)
@@ -1762,7 +1769,7 @@ MSLane::executeMovements(const SUMOTime t) {
             if (getCollisionAction() == COLLISION_ACTION_REMOVE) {
                 WRITE_WARNING("Removing vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" +
                               time2string(t) + ".");
-                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+                veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_COLLISION);
                 MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             } else if (getCollisionAction() == COLLISION_ACTION_TELEPORT) {
                 WRITE_WARNING("Teleporting vehicle '" + veh->getID() + "' after earlier collision, lane='" + veh->getLane()->getID() + ", time=" +
@@ -2751,6 +2758,31 @@ MSLane::getMeanSpeed() const {
 
 
 double
+MSLane::getMeanSpeedBike() const {
+    // @note: redudant code with getMeanSpeed to avoid extra checks in a function that is called very often
+    if (myVehicles.size() == 0) {
+        return myMaxSpeed;
+    }
+    double v = 0;
+    int numBikes = 0;
+    for (MSVehicle* veh : getVehiclesSecure()) {
+        if (veh->getVClass() == SVC_BICYCLE) {
+            v += veh->getSpeed();
+            numBikes++;
+        }
+    }
+    double ret;
+    if (numBikes > 0) {
+        ret = v / (double) myVehicles.size();
+    } else {
+        ret = myMaxSpeed;
+    }
+    releaseVehicles();
+    return ret;
+}
+
+
+double
 MSLane::getCO2Emissions() const {
     double ret = 0;
     const MSLane::VehCont& vehs = getVehiclesSecure();
@@ -3168,7 +3200,7 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                 MSLeaderInfo firstFront = next->getFirstVehicleInformation(nullptr, 0, true);
 #ifdef DEBUG_CONTEXT
                 if (DEBUG_COND2(ego)) {
-                    std::cout << "   next=" << next->getID() << " seen=" << (*it).length << " first=" << first.toString() << " firstFront=" << firstFront.toString() << "\n";
+                    std::cout << "   next=" << next->getID() << " seen=" << (*it).length << " first=" << first.toString() << " firstFront=" << firstFront.toString() << " backOffset=" << backOffset << "\n";
                     gDebugFlag1 = true; // for calling getLeaderInfo
                 }
 #endif
@@ -3176,11 +3208,17 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                         && egoFurther.count(&next->getEdge()) != 0
                    )  {
                     // check for junction foes that would interfere with lane changing
+                    // @note: we are passing the back of ego as its front position so
+                    //        we need to add this back to the returned gap
                     const MSLink::LinkLeaders linkLeaders = (*it).viaLink->getLeaderInfo(ego, -backOffset);
                     for (const auto& ll : linkLeaders) {
                         if (ll.vehAndGap.first != nullptr) {
                             const bool egoIsLeader = ll.vehAndGap.first->isLeader((*it).viaLink, ego);
-                            const double gap = egoIsLeader ? NUMERICAL_EPS : ll.vehAndGap.second;
+                            // if ego is leader the returned gap still assumes that ego follows the leader
+                            // if the foe vehicle follows ego we need to deduce that gap 
+                            const double gap = (egoIsLeader 
+                                    ? -ll.vehAndGap.second - ll.vehAndGap.first->getVehicleType().getLengthWithGap() - ego->getVehicleType().getMinGap()
+                                    : ll.vehAndGap.second + ego->getVehicleType().getLength());
                             result.addFollower(ll.vehAndGap.first, ego, gap);
 #ifdef DEBUG_CONTEXT
                             if (DEBUG_COND2(ego)) {
@@ -3672,15 +3710,28 @@ MSLane::resetPermissions(long long transientID) {
 
 
 bool
+MSLane::hasPedestrians() const {
+    MSNet* const net = MSNet::getInstance();
+    return net->hasPersons() && net->getPersonControl().getMovementModel()->hasPedestrians(this);
+}
+
+
+PersonDist
+MSLane::nextBlocking(double minPos, double minRight, double maxLeft, double stopTime) const {
+    return MSNet::getInstance()->getPersonControl().getMovementModel()->nextBlocking(this, minPos, minRight, maxLeft, stopTime);
+}
+
+
+bool
 MSLane::checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist,  double pos, bool patchSpeed) const {
-    if (getEdge().getPersons().size() > 0 && MSPModel::getModel()->hasPedestrians(this)) {
+    if (getEdge().getPersons().size() > 0 && hasPedestrians()) {
 #ifdef DEBUG_INSERTION
         if (DEBUG_COND2(aVehicle)) {
             std::cout << SIMTIME << " check for pedestrians on lane=" << getID() << " pos=" << pos << "\n";
         }
 #endif
-        PersonDist leader = MSPModel::getModel()->nextBlocking(this, pos - aVehicle->getVehicleType().getLength(),
-                            aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
+        PersonDist leader = nextBlocking(pos - aVehicle->getVehicleType().getLength(),
+                                         aVehicle->getRightSideOnLane(), aVehicle->getRightSideOnLane() + aVehicle->getVehicleType().getWidth(), ceil(speed / aVehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
             const double gap = leader.second - aVehicle->getVehicleType().getLengthWithGap();
             const double stopSpeed = aVehicle->getCarFollowModel().stopSpeed(aVehicle, speed, gap);

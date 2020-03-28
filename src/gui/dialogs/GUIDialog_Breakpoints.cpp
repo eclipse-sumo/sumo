@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIDialog_Breakpoints.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Editor for simulation breakpoints
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -66,7 +65,7 @@ FXIMPLEMENT(GUIDialog_Breakpoints, FXMainWindow, GUIDialog_BreakpointsMap, ARRAY
 // ===========================================================================
 
 GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<SUMOTime>& breakpoints, FXMutex& breakpointLock) :
-    FXMainWindow(parent->getApp(), "Breakpoints Editor", GUIIconSubSys::getIcon(ICON_APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
+    FXMainWindow(parent->getApp(), "Breakpoints Editor", GUIIconSubSys::getIcon(GUIIcon::APP_BREAKPOINTS), nullptr, GUIDesignChooserDialog),
     myParent(parent), myBreakpoints(&breakpoints), myBreakpointLock(&breakpointLock) {
     // build main Frame
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -85,15 +84,15 @@ GUIDialog_Breakpoints::GUIDialog_Breakpoints(GUIMainWindow* parent, std::vector<
     FXVerticalFrame* layoutRight = new FXVerticalFrame(hbox, GUIDesignChooserLayoutRight);
     // create buttons ('&' in the label creates a hot key)
     // "Load"
-    new FXButton(layoutRight, "&Load\t\t", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
+    new FXButton(layoutRight, "&Load\t\t", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_CHOOSEN_LOAD, GUIDesignChooserButtons);
     // "Save"
-    new FXButton(layoutRight, "&Save\t\t", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
+    new FXButton(layoutRight, "&Save\t\t", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_CHOOSEN_SAVE, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     // "Clear List"
-    new FXButton(layoutRight, "Clea&r\t\t", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
+    new FXButton(layoutRight, "Clea&r\t\t", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_CHOOSEN_CLEAR, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     // "Close"
-    new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(ICON_NO), this, MID_CANCEL, GUIDesignChooserButtons);
+    new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
     // add this dialog as child of GUIMainWindow parent
     myParent->addChild(this);
 }
@@ -134,7 +133,7 @@ GUIDialog_Breakpoints::rebuildList() {
 long
 GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Load Breakpoints");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length() != 0) {
@@ -154,7 +153,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GUIDialog_Breakpoints::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, "Save Breakpoints", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this, "Save Breakpoints", ".txt", GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -235,5 +234,6 @@ GUIDialog_Breakpoints::layout() {
     FXMainWindow::layout();
     myTable->setColumnWidth(0, myTable->getWidth() - 1);
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

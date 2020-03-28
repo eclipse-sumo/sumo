@@ -1,13 +1,13 @@
-Warning: Teleporting vehicle 'always_right.1'; waited too long (wrong lane), lane='4o_0', time=1199.00.
-Warning: Vehicle 'always_right.1' skips stop on lane '4o_0' time=1199.00.
-Warning: Vehicle 'always_right.1' ends teleporting on edge '4fi', time 1199.00.
+Warning: Teleporting vehicle 'always_right.1'; waited too long (wrong lane), lane='4o_0', time=1198.00.
+Warning: Vehicle 'always_right.1' skips stop on lane '4o_0' time=1198.00.
+Warning: Vehicle 'always_right.1' ends teleporting on edge '4fi', time 1198.00.
 Warning: Teleporting vehicle 'always_right.102'; waited too long (jam), lane='1si_2', time=1612.00.
 Warning: Teleporting vehicle 'always_right.103'; waited too long (yield), lane='1si_2', time=1966.00.
 Warning: Vehicle 'always_right.102' skips stop on lane '4o_0' time=2113.00.
 Warning: Vehicle 'always_right.102' ends teleporting on edge '4fi', time 2114.00.
-Warning: Teleporting vehicle 'always_right.3'; waited too long (wrong lane), lane='4o_0', time=2207.00.
-Warning: Vehicle 'always_right.3' skips stop on lane '4o_0' time=2207.00.
-Warning: Vehicle 'always_right.3' ends teleporting on edge '4fi', time 2207.00.
-Warning: Vehicle 'always_right.103' ends teleporting on edge '4o', time 2209.00.
+Warning: Teleporting vehicle 'always_right.3'; waited too long (wrong lane), lane='4o_0', time=2205.00.
+Warning: Vehicle 'always_right.3' skips stop on lane '4o_0' time=2205.00.
+Warning: Vehicle 'always_right.3' ends teleporting on edge '4fi', time 2205.00.
+Warning: Vehicle 'always_right.103' ends teleporting on edge '4o', time 2207.00.
 Warning: Teleporting vehicle 'always_right.104'; waited too long (yield), lane='1si_2', time=2271.00.
-Warning: Teleporting vehicle 'always_right.106'; waited too long (yield), lane='1si_2', time=2611.00.
+Warning: Teleporting vehicle 'always_right.106'; waited too long (yield), lane='1si_2', time=2609.00.

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLaneChanger.cpp
 /// @author  Christian Roessel
@@ -18,10 +22,6 @@
 ///
 // Performs lane changing of vehicles
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "MSLaneChanger.h"
@@ -35,6 +35,7 @@
 #include <cstdlib>
 #include <cmath>
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPModel.h>
 #include <utils/common/MsgHandler.h>
 
@@ -270,6 +271,7 @@ MSLaneChanger::change() {
     if (vehicle->getLaneChangeModel().isChangingLanes() && !vehicle->getLaneChangeModel().alreadyChanged()) {
         return continueChange(vehicle, myCandi);
     }
+    vehicle->getLaneChangeModel().setSpeedLat(0);
     if (!myAllowsChanging || vehicle->getLaneChangeModel().alreadyChanged() || vehicle->isStoppedOnLane()) {
         registerUnchanged(vehicle);
         return false;
@@ -811,8 +813,8 @@ MSLaneChanger::checkChange(
             blocked |= blockedByLeader;
         }
     }
-    if (blocked == 0 && MSPModel::getModel()->hasPedestrians(targetLane)) {
-        PersonDist leader = MSPModel::getModel()->nextBlocking(targetLane, vehicle->getBackPositionOnLane(),
+    if (blocked == 0 && targetLane->hasPedestrians()) {
+        PersonDist leader = targetLane->nextBlocking(vehicle->getBackPositionOnLane(),
                             vehicle->getRightSideOnLane(), vehicle->getRightSideOnLane() + vehicle->getVehicleType().getWidth(),
                             ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
         if (leader.first != 0) {
@@ -1028,14 +1030,18 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
         // prevent by appropriate bestLane distances
         return false;
     }
+    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     int ret = 0;
     ret = vehicle->influenceChangeDecision(ret);
     bool oppositeChangeByTraci = false;
     // Check whether a lane change to the opposite direction was requested via TraCI
     if ((ret & (LCA_TRACI)) != 0) {
+        if (isOpposite && (ret & LCA_LEFT) != 0) {
+            // stay on the opposite side
+            return false;
+        }
         oppositeChangeByTraci = true;
     }
-    const bool isOpposite = vehicle->getLaneChangeModel().isOpposite();
     if (!isOpposite && leader.first == 0 && !oppositeChangeByTraci) {
         // no reason to change unless there is a leader
         // or we are changing back to the propper direction
@@ -1045,7 +1051,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     if (!isOpposite && !oppositeChangeByTraci
             && vehicle->getVClass() != SVC_EMERGENCY
             && leader.first != 0) {
-        if (leader.first->signalSet(MSNet::getInstance()->lefthand()
+        if (leader.first->signalSet(MSGlobals::gLefthand
                                     ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT)) {
             // do not try to overtake a vehicle that is about to turn left or wants
             // to change left itself
@@ -1602,4 +1608,3 @@ MSLaneChanger::getLaneAfter(MSLane* lane, const std::vector<MSLane*>& conts) {
 
 
 /****************************************************************************/
-

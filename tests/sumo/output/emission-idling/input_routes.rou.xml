@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="passenger" vClass="passenger" emissionClass="PHEMlight/PC_D_EU4" personCapacity="1"/>
+    <route edges="E0" color="yellow" id="r0"/>
+    <vehicle id="ve0" depart="0.00" route="r0" type="passenger">
+        <stop parkingArea="pE0" duration="30.00"/>
+    </vehicle>
+    <vehicle id="ve1" depart="0.00" color="red" route="r0" type="passenger">
+        <stop lane="E0_0" startPos="128.00" endPos="130.00" duration="100.00"/>
+    </vehicle>
+</routes>
+

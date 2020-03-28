@@ -46,6 +46,10 @@ A typical use case for *netdiff.py* is this:
 5.  re-apply the *diff*-files to avoid repeating manual corrections with
     [NETEDIT](../NETEDIT.md)
 
+![](../images/mergeA.png)
+![](../images/mergeB.png)
+![](../images/mergeAB.png)
+
 ## patching on import
 
 If the patch file is to be applied during the initial network import
@@ -146,3 +150,16 @@ xmlconnections_mapEdges.py <CONNECTIONS>
 - <OLD_EDGE_ID\>: Id of an edge as used within <CONNECTIONS\>
 - <NEW_EDGE_ID\>: Id of the edge as to use instead
 - <CONNECTIONS\>: The connections file to change
+
+# net2kml.py
+
+converts '.net.xml' road geometries to [KML](https://en.wikipedia.org/wiki/Keyhole_Markup_Language) format.
+
+```
+<SUMO_HOME>/tools/net/net2kml.py -n your.net.xml -o output.kml
+```
+
+By default, normal edge geometries will be exported. This can be changed with options
+- **--lanes**: write lane geometries
+- **--internal**: write junction-internal edges or lanes
+

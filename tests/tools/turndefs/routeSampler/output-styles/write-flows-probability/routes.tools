@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-12 13:13:10.887186 by routeSampler.py v1_5_0+0680-a5d3f0f
+  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml <doubleminus>write-flows probability
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <flow id="74" begin="0.00" end="1.00" probability="1.0">
+        <route edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -75"/>
+    </flow>
+    <flow id="30" begin="1.15" end="2.15" probability="1.0">
+        <route edges="-43.80.00 -27 -27.80.00 -71 -55 -55.80.00"/>
+    </flow>
+    <flow id="81" begin="2.30" end="42.59" probability="0.0496392496392">
+        <route edges="31.80.00 58"/>
+    </flow>
+    <flow id="2" begin="3.45" end="4.45" probability="1.0">
+        <route edges="-109.80.00 23 23.80.00 31 31.80.00 -31 -31.80.00"/>
+    </flow>
+    <flow id="10" begin="4.60" end="5.60" probability="1.0">
+        <route edges="-144 -144.121.42 152"/>
+    </flow>
+    <flow id="97" begin="5.76" end="63.31" probability="0.0347474747475">
+        <route edges="75 75.121.42 120 120.180.00 -109 -109.80.00 23 23.80.00"/>
+    </flow>
+    <flow id="77" begin="6.91" end="20.72" probability="0.144781144781">
+        <route edges="3 3.180.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/>
+    </flow>
+    <flow id="88" begin="8.06" end="56.41" probability="0.041366041366">
+        <route edges="58 -37 -37.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00"/>
+    </flow>
+    <flow id="40" begin="9.21" end="10.21" probability="1.0">
+        <route edges="-64 -64.80.00 64 64.80.00 120 120.180.00 -120 -120.180.00"/>
+    </flow>
+    <flow id="39" begin="10.36" end="96.70" probability="0.023164983165">
+        <route edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45 -45.80.00"/>
+    </flow>
+    <flow id="75" begin="11.51" end="12.51" probability="1.0">
+        <route edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58 -58.121.42"/>
+    </flow>
+    <flow id="83" begin="12.66" end="90.94" probability="0.0255496137849">
+        <route edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 -131 -131.180.00"/>
+    </flow>
+    <flow id="46" begin="13.81" end="14.81" probability="1.0">
+        <route edges="-75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 23"/>
+    </flow>
+    <flow id="69" begin="14.97" end="15.97" probability="1.0">
+        <route edges="15 15.180.00 -123 -123.121.42 -120 -120.180.00 -75 -75.121.42 75"/>
+    </flow>
+    <flow id="17" begin="16.12" end="17.12" probability="1.0">
+        <route edges="-152.80.00 -131 -131.180.00 131"/>
+    </flow>
+    <flow id="58" begin="17.27" end="18.27" probability="1.0">
+        <route edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
+    </flow>
+    <flow id="76" begin="18.42" end="50.65" probability="0.0620490620491">
+        <route edges="27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 75 75.121.42"/>
+    </flow>
+    <flow id="16" begin="19.57" end="20.57" probability="1.0">
+        <route edges="-152.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 31 31.80.00 64 64.80.00"/>
+    </flow>
+    <flow id="3" begin="21.87" end="22.87" probability="1.0">
+        <route edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -120 -120.180.00"/>
+    </flow>
+    <flow id="41" begin="23.02" end="24.02" probability="1.0">
+        <route edges="-64 -64.80.00 64 64.80.00 120 120.180.00 123 123.121.42"/>
+    </flow>
+    <flow id="8" begin="24.17" end="87.49" probability="0.0315886134068">
+        <route edges="-131.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
+    </flow>
+    <flow id="42" begin="25.33" end="26.33" probability="1.0">
+        <route edges="-64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3"/>
+    </flow>
+    <flow id="96" begin="26.48" end="27.48" probability="1.0">
+        <route edges="71.121.42 -3 -3.180.00 15 15.180.00"/>
+    </flow>
+    <flow id="67" begin="27.63" end="28.63" probability="1.0">
+        <route edges="144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/>
+    </flow>
+    <flow id="47" begin="28.78" end="29.78" probability="1.0">
+        <route edges="-79 -79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00"/>
+    </flow>
+    <flow id="23" begin="29.93" end="30.93" probability="1.0">
+        <route edges="-37 -37.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 144"/>
+    </flow>
+    <flow id="85" begin="31.08" end="49.50" probability="0.108585858586">
+        <route edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42"/>
+    </flow>
+    <flow id="36" begin="32.23" end="75.98" probability="0.0457203615098">
+        <route edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 -131"/>
+    </flow>
+    <flow id="89" begin="33.38" end="34.38" probability="1.0">
+        <route edges="60.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 5"/>
+    </flow>
+    <flow id="14" begin="34.53" end="35.53" probability="1.0">
+        <route edges="-15 -15.180.00 15 15.180.00"/>
+    </flow>
+    <flow id="82" begin="35.69" end="36.69" probability="1.0">
+        <route edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00"/>
+    </flow>
+    <flow id="64" begin="36.84" end="51.80" probability="0.133644133644">
+        <route edges="131 131.180.00 144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 55 71"/>
+    </flow>
+    <flow id="48" begin="37.99" end="38.99" probability="1.0">
+        <route edges="-79 -79.80.00 -60 -60.80.00 64 64.80.00"/>
+    </flow>
+    <flow id="49" begin="39.14" end="40.14" probability="1.0">
+        <route edges="-79 -79.80.00 75 75.121.42 120 120.180.00 131 131.180.00 -131 -131.180.00"/>
+    </flow>
+    <flow id="29" begin="40.29" end="41.29" probability="1.0">
+        <route edges="-43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 152"/>
+    </flow>
+    <flow id="60" begin="41.44" end="42.44" probability="1.0">
+        <route edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 45"/>
+    </flow>
+    <flow id="44" begin="43.74" end="44.74" probability="1.0">
+        <route edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -64"/>
+    </flow>
+    <flow id="94" begin="44.90" end="45.90" probability="1.0">
+        <route edges="68 -45 -45.80.00 -27 -27.80.00 -71 -55"/>
+    </flow>
+    <flow id="43" begin="46.05" end="47.05" probability="1.0">
+        <route edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 58"/>
+    </flow>
+    <flow id="26" begin="47.20" end="48.20" probability="1.0">
+        <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 131"/>
+    </flow>
+    <flow id="31" begin="48.35" end="49.35" probability="1.0">
+        <route edges="-43.80.00 -27 -27.80.00 27 27.80.00"/>
+    </flow>
+    <flow id="70" begin="52.95" end="53.95" probability="1.0">
+        <route edges="15.180.00 -15 -15.180.00 11 11.80.00 23 23.80.00 31 31.80.00"/>
+    </flow>
+    <flow id="20" begin="54.10" end="55.10" probability="1.0">
+        <route edges="-3.180.00 11 11.80.00 23 23.80.00"/>
+    </flow>
+    <flow id="0" begin="55.26" end="64.47" probability="0.325757575758">
+        <route edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27"/>
+    </flow>
+    <flow id="63" begin="57.56" end="58.56" probability="1.0">
+        <route edges="123 123.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 43 68"/>
+    </flow>
+    <flow id="28" begin="59.86" end="60.86" probability="1.0">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00"/>
+    </flow>
+    <flow id="95" begin="61.01" end="62.01" probability="1.0">
+        <route edges="71 71.121.42 -3 -3.180.00 11 11.80.00 109 109.80.00 -120"/>
+    </flow>
+    <flow id="33" begin="62.16" end="63.16" probability="1.0">
+        <route edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58"/>
+    </flow>
+    <flow id="19" begin="65.62" end="66.62" probability="1.0">
+        <route edges="-27.80.00 27 27.80.00 45 -68 -43 -43.80.00"/>
+    </flow>
+    <flow id="13" begin="66.77" end="67.77" probability="1.0">
+        <route edges="-148 -148.80.00 144 144.121.42 -15 -15.180.00 3 3.180.00 -3"/>
+    </flow>
+    <flow id="65" begin="67.92" end="68.92" probability="1.0">
+        <route edges="144 144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58"/>
+    </flow>
+    <flow id="53" begin="69.07" end="70.07" probability="1.0">
+        <route edges="-92.180.00 -60 -60.80.00 -31 -31.80.00 37 -58 -58.121.42"/>
+    </flow>
+    <flow id="79" begin="70.22" end="71.22" probability="1.0">
+        <route edges="3.180.00 27 27.80.00 55 71"/>
+    </flow>
+    <flow id="6" begin="71.37" end="72.52" number="2">
+        <route edges="-123 -123.121.42 131 131.180.00"/>
+    </flow>
+    <flow id="11" begin="73.67" end="74.67" probability="1.0">
+        <route edges="-144.121.42 144 144.121.42 -15 -15.180.00 5"/>
+    </flow>
+    <flow id="21" begin="74.83" end="75.83" probability="1.0">
+        <route edges="-3.180.00 3 3.180.00 -3"/>
+    </flow>
+    <flow id="15" begin="77.13" end="78.13" probability="1.0">
+        <route edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120"/>
+    </flow>
+    <flow id="91" begin="78.28" end="79.28" probability="1.0">
+        <route edges="64.80.00 -64 -64.80.00 -31 -31.80.00 31"/>
+    </flow>
+    <flow id="61" begin="79.43" end="80.43" probability="1.0">
+        <route edges="120 120.180.00 -120 -120.180.00 -75 -75.121.42 -60"/>
+    </flow>
+    <flow id="71" begin="80.58" end="81.58" probability="1.0">
+        <route edges="23 23.80.00 -23 -23.80.00 109"/>
+    </flow>
+    <flow id="32" begin="81.73" end="82.73" probability="1.0">
+        <route edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 92"/>
+    </flow>
+    <flow id="5" begin="82.88" end="83.88" probability="1.0">
+        <route edges="-120 -120.180.00 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00"/>
+    </flow>
+    <flow id="45" begin="84.03" end="85.03" probability="1.0">
+        <route edges="-75 -75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71"/>
+    </flow>
+    <flow id="24" begin="85.19" end="86.19" probability="1.0">
+        <route edges="-37.80.00 -23 -23.80.00 -11 -11.80.00 15 15.180.00"/>
+    </flow>
+    <flow id="93" begin="86.34" end="87.34" probability="1.0">
+        <route edges="68 -45 -45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 -11"/>
+    </flow>
+    <flow id="90" begin="88.64" end="89.64" probability="1.0">
+        <route edges="60.80.00 75 75.121.42 -75"/>
+    </flow>
+    <flow id="34" begin="89.79" end="90.79" probability="1.0">
+        <route edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 58 -37 -37.80.00"/>
+    </flow>
+    <flow id="55" begin="92.09" end="93.09" probability="1.0">
+        <route edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45"/>
+    </flow>
+    <flow id="51" begin="93.24" end="94.24" probability="1.0">
+        <route edges="-79.80.00 75 75.121.42"/>
+    </flow>
+    <flow id="25" begin="94.40" end="95.40" probability="1.0">
+        <route edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109"/>
+    </flow>
+    <flow id="57" begin="95.55" end="96.55" probability="1.0">
+        <route edges="11.80.00 23 23.80.00 31"/>
+    </flow>
+    <flow id="37" begin="97.85" end="98.85" probability="1.0">
+        <route edges="-58 -58.121.42 64 64.80.00 120 120.180.00"/>
+    </flow>
+</routes>

@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    _vehicle.py
 # @author  Michael Behrisch
@@ -31,15 +35,13 @@ def _readBestLanes(result):
     result.read("!iB")
     nbLanes = result.read("!i")[0]  # Length
     lanes = []
-    for i in range(nbLanes):
+    for _ in range(nbLanes):
         result.read("!B")
         laneID = result.readString()
         length, occupation, offset = result.read("!BdBdBb")[1::2]
         allowsContinuation = bool(result.read("!BB")[1])
-        nextLanesNo = result.read("!Bi")[1]
-        nextLanes = []
-        for j in range(nextLanesNo):
-            nextLanes.append(result.readString())
+        numNextLanes = result.read("!Bi")[1]
+        nextLanes = [result.readString() for __ in range(numNextLanes)]
         lanes.append((laneID, length, occupation, offset, allowsContinuation, tuple(nextLanes)))
     return tuple(lanes)
 
@@ -58,20 +60,20 @@ def _readNeighbors(result):
     """ result has structure:
     byte(TYPE_COMPOUND) | length(neighList) | Per list entry: string(vehID) | double(dist)
     """
-    N = result.readInt()  # length of the vehicle list
+    num = result.readInt()  # length of the vehicle list
     neighs = []
-    for i in range(N):
+    for _ in range(num):
         vehID = result.readString()
         dist = result.readDouble()
         neighs.append((vehID, dist))
-    return neighs
+    return tuple(neighs)
 
 
 def _readNextTLS(result):
     result.read("!iB")  # numCompounds, TYPE_INT
     numTLS = result.read("!i")[0]
     nextTLS = []
-    for i in range(numTLS):
+    for _ in range(numTLS):
         result.read("!B")
         tlsID = result.readString()
         tlsIndex, dist, state = result.read("!BiBdBB")[1::2]
@@ -83,7 +85,7 @@ def _readNextStops(result):
     result.read("!iB")  # numCompounds, TYPE_INT
     numStops = result.read("!i")[0]
     nextStop = []
-    for i in range(numStops):
+    for _ in range(numStops):
         result.read("!B")
         lane = result.readString()
         result.read("!B")
@@ -169,6 +171,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
                       tc.DISTANCE_REQUEST: Storage.readDouble,
                       tc.VAR_ROUTING_MODE: Storage.readInt,
                       tc.VAR_STOPSTATE: Storage.readInt,
+                      tc.VAR_STOP_DELAY: Storage.readDouble,
                       tc.VAR_DISTANCE: Storage.readDouble}
 
 
@@ -658,8 +661,9 @@ class VehicleDomain(Domain):
         Return the leading vehicle id together with the distance. The distance
         is measured from the front + minGap to the back of the leader, so it does not include the
         minGap of the vehicle.
-        The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
-        Note that the returned leader may be farther away than the given dist.
+        The dist parameter defines the minimum lookahead, 0 calculates a lookahead from the brake gap.
+        Note that the returned leader may be further away than the given dist and that the vehicle
+        will only look on its current best lanes and not look beyond the end of its final route edge.
         """
         self._connection._beginMessage(
             tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1 + 8)
@@ -726,6 +730,70 @@ class VehicleDomain(Domain):
         self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID, 2)
         self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, mode)
         return _readNeighbors(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID))
+
+    def getFollowSpeed(self, vehID, speed, gap, leaderSpeed, leaderMaxDecel, leaderID=""):
+        """getFollowSpeed(string, double, double, double, double, string) -> double
+        Return the follow speed computed by the carFollowModel of vehID
+        """
+        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
+                                       tc.VAR_FOLLOW_SPEED, vehID,
+                                       1 + 4 +
+                                       1 + 8 +
+                                       1 + 8 +
+                                       1 + 8 +
+                                       1 + 8 +
+                                       1 + 4 +
+                                       len(leaderID))
+        self._connection._string += struct.pack(
+            "!BiBdBdBdBd", tc.TYPE_COMPOUND, 5,
+            tc.TYPE_DOUBLE, speed,
+            tc.TYPE_DOUBLE, gap,
+            tc.TYPE_DOUBLE, leaderSpeed,
+            tc.TYPE_DOUBLE, leaderMaxDecel)
+        self._connection._packString(leaderID)
+        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_FOLLOW_SPEED, vehID).readDouble()
+
+    def getSecureGap(self, vehID, speed, leaderSpeed, leaderMaxDecel, leaderID=""):
+        """getSecureGap(string, double, double, double, string) -> double
+        Return the secure gap computed by the carFollowModel of vehID
+        """
+        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
+                                       tc.VAR_SECURE_GAP, vehID,
+                                       1 + 4 +
+                                       1 + 8 +
+                                       1 + 8 +
+                                       1 + 8 +
+                                       1 + 4 +
+                                       len(leaderID))
+        self._connection._string += struct.pack(
+            "!BiBdBdBd", tc.TYPE_COMPOUND, 4,
+            tc.TYPE_DOUBLE, speed,
+            tc.TYPE_DOUBLE, leaderSpeed,
+            tc.TYPE_DOUBLE, leaderMaxDecel)
+        self._connection._packString(leaderID)
+        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_SECURE_GAP, vehID).readDouble()
+
+    def getStopSpeed(self, vehID, speed, gap):
+        """getStopSpeed(string, double, double) -> double
+        Return the speed for stopping at gap computed by the carFollowModel of vehID
+        """
+        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
+                                       tc.VAR_STOP_SPEED, vehID,
+                                       1 + 4 +
+                                       1 + 8 +
+                                       1 + 8)
+        self._connection._string += struct.pack(
+            "!BiBdBd", tc.TYPE_COMPOUND, 2,
+            tc.TYPE_DOUBLE, speed,
+            tc.TYPE_DOUBLE, gap)
+        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_STOP_SPEED, vehID).readDouble()
+
+    def getStopDelay(self, vehID):
+        """getStopDelay(string) -> double
+        Returns the expected delay at the next stop (if that stop defines the
+        until-attribute) in seconds. Returns -1 if the next stop is not applicable
+        """
+        return self._getUniversal(tc.VAR_STOP_DELAY, vehID)
 
     def getNextTLS(self, vehID):
         """getNextTLS(string) ->
@@ -859,7 +927,7 @@ class VehicleDomain(Domain):
             9: 'blocked by left leader',
             10: 'blocked by left follower',
             11: 'blocked by right leader',
-            12: 'bloecked by right follower',
+            12: 'blocked by right follower',
             13: 'overlapping',
             14: 'insufficient space',
             15: 'sublane',
@@ -1636,8 +1704,7 @@ class VehicleDomain(Domain):
         Subscribe to one or more object values of the given domain around the
         given objectID in a given radius
         """
-        Domain.subscribeContext(
-            self, objectID, domain, dist, varIDs, begin, end)
+        Domain.subscribeContext(self, objectID, domain, dist, varIDs, begin, end)
 
     def addSubscriptionFilterLanes(self, lanes, noOpposite=False, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLanes(list(integer), bool, double, double) -> None
@@ -1691,7 +1758,7 @@ class VehicleDomain(Domain):
         if upstreamDist is not None:
             self.addSubscriptionFilterUpstreamDistance(upstreamDist)
 
-    def addSubscriptionFilterLCManeuver(self, direction, noOpposite=False, downstreamDist=None, upstreamDist=None):
+    def addSubscriptionFilterLCManeuver(self, direction=None, noOpposite=False, downstreamDist=None, upstreamDist=None):
         """addSubscriptionFilterLCManeuver(int) -> None
 
         Restricts vehicles returned by the last modified vehicle context subscription to neighbor and ego-lane leader
@@ -1760,3 +1827,17 @@ class VehicleDomain(Domain):
         to vehicles within field of vision with given opening angle
         """
         self._connection._addSubscriptionFilter(tc.FILTER_TYPE_FIELD_OF_VISION, openingAngle)
+
+    def addSubscriptionFilterLateralDistance(self, lateralDist, downstreamDist=None, upstreamDist=None):
+        """addSubscriptionFilterLateralDist(double, double, double) -> None
+
+        Adds a lateral distance filter to the last modified vehicle context subscription
+        (call it just after subscribing).
+        downstreamDist and upstreamDist specify the longitudinal range of the search
+        for surrounding vehicles along the ego vehicle's route.
+        """
+        self._connection._addSubscriptionFilter(tc.FILTER_TYPE_LATERAL_DIST, lateralDist)
+        if downstreamDist is not None:
+            self.addSubscriptionFilterDownstreamDistance(downstreamDist)
+        if upstreamDist is not None:
+            self.addSubscriptionFilterUpstreamDistance(upstreamDist)

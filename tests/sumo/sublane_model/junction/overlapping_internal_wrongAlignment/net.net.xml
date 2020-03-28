@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 13 Feb 2020 11:17:41 PM CET by Eclipse SUMO netedit Version v1_5_0+0041-5222535de8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/6649/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="0.00,-100.00,200.00,0.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" speed="9.11" length="18.71" shape="88.40,0.00 93.48,-0.72 97.10,-2.90 99.28,-6.52 100.00,-11.60"/>
+    </edge>
+    <edge id=":C_1" function="internal">
+        <lane id=":C_1_0" index="0" speed="13.89" length="23.20" shape="88.40,0.00 111.60,0.00"/>
+    </edge>
+
+    <edge id="CE" from="C" to="E" priority="-1" spreadType="center">
+        <lane id="CE_0" index="0" speed="13.89" length="88.40" shape="111.60,0.00 200.00,0.00"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="-1" spreadType="center">
+        <lane id="CS_0" index="0" speed="13.89" length="88.40" shape="100.00,-11.60 100.00,-100.00"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="-1" spreadType="center">
+        <lane id="WC_0" index="0" speed="13.89" length="88.40" shape="0.00,0.00 88.40,0.00"/>
+    </edge>
+
+    <junction id="C" type="priority" x="100.00" y="0.00" incLanes="WC_0" intLanes=":C_0_0 :C_1_0" shape="111.60,1.60 111.60,-1.60 108.54,-1.88 106.04,-2.71 104.10,-4.10 102.71,-6.04 101.88,-8.54 101.60,-11.60 98.40,-11.60 98.12,-8.54 97.29,-6.04 95.90,-4.10 93.96,-2.71 91.46,-1.88 88.40,-1.60 88.40,1.60" radius="10.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="E" type="dead_end" x="200.00" y="0.00" incLanes="CE_0" intLanes="" shape="200.00,-1.60 200.00,1.60"/>
+    <junction id="S" type="dead_end" x="100.00" y="-100.00" incLanes="CS_0" intLanes="" shape="98.40,-100.00 101.60,-100.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,1.60 0.00,-1.60"/>
+
+    <connection from="WC" to="CS" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="M"/>
+    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_1_0" dir="s" state="M"/>
+
+    <connection from=":C_0" to="CS" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":C_1" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

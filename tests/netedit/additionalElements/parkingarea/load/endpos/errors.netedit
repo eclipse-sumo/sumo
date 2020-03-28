@@ -10,7 +10,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary -0.10,
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 22.00,-28.20,63.00,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Format of optional optional unique float attribute 'endPos' of parkingArea with ID 'parkingArea_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
@@ -29,7 +29,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary -0.10,
 GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary 22.00,-28.20,57.00,-2.20
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -58,7 +58,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_4 into SUMORTree with boundary 22.00,
 Debug: Deleting unreferenced parkingArea 'parkingArea_4'
 GLDebug: 	Removed object parkingArea:parkingArea_4 from SUMORTree with boundary 22.00,-28.20,57.00,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingArea_3'
 GLDebug: 	Removed object parkingArea:parkingArea_3 from SUMORTree with boundary -13.00,-28.20,63.00,-2.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_2'
@@ -67,16 +67,16 @@ Debug: Deleting unreferenced parkingArea 'parkingArea_1'
 GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary 22.00,-28.20,63.00,-2.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 22.00,-28.20,63.00,-2.20
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

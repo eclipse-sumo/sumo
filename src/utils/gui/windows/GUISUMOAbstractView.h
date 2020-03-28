@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUISUMOAbstractView.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // The base class for a view
 /****************************************************************************/
-#ifndef GUISUMOAbstractView_h
-#define GUISUMOAbstractView_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -216,8 +214,8 @@ public:
     /// @brief set color scheme
     virtual bool setColorScheme(const std::string&);
 
-    /// @brief get visualitation settings
-    GUIVisualizationSettings* getVisualisationSettings() const;
+    /// @brief get visualization settings
+    GUIVisualizationSettings& getVisualisationSettings() const;
 
     /// @brief recalibrate color scheme according to the current value range
     virtual void buildColorRainbow(const GUIVisualizationSettings& /*s*/, GUIColorScheme& /*scheme*/, int /*active*/, GUIGlObjectType /*objectType*/,
@@ -355,9 +353,6 @@ public:
 
     /// @brief add decals
     void addDecals(const std::vector<Decal>& decals);
-
-    /// @brief get visualisation settings
-    GUIVisualizationSettings* getVisualisationSettings();
 
     /// @brief Returns the delay of the parent application
     double getDelay() const;
@@ -516,9 +511,3 @@ private:
     // @brief sensitivity for "<>AtPosition(...) functions
     static const double SENSITIVITY;
 };
-
-
-#endif
-
-/****************************************************************************/
-

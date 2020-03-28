@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_SUMO.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Importer for networks stored in SUMO format
 /****************************************************************************/
-#ifndef NIImporter_SUMO_h
-#define NIImporter_SUMO_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -195,6 +193,8 @@ private:
         SVCPermissions permissions;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom length for connection
+        double customLength;
         /// @brief custom shape connection
         PositionVector customShape;
         /// @brief if set to true, This connection will not be TLS-controlled despite its node being controlled.
@@ -387,6 +387,9 @@ private:
     /// @brief whether foe-relationships where checked at lane-level
     bool myCheckLaneFoesAll;
     bool myCheckLaneFoesRoundabout;
+    /// @brief whether some right-of-way checks at traffic light junctions should be disabled
+    bool myTlsIgnoreInternalJunctionJam;
+    std::string myDefaultSpreadType;
 
     /// @brief loaded roundabout edges
     std::vector<std::vector<std::string> > myRoundabouts;
@@ -411,9 +414,3 @@ private:
      */
     void parseProhibitionConnection(const std::string& attr, std::string& from, std::string& to, bool& ok);
 };
-
-
-#endif
-
-/****************************************************************************/
-

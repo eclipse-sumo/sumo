@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBRequest.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // This class computes the logic of a junction
 /****************************************************************************/
-#ifndef NBRequest_h
-#define NBRequest_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -144,14 +142,21 @@ public:
     /// @brief reports warnings if any occurred
     static void reportWarnings();
 
+    /// @brief whether the given connections crosses the foe connection from the same lane and must yield
+    bool rightTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
+                           const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon) const;
+
     /// @brief whether multple connections from the same edge target the same lane
     bool mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
-                       const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
+                       const NBEdge* prohibitorFrom, const NBEdge::Connection& prohibitorCon, bool foes) const;
 
     /// @brief whether opposite left turns intersect
     bool oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection& con,
                                   const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const;
 
+
+    /// @brief whether there are conflicting streams of traffic at this node
+    bool hasConflict() const;
 
 private:
     /** sets the information that the edge from1->to1 blocks the edge
@@ -272,8 +277,3 @@ private:
     /// @brief Invalidated assignment operator
     NBRequest& operator=(const NBRequest& s) = delete;
 };
-
-#endif
-
-/****************************************************************************/
-

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUISUMOViewParent.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // A single child window which contains a view of the simulation area
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -151,7 +150,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         }
         // get the new file name
         FXFileDialog opendialog(this, "Save Snapshot");
-        opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
         opendialog.setSelectMode(SELECTFILE_ANY);
 #ifdef HAVE_FFMPEG
         opendialog.setPatternList("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc)\n"
@@ -192,12 +191,12 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     switch (FXSELID(sel)) {
         case MID_LOCATEJUNCTION:
             ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
-            icon = ICON_LOCATEJUNCTION;
+            icon = GUIIcon::LOCATEJUNCTION;
             chooserTitle = "Junction Chooser";
             break;
         case MID_LOCATEEDGE:
             ids = GUIEdge::getIDs(myParent->listInternal());
-            icon = ICON_LOCATEEDGE;
+            icon = GUIIcon::LOCATEEDGE;
             chooserTitle = "Edge Chooser";
             break;
         case MID_LOCATEVEHICLE:
@@ -207,32 +206,32 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(
                     ids, myParent->listParking(), myParent->listTeleporting());
             }
-            icon = ICON_LOCATEVEHICLE;
+            icon = GUIIcon::LOCATEVEHICLE;
             chooserTitle = "Vehicle Chooser";
             break;
         case MID_LOCATEPERSON:
             static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertPersonIDs(ids);
-            icon = ICON_LOCATEPERSON;
+            icon = GUIIcon::LOCATEPERSON;
             chooserTitle = "Person Chooser";
             break;
         case MID_LOCATETLS:
             ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
-            icon = ICON_LOCATETLS;
+            icon = GUIIcon::LOCATETLS;
             chooserTitle = "Traffic Lights Chooser";
             break;
         case MID_LOCATEADD:
-            ids = GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONAL);
-            icon = ICON_LOCATEADD;
+            ids = GUIGlObject_AbstractAdd::getIDList(GLO_ADDITIONALELEMENT);
+            icon = GUIIcon::LOCATEADD;
             chooserTitle = "Additional Objects Chooser";
             break;
         case MID_LOCATEPOI:
             ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIIds();
-            icon = ICON_LOCATEPOI;
+            icon = GUIIcon::LOCATEPOI;
             chooserTitle = "POI Chooser";
             break;
         case MID_LOCATEPOLY:
             ids = static_cast<GUIShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPolygonIDs();
-            icon = ICON_LOCATEPOLY;
+            icon = GUIIcon::LOCATEPOLY;
             chooserTitle = "Polygon Chooser";
             break;
         default:
@@ -347,11 +346,14 @@ GUISUMOViewParent::onUpdSpeedFactor(FXObject* sender, FXSelector, void* ptr) {
                 MSPerson* person = dynamic_cast<MSPerson*>(o);
                 mySpeedFactorSlider->setValue((int)(person->getChosenSpeedFactor() * SPEEDFACTOR_SCALE));
             }
+            mySpeedFactorSlider->show();
+        } else {
+            myView->stopTrack();
+            mySpeedFactorSlider->hide();
         }
-
-        mySpeedFactorSlider->show();
     }
     return 1;
 }
+
 
 /****************************************************************************/

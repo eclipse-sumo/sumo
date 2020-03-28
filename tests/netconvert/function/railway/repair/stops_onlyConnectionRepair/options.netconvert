@@ -1,0 +1,9 @@
+-s input_net.net.xml 
+--ptstop-files input_ptstops.xml
+--ptline-files input_ptlines.xml
+--railway.topology.output topology.xml 
+--railway.topology.repair.stop-turn
+--ptstop-output additional.xml
+--ptstop-output.no-bidi
+--ptline-output ptlines.xml
+-v

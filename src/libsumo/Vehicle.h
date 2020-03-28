@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Vehicle.h
 /// @author  Michael Behrisch
@@ -14,13 +18,7 @@
 ///
 // C++ Vehicle API
 /****************************************************************************/
-#ifndef Vehicle_h
-#define Vehicle_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <limits>
@@ -104,6 +102,10 @@ public:
     static double getLastActionTime(const std::string& vehicleID);
     static std::string getParameter(const std::string& vehicleID, const std::string& key);
     static std::vector<std::pair<std::string, double> > getNeighbors(const std::string& vehicleID, const int mode);
+    static double getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
+    static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
+    static double getStopSpeed(const std::string& vehicleID, double speed, double gap);
+    static double getStopDelay(const std::string& vehicleID);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_GETTER
@@ -156,6 +158,7 @@ public:
     static void setRoutingMode(const std::string& vehicleID, int routingMode);
     static void setType(const std::string& vehicleID, const std::string& typeID);
     static void setRouteID(const std::string& vehicleID, const std::string& routeID);
+    static void setRoute(const std::string& vehicleID, const std::string& edgeID);
     static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
     static void updateBestLanes(const std::string& vehicleID);
     static void setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
@@ -171,14 +174,38 @@ public:
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
     static void setParameter(const std::string& vehicleID, const std::string& key, const std::string& value);
-    static void highlight(const std::string& vehicleID, const TraCIColor& col, double size, const int alphaMax, const double duration, const int type);
+    static void highlight(const std::string& vehicleID, const TraCIColor& col = TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_SETTER
 
     LIBSUMO_SUBSCRIPTION_API
 
-    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE);
+    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposite = false, double downstreamDist = INVALID_DOUBLE_VALUE, double upstreamDist = INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterNoOpposite();
+
+    static void addSubscriptionFilterDownstreamDistance(double dist);
+
+    static void addSubscriptionFilterUpstreamDistance(double dist);
+
+    static void addSubscriptionFilterCFManeuver(double downstreamDist = INVALID_DOUBLE_VALUE, double upstreamDist = INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterLCManeuver(int direction = INVALID_INT_VALUE, bool noOpposite = false, double downstreamDist = INVALID_DOUBLE_VALUE, double upstreamDist = INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterLeadFollow(const std::vector<int>& lanes);
+
+    static void addSubscriptionFilterTurn(double downstreamDist = INVALID_DOUBLE_VALUE, double upstreamDist = INVALID_DOUBLE_VALUE);
+
+    static void addSubscriptionFilterVClass(const std::vector<std::string>& vClasses);
+
+    static void addSubscriptionFilterVType(const std::vector<std::string>& vTypes);
+
+    static void addSubscriptionFilterFieldOfVision(double openingAngle);
+
+    static void addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist = INVALID_DOUBLE_VALUE, double upstreamDist = INVALID_DOUBLE_VALUE);
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
@@ -206,8 +233,3 @@ private:
 
 
 }
-
-
-#endif
-
-/****************************************************************************/

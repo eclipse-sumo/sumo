@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OptionsCont.cpp
 /// @author  Daniel Krajzewicz
@@ -16,9 +20,6 @@
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <map>
@@ -61,7 +62,7 @@ OptionsCont::getOptions() {
 
 OptionsCont::OptionsCont()
     : myAddresses(), myValues(), myDeprecatedSynonymes() {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
+    myCopyrightNotices.push_back("Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
 }
 
 
@@ -194,6 +195,13 @@ OptionsCont::getSecure(const std::string& name) const {
         s->second = true;
     }
     return k->second;
+}
+
+
+std::string
+OptionsCont::getValueString(const std::string& name) const {
+    Option* o = getSecure(name);
+    return o->getValueString();
 }
 
 
@@ -796,10 +804,13 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
         const std::vector<std::string>& entries = mySubTopicEntries.find(*i)->second;
         bool hadOne = false;
-        for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
-            Option* o = getSecure(*j);
+        for (const std::string& name : entries) {
+            Option* o = getSecure(name);
             bool write = complete || (filled && !o->isDefault());
             if (!write) {
+                continue;
+            }
+            if (name == "registry-viewport" && !complete) {
                 continue;
             }
             if (!hadOne) {
@@ -810,12 +821,12 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
             }
             // write the option and the value (if given)
-            os << "        <" << *j << " value=\"";
+            os << "        <" << name << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 os << StringUtils::escapeXML(o->getValueString(), inComment);
             }
             if (complete) {
-                std::vector<std::string> synonymes = getSynonymes(*j);
+                std::vector<std::string> synonymes = getSynonymes(name);
                 if (!synonymes.empty()) {
                     os << "\" synonymes=\"";
                     for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {

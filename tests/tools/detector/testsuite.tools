@@ -2,3 +2,4 @@
 flowrouter
 flowFromRoutes
 flowFromEdgeData
+edgeDataFromFlow

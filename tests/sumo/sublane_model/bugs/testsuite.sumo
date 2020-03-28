@@ -50,3 +50,7 @@ ticket4223
 
 # test lookback
 ticket5416
+
+# deadlock on junction
+ticket6636
+ticket6691

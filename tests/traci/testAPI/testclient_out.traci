@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Oct 17 13:06:19 2019
+TraCITestClient output file. Date: Fri Mar 20 13:39:58 2020
 
 
 -> Command sent: <SetOrder>:
@@ -51,7 +51,7 @@ testAPI:
     add:
     getIDList: e_m4 e_u1 r1
   vehicleType:
-    getIDList: DEFAULT_BIKETYPE DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1
+    getIDList: DEFAULT_BIKETYPE DEFAULT_CONTAINERTYPE DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1
     getEmergencyDecel: 9.90
     getApparentDecel: 99.90
     getWidth: 1.90
@@ -61,7 +61,7 @@ testAPI:
     getLateralAlignment: compact
     getPersonCapacity: 4
     copy type 't1' to 't1_copy' and set accel to 100.
-    getIDList: DEFAULT_BIKETYPE DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1 t1_copy
+    getIDList: DEFAULT_BIKETYPE DEFAULT_CONTAINERTYPE DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1 t1_copy
     getAccel('t1'): 0.80
     getAccel('t1_copy'): 100.00
   vehicle:
@@ -74,6 +74,9 @@ testAPI:
     getSpeed: 10.00
     getLateralSpeed: 0.00
     getAcceleration: 0.00
+    getFollowSpeed: 10.00
+    getSecureGap: 12.00
+    getStopSpeed: 10.00
     getSpeedMode: 31
     getSlope: 0.00
     getLine: S42
@@ -82,6 +85,7 @@ testAPI:
     getMaxSpeed: 30.00
     isRouteValid: 1
     getStopState: 0
+    getStopDelay: -1.00
     param: 42
     getColor:  r=255 g=255 b=0 a=128
     getSignals: 0

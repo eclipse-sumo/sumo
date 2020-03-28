@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ROEdge.h
 /// @author  Daniel Krajzewicz
@@ -18,13 +22,7 @@
 ///
 // A basic edge for routing applications
 /****************************************************************************/
-#ifndef ROEdge_h
-#define ROEdge_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -145,21 +143,29 @@ public:
 
     /// @brief return whether this edge is an internal edge
     inline bool isInternal() const {
-        return myFunction == EDGEFUNC_INTERNAL;
+        return myFunction == SumoXMLEdgeFunc::INTERNAL;
     }
 
     /// @brief return whether this edge is a pedestrian crossing
     inline bool isCrossing() const {
-        return myFunction == EDGEFUNC_CROSSING;
+        return myFunction == SumoXMLEdgeFunc::CROSSING;
     }
 
     /// @brief return whether this edge is walking area
     inline bool isWalkingArea() const {
-        return myFunction == EDGEFUNC_WALKINGAREA;
+        return myFunction == SumoXMLEdgeFunc::WALKINGAREA;
     }
 
     inline bool isTazConnector() const {
-        return myFunction == EDGEFUNC_CONNECTOR;
+        return myFunction == SumoXMLEdgeFunc::CONNECTOR;
+    }
+
+    void setOtherTazConnector(const ROEdge* edge) {
+        myOtherTazConnector = edge;
+    }
+
+    const ROEdge* getOtherTazConnector() const {
+        return myOtherTazConnector;
     }
 
     /** @brief Builds the internal representation of the travel time/effort
@@ -250,10 +256,10 @@ public:
     /** @brief returns the information whether this edge is directly connected to the given
      *
      * @param[in] e The edge which may be connected
-     * @param[in] vehicle The vehicle for which the connectivity is checked
+     * @param[in] vClass The vehicle class for which the connectivity is checked
      * @return Whether the given edge is a direct successor to this one
      */
-    bool isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) const;
+    bool isConnectedTo(const ROEdge& e, const SUMOVehicleClass vClass) const;
 
 
     /** @brief Returns whether this edge prohibits the given vehicle to pass it
@@ -417,6 +423,20 @@ public:
         return edge->getTravelTime(veh, time) * RandHelper::rand(1., gWeightsRandomFactor);
     }
 
+    /// @brief Alias for getTravelTimeStatic (there is no routing device to provide aggregated travel times)
+    static inline double getTravelTimeAggregated(const ROEdge* const edge, const ROVehicle* const veh, double time) {
+        return edge->getTravelTime(veh, time);
+    }
+
+    /// @brief Return traveltime weighted by edge priority (scaled penalty for low-priority edges)
+    static inline double getTravelTimeStaticPriorityFactor(const ROEdge* const edge, const ROVehicle* const veh, double time) {
+        double result = edge->getTravelTime(veh, time);
+        // lower priority should result in higher effort (and the edge with
+        // minimum priority receives a factor of myPriorityFactor
+        const double relativeInversePrio = 1 - ((edge->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
+        result *= 1 + relativeInversePrio * myPriorityFactor;
+        return result;
+    }
 
     /** @brief Returns a lower bound for the travel time on this edge without using any stored timeLine
      *
@@ -448,6 +468,12 @@ public:
 
 
     static double getNoiseEffort(const ROEdge* const edge, const ROVehicle* const veh, double time);
+
+    static double getStoredEffort(const ROEdge* const edge, const ROVehicle* const /*veh*/, double time) {
+        double ret = 0;
+        edge->getStoredEffort(time, ret);
+        return ret;
+    }
     //@}
 
 
@@ -483,7 +509,6 @@ public:
         return myToJunction;
     }
 
-
     /** @brief Returns this edge's lanes
      *
      * @return This edge's lanes
@@ -491,6 +516,39 @@ public:
     const std::vector<ROLane*>& getLanes() const {
         return myLanes;
     }
+
+    /// @brief return opposite superposable/congruent edge, if it exist and 0 else
+    inline const ROEdge* getBidiEdge() const {
+        return myBidiEdge;
+    }
+
+    /// @brief set opposite superposable/congruent edge
+    inline void setBidiEdge(const ROEdge* bidiEdge) {
+        myBidiEdge = bidiEdge;
+    }
+
+    ReversedEdge<ROEdge, ROVehicle>* getReversedRoutingEdge() const {
+        if (myReversedRoutingEdge == nullptr) {
+            myReversedRoutingEdge = new ReversedEdge<ROEdge, ROVehicle>(this);
+        }
+        return myReversedRoutingEdge;
+    }
+
+    RailEdge<ROEdge, ROVehicle>* getRailwayRoutingEdge() const {
+        if (myRailwayRoutingEdge == nullptr) {
+            myRailwayRoutingEdge = new RailEdge<ROEdge, ROVehicle>(this);
+        }
+        return myRailwayRoutingEdge;
+    }
+
+    /// @brief whether effort data was loaded for this edge
+    bool hasStoredEffort() const {
+        return myUsingETimeLine;
+    }
+
+    /// @brief initialize priority factor range
+    static bool initPriorityFactor(double priorityFactor);
+
 protected:
     /** @brief Retrieves the stored effort
      *
@@ -559,6 +617,12 @@ protected:
     /// @brief The list of allowed vehicle classes combined across lanes
     SVCPermissions myCombinedPermissions;
 
+    /// @brief the other taz-connector if this edge isTazConnector, otherwise nullptr
+    const ROEdge* myOtherTazConnector;
+
+    /// @brief the bidirectional rail edge or nullpr
+    const ROEdge* myBidiEdge;
+
     /// @brief The bounding rectangle of end nodes incoming or outgoing edges for taz connectors or of my own start and end node for normal edges
     Boundary myBoundary;
 
@@ -570,12 +634,22 @@ protected:
 
     static ROEdgeVector myEdges;
 
+    /// @brief Coefficient for factoring edge priority into routing weight
+    static double myPriorityFactor;
+    /// @brief Minimum priority for all edges
+    static double myMinEdgePriority;
+    /// @brief the difference between maximum and minimum priority for all edges
+    static double myEdgePriorityRange;
 
     /// @brief The successors available for a given vClass
     mutable std::map<SUMOVehicleClass, ROEdgeVector> myClassesSuccessorMap;
 
     /// @brief The successors with vias available for a given vClass
     mutable std::map<SUMOVehicleClass, ROConstEdgePairVector> myClassesViaSuccessorMap;
+
+    /// @brief a reversed version for backward routing
+    mutable ReversedEdge<ROEdge, ROVehicle>* myReversedRoutingEdge = nullptr;
+    mutable RailEdge<ROEdge, ROVehicle>* myRailwayRoutingEdge = nullptr;
 
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myClassesSuccessorMap
@@ -590,9 +664,3 @@ private:
     ROEdge& operator=(const ROEdge& src);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

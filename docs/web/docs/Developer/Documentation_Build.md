@@ -12,6 +12,16 @@ In summary, the documentation works as follows:
 - The documentation is being "developed" or "written" as Markdown files, located in the [SUMO GitHub repository](https://github.com/eclipse/sumo/tree/master/docs/web)
 - The static HTML sites are being generated using MkDocs and certain MkDocs-plugins
 
+# Requirements
+Building the documentation requires the python3-version of mkdocs along with several plugins. These can be installed with pip in the following manner:
+```
+ pip3 install mkdocs mkdocs-macros-plugin mkdocs-git-revision-date-plugin pymdown-extensions mdx_truly_sane_lists mdx_gh_links plantuml_markdown
+ ```
+You also need to install the plantuml package
+```
+ sudo apt install plantuml
+```
+
 # Documentation Parts
 
 ## Source Files
@@ -39,3 +49,5 @@ The HTML pages are being build using the Markdown files. The final pages are ava
 # Static HTML site generation
 
 The static HTML site generation is explained here: <https://github.com/eclipse/sumo/blob/master/docs/web/README.md>
+
+It can be triggered (from within the DLR network) via <https://sumo.dlr.de/generate-documentation.php> (or for a complete rebuild, via <https://sumo.dlr.de/generate-documentation.php?type=complete>).

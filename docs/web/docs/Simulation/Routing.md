@@ -92,7 +92,44 @@ the *rerouting device* are used.
   Note that the travel time values which are set in this way are used
   for the full duration of the simulation unless updated again.
 
+# Routing by Traveltime and Edge Priority
+Sometimes it is useful to guide route search with additional information while still taking travel times into account.
+For this use case the option **--weights.priority-factor FLOAT** can be used with [SUMO](../SUMO.md) and [DUAROUTER](../DUAROUTER.md).
+
+When this option is set, the priority value of each edge is factored into the routing decision so that low-priority edges receive a penalty (they appear to be slower) whereas high-priority edges receive little or no penalty. For the option value `PriorityFactor`, the penalty is computed thus:
+```
+  MinEdgePriority : minimum priority value of all edges
+  MaxEdgePriority : maximum priority value of all edges
+  EdgePriorityRange = MaxEdgePriority - MinEdgePriority
+
+  relativeInversePrio = 1 - ((edgePriority - MinEdgePriority) / EdgePriorityRange)
+  effort =  traveltime * (1 + relativeInversePrio * PriorityFactor)
+```
+As a consequence:
+
+- the highest priority edge will get no penalty
+- the traveltime of the lowest priority edge is multiplied with 1+PriorityFactor, 
+- edges with in-between priorities will get a scaled penalty
+
 # Routing by *effort*
+
+By default, the objective of the routing algorithms is to minimize the travel time between origin and destination.
+The traveltime can either be computed from the speed limits and vehicle maximum speed, it can be estimated at runtime from the simulation state or it can be loaded from a data file. The latter option allows defining travel times for the future.
+An example for the relevance of future travel times would be this:
+- a vehicle departs for a long trip at a time where there is no jamming
+- it is known that parts of the network will be jammed later
+- the route of the vehicle computed at departure time can circumvent the jam because the routing algorithm is aware that by the time those edges are reached they will be jammed.
+
+It may be useful to compute routes which minimize some other criteria (called **effort**) besides travel time (distance, emissions, price, ...).
+When these quantities are meant to change over time, the routing algorithm needs two kinds of values for each edge:
+
+- the **effort** that shall be minimized
+- the **travel time** for the edge.
+
+The travel time is needed to compute at which time a certain edge is reached so that effors which change over time can be used correctly.
+
+!!! note
+    When the effort values do not change over time, routing by effort can be achieved by loading weight-files with a modified `traveltime` attribute (the effort value is written into the traveltime attribute) and the option **--weight-attribute** can be omitted.
 
 When setting the options **--weight-file** and **--weight-attribute**, additional routing efforts are read
 according to the specified attribute. These are only used when calling
@@ -103,6 +140,9 @@ also be set using *traci.edge.setEffort*.
 
 !!! caution
     The default effort value is -1 which causes detour routes to be preferred when not loading sensible effort values.
+    
+The applications [DUAROUTER](../DUAROUTER.md) and [MAROUTER](../MAROUTER.md) also support the options **--weight-file** and **--weight-attribute** but they can only be used with one of the weight attributes "CO", "CO2", "PMx", "HC", "NOx", "fuel", "electricity", "noise". However, the will still work as expected when the user loads custom effort values for these attributes.
+
 
 # Routing by *distance*
 
@@ -155,7 +195,7 @@ search and is often faster than dijkstra. Here, the metric *euclidean distance /
     allow for blazing fast search.
 - *CH*: [Contraction Hierarchies](https://en.wikipedia.org/wiki/Contraction_hierarchies)
 is preprocessing-based routing algorithm. This is very efficient
-when a large number of queries is expected. The algorithm does
+when a large number of queries is expected. The algorithm does not
 consider time-dependent weights. Instead, new preprocessing can be
 performed for time-slices of fixed size by setting the option **--weight-period** {{DT_TIME}}. The
 preprocessing is done without restrictions on vehicle class which

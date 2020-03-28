@@ -98,16 +98,10 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-### compiling when sumo is already built
+### compiling (make sure SUMO_HOME is set)
 
 ```
-g++ -std=c++0x -o test TraCIAPITest.cpp utils/traci/libtraci.a foreign/tcpip/storage.o foreign/tcpip/socket.o -I .
-```
-
-### compiling with all files in the same directory
-
-```
-g++ -std=c++0x -o test TraCIAPITest.cpp TraCIAPI.cpp socket.cpp storage.cpp
+g++ -o test -I$SUMO_HOME/src TraCIAPITest.cpp $SUMO_HOME/src/utils/traci/TraCIAPI.cpp $SUMO_HOME/src/foreign/tcpip/socket.cpp $SUMO_HOME/src/foreign/tcpip/storage.cpp
 ```
 
 ### running

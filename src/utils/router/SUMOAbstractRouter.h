@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2006-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOAbstractRouter.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // An abstract router base class
 /****************************************************************************/
-#ifndef SUMOAbstractRouter_h
-#define SUMOAbstractRouter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -101,6 +99,7 @@ public:
         myErrorMsgHandler(unbuildIsWarning ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
         myOperation(operation), myTTOperation(ttOperation),
         myBulkMode(false),
+        myAutoBulkMode(false),
         myHavePermissions(havePermissions),
         myHaveRestrictions(haveRestrictions),
         myType(type),
@@ -109,6 +108,22 @@ public:
         myQueryStartTime(0),
         myQueryTimeSum(0) {
     }
+
+    /// Copy Constructor
+    SUMOAbstractRouter(SUMOAbstractRouter* other) :
+        myErrorMsgHandler(other->myErrorMsgHandler),
+        myOperation(other->myOperation), myTTOperation(other->myTTOperation),
+        myBulkMode(false),
+        myAutoBulkMode(false),
+        myHavePermissions(other->myHavePermissions),
+        myHaveRestrictions(other->myHaveRestrictions),
+        myType(other->myType),
+        myQueryVisits(0),
+        myNumQueries(0),
+        myQueryStartTime(0),
+        myQueryTimeSum(0) { }
+
+
 
     /// Destructor
     virtual ~SUMOAbstractRouter() {
@@ -120,10 +135,32 @@ public:
 
     virtual SUMOAbstractRouter* clone() = 0;
 
+    const std::string& getType() const {
+        return myType;
+    }
+
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     virtual bool compute(const E* from, const E* to, const V* const vehicle,
                          SUMOTime msTime, std::vector<const E*>& into, bool silent = false) = 0;
+
+
+    /** @brief Builds the route between the given edges using the minimum effort at the given time,
+     * also taking into account position along the edges to ensure currect
+     * handling of looped routes
+     * The definition of the effort depends on the wished routing scheme */
+    inline bool compute(
+        const E* from, double fromPos,
+        const E* to, double toPos,
+        const V* const vehicle,
+        SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+        if (from != to || fromPos <= toPos) {
+            return compute(from, to, vehicle, msTime, into, silent);
+        } else {
+            return computeLooped(from, to, vehicle, msTime, into, silent);
+        }
+    }
+
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
      * if from == to, return the shortest looped route */
@@ -212,6 +249,17 @@ public:
         return effort;
     }
 
+    inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
+        double effort = recomputeCosts(edges, v, msTime, lengthp);
+        if (!edges.empty()) {
+            double firstEffort = this->getEffort(edges.front(), v, STEPS2TIME(msTime));
+            double lastEffort = this->getEffort(edges.back(), v, STEPS2TIME(msTime));
+            effort -= firstEffort * fromPos / edges.front()->getLength();
+            effort -= lastEffort * (edges.back()->getLength() - toPos) / edges.back()->getLength();
+        }
+        return effort;
+    }
+
 
     inline double getEffort(const E* const e, const V* const v, double t) const {
         return (*myOperation)(e, v, t);
@@ -231,6 +279,10 @@ public:
         myBulkMode = mode;
     }
 
+    inline void setAutoBulkMode(const bool mode) {
+        myAutoBulkMode = mode;
+    }
+
 protected:
     /// @brief the handler for routing errors
     MsgHandler* const myErrorMsgHandler;
@@ -243,6 +295,9 @@ protected:
 
     /// @brief whether we are currently operating several route queries in a bulk
     bool myBulkMode;
+
+    /// @brief whether we are currently trying to detect bulk mode automatically
+    bool myAutoBulkMode;
 
     /// @brief whether edge permissions need to be considered
     const bool myHavePermissions;
@@ -266,8 +321,3 @@ private:
     /// @brief Invalidated assignment operator
     SUMOAbstractRouter& operator=(const SUMOAbstractRouter& s);
 };
-
-
-#endif
-
-/****************************************************************************/

@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    netdiff.py
 # @author  Daniel Krajzewicz
@@ -65,12 +69,14 @@ PLAIN_TYPES = [
 # CAVEAT7 - changing edge type triggers 'type override'
 #     (all attributes defined for the edge type are applied. This must be avoided)
 # CAVEAT8 - TAG_TLL must always be written before TAG_CONNECTION
+# CAVEAT9 - when TAG_NEIGH is removed, <neigh lane=""/> must written into the diff to indicate removal
 
 TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'
 TAG_CROSSING = 'crossing'
 TAG_ROUNDABOUT = 'roundabout'
 TAG_LANE = 'lane'
+TAG_NEIGH = 'neigh'
 TAG_EDGE = 'edge'
 TAG_PARAM = 'param'
 TAG_LOCATION = 'location'
@@ -83,6 +89,7 @@ IDATTRS[TAG_CROSSING] = ('node', 'edges')
 IDATTRS[TAG_ROUNDABOUT] = ('edges',)
 IDATTRS['interval'] = ('begin', 'end')
 IDATTRS[TAG_LANE] = ('index',)
+IDATTRS[TAG_NEIGH] = ('lane',)
 IDATTRS[TAG_PARAM] = ('key',)
 
 DELETE_ELEMENT = 'delete'  # the xml element for signifying deletes
@@ -136,6 +143,12 @@ class AttributeStore:
         self.idless_created = defaultdict(OrderedMultiSet)
         self.idless_copied = defaultdict(OrderedMultiSet)
 
+    def __str__(self):
+        return ("AttributeStore(level=%s, attrnames=%s, id_attrs:%s)" % (
+            self.level, self.attrnames,
+            ''.join(["\n%s%s: n=%s, v=%s, c=%s" % ('  ' * self.level, k, n, v, c)
+                     for k, (n, v, c) in self.id_attrs.items()])))
+
     # getAttribute returns "" if not present
     def getValue(self, node, name):
         if node.hasAttribute(name):
@@ -182,6 +195,7 @@ class AttributeStore:
 
     def compare(self, xmlnode):
         tag, id, children, attrs = self.getAttrs(xmlnode)
+        oldChildren = None
         tagid = (tag, id)
         if id != ():
             if AttributeStore.patchImport:
@@ -197,6 +211,7 @@ class AttributeStore:
                         self.ids_deleted.remove(tagid2)
                 return
             if tagid in self.ids_deleted:
+                oldChildren = self.id_attrs[tagid][2]
                 self.ids_deleted.remove(tagid)
                 self.id_attrs[tagid] = self.compareAttrs(
                     self.id_attrs[tagid], attrs, tag)
@@ -225,6 +240,25 @@ class AttributeStore:
                         self.id_attrs[tagid] = self.id_attrs[
                             tagid][0:2] + (children,)
 
+            elif tag == TAG_EDGE and oldChildren:
+                # see CAVEAT9
+                children = oldChildren
+                for k, (n, v, c) in oldChildren.id_attrs.items():
+                    if c:
+                        deletedNeigh = False
+                        for k2, (n2, v2, c2) in c.id_attrs.items():
+                            if k2[0] == TAG_NEIGH:
+                                deletedNeigh = True
+                        if deletedNeigh:
+                            # print("k2=%s n2=%s v2=%s c2=%s" % (k2, n2, v2, c2))
+                            delkey = (TAG_NEIGH, ("",))
+                            children.id_attrs[k][2].id_attrs = {delkey: ([], [], None)}
+                            children.id_attrs[k][2].ids_created.add(delkey)
+                            children.ids_deleted.discard(k)
+                        else:
+                            del children.id_attrs[k]
+                self.id_attrs[tagid] = self.id_attrs[tagid][0:2] + (children,)
+
         else:
             self.no_children_supported(children, tag)
             if attrs in self.idless_deleted[tag]:
@@ -246,6 +280,7 @@ class AttributeStore:
         dnames, dvalues, dchildren = destAttrs
         # for traffic lights, always use dchildren
         if schildren and dchildren:
+            # trigger compare
             dchildren = schildren
         if snames == dnames:
             values = tuple([self.diff(tag, n, s, d)
@@ -307,6 +342,10 @@ class AttributeStore:
                 additional = ' discard="true"'
                 comment_start, comment_end = (
                     "<!-- deletion of roundabouts not yet supported. see #2225 ", " -->")
+
+            if tag == TAG_NEIGH:
+                delete_element = tag
+                additional = ' lane=""'
 
             self.write(file, '%s<%s %s%s/>%s\n' % (
                 comment_start,

@@ -1,0 +1,12 @@
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <edge id="-23272948" allow="tram private emergency authority army vip pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle rail_fast custom1 custom2"/>
+    <edge id="-27143339" allow="tram private emergency authority army vip pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle rail_fast custom1 custom2"/>
+    <delete id="23295223"/>
+    <delete id="238993483"/>
+    <delete id="238993486#0"/>
+    <delete id="291757757#0"/>
+    <delete id="291757757#1"/>
+    <delete id="309839195"/>
+    <delete id="624709342"/>
+    <delete id="309839196#0"/>
+</edges>

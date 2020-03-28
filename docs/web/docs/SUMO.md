@@ -66,6 +66,7 @@ configuration:
 | **--load-state** {{DT_FILE}} | Loads a network state from FILE |
 | **--load-state.offset** {{DT_TIME}} | Shifts all times loaded from a saved state by the given offset; *default:* **0** |
 | **--load-state.remove-vehicles** {{DT_STR[]}} | Removes vehicles with the given IDs from the loaded state |
+| **--junction-taz** {{DT_BOOL}} | Initialize a TAZ for every junction to use attributes toJunction and fromJunction; *default:* **false** |
 
 ### Output
 
@@ -83,11 +84,17 @@ configuration:
 | **--emission-output.precision** {{DT_INT}} | Write emission values with the given precision (default 2); *default:* **2** |
 | **--battery-output** {{DT_FILE}} | Save the battery values of each vehicle |
 | **--battery-output.precision** {{DT_INT}} | Write battery values with the given precision (default 2); *default:* **2** |
+| **--elechybrid-output** {{DT_FILE}} | Save the elecHybrid values of each vehicle |
+| **--elechybrid-output.precision** {{DT_INT}} | Write elecHybrid values with the given precision (default 2); *default:* **2** |
+| **--elechybrid-output.aggregated** {{DT_BOOL}} | Write elecHybrid values into one aggregated file; *default:* **false** |
 | **--chargingstations-output** {{DT_FILE}} | Write data of charging stations |
+| **--overheadwiresegments-output** {{DT_FILE}} | Write data of overhead wire segments |
+| **--substations-output** {{DT_FILE}} | Write data of electrical substation stations |
 | **--fcd-output** {{DT_FILE}} | Save the Floating Car Data |
 | **--fcd-output.geo** {{DT_BOOL}} | Save the Floating Car Data using geo-coordinates (lon/lat); *default:* **false** |
 | **--fcd-output.signals** {{DT_BOOL}} | Add the vehicle signal state to the FCD output (brake lights etc.); *default:* **false** |
 | **--fcd-output.distance** {{DT_BOOL}} | Add kilometrage to the FCD output (linear referencing); *default:* **false** |
+| **--fcd-output.acceleration** {{DT_BOOL}} | Add acceleration to the FCD output; *default:* **false** |
 | **--fcd-output.filter-edges.input-file** {{DT_FILE}} | Restrict fcd output to the edge selection from the given input file |
 | **--full-output** {{DT_FILE}} | Save a lot of information for each timestep (very redundant) |
 | **--queue-output** {{DT_FILE}} | Save the vehicle queues at the junctions (experimental) |
@@ -113,7 +120,10 @@ configuration:
 | **--lanechange-output** {{DT_FILE}} | Record lane changes and their motivations for all vehicles into FILE |
 | **--lanechange-output.started** {{DT_BOOL}} | Record start of lane change manoeuvres; *default:* **false** |
 | **--lanechange-output.ended** {{DT_BOOL}} | Record end of lane change manoeuvres; *default:* **false** |
+| **--lanechange-output.xy** {{DT_BOOL}} | Record coordinates of lane change manoeuvres; *default:* **false** |
 | **--stop-output** {{DT_FILE}} | Record stops and loading/unloading of passenger and containers for all vehicles into FILE |
+| **--movereminder-output** {{DT_FILE}} | Save movereminder states of selected vehicles into FILE |
+| **--movereminder-output.vehicles** {{DT_STR[]}} | List of vehicle ids which shall save their movereminder states |
 | **--save-state.times** {{DT_INT[]}} | Use INT[] as times at which a network state written |
 | **--save-state.period** {{DT_TIME}} | save state repeatedly after TIME period; *default:* **-1** |
 | **--save-state.prefix** {{DT_FILE}} | Prefix for network states; *default:* **state** |
@@ -164,6 +174,7 @@ configuration:
 | **--default.carfollowmodel** {{DT_STR}} | Select default car following model (Krauss, IDM, ...); *default:* **Krauss** |
 | **--default.speeddev** {{DT_FLOAT}} | Select default speed deviation. A negative value implies vClass specific defaults (0.1 for the default passenger class; *default:* **-1** |
 | **--default.emergencydecel** {{DT_STR}} | Select default emergencyDecel value among ('decel', 'default', FLOAT) which sets the value either to the same as the deceleration value, a vClass-class specific default or the given FLOAT in m/s^2; *default:* **default** |
+| **--overhead-wire-solver** {{DT_BOOL}} | Use Kirchhoff's laws for solving overhead wire circuit; *default:* **true** |
 | **--emergencydecel.warning-threshold** {{DT_FLOAT}} | Sets the fraction of emergency decel capability that must be used to trigger a warning.; *default:* **1** |
 | **--parking.maneuver** {{DT_BOOL}} | Whether parking simulation includes manoeuvering time and associated lane blocking; *default:* **false** |
 | **--pedestrian.model** {{DT_STR}} | Select among pedestrian models ['nonInteracting', 'striping', 'remote']; *default:* **striping** |
@@ -171,6 +182,8 @@ configuration:
 | **--pedestrian.striping.dawdling** {{DT_FLOAT}} | Factor for random slow-downs [0,1] for use with model 'striping'; *default:* **0.2** |
 | **--pedestrian.striping.jamtime** {{DT_TIME}} | Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing); *default:* **300** |
 | **--pedestrian.striping.jamtime.crossing** {{DT_TIME}} | Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing); *default:* **10** |
+| **--pedestrian.striping.reserve-oncoming** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians; *default:* **0** |
+| **--pedestrian.striping.reserve-oncoming.junctions** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas; *default:* **0.34** |
 | **--pedestrian.remote.address** {{DT_STR}} | The address (host:port) of the external simulation; *default:* **localhost:9000** |
 | **--ride.stop-tolerance** {{DT_FLOAT}} | Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops; *default:* **10** |
 
@@ -184,7 +197,7 @@ configuration:
 | **--astar.all-distances** {{DT_FILE}} | Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output) |
 | **--astar.landmark-distances** {{DT_FILE}} | Initialize lookup table for astar ALT-variant from the given file |
 | **--persontrip.walkfactor** {{DT_FLOAT}} | Use FLOAT as a factor on pedestrian maximum speed during intermodal routing; *default:* **0.75** |
-| **--persontrip.transfer.car-walk** {{DT_STR[]}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations); *default:* **parkingAreas** |
+| **--persontrip.transfer.car-walk** {{DT_STR[]}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions', 'taxi' and combinations); *default:* **parkingAreas** |
 | **--device.rerouting.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'rerouting' device; *default:* **-1** |
 | **--device.rerouting.explicit** {{DT_STR[]}} | Assign a 'rerouting' device to named vehicles |
 | **--device.rerouting.deterministic** {{DT_BOOL}} | The 'rerouting' devices are set deterministic using a fraction of 1000; *default:* **false** |
@@ -221,6 +234,7 @@ configuration:
 | **--duration-log.disable** {{DT_BOOL}} | Disable performance reports for individual simulation steps; *default:* **false** |
 | **-t** {{DT_BOOL}}<br> **--duration-log.statistics** {{DT_BOOL}} | Enable statistics on vehicle trips; *default:* **false** |
 | **--no-step-log** {{DT_BOOL}} | Disable console output of current simulation step; *default:* **false** |
+| **--step-log.period** {{DT_INT}} | Number of simulation steps between step-log outputs; *default:* **100** |
 
 ### Emissions
 
@@ -338,10 +352,29 @@ configuration:
 | **--device.fcd.explicit** {{DT_STR[]}} | Assign a 'fcd' device to named vehicles |
 | **--device.fcd.deterministic** {{DT_BOOL}} | The 'fcd' devices are set deterministic using a fraction of 1000; *default:* **false** |
 | **--device.fcd.period** {{DT_STR}} | Recording period for FCD-data; *default:* **0** |
+| **--device.fcd.radius** {{DT_FLOAT}} | Record objects in a radius around equipped vehicles; *default:* **0** |
 | **--person-device.fcd.probability** {{DT_FLOAT}} | The probability for a person to have a 'fcd' device; *default:* **-1** |
 | **--person-device.fcd.explicit** {{DT_STR[]}} | Assign a 'fcd' device to named persons |
 | **--person-device.fcd.deterministic** {{DT_BOOL}} | The 'fcd' devices are set deterministic using a fraction of 1000; *default:* **false** |
 | **--person-device.fcd.period** {{DT_STR}} | Recording period for FCD-data; *default:* **0** |
+
+### Elechybrid Device
+| Option | Description |
+|--------|-------------|
+| **--device.elechybrid.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'elechybrid' device; *default:* **-1** |
+| **--device.elechybrid.explicit** {{DT_STR[]}} | Assign a 'elechybrid' device to named vehicles |
+| **--device.elechybrid.deterministic** {{DT_BOOL}} | The 'elechybrid' devices are set deterministic using a fraction of 1000; *default:* **false** |
+
+### Taxi Device
+| Option | Description |
+|--------|-------------|
+| **--device.taxi.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'taxi' device; *default:* **-1** |
+| **--device.taxi.explicit** {{DT_STR[]}} | Assign a 'taxi' device to named vehicles |
+| **--device.taxi.deterministic** {{DT_BOOL}} | The 'taxi' devices are set deterministic using a fraction of 1000; *default:* **false** |
+| **--device.taxi.dispatch-algorithm** {{DT_STR}} | The dispatch algorithm [greedy|greedyClosest|greedyShared]; *default:* **greedy** |
+| **--device.taxi.dispatch-algorithm.output** {{DT_STR}} | Write information from the dispatch algorithm to FILE; *default:* **greedy** |
+| **--device.taxi.dispatch-algorithm.params** {{DT_STR}} | Load dispatch algorith parameters in format KEY1:VALUE1[,KEY2:VALUE]; *default:* **greedy** |
+| **--device.taxi.dispatch-period** {{DT_TIME}} | The period between successive calls to the dispatcher; *default:* **60** |
 
 ### Tripinfo Device
 | Option | Description |

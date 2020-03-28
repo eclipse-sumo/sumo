@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSFrame.cpp
 /// @author  Daniel Krajzewicz
@@ -19,11 +23,6 @@
 ///
 // Sets and checks options for microsim; inits global outputs and settings
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -102,6 +101,9 @@ MSFrame::fillOptions() {
     oc.doRegister("load-state.remove-vehicles", new Option_StringVector(StringVector({""})));
     oc.addDescription("load-state.remove-vehicles", "Input", "Removes vehicles with the given IDs from the loaded state");
 
+    oc.doRegister("junction-taz", new Option_Bool(false));
+    oc.addDescription("junction-taz", "Input", "Initialize a TAZ for every junction to use attributes toJunction and fromJunction");
+
     //  register output options
     oc.doRegister("netstate-dump", new Option_FileName());
     oc.addSynonyme("netstate-dump", "ndump");
@@ -154,6 +156,10 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.signals", "Output", "Add the vehicle signal state to the FCD output (brake lights etc.)");
     oc.doRegister("fcd-output.distance", new Option_Bool(false));
     oc.addDescription("fcd-output.distance", "Output", "Add kilometrage to the FCD output (linear referencing)");
+    oc.doRegister("fcd-output.acceleration", new Option_Bool(false));
+    oc.addDescription("fcd-output.acceleration", "Output", "Add acceleration to the FCD output");
+    oc.doRegister("fcd-output.params", new Option_StringVector());
+    oc.addDescription("fcd-output.params", "Output", "Add generic parameter values to the FCD output");
     oc.doRegister("fcd-output.filter-edges.input-file", new Option_FileName());
     oc.addDescription("fcd-output.filter-edges.input-file", "Output", "Restrict fcd output to the edge selection from the given input file");
 
@@ -219,6 +225,9 @@ MSFrame::fillOptions() {
     oc.doRegister("vehroute-output.incomplete", new Option_Bool(false));
     oc.addDescription("vehroute-output.incomplete", "Output", "Include invalid routes and route stubs in vehroute output");
 
+    oc.doRegister("vehroute-output.stop-edges", new Option_Bool(false));
+    oc.addDescription("vehroute-output.stop-edges", "Output", "Include information about edges between stops");
+
     oc.doRegister("link-output", new Option_FileName());
     oc.addDescription("link-output", "Output", "Save links states into FILE");
 
@@ -237,8 +246,15 @@ MSFrame::fillOptions() {
     oc.doRegister("lanechange-output.ended", new Option_Bool(false));
     oc.addDescription("lanechange-output.ended", "Output", "Record end of lane change manoeuvres");
 
+    oc.doRegister("lanechange-output.xy", new Option_Bool(false));
+    oc.addDescription("lanechange-output.xy", "Output", "Record coordinates of lane change manoeuvres");
+
     oc.doRegister("stop-output", new Option_FileName());
     oc.addDescription("stop-output", "Output", "Record stops and loading/unloading of passenger and containers for all vehicles into FILE");
+
+    oc.doRegister("statistic-output", new Option_FileName());
+    oc.addSynonyme("statistic-output", "statistics-output");
+    oc.addDescription("statistic-output", "Output", "Write overall statistics into FILE");
 
 #ifdef _DEBUG
     oc.doRegister("movereminder-output", new Option_FileName());
@@ -247,14 +263,14 @@ MSFrame::fillOptions() {
     oc.addDescription("movereminder-output.vehicles", "Output", "List of vehicle ids which shall save their movereminder states");
 #endif
 
-    oc.doRegister("save-state.times", new Option_IntVector(IntVector()));
-    oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
+    oc.doRegister("save-state.times", new Option_StringVector());
+    oc.addDescription("save-state.times", "Output", "Use TIME[] as times at which a network state written");
     oc.doRegister("save-state.period", new Option_String("-1", "TIME"));
     oc.addDescription("save-state.period", "Output", "save state repeatedly after TIME period");
     oc.doRegister("save-state.prefix", new Option_FileName(StringVector({ "state" })));
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
-    oc.doRegister("save-state.suffix", new Option_String(".sbx"));
-    oc.addDescription("save-state.suffix", "Output", "Suffix for network states (.sbx or .xml)");
+    oc.doRegister("save-state.suffix", new Option_String(".xml.gz"));
+    oc.addDescription("save-state.suffix", "Output", "Suffix for network states (.xml.gz or .xml)");
     oc.doRegister("save-state.files", new Option_FileName());//
     oc.addDescription("save-state.files", "Output", "Files for network states");
 
@@ -390,6 +406,12 @@ MSFrame::fillOptions() {
     oc.doRegister("pedestrian.striping.jamtime.crossing", new Option_String("10", "TIME"));
     oc.addDescription("pedestrian.striping.jamtime.crossing", "Processing", "Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)");
 
+    oc.doRegister("pedestrian.striping.reserve-oncoming", new Option_Float(0.0));
+    oc.addDescription("pedestrian.striping.reserve-oncoming", "Processing", "Fraction of stripes to reserve for oncoming pedestrians");
+
+    oc.doRegister("pedestrian.striping.reserve-oncoming.junctions", new Option_Float(0.34));
+    oc.addDescription("pedestrian.striping.reserve-oncoming.junctions", "Processing", "Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas");
+
     oc.doRegister("pedestrian.remote.address", new Option_String("localhost:9000"));
     oc.addDescription("pedestrian.remote.address", "Processing", "The address (host:port) of the external simulation");
 
@@ -400,10 +422,15 @@ MSFrame::fillOptions() {
     oc.doRegister("routing-algorithm", new Option_String("dijkstra"));
     oc.addDescription("routing-algorithm", "Routing",
                       "Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']");
+
     oc.doRegister("weights.random-factor", new Option_Float(1.));
     oc.addDescription("weights.random-factor", "Routing", "Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)");
+
     oc.doRegister("weights.minor-penalty", new Option_Float(1.5));
     oc.addDescription("weights.minor-penalty", "Routing", "Apply the given time penalty when computing minimum routing costs for minor-link internal lanes");
+
+    oc.doRegister("weights.priority-factor", new Option_Float(0));
+    oc.addDescription("weights.priority-factor", "Routing", "Consider edge priorities in addition to travel times, weighted by factor");
 
     oc.doRegister("astar.all-distances", new Option_FileName());
     oc.addDescription("astar.all-distances", "Routing", "Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output)");
@@ -415,7 +442,8 @@ MSFrame::fillOptions() {
     oc.addDescription("persontrip.walkfactor", "Routing", "Use FLOAT as a factor on pedestrian maximum speed during intermodal routing");
 
     oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector(StringVector({ "parkingAreas" })));
-    oc.addDescription("persontrip.transfer.car-walk", "Routing", "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
+    oc.addDescription("persontrip.transfer.car-walk", "Routing",
+                      "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions', 'taxi' and combinations)");
 
     // devices
     oc.addOptionSubTopic("Emissions");
@@ -436,6 +464,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Report", "Disable console output of current simulation step");
+
+    oc.doRegister("step-log.period", new Option_Integer(100));
+    oc.addDescription("step-log.period", "Report", "Number of simulation steps between step-log outputs");
 
     //remote port 0 if not used
     oc.addOptionSubTopic("TraCI Server");
@@ -573,6 +604,7 @@ MSFrame::buildStreams() {
     OutputDevice::createDeviceByOption("bt-output", "bt-output");
     OutputDevice::createDeviceByOption("lanechange-output", "lanechanges");
     OutputDevice::createDeviceByOption("stop-output", "stops", "stopinfo_file.xsd");
+    OutputDevice::createDeviceByOption("statistic-output", "statistics", "statistic_file.xsd");
 
 #ifdef _DEBUG
     OutputDevice::createDeviceByOption("movereminder-output", "movereminder-output");
@@ -625,7 +657,11 @@ MSFrame::checkOptions() {
         WRITE_ERROR("The begin time should not be negative.");
         ok = false;
     }
-    checkStepLengthMultiple(begin, " for begin");
+    // DELTA_T not yet initialized
+    const SUMOTime deltaT = MAX2((SUMOTime)1, string2time(oc.getString("step-length")));
+    if (begin < TIME2STEPS(1)) {
+        checkStepLengthMultiple(begin, " for begin", deltaT);
+    }
     if (end != string2time("-1")) {
         if (end < begin) {
             WRITE_ERROR("The end time should be after the begin time.");
@@ -638,12 +674,26 @@ MSFrame::checkOptions() {
     }
     const SUMOTime period = string2time(oc.getString("device.fcd.period"));
     if (period > 0) {
-        checkStepLengthMultiple(period, " for device.fcd.period");
+        checkStepLengthMultiple(period, " for device.fcd.period", deltaT);
     }
     const SUMOTime statePeriod = string2time(oc.getString("save-state.period"));
     if (statePeriod > 0) {
-        checkStepLengthMultiple(period, " for save-state.period");
+        checkStepLengthMultiple(statePeriod, " for save-state.period", deltaT);
     }
+    for (const std::string& timeStr : oc.getStringVector("save-state.times")) {
+        try {
+            const SUMOTime saveT = string2time(timeStr);
+            if (end > 0 && saveT >= end) {
+                WRITE_WARNING("The save-state.time " + timeStr + " will not be used before simulation end at " + time2string(end));
+            } else {
+                checkStepLengthMultiple(saveT, " for save-state.times", deltaT);
+            }
+        } catch (ProcessError& e) {
+            WRITE_ERROR("Invalid time '" + timeStr + "' for option 'save-state.times'. " + e.what());
+            ok = false;
+        }
+    }
+
 #ifdef _DEBUG
     if (oc.isSet("movereminder-output.vehicles") && !oc.isSet("movereminder-output")) {
         WRITE_ERROR("option movereminder-output.vehicles requires option movereminder-output to be set");
@@ -701,10 +751,10 @@ MSFrame::checkOptions() {
         try {
             string2time(val);
         } catch (ProcessError& e) {
-            WRITE_ERROR("Invalid time '" + val + "' for option 'breakpoints'." + e.what());
+            WRITE_ERROR("Invalid time '" + val + "' for option 'breakpoints'. " + e.what());
             ok = false;
         }
-    };
+    }
 #ifndef HAVE_FOX
     if (oc.getInt("threads") > 1) {
         WRITE_ERROR("Parallel simulation is only possible when compiled with Fox.");

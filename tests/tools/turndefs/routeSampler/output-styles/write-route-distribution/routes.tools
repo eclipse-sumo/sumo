@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-10 13:40:36.978373 by routeSampler.py v1_5_0+0599-3f66299
+  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml <doubleminus>write-route-distribution routeDist
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <routeDistribution id="routeDist"/>
+        <route id="0" edges="-109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 -27" probability="3"/>
+        <route id="2" edges="-109.80.00 23 23.80.00 31 31.80.00 -31 -31.80.00" probability="1"/>
+        <route id="3" edges="-11 -11.80.00 15 15.180.00 -123 -123.121.42 -120 -120.180.00" probability="1"/>
+        <route id="5" edges="-120 -120.180.00 -64 -64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00" probability="1"/>
+        <route id="6" edges="-123 -123.121.42 131 131.180.00" probability="2"/>
+        <route id="8" edges="-131.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00" probability="2"/>
+        <route id="10" edges="-144 -144.121.42 152" probability="1"/>
+        <route id="11" edges="-144.121.42 144 144.121.42 -15 -15.180.00 5" probability="1"/>
+        <route id="13" edges="-148 -148.80.00 144 144.121.42 -15 -15.180.00 3 3.180.00 -3" probability="1"/>
+        <route id="14" edges="-15 -15.180.00 15 15.180.00" probability="1"/>
+        <route id="15" edges="-15.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 120" probability="1"/>
+        <route id="16" edges="-152.80.00 -131 -131.180.00 -109 -109.80.00 23 23.80.00 31 31.80.00 64 64.80.00" probability="1"/>
+        <route id="17" edges="-152.80.00 -131 -131.180.00 131" probability="1"/>
+        <route id="19" edges="-27.80.00 27 27.80.00 45 -68 -43 -43.80.00" probability="1"/>
+        <route id="20" edges="-3.180.00 11 11.80.00 23 23.80.00" probability="1"/>
+        <route id="21" edges="-3.180.00 3 3.180.00 -3" probability="1"/>
+        <route id="23" edges="-37 -37.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 144" probability="1"/>
+        <route id="24" edges="-37.80.00 -23 -23.80.00 -11 -11.80.00 15 15.180.00" probability="1"/>
+        <route id="25" edges="-37.80.00 -23 -23.80.00 109 109.80.00 -109" probability="1"/>
+        <route id="26" edges="-37.80.00 -23 -23.80.00 109 109.80.00 131" probability="1"/>
+        <route id="28" edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00" probability="1"/>
+        <route id="29" edges="-43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 152" probability="1"/>
+        <route id="30" edges="-43.80.00 -27 -27.80.00 -71 -55 -55.80.00" probability="1"/>
+        <route id="31" edges="-43.80.00 -27 -27.80.00 27 27.80.00" probability="1"/>
+        <route id="32" edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 92" probability="1"/>
+        <route id="33" edges="-45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58" probability="1"/>
+        <route id="34" edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 58 -37 -37.80.00" probability="1"/>
+        <route id="36" edges="-55 -55.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 -131" probability="2"/>
+        <route id="37" edges="-58 -58.121.42 64 64.80.00 120 120.180.00" probability="1"/>
+        <route id="39" edges="-60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45 -45.80.00" probability="2"/>
+        <route id="40" edges="-64 -64.80.00 64 64.80.00 120 120.180.00 -120 -120.180.00" probability="1"/>
+        <route id="41" edges="-64 -64.80.00 64 64.80.00 120 120.180.00 123 123.121.42" probability="1"/>
+        <route id="42" edges="-64.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3" probability="1"/>
+        <route id="43" edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 58" probability="1"/>
+        <route id="44" edges="-71 -55 -55.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -64" probability="1"/>
+        <route id="45" edges="-75 -75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -71" probability="1"/>
+        <route id="46" edges="-75.121.42 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 23" probability="1"/>
+        <route id="47" edges="-79 -79.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00 -3 -3.180.00" probability="1"/>
+        <route id="48" edges="-79 -79.80.00 -60 -60.80.00 64 64.80.00" probability="1"/>
+        <route id="49" edges="-79 -79.80.00 75 75.121.42 120 120.180.00 131 131.180.00 -131 -131.180.00" probability="1"/>
+        <route id="51" edges="-79.80.00 75 75.121.42" probability="1"/>
+        <route id="53" edges="-92.180.00 -60 -60.80.00 -31 -31.80.00 37 -58 -58.121.42" probability="1"/>
+        <route id="55" edges="109 109.80.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 43 68 -45" probability="1"/>
+        <route id="57" edges="11.80.00 23 23.80.00 31" probability="1"/>
+        <route id="58" edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 -71 -55 -55.80.00" probability="1"/>
+        <route id="60" edges="120 120.180.00 -109 -109.80.00 -11 -11.80.00 3 3.180.00 27 27.80.00 45" probability="1"/>
+        <route id="61" edges="120 120.180.00 -120 -120.180.00 -75 -75.121.42 -60" probability="1"/>
+        <route id="63" edges="123 123.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 43 68" probability="1"/>
+        <route id="64" edges="131 131.180.00 144 144.121.42 -15 -15.180.00 3 3.180.00 27 27.80.00 55 71" probability="2"/>
+        <route id="65" edges="144 144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58" probability="1"/>
+        <route id="67" edges="144.121.42 -123 -123.121.42 -120 -120.180.00 -64 -64.80.00 58" probability="1"/>
+        <route id="69" edges="15 15.180.00 -123 -123.121.42 -120 -120.180.00 -75 -75.121.42 75" probability="1"/>
+        <route id="70" edges="15.180.00 -15 -15.180.00 11 11.80.00 23 23.80.00 31 31.80.00" probability="1"/>
+        <route id="71" edges="23 23.80.00 -23 -23.80.00 109" probability="1"/>
+        <route id="74" edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00 -75" probability="1"/>
+        <route id="75" edges="27 27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 37 -58 -58.121.42" probability="1"/>
+        <route id="76" edges="27.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 60 60.80.00 75 75.121.42" probability="2"/>
+        <route id="77" edges="3 3.180.00 -3 -3.180.00 11 11.80.00 23 23.80.00 31 31.80.00 64 64.80.00" probability="2"/>
+        <route id="79" edges="3.180.00 27 27.80.00 55 71" probability="1"/>
+        <route id="81" edges="31.80.00 58" probability="2"/>
+        <route id="82" edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00" probability="1"/>
+        <route id="83" edges="37 -58 -58.121.42 -31 -31.80.00 -23 -23.80.00 109 109.80.00 131 131.180.00 -131 -131.180.00" probability="2"/>
+        <route id="85" edges="45 -68 -43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42" probability="2"/>
+        <route id="88" edges="58 -37 -37.80.00 -23 -23.80.00 -11 -11.80.00 3 3.180.00" probability="2"/>
+        <route id="89" edges="60.80.00 -60 -60.80.00 -31 -31.80.00 -23 -23.80.00 -11 -11.80.00 5" probability="1"/>
+        <route id="90" edges="60.80.00 75 75.121.42 -75" probability="1"/>
+        <route id="91" edges="64.80.00 -64 -64.80.00 -31 -31.80.00 31" probability="1"/>
+        <route id="93" edges="68 -45 -45.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 -11" probability="1"/>
+        <route id="94" edges="68 -45 -45.80.00 -27 -27.80.00 -71 -55" probability="1"/>
+        <route id="95" edges="71 71.121.42 -3 -3.180.00 11 11.80.00 109 109.80.00 -120" probability="1"/>
+        <route id="96" edges="71.121.42 -3 -3.180.00 15 15.180.00" probability="1"/>
+        <route id="97" edges="75 75.121.42 120 120.180.00 -109 -109.80.00 23 23.80.00" probability="2"/>
+    </routeDistribution>
+
+    <vehicle id="0" depart="0.00" route="routeDist"/>
+    <vehicle id="1" depart="1.15" route="routeDist"/>
+    <vehicle id="2" depart="2.30" route="routeDist"/>
+    <vehicle id="3" depart="3.45" route="routeDist"/>
+    <vehicle id="4" depart="4.60" route="routeDist"/>
+    <vehicle id="5" depart="5.76" route="routeDist"/>
+    <vehicle id="6" depart="6.91" route="routeDist"/>
+    <vehicle id="7" depart="8.06" route="routeDist"/>
+    <vehicle id="8" depart="9.21" route="routeDist"/>
+    <vehicle id="9" depart="10.36" route="routeDist"/>
+    <vehicle id="10" depart="11.51" route="routeDist"/>
+    <vehicle id="11" depart="12.66" route="routeDist"/>
+    <vehicle id="12" depart="13.81" route="routeDist"/>
+    <vehicle id="13" depart="14.97" route="routeDist"/>
+    <vehicle id="14" depart="16.12" route="routeDist"/>
+    <vehicle id="15" depart="17.27" route="routeDist"/>
+    <vehicle id="16" depart="18.42" route="routeDist"/>
+    <vehicle id="17" depart="19.57" route="routeDist"/>
+    <vehicle id="18" depart="20.72" route="routeDist"/>
+    <vehicle id="19" depart="21.87" route="routeDist"/>
+    <vehicle id="20" depart="23.02" route="routeDist"/>
+    <vehicle id="21" depart="24.17" route="routeDist"/>
+    <vehicle id="22" depart="25.33" route="routeDist"/>
+    <vehicle id="23" depart="26.48" route="routeDist"/>
+    <vehicle id="24" depart="27.63" route="routeDist"/>
+    <vehicle id="25" depart="28.78" route="routeDist"/>
+    <vehicle id="26" depart="29.93" route="routeDist"/>
+    <vehicle id="27" depart="31.08" route="routeDist"/>
+    <vehicle id="28" depart="32.23" route="routeDist"/>
+    <vehicle id="29" depart="33.38" route="routeDist"/>
+    <vehicle id="30" depart="34.53" route="routeDist"/>
+    <vehicle id="31" depart="35.69" route="routeDist"/>
+    <vehicle id="32" depart="36.84" route="routeDist"/>
+    <vehicle id="33" depart="37.99" route="routeDist"/>
+    <vehicle id="34" depart="39.14" route="routeDist"/>
+    <vehicle id="35" depart="40.29" route="routeDist"/>
+    <vehicle id="36" depart="41.44" route="routeDist"/>
+    <vehicle id="37" depart="42.59" route="routeDist"/>
+    <vehicle id="38" depart="43.74" route="routeDist"/>
+    <vehicle id="39" depart="44.90" route="routeDist"/>
+    <vehicle id="40" depart="46.05" route="routeDist"/>
+    <vehicle id="41" depart="47.20" route="routeDist"/>
+    <vehicle id="42" depart="48.35" route="routeDist"/>
+    <vehicle id="43" depart="49.50" route="routeDist"/>
+    <vehicle id="44" depart="50.65" route="routeDist"/>
+    <vehicle id="45" depart="51.80" route="routeDist"/>
+    <vehicle id="46" depart="52.95" route="routeDist"/>
+    <vehicle id="47" depart="54.10" route="routeDist"/>
+    <vehicle id="48" depart="55.26" route="routeDist"/>
+    <vehicle id="49" depart="56.41" route="routeDist"/>
+    <vehicle id="50" depart="57.56" route="routeDist"/>
+    <vehicle id="51" depart="58.71" route="routeDist"/>
+    <vehicle id="52" depart="59.86" route="routeDist"/>
+    <vehicle id="53" depart="61.01" route="routeDist"/>
+    <vehicle id="54" depart="62.16" route="routeDist"/>
+    <vehicle id="55" depart="63.31" route="routeDist"/>
+    <vehicle id="56" depart="64.47" route="routeDist"/>
+    <vehicle id="57" depart="65.62" route="routeDist"/>
+    <vehicle id="58" depart="66.77" route="routeDist"/>
+    <vehicle id="59" depart="67.92" route="routeDist"/>
+    <vehicle id="60" depart="69.07" route="routeDist"/>
+    <vehicle id="61" depart="70.22" route="routeDist"/>
+    <vehicle id="62" depart="71.37" route="routeDist"/>
+    <vehicle id="63" depart="72.52" route="routeDist"/>
+    <vehicle id="64" depart="73.67" route="routeDist"/>
+    <vehicle id="65" depart="74.83" route="routeDist"/>
+    <vehicle id="66" depart="75.98" route="routeDist"/>
+    <vehicle id="67" depart="77.13" route="routeDist"/>
+    <vehicle id="68" depart="78.28" route="routeDist"/>
+    <vehicle id="69" depart="79.43" route="routeDist"/>
+    <vehicle id="70" depart="80.58" route="routeDist"/>
+    <vehicle id="71" depart="81.73" route="routeDist"/>
+    <vehicle id="72" depart="82.88" route="routeDist"/>
+    <vehicle id="73" depart="84.03" route="routeDist"/>
+    <vehicle id="74" depart="85.19" route="routeDist"/>
+    <vehicle id="75" depart="86.34" route="routeDist"/>
+    <vehicle id="76" depart="87.49" route="routeDist"/>
+    <vehicle id="77" depart="88.64" route="routeDist"/>
+    <vehicle id="78" depart="89.79" route="routeDist"/>
+    <vehicle id="79" depart="90.94" route="routeDist"/>
+    <vehicle id="80" depart="92.09" route="routeDist"/>
+    <vehicle id="81" depart="93.24" route="routeDist"/>
+    <vehicle id="82" depart="94.40" route="routeDist"/>
+    <vehicle id="83" depart="95.55" route="routeDist"/>
+    <vehicle id="84" depart="96.70" route="routeDist"/>
+    <vehicle id="85" depart="97.85" route="routeDist"/>
+</routes>

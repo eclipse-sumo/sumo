@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBOwnTLDef.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // A traffic light logics which must be computed (only nodes/edges are given)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -419,7 +418,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             std::cout << " state after grouping by vClass " << state << "\n";
         }
 #endif
-        if (groupOpposites || chosen.first->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED) {
+        if (groupOpposites || chosen.first->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED) {
             state = allowUnrelated(state, fromEdges, toEdges, isTurnaround, crossings);
         }
 #ifdef DEBUG_PHASES
@@ -727,7 +726,8 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
 
 void
 NBOwnTLDef::collectLinks() {
-    collectAllLinks();
+    myControlledLinks.clear();
+    collectAllLinks(myControlledLinks);
 }
 
 
@@ -959,7 +959,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
             }
         }
         if (state[i1] == 'r') {
-            if (fromEdges[i1]->getToNode()->getType() == NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED &&
+            if (fromEdges[i1]->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
                     fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
                 state[i1] = 's';
                 // do not allow right-on-red when in conflict with exclusive left-turn phase
@@ -1105,5 +1105,6 @@ NBOwnTLDef::corridorLike() const {
     }
     return greenPhases <= 2;
 }
+
 
 /****************************************************************************/

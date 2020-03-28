@@ -14,6 +14,7 @@ copy_test_path:input_trips.trips.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
 copy_test_path:input_flows.flows.xml
+copy_test_path:input_turns.xml
 copy_test_path:input_detectors.det.xml
 copy_test_path:tracefile.xml
 copy_test_path:tracefile.txt
@@ -49,6 +50,7 @@ copy_test_path:source.edg.xml
 copy_test_path:source.con.xml
 copy_test_path:source.tll.xml
 copy_test_path:source.xml
+copy_test_path:source.xml.gz
 copy_test_path:dest.net.xml
 copy_test_path:dest.nod.xml
 copy_test_path:dest.edg.xml
@@ -56,6 +58,8 @@ copy_test_path:dest.con.xml
 copy_test_path:dest.tll.xml
 copy_test_path:dest.xml
 copy_test_path:fcd.xml
+copy_test_path:fcd.xml.gz
+copy_test_path:fcd2.xml
 copy_test_path:data.txt
 copy_test_path:source.csv
 copy_test_path:osm.xml
@@ -69,6 +73,7 @@ copy_test_path:summary.xml
 copy_test_path:config.txt
 copy_test_path:input_sel.txt
 copy_test_path:matsim_plans.xml
+copy_test_path:input_data.xml
 
 [collate_file]
 detectors:e1.add.xml
@@ -78,6 +83,8 @@ meandata:edge-mean-data.add.xml
 meandata:lane-mean-data.add.xml
 connections:connections.con.xml
 turndefs:turn-defs.xml
+turns:turns.xml
+edgedata:edgedata.xml
 changednet:input_net.net.xml.chg
 edges:edges.edg.xml
 nodes:nodes.nod.xml
@@ -111,6 +118,7 @@ gpsdat:gpsdat.txt
 gpx:output.gpx
 kml:output.kml
 match:match.txt
+dualog:dua.log
 image:image.svg
 csv:out*.csv
 csv:1.csv
@@ -158,6 +166,12 @@ output:Warning: Module 'rtree' not available. Using brute-force fallback
 output:2147483647{REPLACE 9223372036854775807}
 output:Simulation.*started with{REPLACE Simulation started with}
 output:Retrying in
+dualog:uration:.*ms
+dualog:Real time factor
+dualog:UPS
+dualog:(.*ms)
+dualog:Simulation.*started with{REPLACE Simulation started with}
+dualog:.*'-c', 'iteration{REPLACE '-c', 'iteration}
 trips:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->
@@ -180,6 +194,8 @@ errors:column ([0-9]*) \(line [0-9]*\){REPLACE column \1}
 omnet:<!-- generated on
 shawn:<!-- generated on
 flows:<!-- generated on{[->]}-->
+turns:<!-- generated on{[->]}-->
+edgedata:<!-- generated on{[->]}-->
 net:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
 additional:<!--{[->]}-->

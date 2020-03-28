@@ -1,0 +1,8 @@
+# use a ride definition to call a taxi
+2persons
+
+# 5 persons wish to share a taxi but only some taxis are applicable
+5persons_taxi_size
+
+# 5 persons wish to share a taxi but only some taxis are applicable
+5persons_taxi_size_greedyCloseset

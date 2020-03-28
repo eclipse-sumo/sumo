@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2014-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    attributeStats.py
 # @author  Jakob Erdmann
@@ -19,19 +23,21 @@ from __future__ import print_function
 
 import os
 import sys
+from collections import defaultdict
 from optparse import OptionParser
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
-    from sumolib.xml import parse  # noqa
+    import sumolib
+    from sumolib.xml import parse,parse_fast  # noqa
     from sumolib.miscutils import Statistics  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <tripinfos..xml>"""
+    USAGE = """Usage %prog [options] <tripinfos.xml>"""
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
@@ -39,36 +45,66 @@ def get_options():
                          default="tripinfo", help="element to analyze")
     optParser.add_option("--attribute", type="string",
                          default="timeLoss", help="attribute to analyze")
+    optParser.add_option("--id-attribute", type="string", dest="idAttr",
+                         default="id", help="attribute to identify data elements")
     optParser.add_option("--binwidth", type="float",
                          default=50, help="binning width of result histogram")
     optParser.add_option("--hist-output", type="string",
                          default=None, help="output file for histogram (gnuplot compatible)")
     optParser.add_option("--full-output", type="string",
                          default=None, help="output file for full data dump")
+    optParser.add_option("--fast", action="store_true",
+                         default=False, help="use fast parser (does not track missing data)")
     options, args = optParser.parse_args()
 
     if len(args) != 1:
         sys.exit(USAGE)
 
-    options.tripinfos = args[0]
+    options.datafile = args[0]
     return options
 
 
 def main():
     options = get_options()
-    attribute_retriever = None
 
-    def attribute_retriever(tripinfo):
-        return
-
-    vals = {}
+    vals = defaultdict(list)
     stats = Statistics("%s %ss" % (options.element, options.attribute), histogram=True, scale=options.binwidth)
-    for tripinfo in parse(options.tripinfos, options.element):
-        val = float(tripinfo.getAttribute(options.attribute))
-        vals[tripinfo.id] = val
-        stats.add(val, tripinfo.id)
+    missingAttr = set()
+    invalidType = set()
+
+    if options.fast:
+        def elements():
+            for element in parse_fast(options.datafile, options.element, [options.idAttr, options.attribute]):
+                yield getattr(element, options.idAttr), getattr(element, options.attribute)
+    else:
+        def elements():
+            for element in parse(options.datafile, options.element, heterogeneous=True):
+                elementID = None
+                if element.hasAttribute(options.idAttr):
+                    elementID = element.getAttribute(options.idAttr)
+                stringVal = None
+                if element.hasAttribute(options.attribute):
+                    stringVal = element.getAttribute(options.attribute)
+                yield elementID, stringVal
+
+    for elementID, stringVal in elements():
+        if stringVal is not None:
+            try:
+                val = sumolib.miscutils.parseTime(stringVal)
+                vals[elementID].append(val)
+                stats.add(val, elementID)
+            except:
+                invalidType.add(stringVal)
+        else:
+            missingAttr.add(elementID)
 
     print(stats)
+    if missingAttr:
+        print("%s elements did not provide attribute '%s' Example ids: %s" % (
+            len(missingAttr), options.attribute, sorted(missingAttr)[:10]))
+    if invalidType:
+        print("%s distinct values of attribute '%s' could not be interpreted as numerical value or time. Example values: %s" % (
+            len(invalidType), options.attribute, sorted(invalidType)[:10]))
 
     if options.hist_output is not None:
         with open(options.hist_output, 'w') as f:
@@ -77,9 +113,9 @@ def main():
 
     if options.full_output is not None:
         with open(options.full_output, 'w') as f:
-            data = [(v, k) for k, v in vals.items()]
-            for val, id in sorted(data):
-                f.write("%s %s\n" % (val, id))
+            for id, data in vals.items():
+                for x in data:
+                    f.write("%s %s\n" % (x, id))
 
 
 if __name__ == "__main__":

@@ -16,4 +16,4 @@ key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3
 keyFinal1=value1|keyFinal2=value2|keyFinal3=value3
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
-TestFunctions: Netedit closed successfully
+TestFunctions: Error closing Netedit

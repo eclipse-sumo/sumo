@@ -1,0 +1,20 @@
+# analyze tripinfo timeloss
+default
+
+# analyze tripinfo timeloss
+histogram_output
+
+# analyze tripinfo timeloss
+full_output
+
+# analyze tripinfo 
+attribute
+
+# analyze edgeData
+element
+
+# missing and invalid data
+data_issues
+
+# use fast parser
+fast

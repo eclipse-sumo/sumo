@@ -161,10 +161,10 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -30.00,-31.60,8
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -30.00,-31.60,80.00,30.00
 Debug: Deleting unreferenced edge 'gneE1' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call destructor: 3

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    duarouter_main.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Main for DUAROUTER
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -39,6 +38,9 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
+#ifdef HAVE_FOX
+#include <utils/foxtools/MsgHandlerSynchronized.h>
+#endif
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
@@ -83,7 +85,6 @@ initNet(RONet& net, ROLoader& loader, OptionsCont& oc) {
 }
 
 
-
 /**
  * Computes the routes saving them
  */
@@ -96,9 +97,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
     SUMOAbstractRouter<ROEdge, ROVehicle>* router;
     const std::string measure = oc.getString("weight-attribute");
     const std::string routingAlgorithm = oc.getString("routing-algorithm");
+    const double priorityFactor = oc.getFloat("weights.priority-factor");
     const SUMOTime begin = string2time(oc.getString("begin"));
     const SUMOTime end = string2time(oc.getString("end"));
-    if (measure == "traveltime") {
+    if (measure == "traveltime" && priorityFactor == 0) {
         if (routingAlgorithm == "dijkstra") {
             router = new DijkstraRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, nullptr, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "astar") {
@@ -107,24 +109,33 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             if (oc.isSet("astar.all-distances")) {
                 lookup = std::make_shared<const AStar::FLT>(oc.getString("astar.all-distances"), (int)ROEdge::getAllEdges().size());
             } else if (oc.isSet("astar.landmark-distances")) {
-                CHRouterWrapper<ROEdge, ROVehicle> chrouter(
+                /* CHRouterWrapper<ROEdge, ROVehicle> chrouter(
                     ROEdge::getAllEdges(), true, &ROEdge::getTravelTimeStatic,
-                    begin, end, std::numeric_limits<int>::max(), 1);
+                    begin, end, SUMOTime_MAX, 1); */
+                DijkstraRouter<ROEdge, ROVehicle> forward(ROEdge::getAllEdges(), true, &ROEdge::getTravelTimeStatic);
+                std::vector<ReversedEdge<ROEdge, ROVehicle>*> reversed;
+                for (ROEdge* edge : ROEdge::getAllEdges()) {
+                    reversed.push_back(edge->getReversedRoutingEdge());
+                }
+                for (ReversedEdge<ROEdge, ROVehicle>* redge : reversed) {
+                    redge->init();
+                }
+                DijkstraRouter<ReversedEdge<ROEdge, ROVehicle>, ROVehicle> backward(reversed, true, &ReversedEdge<ROEdge, ROVehicle>::getTravelTimeStatic);
                 ROVehicle defaultVehicle(SUMOVehicleParameter(), nullptr, net.getVehicleTypeSecure(DEFAULT_VTYPE_ID), &net);
-                lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &chrouter, &defaultVehicle,
+                lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), ROEdge::getAllEdges(), &forward, &backward, &defaultVehicle,
                          oc.isSet("astar.save-landmark-distances") ? oc.getString("astar.save-landmark-distances") : "", oc.getInt("routing-threads"));
             }
             router = new AStar(ROEdge::getAllEdges(), oc.getBool("ignore-errors"), ttFunction, lookup, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "CH") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
-                                           std::numeric_limits<int>::max());
+                                           SUMOTime_MAX);
             router = new CHRouter<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic, SVC_IGNORING, weightPeriod, net.hasPermissions(), oc.isSet("restriction-params"));
         } else if (routingAlgorithm == "CHWrapper") {
             const SUMOTime weightPeriod = (oc.isSet("weight-files") ?
                                            string2time(oc.getString("weight-period")) :
-                                           std::numeric_limits<int>::max());
+                                           SUMOTime_MAX);
             router = new CHRouterWrapper<ROEdge, ROVehicle>(
                 ROEdge::getAllEdges(), oc.getBool("ignore-errors"), &ROEdge::getTravelTimeStatic,
                 begin, end, weightPeriod, oc.getInt("routing-threads"));
@@ -133,7 +144,13 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         }
     } else {
         DijkstraRouter<ROEdge, ROVehicle>::Operation op;
-        if (measure == "CO") {
+        if (measure == "traveltime") {
+            if (ROEdge::initPriorityFactor(priorityFactor)) {
+                op = &ROEdge::getTravelTimeStaticPriorityFactor;
+            } else {
+                op = &ROEdge::getTravelTimeStatic;
+            }
+        } else if (measure == "CO") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO>;
         } else if (measure == "CO2") {
             op = &ROEdge::getEmissionEffort<PollutantsInterface::CO2>;
@@ -150,7 +167,10 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
         } else if (measure == "noise") {
             op = &ROEdge::getNoiseEffort;
         } else {
-            throw ProcessError("Unknown measure (weight attribute '" + measure + "')!");
+            op = &ROEdge::getStoredEffort;
+        }
+        if (measure != "traveltime" && !net.hasLoadedEffort()) {
+            WRITE_WARNING("No weight data was loaded for attribute '" + measure + "'.");
         }
         router = new DijkstraRouter<ROEdge, ROVehicle>(
             ROEdge::getAllEdges(), oc.getBool("ignore-errors"), op, ttFunction, false, nullptr, net.hasPermissions(), oc.isSet("restriction-params"));
@@ -163,10 +183,17 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             carWalk |= ROIntermodalRouter::Network::PT_STOPS;
         } else if (opt == "allJunctions") {
             carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS;
+        } else if (opt == "taxi") {
+            carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS_TAXI;
         }
     }
+    RailwayRouter<ROEdge, ROVehicle>* railRouter = nullptr;
+    if (net.hasBidiEdges()) {
+        railRouter = new RailwayRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), true, ttFunction, nullptr, false, net.hasPermissions(), oc.isSet("restriction-params"));
+    }
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
-                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk, routingAlgorithm));
+                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk, routingAlgorithm),
+                              railRouter);
     // process route definitions
     try {
         net.openOutput(oc);
@@ -202,6 +229,12 @@ main(int argc, char** argv) {
             return 0;
         }
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+#ifdef HAVE_FOX
+        if (oc.getInt("routing-threads") > 1) {
+            // make the output aware of threading
+            MsgHandler::setFactory(&MsgHandlerSynchronized::create);
+        }
+#endif
         MsgHandler::initOutputOptions();
         if (!(RODUAFrame::checkOptions() && SystemFrame::checkOptions())) {
             throw ProcessError();
@@ -251,6 +284,4 @@ main(int argc, char** argv) {
 }
 
 
-
 /****************************************************************************/
-

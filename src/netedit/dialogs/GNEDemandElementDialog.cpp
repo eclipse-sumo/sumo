@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEDemandElementDialog.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,15 +17,11 @@
 ///
 // A abstract class for editing additional elements
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
-#include <netedit/demandelements/GNEDemandElement.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
@@ -32,12 +32,12 @@
 // ===========================================================================
 
 FXDEFMAP(GNEDemandElementDialog) GNEDemandElementDialogMap[] = {
-    FXMAPFUNC(SEL_KEYPRESS,     0,                                      GNEDemandElementDialog::onKeyPress),
-    FXMAPFUNC(SEL_KEYRELEASE,   0,                                      GNEDemandElementDialog::onKeyRelease),
-    FXMAPFUNC(SEL_CLOSE,        0,                                      GNEDemandElementDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEDemandElementDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEDemandElementDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,      MID_GNE_ADDITIONALDIALOG_BUTTONRESET,   GNEDemandElementDialog::onCmdReset),
+    FXMAPFUNC(SEL_KEYPRESS,     0,                      GNEDemandElementDialog::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,   0,                      GNEDemandElementDialog::onKeyRelease),
+    FXMAPFUNC(SEL_CLOSE,        0,                      GNEDemandElementDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_ACCEPT,  GNEDemandElementDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_CANCEL,  GNEDemandElementDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,      MID_GNE_BUTTON_RESET,   GNEDemandElementDialog::onCmdReset),
 };
 
 // Object abstract implementation
@@ -60,9 +60,9 @@ GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* editedDemandEle
     // create buttons centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\treset to previous values",  GUIIconSubSys::getIcon(ICON_RESET),  this, MID_GNE_ADDITIONALDIALOG_BUTTONRESET,  GUIDesignButtonReset);
+    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose accepting changes",  GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose discarding changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame,  "reset\t\treset to previous values",  GUIIconSubSys::getIcon(GUIIcon::RESET),  this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -143,5 +143,6 @@ GNEDemandElementDialog::resetChanges() {
     myEditedDemandElement->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     myEditedDemandElement->getViewNet()->getUndoList()->p_begin(myChangesDescription);
 }
+
 
 /****************************************************************************/

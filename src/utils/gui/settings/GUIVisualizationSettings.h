@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIVisualizationSettings.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Stores the information about how to visualize structures
 /****************************************************************************/
-#ifndef GUIVisualizationSettings_h
-#define GUIVisualizationSettings_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -158,6 +156,9 @@ struct GUIVisualizationColorSettings {
     /// @brief person plan selection color (Rides, Walks, personStops...)
     RGBColor selectedPersonPlanColor;
 
+    /// @brief edge data selection color
+    RGBColor selectedEdgeDataColor;
+
     /// @brief color for highlighthing deadends
     static const RGBColor SUMO_color_DEADEND_SHOW;
 
@@ -172,63 +173,6 @@ struct GUIVisualizationColorSettings {
 
     /// @brief color for invalid crossing
     static const RGBColor crossingInvalid;
-
-    /// @brief color for busStops
-    static const RGBColor busStop;
-
-    /// @brief color for busStops signs
-    static const RGBColor busStop_sign;
-
-    /// @brief color for containerStops
-    static const RGBColor containerStop;
-
-    /// @brief color for containerStop signs
-    static const RGBColor containerStop_sign;
-
-    /// @brief color for chargingStations
-    static const RGBColor chargingStation;
-
-    /// @brief color for chargingStation sign
-    static const RGBColor chargingStation_sign;
-
-    /// @brief color for chargingStation during charging
-    static const RGBColor chargingStation_charge;
-
-    /// @brief color for parkingAreas
-    static const RGBColor parkingArea;
-
-    /// @brief color for parkingArea sign
-    static const RGBColor parkingAreaSign;
-
-    /// @brief color for parkingArea sign
-    static const RGBColor parkingSpace;
-
-    /// @brief color for parkingArea innen
-    static const RGBColor parkingSpaceInnen;
-
-    /// @brief color for E1 detectors
-    static const RGBColor E1;
-
-    /// @brief color for E1 Instant detectors
-    static const RGBColor E1Instant;
-
-    /// @brief color for E2 detectors
-    static const RGBColor E2;
-
-    /// @brief color for Entrys
-    static const RGBColor E3Entry;
-
-    /// @brief color for Exits
-    static const RGBColor E3Exit;
-
-    /// @brief color for Calibrators
-    static const RGBColor calibrator;
-
-    /// @brief color for route probes
-    static const RGBColor routeProbe;
-
-    /// @brief color for vaporizers
-    static const RGBColor vaporizer;
 
     /// @brief color for Stops
     static const RGBColor stops;
@@ -250,14 +194,157 @@ struct GUIVisualizationColorSettings {
 };
 
 
-/// @brief struct for width settings
-struct GUIVisualizationWidthSettings {
+/// @brief struct for additional settings
+struct GUIVisualizationAdditionalSettings {
 
-    /// @brief width of dotted contours (note: must be float)
-    static const double dottedContour;
+    /// @brief color for rerouters
+    static const RGBColor rerouterColor;
+
+    /// @brief rerouter size
+    static const double rerouterSize;
+
+    /// @brief color for VSS
+    static const RGBColor VSSColor;
+
+    /// @brief VSS size
+    static const double VSSSize;
+
+    /// @brief color for Calibrators
+    static const RGBColor calibratorColor;
+
+    /// @brief Calibrator width
+    static const double calibratorWidth;
+
+    /// @brief Calibrator height
+    static const double calibratorHeight;
+
+    /// @brief color for route probes
+    static const RGBColor routeProbeColor;
+
+    /// @brief RouteProbe size
+    static const double routeProbeSize;
+
+    /// @brief color for vaporizers
+    static const RGBColor vaporizerColor;
+
+    /// @brief Vaporizer size
+    static const double vaporizerSize;
+};
+
+
+/// @brief struct for detector settings
+struct GUIVisualizationDetectorSettings {
+
+    /// @brief color for E1 detectors
+    static const RGBColor E1Color;
+
+    /// @brief E1 detector widths
+    static const double E1Width;
+
+    /// @brief E1 Instant detector heights
+    static const double E1Height;
+
+    /// @brief color for E1 Instant detectors
+    static const RGBColor E1InstantColor;
+
+    /// @brief E1 Instant detector widths
+    static const double E1InstantWidth;
+
+    /// @brief E1 Instant detector heights
+    static const double E1InstantHeight;
+
+    /// @brief color for E2 detectors
+    static const RGBColor E2Color;
+
+    /// @brief E2 detector widths
+    static const double E2Width;
+
+    /// @brief E3 detector size
+    static const double E3Size;
+
+    /// @brief color for Entrys
+    static const RGBColor E3EntryColor;
+
+    /// @brief color for Exits
+    static const RGBColor E3ExitColor;
+
+    /// @brief E3 Entry/Exit detector width
+    static const double E3EntryExitWidth;
+
+    /// @brief E3 Entry/Exit detector height
+    static const double E3EntryExitHeight;
+};
+
+
+/// @brief struct for stoppingPlace settings
+struct GUIVisualizationStoppingPlaceSettings {
+
+    /// @brief busStop offset
+    static const double stoppingPlaceSignOffset;
+
+    /// @brief busStop width
+    static const double busStopWidth;
+
+    /// @brief color for busStops
+    static const RGBColor busStopColor;
+
+    /// @brief color for busStops signs
+    static const RGBColor busStopColorSign;
+
+    /// @brief containerStop width
+    static const double containerStopWidth;
+
+    /// @brief color for containerStops
+    static const RGBColor containerStopColor;
+
+    /// @brief color for containerStop signs
+    static const RGBColor containerStopColorSign;
+
+    /// @brief chargingStation width
+    static const double chargingStationWidth;
+
+    /// @brief color for chargingStations
+    static const RGBColor chargingStationColor;
+
+    /// @brief color for chargingStation sign
+    static const RGBColor chargingStationColorSign;
+
+    /// @brief color for chargingStation during charging
+    static const RGBColor chargingStationColorCharge;
+
+    /// @brief color for parkingAreas
+    static const RGBColor parkingAreaColor;
+
+    /// @brief color for parkingArea sign
+    static const RGBColor parkingAreaColorSign;
+
+    /// @brief color for parkingSpace contour
+    static const RGBColor parkingSpaceColorContour;
+
+    /// @brief color for parkingSpace innen
+    static const RGBColor parkingSpaceColor;
+};
+
+
+/// @brief struct for dotted contour settings
+struct GUIVisualizationDottedContourSettings {
+
+    /// @brief width of dotted contour segments
+    static const double segmentWidth;
 
     /// @brief length of dotted contour segments
-    static const double dottedContourSegmentLength;
+    static const double segmentLength;
+
+    /// @brief first color of dotted contour
+    static const RGBColor firstColor;
+
+    /// @brief second color of dotted contour
+    static const RGBColor secondColor;
+};
+
+
+/// @brief struct for width settings
+struct GUIVisualizationWidthSettings {
 
     /// @brief width for routes
     static const double route;
@@ -569,7 +656,7 @@ public:
     GUIColorer junctionColorer;
 
     // Setting bundles for optional drawing junction names and indices
-    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName, tlsPhaseIndex;
+    GUIVisualizationTextSettings drawLinkTLIndex, drawLinkJunctionIndex, junctionName, internalJunctionName, tlsPhaseIndex, tlsPhaseName;
 
     /// @brief Information whether lane-to-lane arrows shall be drawn
     bool showLane2Lane;
@@ -676,8 +763,22 @@ public:
     static const std::string SCHEME_NAME_TYPE;
     static const std::string SCHEME_NAME_PERMISSION_CODE;
 
+    static const double MISSING_DATA;
+
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
+
+    /// @brief Additional settings
+    GUIVisualizationAdditionalSettings additionalSettings;
+
+    /// @brief Detector settings
+    GUIVisualizationDetectorSettings detectorSettings;
+
+    /// @brief StoppingPlace settings
+    GUIVisualizationStoppingPlaceSettings stoppingPlaceSettings;
+
+    /// @brief dotted contour settings
+    GUIVisualizationDottedContourSettings dottedContourSettings;
 
     /// @brief width settings
     GUIVisualizationWidthSettings widthSettings;
@@ -685,9 +786,3 @@ public:
     /// @brief detail settings
     GUIVisualizationDetailSettings detailSettings;
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -41,5 +41,9 @@ random_grid2
 min-angle
 prefix
 
+# use consecutive numerical ids
+# 
+renumber
+
 # add turning lanes
 turnlanes

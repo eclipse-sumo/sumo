@@ -1,0 +1,3018 @@
+ Retrying in 1 seconds
+time 1.0
+ToC device infos for vehicle 'ToC_veh'
+Static parameters:
+  holder = ToC_veh
+  manualType = manual
+  automatedType = automated
+  responseTime = 23.00
+  recoveryRate = 0.10
+  initialAwareness = 0.25
+  mrmDecel = 1.20
+Dynamic parameters:
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 2.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 2.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 3.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 5.2
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 4.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 5.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 10.4
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 6.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 7.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 15.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 8.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.2
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 9.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 10.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 11.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 12.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 13.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 14.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 15.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 16.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 17.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 18.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 19.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 20.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 21.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 22.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 23.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 24.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 25.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 26.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 27.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 28.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 29.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 30.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 31.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 32.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 33.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 34.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 35.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 36.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 37.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 38.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 39.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 40.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 41.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 42.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 43.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 44.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 45.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 46.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 47.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 48.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 49.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 50.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 51.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 52.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 53.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 54.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 55.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 56.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 57.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 58.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 59.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 60.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 61.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 62.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 63.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 64.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 65.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 66.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 67.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 68.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 69.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 70.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 71.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 72.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 73.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 74.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 75.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 76.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 77.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 78.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 79.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 80.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 81.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 82.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 83.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 84.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 85.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 86.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 87.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 88.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 89.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 90.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 91.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 92.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 93.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 94.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 95.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 96.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 97.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 98.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 99.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 100.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+time 101.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (255, 255, 0, 255)
+Requested (downward) ToC of veh0 at t=102.0 (until t=126.0)
+time 102.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 103.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 104.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 105.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 106.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 107.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 108.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 109.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 110.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 111.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 112.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 113.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 114.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 115.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 116.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 117.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 118.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 119.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 120.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 121.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 122.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 123.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 124.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 125.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = PREPARING_TOC
+  color = (200, 200, 250, 255)
+time 126.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.25
+  currentSpeed = 19.0772565349
+  state = RECOVERING
+  color = (250, 210, 150, 255)
+time 127.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.35
+  currentSpeed = 18.9944226422
+  state = RECOVERING
+  color = (250, 210, 150, 255)
+time 128.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.45
+  currentSpeed = 19.2201852957
+  state = RECOVERING
+  color = (250, 210, 150, 255)
+time 129.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.55
+  currentSpeed = 19.0624295049
+  state = RECOVERING
+  color = (250, 210, 150, 255)
+time 130.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.65
+  currentSpeed = 18.7429475962
+  state = RECOVERING
+  color = (250, 210, 150, 255)
+time 131.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.75
+  currentSpeed = 19.3379173551
+  state = RECOVERING
+  color = (250, 210, 150, 255)
+time 132.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.85
+  currentSpeed = 19.1070616479
+  state = RECOVERING
+  color = (250, 210, 150, 255)
+time 133.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.95
+  currentSpeed = 19.1733648774
+  state = RECOVERING
+  color = (250, 210, 150, 255)
+time 134.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.5121079259
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 135.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.7293998241
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 136.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.3016904917
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 137.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.2699016769
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 138.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.492105334
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 139.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.6508090995
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 140.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.7997365712
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 141.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.2411836619
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 142.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.562795771
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 143.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.4500700545
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 144.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.4285550602
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 145.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.4762534558
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 146.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.1606945938
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 147.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.4924533199
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 148.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.6038403751
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 149.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.8071686307
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 150.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.887112315
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 151.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.5753324577
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 152.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.7738550961
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 153.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.8544000973
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 154.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.5275372627
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 155.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.5738622622
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 156.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.3547731609
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 157.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.629508819
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 158.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.6389017066
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 159.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.7295081777
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 160.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.7699797221
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 161.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.9780421609
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 162.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.9925191995
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 163.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.746343493
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 164.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.3258594446
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 165.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.3435599741
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 166.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.4270541438
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 167.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.3483508008
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 168.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.0111212475
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 169.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.1381324114
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 170.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.7986468763
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 171.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.4593909714
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 172.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.5535282465
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 173.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.5025254833
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 174.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.4271377491
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 175.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.8133342907
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 176.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.3161412047
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 177.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.6655180112
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 178.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.0304100571
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 179.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.7503679023
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 180.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.391275545
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 181.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.333728985
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 182.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.2488166943
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 183.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.316322585
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 184.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.6360412592
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 185.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.4912344018
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 186.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.524249863
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 187.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.0213711591
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 188.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.0827016404
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 189.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.6058943868
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 190.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.580111352
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 191.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.808754802
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 192.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.8841206188
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 193.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.4855759252
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 194.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.454441607
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 195.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.8944006264
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 196.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.3977287566
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 197.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.8593868196
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 198.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.3404053174
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 199.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.4260268842
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 200.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.4036773207
+  state = MANUAL
+  color = (255, 255, 0, 255)
+time 201.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.6468862511
+  state = MANUAL
+  color = (255, 255, 0, 255)
+Requested (upward) ToC of veh0 at t=202.0 (until t=226.0)
+time 202.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 18.799309572
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 203.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 204.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 205.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 206.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 207.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 208.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 209.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 210.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 211.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 212.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 213.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 214.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 215.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 216.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 217.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 218.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 219.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 220.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 221.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 222.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 223.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 224.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 225.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 226.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 227.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 228.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 229.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 230.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 231.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 232.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 233.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 234.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 235.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 236.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 237.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 238.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 239.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 240.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 241.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 242.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 243.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 244.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 245.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 246.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 247.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 248.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 249.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 250.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 251.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 252.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 253.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 254.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 255.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 256.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 257.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 258.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 259.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 260.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 261.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 262.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 263.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 264.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 265.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 266.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 267.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 268.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 269.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 270.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 271.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 272.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 273.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 274.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 275.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 276.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 277.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 278.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 279.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 280.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 281.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 282.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 283.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 284.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 285.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 286.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 287.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 288.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 289.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 290.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 291.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 292.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 293.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 294.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 295.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 296.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 297.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 298.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 299.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 300.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 301.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 302.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 303.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 304.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 305.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 306.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 307.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 308.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 309.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 310.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 311.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 312.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 313.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 314.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 315.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 316.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 317.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 318.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 319.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 320.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 321.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 322.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 323.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 324.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 325.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 326.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 327.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 328.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 329.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 330.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 331.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 332.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 333.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 334.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 335.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 336.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 337.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 338.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 339.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 340.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 341.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 342.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 343.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 344.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 345.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 346.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 347.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 348.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 349.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 350.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 351.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 352.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 353.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 354.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 355.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 356.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 357.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 358.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 359.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 360.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 361.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 362.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 363.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 364.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 365.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 366.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 367.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 368.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 369.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 370.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 371.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 372.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 373.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 374.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 375.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 376.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 377.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 378.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 379.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 380.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 381.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 382.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 383.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 384.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 385.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 386.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 387.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 388.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 389.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 390.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 391.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 392.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 393.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 394.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 395.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 396.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 397.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 398.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 399.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 400.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 401.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 402.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 403.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 404.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 405.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 406.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 407.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 408.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 409.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 410.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 411.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 412.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 413.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 414.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 415.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 416.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 417.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 418.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 419.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 420.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 421.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 422.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 423.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 424.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 425.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 426.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 427.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 428.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 429.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 430.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 431.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 432.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 433.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 434.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 435.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 436.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 437.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 438.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 439.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 440.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 441.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 442.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 443.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 444.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 445.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 446.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 447.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 448.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 449.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 450.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 451.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 452.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 453.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 454.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 455.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 456.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 457.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 458.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 459.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 460.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 461.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 462.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 463.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 464.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 465.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 466.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 467.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 468.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 469.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 470.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 471.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 472.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 473.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 474.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 475.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 476.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 477.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 478.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 479.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 480.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 481.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 482.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 483.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 484.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 485.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 486.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 487.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 488.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 489.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 490.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 491.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 492.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 493.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 494.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 495.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 496.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 497.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 498.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 499.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 500.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)
+time 501.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 19.6
+  state = AUTOMATED
+  color = (0, 0, 255, 255)

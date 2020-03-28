@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec  9 19:02:57 2019 by Eclipse SUMO duarouter Version v1_3_1+1345-8af262fa61
+<!-- generated on Mon Feb 10 21:16:33 2020 by Eclipse SUMO duarouter Version v1_4_0+1027-bf5720cef5
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -26,6 +26,7 @@
             <xsd:element name="additional-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="route-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="phemlight-path" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="junction-taz" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="lane-weight-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="weight-attribute" type="strOptionType" minOccurs="0"/>
@@ -47,6 +48,7 @@
             <xsd:element name="intermodal-weight-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="write-trips" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-trips.geo" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="write-trips.junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="exit-times" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -65,6 +67,8 @@
             <xsd:element name="weights.interpolate" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="weights.minor-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="with-taz" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="mapmatch.distance" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="mapmatch.junctions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="bulk-routing" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="routing-threads" type="intOptionType" minOccurs="0"/>
             <xsd:element name="restriction-params" type="strArrayOptionType" minOccurs="0"/>

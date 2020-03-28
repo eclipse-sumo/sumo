@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2007-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_Routing.cpp
 /// @author  Michael Behrisch
@@ -17,10 +21,6 @@
 ///
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSNet.h>
@@ -83,6 +83,12 @@ MSDevice_Routing::insertOptions(OptionsCont& oc) {
     oc.doRegister("device.rerouting.synchronize", new Option_Bool(false));
     oc.addDescription("device.rerouting.synchronize", "Routing", "Let rerouting happen at the same time for all vehicles");
 
+    oc.doRegister("device.rerouting.railsignal", new Option_Bool(true));
+    oc.addDescription("device.rerouting.railsignal", "Routing", "Allow rerouting triggered by rail signals.");
+
+    oc.doRegister("device.rerouting.bike-speeds", new Option_Bool(false));
+    oc.addDescription("device.rerouting.bike-speeds", "Routing", "Compute separate average speeds for bicycles");
+
     oc.doRegister("device.rerouting.output", new Option_FileName());
     oc.addDescription("device.rerouting.output", "Routing", "Save adapting weights to FILE");
 }
@@ -143,8 +149,15 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
-                                   SUMOTime period, SUMOTime preInsertionPeriod)
-    : MSVehicleDevice(holder, id), myPeriod(period), myPreInsertionPeriod(preInsertionPeriod), myLastRouting(-1), mySkipRouting(-1), myRerouteCommand(nullptr) {
+                                   SUMOTime period, SUMOTime preInsertionPeriod) : 
+    MSVehicleDevice(holder, id),
+    myPeriod(period),
+    myPreInsertionPeriod(preInsertionPeriod),
+    myLastRouting(-1),
+    mySkipRouting(-1),
+    myRerouteCommand(nullptr),
+    myRerouteRailSignal(getBoolParam(holder, OptionsCont::getOptions(), "rerouting.railsignal", true, true))
+{
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
@@ -171,7 +184,10 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
             myRerouteCommand->deschedule();
         } else if (myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod) {
             // pre-insertion rerouting was disabled. Reroute once if insertion was delayed
-            reroute(MSNet::getInstance()->getCurrentTimeStep());
+            // this is happening in the run thread (not inbeginOfTimestepEvents) so we cannot safely use the threadPool
+            myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "device.rerouting", 
+                    MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass()),
+                    false, MSRoutingEngine::withTaz(), false);
         }
         myRerouteCommand = nullptr;
         // build repetition trigger if routing shall be done more often
@@ -231,7 +247,7 @@ MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) {
 
 void
 MSDevice_Routing::reroute(const SUMOTime currentTime, const bool onInit) {
-    MSRoutingEngine::initEdgeWeights();
+    MSRoutingEngine::initEdgeWeights(myHolder.getVClass());
     //check whether the weights did change since the last reroute
     if (myLastRouting >= MSRoutingEngine::getLastAdaptation()) {
         return;

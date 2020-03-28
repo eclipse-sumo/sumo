@@ -415,6 +415,10 @@ connections exist.
   different. Also, the indices may be freely customized by the user
   (e.g. to define signal groups). These indices are shown using the
   junction visualization option *Show link tls index*.
+  
+### Check connected components
+Since version 1.4 you can show all network components that are reachable from a particular lane by right-clicking on a lane and then using the 'select reachable' menu option. A new menu opens where you have to select the vehicle class to check. After chosing a vehicle class, all reachable lanes will be added to the lane selection and the edge coloring mode will be set to 'color by selection'. 
+Consequently, all reachable lanes will be colored blue and all unreachable lanes will be gray.
 
 # Changing the appearance/visualisation of the simulation
 
@@ -631,20 +635,20 @@ be loaded by pressing the "Load Decals" button.
 When defining decals in XML a single line which looks like this:
 
 ```
-<decal filename="background.gif" centerX="550.00" centerY="1530.00" width="64.00" height="64.00" rotation="0.00"/>
+<decal file="background.gif" centerX="550.00" centerY="1530.00" width="64.00" height="64.00" rotation="0.00"/>
 ```
 
 The following attributes are supported
 
 | Attribute Name | Value Type    | Description                                                                                                                     |
 | -------------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| **filename**   | path (string) | *picture file*, the full name of the background image                                                                           |
+| **file**   | path (string) | *picture file*, the full name of the background image                                                                           |
 | **centerX**    | float         | *center x*, the x-position of the center of the image in network coordinates (in meters)                                        |
 | **centerY**    | float         | *center y*, the y-position of the center of the image in network coordinates (in meters)                                        |
 | **width**      | float         | The width of the image in network coordinates (in meters)                                                                       |
 | **height**     | float         | The height of the image in network coordinates (in meters)                                                                      |
 | rotation       | float         | The angle of the image in degrees                                                                                               |
-| layer          | float         | The layer at which the image in drawn in meters over ground                                                                     |
+| layer          | float         | The layer at which the image is drawn in meters over ground                                                                     |
 | screenRelative | bool          | *relative*, whether the position and size are pixel coordinates relative to the screen rather then the network coordinates      |
 | centerZ        | float         | The z-position of the center of the object in network coordinates (in meters), only used in 3D visualization instead of *layer* |
 | tilt           | float         | The tilt angle of the object, only used in 3D visualization                                                                     |
@@ -698,7 +702,7 @@ When you are done the configuration files should look like below:
 
         <viewport zoom="200" x="100" y="-100"/>
         <delay value="42"/>
-        <decal filename="background.gif" centerX="550.00" centerY="1530.00" width="64.00" height="64.00" rotation="0.00"/>
+        <decal file="background.gif" centerX="550.00" centerY="1530.00" width="64.00" height="64.00" rotation="0.00"/>
         <breakpoint value="42"/>
         <breakpoint value="1337"/>
     </viewsettings>
@@ -747,8 +751,8 @@ elements to the configuration:
 # Multiple Views
 
 Using the (![Image:NewView.gif](images/NewView.gif
-"Image:newView.gif"))-button, multple viewing windows onto the same
-simulation can be opened. The visualization settings can be set
+"Image:newView.gif"))-button, multiple viewing windows can be opened onto the same
+simulation. The visualization settings can be set
 independently for each view. The viewing windows can be managed using
 the *Windows* menu in the main menu bar.
 
@@ -796,8 +800,6 @@ contained data to see how various traffic measures changed over time
 !!! note
     In the gui-settings dialog, the function 'Recalibrate Rainbow' can be used to adapt the coloring to the data range of the current attribute.
 
-## Version 1.2.0 and later
-
 Edgedata files for visualization can be loaded by setting option **--edgedata-files**. All
 attributes will be loaded and can be selected in the edge visualization
 settings They can also be loaded in **SUMO-GUI** from
@@ -811,32 +813,7 @@ coloring scheme to show the whole data range.
 !!! note
     edgeData is time based so it will only be shown when the simulation time has advance to the begin time of the respective data interval. Make sure to advance the simulation to time 0 (step once) or to whatever begin time was used for edgeData generation before using *Recalibrate Rainbow*. To see further data frames, advance the simulation by using delay or breakpoints.
 
-When defining a color scheme two data values can be used to diagnose
-missing data:
-
-- **-2**: the attribute does not exist in the loaded data for that
-  particular edge
-- **-1**: the attribute exists but no data is available for that edge
-  for the current time
-
-!!! note
-    It may be useful to hide edges with attribute value -1 and -2 by setting the alpha channel to 0. To Make this work, a distinct color value must be set for *0* to avoid interpolation.
-
-## Version 1.1.0 and older
-
-```
-sumo-gui -n net.net.xml --weight-files edgedata.xml -e 86400 --weight-attribute <ATTR>
-```
-
-When using edgeData-output <ATTR\> could be *arrived* or *departed* to
-investigate traffic sources and sinks in the network.
-
-When using **SUMO-GUI** for visualizing weight files
-with values that change over time (files containing multiple intervals)
-and no vehicles are being simulated, it is helpful to load the
-simulation with option **--end** to avoid premature simulation and to set a
-*delay* value or [\#Breakpoints](#breakpoints) because the
-simulation will otherwise exit quickly when running without vehicles).
+When defining a color scheme, a dedicated color for missing data ('No Data') can always be configured.
 
 # Usage Examples
 

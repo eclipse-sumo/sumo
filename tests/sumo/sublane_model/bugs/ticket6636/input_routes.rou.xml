@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 11 Feb 2020 11:47:35 AM CET by Eclipse SUMO netedit Version 1.5.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="random.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/debug/lara_gridlock/scenario/net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="/scr2/debug/lara_gridlock/scenario/input_routes.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bike" vClass="bicycle" latAlignment="arbitrary" minGap="2.5"/>
+    <vType id="truck" vClass="trailer"/>
+    <trip id="a"     type="bike" depart="0.00" from="372" to="788" departLane="2" departPos="-10" departPosLat="-0.85"/>
+    <trip id="blocker" type="bike" depart="0.00" from="372" to="784" departLane="1" departPos="-25" departPosLat="1.4"/>
+    <trip id="blocker2" type="truck" depart="0.00" from="-784" to="-372" departLane="2" departPos="-20">
+        <stop lane="-372_1" duration="20" endPos="1"/>
+    </trip>
+    <!--
+    <flow id="flow" type="bike" begin="0.00" from="372" to="784" end="3600.00" number="1800" departPosLat="random" departLane="random"/>
+    -->
+</routes>

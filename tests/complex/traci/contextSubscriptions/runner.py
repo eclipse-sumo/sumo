@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Daniel Krajzewicz
@@ -87,10 +91,10 @@ def runSingle(traciEndTime, viewRange, module, objID):
                     lastP = p
 
         if not subscribed:
-            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [
-                                    traci.constants.VAR_POSITION])
-            module.subscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange, [
-                                    traci.constants.VAR_POSITION])
+            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange,
+                                    [traci.constants.VAR_POSITION])
+            module.subscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange,
+                                    [traci.constants.VAR_POSITION])
             subscribed = True
         else:
             seen1 += len(near1)
@@ -103,11 +107,13 @@ def runSingle(traciEndTime, viewRange, module, objID):
                     print("timestep %s: %s is missing in subscription results" % (step, v))
 
         step += 1
-    module.unsubscribeContext(
-        objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
+    module.unsubscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
+    responses = traci.simulationStep()
+    print([r[0] for r in responses])  # person subscription should still be active
+    module.unsubscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange)
     responses = traci.simulationStep()
     if responses:
-        print("Error: Unsubscribe did not work")
+        print("Error: Unsubscribe did not work", responses)
     else:
         print("Ok: Unsubscribe successful")
     print("Print ended at step %s" % traci.simulation.getTime())

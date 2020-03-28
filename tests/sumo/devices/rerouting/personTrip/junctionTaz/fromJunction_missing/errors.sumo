@@ -1,0 +1,3 @@
+Error: Source junction 'A0' not known for person '0'!
+Set option '--junction-taz' or load a TAZ-file
+Quitting (on error).

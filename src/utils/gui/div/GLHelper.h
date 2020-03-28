@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GLHelper.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Some methods which help to draw certain geometrical objects in openGL
 /****************************************************************************/
-#ifndef GLHelper_h
-#define GLHelper_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -223,14 +221,6 @@ public:
      */
     static void drawFilledCircle(double width, int steps = 8);
 
-    /** @brief Draws a filled circle around (0,0) returning circle vertex
-     *
-     * The circle is drawn by calling drawFilledCircle(width, steps, 0, 360) and saving values of myCircleCoords.
-     *
-     * @param[in] width The width of the circle
-     * @param[in] steps The number of steps to divide the circle into
-     */
-    static std::vector<Position> drawFilledCircleReturnVertices(double width, int steps = 8);
 
     /** @brief Draws a filled circle around (0,0)
      *
@@ -284,17 +274,8 @@ public:
     /// @brief draw a dotted contour around the given Non closed shape with certain width
     static void drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape, const double width);
 
-    /// @brief draw a dotted contour around the given closed shape with certain width
-    static void drawShapeDottedContourAroundClosedShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape);
-
-    /// @brief draw a dotted contour around the given lane shapes
-    static void drawShapeDottedContourBetweenLanes(const GUIVisualizationSettings& s, const int type, const PositionVector& frontLaneShape, const double offsetFrontLaneShape, const PositionVector& backLaneShape, const double offsetBackLaneShape);
-
     /// @brief draw a dotted contour around the given Position with certain width and height
     static void drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, const int type, const Position& center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
-
-    /// @brief draw a dotted contour in a partial shapes
-    static void drawShapeDottedContourPartialShapes(const GUIVisualizationSettings& s, const int type, const Position& begin, const Position& end, const double width);
 
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
@@ -330,7 +311,8 @@ public:
                             const double relMargin = 0.5);
 
     /// @brief draw text and the end of shape
-    static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x, double size, RGBColor color);
+    static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x,
+                              const GUIVisualizationTextSettings& settings, const double scale);
 
     /// @brief draw crossties for railroads or pedestrian crossings
     static void drawCrossTies(const PositionVector& geom,
@@ -377,9 +359,3 @@ private:
     /// @brief static vector with a list of alternated black/white colors (used for contourns)
     static std::vector<RGBColor> myDottedcontourColors;
 };
-
-
-#endif
-
-/****************************************************************************/
-

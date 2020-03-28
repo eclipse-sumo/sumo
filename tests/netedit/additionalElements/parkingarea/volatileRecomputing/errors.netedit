@@ -14,7 +14,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_7 into SUMORTree with boundar
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_7 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_7 into SUMORTree with boundary 17.80,-10.60,36.20,-2.20
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding space 'parkingArea_gneE0_0_7space0' in GNEChange_Additional
 GLDebug: 	Inserted parkingSpace:parkingArea_gneE0_0_7space0 into SUMORTree with boundary -16.60,34.00,-3.40,49.00
 Debug: Adding parkingArea 'parkingArea_gneE1_0_6' in GNEChange_Additional
@@ -64,7 +64,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE4_0_8 into SUMORTree with boundar
 GLDebug: 	Removed object parkingArea:parkingArea_gneE4_0_8 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_gneE4_0_8 into SUMORTree with boundary 25.80,9.40,44.20,17.80
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -83,7 +83,7 @@ GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_8'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE4_0_8 from SUMORTree with boundary 25.80,9.40,44.20,17.80
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced space 'parkingArea_gneE4_0_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE4_0_0space0 from SUMORTree with boundary -16.60,-8.00,-3.40,7.00
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_0'
@@ -223,7 +223,7 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE4_0_8 into SUMORTree with boundar
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_8'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE4_0_8 from SUMORTree with boundary 25.80,9.40,44.20,17.80
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced space 'parkingArea_gneE4_0_0space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE4_0_0space0 from SUMORTree with boundary -16.60,-8.00,-3.40,7.00
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE4_0_0'
@@ -256,15 +256,15 @@ Debug: Deleting unreferenced space 'parkingArea_gneE0_0_7space0'
 GLDebug: 	Removed object parkingSpace:parkingArea_gneE0_0_7space0 from SUMORTree with boundary -16.60,34.00,-3.40,49.00
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_7'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_7 from SUMORTree with boundary 17.80,-10.60,36.20,-2.20
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_1togneE1_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_1togneE0_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_2' in GNEEdge destructor
@@ -272,15 +272,12 @@ Debug: Deleting unreferenced lane 'gneE2_3' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_4' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_5' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_5togneE4_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE4' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE4_0togneE2_5' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ2' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ3' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 8

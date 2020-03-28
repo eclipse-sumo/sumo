@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Dec 16 15:24:52 2019 by Eclipse SUMO Version v1_4_0+0122-6806fa5
+<!-- generated on Wed Mar 25 11:26:49 2020 by Eclipse SUMO Version v1_5_0+0923-da2e985785
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -22,6 +22,7 @@
         <load-state value="" type="FILE" help="Loads a network state from FILE"/>
         <load-state.offset value="0" type="TIME" help="Shifts all times loaded from a saved state by the given offset"/>
         <load-state.remove-vehicles value="" type="STR[]" help="Removes vehicles with the given IDs from the loaded state"/>
+        <junction-taz value="false" type="BOOL" help="Initialize a TAZ for every junction to use attributes toJunction and fromJunction"/>
     </input>
 
     <output>
@@ -47,6 +48,8 @@
         <fcd-output.geo value="false" type="BOOL" help="Save the Floating Car Data using geo-coordinates (lon/lat)"/>
         <fcd-output.signals value="false" type="BOOL" help="Add the vehicle signal state to the FCD output (brake lights etc.)"/>
         <fcd-output.distance value="false" type="BOOL" help="Add kilometrage to the FCD output (linear referencing)"/>
+        <fcd-output.acceleration value="false" type="BOOL" help="Add acceleration to the FCD output"/>
+        <fcd-output.params value="" type="STR[]" help="Add generic parameter values to the FCD output"/>
         <fcd-output.filter-edges.input-file value="" type="FILE" help="Restrict fcd output to the edge selection from the given input file"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
         <queue-output value="" type="FILE" help="Save the vehicle queues at the junctions (experimental)"/>
@@ -66,19 +69,20 @@
         <vehroute-output.write-unfinished value="false" type="BOOL" help="Write vehroute output for vehicles which have not arrived at simulation end"/>
         <vehroute-output.skip-ptlines value="false" type="BOOL" help="Skip vehroute output for public transport vehicles"/>
         <vehroute-output.incomplete value="false" type="BOOL" help="Include invalid routes and route stubs in vehroute output"/>
+        <vehroute-output.stop-edges value="false" type="BOOL" help="Include information about edges between stops"/>
         <link-output value="" type="FILE" help="Save links states into FILE"/>
         <railsignal-block-output value="" type="FILE" help="Save railsignal-blocks into FILE"/>
         <bt-output value="" type="FILE" help="Save bluetooth visibilities into FILE (in conjunction with device.btreceiver and device.btsender)"/>
         <lanechange-output value="" type="FILE" help="Record lane changes and their motivations for all vehicles into FILE"/>
         <lanechange-output.started value="false" type="BOOL" help="Record start of lane change manoeuvres"/>
         <lanechange-output.ended value="false" type="BOOL" help="Record end of lane change manoeuvres"/>
+        <lanechange-output.xy value="false" type="BOOL" help="Record coordinates of lane change manoeuvres"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
-        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
-        <movereminder-output.vehicles value="" type="STR[]" help="List of vehicle ids which shall save their movereminder states"/>
-        <save-state.times value="" type="INT[]" help="Use INT[] as times at which a network state written"/>
+        <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
+        <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
-        <save-state.suffix value=".sbx" type="STR" help="Suffix for network states (.sbx or .xml)"/>
+        <save-state.suffix value=".xml.gz" type="STR" help="Suffix for network states (.xml.gz or .xml)"/>
         <save-state.files value="" type="FILE" help="Files for network states"/>
     </output>
 
@@ -129,6 +133,8 @@
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="Factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
         <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.striping.jamtime.crossing value="10" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
+        <pedestrian.striping.reserve-oncoming value="0" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians"/>
+        <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"/>
         <pedestrian.remote.address value="localhost:9000" type="STR" help="The address (host:port) of the external simulation"/>
         <ride.stop-tolerance value="10" type="FLOAT" help="Tolerance to apply when matching pedestrian and vehicle positions on boarding at individual stops"/>
     </processing>
@@ -137,10 +143,11 @@
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <weights.random-factor value="1" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing minimum routing costs for minor-link internal lanes"/>
+        <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>
         <astar.all-distances value="" type="FILE" help="Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output)"/>
         <astar.landmark-distances value="" type="FILE" help="Initialize lookup table for astar ALT-variant from the given file"/>
         <persontrip.walkfactor value="0.75" type="FLOAT" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"/>
-        <persontrip.transfer.car-walk value="parkingAreas" type="STR[]" help="Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations)"/>
+        <persontrip.transfer.car-walk value="parkingAreas" type="STR[]" help="Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos;, &apos;taxi&apos; and combinations)"/>
         <device.rerouting.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;rerouting&apos; device"/>
         <device.rerouting.explicit value="" synonymes="device.rerouting.knownveh" type="STR[]" help="Assign a &apos;rerouting&apos; device to named vehicles"/>
         <device.rerouting.deterministic value="false" type="BOOL" help="The &apos;rerouting&apos; devices are set deterministic using a fraction of 1000"/>
@@ -153,6 +160,8 @@
         <device.rerouting.init-with-loaded-weights value="false" type="BOOL" help="Use weight files given with option --weight-files for initializing edge weights"/>
         <device.rerouting.threads value="0" type="INT" help="The number of parallel execution threads used for rerouting"/>
         <device.rerouting.synchronize value="false" type="BOOL" help="Let rerouting happen at the same time for all vehicles"/>
+        <device.rerouting.railsignal value="true" type="BOOL" help="Allow rerouting triggered by rail signals."/>
+        <device.rerouting.bike-speeds value="false" type="BOOL" help="Compute separate average speeds for bicycles"/>
         <device.rerouting.output value="" type="FILE" help="Save adapting weights to FILE"/>
         <person-device.rerouting.probability value="-1" type="FLOAT" help="The probability for a person to have a &apos;rerouting&apos; device"/>
         <person-device.rerouting.explicit value="" synonymes="person-device.rerouting.knownveh" type="STR[]" help="Assign a &apos;rerouting&apos; device to named persons"/>
@@ -175,6 +184,7 @@
         <duration-log.disable value="false" synonymes="no-duration-log" type="BOOL" help="Disable performance reports for individual simulation steps"/>
         <duration-log.statistics value="false" synonymes="t" type="BOOL" help="Enable statistics on vehicle trips"/>
         <no-step-log value="false" type="BOOL" help="Disable console output of current simulation step"/>
+        <step-log.period value="100" type="INT" help="Number of simulation steps between step-log outputs"/>
     </report>
 
     <emissions>
@@ -291,7 +301,9 @@
         <device.taxi.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;taxi&apos; device"/>
         <device.taxi.explicit value="" synonymes="device.taxi.knownveh" type="STR[]" help="Assign a &apos;taxi&apos; device to named vehicles"/>
         <device.taxi.deterministic value="false" type="BOOL" help="The &apos;taxi&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.taxi.dispatch-algorithm value="greedy" type="STR" help="The dispatch algorithm [greedy]"/>
+        <device.taxi.dispatch-algorithm value="greedy" type="STR" help="The dispatch algorithm [greedy|greedyClosest|greedyShared]"/>
+        <device.taxi.dispatch-algorithm.output value="dispatch.xml" type="STR" help="Write information from the dispatch algorithm to FILE"/>
+        <device.taxi.dispatch-algorithm.params value="" type="STR" help="Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"/>
         <device.taxi.dispatch-period value="60" type="TIME" help="The period between successive calls to the dispatcher"/>
     </taxi_device>
 
@@ -343,7 +355,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settingsoutput file"/>

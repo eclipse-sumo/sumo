@@ -257,20 +257,6 @@ The option --geo enables the conversion of the input coordinates with
 the parameters given in the network. The mapping algorithm is also
 available in the python library function sumolib.route.mapTrace.
 
-# generateTurnRatios.py
-
-This script is to calculate the turn ratios or turn movements from a
-link to its downstream links with a given route file. The output file
-can be directly used as input in jtrrouter, where the time interval will
-be set for one day. The call is
-
-```
-<SUMO_HOME>/tools/generateTurnRatios.py -r <route-file>
-```
-
-The standard output is the traffic volumes. With the option -p turning
-ratios will be calculated and outputted.
-
 # tlsCycleAdaptation.py
 
 This script is to adapt the cycle lengths of the signalized
@@ -291,3 +277,24 @@ options. Option R is to restrict the maximal cycle length as the given
 one, while Option u is to use the calculated max cycle length as the
 cycle length for all intersections. With Option e only the green time
 splits will be adapted.
+
+
+# implausibleRoutes.py
+
+This tool analyzes a give route file and computes a implausibility score for each route.
+```
+<SUMO_HOME>/tools/route/implausibleRoutes.py <net-file> <route-file>
+```
+
+The implausibility score is a weighted sum of individual measures of implausibility (with configurable weights):
+- The quotient of (routeLength / airDistance)
+- The relative detour time: (routeDuration / shortestRouteDuration)
+- The absolute detour time: (routeDuration - shortestRouteDuration)
+- Short route penalty: max(0, minimumDistanceParameter - routeDistance)
+- Short air-distance penalty: max(0, minimumAirDistanceParameter - routeAirDistance)
+
+The tool reports routes with an implausibility score above a given threshold.
+It can also be used to generated restrictions for [flowrouter](Detector.md#flowrouterpy).
+
+
+

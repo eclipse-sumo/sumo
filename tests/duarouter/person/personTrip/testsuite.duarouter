@@ -1,3 +1,6 @@
+# test attributes fromJunction toJunction and viaJunctions
+junctionTaz
+
 # Copy of basic
 basic
 
@@ -154,4 +157,7 @@ ride_trip
 ride_trip_access
 trip_output
 trip_output_geo
+
+# test routing taxi trips
+taxi
 errors

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    HelpersEnergy.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // Helper methods for HBEFA-based emission computation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/SUMOTime.h>
@@ -163,11 +162,10 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
 
     if (P > 0) {
         // Assumption: Efficiency of myPropulsionEfficiency when accelerating
-        Prest = P*3600 * param->find(SUMO_ATTR_PROPULSIONEFFICIENCY)->second;
-    }
-    else {
+        Prest = P * 3600 * param->find(SUMO_ATTR_PROPULSIONEFFICIENCY)->second;
+    } else {
         // Assumption: Efficiency of myRecuperationEfficiency when recuperating
-        Prest = P*3600 / param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY)->second;
+        Prest = P * 3600 / param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY)->second;
     }
 
     // calculate power drop due to a potential energy difference
@@ -207,21 +205,22 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     // Prest = const1*a + const2*a^2 + const3*a^3
     // solve cubic equation in a
 
-    std::tie(numX, x1, x2, x3) = PolySolver::cubicSolve(const3,const2,const1,-Prest);
-    
+    std::tie(numX, x1, x2, x3) = PolySolver::cubicSolve(const3, const2, const1, -Prest);
+
 
     switch (numX) {
-    case 1:
-        return x1;
-    case 2:
-        return MAX2(x1, x2);
-    case 3:
-        return MAX3(x1, x2, x3);
-    default: 
-        WRITE_ERROR("An acceleration given by the power was not found.");
-        return 0;
+        case 1:
+            return x1;
+        case 2:
+            return MAX2(x1, x2);
+        case 3:
+            return MAX3(x1, x2, x3);
+        default:
+            WRITE_ERROR("An acceleration given by the power was not found.");
+            return 0;
     }
 
 }
+
 
 /****************************************************************************/

@@ -86,6 +86,14 @@ for route in sumolib.output.parse_fast("myRoutes.rou.xml", 'route', ['edges
     # do something with the vector of edge ids
 ```
 
+## parse all edges in a edge data (meanData) file
+
+```
+for interval in sumolib.output.parse("edgedata.xml", "interval"):
+    for edge in interval.edge:    
+        # do something with the edge attributes i.e. edge.entered
+```
+
 ## coordinate transformations
 
 ```

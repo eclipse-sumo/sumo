@@ -1,13 +1,17 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
 // PHEMlight module
 // Copyright (C) 2016-2017 Technische Universitaet Graz, https://www.tugraz.at/
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    CEP.cpp
 /// @author  Martin Dippold
@@ -26,7 +30,7 @@
 namespace PHEMlightdll {
 
     CEP::CEP(bool heavyVehicle, double vehicleMass, double vehicleLoading, double vehicleMassRot, double crossArea, double cWValue, double f0, double f1, double f2, double f3, double f4, double axleRatio, std::vector<double>& transmissionGearRatios, double auxPower, double ratedPower, double engineIdlingSpeed, double engineRatedSpeed, double effictiveWheelDiameter, double pNormV0, double pNormP0, double pNormV1, double pNormP1, const std::string& vehicelFuelType, std::vector<std::vector<double> >& matrixFC, std::vector<std::string>& headerLinePollutants, std::vector<std::vector<double> >& matrixPollutants, std::vector<std::vector<double> >& matrixSpeedRotational, std::vector<std::vector<double> >& normedDragTable, double idlingFC, std::vector<double>& idlingPollutants) {
-        transmissionGearRatios.size(); // just to make the compiler happy about the unused parameter
+        (void)transmissionGearRatios; // just to make the compiler happy about the unused parameter
         InitializeInstanceFields();
         _resistanceF0 = f0;
         _resistanceF1 = f1;

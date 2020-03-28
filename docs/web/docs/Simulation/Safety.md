@@ -27,7 +27,7 @@ of the following keywords:
 - **teleport**: (the default): the follower vehicle is moved
   (teleported) to the next edge on its route
 - **warn**: a warning is issued
-- **none**: no action is take
+- **none**: no action is taken
 - **remove**: both vehicles are removed from the simulation
 
 Additionally there is the possibility of stopping vehicles for a fixed
@@ -195,7 +195,7 @@ behavior. For a description see
 
 # Safety-Related Outputs
 
-- [Surrogate Safety Measures](../Simulation/Output/SSM_Device.md)
+- [Surrogate Safety Measures (SSM)](../Simulation/Output/SSM_Device.md)
   (headway, brake rates, time to collision etc.)
 - The [Instant Induction
   Loop](../Simulation/Output/Instantaneous_Induction_Loops_Detectors.md)

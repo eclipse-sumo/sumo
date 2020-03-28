@@ -27,7 +27,7 @@ changed, the parameter which must be given are also shown in the table.
 | angle (0x43)      | float                              | sets the angle for the rendered image file                                                               | [setAngle](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-setAngle)         |
 | ADD (0x80)        | PoI-definition, see below          | Adds the defined PoI                                                                                     | [add](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-add)                   |
 | REMOVE (0x81)     | int (layer), see below             | Removes the defined PoI                                                                                  | [remove](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-remove)             |
-| highlight (0xc7)  | highlight specification, see below | Adds a highlight to the PoI                                                                              | [remove](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-remove)             |
+| highlight (0x6c)  | highlight specification, see below | Adds a highlight to the PoI                                                                              | [remove](https://sumo.dlr.de/pydoc/traci._poi.html#PoiDomain-remove)             |
 |                   |                                    |                                                                                                          |                                                                                  |
 
 
@@ -71,7 +71,7 @@ If the named PoI can not be found in the given layer, all PoIs with the
 given ID are removed (from all layers). If no PoI with the given ID
 could be found, an error message is generated.
 
-### highlight (0xc7)
+### highlight (0x6c)
 
 |   ubyte  |      int    |  ubyte | color | ubyte  | double   |  ubyte  |  ubyte   |   ubyte   |  double    |     ubyte        |            ubyte                      |
 | :-----------: | :-----------: | :-------------: | :---: | :-----------------: | :-------: | :--------: | :-------: | :-------: | :------: | :----------------: | :----------: |

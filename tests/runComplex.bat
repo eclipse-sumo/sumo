@@ -6,4 +6,4 @@ REM which accompanies this distribution, and is available at
 REM http://www.eclipse.org/legal/epl-v20.html
 REM SPDX-License-Identifier: EPL-2.0
 call %~dp0\testEnv.bat %1
-start %TEXTTESTPY% -a complex,complex.perf
+start %TEXTTESTPY% -a complex,complex.perf,complex.meso,complex.libsumo

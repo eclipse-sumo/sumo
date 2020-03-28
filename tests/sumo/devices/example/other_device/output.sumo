@@ -22,4 +22,4 @@ device 'example_veh0' notifyMove: newSpeed=13.90
   veh 'veh0 has device 'tripinfo_veh0'
 device 'example_veh0' notifyMove: newSpeed=13.90
   veh 'veh0 has device 'tripinfo_veh0'
-device 'example_veh0' notifyLeave: reason=6 currentEdge=right2end
+device 'example_veh0' notifyLeave: reason=7 currentEdge=right2end

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSStopOut.cpp
 /// @author  Jakob Erdmann
@@ -13,11 +17,6 @@
 ///
 // Ouput information about planned vehicle stop
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/vehicle/SUMOVehicle.h>
@@ -103,11 +102,15 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
                       + "', time " + time2string(MSNet::getInstance()->getCurrentTimeStep()) + " without entering the stop");
         return;
     }
+    StopInfo& si = myStopped[veh];
     double delay = -1;
+    double arrivalDelay = -1;
     if (stop.until >= 0) {
         delay = STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - stop.until);
     }
-    StopInfo& si = myStopped[veh];
+    if (stop.arrival >= 0) {
+        arrivalDelay = STEPS2TIME(si.started - stop.arrival);
+    }
     myDevice.openTag("stopinfo");
     myDevice.writeAttr(SUMO_ATTR_ID, veh->getID());
     myDevice.writeAttr(SUMO_ATTR_TYPE, veh->getVehicleType().getID());
@@ -121,6 +124,9 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     myDevice.writeAttr("started", time2string(si.started));
     myDevice.writeAttr("ended", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     myDevice.writeAttr("delay", delay);
+    if (stop.arrival >= 0) {
+        myDevice.writeAttr("arrivalDelay", arrivalDelay);
+    }
     myDevice.writeAttr("initialPersons", si.initialNumPersons);
     myDevice.writeAttr("loadedPersons", si.loadedPersons);
     myDevice.writeAttr("unloadedPersons", si.unloadedPersons);
@@ -154,5 +160,6 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
     myDevice.closeTag();
     myStopped.erase(veh);
 }
+
 
 /****************************************************************************/

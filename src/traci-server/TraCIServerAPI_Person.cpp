@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    TraCIServerAPI_Person.cpp
 /// @author  Daniel Krajzewicz
@@ -13,11 +17,6 @@
 ///
 // APIs for getting/setting person values via TraCI
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringTokenizer.h>
@@ -183,13 +182,13 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                 }
                 int numParameters = inputStorage.readInt();
                 if (numParameters == 13) {
-                    libsumo::Person::appendStage(*TraCIServerAPI_Simulation::readStage(server, inputStorage), id);
+                    libsumo::Person::appendStage(id, *TraCIServerAPI_Simulation::readStage(server, inputStorage));
                 } else {
                     int stageType;
                     if (!server.readTypeCheckingInt(inputStorage, stageType)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The first parameter for adding a stage must be the stage type given as int.", outputStorage);
                     }
-                    if (stageType == MSTransportable::DRIVING) {
+                    if (stageType == libsumo::STAGE_DRIVING) {
                         // append driving stage
                         if (numParameters != 4) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a driving stage needs four parameters.", outputStorage);
@@ -207,7 +206,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                         }
                         libsumo::Person::appendDrivingStage(id, edgeID, lines, stopID);
-                    } else if (stageType == MSTransportable::WAITING) {
+                    } else if (stageType == libsumo::STAGE_WAITING) {
                         // append waiting stage
                         if (numParameters != 4) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a waiting stage needs four parameters.", outputStorage);
@@ -225,7 +224,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Fourth parameter (stopID) requires a string.", outputStorage);
                         }
                         libsumo::Person::appendWaitingStage(id, duration, description, stopID);
-                    } else if (stageType == MSTransportable::StageType::WALKING) {
+                    } else if (stageType == libsumo::STAGE_WALKING) {
                         // append walking stage
                         if (numParameters != 6) {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "Adding a walking stage needs six parameters.", outputStorage);

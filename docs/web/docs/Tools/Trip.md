@@ -188,7 +188,7 @@ allows to specify the available traffic modes and thus use
 [IntermodalRouting](../IntermodalRouting.md) to decided whether
 they use public transport, a personal car or walking.
   - walking or public transport: **--trip-attributes "modes=\"public\""**
-  - walking, public transport or car **--trip-attributes "modes=\"public,car\""**
+  - walking, public transport or car **--trip-attributes "modes=\"public car\""**
 
 !!! caution
     Quoting of trip attributes on Linux must use the style **--trip-attributes 'modes="public"'**

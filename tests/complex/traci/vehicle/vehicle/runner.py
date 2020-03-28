@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Michael Behrisch
@@ -92,9 +96,14 @@ def check(vehID):
     print("MinGap", traci.vehicle.getMinGap(vehID))
     print("width", traci.vehicle.getWidth(vehID))
     print("height", traci.vehicle.getHeight(vehID))
-    print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
-    print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
-    print("lcSpeedGain", traci.vehicle.getParameter(vehID, "laneChangeModel.lcSpeedGain"))
+    print("stopDelay", traci.vehicle.getStopDelay(vehID))
+    try:
+        print("lcStrategic", traci.vehicle.getParameter(vehID, "laneChangeModel.lcStrategic"))
+        print("lcCooperative", traci.vehicle.getParameter(vehID, "laneChangeModel.lcCooperative"))
+        print("lcSpeedGain", traci.vehicle.getParameter(vehID, "laneChangeModel.lcSpeedGain"))
+    except traci.TraCIException:
+        # meso
+        pass
     print("maxSpeedLat", traci.vehicle.getMaxSpeedLat(vehID))
     print("minGapLat", traci.vehicle.getMinGapLat(vehID))
     print("lateralAlignment", traci.vehicle.getLateralAlignment(vehID))
@@ -104,7 +113,7 @@ def check(vehID):
     print("waiting time", traci.vehicle.getWaitingTime(vehID))
     print("accumulated waiting time", traci.vehicle.getAccumulatedWaitingTime(vehID))
     print("driving dist", traci.vehicle.getDrivingDistance(vehID, "4fi", 2.))
-    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 100., 100.))
+    print("driving dist 2D", traci.vehicle.getDrivingDistance2D(vehID, 99., 100.))
     print("line", traci.vehicle.getLine(vehID))
     print("via", traci.vehicle.getVia(vehID))
     print("lane change state right", traci.vehicle.getLaneChangeState(vehID, -1))
@@ -131,9 +140,10 @@ def checkOffRoad(vehID):
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
              '--ignore-route-errors',
              '--vehroute-output', 'vehroutes.xml',
+             '--tripinfo-output', 'tripinfo.xml',
              '--additional-files',
              'input_additional.add.xml,input_additional2.add.xml',
-             "--default.speeddev", "0"])
+             "--default.speeddev", "0"] + sys.argv[1:])
 for i in range(3):
     print("step", step())
 vehID = "horiz"
@@ -176,7 +186,10 @@ if not traci.isLibsumo():
     traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
     traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
 traci.vehicle.setParameter(vehID, "foo", "bar")
-traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
+try:
+    traci.vehicle.setParameter(vehID, "laneChangeModel.lcStrategic", "2.0")
+except traci.TraCIException:
+    pass
 traci.vehicle.setSignals(vehID, 12)
 traci.vehicle.setRoutingMode(vehID, traci.constants.ROUTING_MODE_AGGREGATED)
 traci.vehicle.setStop(vehID, "2fi", pos=55.0, laneIndex=0, duration=2, flags=1)
@@ -221,6 +234,23 @@ print("speedmode", traci.vehicle.getSpeedMode(vehID))
 print("lanechangemode", traci.vehicle.getLaneChangeMode(vehID))
 print("slope", traci.vehicle.getSlope(vehID))
 print("leader", traci.vehicle.getLeader("2"))
+leaderID, dist = traci.vehicle.getLeader("2")
+
+print("followSpeed", traci.vehicle.getFollowSpeed("2",
+                                                  traci.vehicle.getSpeed("2"),
+                                                  dist,
+                                                  traci.vehicle.getSpeed(leaderID),
+                                                  traci.vehicle.getDecel(leaderID),
+                                                  leaderID))
+
+print("secureGap", traci.vehicle.getSecureGap("2",
+                                              traci.vehicle.getSpeed("2") * 3,  # return something other than 0
+                                              traci.vehicle.getSpeed(leaderID),
+                                              traci.vehicle.getDecel(leaderID),
+                                              leaderID))
+
+print("stopSpeed", traci.vehicle.getStopSpeed("2", 15, 20))
+
 traci.vehicle.subscribeLeader("2")
 for i in range(6):
     print("step", step())

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:16:07 2019 by Eclipse SUMO jtrrouter Version v1_3_1+0801-355be15e4b
+<!-- generated on Wed Feb  5 23:37:59 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0947-40275488a3
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
@@ -35,6 +35,9 @@
 
         <!-- Determines where to load PHEMlight definitions from. -->
         <phemlight-path value="./PHEMlight/" type="FILE"/>
+
+        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
+        <junction-taz value="false" type="BOOL"/>
 
         <!-- Read turning ratios from FILE(s) -->
         <turn-ratio-files value="" synonymes="t turns" type="FILE"/>
@@ -108,6 +111,12 @@
         <!-- Use origin and destination zones (districts) for in- and output -->
         <with-taz value="false" type="BOOL"/>
 
+        <!-- Maximum distance when mapping input coordinates (fromXY etc.) to the road network -->
+        <mapmatch.distance value="100" type="FLOAT"/>
+
+        <!-- Match postions to junctions instead of edges -->
+        <mapmatch.junctions value="false" type="BOOL"/>
+
         <!-- Aggregate routing queries with the same origin -->
         <bulk-routing value="false" type="BOOL"/>
 
@@ -134,6 +143,12 @@
 
         <!-- Allow to re-use a road -->
         <allow-loops value="false" type="BOOL"/>
+
+        <!-- Use all source edges as sink edges. -->
+        <sources-are-sinks value="false" synonymes="S" type="BOOL"/>
+
+        <!-- Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remainig part termines. -->
+        <discount-sources value="false" synonymes="D" type="BOOL"/>
 
     </processing>
 

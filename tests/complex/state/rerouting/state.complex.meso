@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 27 09:36:51 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
+<!-- generated on Tue Dec 31 15:56:21 2019 by Eclipse SUMO Version v1_4_0+0285-1267528511
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,7 +30,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_3_1+1129-34e3c4d" time="500.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0285-1267528511" time="500.00">
     <route id="!veh276" state="0" edges="gneE0 gneE3"/>
     <route id="!veh276!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh277" state="0" edges="gneE0 gneE3"/>
@@ -587,6 +587,7 @@
     <route id="!veh604" state="0" edges="gneE0 gneE3"/>
     <delay number="14" begin="604" end="275" depart="29617.00" time="6878.00"/>
     <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
+    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="default" vClass="passenger" color="red"/>

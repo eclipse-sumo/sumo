@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2010-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_PWag2009.cpp
 /// @author  Peter Wagner
@@ -16,11 +20,6 @@
 ///
 // Scalable model based on Krauss by Peter Wagner
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSVehicle.h>
@@ -39,6 +38,8 @@ MSCFModel_PWag2009::MSCFModel_PWag2009(const MSVehicleType* vtype) :
     myDecelDivTau(myDecel / myHeadwayTime),
     myTauLastDecel(myDecel * vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_TAULAST, 0.3)),
     myActionPointProbability(vtype->getParameter().getCFParam(SUMO_ATTR_CF_PWAGNER2009_APPROB, 0.5)) {
+    // PWag2009 does not drive very precise and may violate minGap on occasion
+    myCollisionMinGapFactor = vtype->getParameter().getCFParam(SUMO_ATTR_COLLISION_MINGAP_FACTOR, 0.1);
 }
 
 
@@ -52,6 +53,13 @@ MSCFModel_PWag2009::finalizeSpeed(MSVehicle* const veh, double vPos) const {
     double apref = SPEED2ACCEL(vNext - veh->getSpeed());
     vars->aOld = apref;
     return vNext;
+}
+
+double
+MSCFModel_PWag2009::patchSpeedBeforeLC(const MSVehicle* veh, double vMin, double vMax) const {
+    UNUSED_PARAMETER(veh);
+    UNUSED_PARAMETER(vMin);
+    return vMax;
 }
 
 // in addition, the parameters myTauLast, probAP, and sigmaAcc are needed; sigmaAcc can use myDawdle
@@ -99,36 +107,6 @@ MSCFModel_PWag2009::stopSpeed(const MSVehicle* const /* veh */, const double spe
     return MAX2(0., vsafe + ACCEL2SPEED(apref));
 }
 
-// this method should not do anything, since followSpeed() has taken care of dawdling already...
-double
-MSCFModel_PWag2009::dawdle(double speed) const {
-    return speed;
-//    return MAX2(0., speed - ACCEL2SPEED(myDawdle * myAccel * RandHelper::rand()));
-}
-
-// eventually, this method isn't needed anymore
-//double
-//MSCFModel_PWag2009::_v(const MSVehicle* const veh, double speed, double gap, double predSpeed) const {
-//    if (predSpeed == 0 && gap < 0.01) {
-//        return 0;
-//    }
-//    const double vsafe = -myTauLastDecel + sqrt(myTauLastDecel * myTauLastDecel + predSpeed * predSpeed + 2.0 * myDecel * gap);
-//  const double asafe = SPEED2ACCEL(vsafe - speed);
-//    VehicleVariables* vars = (VehicleVariables*)veh->getCarFollowVariables();
-//  double apref = vars->aOld;
-//  if (apref <= asafe && RandHelper::rand() <= myActionPointProbability * TS) {
-//    apref = myDecelDivTau * (gap + (predSpeed - speed) * myHeadwayTime - speed * myHeadwayTime) / (speed + myTauDecel);
-//    if (apref>myAccel)
-//      apref = myAccel;
-//    if (apref<-myDecel)
-//      apref = -myDecel;
-//    apref += myDawdle * RandHelper::rand((double) - 1., (double)1.);
-//  }
-//  if (apref > asafe)
-//    apref = asafe;
-//    return MAX2(0, vsafe+ACCEL2SPEED(apref));
-//}
-//
 
 MSCFModel*
 MSCFModel_PWag2009::duplicate(const MSVehicleType* vtype) const {

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <!-- Facebook OpenGraph -->
-        <meta property="og:image" content="images/image-facebook.jpg">
+        <meta property="og:image" content="{{ 'images/image-facebook.jpg'|url }}">
         <meta property="og:image:type" content="image/jpeg">
         <meta property="og:image:width" content="1080">
         <meta property="og:image:height" content="1080">
@@ -161,6 +161,7 @@
                               <i class="fa fa-chevron-circle-down"></i> More
                           </a>
                           <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="{{ 'Editing_Articles.html'|url }}">Help on editing articles</a>
                             <a class="dropdown-item no-arrow-link" href="https://sumo.dlr.de/sumo_documentation.zip">Download the Documentation</a>
                           </div>
                         </li>

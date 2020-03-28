@@ -13,7 +13,7 @@ step 4
 {114: (), 116: ()}
 step 5
 {114: ('horiz2', 'suddenStop', 'collider', 'emergencyStopper'), 116: ('horiz1',)}
-time 6
+time 6.0
 #loaded 4
 loaded ('horiz2', 'suddenStop', 'collider', 'emergencyStopper')
 #departed 1
@@ -51,8 +51,8 @@ convertGeoRoad ('o', 1012.1569043555733, 0)
 convertGeoRoadBus ('o', 1012.1569043555733, 0)
 convertGeoRoadBusDisallowed ('2o', 8027.707315024644, 0)
 distance2D 10.0
-drivingDistance2D 6.489345613324986
-distanceRoad 5131.878972316085
+drivingDistance2D 6.48934561332
+distanceRoad 5131.87897232
 drivingDistanceRoad 5136.55
 clearing pending
 save simstate
@@ -70,20 +70,20 @@ getParameter busStop.lane o_0
 getParameter busStop.key2 val2
 getBusStopWaiting 1
 getBusStopWaitingIDList ('p1',)
-findRoute Stage(type=3, edges=('o', '2o'), travelTime=1088.9604316546763, cost=1088.9604316546763, length=15136.55, depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=-1073741824.0)
-findRoute with routing mode Stage(type=3, edges=('o', '2o'), travelTime=1681.8363846480145, cost=1681.8363846480145, length=15136.55, depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=-1073741824.0)
-findIntermodalRoute [Stage(type=2, edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, length=300.0, depart=-1.0, departPos=0.0, arrivalPos=100.0)]
+findRoute Stage(type=3, edges=('o', '2o'), travelTime=1088.96043165, cost=1088.96043165, length=15136.55, depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=-1073741824.0)
+findRoute with routing mode Stage(type=3, edges=('o', '2o'), travelTime=1681.83638465, cost=1681.83638465, length=15136.55, depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=-1073741824.0)
+findIntermodalRoute (Stage(type=2, edges=('footpath', 'footpath2'), travelTime=144.0, cost=144.0, length=300.0, depart=6.0, departPos=0.0, arrivalPos=100.0),)
 findIntermodalRoute (walk)
-  Stage(type=2, edges=('o', '2o'), travelTime=4804.484160000001, cost=4804.484160000001, length=19979.67, depart=-1.0, departPos=25.0, arrivalPos=25.0)
+  Stage(type=2, edges=('o', '2o'), travelTime=4804.48416, cost=4804.48416, length=19979.67, depart=6.0, departPos=25.0, arrivalPos=25.0)
 
 findIntermodalRoute (bike)
-  Stage(type=3, vType=DEFAULT_BIKETYPE, line=bicycle, edges=('o', '2o'), travelTime=2724.579, cost=2724.579, length=25111.55, intended=bicycle, depart=-1.0, departPos=0.0, arrivalPos=25.0)
+  Stage(type=3, vType=DEFAULT_BIKETYPE, line=bicycle, edges=('o', '2o'), travelTime=2724.579, cost=2724.579, length=25111.55, intended=bicycle, depart=6.0, departPos=0.0, arrivalPos=25.0)
 
 findIntermodalRoute (car)
-  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=1088.960431654676, cost=1088.960431654676, length=25111.55, intended=car, depart=-1.0, departPos=0.0, arrivalPos=25.0)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=1088.96043165, cost=1088.96043165, length=25111.55, intended=car, depart=6.0, departPos=0.0, arrivalPos=25.0)
 
 findIntermodalRoute (bike,car,public)
-  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=1088.960431654676, cost=1088.960431654676, length=25111.55, intended=car, depart=-1.0, departPos=0.0, arrivalPos=25.0)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=1088.96043165, cost=1088.96043165, length=25111.55, intended=car, depart=6.0, departPos=0.0, arrivalPos=25.0)
 
 step 0
 {114: (), 116: ()}
@@ -101,7 +101,7 @@ step 6
 {114: (), 116: ()}
 step 7
 detected collision
-time 14
+time 14.0
 #loaded 0
 loaded ()
 #departed 0
@@ -120,7 +120,7 @@ stopend ()
 colliding ('suddenStop', 'collider')
 #emergencystopping 0
 emergencystopping ()
-min#expected 6
+min#expected 5
 #teleportStart 1
 teleportStart ('collider',)
 #teleportEnd 0
@@ -132,7 +132,7 @@ step 9
 {114: (), 116: ()}
 step 10
 detected emergency stop
-time 17
+time 17.0
 #loaded 0
 loaded ()
 #departed 0
@@ -151,7 +151,7 @@ stopend ()
 colliding ()
 #emergencystopping 1
 emergencystopping ('emergencyStopper',)
-min#expected 5
+min#expected 4
 #teleportStart 0
 teleportStart ()
 #teleportEnd 0
@@ -159,7 +159,7 @@ teleportEnd ()
 {114: (), 116: ()}
 step 11
 detected emergency stop
-time 18
+time 18.0
 #loaded 0
 loaded ()
 #departed 0
@@ -178,7 +178,7 @@ stopend ()
 colliding ()
 #emergencystopping 1
 emergencystopping ('emergencyStopper',)
-min#expected 5
+min#expected 4
 #teleportStart 0
 teleportStart ()
 #teleportEnd 0

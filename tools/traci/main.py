@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    main.py
 # @author  Michael Behrisch
@@ -41,6 +45,7 @@ from .exceptions import FatalTraCIError, TraCIException  # noqa
 from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
 from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
+from . import _calibrator  # noqa
 
 inductionloop = _inductionloop.InductionLoopDomain()
 lanearea = _lanearea.LaneAreaDomain()
@@ -57,6 +62,7 @@ junction = _junction.JunctionDomain()
 poi = _poi.PoiDomain()
 polygon = _polygon.PolygonDomain()
 simulation = _simulation.SimulationDomain()
+calibrator = _calibrator.CalibratorDomain()
 
 _connections = {}
 # cannot use immutable type as global variable
@@ -74,14 +80,14 @@ def setConnectHook(hookFunc):
     _connectHook = hookFunc
 
 
-def connect(port=8813, numRetries=10, host="localhost", proc=None):
+def connect(port=8813, numRetries=10, host="localhost", proc=None, waitBetweenRetries=1):
     """
     Establish a connection to a TraCI-Server and return the
     connection object. The connection is not saved in the pool and not
     accessible via traci.switch. It should be safe to use different
     connections established by this method in different threads.
     """
-    for wait in range(1, numRetries + 2):
+    for retry in range(1, numRetries + 2):
         try:
             conn = Connection(host, port, proc)
             if _connectHook is not None:
@@ -90,11 +96,11 @@ def connect(port=8813, numRetries=10, host="localhost", proc=None):
         except socket.error as e:
             if proc is not None and proc.poll() is not None:
                 raise TraCIException("TraCI server already finished")
-            if wait > 1:
+            if retry > 1:
                 print("Could not connect to TraCI server at %s:%s" % (host, port), e)
-            if wait < numRetries + 1:
-                print(" Retrying in %s seconds" % wait)
-                time.sleep(wait)
+            if retry < numRetries + 1:
+                print(" Retrying in %s seconds" % waitBetweenRetries)
+                time.sleep(waitBetweenRetries)
     raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
 
 

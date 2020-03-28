@@ -1,112 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 26 16:23:51 2015 by SUMO netconvert Version dev-SVN-r18156I
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Mon Mar 23 14:03:06 2020 by Eclipse SUMO netconvert Version v1_5_0+0895-90b9912ba1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="./duarouter/function/measure/input_dijkstra.nod.xml"/>
-        <edge-files value="./duarouter/function/measure/input_dijkstra.edg.xml"/>
+        <sumo-net-file value="input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="./duarouter/function/measure/input_net.net.xml"/>
+        <output-file value="new.net.xml"/>
     </output>
 
     <processing>
-        <no-internal-links value="true"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
     </processing>
 
+    <building_defaults>
+        <default.junctions.radius value="1.5"/>
+    </building_defaults>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
     <report>
-        <verbose value="true"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,300.00,300.00" origBoundary="0.00,0.00,300.00,300.00" projParameter="!"/>
 
     <edge id="a1e" from="a1" to="end" priority="-1">
-        <lane id="a1e_0" index="0" speed="1.00" length="201.99" shape="99.17,104.21 7.23,242.13"/>
+        <lane id="a1e_0" index="0" speed="1.00" length="182.14" shape="99.17,104.14 7.19,242.10"/>
     </edge>
     <edge id="a25e" from="a25" to="end" priority="-1">
-        <lane id="a25e_0" index="0" speed="1.00" length="117.60" shape="95.25,251.65 20.97,251.65"/>
+        <lane id="a25e_0" index="0" speed="1.00" length="83.56" shape="95.30,251.60 20.96,251.60"/>
     </edge>
     <edge id="a2e" from="a2" to="end" priority="-1">
-        <lane id="a2e_0" index="0" speed="1.00" length="131.19" shape="100.05,201.82 18.08,242.80"/>
+        <lane id="a2e_0" index="0" speed="1.00" length="96.69" shape="100.04,201.77 20.74,241.42"/>
     </edge>
     <edge id="a3a25" from="a3" to="a25" priority="-1" length="0.50">
-        <lane id="a3a25_0" index="0" speed="1.00" length="0.50" shape="98.35,300.05 98.35,255.16"/>
+        <lane id="a3a25_0" index="0" speed="1.00" length="0.50" shape="98.40,300.00 98.40,255.08"/>
     </edge>
     <edge id="b1e" from="b1" to="end" priority="-1">
-        <lane id="b1e_0" index="0" speed="1.00" length="274.15" shape="195.79,105.22 16.27,239.86"/>
+        <lane id="b1e_0" index="0" speed="1.00" length="233.89" shape="195.84,105.12 18.64,238.02"/>
     </edge>
     <edge id="b2a1" from="b2" to="a1" priority="-1" length="8.00">
-        <lane id="b2a1_0" index="0" speed="1.00" length="8.00" shape="192.22,194.56 101.64,103.97"/>
+        <lane id="b2a1_0" index="0" speed="1.00" length="8.00" shape="192.35,194.61 101.63,103.89"/>
     </edge>
     <edge id="b2a2" from="b2" to="a2" priority="-1" length="7.00">
-        <lane id="b2a2_0" index="0" speed="1.00" length="7.00" shape="192.11,201.65 100.77,201.65"/>
+        <lane id="b2a2_0" index="0" speed="1.00" length="7.00" shape="192.10,201.60 100.76,201.60"/>
     </edge>
     <edge id="b2a25" from="b2" to="a25" priority="-1" length="6.00">
-        <lane id="b2a25_0" index="0" speed="1.00" length="6.00" shape="192.99,205.35 102.07,250.81"/>
+        <lane id="b2a25_0" index="0" speed="1.00" length="6.00" shape="192.97,205.30 102.06,250.76"/>
     </edge>
     <edge id="b2b1" from="b2" to="b1" priority="-1" length="9.00">
-        <lane id="b2b1_0" index="0" speed="1.00" length="9.00" shape="198.35,190.65 198.35,106.50"/>
+        <lane id="b2b1_0" index="0" speed="1.00" length="9.00" shape="198.40,190.77 198.40,106.40"/>
     </edge>
     <edge id="b2b3" from="b2" to="b3" priority="-1" length="1.00">
-        <lane id="b2b3_0" index="0" speed="1.00" length="1.00" shape="201.65,205.11 201.65,295.25"/>
+        <lane id="b2b3_0" index="0" speed="1.00" length="1.00" shape="201.60,205.08 201.60,295.30"/>
     </edge>
     <edge id="b2c1" from="b2" to="c1" priority="-1" length="10.00">
-        <lane id="b2c1_0" index="0" speed="1.00" length="10.00" shape="203.11,194.56 298.65,99.02"/>
+        <lane id="b2c1_0" index="0" speed="1.00" length="10.00" shape="203.13,194.61 298.69,99.05"/>
     </edge>
     <edge id="b2c2" from="b2" to="c2" priority="-1" length="12.00">
-        <lane id="b2c2_0" index="0" speed="1.00" length="12.00" shape="206.05,198.35 300.00,198.35"/>
+        <lane id="b2c2_0" index="0" speed="1.00" length="12.00" shape="206.03,198.40 300.00,198.40"/>
     </edge>
     <edge id="b2c3" from="b2" to="c3" priority="-1" length="11.00">
-        <lane id="b2c3_0" index="0" speed="1.00" length="11.00" shape="205.44,203.11 296.89,294.56"/>
+        <lane id="b2c3_0" index="0" speed="1.00" length="11.00" shape="205.39,203.13 296.87,294.61"/>
     </edge>
     <edge id="b3a3" from="b3" to="a3" priority="-1" length="4.00">
-        <lane id="b3a3_0" index="0" speed="1.00" length="4.00" shape="198.55,301.65 99.95,301.65"/>
+        <lane id="b3a3_0" index="0" speed="1.00" length="4.00" shape="198.50,301.60 100.00,301.60"/>
     </edge>
     <edge id="b3c3" from="b3" to="c3" priority="-1" length="3.00">
-        <lane id="b3c3_0" index="0" speed="1.00" length="3.00" shape="204.75,298.35 295.03,298.35"/>
+        <lane id="b3c3_0" index="0" speed="1.00" length="3.00" shape="204.70,298.40 295.02,298.40"/>
     </edge>
     <edge id="beg" from="start" to="b2" priority="-1" length="1.00">
-        <lane id="beg_0" index="0" speed="1.00" length="1.00" shape="1.17,-1.17 194.56,192.22"/>
+        <lane id="beg_0" index="0" speed="1.00" length="1.00" shape="1.13,-1.13 194.61,192.35"/>
     </edge>
     <edge id="c1e" from="c1" to="end" priority="-1">
-        <lane id="c1e_0" index="0" speed="1.00" length="353.01" shape="300.51,101.59 18.08,242.80"/>
+        <lane id="c1e_0" index="0" speed="1.00" length="319.34" shape="300.48,101.55 20.74,241.42"/>
     </edge>
     <edge id="c2e" from="c2" to="end" priority="-1">
-        <lane id="c2e_0" index="0" speed="1.00" length="321.74" shape="300.27,201.63 20.69,248.23"/>
+        <lane id="c2e_0" index="0" speed="1.00" length="285.31" shape="300.26,201.58 20.68,248.18"/>
     </edge>
     <edge id="c3e" from="c3" to="end" priority="-1">
-        <lane id="c3e_0" index="0" speed="1.00" length="326.83" shape="294.60,300.77 20.41,255.07"/>
+        <lane id="c3e_0" index="0" speed="1.00" length="286.56" shape="294.61,300.72 23.38,255.52"/>
     </edge>
 
-    <junction id="a1" type="priority" x="100.00" y="100.00" incLanes="b2a1_0" intLanes="" shape="100.51,105.10 102.77,102.84 97.84,103.33 100.51,105.10">
+    <junction id="a1" type="priority" x="100.00" y="100.00" incLanes="b2a1_0" intLanes="" shape="100.50,105.02 102.76,102.76 97.83,103.25" radius="1.50">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="a2" type="priority" x="100.00" y="200.00" incLanes="b2a2_0" intLanes="" shape="100.77,203.25 100.77,200.05 99.34,200.39 100.77,203.25">
+    <junction id="a2" type="priority" x="100.00" y="200.00" incLanes="b2a2_0" intLanes="" shape="100.76,203.20 100.76,200.00 99.32,200.34" radius="1.50">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="a25" type="right_before_left" x="100.00" y="250.00" incLanes="a3a25_0 b2a25_0" intLanes="" shape="96.75,255.16 99.95,255.16 102.78,252.24 101.35,249.38 95.25,250.05 95.25,253.25">
+    <junction id="a25" type="right_before_left" x="100.00" y="250.00" incLanes="a3a25_0 b2a25_0" intLanes="" shape="96.80,255.08 100.00,255.08 102.77,252.19 101.34,249.33 95.30,250.00 95.30,253.20" radius="1.50">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="a3" type="priority" x="100.00" y="300.00" incLanes="b3a3_0" intLanes="" shape="99.95,303.25 99.95,300.05 96.75,300.05">
+    <junction id="a3" type="priority" x="100.00" y="300.00" incLanes="b3a3_0" intLanes="" shape="100.00,303.20 100.00,300.00 96.80,300.00" radius="1.50">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="b1" type="priority" x="200.00" y="100.00" incLanes="b2b1_0" intLanes="" shape="196.75,106.50 199.95,106.50 194.83,103.94 196.75,106.50">
+    <junction id="b1" type="priority" x="200.00" y="100.00" incLanes="b2b1_0" intLanes="" shape="196.80,106.40 200.00,106.40 194.88,103.84" radius="1.50">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="b2" type="priority" x="200.00" y="200.00" incLanes="beg_0" intLanes="" shape="200.05,205.11 203.25,205.11 204.31,204.24 206.57,201.98 206.05,199.95 206.05,196.75 204.24,195.69 201.98,193.43 199.95,190.65 196.75,190.65 195.69,191.09 191.09,195.69 192.11,200.05 192.11,203.25 192.27,203.92 193.70,206.78">
+    <junction id="b2" type="priority" x="200.00" y="200.00" incLanes="beg_0" intLanes="" shape="200.00,205.08 203.20,205.08 204.26,204.26 206.52,202.00 206.03,200.00 206.03,196.80 204.26,195.74 202.00,193.48 200.00,190.77 196.80,190.77 195.74,191.21 191.21,195.74 192.10,200.00 192.10,203.20 192.26,203.87 193.69,206.73" radius="1.50">
         <request index="0" response="00000000" foes="00000000"/>
         <request index="1" response="00000000" foes="00000000"/>
         <request index="2" response="00000000" foes="00000000"/>
@@ -116,22 +129,22 @@ SPDX-License-Identifier: EPL-2.0
         <request index="6" response="00000000" foes="00000000"/>
         <request index="7" response="00000000" foes="00000000"/>
     </junction>
-    <junction id="b3" type="priority" x="200.00" y="300.00" incLanes="b2b3_0" intLanes="" shape="204.75,299.95 204.75,296.75 203.25,295.25 200.05,295.25 198.55,300.05 198.55,303.25">
+    <junction id="b3" type="priority" x="200.00" y="300.00" incLanes="b2b3_0" intLanes="" shape="204.70,300.00 204.70,296.80 203.20,295.30 200.00,295.30 198.50,300.00 198.50,303.20" radius="1.50">
         <request index="0" response="00" foes="00"/>
         <request index="1" response="00" foes="00"/>
     </junction>
-    <junction id="c1" type="priority" x="300.00" y="100.00" incLanes="b2c1_0" intLanes="" shape="300.02,100.04 301.45,102.91 297.70,97.70 299.96,99.96">
+    <junction id="c1" type="priority" x="300.00" y="100.00" incLanes="b2c1_0" intLanes="" shape="300.00,100.00 301.43,102.86 297.74,97.74" radius="1.50">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="c2" type="priority" x="300.00" y="200.00" incLanes="b2c2_0" intLanes="" shape="300.01,200.05 300.53,203.21 300.00,196.75 300.00,199.95">
+    <junction id="c2" type="priority" x="300.00" y="200.00" incLanes="b2c2_0" intLanes="" shape="300.00,200.00 300.53,203.16 300.00,196.80">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="c3" type="right_before_left" x="300.00" y="300.00" incLanes="b2c3_0 b3c3_0" intLanes="" shape="298.02,293.43 295.76,295.69 295.32,296.75 294.32,302.35">
+    <junction id="c3" type="right_before_left" x="300.00" y="300.00" incLanes="b2c3_0 b3c3_0" intLanes="" shape="298.00,293.48 295.74,295.74 295.30,296.80 294.33,302.30" radius="1.50">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="end" type="unregulated" x="0.00" y="250.00" incLanes="c3e_0 a25e_0 c2e_0 a2e_0 c1e_0 b1e_0 a1e_0" intLanes="" shape="20.15,256.65 20.68,253.50 20.97,253.25 20.97,250.05 20.95,249.80 20.42,246.65 18.80,244.23 17.37,241.37 17.23,241.14 15.31,238.58 8.56,243.02 5.90,241.24"/>
-    <junction id="start" type="unregulated" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.04,-0.04 2.30,-2.30"/>
+    <junction id="end" type="dead_end" x="0.00" y="250.00" incLanes="c3e_0 a25e_0 c2e_0 c1e_0 a2e_0 b1e_0 a1e_0" intLanes="" shape="23.11,257.10 23.64,253.94 20.96,253.20 20.96,250.00 20.94,249.75 20.42,246.60 21.46,242.85 20.02,239.99 19.60,239.30 17.68,236.74 8.52,242.98 5.86,241.21" radius="1.50"/>
+    <junction id="start" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 2.26,-2.26"/>
 
     <connection from="a3a25" to="a25e" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="b2a1" to="a1e" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -150,7 +163,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="beg" to="b2c2" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="beg" to="b2c3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="beg" to="b2b3" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="beg" to="b2a25" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="beg" to="b2a25" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="beg" to="b2a2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="beg" to="b2a1" fromLane="0" toLane="0" dir="t" state="M"/>
 

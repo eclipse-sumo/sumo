@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 28 16:08:21 2019 by Eclipse SUMO netconvert Version v1_2_0+0252-83989c2
+<!-- generated on Mon Feb 17 15:31:02 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,13 +25,14 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-678169.98,2536101.60" convBoundary="0.00,0.00,898.66,712.46" origBoundary="-43.262630,-22.923420,-43.253902,-22.916999" projParameter="+proj=utm +zone=23 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -221,16 +222,6 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="42" state="rGGG"/>
         <phase duration="3"  state="ryyy"/>
     </tlLogic>
-    <tlLogic id="468121395" type="static" programID="0" offset="0">
-        <phase duration="82" state="GGGGG"/>
-        <phase duration="3"  state="yyyyy"/>
-        <phase duration="5"  state="rrrrr"/>
-    </tlLogic>
-    <tlLogic id="468121561" type="static" programID="0" offset="0">
-        <phase duration="82" state="GGGGG"/>
-        <phase duration="3"  state="yyyyy"/>
-        <phase duration="5"  state="rrrrr"/>
-    </tlLogic>
     <tlLogic id="cluster_3631634805_642546873" type="static" programID="0" offset="0">
         <phase duration="42" state="GGGGrr"/>
         <phase duration="3"  state="yyyyrr"/>
@@ -287,14 +278,14 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="0000" foes="0001" cont="0"/>
         <request index="3" response="0000" foes="0001" cont="0"/>
     </junction>
-    <junction id="468121395" type="traffic_light" x="524.55" y="397.54" incLanes="172592921#3_0 172592921#3_1 172592921#3_2 172592921#3_3" intLanes=":468121395_0_0 :468121395_0_1 :468121395_0_2 :468121395_0_3 :468121395_4_0" shape="528.62,404.90 531.17,392.35 520.07,390.15 517.63,402.72 519.71,403.57 520.35,404.26 520.73,405.13 520.83,406.17 520.67,407.38 523.79,408.09 524.73,405.96 525.45,405.30 526.34,404.90 527.40,404.76">
+    <junction id="468121395" type="priority" x="524.55" y="397.54" incLanes="172592921#3_0 172592921#3_1 172592921#3_2 172592921#3_3" intLanes=":468121395_0_0 :468121395_0_1 :468121395_0_2 :468121395_0_3 :468121395_4_0" shape="528.62,404.90 531.17,392.35 520.07,390.15 517.63,402.72 519.71,403.57 520.35,404.26 520.73,405.13 520.83,406.17 520.67,407.38 523.79,408.09 524.73,405.96 525.45,405.30 526.34,404.90 527.40,404.76">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
         <request index="3" response="00000" foes="00000" cont="0"/>
         <request index="4" response="00000" foes="00000" cont="0"/>
     </junction>
-    <junction id="468121561" type="traffic_light" x="464.64" y="385.90" incLanes="172592921#2_0 172592921#2_1 172592921#2_2 172592921#2_3" intLanes=":468121561_0_0 :468121561_1_0 :468121561_1_1 :468121561_1_2 :468121561_1_3" shape="469.22,393.31 471.66,380.74 469.88,380.01 469.36,379.42 469.10,378.68 469.09,377.79 469.32,376.76 466.28,375.76 465.23,377.75 464.51,378.39 463.67,378.78 462.71,378.93 461.63,378.84 459.32,391.43">
+    <junction id="468121561" type="priority" x="464.64" y="385.90" incLanes="172592921#2_0 172592921#2_1 172592921#2_2 172592921#2_3" intLanes=":468121561_0_0 :468121561_1_0 :468121561_1_1 :468121561_1_2 :468121561_1_3" shape="469.22,393.31 471.66,380.74 469.88,380.01 469.36,379.42 469.10,378.68 469.09,377.79 469.32,376.76 466.28,375.76 465.23,377.75 464.51,378.39 463.67,378.78 462.71,378.93 461.63,378.84 459.32,391.43">
         <request index="0" response="00000" foes="00000" cont="0"/>
         <request index="1" response="00000" foes="00000" cont="0"/>
         <request index="2" response="00000" foes="00000" cont="0"/>
@@ -327,16 +318,16 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="172592921#0" to="172592921#2" fromLane="1" toLane="1" via=":cluster_3631634805_642546873_0_1" tl="cluster_3631634805_642546873" linkIndex="1" dir="s" state="O"/>
     <connection from="172592921#0" to="172592921#2" fromLane="2" toLane="2" via=":cluster_3631634805_642546873_0_2" tl="cluster_3631634805_642546873" linkIndex="2" dir="s" state="O"/>
     <connection from="172592921#0" to="172592921#2" fromLane="3" toLane="3" via=":cluster_3631634805_642546873_0_3" tl="cluster_3631634805_642546873" linkIndex="3" dir="s" state="O"/>
-    <connection from="172592921#2" to="39128579" fromLane="0" toLane="0" via=":468121561_0_0" tl="468121561" linkIndex="0" dir="r" state="O"/>
-    <connection from="172592921#2" to="172592921#3" fromLane="0" toLane="0" via=":468121561_1_0" tl="468121561" linkIndex="1" dir="s" state="O"/>
-    <connection from="172592921#2" to="172592921#3" fromLane="1" toLane="1" via=":468121561_1_1" tl="468121561" linkIndex="2" dir="s" state="O"/>
-    <connection from="172592921#2" to="172592921#3" fromLane="2" toLane="2" via=":468121561_1_2" tl="468121561" linkIndex="3" dir="s" state="O"/>
-    <connection from="172592921#2" to="172592921#3" fromLane="3" toLane="3" via=":468121561_1_3" tl="468121561" linkIndex="4" dir="s" state="O"/>
-    <connection from="172592921#3" to="172592921#4" fromLane="0" toLane="0" via=":468121395_0_0" tl="468121395" linkIndex="0" dir="s" state="O"/>
-    <connection from="172592921#3" to="172592921#4" fromLane="1" toLane="1" via=":468121395_0_1" tl="468121395" linkIndex="1" dir="s" state="O"/>
-    <connection from="172592921#3" to="172592921#4" fromLane="2" toLane="2" via=":468121395_0_2" tl="468121395" linkIndex="2" dir="s" state="O"/>
-    <connection from="172592921#3" to="172592921#4" fromLane="3" toLane="3" via=":468121395_0_3" tl="468121395" linkIndex="3" dir="s" state="O"/>
-    <connection from="172592921#3" to="39128573" fromLane="3" toLane="0" via=":468121395_4_0" tl="468121395" linkIndex="4" dir="l" state="O"/>
+    <connection from="172592921#2" to="39128579" fromLane="0" toLane="0" via=":468121561_0_0" dir="r" state="M"/>
+    <connection from="172592921#2" to="172592921#3" fromLane="0" toLane="0" via=":468121561_1_0" dir="s" state="M"/>
+    <connection from="172592921#2" to="172592921#3" fromLane="1" toLane="1" via=":468121561_1_1" dir="s" state="M"/>
+    <connection from="172592921#2" to="172592921#3" fromLane="2" toLane="2" via=":468121561_1_2" dir="s" state="M"/>
+    <connection from="172592921#2" to="172592921#3" fromLane="3" toLane="3" via=":468121561_1_3" dir="s" state="M"/>
+    <connection from="172592921#3" to="172592921#4" fromLane="0" toLane="0" via=":468121395_0_0" dir="s" state="M"/>
+    <connection from="172592921#3" to="172592921#4" fromLane="1" toLane="1" via=":468121395_0_1" dir="s" state="M"/>
+    <connection from="172592921#3" to="172592921#4" fromLane="2" toLane="2" via=":468121395_0_2" dir="s" state="M"/>
+    <connection from="172592921#3" to="172592921#4" fromLane="3" toLane="3" via=":468121395_0_3" dir="s" state="M"/>
+    <connection from="172592921#3" to="39128573" fromLane="3" toLane="0" via=":468121395_4_0" dir="l" state="M"/>
     <connection from="172592921#4" to="172592921#5" fromLane="0" toLane="0" via=":3631633889_0_0" dir="s" state="M"/>
     <connection from="172592921#4" to="172592921#5" fromLane="1" toLane="1" via=":3631633889_0_1" dir="s" state="M"/>
     <connection from="172592921#4" to="172592921#5" fromLane="2" toLane="2" via=":3631633889_0_2" dir="s" state="M"/>

@@ -15,13 +15,13 @@ Error: Attribute 'index' in definition of a stop is not of type int.
 Error: Invalid 'index' for stop on lane '' in person 'person_0'.
 Debug: Adding person 'person_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Adding walkEdges 'walkEdges_0' in GNEChange_DemandElement
 Debug: Adding personStopLane 'person_0personStopLane1' in GNEChange_DemandElement
 Debug: Adding personStopLane 'person_0personStopLane2' in GNEChange_DemandElement
 Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug124439.4540/netedit.gui/demandElements/stop/stopLane/load/index\input_routes.rou.xml failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Enabled show demand elements throught alt + 1
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -38,7 +38,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
@@ -54,20 +53,20 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Deleting unreferenced personStopLane 'person_0personStopLane2'
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced personStopLane 'person_0personStopLane1'
 Debug: Deleting unreferenced walkEdges 'walkEdges_0'
 Debug: Deleting unreferenced person 'person_0'
-Debug: Deleting unreferenced edge 'gneE0' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE1' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ0' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ1' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

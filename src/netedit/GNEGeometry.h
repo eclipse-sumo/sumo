@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEGeometry.h
 /// @author  Pablo Alvarez Lopez
@@ -13,13 +17,7 @@
 ///
 // File for geometry classes and functions
 /****************************************************************************/
-#ifndef GNEGeometry_h
-#define GNEGeometry_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
@@ -27,6 +25,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include <utils/gui/images/GUIIcons.h>
 #include <utils/gui/settings/GUIVisualizationSettings.h>
 #include <utils/xml/SUMOSAXAttributes.h>
@@ -38,6 +37,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GNEAttributeCarrier;
 class GNELane;
 class GNEEdge;
 class GNEAdditional;
@@ -57,22 +57,31 @@ struct GNEGeometry {
         /// @brief constructor
         Geometry();
 
+        /// @brief parameter constructor
+        Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
+
         /**@brief update geometry shape
          * @param startPos if is different of -1, then shape will be cut in these first position
          * @param endPos if is different of -1, then shape will be cut in these last position
          * @param extraFirstPosition if is different of Position::INVALID, add it in shape front position (after cut)
          * @param extraLastPosition if is different of Position::INVALID, add it in shape last position (after cut)
-         * @note lengths and rotations wil be updated
+         * @note lengths and rotations will be updated
          */
-        void updateGeometryShape(const PositionVector& shape, double startPos = -1, double endPos = -1,
-                                 const Position& extraFirstPosition = Position::INVALID,
-                                 const Position& extraLastPosition = Position::INVALID);
+        void updateGeometry(const PositionVector& shape, double startPos = -1, double endPos = -1,
+                            const Position& extraFirstPosition = Position::INVALID,
+                            const Position& extraLastPosition = Position::INVALID);
 
         /// @brief update position and rotation
-        void updateGeometryPosition(const GNELane* lane, const double posOverLane);
+        void updateGeometry(const Position& position, const double rotation);
+
+        /// @brief update position and rotation (using a lane and a position over lane)
+        void updateGeometry(const GNELane* lane, const double posOverLane);
 
         /// @brief update geometry (using geometry of another additional)
         void updateGeometry(const GNEAdditional* additional);
+
+        /// @brief update geometry (using a new shape, rotations and lenghts)
+        void updateGeometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
 
         /// @brief get Position
         const Position& getPosition() const;
@@ -110,6 +119,73 @@ struct GNEGeometry {
 
         /// @brief Invalidated assignment operator
         Geometry& operator=(const Geometry& other) = delete;
+    };
+
+    /// @brief struct for pack all variables related with DottedGeometry of stop
+    struct DottedGeometry {
+        /// @brief constructor
+        DottedGeometry();
+
+        /// @brief update DottedGeometry (using an existent shape)
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& contourShape);
+
+        /// @brief update DottedGeometry (using an line shape and a width)
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& lineShape, const double width);
+
+        /// @brief update DottedGeometry (using a position, rotation, width and height)
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const Position& position, const double rotation, const double width, const double height);
+
+        /// @brief mark dotted geometry deprecated
+        void markDottedGeometryDeprecated();
+
+        /// @brief check if geometry is deprecated
+        bool isGeometryDeprecated() const;
+
+        /// @brief get Centroid
+        const Position& getCentroid() const;
+
+        /// @brief get rotation
+        double getRotation() const;
+
+        /// @brief The shape of the additional element
+        const PositionVector& getShape() const;
+
+        /// @brief The rotations of the single shape parts
+        const std::vector<double>& getShapeRotations() const;
+
+        /// @brief The lengths of the single shape parts
+        const std::vector<double>& getShapeLengths() const;
+
+        /// @brief The colors of the single shape parts
+        const std::vector<RGBColor>& getShapeColors() const;
+
+    private:
+        /// @brief calculate shape rotations and lengths
+        void calculateShapeRotationsAndLengths();
+
+        /// @brief shape's centroid
+        Position myCentroid;
+
+        /// @brief shape's rotation (only used in certain dotted contours)
+        double myRotation;
+
+        /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
+        PositionVector myShape;
+
+        /// @brief The rotations of the dotted shape
+        std::vector<double> myShapeRotations;
+
+        /// @brief The lengths of the dotted shape
+        std::vector<double> myShapeLengths;
+
+        /// @brief The colors  of the dotted shape
+        std::vector<RGBColor> myShapeColors;
+
+        /// @brief flag to mark dotted geometry depreciated
+        bool myDottedGeometryDeprecated;
+
+        /// @brief Invalidated assignment operator
+        DottedGeometry& operator=(const DottedGeometry& other) = delete;
     };
 
     /// @brief struct for pack all variables related with geometry of elemements divided in segments
@@ -158,17 +234,8 @@ struct GNEGeometry {
             /// @brief flag to use lane shape
             bool myUseLaneShape;
 
-            /// @brief flag to use lane2lane connection
-            bool myUseLane2LaneShape;
-
-            /// @brief segment shape
-            PositionVector mySegmentShape;
-
-            /// @brief segment rotation
-            std::vector<double> mySegmentRotations;
-
-            /// @brief segment lengths
-            std::vector<double> mySegmentLengths;
+            /// @brief geometry used in segment
+            Geometry mySegmentGeometry;
 
             /// @brief Invalidated assignment operator
             Segment& operator=(const Segment& other) = delete;
@@ -349,9 +416,17 @@ struct GNEGeometry {
 
     /// @brief draw geometry segment
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
+
+    /// @brief draw a dotted contour around the given Non closed shape with certain width
+    static void drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const double exaggeration, const DottedGeometry& dottedGeometry);
+
+    /// @brief get a circle around the given position
+    static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);
+
+private:
+    /// @brief Storage for precomputed sin/cos-values describing a circle
+    static PositionVector myCircleCoords;
+
+    /// @brief normalize angle for lookup in myCircleCoords
+    static int angleLookup(const double angleDeg);
 };
-
-#endif
-
-/****************************************************************************/
-

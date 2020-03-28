@@ -91,11 +91,35 @@ busStop
 # test trip validation (trip input and trip output)
 write-trips
 
+# trip output uses fromJunction and toJunction instead of from and to
+write-trips.junctions
+
+# trip output uses fromJunction and toJunction instead of from and to. Input also uses fromJunction toJunction and routing is skipped
+write-trips.junctions2
+
 # test trip validation (trip input and trip output)
 write-trips.geo
 
 # test reading trips with geo-coordinates
 geoTrips
+
+# test reading trips with geo-coordinates
+geoTrips_lonLat
+
+# test reading trips with geo-coordinates
+geoTrips_distance
+
+# test mapmatching trips with geo-coordinates to junctions
+geoTrips_junctions
+
+# test mapmatching trips with geo-coordinates to junctions in a network that has internal lanes
+geoTrips_junctions_internalLanes
+
+# test mapmatching trips with geo-coordinates to junctions and then writing output positions
+geoTrips_junctions_writeGeo
+
+# test mapmatching trips with geo-coordinates to junctions and then writing junction locations
+geoTrips_junctions_writeJunctions
 
 # test trip with intermediate container stop
 containerStop
@@ -124,8 +148,12 @@ bulk_parallel_warn
 # test whether CHRouter detects vClass specific connectivity issues
 CHWrapper_lane_connectivity
 
+# test attributes fromJunction toJunction and viaJunctions
+junctionTaz
+
 # test restriction parameters
 restrictionParams
+rail
 
 # Tests false input
 errors

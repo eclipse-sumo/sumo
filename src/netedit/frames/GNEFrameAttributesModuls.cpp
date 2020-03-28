@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEFrameAttributesModuls.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,20 +17,15 @@
 ///
 // Auxiliar class for GNEFrame Moduls (only for attributes edition)
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
 #include <config.h>
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/demandelements/GNERouteHandler.h>
+#include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/dialogs/GNEAllowDisallow.h>
 #include <netedit/dialogs/GNEParametersDialog.h>
-#include <netedit/netelements/GNELane.h>
+#include <netedit/elements/network/GNELane.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -113,7 +112,7 @@ FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBox, 
 // GNEFrameAttributesModuls::AttributesCreatorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeCarrier::AttributeProperties& attrProperties) :
+GNEFrameAttributesModuls::AttributesCreatorRow::AttributesCreatorRow(AttributesCreator* AttributesCreatorParent, const GNEAttributeProperties& attrProperties) :
     FXHorizontalFrame(AttributesCreatorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesCreatorParent(AttributesCreatorParent),
     myAttrProperties(attrProperties) {
@@ -213,7 +212,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::destroy() {
 }
 
 
-const GNEAttributeCarrier::AttributeProperties&
+const GNEAttributeProperties&
 GNEFrameAttributesModuls::AttributesCreatorRow::getAttrProperties() const {
     return myAttrProperties;
 }
@@ -438,11 +437,11 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         }
     } else if (myAttrProperties.getAttr() == SUMO_ATTR_ID) {
         // check ID depending of tag
-        if (myAttrProperties.getTagPropertyParent().isNetElement() && !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
+        if (myAttrProperties.getTagPropertyParent().isNetworkElement() && !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         } else if (myAttrProperties.getTagPropertyParent().isDetector() && !SUMOXMLDefinitions::isValidDetectorID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
-        } else if (myAttrProperties.getTagPropertyParent().isAdditional() &&  !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
+        } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement() &&  !SUMOXMLDefinitions::isValidNetID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         } else if (myAttrProperties.getTagPropertyParent().isShape() &&  !SUMOXMLDefinitions::isValidTypeID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
@@ -563,7 +562,7 @@ std::string
 GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
     if (myAttrProperties.getTagPropertyParent().isShape()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateShapeID(myAttrProperties.getTagPropertyParent().getTag());
-    } else if (myAttrProperties.getTagPropertyParent().isAdditional()) {
+    } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
     } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateDemandElementID("", myAttrProperties.getTagPropertyParent().getTag());
@@ -600,7 +599,7 @@ GNEFrameAttributesModuls::AttributesCreator::~AttributesCreator() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNEAttributeCarrier::TagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes) {
+GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GNETagProperties& tagProperties, const std::vector<SumoXMLAttr>& hiddenAttributes) {
     // set current tag Properties
     myTagProperties = tagProperties;
     // first destroy all rows
@@ -633,6 +632,11 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
         }
         // check special case for vaporizer IDs
         if ((i.getAttr() == SUMO_ATTR_ID) && (i.getTagPropertyParent().getTag() == SUMO_TAG_VAPORIZER)) {
+            showAttribute = false;
+        }
+        // check special case for VType IDs in vehicle Frame
+        if ((i.getAttr() == SUMO_ATTR_TYPE) && (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeDemand()) &&
+                (myFrameParent->getViewNet()->getEditModes().demandEditMode == DemandEditMode::DEMAND_VEHICLE)) {
             showAttribute = false;
         }
         // show attribute depending of showAttribute flag
@@ -694,7 +698,7 @@ GNEFrameAttributesModuls::AttributesCreator::getAttributesAndValues(bool include
 }
 
 
-GNEAttributeCarrier::TagProperties
+GNETagProperties
 GNEFrameAttributesModuls::AttributesCreator::getCurrentTagProperties() const {
     return myTagProperties;
 }
@@ -1006,7 +1010,7 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
 // GNEFrameAttributesModuls::AttributesEditorRow - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeCarrier::AttributeProperties& ACAttr, const std::string& value, bool attributeEnabled) :
+GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttributesModuls::AttributesEditor* attributeEditorParent, const GNEAttributeProperties& ACAttr, const std::string& value, bool attributeEnabled) :
     FXHorizontalFrame(attributeEditorParent, GUIDesignAuxiliarHorizontalFrame),
     myAttributesEditorParent(attributeEditorParent),
     myACAttr(ACAttr),
@@ -1048,18 +1052,17 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
         }
         // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
         if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-            if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-                    ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+            if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
+                myAttributeButtonCombinableChoices->enable();
+                myAttributeColorButton->enable();
+                myAttributeCheckButton->enable();
+            } else {
                 myAttributeColorButton->disable();
                 myAttributeCheckButton->disable();
                 myValueTextField->disable();
                 myValueComboBoxChoices->disable();
                 myValueCheckButton->disable();
                 myAttributeButtonCombinableChoices->disable();
-            } else {
-                myAttributeButtonCombinableChoices->enable();
-                myAttributeColorButton->enable();
-                myAttributeCheckButton->enable();
             }
         }
         // set left column
@@ -1182,18 +1185,17 @@ GNEFrameAttributesModuls::AttributesEditorRow::refreshAttributesEditorRow(const 
     }
     // if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
     if (myACAttr.getAttr() != SUMO_ATTR_NOTHING) {
-        if (((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACAttr.getTagPropertyParent().isDemandElement()) ||
-                ((myAttributesEditorParent->getFrameParent()->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACAttr.getTagPropertyParent().isDemandElement())) {
+        if (isSupermodeValid(myAttributesEditorParent->getFrameParent()->myViewNet, myACAttr)) {
+            myAttributeButtonCombinableChoices->enable();
+            myAttributeColorButton->enable();
+            myAttributeCheckButton->enable();
+        } else {
             myAttributeColorButton->disable();
             myAttributeCheckButton->disable();
             myValueTextField->disable();
             myValueComboBoxChoices->disable();
             myValueCheckButton->disable();
             myAttributeButtonCombinableChoices->disable();
-        } else {
-            myAttributeButtonCombinableChoices->enable();
-            myAttributeColorButton->enable();
-            myAttributeCheckButton->enable();
         }
     }
     // set check buton
@@ -1358,7 +1360,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         newVal = stripWhitespaceAfterComma(newVal);
     }
     // Check if attribute must be changed
-    if (myAttributesEditorParent->getEditedACs().front()->isValid(myACAttr.getAttr(), newVal)) {
+    if ((myAttributesEditorParent->getEditedACs().size() > 0) && myAttributesEditorParent->getEditedACs().front()->isValid(myACAttr.getAttr(), newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
         if (myAttributesEditorParent->getEditedACs().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
@@ -2073,13 +2075,16 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // GNEFrameAttributesModuls::ParametersEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
+GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspectorFrameParent, std::string title) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, title.c_str(), GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
-    myAC(nullptr) {
+    myAC(nullptr),
+    myAttrType(Parameterised::ParameterisedAttrType::STRING) {
+    // set first letter upper
+    title[0] = (char)tolower(title[0]);
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(this, "Edit parameters", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    myButtonEditParameters = new FXButton(this, ("Edit " + title).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
 }
 
 
@@ -2087,12 +2092,19 @@ GNEFrameAttributesModuls::ParametersEditor::~ParametersEditor() {}
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCarrier* AC) {
-    if ((AC != nullptr) && AC->getTagProperty().hasParameters()) {
+GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCarrier* AC, std::string title) {
+    if ((AC != nullptr) && AC->getTagProperty().hasParameters() && (title.size() > 0)) {
+        // set AC
         myAC = AC;
         myACs.clear();
         // obtain a copy of AC parameters
         if (myAC) {
+            // update flag
+            if (myAC->getTagProperty().hasDoubleParameters()) {
+                myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
+            } else {
+                myAttrType = Parameterised::ParameterisedAttrType::STRING;
+            }
             // obtain string
             std::string parametersStr = myAC->getAttribute(GNE_ATTR_PARAMETERS);
             // clear parameters
@@ -2108,6 +2120,12 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
                 }
             }
         }
+        // set title and button
+        myButtonEditParameters->setText(("Edit " + title).c_str());
+        // set first letter upper
+        title[0] = (char)toupper(title[0]);
+        // change
+        setText(title.c_str());
         // refresh ParametersEditor
         refreshParametersEditor();
         // show groupbox
@@ -2119,7 +2137,7 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNEAttributeCarrier*> ACs) {
+GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNEAttributeCarrier*> ACs, std::string title) {
     if ((ACs.size() > 0) && ACs.front()->getTagProperty().hasParameters()) {
         myAC = nullptr;
         myACs = ACs;
@@ -2135,6 +2153,12 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
         if (differentsParameters) {
             myParameters.clear();
         } else {
+            // update flag
+            if (myACs.front()->getTagProperty().hasDoubleParameters()) {
+                myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
+            } else {
+                myAttrType = Parameterised::ParameterisedAttrType::STRING;
+            }
             // obtain string
             std::string parametersStr = myACs.front()->getAttribute(GNE_ATTR_PARAMETERS);
             // clear parameters
@@ -2148,6 +2172,12 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
                 myParameters[keyValue.front()] = keyValue.back();
             }
         }
+        // set title and button
+        myButtonEditParameters->setText(("Edit " + title).c_str());
+        // set first letter upper
+        title[0] = (char)toupper(title[0]);
+        // change
+        setText(title.c_str());
         // refresh ParametersEditor
         refreshParametersEditor();
         // show groupbox
@@ -2173,13 +2203,12 @@ GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
         myTextFieldParameters->setText(myAC->getAttribute(GNE_ATTR_PARAMETERS).c_str());
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-        if (((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myAC->getTagProperty().isDemandElement()) ||
-                ((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myAC->getTagProperty().isDemandElement())) {
-            myTextFieldParameters->disable();
-            myButtonEditParameters->disable();
-        } else {
+        if (isSupermodeValid(myFrameParent->myViewNet, myAC)) {
             myTextFieldParameters->enable();
             myButtonEditParameters->enable();
+        } else {
+            myTextFieldParameters->disable();
+            myButtonEditParameters->disable();
         }
     } else if (myACs.size() > 0) {
         // check if parameters of all inspected ACs are different
@@ -2192,13 +2221,12 @@ GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
         myTextFieldParameters->setText(parameters.c_str());
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldParameters if we're in demand mode and inspected AC isn't a demand element (or viceversa)
-        if (((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_NETWORK) && myACs.front()->getTagProperty().isDemandElement()) ||
-                ((myFrameParent->myViewNet->getEditModes().currentSupermode == GNE_SUPERMODE_DEMAND) && !myACs.front()->getTagProperty().isDemandElement())) {
-            myTextFieldParameters->disable();
-            myButtonEditParameters->disable();
-        } else {
+        if (isSupermodeValid(myFrameParent->myViewNet, myACs.front())) {
             myTextFieldParameters->enable();
             myButtonEditParameters->enable();
+        } else {
+            myTextFieldParameters->disable();
+            myButtonEditParameters->disable();
         }
     }
 }
@@ -2258,6 +2286,12 @@ GNEFrameAttributesModuls::ParametersEditor::getFrameParent() const {
 }
 
 
+Parameterised::ParameterisedAttrType
+GNEFrameAttributesModuls::ParametersEditor::getAttrType() const {
+    return myAttrType;
+}
+
+
 long
 GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // write debug information
@@ -2291,9 +2325,7 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
 long
 GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, void*) {
     // check if current given string is valid
-    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true) == false) {
-        myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
-    } else {
+    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, myAttrType)) {
         // parsed parameters ok, then set text field black and continue
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         myTextFieldParameters->killFocus();
@@ -2302,9 +2334,9 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
         // clear current existent parameters and set parsed parameters
         myParameters.clear();
         // iterate over parameters
-        for (const auto& i : parameters) {
+        for (const auto& parameter : parameters) {
             // obtain key, value
-            std::vector<std::string> keyParam = StringTokenizer(i, "=", true).getVector();
+            std::vector<std::string> keyParam = StringTokenizer(parameter, "=", true).getVector();
             // save it in myParameters
             myParameters[keyParam.front()] = keyParam.back();
         }
@@ -2330,6 +2362,8 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
             // update frame parent after attribute sucesfully set
             myFrameParent->attributeUpdated();
         }
+    } else {
+        myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
     }
     return 1;
 }
@@ -2534,7 +2568,7 @@ GNEFrameAttributesModuls::NeteditAttributes::~NeteditAttributes() {}
 
 
 void
-GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GNEAttributeCarrier::TagProperties& tagProperty) {
+GNEFrameAttributesModuls::NeteditAttributes::showNeteditAttributesModul(const GNETagProperties& tagProperty) {
     // we assume that frame will not be show
     bool showFrame = false;
     // check if length text field has to be showed
@@ -2720,7 +2754,7 @@ long
 GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Parameters Help", GUIDesignDialogBox);
-    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_MODEADDITIONAL));
+    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
     // set help text
     std::ostringstream help;
     help
@@ -2741,7 +2775,7 @@ GNEFrameAttributesModuls::NeteditAttributes::onCmdHelp(FXObject*, FXSelector, vo
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Opening NeteditAttributes help dialog");
@@ -2797,6 +2831,41 @@ GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfThe
             return positionOfTheMouseOverLane + lengthOfAdditional / 2;
         default:
             throw InvalidArgument("Reference Point invalid");
+    }
+}
+
+
+bool
+GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
+    if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (
+        AC->getTagProperty().isNetworkElement() || 
+        AC->getTagProperty().isAdditionalElement() || 
+        AC->getTagProperty().isShape() || 
+        AC->getTagProperty().isTAZ())) {
+        return true;
+    } else if (viewNet->getEditModes().isCurrentSupermodeDemand() && 
+        AC->getTagProperty().isDemandElement()) {
+        return true;
+    } else if (viewNet->getEditModes().isCurrentSupermodeData() && 
+        AC->getTagProperty().isDataElement()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
+    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement() || 
+        ACAttr.getTagPropertyParent().isShape() || ACAttr.getTagPropertyParent().isTAZ()) {
+        return (viewNet->getEditModes().isCurrentSupermodeNetwork());
+    } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
+        return (viewNet->getEditModes().isCurrentSupermodeDemand());
+    } else if (ACAttr.getTagPropertyParent().isDataElement()) {
+        return (viewNet->getEditModes().isCurrentSupermodeData());
+    } else {
+        return false;
     }
 }
 

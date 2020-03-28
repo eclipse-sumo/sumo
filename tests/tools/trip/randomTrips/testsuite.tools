@@ -11,6 +11,9 @@ minimum_distance_exceeded
 # For this test, the turnarounds at the fringe have been removed since the fringe is detected by limited connectivity
 fringe_factor
 
+# test interaction of fringe factor and edge length (fringe should ignore length)
+short_fringe
+
 # detected the fringe despite turnarounds
 fringe_factor_turnarounds
 
@@ -53,6 +56,15 @@ pedestrians
 # generate random persontrips
 persontrips
 
+# walks between junctions
+pedestrians_junctionTaz
+
+# generate random persontrips between junctions
+persontrips_junctionTaz
+
+# generate random taxi rides
+taxirides
+
 # use binomially distributed arrivals
 binomial
 
@@ -74,3 +86,6 @@ vtype_additional_file_validate
 
 # some extra options that are passed  directly to duarouter
 duarouter_options
+
+# use fromJunction and toJunction
+junctionTaz

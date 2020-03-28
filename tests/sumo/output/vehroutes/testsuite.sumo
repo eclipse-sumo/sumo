@@ -61,6 +61,9 @@ write_unfinished_person
 # output of stops
 with_stops
 
+# output of stops
+with_stops_priorEdges
+
 # one vehicle with route distribution in input
 route_dist
 

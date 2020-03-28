@@ -1,0 +1,4 @@
+Warning: No way found for reference '61584151' in relation '4136388'
+Warning: Ignoring restriction relation '4136388' with unknown from-way.
+Warning: The traffic light '2644504709' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '2644504709'

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 29 23:25:05 2019 by Eclipse SUMO netconvert Version v1_2_0+0149-6b40db9d1b
+<!-- generated on Thu Mar 26 14:16:46 2020 by Eclipse SUMO netconvert Version v1_5_0+0956-19fffc391b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -38,12 +39,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-395408.93,-5809112.45" convBoundary="0.00,0.00,5580.65,3531.77" origBoundary="13.460807,52.423029,13.543874,52.453954" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -69,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-122868966_0" index="0" allow="pedestrian delivery" speed="5.56" length="36.87" shape="4580.01,523.99 4555.08,503.56"/>
     </edge>
     <edge id="-133858189" from="837749843" to="1472995248" priority="2" type="highway.service">
-        <lane id="-133858189_0" index="0" allow="pedestrian delivery" speed="5.56" length="26.44" shape="4381.89,835.53 4390.27,817.20"/>
+        <lane id="-133858189_0" index="0" allow="pedestrian delivery" speed="5.56" length="26.44" shape="4381.89,835.53 4389.54,818.80"/>
     </edge>
     <edge id="-133858466" from="1472997323" to="1472997321" priority="2" type="highway.service">
         <lane id="-133858466_0" index="0" allow="pedestrian delivery" speed="5.56" length="17.56" shape="4396.40,811.22 4399.17,805.89"/>
@@ -303,16 +305,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-143308521#0_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="26.20" shape="4124.83,915.94 4111.28,916.63 4110.70,916.76"/>
     </edge>
     <edge id="-143308521#1" from="1568241686" to="2177702825" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified">
-        <lane id="-143308521#1_0" index="0" allow="pedestrian" speed="22.22" length="27.45" width="2.00" shape="4153.73,917.07 4134.84,918.04"/>
-        <lane id="-143308521#1_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="27.45" shape="4153.60,914.47 4134.71,915.44"/>
+        <lane id="-143308521#1_0" index="0" allow="pedestrian" speed="22.22" length="27.45" width="2.00" shape="4150.75,917.22 4134.84,918.04"/>
+        <lane id="-143308521#1_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="27.45" shape="4150.61,914.63 4134.71,915.44"/>
     </edge>
     <edge id="-143308521#10" from="664166125" to="1789928382" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified">
-        <lane id="-143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="2.74" width="2.00" shape="4455.43,1008.00 4455.34,1007.95"/>
-        <lane id="-143308521#10_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="2.74" shape="4456.84,1005.82 4456.76,1005.77"/>
+        <lane id="-143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="3.12" width="2.00" shape="4455.59,1008.11 4455.43,1008.00"/>
+        <lane id="-143308521#10_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="3.12" shape="4457.00,1005.93 4456.84,1005.82"/>
     </edge>
     <edge id="-143308521#3" from="664166095" to="1568241686" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4216.82,909.67 4188.50,911.11 4155.02,912.80">
-        <lane id="-143308521#3_0" index="0" allow="pedestrian" speed="22.22" length="61.88" width="2.00" shape="4210.49,914.20 4188.71,915.30 4156.73,916.92"/>
-        <lane id="-143308521#3_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="61.88" shape="4210.36,911.60 4188.58,912.71 4156.60,914.32"/>
+        <lane id="-143308521#3_0" index="0" allow="pedestrian" speed="22.22" length="61.88" width="2.00" shape="4210.49,914.20 4188.71,915.30 4160.13,916.75"/>
+        <lane id="-143308521#3_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="61.88" shape="4210.36,911.60 4188.58,912.71 4160.00,914.15"/>
     </edge>
     <edge id="-143308521#4" from="1560224328" to="664166095" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4283.56,917.92 4271.56,912.19 4267.15,910.08 4259.08,908.45 4216.82,909.67">
         <lane id="-143308521#4_0" index="0" allow="pedestrian" speed="22.22" length="68.70" width="2.00" shape="4277.58,919.72 4269.75,915.98 4265.81,914.09 4258.72,912.66 4224.75,913.64"/>
@@ -428,7 +430,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-143308685#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="30.03" shape="4417.54,725.77 4394.89,720.04 4394.85,720.24"/>
     </edge>
     <edge id="-143308695#0" from="2177702824" to="1568241686" priority="2" type="highway.service">
-        <lane id="-143308695#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="3.63" shape="4156.61,911.65 4156.61,911.85"/>
+        <lane id="-143308695#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="3.96" shape="4156.58,908.99 4156.58,909.19"/>
     </edge>
     <edge id="-143308695#1" from="1568241639" to="2177702824" priority="2" type="highway.service">
         <lane id="-143308695#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="31.76" shape="4156.24,880.19 4156.49,901.11"/>
@@ -456,8 +458,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-145586617#3_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="112.73" shape="3254.04,307.03 3345.71,255.64"/>
     </edge>
     <edge id="-145586617#4" from="35215926" to="2222976660" name="Kanalstraße" priority="6" type="highway.tertiary">
-        <lane id="-145586617#4_0" index="0" allow="pedestrian" speed="13.89" length="2.67" width="3.00" shape="3247.88,306.93 3248.06,306.83"/>
-        <lane id="-145586617#4_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="2.67" shape="3249.39,309.63 3249.57,309.54"/>
+        <lane id="-145586617#4_0" index="0" allow="pedestrian" speed="13.89" length="2.67" width="3.00" shape="3247.06,307.38 3247.23,307.29"/>
+        <lane id="-145586617#4_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="2.67" shape="3248.57,310.09 3248.74,309.99"/>
     </edge>
     <edge id="-145586617#5" from="2222983836" to="35215926" name="Kanalstraße" priority="6" type="highway.tertiary">
         <lane id="-145586617#5_0" index="0" allow="pedestrian" speed="13.89" length="83.48" width="3.00" shape="3177.87,346.04 3242.80,309.76"/>
@@ -680,7 +682,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-212446298#2_0" index="0" allow="pedestrian delivery" speed="5.56" length="40.90" shape="3297.92,392.39 3306.55,407.80 3315.93,402.54"/>
     </edge>
     <edge id="-212446298#3" from="2222976660" to="2222980956" priority="2" type="highway.service" shape="3250.96,310.59 3257.20,323.00 3294.24,389.09">
-        <lane id="-212446298#3_0" index="0" allow="pedestrian delivery" speed="5.56" length="89.65" shape="3255.79,316.63 3258.61,322.25 3293.33,384.19"/>
+        <lane id="-212446298#3_0" index="0" allow="pedestrian delivery" speed="5.56" length="89.65" shape="3255.91,316.88 3258.61,322.25 3293.33,384.19"/>
     </edge>
     <edge id="-212447886" from="2222980956" to="2222980953" priority="2" type="highway.service">
         <lane id="-212447886_0" index="0" allow="pedestrian delivery" speed="5.56" length="27.53" shape="3297.55,385.37 3317.40,374.12"/>
@@ -773,20 +775,20 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-232757914_0" index="0" allow="pedestrian delivery" speed="5.56" length="287.05" shape="3646.49,384.61 3724.15,370.17 3686.62,173.64"/>
     </edge>
     <edge id="-239335494#0" from="2335739502" to="1560223404" name="Wegedornstraße" priority="7" type="highway.secondary" shape="4413.07,368.68 4413.62,375.44 4413.21,379.91">
-        <lane id="-239335494#0_0" index="0" allow="pedestrian" speed="13.89" length="11.24" width="3.00" shape="4417.89,369.92 4417.90,370.12"/>
-        <lane id="-239335494#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="11.24" shape="4414.79,370.14 4414.81,370.34"/>
+        <lane id="-239335494#0_0" index="0" allow="pedestrian" speed="13.89" length="11.23" width="3.00" shape="4417.84,369.35 4417.86,369.55"/>
+        <lane id="-239335494#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="11.23" shape="4414.73,369.34 4414.74,369.54"/>
     </edge>
     <edge id="-24214694#0" from="294169342" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="-24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="27.47" width="3.00" shape="4433.28,567.07 4434.59,580.61"/>
-        <lane id="-24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="27.47" shape="4430.20,567.37 4431.50,580.91"/>
+        <lane id="-24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="26.38" width="3.00" shape="4433.28,567.07 4434.27,577.35"/>
+        <lane id="-24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="26.38" shape="4430.20,567.37 4431.19,577.65"/>
     </edge>
     <edge id="-24214694#1" from="1560223635" to="294169342" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="-24214694#1_0" index="0" allow="pedestrian" speed="13.89" length="16.14" width="3.00" shape="4431.84,552.11 4432.38,557.71"/>
         <lane id="-24214694#1_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="16.14" shape="4428.75,552.41 4429.29,558.01"/>
     </edge>
     <edge id="-24214694#2" from="1787023433" to="1560223635" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="-24214694#2_0" index="0" allow="pedestrian" speed="13.89" length="7.58" width="3.00" shape="4430.67,540.03 4430.69,540.23"/>
-        <lane id="-24214694#2_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="7.58" shape="4427.59,540.33 4427.61,540.53"/>
+        <lane id="-24214694#2_0" index="0" allow="pedestrian" speed="13.89" length="7.58" width="3.00" shape="4430.66,539.92 4430.68,540.12"/>
+        <lane id="-24214694#2_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="7.58" shape="4427.58,540.22 4427.60,540.42"/>
     </edge>
     <edge id="-24214694#3" from="1292264830" to="1787023433" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="-24214694#3_0" index="0" allow="pedestrian" speed="13.89" length="30.13" width="3.00" shape="4428.09,513.26 4430.21,535.24"/>
@@ -979,10 +981,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-69923147_0" index="0" speed="5.56" length="1100.31" shape="3932.74,467.28 3932.29,478.97 3924.56,488.90 3885.60,516.79 3793.27,570.87 3744.20,590.12 3693.65,603.67 3656.60,610.69 3513.62,631.07 3432.69,646.04 3307.74,675.28 3259.93,688.39 3209.10,707.53 3137.48,744.67 3099.54,765.82 3022.64,816.26 2958.69,866.53 2940.92,881.68"/>
     </edge>
     <edge id="-70214888#0" from="1472995248" to="1472997323" priority="2" type="highway.service" shape="4393.04,814.98 4391.64,814.26 4395.62,816.21">
-        <lane id="-70214888#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="6.01" shape="4391.37,815.11 4390.22,813.53 4393.08,814.11"/>
+        <lane id="-70214888#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="3.58" shape="4397.20,814.95 4397.40,814.99"/>
     </edge>
     <edge id="-70214888#1" from="1472995247" to="1472995248" priority="2" type="highway.service">
-        <lane id="-70214888#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="42.10" shape="4360.23,797.02 4388.27,810.84"/>
+        <lane id="-70214888#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="42.10" shape="4360.23,797.02 4389.62,811.51"/>
     </edge>
     <edge id="-70214888#2" from="1472995246" to="1472995247" priority="2" type="highway.service">
         <lane id="-70214888#2_0" index="0" allow="pedestrian delivery" speed="5.56" length="40.15" shape="4322.59,778.71 4351.76,792.87"/>
@@ -1099,7 +1101,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="133858188_0" index="0" allow="pedestrian" speed="1.39" length="4.61" shape="4301.63,850.97 4297.33,849.30"/>
     </edge>
     <edge id="133858189" from="1472995248" to="837749843" priority="2" type="highway.service">
-        <lane id="133858189_0" index="0" allow="pedestrian delivery" speed="5.56" length="26.44" shape="4393.18,818.53 4384.80,836.86"/>
+        <lane id="133858189_0" index="0" allow="pedestrian delivery" speed="5.56" length="26.44" shape="4392.45,820.13 4384.80,836.86"/>
     </edge>
     <edge id="133858190#0" from="1472995255" to="1472995254" priority="1" type="highway.footway" spreadType="center">
         <lane id="133858190#0_0" index="0" allow="pedestrian" speed="8.33" length="12.60" shape="4297.33,849.30 4288.75,845.39"/>
@@ -1359,8 +1361,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="142575692#1_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="70.41" shape="4550.31,824.77 4524.72,876.87"/>
     </edge>
     <edge id="142575692#2" from="2471305128" to="1560224281" name="Max-Born-Straße" priority="5" type="highway.unclassified" spreadType="center">
-        <lane id="142575692#2_0" index="0" allow="pedestrian" speed="22.22" length="4.21" width="2.00" shape="4525.00,882.19 4524.92,882.37"/>
-        <lane id="142575692#2_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="4.21" shape="4522.67,881.04 4522.58,881.22"/>
+        <lane id="142575692#2_0" index="0" allow="pedestrian" speed="22.22" length="4.21" width="2.00" shape="4525.05,882.09 4524.97,882.27"/>
+        <lane id="142575692#2_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="4.21" shape="4522.72,880.94 4522.63,881.12"/>
     </edge>
     <edge id="142575692#3" from="1560224281" to="1560224319" name="Max-Born-Straße" priority="5" type="highway.unclassified" spreadType="center">
         <lane id="142575692#3_0" index="0" allow="pedestrian" speed="22.22" length="26.00" width="2.00" shape="4521.54,889.24 4513.68,905.26"/>
@@ -1454,16 +1456,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="143308521#0_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="26.20" shape="4110.02,913.63 4110.86,913.45 4124.67,912.75"/>
     </edge>
     <edge id="143308521#1" from="2177702825" to="1568241686" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified">
-        <lane id="143308521#1_0" index="0" allow="pedestrian" speed="22.22" length="27.45" width="2.00" shape="4134.41,909.65 4153.31,908.68"/>
-        <lane id="143308521#1_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="27.45" shape="4134.55,912.24 4153.44,911.28"/>
+        <lane id="143308521#1_0" index="0" allow="pedestrian" speed="22.22" length="27.45" width="2.00" shape="4134.41,909.65 4150.32,908.83"/>
+        <lane id="143308521#1_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="27.45" shape="4134.55,912.24 4150.45,911.43"/>
     </edge>
     <edge id="143308521#10" from="1789928382" to="664166125" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified">
-        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="2.74" width="2.00" shape="4459.83,1000.85 4459.99,1000.96"/>
-        <lane id="143308521#10_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="2.74" shape="4458.41,1003.03 4458.58,1003.14"/>
+        <lane id="143308521#10_0" index="0" allow="pedestrian" speed="22.22" length="3.12" width="2.00" shape="4459.99,1000.96 4460.15,1001.06"/>
+        <lane id="143308521#10_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="3.12" shape="4458.58,1003.14 4458.74,1003.24"/>
     </edge>
     <edge id="143308521#2" from="1568241686" to="664166095" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4155.02,912.80 4188.50,911.11 4216.82,909.67">
-        <lane id="143308521#2_0" index="0" allow="pedestrian" speed="22.22" length="61.88" width="2.00" shape="4156.31,908.53 4188.29,906.92 4210.06,905.81"/>
-        <lane id="143308521#2_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="61.88" shape="4156.44,911.13 4188.42,909.51 4210.19,908.40"/>
+        <lane id="143308521#2_0" index="0" allow="pedestrian" speed="22.22" length="61.88" width="2.00" shape="4159.71,908.36 4188.29,906.92 4210.06,905.81"/>
+        <lane id="143308521#2_1" index="1" disallow="pedestrian rail_fast" speed="22.22" length="61.88" shape="4159.84,910.95 4188.42,909.51 4210.19,908.40"/>
     </edge>
     <edge id="143308521#4" from="664166095" to="1560224328" name="Johann-Hittorf-Straße" priority="5" type="highway.unclassified" shape="4216.82,909.67 4259.08,908.45 4267.15,910.08 4271.56,912.19 4283.56,917.92">
         <lane id="143308521#4_0" index="0" allow="pedestrian" speed="22.22" length="68.70" width="2.00" shape="4224.50,905.25 4259.44,904.24 4268.49,906.07 4273.37,908.40 4281.20,912.14"/>
@@ -1651,13 +1653,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="143308581_2" index="2" disallow="pedestrian rail_fast" speed="27.78" length="10.76" shape="4427.47,645.56 4427.42,645.75"/>
     </edge>
     <edge id="143308587" from="1560223815" to="1560223686" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4421.87,639.86 4423.65,629.94 4426.41,590.63 4429.24,574.12">
-        <lane id="143308587_0" index="0" allow="pedestrian" speed="13.89" length="51.27" width="3.00" shape="4421.42,633.30 4422.06,629.74 4424.49,595.07"/>
-        <lane id="143308587_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="51.27" shape="4424.47,633.85 4425.14,630.13 4427.57,595.60"/>
+        <lane id="143308587_0" index="0" allow="pedestrian" speed="13.89" length="52.08" width="3.00" shape="4421.42,633.30 4422.06,629.74 4424.49,595.07"/>
+        <lane id="143308587_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="52.08" shape="4424.47,633.85 4425.14,630.13 4427.57,595.60"/>
     </edge>
     <edge id="143308590#0" from="1560223686" to="56231397" name="Wegedornstraße" priority="7" type="highway.secondary" spreadType="center" shape="4429.24,574.12 4434.62,592.93 4433.84,616.97 4433.41,631.36 4431.46,642.46">
-        <lane id="143308590#0_0" index="0" allow="pedestrian" speed="13.89" length="54.23" width="3.00" shape="4437.80,593.59 4437.04,617.07 4436.60,631.69 4435.76,636.47"/>
-        <lane id="143308590#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="54.23" shape="4434.67,594.46 4433.94,616.97 4433.51,631.37 4432.71,635.93"/>
-        <lane id="143308590#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="54.23" shape="4431.44,595.36 4430.74,616.87 4430.32,631.04 4429.56,635.38"/>
+        <lane id="143308590#0_0" index="0" allow="pedestrian" speed="13.89" length="55.09" width="3.00" shape="4437.80,593.59 4437.04,617.07 4436.60,631.69 4435.76,636.47"/>
+        <lane id="143308590#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="55.09" shape="4434.67,594.46 4433.94,616.97 4433.51,631.37 4432.71,635.93"/>
+        <lane id="143308590#0_2" index="2" disallow="pedestrian rail_fast" speed="13.89" length="55.09" shape="4431.44,595.36 4430.74,616.87 4430.32,631.04 4429.56,635.38"/>
     </edge>
     <edge id="143308600#0" from="664166133" to="1421174996" name="Zum Trudelturm" priority="2" type="highway.service">
         <lane id="143308600#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="13.19" shape="4594.20,947.35 4586.55,940.72"/>
@@ -1720,7 +1722,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="143308689#1_0" index="0" allow="pedestrian" speed="8.33" length="8.69" shape="4363.79,712.18 4363.97,711.42 4366.43,711.93 4366.60,710.87"/>
     </edge>
     <edge id="143308695#0" from="1568241686" to="2177702824" priority="2" type="highway.service">
-        <lane id="143308695#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="3.63" shape="4153.41,911.89 4153.41,911.69"/>
+        <lane id="143308695#0_0" index="0" allow="pedestrian delivery" speed="5.56" length="3.96" shape="4153.38,909.22 4153.38,909.02"/>
     </edge>
     <edge id="143308695#1" from="2177702824" to="1568241639" priority="2" type="highway.service">
         <lane id="143308695#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="31.76" shape="4153.29,901.15 4153.04,880.22"/>
@@ -1758,8 +1760,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="145586617#3_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="112.73" shape="3347.27,258.44 3255.60,309.82"/>
     </edge>
     <edge id="145586617#4" from="2222976660" to="35215926" name="Kanalstraße" priority="6" type="highway.tertiary">
-        <lane id="145586617#4_0" index="0" allow="pedestrian" speed="13.89" length="2.67" width="3.00" shape="3252.68,315.01 3252.51,315.11"/>
-        <lane id="145586617#4_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="2.67" shape="3251.17,312.31 3250.99,312.40"/>
+        <lane id="145586617#4_0" index="0" allow="pedestrian" speed="13.89" length="2.67" width="3.00" shape="3251.81,315.50 3251.64,315.59"/>
+        <lane id="145586617#4_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="2.67" shape="3250.30,312.79 3250.13,312.89"/>
     </edge>
     <edge id="145586617#5" from="35215926" to="2222983836" name="Kanalstraße" priority="6" type="highway.tertiary">
         <lane id="145586617#5_0" index="0" allow="pedestrian" speed="13.89" length="83.48" width="3.00" shape="3247.39,317.97 3182.45,354.25"/>
@@ -1860,7 +1862,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="156071615#3_0" index="0" allow="pedestrian delivery" speed="5.56" length="38.31" shape="4426.59,833.02 4399.23,819.74"/>
     </edge>
     <edge id="156071615#4" from="1472997323" to="1472995248" priority="2" type="highway.service" shape="4395.62,816.21 4391.64,814.26 4393.04,814.98">
-        <lane id="156071615#4_0" index="0" allow="pedestrian delivery" speed="5.56" length="2.86" shape="4393.94,816.80 4390.20,813.56 4393.17,813.56"/>
+        <lane id="156071615#4_0" index="0" allow="pedestrian delivery" speed="5.56" length="3.88" shape="4393.94,816.80 4392.11,815.21"/>
     </edge>
     <edge id="156294408" from="1685653117" to="1685653124" priority="2" type="highway.service">
         <lane id="156294408_0" index="0" allow="pedestrian delivery" speed="5.56" length="72.11" shape="4499.33,871.87 4470.90,927.68"/>
@@ -2102,7 +2104,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="212446298#2_0" index="0" allow="pedestrian delivery" speed="5.56" length="40.90" shape="3317.49,405.33 3305.33,412.16 3295.13,393.96"/>
     </edge>
     <edge id="212446298#3" from="2222980956" to="2222976660" priority="2" type="highway.service" shape="3294.24,389.09 3257.20,323.00 3250.96,310.59">
-        <lane id="212446298#3_0" index="0" allow="pedestrian delivery" speed="5.56" length="89.65" shape="3290.54,385.76 3255.79,323.75 3252.93,318.06"/>
+        <lane id="212446298#3_0" index="0" allow="pedestrian delivery" speed="5.56" length="89.65" shape="3290.54,385.76 3255.79,323.75 3253.05,318.32"/>
     </edge>
     <edge id="212447886" from="2222980953" to="2222980956" priority="2" type="highway.service">
         <lane id="212447886_0" index="0" allow="pedestrian delivery" speed="5.56" length="27.53" shape="3318.98,376.90 3299.13,388.16"/>
@@ -2237,24 +2239,24 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="239335492_0" index="0" allow="pedestrian" speed="8.33" length="9.93" shape="4520.52,878.14 4519.25,877.40"/>
     </edge>
     <edge id="239335494#0" from="1560223404" to="2335739502" name="Wegedornstraße" priority="7" type="highway.secondary" shape="4413.21,379.91 4413.62,375.44 4413.07,368.68">
-        <lane id="239335494#0_0" index="0" allow="pedestrian" speed="13.89" length="11.24" width="3.00" shape="4408.53,370.83 4408.51,370.63"/>
-        <lane id="239335494#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="11.24" shape="4411.62,370.58 4411.60,370.38"/>
+        <lane id="239335494#0_0" index="0" allow="pedestrian" speed="13.89" length="11.23" width="3.00" shape="4408.42,369.50 4408.41,369.30"/>
+        <lane id="239335494#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="11.23" shape="4411.53,369.52 4411.52,369.32"/>
     </edge>
     <edge id="239335494#1" from="2335739502" to="2380911862" name="Wegedornstraße" priority="7" type="highway.secondary" shape="4413.07,368.68 4412.54,362.12 4406.03,306.65 4399.16,225.89">
         <lane id="239335494#1_0" index="0" allow="pedestrian" speed="13.89" length="143.48" width="3.00" shape="4408.15,366.11 4407.86,362.58 4401.35,307.12 4394.58,227.48"/>
         <lane id="239335494#1_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="143.48" shape="4411.24,365.87 4410.95,362.28 4404.44,306.81 4397.67,227.21"/>
     </edge>
     <edge id="24214694#0" from="1560223686" to="294169342" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="27.47" width="3.00" shape="4425.23,581.51 4423.93,567.97"/>
-        <lane id="24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="27.47" shape="4428.32,581.21 4427.01,567.67"/>
+        <lane id="24214694#0_0" index="0" allow="pedestrian" speed="13.89" length="26.38" width="3.00" shape="4424.92,578.25 4423.93,567.97"/>
+        <lane id="24214694#0_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="26.38" shape="4428.00,577.95 4427.01,567.67"/>
     </edge>
     <edge id="24214694#1" from="294169342" to="1560223635" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="24214694#1_0" index="0" allow="pedestrian" speed="13.89" length="16.14" width="3.00" shape="4423.02,558.61 4422.48,553.01"/>
         <lane id="24214694#1_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="16.14" shape="4426.11,558.32 4425.57,552.71"/>
     </edge>
     <edge id="24214694#2" from="1560223635" to="1787023433" name="Wegedornstraße" priority="7" type="highway.secondary">
-        <lane id="24214694#2_0" index="0" allow="pedestrian" speed="13.89" length="7.58" width="3.00" shape="4421.34,541.19 4421.32,540.99"/>
-        <lane id="24214694#2_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="7.58" shape="4424.43,540.94 4424.41,540.74"/>
+        <lane id="24214694#2_0" index="0" allow="pedestrian" speed="13.89" length="7.58" width="3.00" shape="4421.33,541.03 4421.31,540.83"/>
+        <lane id="24214694#2_1" index="1" disallow="pedestrian rail_fast" speed="13.89" length="7.58" shape="4424.41,540.73 4424.39,540.53"/>
     </edge>
     <edge id="24214694#3" from="1787023433" to="1292264830" name="Wegedornstraße" priority="7" type="highway.secondary">
         <lane id="24214694#3_0" index="0" allow="pedestrian" speed="13.89" length="30.13" width="3.00" shape="4420.85,536.14 4418.74,514.16"/>
@@ -2641,7 +2643,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="70139065_0" index="0" allow="pedestrian" speed="2.78" length="29.15" shape="4497.68,698.76 4497.50,690.77 4495.30,682.80 4491.49,676.01"/>
     </edge>
     <edge id="70214888#1" from="1472995248" to="1472995247" priority="2" type="highway.service">
-        <lane id="70214888#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="42.10" shape="4386.86,813.71 4358.81,799.89"/>
+        <lane id="70214888#1_0" index="0" allow="pedestrian delivery" speed="5.56" length="42.10" shape="4388.20,814.38 4358.81,799.89"/>
     </edge>
     <edge id="70214888#2" from="1472995247" to="1472995246" priority="2" type="highway.service">
         <lane id="70214888#2_0" index="0" allow="pedestrian delivery" speed="5.56" length="40.15" shape="4350.36,795.75 4321.19,781.59"/>
@@ -2910,16 +2912,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000011000" foes="000011110"/>
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
-    <junction id="1472995248" type="right_before_left" x="4393.04" y="814.98" incLanes="156071615#4_0 -70214888#1_0 -133858189_0" intLanes="" shape="4391.80,811.96 4394.72,815.36 4388.98,809.41 4386.15,815.15 4392.76,815.68 4388.55,813.96 4388.81,816.54 4394.63,819.20">
-        <request index="0" response="000000000" foes="100010000"/>
-        <request index="1" response="001000000" foes="001111000"/>
-        <request index="2" response="011011000" foes="011011000"/>
-        <request index="3" response="011000010" foes="011000110"/>
-        <request index="4" response="000000011" foes="100000111"/>
-        <request index="5" response="001000010" foes="001000010"/>
-        <request index="6" response="000000000" foes="000101110"/>
-        <request index="7" response="000000000" foes="000001100"/>
-        <request index="8" response="000010001" foes="000010001"/>
+    <junction id="1472995248" type="right_before_left" x="4393.04" y="814.98" incLanes="156071615#4_0 -70214888#1_0 -133858189_0" intLanes="" shape="4395.38,811.96 4392.16,815.16 4405.80,818.34 4398.17,813.52 4390.32,810.07 4387.49,815.81 4388.08,818.13 4393.90,820.79">
+        <request index="0" response="000000000" foes="100001000"/>
+        <request index="1" response="011000000" foes="011011000"/>
+        <request index="2" response="010100000" foes="010100000"/>
+        <request index="3" response="000000011" foes="110000011"/>
+        <request index="4" response="001000010" foes="001000010"/>
+        <request index="5" response="000000000" foes="010000100"/>
+        <request index="6" response="000000000" foes="000010010"/>
+        <request index="7" response="000101000" foes="000101110"/>
+        <request index="8" response="000001001" foes="000001001"/>
     </junction>
     <junction id="1472995250" type="priority" x="4224.42" y="823.65" incLanes="133858190#1_0 -143308562#2_0 -143308562#2_1 143308562#1_0 143308562#1_1" intLanes="" shape="4231.05,825.62 4231.22,822.43 4229.83,820.85 4219.46,820.10 4218.94,825.86 4229.27,827.02">
         <request index="0" response="00000100" foes="00000100"/>
@@ -2952,16 +2954,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="9"  response="00001100110" foes="00001101110"/>
         <request index="10" response="00001000001" foes="00001000001"/>
     </junction>
-    <junction id="1472997323" type="right_before_left" x="4395.62" y="816.21" incLanes="156071615#3_0 133858466_0 -70214888#0_0" intLanes="" shape="4398.53,821.18 4401.32,815.42 4400.67,813.44 4394.98,810.49 4392.40,812.34 4393.60,815.46 4394.99,815.59 4392.89,818.01">
-        <request index="0" response="000000000" foes="001010000"/>
-        <request index="1" response="110000000" foes="110110000"/>
-        <request index="2" response="100001000" foes="100001000"/>
-        <request index="3" response="000000000" foes="100000100"/>
-        <request index="4" response="000000011" foes="101000011"/>
-        <request index="5" response="010000010" foes="010000010"/>
-        <request index="6" response="000010001" foes="000010001"/>
-        <request index="7" response="000000000" foes="000100010"/>
-        <request index="8" response="000011000" foes="000011110"/>
+    <junction id="1472997323" type="right_before_left" x="4395.62" y="816.21" incLanes="156071615#3_0 133858466_0 -70214888#0_0" intLanes="" shape="4398.53,821.18 4401.32,815.42 4400.67,813.44 4394.98,810.49 4392.40,812.34 4392.63,814.12 4394.99,815.59 4392.89,818.01">
+        <request index="0" response="000000000" foes="100010000"/>
+        <request index="1" response="011000000" foes="011110000"/>
+        <request index="2" response="010001000" foes="010001000"/>
+        <request index="3" response="000000000" foes="010000100"/>
+        <request index="4" response="000000011" foes="110000011"/>
+        <request index="5" response="001000010" foes="001000010"/>
+        <request index="6" response="000000000" foes="000100010"/>
+        <request index="7" response="000011000" foes="000011110"/>
+        <request index="8" response="000010001" foes="000010001"/>
     </junction>
     <junction id="1472997325" type="priority" x="4332.31" y="827.75" incLanes="-133858467#2_0 133858467#1_0" intLanes="" shape="4333.79,831.97 4336.49,826.17 4328.06,829.12">
         <request index="0" response="0000" foes="1000"/>
@@ -2994,11 +2996,11 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="1510075989" type="dead_end" x="0.00" y="3531.77" incLanes="" intLanes="" shape="1.29,3532.71 -1.29,3530.83"/>
     <junction id="1520039956" type="priority" x="3756.31" y="751.99" incLanes="38574190#1_0 38574197#2_0" intLanes="" shape="3755.83,755.52 3758.86,754.48 3759.81,752.64 3758.92,749.57 3756.96,748.57 3753.89,749.49">
-        <request index="0" response="001000" foes="001000"/>
-        <request index="1" response="011000" foes="011000"/>
+        <request index="0" response="011000" foes="011000"/>
+        <request index="1" response="010000" foes="010000"/>
         <request index="2" response="111000" foes="111000"/>
-        <request index="3" response="000000" foes="000111"/>
-        <request index="4" response="000000" foes="000110"/>
+        <request index="3" response="000000" foes="000101"/>
+        <request index="4" response="000000" foes="000111"/>
         <request index="5" response="000000" foes="000100"/>
     </junction>
     <junction id="1520039998" type="priority" x="3508.25" y="797.56" incLanes="138624421#4_0 -52460499#5_0 -52460499#5_1 52460499#4_0 52460499#4_1" intLanes="" shape="3513.23,803.72 3516.16,798.03 3514.36,794.91 3504.33,792.17 3501.25,799.97 3510.56,804.60">
@@ -3186,7 +3188,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="12" response="00000011100000" foes="00000011101110"/>
         <request index="13" response="00000011000000" foes="00000011000000"/>
     </junction>
-    <junction id="1560223404" type="priority" x="4413.21" y="379.91" incLanes="190083618#0_0 190083618#0_1 190083618#0_2 190083618#0_3 -190083609#1_0 -190083609#1_1 -190083609#1_2 -190083609#1_3 -239335494#0_0 -239335494#0_1 196674458#0_0 196674458#0_1 196674458#0_2 196674458#0_3" intLanes="" shape="4401.05,394.06 4419.84,393.47 4422.86,391.69 4420.88,369.78 4419.27,368.42 4406.89,369.18 4397.33,368.78 4399.45,390.68">
+    <junction id="1560223404" type="priority" x="4413.21" y="379.91" incLanes="190083618#0_0 190083618#0_1 190083618#0_2 190083618#0_3 -190083609#1_0 -190083609#1_1 -190083609#1_2 -190083609#1_3 -239335494#0_0 -239335494#0_1 196674458#0_0 196674458#0_1 196674458#0_2 196674458#0_3" intLanes="" shape="4401.05,394.06 4419.84,393.47 4422.86,391.69 4420.88,369.78 4419.20,367.51 4406.66,366.38 4397.33,368.78 4399.45,390.68">
         <request index="0"  response="0000000000000010000000" foes="0000000000000010000000"/>
         <request index="1"  response="0000000000001110000000" foes="0000000000001110000000"/>
         <request index="2"  response="0111100000011110000000" foes="0111101100011110000000"/>
@@ -3288,7 +3290,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1560223633" type="priority" x="4476.51" y="545.83" incLanes="26843133_0" intLanes="" shape="4476.51,545.83 4473.34,546.28 4476.51,545.83">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="1560223635" type="priority" x="4426.61" y="546.84" incLanes="24214694#1_0 24214694#1_1 -24214694#2_0 -24214694#2_1 142575658#2_0 142575658#2_1" intLanes="" shape="4420.99,553.16 4433.33,551.96 4432.05,538.70 4419.71,539.90 4418.34,541.07 4417.63,551.44">
+    <junction id="1560223635" type="priority" x="4426.61" y="546.84" incLanes="24214694#1_0 24214694#1_1 -24214694#2_0 -24214694#2_1 142575658#2_0 142575658#2_1" intLanes="" shape="4420.99,553.16 4433.33,551.96 4432.03,538.48 4419.69,539.68 4418.34,541.07 4417.63,551.44">
         <request index="0"  response="00000000000" foes="00000000000"/>
         <request index="1"  response="00000000000" foes="01101000000"/>
         <request index="2"  response="00000000000" foes="01011000000"/>
@@ -3301,7 +3303,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="9"  response="00001100110" foes="00001101110"/>
         <request index="10" response="00001000000" foes="00001000000"/>
     </junction>
-    <junction id="1560223686" type="priority" x="4429.24" y="574.12" incLanes="-24214694#0_0 -24214694#0_1 143308587_0 143308587_1" intLanes="" shape="4429.82,595.81 4439.31,593.17 4436.08,580.47 4423.74,581.65 4423.01,594.82 4429.15,595.87">
+    <junction id="1560223686" type="priority" x="4429.24" y="574.12" incLanes="-24214694#0_0 -24214694#0_1 143308587_0 143308587_1" intLanes="" shape="4429.82,595.81 4439.31,593.17 4435.77,577.20 4423.42,578.39 4423.01,594.82 4429.15,595.87">
         <request index="0" response="0000000" foes="0000000"/>
         <request index="1" response="0000000" foes="1100000"/>
         <request index="2" response="0010000" foes="0010000"/>
@@ -3518,7 +3520,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="9"  response="00000111000" foes="00000111110"/>
         <request index="10" response="00000100000" foes="00000100000"/>
     </junction>
-    <junction id="1560224281" type="priority" x="4522.31" y="884.04" incLanes="143308600#3_0 142575692#2_0 142575692#2_1" intLanes="" shape="4524.37,889.14 4527.80,883.74 4526.50,881.41 4521.84,879.11 4517.77,887.39 4522.44,889.68">
+    <junction id="1560224281" type="priority" x="4522.31" y="884.04" incLanes="143308600#3_0 142575692#2_0 142575692#2_1" intLanes="" shape="4524.37,889.14 4527.80,883.74 4526.60,881.21 4521.93,878.91 4517.77,887.39 4522.44,889.68">
         <request index="0" response="01000" foes="01000"/>
         <request index="1" response="00100" foes="00100"/>
         <request index="2" response="00000" foes="00010"/>
@@ -3843,7 +3845,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="000000" foes="001110"/>
         <request index="5" response="001001" foes="001001"/>
     </junction>
-    <junction id="1568241686" type="priority" x="4155.02" y="912.80" incLanes="-143308521#3_0 -143308521#3_1 -143308695#0_0 143308521#1_0 143308521#1_1" intLanes="" shape="4156.78,917.92 4156.26,907.53 4158.20,911.26 4151.80,911.34 4153.26,907.68 4153.79,918.07">
+    <junction id="1568241686" type="priority" x="4155.02" y="912.80" incLanes="-143308521#3_0 -143308521#3_1 -143308695#0_0 143308521#1_0 143308521#1_1" intLanes="" shape="4160.18,917.75 4159.66,907.36 4158.14,905.93 4151.74,906.01 4150.27,907.84 4150.80,918.22">
         <request index="0"  response="00000000000" foes="00000000000"/>
         <request index="1"  response="00000000000" foes="10000100000"/>
         <request index="2"  response="01110000000" foes="01111100000"/>
@@ -4053,7 +4055,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="5" response="0000000" foes="0001000"/>
         <request index="6" response="0000100" foes="0000100"/>
     </junction>
-    <junction id="1789928382" type="priority" x="4455.41" y="1002.99" incLanes="-143308521#10_0 -143308521#10_1 143308521#9_0 143308521#9_1 158236729#0_0" intLanes="" shape="4454.88,1008.84 4460.54,1000.12 4459.95,997.63 4457.14,996.09 4455.25,996.61 4449.43,1005.22 4450.26,1007.60 4452.89,1009.42">
+    <junction id="1789928382" type="priority" x="4455.41" y="1002.99" incLanes="-143308521#10_0 -143308521#10_1 143308521#9_0 143308521#9_1 158236729#0_0" intLanes="" shape="4455.04,1008.95 4460.70,1000.22 4459.95,997.63 4457.14,996.09 4455.25,996.61 4449.43,1005.22 4450.26,1007.60 4452.89,1009.42">
         <request index="0" response="110000000" foes="110100000"/>
         <request index="1" response="110011000" foes="110011000"/>
         <request index="2" response="100000000" foes="100000000"/>
@@ -4373,7 +4375,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>
-    <junction id="2222976660" type="priority" x="3250.96" y="310.59" incLanes="212446298#3_0 145586617#3_0 145586617#3_1 -145586617#4_0 -145586617#4_1" intLanes="" shape="3251.50,318.78 3257.22,315.91 3257.85,313.84 3251.79,303.02 3246.62,305.91 3252.67,316.74">
+    <junction id="2222976660" type="priority" x="3250.96" y="310.59" incLanes="212446298#3_0 145586617#3_0 145586617#3_1 -145586617#4_0 -145586617#4_1" intLanes="" shape="3251.62,319.04 3257.34,316.16 3257.85,313.84 3251.79,303.02 3243.60,307.60 3249.64,318.43">
         <request index="0"  response="00000010000" foes="00000010000"/>
         <request index="1"  response="01100110000" foes="01101110000"/>
         <request index="2"  response="01000001000" foes="01000001000"/>
@@ -5057,7 +5059,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="32266940" type="priority" x="4353.77" y="0.00" incLanes="46150481#1_0 46150481#1_1 46150481#1_2" intLanes="" shape="4353.77,-0.00 4344.64,2.24 4353.77,0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="35215926" type="priority" x="3248.63" y="311.89" incLanes="145586617#4_0 145586617#4_1 -145586617#5_0 -145586617#5_1" intLanes="" shape="3253.98,316.00 3247.94,305.18 3247.20,303.87 3242.64,306.37 3242.07,308.45 3248.12,319.28">
+    <junction id="35215926" type="priority" x="3248.63" y="311.89" incLanes="145586617#4_0 145586617#4_1 -145586617#5_0 -145586617#5_1" intLanes="" shape="3255.27,315.28 3249.23,304.45 3247.20,303.87 3242.64,306.37 3242.07,308.45 3248.12,319.28">
         <request index="0" response="00000000" foes="00000000"/>
         <request index="1" response="00000000" foes="10000000"/>
         <request index="2" response="01100000" foes="01100000"/>
@@ -5211,10 +5213,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="3" response="0001" foes="0001"/>
     </junction>
     <junction id="456893990" type="priority" x="3758.40" y="758.06" incLanes="38574190#0_0 38574197#1_0" intLanes="" shape="3757.80,761.49 3760.86,760.52 3758.89,754.56 3755.86,755.60 3754.91,757.46 3755.86,760.52">
-        <request index="0" response="1100" foes="1100"/>
-        <request index="1" response="1000" foes="1000"/>
-        <request index="2" response="0000" foes="0001"/>
-        <request index="3" response="0000" foes="0011"/>
+        <request index="0" response="0100" foes="0100"/>
+        <request index="1" response="1100" foes="1100"/>
+        <request index="2" response="0000" foes="0011"/>
+        <request index="3" response="0000" foes="0010"/>
     </junction>
     <junction id="456893991" type="priority" x="3755.18" y="748.21" incLanes="38574190#2_0 38574197#3_0" intLanes="" shape="3754.54,751.65 3757.60,750.73 3755.86,744.81 3752.78,745.70 3751.74,747.59 3752.67,750.65">
         <request index="0" response="0100" foes="0100"/>
@@ -5752,8 +5754,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-122868966" to="-115227682#0" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="-122868966" to="115227682#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-122868966" to="122868966" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="-133858189" to="70214888#1" fromLane="0" toLane="0" dir="R" state="="/>
-    <connection from="-133858189" to="-70214888#0" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-133858189" to="70214888#1" fromLane="0" toLane="0" dir="r" state="="/>
+    <connection from="-133858189" to="-70214888#0" fromLane="0" toLane="0" dir="R" state="="/>
     <connection from="-133858189" to="133858189" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="-133858466" to="142575659#1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="-133858466" to="-142575659#0" fromLane="0" toLane="1" dir="l" state="m"/>
@@ -6584,12 +6586,12 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-5357888#6" to="5357888#6" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="-59302643" to="59302643" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="-69923147" to="69923147" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="-70214888#0" to="156071615#4" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="-70214888#0" to="-133858466" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="-70214888#0" to="-156071615#3" fromLane="0" toLane="0" dir="s" state="="/>
-    <connection from="-70214888#1" to="-70214888#0" fromLane="0" toLane="0" dir="r" state="="/>
-    <connection from="-70214888#1" to="133858189" fromLane="0" toLane="0" dir="L" state="="/>
+    <connection from="-70214888#0" to="156071615#4" fromLane="0" toLane="0" dir="t" state="="/>
+    <connection from="-70214888#1" to="133858189" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-70214888#1" to="70214888#1" fromLane="0" toLane="0" dir="t" state="="/>
+    <connection from="-70214888#1" to="-70214888#0" fromLane="0" toLane="0" dir="r" state="="/>
     <connection from="-70214888#2" to="-70214888#1" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="-70214888#2" to="133858467#0" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="-70214888#2" to="70214888#2" fromLane="0" toLane="0" dir="t" state="="/>
@@ -7287,7 +7289,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="156071615#3" to="156071615#4" fromLane="0" toLane="0" dir="s" state="="/>
     <connection from="156071615#3" to="-133858466" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="156071615#3" to="-156071615#3" fromLane="0" toLane="0" dir="t" state="="/>
-    <connection from="156071615#4" to="133858189" fromLane="0" toLane="0" dir="l" state="="/>
+    <connection from="156071615#4" to="133858189" fromLane="0" toLane="0" dir="L" state="="/>
     <connection from="156071615#4" to="70214888#1" fromLane="0" toLane="0" dir="l" state="="/>
     <connection from="156071615#4" to="-70214888#0" fromLane="0" toLane="0" dir="t" state="="/>
     <connection from="156294408" to="-149670373#0" fromLane="0" toLane="0" dir="r" state="="/>

@@ -1,7 +1,8 @@
 Warning: Given action step length 4 for vehicle type 'DEFAULT_VEHTYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
 Warning: Given action step length 4 for vehicle type 'DEFAULT_PEDTYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
 Warning: Given action step length 4 for vehicle type 'DEFAULT_BIKETYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
-Warning: State was written with sumo version dev-SVN-r22229 (present: v1_0_1+0645-93703db)!
+Warning: Given action step length 4 for vehicle type 'DEFAULT_CONTAINERTYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
+Warning: State was written with sumo version dev-SVN-r22229 (present: v1_4_0+0173-908b4d0)!
 Warning: Given action step length 4 for vehicle type 'DEFAULT_PEDTYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
 Warning: Given action step length 3 for vehicle type 'DEFAULT_VEHTYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
 Warning: Given action step length 4 for vehicle type 'type0' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).

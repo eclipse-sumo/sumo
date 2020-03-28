@@ -152,6 +152,23 @@ Edge distance is imported from OSM and can also be be set along a route in [NETE
 !!! note
     Negative distance values are not currently supported (pending introduction of another attribute)
 
+# Routing on Bidirectional Tracks
+When train tracks can be used in both directions, there is considerable freedom for trains when search a path through the network. To reduce the number of conflicts (when two vehicles want to use the same track in opposite directions), the preferred direction for each track can be defined and factored into the routing decision.
+
+When routes are computed in the simulation, this is done by setting the option **--device.rerouting.priority-factor FLOAT**. This causes the priority values of edges to be factored into the routing decision with higher values being preferred. 
+At the default value of 0. Edge priority is ignored when routing. When setting a positive value, the edges with the lowest priority receive a penalty factor to their estimated travel time of 1 + FLOAT whereas the edges with the highest priority receive no penalty. Edges with medium priority will receive a penality of 1 + x * FLOAT where 
+
+```
+  x = (edgePriority - minPriority) / (maxPriority - minPriority)
+```
+
+The priority values can either be assigned by the user or computed heuristically by [NETCONVERT](../NETCONVERT.md) by setting the option **--railway.topology.direction-priority**. This requires that some of the tracks in the network are uni-directional (to unambiguously define the main direction). The assigned priority values are:
+
+- 4: unidirectional track
+- 3: main direction of bidirectional track
+- 2: undetermined main direction (straight continuation from different directions of unidirectional track)
+- 1: undetermined main direction (no continuation from unidirectional track)
+- 0: reverse of main direction of bidirectional track
 
 # Modelling Trains
 

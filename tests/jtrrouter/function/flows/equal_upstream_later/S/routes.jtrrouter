@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Feb  5 23:25:37 2020 by Eclipse SUMO jtrrouter Version v1_4_0+0946-ecb4936f57
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_flows.flows.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <turn-defaults value="0,100,0,0"/>
+        <sink-edges value="end"/>
+        <sources-are-sinks value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="middle.0" depart="0.00">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.1" depart="0.10">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.2" depart="0.20">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.3" depart="0.30">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.4" depart="0.40">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.5" depart="0.50">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.6" depart="0.60">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.7" depart="0.70">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.8" depart="0.80">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="middle.9" depart="0.90">
+        <route edges="middle end"/>
+    </vehicle>
+    <vehicle id="beg.0" depart="1.00">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.1" depart="1.10">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.2" depart="1.20">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.3" depart="1.30">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.4" depart="1.40">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.5" depart="1.50">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.6" depart="1.60">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.7" depart="1.70">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.8" depart="1.80">
+        <route edges="beg middle"/>
+    </vehicle>
+    <vehicle id="beg.9" depart="1.90">
+        <route edges="beg middle"/>
+    </vehicle>
+</routes>

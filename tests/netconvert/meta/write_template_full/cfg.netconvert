@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 11 13:13:30 2019 by Eclipse SUMO netconvert Version v1_4_0+0037-97da602
+<!-- generated on Wed Mar 18 15:29:19 2020 by Eclipse SUMO netconvert Version v1_5_0+0822-2a1a910d54
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -81,6 +81,8 @@
         <flatten value="false" type="BOOL" help="Remove all z-data"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
+        <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
+        <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
         <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
         <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges"/>
         <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
@@ -101,6 +103,7 @@
         <geometry.avoid-overlap value="true" type="BOOL" help="Modify edge geometries to avoid overlap at junctions"/>
         <join-lanes value="false" type="BOOL" help="join adjacent lanes that have the same permissions and which do not admit lane-changing (sidewalks and disallowed lanes)"/>
         <ptline.match-dist value="100" type="FLOAT" help="Matches stops outside the road network to the referencing pt line when below the given distance"/>
+        <ptstop-output.no-bidi value="false" type="BOOL" help="Skips automatic generation of stops on the bidi-edge of a loaded stop"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
         <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge edge geometries with a grade in above the warning threshold."/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
@@ -111,6 +114,7 @@
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
         <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
+        <fringe.guess value="false" type="BOOL" help="Enable guessing of network fringe nodes"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
         <speed.offset value="0" type="FLOAT" help="Modifies all edge speeds by adding FLOAT"/>
@@ -121,6 +125,7 @@
     <building_defaults>
         <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
+        <default.spreadtype value="right" type="STR" help="The default method for computing lane shapes from edge shapes"/>
         <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
         <default.type value="" type="STR" help="The default edge type"/>
@@ -130,6 +135,7 @@
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
+        <default.connection-length value="-1" type="FLOAT" help="The default length when overriding connection lengths"/>
         <default.right-of-way value="default" type="STR" help="The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;)"/>
     </building_defaults>
 
@@ -166,6 +172,8 @@
         <tls.layout value="opposites" type="STR" help="Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;]"/>
         <tls.min-dur value="5" type="INT" help="Default minimum phase duration for traffic lights with variable phase length"/>
         <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
+        <tls.group-signals value="false" type="BOOL" help="Assign the same tls link index to connections that share the same states"/>
+        <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
     </tls_building>
 
     <ramp_guessing>
@@ -174,6 +182,7 @@
         <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" type="FLOAT" help="Treat edges with speed &gt; FLOAT as no ramps"/>
         <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed &lt; FLOAT as no highways"/>
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>
+        <ramps.min-weave-length value="50" type="FLOAT" help="Use FLOAT as minimum ramp-length"/>
         <ramps.set value="" synonymes="ramp-guess.explicite" type="STR[]" help="Tries to handle the given edges as ramps"/>
         <ramps.unset value="" type="STR[]" help="Do not consider the given edges as ramps"/>
         <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL" help="Avoids edge splitting"/>
@@ -209,6 +218,8 @@
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
         <no-turnarounds.geometry value="true" type="BOOL" help="Disables building turnarounds at geometry-like junctions"/>
         <no-turnarounds.except-deadend value="false" type="BOOL" help="Disables building turnarounds except at dead end junctions"/>
+        <no-turnarounds.except-turnlane value="false" type="BOOL" help="Disables building turnarounds except at at junctions with a dedicated turning lane"/>
+        <no-turnarounds.fringe value="false" type="BOOL" help="Disables building turnarounds at fringe junctions"/>
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
@@ -251,8 +262,10 @@
         <railway.signals.discard value="false" type="BOOL" help="Discard all railway signal information loaded from other formats than plain-xml"/>
         <railway.topology.repair value="false" type="BOOL" help="Repair topology of the railway network"/>
         <railway.topology.repair.connect-straight value="false" type="BOOL" help="Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle"/>
+        <railway.topology.repair.stop-turn value="false" type="BOOL" help="Add turn-around connections at all loaded stops."/>
         <railway.topology.all-bidi value="false" type="BOOL" help="Make all rails usable in both direction"/>
         <railway.topology.all-bidi.input-file value="" type="FILE" help="Make all rails edge ids from FILE usable in both direction"/>
+        <railway.topology.direction-priority value="false" type="BOOL" help="Set edge priority values based on estimated main direction"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
         <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum roud accesses registered per rail stops"/>
         <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>

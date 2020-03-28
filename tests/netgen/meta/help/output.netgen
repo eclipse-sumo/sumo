@@ -1,5 +1,5 @@
-Eclipse SUMO netgenerate Version v1_3_1+0985-d8cef81c9e
- Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO netgenerate Version v1_5_0+0517-ca1f5da
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
 
@@ -137,6 +137,10 @@ Processing Options:
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
                                          edges to ensure that all IDs are
                                          integers
+  --numerical-ids.node-start INT       Remaps IDs of nodes to integers starting
+                                         at INT
+  --numerical-ids.edge-start INT       Remaps IDs of edges to integers starting
+                                         at INT
   --reserved-ids FILE                  Ensures that generated ids do not
                                          included any of the typed IDs from FILE
                                          (SUMO-GUI selection file format)
@@ -154,6 +158,7 @@ Processing Options:
                                          lanes usable for overtaking
   --opposites.guess.fix-lengths        Ensure that opposite edges have the same
                                          length
+  --fringe.guess                       Enable guessing of network fringe nodes
   --lefthand                           Assumes left-hand traffic on the network
   --edges.join                         Merges edges which connect the same
                                          nodes and are close to each other
@@ -162,6 +167,8 @@ Processing Options:
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge
   --default.lanewidth FLOAT            The default width of lanes
+  --default.spreadtype STR             The default method for computing lane
+                                         shapes from edge shapes
   -S, --default.speed FLOAT            The default speed on an edge (in m/s)
   -P, --default.priority INT           The default priority of an edge
   --default.type STR                   The default edge type
@@ -175,6 +182,8 @@ Building Defaults Options:
                                          by default
   --default.junctions.radius FLOAT     The default turning radius of
                                          intersections
+  --default.connection-length FLOAT    The default length when overriding
+                                         connection lengths
   --default.right-of-way STR           The default algorithm for computing
                                          right of way rules ('default',
                                          'edgePriority')
@@ -241,6 +250,10 @@ TLS Building Options:
   --tls.max-dur INT                    Default maximum phase duration for
                                          traffic lights with variable phase
                                          length
+  --tls.group-signals                  Assign the same tls link index to
+                                         connections that share the same states
+  --tls.ungroup-signals                Assign a distinct tls link index to
+                                         every connection
 
 Edge Removal Options:
   --keep-edges.min-speed FLOAT         Only keep edges with speed in
@@ -286,6 +299,11 @@ Junctions Options:
                                          geometry-like junctions
   --no-turnarounds.except-deadend      Disables building turnarounds except at
                                          dead end junctions
+  --no-turnarounds.except-turnlane     Disables building turnarounds except at
+                                         at junctions with a dedicated turning
+                                         lane
+  --no-turnarounds.fringe              Disables building turnarounds at fringe
+                                         junctions
   --no-left-connections                Disables building connections to left
   --junctions.join                     Joins junctions that are close to each
                                          other (recommended for OSM import)

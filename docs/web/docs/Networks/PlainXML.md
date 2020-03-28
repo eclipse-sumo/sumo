@@ -274,7 +274,7 @@ If a vehicle is braking in the simulation, the responsible foe vehicle
 Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
 [NETCONVERT](../NETCONVERT.md) supports the option **--junctions.join** to find such
-clusters and join them into a big and well shaped junction. 
+clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [NETEDIT](../NETEDIT.md#processing_menu_options). It is even possible to [undo joins](../NETEDIT.md#junction) that were computed automatically.
 
 ### Reasons for joining node clusters
 Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied. 
@@ -425,7 +425,7 @@ Let's list an edge's attributes again:
 | priority       | int                                   | The priority of the edge. Used for [\#Right-of-way](#right-of-way)-computation            |
 | length         | float                                 | The length of the edge in meter                                                     |
 | shape          | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!). | If the shape is given it should start and end with the positions of the from-node and to-node. Alternatively it can also start and end with the position where the edge leaves or enters the junction shape. This gives some control over the final junction shape. When using the option **--plain.extend-edge-shape** it is sufficient to supply inner geometry points and extend the shape with the starting and ending node positions automatically |
-| spreadType     | enum ( "right", "center" )                                                                                          | The description of how to spread the lanes; "center" spreads lanes to both directions of the shape, any other value will be interpreted as "right"  |
+| spreadType     | enum ( "right", "center", "roadCenter")                                                                                          | The description of how to compute lane geometry from edge geometry. See [SpreadType](#spreadtype)  |
 | allow          | list of vehicle classes               | List of permitted vehicle classes (see [access permissions](#road_access_permissions_allow_disallow))       |
 | disallow       | list of vehicle classes               | List of forbidden vehicle classes (see [access permissions](#road_access_permissions_allow_disallow))       |
 | width          | float                                 | lane width for all lanes of this edge in meters (used for visualization)                                    |
@@ -472,6 +472,13 @@ example for using types is described in the chapter [Type Descriptions](#type_de
 
 !!! caution
     There are some constraints about the streets' ids. They must not contain any of the following characters: '_' (underline - used for lane ids), '[' and ']' (used for enumerations), ' ' (space - used as list divider), '*' (star, used as wildcard), ':' (used as marker for internal lanes).
+
+## SpreadType
+Each edge has a geometry definition (which defaults to the straight-line between from-junction and to-junction position).
+The spreadType defines how to compute the lane geometry from the edge geometry:
+- **right** (default): The edge geometry is interpreted as the left side of the edge and lanes flare out to the right. This works well if edges in opposite directions have the same (or rather reversed) geometry.
+- **center**: The edge geometry is interpreted as the middle of the directional edge and lanes flare out symmetrically to both sides. This is appropriate for one-way edges
+- **roadCenter**: The edge geometry is interpreted as the middle of a bi-directional road. This works well when both directional edges have a different lane number.
 
 ## Road access permissions (allow, disallow)
 

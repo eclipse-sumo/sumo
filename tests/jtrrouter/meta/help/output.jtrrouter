@@ -1,5 +1,5 @@
-Eclipse SUMO jtrrouter Version v1_3_1+0801-355be15e4b
- Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+Eclipse SUMO jtrrouter Version v1_4_0+1029-d1b8be6105
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
   junction turning ratios.
 
@@ -21,6 +21,8 @@ Input Options:
                                      trips from FILE(s)
   --phemlight-path FILE            Determines where to load PHEMlight
                                      definitions from.
+  --junction-taz                   Initialize a TAZ for every junction to use
+                                     attributes toJunction and fromJunction
   -t, --turn-ratio-files FILE      Read turning ratios from FILE(s)
 
 Output Options:
@@ -62,6 +64,10 @@ Processing Options:
                                      routing costs for minor-link internal lanes
   --with-taz                       Use origin and destination zones (districts)
                                      for in- and output
+  --mapmatch.distance FLOAT        Maximum distance when mapping input
+                                     coordinates (fromXY etc.) to the road
+                                     network
+  --mapmatch.junctions             Match postions to junctions instead of edges
   --bulk-routing                   Aggregate routing queries with the same
                                      origin
   --routing-threads INT            The number of parallel execution threads
@@ -76,6 +82,12 @@ Processing Options:
   -i, --ignore-vclasses            Ignore road restrictions based on vehicle
                                      class
   --allow-loops                    Allow to re-use a road
+  -S, --sources-are-sinks          Use all source edges as sink edges.
+  -D, --discount-sources           Subtract upstream flow when inserting a new
+                                     flow. When option --sources-are-sinks is
+                                     set, the upstream flow is limited to the
+                                     value of the source flow and the remainig
+                                     part termines.
 
 Defaults Options:
   --departlane STR                 Assigns a default depart lane

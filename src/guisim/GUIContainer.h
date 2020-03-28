@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIContainer.h
 /// @author  Melanie Weber
@@ -14,13 +18,7 @@
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-#ifndef GUIContainer_h
-#define GUIContainer_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -29,9 +27,10 @@
 #include <fx.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/RGBColor.h>
-#include <microsim/transportables/MSContainer.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/settings/GUIPropertySchemeStorage.h>
+#include "GUIBaseVehicle.h"
 
 
 // ===========================================================================
@@ -48,7 +47,7 @@ class MSDevice_Vehroutes;
 /**
  * @class GUIContainer
  */
-class GUIContainer : public MSContainer, public GUIGlObject {
+class GUIContainer : public MSTransportable, public GUIGlObject {
 public:
     /** @brief Constructor
      */
@@ -114,7 +113,7 @@ public:
 
     /* @brief set the position of a container while being transported by a vehicle
      * @note This must be called by the vehicle before the call to drawGl */
-    void setPositionInVehicle(const Position& pos) {
+    void setPositionInVehicle(const GUIBaseVehicle::Seat& pos) {
         myPositionInVehicle = pos;
     }
 
@@ -185,7 +184,7 @@ private:
     mutable FXMutex myLock;
 
     /// The position of a container while riding a vehicle
-    Position myPositionInVehicle;
+    GUIBaseVehicle::Seat myPositionInVehicle;
 
     /// @brief sets the color according to the currente settings
     void setColor(const GUIVisualizationSettings& s) const;
@@ -202,9 +201,3 @@ private:
     void drawAction_drawAsImage(const GUIVisualizationSettings& s) const;
     /// @}
 };
-
-
-#endif
-
-/****************************************************************************/
-

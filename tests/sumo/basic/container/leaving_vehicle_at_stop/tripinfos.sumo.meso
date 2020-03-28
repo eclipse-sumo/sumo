@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 29 15:36:37 2018 by Eclipse SUMO Version v1_0_1+0645-93703db
+<!-- generated on Wed Dec 18 10:05:50 2019 by Eclipse SUMO Version v1_4_0+0173-908b4d0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,11 +38,11 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <containerinfo id="container0" depart="0.00">
+    <containerinfo id="container0" depart="0.00" type="DEFAULT_CONTAINERTYPE">
         <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00" routeLength="75.00" maxSpeed="1.39"/>
         <transport waitingTime="80.00" vehicle="truck0" depart="134.00" arrival="187.00" arrivalPos="0.00" duration="53.00" routeLength="182.50"/>
     </containerinfo>
-    <containerinfo id="container1" depart="0.00">
+    <containerinfo id="container1" depart="0.00" type="DEFAULT_CONTAINERTYPE">
         <tranship depart="0.00" departPos="80.00" arrival="54.00" arrivalPos="55.00" duration="54.00" routeLength="75.00" maxSpeed="1.39"/>
         <transport waitingTime="83.00" vehicle="truck1" depart="137.00" arrival="190.00" arrivalPos="0.00" duration="53.00" routeLength="182.50"/>
     </containerinfo>

@@ -4,6 +4,9 @@ parameters
 # show that each model allows vehicles to follow each other around a circular track
 drive_in_circles
 
+# show that each model allows vehicles to follow each other around a circular track (with lower steplength)
+drive_in_circles_steplength
+
 # show that each model allows vehicles to stop at an exact position
 stop_at_position
 

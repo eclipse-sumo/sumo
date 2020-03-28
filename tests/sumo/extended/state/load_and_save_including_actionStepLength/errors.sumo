@@ -1,4 +1,6 @@
-Warning: State was written with sumo version dev-SVN-r22229 (present: v0_31_0+1637-85cf71e)!
+Warning: State was written with sumo version dev-SVN-r22229 (present: v1_4_0+0237-dc2a303)!
 Warning: Given action step length 3 for vehicle type 'DEFAULT_VEHTYPE' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
+Warning: Action step length '3.00' is used for vehicle type 'DEFAULT_VEHTYPE' but step-method.ballistic was not set. This may cause collisions.
 Warning: Given action step length 2 for vehicle type 'type0' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
+Warning: Action step length '2.00' is used for vehicle type 'type0' but step-method.ballistic was not set. This may cause collisions.
 Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (1.1 s.) to the adjusted value 1 s.

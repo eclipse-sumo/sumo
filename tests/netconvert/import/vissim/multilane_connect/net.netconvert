@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/03/19 10:33:59 by Eclipse SUMO netconvert Version v1_1_0+1379-f2e706eba2
+<!-- generated on Mon Feb 17 15:30:54 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,12 +26,13 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="43.24,165.42" convBoundary="0.00,0.00,176.31,213.15" origBoundary="-43.24,-165.42,133.08,47.73" projParameter="!"/>
 
@@ -80,7 +81,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="10_0" index="0" speed="13.89" length="16.26" width="2.00" shape="118.68,105.27 106.32,115.84"/>
     </edge>
     <edge id="11" from="11-SourceNode" to="11-DestinationNode" name="Furt links" priority="-1" type="1004" spreadType="center">
-        <lane id="11_0" index="0" speed="13.89" length="18.53" width="2.00" shape="115.82,92.14 100.07,82.38"/>
+        <lane id="11_0" index="0" speed="13.89" length="18.53" width="2.00" shape="115.82,92.14 100.06,82.38"/>
     </edge>
     <edge id="12" from="12-SourceNode" to="12-DestinationNode" name="Furt rechts" priority="-1" type="1004" spreadType="center">
         <lane id="12_0" index="0" speed="13.89" length="18.53" width="2.00" shape="101.12,80.68 116.87,90.44"/>
@@ -130,7 +131,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="1-begin" type="dead_end" x="3.68" y="24.57" incLanes="" intLanes="" shape="1.91,26.99 5.46,22.15"/>
     <junction id="10-DestinationNode" type="dead_end" x="106.32" y="115.84" incLanes="10_0" intLanes="" shape="106.97,116.60 105.67,115.08"/>
     <junction id="10-SourceNode" type="dead_end" x="118.68" y="105.27" incLanes="" intLanes="" shape="118.03,104.51 119.33,106.03"/>
-    <junction id="11-DestinationNode" type="dead_end" x="100.07" y="82.38" incLanes="11_0" intLanes="" shape="99.54,83.23 100.59,81.53"/>
+    <junction id="11-DestinationNode" type="dead_end" x="100.06" y="82.38" incLanes="11_0" intLanes="" shape="99.54,83.23 100.59,81.53"/>
     <junction id="11-SourceNode" type="dead_end" x="115.82" y="92.14" incLanes="" intLanes="" shape="116.35,91.29 115.29,92.99"/>
     <junction id="12-DestinationNode" type="dead_end" x="116.87" y="90.44" incLanes="12_0" intLanes="" shape="117.40,89.59 116.35,91.29"/>
     <junction id="12-SourceNode" type="dead_end" x="101.12" y="80.68" incLanes="" intLanes="" shape="100.59,81.53 101.64,79.83"/>

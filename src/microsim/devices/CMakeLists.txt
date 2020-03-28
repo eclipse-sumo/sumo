@@ -42,6 +42,8 @@ set(microsim_devices_STAT_SRCS
    MSRoutingEngine.h
    MSDispatch.cpp
    MSDispatch.h
+   MSDispatch_GreedyShared.cpp
+   MSDispatch_GreedyShared.h
    MSVehicleDevice.h
 )
 

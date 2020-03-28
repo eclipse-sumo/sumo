@@ -4,6 +4,9 @@ walk_unconnected
 # a bus will stop at two busstop that are located at the same edge and a person is waiting at the second bus stop. the person has to enter the bus when the bus stops at the second busstop and not before.
 two_busstops_at_one_edge
 
+# a bus will stop two times on the same edge and a person is waiting at the second stop. the person has to enter the bus when the bus stops at the second stop and not before.
+two_stops_at_one_edge
+
 # person with a single ride
 ride
 
@@ -55,11 +58,17 @@ public_brief_stop
 # vehicle is waiting at stop for a person
 triggered
 
+# vehicle with triggered departure is discarded due to departDelay
+triggered_discard
+
 # car waiting for person
 vehicle_triggered
 
 # person starting in a vehicle
 person_triggered
+
+# 2 person starting in the same vehicle
+persons_triggered
 
 # person stops for a given duration
 stop_duration

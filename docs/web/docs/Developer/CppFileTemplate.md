@@ -7,12 +7,15 @@ permalink: /Developer/CppFileTemplate/
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see <https://eclipse.org/sumo>
 // Copyright (C) <YEAR OF CREATION>-<CURRENT YEAR> German Aerospace Center (DLR) and others.
-// <You can add an additional copyright line for your institution here>
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// <http://www.eclipse.org/legal/epl-v20.html>
-// SPDX-License-Identifier: EPL-2.0
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    <FILENAME>
 /// @author  <AUTHOR'S NAME, ONE SEPARATE LINE FOR EACH AUTHOR>
@@ -22,16 +25,12 @@ permalink: /Developer/CppFileTemplate/
 ///
 // <A BRIEF DESCRIPTION OF THE FILE'S CONTENTS>
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <StandardLibrary>     // Standard libraries
 #include <SUMOLibrary>         // SUMO libraries
 
-#include "myHeaderFile1"       // Own libraries
+#include "myHeaderFile1"       // Header files from the same directory
 #include "myHeaderFile2"
 
 
@@ -68,15 +67,15 @@ OwnClass::getParameter1() const {
 
 ```cpp
 // ---------------------------------------------------------------------------
-// Class::Subclass - methods <LEAVE OUT IF METHODS ARE OF ONE CLASS ONLY>
+// Class::InnerClass - methods <LEAVE OUT IF METHODS ARE OF ONE CLASS ONLY>
 // ---------------------------------------------------------------------------
-OwnClass::SubClass::SubClass() :
+OwnClass::InnerClass::InnerClass() :
     myPrivateParameter(0) {
     // code of constructor
 }
 
 
-OwnClass::SubClass::~SubClass() {}
+OwnClass::InnerClass::~InnerClass() {}
 
 
 /****************************************************************************/

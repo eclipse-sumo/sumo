@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    xml.py
 # @author  Michael Behrisch
@@ -17,6 +21,7 @@ from __future__ import absolute_import
 import os
 import sys
 import re
+import gzip
 import datetime
 try:
     import xml.etree.cElementTree as ET
@@ -244,7 +249,7 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
     if isinstance(element_names, str):
         element_names = [element_names]
     elementTypes = {}
-    for _, parsenode in ET.iterparse(xmlfile):
+    for _, parsenode in ET.iterparse(_open(xmlfile)):
         if parsenode.tag in element_names:
             yield _get_compound_object(parsenode, elementTypes,
                                        parsenode.tag, element_attrs,
@@ -318,6 +323,12 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional):
     return Record, reprog
 
 
+def _open(xmlfile):
+    if isinstance(xmlfile, str):
+        return gzip.open(xmlfile, "rt") if xmlfile.endswith(".gz") else open(xmlfile)
+    return xmlfile
+
+
 def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
     """
     Parses the given attrnames from all elements with element_name
@@ -326,7 +337,7 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    for line in open(xmlfile):
+    for line in _open(xmlfile):
         m = reprog.search(line)
         if m:
             if optional:
@@ -346,7 +357,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
-    for line in open(xmlfile):
+    for line in _open(xmlfile):
         m2 = reprog2.search(line)
         if m2:
             if optional:

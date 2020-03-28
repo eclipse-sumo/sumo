@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 27 Mar 2020 10:03:04 AM CET by Eclipse SUMO GUI Version v1_5_0+0966-5d73fbc2da
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <stop-output value="stopinfos.xml"/>
+        <save-state.times value="350"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <message-log value="stdout"/>
+        <error-log value="stderr"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_5_0+0966-5d73fbc2da" time="350.00">
+    <route id="!v0" state="0" edges="SC CN SC CN SC CN SC CN"/>
+    <route id="!v0!var#1" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN"/>
+    <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
+    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="v0" type="DEFAULT_VEHTYPE" depart="0.00" route="!v0!var#1" speedFactor="1.00" state="0 6 5.10 35000 349000" pos="90.95" speed="0.00" posLat="0.00">
+        <stop lane="SC_0" startPos="91.75" endPos="91.95" until="360.00"/>
+        <stop lane="CN_0" startPos="91.75" endPos="91.95" until="420.00"/>
+        <stop lane="SC_0" startPos="91.75" endPos="91.95" until="480.00"/>
+        <stop lane="CN_0" startPos="91.75" endPos="91.95" until="540.00"/>
+        <device id="routing_v0" state="0"/>
+    </vehicle>
+    <lane id="NC_0">
+        <vehicles value="v0"/>
+    </lane>
+</snapshot>

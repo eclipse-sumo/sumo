@@ -1,0 +1,11 @@
+# This tests the effect of the attribute lcTurnAlignmentDistance. Left- and right-turning vehicles should align at the corresponding side of the turn lane from the given distance on.
+basic
+
+# turn-alignment of bicycles in right-hand network
+bikes_righthand
+
+# lateral shift  (width-split) in lefthand networks
+bikes_lefthand
+
+# lateral connection shift matches turn alignment
+bikes_lefthand_matching_shift

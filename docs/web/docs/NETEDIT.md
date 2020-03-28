@@ -209,6 +209,8 @@ Mode](#create_edges), all clicks that create or move objects
 will snap to the nearest grid point. The resolution of the grid can be
 customized in the *Background*-Tab of the visualization settings dialog.
 
+By using hotkey **Ctrl-PageUp** the grid spacing is doubled and with **Ctrl-PageDown** the grid size is reduce by a factor of 2.
+
 ## Terminology
 
 The main network elements that are used to represent a road network in
@@ -263,6 +265,12 @@ with multiple elements of the same type this mode behaves differently:
 
 ![](images/InspectMode4.png)Width of lane changed
 (gaps will disappear upon triggering recomputation with **F5**)
+
+#### Generic Parameters
+Most simulation objects support [Generic Parameters](Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog wich is accessible with the 'Edit parameters' button. 
+
+In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by NETEDIT (though peritted by SUMO). 
+The serialized form is useful in select mode when selecting objects with a particular parameter.
 
 #### Edge template
 
@@ -1309,7 +1317,7 @@ A restricted lane can be transformed in a normal lane with the option
 restricted lane*
 
 ## Junction
-
+- *Split Junction*: Undo a prior join (i.e. one that was computed with option **--junctions.join**)
 - *Set custom shape*: Allows drawing a custom junction shape via a
   [\#Modifiable Poly](#modifiable_poly) (see below). The
   junction shape determines where the incoming edges end and the
@@ -1469,13 +1477,13 @@ original junction positions.
 2.  Delete the central intersection
 3.  Connect the new intersections with one-way roads going in a circle
 4.  Tweak the geometry of the roundabout by creating additional geometry
-    points in [move mode](#move) to make it more rounded
-5.  Ensure correct right of way by either
-  - Assigning a higher priority value to the roundabout roads
+    points in [move mode](#move) to make it more rounded. 
+    You can also use the function 'smooth edge' from the edge context menu.
+5.  Check for correct right of way (the inside edge should have priority over the entering edges).
+    This should work by default but may fail if the shape of the roundabout is not 'round' enough.
+    Either correct the geometry or assign a higher priority value to the roundabout roads
     (compared to the adjoining roads)
-  - or seting the option *roundabouts.guess* in the [Processing
-    menu](#processing_menu_options)
-
+  
 Assuming you have a regular intersection
 
 - **Visual example**

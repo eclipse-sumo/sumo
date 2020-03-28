@@ -1,0 +1,24 @@
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8142293').
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '119432576').
+Warning: No way found for reference '1670309356' in relation '4443863'
+Warning: Not joining junctions 1587632897,1587632904,1587632929,1587632933,1587632938,1668780844,1806157952,1806157953,1806157954,1806157955,1806157958,1806157959,1806157960,1861587782,1861594811,1861596443,443826,443827,443829,443837,443838,443839,443841,443897,7022783422 (parallel incoming 187070213#0,203972098).
+Warning: Reducing junction cluster 1093872774,1342070218,2201773602,245901919,245904890,7022705834 (parallel incoming -22873499#0,150039007#0).
+Warning: Reducing junction cluster 313566,368880,84510146 (5 incoming edges).
+Warning: Not joining junctions 1352576,658930120 (only 1 entry node).
+Warning: Not joining junctions 1352581,7022635720 (only 1 exit node).
+Warning: Not joining junctions 245904901,248150932 (parallel outgoing 27115018#0,329890957).
+Warning: Not joining junctions 368879,659614608 (only 1 edge within and no cross-traffic).
+Warning: Ambiguity in turnarounds computation at junction '2201773661'.
+Warning: Ambiguity in turnarounds computation at junction '7022635681'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_370556673_370556675'.
+Warning: Found angle of 110.88 degrees at edge '-691079998', segment 0.
+Warning: Found sharp turn with radius 5.51 at the start of edge '-8225153#1'.
+Warning: Found sharp turn with radius 8.58 at the end of edge '-8225153#2'.
+Warning: Found angle of 101.17 degrees at edge '23686956#2', segment 0.
+Warning: Found angle of 110.88 degrees at edge '399092215#1', segment 2.
+Warning: Found sharp turn with radius 5.51 at the end of edge '8225153#1'.
+Warning: Found sharp turn with radius 8.58 at the start of edge '8225153#2'.
+Warning: The traffic light '1496363648' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1496363648'
+Warning: Speed of straight connection '145345139#1_0->169453889_0' reduced by 8.91 due to turning radius of 15.22 (length=9.03, angle=50.88).
+Warning: 6 total messages of type: Not joining junctions % (%).

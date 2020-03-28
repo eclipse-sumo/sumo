@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDriverState.cpp
 /// @author  Melanie Weber
@@ -15,11 +19,6 @@
 ///
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <math.h>
@@ -683,22 +682,22 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    double result = INTEGRATION_DEMAND_JUNCTION_BASE;
 ////    LinkState linkState = ch->approachingLink->getState();
 //    switch (ch->junction->getType()) {
-//    case NODETYPE_NOJUNCTION:
-//    case NODETYPE_UNKNOWN:
-//    case NODETYPE_DISTRICT:
-//    case NODETYPE_DEAD_END:
-//    case NODETYPE_DEAD_END_DEPRECATED:
-//    case NODETYPE_RAIL_SIGNAL: {
+//    case SumoXMLNodeType::NOJUNCTION:
+//    case SumoXMLNodeType::UNKNOWN:
+//    case SumoXMLNodeType::DISTRICT:
+//    case SumoXMLNodeType::DEAD_END:
+//    case SumoXMLNodeType::DEAD_END_DEPRECATED:
+//    case SumoXMLNodeType::RAIL_SIGNAL: {
 //        result = 0.;
 //    }
 //    break;
-//    case NODETYPE_RAIL_CROSSING: {
+//    case SumoXMLNodeType::RAIL_CROSSING: {
 //        result += INTEGRATION_DEMAND_JUNCTION_RAIL;
 //    }
 //    break;
-//    case NODETYPE_TRAFFIC_LIGHT:
-//    case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
-//    case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED: {
+//    case SumoXMLNodeType::TRAFFIC_LIGHT:
+//    case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
+//    case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED: {
 //        // TODO: Take into account traffic light state?
 ////        switch (linkState) {
 ////        case LINKSTATE_TL_GREEN_MAJOR:
@@ -714,18 +713,18 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //        result += INTEGRATION_DEMAND_JUNCTION_TLS;
 //    }
 //    // no break. TLS has extra integration demand.
-//    case NODETYPE_PRIORITY:
-//    case NODETYPE_PRIORITY_STOP:
-//    case NODETYPE_RIGHT_BEFORE_LEFT:
-//    case NODETYPE_ALLWAY_STOP:
-//    case NODETYPE_INTERNAL: {
+//    case SumoXMLNodeType::PRIORITY:
+//    case SumoXMLNodeType::PRIORITY_STOP:
+//    case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
+//    case SumoXMLNodeType::ALLWAY_STOP:
+//    case SumoXMLNodeType::INTERNAL: {
 //        // TODO: Consider link type (major or minor...)
 //        double junctionComplexity = (INTEGRATION_DEMAND_JUNCTION_LANE*j->getNrOfIncomingLanes()
 //                + INTEGRATION_DEMAND_JUNCTION_FOE_LANE*j->getFoeLinks(ch->approachingLink).size());
 //        result += junctionComplexity;
 //    }
 //    break;
-//    case NODETYPE_ZIPPER: {
+//    case SumoXMLNodeType::ZIPPER: {
 //        result += INTEGRATION_DEMAND_JUNCTION_ZIPPER;
 //    }
 //    break;
@@ -860,22 +859,22 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    double result = 0.;
 //    LinkState linkState = ch->approachingLink->getState();
 //    switch (ch->junction->getType()) {
-//    case NODETYPE_NOJUNCTION:
-//    case NODETYPE_UNKNOWN:
-//    case NODETYPE_DISTRICT:
-//    case NODETYPE_DEAD_END:
-//    case NODETYPE_DEAD_END_DEPRECATED:
-//    case NODETYPE_RAIL_SIGNAL: {
+//    case SumoXMLNodeType::NOJUNCTION:
+//    case SumoXMLNodeType::UNKNOWN:
+//    case SumoXMLNodeType::DISTRICT:
+//    case SumoXMLNodeType::DEAD_END:
+//    case SumoXMLNodeType::DEAD_END_DEPRECATED:
+//    case SumoXMLNodeType::RAIL_SIGNAL: {
 //        result = 0.;
 //    }
 //    break;
-//    case NODETYPE_RAIL_CROSSING: {
+//    case SumoXMLNodeType::RAIL_CROSSING: {
 //        result = 0.5;
 //    }
 //    break;
-//    case NODETYPE_TRAFFIC_LIGHT:
-//    case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
-//    case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED: {
+//    case SumoXMLNodeType::TRAFFIC_LIGHT:
+//    case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
+//    case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED: {
 //        // Take into account traffic light state
 //        switch (linkState) {
 //        case LINKSTATE_TL_GREEN_MAJOR:
@@ -904,11 +903,11 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //        }
 //    }
 //    // no break, TLS is accounted extra
-//    case NODETYPE_PRIORITY:
-//    case NODETYPE_PRIORITY_STOP:
-//    case NODETYPE_RIGHT_BEFORE_LEFT:
-//    case NODETYPE_ALLWAY_STOP:
-//    case NODETYPE_INTERNAL: {
+//    case SumoXMLNodeType::PRIORITY:
+//    case SumoXMLNodeType::PRIORITY_STOP:
+//    case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
+//    case SumoXMLNodeType::ALLWAY_STOP:
+//    case SumoXMLNodeType::INTERNAL: {
 //        // TODO: Consider link type (major or minor...)
 //        double junctionComplexity = (LATENT_DEMAND_COEFF_JUNCTION_INCOMING*j->getNrOfIncomingLanes()
 //                + LATENT_DEMAND_COEFF_JUNCTION_FOES*j->getFoeLinks(ch->approachingLink).size())
@@ -916,7 +915,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //        result += junctionComplexity;
 //    }
 //    break;
-//    case NODETYPE_ZIPPER: {
+//    case SumoXMLNodeType::ZIPPER: {
 //        result = 0.5*(1. + 0.1*v);
 //    }
 //    break;
@@ -927,10 +926,6 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    return result;
 //}
 //
-
-
-
-
 
 
 /****************************************************************************/

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-12 13:16:34.111571 by routeSampler.py v1_5_0+0680-a5d3f0f
+  options: -r input_routes.rou.xml -d input_edgedata.xml -o out.rou.xml <doubleminus>edgedata-attribute count <doubleminus>write-route-ids <doubleminus>write-flows number -b 150 -e 1000
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="150.0" end="450.0" -->
+    <route id="150_0" edges="-3 -3.180.00 11"/> <!-- 4 -->
+    <route id="150_1" edges="-3 -3.180.00 15"/> <!-- 15 -->
+    <route id="150_2" edges="-3 -3.180.00 5"/> <!-- 35 -->
+
+    <flow id="150_1" begin="150.00" end="427.78" number="15" route="150_1"/>
+    <flow id="150_2" begin="155.56" end="444.44" number="35" route="150_2"/>
+    <flow id="150_0" begin="238.89" end="383.33" number="4" route="150_0"/>
+<!-- begin="450.0" end="750.0" -->
+    <route id="450_0" edges="-3 -3.180.00 11"/> <!-- 4 -->
+
+    <flow id="450_0" begin="450.00" end="675.00" number="4" route="450_0"/>
+</routes>

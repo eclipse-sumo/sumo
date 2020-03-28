@@ -1,7 +1,7 @@
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
@@ -22,15 +22,9 @@ Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetElements: 2, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c0'
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c1'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into crossing ':Center_c1'
@@ -44,8 +38,6 @@ Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=v
 Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c1'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into crossing ':Center_c1'
@@ -75,8 +67,6 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter '' into crossing ':Center_c1'
 Debug: Setting previous attribute genericParameter '' into crossing ':Center_c0'
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into crossing ':Center_c0'
@@ -106,23 +96,23 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c0'
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into crossing ':Center_c1'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Deleting unreferenced edge '1' in GNENet destructor
+Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge '2' in GNENet destructor
+Debug: Deleting unreferenced edge '2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '2_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '2_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge '3' in GNENet destructor
+Debug: Deleting unreferenced edge '3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '3_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '3_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '3_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge '4' in GNENet destructor
+Debug: Deleting unreferenced edge '4' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '4_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '4_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '4_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge '5' in GNENet destructor
+Debug: Deleting unreferenced edge '5' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '5_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '5_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '5_2' in GNEEdge destructor
@@ -130,7 +120,7 @@ Debug: Deleting unreferenced connection 'from5_1to4_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from5_1to2_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from5_2to2_2' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from5_2to3_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge '6' in GNENet destructor
+Debug: Deleting unreferenced edge '6' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '6_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '6_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '6_2' in GNEEdge destructor
@@ -138,7 +128,7 @@ Debug: Deleting unreferenced connection 'from6_1to3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from6_1to1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from6_2to1_2' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from6_2to4_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge '7' in GNENet destructor
+Debug: Deleting unreferenced edge '7' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '7_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '7_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '7_2' in GNEEdge destructor
@@ -146,7 +136,7 @@ Debug: Deleting unreferenced connection 'from7_1to1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_1to4_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_2to4_2' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_2to2_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge '8' in GNENet destructor
+Debug: Deleting unreferenced edge '8' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '8_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '8_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '8_2' in GNEEdge destructor
@@ -154,14 +144,14 @@ Debug: Deleting unreferenced connection 'from8_1to2_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from8_1to3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from8_2to3_2' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from8_2to1_2' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'A' in GNENet destructor
-Debug: Deleting unreferenced junction 'B' in GNENet destructor
-Debug: Deleting unreferenced junction 'C' in GNENet destructor
-Debug: Deleting unreferenced junction 'Center' in GNENet destructor
+Debug: Deleting unreferenced junction 'A' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'D' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'D' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor

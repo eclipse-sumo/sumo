@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2015-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2015-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSParkingArea.h
 /// @author  Mirco Sturari
@@ -13,13 +17,7 @@
 ///
 // A area where vehicles can park next to the road
 /****************************************************************************/
-#ifndef MSParkingArea_h
-#define MSParkingArea_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -124,11 +122,9 @@ public:
      * Recomputes the free space using "computeLastFreePos" then.
      *
      * @param[in] what The vehicle that enters the parking area
-     * @param[in] beg The begin halting position of the vehicle
-     * @param[in] end The end halting position of the vehicle
      * @see computeLastFreePos
      */
-    void enter(SUMOVehicle* what, double beg, double end);
+    void enter(SUMOVehicle* veh);
 
 
     /** @brief Called if a vehicle leaves this stop
@@ -193,6 +189,25 @@ public:
      * @return The angle of the lot in degrees
      */
     int getLastFreeLotAngle() const;
+
+    /** @brief Return the GUI angle of myLastFreeLot - the angle the GUI uses to rotate into the next parking lot
+     *         as above, only expected to be called after we have established there is space in the parking area
+     *
+     * @return The GUI angle, relative to the lane, in radians
+     */
+        double getLastFreeLotGUIAngle() const;
+
+    /** @brief Return the manoeuver angle of the lot where the vehicle is parked
+     *
+     * @return The manoeuver angle in degrees
+     */
+     int getManoeuverAngle(const SUMOVehicle& forVehicle) const;
+
+    /** @brief  Return the GUI angle of the lot where the vehicle is parked
+     *
+     * @return The GUI angle, relative to the lane, in radians
+     */
+     double getGUIAngle(const SUMOVehicle& forVehicle) const;
 
     /** @brief Add a lot entry to parking area
      *
@@ -261,7 +276,9 @@ protected:
         /// @brief The position along the lane that the vehicle needs to reach for entering this lot
         double myEndPos;
         ///@brief The angle between lane and lot through which a vehicle must manoeuver to enter the lot
-        int myManoeuverAngle;
+        double myManoeuverAngle;
+        ///@brief Whether the lot is on the LHS of the lane relative to the lane direction
+        bool mySideIsLHS;
     };
 
 
@@ -324,8 +341,3 @@ private:
     MSParkingArea& operator=(const MSParkingArea&);
 
 };
-
-
-#endif
-
-/****************************************************************************/

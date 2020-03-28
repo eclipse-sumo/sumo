@@ -59,6 +59,9 @@
         <xsd:attribute name="lcAssertive" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcLookaheadLeft" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcSpeedGainRight" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcSpeedGainLookahead" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcCooperativeRoundabout" type="nonNegativeFloatType"/>
+        <xsd:attribute name="lcCooperativeSpeed" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcTurnAlignmentDistance" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcImpatience" type="nonNegativeFloatType"/>
         <xsd:attribute name="lcTimeToImpatience" type="nonNegativeFloatType"/>
@@ -511,6 +514,9 @@
         <xsd:attribute name="fromXY" type="positionType"/>
         <xsd:attribute name="toXY" type="positionType"/>
         <xsd:attribute name="viaXY" type="shapeType"/>
+        <xsd:attribute name="fromJunction" type="xsd:string"/>
+        <xsd:attribute name="toJunction" type="xsd:string"/>
+        <xsd:attribute name="viaJunctions" type="xsd:string"/>
         <xsd:attribute name="type" type="xsd:string"/>
         <xsd:attribute name="depart" type="departType" use="required"/>
         <xsd:attribute name="color" type="colorType"/>
@@ -668,6 +674,8 @@
         <xsd:attribute name="exitTimes" type="xsd:string"/>
         <xsd:attribute name="cost" type="xsd:float"/>
         <xsd:attribute name="savings" type="xsd:float"/>
+        <xsd:attribute name="repeat" type="xsd:nonNegativeInteger"/>
+        <xsd:attribute name="period" type="timeType"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeDistRouteType">
@@ -696,6 +704,7 @@
         <xsd:attribute name="startPos" type="xsd:float"/>
         <xsd:attribute name="endPos" type="xsd:float"/>
         <xsd:attribute name="friendlyPos" type="boolType"/>
+        <xsd:attribute name="arrival" type="timeType"/>
         <xsd:attribute name="duration" type="timeType"/>
         <xsd:attribute name="until" type="timeType"/>
         <xsd:attribute name="extension" type="timeType"/>
@@ -711,6 +720,7 @@
         <xsd:attribute name="join" type="xsd:string"/>
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
+        <xsd:attribute name="priorEdges" type="xsd:string"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">
@@ -770,6 +780,9 @@
                     <xsd:attribute name="toXY" type="positionType"/>
                     <xsd:attribute name="fromLonLat" type="positionType"/>
                     <xsd:attribute name="toLonLat" type="positionType"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
+                    <xsd:attribute name="viaJunctions" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="modes" type="xsd:string"/>
                     <xsd:attribute name="vTypes" type="xsd:string"/>
@@ -777,6 +790,7 @@
                     <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
                     <xsd:attribute name="walkFactor" type="positiveFloatType"/>
                     <xsd:attribute name="costs" type="xsd:string"/>
+                    <xsd:attribute name="group" type="xsd:string" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="ride">
@@ -790,6 +804,7 @@
                     <xsd:attribute name="intended" type="xsd:string" use="optional"/>
                     <xsd:attribute name="depart" type="timeType" use="optional"/>
                     <xsd:attribute name="routeLength" type="xsd:float"/>
+                    <xsd:attribute name="group" type="xsd:string" use="optional"/>
                 </xsd:complexType>
             </xsd:element>
             <xsd:element name="walk">
@@ -798,6 +813,9 @@
                     <xsd:attribute name="edges" type="xsd:string"/>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+                    <xsd:attribute name="fromJunction" type="xsd:string"/>
+                    <xsd:attribute name="toJunction" type="xsd:string"/>
+                    <xsd:attribute name="viaJunctions" type="xsd:string"/>
                     <xsd:attribute name="busStop" type="xsd:string"/>
                     <xsd:attribute name="speed" type="positiveFloatType"/>
                     <xsd:attribute name="duration" type="positiveFloatType"/>

@@ -161,13 +161,12 @@
 
     <xsd:complexType name="e3DetectorType">
         <xsd:sequence>
-            <xsd:element name="detEntry" type="detEntryExitType" minOccurs="1" maxOccurs="unbounded"/>
-            <xsd:element name="detExit" type="detEntryExitType" minOccurs="1" maxOccurs="unbounded"/>
-            <xsd:choice minOccurs="0" maxOccurs="unbounded">
-                <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
-                <xsd:element name="detEntry" type="detEntryExitType" minOccurs="0" maxOccurs="unbounded"/>
-                <xsd:element name="detExit" type="detEntryExitType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:choice minOccurs="2" maxOccurs="unbounded">
+                <xsd:element name="detEntry" type="detEntryExitType" minOccurs="1" maxOccurs="unbounded"/>
+                <xsd:element name="detExit" type="detEntryExitType" minOccurs="1" maxOccurs="unbounded"/>
             </xsd:choice>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="detectorIdType" use="required"/>
         <xsd:attribute name="freq" type="positiveFloatType" use="required"/>
@@ -244,12 +243,13 @@
             <xsd:element name="wautSwitch" type="wautSwitchType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:sequence>
         <xsd:attribute name="id" type="idType" use="required"/>
-        <xsd:attribute name="refTime" type="xsd:int" use="required"/>
+        <xsd:attribute name="refTime" type="timeType"/>
         <xsd:attribute name="startProg" type="xsd:string" use="required"/>
+        <xsd:attribute name="period" type="timeType"/>
     </xsd:complexType>
 
     <xsd:complexType name="wautSwitchType">
-        <xsd:attribute name="time" type="xsd:int" use="required"/>
+        <xsd:attribute name="time" type="timeType" use="required"/>
         <xsd:attribute name="to" type="xsd:string" use="required"/>
     </xsd:complexType>
 
@@ -370,6 +370,7 @@
         <xsd:attribute name="friendlyPos" type="boolType" use="optional"/>
         <xsd:attribute name="lines" type="xsd:string" use="optional"/>
         <xsd:attribute name="personCapacity" type="nonNegativeIntType" use="optional"/>
+        <xsd:attribute name="parkingLength" type="nonNegativeFloatType" use="optional"/>
     </xsd:complexType>
     
     <xsd:complexType name="containerStopType">

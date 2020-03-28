@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSVehicleTransfer.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // A mover of vehicles that got stucked due to grid locks
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -120,6 +119,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             MSParkingArea* pa = desc.myVeh->getCurrentParkingArea();
             const double departPos = pa != nullptr ? pa->getInsertionPosition(*desc.myVeh) : desc.myVeh->getPositionOnLane();
             // handle parking vehicles
+            desc.myVeh->setIdling(true);
             if (desc.myVeh->getLane()->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(),
                     false, MSMoveReminder::NOTIFICATION_PARKING)) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
@@ -128,12 +128,14 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                 if (MSGlobals::gModelParkingManoeuver && desc.myVeh->setExitManoeuvre()) {
                     MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_MANEUVERING);
                 }
+                desc.myVeh->setIdling(false);
                 i = vehInfos.erase(i);
             } else {
-                // blocked from entering the road
+                // blocked from entering the road - engine assumed to be idling.
+                desc.myVeh->workOnIdleReminders();
                 if (!desc.myVeh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
                     // signal wish to re-enter the road
-                    desc.myVeh->switchOnSignal(MSNet::getInstance()->lefthand() ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
+                    desc.myVeh->switchOnSignal(MSGlobals::gLefthand ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
                     if (pa) {
                         // update freePosition so other vehicles can help with insertion
                         desc.myVeh->getCurrentParkingArea()->notifyEgressBlocked();

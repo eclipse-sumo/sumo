@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-10 13:44:46.845221 by routeSampler.py v1_5_0+0599-3f66299
+  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+</routes>

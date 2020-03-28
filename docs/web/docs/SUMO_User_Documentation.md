@@ -18,7 +18,7 @@ If You use SUMO, please tell us about your
 [Publications](Publications.md).
 
 !!! note
-    When citing SUMO in general please use our current reference publication: ["Microscopic Traffic Simulation using SUMO"](https://elib.dlr.de/124092/); Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. IEEE Intelligent Transportation Systems Conference (ITSC), 2018.
+    When citing SUMO in general please use our current reference publication: ["Microscopic Traffic Simulation using SUMO"](https://elib.dlr.de/127994/); Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. IEEE Intelligent Transportation Systems Conference (ITSC), 2018.
 
 Any help is appreciated - corrections and contributions to the
 documentation, submission of code, or other results.
@@ -81,7 +81,7 @@ documentation, submission of code, or other results.
 - [Importing O/D Matrices](Demand/Importing_O/D_Matrices.md)
   - [Other VISUM Demand Importers](Demand/Further_Ways_to_import_VISUM_Demand_Definitions.md)
   - [Other Vissim Demand Importers](Demand/Further_Ways_to_import_Vissim_Demand_Definitions.md)
-- [Routes from Observation Points](Demand/Routes_from_Observation_Points.md)
+- [Routes from Counting Data (road counts, turn counts)](Demand/Routes_from_Observation_Points.md)
 - [Routing by Turn Probabilities](Demand/Routing_by_Turn_Probabilities.md)
 - [Activity-based Demand Generation](Demand/Activity-based_Demand_Generation.md)
 - [Random Trips](Tools/Trip.md#randomtripspy)
@@ -105,7 +105,7 @@ documentation, submission of code, or other results.
 - [Variable Speed Signs](Simulation/Variable_Speed_Signs.md)
 - [Rerouter / Alternative Route Signage](Simulation/Rerouter.md)
 - [Vaporizer](Simulation/Vaporizer.md) (deprecated, use Calibrator instead)
-- [Dynamic calibration of flow and speed](Simulation/Calibrator.md)
+- [Dynamic calibration of flow and speed and type](Simulation/Calibrator.md)
 - [Parking areas](Simulation/ParkingArea.md)
 
 ## Traffic Modes
@@ -126,6 +126,7 @@ documentation, submission of code, or other results.
 - [Wireless Device Detection](Simulation/Bluetooth.md)
 - [Emergency Vehicles](Simulation/Emergency.md)
 - [Simple Platooning (Simpla)](Simpla.md)
+- [Demand Responsive Transport (Taxis)](Simulation/Taxi.md)
 
 ## Model details
 
@@ -144,6 +145,7 @@ documentation, submission of code, or other results.
 
 - [Why Vehicles are teleporting](Simulation/Why_Vehicles_are_teleporting.md)
 - [Unexpected jamming](FAQ.md#the_simulation_has_lots_of_jamsdeadlocks_what_can_i_do)
+- [Too many turn-arounds](Simulation/Turnarounds.md)
 - [Unexpected lane-changing maneuvers?](FAQ.md#why_do_the_vehicles_perform_unexpected_lane-changing_maneuvers)
 - [How to get high flows?](FAQ.md#how_do_i_get_high_flowsvehicle_densities)
 
@@ -188,7 +190,7 @@ Below are links to some of the most important tools:
 - [POLYCONVERT](POLYCONVERT.md)
 - [ACTIVITYGEN](ACTIVITYGEN.md)
 - [EMISSIONSMAP](Tools/Emissions.md)
-- [EMISSIONSDRIVINGCYCLE](Tools/Emissions.md)
+- [EMISSIONSDRIVINGCYCLE](Tools/Emissions.md#emissionsdrivingcycle)
 
 # Appendices
 

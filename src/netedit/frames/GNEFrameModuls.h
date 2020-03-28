@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEFrameModuls.h
 /// @author  Pablo Alvarez Lopez
@@ -13,15 +17,10 @@
 ///
 // Auxiliar class for GNEFrame Moduls
 /****************************************************************************/
-#ifndef GNEFrameModuls_h
-#define GNEFrameModuls_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
-#include <netedit/GNEAttributeCarrier.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
 
 // ===========================================================================
@@ -47,7 +46,7 @@ public:
 
     public:
         /// @brief constructor
-        TagSelector(GNEFrame* frameParent, GNEAttributeCarrier::TagType type, bool onlyDrawables = true);
+        TagSelector(GNEFrame* frameParent, GNETagProperties::TagType type, bool onlyDrawables = true);
 
         /// @brief destructor
         ~TagSelector();
@@ -59,10 +58,10 @@ public:
         void hideTagSelector();
 
         /// @brief get current type tag
-        const GNEAttributeCarrier::TagProperties& getCurrentTagProperties() const;
+        const GNETagProperties& getCurrentTagProperties() const;
 
         /// @brief set current type manually
-        void setCurrentTagType(GNEAttributeCarrier::TagType tagType);
+        void setCurrentTagType(GNETagProperties::TagType tagType);
 
         /// @brief set current type manually
         void setCurrentTag(SumoXMLTag newTag);
@@ -93,16 +92,16 @@ public:
         FXComboBox* myTagsMatchBox;
 
         /// @brief current tag properties
-        GNEAttributeCarrier::TagProperties myCurrentTagProperties;
+        GNETagProperties myCurrentTagProperties;
 
         /// @brief list of tags types that will be shown in Match Box
-        std::vector<std::pair<std::string, GNEAttributeCarrier::TagType> > myListOfTagTypes;
+        std::vector<std::pair<std::string, GNETagProperties::TagType> > myListOfTagTypes;
 
         /// @brief list of tags that will be shown in Match Box
         std::vector<SumoXMLTag> myListOfTags;
 
         /// @brief dummy tag properties used if user select an invalid tag
-        GNEAttributeCarrier::TagProperties myInvalidTagProperty;
+        GNETagProperties myInvalidTagProperty;
     };
 
     // ===========================================================================
@@ -118,7 +117,7 @@ public:
         DemandElementSelector(GNEFrame* frameParent, SumoXMLTag demandElementTag);
 
         /// @brief constructor with tag type
-        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNEAttributeCarrier::TagType>& tagTypes);
+        DemandElementSelector(GNEFrame* frameParent, const std::vector<GNETagProperties::TagType>& tagTypes);
 
         /// @brief destructor
         ~DemandElementSelector();
@@ -178,11 +177,12 @@ public:
     public:
 
         /// @brief list of the edge path creator modes
-        enum EdgePathCreatorModes {
-            GNE_EDGEPATHCREATOR_CONSECUTIVE =   1 << 0,     // Path must be consecutive
-            GNE_EDGEPATHCREATOR_FROM_TO_VIA =   1 << 1,     // Path requires a from-via-to edges
-            GNE_EDGEPATHCREATOR_FROM_BUSSTOP =  1 << 2,     // Path start in a BusStop
-            GNE_EDGEPATHCREATOR_TO_BUSSTOP =    1 << 3,     // Path ends in a BusStop
+        enum Modes {
+            CONSECUTIVE,    // Path must be consecutive
+            FROM_TO,        // Path requires only two from-to edges
+            FROM_TO_VIA,    // Path requires a from-via-to edges
+            FROM_BUSSTOP,   // Path start in a BusStop
+            TO_BUSSTOP      // Path ends in a BusStop
         };
 
         /// @brief default constructor
@@ -203,8 +203,8 @@ public:
         /// @brief set SUMOVehicleClass
         void setVClass(SUMOVehicleClass vClass);
 
-        /// @brief set EdgePathCreatorModes
-        void setEdgePathCreatorModes(int edgePathCreatorModes);
+        /// @brief set Modes
+        void setModes(int edgePathCreatorModes);
 
         /// @brief get current clicked edges
         std::vector<GNEEdge*> getClickedEdges() const;
@@ -212,17 +212,17 @@ public:
         /// @brief get current clicked edges
         GNEAdditional* getClickedBusStop() const;
 
-        /// @brief add edge to route
-        bool addEdge(GNEEdge* edge);
+        /// @brief add edge in path
+        bool addPathEdge(GNEEdge* edge);
 
-        /// @brief add busStop to route
+        /// @brief add busStop to path
         bool addBusStop(GNEAdditional* busStop);
 
-        /// @brief clear edges (and restore colors)
+        /// @brief clear path edges (and restore colors)
         void clearEdges();
 
         /// @brief draw temporal route
-        void drawTemporalRoute() const;
+        void drawTemporalPath() const;
 
         /// @brief abort edge path creation
         void abortEdgePathCreation();
@@ -274,7 +274,7 @@ public:
         std::vector<GNEEdge*> myTemporalRoute;
 
         /// @brief current edge path creator modes
-        int myEdgePathCreatorModes;
+        int myModes;
 
         /// @brief restore colors of given edge
         void restoreEdgeColor(const GNEEdge* edge);
@@ -303,6 +303,9 @@ public:
 
         /// @brief refresh AttributeCarrierHierarchy
         void refreshAttributeCarrierHierarchy();
+
+        /// @brief if given AttributeCarrier is the same of myAC, disable it
+        void removeCurrentEditedAttribute(const GNEAttributeCarrier* AC);
 
         /// @name FOX-callbacks
         /// @{
@@ -375,6 +378,15 @@ public:
 
         /// @brief demand element (casted from myClickedAC)
         GNEDemandElement* myClickedDemandElement;
+
+        /// @brief data set element (casted from myClickedAC)
+        GNEDataSet* myClickedDataSet;
+
+        /// @brief data interval element (casted from myClickedAC)
+        GNEDataInterval* myClickedDataInterval;
+
+        /// @brief generic data element (casted from myClickedAC)
+        GNEGenericData* myClickedGenericData;
 
         /// @brief tree list to show the children of the element to erase
         FXTreeList* myTreelist;
@@ -609,9 +621,7 @@ public:
         /// @brief saved clicked position
         Position mySavedClickedPosition;
     };
+
+    /// @brief build rainbow in frame modul
+    static std::vector<RGBColor> buildRainbow(FXComposite* parent);
 };
-
-
-#endif
-
-/****************************************************************************/

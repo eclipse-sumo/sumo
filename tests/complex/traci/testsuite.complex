@@ -1,3 +1,4 @@
+gui
 bugs
 
 # test connection between client and server
@@ -21,4 +22,4 @@ multientryexit
 poi
 polygon
 simulation
-gui
+calibrator

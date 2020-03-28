@@ -12,7 +12,7 @@
 			<attribute name="sex" class="java.lang.String" >m</attribute>
 		</attributes>
 		<plan score="98.30671358262963" selected="yes">
-			<activity type="home" link="13758" x="4522066.758592226" y="5833235.1507656025" start_time="00:00:00" end_time="08:00:00" >
+			<activity type="home" link="13758" x="4522066.758592226" y="5833235.1507656025" start_time="00:01:00" end_time="08:00:00" >
 			</activity>
 			<leg mode="car" dep_time="08:00:00" trav_time="00:04:00">
 				<route type="links" start_link="13758" end_link="14465" trav_time="00:04:00" distance="8019.0">13758 14271 14269 14273 14468 14267 14465</route>

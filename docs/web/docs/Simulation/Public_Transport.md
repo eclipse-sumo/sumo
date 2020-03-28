@@ -2,6 +2,10 @@
 title: Simulation/Public Transport
 permalink: /Simulation/Public_Transport/
 ---
+# Introduction
+Most public transport uses fixed routes (busses, trams and trains) and this page describes how to model this type of transport. For demand responsive transport that is more flexible see [Taxi](Taxi.md).
+
+The descriptions below describe how to model busses but the same rules apply for trams, subways and trains.
 
 # Bus Stops
 
@@ -97,9 +101,63 @@ intermediate edges:
        <stop busStop="busstop4" duration="20"/>
    </trip>
 ```
-
 The vehicle will take the fastest path between *from*-edge and *to*-edge
 that visits all stops in their correct order.
+
+Even the trip attributes 'from' and 'to' can be ommitted to let the bus start at the first stop and end at the last. Using `departPos="stop"`, the vehicle will be inserted directly at the first stop in it's route:
+```
+   <trip id="0" type="BUS" depart="0" color="1,1,0" departPos="stop">
+       <stop busStop="busstop1" duration="20"/>
+       <stop busStop="busstop2" duration="20"/>
+       <stop busStop="busstop3" duration="20"/>
+       <stop busStop="busstop4" duration="20"/>
+   </trip>
+```
+
+# Public Transport Schedules
+In most cases, public transport runs according to a fixed schedule. Such a schedule must be defined using the `until` attribute in the stops. Vehicles in the simulation will adhere to the schedule as they cannot leave a stop before the until-time is reached but they may still be delayed due to traffic. When `until` and `duration` are used, duration defines the minimum stopping time which can also cause delayed departures when already arriving late at a stop.
+
+!!! note
+    Defining a public transport schedule is necessary for [intermodal routing](../IntermodalRouting.md).
+
+## Single vehicles and trips
+When defining until values for a vehicle and trip, the values denote absolute simulation. Times. Note, that seconds or human-readable times may be used.
+
+```
+<trip="bus" from = "beg" to ="end" line="bus" depart="6:0:0">
+     <stop busStop="busStopA" until="6:30:00"/>
+     <stop busStop="busStopB" until="6:32:30"/>
+     <stop busStop="busStopC" until="23700"/>
+</trip>
+```
+
+## Flows
+When defining a vehicle flow the until-times are absolute times for the first vehicle in the flow. For all later vehicles, the times will be shifted according to later departure times (period * vehicleIndex).
+
+The example below defines a flow that inserts two vehicles. The first vehicle will stop until 10,110,210 and the second vehicle will stop until 310,410,510:
+```xml
+    <flow id="bus" from = "beg" to ="end" line="bus" begin="0" end="301" period="300">
+                <stop busStop="busStopA" until="10"/>
+                <stop busStop="busStopB" until="110"/>
+                <stop busStop="busStopC" until="210"/>
+    </flow>
+```
+
+## Stops in a stand-alone route
+Stops may also be part of a route that is defined by itself (with an id) and referenced by vehicles or flows. In that case the until times will be interpreted as 'times after vehicle departure'.
+
+The example below defines a flow that inserts two vehicles. The first vehicle will depart at 500 and stop until 510,610,710. The second vehicle will depart at 800 and stop until 810,910,1010:
+
+```xml
+<route id="busRoute" edges="A B C D E">
+                <stop busStop="busStopA" until="10"/>
+                <stop busStop="busStopB" until="110"/>
+                <stop busStop="busStopC" until="210"/>
+</route>
+
+<flow id="bus" route="busRoute" line="bus" begin="500" end="801" period="300"/>
+
+```
 
 # Stopping without defining a bus stop
 
@@ -109,6 +167,9 @@ This means you can either use a bus stop or a lane position to define
 where a vehicle has to stop. For a complete list of attributes for the
 "stop"-element of a vehicle see
 [Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
+
+# Transport Schedules
+To define a schedule where buses 
 
 # Passengers
 

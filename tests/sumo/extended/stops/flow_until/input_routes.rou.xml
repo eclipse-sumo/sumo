@@ -1,18 +1,18 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
     <route id="1" edges="beg end">
-        <stop lane="beg_0" endPos="6" until="50"/>
-        <stop lane="end_0" endPos="4" until="100"/>
+        <stop lane="beg_0" endPos="6" arrival="20" until="50"/>
+        <stop lane="end_0" endPos="4" arrival="70" until="100"/>
     </route>
     <route id="2" edges="beg end"/>
     <flow begin="0" end="300" period="100" id="bus1" route="1"/>
     <flow begin="500" end="700" period="100" id="bus2" route="1"/>
     <flow begin="1000" end="1300" period="100" id="bus3" route="2">
-        <stop lane="beg_0" endPos="6" until="1050"/>
-        <stop lane="end_0" endPos="4" until="1100"/>
+        <stop lane="beg_0" endPos="6" arrival="1020" until="1050"/>
+        <stop lane="end_0" endPos="4" arrival="1070" until="1100"/>
     </flow>
     <flow begin="1500" end="1700" period="100" id="bus4" route="2">
-        <stop lane="beg_0" endPos="6" until="1550"/>
-        <stop lane="end_0" endPos="4" until="1600"/>
+        <stop lane="beg_0" endPos="6" arrival="1520" until="1550"/>
+        <stop lane="end_0" endPos="4" arrival="1570" until="1600"/>
     </flow>
 </routes>

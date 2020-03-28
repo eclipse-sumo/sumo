@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/06/18 10:28:27 by Eclipse SUMO Version v1_0_1+0405-11ba3ed94b
+<!-- generated on Thu Mar 12 11:06:21 2020 by Eclipse SUMO Version v1_5_0+0671-ab1576c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,21 +34,21 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="133.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="133.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="33.00" timeLoss="27.50" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v1" depart="0.00" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="130.00" arrivalLane="end_0" arrivalPos="500.00" arrivalSpeed="27.80" duration="130.00" routeLength="2000.00" waitingTime="0.00" waitingCount="0" stopTime="30.00" timeLoss="27.50" rerouteNo="0" devices="tripinfo_v1 person_v1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
     <personinfo id="p1" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="0.00" vehicle="v1" depart="0.00" arrival="48.00" arrivalPos="100.00" duration="48.00" routeLength="599.00"/>
-        <stop duration="100.00" arrival="148.00" arrivalPos="100.00" actType="waiting"/>
+        <ride waitingTime="0.00" vehicle="v1" depart="0.00" arrival="47.00" arrivalPos="100.00" duration="47.00" routeLength="599.00"/>
+        <stop duration="100.00" arrival="147.00" arrivalPos="100.00" actType="waiting"/>
     </personinfo>
     <personinfo id="p2" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="22.00" vehicle="v1" depart="22.00" arrival="48.00" arrivalPos="100.00" duration="26.00" routeLength="500.00"/>
-        <stop duration="100.00" arrival="148.00" arrivalPos="1000.00" actType="waiting"/>
+        <ride waitingTime="21.00" vehicle="v1" depart="21.00" arrival="47.00" arrivalPos="100.00" duration="26.00" routeLength="500.08"/>
+        <stop duration="100.00" arrival="147.00" arrivalPos="1000.00" actType="waiting"/>
     </personinfo>
     <personinfo id="p3" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="22.00" vehicle="v1" depart="22.00" arrival="48.00" arrivalPos="100.00" duration="26.00" routeLength="500.00"/>
-        <stop duration="100.00" arrival="148.00" arrivalPos="500.00" actType="waiting"/>
+        <ride waitingTime="21.00" vehicle="v1" depart="21.00" arrival="47.00" arrivalPos="100.00" duration="26.00" routeLength="500.08"/>
+        <stop duration="100.00" arrival="147.00" arrivalPos="500.00" actType="waiting"/>
     </personinfo>
     <personinfo id="p4" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="22.00" vehicle="v1" depart="22.00" arrival="48.00" arrivalPos="100.00" duration="26.00" routeLength="500.00"/>
-        <stop duration="100.00" arrival="148.00" arrivalPos="900.00" actType="waiting"/>
+        <ride waitingTime="21.00" vehicle="v1" depart="21.00" arrival="47.00" arrivalPos="100.00" duration="26.00" routeLength="500.08"/>
+        <stop duration="100.00" arrival="147.00" arrivalPos="900.00" actType="waiting"/>
     </personinfo>
 </tripinfos>

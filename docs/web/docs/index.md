@@ -1,7 +1,10 @@
 <hTitles >Simulation of Urban MObility<hr style="border: 0.5px solid #338033;"></hTitles>
 
+!!! caution "Important notice"
+    Due to the Coronavirus crisis and the measures imposed, the SUMO User Conference 2020 has been rescheduled. New date: 26-28 October 2020.
+
 !!! conference "SUMO User Conference 2020"
-    The [SUMO User Conference 2020](http://sumo.dlr.de/2020/) takes place **May, 11-13, 2020** in Berlin.
+    The [SUMO User Conference 2020](http://sumo.dlr.de/2020/) takes place **October, 26-28, 2020** in Berlin.
 
 <span style="float: right;">![](https://sumo.dlr.de/w/images/thumb/d/de/Eclipse_foundation_logo.jpg/250px-Eclipse_foundation_logo.jpg)</span>
 

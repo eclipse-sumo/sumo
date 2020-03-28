@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2010-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    generateTurnRatios.py
 # @author  Yun-Pang Floetteroed
@@ -41,6 +45,8 @@ def get_options(args=None):
                          help="define the route file seperated by comma(mandatory)")
     optParser.add_option("-p", "--probabilities", dest="prob", action="store_true", default=False,
                          help=" calculate the turning probabilities instead of traffic volumes")
+    optParser.add_option("--id", default="generated",
+                         help="define the interval id")
     optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
@@ -54,12 +60,16 @@ def get_options(args=None):
 
 def getFlows(routeFiles, verbose):
     # get flows for each edge pair
+    minDepart = 1e20
+    maxDepart = 0
     for file in routeFiles.split(','):
         edgePairFlowsMap = {}
         if verbose:
             print("route file:%s" % file)
         for veh in sumolib.output.parse(file, 'vehicle'):
             edgesList = veh.route[0].edges.split()
+            minDepart = min(minDepart, float(veh.depart))
+            maxDepart = max(maxDepart, float(veh.depart))
             for i, e in enumerate(edgesList):
                 if i < len(edgesList)-1:
                     next = edgesList[i+1]
@@ -69,33 +79,30 @@ def getFlows(routeFiles, verbose):
                         edgePairFlowsMap[e][next] = 0
 
                     edgePairFlowsMap[e][next] += 1
-    return edgePairFlowsMap
+    return edgePairFlowsMap, minDepart, maxDepart
 
 
 def main(options):
     # get traffic flows for each edge pair
-    edgePairFlowsMap = getFlows(options.routefiles, options.verbose)
+    edgePairFlowsMap, minDepart, maxDepart = getFlows(options.routefiles, options.verbose)
 
     with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id$", "turns")  # noqa
-        outf.write('    <interval begin="0" end="86400">\n')
+        sumolib.writeXMLHeader(outf, "$Id$", "edgeRelations", "edgerelations_file.xsd")  # noqa
+        outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (options.id, minDepart, maxDepart))
         for from_edge in edgePairFlowsMap:
-            outf.write('        <fromEdge id="%s">\n' % from_edge)
             if options.prob:
                 sum = 0.
                 for to_edge in edgePairFlowsMap[from_edge]:
                     sum += edgePairFlowsMap[from_edge][to_edge]
                 for to_edge in edgePairFlowsMap[from_edge]:
-                    outf.write('            <toEdge id="%s" probability="%.2f">\n' %
-                               (to_edge, edgePairFlowsMap[from_edge][to_edge]/sum))
+                    outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"/>\n' %
+                               (from_edge, to_edge, edgePairFlowsMap[from_edge][to_edge]/sum))
             else:
                 for to_edge in edgePairFlowsMap[from_edge]:
-                    outf.write('            <toEdge id="%s" probability="%s">\n' %
-                               (to_edge, edgePairFlowsMap[from_edge][to_edge]))
-            outf.write('        </fromEdge>\n')
-
+                    outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' %
+                               (from_edge, to_edge, edgePairFlowsMap[from_edge][to_edge]))
         outf.write('    </interval>\n')
-        outf.write('</turns>\n')
+        outf.write('</edgeRelations>\n')
     outf.close()
 
 

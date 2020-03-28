@@ -23,13 +23,13 @@ possibilities to constraint the outputs are given.
 An edge-based state dump is defined within an {{AdditionalFile}} as following:
 
 ```
-<edgeData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/\>
+<edgeData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/>
 ```
 
 For a lane based dump simply write:
 
 ```
-<laneData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/\>
+<laneData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/>
 ```
 
 For additional attributes see the table below.

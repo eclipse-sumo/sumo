@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUINet.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // A MSNet extended by some values for usage within the gui
 /****************************************************************************/
-#ifndef GUINet_h
-#define GUINet_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -51,6 +49,7 @@ class MSTrafficLightLogic;
 class MSLink;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
+class GUICalibrator;
 class GUITrafficLightLogicWrapper;
 class RGBColor;
 class GUIEdge;
@@ -365,6 +364,8 @@ protected:
     /// @brief A detector dictionary
     std::vector<GUIDetectorWrapper*> myDetectorWrapper;
 
+    /// @brief A calibrator dictionary
+    std::vector<GUICalibrator*> myCalibratorWrapper;
 
     /// @brief Definition of a link-to-logic-id map
     typedef std::map<MSLink*, std::string> Links2LogicMap;
@@ -417,6 +418,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id, double val, double beg, double end) const;
+        void addEdgeRelWeight(const std::string& from, const std::string& to, double val, double beg, double end) const; 
 
     private:
         /// @brief The storage that  edges shall be added to
@@ -429,9 +431,3 @@ private:
     mutable FXMutex myLock;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

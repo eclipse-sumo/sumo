@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEChange_Edge.h
 /// @author  Jakob Erdmann
@@ -13,29 +17,10 @@
 ///
 // A network change in which a single edge is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_Edge_h
-#define GNEChange_Edge_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
-#include <fx.h>
-#include <utils/foxtools/fxexdefs.h>
-#include <vector>
-#include <map>
 #include "GNEChange.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNENet;
-class GNEEdge;
-class GNELane;
-class GNEAdditional;
-class GNERerouter;
 
 // ===========================================================================
 // class definitions
@@ -73,49 +58,40 @@ public:
     void redo();
     /// @}
 
+protected:
+    /// @brief add given lane into parents and children
+    void addEdgeLanes();
+
+    /// @brief remove given lane from parents and children
+    void removeEdgeLanes();
+
+    /// @brief vector of references to vector of parent shapes (used by edge lanes)
+    std::vector<std::vector<GNEShape*> > myLaneParentShapes;
+
+    /// @brief vector of references to vector of parent additionals (used by edge lanes)
+    std::vector<std::vector<GNEAdditional*> > myLaneParentAdditionals;
+
+    /// @brief vector of references to vector of parent demand elements (used by edge lanes)
+    std::vector<std::vector<GNEDemandElement*> > myLaneParentDemandElements;
+
+    /// @brief vector of references to vector of parent generic datas (used by edge lanes)
+    std::vector<std::vector<GNEGenericData*> > myLaneParentGenericData;
+
+    /// @brief vector of references to vector of child shapes (used by edge lanes)
+    std::vector<std::vector<GNEShape*> > myChildLaneShapes;
+
+    /// @brief vector of references to vector of child additional (used by edge lanes)
+    std::vector<std::vector<GNEAdditional*> > myChildLaneAdditionals;
+
+    /// @brief vector of references to vector of child demand elements (used by edge lanes)
+    std::vector<std::vector<GNEDemandElement*> > myChildLaneDemandElements;
+
+    /// @brief vector of references to vector of child generic datas (used by edge lanes)
+    std::vector<std::vector<GNEGenericData*> > myChildLaneGenericData;
 
 private:
     /**@brief full information regarding the edge that is to be created/deleted
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEEdge* myEdge;
-
-    /// @brief reference to vector of parent shapes
-    const std::vector<GNEShape*>& myEdgeParentShapes;
-
-    /// @brief reference to vector of parent additionals
-    const std::vector<GNEAdditional*>& myEdgeParentAdditionals;
-
-    /// @brief reference to vector of parent demand elements
-    const std::vector<GNEDemandElement*>& myEdgeParentDemandElements;
-
-    /// @brief reference to vector of child shapes
-    const std::vector<GNEShape*>& myChildEdgeShapes;
-
-    /// @brief reference to vector of child additional
-    const std::vector<GNEAdditional*>& myChildEdgeAdditionals;
-
-    /// @brief vector of references to vector of child demand elements (used by lanes)
-    const std::vector<GNEDemandElement*>& myChildEdgeDemandElements;
-
-    /// @brief vector of references to vector of parent shapes (used by lanes)
-    std::vector<std::vector<GNEShape*> > myLaneParentShapes;
-
-    /// @brief vector of references to vector of parent additionals (used by lanes)
-    std::vector<std::vector<GNEAdditional*> > myLaneParentAdditionals;
-
-    /// @brief vector of references to vector of parent demand elements (used by lanes)
-    std::vector<std::vector<GNEDemandElement*> > myLaneParentDemandElements;
-
-    /// @brief vector of references to vector of child shapes (used by lanes)
-    std::vector<std::vector<GNEShape*> > myChildLaneShapes;
-
-    /// @brief vector of references to vector of child additional (used by lanes)
-    std::vector<std::vector<GNEAdditional*> > myChildLaneAdditionals;
-
-    /// @brief vector of references to vector of child demand elements (used by lanes)
-    std::vector<std::vector<GNEDemandElement*> > myChildLaneDemandElements;
 };
-
-#endif
-/****************************************************************************/

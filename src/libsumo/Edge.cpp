@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2017-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Edge.cpp
 /// @author  Gregor Laemmel
@@ -91,11 +95,7 @@ Edge::getEdge(const std::string& id) {
 
 double
 Edge::getWaitingTime(const std::string& id) {
-    double wtime = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
-        wtime += lane->getWaitingSeconds();
-    }
-    return wtime;
+    return getEdge(id)->getWaitingSeconds();
 }
 
 
@@ -114,12 +114,8 @@ Edge::getLastStepPersonIDs(const std::string& id) {
 const std::vector<std::string>
 Edge::getLastStepVehicleIDs(const std::string& id) {
     std::vector<std::string> vehIDs;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
-        const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-        for (auto veh : vehs) {
-            vehIDs.push_back(veh->getID());
-        }
-        lane->releaseVehicles();
+    for (const SUMOVehicle* veh : getEdge(id)->getVehicles()) {
+        vehIDs.push_back(veh->getID());
     }
     return vehIDs;
 }
@@ -210,11 +206,7 @@ Edge::getElectricityConsumption(const std::string& id) {
 
 int
 Edge::getLastStepVehicleNumber(const std::string& id) {
-    int sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
-        sum += lane->getVehicleNumber();
-    }
-    return sum;
+    return getEdge(id)->getVehicleNumber();
 }
 
 
@@ -226,47 +218,34 @@ Edge::getLastStepMeanSpeed(const std::string& id) {
 
 double
 Edge::getLastStepOccupancy(const std::string& id) {
-    double sum = 0;
-    const std::vector<MSLane*>& lanes = getEdge(id)->getLanes();
-    for (auto lane : lanes) {
-        sum += lane->getNettoOccupancy();
-    }
-    return sum / (double)lanes.size();
+    return getEdge(id)->getOccupancy();
 }
 
 
 int
 Edge::getLastStepHaltingNumber(const std::string& id) {
-    int halting = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
-        const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-        for (auto veh : vehs) {
-            if (veh->getSpeed() < SUMO_const_haltingSpeed) {
-                ++halting;
-            }
+    int result = 0;
+    for (const SUMOVehicle* veh : getEdge(id)->getVehicles()) {
+        if (veh->getSpeed() < SUMO_const_haltingSpeed) {
+            result++;
         }
-        lane->releaseVehicles();
     }
-    return halting;
+    return result;
 }
 
 
 double
 Edge::getLastStepLength(const std::string& id) {
     double lengthSum = 0;
-    int noVehicles = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
-        const MSLane::VehCont& vehs = lane->getVehiclesSecure();
-        for (auto veh : vehs) {
-            lengthSum += veh->getVehicleType().getLength();
-        }
-        noVehicles += (int)vehs.size();
-        lane->releaseVehicles();
+    int numVehicles = 0;
+    for (const SUMOVehicle* veh : getEdge(id)->getVehicles()) {
+        numVehicles++;
+        lengthSum += dynamic_cast<const MSBaseVehicle*>(veh)->getVehicleType().getLength();
     }
-    if (noVehicles == 0) {
+    if (numVehicles == 0) {
         return 0;
     }
-    return lengthSum / (double)noVehicles;
+    return lengthSum / numVehicles;
 }
 
 

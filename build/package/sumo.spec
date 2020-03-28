@@ -31,6 +31,9 @@ Source0:        https://sumo.dlr.de/daily/sumo-all-%{version}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  python
+%if 0%{?suse_version}
+BuildRequires:  python-xml
+%endif
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
 BuildRequires:  unzip

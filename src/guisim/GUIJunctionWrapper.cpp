@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIJunctionWrapper.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // }
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -65,7 +64,7 @@ GUIJunctionWrapper::GUIJunctionWrapper(MSJunction& junction, const std::string& 
         myBoundary = myJunction.getShape().getBoxBoundary();
     }
     myMaxSize = MAX2(myBoundary.getWidth(), myBoundary.getHeight());
-    myIsInternal = myJunction.getType() == NODETYPE_INTERNAL;
+    myIsInternal = myJunction.getType() == SumoXMLNodeType::INTERNAL;
     myAmWaterway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
     myAmRailway = myJunction.getIncoming().size() + myJunction.getOutgoing().size() > 0;
     for (auto it = myJunction.getIncoming().begin(); it != myJunction.getIncoming().end() && (myAmWaterway || myAmRailway); ++it) {
@@ -110,8 +109,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 12 + (int)myJunction.getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("type", false, toString(myJunction.getType()));
     // close building
@@ -161,7 +159,7 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::debugVertices(shape, 80 / s.scale);
 #endif
                 // make small junctions more visible when coloring by type
-                if (myJunction.getType() == NODETYPE_RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
+                if (myJunction.getType() == SumoXMLNodeType::RAIL_SIGNAL && s.junctionColorer.getActive() == 2) {
                     glTranslated(myJunction.getPosition().x(), myJunction.getPosition().y(), getType() + 0.05);
                     GLHelper::drawFilledCircle(2 * exaggeration, 12);
                 }
@@ -174,14 +172,20 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
         drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);
     } else {
         drawName(myJunction.getPosition(), s.scale, s.junctionName, s.angle);
-        if (s.tlsPhaseIndex.show && myTLLID != "") {
+        if ((s.tlsPhaseIndex.show || s.tlsPhaseName.show) && myTLLID != "") {
             const MSTrafficLightLogic* active = MSNet::getInstance()->getTLSControl().getActive(myTLLID);
-            const int index = active->getCurrentPhaseIndex();
-            const std::string& name = active->getCurrentPhaseDef().getName();
-            GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
-            if (name != "") {
-                const Position offset = Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0, 0));
-                GLHelper::drawTextSettings(s.tlsPhaseIndex, name, myJunction.getPosition() - offset, s.scale, s.angle);
+            if (s.tlsPhaseIndex.show) {
+                const int index = active->getCurrentPhaseIndex();
+                GLHelper::drawTextSettings(s.tlsPhaseIndex, toString(index), myJunction.getPosition(), s.scale, s.angle);
+            }
+            if (s.tlsPhaseName.show) {
+                const std::string& name = active->getCurrentPhaseDef().getName();
+                if (name != "") {
+                    const Position offset = (s.tlsPhaseIndex.show ?
+                                             Position(0, 0.8 * s.tlsPhaseIndex.scaledSize(s.scale)).rotateAround2D(DEG2RAD(-s.angle), Position(0, 0))
+                                             : Position(0, 0));
+                    GLHelper::drawTextSettings(s.tlsPhaseName, name, myJunction.getPosition() - offset, s.scale, s.angle);
+                }
             }
         }
     }
@@ -203,36 +207,36 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& /* s */, int a
             return gSelected.isSelected(getType(), getGlID()) ? 1 : 0;
         case 2:
             switch (myJunction.getType()) {
-                case NODETYPE_TRAFFIC_LIGHT:
+                case SumoXMLNodeType::TRAFFIC_LIGHT:
                     return 0;
-                case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
+                case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
                     return 1;
-                case NODETYPE_PRIORITY:
+                case SumoXMLNodeType::PRIORITY:
                     return 2;
-                case NODETYPE_PRIORITY_STOP:
+                case SumoXMLNodeType::PRIORITY_STOP:
                     return 3;
-                case NODETYPE_RIGHT_BEFORE_LEFT:
+                case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
                     return 4;
-                case NODETYPE_ALLWAY_STOP:
+                case SumoXMLNodeType::ALLWAY_STOP:
                     return 5;
-                case NODETYPE_DISTRICT:
+                case SumoXMLNodeType::DISTRICT:
                     return 6;
-                case NODETYPE_NOJUNCTION:
+                case SumoXMLNodeType::NOJUNCTION:
                     return 7;
-                case NODETYPE_DEAD_END:
-                case NODETYPE_DEAD_END_DEPRECATED:
+                case SumoXMLNodeType::DEAD_END:
+                case SumoXMLNodeType::DEAD_END_DEPRECATED:
                     return 8;
-                case NODETYPE_UNKNOWN:
-                case NODETYPE_INTERNAL:
+                case SumoXMLNodeType::UNKNOWN:
+                case SumoXMLNodeType::INTERNAL:
                     assert(false);
                     return 8;
-                case NODETYPE_RAIL_SIGNAL:
+                case SumoXMLNodeType::RAIL_SIGNAL:
                     return 9;
-                case NODETYPE_ZIPPER:
+                case SumoXMLNodeType::ZIPPER:
                     return 10;
-                case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED:
+                case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED:
                     return 11;
-                case NODETYPE_RAIL_CROSSING:
+                case SumoXMLNodeType::RAIL_CROSSING:
                     return 12;
             }
         case 3:
@@ -256,4 +260,3 @@ GUIJunctionWrapper::updateColor(const GUIVisualizationSettings& s) {
 
 
 /****************************************************************************/
-

@@ -18,7 +18,7 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -70,27 +70,18 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'vehicle' in TagSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'trip' in TagSelector
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Invalid input parameter of trip: Invalid departSpeed definition for departSpeed. Must be one of ("random", "max", or a float>=0)
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Invalid input parameter of trip: Invalid departSpeed definition for departSpeed. Must be one of ("random", "max", or a float>=0)
 Debug: Key ENTER pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Invalid input parameter of trip: Invalid departSpeed definition for departSpeed. Must be one of ("random", "max", or a float>=0)
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Invalid input parameter of trip: Invalid departSpeed definition for departSpeed. Must be one of ("random", "max", or a float>=0)
 Debug: Key ENTER pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Key ENTER pressed
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetElements: 1, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Key ENTER pressed
 Debug: Adding trip 'trip_1' in GNEChange_DemandElement
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'trip_1' in GNEChange_DemandElement
@@ -98,7 +89,6 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'trip_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'trip_0' in GNEChange_DemandElement
@@ -106,7 +96,6 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'trip_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
@@ -146,49 +135,49 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Deleting unreferenced trip 'trip_1'
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced trip 'trip_0'
-Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE11' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE11' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE11_0togneE6_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE3_1togneE7_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE4' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE4_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE4_1togneE5_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE5' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE5' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE5_0togneE10_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE6' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE6' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE6_0togneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE6_0togneE3_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE7' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE7' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE8' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE8' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE8_0togneE9_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE9' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE9' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE11_0' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ4' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ5' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ6' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ7' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ4' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ6' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ7' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16

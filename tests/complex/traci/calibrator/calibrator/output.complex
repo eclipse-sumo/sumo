@@ -1,0 +1,32 @@
+Loading configuration ... done.
+ Retrying in 1 seconds
+calibrators ('cali_SN', 'cali_WE')
+calibrator count 2
+examining cali_SN
+  edge SC
+  lane SC_0
+  vehsPerHour 900.0
+  speed -1.0
+  begin 0.0
+  end 200.0
+  getRouteID SN
+  getRouteProbeID 
+  getVTypes ('bar', 'foo')
+  getPassed 0
+  getInserted 0
+  getRemoved 0
+  getParameter 42
+examining cali_WE
+  edge WC
+  lane 
+  vehsPerHour 450.0
+  speed 10.0
+  begin 0.0
+  end 100.0
+  getRouteID WE
+  getRouteProbeID 
+  getVTypes ()
+  getPassed 10
+  getInserted 13
+  getRemoved 3
+  getParameter 42

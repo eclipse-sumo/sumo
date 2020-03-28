@@ -7,6 +7,9 @@ routes_explicite_routes
 # whether the devices are properly assigned
 assignment
 
+# test attributes fromJunction toJunction and viaJunctions
+junctionTaz
+
 # tests for parallel simulation routing
 parallel
 

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NWWriter_SUMO.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // Exporter writing networks using the SUMO format
 /****************************************************************************/
-#ifndef NWWriter_SUMO_h
-#define NWWriter_SUMO_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -39,6 +37,7 @@
 class OutputDevice;
 class OptionsCont;
 class NBNetBuilder;
+class NBTrafficLightLogic;
 class NBTrafficLightLogicCont;
 class NBNode;
 class NBDistrict;
@@ -85,6 +84,9 @@ public:
 
     /// @brief writes the traffic light logics to the given device
     static void writeTrafficLights(OutputDevice& into, const NBTrafficLightLogicCont& tllCont);
+
+    /// @brief writes a single traffic light logic to the given device
+    static void writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* logic);
 
     /** @brief Writes roundabouts
      * @param[in] into The device to write the edge into
@@ -200,9 +202,3 @@ private:
     static std::string getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, const NBEdge::Connection& con, double& oppositeLength);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

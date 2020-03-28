@@ -1,0 +1,7 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0" speedDev="0"/>
+    <trip id="v0" depart="0">
+        <stop lane="gneE0_0" endPos="10" duration="10" until="30"/>
+        <stop lane="gneE6_0" endPos="10" duration="10" until="40"/>
+    </trip>
+</routes>

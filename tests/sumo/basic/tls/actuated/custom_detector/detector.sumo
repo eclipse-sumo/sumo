@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Feb 13 18:01:05 2020 by Eclipse SUMO Version v1_5_0+0038-ebc912d2f7
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <tls.actuated.show-detectors value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+    <interval begin="0.00" end="120.00" id="customLoop1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="120.00" id="customLoop2" nVehContrib="6" flow="180.00" occupancy="14.54" speed="9.07" harmonicMeanSpeed="8.88" length="5.00" nVehEntered="7"/>
+    <interval begin="120.00" end="240.00" id="customLoop1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="120.00" end="240.00" id="customLoop2" nVehContrib="7" flow="210.00" occupancy="78.02" speed="7.71" harmonicMeanSpeed="0.55" length="5.00" nVehEntered="7"/>
+    <interval begin="240.00" end="360.00" id="customLoop1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="240.00" end="360.00" id="customLoop2" nVehContrib="17" flow="510.00" occupancy="76.04" speed="8.55" harmonicMeanSpeed="0.63" length="5.00" nVehEntered="16"/>
+    <interval begin="360.00" end="480.00" id="customLoop1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="360.00" end="480.00" id="customLoop2" nVehContrib="16" flow="480.00" occupancy="68.80" speed="9.68" harmonicMeanSpeed="0.97" length="5.00" nVehEntered="16"/>
+    <interval begin="480.00" end="546.00" id="customLoop1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="480.00" end="546.00" id="customLoop2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+</detector>

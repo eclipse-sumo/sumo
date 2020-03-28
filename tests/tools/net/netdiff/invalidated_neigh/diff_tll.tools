@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlLogics version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Copied Elements -->
+    <tlLogic id="C" programID="0" >
+        <phase duration="42" state="GGGGGrrrr"/>
+        <phase duration="3" state="yyyyyrrrr"/>
+        <phase duration="42" state="GGrrrGGGg"/>
+        <phase duration="3" state="yyrrryyyy"/>
+    </tlLogic>
+    <connection from="NC" fromLane="0" to="CS" toLane="0" linkIndex="2"/>
+    <connection from="NC" fromLane="1" to="CS" toLane="1" linkIndex="3"/>
+    <!-- Deleted Elements -->
+    <delete from="EC" fromLane="0" to="CN" toLane="0" linkIndex="5" tl="C"/>
+    <delete from="EC" fromLane="0" to="CW" toLane="0" linkIndex="6" tl="C"/>
+    <delete from="EC" fromLane="1" to="CW" toLane="1" linkIndex="7" tl="C"/>
+    <delete from="EC" fromLane="1" to="CS" toLane="1" linkIndex="8" tl="C"/>
+    <delete from="EC" fromLane="1" to="CE" toLane="1" linkIndex="9" tl="C"/>
+    <delete from="NC" fromLane="1" to="CE" toLane="1" linkIndex="3" tl="C"/>
+    <delete from="NC" fromLane="1" to="CN" toLane="1" linkIndex="4" tl="C"/>
+    <delete from="SC" fromLane="0" to="CE" toLane="0" linkIndex="10" tl="C"/>
+    <delete from="SC" fromLane="0" to="CN" toLane="0" linkIndex="11" tl="C"/>
+    <delete from="SC" fromLane="1" to="CN" toLane="1" linkIndex="12" tl="C"/>
+    <delete from="SC" fromLane="1" to="CW" toLane="1" linkIndex="13" tl="C"/>
+    <delete from="SC" fromLane="1" to="CS" toLane="1" linkIndex="14" tl="C"/>
+    <delete from="WC" fromLane="0" to="CS" toLane="0" linkIndex="15" tl="C"/>
+    <delete from="WC" fromLane="0" to="CE" toLane="0" linkIndex="16" tl="C"/>
+    <delete from="WC" fromLane="1" to="CE" toLane="1" linkIndex="17" tl="C"/>
+    <delete from="WC" fromLane="1" to="CN" toLane="1" linkIndex="18" tl="C"/>
+    <delete from="WC" fromLane="1" to="CW" toLane="1" linkIndex="19" tl="C"/>
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <tlLogic id="C" programID="0" >
+        <phase duration="42" state="GGGGGrrrr"/>
+        <phase duration="3" state="yyyyyrrrr"/>
+        <phase duration="42" state="GGrrrGGGg"/>
+        <phase duration="3" state="yyrrryyyy"/>
+    </tlLogic>
+    <!-- Created Elements -->
+    <connection from="NC" fromLane="0" to="CW" toLane="1" linkIndex="1" tl="C"/>
+    <connection from="NC" fromLane="1" to="CN" toLane="0" linkIndex="4" tl="C"/>
+    <connection from="WC.42" fromLane="0" to="CS" toLane="0" linkIndex="5" tl="C"/>
+    <connection from="WC.42" fromLane="1" to="CS" toLane="1" linkIndex="6" tl="C"/>
+    <connection from="WC.42" fromLane="1" to="CN" toLane="0" linkIndex="7" tl="C"/>
+    <connection from="WC.42" fromLane="1" to="CW" toLane="1" linkIndex="8" tl="C"/>
+    <!-- Changed Elements -->
+    <connection from="NC" fromLane="0" to="CS" toLane="0" linkIndex="2"/>
+    <connection from="NC" fromLane="1" to="CS" toLane="1" linkIndex="3"/>
+</tlLogics>

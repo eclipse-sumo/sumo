@@ -1,0 +1,1984 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb  3 17:09:17 2020 by Eclipse SUMO Version v1_4_0+0920-e1d7ddb379
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <time>
+        <end value="40"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="0.4"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="0.00">
+        <vehicle id="NW" x="34.68" y="96.56" angle="179.24" type="bike" speed="0.00" pos="59.89" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.10">
+        <vehicle id="NW" x="34.67" y="96.55" angle="179.59" type="bike" speed="0.12" pos="59.90" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.20">
+        <vehicle id="NW" x="34.65" y="96.52" angle="179.94" type="bike" speed="0.24" pos="59.93" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.30">
+        <vehicle id="NW" x="34.62" y="96.49" angle="180.29" type="bike" speed="0.35" pos="59.96" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.40">
+        <vehicle id="NW" x="34.58" y="96.44" angle="180.63" type="bike" speed="0.45" pos="60.01" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.50">
+        <vehicle id="NW" x="34.53" y="96.39" angle="180.97" type="bike" speed="0.55" pos="60.06" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.60">
+        <vehicle id="NW" x="34.47" y="96.32" angle="181.30" type="bike" speed="0.66" pos="60.13" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.70">
+        <vehicle id="NW" x="34.40" y="96.24" angle="181.63" type="bike" speed="0.75" pos="60.20" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.80">
+        <vehicle id="NW" x="34.32" y="96.16" angle="181.96" type="bike" speed="0.86" pos="60.29" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="0.90">
+        <vehicle id="NW" x="34.25" y="96.06" angle="181.60" type="bike" speed="0.93" pos="60.38" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.00">
+        <vehicle id="NW" x="34.19" y="95.96" angle="181.25" type="bike" speed="1.04" pos="60.48" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.10">
+        <vehicle id="NW" x="34.15" y="95.84" angle="180.91" type="bike" speed="1.15" pos="60.60" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.20">
+        <vehicle id="NW" x="34.11" y="95.72" angle="180.57" type="bike" speed="1.24" pos="60.72" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.30">
+        <vehicle id="NW" x="34.08" y="95.59" angle="180.23" type="bike" speed="1.31" pos="60.85" lane="gneE4.18_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.40">
+        <vehicle id="NW" x="34.05" y="95.45" angle="180.23" type="bike" speed="1.38" pos="0.10" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.50">
+        <vehicle id="NW" x="34.03" y="95.31" angle="179.89" type="bike" speed="1.44" pos="0.25" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.60">
+        <vehicle id="NW" x="34.03" y="95.15" angle="179.56" type="bike" speed="1.56" pos="0.40" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.70">
+        <vehicle id="NW" x="34.03" y="94.98" angle="179.24" type="bike" speed="1.66" pos="0.57" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.80">
+        <vehicle id="NW" x="34.03" y="94.80" angle="179.38" type="bike" speed="1.77" pos="0.75" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="1.90">
+        <vehicle id="NW" x="34.03" y="94.62" angle="179.24" type="bike" speed="1.87" pos="0.93" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.00">
+        <vehicle id="NE" x="34.68" y="96.56" angle="179.24" type="bike" speed="0.00" pos="59.89" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.03" y="94.42" angle="179.24" type="bike" speed="1.98" pos="1.13" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.10">
+        <vehicle id="NE" x="34.69" y="96.55" angle="178.88" type="bike" speed="0.12" pos="59.90" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.03" y="94.22" angle="179.24" type="bike" speed="2.05" pos="1.34" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.20">
+        <vehicle id="NE" x="34.71" y="96.53" angle="178.53" type="bike" speed="0.23" pos="59.93" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.04" y="94.00" angle="179.24" type="bike" speed="2.11" pos="1.55" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.30">
+        <vehicle id="NE" x="34.74" y="96.49" angle="178.19" type="bike" speed="0.35" pos="59.96" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.04" y="93.78" angle="179.24" type="bike" speed="2.20" pos="1.77" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.40">
+        <vehicle id="NE" x="34.78" y="96.45" angle="177.85" type="bike" speed="0.46" pos="60.01" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.04" y="93.56" angle="179.24" type="bike" speed="2.26" pos="1.99" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.50">
+        <vehicle id="NE" x="34.83" y="96.39" angle="177.51" type="bike" speed="0.55" pos="60.06" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.05" y="93.32" angle="179.24" type="bike" speed="2.38" pos="2.23" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.60">
+        <vehicle id="NE" x="34.89" y="96.33" angle="177.17" type="bike" speed="0.66" pos="60.13" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.05" y="93.07" angle="179.24" type="bike" speed="2.47" pos="2.48" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.70">
+        <vehicle id="NE" x="34.96" y="96.25" angle="176.84" type="bike" speed="0.74" pos="60.20" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.05" y="92.82" angle="179.24" type="bike" speed="2.56" pos="2.73" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.80">
+        <vehicle id="NE" x="35.04" y="96.17" angle="176.52" type="bike" speed="0.86" pos="60.29" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.06" y="92.55" angle="179.24" type="bike" speed="2.64" pos="3.00" lane=":gneJ5_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="2.90">
+        <vehicle id="NE" x="35.11" y="96.07" angle="176.87" type="bike" speed="0.95" pos="60.38" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.05" y="92.28" angle="179.53" type="bike" speed="2.72" pos="0.27" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.00">
+        <vehicle id="NE" x="35.17" y="95.97" angle="177.22" type="bike" speed="1.05" pos="60.49" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.03" y="92.00" angle="179.83" type="bike" speed="2.83" pos="0.55" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.10">
+        <vehicle id="NE" x="35.23" y="95.86" angle="177.57" type="bike" speed="1.13" pos="60.60" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="34.01" y="91.71" angle="180.13" type="bike" speed="2.93" pos="0.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.20">
+        <vehicle id="NE" x="35.27" y="95.74" angle="177.91" type="bike" speed="1.20" pos="60.72" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="33.97" y="91.41" angle="180.43" type="bike" speed="2.99" pos="1.14" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.30">
+        <vehicle id="NE" x="35.30" y="95.61" angle="178.24" type="bike" speed="1.31" pos="60.85" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="33.93" y="91.10" angle="180.73" type="bike" speed="3.07" pos="1.45" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.40">
+        <vehicle id="NE" x="35.33" y="95.47" angle="178.25" type="bike" speed="1.38" pos="0.10" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="33.87" y="90.78" angle="181.02" type="bike" speed="3.13" pos="1.76" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.50">
+        <vehicle id="NE" x="35.35" y="95.32" angle="178.58" type="bike" speed="1.50" pos="0.25" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="33.80" y="90.46" angle="181.31" type="bike" speed="3.23" pos="2.09" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.60">
+        <vehicle id="NE" x="35.37" y="95.16" angle="178.91" type="bike" speed="1.60" pos="0.41" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="33.73" y="90.13" angle="181.59" type="bike" speed="3.33" pos="2.42" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.70">
+        <vehicle id="NE" x="35.37" y="94.99" angle="179.24" type="bike" speed="1.68" pos="0.58" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="33.64" y="89.79" angle="181.88" type="bike" speed="3.39" pos="2.76" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.80">
+        <vehicle id="NE" x="35.37" y="94.82" angle="179.09" type="bike" speed="1.76" pos="0.75" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="33.55" y="89.44" angle="182.16" type="bike" speed="3.47" pos="3.11" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="3.90">
+        <vehicle id="NE" x="35.38" y="94.63" angle="179.24" type="bike" speed="1.87" pos="0.94" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="33.45" y="89.08" angle="182.15" type="bike" speed="3.57" pos="3.46" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.00">
+        <vehicle id="NE" x="35.38" y="94.43" angle="179.24" type="bike" speed="1.97" pos="1.14" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.56" angle="179.24" type="bike" speed="0.00" pos="59.89" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="33.36" y="88.72" angle="182.14" type="bike" speed="3.63" pos="3.82" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.10">
+        <vehicle id="NE" x="35.38" y="94.23" angle="179.24" type="bike" speed="2.05" pos="1.34" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.55" angle="179.24" type="bike" speed="0.11" pos="59.90" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="33.26" y="88.34" angle="182.13" type="bike" speed="3.70" pos="4.19" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.20">
+        <vehicle id="NE" x="35.39" y="94.01" angle="179.24" type="bike" speed="2.15" pos="1.56" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.53" angle="179.24" type="bike" speed="0.23" pos="59.92" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="33.17" y="87.97" angle="182.12" type="bike" speed="3.77" pos="4.57" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.30">
+        <vehicle id="NE" x="35.39" y="93.79" angle="179.24" type="bike" speed="2.26" pos="1.78" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.49" angle="179.24" type="bike" speed="0.34" pos="59.96" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="33.07" y="87.58" angle="182.11" type="bike" speed="3.85" pos="4.96" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.40">
+        <vehicle id="NE" x="35.39" y="93.55" angle="179.24" type="bike" speed="2.33" pos="2.01" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.45" angle="179.24" type="bike" speed="0.44" pos="60.00" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.98" y="87.18" angle="182.10" type="bike" speed="3.94" pos="5.35" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.50">
+        <vehicle id="NE" x="35.39" y="93.31" angle="179.24" type="bike" speed="2.45" pos="2.26" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.39" angle="179.24" type="bike" speed="0.56" pos="60.06" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.88" y="86.81" angle="182.13" type="bike" speed="3.72" pos="5.72" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.60">
+        <vehicle id="NE" x="35.40" y="93.06" angle="179.24" type="bike" speed="2.55" pos="2.51" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.33" angle="179.24" type="bike" speed="0.66" pos="60.12" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.79" y="86.47" angle="182.17" type="bike" speed="3.42" pos="6.06" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.70">
+        <vehicle id="NE" x="35.40" y="92.79" angle="179.24" type="bike" speed="2.64" pos="2.78" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.25" angle="179.24" type="bike" speed="0.76" pos="60.20" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.69" y="86.15" angle="182.22" type="bike" speed="3.12" pos="6.38" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.80">
+        <vehicle id="NE" x="35.40" y="92.52" angle="179.22" type="bike" speed="2.73" pos="0.05" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.17" angle="179.24" type="bike" speed="0.84" pos="60.28" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.60" y="85.87" angle="182.27" type="bike" speed="2.82" pos="6.66" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="4.90">
+        <vehicle id="NE" x="35.41" y="92.24" angle="242.71" type="bike" speed="2.80" pos="0.33" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="96.07" angle="179.24" type="bike" speed="0.94" pos="60.38" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.50" y="85.61" angle="182.31" type="bike" speed="2.52" pos="6.91" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.00">
+        <vehicle id="NE" x="35.41" y="91.95" angle="242.71" type="bike" speed="2.88" pos="0.62" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.68" y="95.97" angle="179.24" type="bike" speed="1.03" pos="60.48" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.40" y="85.39" angle="182.37" type="bike" speed="2.22" pos="7.13" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.10">
+        <vehicle id="NE" x="35.42" y="91.65" angle="242.70" type="bike" speed="2.99" pos="0.92" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.69" y="95.86" angle="179.24" type="bike" speed="1.12" pos="60.59" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.31" y="85.20" angle="182.42" type="bike" speed="1.92" pos="7.33" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.20">
+        <vehicle id="NE" x="35.42" y="91.35" angle="242.70" type="bike" speed="3.06" pos="1.22" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.69" y="95.74" angle="179.24" type="bike" speed="1.21" pos="60.71" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.21" y="85.03" angle="182.47" type="bike" speed="1.62" pos="7.49" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.30">
+        <vehicle id="NE" x="35.43" y="91.03" angle="242.69" type="bike" speed="3.15" pos="1.54" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.69" y="95.61" angle="179.24" type="bike" speed="1.30" pos="60.84" lane="gneE4.18_0" slope="0.00"/>
+        <vehicle id="NW" x="32.11" y="84.90" angle="182.53" type="bike" speed="1.32" pos="7.62" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.40">
+        <vehicle id="NE" x="35.43" y="90.71" angle="179.22" type="bike" speed="3.23" pos="1.86" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.69" y="95.47" angle="179.24" type="bike" speed="1.38" pos="0.09" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="32.01" y="84.79" angle="182.59" type="bike" speed="1.02" pos="7.72" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.50">
+        <vehicle id="NE" x="35.43" y="90.38" angle="179.22" type="bike" speed="3.31" pos="2.19" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.69" y="95.32" angle="179.24" type="bike" speed="1.47" pos="0.24" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.91" y="84.72" angle="182.65" type="bike" speed="0.72" pos="7.79" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.60">
+        <vehicle id="NE" x="35.44" y="90.04" angle="179.22" type="bike" speed="3.40" pos="2.53" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.70" y="95.16" angle="179.24" type="bike" speed="1.59" pos="0.40" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.81" y="84.68" angle="182.71" type="bike" speed="0.42" pos="7.84" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.70">
+        <vehicle id="NE" x="35.44" y="89.69" angle="179.22" type="bike" speed="3.51" pos="2.88" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.70" y="95.00" angle="179.24" type="bike" speed="1.67" pos="0.56" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.71" y="84.66" angle="182.77" type="bike" speed="0.13" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.80">
+        <vehicle id="NE" x="35.45" y="89.33" angle="179.22" type="bike" speed="3.57" pos="3.24" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.70" y="94.82" angle="179.24" type="bike" speed="1.78" pos="0.74" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.61" y="84.66" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="5.90">
+        <vehicle id="NE" x="35.45" y="88.96" angle="179.22" type="bike" speed="3.67" pos="3.61" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.70" y="94.63" angle="179.24" type="bike" speed="1.85" pos="0.93" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.51" y="84.66" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.00">
+        <vehicle id="NE" x="35.46" y="88.58" angle="179.22" type="bike" speed="3.76" pos="3.98" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.70" y="94.44" angle="179.24" type="bike" speed="1.96" pos="1.12" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.41" y="84.66" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.10">
+        <vehicle id="NE" x="35.46" y="88.20" angle="179.22" type="bike" speed="3.84" pos="4.37" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.71" y="94.23" angle="179.24" type="bike" speed="2.05" pos="1.33" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.31" y="84.66" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.20">
+        <vehicle id="NE" x="35.47" y="87.81" angle="179.22" type="bike" speed="3.93" pos="4.76" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.71" y="94.02" angle="179.24" type="bike" speed="2.13" pos="1.54" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.21" y="84.66" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.30">
+        <vehicle id="NE" x="35.47" y="87.40" angle="179.22" type="bike" speed="4.04" pos="5.16" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.71" y="93.80" angle="179.24" type="bike" speed="2.19" pos="1.76" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.11" y="84.66" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.40">
+        <vehicle id="NE" x="35.48" y="87.02" angle="179.22" type="bike" speed="3.81" pos="5.55" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.72" y="93.57" angle="179.24" type="bike" speed="2.30" pos="1.99" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="31.01" y="84.65" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.50">
+        <vehicle id="NE" x="35.48" y="86.67" angle="179.22" type="bike" speed="3.52" pos="5.90" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.72" y="93.33" angle="179.24" type="bike" speed="2.39" pos="2.23" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="30.91" y="84.65" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.60">
+        <vehicle id="NE" x="35.49" y="86.34" angle="179.22" type="bike" speed="3.24" pos="6.22" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.72" y="93.08" angle="179.24" type="bike" speed="2.50" pos="2.48" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="30.81" y="84.65" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.70">
+        <vehicle id="NE" x="35.49" y="86.05" angle="179.22" type="bike" speed="2.94" pos="6.52" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.73" y="92.82" angle="179.24" type="bike" speed="2.61" pos="2.74" lane=":gneJ5_0_0" slope="0.00"/>
+        <vehicle id="NW" x="30.71" y="84.65" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.80">
+        <vehicle id="NE" x="35.50" y="85.78" angle="179.22" type="bike" speed="2.67" pos="6.78" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.73" y="92.55" angle="179.24" type="bike" speed="2.73" pos="0.01" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="30.61" y="84.65" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="6.90">
+        <vehicle id="NE" x="35.50" y="85.55" angle="179.22" type="bike" speed="2.37" pos="7.02" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.73" y="92.27" angle="179.23" type="bike" speed="2.83" pos="0.29" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="30.51" y="84.65" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.00">
+        <vehicle id="NE" x="35.50" y="85.34" angle="179.22" type="bike" speed="2.07" pos="7.23" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.74" y="91.98" angle="179.23" type="bike" speed="2.93" pos="0.59" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="30.41" y="84.65" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.10">
+        <vehicle id="NE" x="35.50" y="85.16" angle="179.22" type="bike" speed="1.77" pos="7.40" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.74" y="91.67" angle="179.23" type="bike" speed="3.04" pos="0.89" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="30.31" y="84.64" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.20">
+        <vehicle id="NE" x="35.51" y="85.01" angle="179.22" type="bike" speed="1.49" pos="7.55" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.75" y="91.36" angle="179.23" type="bike" speed="3.13" pos="1.20" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="30.21" y="84.64" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.30">
+        <vehicle id="NE" x="35.51" y="84.89" angle="179.22" type="bike" speed="1.19" pos="7.67" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.75" y="91.05" angle="179.22" type="bike" speed="3.04" pos="1.51" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="30.11" y="84.64" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.40">
+        <vehicle id="NE" x="35.51" y="84.80" angle="179.22" type="bike" speed="0.89" pos="7.76" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.75" y="90.76" angle="179.22" type="bike" speed="2.90" pos="1.80" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="30.01" y="84.64" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.50">
+        <vehicle id="NE" x="35.51" y="84.75" angle="179.22" type="bike" speed="0.59" pos="7.82" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.76" y="90.49" angle="179.22" type="bike" speed="2.77" pos="2.08" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.91" y="84.64" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.60">
+        <vehicle id="NE" x="35.51" y="84.72" angle="179.22" type="bike" speed="0.29" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.76" y="90.23" angle="179.22" type="bike" speed="2.59" pos="2.33" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.81" y="84.64" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.02" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.76" y="89.98" angle="179.22" type="bike" speed="2.48" pos="2.58" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.71" y="84.64" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.77" y="89.75" angle="179.22" type="bike" speed="2.32" pos="2.81" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.61" y="84.63" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="7.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.77" y="89.53" angle="179.22" type="bike" speed="2.18" pos="3.03" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.51" y="84.63" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.77" y="89.32" angle="179.22" type="bike" speed="2.05" pos="3.24" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.41" y="84.63" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.78" y="89.13" angle="179.22" type="bike" speed="1.94" pos="3.43" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.31" y="84.63" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.78" y="88.95" angle="179.22" type="bike" speed="1.81" pos="3.61" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.21" y="84.63" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.78" y="88.78" angle="179.22" type="bike" speed="1.67" pos="3.78" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.11" y="84.63" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.78" y="88.62" angle="179.22" type="bike" speed="1.57" pos="3.94" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="29.01" y="84.63" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.79" y="88.47" angle="179.22" type="bike" speed="1.50" pos="4.09" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.91" y="84.63" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.79" y="88.33" angle="179.22" type="bike" speed="1.38" pos="4.22" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.81" y="84.62" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.79" y="88.20" angle="179.22" type="bike" speed="1.30" pos="4.35" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.71" y="84.62" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.79" y="88.09" angle="179.22" type="bike" speed="1.15" pos="4.47" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.61" y="84.62" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.78" y="87.98" angle="179.56" type="bike" speed="1.12" pos="4.58" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.51" y="84.62" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.76" y="87.88" angle="179.90" type="bike" speed="0.99" pos="4.68" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.41" y="84.62" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.73" y="87.78" angle="180.24" type="bike" speed="0.93" pos="4.77" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.31" y="84.62" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.70" y="87.70" angle="180.58" type="bike" speed="0.86" pos="4.86" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.21" y="84.62" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.65" y="87.62" angle="180.93" type="bike" speed="0.78" pos="4.94" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.12" y="84.61" angle="182.44" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.59" y="87.53" angle="181.26" type="bike" speed="0.90" pos="5.03" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="28.04" y="84.61" angle="182.09" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.52" y="87.43" angle="181.58" type="bike" speed="1.00" pos="5.13" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.97" y="84.61" angle="181.73" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.44" y="87.32" angle="181.91" type="bike" speed="1.07" pos="5.24" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.91" y="84.61" angle="181.37" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.35" y="87.20" angle="182.22" type="bike" speed="1.18" pos="5.35" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.86" y="84.61" angle="181.01" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.25" y="87.07" angle="182.53" type="bike" speed="1.29" pos="5.48" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.82" y="84.61" angle="180.66" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="9.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.16" y="86.93" angle="182.51" type="bike" speed="1.40" pos="5.62" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.79" y="84.61" angle="180.30" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="34.06" y="86.78" angle="182.50" type="bike" speed="1.48" pos="5.77" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="84.61" angle="179.94" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.96" y="86.61" angle="182.48" type="bike" speed="1.59" pos="5.93" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.58" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.86" y="86.44" angle="182.46" type="bike" speed="1.70" pos="6.10" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.77" y="86.26" angle="182.44" type="bike" speed="1.81" pos="6.28" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.67" y="86.07" angle="182.43" type="bike" speed="1.87" pos="6.47" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.57" y="85.87" angle="182.41" type="bike" speed="1.99" pos="6.67" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.47" y="85.66" angle="182.39" type="bike" speed="2.07" pos="6.87" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.38" y="85.45" angle="182.38" type="bike" speed="2.16" pos="7.09" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.28" y="85.25" angle="182.42" type="bike" speed="1.93" pos="7.28" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="10.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.18" y="85.08" angle="182.46" type="bike" speed="1.69" pos="7.45" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="33.08" y="84.94" angle="182.52" type="bike" speed="1.39" pos="7.59" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.98" y="84.83" angle="182.57" type="bike" speed="1.09" pos="7.70" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.89" y="84.75" angle="182.63" type="bike" speed="0.79" pos="7.78" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.79" y="84.70" angle="182.69" type="bike" speed="0.49" pos="7.83" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.69" y="84.68" angle="182.76" type="bike" speed="0.20" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.59" y="84.68" angle="182.80" type="bike" speed="0.01" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.49" y="84.67" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.39" y="84.67" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.29" y="84.67" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="11.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.19" y="84.67" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.09" y="84.67" angle="182.80" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="32.00" y="84.67" angle="182.44" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.92" y="84.67" angle="182.09" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.85" y="84.66" angle="181.73" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.79" y="84.66" angle="181.37" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.74" y="84.66" angle="181.01" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.70" y="84.66" angle="180.66" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.67" y="84.66" angle="180.30" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.65" y="84.66" angle="179.94" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="12.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.58" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="13.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="14.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="15.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="17.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="18.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.00">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.10">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.20">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.30">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.40">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.50">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.60">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.70">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.80">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="19.90">
+        <vehicle id="NE" x="35.51" y="84.71" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.66" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.61" angle="179.22" type="bike" speed="0.00" pos="7.85" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.00">
+        <vehicle id="NE" x="35.51" y="84.70" angle="179.22" type="bike" speed="0.12" pos="7.86" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.65" angle="179.22" type="bike" speed="0.12" pos="7.86" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.60" angle="179.22" type="bike" speed="0.12" pos="7.86" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.10">
+        <vehicle id="NE" x="35.51" y="84.68" angle="179.22" type="bike" speed="0.23" pos="7.88" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.63" angle="179.22" type="bike" speed="0.23" pos="7.88" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.57" angle="179.22" type="bike" speed="0.23" pos="7.88" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.20">
+        <vehicle id="NE" x="35.51" y="84.65" angle="179.22" type="bike" speed="0.34" pos="7.92" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.59" angle="179.22" type="bike" speed="0.35" pos="7.92" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.54" angle="179.22" type="bike" speed="0.34" pos="7.92" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.30">
+        <vehicle id="NE" x="35.51" y="84.60" angle="179.22" type="bike" speed="0.45" pos="7.96" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.54" angle="179.22" type="bike" speed="0.47" pos="7.97" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.50" angle="179.22" type="bike" speed="0.45" pos="7.96" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.40">
+        <vehicle id="NE" x="35.51" y="84.54" angle="179.22" type="bike" speed="0.56" pos="8.02" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.49" angle="179.22" type="bike" speed="0.57" pos="8.02" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="84.44" angle="179.22" type="bike" speed="0.56" pos="8.02" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.50">
+        <vehicle id="NE" x="35.51" y="84.48" angle="179.22" type="bike" speed="0.65" pos="8.08" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.42" angle="179.22" type="bike" speed="0.66" pos="8.09" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="84.37" angle="179.22" type="bike" speed="0.67" pos="8.09" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.60">
+        <vehicle id="NE" x="35.51" y="84.40" angle="179.22" type="bike" speed="0.77" pos="8.16" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.34" angle="179.22" type="bike" speed="0.78" pos="8.17" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="84.30" angle="179.22" type="bike" speed="0.76" pos="8.16" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.70">
+        <vehicle id="NE" x="35.52" y="84.32" angle="179.22" type="bike" speed="0.85" pos="8.25" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.25" angle="179.22" type="bike" speed="0.89" pos="8.26" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="84.21" angle="179.22" type="bike" speed="0.83" pos="8.24" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.80">
+        <vehicle id="NE" x="35.52" y="84.22" angle="179.22" type="bike" speed="0.95" pos="8.34" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.16" angle="179.22" type="bike" speed="0.98" pos="8.35" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="84.12" angle="179.22" type="bike" speed="0.92" pos="8.34" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="20.90">
+        <vehicle id="NE" x="35.52" y="84.12" angle="179.22" type="bike" speed="1.05" pos="8.45" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="84.05" angle="179.22" type="bike" speed="1.09" pos="8.46" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="84.02" angle="179.22" type="bike" speed="1.02" pos="8.44" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.00">
+        <vehicle id="NE" x="35.52" y="84.00" angle="179.22" type="bike" speed="1.16" pos="8.56" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.65" y="83.93" angle="179.22" type="bike" speed="1.20" pos="8.58" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="83.91" angle="179.22" type="bike" speed="1.11" pos="8.55" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.10">
+        <vehicle id="NE" x="35.52" y="83.87" angle="179.22" type="bike" speed="1.25" pos="8.69" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.65" y="83.80" angle="179.22" type="bike" speed="1.30" pos="8.71" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="83.79" angle="179.22" type="bike" speed="1.20" pos="8.67" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.20">
+        <vehicle id="NE" x="35.52" y="83.74" angle="179.22" type="bike" speed="1.33" pos="8.82" lane="gneE4.85_0" slope="0.00"/>
+        <vehicle id="NS" x="31.64" y="83.66" angle="185.02" type="bike" speed="1.40" pos="0.00" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.78" y="83.66" angle="179.22" type="bike" speed="1.29" pos="8.80" lane="gneE4.85_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.30">
+        <vehicle id="NE" x="35.53" y="83.70" angle="178.87" type="bike" speed="1.43" pos="0.11" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.63" y="83.51" angle="180.10" type="bike" speed="1.48" pos="0.15" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="83.58" angle="179.41" type="bike" speed="1.38" pos="0.09" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.40">
+        <vehicle id="NE" x="35.56" y="83.55" angle="178.07" type="bike" speed="1.49" pos="0.26" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.61" y="83.35" angle="180.63" type="bike" speed="1.57" pos="0.31" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.76" y="83.44" angle="179.90" type="bike" speed="1.49" pos="0.23" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.50">
+        <vehicle id="NE" x="35.58" y="83.40" angle="177.23" type="bike" speed="1.57" pos="0.42" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.60" y="83.19" angle="181.20" type="bike" speed="1.67" pos="0.48" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.75" y="83.28" angle="180.41" type="bike" speed="1.55" pos="0.39" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.60">
+        <vehicle id="NE" x="35.61" y="83.23" angle="176.32" type="bike" speed="1.69" pos="0.59" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.59" y="83.01" angle="181.80" type="bike" speed="1.74" pos="0.65" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.74" y="83.12" angle="180.96" type="bike" speed="1.67" pos="0.56" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.70">
+        <vehicle id="NE" x="35.63" y="83.06" angle="175.37" type="bike" speed="1.78" pos="0.77" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.57" y="82.83" angle="182.42" type="bike" speed="1.82" pos="0.83" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.72" y="82.94" angle="181.54" type="bike" speed="1.75" pos="0.73" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.80">
+        <vehicle id="NE" x="35.66" y="82.87" angle="174.37" type="bike" speed="1.86" pos="0.95" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.56" y="82.64" angle="183.07" type="bike" speed="1.91" pos="1.02" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.71" y="82.76" angle="182.16" type="bike" speed="1.86" pos="0.92" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="21.90">
+        <vehicle id="NE" x="35.69" y="82.68" angle="173.30" type="bike" speed="1.98" pos="1.15" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.54" y="82.44" angle="183.75" type="bike" speed="1.99" pos="1.22" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.69" y="82.56" angle="182.81" type="bike" speed="1.95" pos="1.11" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.00">
+        <vehicle id="NE" x="35.72" y="82.47" angle="172.20" type="bike" speed="2.05" pos="1.36" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.52" y="82.23" angle="184.47" type="bike" speed="2.09" pos="1.43" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.68" y="82.36" angle="183.48" type="bike" speed="2.02" pos="1.31" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.10">
+        <vehicle id="NE" x="35.76" y="82.26" angle="171.04" type="bike" speed="2.16" pos="1.57" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.51" y="82.02" angle="184.69" type="bike" speed="2.19" pos="1.65" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.66" y="82.15" angle="184.17" type="bike" speed="2.10" pos="1.53" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.20">
+        <vehicle id="NE" x="35.78" y="82.04" angle="171.49" type="bike" speed="2.25" pos="1.80" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.50" y="81.79" angle="184.37" type="bike" speed="2.28" pos="1.88" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.66" y="81.93" angle="183.99" type="bike" speed="2.17" pos="1.74" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.30">
+        <vehicle id="NE" x="35.80" y="81.81" angle="171.80" type="bike" speed="2.32" pos="2.03" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.48" y="81.55" angle="184.69" type="bike" speed="2.37" pos="2.11" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.66" y="81.71" angle="183.68" type="bike" speed="2.24" pos="1.97" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.40">
+        <vehicle id="NE" x="35.74" y="81.79" angle="149.32" type="bike" speed="2.44" pos="2.27" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.46" y="81.31" angle="184.69" type="bike" speed="2.46" pos="2.36" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.67" y="81.47" angle="183.37" type="bike" speed="2.31" pos="2.20" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.50">
+        <vehicle id="NE" x="35.84" y="81.56" angle="149.63" type="bike" speed="2.52" pos="2.53" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.44" y="81.06" angle="184.69" type="bike" speed="2.52" pos="2.61" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.69" y="81.23" angle="183.06" type="bike" speed="2.42" pos="2.44" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.60">
+        <vehicle id="NE" x="35.93" y="81.31" angle="149.93" type="bike" speed="2.61" pos="2.79" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.42" y="80.80" angle="184.69" type="bike" speed="2.59" pos="2.87" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.73" y="80.98" angle="182.76" type="bike" speed="2.52" pos="2.69" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.70">
+        <vehicle id="NE" x="36.02" y="81.05" angle="150.23" type="bike" speed="2.71" pos="3.06" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.39" y="80.53" angle="184.69" type="bike" speed="2.67" pos="3.14" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.77" y="80.71" angle="182.46" type="bike" speed="2.61" pos="2.95" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.80">
+        <vehicle id="NE" x="36.11" y="80.77" angle="150.53" type="bike" speed="2.79" pos="3.34" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.37" y="80.26" angle="184.69" type="bike" speed="2.73" pos="3.41" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.81" y="80.44" angle="182.16" type="bike" speed="2.70" pos="3.22" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="22.90">
+        <vehicle id="NE" x="36.20" y="80.49" angle="150.82" type="bike" speed="2.90" pos="3.63" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.35" y="79.98" angle="184.69" type="bike" speed="2.82" pos="3.69" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.87" y="80.15" angle="181.87" type="bike" speed="2.81" pos="3.50" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.00">
+        <vehicle id="NE" x="36.29" y="80.19" angle="150.50" type="bike" speed="3.01" pos="3.93" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.32" y="79.69" angle="184.69" type="bike" speed="2.92" pos="3.99" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.92" y="79.86" angle="182.19" type="bike" speed="2.89" pos="3.79" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.10">
+        <vehicle id="NE" x="36.40" y="80.02" angle="122.44" type="bike" speed="3.08" pos="4.24" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.30" y="79.39" angle="184.69" type="bike" speed="3.00" pos="4.29" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.96" y="79.55" angle="182.50" type="bike" speed="2.97" pos="4.09" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.20">
+        <vehicle id="NE" x="36.65" y="79.82" angle="122.13" type="bike" speed="3.18" pos="4.55" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.25" y="79.08" angle="185.64" type="bike" speed="3.11" pos="4.60" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.99" y="79.25" angle="182.81" type="bike" speed="3.07" pos="4.40" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.30">
+        <vehicle id="NE" x="36.91" y="79.62" angle="121.83" type="bike" speed="3.26" pos="4.88" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.19" y="78.77" angle="186.63" type="bike" speed="3.21" pos="4.92" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="28.00" y="78.93" angle="183.11" type="bike" speed="3.14" pos="4.71" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.40">
+        <vehicle id="NE" x="37.19" y="79.42" angle="121.53" type="bike" speed="3.38" pos="5.22" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.14" y="78.44" angle="187.64" type="bike" speed="3.29" pos="5.25" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="28.01" y="78.60" angle="183.42" type="bike" speed="3.23" pos="5.03" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.50">
+        <vehicle id="NE" x="37.47" y="79.22" angle="121.52" type="bike" speed="3.47" pos="5.56" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.08" y="78.11" angle="188.67" type="bike" speed="3.35" pos="5.58" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="28.01" y="78.27" angle="183.42" type="bike" speed="3.29" pos="5.36" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.60">
+        <vehicle id="NE" x="37.77" y="79.04" angle="98.68" type="bike" speed="3.57" pos="5.92" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="31.03" y="77.77" angle="189.59" type="bike" speed="3.47" pos="5.93" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="28.01" y="77.94" angle="183.72" type="bike" speed="3.36" pos="5.70" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.70">
+        <vehicle id="NE" x="38.13" y="78.98" angle="98.38" type="bike" speed="3.65" pos="6.29" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="30.97" y="77.42" angle="189.59" type="bike" speed="3.54" pos="6.28" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.94" y="77.60" angle="199.20" type="bike" speed="3.43" pos="6.04" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.80">
+        <vehicle id="NE" x="38.49" y="78.92" angle="98.09" type="bike" speed="3.71" pos="6.66" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="30.91" y="77.06" angle="189.59" type="bike" speed="3.66" pos="6.65" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.83" y="77.27" angle="199.50" type="bike" speed="3.53" pos="6.40" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="23.90">
+        <vehicle id="NE" x="38.87" y="78.87" angle="98.21" type="bike" speed="3.78" pos="7.04" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="30.84" y="76.69" angle="189.59" type="bike" speed="3.76" pos="7.02" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.71" y="76.93" angle="199.38" type="bike" speed="3.62" pos="6.76" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.00">
+        <vehicle id="NE" x="39.25" y="78.81" angle="98.86" type="bike" speed="3.85" pos="7.42" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="30.78" y="76.31" angle="189.59" type="bike" speed="3.87" pos="7.41" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.58" y="76.58" angle="196.42" type="bike" speed="3.72" pos="7.13" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.10">
+        <vehicle id="NE" x="39.64" y="78.76" angle="98.09" type="bike" speed="3.95" pos="7.82" lane=":gneJ1_0_0" slope="0.00"/>
+        <vehicle id="NS" x="30.71" y="75.91" angle="189.59" type="bike" speed="3.98" pos="7.81" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.46" y="76.22" angle="199.50" type="bike" speed="3.81" pos="7.51" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.20">
+        <vehicle id="NE" x="40.04" y="78.72" angle="97.37" type="bike" speed="4.03" pos="0.14" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.65" y="75.52" angle="189.59" type="bike" speed="4.05" pos="8.21" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.33" y="75.85" angle="199.50" type="bike" speed="3.88" pos="7.90" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.30">
+        <vehicle id="NE" x="40.45" y="78.72" angle="95.24" type="bike" speed="4.11" pos="0.55" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.58" y="75.11" angle="189.59" type="bike" speed="4.15" pos="8.63" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.20" y="75.48" angle="199.50" type="bike" speed="3.98" pos="8.30" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.40">
+        <vehicle id="NE" x="40.87" y="78.72" angle="93.05" type="bike" speed="4.22" pos="0.97" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.51" y="74.69" angle="189.59" type="bike" speed="4.22" pos="9.05" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="27.06" y="75.10" angle="199.50" type="bike" speed="4.07" pos="8.70" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.50">
+        <vehicle id="NE" x="41.30" y="78.72" angle="90.83" type="bike" speed="4.28" pos="1.40" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.43" y="74.26" angle="189.60" type="bike" speed="4.33" pos="9.48" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="26.92" y="74.71" angle="199.50" type="bike" speed="4.13" pos="9.12" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.60">
+        <vehicle id="NE" x="41.74" y="78.73" angle="89.80" type="bike" speed="4.35" pos="1.84" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.36" y="73.83" angle="189.60" type="bike" speed="4.41" pos="9.92" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="26.78" y="74.31" angle="199.50" type="bike" speed="4.22" pos="9.54" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.70">
+        <vehicle id="NE" x="42.18" y="78.73" angle="89.80" type="bike" speed="4.47" pos="2.28" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.28" y="73.38" angle="189.61" type="bike" speed="4.53" pos="10.38" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="26.64" y="73.90" angle="199.50" type="bike" speed="4.34" pos="9.97" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.80">
+        <vehicle id="NE" x="42.64" y="78.73" angle="89.80" type="bike" speed="4.58" pos="2.74" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.21" y="72.93" angle="189.61" type="bike" speed="4.61" pos="10.84" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="26.44" y="73.51" angle="201.50" type="bike" speed="4.45" pos="10.42" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="24.90">
+        <vehicle id="NE" x="43.11" y="78.73" angle="89.80" type="bike" speed="4.65" pos="3.20" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.13" y="72.46" angle="189.61" type="bike" speed="4.72" pos="11.31" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="26.12" y="73.19" angle="208.73" type="bike" speed="4.54" pos="10.87" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.00">
+        <vehicle id="NE" x="43.58" y="78.73" angle="89.80" type="bike" speed="4.73" pos="3.68" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.05" y="71.99" angle="189.61" type="bike" speed="4.81" pos="11.79" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="25.79" y="72.86" angle="216.20" type="bike" speed="4.61" pos="11.33" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.10">
+        <vehicle id="NE" x="44.06" y="78.73" angle="89.80" type="bike" speed="4.83" pos="4.16" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.97" y="71.50" angle="189.61" type="bike" speed="4.91" pos="12.28" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="25.46" y="72.53" angle="223.71" type="bike" speed="4.73" pos="11.81" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.20">
+        <vehicle id="NE" x="44.55" y="78.74" angle="89.80" type="bike" speed="4.91" pos="4.65" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.88" y="71.02" angle="189.61" type="bike" speed="4.97" pos="12.78" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="25.12" y="72.19" angle="225.00" type="bike" speed="4.79" pos="12.29" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.30">
+        <vehicle id="NE" x="45.05" y="78.74" angle="89.80" type="bike" speed="4.98" pos="5.15" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.80" y="70.52" angle="189.61" type="bike" speed="5.07" pos="13.29" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="24.77" y="71.84" angle="225.00" type="bike" speed="4.86" pos="12.77" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.40">
+        <vehicle id="NE" x="45.56" y="78.74" angle="89.80" type="bike" speed="5.08" pos="5.66" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.71" y="70.01" angle="189.61" type="bike" speed="5.17" pos="13.80" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="24.43" y="71.50" angle="225.00" type="bike" speed="4.93" pos="13.26" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.50">
+        <vehicle id="NE" x="46.08" y="78.74" angle="89.80" type="bike" speed="5.19" pos="6.18" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.63" y="69.48" angle="189.33" type="bike" speed="5.28" pos="14.33" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="24.07" y="71.14" angle="225.00" type="bike" speed="5.00" pos="13.76" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.60">
+        <vehicle id="NE" x="46.61" y="78.74" angle="89.80" type="bike" speed="5.31" pos="6.71" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.59" y="68.95" angle="187.71" type="bike" speed="5.37" pos="14.87" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="23.61" y="70.97" angle="232.80" type="bike" speed="5.09" pos="14.27" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.70">
+        <vehicle id="NE" x="47.15" y="78.75" angle="89.80" type="bike" speed="5.42" pos="7.25" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.54" y="68.40" angle="186.07" type="bike" speed="5.47" pos="15.41" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="23.10" y="70.85" angle="243.11" type="bike" speed="5.15" pos="14.79" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.80">
+        <vehicle id="NE" x="47.70" y="78.75" angle="89.80" type="bike" speed="5.53" pos="7.80" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.49" y="67.85" angle="184.81" type="bike" speed="5.54" pos="15.97" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="22.60" y="70.73" angle="253.42" type="bike" speed="5.24" pos="15.31" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="25.90">
+        <vehicle id="NE" x="48.25" y="78.75" angle="89.80" type="bike" speed="5.51" pos="8.35" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.45" y="67.30" angle="184.81" type="bike" speed="5.53" pos="16.52" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="22.08" y="70.60" angle="256.34" type="bike" speed="5.31" pos="15.84" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.00">
+        <vehicle id="NE" x="48.81" y="78.75" angle="89.80" type="bike" speed="5.52" pos="8.90" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.40" y="66.75" angle="184.81" type="bike" speed="5.50" pos="17.07" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="21.55" y="70.48" angle="256.34" type="bike" speed="5.40" pos="16.38" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.10">
+        <vehicle id="NE" x="49.36" y="78.75" angle="89.80" type="bike" speed="5.53" pos="9.46" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.36" y="66.20" angle="184.81" type="bike" speed="5.51" pos="17.62" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="21.02" y="70.35" angle="256.34" type="bike" speed="5.47" pos="16.93" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.20">
+        <vehicle id="NE" x="49.91" y="78.76" angle="89.80" type="bike" speed="5.50" pos="10.01" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.31" y="65.65" angle="184.81" type="bike" speed="5.52" pos="18.17" lane=":gneJ1_2_0" slope="0.00"/>
+        <vehicle id="NW" x="20.48" y="70.22" angle="256.34" type="bike" speed="5.55" pos="17.48" lane=":gneJ1_3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.30">
+        <vehicle id="NE" x="50.46" y="78.76" angle="89.80" type="bike" speed="5.51" pos="10.56" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.28" y="65.10" angle="184.13" type="bike" speed="5.52" pos="0.20" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="19.93" y="70.19" angle="260.31" type="bike" speed="5.55" pos="0.49" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.40">
+        <vehicle id="NE" x="51.01" y="78.76" angle="89.80" type="bike" speed="5.54" pos="11.11" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.29" y="64.55" angle="182.24" type="bike" speed="5.50" pos="0.75" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="19.38" y="70.19" angle="264.83" type="bike" speed="5.55" pos="1.04" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.50">
+        <vehicle id="NE" x="51.56" y="78.76" angle="89.80" type="bike" speed="5.50" pos="11.66" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.30" y="64.00" angle="180.33" type="bike" speed="5.53" pos="1.30" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="18.83" y="70.18" angle="269.29" type="bike" speed="5.50" pos="1.59" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.60">
+        <vehicle id="NE" x="52.12" y="78.76" angle="89.80" type="bike" speed="5.52" pos="12.21" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.30" y="63.45" angle="179.29" type="bike" speed="5.51" pos="1.85" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="18.27" y="70.18" angle="269.34" type="bike" speed="5.55" pos="2.15" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.70">
+        <vehicle id="NE" x="52.67" y="78.76" angle="89.80" type="bike" speed="5.52" pos="12.77" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.31" y="62.90" angle="179.29" type="bike" speed="5.52" pos="2.40" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="17.72" y="70.17" angle="269.34" type="bike" speed="5.53" pos="2.70" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.80">
+        <vehicle id="NE" x="53.22" y="78.77" angle="89.80" type="bike" speed="5.51" pos="13.32" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.32" y="62.34" angle="179.29" type="bike" speed="5.55" pos="2.96" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="17.17" y="70.16" angle="269.34" type="bike" speed="5.52" pos="3.25" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="26.90">
+        <vehicle id="NE" x="53.77" y="78.77" angle="89.80" type="bike" speed="5.52" pos="13.87" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.32" y="61.79" angle="179.29" type="bike" speed="5.52" pos="3.51" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="16.61" y="70.16" angle="269.34" type="bike" speed="5.55" pos="3.81" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.00">
+        <vehicle id="NE" x="54.32" y="78.77" angle="89.80" type="bike" speed="5.52" pos="14.42" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.33" y="61.24" angle="179.29" type="bike" speed="5.52" pos="4.06" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="16.06" y="70.15" angle="269.34" type="bike" speed="5.52" pos="4.36" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.10">
+        <vehicle id="NE" x="54.88" y="78.77" angle="89.80" type="bike" speed="5.55" pos="14.98" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.34" y="60.69" angle="179.29" type="bike" speed="5.52" pos="4.61" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="15.51" y="70.14" angle="269.34" type="bike" speed="5.51" pos="4.91" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.20">
+        <vehicle id="NE" x="55.43" y="78.77" angle="89.80" type="bike" speed="5.53" pos="15.53" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.34" y="60.13" angle="179.29" type="bike" speed="5.55" pos="5.17" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="14.95" y="70.14" angle="269.34" type="bike" speed="5.55" pos="5.47" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.30">
+        <vehicle id="NE" x="55.98" y="78.78" angle="89.80" type="bike" speed="5.52" pos="16.08" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.35" y="59.58" angle="179.29" type="bike" speed="5.53" pos="5.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="14.40" y="70.13" angle="269.34" type="bike" speed="5.54" pos="6.02" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.40">
+        <vehicle id="NE" x="56.53" y="78.78" angle="89.80" type="bike" speed="5.51" pos="16.63" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.36" y="59.03" angle="179.29" type="bike" speed="5.53" pos="6.27" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="13.84" y="70.12" angle="269.34" type="bike" speed="5.54" pos="6.58" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.50">
+        <vehicle id="NE" x="57.08" y="78.78" angle="89.80" type="bike" speed="5.51" pos="17.18" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.36" y="58.47" angle="179.29" type="bike" speed="5.53" pos="6.83" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="13.29" y="70.12" angle="269.34" type="bike" speed="5.53" pos="7.13" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.60">
+        <vehicle id="NE" x="57.64" y="78.78" angle="89.80" type="bike" speed="5.50" pos="17.73" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.37" y="57.92" angle="179.29" type="bike" speed="5.50" pos="7.38" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="12.74" y="70.11" angle="269.34" type="bike" speed="5.50" pos="7.68" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.70">
+        <vehicle id="NE" x="58.19" y="78.78" angle="89.80" type="bike" speed="5.53" pos="18.29" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.38" y="57.37" angle="179.29" type="bike" speed="5.50" pos="7.93" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="12.19" y="70.11" angle="269.34" type="bike" speed="5.55" pos="8.23" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.80">
+        <vehicle id="NE" x="58.74" y="78.79" angle="89.80" type="bike" speed="5.53" pos="18.84" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.39" y="56.82" angle="179.29" type="bike" speed="5.54" pos="8.48" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="11.63" y="70.10" angle="269.34" type="bike" speed="5.55" pos="8.79" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="27.90">
+        <vehicle id="NE" x="59.29" y="78.79" angle="89.80" type="bike" speed="5.51" pos="19.39" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.39" y="56.27" angle="179.29" type="bike" speed="5.54" pos="9.03" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="11.08" y="70.09" angle="269.34" type="bike" speed="5.51" pos="9.34" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.00">
+        <vehicle id="NE" x="59.85" y="78.79" angle="89.80" type="bike" speed="5.55" pos="19.95" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.40" y="55.71" angle="179.29" type="bike" speed="5.53" pos="9.59" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="10.53" y="70.09" angle="269.34" type="bike" speed="5.53" pos="9.89" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.10">
+        <vehicle id="NE" x="60.40" y="78.79" angle="89.80" type="bike" speed="5.54" pos="20.50" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.41" y="55.16" angle="179.29" type="bike" speed="5.50" pos="10.14" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="9.98" y="70.08" angle="269.34" type="bike" speed="5.50" pos="10.44" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.20">
+        <vehicle id="NE" x="60.96" y="78.79" angle="89.80" type="bike" speed="5.55" pos="21.06" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.41" y="54.61" angle="179.29" type="bike" speed="5.54" pos="10.69" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="9.42" y="70.07" angle="269.34" type="bike" speed="5.53" pos="11.00" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.30">
+        <vehicle id="NE" x="61.51" y="78.80" angle="89.80" type="bike" speed="5.54" pos="21.61" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.42" y="54.06" angle="179.29" type="bike" speed="5.52" pos="11.24" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="8.87" y="70.07" angle="269.34" type="bike" speed="5.53" pos="11.55" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.40">
+        <vehicle id="NE" x="62.06" y="78.80" angle="89.80" type="bike" speed="5.51" pos="22.16" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.43" y="53.51" angle="179.29" type="bike" speed="5.52" pos="11.80" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="8.32" y="70.06" angle="269.34" type="bike" speed="5.53" pos="12.10" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.50">
+        <vehicle id="NE" x="62.61" y="78.80" angle="89.80" type="bike" speed="5.52" pos="22.71" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.43" y="52.95" angle="179.29" type="bike" speed="5.52" pos="12.35" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="7.77" y="70.05" angle="269.34" type="bike" speed="5.52" pos="12.66" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.60">
+        <vehicle id="NE" x="63.16" y="78.80" angle="89.80" type="bike" speed="5.50" pos="23.26" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.44" y="52.40" angle="179.29" type="bike" speed="5.52" pos="12.90" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="7.22" y="70.05" angle="269.34" type="bike" speed="5.50" pos="13.21" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.70">
+        <vehicle id="NE" x="63.72" y="78.80" angle="89.80" type="bike" speed="5.55" pos="23.82" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.45" y="51.85" angle="179.29" type="bike" speed="5.53" pos="13.45" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="6.66" y="70.04" angle="269.34" type="bike" speed="5.52" pos="13.76" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.80">
+        <vehicle id="NE" x="64.27" y="78.81" angle="89.80" type="bike" speed="5.52" pos="24.37" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.45" y="51.30" angle="179.29" type="bike" speed="5.53" pos="14.00" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="6.11" y="70.04" angle="269.34" type="bike" speed="5.55" pos="14.31" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="28.90">
+        <vehicle id="NE" x="64.83" y="78.81" angle="89.80" type="bike" speed="5.55" pos="24.92" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.46" y="50.74" angle="179.29" type="bike" speed="5.55" pos="14.56" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="5.56" y="70.03" angle="269.34" type="bike" speed="5.52" pos="14.86" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.00">
+        <vehicle id="NE" x="65.38" y="78.81" angle="89.80" type="bike" speed="5.54" pos="25.48" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.47" y="50.19" angle="179.29" type="bike" speed="5.52" pos="15.11" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="5.01" y="70.02" angle="269.34" type="bike" speed="5.50" pos="15.41" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.10">
+        <vehicle id="NE" x="65.93" y="78.81" angle="89.80" type="bike" speed="5.52" pos="26.03" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.47" y="49.64" angle="179.29" type="bike" speed="5.53" pos="15.66" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="4.46" y="70.02" angle="269.34" type="bike" speed="5.50" pos="15.96" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.20">
+        <vehicle id="NE" x="66.48" y="78.81" angle="89.80" type="bike" speed="5.50" pos="26.58" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.48" y="49.08" angle="179.29" type="bike" speed="5.54" pos="16.22" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="3.90" y="70.01" angle="269.34" type="bike" speed="5.54" pos="16.52" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.30">
+        <vehicle id="NE" x="67.04" y="78.82" angle="89.80" type="bike" speed="5.54" pos="27.14" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.49" y="48.53" angle="179.29" type="bike" speed="5.55" pos="16.77" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="3.35" y="70.00" angle="269.34" type="bike" speed="5.52" pos="17.07" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.40">
+        <vehicle id="NE" x="67.59" y="78.82" angle="89.80" type="bike" speed="5.54" pos="27.69" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.50" y="47.97" angle="179.29" type="bike" speed="5.55" pos="17.33" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="2.80" y="70.00" angle="269.34" type="bike" speed="5.53" pos="17.62" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.50">
+        <vehicle id="NE" x="68.14" y="78.82" angle="89.80" type="bike" speed="5.51" pos="28.24" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.50" y="47.42" angle="179.29" type="bike" speed="5.51" pos="17.88" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="2.25" y="69.99" angle="269.34" type="bike" speed="5.52" pos="18.17" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.60">
+        <vehicle id="NE" x="68.69" y="78.82" angle="89.80" type="bike" speed="5.52" pos="28.79" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.51" y="46.87" angle="179.29" type="bike" speed="5.56" pos="18.43" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="1.69" y="69.98" angle="269.34" type="bike" speed="5.54" pos="18.73" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.70">
+        <vehicle id="NE" x="69.25" y="78.82" angle="89.80" type="bike" speed="5.53" pos="29.35" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.52" y="46.31" angle="179.29" type="bike" speed="5.55" pos="18.99" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="1.14" y="69.98" angle="269.34" type="bike" speed="5.55" pos="19.28" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.80">
+        <vehicle id="NE" x="69.80" y="78.82" angle="89.80" type="bike" speed="5.52" pos="29.90" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.52" y="45.76" angle="179.29" type="bike" speed="5.53" pos="19.54" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="0.59" y="69.97" angle="269.34" type="bike" speed="5.51" pos="19.83" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="29.90">
+        <vehicle id="NE" x="70.35" y="78.83" angle="89.80" type="bike" speed="5.52" pos="30.45" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.53" y="45.21" angle="179.29" type="bike" speed="5.54" pos="20.10" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="0.03" y="69.97" angle="269.34" type="bike" speed="5.53" pos="20.39" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.00">
+        <vehicle id="NE" x="70.91" y="78.83" angle="89.80" type="bike" speed="5.55" pos="31.00" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.54" y="44.66" angle="179.29" type="bike" speed="5.50" pos="20.65" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-0.52" y="69.96" angle="269.34" type="bike" speed="5.50" pos="20.94" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.10">
+        <vehicle id="NE" x="71.46" y="78.83" angle="89.80" type="bike" speed="5.55" pos="31.56" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.54" y="44.10" angle="179.29" type="bike" speed="5.55" pos="21.20" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-1.07" y="69.95" angle="269.34" type="bike" speed="5.52" pos="21.49" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.20">
+        <vehicle id="NE" x="72.02" y="78.83" angle="89.80" type="bike" speed="5.55" pos="32.11" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.55" y="43.55" angle="179.29" type="bike" speed="5.54" pos="21.75" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-1.62" y="69.95" angle="269.34" type="bike" speed="5.50" pos="22.04" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.30">
+        <vehicle id="NE" x="72.57" y="78.83" angle="89.80" type="bike" speed="5.54" pos="32.67" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.56" y="43.00" angle="179.29" type="bike" speed="5.52" pos="22.31" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-2.17" y="69.94" angle="269.34" type="bike" speed="5.53" pos="22.59" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.40">
+        <vehicle id="NE" x="73.12" y="78.84" angle="89.80" type="bike" speed="5.51" pos="33.22" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.56" y="42.44" angle="179.29" type="bike" speed="5.55" pos="22.86" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-2.72" y="69.93" angle="269.34" type="bike" speed="5.52" pos="23.14" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.50">
+        <vehicle id="NE" x="73.67" y="78.84" angle="89.80" type="bike" speed="5.53" pos="33.77" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.57" y="41.89" angle="179.29" type="bike" speed="5.52" pos="23.41" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-3.28" y="69.93" angle="269.34" type="bike" speed="5.53" pos="23.70" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.60">
+        <vehicle id="NE" x="74.23" y="78.84" angle="89.80" type="bike" speed="5.54" pos="34.33" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.58" y="41.34" angle="179.29" type="bike" speed="5.51" pos="23.96" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-3.83" y="69.92" angle="269.34" type="bike" speed="5.50" pos="24.25" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.70">
+        <vehicle id="NE" x="74.78" y="78.84" angle="89.80" type="bike" speed="5.52" pos="34.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.58" y="40.78" angle="179.29" type="bike" speed="5.55" pos="24.52" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-4.38" y="69.91" angle="269.34" type="bike" speed="5.50" pos="24.80" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.80">
+        <vehicle id="NE" x="75.33" y="78.84" angle="89.80" type="bike" speed="5.53" pos="35.43" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.59" y="40.23" angle="179.29" type="bike" speed="5.53" pos="25.07" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-4.93" y="69.91" angle="269.34" type="bike" speed="5.54" pos="25.35" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="30.90">
+        <vehicle id="NE" x="75.88" y="78.85" angle="89.80" type="bike" speed="5.51" pos="35.98" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.60" y="39.67" angle="179.29" type="bike" speed="5.55" pos="25.63" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-5.48" y="69.90" angle="269.34" type="bike" speed="5.54" pos="25.91" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.00">
+        <vehicle id="NE" x="76.44" y="78.85" angle="89.80" type="bike" speed="5.51" pos="36.53" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.60" y="39.12" angle="179.29" type="bike" speed="5.53" pos="26.18" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-6.04" y="69.90" angle="269.34" type="bike" speed="5.54" pos="26.46" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.10">
+        <vehicle id="NE" x="76.99" y="78.85" angle="89.80" type="bike" speed="5.50" pos="37.08" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.61" y="38.57" angle="179.29" type="bike" speed="5.51" pos="26.73" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-6.59" y="69.89" angle="269.34" type="bike" speed="5.54" pos="27.01" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.20">
+        <vehicle id="NE" x="77.54" y="78.85" angle="89.80" type="bike" speed="5.51" pos="37.63" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.62" y="38.02" angle="179.29" type="bike" speed="5.51" pos="27.28" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-7.15" y="69.88" angle="269.34" type="bike" speed="5.53" pos="27.57" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.30">
+        <vehicle id="NE" x="78.09" y="78.85" angle="89.80" type="bike" speed="5.52" pos="38.19" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.63" y="37.47" angle="179.29" type="bike" speed="5.53" pos="27.84" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-7.70" y="69.88" angle="269.34" type="bike" speed="5.55" pos="28.12" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.40">
+        <vehicle id="NE" x="78.64" y="78.86" angle="89.80" type="bike" speed="5.50" pos="38.74" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.63" y="36.91" angle="179.29" type="bike" speed="5.52" pos="28.39" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-8.25" y="69.87" angle="269.34" type="bike" speed="5.54" pos="28.68" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.50">
+        <vehicle id="NE" x="79.19" y="78.86" angle="89.80" type="bike" speed="5.54" pos="39.29" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.64" y="36.36" angle="179.29" type="bike" speed="5.51" pos="28.94" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-8.81" y="69.86" angle="269.34" type="bike" speed="5.55" pos="29.23" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.60">
+        <vehicle id="NE" x="79.75" y="78.86" angle="89.80" type="bike" speed="5.55" pos="39.85" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.65" y="35.81" angle="179.29" type="bike" speed="5.52" pos="29.49" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-9.36" y="69.86" angle="269.34" type="bike" speed="5.53" pos="29.78" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.70">
+        <vehicle id="NE" x="80.30" y="78.86" angle="89.80" type="bike" speed="5.55" pos="40.40" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.65" y="35.26" angle="179.29" type="bike" speed="5.56" pos="30.05" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-9.92" y="69.85" angle="269.34" type="bike" speed="5.52" pos="30.34" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.80">
+        <vehicle id="NE" x="80.86" y="78.86" angle="89.80" type="bike" speed="5.55" pos="40.95" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.66" y="34.71" angle="179.29" type="bike" speed="5.51" pos="30.60" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-10.47" y="69.84" angle="269.34" type="bike" speed="5.56" pos="30.89" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="31.90">
+        <vehicle id="NE" x="81.41" y="78.87" angle="89.80" type="bike" speed="5.53" pos="41.51" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.67" y="34.15" angle="179.29" type="bike" speed="5.51" pos="31.15" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-11.03" y="69.84" angle="269.34" type="bike" speed="5.55" pos="31.45" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.00">
+        <vehicle id="NE" x="81.96" y="78.87" angle="89.80" type="bike" speed="5.54" pos="42.06" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.67" y="33.60" angle="179.29" type="bike" speed="5.53" pos="31.70" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-11.58" y="69.83" angle="269.34" type="bike" speed="5.52" pos="32.00" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.10">
+        <vehicle id="NE" x="82.52" y="78.87" angle="89.80" type="bike" speed="5.52" pos="42.61" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.68" y="33.05" angle="179.29" type="bike" speed="5.50" pos="32.25" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-12.13" y="69.82" angle="269.34" type="bike" speed="5.54" pos="32.55" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.20">
+        <vehicle id="NE" x="83.07" y="78.87" angle="89.80" type="bike" speed="5.53" pos="43.17" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.69" y="32.50" angle="179.29" type="bike" speed="5.55" pos="32.81" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-12.68" y="69.82" angle="269.34" type="bike" speed="5.53" pos="33.11" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.30">
+        <vehicle id="NE" x="83.62" y="78.87" angle="89.80" type="bike" speed="5.53" pos="43.72" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.69" y="31.94" angle="179.29" type="bike" speed="5.51" pos="33.36" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-13.24" y="69.81" angle="269.34" type="bike" speed="5.55" pos="33.66" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.40">
+        <vehicle id="NE" x="84.18" y="78.88" angle="89.80" type="bike" speed="5.54" pos="44.27" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.70" y="31.39" angle="179.29" type="bike" speed="5.51" pos="33.91" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-13.79" y="69.81" angle="269.34" type="bike" speed="5.51" pos="34.21" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.50">
+        <vehicle id="NE" x="84.73" y="78.88" angle="89.80" type="bike" speed="5.51" pos="44.83" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.71" y="30.84" angle="179.29" type="bike" speed="5.56" pos="34.47" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-14.34" y="69.80" angle="269.34" type="bike" speed="5.51" pos="34.76" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.60">
+        <vehicle id="NE" x="85.28" y="78.88" angle="89.80" type="bike" speed="5.52" pos="45.38" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.71" y="30.29" angle="179.29" type="bike" speed="5.51" pos="35.02" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-14.90" y="69.79" angle="269.34" type="bike" speed="5.55" pos="35.32" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.70">
+        <vehicle id="NE" x="85.83" y="78.88" angle="89.80" type="bike" speed="5.56" pos="45.93" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.72" y="29.74" angle="179.29" type="bike" speed="5.51" pos="35.57" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-15.45" y="69.79" angle="269.34" type="bike" speed="5.51" pos="35.87" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.80">
+        <vehicle id="NE" x="86.39" y="78.88" angle="89.80" type="bike" speed="5.50" pos="46.48" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.73" y="29.18" angle="179.29" type="bike" speed="5.55" pos="36.12" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-16.00" y="69.78" angle="269.34" type="bike" speed="5.51" pos="36.42" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="32.90">
+        <vehicle id="NE" x="86.94" y="78.89" angle="89.80" type="bike" speed="5.52" pos="47.03" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.74" y="28.63" angle="179.29" type="bike" speed="5.53" pos="36.67" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-16.55" y="69.77" angle="269.34" type="bike" speed="5.52" pos="36.97" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="NE" x="87.49" y="78.89" angle="89.80" type="bike" speed="5.52" pos="47.59" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.74" y="28.08" angle="179.29" type="bike" speed="5.51" pos="37.23" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-17.10" y="69.77" angle="269.34" type="bike" speed="5.55" pos="37.53" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.10">
+        <vehicle id="NE" x="88.04" y="78.89" angle="89.80" type="bike" speed="5.54" pos="48.14" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.75" y="27.52" angle="179.29" type="bike" speed="5.53" pos="37.78" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-17.66" y="69.76" angle="269.34" type="bike" speed="5.51" pos="38.08" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.20">
+        <vehicle id="NE" x="88.60" y="78.89" angle="89.80" type="bike" speed="5.53" pos="48.69" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.76" y="26.97" angle="179.29" type="bike" speed="5.52" pos="38.33" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-18.21" y="69.75" angle="269.34" type="bike" speed="5.55" pos="38.63" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.30">
+        <vehicle id="NE" x="89.15" y="78.89" angle="89.80" type="bike" speed="5.54" pos="49.25" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.76" y="26.42" angle="179.29" type="bike" speed="5.51" pos="38.88" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-18.77" y="69.75" angle="269.34" type="bike" speed="5.55" pos="39.19" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.40">
+        <vehicle id="NE" x="89.70" y="78.89" angle="89.80" type="bike" speed="5.52" pos="49.80" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.77" y="25.87" angle="179.29" type="bike" speed="5.53" pos="39.43" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-19.32" y="69.74" angle="269.34" type="bike" speed="5.54" pos="39.74" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.50">
+        <vehicle id="NE" x="90.26" y="78.90" angle="89.80" type="bike" speed="5.53" pos="50.35" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.78" y="25.32" angle="179.29" type="bike" speed="5.53" pos="39.99" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-19.87" y="69.74" angle="269.34" type="bike" speed="5.54" pos="40.30" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.60">
+        <vehicle id="NE" x="90.81" y="78.90" angle="89.80" type="bike" speed="5.52" pos="50.91" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.78" y="24.76" angle="179.29" type="bike" speed="5.55" pos="40.54" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-20.43" y="69.73" angle="269.34" type="bike" speed="5.52" pos="40.85" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.70">
+        <vehicle id="NE" x="91.36" y="78.90" angle="89.80" type="bike" speed="5.53" pos="51.46" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.79" y="24.21" angle="179.29" type="bike" speed="5.55" pos="41.10" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-20.98" y="69.72" angle="269.34" type="bike" speed="5.55" pos="41.40" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.80">
+        <vehicle id="NE" x="91.92" y="78.90" angle="89.80" type="bike" speed="5.55" pos="52.01" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.80" y="23.65" angle="179.29" type="bike" speed="5.55" pos="41.65" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-21.53" y="69.72" angle="269.34" type="bike" speed="5.54" pos="41.96" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="33.90">
+        <vehicle id="NE" x="92.47" y="78.90" angle="89.80" type="bike" speed="5.52" pos="52.57" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.80" y="23.10" angle="179.29" type="bike" speed="5.54" pos="42.21" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-22.09" y="69.71" angle="269.34" type="bike" speed="5.52" pos="42.51" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="NE" x="93.02" y="78.91" angle="89.80" type="bike" speed="5.50" pos="53.12" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.81" y="22.55" angle="179.29" type="bike" speed="5.52" pos="42.76" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-22.64" y="69.70" angle="269.34" type="bike" speed="5.51" pos="43.06" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.10">
+        <vehicle id="NE" x="93.57" y="78.91" angle="89.80" type="bike" speed="5.50" pos="53.67" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.82" y="22.00" angle="179.29" type="bike" speed="5.51" pos="43.31" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-23.19" y="69.70" angle="269.34" type="bike" speed="5.50" pos="43.61" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.20">
+        <vehicle id="NE" x="94.12" y="78.91" angle="89.80" type="bike" speed="5.53" pos="54.22" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.82" y="21.44" angle="179.29" type="bike" speed="5.51" pos="43.86" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-23.74" y="69.69" angle="269.34" type="bike" speed="5.52" pos="44.16" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.30">
+        <vehicle id="NE" x="94.68" y="78.91" angle="89.80" type="bike" speed="5.53" pos="54.77" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.83" y="20.89" angle="179.29" type="bike" speed="5.53" pos="44.41" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-24.29" y="69.68" angle="269.34" type="bike" speed="5.55" pos="44.72" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.40">
+        <vehicle id="NE" x="95.23" y="78.91" angle="89.80" type="bike" speed="5.53" pos="55.33" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.84" y="20.34" angle="179.29" type="bike" speed="5.54" pos="44.97" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-24.84" y="69.68" angle="269.34" type="bike" speed="5.52" pos="45.27" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.50">
+        <vehicle id="NE" x="95.78" y="78.92" angle="89.80" type="bike" speed="5.54" pos="55.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.84" y="19.79" angle="179.29" type="bike" speed="5.53" pos="45.52" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-25.40" y="69.67" angle="269.34" type="bike" speed="5.52" pos="45.82" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.60">
+        <vehicle id="NE" x="96.33" y="78.92" angle="89.80" type="bike" speed="5.51" pos="56.43" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.85" y="19.23" angle="179.29" type="bike" speed="5.55" pos="46.07" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-25.95" y="69.67" angle="269.34" type="bike" speed="5.54" pos="46.37" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.70">
+        <vehicle id="NE" x="96.89" y="78.92" angle="89.80" type="bike" speed="5.54" pos="56.99" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.86" y="18.68" angle="179.29" type="bike" speed="5.54" pos="46.63" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-26.50" y="69.66" angle="269.34" type="bike" speed="5.53" pos="46.93" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.80">
+        <vehicle id="NE" x="97.44" y="78.92" angle="89.80" type="bike" speed="5.54" pos="57.54" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.87" y="18.12" angle="179.29" type="bike" speed="5.53" pos="47.18" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-27.05" y="69.65" angle="269.34" type="bike" speed="5.51" pos="47.48" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="34.90">
+        <vehicle id="NE" x="97.99" y="78.92" angle="89.80" type="bike" speed="5.53" pos="58.09" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.87" y="17.57" angle="179.29" type="bike" speed="5.53" pos="47.73" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-27.61" y="69.65" angle="269.34" type="bike" speed="5.54" pos="48.03" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="NE" x="98.55" y="78.93" angle="89.80" type="bike" speed="5.51" pos="58.64" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.88" y="17.02" angle="179.29" type="bike" speed="5.54" pos="48.29" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-28.16" y="69.64" angle="269.34" type="bike" speed="5.52" pos="48.58" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.10">
+        <vehicle id="NE" x="99.10" y="78.93" angle="89.80" type="bike" speed="5.52" pos="59.19" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.89" y="16.47" angle="179.29" type="bike" speed="5.52" pos="48.84" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-28.71" y="69.63" angle="269.34" type="bike" speed="5.53" pos="49.14" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.20">
+        <vehicle id="NE" x="99.65" y="78.93" angle="89.80" type="bike" speed="5.50" pos="59.74" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.89" y="15.92" angle="179.29" type="bike" speed="5.51" pos="49.39" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-29.27" y="69.63" angle="269.34" type="bike" speed="5.54" pos="49.69" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.30">
+        <vehicle id="NE" x="100.20" y="78.93" angle="89.80" type="bike" speed="5.54" pos="60.30" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.90" y="15.36" angle="179.29" type="bike" speed="5.52" pos="49.94" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-29.82" y="69.62" angle="269.34" type="bike" speed="5.50" pos="50.24" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.40">
+        <vehicle id="NE" x="100.75" y="78.93" angle="89.80" type="bike" speed="5.51" pos="60.85" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.91" y="14.81" angle="179.29" type="bike" speed="5.55" pos="50.50" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-30.37" y="69.61" angle="269.34" type="bike" speed="5.51" pos="50.79" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.50">
+        <vehicle id="NE" x="101.31" y="78.94" angle="89.80" type="bike" speed="5.53" pos="61.40" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.91" y="14.26" angle="179.29" type="bike" speed="5.53" pos="51.05" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-30.92" y="69.61" angle="269.34" type="bike" speed="5.50" pos="51.34" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.60">
+        <vehicle id="NE" x="101.86" y="78.94" angle="89.80" type="bike" speed="5.52" pos="61.95" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.92" y="13.71" angle="179.29" type="bike" speed="5.50" pos="51.60" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-31.47" y="69.60" angle="269.34" type="bike" speed="5.53" pos="51.89" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.70">
+        <vehicle id="NE" x="102.41" y="78.94" angle="89.80" type="bike" speed="5.51" pos="62.51" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.93" y="13.16" angle="179.29" type="bike" speed="5.50" pos="52.15" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-32.02" y="69.60" angle="269.34" type="bike" speed="5.55" pos="52.45" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.80">
+        <vehicle id="NE" x="102.96" y="78.94" angle="89.80" type="bike" speed="5.55" pos="63.06" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.93" y="12.61" angle="179.29" type="bike" speed="5.50" pos="52.70" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-32.58" y="69.59" angle="269.34" type="bike" speed="5.55" pos="53.00" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="35.90">
+        <vehicle id="NE" x="103.52" y="78.94" angle="89.80" type="bike" speed="5.52" pos="63.61" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.94" y="12.05" angle="179.29" type="bike" speed="5.53" pos="53.25" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-33.13" y="69.58" angle="269.34" type="bike" speed="5.54" pos="53.56" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="NE" x="104.07" y="78.95" angle="89.80" type="bike" speed="5.54" pos="64.17" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.95" y="11.50" angle="179.29" type="bike" speed="5.50" pos="53.80" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-33.68" y="69.58" angle="269.34" type="bike" speed="5.50" pos="54.11" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.10">
+        <vehicle id="NE" x="104.62" y="78.95" angle="89.80" type="bike" speed="5.55" pos="64.72" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.95" y="10.95" angle="179.29" type="bike" speed="5.51" pos="54.35" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-34.24" y="69.57" angle="269.34" type="bike" speed="5.54" pos="54.66" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.20">
+        <vehicle id="NE" x="105.18" y="78.95" angle="89.80" type="bike" speed="5.51" pos="65.27" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.96" y="10.40" angle="179.29" type="bike" speed="5.55" pos="54.91" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-34.79" y="69.56" angle="269.34" type="bike" speed="5.50" pos="55.21" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.30">
+        <vehicle id="NE" x="105.73" y="78.95" angle="89.80" type="bike" speed="5.54" pos="65.83" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.97" y="9.84" angle="179.29" type="bike" speed="5.54" pos="55.46" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-35.34" y="69.56" angle="269.34" type="bike" speed="5.53" pos="55.76" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.40">
+        <vehicle id="NE" x="106.28" y="78.95" angle="89.80" type="bike" speed="5.54" pos="66.38" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.98" y="9.29" angle="179.29" type="bike" speed="5.50" pos="56.01" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-35.89" y="69.55" angle="269.34" type="bike" speed="5.53" pos="56.32" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.50">
+        <vehicle id="NE" x="106.84" y="78.96" angle="89.80" type="bike" speed="5.54" pos="66.93" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.98" y="8.74" angle="179.29" type="bike" speed="5.54" pos="56.57" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-36.44" y="69.54" angle="269.34" type="bike" speed="5.52" pos="56.87" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.60">
+        <vehicle id="NE" x="107.39" y="78.96" angle="89.80" type="bike" speed="5.51" pos="67.49" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="29.99" y="8.19" angle="179.29" type="bike" speed="5.53" pos="57.12" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-37.00" y="69.54" angle="269.34" type="bike" speed="5.53" pos="57.42" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.70">
+        <vehicle id="NE" x="107.94" y="78.96" angle="89.80" type="bike" speed="5.53" pos="68.04" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.00" y="7.63" angle="179.29" type="bike" speed="5.52" pos="57.67" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-37.55" y="69.53" angle="269.34" type="bike" speed="5.53" pos="57.97" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.80">
+        <vehicle id="NE" x="108.49" y="78.96" angle="89.80" type="bike" speed="5.51" pos="68.59" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.00" y="7.08" angle="179.29" type="bike" speed="5.55" pos="58.23" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-38.10" y="69.53" angle="269.34" type="bike" speed="5.50" pos="58.52" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="36.90">
+        <vehicle id="NE" x="109.04" y="78.96" angle="89.80" type="bike" speed="5.51" pos="69.14" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.01" y="6.53" angle="179.29" type="bike" speed="5.51" pos="58.78" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-38.66" y="69.52" angle="269.34" type="bike" speed="5.54" pos="59.08" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="NE" x="109.60" y="78.96" angle="89.80" type="bike" speed="5.54" pos="69.70" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.02" y="5.97" angle="179.29" type="bike" speed="5.53" pos="59.33" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-39.21" y="69.51" angle="269.34" type="bike" speed="5.53" pos="59.63" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.10">
+        <vehicle id="NE" x="110.15" y="78.97" angle="89.80" type="bike" speed="5.52" pos="70.25" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.02" y="5.42" angle="179.29" type="bike" speed="5.52" pos="59.88" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-39.76" y="69.51" angle="269.34" type="bike" speed="5.53" pos="60.18" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.20">
+        <vehicle id="NE" x="110.70" y="78.97" angle="89.80" type="bike" speed="5.50" pos="70.80" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.03" y="4.87" angle="179.29" type="bike" speed="5.52" pos="60.43" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-40.31" y="69.50" angle="269.34" type="bike" speed="5.52" pos="60.74" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.30">
+        <vehicle id="NE" x="111.26" y="78.97" angle="89.80" type="bike" speed="5.55" pos="71.35" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.04" y="4.32" angle="179.29" type="bike" speed="5.54" pos="60.99" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-40.87" y="69.49" angle="269.34" type="bike" speed="5.55" pos="61.29" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.40">
+        <vehicle id="NE" x="111.81" y="78.97" angle="89.80" type="bike" speed="5.53" pos="71.91" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.04" y="3.77" angle="179.29" type="bike" speed="5.50" pos="61.54" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-41.42" y="69.49" angle="269.34" type="bike" speed="5.53" pos="61.85" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.50">
+        <vehicle id="NE" x="112.36" y="78.97" angle="89.80" type="bike" speed="5.51" pos="72.46" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.05" y="3.22" angle="179.29" type="bike" speed="5.50" pos="62.09" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-41.97" y="69.48" angle="269.34" type="bike" speed="5.53" pos="62.40" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.60">
+        <vehicle id="NE" x="112.91" y="78.98" angle="89.80" type="bike" speed="5.53" pos="73.01" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.06" y="2.67" angle="179.29" type="bike" speed="5.51" pos="62.64" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-42.53" y="69.47" angle="269.34" type="bike" speed="5.54" pos="62.95" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.70">
+        <vehicle id="NE" x="113.47" y="78.98" angle="89.80" type="bike" speed="5.55" pos="73.56" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.06" y="2.12" angle="179.29" type="bike" speed="5.50" pos="63.19" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-43.08" y="69.47" angle="269.34" type="bike" speed="5.55" pos="63.51" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.80">
+        <vehicle id="NE" x="114.02" y="78.98" angle="89.80" type="bike" speed="5.50" pos="74.11" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.07" y="1.57" angle="179.29" type="bike" speed="5.50" pos="63.74" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-43.63" y="69.46" angle="269.34" type="bike" speed="5.51" pos="64.06" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="37.90">
+        <vehicle id="NE" x="114.57" y="78.98" angle="89.80" type="bike" speed="5.55" pos="74.67" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.08" y="1.01" angle="179.29" type="bike" speed="5.54" pos="64.29" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-44.18" y="69.46" angle="269.34" type="bike" speed="5.50" pos="64.61" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="NE" x="115.13" y="78.98" angle="89.80" type="bike" speed="5.54" pos="75.22" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.08" y="0.46" angle="179.29" type="bike" speed="5.52" pos="64.84" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-44.73" y="69.45" angle="269.34" type="bike" speed="5.51" pos="65.16" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.10">
+        <vehicle id="NE" x="115.68" y="78.99" angle="89.80" type="bike" speed="5.53" pos="75.78" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.09" y="-0.09" angle="179.29" type="bike" speed="5.55" pos="65.40" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-45.29" y="69.44" angle="269.34" type="bike" speed="5.53" pos="65.71" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.20">
+        <vehicle id="NE" x="116.23" y="78.99" angle="89.80" type="bike" speed="5.50" pos="76.33" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.10" y="-0.64" angle="179.29" type="bike" speed="5.50" pos="65.95" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-45.84" y="69.44" angle="269.34" type="bike" speed="5.55" pos="66.27" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.30">
+        <vehicle id="NE" x="116.78" y="78.99" angle="89.80" type="bike" speed="5.53" pos="76.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.11" y="-1.20" angle="179.29" type="bike" speed="5.53" pos="66.50" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-46.40" y="69.43" angle="269.34" type="bike" speed="5.53" pos="66.82" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.40">
+        <vehicle id="NE" x="117.34" y="78.99" angle="89.80" type="bike" speed="5.53" pos="77.43" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.11" y="-1.75" angle="179.29" type="bike" speed="5.52" pos="67.06" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-46.95" y="69.42" angle="269.34" type="bike" speed="5.54" pos="67.37" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.50">
+        <vehicle id="NE" x="117.89" y="78.99" angle="89.80" type="bike" speed="5.50" pos="77.98" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.12" y="-2.30" angle="179.29" type="bike" speed="5.50" pos="67.61" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-47.50" y="69.42" angle="269.34" type="bike" speed="5.55" pos="67.93" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.60">
+        <vehicle id="NE" x="118.44" y="79.00" angle="89.80" type="bike" speed="5.53" pos="78.54" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.13" y="-2.85" angle="179.29" type="bike" speed="5.51" pos="68.16" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-48.06" y="69.41" angle="269.34" type="bike" speed="5.53" pos="68.48" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.70">
+        <vehicle id="NE" x="119.00" y="79.00" angle="89.80" type="bike" speed="5.55" pos="79.09" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.13" y="-3.41" angle="179.29" type="bike" speed="5.55" pos="68.71" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-48.61" y="69.40" angle="269.34" type="bike" speed="5.50" pos="69.03" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.80">
+        <vehicle id="NE" x="119.55" y="79.00" angle="89.80" type="bike" speed="5.53" pos="79.64" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.14" y="-3.96" angle="179.29" type="bike" speed="5.50" pos="69.26" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-49.16" y="69.40" angle="269.34" type="bike" speed="5.52" pos="69.58" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="38.90">
+        <vehicle id="NE" x="120.10" y="79.00" angle="89.80" type="bike" speed="5.51" pos="80.20" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.15" y="-4.51" angle="179.29" type="bike" speed="5.55" pos="69.82" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-49.71" y="69.39" angle="269.34" type="bike" speed="5.54" pos="70.14" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="NE" x="120.65" y="79.00" angle="89.80" type="bike" speed="5.55" pos="80.75" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.15" y="-5.06" angle="179.29" type="bike" speed="5.51" pos="70.37" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-50.27" y="69.39" angle="269.34" type="bike" speed="5.55" pos="70.69" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.10">
+        <vehicle id="NE" x="121.21" y="79.01" angle="89.80" type="bike" speed="5.54" pos="81.30" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.16" y="-5.62" angle="179.29" type="bike" speed="5.54" pos="70.92" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-50.82" y="69.38" angle="269.34" type="bike" speed="5.55" pos="71.25" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.20">
+        <vehicle id="NE" x="121.76" y="79.01" angle="89.80" type="bike" speed="5.52" pos="81.86" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.17" y="-6.17" angle="179.29" type="bike" speed="5.54" pos="71.48" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-51.38" y="69.37" angle="269.34" type="bike" speed="5.54" pos="71.80" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.30">
+        <vehicle id="NE" x="122.31" y="79.01" angle="89.80" type="bike" speed="5.55" pos="82.41" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.17" y="-6.72" angle="179.29" type="bike" speed="5.50" pos="72.03" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-51.93" y="69.37" angle="269.34" type="bike" speed="5.51" pos="72.35" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.40">
+        <vehicle id="NE" x="122.87" y="79.01" angle="89.80" type="bike" speed="5.52" pos="82.96" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.18" y="-7.27" angle="179.29" type="bike" speed="5.52" pos="72.58" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-52.48" y="69.36" angle="269.34" type="bike" speed="5.55" pos="72.91" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.50">
+        <vehicle id="NE" x="123.42" y="79.01" angle="89.80" type="bike" speed="5.52" pos="83.51" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.19" y="-7.82" angle="179.29" type="bike" speed="5.53" pos="73.13" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-53.03" y="69.35" angle="269.34" type="bike" speed="5.50" pos="73.46" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.60">
+        <vehicle id="NE" x="123.97" y="79.02" angle="89.80" type="bike" speed="5.53" pos="84.07" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.19" y="-8.38" angle="179.29" type="bike" speed="5.54" pos="73.68" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-53.59" y="69.35" angle="269.34" type="bike" speed="5.53" pos="74.01" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.70">
+        <vehicle id="NE" x="124.53" y="79.02" angle="89.80" type="bike" speed="5.54" pos="84.62" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.20" y="-8.93" angle="179.29" type="bike" speed="5.54" pos="74.24" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-54.14" y="69.34" angle="269.34" type="bike" speed="5.53" pos="74.56" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.80">
+        <vehicle id="NE" x="125.08" y="79.02" angle="89.80" type="bike" speed="5.51" pos="85.17" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.21" y="-9.48" angle="179.29" type="bike" speed="5.51" pos="74.79" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-54.69" y="69.33" angle="269.34" type="bike" speed="5.55" pos="75.12" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="39.90">
+        <vehicle id="NE" x="125.63" y="79.02" angle="89.80" type="bike" speed="5.50" pos="85.72" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="NS" x="30.21" y="-10.03" angle="179.29" type="bike" speed="5.52" pos="75.34" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="NW" x="-55.25" y="69.33" angle="269.34" type="bike" speed="5.54" pos="75.67" lane="gneE5_0" slope="0.00"/>
+    </timestep>
+</fcd-export>

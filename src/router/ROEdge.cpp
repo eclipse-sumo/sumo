@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ROEdge.cpp
 /// @author  Daniel Krajzewicz
@@ -18,11 +22,6 @@
 ///
 // A basic edge for routing applications
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/MsgHandler.h>
@@ -46,6 +45,9 @@ bool ROEdge::myInterpolate = false;
 bool ROEdge::myHaveTTWarned = false;
 bool ROEdge::myHaveEWarned = false;
 ROEdgeVector ROEdge::myEdges;
+double ROEdge::myPriorityFactor(0);
+double ROEdge::myMinEdgePriority(std::numeric_limits<double>::max());
+double ROEdge::myEdgePriorityRange(0);
 
 
 // ===========================================================================
@@ -64,6 +66,7 @@ ROEdge::ROEdge(const std::string& id, RONode* from, RONode* to, int index, const
     myUsingTTTimeLine(false),
     myUsingETimeLine(false),
     myCombinedPermissions(0),
+    myOtherTazConnector(nullptr),
     myTimePenalty(0) {
     while ((int)myEdges.size() <= index) {
         myEdges.push_back(0);
@@ -427,12 +430,27 @@ ROEdge::getViaSuccessors(SUMOVehicleClass vClass) const {
 
 
 bool
-ROEdge::isConnectedTo(const ROEdge* const e, const ROVehicle* const vehicle) const {
-    const SUMOVehicleClass vClass = (vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass());
+ROEdge::isConnectedTo(const ROEdge& e, const SUMOVehicleClass vClass) const {
     const ROEdgeVector& followers = getSuccessors(vClass);
-    return std::find(followers.begin(), followers.end(), e) != followers.end();
+    return std::find(followers.begin(), followers.end(), &e) != followers.end();
+}
+
+bool
+ROEdge::initPriorityFactor(double priorityFactor) {
+    myPriorityFactor = priorityFactor;
+    double maxEdgePriority = -std::numeric_limits<double>::max();
+    for (ROEdge* edge : myEdges) {
+        maxEdgePriority = MAX2(maxEdgePriority, (double)edge->getPriority());
+        myMinEdgePriority = MIN2(myMinEdgePriority, (double)edge->getPriority());
+    }
+    myEdgePriorityRange = maxEdgePriority - myMinEdgePriority;
+    if (myEdgePriorityRange == 0) {
+        WRITE_WARNING("Option weights.priority-factor does not take effect because all edges have the same priority.");
+        myPriorityFactor = 0;
+        return false;
+    }
+    return true;
 }
 
 
 /****************************************************************************/
-

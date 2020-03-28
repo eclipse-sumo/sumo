@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    DijkstraRouter.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Dijkstra shortest path algorithm using travel time or other values
 /****************************************************************************/
-#ifndef DijkstraRouter_h
-#define DijkstraRouter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <cassert>
@@ -91,8 +89,11 @@ public:
     virtual ~DijkstraRouter() { }
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new DijkstraRouter<E, V>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
-                                        this->myOperation, this->myTTOperation, mySilent, myExternalEffort, this->myHavePermissions, this->myHaveRestrictions);
+        auto clone = new DijkstraRouter<E, V>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(),
+                                              this->myOperation, this->myTTOperation, mySilent, myExternalEffort,
+                                              this->myHavePermissions, this->myHaveRestrictions);
+        clone->setAutoBulkMode(this->myAutoBulkMode);
+        return clone;
     }
 
     void init() {
@@ -131,8 +132,9 @@ public:
 #ifdef DijkstraRouter_DEBUG_QUERY
         std::cout << "DEBUG: starting search for '" << Named::getIDSecure(vehicle) << "' time: " << STEPS2TIME(msTime) << "\n";
 #endif
-        const SUMOVehicleClass vClass = vehicle == 0 ? SVC_IGNORING : vehicle->getVClass();
-        if (this->myBulkMode) {
+        const SUMOVehicleClass vClass = vehicle == nullptr ? SVC_IGNORING : vehicle->getVClass();
+        std::tuple<const E*, const V*, SUMOTime> query = std::make_tuple(from, vehicle, msTime);
+        if (this->myBulkMode || (this->myAutoBulkMode && query == myLastQuery)) {
             const auto& toInfo = myEdgeInfos[to->getNumericalID()];
             if (toInfo.visited) {
                 buildPathFrom(&toInfo, into);
@@ -151,6 +153,7 @@ public:
             }
             myFrontierList.push_back(fromInfo);
         }
+        myLastQuery = query;
         // loop
         int num_visited = 0;
         while (!myFrontierList.empty()) {
@@ -219,7 +222,7 @@ public:
 #ifdef DijkstraRouter_DEBUG_QUERY_PERF
         std::cout << "visited " + toString(num_visited) + " edges (unsuccessful path length: " + toString(into.size()) + ")\n";
 #endif
-        if (to != 0 && !mySilent && !silent) {
+        if (to != nullptr && !mySilent && !silent) {
             this->myErrorMsgHandler->informf("No connection between edge '%' and edge '%' found.", from->getID(), to->getID());
         }
         return false;
@@ -264,8 +267,11 @@ private:
     }
 
 private:
-    /// @brief whether to supress warning/error if no route was found
+    /// @brief whether to suppress warning/error if no route was found
     bool mySilent;
+
+    /// cache of the last query to enable automated bulk routing
+    std::tuple<const E*, const V*, SUMOTime> myLastQuery;
 
     EffortCalculator* const myExternalEffort;
 
@@ -279,8 +285,3 @@ private:
 
     EdgeInfoByEffortComparator myComparator;
 };
-
-
-#endif
-
-/****************************************************************************/

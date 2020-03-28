@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    TraCITestClient.cpp
 /// @author  Friedemann Wesner
@@ -787,6 +791,11 @@ TraCITestClient::testAPI() {
     answerLog << "    getSpeed: " << vehicle.getSpeed("0") << "\n";
     answerLog << "    getLateralSpeed: " << vehicle.getLateralSpeed("0") << "\n";
     answerLog << "    getAcceleration: " << vehicle.getAcceleration("0") << "\n";
+
+    answerLog << "    getFollowSpeed: " << vehicle.getFollowSpeed("0", 10, 20, 9, 4.5) << "\n";
+    answerLog << "    getSecureGap: " << vehicle.getSecureGap("0", 10, 9, 4.5) << "\n";
+    answerLog << "    getStopSpeed: " << vehicle.getStopSpeed("0", 10, 20) << "\n";
+
     answerLog << "    getSpeedMode: " << vehicle.getSpeedMode("0") << "\n";
     answerLog << "    getSlope: " << vehicle.getSlope("0") << "\n";
     answerLog << "    getLine: " << vehicle.getLine("0") << "\n";
@@ -796,6 +805,7 @@ TraCITestClient::testAPI() {
     answerLog << "    getMaxSpeed: " << vehicle.getMaxSpeed("0") << "\n";
     answerLog << "    isRouteValid: " << vehicle.isRouteValid("0") << "\n";
     answerLog << "    getStopState: " << vehicle.getStopState("0") << "\n";
+    answerLog << "    getStopDelay: " << vehicle.getStopDelay("0") << "\n";
     vehicle.setParameter("0", "meaningOfLife", "42");
     answerLog << "    param: " << vehicle.getParameter("0", "meaningOfLife") << "\n";
     libsumo::TraCIColor col1;
@@ -920,6 +930,9 @@ TraCITestClient::testAPI() {
 
     vehicle.subscribeContext("3", libsumo::CMD_GET_VEHICLE_VARIABLE, 200, vars3, 0, 100);
     vehicle.addSubscriptionFilterFieldOfVision(90);
+
+    vehicle.subscribeContext("4", libsumo::CMD_GET_VEHICLE_VARIABLE, 200, vars3, 0, 100);
+    vehicle.addSubscriptionFilterLateralDistance(50);
     //
 
     simulationStep();
@@ -1005,8 +1018,10 @@ TraCITestClient::testAPI() {
         }
     }
     libsumo::TraCILogic logic("custom", 0, 3);
-    logic.phases = std::vector<libsumo::TraCIPhase>({ libsumo::TraCIPhase(5, "rrrrrrr", 5, 5), libsumo::TraCIPhase(10, "ggggggg", 5, 15),
-                   libsumo::TraCIPhase(3, "GGGGGGG", 3, 3), libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
+    logic.phases = std::vector<libsumo::TraCIPhase*>({ new libsumo::TraCIPhase(5, "rrrrrrr", 5, 5),
+                                                       new libsumo::TraCIPhase(10, "ggggggg", 5, 15),
+                                                       new libsumo::TraCIPhase(3, "GGGGGGG", 3, 3),
+                                                       new libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
                                                     });
     trafficlights.setCompleteRedYellowGreenDefinition("n_m4", logic);
 
@@ -1016,10 +1031,10 @@ TraCITestClient::testAPI() {
         answerLog << "      subID=" << logics[i].programID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
         answerLog << "      params=" << joinToString(logics[i].subParameter, " ", ":") << "\n";
         for (int j = 0; j < (int)logics[i].phases.size(); ++j) {
-            answerLog << "         phase=" << logics[i].phases[j].state
-                      << " dur=" << logics[i].phases[j].duration
-                      << " minDur=" << logics[i].phases[j].minDur
-                      << " maxDur=" << logics[i].phases[j].maxDur
+            answerLog << "         phase=" << logics[i].phases[j]->state
+                      << " dur=" << logics[i].phases[j]->duration
+                      << " minDur=" << logics[i].phases[j]->minDur
+                      << " maxDur=" << logics[i].phases[j]->maxDur
                       << "\n";
         }
     }

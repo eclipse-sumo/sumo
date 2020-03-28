@@ -13,7 +13,7 @@
 
     <xsd:element name="tlsState">
         <xsd:complexType>
-            <xsd:attribute name="time" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="time" use="required" type="timeType"/>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="programID" use="required" type="xsd:string"/>
             <xsd:attribute name="phase" use="required" type="xsd:int"/>

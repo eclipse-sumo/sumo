@@ -1,0 +1,11 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="bike" sigma="0" vClass="bicycle"/>
+
+
+	<trip id="blocker" depart="0" from="beg" to="rend">
+        <stop lane="middle_1" endPos="200" duration="100"/>
+    </trip>
+	<flow id="veh" begin="0" period="20" number="10" from="beg" to="rend"/>
+	<flow id="bike" type="bike" egin="0" period="20" number="10" from="beg" to="rend"/>
+</routes>

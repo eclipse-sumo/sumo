@@ -1,0 +1,47 @@
+# test output style options
+# 
+output-styles
+
+# test loading data with multiple intervals
+intervals
+verbose
+
+# using edgedata as input
+edgedata
+
+# test additional vehicle attributes
+attrs
+mismatch-output
+
+# use linear programming to optimize route usage
+optimize_full
+
+# use linear programming to optimize route usage (limit 1)
+optimize_1
+
+# use linear programming to optimize route usage (limit 2)
+optimize_2
+
+# read routes that do not cover all detectors
+# use linear programming to optimize route usage 
+small_input_optimize
+
+# read routes that do not cover all detectors.
+# Skip the sampling step and direclty optimize input routes
+# use linear programming to optimize route usage
+small_input_noSampling_optimize
+
+# input contains duplicate routes. optimize it.
+small_input_duplicates_noSampling
+
+# define multi-edge sequence restrictions
+via
+
+# define sequence restriction with gap
+turn-max-gap
+
+# invalid options
+invalid_options
+
+# test bad input
+no_routes

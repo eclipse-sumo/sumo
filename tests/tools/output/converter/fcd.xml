@@ -21,7 +21,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <fcd-export>
-    <timestep time="0.00"/>
+    <timestep time="0:0:0.00"/>
     <timestep time="1.00"/>
     <timestep time="2.00"/>
     <timestep time="3.00"/>

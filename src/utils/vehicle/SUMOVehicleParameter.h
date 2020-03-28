@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOVehicleParameter.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/
-#ifndef SUMOVehicleParameter_h
-#define SUMOVehicleParameter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -86,6 +84,7 @@ const int STOP_LINE_SET = 2 << 10;
 const int STOP_SPEED_SET = 2 << 11;
 const int STOP_SPLIT_SET = 2 << 12;
 const int STOP_JOIN_SET = 2 << 13;
+const int STOP_ARRIVAL_SET = 2 << 14;
 
 const double MIN_STOP_LENGTH = 2 * POSITION_EPS;
 
@@ -323,7 +322,7 @@ public:
          * @param[in, out] dev The device to write into
          * @exception IOError not yet implemented
          */
-        void write(OutputDevice& dev) const;
+        void write(OutputDevice& dev, bool close = true) const;
 
         /// @brief write trigger attribute
         void writeTriggers(OutputDevice& dev) const;
@@ -351,6 +350,9 @@ public:
 
         /// @brief The stopping position end
         double endPos;
+
+        /// @brief The (expected) time at which the vehicle reaches the stop
+        SUMOTime arrival;
 
         /// @brief The stopping duration
         SUMOTime duration;
@@ -569,7 +571,7 @@ public:
     static bool parsePersonModes(const std::string& modes, const std::string& element, const std::string& id, SVCPermissions& modeSet, std::string& error);
 
     /// @brief parses stop trigger values
-    static void parseStopTriggers(const std::vector<std::string>& triggers, bool expectTrigger, Stop& stop); 
+    static void parseStopTriggers(const std::vector<std::string>& triggers, bool expectTrigger, Stop& stop);
 
     /// @brief The vehicle tag
     SumoXMLTag tag;
@@ -691,7 +693,7 @@ public:
     /// @brief individual speedFactor (overriding distribution from vType)
     double speedFactor;
 
-    /// @brief Information for the router which parameter were set, TraCI may modify this (whe changing color)
+    /// @brief Information for the router which parameter were set, TraCI may modify this (when changing color)
     mutable int parametersSet;
 
 protected:
@@ -722,9 +724,3 @@ protected:
     /// @brief obtain arrival speed parameter in string format
     std::string getArrivalSpeed() const;
 };
-
-#endif
-
-/****************************************************************************/
-
-

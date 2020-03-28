@@ -20,6 +20,15 @@ distance
 
 # test kilometrage output
 distance_reverse
+
+# test acceleration output
+acceleration
+
+# write additional parameters
+params
+
+# test caccControlMode parameter for CACC CFModel
+params_caccControlMode
 subsecond
 
 # output not in every time step

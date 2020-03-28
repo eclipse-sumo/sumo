@@ -1,26 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-09-27 14:43:26.387099 by $Id$
+<!-- generated on 2020-02-27 10:20:20.211527 by matsim_importPlans.py v1_5_0+0263-ee2296b
   options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-   <vehicle id="100009_0" depart="triggered" >
-        <route edges="13758 14271 14269 14273 14468 14267 14465"/>
-   </vehicle>
-   <vehicle id="100009_1" depart="triggered" >
-        <route edges="14465 14442 14451 13758"/>
-   </vehicle>
-   <person id="100009" depart="00:00:00">
-       <param key="age" value="49"/>
-       <param key="carAvail" value="always"/>
-       <param key="employed" value="true"/>
-       <param key="hasLicense" value="yes"/>
-       <param key="sex" value="m"/>
-       <stop lane="13758_0" until="08:00:00" actType="home" />
-       <ride lines="100009_0" to="14465"  />
-       <stop lane="14465_0" until="16:04:00" actType="work" />
-       <ride lines="100009_1" to="13758"  />
-       <stop lane="13758_0" until="24:00:00" actType="home" />
-   </person>
    <vehicle id="100011_0" depart="triggered" >
         <route edges="14289 14287 14292 13761 14472 14473 13760 13757 14452 14441"/>
    </vehicle>
@@ -90,5 +72,23 @@
        <stop lane="800_0" until="16:42:00" actType="work" />
        <ride lines="100311_1" to="15445"  />
        <stop lane="15445_0" until="24:00:00" actType="home" />
+   </person>
+   <vehicle id="100009_0" depart="triggered" >
+        <route edges="13758 14271 14269 14273 14468 14267 14465"/>
+   </vehicle>
+   <vehicle id="100009_1" depart="triggered" >
+        <route edges="14465 14442 14451 13758"/>
+   </vehicle>
+   <person id="100009" depart="00:01:00">
+       <param key="age" value="49"/>
+       <param key="carAvail" value="always"/>
+       <param key="employed" value="true"/>
+       <param key="hasLicense" value="yes"/>
+       <param key="sex" value="m"/>
+       <stop lane="13758_0" until="08:00:00" actType="home" />
+       <ride lines="100009_0" to="14465"  />
+       <stop lane="14465_0" until="16:04:00" actType="work" />
+       <ride lines="100009_1" to="13758"  />
+       <stop lane="13758_0" until="24:00:00" actType="home" />
    </person>
 </routes>

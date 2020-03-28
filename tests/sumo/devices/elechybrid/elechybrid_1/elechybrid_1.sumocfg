@@ -16,9 +16,9 @@
          <overhead-wire-solver value="true"/>
     </processing>
     
-    <elecHybrid_device>
+    <elechybrid_device>
          <device.elechybrid.explicit value="test1,test3"/>
-    </elecHybrid_device>
+    </elechybrid_device>
     
     <output>
         <elechybrid-output value="elechybrid_out.xml"/>

@@ -10,6 +10,9 @@ gpx
 # convert fcd traces to pois
 poi
 
+# convert fcd traces to pois with gzipped input and output
+poi_gz
+
 # convert fcd traces to ML
 kml
 

@@ -1,6 +1,4 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-   <vType id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0" length="3" minGap="2" maxSpeed="70" color="1,1,0"/>
-   <flow id="0" type="KRAUSS_DEFAULT" begin="0" period="10" end="1010" color="0,0,0">
-      <route edges="beg middle end rend"/>
-   </flow>
+    <route id="r0" edges="SC CN NC CS" repeat="2"/>
+    <vehicle id="0" route="r0" depart="10"/>
 </routes>

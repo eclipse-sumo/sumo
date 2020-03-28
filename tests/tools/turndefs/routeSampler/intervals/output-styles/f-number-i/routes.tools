@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-10 14:10:42.894539 by routeSampler.py v1_5_0+0601-bd9a2a1
+  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml -f number -I
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="200.0" -->
+    <route id="0_2" edges="-3 -3.180.00 5"/> <!-- 10 -->
+
+    <flow id="0_2" begin="0.00" end="180.00" number="10" route="0_2"/>
+<!-- begin="200.0" end="400.0" -->
+    <route id="200_0" edges="-3 -3.180.00 11"/> <!-- 8 -->
+
+    <flow id="200_0" begin="200.00" end="375.00" number="8" route="200_0"/>
+</routes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBTrafficLightLogicCont.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // A container for traffic light definitions and built programs
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <map>
 #include <string>
@@ -32,6 +31,7 @@
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBOwnTLDef.h"
+#include "NBLoadedSUMOTLDef.h"
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
 
@@ -145,10 +145,41 @@ NBTrafficLightLogicCont::computeLogics(OptionsCont& oc) {
     }
     myComputed.clear();
 
+    if (oc.getBool("tls.group-signals")) {
+        // replace NBOwnTLDef tld with NBLoadedSUMOTLDef
+        for (NBTrafficLightDefinition* def : getDefinitions()) {
+            NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
+            if (lDef == nullptr) {
+                NBTrafficLightLogic* logic = def->compute(oc);
+                if (logic != nullptr) {
+                    lDef = new NBLoadedSUMOTLDef(*def, *logic);
+                    lDef->setParticipantsInformation();
+                    for (NBNode* node : lDef->getNodes()) {
+                        node->removeTrafficLight(def);
+                        node->addTrafficLight(lDef);
+                    }
+                    removeProgram(def->getID(), def->getProgramID());
+                    insert(lDef);
+                }
+            }
+            if (lDef != nullptr) {
+                lDef->groupSignals();
+            }
+        }
+    } else if (oc.getBool("tls.ungroup-signals")) {
+        for (NBTrafficLightDefinition* def : getDefinitions()) {
+            NBLoadedSUMOTLDef* lDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
+            // NBOwnTLDef are always ungrouped
+            if (lDef != nullptr) {
+                if (lDef->usingSignalGroups()) {
+                    lDef->ungroupSignals();
+                }
+            }
+        }
+    }
     int numPrograms = 0;
-    Definitions definitions = getDefinitions();
-    for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        if (computeSingleLogic(oc, *it)) {
+    for (NBTrafficLightDefinition* def : getDefinitions()) {
+        if (computeSingleLogic(oc, def)) {
             numPrograms++;
         }
     }
@@ -280,7 +311,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
     // handle rail signals which are not instantiated as normal definitions
     for (std::map<std::string, NBNode*>::const_iterator it = nc.begin(); it != nc.end(); it ++) {
         NBNode* n = it->second;
-        if (n->getType() == NODETYPE_RAIL_SIGNAL || n->getType() == NODETYPE_RAIL_CROSSING) {
+        if (n->getType() == SumoXMLNodeType::RAIL_SIGNAL || n->getType() == SumoXMLNodeType::RAIL_CROSSING) {
             NBOwnTLDef dummy(n->getID(), n, 0, TLTYPE_STATIC);
             dummy.setParticipantsInformation();
             dummy.setTLControllingInformation();
@@ -318,4 +349,3 @@ NBTrafficLightLogicCont::getDefinitions() const {
 
 
 /****************************************************************************/
-

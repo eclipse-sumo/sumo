@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Michael Behrisch
@@ -98,16 +102,19 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 try:
     print("getParameter", traci.simulation.getParameter("cs1", "chargingStation.bla"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 try:
     print("getParameter", traci.simulation.getParameter("foo", "chargingStation.totalEnergyCharged"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 print("getParameter charginStation.totalEnergyCharged",
       traci.simulation.getParameter("cs1", "chargingStation.totalEnergyCharged"))
 print("getParameter chargingStation.name", traci.simulation.getParameter("cs1", "chargingStation.name"))
@@ -129,6 +136,7 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 
 print("getBusStopWaiting", traci.simulation.getBusStopWaiting("bs"))
 print("getBusStopWaitingIDList", traci.simulation.getBusStopWaitingIDList("bs"))
@@ -138,6 +146,7 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 print("findRoute", traci.simulation.findRoute("o", "2o"))
 print("findRoute with routing mode", traci.simulation.findRoute(
     "o", "2o", routingMode=traci.constants.ROUTING_MODE_AGGREGATED))
@@ -146,18 +155,21 @@ try:
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 
 try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute("foo", "fup"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 try:
     print("findIntermodalRoute", traci.simulation.findIntermodalRoute(
         "footpath", "footpath2", "bicycle", vType="DEFAULT_BIKETYPE"))
 except traci.TraCIException as e:
     if traci.isLibsumo():
         print(e, file=sys.stderr)
+        sys.stderr.flush()
 ppStages("findIntermodalRoute (walk)", traci.simulation.findIntermodalRoute("o", "2o"))
 ppStages("findIntermodalRoute (bike)", traci.simulation.findIntermodalRoute("o", "2o", modes="bicycle"))
 ppStages("findIntermodalRoute (car)", traci.simulation.findIntermodalRoute("o", "2o", modes="car"))

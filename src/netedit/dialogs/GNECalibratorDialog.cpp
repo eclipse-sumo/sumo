@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNECalibratorDialog.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,10 +17,6 @@
 ///
 // Dialog for edit calibrators
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -26,10 +26,10 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/demandelements/GNERoute.h>
-#include <netedit/additionals/GNECalibrator.h>
-#include <netedit/additionals/GNECalibratorFlow.h>
-#include <netedit/demandelements/GNEVehicleType.h>
+#include <netedit/elements/demand/GNERoute.h>
+#include <netedit/elements/additional/GNECalibrator.h>
+#include <netedit/elements/additional/GNECalibratorFlow.h>
+#include <netedit/elements/demand/GNEVehicleType.h>
 
 #include "GNECalibratorDialog.h"
 #include "GNECalibratorFlowDialog.h"
@@ -66,7 +66,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
 
     // create add buton and label for routes
     FXHorizontalFrame* buttonAndLabelRoute = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddRoute = new FXButton(buttonAndLabelRoute, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_ROUTE, GUIDesignButtonIcon);
+    myAddRoute = new FXButton(buttonAndLabelRoute, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_ROUTE, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelRoute, ("Add new " + toString(SUMO_TAG_ROUTE) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in left frame
@@ -77,7 +77,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
 
     // create add buton and label for vehicle types
     FXHorizontalFrame* buttonAndLabelVehicleType = new FXHorizontalFrame(columnLeft, GUIDesignAuxiliarHorizontalFrame);
-    myAddVehicleType = new FXButton(buttonAndLabelVehicleType, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE, GUIDesignButtonIcon);
+    myAddVehicleType = new FXButton(buttonAndLabelVehicleType, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_VEHICLETYPE, GUIDesignButtonIcon);
     new FXLabel(buttonAndLabelVehicleType, ("Add new " + toString(SUMO_TAG_VTYPE) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in left frame
@@ -88,7 +88,7 @@ GNECalibratorDialog::GNECalibratorDialog(GNECalibrator* editedCalibrator) :
 
     // create add buton and label for flows in right frame
     FXHorizontalFrame* buttonAndLabelFlow = new FXHorizontalFrame(columnRight, GUIDesignAuxiliarHorizontalFrame);
-    myAddFlow = new FXButton(buttonAndLabelFlow, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_FLOW, GUIDesignButtonIcon);
+    myAddFlow = new FXButton(buttonAndLabelFlow, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CALIBRATORDIALOG_ADD_FLOW, GUIDesignButtonIcon);
     myLabelFlow = new FXLabel(buttonAndLabelFlow, ("Add new " + toString(SUMO_TAG_FLOW_CALIBRATOR) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table in right frame
@@ -158,7 +158,7 @@ GNECalibratorDialog::onCmdAddRoute(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size(); i++) {
         // obtain rerouter
         GNEDemandElement* routeToEdit = myEditedAdditional->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, myRouteList->getItem(i, 0)->getText().text());
         if (myRouteList->getItem(i, 2)->hasFocus()) {
@@ -225,14 +225,14 @@ GNECalibratorDialog::onCmdClickedRoute(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdAddFlow(FXObject*, FXSelector, void*) {
     // only add flow if there is at least a GNERoute (There is always a Vehicle Type)
-    if (myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size() > 0) {
+    if (myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() > 0) {
         // create new calibrator and configure it with GNECalibratorFlowDialog
         GNECalibratorFlowDialog(new GNECalibratorFlow(myEditedAdditional), false);
         // update flows table
         updateFlowTable();
         return 1;
     } else {
-        throw ProcessError("myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE) cannot be empty");
+        throw ProcessError("myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE) cannot be empty");
     }
 }
 
@@ -274,7 +274,7 @@ GNECalibratorDialog::onCmdAddVehicleType(FXObject*, FXSelector, void*) {
 long
 GNECalibratorDialog::onCmdClickedVehicleType(FXObject*, FXSelector, void*) {
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE).size(); i++) {
+    for (int i = 0; i < (int)myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).size(); i++) {
         // obtain vehicle type
         GNEDemandElement* vType = myEditedAdditional->getViewNet()->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, myVehicleTypeList->getItem(i, 0)->getText().text());
         // Make sure that default vehicle isn't edited
@@ -345,7 +345,7 @@ GNECalibratorDialog::updateRouteTable() {
     // clear table
     myRouteList->clearItems();
     // set number of rows
-    myRouteList->setTableSize(int(myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size()), 3);
+    myRouteList->setTableSize(int(myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size()), 3);
     // Configure list
     myRouteList->setVisibleColumns(4);
     myRouteList->setColumnWidth(0, 136);
@@ -359,7 +359,7 @@ GNECalibratorDialog::updateRouteTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over routes
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE)) {
+    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
         // Set ID
         item = new FXTableItem(toString(i.second->getAttribute(SUMO_ATTR_ID)).c_str());
         myRouteList->setItem(indexRow, 0, item);
@@ -367,7 +367,7 @@ GNECalibratorDialog::updateRouteTable() {
         item = new FXTableItem(toString(i.second->getAttribute(SUMO_ATTR_EDGES)).c_str());
         myRouteList->setItem(indexRow, 1, item);
         // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myRouteList->setItem(indexRow, 2, item);
@@ -406,7 +406,7 @@ GNECalibratorDialog::updateFlowTable() {
         item = new FXTableItem(i->getAttribute(SUMO_ATTR_ROUTE).c_str());
         myFlowList->setItem(indexRow, 1, item);
         // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myFlowList->setItem(indexRow, 2, item);
@@ -423,7 +423,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     // clear table
     myVehicleTypeList->clearItems();
     // set number of rows
-    myVehicleTypeList->setTableSize(int(myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE).size()), 3);
+    myVehicleTypeList->setTableSize(int(myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE).size()), 3);
     // Configure list
     myVehicleTypeList->setVisibleColumns(4);
     myVehicleTypeList->setColumnWidth(0, 136);
@@ -437,7 +437,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over vehicle types
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_VTYPE)) {
+    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         // Set id
         item = new FXTableItem(i.second->getAttribute(SUMO_ATTR_ID).c_str());
         myVehicleTypeList->setItem(indexRow, 0, item);
@@ -446,7 +446,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
         myVehicleTypeList->setItem(indexRow, 1, item);
         // set remove icon except for default vehicle type
         if (indexRow != 0) {
-            item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+            item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
         } else {
             item = new FXTableItem("");
         }
@@ -464,7 +464,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
 void
 GNECalibratorDialog::updateFlowAndLabelButton() {
     // disable AddFlow button if no route is defined
-    if (myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers().demandElements.at(SUMO_TAG_ROUTE).size() == 0) {
+    if (myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() == 0) {
         myAddFlow->disable();
         myFlowList->disable();
         myLabelFlow->setText("No routes defined");
@@ -474,5 +474,6 @@ GNECalibratorDialog::updateFlowAndLabelButton() {
         myLabelFlow->setText(("Add new " + toString(SUMO_TAG_FLOW_CALIBRATOR) + "s").c_str());
     }
 }
+
 
 /****************************************************************************/

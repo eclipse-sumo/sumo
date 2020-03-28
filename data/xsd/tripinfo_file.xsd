@@ -18,6 +18,7 @@
             <xsd:choice maxOccurs="unbounded">
                 <xsd:element minOccurs="0" ref="example_device"/>
                 <xsd:element minOccurs="0" ref="emissions"/>
+                <xsd:element minOccurs="0" ref="taxi"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
@@ -45,7 +46,13 @@
                 <xsd:simpleType>
                     <xsd:restriction base="xsd:string">
                         <xsd:enumeration value=""/>
-                        <xsd:enumeration value="0"/>
+                        <xsd:enumeration value="end"/>
+                        <xsd:enumeration value="gui"/>
+                        <xsd:enumeration value="traci"/>
+                        <xsd:enumeration value="calibrator"/>
+                        <xsd:enumeration value="vaporizer"/>
+                        <xsd:enumeration value="collision"/>
+                        <xsd:enumeration value="teleport"/>
                     </xsd:restriction>
                 </xsd:simpleType>
             </xsd:attribute>
@@ -68,6 +75,14 @@
             <xsd:attribute name="NOx_abs" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="fuel_abs" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="electricity_abs" use="required" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="taxi">
+        <xsd:complexType>
+            <xsd:attribute name="customers" use="required" type="xsd:nonNegativeInteger"/>
+            <xsd:attribute name="occupiedDistance" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="occupiedTime" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -94,6 +109,7 @@
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="type" use="required" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 

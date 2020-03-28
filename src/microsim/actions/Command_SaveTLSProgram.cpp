@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Command_SaveTLSProgram.cpp
 /// @author  Jakob Erdmann
@@ -13,9 +17,6 @@
 ///
 // Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "Command_SaveTLSProgram.h"
@@ -46,13 +47,14 @@ Command_SaveTLSProgram::~Command_SaveTLSProgram() {
 SUMOTime
 Command_SaveTLSProgram::execute(SUMOTime /*currentTime*/) {
     const std::string& state = myLogics.getActive()->getCurrentPhaseDef().getState();
+    const std::string& name = myLogics.getActive()->getCurrentPhaseDef().getName();
     if (myLogics.getActive()->getProgramID() != myPreviousProgramID) {
         writeCurrent();
         myPreviousProgramID = myLogics.getActive()->getProgramID();
         myTLSID = myLogics.getActive()->getID();
     }
     if (myPreviousStates.size() == 0 || myPreviousStates.back().getState() != state) {
-        myPreviousStates.push_back(MSPhaseDefinition(0, state));
+        myPreviousStates.push_back(MSPhaseDefinition(0, state, std::vector<int>(), name));
     }
     myPreviousStates.back().duration += DELTA_T;
     return DELTA_T;
@@ -73,6 +75,9 @@ Command_SaveTLSProgram::writeCurrent() {
                 myOutputDevice.writePadding(" ");
             }
             myOutputDevice.writeAttr(SUMO_ATTR_STATE, p.getState());
+            if (p.getName() != "") {
+                myOutputDevice.writeAttr(SUMO_ATTR_NAME, p.getName());
+            }
             myOutputDevice.closeTag();
         }
         // write params
@@ -83,4 +88,3 @@ Command_SaveTLSProgram::writeCurrent() {
 
 
 /****************************************************************************/
-

@@ -1,0 +1,20 @@
+# use a ride definition to call a taxi
+1person
+
+# persontrip triggers taxi call
+1persontrip
+
+# persontrip is too short so walking is used instead
+persontrip_short
+
+# walk to the next road edge and use taxi to destination
+persontrip_walk_first
+
+# take the taxi as far as possible and then walk
+persontrip_walk_last
+
+# test taxi device attribute end
+end_of_work
+
+# some taxis are late to work
+late_taxi

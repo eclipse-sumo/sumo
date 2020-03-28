@@ -17,10 +17,6 @@ netedit/additionalElements/busstop/load/parameters/input_additionals.add.xml:8:0
 netedit/additionalElements/busstop/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/busstop/load/parameters/input_additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
 netedit/additionalElements/busstop/load/parameters/input_additionals.add.xml:23:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/calibrator/load/parameters/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/calibrator/load/parameters/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/calibrator/load/parameters/input_additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/calibrator/load/parameters/input_additionals.add.xml:25:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/calibrator/load/freq/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'calibrator', attribute 'freq': 'dummyFrequency' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/additionalElements/calibrator/load/freq/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'calibrator', attribute 'freq': [facet 'minExclusive'] The value '-50.00' must be greater than '0'.
 netedit/additionalElements/calibrator/load/freq/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'calibrator', attribute 'freq': '-50.00' is not a valid value of the atomic type 'positiveFloatType'.
@@ -139,6 +135,10 @@ netedit/additionalElements/calibrator/load/vtypes/tau/input_additionals.add.xml:
 netedit/additionalElements/calibrator/load/vtypes/vclass/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'vType': This element is not expected.
 netedit/additionalElements/calibrator/load/vtypes/width/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'vType': This element is not expected.
 netedit/additionalElements/calibrator/load/vtypes/default/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'vType': This element is not expected.
+netedit/additionalElements/calibrator/load/parameters/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/calibrator/load/parameters/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/calibrator/load/parameters/input_additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/calibrator/load/parameters/input_additionals.add.xml:25:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/chargingstation/load/input_additionals.add.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'chargingStation': The attribute 'id' is required but missing.
 netedit/additionalElements/chargingstation/load/input_additionals.add.xml:6:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'chargingStation': The attribute 'lane' is required but missing.
 netedit/additionalElements/chargingstation/load/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'chargingStation': The attribute 'id' is required but missing.
@@ -193,20 +193,22 @@ netedit/additionalElements/detentry/load/parameters/input_additionals.add.xml:9:
 netedit/additionalElements/detentry/load/parameters/input_additionals.add.xml:18:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/detentry/load/parameters/input_additionals.add.xml:27:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
 netedit/additionalElements/detentry/load/parameters/input_additionals.add.xml:27:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/detexit/delete/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/delete/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/delete/input_additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/inspect_selection/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/inspect_selection/input_additionals.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/load/default/input_additionals.add.xml:5:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/load/friendlypos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/load/lane/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
+netedit/additionalElements/detexit/load/friendlypos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'detExit', attribute 'friendlyPos': [facet 'enumeration'] The value 'dummyFriendlyPos' is not an element of the set {'true', 'false', 'True', 'False', 'yes', 'no', 'on', 'off', '1', '0', 'x', '-'}.
+netedit/additionalElements/detexit/load/friendlypos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detExit', attribute 'friendlyPos': 'dummyFriendlyPos' is not a valid value of the atomic type 'boolType'.
+netedit/additionalElements/detexit/load/lane/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detExit': The attribute 'lane' is required but missing.
 netedit/additionalElements/detexit/load/no_parent/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected.
 netedit/additionalElements/detexit/load/parent_invalid/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'id' is required but missing.
-netedit/additionalElements/detexit/load/parent_invalid/input_additionals.add.xml:5:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/load/pos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/load/parameters/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/detexit/volatileRecomputing/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'detExit': This element is not expected. Expected is ( detEntry ).
+netedit/additionalElements/detexit/load/pos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'detExit': The attribute 'pos' is required but missing.
+netedit/additionalElements/detexit/load/pos/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detExit', attribute 'pos': 'dummyPosition' is not a valid value of the atomic type 'xs:float'.
+netedit/additionalElements/detexit/load/pos/input_additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detExit', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
+netedit/additionalElements/detexit/load/parameters/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/detexit/load/parameters/input_additionals.add.xml:18:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/detexit/load/parameters/input_additionals.add.xml:27:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/detexit/load/parameters/input_additionals.add.xml:27:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/e1detector/load/parameters/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/e1detector/load/parameters/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/e1detector/load/parameters/input_additionals.add.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/e1detector/load/parameters/input_additionals.add.xml:24:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/e1detector/load/file/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'file' is required but missing.
 netedit/additionalElements/e1detector/load/freq/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'freq' is required but missing.
 netedit/additionalElements/e1detector/load/freq/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'freq': 'dummyFrequency' is not a valid value of the atomic type 'positiveFloatType'.
@@ -216,34 +218,31 @@ netedit/additionalElements/e1detector/load/id/input_additionals.add.xml:6:0:ERRO
 netedit/additionalElements/e1detector/load/lane/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'lane' is required but missing.
 netedit/additionalElements/e1detector/load/pos/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e1Detector', attribute 'pos': 'dummyPosition' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e1detector/load/pos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e1Detector': The attribute 'pos' is required but missing.
-netedit/additionalElements/e1detector/load/parameters/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/e1detector/load/parameters/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/e1detector/load/parameters/input_additionals.add.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/e1detector/load/parameters/input_additionals.add.xml:24:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/e2detector/load/id/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'e2Detector', attribute 'ane': The attribute 'ane' is not allowed.
 netedit/additionalElements/e2detector/load/id/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'id' is required but missing.
 netedit/additionalElements/e2detector/load/jamthreshold/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'jamThreshold': 'dummyJamThreshold' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e2detector/load/pos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'pos': 'dummyPosition' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e2detector/load/speedthreshold/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'speedThreshold': 'dummySpeedThreshold' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e2detector/load/timethreshold/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'timeThreshold': 'dummyTimeThreshold' is not a valid value of the atomic type 'xs:float'.
+netedit/additionalElements/e2detector/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/e2detector/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/e2detector/load/parameters/input_additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/e2detector/load/parameters/input_additionals.add.xml:23:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/e2detector/load/file/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'file' is required but missing.
 netedit/additionalElements/e2detector/load/freq/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': 'dummyFrequency' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/additionalElements/e2detector/load/freq/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'e2Detector', attribute 'freq': [facet 'minExclusive'] The value '-100.00' must be greater than '0'.
 netedit/additionalElements/e2detector/load/freq/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'freq': '-100.00' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/additionalElements/e2detector/load/friendlypos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'e2Detector', attribute 'friendlyPos': [facet 'enumeration'] The value 'dummyFriendlyPos' is not an element of the set {'true', 'false', 'True', 'False', 'yes', 'no', 'on', 'off', '1', '0', 'x', '-'}.
 netedit/additionalElements/e2detector/load/friendlypos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'friendlyPos': 'dummyFriendlyPos' is not a valid value of the atomic type 'boolType'.
-netedit/additionalElements/e2detector/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/e2detector/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/e2detector/load/parameters/input_additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/e2detector/load/parameters/input_additionals.add.xml:23:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/e3detector/delete/delete_parent/input_additionals.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is ( detEntry ).
-netedit/additionalElements/e3detector/inspect_selection/input_additionals.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'param': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/e3detector/inspect_selection/input_additionals.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'param': This element is not expected. Expected is ( detEntry ).
+netedit/additionalElements/e3detector/delete/delete_parent/input_additionals.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is one of ( param, detEntry, detExit ).
 netedit/additionalElements/e3detector/load/speedthreshold/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'speedThreshold': 'dummySpeedThreshold' is not a valid value of the atomic type 'nonNegativeFloatType'.
 netedit/additionalElements/e3detector/load/speedthreshold/input_additionals.add.xml:15:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'e3Detector', attribute 'speedThreshold': [facet 'minInclusive'] The value '-2.12' is less than the minimum value allowed ('0').
 netedit/additionalElements/e3detector/load/speedthreshold/input_additionals.add.xml:15:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'speedThreshold': '-2.12' is not a valid value of the atomic type 'nonNegativeFloatType'.
-netedit/additionalElements/e3detector/load/parameters/input_additionals.add.xml:5:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'param': This element is not expected. Expected is ( detEntry ).
-netedit/additionalElements/e3detector/load/empty/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is ( detEntry ).
+netedit/additionalElements/e3detector/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/e3detector/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/e3detector/load/parameters/input_additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/e3detector/load/parameters/input_additionals.add.xml:23:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/e3detector/load/empty/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is one of ( param, detEntry, detExit ).
 netedit/additionalElements/e3detector/load/file/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'file' is required but missing.
 netedit/additionalElements/e3detector/load/freq/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': 'dummyFreq' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/additionalElements/e3detector/load/freq/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'e3Detector', attribute 'freq': [facet 'minExclusive'] The value '-30.00' must be greater than '0'.
@@ -253,6 +252,10 @@ netedit/additionalElements/e3detector/load/invalidchilds/input_additionals.add.x
 netedit/additionalElements/e3detector/load/invalidchilds/input_additionals.add.xml:5:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'detExit', attribute 'pos': 'dummmyPosition' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e3detector/load/position/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'speedThreshold': '1.39,10' is not a valid value of the atomic type 'nonNegativeFloatType'.
 netedit/additionalElements/e3detector/load/timethreshold/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'timeThreshold': 'dummyTimeTreshold' is not a valid value of the atomic type 'xs:float'.
+netedit/additionalElements/lanecalibrator/load/parameters/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/lanecalibrator/load/parameters/input_additionals.add.xml:19:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/lanecalibrator/load/parameters/input_additionals.add.xml:28:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/lanecalibrator/load/parameters/input_additionals.add.xml:28:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/lanecalibrator/load/freq/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'calibrator', attribute 'freq': 'dummyFrequency' is not a valid value of the atomic type 'positiveFloatType'.
 netedit/additionalElements/lanecalibrator/load/freq/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_MINEXCLUSIVE_VALID: Element 'calibrator', attribute 'freq': [facet 'minExclusive'] The value '-50.00' must be greater than '0'.
 netedit/additionalElements/lanecalibrator/load/freq/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'calibrator', attribute 'freq': '-50.00' is not a valid value of the atomic type 'positiveFloatType'.
@@ -371,10 +374,6 @@ netedit/additionalElements/lanecalibrator/load/vtypes/speedfactor/input_addition
 netedit/additionalElements/lanecalibrator/load/vtypes/tau/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'vType': This element is not expected.
 netedit/additionalElements/lanecalibrator/load/vtypes/vclass/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'vType': This element is not expected.
 netedit/additionalElements/lanecalibrator/load/vtypes/width/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'vType': This element is not expected.
-netedit/additionalElements/lanecalibrator/load/parameters/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/lanecalibrator/load/parameters/input_additionals.add.xml:19:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/lanecalibrator/load/parameters/input_additionals.add.xml:28:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/lanecalibrator/load/parameters/input_additionals.add.xml:28:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/parkingarea/load/angle/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'parkingArea', attribute 'angle': 'dummyAngle' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/parkingarea/load/endpos/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'parkingArea', attribute 'endPos': 'dummyEndPos' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/parkingarea/load/friendlypos/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_ENUMERATION_VALID: Element 'parkingArea', attribute 'friendlyPos': [facet 'enumeration'] The value 'dummyPos' is not an element of the set {'true', 'false', 'True', 'False', 'yes', 'no', 'on', 'off', '1', '0', 'x', '-'}.
@@ -427,10 +426,6 @@ netedit/additionalElements/parkingspace/load/parameters/input_additionals.add.xm
 netedit/additionalElements/rerouter/delete/input_additionals.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'rerouter', attribute 'off': The attribute 'off' is not allowed.
 netedit/additionalElements/rerouter/delete/input_additionals.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'rerouter', attribute 'off': The attribute 'off' is not allowed.
 netedit/additionalElements/rerouter/volatileRecomputing/input_additionals.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'rerouter', attribute 'off': The attribute 'off' is not allowed.
-netedit/additionalElements/routeprobe/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/routeprobe/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/routeprobe/load/parameters/input_additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/routeprobe/load/parameters/input_additionals.add.xml:23:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/routeprobe/load/begin/input_additionals.add.xml:7:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'routeProbe', attribute 'begin': 'dummyBegin' is not a valid value of the atomic type 'nonNegativeFloatType'.
 netedit/additionalElements/routeprobe/load/begin/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'routeProbe', attribute 'begin': [facet 'minInclusive'] The value '-10.30' is less than the minimum value allowed ('0').
 netedit/additionalElements/routeprobe/load/begin/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'routeProbe', attribute 'begin': '-10.30' is not a valid value of the atomic type 'nonNegativeFloatType'.
@@ -444,6 +439,10 @@ netedit/additionalElements/routeprobe/load/id/input_additionals.add.xml:10:0:ERR
 netedit/additionalElements/routeprobe/load/id/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'routeProbe', attribute 'id': 'id with spaces' is not a valid value of the atomic type 'idType'.
 netedit/additionalElements/routeprobe/load/id/input_additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'routeProbe', attribute 'id': [facet 'pattern'] The value '' is not accepted by the pattern '[^ \t\n\r|\\;,']+'.
 netedit/additionalElements/routeprobe/load/id/input_additionals.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'routeProbe', attribute 'id': '' is not a valid value of the atomic type 'idType'.
+netedit/additionalElements/routeprobe/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/routeprobe/load/parameters/input_additionals.add.xml:8:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/routeprobe/load/parameters/input_additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/routeprobe/load/parameters/input_additionals.add.xml:23:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/routeprobe/volatileRecomputing/input_additionals.add.xml:10:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'routeProbe': The attribute 'file' is required but missing.
 netedit/additionalElements/routeprobe/volatileRecomputing/input_additionals.add.xml:11:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'routeProbe': The attribute 'file' is required but missing.
 netedit/additionalElements/routeprobe/volatileRecomputing/input_additionals.add.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'routeProbe': The attribute 'file' is required but missing.
@@ -481,9 +480,6 @@ netedit/additionalElements/e1InstantDetector/load/parameters/input_additionals.a
 netedit/additionalElements/e1InstantDetector/load/parameters/input_additionals.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
 netedit/additionalElements/e1InstantDetector/load/parameters/input_additionals.add.xml:12:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
 netedit/additionalElements/e1InstantDetector/load/parameters/input_additionals.add.xml:24:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/e2MultiLaneDetector/load/parameters/input_additionals.add.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
-netedit/additionalElements/e2MultiLaneDetector/load/parameters/input_additionals.add.xml:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
-netedit/additionalElements/e2MultiLaneDetector/load/parameters/input_additionals.add.xml:64:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'param': This element is not expected.
 netedit/additionalElements/e2MultiLaneDetector/load/endpos/input_additionals.add.xml:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'endPos': 'dummyEndPos' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e2MultiLaneDetector/load/endpos/input_additionals.add.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'endPos': '' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e2MultiLaneDetector/load/file/input_additionals.add.xml:35:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e2Detector': The attribute 'file' is required but missing.
@@ -499,6 +495,9 @@ netedit/additionalElements/e2MultiLaneDetector/load/jamthreshold/input_additiona
 netedit/additionalElements/e2MultiLaneDetector/load/pos/input_additionals.add.xml:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'pos': 'dummyPos' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e2MultiLaneDetector/load/speedthreshold/input_additionals.add.xml:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'speedThreshold': 'dummySpeedThreshold' is not a valid value of the atomic type 'xs:float'.
 netedit/additionalElements/e2MultiLaneDetector/load/timethreshold/input_additionals.add.xml:38:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'timeThreshold': 'dummy' is not a valid value of the atomic type 'xs:float'.
+netedit/additionalElements/e2MultiLaneDetector/load/parameters/input_additionals.add.xml:41:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'key' is required but missing.
+netedit/additionalElements/e2MultiLaneDetector/load/parameters/input_additionals.add.xml:53:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'param': The attribute 'value' is required but missing.
+netedit/additionalElements/e2MultiLaneDetector/load/parameters/input_additionals.add.xml:64:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'param': This element is not expected.
 netedit/bugs/additionals/ticket3322/input_additionals.add.xml:14:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'instantInductionLoop', attribute 'freq': The attribute 'freq' is not allowed.
 netedit/bugs/additionals/ticket3322/input_additionals.add.xml:15:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'rerouter', attribute 'off': The attribute 'off' is not allowed.
 netedit/bugs/additionals/ticket3879/input_additionals.add.xml:2:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'busStop', attribute 'blockMovement': The attribute 'blockMovement' is not allowed.
@@ -523,7 +522,7 @@ sumo/basic/tls/errors/invalid_state/input_additional.add.xml:3:0:ERROR:SCHEMASV:
 sumo/basic/tls/errors/invalid_state/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'phase', attribute 'state': '0GggrrrrGGggrrrr' is not a valid value of the local atomic type.
 Error on parsing 'sumo/extended/calibrator/errors/invalid_flow/input_additional.add.xml'!
 Traceback (most recent call last):
-  File "/scr1/sumo/tests/../tools/xml/schemaCheck.py", line 49, in validate
+  File "/scr1/sumo/tests/../tools/xml/schemaCheck.py", line 48, in validate
     doc = etree.parse(f)
   File "lxml.etree.pyx", line 3197, in lxml.etree.parse (src/lxml/lxml.etree.c:64816)
   File "parser.pxi", line 1571, in lxml.etree._parseDocument (src/lxml/lxml.etree.c:92729)
@@ -583,9 +582,8 @@ sumo/output/e2/errors/length_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:S
 sumo/output/e2/errors/length_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'length': 'aaa' is not a valid value of the atomic type 'xs:float'.
 sumo/output/e2/errors/pos_empty/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'pos': '' is not a valid value of the atomic type 'xs:float'.
 sumo/output/e2/errors/pos_false/input_additional.add.xml:4:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e2Detector', attribute 'pos': 'aaa' is not a valid value of the atomic type 'xs:float'.
-sumo/output/e3/bugs/ticket4845/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is one of ( detEntry, detExit ).
-sumo/output/e3/errors/entryexit_empty/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is ( detEntry ).
-sumo/output/e3/errors/entryexit_empty/input_additional.add.xml:6:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is ( detEntry ).
+sumo/output/e3/errors/entryexit_empty/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is one of ( param, detEntry, detExit ).
+sumo/output/e3/errors/entryexit_empty/input_additional.add.xml:6:0:ERROR:SCHEMASV:SCHEMAV_ELEMENT_CONTENT: Element 'e3Detector': Missing child element(s). Expected is one of ( param, detEntry, detExit ).
 sumo/output/e3/errors/file_missing/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'e3Detector': The attribute 'file' is required but missing.
 sumo/output/e3/errors/freq_empty/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': '' is not a valid value of the atomic type 'positiveFloatType'.
 sumo/output/e3/errors/freq_false/input_additional.add.xml:9:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'e3Detector', attribute 'freq': 'xxx' is not a valid value of the atomic type 'positiveFloatType'.

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    TraCIServerAPI_Simulation.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // APIs for getting/setting edge values via TraCI
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StdDefs.h>
@@ -586,30 +585,11 @@ TraCIServerAPI_Simulation::commandDistanceRequest(TraCIServer& server, tcpip::St
     }
 
     // read distance type
-    int distType = inputStorage.readUnsignedByte();
+    const int distType = inputStorage.readUnsignedByte();
 
     double distance = 0.0;
     if (distType == libsumo::REQUEST_DRIVINGDIST) {
-        // compute driving distance
-        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
-            // same edge
-            distance = roadPos2.second - roadPos1.second;
-        } else {
-            ConstMSEdgeVector newRoute;
-            while (roadPos2.first->isInternal() && roadPos2.first != roadPos1.first) {
-                distance += roadPos2.second;
-                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
-                roadPos2.second = roadPos2.first->getLength();
-            }
-            MSNet::getInstance()->getRouterTT(0).compute(
-                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute, true);
-            if (newRoute.size() == 0) {
-                distance = libsumo::INVALID_DOUBLE_VALUE;
-            } else {
-                MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-                distance += route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
-            }
-        }
+        distance = libsumo::Helper::getDrivingDistance(roadPos1, roadPos2);
     } else {
         // compute air distance (default)
         distance = pos1.distanceTo(pos2);

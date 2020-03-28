@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNETexture_VariableSpeedSign.cpp
 /// @author  Pablo Alvarez Lopez
@@ -140,5 +144,6 @@ const unsigned char GNETexture_VariableSpeedSign[] = {
     0x42, 0x40, 0x49, 0xc2, 0xa4, 0x22, 0xc0, 0xcb, 0xa4, 0x26, 0x37, 0x99, 0x10, 0x8f, 0x50, 0x92,
     0x93, 0xa0, 0x0c, 0x65, 0x46, 0x3c, 0x12, 0x10, 0x00, 0x3b
 };
+
 
 /****************************************************************************/

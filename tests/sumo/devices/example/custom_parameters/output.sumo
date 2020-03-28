@@ -33,4 +33,4 @@ device 'example_veh0' notifyMove: newSpeed=27.80
 device 'example_veh0' notifyMove: newSpeed=27.80
 device 'example_veh0' notifyMove: newSpeed=27.80
 device 'example_veh0' notifyMove: newSpeed=27.80
-device 'example_veh0' notifyLeave: reason=6 currentEdge=end
+device 'example_veh0' notifyLeave: reason=7 currentEdge=end

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NILoader.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // Perfoms network import
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -51,7 +50,6 @@
 #include <netimport/vissim/NIImporter_Vissim.h>
 #include <netimport/NIImporter_ArcView.h>
 #include <netimport/NIImporter_SUMO.h>
-#include <netimport/NIImporter_RobocupRescue.h>
 #include <netimport/NIImporter_OpenStreetMap.h>
 #include <netimport/NIImporter_OpenDrive.h>
 #include <netimport/NIImporter_MATSim.h>
@@ -89,7 +87,6 @@ NILoader::load(OptionsCont& oc) {
     NBHeightMapper::loadIfSet(oc);
     // try to load using different methods
     NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
-    NIImporter_RobocupRescue::loadNetwork(oc, myNetBuilder);
     NIImporter_OpenStreetMap::loadNetwork(oc, myNetBuilder);
     NIImporter_VISUM::loadNetwork(oc, myNetBuilder);
     NIImporter_ArcView::loadNetwork(oc, myNetBuilder);
@@ -116,6 +113,9 @@ NILoader::load(OptionsCont& oc) {
     }
     if (myNetBuilder.getEdgeCont().size() == 0) {
         throw ProcessError("No edges loaded.");
+    }
+    if (!myNetBuilder.getEdgeCont().checkConsistency(myNetBuilder.getNodeCont())) {
+        throw ProcessError();
     }
     // report loaded structures
     WRITE_MESSAGE(" Import done:");
@@ -144,58 +144,66 @@ NILoader::load(OptionsCont& oc) {
 /* -------------------------------------------------------------------------
  * file loading methods
  * ----------------------------------------------------------------------- */
-void
+bool
 NILoader::loadXML(OptionsCont& oc) {
     // load nodes
-    NITypeLoader::load(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
-                       myNetBuilder.getTLLogicCont(), oc),
-                       oc.getStringVector("node-files"), "nodes");
+    bool ok = NITypeLoader::load(new NIXMLNodesHandler(myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+                                 myNetBuilder.getTLLogicCont(), oc),
+                                 oc.getStringVector("node-files"), "nodes");
     // load the edges
-    NITypeLoader::load(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
-                       myNetBuilder.getEdgeCont(),
-                       myNetBuilder.getTypeCont(),
-                       myNetBuilder.getDistrictCont(),
-                       myNetBuilder.getTLLogicCont(),
-                       oc),
-                       oc.getStringVector("edge-files"), "edges");
+    if (ok) {
+        ok = NITypeLoader::load(new NIXMLEdgesHandler(myNetBuilder.getNodeCont(),
+                                myNetBuilder.getEdgeCont(),
+                                myNetBuilder.getTypeCont(),
+                                myNetBuilder.getDistrictCont(),
+                                myNetBuilder.getTLLogicCont(),
+                                oc),
+                                oc.getStringVector("edge-files"), "edges");
+    }
     if (!deprecatedVehicleClassesSeen.empty()) {
         WRITE_WARNING("Deprecated vehicle class(es) '" + toString(deprecatedVehicleClassesSeen) + "' in input edge files.");
     }
     // load the connections
-    NITypeLoader::load(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(),
-                       myNetBuilder.getNodeCont(),
-                       myNetBuilder.getTLLogicCont()),
-                       oc.getStringVector("connection-files"), "connections");
+    if (ok) {
+        ok = NITypeLoader::load(new NIXMLConnectionsHandler(myNetBuilder.getEdgeCont(),
+                                myNetBuilder.getNodeCont(),
+                                myNetBuilder.getTLLogicCont()),
+                                oc.getStringVector("connection-files"), "connections");
+    }
     // load traffic lights (needs to come last, references loaded edges and connections)
-    NITypeLoader::load(new NIXMLTrafficLightsHandler(
-                           myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
-                       oc.getStringVector("tllogic-files"), "traffic lights");
+    if (ok) {
+        ok = NITypeLoader::load(new NIXMLTrafficLightsHandler(
+                                    myNetBuilder.getTLLogicCont(), myNetBuilder.getEdgeCont()),
+                                oc.getStringVector("tllogic-files"), "traffic lights");
+    }
 
     // load public transport stops (used for restricting edge removal and as input when repairing railroad topology)
-    if (oc.exists("ptstop-files")) {
-        NITypeLoader::load(new NIXMLPTHandler(
-                               myNetBuilder.getEdgeCont(),
-                               myNetBuilder.getPTStopCont(),
-                               myNetBuilder.getPTLineCont()),
-                           oc.getStringVector("ptstop-files"), "public transport stops");
+    if (ok && oc.exists("ptstop-files")) {
+        ok = NITypeLoader::load(new NIXMLPTHandler(
+                                    myNetBuilder.getEdgeCont(),
+                                    myNetBuilder.getPTStopCont(),
+                                    myNetBuilder.getPTLineCont()),
+                                oc.getStringVector("ptstop-files"), "public transport stops");
     }
 
     // load public transport lines (used as input when repairing railroad topology)
-    if (oc.exists("ptline-files")) {
-        NITypeLoader::load(new NIXMLPTHandler(
-                               myNetBuilder.getEdgeCont(),
-                               myNetBuilder.getPTStopCont(),
-                               myNetBuilder.getPTLineCont()),
-                           oc.getStringVector("ptline-files"), "public transport lines");
+    if (ok && oc.exists("ptline-files")) {
+        ok = NITypeLoader::load(new NIXMLPTHandler(
+                                    myNetBuilder.getEdgeCont(),
+                                    myNetBuilder.getPTStopCont(),
+                                    myNetBuilder.getPTLineCont()),
+                                oc.getStringVector("ptline-files"), "public transport lines");
     }
 
     // load shapes for output formats that embed shape data
-    if (oc.exists("polygon-files")) {
-        NITypeLoader::load(new NIXMLShapeHandler(
-                               myNetBuilder.getShapeCont(),
-                               myNetBuilder.getEdgeCont()),
-                           oc.getStringVector("polygon-files"), "polygon data");
+    if (ok && oc.exists("polygon-files")) {
+        ok = NITypeLoader::load(new NIXMLShapeHandler(
+                                    myNetBuilder.getShapeCont(),
+                                    myNetBuilder.getEdgeCont()),
+                                oc.getStringVector("polygon-files"), "polygon data");
     }
+    return ok;
 }
+
 
 /****************************************************************************/

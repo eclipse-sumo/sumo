@@ -1,0 +1,4 @@
+Optimization succeeded
+Wrote 53 routes (30 distinct) achieving total count 439 at 138 locations. GEH<5 for 44.93%
+Warning: underflow locations: count 98, min 1.00 (('-58.121.42', '64')), max 14.00 (('23', '23.80.00')), mean 3.26 Q1 1.00, median 2.00, Q3 4.00 (total 319)
+Warning: overflow locations: count 7, min -1.00 (('-58.121.42', '-31')), max -1.00 (('-58.121.42', '-31')), mean -1.00 Q1 -1.00, median -1.00, Q3 -1.00 (total -7)

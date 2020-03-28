@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RORouteHandler.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
-#ifndef RORouteHandler_h
-#define RORouteHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -31,6 +29,7 @@
 #include <utils/common/NamedRTree.h>
 #include <utils/router/PedestrianRouter.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include "ROPerson.h"
 
 
 // ===========================================================================
@@ -40,7 +39,6 @@ class OutputDevice_String;
 class ROEdge;
 class ROLane;
 class RONet;
-class ROPerson;
 class RORoute;
 class RORouteDef;
 
@@ -89,8 +87,7 @@ protected:
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails
      */
-    void parseFromViaTo(std::string element,
-                        const SUMOSAXAttributes& attrs);
+    void parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs, bool& ok);
 
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
@@ -165,17 +162,29 @@ protected:
 
     /// @brief Parse edges from strings
     void parseEdges(const std::string& desc, ConstROEdgeVector& into,
-                    const std::string& rid);
+                    const std::string& rid, bool& ok);
 
     /// @brief Parse edges from coordinates
     void parseGeoEdges(const PositionVector& positions, bool geo,
-                       ConstROEdgeVector& into, const std::string& rid);
+                       ConstROEdgeVector& into, const std::string& rid, bool isFrom, bool& ok);
+
+    /// @brief find closest edge within distance for the given position or nullptr
+    const ROEdge* getClosestEdge(const Position& pos, double distance, SUMOVehicleClass vClass);
+
+    /// @brief find closest junction taz given the closest edge
+    const ROEdge* getJunctionTaz(const Position& pos, const ROEdge* closestEdge, SUMOVehicleClass vClass, bool isFrom);
 
     /// @brief add a routing request for a walking or intermodal person
     void addPersonTrip(const SUMOSAXAttributes& attrs);
 
     /// @brief add a fully specified walk
     void addWalk(const SUMOSAXAttributes& attrs);
+
+    ///@ brief parse depart- and arrival positions of a walk
+    void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
+                            const ROEdge* fromEdge, const ROEdge*& toEdge,
+                            double& departPos, double& arrivalPos, std::string& busStopID,
+                            const ROPerson::PlanItem* const lastStage, bool& ok);
 
     /// @brief initialize lane-RTree
     NamedRTree* getLaneTree();
@@ -211,6 +220,10 @@ protected:
     /// @brief whether to keep the the vtype distribution in output
     const bool myKeepVTypeDist;
 
+    /// @brief maximum distance when map-matching
+    const double myMapMatchingDistance;
+    const bool myMapMatchJunctions;
+
     /// @brief The currently parsed distribution of vehicle types (probability->vehicle type)
     RandomDistributor<SUMOVTypeParameter*>* myCurrentVTypeDistribution;
 
@@ -230,9 +243,3 @@ private:
     /// @brief Invalidated assignment operator
     RORouteHandler& operator=(const RORouteHandler& s) = delete;
 };
-
-
-#endif
-
-/****************************************************************************/
-

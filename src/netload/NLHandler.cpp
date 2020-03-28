@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLHandler.cpp
 /// @author  Daniel Krajzewicz
@@ -18,9 +22,6 @@
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -69,7 +70,6 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myHaveSeenInternalEdge(false),
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
-    myLefthand(false),
     myNetworkVersion(0),
     myNetIsLoaded(false) {
 }
@@ -85,7 +85,7 @@ NLHandler::myStartElement(int element,
         switch (element) {
             case SUMO_TAG_NET: {
                 bool ok;
-                myLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
+                MSGlobals::gLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
                 myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
                 break;
             }
@@ -401,7 +401,7 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
     }
 
-    if (func == EDGEFUNC_CROSSING) {
+    if (func == SumoXMLEdgeFunc::CROSSING) {
         //get the crossingEdges attribute (to implement the other side of the road pushbutton)
         const std::string crossingEdges = attrs.getOpt<std::string>(SUMO_ATTR_CROSSING_EDGES, id.c_str(), ok, "");
         if (!crossingEdges.empty()) {
@@ -540,7 +540,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::parseLanes(const std::string& junctionID,
                       const std::string& def, std::vector<MSLane*>& into, bool& ok) {
-    StringTokenizer st(def);
+    StringTokenizer st(def, " ");
     while (ok && st.hasNext()) {
         std::string laneID = st.next();
         MSLane* lane = MSLane::dictionary(laneID);
@@ -585,15 +585,16 @@ NLHandler::openWAUT(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    SUMOTime t = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, id.c_str(), ok, 0);
-    std::string pro = attrs.get<std::string>(SUMO_ATTR_START_PROG, id.c_str(), ok);
+    SUMOTime refTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, id.c_str(), ok, 0);
+    SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok, 0);
+    std::string startProg = attrs.get<std::string>(SUMO_ATTR_START_PROG, id.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
     }
     if (!myCurrentIsBroken) {
         myCurrentWAUTID = id;
         try {
-            myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(t, id, pro);
+            myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(refTime, id, startProg, period);
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
             myCurrentIsBroken = true;
@@ -1171,7 +1172,7 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     int detectPersons = 0;
     for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
         if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
-            detectPersons |= SUMOXMLDefinitions::PersonModeValues.get(mode);
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
         } else {
             WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
             return;
@@ -1350,18 +1351,20 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", EDGEFUNC_CONNECTOR, "", "", -1, 0);
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-sink", sink)) {
             delete sink;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
         }
         sink->initialize(new std::vector<MSLane*>());
-        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", EDGEFUNC_CONNECTOR, "", "", -1, 0);
+        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
             delete source;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");
         }
         source->initialize(new std::vector<MSLane*>());
+        sink->setOtherTazConnector(source);
+        source->setOtherTazConnector(sink);
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
             for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
@@ -1473,4 +1476,6 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
     }
     return lane->geometryPositionAtOffset(lanePos, -lanePosLat);
 }
+
+
 /****************************************************************************/

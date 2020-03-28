@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 29 08:03:57 2019 by Eclipse SUMO netconvert Version v1_3_1+1192-fbf7dcf
+<!-- generated on Mon Feb 17 15:30:44 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -12,10 +12,14 @@
         <proj.utm value="true"/>
     </projection>
 
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-399345.66,-5809362.43" convBoundary="0.00,0.00,1737.68,770.60" origBoundary="1351960.240000,5242549.880000,1354524.800000,5243232.070000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -261,10 +265,10 @@
         <lane id=":294168972_11_0" index="0" speed="3.65" length="2.34" shape="712.58,227.13 711.75,227.47 710.32,227.28"/>
     </edge>
     <edge id=":294168972_6" function="internal">
-        <lane id=":294168972_6_0" index="0" speed="5.02" length="5.03" shape="710.57,231.66 711.35,230.52 711.56,229.41 711.22,228.33 710.32,227.28"/>
+        <lane id=":294168972_6_0" index="0" allow="delivery" speed="5.02" length="5.03" shape="710.57,231.66 711.35,230.52 711.56,229.41 711.22,228.33 710.32,227.28"/>
     </edge>
     <edge id=":294168972_7" function="internal">
-        <lane id=":294168972_7_0" index="0" speed="6.92" length="10.17" shape="710.57,231.66 712.73,229.87 714.94,229.17 717.20,229.56 719.51,231.05"/>
+        <lane id=":294168972_7_0" index="0" allow="delivery" speed="6.92" length="10.17" shape="710.57,231.66 712.73,229.87 714.94,229.17 717.20,229.56 719.51,231.05"/>
     </edge>
     <edge id=":294168972_8" function="internal">
         <lane id=":294168972_8_0" index="0" allow="delivery" speed="3.65" length="4.67" shape="710.57,231.66 711.97,231.31 712.83,231.56 713.15,232.39 712.94,233.82"/>
@@ -342,10 +346,10 @@
         <lane id=":294829385_10_0" index="0" speed="3.65" length="2.34" shape="861.18,487.54 862.01,487.19 863.44,487.38"/>
     </edge>
     <edge id=":294829385_3" function="internal">
-        <lane id=":294829385_3_0" index="0" speed="5.08" length="5.04" shape="863.15,482.95 862.40,484.13 862.20,485.26 862.55,486.34 863.44,487.38"/>
+        <lane id=":294829385_3_0" index="0" allow="delivery" speed="5.08" length="5.04" shape="863.15,482.95 862.40,484.13 862.20,485.26 862.55,486.34 863.44,487.38"/>
     </edge>
     <edge id=":294829385_4" function="internal">
-        <lane id=":294829385_4_0" index="0" speed="6.85" length="10.22" shape="863.15,482.95 861.05,484.81 858.87,485.55 856.60,485.15 854.24,483.64"/>
+        <lane id=":294829385_4_0" index="0" allow="delivery" speed="6.85" length="10.22" shape="863.15,482.95 861.05,484.81 858.87,485.55 856.60,485.15 854.24,483.64"/>
     </edge>
     <edge id=":294829385_5" function="internal">
         <lane id=":294829385_5_0" index="0" allow="delivery" speed="3.65" length="4.67" shape="863.15,482.95 861.76,483.35 860.90,483.14 860.54,482.31 860.71,480.88"/>
@@ -390,10 +394,10 @@
         <lane id=":294829798_11_0" index="0" speed="3.65" length="2.34" shape="920.52,408.02 919.70,408.36 918.27,408.18"/>
     </edge>
     <edge id=":294829798_6" function="internal">
-        <lane id=":294829798_6_0" index="0" speed="5.08" length="5.05" shape="918.56,412.61 919.30,411.43 919.50,410.30 919.16,409.21 918.27,408.18"/>
+        <lane id=":294829798_6_0" index="0" allow="delivery" speed="5.08" length="5.05" shape="918.56,412.61 919.30,411.43 919.50,410.30 919.16,409.21 918.27,408.18"/>
     </edge>
     <edge id=":294829798_7" function="internal">
-        <lane id=":294829798_7_0" index="0" speed="6.85" length="10.22" shape="918.56,412.61 920.65,410.75 922.84,410.01 925.11,410.40 927.47,411.92"/>
+        <lane id=":294829798_7_0" index="0" allow="delivery" speed="6.85" length="10.22" shape="918.56,412.61 920.65,410.75 922.84,410.01 925.11,410.40 927.47,411.92"/>
     </edge>
     <edge id=":294829798_8" function="internal">
         <lane id=":294829798_8_0" index="0" allow="delivery" speed="3.65" length="4.67" shape="918.56,412.61 919.94,412.21 920.81,412.42 921.16,413.24 921.00,414.68"/>
@@ -414,10 +418,10 @@
         <lane id=":294829881_10_0" index="0" speed="3.65" length="2.34" shape="894.29,516.52 895.14,516.23 896.55,516.52"/>
     </edge>
     <edge id=":294829881_3" function="internal">
-        <lane id=":294829881_3_0" index="0" speed="5.21" length="5.11" shape="896.55,511.97 895.76,513.17 895.50,514.33 895.76,515.44 896.55,516.52"/>
+        <lane id=":294829881_3_0" index="0" allow="delivery" speed="5.21" length="5.11" shape="896.55,511.97 895.76,513.17 895.50,514.33 895.76,515.44 896.55,516.52"/>
     </edge>
     <edge id=":294829881_4" function="internal">
-        <lane id=":294829881_4_0" index="0" speed="6.86" length="10.17" shape="896.55,511.97 894.45,513.80 892.27,514.52 890.01,514.12 887.66,512.61"/>
+        <lane id=":294829881_4_0" index="0" allow="delivery" speed="6.86" length="10.17" shape="896.55,511.97 894.45,513.80 892.27,514.52 890.01,514.12 887.66,512.61"/>
     </edge>
     <edge id=":294829881_5" function="internal">
         <lane id=":294829881_5_0" index="0" allow="delivery" speed="3.65" length="4.67" shape="896.55,511.97 895.16,512.36 894.29,512.13 893.95,511.31 894.13,509.88"/>
@@ -630,10 +634,10 @@
         <lane id=":294831567_10_0" index="0" speed="3.74" length="2.48" shape="495.31,315.41 496.18,315.79 497.09,317.02"/>
     </edge>
     <edge id=":294831567_3" function="internal">
-        <lane id=":294831567_3_0" index="0" speed="5.71" length="5.73" shape="500.74,313.26 499.09,313.85 497.93,314.67 497.26,315.73 497.09,317.02"/>
+        <lane id=":294831567_3_0" index="0" allow="delivery" speed="5.71" length="5.73" shape="500.74,313.26 499.09,313.85 497.93,314.67 497.26,315.73 497.09,317.02"/>
     </edge>
     <edge id=":294831567_4" function="internal">
-        <lane id=":294831567_4_0" index="0" speed="6.74" length="10.94" shape="500.74,313.26 497.69,313.57 495.42,312.77 493.93,310.89 493.24,307.90"/>
+        <lane id=":294831567_4_0" index="0" allow="delivery" speed="6.74" length="10.94" shape="500.74,313.26 497.69,313.57 495.42,312.77 493.93,310.89 493.24,307.90"/>
     </edge>
     <edge id=":294831567_5" function="internal">
         <lane id=":294831567_5_0" index="0" allow="delivery" speed="3.64" length="4.64" shape="500.74,313.26 499.40,312.77 498.82,312.10 499.02,311.23 499.98,310.18"/>
@@ -863,10 +867,10 @@
         <lane id=":32266938_11_0" index="0" speed="3.65" length="2.34" shape="477.54,107.46 476.71,107.13 475.81,106.01"/>
     </edge>
     <edge id=":32266938_6" function="internal">
-        <lane id=":32266938_6_0" index="0" speed="5.19" length="5.18" shape="472.78,109.46 474.20,109.08 475.18,108.38 475.71,107.35 475.81,106.01"/>
+        <lane id=":32266938_6_0" index="0" allow="bicycle" speed="5.19" length="5.18" shape="472.78,109.46 474.20,109.08 475.18,108.38 475.71,107.35 475.81,106.01"/>
     </edge>
     <edge id=":32266938_7" function="internal">
-        <lane id=":32266938_7_0" index="0" speed="6.64" length="9.76" shape="472.78,109.46 475.64,109.44 477.75,110.25 479.11,111.87 479.73,114.31"/>
+        <lane id=":32266938_7_0" index="0" allow="bicycle" speed="6.64" length="9.76" shape="472.78,109.46 475.64,109.44 477.75,110.25 479.11,111.87 479.73,114.31"/>
     </edge>
     <edge id=":32266938_8" function="internal">
         <lane id=":32266938_8_0" index="0" allow="bicycle" speed="3.65" length="4.67" shape="472.78,109.46 474.07,110.10 474.57,110.84 474.28,111.68 473.19,112.63"/>
@@ -1488,10 +1492,10 @@
         <lane id=":56231597_10_0" index="0" speed="3.65" length="2.34" shape="635.76,384.35 635.49,383.50 635.79,382.09"/>
     </edge>
     <edge id=":56231597_3" function="internal">
-        <lane id=":56231597_3_0" index="0" speed="5.11" length="4.93" shape="631.42,382.16 632.52,382.91 633.62,383.15 634.71,382.88 635.79,382.09"/>
+        <lane id=":56231597_3_0" index="0" allow="delivery" speed="5.11" length="4.93" shape="631.42,382.16 632.52,382.91 633.62,383.15 634.71,382.88 635.79,382.09"/>
     </edge>
     <edge id=":56231597_4" function="internal">
-        <lane id=":56231597_4_0" index="0" speed="7.33" length="9.43" shape="631.42,382.16 633.12,384.14 633.99,386.22 634.03,388.38 633.23,390.64"/>
+        <lane id=":56231597_4_0" index="0" allow="delivery" speed="7.33" length="9.43" shape="631.42,382.16 633.12,384.14 633.99,386.22 634.03,388.38 633.23,390.64"/>
     </edge>
     <edge id=":56231597_5" function="internal">
         <lane id=":56231597_5_0" index="0" allow="delivery" speed="3.65" length="4.67" shape="631.42,382.16 631.76,383.56 631.52,384.42 630.68,384.74 629.26,384.52"/>

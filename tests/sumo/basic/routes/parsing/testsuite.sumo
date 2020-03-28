@@ -22,7 +22,7 @@ edgeattr_nested
 edgeattr
 
 # Test repeated vehicle creation
-repeat
+flow
 
 # Tests whether the include mechanism works
 include
@@ -38,3 +38,18 @@ trip_via
 
 # test disallowed via edge
 trip_via_invalid
+
+# test repeating route definition
+repeat
+
+# test repeating route definition with stops
+repeat_stops
+
+# test repeating route definition with stops for flow
+repeat_flow_stops
+
+# test repeating route definition with stops when no period is defined
+repeat_stops_no_period
+
+# test repeating route definition (invalid)
+repeat_disconnected

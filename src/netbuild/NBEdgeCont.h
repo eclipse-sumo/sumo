@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBEdgeCont.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Storage for edges, including some functionality operating on multiple edges
 /****************************************************************************/
-#ifndef NBEdgeCont_h
-#define NBEdgeCont_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <map>
@@ -411,11 +409,13 @@ public:
      * Calls "NBEdge::appendTurnaround" for all edges within the container.
      *
      * @param[in] noTLSControlled Whether the turnaround shall not be connected if the edge is controlled by a tls
-     * @param[in] exceptDeadends Whether the turnaround shall only be built at deadends
-     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @param[in] noFringe Whether the turnaround shall not be connected if the junction is at the (outer) fringe
+     * @param[in] onlyDeadends Whether the turnaround shall only be built at deadends
+     * @param[in] onlyTurnlane Whether the turnaround shall only be built when there is an exclusive (left) turn lane
+     * @param[in] noGeometryLike Whether the turnaround shall be built at geometry-like nodes
      * @see NBEdge::appendTurnaround
      */
-    void appendTurnarounds(bool noTLSControlled, bool onlyDeadends, bool noGeometryLike);
+    void appendTurnarounds(bool noTLSControlled, bool noFringe, bool onlyDeadends, bool onlyTurnlane, bool noGeometryLike);
 
 
     /** @brief Appends turnarounds to all edges stored in the container
@@ -536,7 +536,8 @@ public:
      * @param[in] warnOnly Whether a failure to set this connection should only result in a warning
      */
     void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
-                                  bool keepClear, double contPos, double visibility, double speed,
+                                  bool keepClear, double contPos, double visibility,
+                                  double speed, double length,
                                   const PositionVector& customShape,
                                   bool uncontrolled,
                                   bool warnOnly,
@@ -602,6 +603,9 @@ public:
     EdgeVector getAllEdges() const;
     RouterEdgeVector getAllRouterEdges() const;
 
+    /// @brief ensure that all edges have valid nodes
+    bool checkConsistency(const NBNodeCont& nc);
+
 private:
     /// @brief compute the form factor for a loop of edges
     static double formFactor(const EdgeVector& loopEdges);
@@ -624,12 +628,14 @@ private:
          */
         PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_,
                               bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, double speed_,
+                              double length_,
                               const PositionVector& customShape_,
                               bool uncontrolled_,
                               bool warnOnly_, SVCPermissions permissions_) :
             from(from_), fromLane(fromLane_), to(to_), toLane(toLane_), mayDefinitelyPass(mayDefinitelyPass_), keepClear(keepClear_), contPos(contPos_),
             visibility(visibility_),
             speed(speed_),
+            customLength(length_),
             customShape(customShape_),
             uncontrolled(uncontrolled_),
             permissions(permissions_),
@@ -653,6 +659,8 @@ private:
         double visibility;
         /// @brief custom speed for connection
         double speed;
+        /// @brief custom length for connection
+        double customLength;
         /// @brief custom shape for connection
         PositionVector customShape;
         /// @brief whether this connection shall not be controlled by a traffic light
@@ -744,9 +752,3 @@ private:
     NBEdgeCont& operator=(const NBEdgeCont& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

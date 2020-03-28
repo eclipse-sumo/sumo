@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOVehicleClass.h
 /// @author  Daniel Krajzewicz
@@ -17,14 +21,7 @@
 ///
 // Definitions of SUMO vehicle classes and helper functions
 /****************************************************************************/
-#ifndef SUMOVehicleClass_h
-#define SUMOVehicleClass_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
+#pragma once
 #include <string>
 #include <set>
 #include <limits>
@@ -348,20 +345,24 @@ extern bool isSidewalk(SVCPermissions permissions);
  */
 extern bool noVehicles(SVCPermissions permissions);
 
+/** @brief Returns the default vehicle length
+ * This put into a function so it can be used by NBVehicle
+ * @param[in] vc the vehicle class
+ * @return the default length in m
+ */
+extern double getDefaultVehicleLength(const SUMOVehicleClass vc = SVC_IGNORING);
+
 // ---------------------------------------------------------------------------
 // default vehicle type parameter
 // ---------------------------------------------------------------------------
 extern const std::string DEFAULT_VTYPE_ID;
 extern const std::string DEFAULT_PEDTYPE_ID;
 extern const std::string DEFAULT_BIKETYPE_ID;
+extern const std::string DEFAULT_CONTAINERTYPE_ID;
+extern const std::string DEFAULT_TAXITYPE_ID;
 
 extern const double DEFAULT_VEH_PROB; // !!! does this belong here?
 
 extern const double DEFAULT_PEDESTRIAN_SPEED;
 
 extern const double DEFAULT_CONTAINER_TRANSHIP_SPEED;
-
-#endif
-
-/****************************************************************************/
-

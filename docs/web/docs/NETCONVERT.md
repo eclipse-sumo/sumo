@@ -215,6 +215,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--flatten** {{DT_BOOL}} | Remove all z-data; *default:* **false** |
 | **--plain.extend-edge-shape** {{DT_BOOL}} | If edge shapes do not end at the node positions, extend them; *default:* **false** |
 | **--numerical-ids** {{DT_BOOL}} | Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers; *default:* **false** |
+| **--numerical-ids.node-start** {{DT_INT}} | Remaps IDs of nodes to integers starting at INT; *default:* **2147483647** |
+| **--numerical-ids.edge-start** {{DT_INT}} | Remaps IDs of edges to integers starting at INT; *default:* **2147483647** |
 | **--reserved-ids** {{DT_FILE}} | Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) |
 | **--dismiss-vclasses** {{DT_BOOL}} | Removes vehicle class restrictions from imported edges; *default:* **false** |
 | **--geometry.split** {{DT_BOOL}} | Splits edges across geometry nodes; *default:* **false** |
@@ -235,6 +237,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--geometry.avoid-overlap** {{DT_BOOL}} | Modify edge geometries to avoid overlap at junctions; *default:* **true** |
 | **--join-lanes** {{DT_BOOL}} | join adjacent lanes that have the same permissions and which do not admit lane-changing (sidewalks and disallowed lanes); *default:* **false** |
 | **--ptline.match-dist** {{DT_FLOAT}} | Matches stops outside the road network to the referencing pt line when below the given distance; *default:* **100** |
+| **--ptstop-output.no-bidi** {{DT_BOOL}} | Skips automatic generation of stops on the bidi-edge of a loaded stop; *default:* **false** |
 | **--geometry.max-grade** {{DT_FLOAT}} | Warn about edge geometries with a grade in % above FLOAT.; *default:* **10** |
 | **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge edge geometries with a grade in above the warning threshold.; *default:* **true** |
 | **--offset.disable-normalization** {{DT_BOOL}} | Turn off normalizing node positions; *default:* **false** |
@@ -245,6 +248,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--roundabouts.guess** {{DT_BOOL}} | Enable roundabout-guessing; *default:* **true** |
 | **--opposites.guess** {{DT_BOOL}} | Enable guessing of opposite direction lanes usable for overtaking; *default:* **false** |
 | **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **false** |
+| **--fringe.guess** {{DT_BOOL}} | Enable guessing of network fringe nodes; *default:* **false** |
 | **--lefthand** {{DT_BOOL}} | Assumes left-hand traffic on the network; *default:* **false** |
 | **--edges.join** {{DT_BOOL}} | Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import); *default:* **false** |
 | **--speed.offset** {{DT_FLOAT}} | Modifies all edge speeds by adding FLOAT; *default:* **0** |
@@ -304,6 +308,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--tls.layout** {{DT_STR}} | Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']; *default:* **opposites** |
 | **--tls.min-dur** {{DT_INT}} | Default minimum phase duration for traffic lights with variable phase length; *default:* **5** |
 | **--tls.max-dur** {{DT_INT}} | Default maximum phase duration for traffic lights with variable phase length; *default:* **50** |
+| **--tls.group-signals** {{DT_BOOL}} | Assign the same tls link index to connections that share the same states; *default:* **false** |
+| **--tls.ungroup-signals** {{DT_BOOL}} | Assign a distinct tls link index to every connection; *default:* **false** |
 
 ### Ramp Guessing
 
@@ -314,6 +320,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--ramps.max-ramp-speed** {{DT_FLOAT}} | Treat edges with speed > FLOAT as no ramps; *default:* **-1** |
 | **--ramps.min-highway-speed** {{DT_FLOAT}} | Treat edges with speed < FLOAT as no highways; *default:* **21.9444** |
 | **--ramps.ramp-length** {{DT_FLOAT}} | Use FLOAT as ramp-length; *default:* **100** |
+| **--ramps.min-weave-length** {{DT_FLOAT}} | Use FLOAT as minimum ramp-length; *default:* **50** |
 | **--ramps.set** {{DT_STR[]}} | Tries to handle the given edges as ramps |
 | **--ramps.unset** {{DT_STR[]}} | Do not consider the given edges as ramps |
 | **--ramps.no-split** {{DT_BOOL}} | Avoids edge splitting; *default:* **false** |
@@ -355,6 +362,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--no-turnarounds.tls** {{DT_BOOL}} | Disables building turnarounds at tls-controlled junctions; *default:* **false** |
 | **--no-turnarounds.geometry** {{DT_BOOL}} | Disables building turnarounds at geometry-like junctions; *default:* **true** |
 | **--no-turnarounds.except-deadend** {{DT_BOOL}} | Disables building turnarounds except at dead end junctions; *default:* **false** |
+| **--no-turnarounds.except-turnlane** {{DT_BOOL}} | Disables building turnarounds except at at junctions with a dedicated turning lane; *default:* **false** |
+| **--no-turnarounds.fringe** {{DT_BOOL}} | Disables building turnarounds at fringe junctions; *default:* **false** |
 | **--no-left-connections** {{DT_BOOL}} | Disables building connections to left; *default:* **false** |
 | **--junctions.join** {{DT_BOOL}} | Joins junctions that are close to each other (recommended for OSM import); *default:* **false** |
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
@@ -404,6 +413,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.topology.repair** {{DT_BOOL}} | Repair topology of the railway network; *default:* **false** |
 | **--railway.topology.repair.connect-straight** {{DT_BOOL}} | Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle; *default:* **false** |
 | **--railway.topology.all-bidi** {{DT_BOOL}} | Make all rails usable in both direction; *default:* **false** |
+| **--railway.topology.all-bidi.input-file** {{DT_FILE}} | Make all rails edge ids from FILE usable in both direction |
 | **--railway.access-distance** {{DT_FLOAT}} | The search radius for finding suitable road accesses for rail stops; *default:* **150** |
 | **--railway.max-accesses** {{DT_INT}} | The maximum roud accesses registered per rail stops; *default:* **5** |
 | **--railway.access-factor** {{DT_FLOAT}} | The walking length of the access is computed as air-line distance multiplied by FLOAT; *default:* **1.5** |

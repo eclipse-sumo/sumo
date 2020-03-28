@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    traceExporter.py
 # @author  Daniel Krajzewicz
@@ -19,6 +23,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
+import gzip
 import random
 import datetime
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'tools'))
@@ -48,6 +53,8 @@ def disturb_gps(x, y, deviation):
 def _getOutputStream(name):
     if not name:
         return None
+    if name.endswith(".gz"):
+        return gzip.open(name, "wt")
     return open(name, "w")
 
 
@@ -82,7 +89,7 @@ def procFCDStream(fcdstream, options):
     chosen = {}
     for q in fcdstream:
         pt = lt
-        lt = float(q.time)
+        lt = sumolib.miscutils.parseTime(q.time)
         if options.begin and options.begin > lt:
             continue  # do not export steps before a set begin
         if options.end and options.end <= lt:

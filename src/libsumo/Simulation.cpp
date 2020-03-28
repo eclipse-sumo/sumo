@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2017-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Simulation.cpp
 /// @author  Laura Bieker-Walz
@@ -14,13 +18,10 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/options/OptionsCont.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/StringUtils.h>
@@ -63,11 +64,19 @@ ContextSubscriptionResults Simulation::myContextSubscriptionResults;
 // ===========================================================================
 void
 Simulation::load(const std::vector<std::string>& args) {
-    close();
-    XMLSubSys::init();
-    OptionsIO::setArgs(args);
-    NLBuilder::init();
-    Helper::registerVehicleStateListener();
+    close("Libsumo issued load command.");
+    try {
+        gSimulation = true;
+        XMLSubSys::init();
+        OptionsIO::setArgs(args);
+        if (NLBuilder::init(true) != nullptr) {
+            const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+            MSNet::getInstance()->setCurrentTimeStep(begin); // needed for state loading
+            WRITE_MESSAGE("Simulation started via Libsumo with time: " + time2string(begin));
+        }
+    } catch (ProcessError& e) {
+        throw TraCIException(e.what());
+    }
 }
 
 
@@ -93,10 +102,10 @@ Simulation::step(const double time) {
 
 
 void
-Simulation::close() {
+Simulation::close(const std::string& reason) {
     Helper::clearSubscriptions();
     if (MSNet::hasInstance()) {
-        MSNet::getInstance()->closeSimulation(0);
+        MSNet::getInstance()->closeSimulation(0, reason);
         delete MSNet::getInstance();
         XMLSubSys::close();
         SystemFrame::close();
@@ -385,22 +394,7 @@ Simulation::getDistance2D(double x1, double y1, double x2, double y2, bool isGeo
     if (isDriving) {
         std::pair<const MSLane*, double> roadPos1 = libsumo::Helper::convertCartesianToRoadMap(pos1, SVC_IGNORING);
         std::pair<const MSLane*, double> roadPos2 = libsumo::Helper::convertCartesianToRoadMap(pos2, SVC_IGNORING);
-        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
-            // same edge
-            return roadPos2.second - roadPos1.second;
-        } else {
-            double distance = 0.;
-            ConstMSEdgeVector newRoute;
-            if (roadPos2.first->isInternal()) {
-                distance = roadPos2.second;
-                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
-                roadPos2.second = roadPos2.first->getLength();
-            }
-            MSNet::getInstance()->getRouterTT(0).compute(
-                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-            MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-            return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
-        }
+        return Helper::getDrivingDistance(roadPos1, roadPos2);
     } else {
         return pos1.distanceTo(pos2);
     }
@@ -412,22 +406,7 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
     std::pair<const MSLane*, double> roadPos1 = std::make_pair(libsumo::Helper::getLaneChecking(edgeID1, 0, pos1), pos1);
     std::pair<const MSLane*, double> roadPos2 = std::make_pair(libsumo::Helper::getLaneChecking(edgeID2, 0, pos2), pos2);
     if (isDriving) {
-        if ((roadPos1.first == roadPos2.first) && (roadPos1.second <= roadPos2.second)) {
-            // same edge
-            return roadPos2.second - roadPos1.second;
-        } else {
-            double distance = 0.;
-            ConstMSEdgeVector newRoute;
-            if (roadPos2.first->isInternal()) {
-                distance = roadPos2.second;
-                roadPos2.first = roadPos2.first->getLogicalPredecessorLane();
-                roadPos2.second = roadPos2.first->getLength();
-            }
-            MSNet::getInstance()->getRouterTT(0).compute(
-                &roadPos1.first->getEdge(), &roadPos2.first->getEdge(), nullptr, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-            MSRoute route("", newRoute, false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-            return distance + route.getDistanceBetween(roadPos1.second, roadPos2.second, &roadPos1.first->getEdge(), &roadPos2.first->getEdge());
-        }
+        return Helper::getDrivingDistance(roadPos1, roadPos2);
     } else {
         const Position p1 = roadPos1.first->geometryPositionAtOffset(roadPos1.second);
         const Position p2 = roadPos2.first->geometryPositionAtOffset(roadPos2.second);
@@ -438,7 +417,7 @@ Simulation::getDistanceRoad(const std::string& edgeID1, double pos1, const std::
 
 TraCIStage
 Simulation::findRoute(const std::string& from, const std::string& to, const std::string& typeID, const double depart, const int routingMode) {
-    TraCIStage result(MSTransportable::DRIVING);
+    TraCIStage result(STAGE_DRIVING);
     const MSEdge* const fromEdge = MSEdge::dictionary(from);
     if (fromEdge == nullptr) {
         throw TraCIException("Unknown from edge '" + from + "'.");
@@ -448,24 +427,22 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         throw TraCIException("Unknown to edge '" + from + "'.");
     }
     SUMOVehicle* vehicle = nullptr;
-    if (typeID != "") {
-        SUMOVehicleParameter* pars = new SUMOVehicleParameter();
-        MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(typeID);
-        if (type == nullptr) {
-            throw TraCIException("The vehicle type '" + typeID + "' is not known.");
-        }
-        try {
-            const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
-            vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
-            // we need to fix the speed factor here for deterministic results
-            vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
-        } catch (ProcessError& e) {
-            throw TraCIException("Invalid departure edge for vehicle type '" + typeID + "' (" + e.what() + ")");
-        }
+    MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(typeID == "" ? DEFAULT_VTYPE_ID : typeID);
+    if (type == nullptr) {
+        throw TraCIException("The vehicle type '" + typeID + "' is not known.");
+    }
+    SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+    try {
+        const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
+        vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
+        // we need to fix the speed factor here for deterministic results
+        vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
+    } catch (ProcessError& e) {
+        throw TraCIException("Invalid departure edge for vehicle type '" + typeID + "' (" + e.what() + ")");
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : TIME2STEPS(depart);
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSRoutingEngine::getRouterTT(0) : MSNet::getInstance()->getRouterTT(0);
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = routingMode == ROUTING_MODE_AGGREGATED ? MSRoutingEngine::getRouterTT(0, vehicle->getVClass()) : MSNet::getInstance()->getRouterTT(0);
     router.compute(fromEdge, toEdge, vehicle, dep, edges);
     for (const MSEdge* e : edges) {
         result.edges.push_back(e->getID());
@@ -504,20 +481,20 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
     }
     for (StringTokenizer st(modes); st.hasNext();) {
         const std::string mode = st.next();
-        if (mode == toString(PERSONMODE_CAR)) {
+        if (mode == toString(PersonMode::CAR)) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_VTYPE_ID;
             pars.back()->id = mode;
             modeSet |= SVC_PASSENGER;
-        } else if (mode == toString(PERSONMODE_BICYCLE)) {
+        } else if (mode == toString(PersonMode::BICYCLE)) {
             pars.push_back(new SUMOVehicleParameter());
             pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
             pars.back()->id = mode;
             modeSet |= SVC_BICYCLE;
-        } else if (mode == toString(PERSONMODE_PUBLIC)) {
+        } else if (mode == toString(PersonMode::PUBLIC)) {
             pars.push_back(nullptr);
             modeSet |= SVC_BUS;
-        } else if (mode == toString(PERSONMODE_WALK)) {
+        } else if (mode == toString(PersonMode::WALK)) {
             // do nothing
         } else {
             throw TraCIException("Unknown person mode '" + mode + "'.");
@@ -578,12 +555,7 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             double cost = 0;
             for (std::vector<MSNet::MSIntermodalRouter::TripItem>::iterator it = items.begin(); it != items.end(); ++it) {
                 if (!it->edges.empty()) {
-                    resultCand.push_back(TraCIStage(it->line == ""
-                                                    ? MSTransportable::StageType::WALKING
-                                                    : MSTransportable::StageType::DRIVING));
-                    resultCand.back().vType = it->vType;
-                    resultCand.back().line = it->line;
-                    resultCand.back().destStop = it->destStop;
+                    resultCand.push_back(TraCIStage((it->line == "" ? STAGE_WALKING : STAGE_DRIVING), it->vType, it->line, it->destStop));
                     for (const MSEdge* e : it->edges) {
                         resultCand.back().edges.push_back(e->getID());
                     }
@@ -630,19 +602,19 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
         } else {
             throw TraCIException("Invalid chargingStation parameter '" + attrName + "'");
         }
-	} else if (StringUtils::startsWith(key, "overheadWire.")) {
-		const std::string attrName = key.substr(16);
-		MSOverheadWire* cs = static_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
-		if (cs == 0) {
-			throw TraCIException("Invalid overhead wire '" + objectID + "'");
-		}
-		if (attrName == toString(SUMO_ATTR_TOTALENERGYCHARGED)) {
-			return toString(cs->getTotalCharged());
+    } else if (StringUtils::startsWith(key, "overheadWire.")) {
+        const std::string attrName = key.substr(16);
+        MSOverheadWire* cs = static_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
+        if (cs == 0) {
+            throw TraCIException("Invalid overhead wire '" + objectID + "'");
+        }
+        if (attrName == toString(SUMO_ATTR_TOTALENERGYCHARGED)) {
+            return toString(cs->getTotalCharged());
         } else if (attrName == toString(SUMO_ATTR_NAME)) {
             return toString(cs->getMyName());
-		} else {
-			throw TraCIException("Invalid overhead wire parameter '" + attrName + "'");
-		}
+        } else {
+            throw TraCIException("Invalid overhead wire parameter '" + attrName + "'");
+        }
     } else if (StringUtils::startsWith(key, "parkingArea.")) {
         const std::string attrName = key.substr(12);
         MSParkingArea* pa = static_cast<MSParkingArea*>(MSNet::getInstance()->getStoppingPlace(objectID, SUMO_TAG_PARKING_AREA));

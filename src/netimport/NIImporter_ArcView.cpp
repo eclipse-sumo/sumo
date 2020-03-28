@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_ArcView.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // Importer for networks stored in ArcView-shape format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -319,7 +318,7 @@ NIImporter_ArcView::load() {
         // add positive direction if wanted
         if (dir == "B" || dir == "F" || dir == "" || myOptions.getBool("shapefile.all-bidirectional")) {
             if (myEdgeCont.retrieve(id) == 0) {
-                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
                 NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, name, origID, spread);
                 edge->setPermissions(myTypeCont.getPermissions(type));
                 myEdgeCont.insert(edge);
@@ -332,7 +331,7 @@ NIImporter_ArcView::load() {
         // add negative direction if wanted
         if ((dir == "B" || dir == "T" || myOptions.getBool("shapefile.all-bidirectional")) && !oneway) {
             if (myEdgeCont.retrieve("-" + id) == 0) {
-                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LANESPREAD_RIGHT : LANESPREAD_CENTER;
+                LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
                 NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), name, origID, spread);
                 edge->setPermissions(myTypeCont.getPermissions(type));
                 myEdgeCont.insert(edge);
@@ -465,8 +464,8 @@ void
 NIImporter_ArcView::checkSpread(NBEdge* e) {
     NBEdge* ret = e->getToNode()->getConnectionTo(e->getFromNode());
     if (ret != 0) {
-        e->setLaneSpreadFunction(LANESPREAD_RIGHT);
-        ret->setLaneSpreadFunction(LANESPREAD_RIGHT);
+        e->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
+        ret->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
     }
 }
 
@@ -513,6 +512,4 @@ NIImporter_ArcView::addParams(NBEdge* edge, OGRFeature* poFeature, const std::ve
 #endif
 
 
-
 /****************************************************************************/
-

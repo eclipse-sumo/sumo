@@ -1,0 +1,12 @@
+default
+no-turnarounds
+no-turnarounds.tls
+no-turnarounds.except-deadend
+no-turnarounds.except-turnlane
+no-turnarounds.fringe
+
+# test combined options
+no-turnarounds.except-turnlane_no-turnarounds.fringe
+
+# change default of --no-turnarounds.geometry to False
+no-turnarounds.geometry_false

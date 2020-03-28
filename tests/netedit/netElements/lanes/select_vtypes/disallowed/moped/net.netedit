@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.05.2019 16:00:53 by Eclipse SUMO netedit Version v1_2_0+0242-00a18e6a42
+<!-- generated on 3/13/2020 11:19:16 AM by Eclipse SUMO netedit Version v1_5_0+0577-c86610ca2e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08May082111.1560/netedit.gui/netElements/lanes/select_vtypes/disallowed/moped\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08May082111.1560/netedit.gui/netElements/lanes/select_vtypes/disallowed/moped\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,34 +30,36 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08May082111.1560/netedit.gui/netElements/lanes/select_vtypes/disallowed/moped\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08May082111.1560/netedit.gui/netElements/lanes/select_vtypes/disallowed/moped\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08May082111.1560/netedit.gui/netElements/lanes/select_vtypes/disallowed/moped\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08May082111.1560/netedit.gui/netElements/lanes/select_vtypes/disallowed/moped\routes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08May082111.1560/netedit.gui/netElements/lanes/select_vtypes/disallowed/moped\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.3_from_08May082111.1560/netedit.gui/netElements/lanes/select_vtypes/disallowed/moped\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\disallowed\moped\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,-30.00" convBoundary="0.00,0.00,80.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" disallow="passenger rail_fast" speed="3.65" length="4.67" shape="0.00,41.60 -1.20,40.80 -1.60,40.00 -1.20,39.20 0.00,38.40"/>
+        <lane id=":gneJ2_0_0" index="0" disallow="all" speed="3.65" length="4.67" shape="0.00,41.60 -1.20,40.80 -1.60,40.00 -1.20,39.20 0.00,38.40"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
         <lane id=":gneJ3_0_0" index="0" disallow="all" speed="3.82" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEParametersDialog.cpp
 /// @author  Pablo Alvarez Lopez
@@ -13,10 +17,6 @@
 ///
 // Dialog for edit parameters
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -33,13 +33,13 @@
 // ===========================================================================
 
 FXDEFMAP(GNEParametersDialog) GNEParametersDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT,  GNEParametersDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL,  GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALDIALOG_BUTTONRESET,   GNEParametersDialog::onCmdReset),
-    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL,                 GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_CLOSE,    0,                                      GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEParametersDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEParametersDialog::onCmdReset),
+    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNEParametersDialog::onCmdCancel),
 };
 
 FXDEFMAP(GNEParametersDialog::ParametersValues) ParametersValuesMap[] = {
@@ -49,17 +49,17 @@ FXDEFMAP(GNEParametersDialog::ParametersValues) ParametersValuesMap[] = {
 };
 
 FXDEFMAP(GNEParametersDialog::ParametersOptions) ParametersOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_LOAD,    GNEParametersDialog::ParametersOptions::onCmdLoadParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_SAVE,    GNEParametersDialog::ParametersOptions::onCmdSaveParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_CLEAR,   GNEParametersDialog::ParametersOptions::onCmdClearParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_PARAMETERS_SORT,    GNEParametersDialog::ParametersOptions::onCmdSortParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNEParametersDialog::ParametersOptions::onCmdHelpParameter),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_LOAD,    GNEParametersDialog::ParametersOptions::onCmdLoadParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNEParametersDialog::ParametersOptions::onCmdSaveParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CLEAR,   GNEParametersDialog::ParametersOptions::onCmdClearParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SORT,    GNEParametersDialog::ParametersOptions::onCmdSortParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEParametersDialog::ParametersOptions::onCmdHelpParameter),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEParametersDialog,                    FXDialogBox,    GNEParametersDialogMap,     ARRAYNUMBER(GNEParametersDialogMap))
-FXIMPLEMENT(GNEParametersDialog::ParametersValues,  FXGroupBox,     ParametersValuesMap,        ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNEParametersDialog::ParametersOptions, FXGroupBox,     ParametersOptionsMap,       ARRAYNUMBER(ParametersOptionsMap))
+FXIMPLEMENT(GNEParametersDialog,                    FXDialogBox,   GNEParametersDialogMap,     ARRAYNUMBER(GNEParametersDialogMap))
+FXIMPLEMENT(GNEParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,        ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT(GNEParametersDialog::ParametersOptions, FXGroupBox,    ParametersOptionsMap,       ARRAYNUMBER(ParametersOptionsMap))
 
 // ===========================================================================
 // member method definitions
@@ -146,7 +146,7 @@ GNEParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelect
     // find what value was changed
     for (int i = 0; i < (int)myParameterRows.size(); i++) {
         if (myParameterRows.at(i)->keyField == obj) {
-            // change key of  Parameter
+            // change key of Parameter
             myParameterDialogParent->myEditedParameters.at(i).first = myParameterRows.at(i)->keyField->getText().text();
             // change color of text field depending if key is valid or empty
             if (myParameterDialogParent->myEditedParameters.at(i).first.empty() || SUMOXMLDefinitions::isValidParameterKey(myParameterDialogParent->myEditedParameters.at(i).first)) {
@@ -156,7 +156,7 @@ GNEParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelect
                 myParameterRows.at(i)->keyField->killFocus();
             }
         } else if (myParameterRows.at(i)->valueField == obj) {
-            // change value of  Parameter
+            // change value of Parameter
             myParameterDialogParent->myEditedParameters.at(i).second = myParameterRows.at(i)->valueField->getText().text();
             // change color of text field depending if attribute is valid
             if (SUMOXMLDefinitions::isValidParameterValue(myParameterDialogParent->myEditedParameters.at(i).second)) {
@@ -175,16 +175,16 @@ long
 GNEParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
     // first check if add button was pressed
     if (myParameterRows.back()->button == obj) {
-        // create new  parameter
+        // create new parameter
         myParameterDialogParent->myEditedParameters.push_back(std::make_pair("", ""));
         // update values and finish
         updateValues();
         return 1;
     } else {
-        // in other case, button press was a "remove button". Find id and remove the  Parameter
+        // in other case, button press was a "remove button". Find id and remove the Parameter
         for (int i = 0;  i < (int)myParameterRows.size(); i++) {
             if (myParameterRows.at(i)->button == obj && i < (int)myParameterDialogParent->myEditedParameters.size()) {
-                // remove  parameter
+                // remove parameter
                 myParameterDialogParent->myEditedParameters.erase(myParameterDialogParent->myEditedParameters.begin() + i);
                 // update values and finish
                 updateValues();
@@ -201,7 +201,7 @@ GNEParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValu
     horizontalFrame = new FXHorizontalFrame(verticalFrameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(ICON_REMOVE), ParametersValues, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
+    button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), ParametersValues, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
     // only create elements if vertical frame was previously created
     if (verticalFrameParent->id()) {
         horizontalFrame->create();
@@ -225,7 +225,7 @@ GNEParametersDialog::ParametersValues::ParameterRow::disableRow() {
     valueField->setText("");
     valueField->disable();
     button->disable();
-    button->setIcon(GUIIconSubSys::getIcon(ICON_REMOVE));
+    button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
 }
 
 
@@ -249,7 +249,7 @@ GNEParametersDialog::ParametersValues::ParameterRow::enableRow(const std::string
     valueField->enable();
     // enable button and set icon remove
     button->enable();
-    button->setIcon(GUIIconSubSys::getIcon(ICON_REMOVE));
+    button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
 }
 
 
@@ -262,14 +262,14 @@ GNEParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
     valueField->disable();
     // enable remove button and set "add" icon and focus
     button->enable();
-    button->setIcon(GUIIconSubSys::getIcon(ICON_ADD));
+    button->setIcon(GUIIconSubSys::getIcon(GUIIcon::ADD));
     button->setFocus();
 }
 
 
 bool
 GNEParametersDialog::ParametersValues::ParameterRow::isButtonInAddMode() const {
-    return (button->getIcon() == GUIIconSubSys::getIcon(ICON_ADD));
+    return (button->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ADD));
 }
 
 
@@ -287,11 +287,11 @@ GNEParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* fra
     FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
-    mySortButton = new FXButton(this, "Sort", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_PARAMETERS_SORT, GUIDesignButtonRectangular100x23);
-    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(ICON_CLEANJUNCTIONS), this, MID_GNE_PARAMETERS_CLEAR, GUIDesignButtonRectangular100x23);
-    myLoadButton = new FXButton(this, "Load", GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_GNE_PARAMETERS_LOAD, GUIDesignButtonRectangular100x23);
-    mySaveButton = new FXButton(this, "Save", GUIIconSubSys::getIcon(ICON_SAVE), this, MID_GNE_PARAMETERS_SAVE, GUIDesignButtonRectangular100x23);
-    myHelpButton = new FXButton(this, "Help", GUIIconSubSys::getIcon(ICON_HELP), this, MID_HELP, GUIDesignButtonRectangular100x23);
+    mySortButton =  new FXButton(this, "Sort",  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100x23);
+    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100x23);
+    myLoadButton =  new FXButton(this, "Load",  GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100x23);
+    mySaveButton =  new FXButton(this, "Save",  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100x23);
+    myHelpButton =  new FXButton(this, "Help",  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100x23);
 }
 
 
@@ -301,8 +301,8 @@ GNEParametersDialog::ParametersOptions::~ParametersOptions() {}
 long
 GNEParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXSelector, void*) {
     // get the Additional file name
-    FXFileDialog opendialog(this, "Open  Parameter Template");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_GREENVEHICLE));
+    FXFileDialog opendialog(this, "Open Parameter Template");
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(" Parameter Template files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -311,15 +311,15 @@ GNEParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXSelecto
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        // save current number of  parameters
+        // save current number of parameters
         int numberOfParametersbeforeLoad = (int)myParameterDialogParent->myEditedParameters.size();
         // Create additional handler and run parser
         GNEParameterHandler handler(this, file);
         if (!XMLSubSys::runParser(handler, file, false)) {
-            WRITE_MESSAGE("Loading of  Parameters From " + file + " failed.");
+            WRITE_MESSAGE("Loading of Parameters From " + file + " failed.");
         }
         // show loaded attributes
-        WRITE_MESSAGE("Loaded " + toString((int)myParameterDialogParent->myEditedParameters.size() - numberOfParametersbeforeLoad) + "  Parameters.");
+        WRITE_MESSAGE("Loaded " + toString((int)myParameterDialogParent->myEditedParameters.size() - numberOfParametersbeforeLoad) + " Parameters.");
         // update values
         myParameterDialogParent->myParametersValues->updateValues();
     }
@@ -329,18 +329,18 @@ GNEParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXSelecto
 
 long
 GNEParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXSelector, void*) {
-    // obtain file to save  parameters
+    // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the  Parameter Template file", ".xml",
-                    GUIIconSubSys::getIcon(ICON_GREENVEHICLE),
+                    "Select name of the Parameter Template file", ".xml",
+                    GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE),
                     gCurrentFolder);
     if (file == "") {
-        // None  parameter file was selected, then stop function
+        // None parameter file was selected, then stop function
         return 1;
     } else {
         OutputDevice& device = OutputDevice::getDevice(file.text());
         device.writeXMLHeader("Parameter", "parameter_file.xsd");
-        // iterate over all  parameters and save it in the filename
+        // iterate over all parameters and save it in the filename
         for (auto i = myParameterDialogParent->myEditedParameters.begin(); i != myParameterDialogParent->myEditedParameters.end(); i++) {
             device.openTag(SUMO_TAG_PARAM);
             device.writeAttr(SUMO_ATTR_KEY, i->first);
@@ -355,7 +355,7 @@ GNEParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXSelecto
 
 long
 GNEParametersDialog::ParametersOptions::onCmdClearParameters(FXObject*, FXSelector, void*) {
-    // simply clear  parameters from ParametersValues
+    // simply clear parameters from ParametersValues
     myParameterDialogParent->myParametersValues->clearParameters();
     return 1;
 }
@@ -373,7 +373,7 @@ GNEParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelecto
             valuesEmpty.push_back(i->second);
         }
     }
-    // now sort non-empty  parameters
+    // now sort non-empty parameters
     std::sort(ParametersNoEmpty.begin(), ParametersNoEmpty.end());
     // add values without key
     for (auto i : valuesEmpty) {
@@ -383,7 +383,7 @@ GNEParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelecto
     while (ParametersNoEmpty.size() < myParameterDialogParent->myEditedParameters.size()) {
         ParametersNoEmpty.push_back(std::make_pair("", ""));
     }
-    // finally replace  parameters in myParametersValues with ParametersNoEmpty
+    // finally replace parameters in myParametersValues with ParametersNoEmpty
     myParameterDialogParent->myParametersValues->setParameters(ParametersNoEmpty);
     // update values
     myParameterDialogParent->myParametersValues->updateValues();
@@ -395,11 +395,11 @@ long
 GNEParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* ParameterHelpDialog = new FXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
-    ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
+    ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // set help text
     std::ostringstream help;
     help
-            << "-  Parameters are defined by a Key and a Value.\n"
+            << "- Parameters are defined by a Key and a Value.\n"
             << "- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n"
             << " - Duplicated and empty Keys aren't valid.\n"
             << " - Certain characters aren't allowed (\t\n\r@$%^&/|\\....)\n";
@@ -411,10 +411,10 @@ GNEParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector
     FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(ParameterHelpDialog, GUIDesignAuxiliarHorizontalFrame);
     // Create Button Close (And two more horizontal frames to center it)
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
-    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), ParameterHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
     new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Opening  Parameter help dialog");
+    WRITE_DEBUG("Opening Parameter help dialog");
     // create Dialog
     ParameterHelpDialog->create();
     // show in the given position
@@ -424,7 +424,7 @@ GNEParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector
     // open as modal dialog (will block all windows until stop() or stopModal() is called)
     getApp()->runModalFor(ParameterHelpDialog);
     // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Closing  Parameter help dialog");
+    WRITE_DEBUG("Closing Parameter help dialog");
     return 1;
 }
 
@@ -447,11 +447,11 @@ GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int 
         // Call parse and build depending of tag
         switch (tag) {
             case SUMO_TAG_PARAM:
-                // Check that format of  Parameter is correct
+                // Check that format of Parameter is correct
                 if (!attrs.hasAttribute(SUMO_ATTR_KEY)) {
-                    WRITE_WARNING("Key of  Parameter not defined");
+                    WRITE_WARNING("Key of Parameter not defined");
                 } else if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
-                    WRITE_WARNING("Value of  Parameter not defined");
+                    WRITE_WARNING("Value of Parameter not defined");
                 } else {
                     // obtain Key and value
                     std::string key = attrs.getString(SUMO_ATTR_KEY);
@@ -459,14 +459,14 @@ GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int 
                     // check that parsed values are correct
                     if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                         if (key.size() == 0) {
-                            WRITE_WARNING("Key of  Parameter cannot be empty");
+                            WRITE_WARNING("Key of Parameter cannot be empty");
                         } else {
-                            WRITE_WARNING("Key '" + key + "' of  Parameter contains invalid characters");
+                            WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
                         }
                     } else if (!SUMOXMLDefinitions::isValidParameterValue(value)) {
-                        WRITE_WARNING("Value '" + value + "'of  Parameter contains invalid characters");
+                        WRITE_WARNING("Value '" + value + "'of Parameter contains invalid characters");
                     } else {
-                        // add  parameter to vector of myParameterDialogParent
+                        // add parameter to vector of myParameterDialogParent
                         myParametersOptionsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
                     }
                 }
@@ -482,28 +482,28 @@ GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int 
 // ---------------------------------------------------------------------------
 
 GNEParametersDialog::GNEParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor) :
-    FXDialogBox(ParametersEditor->getFrameParent()->getViewNet()->getApp(), "Edit  parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    FXDialogBox(ParametersEditor->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditor(ParametersEditor),
     myEditedParameters(ParametersEditor->getParametersVectorStr()),
     myCopyOfParameters(ParametersEditor->getParametersVectorStr()) {
     // set vehicle icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(ICON_APP_TABLE));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create frame for  Parameters and options
+    // create frame for Parameters and options
     FXHorizontalFrame* horizontalFrameParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
-    // create  parameters values
+    // create parameters values
     myParametersValues = new ParametersValues(horizontalFrameParametersAndOptions, this);
-    // create  parameters options
+    // create parameters options
     myParametersOptions = new ParametersOptions(horizontalFrameParametersAndOptions, this);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // create dialog buttons bot centered
     FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(ICON_ACCEPT), this, MID_GNE_ADDITIONALDIALOG_BUTTONACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(ICON_CANCEL), this, MID_GNE_ADDITIONALDIALOG_BUTTONCANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(ICON_RESET), this, MID_GNE_ADDITIONALDIALOG_BUTTONRESET,  GUIDesignButtonReset);
+    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
 }
 
@@ -513,35 +513,43 @@ GNEParametersDialog::~GNEParametersDialog() {}
 
 long
 GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
-    // check if all edited  parameters are valid
-    for (const auto& i : myEditedParameters) {
-        if (i.first.empty()) {
+    // check if all edited parameters are valid
+    for (const auto& parameter : myEditedParameters) {
+        if (parameter.first.empty()) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Empty  Parameter key", "%s", " Parameters with empty keys aren't allowed");
+            FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if (!SUMOXMLDefinitions::isValidParameterKey(i.first)) {
+        } else if (!SUMOXMLDefinitions::isValidParameterKey(parameter.first)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid  Parameter key", "%s", "There are keys of  Parameters with invalid characters");
+            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if (!SUMOXMLDefinitions::isValidParameterValue(i.second)) {
+        } else if (!SUMOXMLDefinitions::isValidParameterValue(parameter.second)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid  Parameter value", "%s", "There are values of  Parameters with invalid characters");
+            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter value", "%s", "There are values with invalid characters");
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+            return 1;
+        } else if ((myParametersEditor->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) && !GNEAttributeCarrier::canParse<double>(parameter.second)) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+            // open warning Box
+            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid double Parameter value", "%s", "There are values that cannot be parsed to floats");
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
         }
     }
-    // now check if there is duplicates  parameters
+    // now check if there is duplicates parameters
     std::vector<std::pair<std::string, std::string> > sortedParameters = myEditedParameters;
     std::sort(sortedParameters.begin(), sortedParameters.end());
     for (auto i = sortedParameters.begin(); i != sortedParameters.end(); i++) {
@@ -549,7 +557,7 @@ GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated  Parameters", "%s", " Parameters with the same Key aren't allowed");
+            FXMessageBox::warning(getApp(), MBOX_OK, "Duplicated Parameters", "%s", "Parameters with the same Key aren't allowed");
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
@@ -565,7 +573,7 @@ GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNEParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // restore copy of  parameters
+    // restore copy of parameters
     myParametersValues->setParameters(myCopyOfParameters);
     // Stop Modal
     getApp()->stopModal(this, FALSE);
@@ -575,9 +583,10 @@ GNEParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // simply restore copy of  parameters and continue editing
+    // simply restore copy of parameters and continue editing
     myParametersValues->setParameters(myCopyOfParameters);
     return 1;
 }
+
 
 /****************************************************************************/

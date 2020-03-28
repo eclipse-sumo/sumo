@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:30:53 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="200.00,100.00" convBoundary="0.00,0.00,300.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="beg" from="gneJ0" to="W" priority="1">
+        <lane id="beg_0" index="0" speed="13.89" length="100.00" shape="0.00,95.20 96.00,95.20"/>
+        <lane id="beg_1" index="1" speed="13.89" length="100.00" shape="0.00,98.40 96.00,98.40"/>
+    </edge>
+    <edge id="end" from="C" to="E" priority="1">
+        <lane id="end_0" index="0" speed="13.89" length="100.00" shape="207.20,95.20 300.00,95.20"/>
+        <lane id="end_1" index="1" speed="13.89" length="100.00" shape="207.20,98.40 300.00,98.40"/>
+    </edge>
+    <edge id="gneE0" from="C" to="gneJ2" priority="-1">
+        <lane id="gneE0_0" index="0" speed="13.89" length="100.00" shape="198.40,83.20 198.40,0.00"/>
+    </edge>
+    <edge id="gneE1" from="C" to="gneJ4" priority="-1">
+        <lane id="gneE1_0" index="0" speed="13.89" length="100.00" shape="201.60,104.00 201.60,200.00"/>
+    </edge>
+    <edge id="middle" from="W" to="C" priority="1">
+        <lane id="middle_0" index="0" speed="13.89" length="100.00" shape="104.00,88.80 192.80,88.80"/>
+        <lane id="middle_1" index="1" speed="13.89" length="100.00" shape="104.00,92.00 192.80,92.00"/>
+        <lane id="middle_2" index="2" speed="13.89" length="100.00" shape="104.00,95.20 192.80,95.20"/>
+        <lane id="middle_3" index="3" speed="13.89" length="100.00" shape="104.00,98.40 192.80,98.40"/>
+    </edge>
+
+    <junction id="C" type="priority" x="200.00" y="100.00" incLanes="middle_0 middle_1 middle_2 middle_3" intLanes="" shape="200.00,104.00 203.20,104.00 203.64,101.78 204.20,101.00 204.98,100.44 205.98,100.11 207.20,100.00 207.20,93.60 205.00,93.31 203.20,92.44 201.80,91.00 200.80,88.98 200.20,86.38 200.00,83.20 196.80,83.20 196.36,85.42 195.80,86.20 195.02,86.76 194.02,87.09 192.80,87.20 192.80,100.00 195.00,100.11 196.80,100.44 198.20,101.00 199.20,101.78 199.80,102.78">
+        <request index="0" response="0000" foes="0000"/>
+        <request index="1" response="0000" foes="0000"/>
+        <request index="2" response="0000" foes="0000"/>
+        <request index="3" response="0000" foes="0000"/>
+    </junction>
+    <junction id="E" type="dead_end" x="300.00" y="100.00" incLanes="end_0 end_1" intLanes="" shape="300.00,93.60 300.00,100.00"/>
+    <junction id="W" type="unregulated" x="100.00" y="100.00" incLanes="beg_0 beg_1" intLanes="" shape="104.00,100.00 104.00,87.20 101.98,87.67 100.79,88.86 99.21,91.94 98.02,93.13 96.00,93.60 96.00,100.00"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,93.60"/>
+    <junction id="gneJ2" type="dead_end" x="200.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="196.80,0.00 200.00,0.00"/>
+    <junction id="gneJ4" type="dead_end" x="200.00" y="200.00" incLanes="gneE1_0" intLanes="" shape="203.20,200.00 200.00,200.00"/>
+
+    <connection from="beg" to="middle" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="beg" to="middle" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="beg" to="middle" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from="beg" to="middle" fromLane="1" toLane="3" dir="s" state="M"/>
+    <connection from="middle" to="gneE0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="middle" to="end" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="middle" to="end" fromLane="2" toLane="1" dir="s" state="M"/>
+    <connection from="middle" to="gneE1" fromLane="3" toLane="0" dir="l" state="M"/>
+
+</net>

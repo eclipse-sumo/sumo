@@ -1,0 +1,26 @@
+# basic tests for opening and creating networks
+basic
+
+# tests for net elements (Junctions, edges, crossings, etc..)
+#netElements
+
+# tests for additional elements (Busstops, charging stations, etc.)
+#additionalElements
+
+# test for shapes elements (Polygons and POIs)
+shapeElements
+
+# test for demand elements (Routes, Vehicles, etc.)
+#demandElements
+
+# test for select elements 
+selection
+
+# test for check recomputing with volatile options
+volatileRecomputing
+
+# bugs
+bugs
+
+# complex tests
+complex

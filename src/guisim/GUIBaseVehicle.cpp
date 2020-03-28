@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIBaseVehicle.cpp
 /// @author  Daniel Krajzewicz
@@ -16,11 +20,6 @@
 ///
 // A MSVehicle extended by some values for usage within the gui
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -216,13 +215,13 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector
     GUIBaseVehicle* baseVeh = static_cast<GUIBaseVehicle*>(myObject);
     MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&baseVeh->myVehicle);
     if (microVeh != nullptr) {
-        microVeh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED);
+        microVeh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
         if (microVeh->getLane() != nullptr) {
-            microVeh->getLane()->removeVehicle(microVeh, MSMoveReminder::NOTIFICATION_VAPORIZED);
+            microVeh->getLane()->removeVehicle(microVeh, MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
         }
     } else {
         MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(&baseVeh->myVehicle);
-        MSGlobals::gMesoNet->vaporizeCar(mesoVeh);
+        MSGlobals::gMesoNet->vaporizeCar(mesoVeh, MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
     }
     MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(&baseVeh->myVehicle);
     myParent->update();
@@ -241,16 +240,14 @@ GUIBaseVehicle::GUIBaseVehicle(MSBaseVehicle& vehicle) :
     // as it is possible to show all vehicle routes, we have to store them... (bug [ 2519761 ])
     myRoutes = MSDevice_Vehroutes::buildVehicleDevices(myVehicle, myVehicle.myDevices, 5);
     myVehicle.myMoveReminders.push_back(std::make_pair(myRoutes, 0.));
-    mySeatPositions.push_back(Position(0, 0)); // ensure length 1
+    mySeatPositions.push_back(Seat()); // ensure length 1
+    myContainerPositions.push_back(Seat()); // ensure length 1
 }
 
 
 GUIBaseVehicle::~GUIBaseVehicle() {
     myLock.lock();
     for (std::map<GUISUMOAbstractView*, int>::iterator i = myAdditionalVisualizations.begin(); i != myAdditionalVisualizations.end(); ++i) {
-        if (i->first->getTrackedID() == getGlID()) {
-            i->first->stopTrack();
-        }
         while (i->first->removeAdditionalGLVisualisation(this));
     }
     myLock.unlock();
@@ -519,10 +516,12 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
 
     if (!drawCarriages) {
         mySeatPositions.clear();
-        int requiredSeats = getNumPassengers() + getNumContainers();
-        const int totalSeats = getVType().getPersonCapacity() + getVType().getContainerCapacity();
+        myContainerPositions.clear();
+        int requiredSeats = getNumPassengers();
+        int requiredContainerPostions = getNumContainers();
         const Position back = (p1 + Position(-length * upscaleLength, 0)).rotateAround2D(angle, p1);
-        computeSeats(p1, back, totalSeats, upscale, requiredSeats);
+        computeSeats(p1, back, SUMO_const_waitingPersonWidth, getVType().getPersonCapacity(), upscale, requiredSeats, mySeatPositions);
+        computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPostions, myContainerPositions);
     }
 
     glPopMatrix();
@@ -678,11 +677,16 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, R
             col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
-        case 30: { // color randomly (by pointer hash)
+        case 32: { // color randomly (by pointer hash)
             std::hash<const MSBaseVehicle*> ptr_hash;
             const double hue = (double)(ptr_hash(veh) % 360); // [0-360]
             const double sat = ((ptr_hash(veh) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
             col = RGBColor::fromHSV(hue, sat, 1.);
+            return true;
+        }
+        case 33: { // color by angle
+            double hue = GeomHelper::naviDegree(veh->getAngle());
+            col = RGBColor::fromHSV(hue, 1., 1.);
             return true;
         }
     }
@@ -732,10 +736,16 @@ GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double
 }
 
 
-const Position&
+const GUIBaseVehicle::Seat&
 GUIBaseVehicle::getSeatPosition(int personIndex) const {
     /// if there are not enough seats in the vehicle people have to squeeze onto the last seat
     return mySeatPositions[MIN2(personIndex, (int)mySeatPositions.size() - 1)];
+}
+
+const GUIBaseVehicle::Seat&
+GUIBaseVehicle::getContainerPosition(int containerIndex) const {
+    /// if there are not enough positions in the vehicle containers have to squeeze onto the last position
+    return myContainerPositions[MIN2(containerIndex, (int)myContainerPositions.size() - 1)];
 }
 
 
@@ -757,7 +767,7 @@ GUIBaseVehicle::drawAction_drawPersonsAndContainers(const GUIVisualizationSettin
         for (std::vector<MSTransportable*>::const_iterator i = cs.begin(); i != cs.end(); ++i) {
             GUIContainer* container = dynamic_cast<GUIContainer*>(*i);
             assert(container != 0);
-            container->setPositionInVehicle(getSeatPosition(containerIndex++));
+            container->setPositionInVehicle(getContainerPosition(containerIndex++));
             container->drawGL(s);
         }
     }
@@ -812,30 +822,40 @@ GUIBaseVehicle::getNumContainers() const {
     return 0;
 }
 
+std::string
+GUIBaseVehicle::getDeviceDescription() {
+    std::vector<std::string> devs;
+    for (MSDevice* d : myVehicle.getDevices()) {
+        devs.push_back(d->deviceName());
+    }
+    return joinToString(devs, " ");
+}
+
 
 void
-GUIBaseVehicle::computeSeats(const Position& front, const Position& back, int maxSeats, double exaggeration, int& requiredSeats) const {
+GUIBaseVehicle::computeSeats(const Position& front, const Position& back, double seatOffset, int maxSeats, double exaggeration, int& requiredSeats, Seats& into) const {
     if (requiredSeats <= 0) {
-        return; // save some work
+        return;
     }
+    maxSeats = MAX2(maxSeats, 1); // compute at least one seat
+    seatOffset *= exaggeration;
     const double vehWidth = getVType().getWidth() * exaggeration;
     const double length = front.distanceTo2D(back);
-    const double seatOffset = SUMO_const_waitingPersonWidth * exaggeration;
     const int rowSize = MAX2(1, (int)floor(vehWidth / seatOffset));
     const double rowOffset = (length - 1) / ceil((double)maxSeats / rowSize);
-    const double sideOffset = (rowSize - 1) / 2 * seatOffset;
+    const double sideOffset = (rowSize - 1) / 2.0 * seatOffset;
     double rowPos = 1 - rowOffset;
+    double angle = back.angleTo2D(front);
+    //if (myVehicle.getID() == "v0") std::cout << SIMTIME << " seatOffset=" << seatOffset << " max=" << maxSeats << " ex=" << exaggeration << " req=" << requiredSeats << " rowSize=" << rowSize << " sideOffset=" << sideOffset << " front=" << front << " back=" << back << " a=" << angle << " da=" << RAD2DEG(angle) << "\n";
     for (int i = 0; requiredSeats > 0 && i < maxSeats; i++) {
         int seat = (i % rowSize);
         if (seat == 0) {
             rowPos += rowOffset;
         }
-        mySeatPositions.push_back(PositionVector::positionAtOffset2D(front, back, rowPos,
-                                  seat * seatOffset - sideOffset));
+        into.push_back(Seat(PositionVector::positionAtOffset2D(front, back, rowPos, seat * seatOffset - sideOffset), angle));
         requiredSeats--;
     }
 }
-
 
 
 /****************************************************************************/

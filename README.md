@@ -1,10 +1,11 @@
-[![Linux and MacOS Build Status](https://travis-ci.org/eclipse/sumo.svg?branch=master)](https://travis-ci.org/eclipse/sumo)
-[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/eclipse/sumo?svg=true)](https://ci.appveyor.com/project/eclipsewebmaster/sumo)
-![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
-
+<a href="https://sumo.dlr.de/docs"><p align="center"><img width=50% src="https://github.com/eclipse/sumo/blob/master/docs/web/docs/images/sumo-logo.svg"></p></a>
 
 Eclipse SUMO - Simulation of Urban MObility 
 ===========================================
+
+![Windows, Linux and MacOS Build Status](https://github.com/eclipse/sumo/workflows/build/badge.svg)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/eclipse/sumo?svg=true)](https://ci.appveyor.com/project/eclipsewebmaster/sumo)
+![Repo Size](https://img.shields.io/github/repo-size/eclipse/sumo.svg)
 
 What is SUMO
 ------------

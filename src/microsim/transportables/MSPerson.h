@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSPerson.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // The class for modelling person-movements
 /****************************************************************************/
-#ifndef MSPerson_h
-#define MSPerson_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -47,8 +45,7 @@ class MSStoppingPlace;
 class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
-class PedestrianState;
-class DummyState;
+class MSTransportableStateAdapter;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -67,7 +64,7 @@ public:
      * The walking does not need any route as it is not simulated.
      * Only the duration is needed
      */
-    class MSPersonStage_Walking : public MSTransportable::Stage {
+    class MSPersonStage_Walking : public MSStageMoving {
     public:
         /// constructor
         MSPersonStage_Walking(const std::string& personID, const ConstMSEdgeVector& route, MSStoppingPlace* toStop, SUMOTime walkingTime,
@@ -76,10 +73,10 @@ public:
         /// destructor
         ~MSPersonStage_Walking();
 
-        Stage* clone() const;
+        MSStage* clone() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
+        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
 
         /// abort this stage (TraCI)
         void abort(MSTransportable*);
@@ -87,32 +84,17 @@ public:
         /// sets the walking speed (ignored in other stages)
         void setSpeed(double speed);
 
-        /// Returns the current edge
-        const MSEdge* getEdge() const;
-        const MSEdge* getFromEdge() const;
-        double getEdgePos(SUMOTime now) const;
-
-        ///
-        Position getPosition(SUMOTime now) const;
-
-        double getAngle(SUMOTime now) const;
-
         /// @brief get travel distance in this stage
         double getDistance() const {
             return walkDistance();
         }
 
-        SUMOTime getWaitingTime(SUMOTime now) const;
-
-        double getSpeed() const;
-
-        /// @brief the edges of the current stage
-        ConstMSEdgeVector getEdges() const;
-
-        std::string getStageDescription() const {
+        std::string getStageDescription(const bool isPerson) const {
+            UNUSED_PARAMETER(isPerson);
             return "walking";
         }
-        std::string getStageSummary() const;
+
+        std::string getStageSummary(const bool isPerson) const;
 
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
@@ -125,46 +107,21 @@ public:
          * @param[in] withRouteLength whether route length shall be written
          * @exception IOError not yet implemented
          */
-        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
+        virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
 
         /// @brief move forward and return whether the person arrived
-        bool moveToNextEdge(MSPerson* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
-
-        /// @brief place person on a previously passed edge
-        void setRouteIndex(MSPerson* person, int routeOffset);
+        bool moveToNextEdge(MSTransportable* person, SUMOTime currentTime, MSEdge* nextInternal = nullptr);
 
         /// @brief accessors to be used by MSPModel
         //@{
         double getMaxSpeed(const MSTransportable* const person) const;
 
-        inline double getDepartPos() const {
-            return myDepartPos;
-        }
-
-        inline double getDepartPosLat() const {
-            return myDepartPosLat;
-        }
-
         inline double getArrivalPos() const {
             return myArrivalPos;
         }
 
-        inline const std::vector<const MSEdge*>::iterator getRouteStep() const {
-            return myRouteStep;
-        }
-
-        inline const MSEdge* getRouteEdge() const {
-            return *myRouteStep;
-        }
         inline const MSEdge* getNextRouteEdge() const {
-            return myRouteStep == myRoute.end() - 1 ? 0 : *(myRouteStep + 1);
-        }
-        inline const ConstMSEdgeVector& getRoute() const {
-            return myRoute;
-        }
-
-        PedestrianState* getPedestrianState() const {
-            return myPedestrianState;
+            return myRouteStep == myRoute.end() - 1 ? nullptr : *(myRouteStep + 1);
         }
         //@}
 
@@ -185,22 +142,6 @@ public:
 
         /// the time the person entered the edge
         SUMOTime myLastEdgeEntryTime;
-
-        /// @brief The route of the person
-        ConstMSEdgeVector myRoute;
-
-
-        ConstMSEdgeVector::iterator myRouteStep;
-
-        /// @brief The current internal edge this person is on or 0
-        MSEdge* myCurrentInternalEdge;
-
-        double myDepartPos;
-        double myDepartPosLat;
-        double mySpeed;
-
-        /// @brief state that is to be manipulated by MSPModel
-        PedestrianState* myPedestrianState;
 
         class arrival_finder {
         public:
@@ -227,50 +168,10 @@ public:
     };
 
     /**
-    * A "real" stage performing the travelling by a transport system
-    * The given route will be chosen. The travel time is computed by the simulation
-    */
-    class MSPersonStage_Driving : public MSTransportable::Stage_Driving {
-    public:
-        /// constructor
-        MSPersonStage_Driving(const MSEdge* destination, MSStoppingPlace* toStop,
-                              const double arrivalPos, const std::vector<std::string>& lines,
-                              const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
-
-        /// destructor
-        ~MSPersonStage_Driving();
-
-        Stage* clone() const;
-
-        /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
-
-        /// @brief returns the stage description as a string
-        std::string getStageDescription() const;
-        std::string getStageSummary() const;
-
-        /** @brief Called on writing tripinfo output
-        *
-        * @param[in] os The stream to write the information into
-        * @param[in] transportable The person to write information about
-        * @exception IOError not yet implemented
-        */
-        virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
-
-        /** @brief Called on writing vehroute output
-         *
-         * @param[in] os The stream to write the information into
-         * @param[in] withRouteLength whether route length shall be written
-         * @exception IOError not yet implemented
-         */
-        virtual void routeOutput(OutputDevice& os, const bool withRouteLength) const;
-    };
-
-    /**
      * An intermediate stage performing the access from or to public transport as given
      * by the access elements of the public transport stop. The travel time is computed by the simulation
      */
-    class MSPersonStage_Access : public MSTransportable::Stage {
+    class MSPersonStage_Access : public MSStage {
     public:
         /// constructor
         MSPersonStage_Access(const MSEdge* destination, MSStoppingPlace* toStop,
@@ -279,14 +180,14 @@ public:
         /// destructor
         ~MSPersonStage_Access();
 
-        Stage* clone() const;
+        MSStage* clone() const;
 
         /// proceeds to the next step
-        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, Stage* previous);
+        virtual void proceed(MSNet* net, MSTransportable* person, SUMOTime now, MSStage* previous);
 
         /// @brief returns the stage description as a string
-        std::string getStageDescription() const;
-        std::string getStageSummary() const;
+        std::string getStageDescription(const bool isPerson) const;
+        std::string getStageSummary(const bool isPerson) const;
 
         Position getPosition(SUMOTime now) const;
 
@@ -306,7 +207,7 @@ public:
         void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
         /// @brief Called on writing vehroute output. Currently does nothing.
-        void routeOutput(OutputDevice&, const bool) const {};
+        void routeOutput(const bool, OutputDevice&, const bool) const {};
 
     private:
         class ProceedCmd : public Command {
@@ -336,7 +237,7 @@ public:
     /// destructor
     virtual ~MSPerson();
 
-    void checkAccess(const Stage* const prior, const bool isDisembark=true);
+    void checkAccess(const MSStage* const prior, const bool isDisembark = true);
 
     /// @brief return the list of internal edges if this person is walking and the pedestrian model allows it
     const std::string& getNextEdge() const;
@@ -418,8 +319,6 @@ private:
 
     const double myChosenSpeedFactor;
 
-    static DummyState myDummyState;
-
 private:
     /// @brief Invalidated copy constructor.
     MSPerson(const MSPerson&);
@@ -428,8 +327,3 @@ private:
     MSPerson& operator=(const MSPerson&);
 
 };
-
-
-#endif
-
-/****************************************************************************/

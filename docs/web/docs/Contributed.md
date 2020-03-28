@@ -35,6 +35,10 @@ supported.
     a middleware that couples LISA+ and SUMO to simulate real-world
     traffic light controllers.
 
+- **[SAGA](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/SUMOActivityGen.md)**
+    
+    a scriptable and user-defined activity-based mobility scenario generator for SUMO.
+
 - ~~[Contributed/SUMO Traffic
 Modeler](Contributed/SUMO_Traffic_Modeler.md)~~
 

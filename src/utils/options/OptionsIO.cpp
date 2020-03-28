@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OptionsIO.cpp
 /// @author  Daniel Krajzewicz
@@ -14,11 +18,6 @@
 ///
 // Helper for parsing command line arguments and reading configuration files
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -76,7 +75,9 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     if (myArgC == 2 && myArgV[1][0] != '-') {
         // special case only one parameter, check who can handle it
         if (OptionsCont::getOptions().setByRootElement(getRoot(myArgV[1]), myArgV[1])) {
-            loadConfiguration();
+            if (!commandLineOnly) {
+                loadConfiguration();
+            }
             return;
         }
     }
@@ -85,14 +86,9 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     if (!OptionsParser::parse(myArgC, myArgV)) {
         throw ProcessError("Could not parse commandline options.");
     }
-    if (!commandLineOnly) {
+    if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
         // read the configuration when everything's ok
-        OptionsCont::getOptions().resetWritable();
         loadConfiguration();
-        // reparse the options
-        //  (overwrite the settings from the configuration file)
-        OptionsCont::getOptions().resetWritable();
-        OptionsParser::parse(myArgC, myArgV);
     }
 }
 
@@ -103,11 +99,12 @@ OptionsIO::loadConfiguration() {
     if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
         return;
     }
-    std::string path = oc.getString("configuration-file");
+    const std::string path = oc.getString("configuration-file");
     if (!FileHelpers::isReadable(path)) {
         throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading configuration");
+    oc.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Auto);
@@ -126,6 +123,11 @@ OptionsIO::loadConfiguration() {
         throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
     }
     oc.relocateFiles(path);
+    if (myArgC > 2) {
+        // reparse the options (overwrite the settings from the configuration file)
+        oc.resetWritable();
+        OptionsParser::parse(myArgC, myArgV);
+    }
     PROGRESS_DONE_MESSAGE();
 }
 
@@ -155,4 +157,3 @@ OptionsIO::getRoot(const std::string& filename) {
 
 
 /****************************************************************************/
-

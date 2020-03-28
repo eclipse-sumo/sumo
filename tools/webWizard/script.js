@@ -130,7 +130,7 @@ on("ready", function(){
     function draw(){
         var x0 = canvas.width * canvasRect[0],
             y0 = canvas.height * canvasRect[1],
-            x1 = canvas.width * canvasRect[2],
+            x1 = canvas.width * canvasRect[2] - 250,
             y1 = canvas.height * canvasRect[3];
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -159,7 +159,7 @@ on("ready", function(){
     function changeMousePointer(x, y, down){
         var x0 = canvas.width * canvasRect[0],
             y0 = canvas.height * canvasRect[1],
-            x1 = canvas.width * canvasRect[2],
+            x1 = canvas.width * canvasRect[2] - 250,
             y1 = canvas.height * canvasRect[3];
 
         var cursor = "", t = 20; //tolerance
@@ -431,6 +431,8 @@ on("ready", function(){
             duration: parseInt(elem("#duration").value),
             publicTransport: elem("#publicTransport").checked,
             leftHand: elem("#leftHand").checked,
+            decal: elem("#decal").checked,
+            carOnlyNetwork: elem("#carOnlyNetwork").checked,
             vehicles: {}
         };
 

@@ -19,10 +19,10 @@ Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Adding route 'route_2' in GNEChange_DemandElement
 Debug: Adding route 'route_3' in GNEChange_DemandElement
@@ -31,7 +31,7 @@ Debug: Adding vehicle 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicle 'vehicle_3' in GNEChange_DemandElement
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Enabled show demand elements throught alt + 1
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
@@ -58,7 +58,7 @@ GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary 0.00,28.40,50.0
 GLDebug: 	Removed object edge:gneE9 from SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Deleting unreferenced vehicle 'vehicle_3'
 Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced vehicle 'vehicle_2'
 Debug: Deleting unreferenced vehicle 'vehicle_1'
 Debug: Deleting unreferenced vehicle 'vehicle_0'
@@ -68,7 +68,7 @@ Debug: Deleting unreferenced route 'route_1'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced busStop 'busStop'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
 GLDebug: 	Inserted junction:gneJ4 into SUMORTree with boundary 0.00,4.80,20.00,35.20
 GLDebug: 	Inserted junction:gneJ5 into SUMORTree with boundary 49.60,4.80,88.40,37.20
@@ -92,7 +92,6 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,25.80,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,54.20
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Additionals saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetElements: 0, Additionals: 0, DemandElements: 0, Shapes: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, POIs: 0, Polys: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,4.80,20.00,35.20
@@ -143,70 +142,70 @@ Debug: Created connection 'fromgneE8_1togneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE11_1' in retrieveGNEConnection()
 Debug: Deleting unreferenced busStop 'busStop'
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved
-Debug: Deleting unreferenced edge 'gneE10' in GNENet destructor
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
+Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE10_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_1togneE8_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE11' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE11' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE11_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE11_1togneE6_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE2' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE2_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE4_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_1togneE4_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE3' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE3_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE3_2' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE3_2togneE7_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE4' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE4' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE4_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE4_2' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE4_2togneE5_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE5' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE5' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE5_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE5_1togneE10_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE6' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE6' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE6_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE6_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE6_1togneE3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE6_1togneE3_2' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE7' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE7' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE7_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE7_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE8' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE8' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE8_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE8_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE8_1togneE9_1' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE9' in GNENet destructor
+Debug: Deleting unreferenced edge 'gneE9' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE9_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE9_1togneE11_1' in GNEEdge destructor
-Debug: Deleting unreferenced junction 'gneJ4' in GNENet destructor
-Debug: Deleting unreferenced junction 'gneJ5' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ4' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ5_c0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ6' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ6' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ6_c0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ7' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ7' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ7_c0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ8' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ8' in AttributeCarriers destructor
 Debug: Deleting unreferenced crossing ':gneJ8_c0' in GNEJunction destructor
-Debug: Deleting unreferenced junction 'gneJ9' in GNENet destructor
-Debug: Deleting unreferenced vehicle 'vehicle_0' in GNENet destructor
-Debug: Deleting unreferenced vehicle 'vehicle_1' in GNENet destructor
-Debug: Deleting unreferenced vehicle 'vehicle_2' in GNENet destructor
-Debug: Deleting unreferenced vehicle 'vehicle_3' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in GNENet destructor
-Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in GNENet destructor
-Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in GNENet destructor
-Debug: Deleting unreferenced route 'route_0' in GNENet destructor
-Debug: Deleting unreferenced route 'route_1' in GNENet destructor
-Debug: Deleting unreferenced route 'route_2' in GNENet destructor
-Debug: Deleting unreferenced route 'route_3' in GNENet destructor
+Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
+Debug: Deleting unreferenced vehicle 'vehicle_0' in AttributeCarriers destructor
+Debug: Deleting unreferenced vehicle 'vehicle_1' in AttributeCarriers destructor
+Debug: Deleting unreferenced vehicle 'vehicle_2' in AttributeCarriers destructor
+Debug: Deleting unreferenced vehicle 'vehicle_3' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting unreferenced route 'route_0' in AttributeCarriers destructor
+Debug: Deleting unreferenced route 'route_1' in AttributeCarriers destructor
+Debug: Deleting unreferenced route 'route_2' in AttributeCarriers destructor
+Debug: Deleting unreferenced route 'route_3' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16

@@ -28,6 +28,7 @@ detector:detector.xml
 detector2:detector2.xml
 detector3:detector3.xml
 summary:summary.xml
+aggregated:aggregated.xml
 aggregated1:aggregated_1.xml
 aggregated15:aggregated_15.xml
 aggregated25:aggregated_25.xml
@@ -37,6 +38,7 @@ aggregated900:aggregated_900.xml
 rawdump:rawdump.xml
 bt:bt.xml
 tripinfos:tripinfos.xml
+statistic:statistic.xml
 stopinfos:stopinfos.xml
 vtypeprobe:vtypeprobe.xml
 vehroutes:vehroutes.xml
@@ -79,6 +81,7 @@ binstate:state.sbx
 calibrator_log:calibrator.log.xml
 links:linkstate.xml
 railsignalblocks:railsignal_blocks.xml
+dispatchinfos:dispatchinfos.xml
 aggregated60Prefixed:pre_aggregated_60.xml
 tripinfosPrefix:pre_tripinfos.xml
 logPrefixed:pre_log.txt
@@ -102,6 +105,7 @@ detector:<!--{[->]}-->
 detector2:<!--{[->]}-->
 detector3:<!--{[->]}-->
 summary:<!--{[->]}-->
+aggregated:<!--{[->]}-->
 aggregated1:<!--{[->]}-->
 aggregated15:<!--{[->]}-->
 aggregated25:<!--{[->]}-->
@@ -112,6 +116,7 @@ aggregated900:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 bt:<!--{[->]}-->
 tripinfos:<!--{[->]}-->
+statistic:<!--{[->]}-->
 stopinfos:<!--{[->]}-->
 tripinfosPrefix:<!--{[->]}-->
 vtypeprobe:<!--{[->]}-->
@@ -124,6 +129,7 @@ battery:<!--{[->]}-->
 chargingstations:<!--{[->]}-->
 links:<!--{[->]}-->
 railsignalblocks:<!--{[->]}-->
+dispatchinfos:<!--{[->]}-->
 ssm:<!--{[->]}-->
 ssm2:<!--{[->]}-->
 vtk:<!--{[->]}-->
@@ -182,6 +188,7 @@ detector:0.0101
 detector2:0.0101
 detector3:0.0101
 summary:0.0101
+aggregated:0.0101
 aggregated1:0.0101
 aggregated15:0.0101
 aggregated25:0.0101
@@ -203,6 +210,7 @@ ssm2:0.0101
 
 [relative_float_tolerance]
 aggregated1:0.00001
+aggregated:0.00001
 
 [batch_extra_version]
 gcc4_64:perf

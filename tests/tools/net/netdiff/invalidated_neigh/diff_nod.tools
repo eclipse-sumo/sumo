@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <!-- Copied Elements -->
+    <node id="S" type="dead_end"/>
+    <!-- Deleted Elements -->
+    <delete id="E"/>
+    <!-- Created Elements -->
+    <node id="gneJ0" type="priority" x="42.99" y="100.00"/>
+    <!-- Changed Elements -->
+    <node id="S" type="dead_end"/>
+</nodes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSVehicleControl.cpp
 /// @author  Daniel Krajzewicz
@@ -15,11 +19,6 @@
 ///
 // The class responsible for building and deletion of vehicles
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "MSVehicleControl.h"
@@ -33,7 +32,6 @@
 #include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
 #include <utils/vehicle/SUMOVTypeParameter.h>
-#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/router/IntermodalRouter.h>
@@ -59,6 +57,7 @@ MSVehicleControl::MSVehicleControl() :
     myTotalTravelTime(0),
     myDefaultVTypeMayBeDeleted(true),
     myDefaultPedTypeMayBeDeleted(true),
+    myDefaultContainerTypeMayBeDeleted(true),
     myDefaultBikeTypeMayBeDeleted(true),
     myWaitingForPerson(0),
     myWaitingForContainer(0),
@@ -67,12 +66,23 @@ MSVehicleControl::MSVehicleControl() :
     myPendingRemovals(MSGlobals::gNumSimThreads > 1) {
     SUMOVTypeParameter defType(DEFAULT_VTYPE_ID, SVC_PASSENGER);
     myVTypeDict[DEFAULT_VTYPE_ID] = MSVehicleType::build(defType);
+
     SUMOVTypeParameter defPedType(DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN);
     defPedType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_PEDTYPE_ID] = MSVehicleType::build(defPedType);
+
     SUMOVTypeParameter defBikeType(DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
     defBikeType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_BIKETYPE_ID] = MSVehicleType::build(defBikeType);
+
+    SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
+    // ISO Container TEU (cannot set this based on vClass)
+    defContainerType.length = 6.1;
+    defContainerType.width = 2.4;
+    defContainerType.height = 2.6;
+    defContainerType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    myVTypeDict[DEFAULT_CONTAINERTYPE_ID] = MSVehicleType::build(defContainerType);
+
     myScale = OptionsCont::getOptions().getFloat("scale");
 }
 
@@ -100,16 +110,23 @@ SUMOVehicle*
 MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route, MSVehicleType* type,
                                const bool ignoreStopErrors, const bool fromRouteFile) {
-    myLoadedVehNo++;
     MSVehicle* built = new MSVehicle(defs, route, type, type->computeChosenSpeedDeviation(fromRouteFile ? MSRouteHandler::getParsingRNG() : nullptr));
+    initVehicle(built, ignoreStopErrors);
+    return built;
+}
+
+
+void
+MSVehicleControl::initVehicle(MSBaseVehicle* built, const bool ignoreStopErrors) {
+    myLoadedVehNo++;
     try {
+        built->initDevices();
         built->addStops(ignoreStopErrors);
     } catch (ProcessError&) {
         delete built;
         throw;
     }
     MSNet::getInstance()->informVehicleStateListener(built, MSNet::VEHICLE_STATE_BUILT);
-    return built;
 }
 
 
@@ -227,7 +244,7 @@ MSVehicleControl::addVehicle(const std::string& id, SUMOVehicle* v) {
             firstEdge->addWaiting(v);
             registerOneWaiting(pars.departProcedure == DEPART_TRIGGERED);
         }
-        if (pars.line != "" && pars.repetitionNumber < 0) {
+        if (v->getVClass() != SVC_TAXI && pars.line != "" && pars.repetitionNumber < 0) {
             myPTVehicles.push_back(v);
         }
         return true;
@@ -278,6 +295,14 @@ MSVehicleControl::checkVType(const std::string& id) {
             delete myVTypeDict[id];
             myVTypeDict.erase(myVTypeDict.find(id));
             myDefaultPedTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
+    } else if (id == DEFAULT_CONTAINERTYPE_ID) {
+        if (myDefaultContainerTypeMayBeDeleted) {
+            delete myVTypeDict[id];
+            myVTypeDict.erase(myVTypeDict.find(id));
+            myDefaultContainerTypeMayBeDeleted = false;
         } else {
             return false;
         }
@@ -389,12 +414,21 @@ MSVehicleControl::getVTypeDistributionMembership(const std::string& id) const {
     return it->second;
 }
 
+const RandomDistributor<MSVehicleType*>*
+MSVehicleControl::getVTypeDistribution(const std::string& typeDistID) const {
+    auto it = myVTypeDistDict.find(typeDistID);
+    if (it != myVTypeDistDict.end()) {
+        return it->second;
+    } else {
+        return nullptr;
+    }
+}
 
 void
 MSVehicleControl::abortWaiting() {
     for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        WRITE_WARNINGF("Vehicle '%' aborted waiting for a % that will never come.", i->first, 
-                i->second->getParameter().departProcedure == DEPART_SPLIT ? "split" : "person or container")
+        WRITE_WARNINGF("Vehicle '%' aborted waiting for a % that will never come.", i->first,
+                       i->second->getParameter().departProcedure == DEPART_SPLIT ? "split" : "person or container")
     }
 }
 

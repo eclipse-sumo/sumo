@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBNodeCont.h
 /// @author  Daniel Krajzewicz
@@ -17,13 +21,7 @@
 ///
 // Container for nodes during the netbuilding process
 /****************************************************************************/
-#ifndef NBNodeCont_h
-#define NBNodeCont_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -32,6 +30,7 @@
 #include <set>
 #include <utils/common/NamedRTree.h>
 #include <utils/geom/Position.h>
+#include "NBCont.h"
 #include "NBEdgeCont.h"
 #include "NBNode.h"
 #include <utils/common/UtilExceptions.h>
@@ -59,7 +58,6 @@ class NBPTStopCont;
 class NBNodeCont {
 public:
     /// @brief Definition of a node cluster container
-    typedef std::set<NBNode*, ComparatorIdLess> NodeSet;
     typedef std::vector<NodeSet> NodeClusters;
     typedef std::pair<NBNode*, double> NodeAndDist;
 
@@ -145,6 +143,20 @@ public:
     /// @brief remove geometry-like fringe nodes from cluster
     void pruneClusterFringe(NodeSet& cluster) const;
 
+    /// @brief avoid removal of long edges when joinining junction clusters
+    static void pruneLongEdges(NodeSet& cluster, double maxDist);
+
+    /// @brief remove nodes that form a slip lane from cluster
+    void pruneSlipLaneNodes(NodeSet& cluster) const;
+
+    /// @brief return all cluster neighbors for the given node
+    static NodeSet getClusterNeighbors(const NBNode* n, NodeSet& cluster);
+
+    /// @brief check whether the given node maybe the start of a slip lane
+    bool maybeSlipLaneStart(const NBNode* n, EdgeVector& outgoing, double& inAngle) const;
+    /// @brief check whether the given node maybe the end of a slip lane
+    bool maybeSlipLaneEnd(const NBNode* n, EdgeVector& incoming, double& outAngle) const;
+
     /// @brief determine wether the cluster is not too complex for joining
     bool feasibleCluster(const NodeSet& cluster, const NBEdgeCont& ec, const NBPTStopCont& sc, std::string& reason) const;
 
@@ -222,6 +234,9 @@ public:
      * @todo Recheck exception handling
      */
     void guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc);
+
+    /// @brief recheck myGuessedTLS after node logics are computed
+    void recheckGuessedTLS(NBTrafficLightLogicCont& tlc);
 
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
@@ -320,6 +335,9 @@ public:
     /// @brief remap node IDs accoring to options --numerical-ids and --reserved-ids
     int remapIDs(bool numericaIDs, bool reservedIDs, const std::string& prefix);
 
+    /// @brief guess and mark fringe nodes
+    int guessFringe();
+
 private:
 
     /// @name Helper methods for for joining nodes
@@ -355,6 +373,8 @@ private:
     bool customTLID(const NodeSet& c) const;
     /// @}
 
+    /// @brief update pareto frontier with the given node
+    void paretoCheck(NBNode* node, NodeSet& frontier, int xSign, int ySign);
 
 private:
     /// @brief The running internal id
@@ -384,8 +404,12 @@ private:
     /// @brief nodes that were created when splitting an edge
     std::set<const NBNode*> mySplit;
 
+    /// @brief nodes that received a traffic light due to guessing (--tls.guess)
+    std::set<NBNode*> myGuessedTLS;
+
     /// @brief node positions for faster lookup
     NamedRTree myRTree;
+
 
 private:
     /// @brief invalidated copy constructor
@@ -395,9 +419,3 @@ private:
     NBNodeCont& operator=(const NBNodeCont& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

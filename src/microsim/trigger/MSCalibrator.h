@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2005-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCalibrator.h
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,7 @@
 ///
 // Calibrates the flow on an edge by removing an inserting vehicles
 /****************************************************************************/
-#ifndef MSCalibrator_h
-#define MSCalibrator_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -47,7 +45,7 @@ class MSRouteProbe;
  * @class MSCalibrator
  * @brief Calibrates the flow on a segment to a specified one
  */
-class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command, public MSDetectorFileOutput {
+class MSCalibrator : public MSTrigger, public MSRouteHandler, public Command, public MSDetectorFileOutput, public Parameterised {
 public:
     /** constructor */
     MSCalibrator(const std::string& id,
@@ -95,7 +93,52 @@ public:
     /// @brief cleanup remaining data structures
     static void cleanup();
 
+    /// @brief return all calibrator instances
+    static const std::map<std::string, MSCalibrator*>& getInstances() {
+        return myInstances;
+    }
 
+    struct AspiredState {
+        AspiredState() : begin(-1), end(-1), q(-1.), v(-1.), vehicleParameter(0) {}
+        SUMOTime begin;
+        SUMOTime end;
+        double q;
+        double v;
+        SUMOVehicleParameter* vehicleParameter;
+    };
+
+    AspiredState getCurrentStateInterval() const; 
+
+    const MSEdge* getEdge() const {
+        return myEdge;
+    }
+
+    const MSLane* getLane() const {
+        return myLane;
+    }
+
+    const MSRouteProbe* getRouteProbe() const {
+        return myProbe;
+    }
+
+    inline virtual int passed() const {
+        // calibrator measures at start of segment
+        // vehicles drive to the end of an edge by default so they count as passed
+        // but vaporized vehicles do not count
+        // if the calibrator is located on a short edge, the vehicles are
+        // vaporized on the next edge so we cannot rely on myEdgeMeanData.nVehVaporized
+        return myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myClearedInJam - myRemoved;
+    }
+
+    int getInserted() const {
+        return myEdgeMeanData.nVehDeparted;
+    }
+
+    int getRemoved() const {
+        return myClearedInJam + myRemoved;
+    }
+
+    void setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double speed, SUMOVehicleParameter vehicleParameter);
 
 protected:
     class CalibratorCommand : public Command {
@@ -138,8 +181,8 @@ protected:
 
     class VehicleRemover : public MSMoveReminder {
     public:
-        VehicleRemover(MSLane* lane, int laneIndex, MSCalibrator* parent) :
-            MSMoveReminder(parent->getID(), lane, true), myLaneIndex(laneIndex), myParent(parent) {}
+        VehicleRemover(MSLane* lane, MSCalibrator* parent) :
+            MSMoveReminder(parent->getID(), lane, true), myParent(parent) {}
 
         /// @name inherited from MSMoveReminder
         //@{
@@ -161,10 +204,10 @@ protected:
         }
 
     private:
-        int myLaneIndex;
         MSCalibrator* myParent;
     };
     friend class VehicleRemover;
+    friend class GUICalibrator;
 
     // @return whether the current state is active (GUI)
     bool isActive() const {
@@ -173,15 +216,6 @@ protected:
 
 protected:
 
-    struct AspiredState {
-        AspiredState() : begin(-1), end(-1), q(-1.), v(-1.), vehicleParameter(0) {}
-        SUMOTime begin;
-        SUMOTime end;
-        double q;
-        double v;
-        SUMOVehicleParameter* vehicleParameter;
-    };
-
     void intervalEnd();
 
     bool isCurrentStateActive(SUMOTime time);
@@ -189,15 +223,6 @@ protected:
     bool tryEmit(MSLane* lane, MSVehicle* vehicle);
 
     void init();
-
-    inline virtual int passed() const {
-        // calibrator measures at start of segment
-        // vehicles drive to the end of an edge by default so they count as passed
-        // but vaporized vehicles do not count
-        // if the calibrator is located on a short edge, the vehicles are
-        // vaporized on the next edge so we cannot rely on myEdgeMeanData.nVehVaporized
-        return myEdgeMeanData.nVehEntered + myEdgeMeanData.nVehDeparted - myClearedInJam - myRemoved;
-    }
 
     /// @brief number of vehicles expected to pass this interval
     int totalWished() const;
@@ -258,12 +283,12 @@ protected:
     const double myPos;
     /// @brief the route probe to retrieve routes from
     const MSRouteProbe* const myProbe;
+    /// @brief dummy parent to retrieve vType filter
+    MSMeanData_Net myMeanDataParent;
     /// @brief data collector for the calibrator
     std::vector<MSMeanData_Net::MSLaneMeanDataValues*> myLaneMeanData;
     /// @brief accumlated data for the whole edge
     MSMeanData_Net::MSLaneMeanDataValues myEdgeMeanData;
-    /// @brief dummy parent to retrieve vType filter
-    MSMeanData_Net myMeanDataParent;
 
     /// @brief List of adaptation intervals
     std::vector<AspiredState> myIntervals;
@@ -310,9 +335,6 @@ protected:
      * instance which created them */
     static std::vector<MSMoveReminder*> LeftoverReminders;
     static std::vector<SUMOVehicleParameter*> LeftoverVehicleParameters;
+    static std::map<std::string, MSCalibrator*> myInstances;
 
 };
-
-#endif
-
-/****************************************************************************/

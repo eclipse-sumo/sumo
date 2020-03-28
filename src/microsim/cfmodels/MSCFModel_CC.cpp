@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_CC.cpp
 /// @author  Michele Segata
@@ -13,11 +17,6 @@
 ///
 // A series of automatic Cruise Controllers (CC, ACC, CACC)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include "MSCFModel_CC.h"
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
@@ -60,9 +59,7 @@ MSCFModel_CC::MSCFModel_CC(const MSVehicleType* vtype) : MSCFModel(vtype),
 
     //if the lanes count has not been specified in the attributes of the model, lane changing cannot properly work
     if (myLanesCount == -1) {
-        std::cerr << "The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute\n";
-        WRITE_ERROR("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute");
-        assert(false);
+        throw ProcessError("The number of lanes needs to be specified in the attributes of carFollowing-CC with the \"lanesCount\" attribute");
     }
 
     //instantiate the driver model. For now, use Krauss as default, then needs to be parameterized
@@ -176,7 +173,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
     //check whether the vehicle has collided and set the flag in case
     if (!vars->crashed) {
-        for (const MSVehicle::Stop& s : veh->getMyStops()) {
+        for (const MSVehicle::Stop& s : veh->getStops()) {
             if (s.collision) {
                 vars->crashed = true;
             }

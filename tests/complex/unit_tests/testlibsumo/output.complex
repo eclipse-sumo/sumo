@@ -1,6 +1,6 @@
 
- Build features: Windows-6.1.7601 AMD64 MSVC 18.0.40629.0 Proj GUI GDAL FFmpeg OSG GL2PS SWIG
- Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+ Build features: Linux-3.10.0-957.21.3.el7.x86_64 x86_64 GNU 4.8.5 Release Proj GUI SWIG GDAL OSG GL2PS Eigen
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
  Use --help to get the list of options.
 Simulation loaded

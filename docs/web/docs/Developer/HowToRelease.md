@@ -50,11 +50,9 @@ software (Veins, VSimRTI, flow etc.) at this stage.
 - check the documentation
   - update the [ChangeLog](../ChangeLog.md)
   - generate options documentation from configuration templates
-    using configTemplateToWiki.py (for instance
-    `tools/build/configTemplateToWiki.py activitygen | xclip` which
-    copies it directly to the clipboard)
+    using `tools/build/configTemplateToWiki.py`
   - recheck/rebuild the configuration schemata (if options were
-    added) using tools/xml/rebuildSchemata.py (use the internal
+    added) using `tools/xml/rebuildSchemata.py` (use the internal
     build to include all options)
 - check the internal tests (same procedure as above), especially the
   (to be) published scenarios
@@ -92,6 +90,9 @@ and committing the changes after careful inspection
   - modify the version number (Version) and the release date (ReleaseDate)
     [in mkdocs.yml]({{Source}}docs/web/mkdocs.yml) in the **extra:** section at the end
     to update the [download links](../Downloads.md).
+- create a new Eclipse release at https://projects.eclipse.org/projects/technology.sumo (after login there should be a "Create Release" button)
+  - add an IP Log to the release
+  - send an email to the PMC at technology-pmc@eclipse.org asking for review (include links to the release and the IP log)
 
 ### Release day
 

@@ -1,0 +1,7 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0" >
+        <personTrip fromJunction="A0" toJunction="C2"/>
+    </person>
+
+
+</routes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOVehicleParserHelper.cpp
 /// @author  Daniel Krajzewicz
@@ -17,11 +21,6 @@
 ///
 // Helper methods for parsing vehicle attributes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/FileHelpers.h>
@@ -228,7 +227,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
 
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart, const bool isPerson) {
+SUMOVehicleParserHelper::parseVehicleAttributes(int element, const SUMOSAXAttributes& attrs, const bool hardFail, const bool optionalID, const bool skipDepart) {
     bool ok = true;
     std::string id, errorMsg;
     // for certain vehicles, ID can be optional
@@ -236,14 +235,16 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
         id = attrs.getOpt<std::string>(SUMO_ATTR_ID, nullptr, ok, "");
     } else {
         // parse ID
-        id = parseID(attrs, isPerson ? SUMO_TAG_PERSON : SUMO_TAG_VEHICLE);
+        id = parseID(attrs, (SumoXMLTag)element);
     }
     // only continue if id is valid, or if is optional
     if (optionalID || !id.empty()) {
         SUMOVehicleParameter* ret = new SUMOVehicleParameter();
         ret->id = id;
-        if (isPerson) {
+        if (element == SUMO_TAG_PERSON) {
             ret->vtypeid = DEFAULT_PEDTYPE_ID;
+        } else if (element == SUMO_TAG_CONTAINER) {
+            ret->vtypeid = DEFAULT_CONTAINERTYPE_ID;
         }
         try {
             parseCommonAttributes(attrs, hardFail, ret, "vehicle");
@@ -263,27 +264,14 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes& attrs, 
             }
         }
         // set tag
-        if (isPerson) {
-            ret->tag = SUMO_TAG_PERSON;
-        } else if (ret->routeid.empty()) {
-            ret->tag = SUMO_TAG_TRIP;
-        } else {
-            ret->tag = SUMO_TAG_VEHICLE;
-        }
+        ret->tag = (SumoXMLTag)element;
         return ret;
     } else {
+        std::string error = toString((SumoXMLTag)element) + " cannot be created";
         if (hardFail) {
-            if (isPerson) {
-                throw ProcessError("Person cannot be created");
-            } else {
-                throw ProcessError("Vehicle cannot be created");
-            }
+            throw ProcessError(error);
         } else {
-            if (isPerson) {
-                WRITE_ERROR("Person cannot be created");
-            } else {
-                WRITE_ERROR("Vehicle cannot be created");
-            }
+            WRITE_ERROR(error);
             return nullptr;
         }
     }
@@ -596,13 +584,12 @@ SUMOVehicleParserHelper::beginVTypeParsing(const SUMOSAXAttributes& attrs, const
                 }
             }
             if (attrs.hasAttribute(SUMO_ATTR_IMPATIENCE)) {
-                // allow empty attribute because .sbx saves this only as float
-                bool okString;
-                bool okDouble;
-                if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okString, false) == "off") {
+                bool okString = true;
+                if (attrs.get<std::string>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okString) == "off") {
                     vtype->impatience = -std::numeric_limits<double>::max();
                 } else {
-                    double impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okDouble);
+                    bool okDouble = true;
+                    const double impatience = attrs.get<double>(SUMO_ATTR_IMPATIENCE, vtype->id.c_str(), okDouble);
                     if (okDouble) {
                         vtype->impatience = impatience;
                         vtype->parametersSet |= VTYPEPARS_IMPATIENCE_SET;
@@ -1139,6 +1126,11 @@ SUMOVehicleParserHelper::getAllowedCFModelAttrs() {
 
         std::set<SumoXMLAttr> railParams;
         railParams.insert(SUMO_ATTR_TRAIN_TYPE);
+        railParams.insert(SUMO_ATTR_ACCEL);
+        railParams.insert(SUMO_ATTR_DECEL);
+        railParams.insert(SUMO_ATTR_APPARENTDECEL);
+        railParams.insert(SUMO_ATTR_EMERGENCYDECEL);
+        railParams.insert(SUMO_ATTR_COLLISION_MINGAP_FACTOR);
         allowedCFModelAttrs[SUMO_TAG_CF_RAIL] = railParams;
         allParams.insert(railParams.begin(), railParams.end());
 
@@ -1227,6 +1219,9 @@ SUMOVehicleParserHelper::parseLCParams(SUMOVTypeParameter& into, LaneChangeModel
         lc2013Params.insert(SUMO_ATTR_LCA_MAXSPEEDLATSTANDING);
         lc2013Params.insert(SUMO_ATTR_LCA_MAXSPEEDLATFACTOR);
         lc2013Params.insert(SUMO_ATTR_LCA_ASSERTIVE);
+        lc2013Params.insert(SUMO_ATTR_LCA_SPEEDGAIN_LOOKAHEAD);
+        lc2013Params.insert(SUMO_ATTR_LCA_COOPERATIVE_ROUNDABOUT);
+        lc2013Params.insert(SUMO_ATTR_LCA_COOPERATIVE_SPEED);
         lc2013Params.insert(SUMO_ATTR_LCA_OVERTAKE_RIGHT);
         lc2013Params.insert(SUMO_ATTR_LCA_SIGMA);
         lc2013Params.insert(SUMO_ATTR_LCA_EXPERIMENTAL1);
@@ -1489,5 +1484,5 @@ SUMOVehicleParserHelper::handleError(const bool hardFail, bool& abortCreation, c
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBNode.h
 /// @author  Daniel Krajzewicz
@@ -16,13 +20,7 @@
 ///
 // The representation of a single node
 /****************************************************************************/
-#ifndef NBNode_h
-#define NBNode_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -30,6 +28,7 @@
 #include <utility>
 #include <string>
 #include <set>
+#include <memory>
 #include <utils/common/StdDefs.h>
 #include <utils/common/Named.h>
 #include <utils/geom/Bresenham.h>
@@ -305,7 +304,7 @@ public:
     void removeTrafficLight(NBTrafficLightDefinition* tlDef);
 
     /// @brief Removes all references to traffic lights that control this tls
-    void removeTrafficLights();
+    void removeTrafficLights(bool setAsPriority = false);
 
     /**@brief Returns whether this node is controlled by any tls
      * @return Whether a traffic light was assigned to this node
@@ -373,8 +372,14 @@ public:
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
     bool writeLogic(OutputDevice& into) const;
 
+    /// @brief get the 'foes' string (conflict bit set) of the right-of-way logic
     const std::string getFoes(int linkIndex) const;
+
+    /// @brief get the 'response' string (right-of-way bit set) of the right-of-way logic
     const std::string getResponse(int linkIndex) const;
+
+    /// @brief whether there are conflicting streams of traffic at this node
+    bool hasConflict() const;
 
     /// @brief Returns something like the most unused direction Should only be used to add source or sink nodes
     Position getEmptyDir() const;
@@ -449,8 +454,7 @@ public:
 
     /// @brief return whether the given laneToLane connection is a right turn which must yield to a bicycle crossings
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
-                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane,
-                                  bool lefthand = false);
+                                  const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane);
 
     /// @brief return whether the given laneToLane connection originate from the same edge and are in conflict due to turning across each other
     bool turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
@@ -495,6 +499,9 @@ public:
      * @param[in] mismatchThreshold The threshold for warning about shapes which are away from myPosition
      */
     void computeNodeShape(double mismatchThreshold);
+
+    /// @brief update geometry of node and surrounding edges
+    void updateSurroundingGeometry();
 
     /// @brief retrieve the junction shape
     const PositionVector& getShape() const;
@@ -666,7 +673,7 @@ public:
 
     /// @brief return this junctions pedestrian crossings
     std::vector<Crossing*> getCrossings() const;
-    inline const std::vector<Crossing*>& getCrossingsIncludingInvalid() const {
+    inline const std::vector<std::unique_ptr<Crossing> >& getCrossingsIncludingInvalid() const {
         return myCrossings;
     }
 
@@ -805,6 +812,12 @@ private:
 
     NBEdge* getNextCompatibleOutgoing(const NBEdge* incoming, SVCPermissions vehPerm, EdgeVector::const_iterator start, bool clockwise) const;
 
+    /// @brief get the reduction in driving lanes at this junction
+    void getReduction(const NBEdge* in, const NBEdge* out, int& inOffset, int& outOffset, int& reduction) const;
+
+    /// @brief check whether this edge has extra lanes on the right side
+    int addedLanesRight(NBEdge* out, int addedLanes) const;
+
 private:
     /// @brief The position the node lies at
     Position myPosition;
@@ -819,7 +832,7 @@ private:
     EdgeVector myAllEdges;
 
     /// @brief Vector of crossings
-    std::vector<Crossing*> myCrossings;
+    std::vector<std::unique_ptr<Crossing> > myCrossings;
 
     /// @brief Vector of walking areas
     std::vector<WalkingArea> myWalkingAreas;
@@ -885,9 +898,3 @@ private:
     /// @brief invalidated assignment operator
     NBNode& operator=(const NBNode& s);
 };
-
-
-#endif
-
-/****************************************************************************/
-

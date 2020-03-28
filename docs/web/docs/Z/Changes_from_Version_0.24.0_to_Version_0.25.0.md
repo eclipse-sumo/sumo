@@ -221,7 +221,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
 
 - NETCONVERT
   - [Zipper merging](https://en.wikipedia.org/wiki/Merge_%28traffic%29) is
-    now supported via the new [node type *zipper*](../Networks/Building_Networks_from_own_XML-descriptions.md#node_types). #1292
+    now supported via the new [node type *zipper*](../Networks/PlainXML.md#node_types). #1292
   - [Right-turn-on-red](https://en.wikipedia.org/wiki/Right_turn_on_red)
     is now supported via the new [node type *traffic_light_right_on_red*](../Networks/PlainXML.md#node_types). #1287
   - Importing *.inpx* [VISSIM networks](../Networks/Import/Vissim.md) is now supported.
