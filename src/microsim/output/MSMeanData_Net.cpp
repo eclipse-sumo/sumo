@@ -155,9 +155,9 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     frontSampleSeconds += frontOnLane;
     frontTravelledDistance += travelledDistanceFrontOnLane;
     if (minimalVehicleLength == INVALID_DOUBLE) {
-        minimalVehicleLength = veh.getVehicleType().getLength();
+        minimalVehicleLength = veh.getVehicleType().getLengthWithGap();
     } else {
-        minimalVehicleLength = MIN2(minimalVehicleLength, veh.getVehicleType().getLength());
+        minimalVehicleLength = MIN2(minimalVehicleLength, veh.getVehicleType().getLengthWithGap());
     }
 #ifdef DEBUG_OCCUPANCY2
     // refs #3265
