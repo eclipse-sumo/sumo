@@ -231,6 +231,10 @@ NIXMLNodesHandler::processNodeType(const SUMOSAXAttributes& attrs, NBNode* node,
     if (attrs.hasAttribute(SUMO_ATTR_FRINGE)) {
         node->setFringeType(attrs.getFringeType(ok));
     }
+    // set optional name
+    if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
+        node->setName(attrs.get<std::string>(SUMO_ATTR_NAME, nodeID.c_str(), ok));
+    }
     return node;
 }
 

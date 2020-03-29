@@ -291,6 +291,11 @@ public:
     FringeType getFringeType() const {
         return myFringeType;
     }
+
+    /// @brief Returns intersection name
+    const std::string& getName() const {
+        return myName;
+    }
     /// @}
 
     /// @name Methods for dealing with assigned traffic lights
@@ -527,6 +532,11 @@ public:
     /// @brief set method for computing right-of-way
     void setFringeType(FringeType fringeType) {
         myFringeType = fringeType;
+    }
+
+    /// @brief set intersection name
+    void setName(const std::string& name) {
+        myName = name;
     }
 
     /// @brief return whether the shape was set by the user
@@ -873,6 +883,9 @@ private:
     /// @brief fringe type of this node
     FringeType myFringeType;
 
+    /// @brief The intersection name (or whatever arbitrary string you wish to attach)
+    std::string myName;
+
     /// @brief whether to discard all pedestrian crossings
     bool myDiscardAllCrossings;
 
@@ -889,7 +902,6 @@ private:
 
     /// @brief whether the node type was guessed rather than loaded
     bool myTypeWasGuessed;
-
 
 private:
     /// @brief invalidated copy constructor

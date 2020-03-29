@@ -734,6 +734,9 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes& attrs) {
     if (attrs.hasAttribute(SUMO_ATTR_FRINGE)) {
         node->setFringeType(attrs.getFringeType(ok));
     }
+    if (attrs.hasAttribute(SUMO_ATTR_NAME)) {
+        node->setName(attrs.get<std::string>(SUMO_ATTR_NAME, id.c_str(), ok));
+    }
 }
 
 

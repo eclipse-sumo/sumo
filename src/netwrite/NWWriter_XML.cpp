@@ -154,6 +154,9 @@ NWWriter_XML::writeNodes(const OptionsCont& oc, NBNodeCont& nc) {
         if (n->getFringeType() != FringeType::DEFAULT) {
             device.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n->getFringeType()));
         }
+        if (n->getName() != "") {
+            device.writeAttr<std::string>(SUMO_ATTR_NAME, n->getName());
+        }
         n->writeParams(device);
         device.closeTag();
     }

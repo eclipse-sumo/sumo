@@ -613,6 +613,9 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     if (n.getFringeType() != FringeType::DEFAULT) {
         into.writeAttr<std::string>(SUMO_ATTR_FRINGE, toString(n.getFringeType()));
     }
+    if (n.getName() != "") {
+        into.writeAttr<std::string>(SUMO_ATTR_NAME, n.getName());
+    }
     if (n.getType() != SumoXMLNodeType::DEAD_END) {
         // write right-of-way logics
         n.writeLogic(into);
