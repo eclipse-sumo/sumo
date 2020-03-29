@@ -393,7 +393,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     containerName(false, 60, RGBColor(0, 153, 204, 255)),
     drawLinkTLIndex(false, 65, RGBColor(128, 128, 255, 255), RGBColor::INVISIBLE, false),
     drawLinkJunctionIndex(false, 65, RGBColor(128, 128, 255, 255), RGBColor::INVISIBLE, false),
-    junctionName(false, 60, RGBColor(0, 255, 128, 255)),
+    junctionID(false, 60, RGBColor(0, 255, 128, 255)),
+    junctionName(false, 60, RGBColor(192, 255, 128, 255)),
     internalJunctionName(false, 50, RGBColor(0, 204, 128, 255)),
     tlsPhaseIndex(false, 150, RGBColor::YELLOW),
     tlsPhaseName(false, 150, RGBColor::ORANGE),
@@ -1449,6 +1450,9 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     drawLinkJunctionIndex.print(dev, "drawLinkJunctionIndex");
     dev.lf();
     dev << "                  ";
+    junctionID.print(dev, "junctionID");
+    dev.lf();
+    dev << "                  ";
     junctionName.print(dev, "junctionName");
     dev.lf();
     dev << "                  ";
@@ -1680,6 +1684,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (drawLinkJunctionIndex != v2.drawLinkJunctionIndex) {
+        return false;
+    }
+    if (junctionID != v2.junctionID) {
         return false;
     }
     if (junctionName != v2.junctionName) {

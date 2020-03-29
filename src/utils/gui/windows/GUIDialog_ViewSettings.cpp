@@ -402,12 +402,13 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
 
         myTLIndexPanel = new NamePanel(m42, this, "Show link tls index", mySettings->drawLinkTLIndex);
         myJunctionIndexPanel = new NamePanel(m42, this, "Show link junction index", mySettings->drawLinkJunctionIndex);
-        myJunctionNamePanel = new NamePanel(m42, this, "Show junction id", mySettings->junctionName);
+        myJunctionIDPanel = new NamePanel(m42, this, "Show junction id", mySettings->junctionID);
         myInternalJunctionNamePanel = new NamePanel(m42, this, "Show internal junction id", mySettings->internalJunctionName);
         myInternalEdgeNamePanel = new NamePanel(m42, this, "Show internal edge id", mySettings->internalEdgeName);
         myCwaEdgeNamePanel = new NamePanel(m42, this, "Show crossing and walkingarea id", mySettings->cwaEdgeName);
         myTLSPhaseIndexPanel = new NamePanel(m42, this, "Show traffic light phase index", mySettings->tlsPhaseIndex);
         myTLSPhaseNamePanel = new NamePanel(m42, this, "Show traffic light phase name", mySettings->tlsPhaseName);
+        myJunctionNamePanel = new NamePanel(m42, this, "Show junction name", mySettings->junctionName);
     }
     {
         // detectors / triggers
@@ -570,6 +571,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myEdgeValuePanel;
     delete myJunctionIndexPanel;
     delete myTLIndexPanel;
+    delete myJunctionIDPanel;
     delete myJunctionNamePanel;
     delete myVehicleNamePanel;
     delete myVehicleValuePanel;
@@ -707,6 +709,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myJunctionColorMode->setCurrentItem((FXint) mySettings->junctionColorer.getActive());
     myTLIndexPanel->update(mySettings->drawLinkTLIndex);
     myJunctionIndexPanel->update(mySettings->drawLinkJunctionIndex);
+    myJunctionIDPanel->update(mySettings->junctionID);
     myJunctionNamePanel->update(mySettings->junctionName);
     myInternalJunctionNamePanel->update(mySettings->internalJunctionName);
     myTLSPhaseIndexPanel->update(mySettings->tlsPhaseIndex);
@@ -952,6 +955,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.junctionColorer.setActive(myJunctionColorMode->getCurrentItem());
     tmpSettings.drawLinkTLIndex = myTLIndexPanel->getSettings();
     tmpSettings.drawLinkJunctionIndex = myJunctionIndexPanel->getSettings();
+    tmpSettings.junctionID = myJunctionIDPanel->getSettings();
     tmpSettings.junctionName = myJunctionNamePanel->getSettings();
     tmpSettings.internalJunctionName = myInternalJunctionNamePanel->getSettings();
     tmpSettings.tlsPhaseIndex = myTLSPhaseIndexPanel->getSettings();

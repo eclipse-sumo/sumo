@@ -172,7 +172,10 @@ GUIJunctionWrapper::drawGL(const GUIVisualizationSettings& s) const {
     if (myIsInternal) {
         drawName(myJunction.getPosition(), s.scale, s.internalJunctionName, s.angle);
     } else {
-        drawName(myJunction.getPosition(), s.scale, s.junctionName, s.angle);
+        drawName(myJunction.getPosition(), s.scale, s.junctionID, s.angle);
+        if (s.junctionName.show && myJunction.getName() != "") {
+            GLHelper::drawTextSettings(s.junctionName, myJunction.getName(), myJunction.getPosition(), s.scale, s.angle);
+        }
         if ((s.tlsPhaseIndex.show || s.tlsPhaseName.show) && myTLLID != "") {
             const MSTrafficLightLogic* active = MSNet::getInstance()->getTLSControl().getActive(myTLLID);
             if (s.tlsPhaseIndex.show) {

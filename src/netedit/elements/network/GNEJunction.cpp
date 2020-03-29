@@ -372,7 +372,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             drawTLSIcon(s);
             // (optional) draw name @todo expose this setting if isn't drawed if isn't being drawn for selecting
             if (!s.drawForRectangleSelection) {
-                drawName(myNBNode->getPosition(), s.scale, s.junctionName);
+                drawName(myNBNode->getPosition(), s.scale, s.junctionID);
+                if (s.junctionName.show && myNBNode->getName() != "") {
+                    GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
+                }
             }
             // draw elevation
             if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
@@ -380,7 +383,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // Translate to center of junction
                 glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), getType() + 1);
                 // draw Z value
-                GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionName.scaledSize(s.scale), s.junctionName.color);
+                GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
                 glPopMatrix();
             }
             // name must be removed from selection stack before drawing crossings
