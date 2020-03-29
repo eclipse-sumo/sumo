@@ -18,6 +18,10 @@ permalink: /ChangeLog/
   - Stopping duration no longer exceeds the planned duration/until time by one simulation step. Issue #6755
   - ACC model no longer uses double minGap when queued. Issue #6728
   - Fixed extremely low speed of W99 model when approaching intersections and stops. Issue #6823
+  - Fixed crash after rerouting. #Issue 6835
+  - Fixed bugs were stops on cyclical routes where ignored after loading simulation state. Issue #6811
+  - Fixed invalid 'density' and 'occupancy' values (too high) in edgeData output. Issue #5723
+  - Fixed crash when running with multiple threads. Issue #6806
   - Railway fixes:
     - Train reversal problems. Issue #6692, #6782, #6797
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
@@ -27,6 +31,7 @@ permalink: /ChangeLog/
     - Invalid stop position after splitting train. Issue #6788
     - Rail signal allows entering occupied block for joining trains. Issue #6794
     - Joining trains with different minGap values. Issue #6795   
+    - carFollowModel 'Rail' now longer ignores attributes 'accel', 'decel' and 'emergencyDecel', 'apparentDecel' and 'collisionMinGapFactor'. Issue #6834
     
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
@@ -34,6 +39,7 @@ permalink: /ChangeLog/
   - Fixed precision when filtering network with a given boundary. Issue #6206
   - Fixed missing connections when importing OpenDRIVE. Issue #6712
   - OpenDRIVE networks where a single edges is connected to more than two junctions are now supported. Issue #6828
+  - Fixed invalid link state at railway switch that would cause uncessary deceleration. Issue #6833
 - SUMO-GUI
   - Fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
   - Fixed crash when simulation ends while tracking person attributes. Issue #6784
@@ -71,7 +77,8 @@ permalink: /ChangeLog/
   - Added option **--weights.priority-factor FLOAT** to factor the priority of edges into the routing decision with a configurable weight (edges with higher priority are preferred increasingly when setting this to a higher value). An application for this is [railway routing](Simulation/Railways.md#routing_on_bidirectional_tracks). Issue #6812
   - Added option **--device.rerouting.bike-speed** to compute aggregated speeds for bicycles separately. Issue #6829
   - Automatic train rerouting by rail signal logic can now be disabled by setting option **--device.rerouting.railsignal false** as well as by vehicle and vType parameters (key="device.rerouting.railsignal"). Issue #6781
-  - Trains can now be joined in reverse order (rear part id is kept). Issue #6803 
+  - Trains can now be joined in reverse order (rear part id is kept). Issue #6803
+  - Element `<busStop>` now supports attribute 'parkingLength'. This can be used define the available space for stopping vehicles with `parking="true"` independent of the length of the busStop along the lane. Issue #3936
       
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
