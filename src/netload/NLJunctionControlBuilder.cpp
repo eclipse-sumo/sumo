@@ -89,7 +89,8 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
                                        const Position pos,
                                        const PositionVector& shape,
                                        const std::vector<MSLane*>& incomingLanes,
-                                       const std::vector<MSLane*>& internalLanes) {
+                                       const std::vector<MSLane*>& internalLanes,
+                                       const std::string& name) {
     myActiveInternalLanes = internalLanes;
     myActiveIncomingLanes = incomingLanes;
     myActiveID = id;
@@ -97,6 +98,7 @@ NLJunctionControlBuilder::openJunction(const std::string& id,
     myType = type;
     myPosition.set(pos);
     myShape = shape;
+    myActiveName = name;
     myAdditionalParameter.clear();
 }
 
@@ -160,7 +162,7 @@ NLJunctionControlBuilder::build() const {
 
 MSJunction*
 NLJunctionControlBuilder::buildNoLogicJunction() {
-    return new MSNoLogicJunction(myActiveID, myType, myPosition, myShape,
+    return new MSNoLogicJunction(myActiveID, myType, myPosition, myShape, myActiveName,
                                  myActiveIncomingLanes, myActiveInternalLanes);
 }
 
@@ -169,7 +171,8 @@ MSJunction*
 NLJunctionControlBuilder::buildLogicJunction() {
     MSJunctionLogic* jtype = getJunctionLogicSecure();
     // build the junction
-    return new MSRightOfWayJunction(myActiveID, myType, myPosition, myShape, myActiveIncomingLanes,
+    return new MSRightOfWayJunction(myActiveID, myType, myPosition, myShape, myActiveName,
+                                    myActiveIncomingLanes,
                                     myActiveInternalLanes,
                                     jtype);
 }

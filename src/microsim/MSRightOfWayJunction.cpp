@@ -40,9 +40,10 @@ MSRightOfWayJunction::MSRightOfWayJunction(const std::string& id,
         SumoXMLNodeType type,
         const Position& position,
         const PositionVector& shape,
+        const std::string& name,
         std::vector<MSLane*> incoming,
         std::vector<MSLane*> internal,
-        MSJunctionLogic* logic) : MSLogicJunction(id, type, position, shape, incoming, internal),
+        MSJunctionLogic* logic) : MSLogicJunction(id, type, position, shape, name, incoming, internal),
     myLogic(logic) {}
 
 

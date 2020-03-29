@@ -52,11 +52,13 @@ class MSLink;
 // member method definition
 // ===========================================================================
 MSJunction::MSJunction(const std::string& id, SumoXMLNodeType type, const Position& position,
-                       const PositionVector& shape) :
+                       const PositionVector& shape, const std::string& name) :
     Named(id),
     myType(type),
     myPosition(position),
-    myShape(shape) {
+    myShape(shape),
+    myName(name)
+{
 }
 
 

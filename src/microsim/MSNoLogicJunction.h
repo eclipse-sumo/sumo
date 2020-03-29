@@ -57,6 +57,7 @@ public:
      */
     MSNoLogicJunction(const std::string& id, SumoXMLNodeType type, const Position& position,
                       const PositionVector& shape,
+                      const std::string& name,
                       std::vector<MSLane*> incoming,
                       std::vector<MSLane*> internal);
 

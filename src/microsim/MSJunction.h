@@ -65,7 +65,8 @@ public:
     MSJunction(const std::string& id,
                SumoXMLNodeType type,
                const Position& position,
-               const PositionVector& shape);
+               const PositionVector& shape,
+               const std::string& name);
 
 
     /// @brief Destructor.
@@ -86,6 +87,11 @@ public:
      */
     const PositionVector& getShape() const {
         return myShape;
+    }
+
+    /// @brief return the junction name
+    const std::string& getName() const {
+        return myName;
     }
 
     virtual const std::vector<MSLink*>& getFoeLinks(const MSLink* const /*srcLink*/) const {
@@ -142,6 +148,9 @@ protected:
 
     /// @brief The shape of the junction
     PositionVector myShape;
+
+    /// @briefh The (optional) junction name
+    std::string myName;
 
     std::vector<MSLink*> myEmptyLinks;
     std::vector<MSLane*> myEmptyLanes;

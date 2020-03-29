@@ -41,7 +41,7 @@ MSInternalJunction::MSInternalJunction(const std::string& id,
                                        const PositionVector& shape,
                                        std::vector<MSLane*> incoming,
                                        std::vector<MSLane*> internal)
-    : MSLogicJunction(id, type, position, shape, incoming, internal) {}
+    : MSLogicJunction(id, type, position, shape, "", incoming, internal) {}
 
 
 

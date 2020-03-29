@@ -516,6 +516,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
         ok = false;
     }
     std::string key = attrs.getOpt<std::string>(SUMO_ATTR_KEY, id.c_str(), ok, "");
+    std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     // incoming lanes
     std::vector<MSLane*> incomingLanes;
     parseLanes(id, attrs.getStringSecure(SUMO_ATTR_INCLANES, ""), incomingLanes, ok);
@@ -528,7 +529,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
     } else {
         try {
-            myJunctionControlBuilder.openJunction(id, key, type, Position(x, y, z), shape, incomingLanes, internalLanes);
+            myJunctionControlBuilder.openJunction(id, key, type, Position(x, y, z), shape, incomingLanes, internalLanes, name);
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what() + std::string("\n Can not build according junction."));
             myCurrentIsBroken = true;
