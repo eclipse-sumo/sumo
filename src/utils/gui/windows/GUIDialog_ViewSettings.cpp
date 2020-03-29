@@ -230,7 +230,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
         // edge name
-        myEdgeNamePanel = new NamePanel(m22, this, "Show edge name", mySettings->edgeName);
+        myEdgeNamePanel = new NamePanel(m22, this, "Show edge id", mySettings->edgeName);
         myStreetNamePanel = new NamePanel(m22, this, "Show street name", mySettings->streetName);
         myEdgeValuePanel = new NamePanel(m22, this, "Show edge color value", mySettings->edgeValue);
     }
@@ -267,7 +267,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
         FXMatrix* m35 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
-        myVehicleNamePanel = new NamePanel(m35, this, "Show vehicle name", mySettings->vehicleName);
+        myVehicleNamePanel = new NamePanel(m35, this, "Show vehicle id", mySettings->vehicleName);
         myVehicleValuePanel = new NamePanel(m35, this, "Show vehicle color value", mySettings->vehicleValue);
         myVehicleTextPanel = new NamePanel(m35, this, "Show vehicle text param", mySettings->vehicleText);
         myVehicleTextParamKey = new FXComboBox(myVehicleTextPanel->myMatrix0, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
@@ -328,7 +328,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
         FXMatrix* m103 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
-        myPersonNamePanel = new NamePanel(m103, this, "Show person name", mySettings->personName);
+        myPersonNamePanel = new NamePanel(m103, this, "Show person id", mySettings->personName);
         myPersonValuePanel = new NamePanel(m103, this, "Show person color value", mySettings->personValue);
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
@@ -366,7 +366,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
         FXMatrix* m103 = new FXMatrix(frame3, 2, GUIDesignMatrixViewSettings);
-        myContainerNamePanel = new NamePanel(m103, this, "Show container name", mySettings->containerName);
+        myContainerNamePanel = new NamePanel(m103, this, "Show container id", mySettings->containerName);
 
         new FXHorizontalSeparator(frame3, GUIDesignHorizontalSeparator);
 
@@ -402,10 +402,10 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
 
         myTLIndexPanel = new NamePanel(m42, this, "Show link tls index", mySettings->drawLinkTLIndex);
         myJunctionIndexPanel = new NamePanel(m42, this, "Show link junction index", mySettings->drawLinkJunctionIndex);
-        myJunctionNamePanel = new NamePanel(m42, this, "Show junction name", mySettings->junctionName);
-        myInternalJunctionNamePanel = new NamePanel(m42, this, "Show internal junction name", mySettings->internalJunctionName);
-        myInternalEdgeNamePanel = new NamePanel(m42, this, "Show internal edge name", mySettings->internalEdgeName);
-        myCwaEdgeNamePanel = new NamePanel(m42, this, "Show crossing and walkingarea name", mySettings->cwaEdgeName);
+        myJunctionNamePanel = new NamePanel(m42, this, "Show junction id", mySettings->junctionName);
+        myInternalJunctionNamePanel = new NamePanel(m42, this, "Show internal junction id", mySettings->internalJunctionName);
+        myInternalEdgeNamePanel = new NamePanel(m42, this, "Show internal edge id", mySettings->internalEdgeName);
+        myCwaEdgeNamePanel = new NamePanel(m42, this, "Show crossing and walkingarea id", mySettings->cwaEdgeName);
         myTLSPhaseIndexPanel = new NamePanel(m42, this, "Show traffic light phase index", mySettings->tlsPhaseIndex);
         myTLSPhaseNamePanel = new NamePanel(m42, this, "Show traffic light phase name", mySettings->tlsPhaseName);
     }
@@ -416,7 +416,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXVerticalFrame* frame5 = new FXVerticalFrame(genScroll, GUIDesignViewSettingsVerticalFrame2);
 
         FXMatrix* m51 = new FXMatrix(frame5, 2, GUIDesignMatrixViewSettings);
-        myAddNamePanel = new NamePanel(m51, this, "Show object name", mySettings->addName);
+        myAddNamePanel = new NamePanel(m51, this, "Show object id", mySettings->addName);
         myAddFullNamePanel = new NamePanel(m51, this, "Show full name", mySettings->addFullName);
         new FXHorizontalSeparator(frame5, GUIDesignHorizontalSeparator);
 
@@ -445,8 +445,8 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXHorizontalSeparator(frame6, GUIDesignHorizontalSeparator);
 
         FXMatrix* m61 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
-        myPOINamePanel = new NamePanel(m61, this, "Show poi names", mySettings->poiName);
-        myPOITypePanel = new NamePanel(m61, this, "Show poi types", mySettings->poiType);
+        myPOINamePanel = new NamePanel(m61, this, "Show poi id", mySettings->poiName);
+        myPOITypePanel = new NamePanel(m61, this, "Show poi type", mySettings->poiType);
         new FXHorizontalSeparator(frame6, GUIDesignHorizontalSeparator);
 
         FXMatrix* m62 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
@@ -470,7 +470,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         new FXHorizontalSeparator(frame9, GUIDesignHorizontalSeparator);
 
         FXMatrix* m91 = new FXMatrix(frame9, 2, GUIDesignMatrixViewSettings);
-        myPolyNamePanel = new NamePanel(m91, this, "Show polygon name", mySettings->polyName);
+        myPolyNamePanel = new NamePanel(m91, this, "Show polygon id", mySettings->polyName);
         myPolyTypePanel = new NamePanel(m91, this, "Show polygon types", mySettings->polyType);
         new FXHorizontalSeparator(frame9, GUIDesignHorizontalSeparator);
 
