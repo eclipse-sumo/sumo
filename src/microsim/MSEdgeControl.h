@@ -39,6 +39,7 @@
 #include <utils/vehicle/SUMOVehicle.h>
 
 #include <utils/foxtools/FXSynchQue.h>
+#include <utils/foxtools/FXSynchSet.h>
 #ifdef HAVE_FOX
 #include <utils/foxtools/FXWorkerThread.h>
 #endif
@@ -265,7 +266,7 @@ private:
     std::vector<SUMOTime> myLastLaneChange;
 
     /// @brief Additional lanes for which collision checking must be performed
-    std::set<MSLane*, ComparatorNumericalIdLess> myInactiveCheckCollisions;
+    FXSynchSet<MSLane*, std::set<MSLane*, ComparatorNumericalIdLess> > myInactiveCheckCollisions;
 
     double myMinLengthGeometryFactor;
 

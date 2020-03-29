@@ -45,6 +45,7 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
       myLanes(MSLane::dictSize()),
       myWithVehicles2Integrate(MSGlobals::gNumSimThreads > 1),
       myLastLaneChange(MSEdge::dictSize()),
+      myInactiveCheckCollisions(MSGlobals::gNumSimThreads > 1),
       myMinLengthGeometryFactor(1.) {
     // build the usage definitions for lanes
     for (MSEdge* const edge : myEdges) {
@@ -300,10 +301,11 @@ MSEdgeControl::detectCollisions(SUMOTime timestep, const std::string& stage) {
         }
     }
     if (myInactiveCheckCollisions.size() > 0) {
-        for (MSLane* lane : myInactiveCheckCollisions) {
+        for (MSLane* lane : myInactiveCheckCollisions.getContainer()) {
             lane->detectCollisions(timestep, stage);
         }
         myInactiveCheckCollisions.clear();
+        myInactiveCheckCollisions.unlock();
     }
 }
 
