@@ -101,3 +101,6 @@ checkLaneFoes
 
 # test computation of lane shapes from edge shapes with elevation
 elevation
+
+# load a network with junction names and write it to plain-xml and .net.xml
+junction_name

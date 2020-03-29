@@ -81,6 +81,9 @@ node_radius_default
 
 # import edge distance from plain xml
 distance
+
+# import junction name from plain xml
+junction_name
 connection_guessing
 
 # import params from plain xml
