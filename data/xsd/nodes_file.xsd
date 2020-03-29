@@ -41,6 +41,7 @@
         <xsd:attribute name="tlType" type="tlTypeType" use="optional"/>
         <xsd:attribute name="controlledInner" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
+        <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="radius" type="nonNegativeFloatTypeWithErrorValue" use="optional"/>
         <xsd:attribute name="keepClear" type="boolType" use="optional"/>
         <xsd:attribute name="rightOfWay" use="optional">
