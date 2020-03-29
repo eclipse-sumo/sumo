@@ -985,6 +985,8 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             return SUMOXMLDefinitions::RightOfWayValues.getString(myNBNode->getRightOfWay());
         case SUMO_ATTR_FRINGE:
             return SUMOXMLDefinitions::FringeTypeValues.getString(myNBNode->getFringeType());
+        case SUMO_ATTR_NAME:
+            return myNBNode->getName();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -1008,6 +1010,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_RADIUS:
         case SUMO_ATTR_RIGHT_OF_WAY:
         case SUMO_ATTR_FRINGE:
+        case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
             undoList->add(new GNEChange_Attribute(this, myNet, key, value), true);
@@ -1170,6 +1173,8 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::RightOfWayValues.hasString(value);
         case SUMO_ATTR_FRINGE:
             return SUMOXMLDefinitions::FringeTypeValues.hasString(value);
+        case SUMO_ATTR_NAME:
+            return true;
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -1499,6 +1504,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_FRINGE:
             myNBNode->setFringeType(SUMOXMLDefinitions::FringeTypeValues.get(value));
+            break;
+        case SUMO_ATTR_NAME:
+            myNBNode->setName(value);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {

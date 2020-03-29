@@ -802,6 +802,11 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty.setDiscreteValues(SUMOXMLDefinitions::FringeTypeValues.getStrings());
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_NAME,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+            "Optional name of " + toString(currentTag));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLTYPE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC,
             "An optional type for the traffic light algorithm");
