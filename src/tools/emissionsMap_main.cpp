@@ -58,6 +58,9 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
         WRITE_MESSAGE("Writing map of '" + className + "' into '" + of + "'.");
     }
     std::ofstream o(of.c_str());
+    if (!o.good()) {
+        throw ProcessError("Could not open file '" + of + "' for writing.");
+    }
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {
             for (double s = sMin; s <= sMax; s += sStep) {
