@@ -1134,7 +1134,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     }
     // check if we're in data mode
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        color = s.laneColorer.getSchemes()[0].getColor(8);
+        color = s.laneColorer.getSchemes()[0].getColor(11);
     }
     // check if we have to change color if parent edge has generic data elements
     for (const auto& genericData : myParentEdge->getChildGenericDataElements()) {
@@ -1203,18 +1203,27 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                 case SVC_BICYCLE:
                     return 2;
                 case 0:
-                    return 3;
+                    // forbidden road or green verge
+                    return myParentEdge->getNBEdge()->getPermissions() == 0 ? 10 : 3;
                 case SVC_SHIP:
                     return 4;
+                case SVC_AUTHORITY:
+                    return 8;
                 default:
                     break;
             }
-            if (isRailway(myPermissions)) {
+            if (myParentEdge->getNBEdge()->isMacroscopicConnector()) {
+                return 9;
+            } else if (isRailway(myPermissions)) {
                 return 5;
             } else if ((myPermissions & SVC_PASSENGER) != 0) {
-                return 0;
+                if ((myPermissions & SVC_RAIL_CLASSES) != 0 && (myPermissions & SVC_SHIP) == 0) {
+                    return 6;
+                } else {
+                    return 0;
+                }
             } else {
-                return 6;
+                return 7;
             }
         case 1:
             return isAttributeCarrierSelected() || myParentEdge->isAttributeCarrierSelected();
