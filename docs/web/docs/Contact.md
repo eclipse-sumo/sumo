@@ -58,8 +58,8 @@ If you want to receive regular updates on commits, you can subscribe to
 up an [IFTTT link](https://ifttt.com/applets/147561p-rss-feed-to-email)
 or use <https://hubnotify.com/> to send you an email.
 
-Occasional development updates are posted on our [facebook page](https://www.facebook.com/simulationofurbanmobility/) and you can
-[follow us on Twitter](https://twitter.com/EclipseSumo).
+Occasional development updates are posted on our [Facebook page](https://www.facebook.com/simulationofurbanmobility/) and you can
+[follow us on Twitter](https://twitter.com/EclipseSumo) and on [Instagram](https://instagram.com/eclipse.sumo).
 
 Our institute's address:
 
