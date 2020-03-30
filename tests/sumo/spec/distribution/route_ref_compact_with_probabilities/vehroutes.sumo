@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 21 21:58:56 2019 by Eclipse SUMO Version v1_1_0+0258-169157deea
+<!-- generated on Mon Mar 30 15:07:58 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,95 +36,95 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg"/>
     </vehicle>
 
-    <vehicle id="1.1" depart="4.00" arrival="45.00">
+    <vehicle id="1.1" depart="5.00" arrival="46.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.2" depart="8.00" arrival="49.00">
+    <vehicle id="1.2" depart="9.00" arrival="50.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.3" depart="12.00" arrival="53.00">
+    <vehicle id="1.3" depart="13.00" arrival="54.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.4" depart="16.00" arrival="57.00">
+    <vehicle id="1.4" depart="17.00" arrival="58.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.5" depart="20.00" arrival="61.00">
+    <vehicle id="1.5" depart="21.00" arrival="62.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.6" depart="24.00" arrival="65.00">
+    <vehicle id="1.6" depart="25.00" arrival="66.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.7" depart="29.00" arrival="70.00">
+    <vehicle id="1.7" depart="30.00" arrival="71.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.8" depart="33.00" arrival="74.00">
+    <vehicle id="1.8" depart="34.00" arrival="75.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.9" depart="37.00" arrival="78.00">
+    <vehicle id="1.9" depart="38.00" arrival="79.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.10" depart="41.00" arrival="82.00">
+    <vehicle id="1.10" depart="42.00" arrival="83.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.11" depart="45.00" arrival="86.00">
+    <vehicle id="1.11" depart="46.00" arrival="87.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.12" depart="49.00" arrival="90.00">
+    <vehicle id="1.12" depart="50.00" arrival="91.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.17" depart="70.00" arrival="93.00">
+    <vehicle id="1.17" depart="71.00" arrival="94.00">
         <route edges="beg"/>
     </vehicle>
 
-    <vehicle id="1.13" depart="54.00" arrival="95.00">
+    <vehicle id="1.13" depart="55.00" arrival="96.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.14" depart="58.00" arrival="99.00">
+    <vehicle id="1.14" depart="59.00" arrival="100.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.15" depart="62.00" arrival="103.00">
+    <vehicle id="1.15" depart="63.00" arrival="104.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.16" depart="66.00" arrival="107.00">
+    <vehicle id="1.16" depart="67.00" arrival="108.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.18" depart="74.00" arrival="115.00">
+    <vehicle id="1.18" depart="75.00" arrival="116.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.19" depart="79.00" arrival="120.00">
+    <vehicle id="1.19" depart="80.00" arrival="121.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.20" depart="83.00" arrival="124.00">
+    <vehicle id="1.20" depart="84.00" arrival="125.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.21" depart="87.00" arrival="128.00">
+    <vehicle id="1.21" depart="88.00" arrival="129.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.22" depart="91.00" arrival="132.00">
+    <vehicle id="1.22" depart="92.00" arrival="133.00">
         <route edges="beg end"/>
     </vehicle>
 
-    <vehicle id="1.23" depart="95.00" arrival="136.00">
+    <vehicle id="1.23" depart="96.00" arrival="137.00">
         <route edges="beg end"/>
     </vehicle>
 

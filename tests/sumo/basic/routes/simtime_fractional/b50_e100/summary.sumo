@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Apr  9 23:25:54 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+<!-- generated on Mon Mar 30 15:08:01 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <summary xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/summary_file.xsd">
-    <step time="50.00" loaded="8" inserted="1" running="1" waiting="1" ended="0" arrived="0" collisions="0" teleports="0" halting="1" meanWaitingTime="0.00" meanTravelTime="-1.00" meanSpeed="0.00" meanSpeedRelative="0.00"/>
+    <step time="50.00" loaded="8" inserted="1" running="1" waiting="0" ended="0" arrived="0" collisions="0" teleports="0" halting="1" meanWaitingTime="0.00" meanTravelTime="-1.00" meanSpeed="0.00" meanSpeedRelative="0.00"/>
     <step time="51.00" loaded="8" inserted="1" running="1" waiting="1" ended="0" arrived="0" collisions="0" teleports="0" halting="0" meanWaitingTime="0.00" meanTravelTime="-1.00" meanSpeed="2.60" meanSpeedRelative="0.09"/>
     <step time="52.00" loaded="8" inserted="2" running="2" waiting="0" ended="0" arrived="0" collisions="0" teleports="0" halting="1" meanWaitingTime="1.00" meanTravelTime="-1.00" meanSpeed="2.60" meanSpeedRelative="0.09"/>
     <step time="53.00" loaded="8" inserted="2" running="2" waiting="0" ended="0" arrived="0" collisions="0" teleports="0" halting="0" meanWaitingTime="1.00" meanTravelTime="-1.00" meanSpeed="4.40" meanSpeedRelative="0.16"/>
