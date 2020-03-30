@@ -77,7 +77,9 @@ MSVehicleContainer::add(SUMOVehicle* veh) {
         find_if(array.begin() + 1, array.begin() + currentSize + 1, DepartFinder(veh->getParameter().depart));
     if (currentSize == 0 || i == array.begin() + currentSize + 1) {
         // a new heap-item is necessary
-        VehicleDepartureVector newElem(veh->getParameter().depart, VehicleVector());
+        const SUMOTime delay = veh->getParameter().depart % DELTA_T;
+        const SUMOTime depart = veh->getParameter().depart + (delay == 0 ? 0 : DELTA_T - delay);
+        VehicleDepartureVector newElem(depart, VehicleVector());
         newElem.second.push_back(veh);
         addReplacing(newElem);
     } else {
@@ -142,7 +144,7 @@ MSVehicleContainer::addReplacing(const VehicleDepartureVector& x) {
 
 bool
 MSVehicleContainer::anyWaitingBefore(SUMOTime time) const {
-    return !isEmpty() && topTime() < time;
+    return !isEmpty() && topTime() <= time;
 }
 
 

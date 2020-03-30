@@ -136,7 +136,7 @@ MSInsertionControl::emitVehicles(SUMOTime time) {
 int
 MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
                               MSVehicleContainer::VehicleVector& refusedEmits) {
-    assert(veh->getParameter().depart < time + DELTA_T);
+    assert(veh->getParameter().depart <= time);
     const MSEdge& edge = *veh->getEdge();
     if (veh->isOnRoad()) {
         return 1;
@@ -167,7 +167,7 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
 
 void
 MSInsertionControl::checkCandidates(SUMOTime time, const bool preCheck) {
-    while (myAllVeh.anyWaitingBefore(time + DELTA_T)) {
+    while (myAllVeh.anyWaitingBefore(time)) {
         const MSVehicleContainer::VehicleVector& top = myAllVeh.top();
         copy(top.begin(), top.end(), back_inserter(myPendingEmits));
         myAllVeh.pop();
@@ -198,9 +198,9 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
         bool tryEmitByProb = pars->repetitionProbability > 0;
         while ((pars->repetitionProbability < 0
                 && pars->repetitionsDone < pars->repetitionNumber
-                && pars->depart + pars->repetitionsDone * pars->repetitionOffset < time + DELTA_T)
+                && pars->depart + pars->repetitionsDone * pars->repetitionOffset <= time)
                 || (tryEmitByProb
-                    && pars->depart < time + DELTA_T
+                    && pars->depart <= time
                     && pars->repetitionEnd > time
                     // only call rand if all other conditions are met
                     && RandHelper::rand(&myFlowRNG) < (pars->repetitionProbability * TS))
