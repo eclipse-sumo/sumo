@@ -129,6 +129,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                         case GLO_JUNCTION:
                             myJunctions.push_back(dynamic_cast<GNEJunction*>(myAttributeCarrierLanes.back()));
                             break;
+                        case GLO_EDGE:
+                            myEdges.push_back(dynamic_cast<GNEEdge*>(myAttributeCarrierLanes.back()));
+                            break;
                         case GLO_LANE:
                             myLanes.push_back(dynamic_cast<GNELane*>(myAttributeCarrierLanes.back()));
                             break;
@@ -791,7 +794,8 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
         // interate over junction edges
         for (const auto& edge : junction->getGNEEdges()) {
             // if both junction are selected, then move shape
-            if (edge->getGNEJunctionSource()->isAttributeCarrierSelected() &&
+            if (edge->isAttributeCarrierSelected() &&
+                edge->getGNEJunctionSource()->isAttributeCarrierSelected() &&
                 edge->getGNEJunctionDestiny()->isAttributeCarrierSelected()) {
                 myMovedEdges.insert(edge);
             }
