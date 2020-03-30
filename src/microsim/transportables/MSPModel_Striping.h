@@ -231,6 +231,10 @@ protected:
         const int dir; // the direction when entering this path
         const double length;
 
+    private:
+        /// @brief Invalidated assignment operator
+        WalkingAreaPath& operator=(const WalkingAreaPath& s) = delete;
+
     };
 
     class walkingarea_path_sorter {
