@@ -3466,6 +3466,10 @@ GNEViewNet::drawTemporalDrawShape() const {
 
 void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
+    // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
+    if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+        myObjectsUnderCursor.swapLane2Edge();
+    }
     // decide what to do based on mode
     switch (myEditModes.networkEditMode) {
         case NetworkEditMode::NETWORK_INSPECT: {
@@ -3478,10 +3482,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_DELETE: {
             // check that we have clicked over an non-demand element
             if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
-                // change the selected attribute carrier if myNetworkViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
-                if (myNetworkViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) && !myKeyPressed.shiftKeyPressed()) {
-                    myObjectsUnderCursor.swapLane2Edge();
-                }
                 // check if we are deleting a selection or an single attribute carrier
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // before delete al selected attribute carriers, check if we clicked over a geometry point
@@ -3509,10 +3509,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             } else {
                 // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
                 if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
-                    // change the selected attribute carrier if myNetworkViewOptions.mySelectEdges is enabled and clicked element is a getLaneFront()
-                    if (myNetworkViewOptions.selectEdges() && (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-                        myObjectsUnderCursor.swapLane2Edge();
-                    }
                     // Check if this GLobject type is locked
                     if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
                         // toogle networkElement selection
@@ -3542,9 +3538,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_MOVE: {
             // allways swap lane to edges in movement mode
-            if (myObjectsUnderCursor.getLaneFront()) {
-                myObjectsUnderCursor.swapLane2Edge();
-            }
+            myObjectsUnderCursor.swapLane2Edge();
             // check that AC under cursor isn't a demand element
             if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
                 // check if we're moving a set of selected items
@@ -3605,9 +3599,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_CROSSING: {
             // swap lanes to edges in crossingsMode
-            if (myObjectsUnderCursor.getLaneFront()) {
-                myObjectsUnderCursor.swapLane2Edge();
-            }
+            myObjectsUnderCursor.swapLane2Edge();
             // call function addCrossing from crossing frame
             myViewParent->getCrossingFrame()->addCrossing(myObjectsUnderCursor);
             // process click
@@ -3618,9 +3610,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // avoid create TAZs if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // swap laness to edges in TAZ Mode
-                if (myObjectsUnderCursor.getLaneFront()) {
-                    myObjectsUnderCursor.swapLane2Edge();
-                }
+                myObjectsUnderCursor.swapLane2Edge();
                 // check if we want to create a rect for selecting edges
                 if (myKeyPressed.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
                     // begin rectangle selection

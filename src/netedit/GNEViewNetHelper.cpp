@@ -52,14 +52,21 @@
 // GNEViewNetHelper::ObjectsUnderCursor - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor() {}
+GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor() :
+    mySwapLane2edge(false) {}
 
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects, GNEPoly* editedPolyShape) {
+    // reset flag
+    mySwapLane2edge = false;
     // first clear all containers
-    myAttributeCarriers.clear();
-    myNetworkElements.clear();
+    myGUIGlObjectLanes.clear();
+    myGUIGlObjectEdges.clear();
+    myAttributeCarrierLanes.clear();
+    myAttributeCarrierEdges.clear();
+    myNetworkElementLanes.clear();
+    myNetworkElementEdges.clear();
     myAdditionals.clear();
     myShapes.clear();
     myDemandElements.clear();
@@ -77,95 +84,108 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     // set GUIGlObject
     sortGUIGlObjectsByAltitude(GUIGlObjects);
     // iterate over GUIGlObjects
-    for (const auto& GUIGlObject : myGUIGlObjects) {
+    for (const auto& GUIGlObject : myGUIGlObjectLanes) {
         // only continue if isn't GLO_NETWORKELEMENT (0)
         if (GUIGlObject->getType() != GLO_NETWORKELEMENT) {
             // cast attribute carrier from glObject
-            myAttributeCarriers.push_back(dynamic_cast<GNEAttributeCarrier*>(GUIGlObject));
+            myAttributeCarrierLanes.push_back(dynamic_cast<GNEAttributeCarrier*>(GUIGlObject));
             // only continue if attributeCarrier isn't nullptr;
-            if (myAttributeCarriers.back()) {
+            if (myAttributeCarrierLanes.back()) {
+                // add it in myAttributeCarrierEdges
+                myAttributeCarrierEdges.push_back(myAttributeCarrierLanes.back());
                 // If we're editing a shape, ignore rest of elements (including other polygons)
                 if (editedPolyShape != nullptr) {
-                    if (myAttributeCarriers.back() == editedPolyShape) {
+                    if (myAttributeCarrierLanes.back() == editedPolyShape) {
                         // cast Poly from attribute carrier
-                        myPolys.push_back(dynamic_cast<GNEPoly*>(myAttributeCarriers.back()));
+                        myPolys.push_back(dynamic_cast<GNEPoly*>(myAttributeCarrierLanes.back()));
                     }
                 } else {
                     // obtain tag property (only for improve code legibility)
-                    const auto& tagValue = myAttributeCarriers.back()->getTagProperty();
+                    const auto& tagValue = myAttributeCarrierLanes.back()->getTagProperty();
                     // check if attributeCarrier can be casted into networkElement, additional or shape
                     if (tagValue.isNetworkElement()) {
                         // cast networkElement from attribute carrier
-                        myNetworkElements.push_back(dynamic_cast<GNENetworkElement*>(myAttributeCarriers.back()));
+                        myNetworkElementLanes.push_back(dynamic_cast<GNENetworkElement*>(myAttributeCarrierLanes.back()));
+                        // add it in myNetworkElementEdges
+                        myNetworkElementEdges.push_back(myNetworkElementLanes.back());
                     } else if (tagValue.isAdditionalElement()) {
                         // cast additional element from attribute carrier
-                        myAdditionals.push_back(dynamic_cast<GNEAdditional*>(myAttributeCarriers.back()));
+                        myAdditionals.push_back(dynamic_cast<GNEAdditional*>(myAttributeCarrierLanes.back()));
                     } else if (tagValue.isTAZ()) {
                         // cast TAZ element from attribute carrier
-                        myTAZs.push_back(dynamic_cast<GNETAZ*>(myAttributeCarriers.back()));
+                        myTAZs.push_back(dynamic_cast<GNETAZ*>(myAttributeCarrierLanes.back()));
                     } else if (tagValue.isShape()) {
                         // cast shape element from attribute carrier
-                        myShapes.push_back(dynamic_cast<GNEShape*>(myAttributeCarriers.back()));
+                        myShapes.push_back(dynamic_cast<GNEShape*>(myAttributeCarrierLanes.back()));
                     } else if (tagValue.isDemandElement()) {
                         // cast demand element from attribute carrier
-                        myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(myAttributeCarriers.back()));
+                        myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(myAttributeCarrierLanes.back()));
                     } else if (tagValue.isGenericData()) {
                         // cast generic data from attribute carrier
-                        myGenericDatas.push_back(dynamic_cast<GNEGenericData*>(myAttributeCarriers.back()));
+                        myGenericDatas.push_back(dynamic_cast<GNEGenericData*>(myAttributeCarrierLanes.back()));
                     }
                     // now set specify AC type
                     switch (GUIGlObject->getType()) {
                         case GLO_JUNCTION:
-                            myJunctions.push_back(dynamic_cast<GNEJunction*>(myAttributeCarriers.back()));
+                            myJunctions.push_back(dynamic_cast<GNEJunction*>(myAttributeCarrierLanes.back()));
                             break;
-                        case GLO_EDGE: {
-                            // fisrt obtain Edge
-                            GNEEdge* edge = dynamic_cast<GNEEdge*>(myAttributeCarriers.back());
-                            // check if parent edge is already inserted in myEdges (for example, due clicking over Geometry Points)
-                            if (std::find(myEdges.begin(), myEdges.end(), edge) == myEdges.end()) {
-                                myEdges.push_back(edge);
-                            }
+                        case GLO_LANE:
+                            myLanes.push_back(dynamic_cast<GNELane*>(myAttributeCarrierLanes.back()));
                             break;
-                        }
-                        case GLO_LANE: {
-                            myLanes.push_back(dynamic_cast<GNELane*>(myAttributeCarriers.back()));
-                            // check if edge's parent lane is already inserted in myEdges (for example, due clicking over Geometry Points)
-                            if (std::find(myEdges.begin(), myEdges.end(), myLanes.back()->getParentEdge()) == myEdges.end()) {
-                                myEdges.push_back(myLanes.back()->getParentEdge());
-                            }
-                            break;
-                        }
                         case GLO_CROSSING:
-                            myCrossings.push_back(dynamic_cast<GNECrossing*>(myAttributeCarriers.back()));
+                            myCrossings.push_back(dynamic_cast<GNECrossing*>(myAttributeCarrierLanes.back()));
                             break;
                         case GLO_CONNECTION:
-                            myConnections.push_back(dynamic_cast<GNEConnection*>(myAttributeCarriers.back()));
+                            myConnections.push_back(dynamic_cast<GNEConnection*>(myAttributeCarrierLanes.back()));
                             break;
                         case GLO_POI:
-                            myPOIs.push_back(dynamic_cast<GNEPOI*>(myAttributeCarriers.back()));
+                            myPOIs.push_back(dynamic_cast<GNEPOI*>(myAttributeCarrierLanes.back()));
                             break;
                         case GLO_POLYGON:
-                            myPolys.push_back(dynamic_cast<GNEPoly*>(myAttributeCarriers.back()));
+                            myPolys.push_back(dynamic_cast<GNEPoly*>(myAttributeCarrierLanes.back()));
                             break;
                         case GLO_EDGEDATA:
-                            myEdgeDatas.push_back(dynamic_cast<GNEEdgeData*>(myAttributeCarriers.back()));
+                            myEdgeDatas.push_back(dynamic_cast<GNEEdgeData*>(myAttributeCarrierLanes.back()));
                             break;
                         case GLO_EDGERELDATA:
-                            myEdgeRelDatas.push_back(dynamic_cast<GNEEdgeRelData*>(myAttributeCarriers.back()));
+                            myEdgeRelDatas.push_back(dynamic_cast<GNEEdgeRelData*>(myAttributeCarrierLanes.back()));
                             break;
                         default:
                             break;
                     }
                 }
             } else {
-                myAttributeCarriers.pop_back();
+                myAttributeCarrierLanes.pop_back();
             }
+        }
+        // fill myGUIGlObjectEdges
+        if (GUIGlObject->getType() == GLO_LANE) {
+            // get parent edge
+            GNEEdge *edge = myLanes.back()->getParentEdge();
+            // pop last inserted element
+            myAttributeCarrierEdges.pop_back();
+            myNetworkElementEdges.pop_back();
+            // add it in edge containers
+            if (myGUIGlObjectEdges.empty() || (myGUIGlObjectEdges.back() != edge)) {
+                myGUIGlObjectEdges.push_back(edge);
+            }
+            if (myAttributeCarrierEdges.empty() || (myAttributeCarrierEdges.back() != edge)) {
+                myAttributeCarrierEdges.push_back(edge);
+            }
+            if (myNetworkElementEdges.empty() || (myNetworkElementEdges.back() != edge)) {
+                myNetworkElementEdges.push_back(edge);
+            }
+            if (myEdges.empty() || (myEdges.back() != edge)) {
+                myEdges.push_back(edge);
+            }
+        } else {
+            myGUIGlObjectEdges.push_back(GUIGlObject);
         }
     }
     // write information in debug mode
-    WRITE_DEBUG("ObjectsUnderCursor: GUIGlObjects: " + toString(GUIGlObjects.size()) +
-        ", AttributeCarriers: " + toString(myAttributeCarriers.size()) +
-        ", NetworkElements: " + toString(myNetworkElements.size()) +
+    WRITE_DEBUG("ObjectsUnderCursor: GUIGlObjects: " + toString(myGUIGlObjectLanes.size()) +
+        ", AttributeCarriers: " + toString(myAttributeCarrierLanes.size()) +
+        ", NetworkElements: " + toString(myNetworkElementLanes.size()) +
         ", Additionals: " + toString(myAdditionals.size()) +
         ", Shapes: " + toString(myShapes.size()) +
         ", DemandElements: " + toString(myDemandElements.size()) +
@@ -185,16 +205,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
-    // clear some containers
-    myGUIGlObjects.clear();
-    myAttributeCarriers.clear();
-    myNetworkElements.clear();
-    // fill containers using edges
-    for (const auto& i : myEdges) {
-        myGUIGlObjects.push_back(i);
-        myAttributeCarriers.push_back(i);
-        myNetworkElements.push_back(i);
-    }
+    // change flag
+    mySwapLane2edge = true;
     // write information for debug
     WRITE_DEBUG("ObjectsUnderCursor: swapped Lanes to edges")
 }
@@ -202,8 +214,14 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
 
 GUIGlID
 GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
-    if (myGUIGlObjects.size() > 0) {
-        return myGUIGlObjects.front()->getGlID();
+    if (mySwapLane2edge) {
+        if (myGUIGlObjectEdges.size() > 0) {
+            return myGUIGlObjectEdges.front()->getGlID();
+        } else {
+            return 0;
+        }
+    } else if (myGUIGlObjectLanes.size() > 0) {
+        return myGUIGlObjectLanes.front()->getGlID();
     } else {
         return 0;
     }
@@ -212,8 +230,14 @@ GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
 
 GUIGlObjectType
 GNEViewNetHelper::ObjectsUnderCursor::getGlTypeFront() const {
-    if (myGUIGlObjects.size() > 0) {
-        return myGUIGlObjects.front()->getType();
+    if (mySwapLane2edge) {
+        if (myGUIGlObjectEdges.size() > 0) {
+            return myGUIGlObjectEdges.front()->getType();
+        } else {
+            return GLO_NETWORK;
+        }
+    } else if (myGUIGlObjectLanes.size() > 0) {
+        return myGUIGlObjectLanes.front()->getType();
     } else {
         return GLO_NETWORK;
     }
@@ -222,8 +246,14 @@ GNEViewNetHelper::ObjectsUnderCursor::getGlTypeFront() const {
 
 GNEAttributeCarrier*
 GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
-    if (myAttributeCarriers.size() > 0) {
-        return myAttributeCarriers.front();
+    if (mySwapLane2edge) {
+        if (myAttributeCarrierEdges.size() > 0) {
+            return myAttributeCarrierEdges.front();
+        } else {
+            return nullptr;
+        }
+    } else if (myAttributeCarrierLanes.size() > 0) {
+        return myAttributeCarrierLanes.front();
     } else {
         return nullptr;
     }
@@ -232,8 +262,14 @@ GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
 
 GNENetworkElement*
 GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
-    if (myNetworkElements.size() > 0) {
-        return myNetworkElements.front();
+    if (mySwapLane2edge) {
+        if (myNetworkElementEdges.size() > 0) {
+            return myNetworkElementEdges.front();
+        } else {
+            return nullptr;
+        }
+    } else if (myNetworkElementLanes.size() > 0) {
+        return myNetworkElementLanes.front();
     } else {
         return nullptr;
     }
@@ -382,23 +418,25 @@ GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
 
 const std::vector<GNEAttributeCarrier*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {
-    return myAttributeCarriers;
+    if (mySwapLane2edge) {
+        return myAttributeCarrierEdges;
+    } else {
+        return myAttributeCarrierLanes;
+    }
 }
 
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects) {
-    // first clear myGUIGlObjects
-    myGUIGlObjects.clear();
-    // declare a map to save sorted GUIGlObjects
+    // declare a map to save GUIGlObjects sorted by GLO_TYPE
     std::map<GUIGlObjectType, std::vector<GUIGlObject*> > mySortedGUIGlObjects;
     for (const auto& i : GUIGlObjects) {
         mySortedGUIGlObjects[i->getType()].push_back(i);
     }
-    // move sorted GUIGlObjects into myGUIGlObjects using a reverse iterator
+    // move sorted GUIGlObjects into myGUIGlObjectLanes using a reverse iterator
     for (std::map<GUIGlObjectType, std::vector<GUIGlObject*> >::reverse_iterator i = mySortedGUIGlObjects.rbegin(); i != mySortedGUIGlObjects.rend(); i++) {
         for (const auto& j : i->second) {
-            myGUIGlObjects.push_back(j);
+            myGUIGlObjectLanes.push_back(j);
         }
     }
 }
@@ -742,19 +780,29 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
     // obtain Junctions and edges selected
-    myMovedJunction = myViewNet->getNet()->retrieveJunctions(true);
-    myMovedEdges = myViewNet->getNet()->retrieveEdges(true);
+    myMovedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+    const auto movedEdges = myViewNet->getNet()->retrieveEdges(true);
+    // make a set using of myMovedEdges
+    myMovedEdges = std::set<GNEEdge*>(movedEdges.begin(), movedEdges.end());
     // Junctions are always moved, then save position of current selected junctions (Needed when mouse is released)
-    for (const auto &junction : myMovedJunction) {
+    for (const auto &junction : myMovedJunctions) {
         // start geometry moving
         junction->startGeometryMoving();
+        // interate over junction edges
+        for (const auto& edge : junction->getGNEEdges()) {
+            // if both junction are selected, then move shape
+            if (edge->getGNEJunctionSource()->isAttributeCarrierSelected() &&
+                edge->getGNEJunctionDestiny()->isAttributeCarrierSelected()) {
+                myMovedEdges.insert(edge);
+            }
+        }
     }
     // make special movement depending of clicked AC
     if (originAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         // if clicked element is a junction, move shapes of all selected edges
         for (const auto &edge : myMovedEdges) {
             // add edge into movedEdges
-            myMovedEdges.push_back(edge);
+            myMovedEdges.insert(edge);
             // start geometry moving
             edge->startEdgeGeometryMoving(-1, false);
         }
@@ -764,25 +812,23 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
         GNEEdge* oppositeClickedEdge = clickedEdge->getOppositeEdge();
         // calculate edgeShapeOffset
         const double edgeShapeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-        // make a set using of myMovedEdges
-        std::set<GNEEdge*> setMovedEdges(myMovedEdges.begin(), myMovedEdges.end());
         // split edges in two groups
         std::vector<GNEEdge*> groupNormalEdges;
         std::vector<GNEEdge*> groupOppositeEdges;
         // add clicked edge in group A
         groupNormalEdges.push_back(clickedEdge);
         // remove it from copyOfMovedEdges
-        setMovedEdges.erase(clickedEdge);
+        myMovedEdges.erase(clickedEdge);
         // if opposite edge is selected, add it in group B
         if (oppositeClickedEdge && oppositeClickedEdge->isAttributeCarrierSelected()) {
             groupOppositeEdges.push_back(clickedEdge->getOppositeEdge());
             // remove it from copyOfMovedEdges
-            setMovedEdges.erase(oppositeClickedEdge);
+            myMovedEdges.erase(oppositeClickedEdge);
         }
         // iterate over copyOfMovedEdges
-        while (setMovedEdges.size() > 0) {
+        while (myMovedEdges.size() > 0) {
             // get first and opposite edge
-            GNEEdge* edge = (*setMovedEdges.begin());
+            GNEEdge* edge = (*myMovedEdges.begin());
             GNEEdge* oppositeEdge = edge->getOppositeEdge();
             // add edge in group A
             groupNormalEdges.push_back(edge);
@@ -791,17 +837,21 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
                 // add opposite edge in group B
                 groupOppositeEdges.push_back(oppositeEdge);
                 // remove opposite edge from setMovedEdges
-                setMovedEdges.erase(oppositeEdge);
+                myMovedEdges.erase(oppositeEdge);
             }
             // pop back element
-            setMovedEdges.erase(edge);
+            myMovedEdges.erase(edge);
         }
         // move shapes of both groups
         for (const auto& edge : groupNormalEdges) {
+            // insert it again in myMovedEdges
+            myMovedEdges.insert(edge);
             // start geometry moving
             edge->startEdgeGeometryMoving(edgeShapeOffset, false);
         }
         for (const auto& edge : groupOppositeEdges) {
+            // insert it again in myMovedEdges
+            myMovedEdges.insert(edge);
             // start geometry moving using an opposite offset
             edge->startEdgeGeometryMoving(edgeShapeOffset, true);
         }
@@ -822,7 +872,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
         offsetMovement.setz(0);
     }
     // move junctions
-    for (const auto &junction : myMovedJunction) {
+    for (const auto &junction : myMovedJunctions) {
         junction->moveGeometry(offsetMovement);
     }
     // move edges
@@ -839,7 +889,7 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     // begin undo list
     myViewNet->getUndoList()->p_begin("position of selected elements");
     // commit positions of moved junctions
-    for (const auto& junction : myMovedJunction) {
+    for (const auto& junction : myMovedJunctions) {
         junction->commitGeometryMoving(myViewNet->getUndoList());
     }
     // commit shapes of entired moved edges
@@ -851,7 +901,7 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     // stop moving selection
     myMovingSelection = false;
     // clear containers
-    myMovedJunction.clear();
+    myMovedJunctions.clear();
     myMovedEdges.clear();
 }
 

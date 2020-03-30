@@ -124,10 +124,6 @@ bool
 GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we have clicked over an Attribute Carrier
     if (objectsUnderCursor.getAttributeCarrierFront()) {
-        // change the selected attribute carrier if mySelectEdges is enabled and clicked element is a getLaneFront() and shift key isn't pressed
-        if (!myViewNet->getKeyPressed().shiftKeyPressed() && myViewNet->getNetworkViewOptions().selectEdges() && (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-            objectsUnderCursor.swapLane2Edge();
-        }
         // if Control key is Pressed, select instead inspect element
         if (myViewNet->getKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked

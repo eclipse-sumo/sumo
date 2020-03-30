@@ -234,14 +234,17 @@ struct GNEViewNetHelper {
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
     private:
+
+        bool mySwapLane2edge;
+
         /// @brief vector with the clicked GUIGlObjects
-        std::vector<GUIGlObject*> myGUIGlObjects;
+        std::vector<GUIGlObject*> myGUIGlObjectLanes, myGUIGlObjectEdges;
 
         /// @brief vector with the clicked attribute carriers
-        std::vector<GNEAttributeCarrier*> myAttributeCarriers;
+        std::vector<GNEAttributeCarrier*> myAttributeCarrierLanes, myAttributeCarrierEdges;
 
         /// @brief vector with the clicked network elements
-        std::vector<GNENetworkElement*> myNetworkElements;
+        std::vector<GNENetworkElement*> myNetworkElementLanes, myNetworkElementEdges;
 
         /// @brief vector with the clicked additional elements
         std::vector<GNEAdditional*> myAdditionals;
@@ -817,10 +820,10 @@ struct GNEViewNetHelper {
         bool myMovingSelection;
 
         /// @brief container used for move junctions
-        std::vector<GNEJunction*> myMovedJunction;
+        std::vector<GNEJunction*> myMovedJunctions;
 
         /// @brief container used for move edges
-        std::vector<GNEEdge*> myMovedEdges;
+        std::set<GNEEdge*> myMovedEdges;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
