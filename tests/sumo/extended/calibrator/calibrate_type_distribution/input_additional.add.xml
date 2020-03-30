@@ -1,5 +1,4 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <route id="r1" edges="beg middle end rend"/>
 
     <vTypeDistribution id="dist2">
         <vType id="faster" maxSpeed="35" speedFactor="1.2" sigma="0"/>
@@ -7,7 +6,7 @@
     </vTypeDistribution>
 
     <calibrator id="c1" lane="middle_0" pos="0" output="detector.xml">
-        <flow begin="0"    end="3600" route="r1" type="dist2"/>
+        <flow begin="0"    end="3600" type="dist2"/>
     </calibrator>
 
     <edgeData id="expect_speed_10"  begin="0"       end="3600"  file="aggregated_25.xml"/>
