@@ -77,13 +77,13 @@ findIntermodalRoute (walk)
   Stage(type=2, edges=('o', '2o'), travelTime=4804.48416, cost=4804.48416, length=19979.67, depart=6.0, departPos=25.0, arrivalPos=25.0)
 
 findIntermodalRoute (bike)
-  Stage(type=3, vType=DEFAULT_BIKETYPE, line=bicycle, edges=('o', '2o'), travelTime=2724.579, cost=2724.579, length=25111.55, intended=bicycle, depart=6.0, departPos=0.0, arrivalPos=25.0)
+  Stage(type=3, vType=DEFAULT_BIKETYPE, line=bicycle, edges=('o', '2o'), travelTime=1824.579, cost=1824.579, length=25111.55, intended=bicycle, depart=6.0, departPos=0.0, arrivalPos=25.0)
 
 findIntermodalRoute (car)
-  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=1088.96043165, cost=1088.96043165, length=25111.55, intended=car, depart=6.0, departPos=0.0, arrivalPos=25.0)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=729.248201439, cost=729.248201439, length=25111.55, intended=car, depart=6.0, departPos=0.0, arrivalPos=25.0)
 
 findIntermodalRoute (bike,car,public)
-  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=1088.96043165, cost=1088.96043165, length=25111.55, intended=car, depart=6.0, departPos=0.0, arrivalPos=25.0)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=729.248201439, cost=729.248201439, length=25111.55, intended=car, depart=6.0, departPos=0.0, arrivalPos=25.0)
 
 step 0
 {114: (), 116: ()}
