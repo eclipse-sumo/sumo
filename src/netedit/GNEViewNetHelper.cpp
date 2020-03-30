@@ -507,15 +507,11 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     } else if (myViewNet->myObjectsUnderCursor.getPOIFront()) {
         // set POI moved object
         myPOIToMove = myViewNet->myObjectsUnderCursor.getPOIFront();
-        // Save original Position of POI in view
-        originalPositionInView = myPOIToMove->getPositionInView();
         // there is moved items, then return true
         return true;
     } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront()) {
         // set additionals moved object
         myAdditionalToMove = myViewNet->myObjectsUnderCursor.getAdditionalFront();
-        // save current position of additional
-        originalPositionInView = myAdditionalToMove->getPositionInView();
         // start additional geometry moving
         myAdditionalToMove->startGeometryMoving();
         // there is moved items, then return true
@@ -526,8 +522,6 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
         // set junction moved object
         myJunctionToMove = myViewNet->myObjectsUnderCursor.getJunctionFront();
-        // Save original Position of Element in view
-        originalPositionInView = myJunctionToMove->getPositionInView();
         // start junction geometry moving
         myJunctionToMove->startGeometryMoving();
         // there is moved items, then return true
@@ -550,8 +544,6 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
     if (myViewNet->myObjectsUnderCursor.getDemandElementFront()) {
         // set additionals moved object
         myDemandElementToMove = myViewNet->myObjectsUnderCursor.getDemandElementFront();
-        // save current position of demand element
-        originalPositionInView = myDemandElementToMove->getPositionInView();
         // start demand element geometry moving
         myDemandElementToMove->startGeometryMoving();
         // there is moved items, then return true
@@ -582,16 +574,16 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
         myPolyToMove->movePolyShape(offsetMovement);
     } else if (myPOIToMove) {
         // Move POI's geometry without commiting changes
-        myPOIToMove->moveGeometry(originalPositionInView, offsetMovement);
+        myPOIToMove->moveGeometry(offsetMovement);
     } else if (myJunctionToMove) {
         // Move Junction's geometry without commiting changes
         myJunctionToMove->moveGeometry(offsetMovement);
     } else if (myEdgeToMove) {
         // check if we're moving the start or end position, or a geometry point
         if (myMovingStartPos) {
-            myEdgeToMove->moveShapeStart(originalPositionInView, offsetMovement);
+            myEdgeToMove->moveShapeBegin(offsetMovement);
         } else if (myMovingEndPos) {
-            myEdgeToMove->moveShapeEnd(originalPositionInView, offsetMovement);
+            myEdgeToMove->moveShapeEnd(offsetMovement);
         } else {
             // move edge's geometry without commiting changes
             myEdgeToMove->moveEdgeShape(offsetMovement);
@@ -620,21 +612,21 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myPolyToMove->commitPolyShapeChange(myViewNet->getUndoList());
         myPolyToMove = nullptr;
     } else if (myPOIToMove) {
-        myPOIToMove->commitGeometryMoving(originalPositionInView, myViewNet->getUndoList());
+        myPOIToMove->commitGeometryMoving(myViewNet->getUndoList());
         myPOIToMove = nullptr;
     } else if (myJunctionToMove) {
         // check if in the moved position there is another Junction and it will be merged
-        if (!myViewNet->mergeJunctions(myJunctionToMove, originalPositionInView)) {
+        if (!myViewNet->mergeJunctions(myJunctionToMove)) {
             myJunctionToMove->commitGeometryMoving(myViewNet->getUndoList());
         }
         myJunctionToMove = nullptr;
     } else if (myEdgeToMove) {
         // commit change depending of what was moved
         if (myMovingStartPos) {
-            myEdgeToMove->commitShapeStartChange(originalPositionInView, myViewNet->getUndoList());
+            myEdgeToMove->commitShapeChangeBegin(myViewNet->getUndoList());
             myMovingStartPos = false;
         } else if (myMovingEndPos) {
-            myEdgeToMove->commitShapeEndChange(originalPositionInView, myViewNet->getUndoList());
+            myEdgeToMove->commitShapeChangeEnd( myViewNet->getUndoList());
             myMovingEndPos = false;
         } else {
             myEdgeToMove->commitEdgeShapeChange(myViewNet->getUndoList());
@@ -701,15 +693,15 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
         if (myEdgeToMove->clickedOverShapeStart(myViewNet->getPositionInformation())) {
             // set flag
             myViewNet->myMoveSingleElementValues.myMovingStartPos = true;
-            // start geometry moving
-            myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset, false);
+            // start begin geometry moving
+            myEdgeToMove->startShapeBegin();
             // edge values sucesfully calculated, then return true
             return true;
         } else if (myEdgeToMove->clickedOverShapeEnd(myViewNet->getPositionInformation())) {
             // set flag
             myViewNet->myMoveSingleElementValues.myMovingEndPos = true;
-            // start geometry moving
-            myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset, false);
+            // start end geometry moving
+            myEdgeToMove->startShapeEnd();
             // edge values sucesfully calculated, then return true
             return true;
         } else {

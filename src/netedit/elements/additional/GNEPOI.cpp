@@ -80,6 +80,7 @@ GNEPOI::generateChildID(SumoXMLTag childTag) {
 
 void
 GNEPOI::startShapeGeometryMoving(const double /*shapeOffset*/) {
+    myPositionBeforeMoving = *this;
 }
 
 
@@ -102,10 +103,10 @@ GNEPOI::writeShape(OutputDevice& device) {
 
 
 void
-GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
+GNEPOI::moveGeometry(const Position& offset) {
     if (!myBlockMovement) {
         // Calculate new position using old position
-        Position newPosition = oldPos;
+        Position newPosition = myPositionBeforeMoving;
         newPosition.add(offset);
         // filtern position using snap to active grid
         newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
@@ -122,21 +123,21 @@ GNEPOI::moveGeometry(const Position& oldPos, const Position& offset) {
 
 
 void
-GNEPOI::commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList) {
+GNEPOI::commitGeometryMoving(GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // restore original Position before moving (to avoid problems in GL Tree)
         Position myNewPosition(*this);
-        set(oldPos);
+        set(myPositionBeforeMoving);
         // commit new position allowing undo/redo
         if (getParentLanes().size() > 0) {
             // restore old position before commit new position
-            double originalPosOverLane = getParentLanes().at(0)->getLaneShape().nearest_offset_to_point2D(oldPos, false);
+            double originalPosOverLane = getParentLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myPositionBeforeMoving, false);
             undoList->p_begin("position of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPosOverLane), true, toString(originalPosOverLane)));
             undoList->p_end();
         } else {
             undoList->p_begin("position of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myNewPosition), true, toString(oldPos)));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myNewPosition), true, toString(myPositionBeforeMoving)));
             undoList->p_end();
         }
     }

@@ -180,10 +180,26 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) {
 }
 
 
+void 
+GNEEdge::startShapeBegin() {
+    myPositionBeforeMoving = myNBEdge->getGeometry().front();
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
+}
+
+
+void 
+GNEEdge::startShapeEnd() {
+    myPositionBeforeMoving = myNBEdge->getGeometry().back();
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
+}
+
+
 void
-GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
+GNEEdge::moveShapeBegin(const Position& offset) {
     // change shape startPosition using oldPosition and offset
-    Position shapeStartEdited = oldPos;
+    Position shapeStartEdited = myPositionBeforeMoving;
     shapeStartEdited.add(offset);
     // snap to active grid
     shapeStartEdited = myNet->getViewNet()->snapToActiveGrid(shapeStartEdited, offset.z() == 0);
@@ -197,9 +213,9 @@ GNEEdge::moveShapeStart(const Position& oldPos, const Position& offset) {
 
 
 void
-GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
+GNEEdge::moveShapeEnd(const Position& offset) {
     // change shape endPosition using oldPosition and offset
-    Position shapeEndEdited = oldPos;
+    Position shapeEndEdited = myPositionBeforeMoving;
     shapeEndEdited.add(offset);
     // snap to active grid
     shapeEndEdited = myNet->getViewNet()->snapToActiveGrid(shapeEndEdited, offset.z() == 0);
@@ -213,31 +229,31 @@ GNEEdge::moveShapeEnd(const Position& oldPos, const Position& offset) {
 
 
 void
-GNEEdge::commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList) {
+GNEEdge::commitShapeChangeBegin(GNEUndoList* undoList) {
     // first save current shape start position
     Position modifiedShapeStartPos = myNBEdge->getGeometry().front();
     // restore old shape start position
-    setShapeStartPos(oldPos);
+    setShapeStartPos(myPositionBeforeMoving);
     // end geometry moving
     endEdgeGeometryMoving();
     // set attribute using undolist
     undoList->p_begin("shape start of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myNet, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(myPositionBeforeMoving)));
     undoList->p_end();
 }
 
 
 void
-GNEEdge::commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList) {
+GNEEdge::commitShapeChangeEnd(GNEUndoList* undoList) {
     // first save current shape end position
     Position modifiedShapeEndPos = myNBEdge->getGeometry().back();
     // restore old shape end position
-    setShapeEndPos(oldPos);
+    setShapeEndPos(myPositionBeforeMoving);
     // end geometry moving
     endEdgeGeometryMoving();
     // set attribute using undolist
     undoList->p_begin("shape end of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myNet, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(oldPos)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(myPositionBeforeMoving)));
     undoList->p_end();
 }
 
@@ -395,7 +411,7 @@ GNEEdge::commitEdgeShapeChange(GNEUndoList* undoList) {
 
     updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    setGeometry(getShapeBeforeMoving(), true);
+    setGeometry(getShapeBeforeMoving(), false);
     // finish geometry moving
     endEdgeGeometryMoving();
     // commit new shape
@@ -1670,12 +1686,12 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 newShapeStart = parse<Position>(value);
             }
-            // start geometry moving (because a new shape affect all child edges)
-            startEdgeGeometryMoving(-1, false);
+            // Remove object from net
+            myNet->removeGLObjectFromGrid(this);
             // set shape start position
             setShapeStartPos(newShapeStart);
-            // end geometry moving
-            endEdgeGeometryMoving();
+            // add object from net
+            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case GNE_ATTR_SHAPE_END: {
@@ -1686,12 +1702,12 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 newShapeEnd = parse<Position>(value);
             }
-            // start geometry moving (because a new shape affect all child edges)
-            startEdgeGeometryMoving(-1, false);
+            // Remove object from net
+            myNet->removeGLObjectFromGrid(this);
             // set shape end position
             setShapeEndPos(newShapeEnd);
-            // end geometry moving
-            endEdgeGeometryMoving();
+            // add object from net
+            myNet->addGLObjectIntoGrid(this);
             break;
         }
         case GNE_ATTR_BIDIR:
@@ -2157,8 +2173,8 @@ void
 GNEEdge::setShapeStartPos(const Position& pos) {
     // remove start position and add it the new position
     PositionVector geom = myNBEdge->getGeometry();
-    geom.erase(geom.begin());
-    geom.push_front_noDoublePos(pos);
+    geom.pop_front();
+    geom.push_front(pos);
     // restore modified shape
     setGeometry(geom, false);
 }
@@ -2169,7 +2185,7 @@ GNEEdge::setShapeEndPos(const Position& pos) {
     // remove end position and add it the new position
     PositionVector geom = myNBEdge->getGeometry();
     geom.pop_back();
-    geom.push_back_noDoublePos(pos);
+    geom.push_back(pos);
     // restore modified shape
     setGeometry(geom, false);
 }

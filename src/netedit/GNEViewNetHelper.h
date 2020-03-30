@@ -744,9 +744,6 @@ struct GNEViewNetHelper {
         /// @brief finish moving single elements in Network AND Demand mode
         void finishMoveSingleElement();
 
-        /// @brief original position of geometry position (needed for commmit position changes)
-        Position originalPositionInView;
-
     private:
         /// calculate Poly movement values (Position, Index, etc.)
         bool calculatePolyValues();

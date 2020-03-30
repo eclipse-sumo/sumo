@@ -87,17 +87,23 @@ public:
     /// @brief return true if user clicked over ShapeEnd
     bool clickedOverShapeEnd(const Position& pos);
 
+    /// @brief start move shape begin
+    void startShapeBegin();
+
+    /// @brief start move shape begin
+    void startShapeEnd();
+
     /// @brief move position of shape start without commiting change
-    void moveShapeStart(const Position& oldPos, const Position& offset);
+    void moveShapeBegin(const Position& offset);
 
     /// @brief move position of shape end without commiting change
-    void moveShapeEnd(const Position& oldPos, const Position& offset);
+    void moveShapeEnd(const Position& offset);
 
     /// @brief commit position changing in shape start
-    void commitShapeStartChange(const Position& oldPos, GNEUndoList* undoList);
+    void commitShapeChangeBegin(GNEUndoList* undoList);
 
     /// @brief commit position changing in shape end
-    void commitShapeEndChange(const Position& oldPos, GNEUndoList* undoList);
+    void commitShapeChangeEnd(GNEUndoList* undoList);
     /// @}
 
     /// @name functions for edit geometry
@@ -323,11 +329,14 @@ protected:
     /// @brief pointer to GNEJunction destiny
     GNEJunction* myGNEJunctionDestiny;
 
-    /// @brief vectgor with the lanes of this edge
+    /// @brief vector with the lanes of this edge
     LaneVector myLanes;
 
     /// @brief vector with the connections of this edge
     ConnectionVector myGNEConnections;
+
+    /// @brief position used for move Lanes
+    Position myPositionBeforeMoving;
 
     /// @brief whether we are responsible for deleting myNBNode
     bool myAmResponsible;

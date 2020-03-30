@@ -103,13 +103,12 @@ public:
     * @param[in] newPosition new position of geometry
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
     */
-    void moveGeometry(const Position& oldPos, const Position& offset);
+    void moveGeometry(const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] oldPos the old position of additional
     * @param[in] undoList The undoList on which to register changes
     */
-    void commitGeometryMoving(const Position& oldPos, GNEUndoList* undoList);
+    void commitGeometryMoving(GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GNEShape
@@ -203,8 +202,8 @@ protected:
     Position myGEOPosition;
 
 private:
-    /// @brief position used for move POILanes
-    Position myOriginalViewPosition;
+    /// @brief position used for move Lanes
+    Position myPositionBeforeMoving;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
