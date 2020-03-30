@@ -439,10 +439,11 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(0, 0, 0, 0), 3, "green verge");
     scheme.addColor(RGBColor(150, 200, 200), 4, "waterway");
     scheme.addColor(RGBColor::BLACK, 5, "railway");
-    scheme.addColor(RGBColor(92, 92, 92), 6, "no passenger"); // paths, service roads etc
-    scheme.addColor(RGBColor::RED, 7, "closed"); // road closing
-    scheme.addColor(RGBColor::GREEN, 8, "connector"); // macro-connector
-    scheme.addColor(RGBColor::ORANGE, 9, "forbidden"); // forbidden road
+    scheme.addColor(RGBColor(64, 0, 64), 6, "rails on road");
+    scheme.addColor(RGBColor(92, 92, 92), 7, "no passenger"); // paths, service roads etc
+    scheme.addColor(RGBColor::RED, 8, "closed"); // road closing
+    scheme.addColor(RGBColor::GREEN, 9, "connector"); // macro-connector
+    scheme.addColor(RGBColor::ORANGE, 10, "forbidden"); // forbidden road
     laneColorer.addScheme(scheme);
     scheme = GUIColorScheme(SCHEME_NAME_SELECTION, RGBColor(128, 128, 128, 255), "unselected", true, 0, COL_SCHEME_MISC);
     scheme.addColor(RGBColor(0, 80, 180, 255), 1, "selected");

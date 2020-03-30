@@ -1066,22 +1066,26 @@ GUILane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
                     return 2;
                 case 0:
                     // forbidden road or green verge
-                    return myEdge->getPermissions() == 0 ? 9 : 3;
+                    return myEdge->getPermissions() == 0 ? 10 : 3;
                 case SVC_SHIP:
                     return 4;
                 case SVC_AUTHORITY:
-                    return 7;
+                    return 8;
                 default:
                     break;
             }
             if (myEdge->isTazConnector()) {
-                return 8;
+                return 9;
             } else if (isRailway(myPermissions)) {
                 return 5;
             } else if ((myPermissions & SVC_PASSENGER) != 0) {
-                return 0;
+                if ((myPermissions & SVC_RAIL_CLASSES) != 0 && (myPermissions & SVC_SHIP) == 0) {
+                    return 6;
+                } else {
+                    return 0;
+                }
             } else {
-                return 6;
+                return 7;
             }
         case 1:
             return isLaneOrEdgeSelected();
