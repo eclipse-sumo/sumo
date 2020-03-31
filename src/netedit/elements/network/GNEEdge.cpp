@@ -258,6 +258,31 @@ GNEEdge::commitShapeChangeEnd(GNEUndoList* undoList) {
 }
 
 
+int
+GNEEdge::getEdgeVertexIndex(Position pos, const bool snapToGrid) const {
+    // check if position has to be snapped to grid
+    if (snapToGrid) {
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
+    }
+    const double offset = myNBEdge->getGeometry().nearest_offset_to_point2D(pos, true);
+    if (offset == GeomHelper::INVALID_OFFSET) {
+        return -1;
+    }
+    Position newPos = myNBEdge->getGeometry().positionAtOffset2D(offset);
+    // first check if vertex already exists in the inner geometry
+    for (int i = 0; i < (int)myNBEdge->getGeometry().size(); i++) {
+        if (myNBEdge->getGeometry()[i].distanceTo2D(newPos) < SNAP_RADIUS) {
+            // index refers to inner geometry
+            if (i == 0 || i == (int)(myNBEdge->getGeometry().size() - 1)) {
+                return -1;
+            }
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 void
 GNEEdge::startEdgeGeometryMoving(const double shapeOffset, const bool invertOffset) {
     // save current centering boundary
@@ -288,65 +313,6 @@ GNEEdge::startEdgeGeometryMoving(const double shapeOffset, const bool invertOffs
     for (const auto& demandElement : getParentDemandElements()) {
         demandElement->startGeometryMoving();
     }
-}
-
-
-void
-GNEEdge::endEdgeGeometryMoving() {
-    // check that endGeometryMoving was called only once
-    if (myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myNet->removeGLObjectFromGrid(this);
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-        // Restore centering boundary of lanes (and their children)
-        for (const auto& lane : myLanes) {
-            lane->endGeometryMoving();
-        }
-        // Restore centering boundary of additionals children vinculated to this edge
-        for (const auto& additional : getChildAdditionals()) {
-            additional->endGeometryMoving();
-        }
-        // Restore centering boundary of parent additionals that have this edge as parent
-        for (const auto& additional : getParentAdditionals()) {
-            additional->endGeometryMoving();
-        }
-        // Restore centering boundary of demand elements children vinculated to this edge
-        for (const auto& demandElement : getChildDemandElements()) {
-            demandElement->endGeometryMoving();
-        }
-        // Restore centering boundary of demand elements parents that have this edge as parent
-        for (const auto& demandElement : getParentDemandElements()) {
-            demandElement->endGeometryMoving();
-        }
-        // add object into grid again (using the new centering boundary)
-        myNet->addGLObjectIntoGrid(this);
-    }
-}
-
-
-int
-GNEEdge::getEdgeVertexIndex(Position pos, const bool snapToGrid) const {
-    // check if position has to be snapped to grid
-    if (snapToGrid) {
-        pos = myNet->getViewNet()->snapToActiveGrid(pos);
-    }
-    const double offset = myNBEdge->getGeometry().nearest_offset_to_point2D(pos, true);
-    if (offset == GeomHelper::INVALID_OFFSET) {
-        return -1;
-    }
-    Position newPos = myNBEdge->getGeometry().positionAtOffset2D(offset);
-    // first check if vertex already exists in the inner geometry
-    for (int i = 0; i < (int)myNBEdge->getGeometry().size(); i++) {
-        if (myNBEdge->getGeometry()[i].distanceTo2D(newPos) < SNAP_RADIUS) {
-            // index refers to inner geometry
-            if (i == 0 || i == (int)(myNBEdge->getGeometry().size() - 1)) {
-                return -1;
-            }
-            return i;
-        }
-    }
-    return -1;
 }
 
 
@@ -387,6 +353,40 @@ GNEEdge::moveEdgeShape(const Position& offset) {
     newShape.pop_back();
     // set new inner shape
     setGeometry(newShape, true);
+}
+
+
+void
+GNEEdge::endEdgeGeometryMoving() {
+    // check that endGeometryMoving was called only once
+    if (myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net
+        myNet->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // Restore centering boundary of lanes (and their children)
+        for (const auto& lane : myLanes) {
+            lane->endGeometryMoving();
+        }
+        // Restore centering boundary of additionals children vinculated to this edge
+        for (const auto& additional : getChildAdditionals()) {
+            additional->endGeometryMoving();
+        }
+        // Restore centering boundary of parent additionals that have this edge as parent
+        for (const auto& additional : getParentAdditionals()) {
+            additional->endGeometryMoving();
+        }
+        // Restore centering boundary of demand elements children vinculated to this edge
+        for (const auto& demandElement : getChildDemandElements()) {
+            demandElement->endGeometryMoving();
+        }
+        // Restore centering boundary of demand elements parents that have this edge as parent
+        for (const auto& demandElement : getParentDemandElements()) {
+            demandElement->endGeometryMoving();
+        }
+        // add object into grid again (using the new centering boundary)
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 
@@ -923,6 +923,7 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
     }
 }
 
+
 std::string
 GNEEdge::getAttributeForSelection(SumoXMLAttr key) const {
     std::string result = getAttribute(key);
@@ -931,6 +932,7 @@ GNEEdge::getAttributeForSelection(SumoXMLAttr key) const {
     }
     return result;
 }
+
 
 void
 GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {

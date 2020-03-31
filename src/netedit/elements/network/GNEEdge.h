@@ -79,7 +79,7 @@ public:
     Position getPositionInView() const;
     /// @}
 
-    /// @name functions for edit start and end positions of shapes
+    /// @name functions for edit start and end shape positions
     /// @{
     /// @brief return true if user clicked over ShapeStart
     bool clickedOverShapeStart(const Position& pos);
@@ -108,29 +108,31 @@ public:
 
     /// @name functions for edit geometry
     /// @{
+    /**@brief return index of geometry point placed in given position, or -1 if no exist
+     * @param pos position of new/existent vertex
+     * @param snapToGrid enable or disable snapToActiveGrid
+     * @return index of position vector
+     */
+    int getEdgeVertexIndex(Position pos, const bool snapToGrid) const;
+
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
     void startEdgeGeometryMoving(const double shapeOffset, const bool invertOffset);
 
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void endEdgeGeometryMoving();
-    /// @}
-
-    /**@brief return index of geometry point placed in given position, or -1 if no exist
-    * @param pos position of new/existent vertex
-    * @param snapToGrid enable or disable snapToActiveGrid
-    * @return index of position vector
-    */
-    int getEdgeVertexIndex(Position pos, const bool snapToGrid) const;
-
     /**@brief move shape
-    * @param[in] offset the offset of movement
-    */
+     * @param[in] offset the offset of movement
+     * @note always call before startEdgeGeometryMoving() and after endEdgeGeometryMoving()
+     */
     void moveEdgeShape(const Position& offset);
 
+    /// @brief end movement
+    void endEdgeGeometryMoving();
+
     /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
-    * @param[in] undoList The undoList on which to register changes
-    */
+     * @param[in] undoList The undoList on which to register changes
+     */
     void commitEdgeShapeChange(GNEUndoList* undoList);
+
+    /// @}
 
     /// @brief delete the geometry point closest to the given pos
     void deleteEdgeGeometryPoint(const Position& pos, bool allowUndo = true);
