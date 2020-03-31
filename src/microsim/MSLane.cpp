@@ -820,10 +820,14 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                     speed = nspeed;
                     dist = cfModel.brakeGap(speed) + aVehicle->getVehicleType().getMinGap();
                 } else {
-                    // we may not drive with the given velocity - we would be too fast on the next lane
-                    WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
-                    MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
-                    return false;
+                    if (!MSGlobals::gCheckRoutes) {
+                        WRITE_WARNING("Vehicle '" + aVehicle->getID() + "' is inserted too fast and will violate the speed limit on a lane '" + nextLane->getID() + "'.");
+                    } else {
+                        // we may not drive with the given velocity - we would be too fast on the next lane
+                        WRITE_ERROR("Vehicle '" + aVehicle->getID() + "' will not be able to depart using the given velocity (slow lane ahead)!");
+                        MSNet::getInstance()->getInsertionControl().descheduleDeparture(aVehicle);
+                        return false;
+                    }
                 }
             }
             // check traffic on next junction
