@@ -79,6 +79,8 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     //            new FunctionBinding<GUIMEVehicle, double>(this, &GUIMEVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     ret->mkItem("depart delay [s]", false, time2string(getDepartDelay()));
+    ret->mkItem("odometer [m]", true,
+            new FunctionBinding<GUIMEVehicle, double>(this, &MSBaseVehicle::getOdometer));
     if (getParameter().repetitionNumber < std::numeric_limits<int>::max()) {
         ret->mkItem("remaining [#]", false, (int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
