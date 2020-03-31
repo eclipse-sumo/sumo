@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 11 22:23:45 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+<!-- generated on Wed Apr  1 00:21:28 2020 by Eclipse SUMO Version v1_5_0+1040-c9fdf9d9d9
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -204,124 +204,124 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="light_rail_S46:0.0" x="100.00" y="-308.74" angle="179.84" type="light_rail" speed="23.00" pos="8.74" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="55.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-330.65" angle="180.00" type="light_rail" speed="21.91" pos="30.65" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-330.63" angle="180.00" type="light_rail" speed="21.89" pos="30.63" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="56.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-349.54" angle="180.00" type="light_rail" speed="18.89" pos="49.54" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-349.53" angle="180.00" type="light_rail" speed="18.89" pos="49.53" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="57.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-365.45" angle="180.00" type="light_rail" speed="15.91" pos="65.45" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-365.42" angle="180.00" type="light_rail" speed="15.89" pos="65.42" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="58.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-378.34" angle="180.00" type="light_rail" speed="12.89" pos="78.34" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-378.32" angle="180.00" type="light_rail" speed="12.89" pos="78.32" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="59.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-388.26" angle="180.00" type="light_rail" speed="9.91" pos="88.26" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-388.21" angle="180.00" type="light_rail" speed="9.89" pos="88.21" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="60.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-395.17" angle="180.00" type="light_rail" speed="6.91" pos="95.17" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-395.11" angle="180.00" type="light_rail" speed="6.89" pos="95.11" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="61.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-399.03" angle="180.00" type="light_rail" speed="3.86" pos="99.03" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-399.00" angle="180.00" type="light_rail" speed="3.89" pos="99.00" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="62.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-400.00" angle="180.00" type="light_rail" speed="0.97" pos="100.00" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-399.90" angle="180.00" type="light_rail" speed="0.89" pos="99.90" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="63.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-400.00" angle="180.00" type="light_rail" speed="0.00" pos="100.00" lane="branch_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-399.90" angle="180.00" type="light_rail" speed="0.00" pos="99.90" lane="branch_0" slope="0.00"/>
     </timestep>
     <timestep time="64.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-290.60" angle="0.00" type="light_rail" speed="0.00" pos="9.40" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-290.50" angle="0.00" type="light_rail" speed="0.00" pos="9.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="65.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-290.50" angle="0.00" type="light_rail" speed="0.10" pos="9.50" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-289.50" angle="0.00" type="light_rail" speed="1.00" pos="10.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="66.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-289.40" angle="0.00" type="light_rail" speed="1.10" pos="10.60" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-287.50" angle="0.00" type="light_rail" speed="2.00" pos="12.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="67.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-287.30" angle="0.00" type="light_rail" speed="2.10" pos="12.70" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-284.50" angle="0.00" type="light_rail" speed="3.00" pos="15.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="68.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-284.20" angle="0.00" type="light_rail" speed="3.10" pos="15.80" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-280.50" angle="0.00" type="light_rail" speed="4.00" pos="19.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="69.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-280.10" angle="0.00" type="light_rail" speed="4.10" pos="19.90" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-275.50" angle="0.00" type="light_rail" speed="5.00" pos="24.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="70.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-275.00" angle="0.00" type="light_rail" speed="5.10" pos="25.00" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-269.50" angle="0.00" type="light_rail" speed="6.00" pos="30.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="71.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-268.90" angle="0.00" type="light_rail" speed="6.10" pos="31.10" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-262.50" angle="0.00" type="light_rail" speed="7.00" pos="37.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="72.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-261.80" angle="0.00" type="light_rail" speed="7.10" pos="38.20" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-254.50" angle="0.00" type="light_rail" speed="8.00" pos="45.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="73.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-253.70" angle="0.00" type="light_rail" speed="8.10" pos="46.30" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-245.50" angle="0.00" type="light_rail" speed="9.00" pos="54.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="74.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-244.60" angle="0.00" type="light_rail" speed="9.10" pos="55.40" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-235.50" angle="0.00" type="light_rail" speed="10.00" pos="64.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="75.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-234.50" angle="0.00" type="light_rail" speed="10.10" pos="65.50" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-224.50" angle="0.00" type="light_rail" speed="11.00" pos="75.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="76.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-223.40" angle="0.00" type="light_rail" speed="11.10" pos="76.60" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.00" y="-212.50" angle="0.00" type="light_rail" speed="12.00" pos="87.50" lane="-h_0" slope="0.00"/>
     </timestep>
     <timestep time="77.00">
-        <vehicle id="light_rail_S46:0.0" x="100.00" y="-211.30" angle="0.00" type="light_rail" speed="12.10" pos="88.70" lane="-h_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="100.26" y="-199.52" angle="0.14" type="light_rail" speed="13.00" pos="2.38" lane=":10_0_0" slope="0.00"/>
     </timestep>
     <timestep time="78.00">
-        <vehicle id="light_rail_S46:0.0" x="100.73" y="-198.32" angle="0.38" type="light_rail" speed="13.10" pos="3.68" lane=":10_0_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="106.50" y="-187.01" angle="3.44" type="light_rail" speed="14.00" pos="9.83" lane="g_0" slope="0.00"/>
     </timestep>
     <timestep time="79.00">
-        <vehicle id="light_rail_S46:0.0" x="107.12" y="-185.75" angle="3.78" type="light_rail" speed="14.10" pos="11.23" lane="g_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="113.21" y="-173.59" angle="7.07" type="light_rail" speed="15.00" pos="24.83" lane="g_0" slope="0.00"/>
     </timestep>
     <timestep time="80.00">
-        <vehicle id="light_rail_S46:0.0" x="113.88" y="-172.25" angle="7.44" type="light_rail" speed="15.10" pos="26.33" lane="g_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="120.36" y="-159.28" angle="11.00" type="light_rail" speed="16.00" pos="40.83" lane="g_0" slope="0.00"/>
     </timestep>
     <timestep time="81.00">
-        <vehicle id="light_rail_S46:0.0" x="121.08" y="-157.85" angle="11.40" type="light_rail" speed="16.10" pos="42.43" lane="g_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="129.69" y="-145.31" angle="16.28" type="light_rail" speed="17.00" pos="57.83" lane="g_0" slope="0.00"/>
     </timestep>
     <timestep time="82.00">
-        <vehicle id="light_rail_S46:0.0" x="130.89" y="-144.11" angle="16.98" type="light_rail" speed="17.10" pos="59.53" lane="g_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="142.42" y="-132.58" angle="23.75" type="light_rail" speed="18.00" pos="75.83" lane="g_0" slope="0.00"/>
     </timestep>
     <timestep time="83.00">
-        <vehicle id="light_rail_S46:0.0" x="143.69" y="-131.31" angle="24.50" type="light_rail" speed="18.10" pos="77.63" lane="g_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="157.40" y="-121.30" angle="32.91" type="light_rail" speed="19.00" pos="94.83" lane="g_0" slope="0.00"/>
     </timestep>
     <timestep time="84.00">
-        <vehicle id="light_rail_S46:0.0" x="159.10" y="-120.45" angle="33.99" type="light_rail" speed="19.10" pos="96.73" lane="g_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="175.29" y="-112.35" angle="41.99" type="light_rail" speed="20.00" pos="114.83" lane="g_0" slope="0.00"/>
     </timestep>
     <timestep time="85.00">
-        <vehicle id="light_rail_S46:0.0" x="177.08" y="-111.46" angle="42.67" type="light_rail" speed="20.10" pos="116.83" lane="g_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="194.03" y="-102.87" angle="49.12" type="light_rail" speed="21.00" pos="1.65" lane=":2_0_0" slope="0.00"/>
     </timestep>
     <timestep time="86.00">
-        <vehicle id="light_rail_S46:0.0" x="195.83" y="-101.79" angle="49.75" type="light_rail" speed="21.10" pos="3.75" lane=":2_0_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="214.91" y="-100.00" angle="59.91" type="light_rail" speed="21.57" pos="13.03" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="87.00">
-        <vehicle id="light_rail_S46:0.0" x="216.75" y="-100.00" angle="60.96" type="light_rail" speed="21.30" pos="14.87" lane="end_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="233.48" y="-100.00" angle="68.13" type="light_rail" speed="18.57" pos="31.60" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="88.00">
-        <vehicle id="light_rail_S46:0.0" x="235.05" y="-100.00" angle="68.79" type="light_rail" speed="18.30" pos="33.17" lane="end_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="249.04" y="-100.00" angle="74.58" type="light_rail" speed="15.57" pos="47.16" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="89.00">
-        <vehicle id="light_rail_S46:0.0" x="250.36" y="-100.00" angle="75.12" type="light_rail" speed="15.30" pos="48.48" lane="end_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="261.61" y="-100.00" angle="78.42" type="light_rail" speed="12.57" pos="59.73" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="90.00">
-        <vehicle id="light_rail_S46:0.0" x="262.66" y="-100.00" angle="78.68" type="light_rail" speed="12.30" pos="60.78" lane="end_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="271.18" y="-100.00" angle="80.77" type="light_rail" speed="9.57" pos="69.30" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="91.00">
-        <vehicle id="light_rail_S46:0.0" x="271.97" y="-100.00" angle="80.97" type="light_rail" speed="9.30" pos="70.09" lane="end_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="277.75" y="-100.00" angle="82.39" type="light_rail" speed="6.57" pos="75.87" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="92.00">
-        <vehicle id="light_rail_S46:0.0" x="278.27" y="-100.00" angle="82.51" type="light_rail" speed="6.30" pos="76.39" lane="end_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="281.31" y="-100.00" angle="83.26" type="light_rail" speed="3.57" pos="79.43" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="93.00">
-        <vehicle id="light_rail_S46:0.0" x="281.58" y="-100.00" angle="83.32" type="light_rail" speed="3.30" pos="79.70" lane="end_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="281.88" y="-100.00" angle="83.40" type="light_rail" speed="0.57" pos="80.00" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="94.00">
-        <vehicle id="light_rail_S46:0.0" x="281.88" y="-100.00" angle="83.40" type="light_rail" speed="0.30" pos="80.00" lane="end_0" slope="0.00"/>
+        <vehicle id="light_rail_S46:0.0" x="281.88" y="-100.00" angle="83.40" type="light_rail" speed="0.00" pos="80.00" lane="end_0" slope="0.00"/>
     </timestep>
     <timestep time="95.00">
         <vehicle id="light_rail_S46:0.0" x="281.88" y="-100.00" angle="83.40" type="light_rail" speed="0.00" pos="80.00" lane="end_0" slope="0.00"/>
