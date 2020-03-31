@@ -53,6 +53,10 @@ reverse_no_stop
 # Input taken from reverse_at_stop
 reverse_no_link
 
+# train serving a public transport line must reverse direction at a branch stop
+# The network uses internal links but the simulation uses option --no-internal-links
+reverse_no_internal_links
+
 # trains passing each other at two loops
 two_passing_loops
 
