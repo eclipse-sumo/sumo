@@ -231,6 +231,8 @@ void
 MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
         const double numLanes, const double defaultTravelTime, const int numVehicles) const {
 
+    const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
+                                1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
 #ifdef DEBUG_OCCUPANCY2
     // tests #3264
     double occupancy = occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
@@ -241,12 +243,12 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
     }
     // refs #3265
     std::cout << SIMTIME << "ID: " << getDescription() << " minVehicleLength=" << minimalVehicleLength
-              << "\ndensity=" << MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1. / MAX2(minimalVehicleLength, NUMERICAL_EPS)) << std::endl;
+              << "\ndensity=" << density << "\n";
 #endif
 
     if (myParent == nullptr) {
         if (sampleSeconds > 0) {
-            dev.writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
+            dev.writeAttr("density", density)
             .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
@@ -275,7 +277,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
                 dev.writeAttr("traveltime", defaultTravelTime);
             }
             dev.writeAttr("overlapTraveltime", overlapTraveltime)
-            .writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
+            .writeAttr("density", density)
             .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
             .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
