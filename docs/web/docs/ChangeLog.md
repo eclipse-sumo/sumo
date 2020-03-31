@@ -8,8 +8,9 @@ permalink: /ChangeLog/
 ### Bugfixes
 
 - Simulation
+  - Fixed negative depart delay. Vehicles with a sub-step-length depart time now depart in the subsequent step. Issue #964
   - Fixed sublane model bug that reduced flow on intersections and caused emergency braking. Issue #6649
-  - Fixed sublane model bug that was causing cyclical switching between keep-right and sublane-alignment choices. Issue #6084
+  - Fixed sublane model bug that was causing cyclical switching between keep-right and sublane-alignment choices. Issue #6084  
   - Fixed sublane model bug that was causing invalid lane alignment in multimodal networks. Issue #6691
   - Fixed crash when depart-triggered vehicles were discarded. Issue #6690    
   - Removed invalid warning for public transport users. Issue #6698
@@ -47,6 +48,7 @@ permalink: /ChangeLog/
 - NETEDIT
   - Fixed empty route id when creating route from non-consecutive edges with custom id. Issue #6722
   - Fixed invalid displayed connection attribute. Issue #6760
+  - Fixed crash when moving a selection of junctions and edges. Issue #4918
 - DUAROUTER
   - Attribute `group` of `<ride>` and `<personTrip>` is no longer lost. Issue #6555
   - Train routing now considers space requirement for train reversal. Issue #6697
@@ -79,6 +81,8 @@ permalink: /ChangeLog/
   - Automatic train rerouting by rail signal logic can now be disabled by setting option **--device.rerouting.railsignal false** as well as by vehicle and vType parameters (key="device.rerouting.railsignal"). Issue #6781
   - Trains can now be joined in reverse order (rear part id is kept). Issue #6803
   - Element `<busStop>` now supports attribute 'parkingLength'. This can be used define the available space for stopping vehicles with `parking="true"` independent of the length of the busStop along the lane. Issue #3936
+  - edgeData output now includes the new attribute 'laneDensity' which reports the density in vehs per km per lane. Issue #6840
+  - edgeData and laneData definitions now support the new attribute 'writeAttributes' which can be used to reduce the list of output attributes to the given list of attribute names. Issue #6847
       
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
@@ -89,12 +93,16 @@ permalink: /ChangeLog/
   - Traffic lights of type 'delay_based' can now dynamically toggle detector visualization.
   - Train reversals are now indicated when ''Show Route'' is active. Issue #6744
   - Vehicles can now be colored by 'by stop delay'. This computes the estimated departure delay at the next `<stop>` with an 'until' attribute. Issue #6821
+  - Travelled distance (odometer) is now listed in the vehicle parameter dialog.
+  - Junction is now listed in the junction parameter dialog and can optionally by drawn in the view. Issue #6635
+  - Lanes that explicitly allow rail and passenger traffic are now highlighted with a distinct color in the default color scheme. Issue #6844
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
   - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
   - Connections now support attribute ''length'' to customize the length of internal lanes. Issue #6733
   - Added option **--default.connection-length** to overwrite the length of internal lanes with a specific value. Issue #6733
   - Added option **--railway.topology.direction-priority** to assign edge priority values based on the [preferred track usage direction](Simulation/Railways.md#routing_on_bidirectional_tracks) (determined heuristically from uni-directional track).
+  - Added node attribute 'name' to hold an optional string label. Issue #6635
 - DUAROUTER
   - When loading weights from edgeData files, arbitrary attributes can now be used with option **--weight-attribute**. Issue #6817
   - Added option **--weights.priority-factor FLOAT** to factor the priority of edges into the routing decision with a configurable weight (edges with higher priority are preferred increasingly when setting this to a higher value). Issue #6812
