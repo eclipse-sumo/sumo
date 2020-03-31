@@ -44,8 +44,7 @@ class GNENet : public GUIGlObject {
     friend class GNEChange_Edge;
     friend class GNEChange_Lane;
     friend class GNEChange_Connection;
-    friend class GNEChange_CalibratorItem;
-    friend class GNEChange_DataSet;
+    //friend class GNEChange_CalibratorItem;
 
 public:
     /**@brief Constructor
@@ -547,11 +546,6 @@ public:
      */
     int getNumberOfDemandElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
 
-    /**@brief update demand element begin in container
-    * @note this function is automatically called when user changes the begin/departure of an demand element
-    */
-    void updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement);
-
     /// @brief inform that demand elements has to be saved
     void requireSaveDemandElements(bool value);
 
@@ -728,24 +722,6 @@ protected:
 
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled;
-
-    /// @name Insertion and erasing of GNEDataSets items
-    /// @{
-
-    /// @brief return true if data set exist (use pointer instead ID)
-    bool dataSetExist(GNEDataSet* dataSet) const;
-
-    /**@brief Insert a data set element int GNENet container.
-     * @throw processError if route was already inserted
-     */
-    void insertDataSet(GNEDataSet* dataSet);
-
-    /**@brief delete data set element of GNENet container
-     * @throw processError if data set wasn't previously inserted
-     */
-    bool deleteDataSet(GNEDataSet* dataSet);
-
-    /// @}
 
 private:
     /// @brief Init Junctions and edges

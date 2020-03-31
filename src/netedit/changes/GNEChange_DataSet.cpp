@@ -49,8 +49,8 @@ GNEChange_DataSet::~GNEChange_DataSet() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
         // make sure that element isn't in net before removing
-        if (myNet->dataSetExist(myDataSet)) {
-            myNet->deleteDataSet(myDataSet);
+        if (myNet->getAttributeCarriers()->dataSetExist(myDataSet)) {
+            myNet->getAttributeCarriers()->deleteDataSet(myDataSet, false);
         }
         // delete data set
         delete myDataSet;
@@ -64,12 +64,12 @@ GNEChange_DataSet::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
-        myNet->deleteDataSet(myDataSet);
+        myNet->getAttributeCarriers()->deleteDataSet(myDataSet, false);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // insert data set into net
-        myNet->insertDataSet(myDataSet);
+        myNet->getAttributeCarriers()->insertDataSet(myDataSet);
     }
     // update toolbar
     myNet->getViewNet()->getIntervalBar().updateIntervalBar();
@@ -84,12 +84,12 @@ GNEChange_DataSet::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // insert data set into net
-        myNet->insertDataSet(myDataSet);
+        myNet->getAttributeCarriers()->insertDataSet(myDataSet);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
-        myNet->deleteDataSet(myDataSet);
+        myNet->getAttributeCarriers()->deleteDataSet(myDataSet, false);
     }
     // update toolbar
     myNet->getViewNet()->getIntervalBar().updateIntervalBar();

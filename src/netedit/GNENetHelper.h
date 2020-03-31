@@ -74,8 +74,9 @@ struct GNENetHelper {
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
         friend class GNEChange_Additional;
-        friend class GNEChange_DemandElement;
         friend class GNEChange_Shape;
+        friend class GNEChange_DemandElement;
+        friend class GNEChange_DataSet;
 
     public:
         /// @brief constructor
@@ -107,7 +108,6 @@ struct GNENetHelper {
 
         /// @name inherited from ShapeHandler
         /// @{
-
         /**@brief Builds a polygon using the given values and adds it to the container
         * @param[in] id The name of the polygon
         * @param[in] type The (abstract) type of the polygon
@@ -146,31 +146,52 @@ struct GNENetHelper {
         bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
             const std::string& lane, double posOverLane, double posLat, double layer, double angle,
             const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
+        
         /// @}
 
+        /// @name function for shapes
+        /// @{
         /// @brief get shapes
         const std::map<SumoXMLTag, std::map<std::string, GNEShape*> >& getShapes() const;
 
         /// @brief clear shapes
         void clearShapes();
 
+        /// @}
+
+        /// @name function for demand elements
+        /// @{
         /// @brief get demand elements
         const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >& getDemandElements() const;
+
+        /// @brief get vehicle departures
+        const std::map<std::string, GNEDemandElement*>& getVehicleDepartures() const;
 
         /// @brief clear demand elements
         void clearDemandElements();
 
-        /// @brief map with the ID and pointer to data sets of net
-        std::map<std::string, GNEDataSet*> dataSets;
+        /**@brief update demand element begin in container
+         * @note this function is automatically called when user changes the begin/departure of an demand element
+         */
+        void updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement);
 
-        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
-        std::map<std::string, GNEDemandElement*> vehicleDepartures;
+        /// @}
+
+        /// @name function for demand elements
+        /// @{
+        /// @brief get demand elements
+        const std::map<std::string, GNEDataSet*>& getDataSets() const;
+
+        /// @brief clear demand elements
+        void clearDataSets();
+
+        /// @}
 
     protected:
         /// @name Insertion and erasing of GNEAdditionals items
         /// @{
 
-        /// @brief return true if additional exist (use pointer instead ID)
+        /// @brief return true if given additional exist
         bool additionalExist(GNEAdditional* additional) const;
 
         /**@brief Insert a additional element int GNENet container.
@@ -188,7 +209,7 @@ struct GNENetHelper {
         /// @name Insertion and erasing of GNEShapes items
         /// @{
 
-        /// @brief return true if shape exist (use pointer instead ID)
+        /// @brief return true if given shape exist
         bool shapeExist(GNEShape* shape) const;
 
         /**@brief Insert a shape element int GNENet container.
@@ -206,7 +227,7 @@ struct GNENetHelper {
         /// @name Insertion and erasing of GNEDemandElements items
         /// @{
 
-        /// @brief return true if demand element exist (use pointer instead ID)
+        /// @brief return true if given demand element exist
         bool demandElementExist(GNEDemandElement* demandElement) const;
 
         /**@brief Insert a demand element element int GNENet container.
@@ -218,6 +239,24 @@ struct GNENetHelper {
          * @throw processError if demand element wasn't previously inserted
          */
         bool deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting);
+
+        /// @}
+
+        /// @name Insertion and erasing of GNEDataSets items
+        /// @{
+
+        /// @brief return true if given demand element exist
+        bool dataSetExist(GNEDataSet* dataSet) const;
+
+        /**@brief Insert a demand element element int GNENet container.
+         * @throw processError if route was already inserted
+         */
+        void insertDataSet(GNEDataSet* dataSet);
+
+        /**@brief delete demand element element of GNENet container
+         * @throw processError if demand element wasn't previously inserted
+         */
+        bool deleteDataSet(GNEDataSet* dataSet, bool updateViewAfterDeleting);
 
         /// @}
 
@@ -248,6 +287,12 @@ struct GNENetHelper {
 
         /// @brief map with the ID and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > myDemandElements;
+
+        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
+        std::map<std::string, GNEDemandElement*> myVehicleDepartures;
+
+        /// @brief map with the ID and pointer to data sets of net
+        std::map<std::string, GNEDataSet*> myDataSets;
 
         /// @brief pointer to net
         GNENet* myNet;

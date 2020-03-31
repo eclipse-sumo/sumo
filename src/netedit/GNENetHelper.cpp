@@ -171,7 +171,7 @@ GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDa
     // declare generic data vector
     std::vector<GNEGenericData*> genericDatas;
     // iterate over all data sets
-    for (const auto& dataSet : dataSets) {
+    for (const auto& dataSet : myDataSets) {
         for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
             // check interval
             if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
@@ -295,12 +295,45 @@ GNENetHelper::AttributeCarriers::getDemandElements() const {
 }
 
 
+const std::map<std::string, GNEDemandElement*>&
+GNENetHelper::AttributeCarriers::getVehicleDepartures() const {
+    return myVehicleDepartures;
+}
+
+
 void 
 GNENetHelper::AttributeCarriers::clearDemandElements() {
     // iterate over myDemandElements and clear all demand elemnts
     for (auto& demandElements : myDemandElements) {
         demandElements.second.clear();
     }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement) {
+    if (myVehicleDepartures.count(oldBegin + "_" + demandElement->getID()) == 0) {
+        throw ProcessError(demandElement->getTagStr() + " with old begin='" + oldBegin + "' doesn't exist");
+    } else {
+        // remove an insert demand element again into vehicleDepartures container
+        if (demandElement->getTagProperty().isVehicle()) {
+            myVehicleDepartures.erase(oldBegin + "_" + demandElement->getID());
+            myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+        }
+    }
+}
+
+
+const std::map<std::string, GNEDataSet*>& 
+GNENetHelper::AttributeCarriers::getDataSets() const {
+    return myDataSets;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::clearDataSets() {
+    // just clear myDataSets
+    myDataSets.clear();
 }
 
 
@@ -463,10 +496,10 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
         myDemandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
         // also insert in vehicleDepartures container if it's either a vehicle or a person
         if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
-            if (vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
+            if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
                 throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' already inserted");
             } else {
-                vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+                myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
             }
         }
         // only add drawable elements in grid
@@ -501,10 +534,10 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         myDemandElements.at(demandElement->getTagProperty().getTag()).erase(it);
         // also remove fromvehicleDepartures container if it's either a vehicle or a person
         if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
-            if (vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
+            if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
                 throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
             } else {
-                vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
+                myVehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
             }
         }
         // only remove drawable elements of grid
@@ -525,6 +558,58 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         return true;
     } else {
         throw ProcessError("Invalid demandElement pointer");
+    }
+}
+
+
+bool
+GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
+    // first check that dataSet pointer is valid
+    if (dataSet) {
+        return myDataSets.find(dataSet->getID()) != myDataSets.end();
+    } else {
+        throw ProcessError("Invalid dataSet pointer");
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
+    // Check if dataSet element exists before insertion
+    if (!dataSetExist(dataSet)) {
+        // insert in dataSets container
+        myDataSets.insert(std::make_pair(dataSet->getID(), dataSet));
+        // dataSets has to be saved
+        myNet->requireSaveDataElements(true);
+        // update interval toolbar
+        myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+    } else {
+        throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
+    }
+}
+
+
+bool
+GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet, bool updateViewAfterDeleting) {
+    // first check that dataSet pointer is valid
+    if (dataSetExist(dataSet)) {
+        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataSet);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataSet);
+        // obtain demand element and erase it from container
+        myDataSets.erase(myDataSets.find(dataSet->getID()));
+        // check if view has to be updated
+        if (updateViewAfterDeleting) {
+            myNet->getViewNet()->update();
+        }
+        // dataSets has to be saved
+        myNet->requireSaveDataElements(true);
+        // update interval toolbar
+        myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+        // dataSet removed, then return true
+        return true;
+    } else {
+        throw ProcessError("Invalid dataSet pointer");
     }
 }
 
@@ -636,10 +721,10 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
         myDemandElements.at(demandElement->getTagProperty().getTag()).erase(demandElement->getID());
         // if is vehicle, remove it from vehicleDepartures
         if (demandElement->getTagProperty().isVehicle()) {
-            if (vehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
+            if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
                 throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in AttributeCarriers.vehicleDepartures");
             } else {
-                vehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
+                myVehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
             }
         }
         // set new ID in demand
@@ -648,7 +733,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
         myDemandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
         // if is vehicle, add it into vehicleDepartures
         if (demandElement->getTagProperty().isVehicle()) {
-            vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+            myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
         }
         // myDemandElements has to be saved
         myNet->requireSaveDemandElements(true);
@@ -658,19 +743,19 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
 
 void
 GNENetHelper::AttributeCarriers::updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (dataSets.count(AC->getID()) == 0) {
+    if (myDataSets.count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.dataSets");
-    } else if (dataSets.count(newID) != 0) {
+    } else if (myDataSets.count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in dataSets");
     } else {
         // retrieve dataSet
-        GNEDataSet* dataSet = dataSets.at(AC->getID());
+        GNEDataSet* dataSet = myDataSets.at(AC->getID());
         // remove dataSet from container
-        dataSets.erase(dataSet->getID());
+        myDataSets.erase(dataSet->getID());
         // set new ID in dataSet
         dataSet->setDataSetID(newID);
         // insert dataSet again in container
-        dataSets[dataSet->getID()] = dataSet;
+        myDataSets[dataSet->getID()] = dataSet;
         // data sets has to be saved
         myNet->requireSaveDataElements(true);
         // update interval toolbar

@@ -2208,20 +2208,6 @@ GNENet::getNumberOfDemandElements(SumoXMLTag type) const {
 
 
 void
-GNENet::updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement) {
-    if (myAttributeCarriers->vehicleDepartures.count(oldBegin + "_" + demandElement->getID()) == 0) {
-        throw ProcessError(demandElement->getTagStr() + " with old begin='" + oldBegin + "' doesn't exist");
-    } else {
-        // remove an insert demand element again into vehicleDepartures container
-        if (demandElement->getTagProperty().isVehicle()) {
-            myAttributeCarriers->vehicleDepartures.erase(oldBegin + "_" + demandElement->getID());
-            myAttributeCarriers->vehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
-        }
-    }
-}
-
-
-void
 GNENet::requireSaveDemandElements(bool value) {
     if (myDemandElementsSaved == true) {
         WRITE_DEBUG("DemandElements has to be saved");
@@ -2322,8 +2308,8 @@ GNENet::generateDemandElementID(const std::string& prefix, SumoXMLTag type) cons
 
 GNEDataSet*
 GNENet::retrieveDataSet(const std::string& id, bool hardFail) const {
-    if (myAttributeCarriers->dataSets.count(id) > 0) {
-        return myAttributeCarriers->dataSets.at(id);
+    if (myAttributeCarriers->getDataSets().count(id) > 0) {
+        return myAttributeCarriers->getDataSets().at(id);
     } else if (hardFail) {
         throw ProcessError("Attempted to retrieve non-existant data set");
     } else {
@@ -2335,9 +2321,9 @@ GNENet::retrieveDataSet(const std::string& id, bool hardFail) const {
 std::vector<GNEDataSet*>
 GNENet::retrieveDataSets() const {
     std::vector<GNEDataSet*> result;
-    result.reserve(myAttributeCarriers->dataSets.size());
+    result.reserve(myAttributeCarriers->getDataSets().size());
     // returns data sets
-    for (const auto &dataSet : myAttributeCarriers->dataSets) {
+    for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
         result.push_back(dataSet.second);
     }
     return result;
@@ -2349,14 +2335,14 @@ GNENet::retrieveGenericDatas(bool onlySelected) const {
     std::vector<GNEGenericData*> result;
     size_t numGenericDatas = 0;
     // first reserve
-    for (const auto& dataSet : myAttributeCarriers->dataSets) {
+    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
             numGenericDatas += dataInterval.second->getGenericDataChildren().size();
         }
     }
     result.reserve(numGenericDatas);
     // returns generic datas depending of selection
-    for (const auto& dataSet : myAttributeCarriers->dataSets) {
+    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
             for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                 if (!onlySelected || genericData->isAttributeCarrierSelected()) {
@@ -2371,7 +2357,7 @@ GNENet::retrieveGenericDatas(bool onlySelected) const {
 
 int
 GNENet::getNumberOfDataSets() const {
-    return (int)myAttributeCarriers->dataSets.size();
+    return (int)myAttributeCarriers->getDataSets().size();
 }
 
 
@@ -2419,7 +2405,7 @@ std::string
 GNENet::generateDataSetID(const std::string& prefix) const {
     const std::string dataSetTagStr = toString(SUMO_TAG_DATASET);
     int counter = 0;
-    while (myAttributeCarriers->dataSets.count(prefix + dataSetTagStr + "_" + toString(counter)) != 0) {
+    while (myAttributeCarriers->getDataSets().count(prefix + dataSetTagStr + "_" + toString(counter)) != 0) {
         counter++;
     }
     return (prefix + dataSetTagStr + "_" + toString(counter));
@@ -2433,7 +2419,7 @@ GNENet::retrieveGenericDataParameters(const SumoXMLTag genericDataTag, const dou
     // declare generic data vector
     std::vector<GNEGenericData*> genericDatas;
     // iterate over all data sets
-    for (const auto &dataSet : myAttributeCarriers->dataSets) {
+    for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
         for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
             // check interval
             if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
@@ -2466,12 +2452,12 @@ GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::s
     // if dataSetID is empty, return all parameters
     if (dataSetID.empty()) {
         // add all data sets
-        dataSets.reserve(myAttributeCarriers->dataSets.size());
-        for (const auto& dataSet : myAttributeCarriers->dataSets) {
+        dataSets.reserve(myAttributeCarriers->getDataSets().size());
+        for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
             dataSets.push_back(dataSet.second);
         }
-    } else if (myAttributeCarriers->dataSets.count(dataSetID) > 0) {
-        dataSets.push_back(myAttributeCarriers->dataSets.at(dataSetID));
+    } else if (myAttributeCarriers->getDataSets().count(dataSetID) > 0) {
+        dataSets.push_back(myAttributeCarriers->getDataSets().at(dataSetID));
     } else {
         return attributesSolution;
     }
@@ -2527,11 +2513,11 @@ double
 GNENet::getDataSetIntervalMinimumBegin() const {
     double minimumBegin = 0;
     // update with first minimum (if exist)
-    if ((myAttributeCarriers->dataSets.size() > 0) && (myAttributeCarriers->dataSets.begin()->second->getDataIntervalChildren().size() > 0)) {
-        minimumBegin = myAttributeCarriers->dataSets.begin()->second->getDataIntervalChildren().begin()->second->getAttributeDouble(SUMO_ATTR_BEGIN);
+    if ((myAttributeCarriers->getDataSets().size() > 0) && (myAttributeCarriers->getDataSets().begin()->second->getDataIntervalChildren().size() > 0)) {
+        minimumBegin = myAttributeCarriers->getDataSets().begin()->second->getDataIntervalChildren().begin()->second->getAttributeDouble(SUMO_ATTR_BEGIN);
     }
     // iterate over all data sets
-    for (const auto& dataSet : myAttributeCarriers->dataSets) {
+    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         // iterate over interval
         for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
             if (interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) < minimumBegin) {
@@ -2547,11 +2533,11 @@ double
 GNENet::getDataSetIntervalMaximumEnd() const {
     double maximumEnd = 0;
     // update with first maximum (if exist)
-    if ((myAttributeCarriers->dataSets.size() > 0) && (myAttributeCarriers->dataSets.begin()->second->getDataIntervalChildren().size() > 0)) {
-        maximumEnd = myAttributeCarriers->dataSets.begin()->second->getDataIntervalChildren().begin()->second->getAttributeDouble(SUMO_ATTR_END);
+    if ((myAttributeCarriers->getDataSets().size() > 0) && (myAttributeCarriers->getDataSets().begin()->second->getDataIntervalChildren().size() > 0)) {
+        maximumEnd = myAttributeCarriers->getDataSets().begin()->second->getDataIntervalChildren().begin()->second->getAttributeDouble(SUMO_ATTR_END);
     }
     // iterate over all data sets
-    for (const auto& dataSet : myAttributeCarriers->dataSets) {
+    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         // iterate over interval
         for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
             if (interval.second->getAttributeDouble(SUMO_ATTR_END) > maximumEnd) {
@@ -2642,7 +2628,7 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
         i.second->writeDemandElement(device);
     }
     // finally write all vehicles and persons sorted by depart time (and their associated stops, personPlans, etc.)
-    for (auto i : myAttributeCarriers->vehicleDepartures) {
+    for (auto i : myAttributeCarriers->getVehicleDepartures()) {
         i.second->writeDemandElement(device);
     }
     device.close();
@@ -2654,7 +2640,7 @@ GNENet::saveDataElementsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("meandata", "meandata_file.xsd");
     // write all data sets
-    for (const auto& dataSet : myAttributeCarriers->dataSets) {
+    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
         dataSet.second->writeDataSet(device);
     }
     // close device
@@ -2794,55 +2780,6 @@ GNENet::disableUpdateGeometry() {
 bool
 GNENet::isUpdateGeometryEnabled() const {
     return myUpdateGeometryEnabled;
-}
-
-// ---------------------------------------------------------------------------
-// GNENet - protected methods
-// ---------------------------------------------------------------------------
-
-bool
-GNENet::dataSetExist(GNEDataSet* dataSet) const {
-    // first check that dataSet pointer is valid
-    if (dataSet) {
-        return myAttributeCarriers->dataSets.find(dataSet->getID()) != myAttributeCarriers->dataSets.end();
-    } else {
-        throw ProcessError("Invalid dataSet pointer");
-    }
-}
-
-
-void
-GNENet::insertDataSet(GNEDataSet* dataSet) {
-    // Check if dataSet element exists before insertion
-    if (!dataSetExist(dataSet)) {
-        // insert in dataSets container
-        myAttributeCarriers->dataSets.insert(std::make_pair(dataSet->getID(), dataSet));
-        // data elements has to be saved
-        requireSaveDataElements(true);
-        // update interval toolbar
-        myViewNet->getIntervalBar().updateIntervalBar();
-    } else {
-        throw ProcessError(dataSet->getTagStr() + " with ID='" + dataSet->getID() + "' already exist");
-    }
-}
-
-
-bool
-GNENet::deleteDataSet(GNEDataSet* dataSet) {
-    // first check that dataSet pointer is valid
-    if (dataSetExist(dataSet)) {
-        // obtain data set and erase it from container
-        myAttributeCarriers->dataSets.erase(myAttributeCarriers->dataSets.find(dataSet->getID()));
-        // remove it from Inspector Frame and AttributeCarrierHierarchy
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataSet);
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataSet);
-        // data elements has to be saved
-        requireSaveDataElements(true);
-        // dataSet removed, then return true
-        return true;
-    } else {
-        throw ProcessError("Invalid dataSet pointer");
-    }
 }
 
 // ===========================================================================

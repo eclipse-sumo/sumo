@@ -1545,7 +1545,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DEPART: {
             std::string oldDepart = getBegin();
             parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
-            myViewNet->getNet()->updateDemandElementBegin(oldDepart, this);
+            myViewNet->getNet()->getAttributeCarriers()->updateDemandElementBegin(oldDepart, this);
             break;
         }
         case SUMO_ATTR_ROUTE:
@@ -1595,7 +1595,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_BEGIN: {
             std::string oldBegin = getBegin();
             depart = string2time(value);
-            myViewNet->getNet()->updateDemandElementBegin(oldBegin, this);
+            myViewNet->getNet()->getAttributeCarriers()->updateDemandElementBegin(oldBegin, this);
             break;
         }
         case SUMO_ATTR_END:

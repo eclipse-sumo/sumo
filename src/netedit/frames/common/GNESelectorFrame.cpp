@@ -1592,7 +1592,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 }
             }
             // select dataSets 
-            for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->dataSets) {
+            for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                         if ((!locks->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) || 
@@ -1901,7 +1901,7 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
         }
         else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
-            for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->dataSets) {
+            for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                         if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
@@ -2122,7 +2122,7 @@ GNESelectorFrame::ACsToSelected() const {
         }
     }
     else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
-        for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->dataSets) {
+        for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
             for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                 for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                     if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
