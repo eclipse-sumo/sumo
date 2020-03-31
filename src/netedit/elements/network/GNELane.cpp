@@ -1510,14 +1510,6 @@ GNELane::getLengthGeometryFactor() const {
 void
 GNELane::startGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
-    // Save current centering boundary of child shapes
-    for (auto i : getChildShapes()) {
-        i->startShapeGeometryMoving(0);
-    }
-    // Save current centering boundary of shapes with this lane as chid
-    for (auto i : getParentShapes()) {
-        i->startShapeGeometryMoving(0);
-    }
     // Save current centering boundary of child additional
     for (auto i : getChildAdditionals()) {
         i->startGeometryMoving();
@@ -1540,14 +1532,6 @@ GNELane::startGeometryMoving() {
 void
 GNELane::endGeometryMoving() {
     // Lanes don't need to save the current Centering Boundary, due they are parts of an Edge
-    // Restore centering boundary of shapes with this lane as chid
-    for (auto i : getChildShapes()) {
-        i->endShapeGeometryMoving();
-    }
-    // Restore centering boundary of shapes with this lane as chid
-    for (auto i : getParentShapes()) {
-        i->endShapeGeometryMoving();
-    }
     // Restore centering boundary of additionals with this lane as chid
     for (auto i : getChildAdditionals()) {
         i->endGeometryMoving();

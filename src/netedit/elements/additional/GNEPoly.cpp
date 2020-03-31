@@ -82,7 +82,7 @@ GNEPoly::generateChildID(SumoXMLTag childTag) {
 
 
 void
-GNEPoly::startShapeGeometryMoving(const double shapeOffset) {
+GNEPoly::startPolyShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
@@ -95,7 +95,7 @@ GNEPoly::startShapeGeometryMoving(const double shapeOffset) {
 
 
 void
-GNEPoly::endShapeGeometryMoving() {
+GNEPoly::endPolyShapeGeometryMoving() {
     // check that endGeometryMoving was called only once
     if (myMovingGeometryBoundary.isInitialised()) {
         // Remove object from net
@@ -181,7 +181,7 @@ GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
     myShape = getShapeBeforeMoving();
     // finish geometry moving
-    endShapeGeometryMoving();
+    endPolyShapeGeometryMoving();
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(shapeToCommit)));

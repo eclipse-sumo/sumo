@@ -20,6 +20,7 @@
 /****************************************************************************/
 #pragma once
 #include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <netedit/GNEMoveShape.h>
 
 #include "GNEShape.h"
 
@@ -94,21 +95,21 @@ public:
     /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void startShapeGeometryMoving(const double shapeOffset);
+    void startPOIGeometryMoving();
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void endShapeGeometryMoving();
+    void endPOIGeometryMoving();
 
     /**@brief change the position of the element geometry without saving in undoList
     * @param[in] newPosition new position of geometry
     * @note should't be called in drawGL(...) functions to avoid smoothness issues
     */
-    void moveGeometry(const Position& offset);
+    void movePOIGeometry(const Position& offset);
 
     /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
     * @param[in] undoList The undoList on which to register changes
     */
-    void commitGeometryMoving(GNEUndoList* undoList);
+    void commitPOIGeometryMoving(GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GNEShape

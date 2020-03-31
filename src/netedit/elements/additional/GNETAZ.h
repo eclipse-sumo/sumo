@@ -18,9 +18,9 @@
 //
 /****************************************************************************/
 #pragma once
-#include "GNEAdditional.h"
-
 #include <netedit/GNEMoveShape.h>
+
+#include "GNEAdditional.h"
 
 // ===========================================================================
 // class definitions
@@ -29,7 +29,7 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNEAdditional, public GNEMoveShape {
+class GNETAZ : public GNEAdditional, protected GNEMoveShape {
 
 public:
     /**@brief GNETAZ Constructor

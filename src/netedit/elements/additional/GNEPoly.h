@@ -19,6 +19,7 @@
 // GUIPolygon and NLHandler)
 /****************************************************************************/
 #pragma once
+#include <netedit/GNEMoveShape.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEShape.h"
@@ -39,7 +40,7 @@ class GNENetworkElement;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPoly : public GUIPolygon, public GNEShape {
+class GNEPoly : public GUIPolygon, public GNEShape, protected GNEMoveShape {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
@@ -76,10 +77,10 @@ public:
     /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void startShapeGeometryMoving(const double shapeOffset);
+    void startPolyShapeGeometryMoving(const double shapeOffset);
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void endShapeGeometryMoving();
+    void endPolyShapeGeometryMoving();
 
     /**@brief return index of geometry point placed in given position, or -1 if no exist
     * @param pos position of new/existent vertex

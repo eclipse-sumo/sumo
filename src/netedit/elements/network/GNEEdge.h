@@ -44,7 +44,7 @@ class GNECrossing;
  *
  * @see MSEdge
  */
-class GNEEdge : public GNENetworkElement, public GNEMoveShape {
+class GNEEdge : public GNENetworkElement, protected GNEMoveShape {
 
     /// @brief Friend class
     friend class GNEChange_Lane;

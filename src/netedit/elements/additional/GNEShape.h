@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEMoveShape.h>
 #include <netedit/elements/GNEHierarchicalParentElements.h>
 #include <netedit/elements/GNEHierarchicalChildElements.h>
 
@@ -29,7 +28,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEAttributeCarrier, public GNEMoveShape, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
 
 public:
     /**@brief Constructor.
@@ -94,11 +93,6 @@ public:
 
     /// @name functions for edit geometry
     /// @{
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    virtual void startShapeGeometryMoving(const double shapeOffset) = 0;
-
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    virtual void endShapeGeometryMoving() = 0;
 
     /**@brief update pre-computed geometry information
     * @note: must be called when geometry changes (i.e. lane moved) and implemented in ALL childrens

@@ -507,6 +507,8 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     } else if (myViewNet->myObjectsUnderCursor.getPOIFront()) {
         // set POI moved object
         myPOIToMove = myViewNet->myObjectsUnderCursor.getPOIFront();
+        // start POI geometry moving
+        myPOIToMove->startPOIGeometryMoving();
         // there is moved items, then return true
         return true;
     } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront()) {
@@ -574,7 +576,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
         myPolyToMove->movePolyShape(offsetMovement);
     } else if (myPOIToMove) {
         // Move POI's geometry without commiting changes
-        myPOIToMove->moveGeometry(offsetMovement);
+        myPOIToMove->movePOIGeometry(offsetMovement);
     } else if (myJunctionToMove) {
         // Move Junction's geometry without commiting changes
         myJunctionToMove->moveGeometry(offsetMovement);
@@ -612,7 +614,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myPolyToMove->commitPolyShapeChange(myViewNet->getUndoList());
         myPolyToMove = nullptr;
     } else if (myPOIToMove) {
-        myPOIToMove->commitGeometryMoving(myViewNet->getUndoList());
+        myPOIToMove->commitPOIGeometryMoving(myViewNet->getUndoList());
         myPOIToMove = nullptr;
     } else if (myJunctionToMove) {
         // check if in the moved position there is another Junction and it will be merged
@@ -659,7 +661,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
         // check if in the clicked position a geometry point exist
         if (myPolyToMove->getPolyVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
             // start geometry moving
-            myPolyToMove->startShapeGeometryMoving(polyShapeOffset);
+            myPolyToMove->startPolyShapeGeometryMoving(polyShapeOffset);
             // poly values sucesfully calculated, then return true
             return true;
         } else {
@@ -670,7 +672,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
         }
     } else {
         // start geometry moving
-        myPolyToMove->startShapeGeometryMoving(polyShapeOffset);
+        myPolyToMove->startPolyShapeGeometryMoving(polyShapeOffset);
         // poly values sucesfully calculated, then return true
         return true;
     }

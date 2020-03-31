@@ -79,13 +79,13 @@ GNEPOI::generateChildID(SumoXMLTag childTag) {
 
 
 void
-GNEPOI::startShapeGeometryMoving(const double /*shapeOffset*/) {
+GNEPOI::startPOIGeometryMoving() {
     myPositionBeforeMoving = *this;
 }
 
 
 void
-GNEPOI::endShapeGeometryMoving() {
+GNEPOI::endPOIGeometryMoving() {
 }
 
 
@@ -103,7 +103,7 @@ GNEPOI::writeShape(OutputDevice& device) {
 
 
 void
-GNEPOI::moveGeometry(const Position& offset) {
+GNEPOI::movePOIGeometry(const Position& offset) {
     if (!myBlockMovement) {
         // Calculate new position using old position
         Position newPosition = myPositionBeforeMoving;
@@ -123,7 +123,7 @@ GNEPOI::moveGeometry(const Position& offset) {
 
 
 void
-GNEPOI::commitGeometryMoving(GNEUndoList* undoList) {
+GNEPOI::commitPOIGeometryMoving(GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // restore original Position before moving (to avoid problems in GL Tree)
         Position myNewPosition(*this);
