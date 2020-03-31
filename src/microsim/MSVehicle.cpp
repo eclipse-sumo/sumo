@@ -2616,19 +2616,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
         // check for train direction reversal
-        const bool canReverseEventually = canReverse(laneMaxV);
-        if (canReverseEventually) {
-            // reverse as soon as comfortably possible but also prevent running into a buffer stop
-            const double vReverse = MIN2(
-                                        cfModel.stopSpeed(this, getSpeed(), seen - POSITION_EPS),
-                                        vMinComfortable);
-#ifdef DEBUG_REVERSE_BIDI
-            if (DEBUG_COND) {
-                std::cout << SIMTIME << " seen=" << seen  << " vReverse=" << vReverse << "\n";
-            }
+        bool canReverseEventually = false;
+        const double vReverse = checkReversal(canReverseEventually, laneMaxV, seen);
+        v = MIN2(v, vReverse);
+#ifdef DEBUG_PLAN_MOVE
+        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " canReverseEventually=" << canReverseEventually << " v=" << v << "\n";
 #endif
-            lfLinks.push_back(DriveProcessItem(*link, vReverse, vReverse, false, t, 0, t, 0, seen));
-        }
 
         // check whether we need to slow down in order to finish a continuous lane change
         if (getLaneChangeModel().isChangingLanes()) {
@@ -3649,10 +3642,10 @@ MSVehicle::updateTimeLoss(double vNext) {
 }
 
 
-bool
-MSVehicle::canReverse(double speedThreshold) const {
+double
+MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) const {
 #ifdef DEBUG_REVERSE_BIDI
-    if (DEBUG_COND) std::cout << SIMTIME  << " canReverse lane=" << myLane->getID()
+    if (DEBUG_COND) std::cout << SIMTIME  << " checkReversal lane=" << myLane->getID()
                                   << " pos=" << myState.myPos
                                   << " speed=" << std::setprecision(6) << getPreviousSpeed() << std::setprecision(gPrecision)
                                   << " speedThreshold=" << speedThreshold
@@ -3676,12 +3669,21 @@ MSVehicle::canReverse(double speedThreshold) const {
        ) {
         //if (isSelected()) std::cout << "   check1 passed\n";
 
+        // prevent running into a buffer stop
+        double vReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - POSITION_EPS);
+
+#ifdef DEBUG_REVERSE_BIDI
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " seen=" << seen  << " vReverseEnd=" << vReverse << "\n";
+        }
+#endif
+
         // ensure that the vehicle is fully on bidi edges that allow reversal
         if ((int)(myRoute->end() - myCurrEdge) <= (int)myFurtherLanes.size()) {
 #ifdef DEBUG_REVERSE_BIDI
             if (DEBUG_COND) std::cout << "    fail: remainingEdges=" << ((int)(myRoute->end() - myCurrEdge)) << " further=" << myFurtherLanes.size() << "\n";
 #endif
-            return false;
+            return vReverse;
         }
         //if (isSelected()) std::cout << "   check2 passed\n";
 
@@ -3691,7 +3693,7 @@ MSVehicle::canReverse(double speedThreshold) const {
 #ifdef DEBUG_REVERSE_BIDI
             if (DEBUG_COND) std::cout << "    noTurn (bidi=" << myLane->getEdge().getBidiEdge()->getID() << " succ=" << toString(succ) << "\n";
 #endif
-            return false;
+            return vReverse;
         }
         //if (isSelected()) std::cout << "   check3 passed\n";
         
@@ -3704,8 +3706,8 @@ MSVehicle::canReverse(double speedThreshold) const {
 #ifdef DEBUG_REVERSE_BIDI
                 if (DEBUG_COND) std::cout << "    reversal would go past stop on " << myLane->getBidiLane()->getID() << "\n";
 #endif
-                if ((myLane->getLength() - myState.pos()) > brakeDist) {
-                    return false;
+                if (seen > MAX2(brakeDist, 1.0)) {
+                    return vReverse;
                 } else {
 #ifdef DEBUG_REVERSE_BIDI
                     if (DEBUG_COND) std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
@@ -3723,7 +3725,7 @@ MSVehicle::canReverse(double speedThreshold) const {
 #ifdef DEBUG_REVERSE_BIDI
                     if (DEBUG_COND) std::cout << "    noBidi view=" << view << " further=" << further->getID() << " furtherBidi=" << Named::getIDSecure(further->getEdge().getBidiEdge()) << " future=" << (*(myCurrEdge + view))->getID() << "\n";
 #endif
-                    return false;
+                    return vReverse;
                 }
                 if (!myStops.empty() && myStops.front().edge == (myCurrEdge + view)) {
                     const double brakeDist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
@@ -3731,10 +3733,11 @@ MSVehicle::canReverse(double speedThreshold) const {
                     const double newPos = further->getLength() - (getBackPositionOnLane(further) + brakeDist);
                     if (newPos > stopPos) {
 #ifdef DEBUG_REVERSE_BIDI
-                        if (DEBUG_COND) std::cout << "    reversal would go past stop further-opposite lane " << further->getBidiLane()->getID() << "\n";
+                        if (DEBUG_COND) std::cout << "    reversal would go past stop on further-opposite lane " << further->getBidiLane()->getID() << "\n";
 #endif
-                        if ((myLane->getLength() - myState.pos()) > brakeDist) {
-                            return false;
+                        if (seen > MAX2(brakeDist, 1.0)) {
+                            canReverse = false;
+                            return vReverse;
                         } else {
 #ifdef DEBUG_REVERSE_BIDI
                             if (DEBUG_COND) std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
@@ -3745,9 +3748,18 @@ MSVehicle::canReverse(double speedThreshold) const {
                 view++;
             }
         }
-        return true;
+        // reverse as soon as comfortably possible
+        const double vMinComfortable = getCarFollowModel().minNextSpeed(getSpeed(), this);
+        vReverse = MIN2(vReverse, vMinComfortable);
+#ifdef DEBUG_REVERSE_BIDI
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " seen=" << seen  << " vReverseOK=" << vReverse << "\n";
+        }
+#endif
+        canReverse = true;
+        return vReverse;
     }
-    return false;
+    return getVehicleType().getMaxSpeed();
 }
 
 
@@ -3760,7 +3772,8 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
         passedLanes.push_back(myLane);
     }
     // let trains reverse direction
-    const bool reverseTrain = canReverse();
+    bool reverseTrain = false;
+    checkReversal(reverseTrain);
     if (reverseTrain) {
         // add some slack to ensure that the back of train does appear looped
         myState.myPos += 2 * (myLane->getLength() - myState.myPos) + myType->getLength() + NUMERICAL_EPS;

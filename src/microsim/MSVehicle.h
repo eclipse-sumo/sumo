@@ -1858,8 +1858,14 @@ protected:
      */
     void updateTimeLoss(double vNext);
 
-    /// @brief whether the vehicle is a train that can reverse its direction at the current point in its route
-    bool canReverse(double speedThreshold = SUMO_const_haltingSpeed) const;
+    /* @brief Check whether the vehicle is a train that can reverse its direction at the current point in its route
+     * and return the speed in preparation for reversal
+     *
+     *  @param[out] canReverse
+     *  @param[in] speedThreshold
+     *  @return speed for reversal
+     */
+    double checkReversal(bool& canReverse, double speedThreshold = SUMO_const_haltingSpeed, double seen = 0) const;
 
     /** @brief sets the braking lights on/off
      */
