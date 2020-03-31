@@ -233,6 +233,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
 
     const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
                                 1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+    const double laneDensity = density / numLanes;
 #ifdef DEBUG_OCCUPANCY2
     // tests #3264
     double occupancy = occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
@@ -248,9 +249,10 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
 
     if (myParent == nullptr) {
         if (sampleSeconds > 0) {
-            dev.writeAttr("density", density)
-            .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
-            .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
+            dev.writeAttr("density", density);
+            dev.writeAttr("laneDensity", laneDensity);
+            dev.writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100);
+            dev.writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
         dev.writeAttr("departed", nVehDeparted).writeAttr("arrived", nVehArrived).writeAttr("entered", nVehEntered).writeAttr("left", nVehLeft);
         if (nVehVaporized > 0) {
@@ -276,10 +278,11 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
             } else if (defaultTravelTime >= 0.) {
                 dev.writeAttr("traveltime", defaultTravelTime);
             }
-            dev.writeAttr("overlapTraveltime", overlapTraveltime)
-            .writeAttr("density", density)
-            .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
-            .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
+            dev.writeAttr("overlapTraveltime", overlapTraveltime);
+            dev.writeAttr("density", density);
+            dev.writeAttr("laneDensity", laneDensity);
+            dev.writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100);
+            dev.writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
         }
     } else if (defaultTravelTime >= 0.) {
         dev.writeAttr("traveltime", defaultTravelTime).writeAttr("speed", myLaneLength / defaultTravelTime);
