@@ -94,7 +94,7 @@ permalink: /ChangeLog/
   - Train reversals are now indicated when ''Show Route'' is active. Issue #6744
   - Vehicles can now be colored by 'by stop delay'. This computes the estimated departure delay at the next `<stop>` with an 'until' attribute. Issue #6821
   - Travelled distance (odometer) is now listed in the vehicle parameter dialog.
-  - Junction is now listed in the junction parameter dialog and can optionally by drawn in the view. Issue #6635
+  - Junction name is now listed in the junction parameter dialog and can optionally by drawn in the view. Issue #6635
   - Lanes that explicitly allow rail and passenger traffic are now highlighted with a distinct color in the default color scheme. Issue #6844
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
