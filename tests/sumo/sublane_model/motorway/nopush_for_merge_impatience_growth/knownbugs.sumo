@@ -1,0 +1,6 @@
+
+[Reported by kobo at 31Mar08:37:16]
+search_string:collision
+search_file:errors
+full_description:dangerous insertion gap
+brief_description:see #6846
