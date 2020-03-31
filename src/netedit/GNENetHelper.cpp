@@ -392,10 +392,6 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional, boo
         if (additional->isAttributeCarrierSelected()) {
             additional->unselectAttributeCarrier(false);
         }
-        // check if view has to be updated
-        if (updateViewAfterDeleting) {
-            myNet->getViewNet()->update();
-        }
         // additionals has to be saved
         myNet->requireSaveAdditionals(true);
         // additional removed, then return true
@@ -460,10 +456,6 @@ GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape, bool updateViewAft
         // check if shape is selected
         if (shape->isAttributeCarrierSelected()) {
             shape->unselectAttributeCarrier(false);
-        }
-        // check if view has to be updated
-        if (updateViewAfterDeleting) {
-            myNet->getViewNet()->update();
         }
         // shapes has to be saved
         myNet->requireSaveAdditionals(true);
@@ -548,10 +540,6 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         if (demandElement->isAttributeCarrierSelected()) {
             demandElement->unselectAttributeCarrier(false);
         }
-        // check if view has to be updated
-        if (updateViewAfterDeleting) {
-            myNet->getViewNet()->update();
-        }
         // demandElements has to be saved
         myNet->requireSaveDemandElements(true);
         // demandElement removed, then return true
@@ -598,10 +586,6 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet, bool updateV
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataSet);
         // obtain demand element and erase it from container
         myDataSets.erase(myDataSets.find(dataSet->getID()));
-        // check if view has to be updated
-        if (updateViewAfterDeleting) {
-            myNet->getViewNet()->update();
-        }
         // dataSets has to be saved
         myNet->requireSaveDataElements(true);
         // update interval toolbar

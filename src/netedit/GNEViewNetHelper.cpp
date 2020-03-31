@@ -574,12 +574,18 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
     if (myPolyToMove) {
         // move poly's geometry without commiting changes
         myPolyToMove->movePolyShape(offsetMovement);
+        // update view (needed to see the movement)
+        myViewNet->updateViewNet();
     } else if (myPOIToMove) {
         // Move POI's geometry without commiting changes
         myPOIToMove->movePOIGeometry(offsetMovement);
+        // update view (needed to see the movement)
+        myViewNet->updateViewNet();
     } else if (myJunctionToMove) {
         // Move Junction's geometry without commiting changes
         myJunctionToMove->moveGeometry(offsetMovement);
+        // update view (needed to see the movement)
+        myViewNet->updateViewNet();
     } else if (myEdgeToMove) {
         // check if we're moving the start or end position, or a geometry point
         if (myMovingStartPos) {
@@ -590,21 +596,27 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             // move edge's geometry without commiting changes
             myEdgeToMove->moveEdgeShape(offsetMovement);
         }
+        // update view (needed to see the movement)
+        myViewNet->updateViewNet();
     } else if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
         myAdditionalToMove->moveGeometry(offsetMovement);
+        // update view (needed to see the movement)
+        myViewNet->updateViewNet();
     } else if (myDemandElementToMove/* && (myDemandElementToMove->isDemandElementBlocked() == false)*/) {
         // Move DemandElement geometry without commiting changes
         myDemandElementToMove->moveGeometry(offsetMovement);
+        // update view (needed to see the movement)
+        myViewNet->updateViewNet();
     } else if (myTAZToMove) {
         /// move TAZ's geometry without commiting changes depending if polygon is blocked
         /*if (myTAZToMove->isShapeBlocked()) {*/
             // move TAZ's geometry without commiting changes
             myTAZToMove->moveTAZShape(offsetMovement);
         /*}*/
+        // update view (needed to see the movement)
+        myViewNet->updateViewNet();
     }
-    // update view (needed to see the movement)
-    myViewNet->update();
 }
 
 
@@ -878,7 +890,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
         edge->moveEdgeShape(offsetMovement);
     }
     // update view (needed to see the movement)
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 
@@ -981,7 +993,7 @@ GNEViewNetHelper::SelectingArea::moveRectangleSelection() {
                                 + " height:" + toString(fabs(selectionCorner1.y() - selectionCorner2.y()))
                                 + " diagonal:" + toString(selectionCorner1.distanceTo2D(selectionCorner2)));
     // update view (needed to update rectangle)
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 
@@ -2266,7 +2278,7 @@ GNEViewNetHelper::IntervalBar::setGenericDataType() {
     // update comboBox attributes
     updateComboBoxAttributes();
     // update view net
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 
@@ -2286,7 +2298,7 @@ GNEViewNetHelper::IntervalBar::setDataSet() {
     // update comboBox attributes
     updateComboBoxAttributes();
     // update view net
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 
@@ -2303,7 +2315,7 @@ GNEViewNetHelper::IntervalBar::setInterval() {
     // update comboBox attributes
     updateComboBoxAttributes();
     // update view net
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 
@@ -2320,7 +2332,7 @@ GNEViewNetHelper::IntervalBar::setBegin() {
     // update comboBox attributes
     updateComboBoxAttributes();
     // update view net
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 
@@ -2337,7 +2349,7 @@ GNEViewNetHelper::IntervalBar::setEnd() {
     // update comboBox attributes
     updateComboBoxAttributes();
     // update view net
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 
@@ -2761,7 +2773,7 @@ GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, c
         RGBColor col = myViewNet->getVisualisationSettings().junctionColorer.getSchemes()[0].getColor(3);
         editedShapePoly = myViewNet->myNet->addPolygonForEditShapes(element, shape, fill, col);
         // update view net to show the new editedShapePoly
-        myViewNet->update();
+        myViewNet->updateViewNet();
     }
 }
 
@@ -2792,7 +2804,6 @@ GNEViewNetHelper::EditShapes::saveEditedShape() {
         editedShapePoly->getShapeEditedElement()->setAttribute(attr, toString(editedShapePoly->getShape()), myViewNet->myUndoList);
         myViewNet->myUndoList->p_end();
         stopEditCustomShape();
-        myViewNet->update();
     }
 }
 

@@ -782,7 +782,7 @@ GNEFrameModuls::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, 
     myFinishCreationButton->disable();
     myRemoveLastInsertedEdge->disable();
     // update view
-    myFrameParent->myViewNet->update();
+    myFrameParent->myViewNet->updateViewNet();
     return 1;
 }
 
@@ -799,7 +799,7 @@ GNEFrameModuls::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector,
         // call edgePathCreated
         myFrameParent->edgePathCreated();
         // update view
-        myFrameParent->myViewNet->update();
+        myFrameParent->myViewNet->updateViewNet();
         // clear edges after creation
         clearEdges();
         // disable buttons
@@ -821,7 +821,7 @@ GNEFrameModuls::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSel
         // calculate temporal route
         myTemporalRoute = myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculatePath(myVClass, myClickedEdges);
         // update view (to see the new temporal route)
-        myFrameParent->myViewNet->update();
+        myFrameParent->myViewNet->updateViewNet();
         // check if after pop edge, there is more than one edge
         if (myClickedEdges.size() == 1) {
             // disable remove last edge button
@@ -960,7 +960,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector
         myFrameParent->myViewNet->centerTo(myClickedGenericData->getGlID(), true, -1);
     }
     // update view after centering
-    myFrameParent->myViewNet->update();
+    myFrameParent->myViewNet->updateViewNet();
     return 1;
 }
 
@@ -1027,7 +1027,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
         }
     }
     // update viewNet
-    myFrameParent->myViewNet->update();
+    myFrameParent->myViewNet->updateViewNet();
     // refresh AC Hierarchy
     refreshAttributeCarrierHierarchy();
     // check if inspector frame has to be shown again
@@ -1782,7 +1782,7 @@ GNEFrameModuls::DrawingShape::stopDrawing() {
     if (myFrameParent->shapeDrawed()) {
         // clear created points
         myTemporalShapeShape.clear();
-        myFrameParent->myViewNet->update();
+        myFrameParent->myViewNet->updateViewNet();
         // change buttons
         myStartDrawingButton->enable();
         myStopDrawingButton->disable();
@@ -1798,7 +1798,7 @@ void
 GNEFrameModuls::DrawingShape::abortDrawing() {
     // clear created points
     myTemporalShapeShape.clear();
-    myFrameParent->myViewNet->update();
+    myFrameParent->myViewNet->updateViewNet();
     // change buttons
     myStartDrawingButton->enable();
     myStopDrawingButton->disable();

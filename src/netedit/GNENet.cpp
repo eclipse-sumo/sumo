@@ -1385,9 +1385,6 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         // Run parser
         if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
-        } else {
-            // update view
-            update();
         }
         // clear myEdgesAndNumberOfLanes after reload additionals
         myEdgesAndNumberOfLanes.clear();
@@ -1399,9 +1396,6 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
         // Run parser
         if (!XMLSubSys::runParser(demandElementHandler, demandPath, false)) {
             WRITE_MESSAGE("Loading of " + demandPath + " failed.");
-        } else {
-            // update view
-            update();
         }
         // clear myEdgesAndNumberOfLanes after reload demandElements
         myEdgesAndNumberOfLanes.clear();
@@ -1714,8 +1708,6 @@ GNENet::cleanUnusedRoutes(GNEUndoList* undoList) {
             // due route doesn't have children, simply call GNEChange_DemandElement
             undoList->add(new GNEChange_DemandElement(i, false), true);
         }
-        // update view
-        myViewNet->update();
         // end undo list
         undoList->p_end();
     }
@@ -1780,8 +1772,6 @@ GNENet::joinRoutes(GNEUndoList* undoList) {
                 }
             }
         }
-        // update view
-        myViewNet->update();
         // end undo list
         undoList->p_end();
     }
@@ -1822,8 +1812,6 @@ GNENet::cleanInvalidDemandElements(GNEUndoList* undoList) {
             // simply call GNEChange_DemandElement
             undoList->add(new GNEChange_DemandElement(i, false), true);
         }
-        // update view
-        myViewNet->update();
         // end undo list
         undoList->p_end();
     }
@@ -1989,7 +1977,6 @@ GNENet::changeEdgeEndpoints(GNEEdge* edge, const std::string& newSource, const s
     NBNode* to = retrieveJunction(newDest)->getNBNode();
     edge->getNBEdge()->reinitNodes(from, to);
     requireRecompute();
-    update();
 }
 
 
@@ -2139,7 +2126,7 @@ GNENet::saveAdditionals(const std::string& filename) {
             WRITE_DEBUG("Additionals saved after dialog");
         }
         // update view
-        myViewNet->update();
+        myViewNet->updateViewNet();
         // set focus again in viewNet
         myViewNet->setFocus();
     } else {
@@ -2261,7 +2248,7 @@ GNENet::saveDemandElements(const std::string& filename) {
             WRITE_DEBUG("demand elements saved after dialog");
         }
         // update view
-        myViewNet->update();
+        myViewNet->updateViewNet();
         // set focus again in viewNet
         myViewNet->setFocus();
     } else {
@@ -2682,7 +2669,7 @@ GNENet::addPolygonForEditShapes(GNENetworkElement* networkElement, const Positio
         GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, fill, 0.3, col, GLO_POLYGON, 0, "", false, false, false);
         shapePoly->setShapeEditedElement(networkElement);
         myGrid.addAdditionalGLObject(shapePoly);
-        myViewNet->update();
+        myViewNet->updateViewNet();
         return shapePoly;
     } else {
         throw ProcessError("shape cannot be empty");
@@ -2698,7 +2685,7 @@ GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
         myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(polygon);
         // Remove from grid
         myGrid.removeAdditionalGLObject(polygon);
-        myViewNet->update();
+        myViewNet->updateViewNet();
     } else {
         throw ProcessError("Polygon for edit shapes has to be inicializated");
     }
@@ -2860,7 +2847,6 @@ GNENet::registerJunction(GNEJunction* junction) {
     if (z != 0) {
         myZBoundary.add(z, Z_INITIALIZED);
     }
-    update();
     return junction;
 }
 
@@ -2881,8 +2867,6 @@ GNENet::registerEdge(GNEEdge* edge) {
     // Add references into GNEJunctions
     edge->getGNEJunctionSource()->addOutgoingGNEEdge(edge);
     edge->getGNEJunctionDestiny()->addIncomingGNEEdge(edge);
-    // update view
-    update();
     return edge;
 }
 
@@ -2902,10 +2886,6 @@ GNENet::deleteSingleJunction(GNEJunction* junction, bool updateViewAfterDeleting
     myNetBuilder->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
     junction->setResponsible(true);
-    // check if view has to be updated
-    if (updateViewAfterDeleting) {
-        myViewNet->update();
-    }
 }
 
 
@@ -2928,18 +2908,6 @@ GNENet::deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting) {
     // Remove refrences from GNEJunctions
     edge->getGNEJunctionSource()->removeOutgoingGNEEdge(edge);
     edge->getGNEJunctionDestiny()->removeIncomingGNEEdge(edge);
-    // check if view has to be updated
-    if (updateViewAfterDeleting) {
-        myViewNet->update();
-    }
-}
-
-
-void
-GNENet::update() {
-    if (myViewNet) {
-        myViewNet->update();
-    }
 }
 
 

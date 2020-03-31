@@ -250,7 +250,7 @@ GNETLSEditorFrame::onCmdCancel(FXObject*, FXSelector, void*) {
     if (myTLSJunction->getCurrentJunction() != nullptr) {
         myViewNet->getUndoList()->p_abort();
         cleanup();
-        myViewNet->update();
+        myViewNet->updateViewNet();
     }
     return 1;
 }
@@ -270,7 +270,7 @@ GNETLSEditorFrame::onCmdOK(FXObject*, FXSelector, void*) {
             myEditedDef = nullptr;
             myViewNet->getUndoList()->p_end();
             cleanup();
-            myViewNet->update();
+            myViewNet->updateViewNet();
         } else {
             onCmdCancel(nullptr, 0, nullptr);
         }
@@ -454,7 +454,7 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
             it_lane->setLinkState(state);
         }
     }
-    myViewNet->update();
+    myViewNet->updateViewNet();
     return 1;
 }
 

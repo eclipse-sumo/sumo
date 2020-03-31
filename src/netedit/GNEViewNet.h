@@ -66,7 +66,7 @@ public:
     void buildViewToolBars(GUIGlChildWindow&);
 
     /// @brief Mark the entire GNEViewNet to be repainted later
-    void update() const;
+    void updateViewNet() const;
 
     /// @brief set supermode Network (used after load/create new network)
     void forceSupermodeNetwork();

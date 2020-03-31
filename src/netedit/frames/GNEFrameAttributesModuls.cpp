@@ -2435,7 +2435,7 @@ GNEFrameAttributesModuls::DrawingShape::stopDrawing() {
     if (myFrameParent->shapeDrawed()) {
         // clear created points
         myTemporalShapeShape.clear();
-        myFrameParent->myViewNet->update();
+        myFrameParent->myViewNet->updateViewNet();
         // change buttons
         myStartDrawingButton->enable();
         myStopDrawingButton->disable();
@@ -2451,7 +2451,7 @@ void
 GNEFrameAttributesModuls::DrawingShape::abortDrawing() {
     // clear created points
     myTemporalShapeShape.clear();
-    myFrameParent->myViewNet->update();
+    myFrameParent->myViewNet->updateViewNet();
     // change buttons
     myStartDrawingButton->enable();
     myStopDrawingButton->disable();

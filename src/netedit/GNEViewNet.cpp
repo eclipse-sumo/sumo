@@ -312,7 +312,7 @@ GNEViewNet::buildViewToolBars(GUIGlChildWindow& cw) {
 
 
 void
-GNEViewNet::update() const {
+GNEViewNet::updateViewNet() const {
     // this call is only used for breakpoints (to check when view is updated)
     GUISUMOAbstractView::update();
 }
@@ -378,7 +378,7 @@ GNEViewNet::setColorScheme(const std::string& name) {
         }
     }
     myVisualizationSettings = &gSchemeStorage.get(name.c_str());
-    update();
+    updateViewNet();
     return true;
 }
 
@@ -764,7 +764,7 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     // update cursor
     updateCursor();
     // update view
-    update();
+    updateViewNet();
     return 1;
 }
 
@@ -786,7 +786,7 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
         processLeftButtonReleaseData();
     }
     // update view
-    update();
+    updateViewNet();
     return 1;
 }
 
@@ -850,10 +850,10 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     // change "delete last created point" depending of shift key
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
-        update();
+        updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
-        update();
+        updateViewNet();
     }
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
 }
@@ -868,12 +868,12 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     // change "delete last created point" depending of shift key
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
-        update();
+        updateViewNet();
     }
     // check if selecting using rectangle has to be disabled
     if (mySelectingArea.selectingUsingRectangle && !myKeyPressed.shiftKeyPressed()) {
         mySelectingArea.selectingUsingRectangle = false;
-        update();
+        updateViewNet();
     }
     return GUISUMOAbstractView::onKeyRelease(o, sel, eventData);
 }
@@ -973,7 +973,7 @@ GNEViewNet::hotkeyDel() {
         myUndoList->p_end();
     }
     // update view
-    update();
+    updateViewNet();
 }
 
 
@@ -1581,7 +1581,7 @@ long
 GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
     if (myEditShapes.editedShapePoly != nullptr) {
         myEditShapes.editedShapePoly->simplifyShape(false);
-        update();
+        updateViewNet();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
@@ -1596,7 +1596,7 @@ long
 GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
     if (myEditShapes.editedShapePoly != nullptr) {
         myEditShapes.editedShapePoly->deleteGeometryPoint(getPopupPosition(), false);
-        update();
+        updateViewNet();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
@@ -1611,7 +1611,7 @@ long
 GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
     if (myEditShapes.editedShapePoly != nullptr) {
         myEditShapes.editedShapePoly->closePolygon(false);
-        update();
+        updateViewNet();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
@@ -1626,7 +1626,7 @@ long
 GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
     if (myEditShapes.editedShapePoly != nullptr) {
         myEditShapes.editedShapePoly->openPolygon(false);
-        update();
+        updateViewNet();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
@@ -1641,7 +1641,7 @@ long
 GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
     if (myEditShapes.editedShapePoly != nullptr) {
         myEditShapes.editedShapePoly->changeFirstGeometryPoint(myEditShapes.editedShapePoly->getPolyVertexIndex(getPopupPosition(), false), false);
-        update();
+        updateViewNet();
     } else {
         GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
         if (polygonUnderMouse) {
@@ -1722,7 +1722,7 @@ GNEViewNet::onCmdTransformPOI(FXObject*, FXSelector, void*) {
             myUndoList->p_end();
         }
         // update view after transform
-        update();
+        updateViewNet();
     }
     return 1;
 }
@@ -2160,7 +2160,7 @@ GNEViewNet::onCmdReplaceJunction(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->replaceJunctionByGeometry(junction, myUndoList);
-        update();
+        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -2174,7 +2174,7 @@ GNEViewNet::onCmdSplitJunction(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->splitJunction(junction, false, myUndoList);
-        update();
+        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -2188,7 +2188,7 @@ GNEViewNet::onCmdSplitJunctionReconnect(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->splitJunction(junction, true, myUndoList);
-        update();
+        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -2216,7 +2216,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
         } else {
             myNet->clearJunctionConnections(junction, myUndoList);
         }
-        update();
+        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -2244,7 +2244,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
         } else {
             myNet->resetJunctionConnections(junction, myUndoList);
         }
-        update();
+        updateViewNet();
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -2304,7 +2304,7 @@ GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector sel, void*) {
     // Hide/show connections require recompute
     getNet()->requireRecompute();
     // Update viewnNet to show/hide conections
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS)) {
         myNetworkViewOptions.menuCheckShowConnections->setFocus();
@@ -2316,7 +2316,7 @@ GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleHideConnections(FXObject*, FXSelector sel, void*) {
     // Update viewnNet to show/hide conections
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS)) {
         myNetworkViewOptions.menuCheckHideConnections->setFocus();
@@ -2328,7 +2328,7 @@ GNEViewNet::onCmdToogleHideConnections(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleExtendSelection(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION)) {
         myNetworkViewOptions.menuCheckExtendSelection->setFocus();
@@ -2340,7 +2340,7 @@ GNEViewNet::onCmdToogleExtendSelection(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES)) {
         myNetworkViewOptions.menuCheckChangeAllPhases->setFocus();
@@ -2358,7 +2358,7 @@ GNEViewNet::onCmdToogleShowGridNetwork(FXObject*, FXSelector sel, void*) {
         myVisualizationSettings->showGrid = false;
     }
     // update view to show grid
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID)) {
         myNetworkViewOptions.menuCheckShowGrid->setFocus();
@@ -2376,7 +2376,7 @@ GNEViewNet::onCmdToogleShowGridDemand(FXObject*, FXSelector sel, void*) {
         myVisualizationSettings->showGrid = false;
     }
     // update view to show grid
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID)) {
         myDemandViewOptions.menuCheckShowGrid->setFocus();
@@ -2401,7 +2401,7 @@ GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
         flow.second->updateGeometry();
     }
     // update view to show new vehicles positions
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES)) {
         myNetworkViewOptions.menuCheckDrawSpreadVehicles->setFocus();
@@ -2415,7 +2415,7 @@ GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE)) {
         myNetworkViewOptions.menuCheckWarnAboutMerge->setFocus();
@@ -2427,7 +2427,7 @@ GNEViewNet::onCmdToogleWarnAboutMerge(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES)) {
         myNetworkViewOptions.menuCheckShowJunctionBubble->setFocus();
@@ -2439,7 +2439,7 @@ GNEViewNet::onCmdToogleShowJunctionBubbles(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION)) {
         myNetworkViewOptions.menuCheckMoveElevation->setFocus();
@@ -2451,7 +2451,7 @@ GNEViewNet::onCmdToogleMoveElevation(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES)) {
         myNetworkViewOptions.menuCheckChainEdges->setFocus();
@@ -2463,7 +2463,7 @@ GNEViewNet::onCmdToogleChainEdges(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES)) {
         myNetworkViewOptions.menuCheckAutoOppositeEdge->setFocus();
@@ -2475,7 +2475,7 @@ GNEViewNet::onCmdToogleAutoOppositeEdge(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED)) {
         myDemandViewOptions.menuCheckHideNonInspectedDemandElements->setFocus();
@@ -2487,7 +2487,7 @@ GNEViewNet::onCmdToogleHideNonInspecteDemandElements(FXObject*, FXSelector sel, 
 long
 GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES)) {
         myDemandViewOptions.menuCheckHideShapes->setFocus();
@@ -2499,7 +2499,7 @@ GNEViewNet::onCmdToogleHideShapes(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS)) {
         myDemandViewOptions.menuCheckShowAllPersonPlans->setFocus();
@@ -2533,7 +2533,7 @@ GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
         myDemandViewOptions.menuCheckLockPerson->setText("lock person");
     }
     // update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON)) {
         myDemandViewOptions.menuCheckLockPerson->setFocus();
@@ -2545,7 +2545,7 @@ GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleShowAdditionals(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS)) {
         myDataViewOptions.menuCheckShowAdditionals->setFocus();
@@ -2557,7 +2557,7 @@ GNEViewNet::onCmdToogleShowAdditionals(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleShowShapes(FXObject*, FXSelector sel, void*) {
     // Only update view
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES)) {
         myDataViewOptions.menuCheckShowShapes->setFocus();
@@ -2571,7 +2571,7 @@ GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
     // compute demand elements
     myNet->computeDemandElements(myViewParent->getGNEAppWindows());
     // update view to show demand elements
-    update();
+    updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
         myNetworkViewOptions.menuCheckShowDemandElements->setFocus();
@@ -2847,7 +2847,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
-    update();
+    updateViewNet();
 }
 
 
@@ -3019,7 +3019,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
-    update();
+    updateViewNet();
 }
 
 
@@ -3113,7 +3113,7 @@ GNEViewNet::updateDataModeSpecificControls() {
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
-    update();
+    updateViewNet();
 }
 
 void
@@ -3348,7 +3348,7 @@ GNEViewNet::updateControls() {
             break;
     }
     // update view
-    update();
+    updateViewNet();
 }
 
 // ---------------------------------------------------------------------------
@@ -3546,7 +3546,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // move selected ACs
                     myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
                     // update view
-                    update();
+                    updateViewNet();
                 } else if (!myMoveSingleElementValues.beginMoveSingleElementNetworkMode()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)
                     processClick(eventData);
@@ -3561,7 +3561,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myObjectsUnderCursor.getLaneFront()) {
                 // Handle laneclick (shift key may pass connections, Control key allow conflicts)
                 myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
-                update();
+                updateViewNet();
             }
             // process click
             processClick(eventData);
@@ -3571,7 +3571,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myObjectsUnderCursor.getJunctionFront()) {
                 // edit TLS in TLSEditor frame
                 myViewParent->getTLSEditorFrame()->editTLS(getPositionInformation(), myObjectsUnderCursor);
-                update();
+                updateViewNet();
             }
             // process click
             processClick(eventData);
@@ -3590,7 +3590,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     }
                 } else if (myViewParent->getAdditionalFrame()->addAdditional(myObjectsUnderCursor)) {
                     // update view to show the new additional
-                    update();
+                    updateViewNet();
                 }
             }
             // process click
@@ -3619,7 +3619,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // check if process click was scuesfully
                     if (myViewParent->getTAZFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor)) {
                         // view net must be always update
-                        update();
+                        updateViewNet();
                     }
                     // process click
                     processClick(eventData);
@@ -3636,7 +3636,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 if (!myObjectsUnderCursor.getPOIFront()) {
                     GNEPolygonFrame::AddShape result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
                     // view net must be always update
-                    update();
+                    updateViewNet();
                     // process click depending of the result of "process click"
                     if ((result != GNEPolygonFrame::AddShape::UPDATEDTEMPORALSHAPE)) {
                         // process click
@@ -3653,7 +3653,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myObjectsUnderCursor.getConnectionFront()) {
                 // shift key may pass connections, Control key allow conflicts.
                 myViewParent->getProhibitionFrame()->handleProhibitionClick(myObjectsUnderCursor);
-                update();
+                updateViewNet();
             }
             // process click
             processClick(eventData);
@@ -3791,7 +3791,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                     // move selected ACs
                     myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
                     // update view
-                    update();
+                    updateViewNet();
                 } else if (!myMoveSingleElementValues.beginMoveSingleElementDemandMode()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)
                     processClick(eventData);
@@ -3950,7 +3950,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor)) {
                     // update view to show the new edge data
-                    update();
+                    updateViewNet();
                 }
             }
             // process click
@@ -3961,7 +3961,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myObjectsUnderCursor)) {
                     // update view to show the new edge data
-                    update();
+                    updateViewNet();
                 }
             }
             // process click

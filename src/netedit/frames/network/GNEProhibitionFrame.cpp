@@ -214,7 +214,7 @@ GNEProhibitionFrame::onCmdCancel(FXObject*, FXSelector, void*) {
         myCurrentConn = nullptr;
         myConcernedConns.clear();
         myRelativeToConnection->updateDescription();
-        myViewNet->update();
+        myViewNet->updateViewNet();
     }
     return 1;
 }

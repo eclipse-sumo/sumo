@@ -86,8 +86,6 @@ void GNEChange_Crossing::undo() {
             // show extra information for tests
             WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
         }
-        // Update view
-        myNet->getViewNet()->update();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + toString(SUMO_TAG_CROSSING) + " into " + myJunctionParent->getTagStr() + " '" + myJunctionParent->getID() + "'");
@@ -105,8 +103,6 @@ void GNEChange_Crossing::undo() {
         if (mySelected) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
-        // Update view
-        myNet->getViewNet()->update();
     }
     // enable save networkElements
     myNet->requireSaveNet(true);
@@ -131,8 +127,6 @@ void GNEChange_Crossing::redo() {
         if (mySelected) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
-        // Update view
-        myNet->getViewNet()->update();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + toString(SUMO_TAG_CROSSING) + " from " + myJunctionParent->getTagStr() + " '" + myJunctionParent->getID() + "'");
@@ -147,8 +141,6 @@ void GNEChange_Crossing::redo() {
             // show extra information for tests
             WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
         }
-        // Update view
-        myNet->getViewNet()->update();
     }
     // enable save networkElements
     myNet->requireSaveNet(true);

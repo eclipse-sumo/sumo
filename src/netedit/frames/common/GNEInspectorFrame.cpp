@@ -416,7 +416,7 @@ GNEInspectorFrame::selectedOverlappedElement(GNEAttributeCarrier* AC) {
         inspectSingleElement(AC);
     }
     // update view (due dotted contour)
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 
@@ -1019,7 +1019,7 @@ GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void
         myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
     }
     // update view (to see visual changes)
-    myInspectorFrameParent->myViewNet->update();
+    myInspectorFrameParent->myViewNet->updateViewNet();
     return 1;
 }
 

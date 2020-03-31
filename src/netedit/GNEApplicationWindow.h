@@ -320,6 +320,9 @@ public:
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
+    /// @brief get pointer to viewNet
+    GNEViewNet* getViewNet();
+
     /// @brief get ToolbarsGrip
     GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip();
 

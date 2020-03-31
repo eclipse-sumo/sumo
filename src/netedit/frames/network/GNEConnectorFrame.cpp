@@ -116,7 +116,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdCancelModifications(FXObject*, 
             myConnectorFrameParent->getViewNet()->setStatusBarText("Changes reverted");
         }
         myConnectorFrameParent->cleanup();
-        myConnectorFrameParent->getViewNet()->update();
+        myConnectorFrameParent->getViewNet()->updateViewNet();
     }
     return 1;
 }
@@ -142,7 +142,7 @@ GNEConnectorFrame::ConnectionModifications::onCmdSaveModifications(FXObject*, FX
             myConnectorFrameParent->getViewNet()->setStatusBarText("Changes accepted");
         }
         myConnectorFrameParent->cleanup();
-        myConnectorFrameParent->getViewNet()->update();
+        myConnectorFrameParent->getViewNet()->updateViewNet();
     }
     return 1;
 }

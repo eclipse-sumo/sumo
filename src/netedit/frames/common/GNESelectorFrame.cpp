@@ -1171,7 +1171,7 @@ long
 GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void*) {
     // set scale in viewnet
     mySelectorFrameParent->myViewNet->setSelectionScaling(mySelectionScaling->getValue());
-    mySelectorFrameParent->myViewNet->update();
+    mySelectorFrameParent->myViewNet->updateViewNet();
     return 1;
 }
 
@@ -1245,7 +1245,7 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
             mySelectorFrameParent->myViewNet->getUndoList()->p_end();
         }
     }
-    mySelectorFrameParent->myViewNet->update();
+    mySelectorFrameParent->myViewNet->updateViewNet();
     return 1;
 }
 
@@ -1609,8 +1609,6 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         }
         // finish selection operation
         mySelectorFrameParent->myViewNet->getUndoList()->p_end();
-        // update view
-        mySelectorFrameParent->myViewNet->update();
     }
     return 1;
 }
@@ -1916,8 +1914,6 @@ GNESelectorFrame::clearCurrentSelection() const {
         }
         // finish selection operation
         myViewNet->getUndoList()->p_end();
-        // update view
-        myViewNet->update();
     }
 }
 
@@ -2000,8 +1996,6 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
         // finish operation
         myViewNet->getUndoList()->p_end();
     }
-    // update view
-    myViewNet->update();
 }
 
 

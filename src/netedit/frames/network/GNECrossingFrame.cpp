@@ -120,7 +120,7 @@ GNECrossingFrame::EdgesSelector::enableEdgeSelector(GNEJunction* currentJunction
     // Set current junction
     myCurrentJunction = currentJunction;
     // Update view net to show the new colors
-    myCrossingFrameParent->getViewNet()->update();
+    myCrossingFrameParent->getViewNet()->updateViewNet();
     // check if use selected eges must be enabled
     myUseSelectedEdges->disable();
     for (auto i : myCurrentJunction->getGNEEdges()) {
@@ -157,7 +157,7 @@ GNECrossingFrame::EdgesSelector::restoreEdgeColors() {
             }
         }
         // Update view net to show the new colors
-        myCrossingFrameParent->getViewNet()->update();
+        myCrossingFrameParent->getViewNet()->updateViewNet();
         myCurrentJunction = nullptr;
     }
 }
@@ -415,7 +415,7 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
         }
     }
     // Update view net
-    myCrossingFrameParent->getViewNet()->update();
+    myCrossingFrameParent->getViewNet()->updateViewNet();
 
     // Check that at least there are a selected edge
     if (crossingEdges.empty()) {
@@ -566,7 +566,7 @@ GNECrossingFrame::addCrossing(const GNEViewNetHelper::ObjectsUnderCursor& object
         myEdgeSelector->disableEdgeSelector();
     }
     // always update view after an operation
-    myViewNet->update();
+    myViewNet->updateViewNet();
 }
 
 

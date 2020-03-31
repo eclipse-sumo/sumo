@@ -24,6 +24,7 @@
 // prefixed with p_
 /****************************************************************************/
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEUndoList.h"
@@ -76,6 +77,10 @@ GNEUndoList::p_begin(const std::string& description) {
 void
 GNEUndoList::p_end() {
     myCommandGroups.pop();
+    // check if viewNet has to be updated
+    if (myCommandGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
+        myGNEApplicationWindowParent->getViewNet()->updateViewNet();
+    }
     end();
 }
 

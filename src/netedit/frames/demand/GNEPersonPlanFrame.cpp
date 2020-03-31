@@ -371,7 +371,7 @@ GNEPersonPlanFrame::PersonPlanCreator::onCmdFinishPersonPlanCreation(FXObject*, 
         // call edgePathCreated
         myPersonPlanFrameParent->personPlanCreated(nullptr, nullptr);
         // update view
-        myPersonPlanFrameParent->myViewNet->update();
+        myPersonPlanFrameParent->myViewNet->updateViewNet();
         // refresh person plan creator
         refreshPersonPlanCreator();
         // enable undo/redo

@@ -445,7 +445,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
     // recalc frame
     recalc();
     // update view net
-    myGenericDataFrameParent->getViewNet()->update();
+    myGenericDataFrameParent->getViewNet()->updateViewNet();
 }
 
 
@@ -487,7 +487,7 @@ GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const d
 long
 GNEGenericDataFrame::AttributeSelector::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // update view
-    myGenericDataFrameParent->getViewNet()->update();
+    myGenericDataFrameParent->getViewNet()->updateViewNet();
     return 1;
 }
 

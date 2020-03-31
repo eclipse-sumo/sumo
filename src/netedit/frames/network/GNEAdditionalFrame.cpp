@@ -189,7 +189,7 @@ GNEAdditionalFrame::SelectorParentLanes::abortConsecutiveLaneSelector() {
     myStopSelectingButton->disable();
     myAbortSelectingButton->disable();
     // update view (due colors)
-    myAdditionalFrameParent->getViewNet()->update();
+    myAdditionalFrameParent->getViewNet()->updateViewNet();
 }
 
 
@@ -238,7 +238,7 @@ GNEAdditionalFrame::SelectorParentLanes::addSelectedLane(GNELane* lane, const Po
         }
     }
     // update view (due colors)
-    myAdditionalFrameParent->getViewNet()->update();
+    myAdditionalFrameParent->getViewNet()->updateViewNet();
     return true;
 }
 

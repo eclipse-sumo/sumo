@@ -1124,6 +1124,12 @@ GNEApplicationWindow::getUndoList() {
 }
 
 
+GNEViewNet* 
+GNEApplicationWindow::getViewNet() {
+    return myViewNet;
+}
+
+
 GNEApplicationWindowHelper::ToolbarsGrip&
 GNEApplicationWindow::getToolbarsGrip() {
     myToolbarsGrip.myTopDock = myTopDock;
@@ -1644,7 +1650,6 @@ GNEApplicationWindow::onCmdAbort(FXObject*, FXSelector, void*) {
         } else {
             // abort current operation
             myViewNet->abortOperation();
-            myViewNet->update();
         }
     }
     return 1;

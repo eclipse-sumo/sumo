@@ -774,7 +774,7 @@ GNETAZFrame::TAZChildDefaultParameters::onCmdUseSelectedEdges(FXObject*, FXSelec
     // update selection button
     myTAZFrameParent->myTAZChildDefaultParameters->updateSelectEdgesButton();
     // update view net
-    myTAZFrameParent->myViewNet->update();
+    myTAZFrameParent->myViewNet->updateViewNet();
     return 1;
 }
 
@@ -975,8 +975,6 @@ GNETAZFrame::TAZSelectionStatistics::onCmdSelectEdges(FXObject*, FXSelector, voi
             }
         }
     }
-    // update view net
-    myTAZFrameParent->myViewNet->update();
     return 1;
 }
 
@@ -1260,7 +1258,7 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
         }
     }
     // always update view after setting new colors
-    myTAZFrameParent->myViewNet->update();
+    myTAZFrameParent->myViewNet->updateViewNet();
 }
 
 

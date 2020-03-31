@@ -349,7 +349,7 @@ GNERouteFrame::ConsecutiveEdges::refreshEdgeCandidates() {
         // update route label
         updateInfoRouteLabel();
         // update view
-        myRouteFrameParent->getViewNet()->update();
+        myRouteFrameParent->getViewNet()->updateViewNet();
     }
 }
 
@@ -429,7 +429,7 @@ GNERouteFrame::ConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*) {
         // update route label
         updateInfoRouteLabel();
         // update view
-        myRouteFrameParent->getViewNet()->update();
+        myRouteFrameParent->getViewNet()->updateViewNet();
     }
     return 1;
 }
@@ -467,7 +467,7 @@ GNERouteFrame::ConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelector,
         // update route label
         updateInfoRouteLabel();
         // update view
-        myRouteFrameParent->getViewNet()->update();
+        myRouteFrameParent->getViewNet()->updateViewNet();
         // edge added, then return true
         return true;
     } else {
@@ -661,7 +661,7 @@ GNERouteFrame::NonConsecutiveEdges::onCmdAbortRoute(FXObject*, FXSelector, void*
         // update info route label
         updateInfoRouteLabel();
         // update view (to see the new route)
-        myRouteFrameParent->getViewNet()->update();
+        myRouteFrameParent->getViewNet()->updateViewNet();
     }
     return 1;
 }
@@ -690,7 +690,7 @@ GNERouteFrame::NonConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelect
         // update info route label
         updateInfoRouteLabel();
         // update view
-        myRouteFrameParent->myViewNet->update();
+        myRouteFrameParent->myViewNet->updateViewNet();
         return true;
     } else {
         return false;
@@ -788,7 +788,7 @@ GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge) {
                 break;
         }
         // update view
-        myViewNet->update();
+        myViewNet->updateViewNet();
     }
 }
 
@@ -809,7 +809,7 @@ GNERouteFrame::hotkeyEnter() {
                 break;
         }
         // update view
-        myViewNet->update();
+        myViewNet->updateViewNet();
     }
 }
 
@@ -830,7 +830,7 @@ GNERouteFrame::hotkeyBackSpace() {
                 break;
         }
         // update view
-        myViewNet->update();
+        myViewNet->updateViewNet();
     }
 }
 
@@ -851,7 +851,7 @@ GNERouteFrame::hotkeyEsc() {
                 break;
         }
         // update view
-        myViewNet->update();
+        myViewNet->updateViewNet();
     }
 }
 

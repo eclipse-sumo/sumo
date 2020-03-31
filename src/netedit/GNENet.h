@@ -745,9 +745,6 @@ private:
     /// @brief deletes a single edge
     void deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting);
 
-    /// @brief notify myViewNet
-    void update();
-
     /// @brief reserve edge ID (To avoid duplicates)
     void reserveEdgeID(const std::string& id);
 
