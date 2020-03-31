@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 15:38:07 2017 by SUMO Version v0_31_0-870-g7affc8e
+<!-- generated on Tue Mar 31 12:21:43 2020 by Eclipse SUMO Version v1_5_0+1025-83bc0d0af0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,9 +14,18 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <end value="5401"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -32,6 +41,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
-    <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="544" removed="0" inserted="213" cleared="1659" flow="544.00" aspiredFlow="2500.00" speed="1.36" aspiredSpeed="27.80"/>
-    <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="234" removed="0" inserted="232" cleared="8" flow="468.00" aspiredFlow="2500.00" speed="1.13" aspiredSpeed="27.80"/>
+    <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="544" removed="0" inserted="222" cleared="1668" flow="544.00" aspiredFlow="2500.00" speed="1.36" aspiredSpeed="27.80"/>
+    <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="234" removed="0" inserted="233" cleared="9" flow="468.00" aspiredFlow="2500.00" speed="1.13" aspiredSpeed="27.80"/>
 </calibratorstats>

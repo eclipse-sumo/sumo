@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 15:38:07 2017 by SUMO Version v0_31_0-870-g7affc8e
+<!-- generated on Tue Mar 31 12:21:47 2020 by Eclipse SUMO Version v1_5_0+1025-83bc0d0af0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,12 +15,19 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
     <report>
+        <verbose value="true"/>
         <xml-validation value="never"/>
-        <duration-log.disable value="true"/>
+        <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -33,7 +40,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="227.00" id="ed">
-        <edge id="beg" sampledSeconds="2423.86" traveltime="36.18" overlapTraveltime="36.63" density="26.79" occupancy="6.70" waitingTime="0.00" speed="11.02" departed="67" arrived="0" entered="0" left="67" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="end" sampledSeconds="5299.03" traveltime="79.09" overlapTraveltime="79.45" density="21.25" occupancy="10.63" waitingTime="0.00" speed="13.89" departed="0" arrived="67" entered="67" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="beg" sampledSeconds="2423.86" traveltime="36.18" overlapTraveltime="36.63" density="26.79" laneDensity="13.40" occupancy="6.70" waitingTime="0.00" speed="11.02" departed="67" arrived="0" entered="0" left="67" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="end" sampledSeconds="5299.03" traveltime="79.09" overlapTraveltime="79.45" density="21.25" laneDensity="21.25" occupancy="10.63" waitingTime="0.00" speed="13.89" departed="0" arrived="67" entered="67" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>
