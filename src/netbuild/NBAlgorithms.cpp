@@ -279,16 +279,15 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCon
 
 bool
 NBNodeTypeComputer::isRailwayNode(const NBNode* n) {
-    int numRailway = 0;
-    int numNonRailway = 0;
+    bool hasRailway = false;
     for (NBEdge* e : n->getIncomingEdges()) {
         if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
-            numNonRailway++;
+            return false;
         } else if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-            numRailway++;
+            hasRailway = true;
         }
     }
-    return numRailway > 0 && numNonRailway == 0;
+    return hasRailway;
 }
 
 // ---------------------------------------------------------------------------
