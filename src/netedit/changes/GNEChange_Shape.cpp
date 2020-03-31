@@ -49,7 +49,7 @@ GNEChange_Shape::~GNEChange_Shape() {
             // show extra information for tests
             WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             // remove polygon from AttributeCarreirs
-            myNet->getAttributeCarriers()->deleteShape(myShape, false);
+            myNet->getAttributeCarriers()->deleteShape(myShape);
             // Remove element from parents and children
             removeShape(myShape);
         }
@@ -66,7 +66,7 @@ GNEChange_Shape::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
-        myNet->getAttributeCarriers()->deleteShape(myShape, false);
+        myNet->getAttributeCarriers()->deleteShape(myShape);
         // Remove element from parents and children
         removeShape(myShape);
     } else {
@@ -93,7 +93,7 @@ GNEChange_Shape::redo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
-        myNet->getAttributeCarriers()->deleteShape(myShape, false);
+        myNet->getAttributeCarriers()->deleteShape(myShape);
         // Remove element from parents and children
         removeShape(myShape);
     }

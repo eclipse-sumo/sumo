@@ -50,7 +50,7 @@ GNEChange_DataSet::~GNEChange_DataSet() {
         WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
         // make sure that element isn't in net before removing
         if (myNet->getAttributeCarriers()->dataSetExist(myDataSet)) {
-            myNet->getAttributeCarriers()->deleteDataSet(myDataSet, false);
+            myNet->getAttributeCarriers()->deleteDataSet(myDataSet);
         }
         // delete data set
         delete myDataSet;
@@ -64,7 +64,7 @@ GNEChange_DataSet::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
-        myNet->getAttributeCarriers()->deleteDataSet(myDataSet, false);
+        myNet->getAttributeCarriers()->deleteDataSet(myDataSet);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
@@ -89,7 +89,7 @@ GNEChange_DataSet::redo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
-        myNet->getAttributeCarriers()->deleteDataSet(myDataSet, false);
+        myNet->getAttributeCarriers()->deleteDataSet(myDataSet);
     }
     // update toolbar
     myNet->getViewNet()->getIntervalBar().updateIntervalBar();

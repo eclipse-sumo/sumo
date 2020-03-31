@@ -202,7 +202,7 @@ struct GNENetHelper {
         /**@brief delete additional element of GNENet container
          * @throw processError if additional wasn't previously inserted
          */
-        bool deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting);
+        bool deleteAdditional(GNEAdditional* additional);
 
         /// @}
 
@@ -220,7 +220,7 @@ struct GNENetHelper {
         /**@brief delete shape element of GNENet container
          * @throw processError if shape wasn't previously inserted
          */
-        bool deleteShape(GNEShape* shape, bool updateViewAfterDeleting);
+        bool deleteShape(GNEShape* shape);
 
         /// @}
 
@@ -238,7 +238,7 @@ struct GNENetHelper {
         /**@brief delete demand element element of GNENet container
          * @throw processError if demand element wasn't previously inserted
          */
-        bool deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting);
+        bool deleteDemandElement(GNEDemandElement* demandElement);
 
         /// @}
 
@@ -256,7 +256,7 @@ struct GNENetHelper {
         /**@brief delete demand element element of GNENet container
          * @throw processError if demand element wasn't previously inserted
          */
-        bool deleteDataSet(GNEDataSet* dataSet, bool updateViewAfterDeleting);
+        bool deleteDataSet(GNEDataSet* dataSet);
 
         /// @}
 

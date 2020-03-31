@@ -54,7 +54,7 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
         // make sure that element isn't in net before removing
         if (myNet->getAttributeCarriers()->demandElementExist(myDemandElement)) {
             // remove demand element of network
-            myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
+            myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement);
             // remove element from path
             for (const auto& i : myEdgePath) {
                 i->removePathElement(myDemandElement);
@@ -73,7 +73,7 @@ GNEChange_DemandElement::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // delete demand element from net
-        myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
+        myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
         for (const auto& i : myEdgePath) {
             i->removePathElement(myDemandElement);
@@ -114,7 +114,7 @@ GNEChange_DemandElement::redo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // delete demand element from net
-        myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement, false);
+        myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
         for (const auto& i : myEdgePath) {
             i->removePathElement(myDemandElement);

@@ -375,7 +375,7 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
 
 
 bool
-GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional, bool updateViewAfterDeleting) {
+GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     // first check that additional pointer is valid
     if (additionalExist(additional)) {
         // remove it from Inspector Frame and AttributeCarrierHierarchy
@@ -440,7 +440,7 @@ GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
 
 
 bool
-GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape, bool updateViewAfterDeleting) {
+GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
     // first check that shape pointer is valid
     if (shapeExist(shape)) {
         // remove it from Inspector Frame and AttributeCarrierHierarchy
@@ -515,7 +515,7 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
 
 
 bool
-GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement, bool updateViewAfterDeleting) {
+GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement) {
     // first check that demandElement pointer is valid
     if (demandElementExist(demandElement)) {
         // remove it from Inspector Frame and AttributeCarrierHierarchy
@@ -578,7 +578,7 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
 
 
 bool
-GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet, bool updateViewAfterDeleting) {
+GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     // first check that dataSet pointer is valid
     if (dataSetExist(dataSet)) {
         // remove it from Inspector Frame and AttributeCarrierHierarchy

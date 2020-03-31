@@ -50,7 +50,7 @@ GNEChange_Additional::~GNEChange_Additional() {
         // make sure that additional isn't in net before removing
         if (myNet->getAttributeCarriers()->additionalExist(myAdditional)) {
             // delete additional from net
-            myNet->getAttributeCarriers()->deleteAdditional(myAdditional, false);
+            myNet->getAttributeCarriers()->deleteAdditional(myAdditional);
             // remove additional from parents and children
             removeAdditional(myAdditional);
         }
@@ -65,7 +65,7 @@ GNEChange_Additional::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
-        myNet->getAttributeCarriers()->deleteAdditional(myAdditional, false);
+        myNet->getAttributeCarriers()->deleteAdditional(myAdditional);
         // remove additional from parents and children
         removeAdditional(myAdditional);
     } else {
@@ -94,7 +94,7 @@ GNEChange_Additional::redo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
-        myNet->getAttributeCarriers()->deleteAdditional(myAdditional, false);
+        myNet->getAttributeCarriers()->deleteAdditional(myAdditional);
         // remove additional from parents and children
         removeAdditional(myAdditional);
     }
