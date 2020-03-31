@@ -3805,12 +3805,10 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     myState.myPos = myLane->getLength();
                 } else if (reverseTrain) {
                     approachedLane = (*(myCurrEdge + 1))->getLanes()[0];
-                    if (MSGlobals::gUsingInternalLanes) {
-                        link = MSLinkContHelper::getConnectingLink(*myLane, *approachedLane);
-                        assert(link != 0);
-                        while (link->getViaLane() != nullptr) {
-                            link = link->getViaLane()->getLinkCont()[0];
-                        }
+                    link = MSLinkContHelper::getConnectingLink(*myLane, *approachedLane);
+                    assert(link != 0);
+                    while (link->getViaLane() != nullptr) {
+                        link = link->getViaLane()->getLinkCont()[0];
                     }
                     --myNextDriveItem;
                 } else {
