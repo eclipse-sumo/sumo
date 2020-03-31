@@ -94,20 +94,24 @@ void
 MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
         const double /*numLanes*/, const double defaultTravelTime, const int /*numVehicles*/) const {
     const double normFactor = double(3600. / STEPS2TIME(period) / myLaneLength);
-    dev << " CO_abs=\"" << OutputDevice::realString(myEmissions.CO, 6) <<
-        "\" CO2_abs=\"" << OutputDevice::realString(myEmissions.CO2, 6) <<
-        "\" HC_abs=\"" << OutputDevice::realString(myEmissions.HC, 6) <<
-        "\" PMx_abs=\"" << OutputDevice::realString(myEmissions.PMx, 6) <<
-        "\" NOx_abs=\"" << OutputDevice::realString(myEmissions.NOx, 6) <<
-        "\" fuel_abs=\"" << OutputDevice::realString(myEmissions.fuel, 6) <<
-        "\" electricity_abs=\"" << OutputDevice::realString(myEmissions.electricity, 6) <<
-        "\"\n            CO_normed=\"" << OutputDevice::realString(normFactor * myEmissions.CO, 6) <<
-        "\" CO2_normed=\"" << OutputDevice::realString(normFactor * myEmissions.CO2, 6) <<
-        "\" HC_normed=\"" << OutputDevice::realString(normFactor * myEmissions.HC, 6) <<
-        "\" PMx_normed=\"" << OutputDevice::realString(normFactor * myEmissions.PMx, 6) <<
-        "\" NOx_normed=\"" << OutputDevice::realString(normFactor * myEmissions.NOx, 6) <<
-        "\" fuel_normed=\"" << OutputDevice::realString(normFactor * myEmissions.fuel, 6) <<
-        "\" electricity_normed=\"" << OutputDevice::realString(normFactor * myEmissions.electricity, 6);
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_CO_ABS,          OutputDevice::realString(myEmissions.CO, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_CO2_ABS,         OutputDevice::realString(myEmissions.CO2, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_HC_ABS,          OutputDevice::realString(myEmissions.HC, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_PMX_ABS,         OutputDevice::realString(myEmissions.PMx, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_NOX_ABS,         OutputDevice::realString(myEmissions.NOx, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_FUEL_ABS,        OutputDevice::realString(myEmissions.fuel, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ELECTRICITY_ABS, OutputDevice::realString(myEmissions.electricity, 6));
+    if (attributeMask == 0) {
+        dev << "\n           ";
+    }
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_CO_NORMED,          OutputDevice::realString(normFactor * myEmissions.CO, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_CO2_NORMED,         OutputDevice::realString(normFactor * myEmissions.CO2, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_HC_NORMED,          OutputDevice::realString(normFactor * myEmissions.HC, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_PMX_NORMED,         OutputDevice::realString(normFactor * myEmissions.PMx, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_NOX_NORMED,         OutputDevice::realString(normFactor * myEmissions.NOx, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_FUEL_NORMED,        OutputDevice::realString(normFactor * myEmissions.fuel, 6));
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ELECTRICITY_NORMED, OutputDevice::realString(normFactor * myEmissions.electricity, 6));
+
     if (sampleSeconds > myParent->getMinSamples()) {
         double vehFactor = myParent->getMaxTravelTime() / sampleSeconds;
         double traveltime = myParent->getMaxTravelTime();
@@ -115,27 +119,33 @@ MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, long long i
             vehFactor = MIN2(vehFactor, myLaneLength / travelledDistance);
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
-        dev << "\"\n            traveltime=\"" << OutputDevice::realString(traveltime) <<
-            "\" CO_perVeh=\"" << OutputDevice::realString(myEmissions.CO * vehFactor, 6) <<
-            "\" CO2_perVeh=\"" << OutputDevice::realString(myEmissions.CO2 * vehFactor, 6) <<
-            "\" HC_perVeh=\"" << OutputDevice::realString(myEmissions.HC * vehFactor, 6) <<
-            "\" PMx_perVeh=\"" << OutputDevice::realString(myEmissions.PMx * vehFactor, 6) <<
-            "\" NOx_perVeh=\"" << OutputDevice::realString(myEmissions.NOx * vehFactor, 6) <<
-            "\" fuel_perVeh=\"" << OutputDevice::realString(myEmissions.fuel * vehFactor, 6) <<
-            "\" electricity_perVeh=\"" << OutputDevice::realString(myEmissions.electricity * vehFactor, 6);
+        if (attributeMask == 0) {
+            dev << "\n           ";
+        }
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME,         OutputDevice::realString(traveltime));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_CO_PERVEH,          OutputDevice::realString(vehFactor * myEmissions.CO, 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_CO2_PERVEH,         OutputDevice::realString(vehFactor * myEmissions.CO2, 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_HC_PERVEH,          OutputDevice::realString(vehFactor * myEmissions.HC, 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_PMX_PERVEH,         OutputDevice::realString(vehFactor * myEmissions.PMx, 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_NOX_PERVEH,         OutputDevice::realString(vehFactor * myEmissions.NOx, 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_FUEL_PERVEH,        OutputDevice::realString(vehFactor * myEmissions.fuel, 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ELECTRICITY_PERVEH, OutputDevice::realString(vehFactor * myEmissions.electricity, 6));
     } else if (defaultTravelTime >= 0.) {
         const MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType();
         const double speed = MIN2(myLaneLength / defaultTravelTime, t->getMaxSpeed());
-        dev << "\"\n            traveltime=\"" << OutputDevice::realString(defaultTravelTime) <<
-            "\" CO_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" CO2_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" HC_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" PMx_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" NOx_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" fuel_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6) << // @todo: give correct slope
-            "\" electricity_perVeh=\"" << OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6); // @todo: give correct slope
+
+        if (attributeMask == 0) {
+            dev << "\n           ";
+        }
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME,         OutputDevice::realString(defaultTravelTime));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_CO_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_CO2_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::CO2,  speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_HC_PERVEH,          OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::HC,   speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_PMX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::PM_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_NOX_PERVEH,         OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::NO_X, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_FUEL_PERVEH,        OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::FUEL, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6));
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ELECTRICITY_PERVEH, OutputDevice::realString(PollutantsInterface::computeDefault(t->getEmissionClass(), PollutantsInterface::ELEC, speed, t->getCarFollowModel().getMaxAccel(), 0, defaultTravelTime), 6));
     }
-    dev << "\"";
     dev.closeTag();
 }
 

@@ -655,10 +655,6 @@ MSMeanData::detectorUpdate(const SUMOTime step) {
 
 long long int
 MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::string& id) {
-    if (writeAttributes == "") {
-        // all bits set to 1
-        return std::numeric_limits<long long int>::max();
-    }
     long long int result = 0;
     for (std::string attrName : StringTokenizer(writeAttributes).getVector()) {
         if (!SUMOXMLDefinitions::Attrs.hasString(attrName)) {
@@ -667,7 +663,7 @@ MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::
         }
         int attr = SUMOXMLDefinitions::Attrs.get(attrName);
         assert(attr < 63);
-        result |= (1 << attr);
+        result |= ((long long int)1 << attr);
     }
     return result;
 }
