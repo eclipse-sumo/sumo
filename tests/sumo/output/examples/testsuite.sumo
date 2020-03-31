@@ -25,6 +25,9 @@ cross3ltl_amitran
 # Copy of cross3ltl_meandata_edges
 cross3ltl_meandata_amitran
 
+# filte writtenAttributes
+cross3ltl_meandata_amitran_filter
+
 # test output option --output-prefix
 cross3ltl_prefixed_meandata_and_tripinfo_and_log
 
