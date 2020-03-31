@@ -57,6 +57,12 @@ reverse_no_link
 # The network uses internal links but the simulation uses option --no-internal-links
 reverse_no_internal_links
 
+# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal). simultion runs with --no-internal-links
+# 
+# As an added complication, the stop is a bit too short for the train so the train cannot reverse after going past the stop pos but must reverse implicitly due to reaching the turnaround (and there is no slow internal lane to make it slow down)
+# 
+reverse_before_stop_no_internal_links
+
 # trains passing each other at two loops
 two_passing_loops
 

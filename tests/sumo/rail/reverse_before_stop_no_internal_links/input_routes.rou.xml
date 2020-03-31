@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2018-08-03 15:04:49.309153 by $Id$
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="light_rail" vClass="rail_urban" length="50"/>
+    <route id="light_rail_S46:0" edges="beg f h branch -branch -h g end" >
+        <stop busStop="stopBeg" duration="30.00" until="32.0"/> <!-- stopBeg -->
+        <stop busStop="-stopBranch" duration="30.00" until="93.0"/> <!-- stopBranch -->
+        <stop busStop="stopEnd" duration="30.00" until="153.0"/> <!-- stopEnd -->
+    </route>
+    <flow id="light_rail_S46:0" type="light_rail" route="light_rail_S46:0" begin="0.0" end="3600.0" number="1" line="S46:0" >
+        <param key="name" value="0"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+</routes>
