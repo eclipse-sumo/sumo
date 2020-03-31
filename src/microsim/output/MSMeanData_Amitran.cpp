@@ -106,7 +106,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::isEmpty() const {
 
 
 void
-MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime /* period */,
+MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime /* period */,
         const double /* numLanes */, const double defaultTravelTime, const int /* numVehicles */) const {
     if (sampleSeconds > 0) {
         dev.writeAttr("amount", amount).writeAttr("averageSpeed", int(100 * travelledDistance / sampleSeconds));
@@ -138,10 +138,12 @@ MSMeanData_Amitran::MSMeanData_Amitran(const std::string& id,
                                        const double maxTravelTime,
                                        const double minSamples,
                                        const double haltSpeed,
-                                       const std::string& vTypes)
-    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-                 withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, vTypes),
-      myHaltSpeed(haltSpeed) {
+                                       const std::string& vTypes,
+                                       const std::string& writeAttributes) :
+    MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+            withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, vTypes, writeAttributes),
+    myHaltSpeed(haltSpeed)
+{
 }
 
 

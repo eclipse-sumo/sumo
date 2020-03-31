@@ -384,7 +384,55 @@ enum SumoXMLTag {
  */
 enum SumoXMLAttr {
     /// @brief invalid attribute
-    SUMO_ATTR_NOTHING,
+    SUMO_ATTR_NOTHING = 0,
+
+    /// @name meanData output attributes
+    /// @note: sorted first to simplify filtering written attributes with bit operations
+    /// @{
+    /// MSMeanData_Net
+    SUMO_ATTR_SAMPLEDSECONDS     =  1,
+    SUMO_ATTR_DENSITY            =  2,
+    SUMO_ATTR_LANEDENSITY        =  3,
+    SUMO_ATTR_OCCUPANCY          =  4,
+    SUMO_ATTR_WAITINGTIME        =  5,
+    SUMO_ATTR_SPEED              =  6,
+    SUMO_ATTR_DEPARTED           =  7,
+    SUMO_ATTR_ARRIVED            =  8,
+    SUMO_ATTR_ENTERED            =  9,
+    SUMO_ATTR_LEFT               = 10,
+    SUMO_ATTR_VAPORIZED          = 11,
+    SUMO_ATTR_TRAVELTIME         = 12,
+    SUMO_ATTR_LANECHANGEDFROM    = 13,
+    SUMO_ATTR_LANECHANGEDTO      = 14,
+    SUMO_ATTR_OVERLAPTRAVELTIME  = 15,
+    /// MSMeanData_Emissions
+    SUMO_ATTR_CO_ABS             = 16,
+    SUMO_ATTR_CO2_ABS            = 17,
+    SUMO_ATTR_HC_ABS             = 18,
+    SUMO_ATTR_PMX_ABS            = 19,
+    SUMO_ATTR_NOX_ABS            = 20,
+    SUMO_ATTR_FUEL_ABS           = 21,
+    SUMO_ATTR_ELECTRICITY_ABS    = 22,
+    SUMO_ATTR_CO_NORMED          = 23,
+    SUMO_ATTR_CO2_NORMED         = 24,
+    SUMO_ATTR_HC_NORMED          = 25,
+    SUMO_ATTR_PMX_NORMED         = 26,
+    SUMO_ATTR_NOX_NORMED         = 27,
+    SUMO_ATTR_FUEL_NORMED        = 28,
+    SUMO_ATTR_ELECTRICITY_NORMED = 29,
+    SUMO_ATTR_CO_PERVEH          = 30,
+    SUMO_ATTR_CO2_PERVEH         = 31,
+    SUMO_ATTR_HC_PERVEH          = 32,
+    SUMO_ATTR_PMX_PERVEH         = 33,
+    SUMO_ATTR_NOX_PERVEH         = 34,
+    SUMO_ATTR_FUEL_PERVEH        = 35,
+    SUMO_ATTR_ELECTRICITY_PERVEH = 36,
+    /// MSMeanData_Harmonoise
+    SUMO_ATTR_NOISE              = 37,
+    /// MSMeanData_Amitran
+    SUMO_ATTR_AMOUNT             = 38,
+    SUMO_ATTR_AVERAGESPEED       = 39,
+    /// @}
 
     /// @name common attributes
     /// @{
@@ -395,7 +443,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_VERSION,
     SUMO_ATTR_PRIORITY,
     SUMO_ATTR_NUMLANES,
-    SUMO_ATTR_SPEED,
     SUMO_ATTR_ONEWAY,
     SUMO_ATTR_WIDTH,
     SUMO_ATTR_WIDTHRESOLUTION,
@@ -882,6 +929,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_DETECT_PERSONS,
     SUMO_ATTR_MAX_TRAVELTIME,
     SUMO_ATTR_MIN_SAMPLES,
+    SUMO_ATTR_WRITE_ATTRIBUTES,
 
     SUMO_ATTR_LON,
     SUMO_ATTR_LAT,
@@ -962,7 +1010,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_VEHICLECLASS,
     SUMO_ATTR_FUEL,
     SUMO_ATTR_ACCELERATION,
-    SUMO_ATTR_AMOUNT,
     SUMO_ATTR_ORIGIN,
     SUMO_ATTR_DESTINATION,
     SUMO_ATTR_VISIBLE,

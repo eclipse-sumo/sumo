@@ -91,7 +91,7 @@ MSMeanData_Emissions::MSLaneMeanDataValues::notifyIdle(SUMOTrafficObject& veh) {
 
 
 void
-MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
+MSMeanData_Emissions::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
         const double /*numLanes*/, const double defaultTravelTime, const int /*numVehicles*/) const {
     const double normFactor = double(3600. / STEPS2TIME(period) / myLaneLength);
     dev << " CO_abs=\"" << OutputDevice::realString(myEmissions.CO, 6) <<
@@ -153,10 +153,11 @@ MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
         const bool trackVehicles,
         const double maxTravelTime,
         const double minSamples,
-        const std::string& vTypes)
-    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-                 withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes) {
-}
+        const std::string& vTypes,
+        const std::string& writeAttributes) :
+    MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+            withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes)
+{ }
 
 
 MSMeanData_Emissions::~MSMeanData_Emissions() {}

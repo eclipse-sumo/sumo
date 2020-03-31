@@ -122,7 +122,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice& dev, const SUMOTime period,
+        void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
                    const double numLanes, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
@@ -216,7 +216,8 @@ public:
                    const bool useLanes, const bool withEmpty, const bool printDefaults,
                    const bool withInternal, const bool trackVehicles, const int detectPersons,
                    const double maxTravelTime, const double minSamples,
-                   const double haltSpeed, const std::string& vTypes);
+                   const double haltSpeed, const std::string& vTypes,
+                   const std::string& writeAttributes);
 
 
     /// @brief Destructor
