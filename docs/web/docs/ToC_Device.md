@@ -25,7 +25,7 @@ allow only a reduced driving performance. The ToC Device divides the
 downward transition into two states:
 
 - The 'preparing' state, where a take-over request (TOR) has been
-  issued, but the driver has not taken back back the control of the
+  issued, but the driver has not taken back the control of the
   vehicle.
 - The 'recovering' state, just after the ToC, where the driver shows
   decreased driving performance \[see below for details\].
