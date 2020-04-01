@@ -82,6 +82,9 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief expand boundary 
+    void expandBoundary(const Boundary& newBoundary);
+
     /// @brief Returns the Z boundary (stored in the x() coordinate) values of 0 do not affect the boundary
     const Boundary& getZBoundary() const;
 
@@ -100,13 +103,9 @@ public:
 
     /**@brief Returns the RTree used for visualisation speed-up
      * @return The visualisation speed-up
+     * @note only use in GNEViewNet constructor
      */
-    SUMORTree& getVisualisationSpeedUp();
-
-    /**@brief Returns the RTree used for visualisation speed-up
-     * @return The visualisation speed-up
-     */
-    const SUMORTree& getVisualisationSpeedUp() const;
+    SUMORTree& getGrid();
 
     /**@brief creates a new junction
      * @param[in] position The position of the new junction

@@ -749,11 +749,10 @@ GNETLSEditorFrame::cleanup() {
 
 void
 GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
-    SUMORTree& rtree = myViewNet->getNet()->getVisualisationSpeedUp();
     // clean up previous objects
     for (auto it : myInternalLanes) {
         for (auto it_intLanes : it.second) {
-            rtree.removeAdditionalGLObject(it_intLanes);
+            myViewNet->getNet()->removeGLObjectFromGrid(it_intLanes);
             delete it_intLanes;
         }
     }
@@ -778,7 +777,7 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
                 shape.push_back(laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length())));
             }
             GNEInternalLane* ilane = new GNEInternalLane(this, innerID + '_' + toString(tlIndex),  shape, tlIndex);
-            rtree.addAdditionalGLObject(ilane);
+            myViewNet->getNet()->addGLObjectIntoGrid(ilane);
             myInternalLanes[tlIndex].push_back(ilane);
         }
         for (NBNode* nbn : tlDef->getNodes()) {
@@ -788,18 +787,18 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
                     PositionVector forward = c->shape;
                     forward.move2side(c->width / 4);
                     GNEInternalLane* ilane = new GNEInternalLane(this, c->id, forward, c->tlLinkIndex);
-                    rtree.addAdditionalGLObject(ilane);
+                    myViewNet->getNet()->addGLObjectIntoGrid(ilane);
                     myInternalLanes[c->tlLinkIndex].push_back(ilane);
 
                     PositionVector backward = c->shape.reverse();
                     backward.move2side(c->width / 4);
                     GNEInternalLane* ilane2 = new GNEInternalLane(this, c->id + "_r", backward, c->tlLinkIndex2);
-                    rtree.addAdditionalGLObject(ilane2);
+                    myViewNet->getNet()->addGLObjectIntoGrid(ilane2);
                     myInternalLanes[c->tlLinkIndex2].push_back(ilane2);
                 } else {
                     // draw only one lane for both directions
                     GNEInternalLane* ilane = new GNEInternalLane(this, c->id, c->shape, c->tlLinkIndex);
-                    rtree.addAdditionalGLObject(ilane);
+                    myViewNet->getNet()->addGLObjectIntoGrid(ilane);
                     myInternalLanes[c->tlLinkIndex].push_back(ilane);
                 }
             }

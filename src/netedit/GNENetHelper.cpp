@@ -171,9 +171,10 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     junction->incRef("GNENet::registerJunction");
     junction->setResponsible(false);
     myJunctions[junction->getMicrosimID()] = junction;
-    // add it into grid
-    myNet->getVisualisationSpeedUp().add(junction->getCenteringBoundary());
-    myNet->getVisualisationSpeedUp().addAdditionalGLObject(junction);
+    // expand net boundary
+    myNet->expandBoundary(junction->getCenteringBoundary());
+    // add edge into grid
+    myNet->addGLObjectIntoGrid(junction);
     // update geometry
     junction->updateGeometry();
     // check if junction is selected
@@ -201,7 +202,7 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
         myAttributeCarriers->getJunctions().erase(junction.second->getMicrosimID());
     }
 */
-    myJunctions;
+    myJunctions.clear();
 }
 
 
@@ -211,9 +212,10 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     edge->setResponsible(false);
     // add edge to internal container of GNENet
     myEdges[edge->getMicrosimID()] = edge;
-    // add edge to grid
-    myNet->getVisualisationSpeedUp().add(edge->getCenteringBoundary());
-    myNet->getVisualisationSpeedUp().addAdditionalGLObject(edge);
+    // expand edge boundary
+    myNet->expandBoundary(edge->getCenteringBoundary());
+    // add edge into grid
+    myNet->addGLObjectIntoGrid(edge);
     // check if edge is selected
     if (edge->isAttributeCarrierSelected()) {
         edge->selectAttributeCarrier(false);
@@ -327,7 +329,7 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
         for (const auto& additional : additionalsTags.second) {
             // only remove drawable additionals
             if (additional.second->getTagProperty().isDrawable()) {
-                myNet->getVisualisationSpeedUp().removeAdditionalGLObject(additional.second);
+                myNet->removeGLObjectFromGrid(additional.second);
             }
         }
     }
@@ -351,7 +353,7 @@ GNENetHelper::AttributeCarriers::clearShapes() {
         for (const auto& shape : shapesTags.second) {
             // only remove drawable shapes
             if (shape.second->getTagProperty().isDrawable()) {
-                myNet->getVisualisationSpeedUp().removeAdditionalGLObject(shape.second->getGUIGlObject());
+                myNet->removeGLObjectFromGrid(shape.second->getGUIGlObject());
             }
         }
     }
@@ -381,7 +383,7 @@ GNENetHelper::AttributeCarriers::clearDemandElements() {
         for (const auto& demandElement : demandElementsTags.second) {
             // only remove drawable additionals
             if (demandElement.second->getTagProperty().isDrawable()) {
-                myNet->getVisualisationSpeedUp().removeAdditionalGLObject(demandElement.second);
+                myNet->removeGLObjectFromGrid(demandElement.second);
             }
         }
     }
@@ -439,7 +441,7 @@ GNENetHelper::AttributeCarriers::clearDataSets() {
             for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                 // only remove drawable additionals
                 if (genericData->getTagProperty().isDrawable()) {
-                    myNet->getVisualisationSpeedUp().removeAdditionalGLObject(genericData);
+                    myNet->removeGLObjectFromGrid(genericData);
                 }
             }
         }
@@ -484,7 +486,7 @@ GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(junction);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(junction);
     // Remove from grid and container
-    myNet->getVisualisationSpeedUp().removeAdditionalGLObject(junction);
+    myNet->removeGLObjectFromGrid(junction);
     // check if junction is selected
     if (junction->isAttributeCarrierSelected()) {
         junction->unselectAttributeCarrier(false);
@@ -538,7 +540,7 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(edge);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(edge);
     // remove edge from visual grid and container
-    myNet->getVisualisationSpeedUp().removeAdditionalGLObject(edge);
+    myNet->removeGLObjectFromGrid(edge);
     // check if junction is selected
     if (edge->isAttributeCarrierSelected()) {
         edge->unselectAttributeCarrier(false);
@@ -600,7 +602,7 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
         myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
         // only add drawable elements in grid
         if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
-            myNet->getVisualisationSpeedUp().addAdditionalGLObject(additional);
+            myNet->addGLObjectIntoGrid(additional);
         }
         // check if additional is selected
         if (additional->isAttributeCarrierSelected()) {
@@ -630,7 +632,7 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
         myAdditionals.at(additional->getTagProperty().getTag()).erase(it);
         // only remove drawable elements of grid
         if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
-            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(additional);
+            myNet->removeGLObjectFromGrid(additional);
         }
         // check if additional is selected
         if (additional->isAttributeCarrierSelected()) {
@@ -686,7 +688,7 @@ GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
         myShapes.at(shape->getTagProperty().getTag()).insert(std::make_pair(shape->getID(), shape));
         // only add drawable elements in grid
         if (shape->getTagProperty().isDrawable() && shape->getTagProperty().isPlacedInRTree()) {
-            myNet->getVisualisationSpeedUp().addAdditionalGLObject(shape->getGUIGlObject());
+            myNet->addGLObjectIntoGrid(shape->getGUIGlObject());
         }
         // check if shape is selected
         if (shape->isAttributeCarrierSelected()) {
@@ -716,7 +718,7 @@ GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
         myShapes.at(shape->getTagProperty().getTag()).erase(it);
         // only remove drawable elements of grid
         if (shape->getTagProperty().isDrawable() && shape->getTagProperty().isPlacedInRTree()) {
-            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(shape->getGUIGlObject());
+            myNet->removeGLObjectFromGrid(shape->getGUIGlObject());
         }
         // check if shape is selected
         if (shape->isAttributeCarrierSelected()) {
@@ -782,7 +784,7 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
         }
         // only add drawable elements in grid
         if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
-            myNet->getVisualisationSpeedUp().addAdditionalGLObject(demandElement);
+            myNet->addGLObjectIntoGrid(demandElement);
         }
         // check if demandElement is selected
         if (demandElement->isAttributeCarrierSelected()) {
@@ -820,7 +822,7 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         }
         // only remove drawable elements of grid
         if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
-            myNet->getVisualisationSpeedUp().removeAdditionalGLObject(demandElement);
+            myNet->removeGLObjectFromGrid(demandElement);
         }
         // check if demandElement is selected
         if (demandElement->isAttributeCarrierSelected()) {

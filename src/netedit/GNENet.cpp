@@ -147,6 +147,12 @@ GNENet::getBoundary() const {
 }
 
 
+SUMORTree&
+GNENet::getGrid() {
+    return myGrid;
+}
+
+
 GUIGLObjectPopupMenu*
 GNENet::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -169,12 +175,19 @@ GNENet::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 void
 GNENet::drawGL(const GUIVisualizationSettings& /*s*/) const {
+    // nothing to drawn
 }
 
 
 Boundary
 GNENet::getCenteringBoundary() const {
     return getBoundary();
+}
+
+
+void 
+GNENet::expandBoundary(const Boundary& newBoundary) {
+    myGrid.add(newBoundary);
 }
 
 
@@ -190,18 +203,6 @@ GNENet::addZValueInBoundary(const double z) {
     if (z != 0) {
         myZBoundary.add(z, Z_INITIALIZED);
     }
-}
-
-
-SUMORTree&
-GNENet::getVisualisationSpeedUp() {
-    return myGrid;
-}
-
-
-const SUMORTree&
-GNENet::getVisualisationSpeedUp() const {
-    return myGrid;
 }
 
 
