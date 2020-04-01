@@ -102,6 +102,12 @@ GNEAdditional::getID() const {
 }
 
 
+GUIGlObject* 
+GNEAdditional::getGUIGlObject() {
+    return this;
+}
+
+
 std::string
 GNEAdditional::generateChildID(SumoXMLTag childTag) {
     int counter = (int)getChildAdditionals().size();

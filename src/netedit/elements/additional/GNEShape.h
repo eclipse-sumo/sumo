@@ -68,6 +68,9 @@ public:
     /// @brief get ID (all shapes have one)
     virtual const std::string &getID() const = 0;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    virtual GUIGlObject* getGUIGlObject() = 0;
+
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
 
@@ -78,9 +81,6 @@ public:
 
     /// @brief Returns the numerical id of the object
     virtual GUIGlID getGlID() const = 0;
-
-    /// @brief get GUIGlObject associated to this GNEShape
-    virtual GUIGlObject* getGUIGlObject() = 0;
 
     /// @brief get Net in which this element is placed
     GNENet* getNet() const;

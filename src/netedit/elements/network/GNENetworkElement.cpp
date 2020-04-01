@@ -65,6 +65,12 @@ GNENetworkElement::getID() const {
 }
 
 
+GUIGlObject* 
+GNENetworkElement::getGUIGlObject() {
+    return this;
+}
+
+
 void
 GNENetworkElement::updateDottedGeometry(const PositionVector& shape) {
     myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), shape);

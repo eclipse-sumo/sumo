@@ -92,6 +92,9 @@ public:
     /// @brief get ID
     const std::string& getID() const;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    GUIGlObject* getGUIGlObject();
+
     /// @brief get data interval parent
     GNEDataInterval* getDataIntervalParent() const;
 

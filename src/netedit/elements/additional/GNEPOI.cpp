@@ -67,6 +67,12 @@ GNEPOI::getID() const {
 }
 
 
+GUIGlObject*
+GNEPOI::getGUIGlObject() {
+    return this;
+}
+
+
 std::string
 GNEPOI::generateChildID(SumoXMLTag childTag) {
     int counter = (int)myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size();
@@ -188,12 +194,6 @@ GNEPOI::getCenteringBoundary() const {
 GUIGlID
 GNEPOI::getGlID() const {
     return GUIPointOfInterest::getGlID();
-}
-
-
-GUIGlObject*
-GNEPOI::getGUIGlObject() {
-    return this;
 }
 
 

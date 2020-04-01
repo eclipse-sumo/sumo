@@ -79,6 +79,12 @@ GNEDataInterval::getID() const {
 }
 
 
+GUIGlObject* 
+GNEDataInterval::getGUIGlObject() {
+    return nullptr;
+}
+
+
 GNEViewNet*
 GNEDataInterval::getViewNet() const {
     return myDataSetParent->getViewNet();

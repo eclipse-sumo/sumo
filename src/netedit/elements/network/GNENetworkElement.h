@@ -79,6 +79,9 @@ public:
     /// @brief get ID
     const std::string& getID() const;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    GUIGlObject* getGUIGlObject();
+
     /// @brief updated dotted geometry
     void updateDottedGeometry(const PositionVector& shape);
 

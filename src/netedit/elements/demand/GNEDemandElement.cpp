@@ -88,6 +88,12 @@ GNEDemandElement::getID() const {
 }
 
 
+GUIGlObject* 
+GNEDemandElement::getGUIGlObject() {
+    return this;
+}
+
+
 std::string
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
     int counter = (int)getChildDemandElements().size();

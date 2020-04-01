@@ -68,6 +68,9 @@ public:
     /// @brief get ID (all Attribute Carriers have one)
     virtual const std::string &getID() const = 0;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    virtual GUIGlObject *getGUIGlObject() = 0;
+
     /// @brief get dotted geometry
     const GNEGeometry::DottedGeometry& getDottedGeometry() const;
 

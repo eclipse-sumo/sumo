@@ -52,6 +52,9 @@ public:
     /// @brief get ID
     const std::string& getID() const;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    GUIGlObject* getGUIGlObject();
+
     /// @brief set new ID in dataSet
     void setDataSetID(const std::string& newID);
 

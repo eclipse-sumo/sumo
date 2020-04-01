@@ -137,6 +137,9 @@ public:
     /// @brief get ID
     const std::string& getID() const;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    GUIGlObject* getGUIGlObject();
+
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 

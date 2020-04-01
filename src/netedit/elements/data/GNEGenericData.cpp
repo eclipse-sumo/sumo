@@ -74,6 +74,13 @@ GNEGenericData::getID() const {
     return getMicrosimID();
 }
 
+
+GUIGlObject* 
+GNEGenericData::getGUIGlObject() {
+    return this;
+}
+
+
 GNEDataInterval*
 GNEGenericData::getDataIntervalParent() const {
     return myDataIntervalParent;

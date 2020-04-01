@@ -55,6 +55,13 @@ GNEDataSet::getID() const {
     return myDataSetID;
 }
 
+
+GUIGlObject* 
+GNEDataSet::getGUIGlObject() {
+    return nullptr;
+}
+
+
 void 
 GNEDataSet::setDataSetID(const std::string& newID) {
     // update ID

@@ -89,6 +89,9 @@ public:
     /// @brief get ID
     const std::string& getID() const;
 
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    GUIGlObject* getGUIGlObject();
+
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
@@ -134,8 +137,6 @@ public:
     /// @brief Returns the numerical id of the object
     GUIGlID getGlID() const;
 
-    /// @brief get GUIGlObject associated to this GNEShape
-    GUIGlObject* getGUIGlObject();
     /// @}
 
     /// @name inherited from GUIGlObject

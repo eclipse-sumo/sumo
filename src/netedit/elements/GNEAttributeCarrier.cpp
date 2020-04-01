@@ -641,7 +641,8 @@ GNEAttributeCarrier::fillNetworkElements() {
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE, GUIIcon::EDGE);
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, 
+            GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE, GUIIcon::EDGE);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -753,7 +754,8 @@ GNEAttributeCarrier::fillNetworkElements() {
     currentTag = SUMO_TAG_JUNCTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE, GUIIcon::JUNCTION);
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, 
+            GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE, GUIIcon::JUNCTION);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -821,7 +823,8 @@ GNEAttributeCarrier::fillNetworkElements() {
     currentTag = SUMO_TAG_LANE;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE, GUIIcon::LANE);
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, 
+            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE, GUIIcon::LANE);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -878,7 +881,8 @@ GNEAttributeCarrier::fillNetworkElements() {
     currentTag = SUMO_TAG_CROSSING;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE, GUIIcon::CROSSING, SUMO_TAG_JUNCTION);
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, 
+            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE, GUIIcon::CROSSING, SUMO_TAG_JUNCTION);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -922,7 +926,8 @@ GNEAttributeCarrier::fillNetworkElements() {
     currentTag = SUMO_TAG_CONNECTION;
     {
         // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE, GUIIcon::CONNECTION, SUMO_TAG_EDGE);
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::NETWORKELEMENT, 
+            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE, GUIIcon::CONNECTION, SUMO_TAG_EDGE);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
