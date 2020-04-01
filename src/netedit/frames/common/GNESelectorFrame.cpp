@@ -1300,7 +1300,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // iterate over junctions
-            for (const auto &junction : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->junctions) {
+            for (const auto &junction : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                 // check if junction selection is locked
                 if (!locks->IsObjectTypeLocked(GLO_JUNCTION)) {
                     if (junction.second->isAttributeCarrierSelected()) {
@@ -1671,7 +1671,7 @@ GNESelectorFrame::clearCurrentSelection() const {
         // invert selection of elements depending of current supermode
         if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // iterate over junctions
-            for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->junctions) {
+            for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                 // check if junction selection is locked
                 if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION)) {
                     if (junction.second->isAttributeCarrierSelected()) {
@@ -2015,10 +2015,10 @@ bool
 GNESelectorFrame::ACsToSelected() const {
     if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // check if exist junction and edges
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION) && (myViewNet->getNet()->getAttributeCarriers()->junctions.size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION) && (myViewNet->getNet()->getAttributeCarriers()->getJunctions().size() > 0)) {
             return true;
         }
-        if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGE) || !myLockGLObjectTypes->IsObjectTypeLocked(GLO_LANE)) && (myViewNet->getNet()->getAttributeCarriers()->edges.size() > 0)) {
+        if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGE) || !myLockGLObjectTypes->IsObjectTypeLocked(GLO_LANE)) && (myViewNet->getNet()->getAttributeCarriers()->getEdges().size() > 0)) {
             return true;
         }
         // check if additionals selection is locked

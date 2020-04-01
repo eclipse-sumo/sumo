@@ -85,12 +85,12 @@ GNEChange_Edge::undo() {
         // remove edge lanes from parents and children
         removeEdgeLanes();
         // delete edge from net
-        myNet->deleteSingleEdge(myEdge, false);
+        myNet->getAttributeCarriers()->deleteSingleEdge(myEdge);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
-        myNet->insertEdge(myEdge);
+        myNet->getAttributeCarriers()->insertEdge(myEdge);
         // add edge into parents and children
         addEdge(myEdge);
         // add edge lanes into parents and children
@@ -107,7 +107,7 @@ GNEChange_Edge::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
-        myNet->insertEdge(myEdge);
+        myNet->getAttributeCarriers()->insertEdge(myEdge);
         // add edge into parents and children
         addEdge(myEdge);
         // add edge lanes into parents and children
@@ -120,7 +120,7 @@ GNEChange_Edge::redo() {
         // remove edge lanes from parents and children
         removeEdgeLanes();
         // delete edge from net
-        myNet->deleteSingleEdge(myEdge, false);
+        myNet->getAttributeCarriers()->deleteSingleEdge(myEdge);
     }
     // enable save networkElements
     myNet->requireSaveNet(true);

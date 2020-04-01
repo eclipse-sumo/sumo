@@ -464,7 +464,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
     // invert selection of elements depending of current supermode
     if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
         // iterate over junctions
-        for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->junctions) {
+        for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
             if (junction.second->isAttributeCarrierSelected()) {
                 return true;
             }

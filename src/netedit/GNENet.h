@@ -39,13 +39,6 @@
  */
 class GNENet : public GUIGlObject {
 
-    /// @brief declare friend class
-    friend class GNEChange_Junction;
-    friend class GNEChange_Edge;
-    friend class GNEChange_Lane;
-    friend class GNEChange_Connection;
-    //friend class GNEChange_CalibratorItem;
-
 public:
     /**@brief Constructor
      * @param[in] netbuilder the netbuilder which may already have been filled
@@ -91,6 +84,9 @@ public:
 
     /// @brief Returns the Z boundary (stored in the x() coordinate) values of 0 do not affect the boundary
     const Boundary& getZBoundary() const;
+
+    /// @brief add Z in net boundary
+    void addZValueInBoundary(const double z);
 
     /**@brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -726,24 +722,6 @@ protected:
 private:
     /// @brief Init Junctions and edges
     void initJunctionsAndEdges();
-
-    /// @brief inserts a single junction into the net and into the underlying netbuild-container
-    void insertJunction(GNEJunction* junction);
-
-    /// @brief inserts a single edge into the net and into the underlying netbuild-container
-    void insertEdge(GNEEdge* edge);
-
-    /// @brief registers a junction with GNENet containers
-    GNEJunction* registerJunction(GNEJunction* junction);
-
-    /// @brief registers an edge with GNENet containers
-    GNEEdge* registerEdge(GNEEdge* edge);
-
-    /// @brief deletes a single junction
-    void deleteSingleJunction(GNEJunction* junction, bool updateViewAfterDeleting);
-
-    /// @brief deletes a single edge
-    void deleteSingleEdge(GNEEdge* edge, bool updateViewAfterDeleting);
 
     /// @brief reserve edge ID (To avoid duplicates)
     void reserveEdgeID(const std::string& id);

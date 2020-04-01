@@ -75,14 +75,14 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
 
 GNENetHelper::AttributeCarriers::~AttributeCarriers() {
     // Drop Edges
-    for (const auto& edge : edges) {
+    for (const auto& edge : myEdges) {
         edge.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + edge.second->getTagStr() + " '" + edge.second->getID() + "' in AttributeCarriers destructor");
         delete edge.second;
     }
-    // Drop junctions
-    for (const auto& junction : junctions) {
+    // Drop myJunctions
+    for (const auto& junction : myJunctions) {
         junction.second->decRef("GNENetHelper::~GNENet");
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + junction.second->getTagStr() + " '" + junction.second->getID() + "' in AttributeCarriers destructor");
@@ -121,25 +121,6 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
 }
 
 
-void 
-GNENetHelper::AttributeCarriers::addDefaultVTypes() {
-    // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
-    myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
-    defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
-
-    // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultBikeType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
-    myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
-    defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
-
-    // Create default person Type (it has to be created here due myViewNet was previously nullptr)
-    GNEVehicleType* defaultPersonType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
-    myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
-    defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
-}
-
-
 void
 GNENetHelper::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::string newID) {
     if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
@@ -166,40 +147,99 @@ GNENetHelper::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::st
 }
 
 
-std::vector<GNEGenericData*>
-GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end) {
-    // declare generic data vector
-    std::vector<GNEGenericData*> genericDatas;
-    // iterate over all data sets
-    for (const auto& dataSet : myDataSets) {
-        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
-            // check interval
-            if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
-                // iterate over generic datas
-                for (const auto& genericData : interval.second->getGenericDataChildren()) {
-                    if (genericData->getTagProperty().getTag() == genericDataTag) {
-                        genericDatas.push_back(genericData);
-                    }
-                }
-            }
-        }
+void 
+GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
+    std::map<std::string, GNEEdge*> newEdgeMap;
+    std::map<std::string, GNEJunction*> newJunctionMap;
+    // fill newEdgeMap
+    for (const auto &edge : myEdges) {
+        edge.second->setMicrosimID(edge.second->getNBEdge()->getID());
+        newEdgeMap[edge.second->getNBEdge()->getID()] = edge.second;
     }
-    return genericDatas;
+    for (const auto &junction : myJunctions) {
+        newJunctionMap[junction.second->getNBNode()->getID()] = junction.second;
+        junction.second->setMicrosimID(junction.second->getNBNode()->getID());
+    }
+    myEdges = newEdgeMap;
+    myJunctions = newJunctionMap;
 }
 
 
-const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > &
-GNENetHelper::AttributeCarriers::getAdditionals() const {
-    return myAdditionals;
+GNEJunction*
+GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
+    // increase reference
+    junction->incRef("GNENet::registerJunction");
+    junction->setResponsible(false);
+    myJunctions[junction->getMicrosimID()] = junction;
+    // add it into grid
+    myNet->getVisualisationSpeedUp().add(junction->getCenteringBoundary());
+    myNet->getVisualisationSpeedUp().addAdditionalGLObject(junction);
+    // update geometry
+    junction->updateGeometry();
+    // check if junction is selected
+    if (junction->isAttributeCarrierSelected()) {
+        junction->selectAttributeCarrier(false);
+    }
+    // add z in net boundary
+    myNet->addZValueInBoundary(junction->getNBNode()->getPosition().z());
+    return junction;
+}
+
+
+const std::map<std::string, GNEJunction*>& 
+GNENetHelper::AttributeCarriers::getJunctions() const {
+    return myJunctions;
 }
 
 
 void 
-GNENetHelper::AttributeCarriers::clearAdditionals() {
-    // iterate over myAdditionals and clear all additionals
-    for (auto &additionals : myAdditionals) {
-        additionals.second.clear();
+GNENetHelper::AttributeCarriers::clearJunctions() {
+/*
+    // removes all junctions of net  (It was already removed from grid)
+    auto copyOfJunctions = myAttributeCarriers->getJunctions();
+    for (auto junction : copyOfJunctions) {
+        myAttributeCarriers->getJunctions().erase(junction.second->getMicrosimID());
     }
+*/
+    myJunctions;
+}
+
+
+GNEEdge*
+GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
+    edge->incRef("GNENet::registerEdge");
+    edge->setResponsible(false);
+    // add edge to internal container of GNENet
+    myEdges[edge->getMicrosimID()] = edge;
+    // add edge to grid
+    myNet->getVisualisationSpeedUp().add(edge->getCenteringBoundary());
+    myNet->getVisualisationSpeedUp().addAdditionalGLObject(edge);
+    // check if edge is selected
+    if (edge->isAttributeCarrierSelected()) {
+        edge->selectAttributeCarrier(false);
+    }
+    // Add references into GNEJunctions
+    edge->getGNEJunctionSource()->addOutgoingGNEEdge(edge);
+    edge->getGNEJunctionDestiny()->addIncomingGNEEdge(edge);
+    return edge;
+}
+
+
+const std::map<std::string, GNEEdge*>& 
+GNENetHelper::AttributeCarriers::getEdges() const {
+    return myEdges;
+}
+
+
+void GNENetHelper::AttributeCarriers::clearEdges() {
+/*
+    // remove all edges of net (It was already removed from grid)
+    auto copyOfEdges = myAttributeCarriers->getEdges();
+    for (auto edge : copyOfEdges) {
+        myAttributeCarriers->getEdges().erase(edge.second->getMicrosimID());
+    }
+*/
+    myEdges.clear();
 }
 
 
@@ -274,6 +314,30 @@ GNENetHelper::AttributeCarriers::addPOI(const std::string& id, const std::string
 }
 
 
+const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> >&
+GNENetHelper::AttributeCarriers::getAdditionals() const {
+    return myAdditionals;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::clearAdditionals() {
+    // clear elements in grid
+    for (const auto& additionalsTags : myAdditionals) {
+        for (const auto& additional : additionalsTags.second) {
+            // only remove drawable additionals
+            if (additional.second->getTagProperty().isDrawable()) {
+                myNet->getVisualisationSpeedUp().removeAdditionalGLObject(additional.second);
+            }
+        }
+    }
+    // iterate over myAdditionals and clear all additionals
+    for (auto& additionals : myAdditionals) {
+        additionals.second.clear();
+    }
+}
+
+
 const std::map<SumoXMLTag, std::map<std::string, GNEShape*> >&
 GNENetHelper::AttributeCarriers::getShapes() const {
     return myShapes;
@@ -282,6 +346,15 @@ GNENetHelper::AttributeCarriers::getShapes() const {
 
 void
 GNENetHelper::AttributeCarriers::clearShapes() {
+    // clear elements in grid
+    for (const auto& shapesTags : myShapes) {
+        for (const auto& shape : shapesTags.second) {
+            // only remove drawable shapes
+            if (shape.second->getTagProperty().isDrawable()) {
+                myNet->getVisualisationSpeedUp().removeAdditionalGLObject(shape.second->getGUIGlObject());
+            }
+        }
+    }
     // iterate over myShapes and clear all shapes
     for (auto& shapes : myShapes) {
         shapes.second.clear();
@@ -303,10 +376,38 @@ GNENetHelper::AttributeCarriers::getVehicleDepartures() const {
 
 void 
 GNENetHelper::AttributeCarriers::clearDemandElements() {
+    // clear elements in grid
+    for (const auto& demandElementsTags : myDemandElements) {
+        for (const auto& demandElement : demandElementsTags.second) {
+            // only remove drawable additionals
+            if (demandElement.second->getTagProperty().isDrawable()) {
+                myNet->getVisualisationSpeedUp().removeAdditionalGLObject(demandElement.second);
+            }
+        }
+    }
     // iterate over myDemandElements and clear all demand elemnts
     for (auto& demandElements : myDemandElements) {
         demandElements.second.clear();
     }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::addDefaultVTypes() {
+    // Create default vehicle Type (it has to be created here due myViewNet was previously nullptr)
+    GNEVehicleType* defaultVehicleType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_VTYPE_ID, SVC_PASSENGER, SUMO_TAG_VTYPE);
+    myDemandElements.at(defaultVehicleType->getTagProperty().getTag()).insert(std::make_pair(defaultVehicleType->getID(), defaultVehicleType));
+    defaultVehicleType->incRef("GNENet::DEFAULT_VEHTYPE");
+
+    // Create default Bike Type (it has to be created here due myViewNet was previously nullptr)
+    GNEVehicleType* defaultBikeType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_BIKETYPE_ID, SVC_BICYCLE, SUMO_TAG_VTYPE);
+    myDemandElements.at(defaultBikeType->getTagProperty().getTag()).insert(std::make_pair(defaultBikeType->getID(), defaultBikeType));
+    defaultBikeType->incRef("GNENet::DEFAULT_BIKETYPE_ID");
+
+    // Create default person Type (it has to be created here due myViewNet was previously nullptr)
+    GNEVehicleType* defaultPersonType = new GNEVehicleType(myNet->getViewNet(), DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
+    myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
+    defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
 }
 
 
@@ -332,28 +433,86 @@ GNENetHelper::AttributeCarriers::getDataSets() const {
 
 void
 GNENetHelper::AttributeCarriers::clearDataSets() {
+    // clear elements in grid
+    for (const auto& dataSet : myDataSets) {
+        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+            for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
+                // only remove drawable additionals
+                if (genericData->getTagProperty().isDrawable()) {
+                    myNet->getVisualisationSpeedUp().removeAdditionalGLObject(genericData);
+                }
+            }
+        }
+    }
     // just clear myDataSets
     myDataSets.clear();
 }
 
 
+std::vector<GNEGenericData*>
+GNENetHelper::AttributeCarriers::retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end) {
+    // declare generic data vector
+    std::vector<GNEGenericData*> genericDatas;
+    // iterate over all data sets
+    for (const auto& dataSet : myDataSets) {
+        for (const auto& interval : dataSet.second->getDataIntervalChildren()) {
+            // check interval
+            if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
+                // iterate over generic datas
+                for (const auto& genericData : interval.second->getGenericDataChildren()) {
+                    if (genericData->getTagProperty().getTag() == genericDataTag) {
+                        genericDatas.push_back(genericData);
+                    }
+                }
+            }
+        }
+    }
+    return genericDatas;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertJunction(GNEJunction* junction) {
+    myNet->getNetBuilder()->getNodeCont().insert(junction->getNBNode());
+    registerJunction(junction);
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
+    // remove it from Inspector Frame and AttributeCarrierHierarchy
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(junction);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(junction);
+    // Remove from grid and container
+    myNet->getVisualisationSpeedUp().removeAdditionalGLObject(junction);
+    // check if junction is selected
+    if (junction->isAttributeCarrierSelected()) {
+        junction->unselectAttributeCarrier(false);
+    }
+    myJunctions.erase(junction->getMicrosimID());
+    myNet->getNetBuilder()->getNodeCont().extract(junction->getNBNode());
+    junction->decRef("GNENet::deleteSingleJunction");
+    junction->setResponsible(true);
+}
+
+
 void
 GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (junctions.count(AC->getID()) == 0) {
+    if (myJunctions.count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.junction");
-    } else if (junctions.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in junctions");
+    } else if (myJunctions.count(newID) != 0) {
+        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in myJunctions");
     } else {
         // retrieve junction
-        GNEJunction* junction = junctions.at(AC->getID());
+        GNEJunction* junction = myJunctions.at(AC->getID());
         // remove junction from container
-        junctions.erase(junction->getNBNode()->getID());
+        myJunctions.erase(junction->getNBNode()->getID());
         // rename in NetBuilder
         myNet->getNetBuilder()->getNodeCont().rename(junction->getNBNode(), newID);
         // update microsim ID
         junction->setMicrosimID(newID);
-        // add it into junctions again
-        junctions[AC->getID()] = junction;
+        // add it into myJunctions again
+        myJunctions[AC->getID()] = junction;
         // build crossings
         junction->getNBNode()->buildCrossings();
         // net has to be saved
@@ -363,22 +522,55 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const
 
 
 void
+GNENetHelper::AttributeCarriers::insertEdge(GNEEdge* edge) {
+    NBEdge* nbe = edge->getNBEdge();
+    myNet->getNetBuilder()->getEdgeCont().insert(nbe); // should we ignore pruning double edges?
+    // if this edge was previouls extracted from the edgeContainer we have to rewire the nodes
+    nbe->getFromNode()->addOutgoingEdge(nbe);
+    nbe->getToNode()->addIncomingEdge(nbe);
+    registerEdge(edge);
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
+    // remove it from Inspector Frame and AttributeCarrierHierarchy
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(edge);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(edge);
+    // remove edge from visual grid and container
+    myNet->getVisualisationSpeedUp().removeAdditionalGLObject(edge);
+    // check if junction is selected
+    if (edge->isAttributeCarrierSelected()) {
+        edge->unselectAttributeCarrier(false);
+    }
+    myEdges.erase(edge->getMicrosimID());
+    // extract edge of district container
+    myNet->getNetBuilder()->getEdgeCont().extract(myNet->getNetBuilder()->getDistrictCont(), edge->getNBEdge());
+    edge->decRef("GNENet::deleteSingleEdge");
+    edge->setResponsible(true);
+    // Remove refrences from GNEJunctions
+    edge->getGNEJunctionSource()->removeOutgoingGNEEdge(edge);
+    edge->getGNEJunctionDestiny()->removeIncomingGNEEdge(edge);
+}
+
+
+void
 GNENetHelper::AttributeCarriers::updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (edges.count(AC->getID()) == 0) {
+    if (myEdges.count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.edge");
-    } else if (edges.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in edges");
+    } else if (myEdges.count(newID) != 0) {
+        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in myEdges");
     } else {
         // retrieve edge
-        GNEEdge* edge = edges.at(AC->getID());
+        GNEEdge* edge = myEdges.at(AC->getID());
         // remove edge from container
-        edges.erase(edge->getNBEdge()->getID());
+        myEdges.erase(edge->getNBEdge()->getID());
         // rename in NetBuilder
         myNet->getNetBuilder()->getEdgeCont().rename(edge->getNBEdge(), newID);
         // update microsim ID
         edge->setMicrosimID(newID);
-        // add it into edges again
-        edges[AC->getID()] = edge;
+        // add it into myEdges again
+        myEdges[AC->getID()] = edge;
         // rename all connections related to this edge
         for (const auto& lane : edge->getLanes()) {
             lane->updateConnectionIDs();
@@ -782,7 +974,7 @@ std::vector<GNEEdge*>
 GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const {
     // declare a solution vector
     std::vector<GNEEdge*> solution;
-    // calculate route depending of number of partial edges
+    // calculate route depending of number of partial myEdges
     if (partialEdges.size() == 1) {
         // if there is only one partialEdges, route has only one edge
         solution.push_back(partialEdges.front());
@@ -791,9 +983,9 @@ GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const
         NBVehicle tmpVehicle("temporalNBVehicle", vClass);
         // obtain pointer to GNENet
         GNENet* net = partialEdges.front()->getNet();
-        // iterate over every selected edges
+        // iterate over every selected myEdges
         for (int i = 1; i < (int)partialEdges.size(); i++) {
-            // declare a temporal route in which save route between two last edges
+            // declare a temporal route in which save route between two last myEdges
             std::vector<const NBRouterEdge*> partialRoute;
             myDijkstraRouter->compute(partialEdges.at(i - 1)->getNBEdge(), partialEdges.at(i)->getNBEdge(), &tmpVehicle, 10, partialRoute);
             // save partial route in solution
@@ -839,18 +1031,18 @@ bool
 GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
     // check conditions
     if ((from == nullptr) || (to == nullptr)) {
-        // edges cannot be null
+        // myEdges cannot be null
         return false;
     } else if (from == to) {
         // the same edge cannot be consecutive of itself
         return false;
     } else if (vClass == SVC_PEDESTRIAN) {
-        // for pedestrians consecutive edges are always connected
+        // for pedestrians consecutive myEdges are always connected
         return true;
     } else {
         // declare temporal vehicle
         NBVehicle tmpVehicle("temporalNBVehicle", vClass);
-        // declare a temporal route in which save route between two last edges
+        // declare a temporal route in which save route between two last myEdges
         std::vector<const NBRouterEdge*> solution;
         // calculate route betwen from and to edge
         myDijkstraRouter->compute(from->getNBEdge(), to->getNBEdge(), &tmpVehicle, 10, solution);

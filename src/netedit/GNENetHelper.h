@@ -73,6 +73,8 @@ struct GNENetHelper {
         /// @brief declare friend class
         friend class GNEAdditionalHandler;
         friend class GNERouteHandler;
+        friend class GNEChange_Junction;
+        friend class GNEChange_Edge;
         friend class GNEChange_Additional;
         friend class GNEChange_Shape;
         friend class GNEChange_DemandElement;
@@ -85,26 +87,37 @@ struct GNENetHelper {
         /// @brief destructor
         ~AttributeCarriers();
 
-        /// @brief add default VTypes
-        void addDefaultVTypes();
-
         /// @brief update ID
         void updateID(GNEAttributeCarrier* AC, const std::string newID);
 
-        /// @brief retrieve generic datas within the given interval
-        std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
+        /// @brief remap junction and edge IDs
+        void remapJunctionAndEdgeIds();
+
+        /// @name function for junctions
+        /// @{
+        /// @brief registers a junction with GNENet containers
+        GNEJunction* registerJunction(GNEJunction* junction);
 
         /// @brief map with the ID and pointer to junctions of net
-        std::map<std::string, GNEJunction*> junctions;
+        const std::map<std::string, GNEJunction*> &getJunctions() const;
+
+        /// @brief clear junctions
+        void clearJunctions();
+
+        /// @}
+
+        /// @name function for edges
+        /// @{
+        /// @brief registers an edge with GNENet containers
+        GNEEdge* registerEdge(GNEEdge* edge);
 
         /// @brief map with the ID and pointer to edges of net
-        std::map<std::string, GNEEdge*> edges;
+        const std::map<std::string, GNEEdge*> &getEdges() const;
 
-        /// @brief get additionals
-        const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> >& getAdditionals() const;
+        /// @brief clear junctions
+        void clearEdges();
 
-        /// @brief clear additionals
-        void clearAdditionals();
+        /// @}
 
         /// @name inherited from ShapeHandler
         /// @{
@@ -149,6 +162,16 @@ struct GNENetHelper {
         
         /// @}
 
+        /// @name function for additionals
+        /// @{
+        /// @brief get additionals
+        const std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> >& getAdditionals() const;
+
+        /// @brief clear additionals
+        void clearAdditionals();
+
+        /// @}
+
         /// @name function for shapes
         /// @{
         /// @brief get shapes
@@ -170,6 +193,9 @@ struct GNENetHelper {
         /// @brief clear demand elements
         void clearDemandElements();
 
+        /// @brief add default VTypes
+        void addDefaultVTypes();
+
         /**@brief update demand element begin in container
          * @note this function is automatically called when user changes the begin/departure of an demand element
          */
@@ -187,12 +213,39 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name function for data Sets
+        /// @{
+        /// @brief retrieve generic datas within the given interval
+        std::vector<GNEGenericData*> retrieveGenericDatas(const SumoXMLTag genericDataTag, const double begin, const double end);
+
+        /// @}
+
     protected:
+        /// @name Insertion and erasing of GNEJunctions
+        /// @{
+        /// @brief inserts a single junction into the net and into the underlying netbuild-container
+        void insertJunction(GNEJunction* junction);
+
+        /// @brief deletes a single junction
+        void deleteSingleJunction(GNEJunction* junction);
+
         /// @brief update junction ID in container
         void updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID);
 
+        /// @{
+
+        /// @name Insertion and erasing of GNEEdges
+        /// @{
+        /// @brief inserts a single edge into the net and into the underlying netbuild-container
+        void insertEdge(GNEEdge* edge);
+
+        /// @brief deletes a single edge
+        void deleteSingleEdge(GNEEdge* edge);
+
         /// @brief update edge ID in container
         void updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @{
 
         /// @name Insertion and erasing of GNEAdditionals items
         /// @{
@@ -279,6 +332,12 @@ struct GNENetHelper {
         /// @}
 
     private:
+        /// @brief map with the ID and pointer to junctions of net
+        std::map<std::string, GNEJunction*> myJunctions;
+
+        /// @brief map with the ID and pointer to edges of net
+        std::map<std::string, GNEEdge*> myEdges;
+
         /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
 
