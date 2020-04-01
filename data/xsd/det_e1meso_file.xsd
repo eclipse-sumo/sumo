@@ -23,6 +23,7 @@
       <xsd:attribute name="entered" use="required" type="nonNegativeFloatType"/>
       <xsd:attribute name="left" use="required" type="xsd:integer"/>
       <xsd:attribute name="density" use="optional" type="nonNegativeFloatType"/>
+      <xsd:attribute name="laneDensity" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="occupancy" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="waitingTime" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="speed" use="optional" type="xsd:decimal"/>
