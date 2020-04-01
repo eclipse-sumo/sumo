@@ -1427,6 +1427,7 @@ double
 MSVehicle::computeAngle() const {
     Position p1;
     const double posLat = -myState.myPosLat; // @todo get rid of the '-'
+    const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);
 
     // if parking manoeuvre is happening then rotate vehicle on each step
     if (MSGlobals::gModelParkingManoeuver && !manoeuvreIsComplete())
@@ -1441,7 +1442,7 @@ MSVehicle::computeAngle() const {
     }
     if (getLaneChangeModel().isChangingLanes()) {
         // cannot use getPosition() because it already includes the offset to the side and thus messes up the angle
-        p1 = myLane->geometryPositionAtOffset(myState.myPos, posLat);
+        p1 = myLane->geometryPositionAtOffset(myState.myPos, lefthandSign * posLat);
     } else {
         p1 = getPosition();
     }
@@ -1462,7 +1463,7 @@ MSVehicle::computeAngle() const {
     double result = (p1 != p2 ? p2.angleTo2D(p1) :
                      myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
     if (getLaneChangeModel().isChangingLanes()) {
-        result += DEG2RAD(getLaneChangeModel().getAngleOffset());
+        result += lefthandSign * DEG2RAD(getLaneChangeModel().getAngleOffset());
     }
 #ifdef DEBUG_FURTHER
     if (DEBUG_COND) {
