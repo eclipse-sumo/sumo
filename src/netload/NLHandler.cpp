@@ -68,6 +68,7 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myAmParsingTLLogicOrJunction(false), myCurrentIsBroken(false),
     myHaveWarnedAboutInvalidTLType(false),
     myHaveSeenInternalEdge(false),
+    myHaveSeenDefaultLength(false),
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
     myNetworkVersion(0),
@@ -389,6 +390,8 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, id.c_str(), ok, "");
     // get the kilometrage/mileage (for visualization and output)
     const double distance = attrs.getOpt<double>(SUMO_ATTR_DISTANCE, id.c_str(), ok, 0);
+
+    myHaveSeenDefaultLength |= !attrs.hasAttribute(SUMO_ATTR_LENGTH);
     if (!ok) {
         myCurrentIsBroken = true;
         return;

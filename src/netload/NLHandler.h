@@ -103,6 +103,10 @@ public:
         return myHaveSeenInternalEdge;
     }
 
+    bool haveSeenDefaultLength() const {
+        return myHaveSeenDefaultLength;
+    }
+
     bool haveSeenNeighs() const {
         return myHaveSeenNeighs;
     }
@@ -323,6 +327,9 @@ protected:
 
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
+
+    /// @brief whether the loaded network contains edges with default lengths
+    bool myHaveSeenDefaultLength;
 
     /// @brief whether the loaded network contains explicit neighbor lanes
     bool myHaveSeenNeighs;
