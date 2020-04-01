@@ -191,7 +191,7 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                     continue;
                 }
                 if (nbe->hasConnectionTo(toEdge, c.toLaneIdx)) {
-                    WRITE_WARNING("Target lane '" + toEdge->getLaneID(c.toLaneIdx) + "' has multiple connections from '" + nbe->getID() + "'.");
+                    WRITE_WARNINGF("Target lane '%' has multiple connections from '%'.", toEdge->getLaneID(c.toLaneIdx), nbe->getID());
                 }
                 // patch attribute uncontrolled for legacy networks where it is not set explicitly
                 bool uncontrolled = c.uncontrolled;
@@ -276,13 +276,13 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
         NBEdge* prohibitorFrom = myEdges[it->prohibitorFrom]->builtEdge;
         NBEdge* prohibitorTo = myEdges[it->prohibitorTo]->builtEdge;
         if (prohibitedFrom == nullptr) {
-            WRITE_WARNING("Edge '" + it->prohibitedFrom + "' in prohibition was not built");
+            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitedFrom);
         } else if (prohibitedTo == nullptr) {
-            WRITE_WARNING("Edge '" + it->prohibitedTo + "' in prohibition was not built");
+            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitedTo);
         } else if (prohibitorFrom == nullptr) {
-            WRITE_WARNING("Edge '" + it->prohibitorFrom + "' in prohibition was not built");
+            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitorFrom);
         } else if (prohibitorTo == nullptr) {
-            WRITE_WARNING("Edge '" + it->prohibitorTo + "' in prohibition was not built");
+            WRITE_WARNINGF("Edge '%' in prohibition was not built.", it->prohibitorTo);
         } else {
             NBNode* n = prohibitedFrom->getToNode();
             n->addSortedLinkFoes(
