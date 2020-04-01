@@ -188,6 +188,12 @@ struct GNENetHelper {
         /// @}
 
     protected:
+        /// @brief update junction ID in container
+        void updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @brief update edge ID in container
+        void updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID);
+
         /// @name Insertion and erasing of GNEAdditionals items
         /// @{
 
@@ -203,6 +209,9 @@ struct GNENetHelper {
          * @throw processError if additional wasn't previously inserted
          */
         bool deleteAdditional(GNEAdditional* additional);
+
+        /// @brief update additional ID in container
+        void updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID);
 
         /// @}
 
@@ -222,6 +231,9 @@ struct GNENetHelper {
          */
         bool deleteShape(GNEShape* shape);
 
+        /// @brief update shape ID in container
+        void updateShapeID(GNEAttributeCarrier* AC, const std::string& newID);
+
         /// @}
 
         /// @name Insertion and erasing of GNEDemandElements items
@@ -239,6 +251,9 @@ struct GNENetHelper {
          * @throw processError if demand element wasn't previously inserted
          */
         bool deleteDemandElement(GNEDemandElement* demandElement);
+
+        /// @brief update demand element ID in container
+        void updateDemandElementID(GNEAttributeCarrier* AC, const std::string& newID);
 
         /// @}
 
@@ -258,27 +273,12 @@ struct GNENetHelper {
          */
         bool deleteDataSet(GNEDataSet* dataSet);
 
-        /// @}
-
-    private:
-        /// @brief update junction ID in container
-        void updateJunctionID(GNEAttributeCarrier* AC, const std::string& newID);
-
-        /// @brief update edge ID in container
-        void updateEdgeID(GNEAttributeCarrier* AC, const std::string& newID);
-
-        /// @brief update additional ID in container
-        void updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID);
-
-        /// @brief update shape ID in container
-        void updateShapeID(GNEAttributeCarrier* AC, const std::string& newID);
-
-        /// @brief update demand element ID in container
-        void updateDemandElementID(GNEAttributeCarrier* AC, const std::string& newID);
-
         /// @brief update data element ID in container
         void updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID);
 
+        /// @}
+
+    private:
         /// @brief map with the ID and pointer to additional elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEAdditional*> > myAdditionals;
 
