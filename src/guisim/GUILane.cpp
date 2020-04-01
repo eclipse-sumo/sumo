@@ -554,7 +554,9 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 const double width = myWidth;
                 double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * exaggeration;
                 if (spreadSuperposed) {
-                    shape.move2side(halfGauge * 0.8);
+                    try {
+                        shape.move2side(halfGauge * 0.8);
+                    } catch (InvalidArgument&) {}
                     halfGauge *= 0.4;
                 }
                 const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
