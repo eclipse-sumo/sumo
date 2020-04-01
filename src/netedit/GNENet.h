@@ -379,10 +379,10 @@ public:
     void setViewNet(GNEViewNet* viewNet);
 
     /// @brief add GL Object into net
-    void addGLObjectIntoGrid(GUIGlObject* o);
+    void addGLObjectIntoGrid(GNEAttributeCarrier *AC);
 
     /// @brief add GL Object into net
-    void removeGLObjectFromGrid(GUIGlObject* o);
+    void removeGLObjectFromGrid(GNEAttributeCarrier* AC);
 
     /// @brief modifies endpoins of the given edge
     void changeEdgeEndpoints(GNEEdge* edge, const std::string& newSourceID, const std::string& newDestID);

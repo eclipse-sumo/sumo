@@ -1222,14 +1222,26 @@ GNENet::retrieveShapes(bool onlySelected) {
 
 
 void
-GNENet::addGLObjectIntoGrid(GUIGlObject* o) {
-    myGrid.addAdditionalGLObject(o);
+GNENet::addGLObjectIntoGrid(GNEAttributeCarrier *AC) {
+    // first check if given object has an associated GUIGlObject
+    if (AC->getGUIGlObject()) {
+        // check if object must be inserted in RTREE
+        if (AC->getTagProperty().isPlacedInRTree()) {
+            myGrid.addAdditionalGLObject(AC->getGUIGlObject());
+        }
+    }
 }
 
 
 void
-GNENet::removeGLObjectFromGrid(GUIGlObject* o) {
-    myGrid.removeAdditionalGLObject(o);
+GNENet::removeGLObjectFromGrid(GNEAttributeCarrier* AC) {
+    // first check if given object has an associated GUIGlObject
+    if (AC->getGUIGlObject()) {
+        // check if object must be inserted in RTREE
+        if (AC->getTagProperty().isPlacedInRTree()) {
+            myGrid.removeAdditionalGLObject(AC->getGUIGlObject());
+        }
+    }
 }
 
 

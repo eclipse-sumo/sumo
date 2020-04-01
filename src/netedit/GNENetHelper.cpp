@@ -327,10 +327,7 @@ GNENetHelper::AttributeCarriers::clearAdditionals() {
     // clear elements in grid
     for (const auto& additionalsTags : myAdditionals) {
         for (const auto& additional : additionalsTags.second) {
-            // only remove drawable additionals
-            if (additional.second->getTagProperty().isDrawable()) {
-                myNet->removeGLObjectFromGrid(additional.second);
-            }
+            myNet->removeGLObjectFromGrid(additional.second);
         }
     }
     // iterate over myAdditionals and clear all additionals
@@ -351,10 +348,7 @@ GNENetHelper::AttributeCarriers::clearShapes() {
     // clear elements in grid
     for (const auto& shapesTags : myShapes) {
         for (const auto& shape : shapesTags.second) {
-            // only remove drawable shapes
-            if (shape.second->getTagProperty().isDrawable()) {
-                myNet->removeGLObjectFromGrid(shape.second->getGUIGlObject());
-            }
+            myNet->removeGLObjectFromGrid(shape.second);
         }
     }
     // iterate over myShapes and clear all shapes
@@ -381,10 +375,7 @@ GNENetHelper::AttributeCarriers::clearDemandElements() {
     // clear elements in grid
     for (const auto& demandElementsTags : myDemandElements) {
         for (const auto& demandElement : demandElementsTags.second) {
-            // only remove drawable additionals
-            if (demandElement.second->getTagProperty().isDrawable()) {
-                myNet->removeGLObjectFromGrid(demandElement.second);
-            }
+            myNet->removeGLObjectFromGrid(demandElement.second);
         }
     }
     // iterate over myDemandElements and clear all demand elemnts
@@ -439,10 +430,7 @@ GNENetHelper::AttributeCarriers::clearDataSets() {
     for (const auto& dataSet : myDataSets) {
         for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
             for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                // only remove drawable additionals
-                if (genericData->getTagProperty().isDrawable()) {
-                    myNet->removeGLObjectFromGrid(genericData);
-                }
+                myNet->removeGLObjectFromGrid(genericData);
             }
         }
     }
@@ -600,10 +588,8 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
     // Check if additional element exists before insertion
     if (!additionalExist(additional)) {
         myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
-        // only add drawable elements in grid
-        if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
-            myNet->addGLObjectIntoGrid(additional);
-        }
+        // add element in grid
+        myNet->addGLObjectIntoGrid(additional);
         // check if additional is selected
         if (additional->isAttributeCarrierSelected()) {
             additional->selectAttributeCarrier(false);
@@ -630,10 +616,8 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
         // obtain demand element and erase it from container
         auto it = myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID());
         myAdditionals.at(additional->getTagProperty().getTag()).erase(it);
-        // only remove drawable elements of grid
-        if (additional->getTagProperty().isDrawable() && additional->getTagProperty().isPlacedInRTree()) {
-            myNet->removeGLObjectFromGrid(additional);
-        }
+        // remove element from grid
+        myNet->removeGLObjectFromGrid(additional);
         // check if additional is selected
         if (additional->isAttributeCarrierSelected()) {
             additional->unselectAttributeCarrier(false);
@@ -686,10 +670,8 @@ GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
     // Check if shape element exists before insertion
     if (!shapeExist(shape)) {
         myShapes.at(shape->getTagProperty().getTag()).insert(std::make_pair(shape->getID(), shape));
-        // only add drawable elements in grid
-        if (shape->getTagProperty().isDrawable() && shape->getTagProperty().isPlacedInRTree()) {
-            myNet->addGLObjectIntoGrid(shape->getGUIGlObject());
-        }
+        // add element in grid
+        myNet->addGLObjectIntoGrid(shape);
         // check if shape is selected
         if (shape->isAttributeCarrierSelected()) {
             shape->selectAttributeCarrier(false);
@@ -716,10 +698,8 @@ GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
         // obtain demand element and erase it from container
         auto it = myShapes.at(shape->getTagProperty().getTag()).find(shape->getID());
         myShapes.at(shape->getTagProperty().getTag()).erase(it);
-        // only remove drawable elements of grid
-        if (shape->getTagProperty().isDrawable() && shape->getTagProperty().isPlacedInRTree()) {
-            myNet->removeGLObjectFromGrid(shape->getGUIGlObject());
-        }
+        // remove element from grid
+        myNet->removeGLObjectFromGrid(shape);
         // check if shape is selected
         if (shape->isAttributeCarrierSelected()) {
             shape->unselectAttributeCarrier(false);
@@ -782,10 +762,8 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
                 myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
             }
         }
-        // only add drawable elements in grid
-        if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
-            myNet->addGLObjectIntoGrid(demandElement);
-        }
+        // add element in grid
+        myNet->addGLObjectIntoGrid(demandElement);
         // check if demandElement is selected
         if (demandElement->isAttributeCarrierSelected()) {
             demandElement->selectAttributeCarrier(false);
@@ -820,10 +798,8 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
                 myVehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
             }
         }
-        // only remove drawable elements of grid
-        if (demandElement->getTagProperty().isDrawable() && demandElement->getTagProperty().isPlacedInRTree()) {
-            myNet->removeGLObjectFromGrid(demandElement);
-        }
+        // remove element from grid
+        myNet->removeGLObjectFromGrid(demandElement);
         // check if demandElement is selected
         if (demandElement->isAttributeCarrierSelected()) {
             demandElement->unselectAttributeCarrier(false);

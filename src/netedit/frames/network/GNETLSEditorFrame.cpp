@@ -752,7 +752,8 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
     // clean up previous objects
     for (auto it : myInternalLanes) {
         for (auto it_intLanes : it.second) {
-            myViewNet->getNet()->removeGLObjectFromGrid(it_intLanes);
+            // due GNEInternalLane aren't attribute carriers, we need to use the net grid
+            myViewNet->getNet()->getGrid().removeAdditionalGLObject(it_intLanes);
             delete it_intLanes;
         }
     }
@@ -777,7 +778,8 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
                 shape.push_back(laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length())));
             }
             GNEInternalLane* ilane = new GNEInternalLane(this, innerID + '_' + toString(tlIndex),  shape, tlIndex);
-            myViewNet->getNet()->addGLObjectIntoGrid(ilane);
+            // due GNEInternalLane aren't attribute carriers, we need to use the net grid
+            myViewNet->getNet()->getGrid().addAdditionalGLObject(ilane);
             myInternalLanes[tlIndex].push_back(ilane);
         }
         for (NBNode* nbn : tlDef->getNodes()) {
@@ -787,18 +789,21 @@ GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
                     PositionVector forward = c->shape;
                     forward.move2side(c->width / 4);
                     GNEInternalLane* ilane = new GNEInternalLane(this, c->id, forward, c->tlLinkIndex);
-                    myViewNet->getNet()->addGLObjectIntoGrid(ilane);
+                    // due GNEInternalLane aren't attribute carriers, we need to use the net grid
+                    myViewNet->getNet()->getGrid().addAdditionalGLObject(ilane);
                     myInternalLanes[c->tlLinkIndex].push_back(ilane);
 
                     PositionVector backward = c->shape.reverse();
                     backward.move2side(c->width / 4);
                     GNEInternalLane* ilane2 = new GNEInternalLane(this, c->id + "_r", backward, c->tlLinkIndex2);
-                    myViewNet->getNet()->addGLObjectIntoGrid(ilane2);
+                    // due GNEInternalLane aren't attribute carriers, we need to use the net grid
+                    myViewNet->getNet()->getGrid().addAdditionalGLObject(ilane2);
                     myInternalLanes[c->tlLinkIndex2].push_back(ilane2);
                 } else {
                     // draw only one lane for both directions
                     GNEInternalLane* ilane = new GNEInternalLane(this, c->id, c->shape, c->tlLinkIndex);
-                    myViewNet->getNet()->addGLObjectIntoGrid(ilane);
+                    // due GNEInternalLane aren't attribute carriers, we need to use the net grid
+                    myViewNet->getNet()->getGrid().addAdditionalGLObject(ilane);
                     myInternalLanes[c->tlLinkIndex].push_back(ilane);
                 }
             }
