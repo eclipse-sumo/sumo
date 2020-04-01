@@ -1,2 +1,5 @@
 # do not crash when the only signalized connection from one lane  is a turn-around
 signalized_turn
+
+# stopping two times at the same stop should not cause reversal
+double_stop
