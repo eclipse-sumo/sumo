@@ -357,13 +357,10 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     // omit internal edges if not wished
     if (id[0] == ':') {
         myHaveSeenInternalEdge = true;
-        if (!MSGlobals::gUsingInternalLanes) {
-            myCurrentIsInternalToSkip = true;
-            return;
-        }
         std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id);
         myJunctionGraph[id] = std::make_pair(junctionID, junctionID);
     } else {
+        myHaveSeenDefaultLength |= !attrs.hasAttribute(SUMO_ATTR_LENGTH);
         myJunctionGraph[id] = std::make_pair(
                                   attrs.get<std::string>(SUMO_ATTR_FROM, id.c_str(), ok),
                                   attrs.get<std::string>(SUMO_ATTR_TO, id.c_str(), ok));
@@ -391,7 +388,6 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     // get the kilometrage/mileage (for visualization and output)
     const double distance = attrs.getOpt<double>(SUMO_ATTR_DISTANCE, id.c_str(), ok, 0);
 
-    myHaveSeenDefaultLength |= !attrs.hasAttribute(SUMO_ATTR_LENGTH);
     if (!ok) {
         myCurrentIsBroken = true;
         return;

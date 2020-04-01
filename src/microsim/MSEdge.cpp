@@ -134,7 +134,7 @@ void MSEdge::recalcCache() {
         if (minPenalty > 0) {
             myEmptyTraveltime += STEPS2TIME(minPenalty);
         }
-    } else if (isInternal()) {
+    } else if (isInternal() && MSGlobals::gUsingInternalLanes) {
         const MSLink* link = myLanes->front()->getIncomingLanes()[0].viaLink;
         if (!link->isTLSControlled() && !link->havePriority()) {
             myEmptyTraveltime += MSGlobals::gMinorPenalty;
@@ -203,7 +203,7 @@ MSEdge::buildLaneChanger() {
 
 bool
 MSEdge::allowsLaneChanging() const {
-    if (isInternal()) {
+    if (isInternal() && MSGlobals::gUsingInternalLanes) {
         // allow changing only if all links leading to this internal lane have priority
         // or they are controlled by a traffic light
         for (std::vector<MSLane*>::const_iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
