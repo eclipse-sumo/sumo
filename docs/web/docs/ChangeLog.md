@@ -23,8 +23,11 @@ permalink: /ChangeLog/
   - Fixed bugs were stops on cyclical routes where ignored after loading simulation state. Issue #6811
   - Fixed invalid 'density' and 'occupancy' values (too high) in edgeData output. Issue #5723
   - Fixed crash when running with multiple threads. Issue #6806
+  - Option **--ignore-route-errors** can now be used to ignore the error 'will not be able to depart using the given velocity (slow lane ahead)'. Issue #6853
+  - Fixed crash when using option **--no-internal-links** and defining a stop on an internal lane. Issue #6855
+  - Fixed invalid vehicle angles when using option **--lanechange.duration** in a left-hand network. Issue #6856
   - Railway fixes:
-    - Train reversal problems. Issue #6692, #6782, #6797
+    - Train reversal problems. Issue #6692, #6782, #6797, #6851
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
     - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741    
     - Invalid train speed after insertion on short edge. Issue #6801 
@@ -96,6 +99,7 @@ permalink: /ChangeLog/
   - Travelled distance (odometer) is now listed in the vehicle parameter dialog.
   - Junction name is now listed in the junction parameter dialog and can optionally by drawn in the view. Issue #6635
   - Lanes that explicitly allow rail and passenger traffic are now highlighted with a distinct color in the default color scheme. Issue #6844
+  - When loading a network with internal lanes and setting the option **--no-internal-links**, the internal lanes are still shown. This is mostly useful for railway simualation. Issue #6852
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
   - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
