@@ -101,6 +101,9 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
+#if GDAL_VERSION_MAJOR > 2
+    destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+#endif
     OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == NULL) {
         if (oc.isSet("shapefile.guess-projection")) {

@@ -193,6 +193,9 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     OGRSpatialReference* sr_src = layer->GetSpatialRef();
     OGRSpatialReference sr_dest;
     sr_dest.SetWellKnownGeogCS("WGS84");
+#if GDAL_VERSION_MAJOR > 2
+    sr_dest.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+#endif
     OGRCoordinateTransformation* toWGS84 = OGRCreateCoordinateTransformation(sr_src, &sr_dest);
     if (toWGS84 == 0) {
         WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");

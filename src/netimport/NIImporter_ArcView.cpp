@@ -141,6 +141,9 @@ NIImporter_ArcView::load() {
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
+#if GDAL_VERSION_MAJOR > 2
+    destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+#endif
     OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == NULL) {
         if (myOptions.isSet("shapefile.guess-projection")) {
