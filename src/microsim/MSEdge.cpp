@@ -714,7 +714,7 @@ MSEdge::getInternalFollowingLengthTo(const MSEdge* followerAfterInternal) const 
 const MSEdge*
 MSEdge::getNormalBefore() const {
     const MSEdge* result = this;
-    while (result->isInternal()) {
+    while (result->isInternal() && MSGlobals::gUsingInternalLanes) {
         assert(result->getPredecessors().size() == 1);
         result = result->getPredecessors().front();
     }
