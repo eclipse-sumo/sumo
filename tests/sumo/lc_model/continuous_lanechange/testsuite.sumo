@@ -1,5 +1,8 @@
 basic
 
+# lefthand network
+lefthand
+
 # use configured lateral speed
 maxSpeedLat
 
