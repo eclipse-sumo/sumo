@@ -96,6 +96,8 @@ protected:
         OPENDRIVE_TAG_RIGHT,
         OPENDRIVE_TAG_LANE,
         OPENDRIVE_TAG_SIGNAL,
+        OPENDRIVE_TAG_SIGNALREFERENCE,
+        OPENDRIVE_TAG_VALIDITY,
         OPENDRIVE_TAG_JUNCTION,
         OPENDRIVE_TAG_CONNECTION,
         OPENDRIVE_TAG_LANELINK,
@@ -159,6 +161,8 @@ protected:
         OPENDRIVE_ATTR_CONNECTINGROAD,
         OPENDRIVE_ATTR_FROM,
         OPENDRIVE_ATTR_TO,
+        OPENDRIVE_ATTR_FROMLANE,
+        OPENDRIVE_ATTR_TOLANE,
         OPENDRIVE_ATTR_MAX,
         OPENDRIVE_ATTR_SOFFSET,
         OPENDRIVE_ATTR_NAME,
@@ -380,6 +384,9 @@ protected:
             minLane(0), maxLane(0)
         { }
 
+        /// dummy constructor for use in maps
+        OpenDriveSignal() {}
+
         std::string id;
         std::string type;
         std::string name;
@@ -566,7 +573,9 @@ protected:
     void myEndElement(int element);
     //@}
 
-
+    std::map<std::string, OpenDriveSignal>& getSignals() {
+        return mySignals;
+    }
 
 private:
     void addLink(LinkType lt, const std::string& elementType, const std::string& elementID,
@@ -588,6 +597,7 @@ private:
     std::string myCurrentConnectingRoad;
     ContactPoint myCurrentContactPoint;
     bool myConnectionWasEmpty;
+    std::map<std::string, OpenDriveSignal> mySignals;
 
     static bool myImportAllTypes;
     static bool myImportWidths;
@@ -641,6 +651,9 @@ protected:
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt, std::vector<NodeSet>& joinedNodeIDs);
 
     static NBTrafficLightDefinition* getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb);
+
+
+    static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction); 
 
     static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist);
 

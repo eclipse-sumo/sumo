@@ -86,6 +86,8 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveTags[] = {
     { "right",            NIImporter_OpenDrive::OPENDRIVE_TAG_RIGHT },
     { "lane",             NIImporter_OpenDrive::OPENDRIVE_TAG_LANE },
     { "signal",           NIImporter_OpenDrive::OPENDRIVE_TAG_SIGNAL },
+    { "signalReference",  NIImporter_OpenDrive::OPENDRIVE_TAG_SIGNALREFERENCE },
+    { "validity",         NIImporter_OpenDrive::OPENDRIVE_TAG_VALIDITY },
     { "junction",         NIImporter_OpenDrive::OPENDRIVE_TAG_JUNCTION },
     { "connection",       NIImporter_OpenDrive::OPENDRIVE_TAG_CONNECTION },
     { "laneLink",         NIImporter_OpenDrive::OPENDRIVE_TAG_LANELINK },
@@ -145,6 +147,8 @@ StringBijection<int>::Entry NIImporter_OpenDrive::openDriveAttrs[] = {
     { "connectingRoad", NIImporter_OpenDrive::OPENDRIVE_ATTR_CONNECTINGROAD },
     { "from",           NIImporter_OpenDrive::OPENDRIVE_ATTR_FROM },
     { "to",             NIImporter_OpenDrive::OPENDRIVE_ATTR_TO },
+    { "fromLane",       NIImporter_OpenDrive::OPENDRIVE_ATTR_FROMLANE },
+    { "toLane",         NIImporter_OpenDrive::OPENDRIVE_ATTR_TOLANE },
     { "max",            NIImporter_OpenDrive::OPENDRIVE_ATTR_MAX },
     { "sOffset",        NIImporter_OpenDrive::OPENDRIVE_ATTR_SOFFSET },
     { "name",           NIImporter_OpenDrive::OPENDRIVE_ATTR_NAME },
@@ -194,6 +198,22 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         XMLSubSys::runParser(handler, *file);
         PROGRESS_DONE_MESSAGE();
     }
+    // apply signal reference information
+    for (auto& item : edges) {
+        for (OpenDriveSignal& signal : item.second->signals) {
+            if (signal.type == "") {
+                if (handler.getSignals().count(signal.id) == 0) {
+                    WRITE_WARNING("Could not find signal reference '" + signal.id + "'.");
+                } else {
+                    const OpenDriveSignal& ref = handler.getSignals()[signal.id];
+                    signal.type = ref.type;
+                    signal.name = ref.name;
+                    signal.dynamic = ref.dynamic;
+                }
+            }
+        }
+    }
+
     // split inner/outer edges
     std::map<std::string, OpenDriveEdge*> innerEdges, outerEdges;
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -376,6 +396,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // -------------------------
     const double defaultSpeed = tc.getSpeed("");
     const bool saveOrigIDs = OptionsCont::getOptions().getBool("output.original-names");
+    // lane-id-map sumoEdge,sumoLaneIndex->odrLaneIndex
+    std::map<std::pair<NBEdge*, int>, int> laneIndexMap;
     // build edges
     for (std::map<std::string, OpenDriveEdge*>::iterator i = outerEdges.begin(); i != outerEdges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
@@ -465,6 +487,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     if (lp != (*j).laneMap.end()) {
                         int sumoLaneIndex = lp->second;
                         setLaneAttributes(e, currRight->getLaneStruct(sumoLaneIndex), *k, saveOrigIDs, tc);
+                        laneIndexMap[std::make_pair(currRight, sumoLaneIndex)] = (*k).id;
                     }
                 }
                 if (!nb.getEdgeCont().insert(currRight, myImportAllTypes)) {
@@ -501,6 +524,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     if (lp != (*j).laneMap.end()) {
                         int sumoLaneIndex = lp->second;
                         setLaneAttributes(e, currLeft->getLaneStruct(sumoLaneIndex), *k, saveOrigIDs, tc);
+                        laneIndexMap[std::make_pair(currLeft, sumoLaneIndex)] = (*k).id;
                     }
                 }
                 if (!nb.getEdgeCont().insert(currLeft, myImportAllTypes)) {
@@ -688,8 +712,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     std::map<std::string, std::string> tlsControlled;
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         OpenDriveEdge* e = (*i).second;
-        for (std::vector<OpenDriveSignal>::const_iterator j = e->signals.begin(); j != e->signals.end(); ++j) {
-            if ((*j).type != "1000001") { // traffic_light (Section 6.11)
+        for (const OpenDriveSignal& signal : e->signals) {
+            if (signal.type != "1000001") { // traffic_light (Section 6.11)
                 continue;
             }
             if (e->laneSections.size() == 0) {
@@ -699,7 +723,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::vector<OpenDriveLaneSection>::iterator k = e->laneSections.begin();
             bool found = false;
             for (; k != e->laneSections.end() - 1 && !found;) {
-                if ((*j).s > (*k).s && (*j).s <= (*(k + 1)).s) {
+                if (signal.s > (*k).s && signal.s <= (*(k + 1)).s) {
                     found = true;
                 } else {
                     ++k;
@@ -720,12 +744,12 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             OpenDriveEdge* e = edges[(*l).elementID];
                             if ((*l).contactPoint == OPENDRIVE_CP_START) {
                                 fromID = e->laneSections[0].sumoID;
-                                if ((*j).orientation < 0) {
+                                if (signal.orientation < 0) {
                                     fromID = "-" + fromID;
                                 }
                             } else {
                                 fromID = e->laneSections.back().sumoID;
-                                if ((*j).orientation > 0) {
+                                if (signal.orientation > 0) {
                                     fromID = "-" + fromID;
                                 }
                             }
@@ -739,32 +763,51 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         }
                     }
                     // figure out the correct combination of directions
-                    NBEdge* from = nb.getEdgeCont().retrieve(fromID);
-                    if (from == nullptr || from->getToNode()->getID() != e->junction) {
-                        from = nb.getEdgeCont().retrieve(fromID[0] == '-' ? fromID.substr(1) : "-" + fromID);
-                    }
-                    NBEdge* to = nb.getEdgeCont().retrieve(toID);
-                    if (to == nullptr || to->getFromNode()->getID() != e->junction) {
-                        to = nb.getEdgeCont().retrieve(toID[0] == '-' ? toID.substr(1) : "-" + toID);
-                    }
+                    NBEdge* from;
+                    NBEdge* to;
+                    auto fromTo = retrieveSignalEdges(nb, fromID, toID, e->junction);
+                    from = fromTo.first;
+                    to = fromTo.second;
                     if (from == nullptr) {
-                        WRITE_WARNING("Could not find edge '" + fromID + "' for signal '" + (*j).id + "'.");
+                        WRITE_WARNING("Could not find edge '" + fromID + "' for signal '" + signal.id + "'.");
                         continue;
+                    }
+
+                    // consider signal validity to determine direction
+                    if (signal.maxLane != 0) {
+                        bool fromForward = from->getID()[0] == '-';
+                        bool lanesForward = signal.maxLane < 0;
+                        if (fromForward != lanesForward) {
+                            std::swap(fromID, toID);
+
+                            auto fromTo = retrieveSignalEdges(nb, fromID, toID, e->junction);
+                            from = fromTo.first;
+                            to = fromTo.second;
+                            if (from == nullptr) {
+                                WRITE_WARNING("Could not find edge '" + fromID + "' for signal '" + signal.id + "'.");
+                                continue;
+                            }
+                        }
                     }
                     for (NBEdge::Connection& c : from->getConnections()) {
                         if (c.toEdge == to) {
-                            c.setParameter("signalID", (*j).id);
+                            int odLane = laneIndexMap[std::make_pair(from, c.fromLane)];
+                            //std::cout << "  fromLane=" << c.fromLane << " odLane=" << odLane << "\n";
+                            if (signal.minLane == 0 || (signal.minLane <= odLane && signal.maxLane >= odLane)) {
+                                c.setParameter("signalID", signal.id);
+                            }
                         }
                     }
                     getTLSSecure(from, nb);
-                    //std::cout << "odrEdge=" << e->id << " fromID=" << fromID << " toID=" << toID << " from=" << from->getID() << " to=" << to->getID() << " signal=" << (*j).id << "\n";
+                    //std::cout << "odrEdge=" << e->id << " fromID=" << fromID << " toID=" << toID << " from=" << from->getID() << " to=" << to->getID() 
+                    //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
                 } else {
                     WRITE_WARNING("Found a traffic light signal on an unknown edge (original edge id='" + e->id + "').");
                     continue;
                 }
             } else {
                 // traffic light on normal road
-                if ((*j).orientation == 1) {
+                if (signal.orientation == 1) {
                     // forward direction has negative lane indices and gets a negative prefix in sumo
                     id = "-" + id;
                 }
@@ -772,9 +815,13 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 getTLSSecure(edge, nb);
                 /// XXX consider lane validity
                 for (NBEdge::Connection& c : edge->getConnections()) {
-                    c.setParameter("signalID", (*j).id);
+                    int odLane = laneIndexMap[std::make_pair(edge, c.fromLane)];
+                    if (signal.minLane == 0 || (signal.minLane <= odLane && signal.maxLane >= odLane)) {
+                        c.setParameter("signalID", signal.id);
+                    }
                 }
-                //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID() << " signal=" << (*j).id << "\n";
+                //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID() 
+                //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
             }
             // @note: tls 'signalID' parameters are set via NBTrafficLightLogicCont::setOpenDriveSignalParameters
         }
@@ -786,6 +833,21 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         delete (*i).second;
     }
+}
+
+std::pair<NBEdge*, NBEdge*>
+NIImporter_OpenDrive::retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction) {
+    NBEdge* from;
+    NBEdge* to;
+    from = nb.getEdgeCont().retrieve(fromID);
+    if (from == nullptr || from->getToNode()->getID() != junction) {
+        from = nb.getEdgeCont().retrieve(fromID[0] == '-' ? fromID.substr(1) : "-" + fromID);
+    }
+    to = nb.getEdgeCont().retrieve(toID);
+    if (to == nullptr || to->getFromNode()->getID() != junction) {
+        to = nb.getEdgeCont().retrieve(toID[0] == '-' ? toID.substr(1) : "-" + toID);
+    }
+    return std::make_pair(from, to);
 }
 
 
@@ -2033,7 +2095,25 @@ NIImporter_OpenDrive::myStartElement(int element,
             int orientationCode = orientation == "-" ? -1 : orientation == "+" ? 1 : 0;
             double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
             bool dynamic = attrs.get<std::string>(OPENDRIVE_ATTR_DYNAMIC, myCurrentEdge.id.c_str(), ok) == "no" ? false : true;
-            myCurrentEdge.signals.push_back(OpenDriveSignal(id, type, name, orientationCode, dynamic, s));
+            OpenDriveSignal signal = OpenDriveSignal(id, type, name, orientationCode, dynamic, s);
+            myCurrentEdge.signals.push_back(signal);
+            mySignals[id] = signal;
+        }
+        break;
+        case OPENDRIVE_TAG_SIGNALREFERENCE: {
+            std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
+            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, myCurrentEdge.id.c_str(), ok);
+            int orientationCode = orientation == "-" ? -1 : orientation == "+" ? 1 : 0;
+            double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
+            OpenDriveSignal signal = OpenDriveSignal(id, "", "", orientationCode, false, s);
+            myCurrentEdge.signals.push_back(signal);
+        }
+        break;
+        case OPENDRIVE_TAG_VALIDITY: {
+            int fromLane = attrs.get<int>(OPENDRIVE_ATTR_FROMLANE, myCurrentEdge.id.c_str(), ok);
+            int toLane = attrs.get<int>(OPENDRIVE_ATTR_TOLANE, myCurrentEdge.id.c_str(), ok);
+            myCurrentEdge.signals.back().minLane = fromLane;
+            myCurrentEdge.signals.back().maxLane = toLane;
         }
         break;
         case OPENDRIVE_TAG_JUNCTION:
