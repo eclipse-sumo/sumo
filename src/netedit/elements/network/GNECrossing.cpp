@@ -113,23 +113,24 @@ void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
     if (s.drawCrossingsAndWalkingareas &&
-            (myCrossingGeometry.getShapeRotations().size() > 0) &&
-            (myCrossingGeometry.getShapeLengths().size() > 0) &&
-            (s.scale > 3.0)) {
-        auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
+        !myNet->getViewNet()->getEditModes().isCurrentSupermodeData() &&
+        (myCrossingGeometry.getShapeRotations().size() > 0) &&
+        (myCrossingGeometry.getShapeLengths().size() > 0) &&
+        (s.scale > 3.0)) {
+        const auto NBCrossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
             // push first draw matrix
             glPushMatrix();
             // push name
             glPushName(getGlID());
             // must draw on top of junction
-            glTranslated(0, 0, GLO_JUNCTION + 0.1);
+            glTranslated(0, 0, GLO_CROSSING + 0.1);
             // set color depending of selection and priority
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectedCrossingColor);
-            } else if (!crossing->valid) {
+            } else if (!NBCrossing->valid) {
                 GLHelper::setColor(s.colorSettings.crossingInvalid);
-            } else if (crossing->priority) {
+            } else if (NBCrossing->priority) {
                 GLHelper::setColor(s.colorSettings.crossingPriority);
             } else if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
                 GLHelper::setColor(s.laneColorer.getSchemes()[0].getColor(8));
@@ -139,9 +140,9 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // traslate to front
             glTranslated(0, 0, .2);
             // set default values
-            double length = 0.5;
-            double spacing = 1.0;
-            double halfWidth = crossing->width * 0.5;
+            const double length = 0.5;
+            const double spacing = 1.0;
+            const double halfWidth = NBCrossing->width * 0.5;
             // push second draw matrix
             glPushMatrix();
             // draw on top of of the white area between the rails
@@ -199,7 +200,7 @@ void
 GNECrossing::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     glPushMatrix();
-    glTranslated(0, 0, GLO_JUNCTION + 0.5);
+    glTranslated(0, 0, GLO_CROSSING + 0.5);
     PositionVector shape = crossing->shape;
     shape.extrapolate(0.5); // draw on top of the walking area
     int linkNo = crossing->tlLinkIndex;
