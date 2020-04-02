@@ -754,7 +754,16 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
             NBEdge* e = nb.getEdgeCont().retrieve(id);
             NBTrafficLightDefinition* tlDef = getTLSSecure(e, nb);
-            tlDef->setParameter("connection:" + id, (*j).name);
+            for (const NBEdge::Connection& c : e->getConnections()) {
+                if (c.tlLinkIndex >= 0) {
+                    tlDef->setParameter("linkID:" + toString(c.tlLinkIndex), (*j).id);
+                }
+            }
+            for (const NBEdge::Connection& c : e->getConnections()) {
+                if (c.tlLinkIndex >= 0) {
+                    tlDef->setParameter("linkName:" + toString(c.tlLinkIndex), (*j).name);
+                }
+            }
         }
     }
 
@@ -779,6 +788,8 @@ NIImporter_OpenDrive::getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb) {
             throw ProcessError();
         }
         toNode->addTrafficLight(tlDef);
+        tlDef->setParticipantsInformation();
+        tlDef->setTLControllingInformation();
         //tlDef->setSinglePhase();
     }
     return *toNode->getControllingTLS().begin();
