@@ -1,4 +1,3 @@
-
 [Reported by leo at 06Feb11:20:00]
 search_string:teleporting
 search_file:errors
@@ -6,10 +5,3 @@ ignore_other_errors:1
 bug_id:#3776
 full_description:#3776
 brief_description:#3776
-
-[Reported by leo at 03Apr14:32:25]
-search_string:Assertion
-search_file:errors
-ignore_other_errors:1
-full_description:#5412
-brief_description:#5412
