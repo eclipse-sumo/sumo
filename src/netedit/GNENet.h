@@ -384,9 +384,6 @@ public:
     /// @brief add GL Object into net
     void removeGLObjectFromGrid(GNEAttributeCarrier* AC);
 
-    /// @brief get inserted GUIGlObject
-    const std::map<const GUIGlObject*, GNEAttributeCarrier*> getInsertedGUIGlObject() const;
-
     /// @brief modifies endpoins of the given edge
     void changeEdgeEndpoints(GNEEdge* edge, const std::string& newSourceID, const std::string& newDestID);
 
@@ -690,10 +687,7 @@ protected:
 
     /// @brief PathCalculator instance
     GNENetHelper::PathCalculator* myPathCalculator;
-    /*
-    /// @brief map with active GUIGlObject and their associated AttributeCarrier
-    std::map<const GUIGlObject*, GNEAttributeCarrier*> myInsertedGUIGlObject;
-    */
+
     /// @name ID Suppliers for newly created edges and junctions
     // @{
     IDSupplier myEdgeIDSupplier;

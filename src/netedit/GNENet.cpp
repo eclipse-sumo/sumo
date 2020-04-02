@@ -1229,14 +1229,6 @@ GNENet::addGLObjectIntoGrid(GNEAttributeCarrier *AC) {
         if (AC->getTagProperty().isPlacedInRTree()) {
             myGrid.addAdditionalGLObject(AC->getGUIGlObject());
         }
-        /*
-        // insert AC in myInsertedGUIGlObject
-        if (myInsertedGUIGlObject.count(AC->getGUIGlObject()) == 0) {
-            myInsertedGUIGlObject[AC->getGUIGlObject()] = AC;
-        } else {
-            throw ProcessError("AC was already inserted in myInsertedGUIGlObject");
-        }
-        */
     }
 }
 
@@ -1249,21 +1241,7 @@ GNENet::removeGLObjectFromGrid(GNEAttributeCarrier* AC) {
         if (AC->getTagProperty().isPlacedInRTree()) {
             myGrid.removeAdditionalGLObject(AC->getGUIGlObject());
         }
-        /*
-        // erase AC from myInsertedGUIGlObject
-        if (myInsertedGUIGlObject.count(AC->getGUIGlObject()) > 0 ) {
-            myInsertedGUIGlObject.erase(AC->getGUIGlObject());
-        } else {
-            throw ProcessError("AC wasn't previously inserted in myInsertedGUIGlObject");
-        }
-        */
     }
-}
-
-
-const std::map<const GUIGlObject*, GNEAttributeCarrier*> 
-GNENet::getInsertedGUIGlObject() const {
-    return /*myInsertedGUIGlObject*/ std::map<const GUIGlObject*, GNEAttributeCarrier*>();
 }
 
 
