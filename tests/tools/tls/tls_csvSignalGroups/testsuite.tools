@@ -2,4 +2,7 @@
 prio
 2green
 leftTurnPhase
+
+# declare signal groups for pedestrian crossings
+pedestrians
 template

@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<add>
+    <tlLogic id="C" offset="5" programID="SZP_Prio" type="static">
+        <!-- Order of signal groups:
+0 FZ11
+1 FZ11
+2 FZ11
+3 FZ21
+4 FZ21
+5 FZ21
+6 FZ31
+7 FZ31
+8 FZ31
+9 FZ41
+10 FZ41
+11 FZ41
+12 PED2
+13 PED3
+14 PED4
+15 PED1-->
+        <phase duration="10" state="GGGrrrrrrrrrrrrr"/>
+        <phase duration="3" state="yyyrrrrrrrrrrrrr"/>
+        <phase duration="1" state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="1" state="rrruuurrrrrrrrrr"/>
+        <phase duration="10" state="rrrGGGrrrrrrrrrr"/>
+        <phase duration="3" state="rrryyyrrrrrrrrrr"/>
+        <phase duration="1" state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="1" state="rrrrrruuurrrrrrr"/>
+        <phase duration="10" state="rrrrrrGGGrrrrrrr"/>
+        <phase duration="3" state="rrrrrryyyrrrrrrr"/>
+        <phase duration="1" state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="1" state="rrrrrrrrruuurrrr"/>
+        <phase duration="10" state="rrrrrrrrrGGGrrrr"/>
+        <phase duration="3" state="rrrrrrrrryyyrrrr"/>
+        <phase duration="2" state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="5" state="rrrrrrrrrrrrrrrG"/>
+        <phase duration="5" state="rrrrrrrrrrrrGrrr"/>
+        <phase duration="5" state="rrrrrrrrrrrrrGrr"/>
+        <phase duration="5" state="rrrrrrrrrrrrrrGr"/>
+        <phase duration="4" state="rrrrrrrrrrrrrrrr"/>
+        <phase duration="1" state="uuurrrrrrrrrrrrr"/>
+    </tlLogic>
+</add>
