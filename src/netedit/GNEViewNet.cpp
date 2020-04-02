@@ -332,14 +332,14 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
     // firstm make OpenGL context current prior to performing OpenGL commands
     if (makeCurrent()) {
         // obtain GUIGLIds of all objects in the given boundary (disabling drawForRectangleSelection)
-        std::vector<GUIGlID> ids = getObjectsInBoundary(boundary, false);
+        std::vector<GUIGlID> GLIds = getObjectsInBoundary(boundary, false);
         //  finish make OpenGL context current
         makeNonCurrent();
         // iterate over GUIGlIDs
-        for (auto i : ids) {
+        for (const auto & GLId : GLIds) {
             // avoid to select Net (i = 0)
-            if (i != 0) {
-                GNEAttributeCarrier* retrievedAC = myNet->retrieveAttributeCarrier(i);
+            if (GLId != 0) {
+                GNEAttributeCarrier* retrievedAC = myNet->retrieveAttributeCarrier(GLId);
                 // in the case of a Lane, we need to change the retrieved lane to their the parent if myNetworkViewOptions.mySelectEdges is enabled
                 if ((retrievedAC->getTagProperty().getTag() == SUMO_TAG_LANE) && (myNetworkViewOptions.selectEdges() || forceSelectEdges)) {
                     retrievedAC = dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();

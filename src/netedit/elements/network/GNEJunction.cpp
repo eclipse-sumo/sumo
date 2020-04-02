@@ -166,6 +166,8 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 crossing->unselectAttributeCarrier();
             }
             if (crossing->unreferenced()) {
+                // remove it from net
+                myNet->removeGLObjectFromGrid(crossing);
                 // show extra information for tests
                 WRITE_DEBUG("Deleting unreferenced " + crossing->getTagStr() + " in rebuildGNECrossings()");
                 delete crossing;
@@ -923,6 +925,8 @@ GNEJunction::retrieveGNECrossing(NBNode::Crossing* NBNodeCrossing, bool createIf
         WRITE_DEBUG("Created " + createdGNECrossing->getTagStr() + " '" + createdGNECrossing->getID() + "' in retrieveGNECrossing()");
         // update geometry after creating
         createdGNECrossing->updateGeometry();
+        // add it in Network
+        myNet->addGLObjectIntoGrid(createdGNECrossing);
         return createdGNECrossing;
     } else {
         return nullptr;

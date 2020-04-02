@@ -709,9 +709,9 @@ GNEEdge::remakeGNEConnections() {
     // create a vector to keep retrieved and created connections
     std::vector<GNEConnection*> retrievedConnections;
     // iterate over NBEdge::Connections of GNEEdge
-    for (auto it : connections) {
+    for (const auto &connection : connections) {
         // retrieve existent GNEConnection, or create it
-        GNEConnection* retrievedGNEConnection = retrieveGNEConnection(it.fromLane, it.toEdge, it.toLane);
+        GNEConnection* retrievedGNEConnection = retrieveGNEConnection(connection.fromLane, connection.toEdge, connection.toLane);
         retrievedGNEConnection->updateLinkState();
         retrievedConnections.push_back(retrievedGNEConnection);
         // check if previously this GNEConnections exists, and if true, remove it from myGNEConnections
@@ -726,14 +726,16 @@ GNEEdge::remakeGNEConnections() {
         retrievedGNEConnection->markConnectionGeometryDeprecated();
     }
     // delete non retrieved GNEConnections
-    for (auto it : myGNEConnections) {
+    for (const auto &connection : myGNEConnections) {
         // decrease reference
-        it->decRef();
+        connection->decRef();
         // delete GNEConnection if is unreferenced
-        if (it->unreferenced()) {
+        if (connection->unreferenced()) {
+            // remove it from network
+            myNet->addGLObjectIntoGrid(connection);
             // show extra information for tests
-            WRITE_DEBUG("Deleting unreferenced " + it->getTagStr() + " '" + it->getID() + "' in rebuildGNEConnections()");
-            delete it;
+            WRITE_DEBUG("Deleting unreferenced " + connection->getTagStr() + " '" + connection->getID() + "' in rebuildGNEConnections()");
+            delete connection;
         }
     }
     // copy retrieved (existent and created) GNECrossigns to myGNEConnections
@@ -2007,6 +2009,8 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
                 dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
             }
         }
+        // add it into network
+        myNet->addGLObjectIntoGrid(createdConnection);
         return createdConnection;
     } else {
         return nullptr;
