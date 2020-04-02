@@ -141,9 +141,6 @@ NIImporter_ArcView::load() {
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
-#if GDAL_VERSION_MAJOR > 2
-    destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
-#endif
     OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == NULL) {
         if (myOptions.isSet("shapefile.guess-projection")) {
@@ -208,7 +205,7 @@ NIImporter_ArcView::load() {
             type = poFeature->GetFieldAsString("ST_TYP_AFT");
         }
         if ((type != "" || myOptions.isSet("shapefile.type-id")) && !myTypeCont.knows(type)) {
-            WRITE_WARNING("Unknown type '" + type + "' for edge '" + id + "'");
+            WRITE_WARNINGF("Unknown type '%' for edge '%'", type, id);
         }
         double width = myTypeCont.getWidth(type);
         bool oneway = myTypeCont.knows(type) ? myTypeCont.getIsOneWay(type) : false;
@@ -251,7 +248,7 @@ NIImporter_ArcView::load() {
         for (int j = 0; j < cgeom->getNumPoints(); j++) {
             Position pos((double) cgeom->getX(j), (double) cgeom->getY(j), (double) cgeom->getZ(j));
             if (!NBNetBuilder::transformCoordinate(pos)) {
-                WRITE_WARNING("Unable to project coordinates for edge '" + id + "'.");
+                WRITE_WARNINGF("Unable to project coordinates for edge '%'.", id);
             }
             shape.push_back_noDoublePos(pos);
         }
@@ -286,7 +283,7 @@ NIImporter_ArcView::load() {
         }
 
         if (from == to) {
-            WRITE_WARNING("Edge '" + id + "' connects identical nodes, skipping.");
+            WRITE_WARNINGF("Edge '%' connects identical nodes, skipping.", id);
             continue;
         }
 
