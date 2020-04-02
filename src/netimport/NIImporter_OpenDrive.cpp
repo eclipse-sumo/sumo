@@ -812,6 +812,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     id = "-" + id;
                 }
                 NBEdge* edge = nb.getEdgeCont().retrieve(id);
+                if (edge == nullptr) {
+                    WRITE_WARNING("Could not find edge '" + id + "' for signal '" + signal.id + "'.");
+                    continue;
+                }
                 getTLSSecure(edge, nb);
                 /// XXX consider lane validity
                 for (NBEdge::Connection& c : edge->getConnections()) {
