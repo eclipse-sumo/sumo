@@ -706,11 +706,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
             }
 
-            // @todo: major problem, currently, still not completely solved:
-            //  inner edges may have traffic lights, too. Nice on one hand, as directions can be recognized
-            //  but hard to follow backwards
             std::string id = (*k).sumoID;
             if (id == "") {
+                // traffic light on connecting road
                 if (e->junction != "") {
                     //WRITE_WARNING("Found a traffic light signal on an internal edge; will not build it (original edge id='" + e->id + "').");
                     std::string fromID, toID;
@@ -740,30 +738,45 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             toID = (*l).contactPoint == OPENDRIVE_CP_START ? e->laneSections[0].sumoID : e->laneSections.back().sumoID;
                         }
                     }
-                    id = fromID; //+ "->" + toID;
-
-
+                    // figure out the correct combination of directions
+                    NBEdge* from = nb.getEdgeCont().retrieve(fromID);
+                    if (from == nullptr || from->getToNode()->getID() != e->junction) {
+                        from = nb.getEdgeCont().retrieve(fromID[0] == '-' ? fromID.substr(1) : "-" + fromID);
+                    }
+                    NBEdge* to = nb.getEdgeCont().retrieve(toID);
+                    if (to == nullptr || to->getFromNode()->getID() != e->junction) {
+                        to = nb.getEdgeCont().retrieve(toID[0] == '-' ? toID.substr(1) : "-" + toID);
+                    }
+                    if (from == nullptr) {
+                        WRITE_WARNING("Could not find edge '" + fromID + "' for signal '" + (*j).id + "'.");
+                        continue;
+                    }
+                    for (NBEdge::Connection& c : from->getConnections()) {
+                        if (c.toEdge == to) {
+                            c.setParameter("signalID", (*j).id);
+                        }
+                    }
+                    getTLSSecure(from, nb);
+                    //std::cout << "odrEdge=" << e->id << " fromID=" << fromID << " toID=" << toID << " from=" << from->getID() << " to=" << to->getID() << " signal=" << (*j).id << "\n";
                 } else {
                     WRITE_WARNING("Found a traffic light signal on an unknown edge (original edge id='" + e->id + "').");
                     continue;
                 }
             } else {
-                if ((*j).orientation > 0) {
+                // traffic light on normal road
+                if ((*j).orientation == 1) {
+                    // forward direction has negative lane indices and gets a negative prefix in sumo
                     id = "-" + id;
                 }
-            }
-            NBEdge* e = nb.getEdgeCont().retrieve(id);
-            NBTrafficLightDefinition* tlDef = getTLSSecure(e, nb);
-            for (const NBEdge::Connection& c : e->getConnections()) {
-                if (c.tlLinkIndex >= 0) {
-                    tlDef->setParameter("linkID:" + toString(c.tlLinkIndex), (*j).id);
+                NBEdge* edge = nb.getEdgeCont().retrieve(id);
+                getTLSSecure(edge, nb);
+                /// XXX consider lane validity
+                for (NBEdge::Connection& c : edge->getConnections()) {
+                    c.setParameter("signalID", (*j).id);
                 }
+                //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID() << " signal=" << (*j).id << "\n";
             }
-            for (const NBEdge::Connection& c : e->getConnections()) {
-                if (c.tlLinkIndex >= 0) {
-                    tlDef->setParameter("linkName:" + toString(c.tlLinkIndex), (*j).name);
-                }
-            }
+            // @note: tls 'signalID' parameters are set via NBTrafficLightLogicCont::setOpenDriveSignalParameters
         }
     }
 
@@ -788,8 +801,6 @@ NIImporter_OpenDrive::getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb) {
             throw ProcessError();
         }
         toNode->addTrafficLight(tlDef);
-        tlDef->setParticipantsInformation();
-        tlDef->setTLControllingInformation();
         //tlDef->setSinglePhase();
     }
     return *toNode->getControllingTLS().begin();
@@ -2018,10 +2029,11 @@ NIImporter_OpenDrive::myStartElement(int element,
             std::string id = attrs.get<std::string>(OPENDRIVE_ATTR_ID, myCurrentEdge.id.c_str(), ok);
             std::string type = attrs.get<std::string>(OPENDRIVE_ATTR_TYPE, myCurrentEdge.id.c_str(), ok);
             std::string name = attrs.getOpt<std::string>(OPENDRIVE_ATTR_NAME, myCurrentEdge.id.c_str(), ok, "", false);
-            int orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, myCurrentEdge.id.c_str(), ok) == "-" ? -1 : 1;
+            const std::string orientation = attrs.get<std::string>(OPENDRIVE_ATTR_ORIENTATION, myCurrentEdge.id.c_str(), ok);
+            int orientationCode = orientation == "-" ? -1 : orientation == "+" ? 1 : 0;
             double s = attrs.get<double>(OPENDRIVE_ATTR_S, myCurrentEdge.id.c_str(), ok);
             bool dynamic = attrs.get<std::string>(OPENDRIVE_ATTR_DYNAMIC, myCurrentEdge.id.c_str(), ok) == "no" ? false : true;
-            myCurrentEdge.signals.push_back(OpenDriveSignal(id, type, name, orientation, dynamic, s));
+            myCurrentEdge.signals.push_back(OpenDriveSignal(id, type, name, orientationCode, dynamic, s));
         }
         break;
         case OPENDRIVE_TAG_JUNCTION:

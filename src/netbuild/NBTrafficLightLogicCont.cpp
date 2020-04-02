@@ -322,6 +322,20 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
 }
 
 
+void
+NBTrafficLightLogicCont::setOpenDriveSignalParameters() {
+    Definitions definitions = getDefinitions();
+    for (NBTrafficLightDefinition* def : getDefinitions()) {
+        for (const NBConnection& con : def->getControlledLinks()) {
+            const NBEdge::Connection& c = con.getFrom()->getConnection(con.getFromLane(), con.getTo(), con.getToLane());
+            if (c.knowsParameter("signalID")) {
+                def->setParameter("linkSignalID:" + toString(con.getTLIndex()), c.getParameter("signalID"));
+            }
+        }
+    }
+}
+
+
 NBTrafficLightLogicCont::Logics
 NBTrafficLightLogicCont::getComputed() const {
     Logics result;

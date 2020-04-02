@@ -204,6 +204,9 @@ public:
      */
     void setTLControllingInformation(const NBEdgeCont& ec, const NBNodeCont& nc);
 
+    /// @brief set OpenDRIVE signal reference parameters after all link indices are known
+    void setOpenDriveSignalParameters();
+
     /// @brief Returns a list of all definitions (convenience for easier iteration)
     typedef std::vector<NBTrafficLightDefinition*> Definitions;
     Definitions getDefinitions() const;

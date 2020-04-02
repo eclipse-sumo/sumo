@@ -493,6 +493,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     //
     before = PROGRESS_BEGIN_TIME_MESSAGE("Computing traffic light control information");
     myTLLCont.setTLControllingInformation(myEdgeCont, myNodeCont);
+    if (oc.exists("opendrive-files") && oc.isSet("opendrive-files")) {
+        myTLLCont.setOpenDriveSignalParameters();
+    }
     PROGRESS_TIME_MESSAGE(before);
     //
     before = PROGRESS_BEGIN_TIME_MESSAGE("Computing node logics");
