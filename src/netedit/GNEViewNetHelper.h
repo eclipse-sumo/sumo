@@ -234,9 +234,6 @@ struct GNEViewNetHelper {
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
     private:
-
-        bool mySwapLane2edge;
-
         /// @brief vector with the clicked GUIGlObjects
         std::vector<GUIGlObject*> myGUIGlObjectLanes, myGUIGlObjectEdges;
 
@@ -287,6 +284,9 @@ struct GNEViewNetHelper {
 
         /// @brief vector with the clicked edge relation datas
         std::vector<GNEEdgeRelData*> myEdgeRelDatas;
+
+        /// @brief flag to enable/disable swap lane to edge
+        bool mySwapLane2edge;
 
         /// @brief invert GUIGlObjects
         void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects);
