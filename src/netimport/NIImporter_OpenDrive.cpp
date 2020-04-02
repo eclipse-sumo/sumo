@@ -740,7 +740,9 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             toID = (*l).contactPoint == OPENDRIVE_CP_START ? e->laneSections[0].sumoID : e->laneSections.back().sumoID;
                         }
                     }
-                    id = fromID + "->" + toID;
+                    id = fromID; //+ "->" + toID;
+
+
                 } else {
                     WRITE_WARNING("Found a traffic light signal on an unknown edge (original edge id='" + e->id + "').");
                     continue;
@@ -750,34 +752,10 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     id = "-" + id;
                 }
             }
-            tlsControlled[id] = (*j).name;
+            NBEdge* e = nb.getEdgeCont().retrieve(id);
+            NBTrafficLightDefinition* tlDef = getTLSSecure(e, nb);
+            tlDef->setParameter("connection:" + id, (*j).name);
         }
-    }
-
-    for (std::map<std::string, std::string>::iterator i = tlsControlled.begin(); i != tlsControlled.end(); ++i) {
-        std::string id = (*i).first;
-        if (id.find("->") != std::string::npos) {
-            id = id.substr(0, id.find("->"));
-        }
-        NBEdge* e = nb.getEdgeCont().retrieve(id);
-        if (e == nullptr) {
-            WRITE_WARNING("Could not find edge '" + id + "' while building its traffic light.");
-            continue;
-        }
-        NBNode* toNode = e->getToNode();
-        if (!toNode->isTLControlled()) {
-            TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
-            NBOwnTLDef* tlDef = new NBOwnTLDef(toNode->getID(), toNode, 0, type);
-            if (!nb.getTLLogicCont().insert(tlDef)) {
-                // actually, nothing should fail here
-                delete tlDef;
-                throw ProcessError();
-            }
-            toNode->addTrafficLight(tlDef);
-            //tlDef->setSinglePhase();
-        }
-        NBTrafficLightDefinition* tlDef = *toNode->getControllingTLS().begin();
-        tlDef->setParameter("connection:" + id, (*i).second);
     }
 
     // -------------------------
@@ -786,6 +764,24 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     for (std::map<std::string, OpenDriveEdge*>::iterator i = edges.begin(); i != edges.end(); ++i) {
         delete (*i).second;
     }
+}
+
+
+NBTrafficLightDefinition*
+NIImporter_OpenDrive::getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb) {
+    NBNode* toNode = inEdge->getToNode();
+    if (!toNode->isTLControlled()) {
+        TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
+        NBOwnTLDef* tlDef = new NBOwnTLDef(toNode->getID(), toNode, 0, type);
+        if (!nb.getTLLogicCont().insert(tlDef)) {
+            // actually, nothing should fail here
+            delete tlDef;
+            throw ProcessError();
+        }
+        toNode->addTrafficLight(tlDef);
+        //tlDef->setSinglePhase();
+    }
+    return *toNode->getControllingTLS().begin();
 }
 
 void

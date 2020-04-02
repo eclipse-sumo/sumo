@@ -373,8 +373,12 @@ protected:
          * @param[in] dynamicArg Whether the signal is dynamic
          * @param[in] sArg The offset from the start, counted from the begin
          */
-        OpenDriveSignal(const std::string& idArg, const std::string typeArg, const std::string nameArg, int orientationArg, bool dynamicArg, double sArg)
-            : id(idArg), type(typeArg), name(nameArg), orientation(orientationArg), dynamic(dynamicArg), s(sArg) { }
+        OpenDriveSignal(const std::string& idArg, const std::string typeArg, const std::string nameArg,
+                int orientationArg, bool dynamicArg, double sArg) :
+            id(idArg), type(typeArg), name(nameArg),
+            orientation(orientationArg), dynamic(dynamicArg), s(sArg),
+            minLane(0), maxLane(0)
+        { }
 
         std::string id;
         std::string type;
@@ -382,6 +386,9 @@ protected:
         int orientation;
         bool dynamic;
         double s;
+        /// @brief signal validity range
+        int minLane;
+        int maxLane;
     };
 
 
@@ -633,6 +640,7 @@ protected:
     static void setNodeSecure(NBNodeCont& nc, OpenDriveEdge& e,
                               const std::string& nodeID, NIImporter_OpenDrive::LinkType lt, std::vector<NodeSet>& joinedNodeIDs);
 
+    static NBTrafficLightDefinition* getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb);
 
     static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist);
 
