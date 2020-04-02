@@ -71,6 +71,16 @@ else:
 
 import sumolib.net  # noqa
 
+def getEdgeID(laneOrEdgeID):
+    sep = laneOrEdgeID.rfind('_')
+    if sep > 0 and laneOrEdgeID[sep + 1:].isdigit():
+        return laneOrEdgeID[:sep]
+    else:
+        return laneOrEdgeID
+
+def isLaneID(laneOrEdgeID):
+    return laneOrEdgeID != getEdgeID(laneOrEdgeID)
+
 
 class TlLogic(sumolib.net.TLSProgram):
 
@@ -134,14 +144,12 @@ class TlLogic(sumolib.net.TLSProgram):
                 for fromLink, toLink in sgToLinks[sgID]:
                     # check link validity (lane exists?)
                     for connIn, connOut, tlIndex in connections:
-                        fromLaneSep = fromLink.find('_')
-                        if fromLaneSep > 0 and fromLink[fromLaneSep + 1:].isdigit():
+                        if isLaneID(fromLink):
                             valid = fromLink == connIn.getID()
                         else:
                             valid = fromLink == connIn.getEdge().getID()
                         if toLink != '' and valid:
-                            toLaneSep = toLink.find('_')
-                            if toLaneSep > 0 and toLink[toLaneSep + 1:].isdigit():
+                            if isLaneID(toLink):
                                 valid = toLink == connOut.getID()
                             else:
                                 valid = toLink == connOut.getEdge().getID()
@@ -391,7 +399,9 @@ if __name__ == "__main__":
     # read SUMO network
     net = None
     if(len(options.net) > 0):
-        net = sumolib.net.readNet(options.net, withInternal=True)
+        net = sumolib.net.readNet(options.net,
+                withInternal=True,
+                withPedestrianConnections=True)
 
         if(len(options.make_input_dir) > 0):  # check input template directory
             if(os.path.isdir(options.make_input_dir)):
@@ -462,8 +472,8 @@ if __name__ == "__main__":
                                     colIndices[line[colIndex].strip()] = colIndex
                             secondFreeTime = "on2" in colIndices.keys() and "off2" in colIndices.keys()
                         else:
-                            sg = SignalGroup(
-                                line[colIndices["id"]],
+                            sgID = line[colIndices["id"]]
+                            sg = SignalGroup(sgID,
                                 transTimeOn=int(line[colIndices["transOn"]]),
                                 transTimeOff=int(line[colIndices["transOff"]]),
                                 debug=options.debug)
@@ -471,8 +481,12 @@ if __name__ == "__main__":
                             if(secondFreeTime):
                                 if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):
                                     sg.addFreeTime(int(line[colIndices["on2"]]), int(line[colIndices["off2"]]))
-                            signalGroups[sg._id] = sg
-                            signalGroupOrder.append(sg._id)
+                            signalGroups[sgID] = sg
+                            signalGroupOrder.append(sgID)
+                            sgFromLinkEdge = getEdgeID(sgToLinks[sgID][0][0])
+                            if net.getEdge(sgFromLinkEdge).getFunction() == "walkingarea":
+                                sg._stop = 'r'
+
                 except Exception:
                     print("In file %s, line %s" % (inputFileName, i + 1), file=sys.stderr)
                     raise
