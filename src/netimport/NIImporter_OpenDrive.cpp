@@ -600,7 +600,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             }
         }
         if (!lanesBuilt) {
-            WRITE_WARNING("Edge '" + e->id + "' has no lanes.");
+            WRITE_WARNINGF("Edge '%' has no lanes.", e->id);
         }
     }
 
@@ -769,7 +769,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     from = fromTo.first;
                     to = fromTo.second;
                     if (from == nullptr) {
-                        WRITE_WARNING("Could not find edge '" + fromID + "' for signal '" + signal.id + "'.");
+                        WRITE_WARNINGF("Could not find edge '%' for signal '%'.", fromID, signal.id);
                         continue;
                     }
 
@@ -784,7 +784,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                             from = fromTo.first;
                             to = fromTo.second;
                             if (from == nullptr) {
-                                WRITE_WARNING("Could not find edge '" + fromID + "' for signal '" + signal.id + "'.");
+                                WRITE_WARNINGF("Could not find edge '%' for signal '%'.", fromID, signal.id);
                                 continue;
                             }
                         }
@@ -802,7 +802,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     //std::cout << "odrEdge=" << e->id << " fromID=" << fromID << " toID=" << toID << " from=" << from->getID() << " to=" << to->getID() 
                     //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
                 } else {
-                    WRITE_WARNING("Found a traffic light signal on an unknown edge (original edge id='" + e->id + "').");
+                    WRITE_WARNINGF("Found a traffic light signal on an unknown edge (original edge id='%').", e->id);
                     continue;
                 }
             } else {
@@ -813,7 +813,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                 }
                 NBEdge* edge = nb.getEdgeCont().retrieve(id);
                 if (edge == nullptr) {
-                    WRITE_WARNING("Could not find edge '" + id + "' for signal '" + signal.id + "'.");
+                    WRITE_WARNINGF("Could not find edge '%' for signal '%'.", id, signal.id);
                     continue;
                 }
                 getTLSSecure(edge, nb);
@@ -1518,7 +1518,7 @@ NIImporter_OpenDrive::geomFromSpiral(const OpenDriveEdge& e, const OpenDriveGeom
     try {
         double cDot = (curveEnd - curveStart) / g.length;
         if (cDot == 0 || g.length == 0) {
-            WRITE_WARNING("Could not compute spiral geometry for edge '" + e.id + "' (cDot=" + toString(cDot) + " length=" + toString(g.length) + ").");
+            WRITE_WARNINGF("Could not compute spiral geometry for edge '%' (cDot=% length=%).", e.id, toString(cDot), toString(g.length));
             ret.push_back(Position(g.x, g.y));
             return ret;
         }
