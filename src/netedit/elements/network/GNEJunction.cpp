@@ -1389,7 +1389,8 @@ GNEJunction::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s)
         for (const auto &genericData : incomingEdge->getChildGenericDataElements()) {
             // check if incomingEdge correspond to edgeRel from edge
             if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
-                (genericData->getAttribute(SUMO_ATTR_FROM) == incomingEdge->getID())) {
+                (genericData->getAttribute(SUMO_ATTR_FROM) == incomingEdge->getID()) &&
+                genericData->isGenericDataVisible()) {
                 // get To edge
                 const GNEEdge *edgeTo = genericData->getParentEdges().back();
                 // get the four points
