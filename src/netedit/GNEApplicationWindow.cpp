@@ -676,7 +676,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
     FXFileDialog opendialog(this, "Open data element file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("Data element files (*.dat.xml)\nAll files (*)");
+    opendialog.setPatternList("Data element files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
         opendialog.setDirectory(gCurrentFolder);
     }
@@ -2319,11 +2319,11 @@ GNEApplicationWindow::onCmdSaveDataElements(FXObject*, FXSelector, void*) {
         // Check if data elements file was already set at start of netedit or with a previous save
         if (oc.getString("data-files").empty()) {
             FXString file = MFXUtils::getFilename2Write(this,
-                            "Select name of the data element file", ".dat.xml",
+                            "Select name of the data element file", ".xml",
                             GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL),
                             gCurrentFolder);
             // add xml extension
-            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
             // check tat file is valid
             if (fileWithExtension != "") {
                 // change value of "data-files"
@@ -2361,11 +2361,11 @@ long
 GNEApplicationWindow::onCmdSaveDataElementsAs(FXObject*, FXSelector, void*) {
     // Open window to select additionasl file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the data element file", ".dat.xml",
+                    "Select name of the data element file", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA),
                     gCurrentFolder);
     // add xml extension
-    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".dat.xml");
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
     // check that file is correct
     if (fileWithExtension != "") {
         // reset writtable flag
