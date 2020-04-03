@@ -4100,6 +4100,23 @@ MSVehicle::executeMove() {
     return moved;
 }
 
+void
+MSVehicle::executeFractionalMove(double dist) {
+    //std::cout << SIMTIME << " veh=" << getID() << " executeFractionalMove dist=" << dist << "\n";
+    myState.myPos += dist;
+    myState.myLastCoveredDist = dist;
+    myCachedPosition = Position::INVALID;
+
+    // minimum execute move:
+    std::vector<MSLane*> passedLanes;
+    // Whether the vehicle did move to another lane
+    bool moved = false;
+    // Reason for a possible emergency stop
+    std::string emergencyReason = " for unknown reasons";
+    processLaneAdvances(passedLanes, moved, emergencyReason);
+    workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
+}
+
 
 void
 MSVehicle::updateState(double vNext) {

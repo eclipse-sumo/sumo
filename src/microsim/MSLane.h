@@ -1438,6 +1438,7 @@ private:
     static bool myCheckJunctionCollisions;
     static SUMOTime myCollisionStopTime;
     static double myCollisionMinGapFactor;
+    static bool myExtrapolateSubstepDepart;
 
     /**
      * @class vehicle_position_sorter

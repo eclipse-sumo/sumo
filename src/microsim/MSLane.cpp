@@ -98,7 +98,8 @@ MSLane::DictType MSLane::myDict;
 MSLane::CollisionAction MSLane::myCollisionAction(MSLane::COLLISION_ACTION_TELEPORT);
 bool MSLane::myCheckJunctionCollisions(false);
 SUMOTime MSLane::myCollisionStopTime(0);
-double  MSLane::myCollisionMinGapFactor(1.0);
+double MSLane::myCollisionMinGapFactor(1.0);
+bool MSLane::myExtrapolateSubstepDepart(false);
 std::vector<std::mt19937> MSLane::myRNGs;
 
 
@@ -612,7 +613,22 @@ MSLane::insertVehicle(MSVehicle& veh) {
         }
     }
     // try to insert
-    return isInsertionSuccess(&veh, speed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
+    const bool success = isInsertionSuccess(&veh, speed, pos, posLat, patchSpeed, MSMoveReminder::NOTIFICATION_DEPARTED);
+    //std::cout << SIMTIME << " veh=" << veh.getID() << " success=" << success << " extrapolate=" << myExtrapolateSubstepDepart << " delay=" << veh.getDepartDelay() << "\n";
+    if (success && myExtrapolateSubstepDepart && veh.getDepartDelay() > 0) {
+        SUMOTime relevantDelay = MIN2(DELTA_T, veh.getDepartDelay());
+        // try to compensate sub-step depart delay by moving the vehicle forward
+        double dist = speed * relevantDelay / (double)DELTA_T;
+        std::pair<MSVehicle* const, double> leaderInfo = getLeader(&veh, pos, veh.getBestLanesContinuation());
+        if (leaderInfo.first != nullptr) {
+            MSVehicle* leader = leaderInfo.first;
+            const double frontGapNeeded = veh.getCarFollowModel().getSecureGap(&veh, leader, speed, leader->getSpeed(),
+                    leader->getCarFollowModel().getMaxDecel());
+            dist = MIN2(dist, leaderInfo.second - frontGapNeeded);
+        }
+        veh.executeFractionalMove(dist);
+    }
+    return success;
 }
 
 
@@ -3683,6 +3699,7 @@ MSLane::initCollisionOptions(const OptionsCont& oc) {
     myCheckJunctionCollisions = oc.getBool("collision.check-junctions");
     myCollisionStopTime = string2time(oc.getString("collision.stoptime"));
     myCollisionMinGapFactor = oc.getFloat("collision.mingap-factor");
+    myExtrapolateSubstepDepart = oc.getBool("extrapolate-departpos");
 }
 
 

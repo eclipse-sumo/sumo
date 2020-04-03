@@ -287,6 +287,9 @@ MSFrame::fillOptions() {
     oc.doRegister("step-method.ballistic", new Option_Bool(false));
     oc.addDescription("step-method.ballistic", "Processing", "Whether to use ballistic method for the positional update of vehicles (default is a semi-implicit Euler method).");
 
+    oc.doRegister("extrapolate-departpos", new Option_Bool(false));
+    oc.addDescription("extrapolate-departpos", "Processing", "Whether vehicles that depart between simulation steps should extrapolate the depart position");
+
     oc.doRegister("threads", new Option_Integer(1));
     oc.addDescription("threads", "Processing", "Defines the number of threads for parallel simulation");
 

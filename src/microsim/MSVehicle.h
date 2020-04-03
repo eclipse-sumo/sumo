@@ -371,6 +371,9 @@ public:
      */
     bool executeMove();
 
+    /// @brief move vehicle forward by the given distance during insertion
+    void executeFractionalMove(double dist);
+
     /** @brief calculates the distance covered in the next integration step given
      *         an acceleration and assuming the current velocity. (gives different
      *         results for different integration methods, e.g., euler vs. ballistic)
