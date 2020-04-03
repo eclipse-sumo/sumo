@@ -27,7 +27,7 @@ permalink: /ChangeLog/
   - Fixed crash when using option **--no-internal-links** and defining a stop on an internal lane. Issue #6855
   - Fixed invalid vehicle angles when using option **--lanechange.duration** in a left-hand network. Issue #6856
   - Railway fixes:
-    - Train reversal problems. Issue #6692, #6782, #6797, #6851
+    - Train reversal problems. Issue #6692, #6782, #6797, #6851, #6860
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
     - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741    
     - Invalid train speed after insertion on short edge. Issue #6801 
@@ -44,10 +44,12 @@ permalink: /ChangeLog/
   - Fixed missing connections when importing OpenDRIVE. Issue #6712
   - OpenDRIVE networks where a single edges is connected to more than two junctions are now supported. Issue #6828
   - Fixed invalid link state at railway switch that would cause uncessary deceleration. Issue #6833
+  - OpenDRIVE import now correctly handles `signalReference` and signal `laneValidity` elements. Issue #2517, #2366
 - SUMO-GUI
   - Fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
   - Fixed crash when simulation ends while tracking person attributes. Issue #6784
   - Fixed missing stop annotations in 'show-route' mode. Issue #6814
+  - Fixed crash when scaling railway track width. Issue #6859
 - NETEDIT
   - Fixed empty route id when creating route from non-consecutive edges with custom id. Issue #6722
   - Fixed invalid displayed connection attribute. Issue #6760
@@ -86,6 +88,7 @@ permalink: /ChangeLog/
   - Element `<busStop>` now supports attribute 'parkingLength'. This can be used define the available space for stopping vehicles with `parking="true"` independent of the length of the busStop along the lane. Issue #3936
   - edgeData output now includes the new attribute 'laneDensity' which reports the density in vehs per km per lane. Issue #6840
   - edgeData and laneData definitions now support the new attribute 'writeAttributes' which can be used to reduce the list of output attributes to the given list of attribute names. Issue #6847
+  - Public transport import from OSM now supports route definitions with abbreviated style. Issue #6862
       
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
@@ -121,6 +124,7 @@ permalink: /ChangeLog/
   - [matsim_importPlans.py](Tools/Import/MATSim.md#matsim_importplanspy) now supports alternative input dialects and sorts its output.  
   - added new tool [net2kml.py](Tools/Net.md#net2kmlpy) to convert sumo networks to KML
   - Function sumolib.net.getShortestPath can now penalize train reversals using the optional argument 'reversalPenalty'
+  - [tls_csvSignalGroups.py](Tools/tls.md#tls_csvsignalgroupspy) now supports defining controlled pedestrian crossings. Issue #6861
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
     - supports loading multiple data intervals. Data aggregation can be customized using options **--begin**, **--end**, **--interval**
     - supports loading multiple files (routes, edgedata, turns). The corresponding options were renamed accordingly (**--route-files, --edgedata-files, --turn-files**)
@@ -134,6 +138,8 @@ permalink: /ChangeLog/
 ### Other
 - Network version is now 1.6 (Issue #1758)
 - The turn-file format used by JTRROUTER is now deprecated. Instead the new edgeRelation-file format should be used. To convert old files into the new format, the tool turnFile2EdgeRelations.py can be used. The tools jtcrouter.py and routeSampler.py will only accept the new file format as input.
+- NETCONVERT
+  - Signal references from OpenDRIVE networks are now exported as a mapping from sumo-tls-link-index to OpenDRIVE-signal-id instead of sumo-edge to OpenDRIVE-signal-name. Issue #6863
 - NETEDIT
   - supermode hotkeys changed
     - F2: Network mode
