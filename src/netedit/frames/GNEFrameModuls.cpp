@@ -1980,15 +1980,22 @@ void
 GNEFrameModuls::OverlappedInspection::showOverlappedInspection(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const Position& clickedPosition) {
     // first clear myOverlappedACs
     myOverlappedACs.clear();
-    // check if we have to filter objects under cursor
-    if (myFilteredTag == SUMO_TAG_NOTHING) {
-        myOverlappedACs = objectsUnderCursor.getClickedAttributeCarriers();
-    } else {
-        // filter objects under cursor
-        for (const auto& i : objectsUnderCursor.getClickedAttributeCarriers()) {
-            if (i->getTagProperty().getTag() == myFilteredTag) {
-                myOverlappedACs.push_back(i);
-            }
+    // reserve
+    myOverlappedACs.reserve(objectsUnderCursor.getClickedAttributeCarriers().size());
+    // iterate over objects under cursor
+    for (const auto& AC : objectsUnderCursor.getClickedAttributeCarriers()) {
+        bool insert = true;
+        // special case for supermode data
+        if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData() &&
+            !AC->getTagProperty().isGenericData()) {
+            insert = false;
+        }
+        // check filter
+        if ((myFilteredTag != SUMO_TAG_NOTHING) && (AC->getTagProperty().getTag() != myFilteredTag)) {
+            insert = false;
+        }
+        if (insert) {
+            myOverlappedACs.push_back(AC);
         }
     }
     mySavedClickedPosition = clickedPosition;
