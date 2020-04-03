@@ -45,10 +45,28 @@ the speed, it is also necessary to disable safety checks using [the
 commands speedMode and
 laneChangeMode](../TraCI/Change_Vehicle_State.md).
 
-To create rear-end collisions with some probability one can configure
-vehicles with a value of *tau* that is lower than the simulation step
-size (default 1s) and use the default Krauss model.
+### Collisions during car-following
+Rear-end collisiosn during normal driving may be caused by any of the following:
 
+- vehicles with a value of *tau* that is lower than the simulation step
+size (default 1s) when using the default Krauss model.
+- vehicles with a value of *tau* that is lower than their *actionStepLength*
+- vehicles with an *apparentDecel* parameter that is lower than their *decel* parameter (causing other drivers to misjudge their deceleration capabilities)
+- [driver imperfection modelled with the
+  *driverstate*-device](../Driver_State.md)
+
+### Collisions related to lane-changing
+Collisions from lane-changing can be caused by unsafe lateral movements (side collisions) and by changing lanes in a way that creates unsafe following situations (rear-end collisions).
+
+Side collosions can be caused by
+- configuring lateral imperfection with vType parameter *lcSigma*
+- allowing lateral enchroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
+- *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)
+
+Unsafe changing can be caused by configuringlower gap acceptance with parameter
+- *lcAssertive* (the acceptable gap is computed by dividing the safe gap by lcAssertive)
+
+### Collisions at Intersections
 Collisions at intersections may be caused by any of the following:
 
 - Unsafe [junction model
@@ -164,9 +182,11 @@ are safety related:
 - lcPushy: setting this to values between 0 and 1 causes aggressive
   lateral encroachment (only when using the [Sublane
   Model](../Simulation/SublaneModel.md))
+- lcImpatience: Repeated failure to change lanes causes lower lateral gaps to be accepted when using the sublane model
 - lcAssertive: setting this values above 1 cause acceptance of smaller
   longitudinal gaps in proportion to driver impatience(only when using
   the [Sublane Model](../Simulation/SublaneModel.md))
+- lcSigma: models random lateral variations (lane keeping imperfection)
 
 ## Junction Model
 
