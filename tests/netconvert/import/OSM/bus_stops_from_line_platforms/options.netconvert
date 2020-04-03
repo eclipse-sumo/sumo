@@ -1,0 +1,1 @@
+--osm-files osm.xml -o net.net.xml  --ptstop-output additional.xml --ptline-output ptlines.xml 

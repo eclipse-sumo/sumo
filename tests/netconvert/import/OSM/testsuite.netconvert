@@ -4,6 +4,9 @@ railway
 # direction of bus stops imported correctly based on pt lines
 bus_stop_direction_from_pt_lines
 
+# route relations are defined with platforms only
+bus_stops_from_line_platforms
+
 # merge osm files that contain the same ptline information
 duplicate_lines
 

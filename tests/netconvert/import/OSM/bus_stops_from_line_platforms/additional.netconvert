@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Apr  3 10:39:54 2020 by Eclipse SUMO netconvert Version v1_5_0+1091-c6b579fffd
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-5866058270" name="三元坊（十全街）" lane="-620937810#0_0" startPos="3.78" endPos="18.78" friendlyPos="true" lines="9011"/>
+    <busStop id="-5866058277" name="南林饭店" lane="-621164893#0_0" startPos="188.22" endPos="203.22" friendlyPos="true" lines="9004"/>
+    <busStop id="-5866058279" name="南园宾馆" lane="-621164893#1_0" startPos="119.66" endPos="134.66" friendlyPos="true" lines="9011 9004"/>
+    <busStop id="-5867326286" name="平桥直街" lane="-44669522#2_0" startPos="31.50" endPos="46.50" friendlyPos="true" lines="9004"/>
+    <busStop id="-5867326289" name="网师园北" lane="-440356231#3_0" startPos="819.50" endPos="834.50" friendlyPos="true" lines="9004"/>
+    <busStop id="5866058274" name="乌鹊桥路北" lane="454323085#0_0" startPos="118.77" endPos="133.77" friendlyPos="true" lines="9003"/>
+    <busStop id="5867326285" name="平桥直街" lane="44669522#1_0" startPos="26.38" endPos="35.08" friendlyPos="true" lines="9003"/>
+    <busStop id="5867361086" name="大公园" lane="44669527#1_0" startPos="59.77" endPos="74.77" friendlyPos="true" lines="9003"/>
+</additional>
