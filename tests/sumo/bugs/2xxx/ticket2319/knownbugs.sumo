@@ -3,4 +3,5 @@
 search_string:teleporting
 search_file:errors
 ignore_other_errors:1
+trigger_on_success:1
 brief_description:#2319
