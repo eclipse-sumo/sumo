@@ -130,5 +130,8 @@ speed_speedLimit
 # test option --random-depart-offset
 depart_random
 
+# test option --extrapolate-departpos
+extrapolate_departpos
+
 # Errors on emission
 errors

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Apr  3 15:14:01 2020 by Eclipse SUMO Version v1_5_0+1097-085e29e367
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <extrapolate-departpos value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="1614.00" id="test">
+        <edge id="CE" sampledSeconds="7510.06" traveltime="7.20" overlapTraveltime="7.56" density="46.53" laneDensity="46.53" occupancy="22.26" waitingTime="0.00" speed="13.89" departed="0" arrived="1000" entered="1000" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="WC" sampledSeconds="519.97" overlapTraveltime="0.72" density="64.95" laneDensity="64.95" occupancy="18.42" waitingTime="0.00" speed="13.89" departed="1000" arrived="0" entered="0" left="400" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="WC.4" sampledSeconds="3150.06" traveltime="0.37" overlapTraveltime="0.73" density="133.33" laneDensity="133.33" occupancy="10.54" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1000" left="1000" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="WC.9" sampledSeconds="6702.06" traveltime="6.47" overlapTraveltime="6.83" density="46.21" laneDensity="46.21" occupancy="22.10" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1000" left="1000" laneChangedFrom="0" laneChangedTo="0"/>
+    </interval>
+</meandata>
