@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_5_0+0923-da2e985785
+Eclipse SUMO Version v1_5_0+1093-47d7a1b524
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -142,6 +142,9 @@ Processing Options:
   --step-method.ballistic              Whether to use ballistic method for the
                                          positional update of vehicles (default
                                          is a semi-implicit Euler method).
+  --extrapolate-departpos              Whether vehicles that depart between
+                                         simulation steps should extrapolate the
+                                         depart position
   --threads INT                        Defines the number of threads for
                                          parallel simulation
   --lateral-resolution FLOAT           Defines the resolution in m when
