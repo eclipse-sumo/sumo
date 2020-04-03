@@ -1402,8 +1402,14 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
                 }
                 ptStop->setIsMultipleStopPositions(myStops.size() > 1);
             }
-        } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output") && myStops.size() > 1) {
+        } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output")) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService, interpretTransportType(myPTRouteType));
+            if (myStops.size() == 0 && myPlatforms.size() != 0) {
+                WRITE_WARNINGF("PT line in relation % with is defined with platform members instead of stops. Stop location accuracy may be reduced.", myCurrentRelation);
+                for (NIIPTPlatform& p : myPlatforms) {
+                    myStops.push_back(p.ref);
+                }
+            }
             ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
