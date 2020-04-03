@@ -25,6 +25,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEDetectorE2.h>
 #include <netedit/elements/additional/GNERouteProbe.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/elements/demand/GNERoute.h>
@@ -550,10 +551,26 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     if (!s.drawForRectangleSelection) {
         drawEdgeName(s);
     }
-    // draw dotted contor around the first and last lane if isn't being drawn for selecting
-    if (myNet->getViewNet()->getDottedAC() == this) {
-        // use GLO_JUNCTION instead GLO_EDGE
-        GNEGeometry::drawShapeDottedContour(s, GLO_JUNCTION, s.laneWidthExaggeration, myDottedGeometry);
+    // draw dotted contour
+    if (myNet->getViewNet()->getDottedAC()) {
+        // get dotted (inspected) AC
+        const GNEAttributeCarrier *AC = myNet->getViewNet()->getDottedAC();
+        // declare a flag for drawing dotted geometry
+        bool drawDottedGeometry = false;
+        if (AC == this) {
+            drawDottedGeometry = true;
+        } else if (AC->getTagProperty().isGenericData()) {
+            // iterate over generic data childs
+            for (const auto &genericData : getChildGenericDataElements()) {
+                // draw dotted contor around the first and last lane if isn't being drawn for selecting
+                if (genericData == AC) {
+                    drawDottedGeometry = true;
+                }
+            }
+        }
+        if (drawDottedGeometry) {
+            GNEGeometry::drawShapeDottedContour(s, GLO_EDGEDATA, s.laneWidthExaggeration, myDottedGeometry);
+        }
     }
 }
 
@@ -1559,6 +1576,42 @@ GNEEdge::updateVehicleStackLabels() {
     }
 }
 
+
+void
+GNEEdge::updateDottedContour() {
+    // obtain lanes
+    const GNELane* frontLane = myLanes.front();
+    const GNELane* backLane = myLanes.back();
+    // obtain visualization settings
+    const GUIVisualizationSettings& visualizationSetting = myNet->getViewNet()->getVisualisationSettings();
+    // obtain lane widdths
+    const double myHalfLaneWidthFront = myNBEdge->getLaneWidth(frontLane->getIndex()) / 2;
+    const double myHalfLaneWidthBack = (visualizationSetting.spreadSuperposed && backLane->drawAsRailway(visualizationSetting) &&
+        myNBEdge->isBidiRail()) ? 0 : myNBEdge->getLaneWidth(backLane->getIndex()) / 2;
+    // obtain shapes from NBEdge
+    PositionVector mainShape = frontLane->getParentEdge()->getNBEdge()->getLaneShape(frontLane->getIndex());
+    PositionVector backShape = backLane->getParentEdge()->getNBEdge()->getLaneShape(backLane->getIndex());
+    // move to side depending of lefthand
+    if (visualizationSetting.lefthand) {
+        mainShape.move2side(myHalfLaneWidthFront * -1);
+        backShape.move2side(myHalfLaneWidthBack);
+    } else {
+        mainShape.move2side(myHalfLaneWidthFront);
+        backShape.move2side(myHalfLaneWidthBack * -1);
+    }
+    // reverse back shape
+    backShape = backShape.reverse();
+    // add back shape into mainShape
+    for (const auto& position : backShape) {
+        mainShape.push_back(position);
+    }
+    // close polygon
+    mainShape.closePolygon();
+    // update edge dotted geometry
+    updateDottedGeometry(mainShape);
+}
+
+
 // ===========================================================================
 // private
 // ===========================================================================
@@ -1729,41 +1782,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-}
-
-
-void
-GNEEdge::updateDottedContour() {
-    // obtain lanes
-    const GNELane* frontLane = myLanes.front();
-    const GNELane* backLane = myLanes.back();
-    // obtain visualization settings
-    const GUIVisualizationSettings& visualizationSetting = myNet->getViewNet()->getVisualisationSettings();
-    // obtain lane widdths
-    const double myHalfLaneWidthFront = myNBEdge->getLaneWidth(frontLane->getIndex()) / 2;
-    const double myHalfLaneWidthBack = (visualizationSetting.spreadSuperposed && backLane->drawAsRailway(visualizationSetting) &&
-                                        myNBEdge->isBidiRail()) ? 0 : myNBEdge->getLaneWidth(backLane->getIndex()) / 2;
-    // obtain shapes from NBEdge
-    PositionVector mainShape = frontLane->getParentEdge()->getNBEdge()->getLaneShape(frontLane->getIndex());
-    PositionVector backShape = backLane->getParentEdge()->getNBEdge()->getLaneShape(backLane->getIndex());
-    // move to side depending of lefthand
-    if (visualizationSetting.lefthand) {
-        mainShape.move2side(myHalfLaneWidthFront * -1);
-        backShape.move2side(myHalfLaneWidthBack);
-    } else {
-        mainShape.move2side(myHalfLaneWidthFront);
-        backShape.move2side(myHalfLaneWidthBack * -1);
-    }
-    // reverse back shape
-    backShape = backShape.reverse();
-    // add back shape into mainShape
-    for (const auto& position : backShape) {
-        mainShape.push_back(position);
-    }
-    // close polygon
-    mainShape.closePolygon();
-    // update edge dotted geometry
-    updateDottedGeometry(mainShape);
 }
 
 

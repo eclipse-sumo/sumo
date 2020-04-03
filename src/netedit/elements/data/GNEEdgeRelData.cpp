@@ -63,7 +63,12 @@ GNEEdgeRelData::updateGeometry() {
 
 void
 GNEEdgeRelData::updateDottedContour() {
-    // nothing to update
+    // just update geometry of parent edges
+    for (const auto& edge : getParentEdges()) {
+        if (edge->getDottedGeometry().isGeometryDeprecated()) {
+            edge->updateDottedContour();
+        }
+    }
 }
 
 

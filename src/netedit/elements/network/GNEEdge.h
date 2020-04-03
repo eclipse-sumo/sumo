@@ -321,6 +321,9 @@ public:
     // @brief update vehicle geometries
     void updateVehicleStackLabels();
 
+    /// @brief update dotted contour (public due Generic datas)
+    void updateDottedContour();
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;
@@ -389,9 +392,6 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
-
-    /// @brief update dotted contour
-    void updateDottedContour();
 
     /**@brief changes the number of lanes.
      * When reducing the number of lanes, higher-numbered lanes are removed first.
