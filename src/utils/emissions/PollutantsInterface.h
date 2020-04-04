@@ -300,6 +300,9 @@ public:
      */
     static std::string getName(const SUMOEmissionClass c);
 
+    /// @brief return the name for the given emission type
+    static std::string getPollutantName(const EmissionType e);
+
     /** @brief Checks whether the emission class describes a bus, truck or similar vehicle
      * @param[in] c The vehicle emission class
      * @return whether it describes a heavy vehicle

@@ -23,6 +23,7 @@
 #include <limits>
 #include <cmath>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/ToString.h>
 #include "HelpersHBEFA.h"
 #include "HelpersHBEFA3.h"
 #include "HelpersPHEMlight.h"
@@ -99,6 +100,20 @@ PollutantsInterface::getName(const SUMOEmissionClass c) {
     return myHelpers[c >> 16]->getClassName(c);
 }
 
+
+std::string
+PollutantsInterface::getPollutantName(const EmissionType e) {
+    switch (e) {
+        case CO2: return "CO2";
+        case CO: return "CO";
+        case HC: return "HC";
+        case FUEL: return "fuel";
+        case NO_X: return "NOx";
+        case PM_X: return "PMx";
+        case ELEC: return "electricity";
+        default: throw InvalidArgument("Unknown emission type '" + toString(e) + "'");
+    }
+}
 
 bool
 PollutantsInterface::isHeavy(const SUMOEmissionClass c) {
