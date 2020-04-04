@@ -211,6 +211,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                             case GLO_EDGERELDATA:
                                 myEdgeRelDatas.push_back(dynamic_cast<GNEEdgeRelData*>(AC));
                                 break;
+                            default:
+                                break;
                         }
                     }
                 }
