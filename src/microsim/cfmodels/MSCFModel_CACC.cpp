@@ -84,6 +84,12 @@ MSCFModel_CACC::MSCFModel_CACC(const MSVehicleType* vtype) :
 
 MSCFModel_CACC::~MSCFModel_CACC() {}
 
+double
+MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
+    // set "caccControlMode" parameter to default value
+    const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "ACC");
+    return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
+}
 
 double
 MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
