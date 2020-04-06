@@ -84,12 +84,6 @@ MSCFModel_CACC::MSCFModel_CACC(const MSVehicleType* vtype) :
 
 MSCFModel_CACC::~MSCFModel_CACC() {}
 
-double
-MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
-    // set "caccControlMode" parameter to default value
-    const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "ACC");
-    return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
-}
 
 double
 MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
@@ -138,10 +132,8 @@ MSCFModel_CACC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const 
         // <=>  myGapControlGainSpace * g = - myGapControlGainSpeed * (leaderSpeed - speed) + myGapControlGainSpace * myHeadwayTime * speed;
         // <=>  g = - myGapControlGainSpeed * (leaderSpeed - speed) / myGapControlGainSpace + myHeadwayTime * speed;
         desSpacing = acc_CFM.myGapControlGainSpeed * (speed - leaderSpeed) / acc_CFM.myGapControlGainSpace + myHeadwayTimeACC * speed; // MSCFModel_ACC::accelGapControl
-        const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "ACC");
     } else {
         desSpacing = myHeadwayTime * speed; // speedGapControl
-        const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "CACC");
     };
     const double desSpacingDefault = MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
 #if DEBUG_CACC_SECURE_GAP == 1
@@ -220,7 +212,6 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
                 std::cout << "        acc control mode" << std::endl;
             }
 #endif
-            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "ACC");
         } else {
             //CACC control mode
 #if DEBUG_CACC == 1
@@ -261,7 +252,6 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
 #endif
                 newSpeed = speed + myGapClosingControlGainGap * spacingErr + myGapClosingControlGainGapDot * spacingErr1;
             }
-            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "CACC");
         }
 
     } else { /* no leader */
@@ -311,6 +301,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         // Set cl to vehicle parameters
         if (setControlMode) {
             vars->CACC_ControlMode = 0;
+            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "ACC");
         }
     } else if (time_gap < 1.5) {
         // Find acceleration - Gap control law
@@ -323,11 +314,12 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         // Set cl to vehicle parameters
         if (setControlMode) {
             vars->CACC_ControlMode = 1;
+            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "CACC");
         }
     } else {
         // Follow previous applied law
         int cm = vars->CACC_ControlMode;
-        if (!cm) {
+        if (!cm) {  // CACC_ControlMode = ACC
 
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
@@ -335,7 +327,7 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
             }
 #endif
             newSpeed = speedSpeedContol(speed, vErr);
-        } else {
+        } else {  // CACC_ControlMode = CACC
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
                 std::cout << "        previous speedGapControl (previous)" << std::endl;
