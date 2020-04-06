@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 17 15:54:22 2020 by Eclipse SUMO Version v1_5_0+0756-34b579cf41
+<!-- generated on Mon Apr  6 15:47:33 2020 by Eclipse SUMO Version v1_5_0+1109-41d83fc65f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -62,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="4.00">
         <vehicle id="0.0" x="2856.14" y="2460.62" angle="306.00" type="customCACC" speed="10.40" pos="22.87" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.1" x="2879.24" y="2436.07" angle="342.00" type="customCACC" speed="2.80" pos="970.83" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.2" x="2881.43" y="2429.31" angle="342.00" type="customCACC" speed="0.00" pos="963.73" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.2" x="2881.43" y="2429.31" angle="342.00" type="customCACC" speed="0.00" pos="963.73" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="1.0" x="2871.37" y="2449.55" angle="309.43" type="customACC" speed="7.34" pos="4.04" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.1" x="2883.62" y="2422.56" angle="342.00" type="customACC" speed="0.00" pos="956.63" lane="1/1to2/1_0" slope="0.00"/>
     </timestep>
@@ -94,7 +94,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.1" x="2854.37" y="2461.91" angle="306.00" type="customCACC" speed="13.20" pos="25.06" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2876.31" y="2444.88" angle="341.34" type="customCACC" speed="8.00" pos="0.19" lane=":2/1_0_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2884.84" y="2418.83" angle="342.00" type="customCACC" speed="2.80" pos="952.70" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.4" x="2887.03" y="2412.07" angle="342.00" type="customCACC" speed="0.00" pos="945.60" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.4" x="2887.03" y="2412.07" angle="342.00" type="customCACC" speed="0.00" pos="945.60" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="1.0" x="2826.59" y="2482.09" angle="306.00" type="customACC" speed="17.74" pos="59.39" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.1" x="2881.31" y="2429.69" angle="342.00" type="customACC" speed="4.94" pos="964.13" lane="1/1to2/1_0" slope="0.00"/>
         <vehicle id="1.2" x="2889.22" y="2405.32" angle="342.00" type="customACC" speed="0.00" pos="938.50" lane="1/1to2/1_0" slope="0.00"/>
@@ -135,10 +135,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.0" x="2738.99" y="2545.73" angle="306.00" type="customCACC" speed="19.60" pos="167.67" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.1" x="2797.70" y="2503.08" angle="306.00" type="customCACC" speed="18.77" pos="95.10" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2830.95" y="2478.93" angle="306.00" type="customCACC" speed="17.30" pos="54.01" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.3" x="2871.27" y="2449.63" angle="308.98" type="customCACC" speed="12.24" pos="4.16" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.3" x="2871.27" y="2449.63" angle="308.98" type="customCACC" speed="12.24" pos="4.16" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.4" x="2881.96" y="2427.67" angle="342.00" type="customCACC" speed="8.00" pos="962.00" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.5" x="2890.44" y="2401.59" angle="342.00" type="customCACC" speed="2.80" pos="934.58" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.6" x="2892.63" y="2394.83" angle="342.00" type="customCACC" speed="0.00" pos="927.48" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.6" x="2892.63" y="2394.83" angle="342.00" type="customCACC" speed="0.00" pos="927.48" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="1.0" x="2763.30" y="2528.07" angle="306.00" type="customACC" speed="19.60" pos="137.63" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.1" x="2852.87" y="2463.00" angle="306.00" type="customACC" speed="15.34" pos="26.91" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.2" x="2886.91" y="2412.45" angle="342.00" type="customACC" speed="4.94" pos="946.00" lane="1/1to2/1_0" slope="0.00"/>
@@ -194,7 +194,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.5" x="2879.80" y="2434.33" angle="342.00" type="customCACC" speed="12.24" pos="969.01" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.6" x="2887.57" y="2410.43" angle="342.00" type="customCACC" speed="8.00" pos="943.87" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.7" x="2896.04" y="2384.35" angle="342.00" type="customCACC" speed="2.80" pos="916.45" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.8" x="2898.23" y="2377.60" angle="342.00" type="customCACC" speed="0.00" pos="909.35" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.8" x="2898.23" y="2377.60" angle="342.00" type="customCACC" speed="0.00" pos="909.35" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="1.0" x="2699.87" y="2574.16" angle="306.00" type="customACC" speed="19.60" pos="216.03" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.1" x="2793.63" y="2506.04" angle="306.00" type="customACC" speed="19.17" pos="100.13" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.2" x="2867.53" y="2452.34" angle="306.00" type="customACC" speed="15.34" pos="8.78" lane="2/1to3/1_0" slope="0.00"/>
@@ -207,7 +207,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.2" x="2754.24" y="2534.65" angle="306.00" type="customCACC" speed="19.42" pos="148.82" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2800.50" y="2501.04" angle="306.00" type="customCACC" speed="19.16" pos="91.64" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2830.87" y="2478.98" angle="306.00" type="customCACC" speed="18.22" pos="54.10" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.5" x="2873.93" y="2447.69" angle="324.79" type="customCACC" speed="14.84" pos="0.88" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.5" x="2873.93" y="2447.69" angle="324.79" type="customCACC" speed="14.84" pos="0.88" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.6" x="2884.29" y="2420.51" angle="342.00" type="customCACC" speed="10.60" pos="954.47" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.7" x="2894.37" y="2389.48" angle="342.00" type="customCACC" speed="5.40" pos="921.85" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.8" x="2898.17" y="2377.78" angle="342.00" type="customCACC" speed="0.20" pos="909.55" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -254,7 +254,7 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="20.00">
         <vehicle id="0.0" x="2612.14" y="2637.90" angle="306.00" type="customCACC" speed="19.60" pos="324.47" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.1" x="2671.84" y="2594.52" angle="306.00" type="customCACC" speed="19.59" pos="250.68" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.10" x="2903.83" y="2360.36" angle="342.00" type="customCACC" speed="0.00" pos="891.23" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.10" x="2903.83" y="2360.36" angle="342.00" type="customCACC" speed="0.00" pos="891.23" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2706.84" y="2569.09" angle="306.00" type="customCACC" speed="19.56" pos="207.41" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2753.10" y="2535.48" angle="306.00" type="customCACC" speed="19.60" pos="150.23" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2784.62" y="2512.59" angle="306.00" type="customCACC" speed="19.30" pos="111.27" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -299,7 +299,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.4" x="2753.14" y="2535.46" angle="306.00" type="customCACC" speed="19.49" pos="150.19" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.5" x="2799.45" y="2501.81" angle="306.00" type="customCACC" speed="19.42" pos="92.93" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.6" x="2830.35" y="2479.36" angle="306.00" type="customCACC" speed="18.77" pos="54.74" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.7" x="2874.92" y="2446.79" angle="332.83" type="customCACC" speed="16.77" pos="2.55" lane=":2/1_0_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.7" x="2874.92" y="2446.79" angle="332.83" type="customCACC" speed="16.77" pos="2.55" lane=":2/1_0_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.8" x="2885.81" y="2415.82" angle="342.00" type="customCACC" speed="13.20" pos="949.55" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.9" x="2897.76" y="2379.05" angle="342.00" type="customCACC" speed="7.16" pos="910.88" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="1.0" x="2604.73" y="2643.28" angle="306.00" type="customACC" speed="19.60" pos="333.63" lane="2/1to3/1_0" slope="0.00"/>
@@ -319,7 +319,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.4" x="2737.33" y="2546.94" angle="306.00" type="customCACC" speed="19.54" pos="169.72" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.5" x="2783.62" y="2513.31" angle="306.00" type="customCACC" speed="19.57" pos="112.51" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.6" x="2814.90" y="2490.59" angle="306.00" type="customCACC" speed="19.10" pos="73.85" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.7" x="2860.48" y="2457.47" angle="306.00" type="customCACC" speed="17.99" pos="17.50" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.7" x="2860.48" y="2457.47" angle="306.00" type="customCACC" speed="17.99" pos="17.50" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.8" x="2880.94" y="2430.81" angle="342.00" type="customCACC" speed="15.76" pos="965.30" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.9" x="2894.78" y="2388.22" angle="342.00" type="customCACC" speed="9.64" pos="920.52" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="1.0" x="2588.87" y="2654.80" angle="306.00" type="customACC" speed="19.60" pos="353.23" lane="2/1to3/1_0" slope="0.00"/>
@@ -334,7 +334,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.1" x="2608.43" y="2640.59" angle="306.00" type="customCACC" speed="19.60" pos="329.06" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.10" x="2898.77" y="2375.95" angle="342.00" type="customCACC" speed="8.00" pos="907.62" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.11" x="2907.24" y="2349.87" angle="342.00" type="customCACC" speed="2.80" pos="880.20" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.12" x="2909.44" y="2343.12" angle="342.00" type="customCACC" speed="0.00" pos="873.10" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.12" x="2909.44" y="2343.12" angle="342.00" type="customCACC" speed="0.00" pos="873.10" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2643.45" y="2615.14" angle="306.00" type="customCACC" speed="19.59" pos="285.76" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2689.67" y="2581.57" angle="306.00" type="customCACC" speed="19.60" pos="228.63" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2721.51" y="2558.44" angle="306.00" type="customCACC" speed="19.56" pos="189.28" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -410,7 +410,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.6" x="2752.00" y="2536.29" angle="306.00" type="customCACC" speed="19.54" pos="151.60" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.7" x="2798.28" y="2502.66" angle="306.00" type="customCACC" speed="19.57" pos="94.38" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.8" x="2829.56" y="2479.93" angle="306.00" type="customCACC" speed="19.10" pos="55.72" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.9" x="2875.02" y="2446.65" angle="333.45" type="customCACC" speed="17.98" pos="2.38" lane=":2/1_0_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.9" x="2875.02" y="2446.65" angle="333.45" type="customCACC" speed="17.98" pos="2.38" lane=":2/1_0_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="1.0" x="2525.45" y="2700.88" angle="306.00" type="customACC" speed="19.60" pos="431.63" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.1" x="2619.42" y="2632.60" angle="306.00" type="customACC" speed="19.60" pos="315.46" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.2" x="2697.52" y="2575.87" angle="306.00" type="customACC" speed="19.60" pos="218.94" lane="2/1to3/1_0" slope="0.00"/>
@@ -426,7 +426,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.11" x="2896.60" y="2382.61" angle="342.00" type="customCACC" speed="12.24" pos="914.63" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.12" x="2904.37" y="2358.71" angle="342.00" type="customCACC" speed="8.00" pos="889.49" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.13" x="2912.84" y="2332.63" angle="342.00" type="customCACC" speed="2.80" pos="862.07" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.14" x="2915.04" y="2325.88" angle="342.00" type="customCACC" speed="0.00" pos="854.97" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.14" x="2915.04" y="2325.88" angle="342.00" type="customCACC" speed="0.00" pos="854.97" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2580.03" y="2661.22" angle="306.00" type="customCACC" speed="19.60" pos="364.15" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2626.24" y="2627.65" angle="306.00" type="customCACC" speed="19.60" pos="307.03" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2658.12" y="2604.49" angle="306.00" type="customCACC" speed="19.59" pos="267.63" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -434,7 +434,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.6" x="2736.17" y="2547.78" angle="306.00" type="customCACC" speed="19.56" pos="171.16" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.7" x="2782.43" y="2514.18" angle="306.00" type="customCACC" speed="19.60" pos="113.98" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.8" x="2813.95" y="2491.28" angle="306.00" type="customCACC" speed="19.30" pos="75.02" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.9" x="2860.02" y="2457.80" angle="306.00" type="customCACC" speed="18.72" pos="18.07" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.9" x="2860.02" y="2457.80" angle="306.00" type="customCACC" speed="18.72" pos="18.07" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="1.0" x="2509.59" y="2712.40" angle="306.00" type="customACC" speed="19.60" pos="451.23" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.1" x="2603.57" y="2644.12" angle="306.00" type="customACC" speed="19.60" pos="335.06" lane="2/1to3/1_0" slope="0.00"/>
         <vehicle id="1.2" x="2681.66" y="2587.39" angle="306.00" type="customACC" speed="19.60" pos="238.54" lane="2/1to3/1_0" slope="0.00"/>
@@ -525,12 +525,12 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.0" x="2421.86" y="2776.14" angle="306.00" type="customCACC" speed="19.60" pos="559.67" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.1" x="2481.57" y="2732.76" angle="306.00" type="customCACC" speed="19.60" pos="485.86" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.10" x="2828.61" y="2480.62" angle="306.00" type="customCACC" speed="19.30" pos="56.90" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.11" x="2874.74" y="2447.05" angle="331.68" type="customCACC" speed="18.71" pos="2.87" lane=":2/1_0_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.11" x="2874.74" y="2447.05" angle="331.68" type="customCACC" speed="18.71" pos="2.87" lane=":2/1_0_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.12" x="2886.80" y="2412.78" angle="342.00" type="customCACC" speed="17.30" pos="946.35" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.13" x="2902.20" y="2365.38" angle="342.00" type="customCACC" speed="12.24" pos="896.50" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.14" x="2909.97" y="2341.47" angle="342.00" type="customCACC" speed="8.00" pos="871.37" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.15" x="2918.44" y="2315.39" angle="342.00" type="customCACC" speed="2.80" pos="843.95" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.16" x="2920.64" y="2308.64" angle="342.00" type="customCACC" speed="0.00" pos="836.85" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.16" x="2920.64" y="2308.64" angle="342.00" type="customCACC" speed="0.00" pos="836.85" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2516.61" y="2707.30" angle="306.00" type="customCACC" speed="19.60" pos="442.55" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2562.82" y="2673.73" angle="306.00" type="customCACC" speed="19.60" pos="385.43" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2594.70" y="2650.57" angle="306.00" type="customCACC" speed="19.60" pos="346.03" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -553,7 +553,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.0" x="2406.00" y="2787.66" angle="306.00" type="customCACC" speed="19.60" pos="579.27" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.1" x="2465.72" y="2744.28" angle="306.00" type="customCACC" speed="19.60" pos="505.46" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.10" x="2812.90" y="2492.04" angle="306.00" type="customCACC" speed="19.42" pos="76.32" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.11" x="2859.27" y="2458.35" angle="306.00" type="customCACC" speed="19.17" pos="19.00" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.11" x="2859.27" y="2458.35" angle="306.00" type="customCACC" speed="19.17" pos="19.00" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.12" x="2881.17" y="2430.11" angle="342.00" type="customCACC" speed="18.22" pos="964.57" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.13" x="2897.62" y="2379.49" angle="342.00" type="customCACC" speed="14.84" pos="911.34" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.14" x="2906.70" y="2351.55" angle="342.00" type="customCACC" speed="10.60" pos="881.97" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -646,7 +646,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.15" x="2907.81" y="2348.14" angle="342.00" type="customCACC" speed="12.24" pos="878.38" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.16" x="2915.57" y="2324.23" angle="342.00" type="customCACC" speed="8.00" pos="853.24" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.17" x="2924.05" y="2298.15" angle="342.00" type="customCACC" speed="2.80" pos="825.82" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.18" x="2926.24" y="2291.40" angle="342.00" type="customCACC" speed="0.00" pos="818.72" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.18" x="2926.24" y="2291.40" angle="342.00" type="customCACC" speed="0.00" pos="818.72" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2453.18" y="2753.39" angle="306.00" type="customCACC" speed="19.60" pos="520.95" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2499.39" y="2719.81" angle="306.00" type="customCACC" speed="19.60" pos="463.83" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2531.27" y="2696.65" angle="306.00" type="customCACC" speed="19.60" pos="424.43" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -672,7 +672,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.10" x="2749.66" y="2537.98" angle="306.00" type="customCACC" speed="19.58" pos="154.48" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.11" x="2796.00" y="2504.32" angle="306.00" type="customCACC" speed="19.60" pos="97.21" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.12" x="2827.56" y="2481.38" angle="306.00" type="customCACC" speed="19.42" pos="58.19" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.13" x="2874.06" y="2447.60" angle="325.93" type="customCACC" speed="19.15" pos="0.72" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.13" x="2874.06" y="2447.60" angle="325.93" type="customCACC" speed="19.15" pos="0.72" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.14" x="2886.77" y="2412.87" angle="342.00" type="customCACC" speed="18.22" pos="946.44" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.15" x="2903.22" y="2362.25" angle="342.00" type="customCACC" speed="14.84" pos="893.21" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.16" x="2912.30" y="2334.31" angle="342.00" type="customCACC" speed="10.60" pos="863.84" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -775,7 +775,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.18" x="2921.17" y="2306.99" angle="342.00" type="customCACC" speed="8.00" pos="835.12" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.19" x="2929.65" y="2280.91" angle="342.00" type="customCACC" speed="2.80" pos="807.69" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2389.75" y="2799.47" angle="306.00" type="customCACC" speed="19.60" pos="599.35" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.20" x="2931.84" y="2274.16" angle="342.00" type="customCACC" speed="0.00" pos="800.59" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.20" x="2931.84" y="2274.16" angle="342.00" type="customCACC" speed="0.00" pos="800.59" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2435.96" y="2765.90" angle="306.00" type="customCACC" speed="19.60" pos="542.23" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2467.84" y="2742.73" angle="306.00" type="customCACC" speed="19.60" pos="502.83" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.5" x="2514.05" y="2709.16" angle="306.00" type="customCACC" speed="19.60" pos="445.71" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -837,7 +837,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.12" x="2748.48" y="2538.84" angle="306.00" type="customCACC" speed="19.59" pos="155.94" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.13" x="2794.92" y="2505.10" angle="306.00" type="customCACC" speed="19.60" pos="98.53" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.14" x="2826.46" y="2482.19" angle="306.00" type="customCACC" speed="19.49" pos="59.56" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.15" x="2873.15" y="2448.26" angle="317.87" type="customCACC" speed="19.41" pos="1.84" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.15" x="2873.15" y="2448.26" angle="317.87" type="customCACC" speed="19.41" pos="1.84" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.16" x="2886.57" y="2413.48" angle="342.00" type="customCACC" speed="18.77" pos="947.08" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.17" x="2903.65" y="2360.93" angle="342.00" type="customCACC" speed="16.74" pos="891.83" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.18" x="2913.82" y="2329.63" angle="342.00" type="customCACC" speed="13.20" pos="858.91" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -915,7 +915,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.2" x="2326.33" y="2845.55" angle="306.00" type="customCACC" speed="19.60" pos="677.75" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.20" x="2926.77" y="2289.75" angle="342.00" type="customCACC" speed="8.00" pos="816.99" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.21" x="2935.25" y="2263.67" angle="342.00" type="customCACC" speed="2.80" pos="789.57" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.22" x="2937.44" y="2256.92" angle="342.00" type="customCACC" speed="0.00" pos="782.47" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.22" x="2937.44" y="2256.92" angle="342.00" type="customCACC" speed="0.00" pos="782.47" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2372.54" y="2811.98" angle="306.00" type="customCACC" speed="19.60" pos="620.63" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2404.42" y="2788.81" angle="306.00" type="customCACC" speed="19.60" pos="581.23" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.5" x="2450.63" y="2755.24" angle="306.00" type="customCACC" speed="19.60" pos="524.11" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -1021,7 +1021,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.14" x="2747.29" y="2539.70" angle="306.00" type="customCACC" speed="19.59" pos="157.41" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.15" x="2793.88" y="2505.86" angle="306.00" type="customCACC" speed="19.60" pos="99.83" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.16" x="2825.32" y="2483.01" angle="306.00" type="customCACC" speed="19.54" pos="60.97" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.17" x="2872.13" y="2449.00" angle="312.83" type="customCACC" speed="19.57" pos="3.10" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.17" x="2872.13" y="2449.00" angle="312.83" type="customCACC" speed="19.57" pos="3.10" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.18" x="2886.27" y="2414.41" angle="342.00" type="customCACC" speed="19.10" pos="948.06" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.19" x="2903.72" y="2360.70" angle="342.00" type="customCACC" speed="17.89" pos="891.59" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2278.75" y="2880.11" angle="306.00" type="customCACC" speed="19.60" pos="736.55" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -1067,7 +1067,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.21" x="2924.61" y="2296.42" angle="342.00" type="customCACC" speed="12.24" pos="824.00" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.22" x="2932.38" y="2272.51" angle="342.00" type="customCACC" speed="8.00" pos="798.86" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.23" x="2940.85" y="2246.43" angle="342.00" type="customCACC" speed="2.80" pos="771.44" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.24" x="2943.04" y="2239.68" angle="342.00" type="customCACC" speed="0.00" pos="764.34" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.24" x="2943.04" y="2239.68" angle="342.00" type="customCACC" speed="0.00" pos="764.34" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2309.11" y="2858.06" angle="306.00" type="customCACC" speed="19.60" pos="699.03" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2340.99" y="2834.90" angle="306.00" type="customCACC" speed="19.60" pos="659.63" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.5" x="2387.20" y="2801.32" angle="306.00" type="customCACC" speed="19.60" pos="602.51" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -1223,7 +1223,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.16" x="2746.11" y="2540.56" angle="306.00" type="customCACC" speed="19.59" pos="158.88" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.17" x="2792.85" y="2506.60" angle="306.00" type="customCACC" speed="19.60" pos="101.10" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.18" x="2824.16" y="2483.86" angle="306.00" type="customCACC" speed="19.56" pos="62.40" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.19" x="2871.10" y="2449.75" angle="308.21" type="customCACC" speed="19.60" pos="4.38" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.19" x="2871.10" y="2449.75" angle="308.21" type="customCACC" speed="19.60" pos="4.38" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.2" x="2199.47" y="2937.71" angle="306.00" type="customCACC" speed="19.60" pos="834.55" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.20" x="2885.91" y="2415.53" angle="342.00" type="customCACC" speed="19.30" pos="949.23" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.21" x="2903.59" y="2361.10" angle="342.00" type="customCACC" speed="18.57" pos="892.00" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -1231,7 +1231,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.23" x="2930.21" y="2279.18" angle="342.00" type="customCACC" speed="12.24" pos="805.87" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.24" x="2937.98" y="2255.27" angle="342.00" type="customCACC" speed="8.00" pos="780.74" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.25" x="2946.45" y="2229.19" angle="342.00" type="customCACC" speed="2.80" pos="753.31" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.26" x="2948.65" y="2222.44" angle="342.00" type="customCACC" speed="0.00" pos="746.21" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.26" x="2948.65" y="2222.44" angle="342.00" type="customCACC" speed="0.00" pos="746.21" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2245.68" y="2904.14" angle="306.00" type="customCACC" speed="19.60" pos="777.43" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2277.56" y="2880.98" angle="306.00" type="customCACC" speed="19.60" pos="738.03" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.5" x="2323.77" y="2847.40" angle="306.00" type="customCACC" speed="19.60" pos="680.91" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -1407,7 +1407,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.25" x="2935.81" y="2261.94" angle="342.00" type="customCACC" speed="12.24" pos="787.74" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.26" x="2943.58" y="2238.03" angle="342.00" type="customCACC" speed="8.00" pos="762.61" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.27" x="2952.05" y="2211.95" angle="342.00" type="customCACC" speed="2.80" pos="735.19" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.28" x="2954.25" y="2205.20" angle="342.00" type="customCACC" speed="0.00" pos="728.09" lane="1/1to2/1_0" slope="0.00" caccControlMode="CACC"/>
+        <vehicle id="0.28" x="2954.25" y="2205.20" angle="342.00" type="customCACC" speed="0.00" pos="728.09" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.3" x="2182.25" y="2950.22" angle="306.00" type="customCACC" speed="19.60" pos="855.83" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.4" x="2214.14" y="2927.06" angle="306.00" type="customCACC" speed="19.60" pos="816.43" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.5" x="2260.35" y="2893.49" angle="306.00" type="customCACC" speed="19.60" pos="759.31" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
@@ -1446,7 +1446,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="0.19" x="2791.81" y="2507.36" angle="306.00" type="customCACC" speed="19.60" pos="102.38" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.2" x="2120.19" y="2995.32" angle="306.00" type="customCACC" speed="19.60" pos="932.55" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.20" x="2822.98" y="2484.71" angle="306.00" type="customCACC" speed="19.58" pos="63.85" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
-        <vehicle id="0.21" x="2870.04" y="2450.52" angle="306.00" type="customCACC" speed="19.60" pos="5.68" lane="2/1to3/1_0" slope="0.00" caccControlMode="ACC"/>
+        <vehicle id="0.21" x="2870.04" y="2450.52" angle="306.00" type="customCACC" speed="19.60" pos="5.68" lane="2/1to3/1_0" slope="0.00" caccControlMode="CACC"/>
         <vehicle id="0.22" x="2885.51" y="2416.76" angle="342.00" type="customCACC" speed="19.42" pos="950.53" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.23" x="2903.33" y="2361.91" angle="342.00" type="customCACC" speed="18.98" pos="892.86" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
         <vehicle id="0.24" x="2914.78" y="2326.67" angle="342.00" type="customCACC" speed="18.22" pos="855.81" lane="1/1to2/1_0" slope="0.00" caccControlMode="ACC"/>
