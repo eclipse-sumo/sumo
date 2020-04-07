@@ -445,7 +445,7 @@ protected:
     GUIGlChildWindow* myParent;
 
     /// @brief The visualization speed-up
-    SUMORTree* myGrid;
+    const SUMORTree* myGrid;
 
     /// @brief The perspective changer
     GUIPerspectiveChanger* myChanger;

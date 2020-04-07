@@ -123,7 +123,7 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     FXGLCanvas(p, glVis, share, p, MID_GLCANVAS, LAYOUT_SIDE_TOP | LAYOUT_FILL_X | LAYOUT_FILL_Y, 0, 0, 0, 0),
     myApp(&app),
     myParent(parent),
-    myGrid(&((SUMORTree&)grid)),
+    myGrid(&grid),
     myChanger(nullptr),
     myMouseHotspotX(app.getDefaultCursor()->getHotX()),
     myMouseHotspotY(app.getDefaultCursor()->getHotY()),
@@ -134,7 +134,8 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite* p, GUIMainWindow& app, GUI
     myViewportChooser(nullptr),
     myWindowCursorPositionX(getWidth() / 2),
     myWindowCursorPositionY(getHeight() / 2),
-    myVisualizationChanger(nullptr) {
+    myVisualizationChanger(nullptr),
+    myFrameDrawTime(0) {
     setTarget(this);
     enable();
     flags |= FLAG_ENABLED;
