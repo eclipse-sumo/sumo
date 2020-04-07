@@ -2085,6 +2085,7 @@ GNEViewNetHelper::DataViewOptions::showDemandElements() const {
 
 GNEViewNetHelper::IntervalBar::IntervalBar(GNEViewNet* viewNet) :
     myViewNet(viewNet),
+    myIntervalBarUpdate(true),
     myGenericDataTypesComboBox(nullptr),
     myDataSetsComboBox(nullptr),
     myLimitByIntervalCheckBox(nullptr),
@@ -2170,6 +2171,20 @@ GNEViewNetHelper::IntervalBar::disableIntervalBar() {
 }
 
 
+void 
+GNEViewNetHelper::IntervalBar::enableIntervalBarUpdate() {
+    myIntervalBarUpdate = true;
+    // now update interval bar
+    updateIntervalBar();
+}
+
+
+void 
+GNEViewNetHelper::IntervalBar::disableIntervalBarUpdate() {
+    myIntervalBarUpdate = false;
+}
+
+
 void
 GNEViewNetHelper::IntervalBar::showIntervalBar() {
     // check if begin and end textFields has to be updated (only once)
@@ -2195,53 +2210,55 @@ GNEViewNetHelper::IntervalBar::hideIntervalBar() {
 
 void
 GNEViewNetHelper::IntervalBar::updateIntervalBar() {
-    // first save current data set
-    const std::string previousDataSet = myDataSetsComboBox->getNumItems() > 0 ? myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text() : "";
-    // first clear items
-    myDataSetsComboBox->clearItems();
-    myGenericDataTypesComboBox->clearItems();
-    if (myViewNet->getNet()) {
-        // retrieve data sets
-        const auto dataSets = myViewNet->getNet()->retrieveDataSets();
-        if (dataSets.empty()) {
-            myGenericDataTypesComboBox->appendItem(myNoGenericDatas);
-            myDataSetsComboBox->appendItem(myNoDataSets);
-            // disable elements
-            disableIntervalBar();
-        } else {
-            // declare integer to save previous data set index
-            int previousDataSetIndex = 0;
-            // enable elements
-            enableIntervalBar();
-            // add "<all>" item
-            myGenericDataTypesComboBox->appendItem(myAllGenericDatas);
-            myDataSetsComboBox->appendItem(myAllDataSets);
-            // get all generic data types
-            const auto genericDataTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::GENERICDATA, false);
-            // add all generic data types
-            for (const auto& dataTag : genericDataTags) {
-                myGenericDataTypesComboBox->appendItem(toString(dataTag).c_str());
-            }
-            myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
-            // add data sets
-            for (const auto& dataSet : dataSets) {
-                // check if current data set is the previous data set
-                if (dataSet->getID() == previousDataSet) {
-                    previousDataSetIndex = myDataSetsComboBox->getNumItems();
-                }
-                myDataSetsComboBox->appendItem(dataSet->getID().c_str());
-            }
-            // set visible elements
-            if (myDataSetsComboBox->getNumItems() < 10) {
-                myDataSetsComboBox->setNumVisible(myDataSetsComboBox->getNumItems());
+    if (myIntervalBarUpdate) {
+        // first save current data set
+        const std::string previousDataSet = myDataSetsComboBox->getNumItems() > 0 ? myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text() : "";
+        // first clear items
+        myDataSetsComboBox->clearItems();
+        myGenericDataTypesComboBox->clearItems();
+        if (myViewNet->getNet()) {
+            // retrieve data sets
+            const auto dataSets = myViewNet->getNet()->retrieveDataSets();
+            if (dataSets.empty()) {
+                myGenericDataTypesComboBox->appendItem(myNoGenericDatas);
+                myDataSetsComboBox->appendItem(myNoDataSets);
+                // disable elements
+                disableIntervalBar();
             } else {
-                myDataSetsComboBox->setNumVisible(10);
+                // declare integer to save previous data set index
+                int previousDataSetIndex = 0;
+                // enable elements
+                enableIntervalBar();
+                // add "<all>" item
+                myGenericDataTypesComboBox->appendItem(myAllGenericDatas);
+                myDataSetsComboBox->appendItem(myAllDataSets);
+                // get all generic data types
+                const auto genericDataTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::GENERICDATA, false);
+                // add all generic data types
+                for (const auto& dataTag : genericDataTags) {
+                    myGenericDataTypesComboBox->appendItem(toString(dataTag).c_str());
+                }
+                myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
+                // add data sets
+                for (const auto& dataSet : dataSets) {
+                    // check if current data set is the previous data set
+                    if (dataSet->getID() == previousDataSet) {
+                        previousDataSetIndex = myDataSetsComboBox->getNumItems();
+                    }
+                    myDataSetsComboBox->appendItem(dataSet->getID().c_str());
+                }
+                // set visible elements
+                if (myDataSetsComboBox->getNumItems() < 10) {
+                    myDataSetsComboBox->setNumVisible(myDataSetsComboBox->getNumItems());
+                } else {
+                    myDataSetsComboBox->setNumVisible(10);
+                }
+                // set current data set
+                myDataSetsComboBox->setCurrentItem(previousDataSetIndex);
             }
-            // set current data set
-            myDataSetsComboBox->setCurrentItem(previousDataSetIndex);
+            // update limit by interval
+            setInterval();
         }
-        // update limit by interval
-        setInterval();
     }
 }
 

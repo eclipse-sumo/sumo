@@ -617,11 +617,17 @@ struct GNEViewNetHelper {
         /// @brief build interval bar elements
         void buildIntervalBarElements();
 
-        /// @brief enable interval option bar
+        /// @brief enable interval bar
         void enableIntervalBar();
 
-        /// @brief disable interval option bar
+        /// @brief disable interval bar
         void disableIntervalBar();
+
+        /// @brief enable interval bar update
+        void enableIntervalBarUpdate();
+
+        /// @brief enable interval bar update
+        void disableIntervalBarUpdate();
 
         /// @brief show interval option bar
         void showIntervalBar();
@@ -678,6 +684,9 @@ struct GNEViewNetHelper {
     protected:
         /// @brief update combo box attributes
         void updateComboBoxAttributes();
+
+        /// @brief flag to enable or disable update interval bar
+        bool myIntervalBarUpdate;
 
         /// @brief pointer to viewNet
         GNEViewNet* myViewNet;
