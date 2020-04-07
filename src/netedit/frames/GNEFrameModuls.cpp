@@ -2202,12 +2202,10 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
 }
 
 
-std::vector<RGBColor>
-GNEFrameModuls::buildRainbow(FXComposite* parent) {
-    // declare scale colors
-    std::vector<RGBColor> scaleColors;
+FXLabel*
+GNEFrameModuls::buildRainbow(FXComposite* parent, std::vector<RGBColor> & scaleColors) {
     // create label for color information
-    new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
+    FXLabel* label = new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
     // fill scale colors (10)
     scaleColors.push_back(RGBColor(232, 35,  0));
     scaleColors.push_back(RGBColor(255, 165, 0));
@@ -2225,7 +2223,8 @@ GNEFrameModuls::buildRainbow(FXComposite* parent) {
         FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
         colorLabel->setBackColor(MFXUtils::getFXColor(color));
     }
-    return scaleColors;
+    // return label
+    return label;
 }
 
 /****************************************************************************/

@@ -388,11 +388,12 @@ GNEGenericDataFrame::IntervalSelector::addIntervalItem(GNEDataInterval* dataInte
 
 GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* genericDataFrameParent) :
     FXGroupBox(genericDataFrameParent->myContentFrame, "Data attributes", GUIDesignGroupBoxFrame),
-    myGenericDataFrameParent(genericDataFrameParent) {
+    myGenericDataFrameParent(genericDataFrameParent),
+    myMinMaxLabel(nullptr) {
     // Create FXComboBox
     myAttributesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
-    myScaleColors = GNEFrameModuls::buildRainbow(this);
+    myMinMaxLabel = GNEFrameModuls::buildRainbow(this, myScaleColors);
     // refresh interval selector
     refreshAttributeSelector();
     // AttributeSelector is always shown
@@ -407,6 +408,8 @@ void
 GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
     // first clear items
     myAttributesComboBox->clearItems();
+    // restore myMinMaxLabel 
+    myMinMaxLabel->setText("Scale: Min -> Max");
     // fill myAttributesComboBox depending of data sets
     if (myGenericDataFrameParent->myDataSetSelector->getDataSet() == nullptr) {
         myAttributesComboBox->appendItem("<no dataSet selected>");
@@ -463,6 +466,8 @@ GNEGenericDataFrame::AttributeSelector::getFilteredAttribute() const {
 
 const RGBColor&
 GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const double max, const double value) const {
+    // update myMinMaxLabel
+    myMinMaxLabel->setText(("Min: " + toString(min) + " -> Max: " + toString(max)).c_str());
     // check extremes
     if (value <= min) {
         return myScaleColors.front();
@@ -486,6 +491,13 @@ GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const d
 
 long
 GNEGenericDataFrame::AttributeSelector::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
+    // empty attribute means <all>
+    if (myAttributesComboBox->getText().empty()) {
+        myAttributesComboBox->setText("<all>");
+    }
+    if (myAttributesComboBox->getText() == "<all>") {
+        myMinMaxLabel->setText("Scale: Min -> Max");
+    }
     // update view
     myGenericDataFrameParent->getViewNet()->updateViewNet();
     return 1;

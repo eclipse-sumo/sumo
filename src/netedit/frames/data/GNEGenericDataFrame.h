@@ -214,6 +214,9 @@ public:
         /// @brief combo box for attributes
         FXComboBox* myAttributesComboBox;
 
+        /// @brief label for min/max attribute
+        FXLabel* myMinMaxLabel;
+
         /// @brief vector with the scale colors
         std::vector<RGBColor> myScaleColors;
     };
