@@ -524,8 +524,8 @@ Some further messages require additional parameters.
 </tr>
 <tr class="even">
 <td><p>distance request (0x83)</p></td>
+<td><p>compound (see <a href="https://sumo.dlr.de/docs/TraCI/Simulation_Value_Retrieval.html#command_0x83_distance_request">Command 0x83: Distance Request</a>)</p></td>
 <td><p>double, see below</p></td>
-<td><p>compound (see <a href="http://sumo.dlr.de/wiki/TraCI/Simulation_Value_Retrieval#Command_0x83:_Distance_Request">Command 0x83: Distance Request</a>)</p></td>
 <td><p>Returns the distance between the current vehicle position and the specified position (for the given distance type)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDrivingDistance">getDrivingDistance</a> <a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getDrivingDistance2D">getDrivingDistance2D</a></p></td>
 </tr>
