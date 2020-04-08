@@ -1797,6 +1797,8 @@ void
 GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
     // declare contour width
     const double contourWidth = 0.05;
+    // check if we have to mirror text
+    const bool mirrorText = (vehicleRotation < 0);
     // Push matrix
     glPushMatrix();
     // Traslate to vehicle top
@@ -1811,7 +1813,7 @@ GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicle
     GLHelper::setColor(RGBColor(0, 128, 0));
     GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length - (contourWidth * 2), 0.3 - contourWidth);
     // draw stack label
-    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length / -2.0), .1, 0.6, RGBColor::WHITE, 90);
+    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length / -2.0), .1, 0.6, RGBColor::WHITE, 90, 0, -1, mirrorText);
     // pop draw matrix
     glPopMatrix();
 }
@@ -1821,6 +1823,8 @@ void
 GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
     // declare contour width
     const double contourWidth = 0.05;
+    // check if we have to mirror text
+    const bool mirrorText = (vehicleRotation < 0);
     // Push matrix
     glPushMatrix();
     // Traslate to vehicle bot
@@ -1835,7 +1839,7 @@ GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleR
     GLHelper::setColor(RGBColor::CYAN);
     GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length - (contourWidth * 2), 0.3 - contourWidth);
     // draw stack label
-    GLHelper::drawText("Flow", Position(0, length / -2.0), .1, 0.6, RGBColor::BLACK, 90);
+    GLHelper::drawText("Flow", Position(0, length / -2.0), .1, 0.6, RGBColor::BLACK, 90, 0, -1, mirrorText);
     // pop draw matrix
     glPopMatrix();
 }

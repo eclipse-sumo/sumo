@@ -288,10 +288,12 @@ public:
      * height and with according to size.
     */
     static void drawText(const std::string& text, const Position& pos,
-                         const double layer, const double size,
-                         const RGBColor& col = RGBColor::BLACK, const double angle = 0,
-                         int align = 0,
-                         double width = -1);
+        const double layer, const double size,
+        const RGBColor& col = RGBColor::BLACK, 
+        const double angle = 0,
+        const int align = 0,
+        double width = -1, 
+        const bool mirrorText = false);
 
     static void drawTextSettings(
         const GUIVisualizationTextSettings& settings,

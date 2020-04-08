@@ -563,10 +563,8 @@ GLHelper::getDottedcontourColors(const int size) {
 
 
 void
-GLHelper::drawText(const std::string& text, const Position& pos,
-                   const double layer, const double size,
-                   const RGBColor& col, const double angle, const int align,
-                   double width) {
+GLHelper::drawText(const std::string& text, const Position& pos, const double layer, const double size,
+    const RGBColor& col, const double angle, const int align, double width, const bool mirrorText) {
     if (width <= 0) {
         width = size;
     }
@@ -587,6 +585,10 @@ GLHelper::drawText(const std::string& text, const Position& pos,
 #endif
     glTranslated(pos.x(), pos.y(), layer);
     glScaled(width / myFontSize, size / myFontSize, 1.);
+    if (mirrorText) {
+        glScaled(-1, 1, 1);
+        glScaled(1, -1, 1);
+    }
     glRotated(-angle, 0, 0, 1);
     fonsSetAlign(myFont, align == 0 ? FONS_ALIGN_CENTER | FONS_ALIGN_MIDDLE : align);
     fonsSetColor(myFont, glfonsRGBA(col.red(), col.green(), col.blue(), col.alpha()));
