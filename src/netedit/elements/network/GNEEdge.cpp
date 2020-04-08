@@ -1524,12 +1524,12 @@ void
 GNEEdge::updateVehicleStackLabels() {
     // get lane vehicles map
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
-    // declare map for sprt vehicles using their departpos+lenght position (StackPosition)
-    std::vector<std::pair<GNEEdge::StackPosition, GNEDemandElement*> > departPosVehicles;
-    // declare vector of stack demand elements
-    std::vector<GNEEdge::StackDemandElements> stackedVehicles;
     // iterate over laneVehiclesMap and obtain a vector with
     for (const auto& vehicleMap : laneVehiclesMap) {
+        // declare map for sprt vehicles using their departpos+lenght position (StackPosition)
+        std::vector<std::pair<GNEEdge::StackPosition, GNEDemandElement*> > departPosVehicles;
+        // declare vector of stack demand elements
+        std::vector<GNEEdge::StackDemandElements> stackedVehicles;
         // iterate over vehicles
         for (const auto& vehicle : vehicleMap.second) {
             // get vehicle's depart pos and lenght
@@ -1547,31 +1547,32 @@ GNEEdge::updateVehicleStackLabels() {
             // reset vehicle stack label
             vehicle->updateDemandElementStackLabel(0);
         }
-    }
-    // sort departPosVehicles
-    std::sort(departPosVehicles.begin(), departPosVehicles.end());
-    // iterate over departPosVehicles
-    for (const auto& departPosVehicle : departPosVehicles) {
-        // obtain stack position and vehicle
-        const GNEEdge::StackPosition& vehicleStackPosition = departPosVehicle.first;
-        GNEDemandElement* vehicle = departPosVehicle.second;
-        // if stackedVehicles is empty, add a new StackDemandElements
-        if (stackedVehicles.empty()) {
-            stackedVehicles.push_back(GNEEdge::StackDemandElements(vehicleStackPosition, vehicle));
-        } else if (areStackPositionOverlapped(vehicleStackPosition, stackedVehicles.back().getStackPosition())) {
-            // add new vehicle to last inserted stackDemandElements
-            stackedVehicles[stackedVehicles.size() - 1].addDemandElements(vehicle);
-        } else {
-            // No overlapping, then add a new StackDemandElements
-            stackedVehicles.push_back(GNEEdge::StackDemandElements(vehicleStackPosition, vehicle));
+
+        // sort departPosVehicles
+        std::sort(departPosVehicles.begin(), departPosVehicles.end());
+        // iterate over departPosVehicles
+        for (const auto& departPosVehicle : departPosVehicles) {
+            // obtain stack position and vehicle
+            const GNEEdge::StackPosition& vehicleStackPosition = departPosVehicle.first;
+            GNEDemandElement* vehicle = departPosVehicle.second;
+            // if stackedVehicles is empty, add a new StackDemandElements
+            if (stackedVehicles.empty()) {
+                stackedVehicles.push_back(GNEEdge::StackDemandElements(vehicleStackPosition, vehicle));
+            } else if (areStackPositionOverlapped(vehicleStackPosition, stackedVehicles.back().getStackPosition())) {
+                // add new vehicle to last inserted stackDemandElements
+                stackedVehicles[stackedVehicles.size() - 1].addDemandElements(vehicle);
+            } else {
+                // No overlapping, then add a new StackDemandElements
+                stackedVehicles.push_back(GNEEdge::StackDemandElements(vehicleStackPosition, vehicle));
+            }
         }
-    }
-    // iterate over stackedVehicles
-    for (const auto& vehicle : stackedVehicles) {
-        // only update vehicles with one or more stack
-        if (vehicle.getDemandElements().size() > 1) {
-            // set stack labels
-            vehicle.getDemandElements().front()->updateDemandElementStackLabel((int)vehicle.getDemandElements().size());
+        // iterate over stackedVehicles
+        for (const auto& vehicle : stackedVehicles) {
+            // only update vehicles with one or more stack
+            if (vehicle.getDemandElements().size() > 1) {
+                // set stack labels
+                vehicle.getDemandElements().front()->updateDemandElementStackLabel((int)vehicle.getDemandElements().size());
+            }
         }
     }
 }
