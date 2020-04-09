@@ -1405,7 +1405,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-        } else {
+        } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // select routes
             if (!locks->IsObjectTypeLocked(GLO_ROUTE)) {
                 for (const auto& route : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
@@ -1599,6 +1599,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
+        } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
             // select dataSets 
             for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
