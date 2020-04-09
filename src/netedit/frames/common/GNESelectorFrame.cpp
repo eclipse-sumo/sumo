@@ -144,19 +144,27 @@ GNESelectorFrame::LockGLObjectTypes::~LockGLObjectTypes() {
 
 void
 GNESelectorFrame::LockGLObjectTypes::addedLockedObject(const GUIGlObjectType type) {
-    myTypeEntries.at(type)->counterUp();
+    if (((type >= 100) && (type < 199)) || (type == GLO_TAZ)) {
+        myTypeEntries.at(GLO_ADDITIONALELEMENT)->counterUp();
+    } else {
+        myTypeEntries.at(type)->counterUp();
+    }
 }
 
 
 void
 GNESelectorFrame::LockGLObjectTypes::removeLockedObject(const GUIGlObjectType type) {
-    myTypeEntries.at(type)->counterDown();
+    if (((type >= 100) && (type < 199)) || (type == GLO_TAZ)) {
+        myTypeEntries.at(GLO_ADDITIONALELEMENT)->counterDown();
+    } else {
+        myTypeEntries.at(type)->counterDown();
+    }
 }
 
 
 bool
 GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(const GUIGlObjectType type) const {
-    if ((type >= 100) && (type < 199)) {
+    if (((type >= 100) && (type < 199)) || (type == GLO_TAZ)) {
         return myTypeEntries.at(GLO_ADDITIONALELEMENT)->isGLTypeLocked();
     } else {
         return myTypeEntries.at(type)->isGLTypeLocked();
