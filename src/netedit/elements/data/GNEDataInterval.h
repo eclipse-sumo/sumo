@@ -112,18 +112,6 @@ public:
     /// @}
     /// @name inherited from GNEAttributeCarrier
     /// @{
-    /// @brief select attribute carrier using GUIGlobalSelection
-    void selectAttributeCarrier(bool changeFlag = true);
-
-    /// @brief unselect attribute carrier using GUIGlobalSelection
-    void unselectAttributeCarrier(bool changeFlag = true);
-
-    /// @brief check if attribute carrier is selected
-    bool isAttributeCarrierSelected() const;
-
-    /// @brief check if attribute carrier must be drawn using selecting color.
-    bool drawUsingSelectColor() const;
-
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key

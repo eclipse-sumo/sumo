@@ -69,6 +69,20 @@ public:
     /// @brief get pointer to net
     GNENet* getNet() const;
 
+    /// @brief select attribute carrier using GUIGlobalSelection
+    void selectAttributeCarrier(const bool changeFlag = true);
+
+    /// @brief unselect attribute carrier using GUIGlobalSelection
+    void unselectAttributeCarrier(const bool changeFlag = true);
+
+    /// @brief check if attribute carrier is selected
+    bool isAttributeCarrierSelected() const;
+
+    /// @brief check if attribute carrier must be drawn using selecting color.
+    bool drawUsingSelectColor() const;
+
+    /// @name Function related with graphics (must be implemented in all childs)
+    /// @{
     /// @brief get ID (all Attribute Carriers have one)
     virtual const std::string &getID() const = 0;
 
@@ -84,20 +98,10 @@ public:
     /// @brief update dotted contour
     virtual void updateDottedContour() = 0;
 
-    /// @name This functions has to be implemented in all GNEAttributeCarriers
+    /// @}
+
+    /// @name Function related with get/set attributes (must be implemented in all childs)
     /// @{
-    /// @brief select attribute carrier using GUIGlobalSelection
-    virtual void selectAttributeCarrier(bool changeFlag = true) = 0;
-
-    /// @brief unselect attribute carrier using GUIGlobalSelection
-    virtual void unselectAttributeCarrier(bool changeFlag = true) = 0;
-
-    /// @brief check if attribute carrier is selected
-    virtual bool isAttributeCarrierSelected() const = 0;
-
-    /// @brief check if attribute carrier must be drawn using selecting color.
-    virtual bool drawUsingSelectColor() const = 0;
-
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key

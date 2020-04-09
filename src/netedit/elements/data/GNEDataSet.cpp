@@ -200,30 +200,6 @@ GNEDataSet::getDataIntervalChildren() const {
 }
 
 
-void
-GNEDataSet::selectAttributeCarrier(bool /*changeFlag*/) {
-    // nothing to select
-}
-
-
-void
-GNEDataSet::unselectAttributeCarrier(bool /*changeFlag*/) {
-    // nothing to unselect
-}
-
-
-bool
-GNEDataSet::isAttributeCarrierSelected() const {
-    return false;
-}
-
-
-bool
-GNEDataSet::drawUsingSelectColor() const {
-    return false;
-}
-
-
 std::string
 GNEDataSet::getAttribute(SumoXMLAttr key) const {
     switch (key) {

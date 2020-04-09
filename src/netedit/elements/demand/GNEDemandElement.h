@@ -66,7 +66,6 @@ public:
         std::string secondOriginalPosition;
     };
 
-
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
      * @param[in] net pointer to GNEViewNet of this demand element element belongs
@@ -286,18 +285,6 @@ public:
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
-    /// @brief select attribute carrier using GUIGlobalSelection
-    virtual void selectAttributeCarrier(bool changeFlag = true) = 0;
-
-    /// @brief unselect attribute carrier using GUIGlobalSelection
-    virtual void unselectAttributeCarrier(bool changeFlag = true) = 0;
-
-    /// @brief check if attribute carrier is selected
-    bool isAttributeCarrierSelected() const;
-
-    /// @brief check if attribute carrier must be drawn using selecting color.
-    bool drawUsingSelectColor() const;
-
     /* @brief method for getting the Attribute of an XML key
      * @param[in] key The attribute key
      * @return string with the value associated to key

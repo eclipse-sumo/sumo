@@ -21,11 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
-#include <utils/geom/GeomHelper.h>
 
 #include "GNENetworkElement.h"
 
@@ -98,53 +94,6 @@ GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) 
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-void
-GNENetworkElement::selectAttributeCarrier(bool changeFlag) {
-    if (!myNet) {
-        throw ProcessError("Net cannot be nullptr");
-    } else {
-        gSelected.select(getGlID());
-        // add object into list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
-        if (changeFlag) {
-            mySelected = true;
-
-        }
-    }
-}
-
-
-void
-GNENetworkElement::unselectAttributeCarrier(bool changeFlag) {
-    if (!myNet) {
-        throw ProcessError("Net cannot be nullptr");
-    } else {
-        gSelected.deselect(getGlID());
-        // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
-        if (changeFlag) {
-            mySelected = false;
-        }
-    }
-}
-
-
-bool
-GNENetworkElement::isAttributeCarrierSelected() const {
-    return mySelected;
-}
-
-
-bool
-GNENetworkElement::drawUsingSelectColor() const {
-    if (mySelected && (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork())) {
-        return true;
-    } else {
-        return false;
-    }
 }
 
 

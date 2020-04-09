@@ -22,15 +22,11 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 
@@ -505,37 +501,6 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw person parent if this stop if their first person plan child
         if ((getParentDemandElements().size() == 1) && getParentDemandElements().front()->getChildDemandElements().front() == this) {
             getParentDemandElements().front()->drawGL(s);
-        }
-    }
-}
-
-
-void
-GNEStop::selectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.select(getGlID());
-        // add object of list into selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_STOP);
-        if (changeFlag) {
-            mySelected = true;
-        }
-    }
-}
-
-
-void
-GNEStop::unselectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.deselect(getGlID());
-        // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_STOP);
-        if (changeFlag) {
-            mySelected = false;
-
         }
     }
 }

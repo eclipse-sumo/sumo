@@ -18,12 +18,17 @@
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
 #include <netedit/GNENet.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNELane.h>
+#include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
 #include <utils/geom/GeomConvHelper.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEAttributeCarrier.h"
@@ -60,6 +65,53 @@ GNEAttributeCarrier::~GNEAttributeCarrier() {}
 GNENet* 
 GNEAttributeCarrier::getNet() const {
     return myNet;
+}
+
+
+void 
+GNEAttributeCarrier::selectAttributeCarrier(const bool changeFlag) {
+    if (getGUIGlObject() && myTagProperty.isSelectable()) {
+        gSelected.select(getGUIGlObject()->getGlID());
+        // add object into list of selected objects
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getGUIGlObject()->getType());
+        if (changeFlag) {
+            mySelected = true;
+        }
+    }
+}
+
+
+void 
+GNEAttributeCarrier::unselectAttributeCarrier(const bool changeFlag) {
+    if (getGUIGlObject() && myTagProperty.isSelectable()) {
+        gSelected.deselect(getGUIGlObject()->getGlID());
+        // remove object of list of selected objects
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getGUIGlObject()->getType());
+        if (changeFlag) {
+            mySelected = false;
+        }
+    }
+}
+
+
+bool 
+GNEAttributeCarrier::isAttributeCarrierSelected() const {
+    return mySelected;
+}
+
+
+bool 
+GNEAttributeCarrier::drawUsingSelectColor() const {
+    // get flag for network element
+    const bool networkElement = myTagProperty.isNetworkElement() || myTagProperty.isAdditionalElement() || myTagProperty.isShape() || myTagProperty.isTAZ();
+    // check supermode network
+    if ((networkElement && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) || 
+        (myTagProperty.isDemandElement() && myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) ||
+        (myTagProperty.isGenericData() && myNet->getViewNet()->getEditModes().isCurrentSupermodeData())) {
+        return mySelected;
+    } else {
+        return false;
+    }
 }
 
 

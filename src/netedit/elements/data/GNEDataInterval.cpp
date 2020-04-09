@@ -35,7 +35,6 @@
 
 #include "GNEDataInterval.h"
 #include "GNEDataSet.h"
-#include "GNEGenericData.h"
 
 
 // ===========================================================================
@@ -224,30 +223,6 @@ GNEDataInterval::getMaximunGenericDataChildAttribute(const std::string& paramStr
     } else {
         return result;
     }
-}
-
-
-void
-GNEDataInterval::selectAttributeCarrier(bool /*changeFlag*/) {
-    // GNEDataInterval cannot be selected
-}
-
-
-void
-GNEDataInterval::unselectAttributeCarrier(bool /*changeFlag*/) {
-    // GNEDataInterval cannot be selected
-}
-
-
-bool
-GNEDataInterval::isAttributeCarrierSelected() const {
-    return false;
-}
-
-
-bool
-GNEDataInterval::drawUsingSelectColor() const {
-    return false;
 }
 
 

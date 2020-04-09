@@ -385,22 +385,6 @@ GNEDemandElement::calculatePersonPlanPositionStartEndPos(Position& startPos, Pos
 
 
 bool
-GNEDemandElement::isAttributeCarrierSelected() const {
-    return mySelected;
-}
-
-
-bool
-GNEDemandElement::drawUsingSelectColor() const {
-    if (mySelected && (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand())) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
 GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError("Calling non-implemented function checkChildDemandElementRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");

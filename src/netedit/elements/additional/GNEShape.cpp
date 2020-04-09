@@ -20,11 +20,8 @@
 #include <config.h>
 
 #include <utils/gui/images/GUITextureSubSys.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEShape.h"
@@ -94,52 +91,6 @@ GNEShape::draw(const Position& pos, double layer, double size) const {
         }
         // Pop matrix
         glPopMatrix();
-    }
-}
-
-
-void
-GNEShape::selectAttributeCarrier(bool changeFlag) {
-    if (!myNet) {
-        throw ProcessError("Net cannot be nullptr");
-    } else {
-        gSelected.select(getGUIGlObject()->getGlID());
-        // add object into list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getGUIGlObject()->getType());
-        if (changeFlag) {
-            mySelected = true;
-        }
-    }
-}
-
-
-void
-GNEShape::unselectAttributeCarrier(bool changeFlag) {
-    if (!myNet) {
-        throw ProcessError("Net cannot be nullptr");
-    } else {
-        gSelected.deselect(getGUIGlObject()->getGlID());
-        // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getGUIGlObject()->getType());
-        if (changeFlag) {
-            mySelected = false;
-        }
-    }
-}
-
-
-bool
-GNEShape::isAttributeCarrierSelected() const {
-    return mySelected;
-}
-
-
-bool
-GNEShape::drawUsingSelectColor() const {
-    if (mySelected && (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork())) {
-        return true;
-    } else {
-        return false;
     }
 }
 

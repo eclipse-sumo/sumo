@@ -25,12 +25,8 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNERide.h"
 
@@ -374,37 +370,6 @@ GNERide::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEleme
 void
 GNERide::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Rides are drawn in GNEEdges
-}
-
-
-void
-GNERide::selectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.select(getGlID());
-        // add object of list into selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
-        if (changeFlag) {
-            mySelected = true;
-        }
-    }
-}
-
-
-void
-GNERide::unselectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.deselect(getGlID());
-        // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
-        if (changeFlag) {
-            mySelected = false;
-
-        }
-    }
 }
 
 

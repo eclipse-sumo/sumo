@@ -28,7 +28,6 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/geom/GeomHelper.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEBusStop.h"

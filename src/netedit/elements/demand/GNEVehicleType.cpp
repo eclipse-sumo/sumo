@@ -18,14 +18,9 @@
 // Definition of Vehicle Types in NETEDIT
 /****************************************************************************/
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
-#include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 
 #include "GNEVehicleType.h"
 
@@ -206,37 +201,6 @@ GNEVehicleType::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwo
 void
 GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
     // Vehicle Types aren't draw
-}
-
-
-void
-GNEVehicleType::selectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.select(getGlID());
-        // add object of list into selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_VTYPE);
-        if (changeFlag) {
-            mySelected = true;
-        }
-    }
-}
-
-
-void
-GNEVehicleType::unselectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.deselect(getGlID());
-        // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_VTYPE);
-        if (changeFlag) {
-            mySelected = false;
-
-        }
-    }
 }
 
 

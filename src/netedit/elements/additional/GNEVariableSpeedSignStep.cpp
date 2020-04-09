@@ -23,7 +23,6 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEVariableSpeedSignStep.h"
 

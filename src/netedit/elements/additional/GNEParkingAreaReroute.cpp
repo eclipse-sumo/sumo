@@ -24,7 +24,6 @@
 
 #include "GNEParkingAreaReroute.h"
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 
 // ===========================================================================

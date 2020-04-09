@@ -21,14 +21,9 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUITextureSubSys.h>
@@ -502,53 +497,6 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 bool
 GNEAdditional::isValidDetectorID(const std::string& newID) const {
     if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myNet->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-void
-GNEAdditional::selectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.select(getGlID());
-        // add object of list into selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONALELEMENT);
-        if (changeFlag) {
-            mySelected = true;
-        }
-    }
-}
-
-
-void
-GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.deselect(getGlID());
-        // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONALELEMENT);
-        if (changeFlag) {
-            mySelected = false;
-
-        }
-    }
-}
-
-
-bool
-GNEAdditional::isAttributeCarrierSelected() const {
-    return mySelected;
-}
-
-
-bool
-GNEAdditional::drawUsingSelectColor() const {
-    if (mySelected && (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork())) {
         return true;
     } else {
         return false;

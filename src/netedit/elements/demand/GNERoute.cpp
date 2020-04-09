@@ -19,18 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netbuild/NBNode.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEJunction.h>
-#include <utils/common/StringTokenizer.h>
-#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNERoute.h"
@@ -329,37 +323,6 @@ GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElem
 void
 GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Routes are drawn in GNEEdges
-}
-
-
-void
-GNERoute::selectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.select(getGlID());
-        // add object of list into selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
-        if (changeFlag) {
-            mySelected = true;
-        }
-    }
-}
-
-
-void
-GNERoute::unselectAttributeCarrier(bool changeFlag) {
-    if (!myNet->getViewNet()) {
-        throw ProcessError("ViewNet cannot be nullptr");
-    } else {
-        gSelected.deselect(getGlID());
-        // remove object of list of selected objects
-        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
-        if (changeFlag) {
-            mySelected = false;
-
-        }
-    }
 }
 
 
