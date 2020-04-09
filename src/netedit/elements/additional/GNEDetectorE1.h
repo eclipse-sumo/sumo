@@ -34,7 +34,7 @@ public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file.
@@ -43,7 +43,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE1(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
+    GNEDetectorE1(const std::string& id, GNELane* lane, GNENet* net, double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetectorE1();

@@ -35,8 +35,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_VSS, SUMO_TAG_VSS, name, blockMovement,
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet *net, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
+    GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name, blockMovement,
         {}, {}, {}, {}, {}, {}, {}, lanes, {}, {}, {}, {}),
     myPosition(pos) {
 }
@@ -67,9 +67,9 @@ GNEVariableSpeedSign::updateGeometry() {
 
 void
 GNEVariableSpeedSign::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
-                                          myViewNet->getVisualisationSettings().additionalSettings.VSSSize,
-                                          myViewNet->getVisualisationSettings().additionalSettings.VSSSize);
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myPosition, 0,
+                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.VSSSize,
+                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.VSSSize);
 }
 
 
@@ -112,7 +112,7 @@ GNEVariableSpeedSign::moveGeometry(const Position& offset) {
     myPosition = myMove.originalViewPosition;
     myPosition.add(offset);
     // filtern position using snap to active grid
-    myPosition = myViewNet->snapToActiveGrid(myPosition);
+    myPosition = myNet->getViewNet()->snapToActiveGrid(myPosition);
     updateGeometry();
 }
 
@@ -121,14 +121,14 @@ void
 GNEVariableSpeedSign::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
 
 std::string
 GNEVariableSpeedSign::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return myNet->getMicrosimID();
 }
 
 
@@ -137,7 +137,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
     // obtain exaggeration
     const double VSSExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(VSSExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -174,7 +174,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), VSSExaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
@@ -224,7 +224,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
     switch (key) {
         case SUMO_ATTR_ID: {
             // change ID of Rerouter Interval
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             // Change Ids of all Variable Speed Sign
             for (auto i : getChildAdditionals()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_STEP), undoList);
@@ -237,7 +237,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -256,7 +256,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return false;
             } else {
-                return canParse<std::vector<GNELane*> >(myViewNet->getNet(), value, false);
+                return canParse<std::vector<GNELane*> >(myNet, value, false);
             }
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
@@ -297,15 +297,15 @@ void
 GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANES:
             changeChildLanes(this, value);
             break;
         case SUMO_ATTR_POSITION:
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

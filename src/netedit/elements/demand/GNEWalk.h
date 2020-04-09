@@ -41,7 +41,7 @@ public:
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition);
+    GNEWalk(GNENet *net, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition);
 
     /**@brief parameter constructor for walkEdges
      * @param[in] viewNet view in which this Walk is placed
@@ -49,7 +49,7 @@ public:
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+    GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
             const std::vector<GNEEdge*>& via, double arrivalPosition);
 
     /**@brief parameter constructor for walkBusStop
@@ -58,7 +58,7 @@ public:
      * @param[in] edges list of consecutive edges of this walk
      * @param[in] busStop destination busStop
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
+    GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
             const std::vector<GNEEdge*>& via);
 
     /**@brief parameter constructor for walkRoute
@@ -67,7 +67,7 @@ public:
      * @param[in] personParent route parent
      * @param[in] arrivalPosition arrival position on the last route's edge
      */
-    GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition);
+    GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition);
 
     /// @brief destructor
     ~GNEWalk();

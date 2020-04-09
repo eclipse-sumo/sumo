@@ -40,16 +40,16 @@
 // method definitions
 // ===========================================================================
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_EDGES), viewNet, GLO_WALK, SUMO_TAG_WALK_EDGES, 
+GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
+    GNEDemandElement(myNet->generateDemandElementID("", SUMO_TAG_WALK_EDGES), net, GLO_WALK, SUMO_TAG_WALK_EDGES, 
         {edges}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, double arrivalPosition) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), viewNet, GLO_WALK, SUMO_TAG_WALK_FROMTO,
+GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, double arrivalPosition) :
+    GNEDemandElement(myNet->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), net, GLO_WALK, SUMO_TAG_WALK_FROMTO,
         {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
@@ -60,8 +60,8 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), viewNet, GLO_WALK, SUMO_TAG_WALK_BUSSTOP, 
+GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via) :
+    GNEDemandElement(myNet->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), net, GLO_WALK, SUMO_TAG_WALK_BUSSTOP, 
         {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(-1) {
@@ -72,8 +72,8 @@ GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* f
 }
 
 
-GNEWalk::GNEWalk(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), viewNet, GLO_WALK, SUMO_TAG_WALK_ROUTE,
+GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition) :
+    GNEDemandElement(myNet->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), net, GLO_WALK, SUMO_TAG_WALK_ROUTE,
         {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
@@ -96,7 +96,7 @@ GNEWalk::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
-    myViewNet->buildSelectionACPopupEntry(ret, this);
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
@@ -151,7 +151,7 @@ GNEWalk::isDemandElementValid() const {
             return true;
         } else {
             // check if exist a route between parent edges
-            return (myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
+            return (myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
         }
     } else if (getPathEdges().size() > 0) {
         // if path edges isn't empty, then there is a valid route
@@ -171,7 +171,7 @@ GNEWalk::getDemandElementProblem() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (myNet->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
             }
         }
@@ -253,7 +253,7 @@ GNEWalk::moveGeometry(const Position& offset) {
         Position newPosition = myWalkMove.originalViewPosition;
         newPosition.add(offset);
         // filtern position using snap to active grid
-        newPosition = myViewNet->snapToActiveGrid(newPosition);
+        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
         // obtain lane shape (to improve code legibility)
         const PositionVector& laneShape = getParentEdges().back()->getLanes().front()->getLaneShape();
         // calculate offset lane
@@ -272,7 +272,7 @@ GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         undoList->p_begin("arrivalPos of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), true, myWalkMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), true, myWalkMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }
@@ -340,14 +340,14 @@ void
 GNEWalk::computePath() {
     if ((myTagProperty.getTag() == SUMO_TAG_WALK_FROMTO)) {
         // calculate route and update routeEdges
-        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
+        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
     } else if (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
         fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
         // calculate route and update routeEdges
-        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
+        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
     }
     // update geometry
     updateGeometry();
@@ -424,12 +424,12 @@ GNEWalk::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNEWalk::selectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -439,12 +439,12 @@ GNEWalk::selectAttributeCarrier(bool changeFlag) {
 
 void
 GNEWalk::unselectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
         if (changeFlag) {
             mySelected = false;
 
@@ -518,7 +518,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -531,24 +531,24 @@ GNEWalk::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_VIA:
             if (value.empty()) {
                 return true;
             } else {
-                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+                return canParse<std::vector<GNEEdge*> >(myNet, value, false);
             }
         case SUMO_ATTR_EDGES:
-            if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
+            if (canParse<std::vector<GNEEdge*> >(myNet, value, false)) {
                 // all edges exist, then check if compounds a valid route
-                return GNERoute::isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value)).empty();
+                return GNERoute::isRouteValid(parse<std::vector<GNEEdge*> >(myNet, value)).empty();
             } else {
                 return false;
             }
         case SUMO_ATTR_BUS_STOP:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+            return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_ROUTE:
-            return (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
+            return (myNet->retrieveDemandElement(SUMO_TAG_ROUTE, value, false) != nullptr);
         case SUMO_ATTR_ARRIVALPOS:
             if (value.empty()) {
                 return true;
@@ -617,21 +617,21 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
         // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
             // update first edge
-            replaceFirstParentEdge(this, myViewNet->getNet()->retrieveEdge(value));
+            replaceFirstParentEdge(this, myNet->retrieveEdge(value));
             // compute walk
             computePath();
             break;
         }
         case SUMO_ATTR_TO: {
             // update last edge
-            replaceLastParentEdge(this, myViewNet->getNet()->retrieveEdge(value));
+            replaceLastParentEdge(this, myNet->retrieveEdge(value));
             // compute walk
             computePath();
             break;
         }
         case SUMO_ATTR_VIA: {
             // update via
-            replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), true);
+            replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myNet, value), true);
             // compute walk
             computePath();
             break;

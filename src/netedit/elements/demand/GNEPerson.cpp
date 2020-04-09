@@ -75,10 +75,10 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
     new FXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
     // build selection and show parameters menu
-    myPerson->getViewNet()->buildSelectionACPopupEntry(this, myPerson);
+    myPerson->getNet()->getViewNet()->buildSelectionACPopupEntry(this, myPerson);
     myPerson->buildShowParamsPopupEntry(this);
     // add transform functions only in demand mode
-    if (myPerson->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+    if (myPerson->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
@@ -130,10 +130,10 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
     new FXMenuCommand(this, ("Copy " + person->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
     // build selection and show parameters menu
-    person->getViewNet()->buildSelectionACPopupEntry(this, person);
+    person->getNet()->getViewNet()->buildSelectionACPopupEntry(this, person);
     person->buildShowParamsPopupEntry(this);
     // add transform functions only in demand mode
-    if (person->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
+    if (person->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // create menu pane for transform operations
         FXMenuPane* transformOperation = new FXMenuPane(this);
         this->insertMenuPaneChild(transformOperation);
@@ -167,8 +167,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 // member method definitions
 // ===========================================================================
 
-GNEPerson::GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
-    GNEDemandElement(personparameters.id, viewNet, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
+GNEPerson::GNEPerson(SumoXMLTag tag, GNENet *net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
+    GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
         {}, {}, {}, {}, {pType}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
@@ -409,11 +409,11 @@ void
 GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
     bool drawPerson = true;
     // check if person can be drawn
-    if (!myViewNet->getNetworkViewOptions().showDemandElements()) {
+    if (!myNet->getViewNet()->getNetworkViewOptions().showDemandElements()) {
         drawPerson = false;
-    } else if (!myViewNet->getDataViewOptions().showDemandElements()) {
+    } else if (!myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
         drawPerson = false;
-    } else if (!myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+    } else if (!myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         drawPerson = false;
     } else if (getChildDemandElements().empty()) {
         drawPerson = false;
@@ -440,7 +440,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check that position is valid and person can be drawn
         if ((personPosition != Position::INVALID) &&
-                !(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myViewNet->getPositionInformation()) > distanceSquared))) {
+                !(s.drawForPositionSelection && (personPosition.distanceSquaredTo(myNet->getViewNet()->getPositionInformation()) > distanceSquared))) {
             // push GL ID
             glPushName(getGlID());
             // push draw matrix
@@ -469,7 +469,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
             // check if dotted contour has to be drawn
-            if (myViewNet->getDottedAC() == this) {
+            if (myNet->getViewNet()->getDottedAC() == this) {
                 GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, exaggeration, exaggeration);
             }
             // pop name
@@ -481,12 +481,12 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNEPerson::selectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -496,12 +496,12 @@ GNEPerson::selectAttributeCarrier(bool changeFlag) {
 
 void
 GNEPerson::unselectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
         if (changeFlag) {
             mySelected = false;
 
@@ -595,7 +595,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         //
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -611,14 +611,14 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // Persons and personflows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PERSON, value, false) == nullptr) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) == nullptr)) {
+                    (myNet->retrieveDemandElement(SUMO_TAG_PERSON, value, false) == nullptr) &&
+                    (myNet->retrieveDemandElement(SUMO_TAG_PERSONFLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_TYPE:
-            return SUMOXMLDefinitions::isValidTypeID(value) && (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) && (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) != nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_DEPARTPOS: {
@@ -699,7 +699,7 @@ GNEPerson::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // modify newParametersSet
     GNERouteHandler::setFlowParameters(key, newParametersSet);
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(this, myNet, parametersSet, newParametersSet), true);
 }
 
 
@@ -739,17 +739,17 @@ GNEPerson::getHierarchyName() const {
     // special case for Trips and flow
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if we're inspecting a Edge
-        if (myViewNet->getNet()->getViewNet()->getDottedAC() &&
-                myViewNet->getNet()->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (myNet->getViewNet()->getDottedAC() &&
+                myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // check if edge correspond to a "from", "to" or "via" edge
-            if (getParentEdges().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
+            if (getParentEdges().front() == myNet->getViewNet()->getDottedAC()) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
-            } else if (getParentEdges().front() == myViewNet->getNet()->getViewNet()->getDottedAC()) {
+            } else if (getParentEdges().front() == myNet->getViewNet()->getDottedAC()) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
             } else {
                 // iterate over via
                 for (const auto& i : via) {
-                    if (i == myViewNet->getNet()->getViewNet()->getDottedAC()->getID()) {
+                    if (i == myNet->getViewNet()->getDottedAC()->getID()) {
                         return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
                     }
                 }
@@ -843,7 +843,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
     std::string error;
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_TYPE:
             replaceParentDemandElement(this, value, 0);
@@ -880,14 +880,14 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DEPART: {
             std::string oldDepart = getBegin();
             parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
-            myViewNet->getNet()->getAttributeCarriers()->updateDemandElementBegin(oldDepart, this);
+            myNet->getAttributeCarriers()->updateDemandElementBegin(oldDepart, this);
             break;
         }
         // Specific of personFlows
         case SUMO_ATTR_BEGIN: {
             std::string oldBegin = getBegin();
             depart = string2time(value);
-            myViewNet->getNet()->getAttributeCarriers()->updateDemandElementBegin(oldBegin, this);
+            myNet->getAttributeCarriers()->updateDemandElementBegin(oldBegin, this);
             break;
         }
         case SUMO_ATTR_END:

@@ -354,7 +354,7 @@ GNEHierarchicalParentElements::replaceParentEdges(GNEAdditional* elementChild, c
         edge->removeChildAdditional(elementChild);
     }
     // obtain new parent edges
-    myParentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
+    myParentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getNet(), newEdgeIDs);
     // check that lane parets aren't empty
     if (myParentEdges.empty()) {
         throw InvalidArgument("New list of parent edges cannot be empty");
@@ -374,7 +374,7 @@ GNEHierarchicalParentElements::replaceParentEdges(GNEDemandElement* elementChild
         edge->removeChildDemandElement(elementChild);
     }
     // obtain new parent edges
-    myParentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
+    myParentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getNet(), newEdgeIDs);
     // check that lane parets aren't empty
     if (myParentEdges.empty()) {
         throw InvalidArgument("New list of parent edges cannot be empty");
@@ -540,7 +540,7 @@ GNEHierarchicalParentElements::replaceParentLanes(GNEAdditional* elementChild, c
         lane->removeChildAdditional(elementChild);
     }
     // obtain new parent edges
-    myParentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
+    myParentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getNet(), newLaneIDs);
     // check that lane parets aren't empty
     if (myParentLanes.empty()) {
         throw InvalidArgument("New list of parent lanes cannot be empty");
@@ -560,7 +560,7 @@ GNEHierarchicalParentElements::replaceParentLanes(GNEDemandElement* elementChild
         lane->removeChildDemandElement(elementChild);
     }
     // obtain new parent edges
-    myParentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
+    myParentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getNet(), newLaneIDs);
     // check that lane parets aren't empty
     if (myParentLanes.empty()) {
         throw InvalidArgument("New list of parent lanes cannot be empty");
@@ -618,7 +618,7 @@ GNEHierarchicalParentElements::replaceParentAdditional(GNEAdditional* additional
         // remove additional of the children of parent additional
         myParentAdditionals.at(additionalParentIndex)->removeChildAdditional(additionalTobeChanged);
         // set new parent additional
-        myParentAdditionals.at(additionalParentIndex) = additionalTobeChanged->getViewNet()->getNet()->retrieveAdditional(myParentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
+        myParentAdditionals.at(additionalParentIndex) = additionalTobeChanged->getNet()->retrieveAdditional(myParentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
         // add additional int the children of parent additional
         myParentAdditionals.at(additionalParentIndex)->addChildAdditional(additionalTobeChanged);
         // update geometry after inserting
@@ -635,7 +635,7 @@ GNEHierarchicalParentElements::replaceParentAdditional(GNEDemandElement* demandE
         // remove demand element of the children of parent additional
         myParentAdditionals.at(additionalParentIndex)->removeChildDemandElement(demandElementTobeChanged);
         // set new parent demand element
-        myParentAdditionals.at(additionalParentIndex) = demandElementTobeChanged->getViewNet()->getNet()->retrieveAdditional(myParentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
+        myParentAdditionals.at(additionalParentIndex) = demandElementTobeChanged->getNet()->retrieveAdditional(myParentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
         // add demand element int the children of parent additional
         myParentAdditionals.at(additionalParentIndex)->removeChildDemandElement(demandElementTobeChanged);
         // update geometry after inserting
@@ -669,7 +669,7 @@ GNEHierarchicalParentElements::replaceParentDemandElement(GNEAdditional* additio
         // remove demand element of the children of parent additional
         myParentDemandElements.at(demandElementParentIndex)->removeChildAdditional(additionalTobeChanged);
         // set new parent demand element
-        myParentDemandElements.at(demandElementParentIndex) = additionalTobeChanged->getViewNet()->getNet()->retrieveDemandElement(myParentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
+        myParentDemandElements.at(demandElementParentIndex) = additionalTobeChanged->getNet()->retrieveDemandElement(myParentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
         // add demand element int the children of parent additional
         myParentDemandElements.at(demandElementParentIndex)->addChildAdditional(additionalTobeChanged);
         // update geometry after inserting
@@ -686,7 +686,7 @@ GNEHierarchicalParentElements::replaceParentDemandElement(GNEDemandElement* dema
         // remove additional of the children of parent additional
         myParentDemandElements.at(demandElementParentIndex)->removeChildDemandElement(demandElementTobeChanged);
         // set new parent additional
-        myParentDemandElements.at(demandElementParentIndex) = demandElementTobeChanged->getViewNet()->getNet()->retrieveDemandElement(myParentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
+        myParentDemandElements.at(demandElementParentIndex) = demandElementTobeChanged->getNet()->retrieveDemandElement(myParentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
         // add additional int the children of parent additional
         myParentDemandElements.at(demandElementParentIndex)->addChildDemandElement(demandElementTobeChanged);
         // update geometry after inserting

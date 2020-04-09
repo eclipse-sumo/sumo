@@ -22,6 +22,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
@@ -48,7 +49,7 @@ FXIMPLEMENT_ABSTRACT(GNEDemandElementDialog, FXTopWindow, GNEDemandElementDialog
 // ===========================================================================
 
 GNEDemandElementDialog::GNEDemandElementDialog(GNEDemandElement* editedDemandElement, bool updatingElement, int width, int height) :
-    FXTopWindow(editedDemandElement->getViewNet(), ("Edit '" + editedDemandElement->getID() + "' data").c_str(), editedDemandElement->getIcon(), editedDemandElement->getIcon(), GUIDesignDialogBoxExplicit(width, height)),
+    FXTopWindow(editedDemandElement->getNet()->getViewNet(), ("Edit '" + editedDemandElement->getID() + "' data").c_str(), editedDemandElement->getIcon(), editedDemandElement->getIcon(), GUIDesignDialogBoxExplicit(width, height)),
     myEditedDemandElement(editedDemandElement),
     myUpdatingElement(updatingElement),
     myChangesDescription("change " + editedDemandElement->getTagStr() + " values"),
@@ -114,34 +115,34 @@ GNEDemandElementDialog::changeDemandElementDialogHeader(const std::string& newHe
 void
 GNEDemandElementDialog::initChanges() {
     // init commandGroup
-    myEditedDemandElement->getViewNet()->getUndoList()->p_begin(myChangesDescription);
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_begin(myChangesDescription);
     // save number of command group changes
-    myNumberOfChanges = myEditedDemandElement->getViewNet()->getUndoList()->currentCommandGroupSize();
+    myNumberOfChanges = myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
 }
 
 
 void
 GNEDemandElementDialog::acceptChanges() {
     // commit changes or abort last command group depending of number of changes did
-    if (myNumberOfChanges < myEditedDemandElement->getViewNet()->getUndoList()->currentCommandGroupSize()) {
-        myEditedDemandElement->getViewNet()->getUndoList()->p_end();
+    if (myNumberOfChanges < myEditedDemandElement->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_end();
     } else {
-        myEditedDemandElement->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     }
 }
 
 
 void
 GNEDemandElementDialog::cancelChanges() {
-    myEditedDemandElement->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
 }
 
 
 void
 GNEDemandElementDialog::resetChanges() {
     // abort last command group an start editing again
-    myEditedDemandElement->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedDemandElement->getViewNet()->getUndoList()->p_begin(myChangesDescription);
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedDemandElement->getNet()->getViewNet()->getUndoList()->p_begin(myChangesDescription);
 }
 
 

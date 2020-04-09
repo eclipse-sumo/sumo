@@ -70,8 +70,8 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNETAZ::GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, 
+GNETAZ::GNETAZ(const std::string& id, GNENet *net, PositionVector shape, RGBColor color, bool blockMovement) :
+    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, 
         {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myColor(color),
     myTAZShape(shape),
@@ -104,7 +104,7 @@ GNETAZ::updateGeometry() {
 
 void
 GNETAZ::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myTAZShape);
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myTAZShape);
 }
 
 
@@ -141,7 +141,7 @@ GNETAZ::moveGeometry(const Position& offset) {
     myTAZShape[0] = myMove.originalViewPosition;
     myTAZShape[0].add(offset);
     // filtern position using snap to active grid
-    myTAZShape[0] = myViewNet->snapToActiveGrid(myTAZShape[0]);
+    myTAZShape[0] = myNet->getViewNet()->snapToActiveGrid(myTAZShape[0]);
 }
 
 
@@ -149,7 +149,7 @@ void
 GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(myTAZShape[0]), true, toString(myMove.originalViewPosition)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(myTAZShape[0]), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
@@ -172,11 +172,11 @@ GNETAZ::endTAZGeometryMoving() {
     // check that endGeometryMoving was called only once
     if (myMove.movingGeometryBoundary.isInitialised()) {
         // Remove object from net
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
+        myNet->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
         myMove.movingGeometryBoundary.reset();
         // add object into grid again (using the new centering boundary)
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
+        myNet->addGLObjectIntoGrid(this);
     }
 }
 
@@ -185,7 +185,7 @@ int
 GNETAZ::getTAZVertexIndex(Position pos, const bool snapToGrid) const {
     // check if position has to be snapped to grid
     if (snapToGrid) {
-        pos = myViewNet->snapToActiveGrid(pos);
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
     }
     const double offset = myTAZShape.nearest_offset_to_point2D(pos, true);
     if (offset == GeomHelper::INVALID_OFFSET) {
@@ -242,7 +242,7 @@ GNETAZ::commitTAZShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = myTAZShape;
     // get geometryPoint radius
-    const double geometryPointRadius = myHintSize * myViewNet->getVisualisationSettings().junctionSize.exaggeration;
+    const double geometryPointRadius = myHintSize * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
     // remove double points
     shapeToCommit.removeDoublePoints(geometryPointRadius);
     // check if we have to merge start and end points
@@ -257,7 +257,7 @@ GNETAZ::commitTAZShapeChange(GNEUndoList* undoList) {
     endTAZGeometryMoving();
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
     undoList->p_end();
 }
 
@@ -266,7 +266,7 @@ int
 GNETAZ::getVertexIndex(Position pos, bool snapToGrid) {
     // check if position has to be snapped to grid
     if (snapToGrid) {
-        pos = myViewNet->snapToActiveGrid(pos);
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
     }
     // first check if vertex already exists
     for (auto i : myTAZShape) {
@@ -294,16 +294,16 @@ GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         }
         // set new shape depending of allowUndo
         if (allowUndo) {
-            myViewNet->getUndoList()->p_begin("delete geometry point");
-            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myViewNet->getUndoList());
-            myViewNet->getUndoList()->p_end();
+            myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
+            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
+            myNet->getViewNet()->getUndoList()->p_end();
         } else {
             // first remove object from grid due shape is used for boundary
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             // set new shape
             myTAZShape = modifiedShape;
             // add object into grid again
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
         }
     } else {
         WRITE_WARNING("Number of remaining points insufficient")
@@ -319,7 +319,7 @@ GNETAZ::isShapeBlocked() const {
 
 std::string
 GNETAZ::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return myNet->getMicrosimID();
 }
 
 
@@ -333,7 +333,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     const double TAZExaggeration = s.polySize.getExaggeration(s, this);
     const Boundary TAZBoundary = myTAZShape.getBoxBoundary();
     // check if TAZ can be drawn
-    if ((TAZExaggeration > 0) && myViewNet->getDataViewOptions().showAdditionals() && 
+    if ((TAZExaggeration > 0) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && 
         (s.scale * MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight())) >= s.polySize.minSize) {
         // push name
         glPushName(getGlID());
@@ -360,8 +360,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         if (s.scale * myHintSize > 1.) {
             // set values relative to mouse position regarding to shape
             bool mouseOverVertex = false;
-            bool modeMove = myViewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
-            Position mousePosition = myViewNet->getPositionInformation();
+            bool modeMove = myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
+            Position mousePosition = myNet->getViewNet()->getPositionInformation();
             double distanceToShape = myTAZShape.distance2D(mousePosition);
             // set colors
             RGBColor invertedColor, darkerColor;
@@ -381,9 +381,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLines(myTAZShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
                 glPopMatrix();
                 // draw shape points only in Network supemode
-                if (!myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+                if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
                     for (const auto& TAZVertex : myTAZShape) {
-                        if (!s.drawForRectangleSelection || (myViewNet->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
+                        if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
                             glPushMatrix();
                             glTranslated(TAZVertex.x(), TAZVertex.y(), GLO_TAZ + 0.01);
                             // Change color of vertex and flag mouseOverVertex if mouse is over vertex
@@ -411,7 +411,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // check if dotted contour has to be drawn
-        if ((myViewNet->getDottedAC() == this) || (myViewNet->getViewParent()->getTAZFrame()->getTAZCurrentModul()->getTAZ() == this)) {
+        if ((myNet->getViewNet()->getDottedAC() == this) || (myNet->getViewNet()->getViewParent()->getTAZFrame()->getTAZCurrentModul()->getTAZ() == this)) {
             GNEGeometry::drawShapeDottedContour(s, GLO_TAZ + 1, TAZExaggeration, myDottedGeometry);
         }
         // pop name
@@ -500,7 +500,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* und
         case GNE_ATTR_BLOCK_SHAPE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -612,7 +612,7 @@ GNETAZ::updateParentAdditional() {
 
 void
 GNETAZ::performTesselation(const GUIVisualizationSettings& s, double /*lineWidth*/) const {
-    const bool moveMode = (myViewNet->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
+    const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
     if (myDrawFill && (!s.drawForPositionSelection || moveMode || myBlockShape)) {
         // draw the tesselated shape
         double* points = new double[myTAZShape.size() * 3];
@@ -648,12 +648,12 @@ void
 GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_SHAPE:
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             myTAZShape = parse<PositionVector>(value);
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_COLOR:
             myColor = parse<RGBColor>(value);

@@ -125,13 +125,13 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
     myTextFieldEnd = new FXTextField(columnRightValue, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
 
     // fill comboBox of VTypes
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
+    for (auto i : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VTYPE)) {
         myComboBoxVehicleType->appendItem(i.first.c_str());
     }
     myComboBoxVehicleType->setNumVisible((int)myComboBoxVehicleType->getNumItems());
 
     // fill comboBox of Routes
-    for (auto i : myEditedAdditional->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+    for (auto i : myEditedAdditional->getNet()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
         myComboBoxRoute->appendItem(i.first.c_str());
     }
     myComboBoxRoute->setNumVisible((int)myComboBoxRoute->getNumItems());
@@ -144,7 +144,7 @@ GNECalibratorFlowDialog::GNECalibratorFlowDialog(GNEAdditional* editedCalibrator
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional, true), true);
     }
 
     // open as modal dialog
@@ -220,7 +220,7 @@ GNECalibratorFlowDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     myCalibratorFlowValid = true;
     myInvalidAttr = SUMO_ATTR_NOTHING;
     // get pointer to undo list (Only for code legilibity)
-    GNEUndoList* undoList = myEditedAdditional->getViewNet()->getUndoList();
+    GNEUndoList* undoList = myEditedAdditional->getNet()->getViewNet()->getUndoList();
     // set color of myComboBoxVehicleType, depending if current value is valid or not
     if (myEditedAdditional->isValid(SUMO_ATTR_TYPE, myComboBoxVehicleType->getText().text())) {
         myComboBoxVehicleType->setTextColor(FXRGB(0, 0, 0));

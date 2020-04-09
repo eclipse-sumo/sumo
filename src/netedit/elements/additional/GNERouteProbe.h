@@ -33,14 +33,14 @@ class GNERouteProbe : public GNEAdditional {
 public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] edge edge in which this routeProbe is placed
      * @param[in] frequency The frequency in which to report the distribution
      * @oaran[in] name Route Probe Name
      * @param[in] filename The file for generated output
      * @param[in] begin The time at which to start generating output
      */
-    GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, SUMOTime begin);
+    GNERouteProbe(const std::string& id, GNENet *net, GNEEdge* edge, const std::string& frequency, const std::string& name, const std::string& filename, SUMOTime begin);
 
     /// @brief Destructor
     ~GNERouteProbe();

@@ -23,6 +23,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/elements/demand/GNERoute.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
@@ -76,7 +77,7 @@ GNERouteDialog::GNERouteDialog(GNEDemandElement* editedCalibratorRoute, bool upd
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        myEditedDemandElement->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElement, true), true);
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElement, true), true);
         // Routes are created without edges
         myCalibratorRouteValid = false;
         myInvalidAttr = SUMO_ATTR_EDGES;
@@ -143,10 +144,10 @@ GNERouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldRouteID, depending if current value is valid or not
     if (myEditedDemandElement->getID() == myTextFieldRouteID->getText().text()) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
-        myEditedDemandElement->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
+        myEditedDemandElement->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     } else if (myEditedDemandElement->isValid(SUMO_ATTR_ID, myTextFieldRouteID->getText().text())) {
         myTextFieldRouteID->setTextColor(FXRGB(0, 0, 0));
-        myEditedDemandElement->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
+        myEditedDemandElement->setAttribute(SUMO_ATTR_ID, myTextFieldRouteID->getText().text(), myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     } else {
         myTextFieldRouteID->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
@@ -155,7 +156,7 @@ GNERouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldRouteEdges, depending if current value is valEdges or not
     if (myEditedDemandElement->isValid(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text())) {
         myTextFieldEdges->setTextColor(FXRGB(0, 0, 0));
-        myEditedDemandElement->setAttribute(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
+        myEditedDemandElement->setAttribute(SUMO_ATTR_EDGES, myTextFieldEdges->getText().text(), myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     } else {
         myTextFieldEdges->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;
@@ -164,7 +165,7 @@ GNERouteDialog::onCmdSetVariable(FXObject*, FXSelector, void*) {
     // set color of myTextFieldColor, depending if current value is valid or not
     if (myEditedDemandElement->isValid(SUMO_ATTR_COLOR, myTextFieldColor->getText().text())) {
         myTextFieldColor->setTextColor(FXRGB(0, 0, 0));
-        myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), myEditedDemandElement->getViewNet()->getUndoList());
+        myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, myTextFieldColor->getText().text(), myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     } else {
         myTextFieldColor->setTextColor(FXRGB(255, 0, 0));
         myCalibratorRouteValid = false;

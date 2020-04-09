@@ -41,7 +41,7 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+GNEAdditional::GNEAdditional(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
@@ -55,11 +55,10 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
+    GNEAttributeCarrier(tag, net),
     Parameterised(),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     myBlockIcon(this),
@@ -67,7 +66,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlOb
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
@@ -81,11 +80,10 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNe
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
-    GNEAttributeCarrier(tag),
+    GNEAttributeCarrier(tag, net),
     Parameterised(),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myViewNet(viewNet),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
     myBlockIcon(this),
@@ -111,7 +109,7 @@ GNEAdditional::getGUIGlObject() {
 std::string
 GNEAdditional::generateChildID(SumoXMLTag childTag) {
     int counter = (int)getChildAdditionals().size();
-    while (myViewNet->getNet()->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
+    while (myNet->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
     return (getID() + toString(childTag) + toString(counter));
@@ -308,11 +306,11 @@ GNEAdditional::endGeometryMoving() {
         // check if object must be placed in RTREE
         if (myTagProperty.isPlacedInRTree()) {
             // Remove object from net
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             // reset myMovingGeometryBoundary
             myMove.movingGeometryBoundary.reset();
             // add object into grid again (using the new centering boundary)
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
         }
         // end geometry in all children
         for (const auto& i : getChildDemandElements()) {
@@ -325,12 +323,6 @@ GNEAdditional::endGeometryMoving() {
 void
 GNEAdditional::updateDottedContour() {
     //
-}
-
-
-GNEViewNet*
-GNEAdditional::getViewNet() const {
-    return myViewNet;
 }
 
 
@@ -353,7 +345,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
-    myViewNet->buildSelectionACPopupEntry(ret, this);
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
     if (myTagProperty.hasDialog()) {
@@ -362,7 +354,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // Show position parameters
     if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
-        GNELane* lane = myViewNet->getNet()->retrieveLane(getAttribute(SUMO_ATTR_LANE));
+        GNELane* lane = myNet->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position over additional shape: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
@@ -372,7 +364,7 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
         }
     } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE)) {
-        GNEEdge* edge = myViewNet->getNet()->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
+        GNEEdge* edge = myNet->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
         new FXMenuCommand(ret, ("Cursor position over additional shape: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
@@ -440,7 +432,7 @@ GNEAdditional::BlockIcon::setRotation(GNELane* additionalLane) {
 void
 GNEAdditional::BlockIcon::drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size) const {
     // check if block icon can be draw
-    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.lockIcon, exaggeration) && myAdditional->myViewNet->showLockIcon()) {
+    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.lockIcon, exaggeration) && myAdditional->myNet->getViewNet()->showLockIcon()) {
         // Start pushing matrix
         glPushMatrix();
         // Traslate to middle of shape
@@ -499,7 +491,7 @@ GNEAdditional::setDefaultValues() {
 
 bool
 GNEAdditional::isValidAdditionalID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -509,7 +501,7 @@ GNEAdditional::isValidAdditionalID(const std::string& newID) const {
 
 bool
 GNEAdditional::isValidDetectorID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myViewNet->getNet()->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidDetectorID(newID) && (myNet->retrieveAdditional(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -519,12 +511,12 @@ GNEAdditional::isValidDetectorID(const std::string& newID) const {
 
 void
 GNEAdditional::selectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONALELEMENT);
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_ADDITIONALELEMENT);
         if (changeFlag) {
             mySelected = true;
         }
@@ -534,12 +526,12 @@ GNEAdditional::selectAttributeCarrier(bool changeFlag) {
 
 void
 GNEAdditional::unselectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONALELEMENT);
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_ADDITIONALELEMENT);
         if (changeFlag) {
             mySelected = false;
 
@@ -556,7 +548,7 @@ GNEAdditional::isAttributeCarrierSelected() const {
 
 bool
 GNEAdditional::drawUsingSelectColor() const {
-    if (mySelected && (myViewNet->getEditModes().isCurrentSupermodeNetwork())) {
+    if (mySelected && (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork())) {
         return true;
     } else {
         return false;

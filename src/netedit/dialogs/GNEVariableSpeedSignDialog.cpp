@@ -23,6 +23,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNEVariableSpeedSign.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
@@ -85,7 +86,7 @@ long
 GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
     // Declare variables for time and speed
     GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(this);
-    myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
     // Update table
     updateTableSteps();
     return 1;
@@ -109,8 +110,8 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
             double time = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 0)->getText().text());
             double speed = GNEAttributeCarrier::parse<double>(myStepsTable->getItem(i, 1)->getText().text());
             // set new values in Closing  reroute
-            step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedAdditional->getViewNet()->getUndoList());
-            step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedAdditional->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_TIME, toString(time), myEditedAdditional->getNet()->getViewNet()->getUndoList());
+            step->setAttribute(SUMO_ATTR_SPEED, toString(speed), myEditedAdditional->getNet()->getViewNet()->getUndoList());
             // set Correct label
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::CORRECT));
         }
@@ -127,7 +128,7 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedAdditional->getChildAdditionals().size(); i++) {
         if (myStepsTable->getItem(i, 3)->hasFocus()) {
             myStepsTable->removeRows(i);
-            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getChildAdditionals().at(i), false), true);
+            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getChildAdditionals().at(i), false), true);
             // Update table
             updateTableSteps();
             return 1;

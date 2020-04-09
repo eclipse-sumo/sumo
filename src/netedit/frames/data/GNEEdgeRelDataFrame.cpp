@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/elements/data/GNEDataHandler.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEEdgeRelDataFrame.h"
 
@@ -53,7 +54,7 @@ GNEEdgeRelDataFrame::edgePathCreated() {
     // first check that we have at least two edges
     if (myEdgePathCreator->getClickedEdges().size() > 1) {
         // just create EdgeRelationData
-        GNEDataHandler::buildEdgeRelationData(myViewNet, true, myIntervalSelector->getDataInterval(), myEdgePathCreator->getClickedEdges().front(), 
+        GNEDataHandler::buildEdgeRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myEdgePathCreator->getClickedEdges().front(),
             myEdgePathCreator->getClickedEdges().back(), myParametersEditor->getParametersMap());
     }
 }

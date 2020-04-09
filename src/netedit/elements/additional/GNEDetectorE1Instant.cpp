@@ -34,8 +34,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, viewNet, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, 0, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}) {
+GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet *net, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, 0, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}) {
 }
 
 
@@ -77,7 +77,7 @@ GNEDetectorE1Instant::fixAdditionalProblem() {
     // fix pos and length  checkAndFixDetectorPosition
     GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
     // set new position
-    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
+    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
 }
 
 
@@ -87,7 +87,7 @@ GNEDetectorE1Instant::moveGeometry(const Position& offset) {
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
     // filtern position using snap to active grid
-    newPosition = myViewNet->snapToActiveGrid(newPosition);
+    newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
     const bool storeNegative = myPositionOverLane < 0;
     myPositionOverLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
     if (storeNegative) {
@@ -102,7 +102,7 @@ void
 GNEDetectorE1Instant::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
     undoList->p_end();
 }
 
@@ -127,11 +127,11 @@ GNEDetectorE1Instant::updateGeometry() {
 
 
 void GNEDetectorE1Instant::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
                                           myAdditionalGeometry.getPosition(),
                                           myAdditionalGeometry.getRotation(),
-                                          myViewNet->getVisualisationSettings().detectorSettings.E1InstantWidth,
-                                          myViewNet->getVisualisationSettings().detectorSettings.E1InstantHeight);
+                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E1InstantWidth,
+                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E1InstantHeight);
 }
 
 
@@ -140,7 +140,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E1InstantExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(E1InstantExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(E1InstantExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // obtain scaledSize
         const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
         // start drawing
@@ -230,7 +230,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), E1InstantExaggeration, myDottedGeometry);
         }
         glPopName();
@@ -283,7 +283,7 @@ GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -298,7 +298,7 @@ GNEDetectorE1Instant::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDetectorID(value);
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
+            if (myNet->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -342,7 +342,7 @@ void
 GNEDetectorE1Instant::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
             replaceParentLanes(this, value);

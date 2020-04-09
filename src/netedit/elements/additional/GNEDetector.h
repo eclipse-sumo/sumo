@@ -32,7 +32,7 @@ class GNEDetector : public GNEAdditional {
 public:
     /**@brief Constructor.
      * @param[in] id Gl-id of the detector (Must be unique)
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] type GUIGlObjectType of detector
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
@@ -44,12 +44,12 @@ public:
      * @param[in] block movement enable or disable additional movement
      * @param[in] parentLanes vector of parent lanes
      */
-    GNEDetector(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, SUMOTime freq, const std::string& filename,
+    GNEDetector(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, double pos, SUMOTime freq, const std::string& filename,
                 const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes);
 
     /**@brief Constructor.
      * @param[in] additionalParent parent additional of this detector (ID will be generated automatically)
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] type GUIGlObjectType of detector
      * @param[in] tag Type of xml tag that define the detector (SUMO_TAG_E1DETECTOR, SUMO_TAG_LANE_AREA_DETECTOR, etc...)
      * @param[in] pos position of the detector on the lane
@@ -60,7 +60,7 @@ public:
      * @param[in] block movement enable or disable additional movement
      * @param[in] parentLanes vector of parent lanes
      */
-    GNEDetector(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, double pos, SUMOTime freq, const std::string& filename,
+    GNEDetector(GNEAdditional* additionalParent, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, double pos, SUMOTime freq, const std::string& filename,
                 const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes);
 
     /// @brief Destructor

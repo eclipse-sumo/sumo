@@ -23,6 +23,7 @@
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEEdgeDataFrame.h"
 
@@ -38,6 +39,7 @@ GNEEdgeDataFrame::GNEEdgeDataFrame(FXHorizontalFrame* horizontalFrameParent, GNE
 
 GNEEdgeDataFrame::~GNEEdgeDataFrame() {}
 
+
 bool
 GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we clicked over an edge
@@ -52,7 +54,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
             }
         }
         // finally create edgeData
-        GNEDataHandler::buildEdgeData(myViewNet, true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), myParametersEditor->getParametersMap());
+        GNEDataHandler::buildEdgeData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), myParametersEditor->getParametersMap());
         // edgeData created, then return true
         return true;
     } else {

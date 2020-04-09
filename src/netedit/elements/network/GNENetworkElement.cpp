@@ -48,10 +48,9 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
+    GNEAttributeCarrier(tag, net),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myNet(net),
     myMovingGeometryBoundary() {
 }
 
@@ -80,12 +79,6 @@ GNENetworkElement::updateDottedGeometry(const PositionVector& shape) {
 std::string
 GNENetworkElement::generateChildID(SumoXMLTag /*childTag*/) {
     return "";
-}
-
-
-GNENet*
-GNENetworkElement::getNet() const {
-    return myNet;
 }
 
 

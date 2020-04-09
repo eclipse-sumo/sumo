@@ -104,7 +104,7 @@ public:
     };
 
     /// @brief constructor for persons
-    GNEPerson(SumoXMLTag tag, GNEViewNet* viewNet, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters);
+    GNEPerson(SumoXMLTag tag, GNENet *net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters);
 
     /// @brief destructor
     ~GNEPerson();

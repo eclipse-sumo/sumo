@@ -1026,7 +1026,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
             myFrameParent->myViewNet->getNet()->deleteGenericData(myClickedGenericData, myFrameParent->myViewNet->getUndoList());
         }
     }
-    // update viewNet
+    // update net
     myFrameParent->myViewNet->updateViewNet();
     // refresh AC Hierarchy
     refreshAttributeCarrierHierarchy();

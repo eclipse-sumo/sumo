@@ -142,9 +142,9 @@ GNEDataHandler::HierarchyInsertedDatas::getLastInsertedGenericData() const {
 // GNEAdditionalHandler::HierarchyInsertedDatas method definitions
 // ---------------------------------------------------------------------------
 
-GNEDataHandler::GNEDataHandler(const std::string& file, GNEViewNet* viewNet) :
+GNEDataHandler::GNEDataHandler(const std::string& file, GNENet* net) :
     SUMOSAXHandler(file),
-    myViewNet(viewNet) {
+    myNet(net) {
 }
 
 
@@ -165,7 +165,7 @@ GNEDataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         // push element int stack
         myHierarchyInsertedGenericDatas.insertElement(tag);
         // build data
-        buildData(myViewNet, true, tag, attrs, &myHierarchyInsertedGenericDatas);
+        buildData(myNet, true, tag, attrs, &myHierarchyInsertedGenericDatas);
     }
 }
 
@@ -178,15 +178,15 @@ GNEDataHandler::myEndElement(int /*element*/) {
 
 
 bool
-GNEDataHandler::buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
+GNEDataHandler::buildData(GNENet* net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
     // Call parse and build depending of tag
     switch (tag) {
         case SUMO_TAG_INTERVAL:
-            return parseAndBuildInterval(viewNet, allowUndoRedo, attrs, insertedDatas);
+            return parseAndBuildInterval(net, allowUndoRedo, attrs, insertedDatas);
         case SUMO_TAG_EDGE:
-            return parseAndBuildEdgeData(viewNet, allowUndoRedo, attrs, insertedDatas);
+            return parseAndBuildEdgeData(net, allowUndoRedo, attrs, insertedDatas);
         case SUMO_TAG_EDGEREL:
-            return parseAndBuildEdgeRelationData(viewNet, allowUndoRedo, attrs, insertedDatas);
+            return parseAndBuildEdgeRelationData(net, allowUndoRedo, attrs, insertedDatas);
         default:
             return false;
     }
@@ -194,12 +194,12 @@ GNEDataHandler::buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag ta
 
 
 GNEDataSet*
-GNEDataHandler::buildDataSet(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& dataSetID) {
-    GNEDataSet* dataSet = new GNEDataSet(viewNet, dataSetID);
+GNEDataHandler::buildDataSet(GNENet* net, bool allowUndoRedo, const std::string& dataSetID) {
+    GNEDataSet* dataSet = new GNEDataSet(net, dataSetID);
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATASET));
-        viewNet->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
-        viewNet->getUndoList()->p_end();
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATASET));
+        net->getViewNet()->getUndoList()->add(new GNEChange_DataSet(dataSet, true), true);
+        net->getViewNet()->getUndoList()->p_end();
     } else {
         dataSet->incRef("buildDataSet");
     }
@@ -208,12 +208,12 @@ GNEDataHandler::buildDataSet(GNEViewNet* viewNet, bool allowUndoRedo, const std:
 
 
 GNEDataInterval*
-GNEDataHandler::buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet* dataSetParent, const double begin, const double end) {
+GNEDataHandler::buildDataInterval(GNENet* net, bool allowUndoRedo, GNEDataSet* dataSetParent, const double begin, const double end) {
     GNEDataInterval* dataInterval = new GNEDataInterval(dataSetParent, begin, end);
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATAINTERVAL));
-        viewNet->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
-        viewNet->getUndoList()->p_end();
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DATAINTERVAL));
+        net->getViewNet()->getUndoList()->add(new GNEChange_DataInterval(dataInterval, true), true);
+        net->getViewNet()->getUndoList()->p_end();
     } else {
         dataSetParent->addDataIntervalChild(dataInterval);
         dataInterval->incRef("buildDataInterval");
@@ -223,13 +223,13 @@ GNEDataHandler::buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDa
 
 
 GNEEdgeData*
-GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge,
+GNEDataHandler::buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge,
                               const std::map<std::string, std::string>& parameters) {
     GNEEdgeData* edgeData = new GNEEdgeData(dataIntervalParent, edge, parameters);
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
-        viewNet->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
-        viewNet->getUndoList()->p_end();
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
+        net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
+        net->getViewNet()->getUndoList()->p_end();
     } else {
         dataIntervalParent->addGenericDataChild(edgeData);
         edge->addChildGenericDataElement(edgeData);
@@ -240,13 +240,13 @@ GNEDataHandler::buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataIn
 
 
 GNEEdgeRelData*
-GNEDataHandler::buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
+GNEDataHandler::buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
     GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters) {
     GNEEdgeRelData* edgeRelationData = new GNEEdgeRelData(dataIntervalParent, fromEdge, toEdge, parameters);
     if (allowUndoRedo) {
-        viewNet->getUndoList()->p_begin("add " + toString(SUMO_TAG_EDGEREL));
-        viewNet->getUndoList()->add(new GNEChange_GenericData(edgeRelationData, true), true);
-        viewNet->getUndoList()->p_end();
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_EDGEREL));
+        net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeRelationData, true), true);
+        net->getViewNet()->getUndoList()->p_end();
     }
     else {
         dataIntervalParent->addGenericDataChild(edgeRelationData);
@@ -259,7 +259,7 @@ GNEDataHandler::buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, G
 
 
 bool
-GNEDataHandler::parseAndBuildInterval(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
+GNEDataHandler::parseAndBuildInterval(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
     bool abort = false;
     // parse edgeData attributes
     const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DATAINTERVAL, SUMO_ATTR_ID, abort);
@@ -268,13 +268,13 @@ GNEDataHandler::parseAndBuildInterval(GNEViewNet* viewNet, bool allowUndoRedo, c
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // retrieve data set parent
-        GNEDataSet* dataSet = viewNet->getNet()->retrieveDataSet(id, false);
+        GNEDataSet* dataSet = net->retrieveDataSet(id, false);
         // check if we need to create a new data set
         if (dataSet == nullptr) {
-            dataSet = buildDataSet(viewNet, true, id);
+            dataSet = buildDataSet(net, true, id);
         }
         // save ID of last created element
-        GNEDataInterval* dataInterval = buildDataInterval(viewNet, allowUndoRedo, dataSet, begin, end);
+        GNEDataInterval* dataInterval = buildDataInterval(net, allowUndoRedo, dataSet, begin, end);
         // check if insertion has to be commited
         if (insertedDatas) {
             insertedDatas->commitDataIntervalInsertion(dataInterval);
@@ -286,14 +286,14 @@ GNEDataHandler::parseAndBuildInterval(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 
 bool
-GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
+GNEDataHandler::parseAndBuildEdgeData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
     bool abort = false;
     // parse edgeData attributes
     std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_MEANDATA_EDGE, SUMO_ATTR_ID, abort);
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointer to edge
-        GNEEdge* edge = viewNet->getNet()->retrieveEdge(edgeID, false);
+        GNEEdge* edge = net->retrieveEdge(edgeID, false);
         // check that edge is valid
         if (edge == nullptr) {
             // Write error if lane isn't valid
@@ -320,7 +320,7 @@ GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, c
                 }
             }
             // save ID of last created element
-            GNEGenericData* dataCreated = buildEdgeData(viewNet, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), edge, parameters);
+            GNEGenericData* dataCreated = buildEdgeData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), edge, parameters);
             // check if insertion has to be commited
             if (insertedDatas) {
                 insertedDatas->commitGenericDataInsertion(dataCreated);
@@ -333,7 +333,7 @@ GNEDataHandler::parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, c
 
 
 bool
-GNEDataHandler::parseAndBuildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
+GNEDataHandler::parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
     bool abort = false;
     // parse edgeRelationData attributes
     std::string fromEdgeStr = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_EDGEREL, SUMO_ATTR_FROM, abort);
@@ -341,8 +341,8 @@ GNEDataHandler::parseAndBuildEdgeRelationData(GNEViewNet* viewNet, bool allowUnd
     // Continue if all parameters were sucesfully loaded
     if (!abort) {
         // get pointers to edges
-        GNEEdge* fromEdge = viewNet->getNet()->retrieveEdge(fromEdgeStr, false);
-        GNEEdge* toEdge = viewNet->getNet()->retrieveEdge(toEdgeStr, false);
+        GNEEdge* fromEdge = net->retrieveEdge(fromEdgeStr, false);
+        GNEEdge* toEdge = net->retrieveEdge(toEdgeStr, false);
         // check that edge is valid
         if (fromEdge == nullptr) {
             // Write error if lane isn't valid
@@ -365,7 +365,7 @@ GNEDataHandler::parseAndBuildEdgeRelationData(GNEViewNet* viewNet, bool allowUnd
                 }
             }
             // save ID of last created element
-            GNEGenericData* dataCreated = buildEdgeRelationData(viewNet, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), 
+            GNEGenericData* dataCreated = buildEdgeRelationData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), 
                 fromEdge, toEdge, parameters);
             // check if insertion has to be commited
             if (insertedDatas) {

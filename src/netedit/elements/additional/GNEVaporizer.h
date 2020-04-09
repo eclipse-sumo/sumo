@@ -32,13 +32,13 @@ class GNEVaporizer : public GNEAdditional {
 
 public:
     /**@brief Constructor
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] edge edge in which this vaporizer is placed
      * @param[in] begin start time of vaporizer
      * @param[in] end end time of vaporizer
      * @param[in] name Vaporizer name
      */
-    GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name);
+    GNEVaporizer(GNENet *net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name);
 
     /// @brief Destructor
     ~GNEVaporizer();

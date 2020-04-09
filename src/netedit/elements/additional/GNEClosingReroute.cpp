@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
         {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}),
     myClosedEdge(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals().at(0)->getChildEdges().at(0)) {
     // fill closing reroute interval with default values
@@ -43,7 +43,7 @@ GNEClosingReroute::GNEClosingReroute(GNERerouterIntervalDialog* rerouterInterval
 
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
-    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
+    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
         {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}, {}, {}),
     myClosedEdge(closedEdge),
     myPermissions(permissions) {
@@ -144,7 +144,7 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUn
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -158,7 +158,7 @@ GNEClosingReroute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            return (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+            return (myNet->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_ALLOW:
             return canParseVehicleClasses(value);
         case SUMO_ATTR_DISALLOW:
@@ -196,10 +196,10 @@ void
 GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_EDGE:
-            myClosedEdge = myViewNet->getNet()->retrieveEdge(value);
+            myClosedEdge = myNet->retrieveEdge(value);
             break;
         case SUMO_ATTR_ALLOW:
             myPermissions = parseVehicleClasses(value);

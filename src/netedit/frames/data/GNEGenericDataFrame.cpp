@@ -146,7 +146,7 @@ GNEGenericDataFrame::DataSetSelector::onCmdCreateDataSet(FXObject*, FXSelector, 
         WRITE_WARNING("Invalid duplicated dataSet ID");
     } else {
         // build data set
-        const GNEDataSet* dataSet = GNEDataHandler::buildDataSet(myGenericDataFrameParent->getViewNet(), true, dataSetID);
+        const GNEDataSet* dataSet = GNEDataHandler::buildDataSet(myGenericDataFrameParent->getViewNet()->getNet(), true, dataSetID);
         // refresh tag selector
         refreshDataSetSelector(dataSet);
         // change check button
@@ -288,7 +288,7 @@ GNEGenericDataFrame::IntervalSelector::onCmdCreateInterval(FXObject*, FXSelector
         // get data set parent
         GNEDataSet* dataSet = myGenericDataFrameParent->myDataSetSelector->getDataSet();
         if (dataSet && dataSet->checkNewInterval(begin, end)) {
-            GNEDataHandler::buildDataInterval(myGenericDataFrameParent->getViewNet(), true, dataSet, begin, end);
+            GNEDataHandler::buildDataInterval(myGenericDataFrameParent->getViewNet()->getNet(), true, dataSet, begin, end);
         }
         // disable select interval check button
         myNewIntervalCheckButton->setCheck(FALSE, TRUE);

@@ -40,9 +40,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDataSet::GNEDataSet(GNEViewNet* viewNet, const std::string dataSetID) :
-    GNEAttributeCarrier(SUMO_TAG_DATASET),
-    myViewNet(viewNet),
+GNEDataSet::GNEDataSet(GNENet* net, const std::string dataSetID) :
+    GNEAttributeCarrier(SUMO_TAG_DATASET, net),
     myDataSetID(dataSetID) {
 }
 
@@ -90,12 +89,6 @@ GNEDataSet::getPositionInView() const {
 }
 
 
-GNEViewNet*
-GNEDataSet::getViewNet() const {
-    return myViewNet;
-}
-
-
 void
 GNEDataSet::writeDataSet(OutputDevice& device) const {
     // iterate over intervals
@@ -138,8 +131,8 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
         // remove data interval child
         myDataIntervalChildren.erase(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN));
         // remove it from Inspector Frame and AttributeCarrierHierarchy
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataInterval);
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataInterval);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataInterval);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataInterval);
     } else {
         throw ProcessError("DataInterval wasn't previously inserted");
     }
@@ -252,7 +245,7 @@ void
 GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -264,7 +257,7 @@ bool
 GNEDataSet::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            if (SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveDataSet(value, false) == nullptr)) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveDataSet(value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -310,7 +303,7 @@ void
 GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

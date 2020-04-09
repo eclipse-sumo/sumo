@@ -48,7 +48,7 @@ class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier, public Par
 public:
     /**@brief Constructor
      * @param[in] id Gl-id of the additional element (Must be unique)
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] type GUIGlObjectType of additional
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
@@ -66,7 +66,7 @@ public:
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
      */
-    GNEAdditional(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+    GNEAdditional(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
                   const std::vector<GNEShape*>& shapeParents,
@@ -82,7 +82,7 @@ public:
 
     /**@brief Constructor used by Additionals that have two additionals as parent
      * @param[in] additionalParent pointer to parent additional pointer (used to generate an ID)
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] type GUIGlObjectType of additional
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
@@ -100,7 +100,7 @@ public:
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
     */
-    GNEAdditional(GNEAdditional* additionalParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+    GNEAdditional(GNEAdditional* additionalParent, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
                   const std::vector<GNEEdge*>& edgeParents,
                   const std::vector<GNELane*>& laneParents,
                   const std::vector<GNEShape*>& shapeParents,
@@ -191,9 +191,6 @@ public:
 
     /// @brief update dotted contour
     virtual void updateDottedContour() = 0;
-
-    /// @brief Returns a pointer to GNEViewNet in which additional element is located
-    GNEViewNet* getViewNet() const;
 
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
@@ -345,9 +342,6 @@ protected:
         /// @brief Invalidated assignment operator
         BlockIcon& operator=(const BlockIcon& other) = delete;
     };
-
-    /// @brief The GNEViewNet this additional element belongs
-    GNEViewNet* myViewNet;
 
     /// @brief geometry to be precomputed in updateGeometry(...)
     GNEGeometry::Geometry myAdditionalGeometry;

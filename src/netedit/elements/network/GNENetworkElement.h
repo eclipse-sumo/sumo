@@ -100,9 +100,6 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @brief get Net in which this element is placed
-    GNENet* getNet() const;
-
     /// @name inherited from GUIGlObject
     /// @{
 
@@ -196,9 +193,6 @@ public:
     /// @}
 
 protected:
-    /// @brief the net to inform about updates
-    GNENet* myNet;
-
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 

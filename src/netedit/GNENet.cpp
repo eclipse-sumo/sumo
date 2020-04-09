@@ -992,7 +992,6 @@ void
 GNENet::setViewNet(GNEViewNet* viewNet) {
     // set view net
     myViewNet = viewNet;
-
     // add default vTypes
     myAttributeCarriers->addDefaultVTypes();
 }
@@ -1402,7 +1401,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(additionalPath, myViewNet);
+        GNEAdditionalHandler additionalHandler(additionalPath, myViewNet->getNet());
         // Run parser
         if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
@@ -1413,7 +1412,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
         // Create demandElement handler
-        GNERouteHandler demandElementHandler(demandPath, myViewNet, false);
+        GNERouteHandler demandElementHandler(demandPath, myViewNet->getNet(), false);
         // Run parser
         if (!XMLSubSys::runParser(demandElementHandler, demandPath, false)) {
             WRITE_MESSAGE("Loading of " + demandPath + " failed.");
@@ -2150,7 +2149,7 @@ GNENet::saveAdditionals(const std::string& filename) {
         }
         // update view
         myViewNet->updateViewNet();
-        // set focus again in viewNet
+        // set focus again in net
         myViewNet->setFocus();
     } else {
         saveAdditionalsConfirmed(filename);
@@ -2272,7 +2271,7 @@ GNENet::saveDemandElements(const std::string& filename) {
         }
         // update view
         myViewNet->updateViewNet();
-        // set focus again in viewNet
+        // set focus again in net
         myViewNet->setFocus();
     } else {
         saveDemandElementsConfirmed(filename);
@@ -2898,7 +2897,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
     myGrid.add(GeoConvHelper::getFinal().getConvBoundary());
     // if volatile options are true
     if (volatileOptions) {
-        // check that viewNet exist
+        // check that net exist
         if (myViewNet == nullptr) {
             throw ProcessError("ViewNet doesn't exist");
         }

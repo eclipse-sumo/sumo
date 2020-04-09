@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
@@ -91,7 +92,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VClassRow::setVariable() {
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_VCLASS) != myComboBoxVClass->getText().text()) {
             // update VClass in VType
             myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_VCLASS, myComboBoxVClass->getText().text(),
-                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
             // update label image
             setVClassLabelImage();
             // obtain default vType parameters
@@ -280,7 +281,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VShapeRow::setVariable() {
     if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text())) {
         myComboBoxShape->setTextColor(FXRGB(0, 0, 0));
         myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_GUISHAPE, myComboBoxShape->getText().text(),
-                myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+                myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
         setVShapeLabelImage();
     } else {
         myComboBoxShape->setTextColor(FXRGB(255, 0, 0));
@@ -436,7 +437,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
         // set color of myComboBox, depending if current value is valid or not
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myComboBox->getText().text())) {
             myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myComboBox->getText().text(),
-                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
             // update value after setting it
             updateValue();
         } else {
@@ -454,7 +455,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
             } else {
                 myTextField->setTextColor(FXRGB(195, 195, 195));
             }
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, myTextField->getText().text(), myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_COLOR, myTextField->getText().text(), myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
         } else {
             myTextField->setTextColor(FXRGB(255, 0, 0));
             myVTypeAtributesParent->myVehicleTypeDialog->myVehicleTypeValid = false;
@@ -464,7 +465,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable() {
         // set color of textField, depending if current value is valid or not
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myTextField->getText().text())) {
             myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myTextField->getText().text(),
-                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
             // update value after setting it
             updateValue();
         } else {
@@ -483,7 +484,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable(const std::
         // set color of myComboBox, depending if current value is valid or not
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myComboBox->getText().text())) {
             myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myComboBox->getText().text(),
-                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
             // update value after setting it
             updateValue(defaultValue);
         } else {
@@ -496,7 +497,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setVariable(const std::
         // set color of textField, depending if current value is valid or not
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, myTextField->getText().text())) {
             myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myTextField->getText().text(),
-                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+                    myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
             // update value after setting it
             updateValue(defaultValue);
         } else {
@@ -588,7 +589,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openColorDialog() {
         std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
         myTextField->setText(newValue.c_str());
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, newValue)) {
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, newValue, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, newValue, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
             // If previously value was incorrect, change font color to black
             myTextField->setTextColor(FXRGB(0, 0, 0));
             myTextField->killFocus();
@@ -614,7 +615,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openImageFileDialog() {
         std::string imagePath = opendialog.getFilename().text();
         // check if image is valid
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, imagePath)) {
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, imagePath, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, imagePath, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
             myTextField->setText(imagePath.c_str());
             // If previously value was incorrect, change font color to black
             myTextField->setTextColor(FXRGB(0, 0, 0));
@@ -641,7 +642,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openOSGFileDialog() {
         std::string imagePath = opendialog.getFilename().text();
         // check if image is valid
         if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->isValid(myAttr, imagePath)) {
-            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, imagePath, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+            myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, imagePath, myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
             myTextField->setText(imagePath.c_str());
             // If previously value was incorrect, change font color to black
             myTextField->setTextColor(FXRGB(0, 0, 0));
@@ -1015,10 +1016,10 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, v
     // set color of myTextFieldVehicleTypeID, depending if current value is valid or not
     if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text())) {
         myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     } else if (myVehicleTypeDialog->myEditedDemandElement->getAttribute(SUMO_ATTR_ID) == myTextFieldVehicleTypeID->getText().text()) {
         myTextFieldVehicleTypeID->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_ID, myTextFieldVehicleTypeID->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     } else {
         myTextFieldVehicleTypeID->setTextColor(FXRGB(255, 0, 0));
         myVehicleTypeDialog->myVehicleTypeValid = false;
@@ -1435,7 +1436,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::onCmdSetVariable(FXObject*, F
     // set color of myTextFieldCarFollowModel, depending if current value is valid or not
     if (myVehicleTypeDialog->myEditedDemandElement->isValid(SUMO_ATTR_CAR_FOLLOW_MODEL, myComboBoxCarFollowModel->getText().text())) {
         myComboBoxCarFollowModel->setTextColor(FXRGB(0, 0, 0));
-        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL, myComboBoxCarFollowModel->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+        myVehicleTypeDialog->myEditedDemandElement->setAttribute(SUMO_ATTR_CAR_FOLLOW_MODEL, myComboBoxCarFollowModel->getText().text(), myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
     } else {
         myComboBoxCarFollowModel->setTextColor(FXRGB(255, 0, 0));
         myVehicleTypeDialog->myVehicleTypeValid = false;
@@ -1476,7 +1477,7 @@ GNEVehicleTypeDialog::GNEVehicleTypeDialog(GNEDemandElement* editedVehicleType, 
 
     // add element if we aren't updating an existent element
     if (myUpdatingElement == false) {
-        myEditedDemandElement->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElement, true), true);
+        myEditedDemandElement->getNet()->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(myEditedDemandElement, true), true);
     }
 
     // update values of Vehicle Type common attributes
@@ -1566,7 +1567,7 @@ GNEVehicleTypeDialog::CarFollowingModelParameters::CarFollowingModelRow::setVari
             myTextField->setTextColor(FXRGB(195, 195, 195));
         }
         myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->setAttribute(myAttr, myTextField->getText().text(),
-                myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getViewNet()->getUndoList());
+                myCarFollowingModelParametersParent->myVehicleTypeDialog->myEditedDemandElement->getNet()->getViewNet()->getUndoList());
         // update value after setting it
         updateValue();
     } else {

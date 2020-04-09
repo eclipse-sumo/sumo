@@ -34,10 +34,10 @@ class GNETAZ : public GNEAdditional, protected GNEMoveShape {
 public:
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] block movement enable or disable additional movement
      */
-    GNETAZ(const std::string& id, GNEViewNet* viewNet, PositionVector shape, RGBColor color, bool blockMovement);
+    GNETAZ(const std::string& id, GNENet *net, PositionVector shape, RGBColor color, bool blockMovement);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();

@@ -82,9 +82,6 @@ public:
     /// @brief Returns the numerical id of the object
     virtual GUIGlID getGlID() const = 0;
 
-    /// @brief get Net in which this element is placed
-    GNENet* getNet() const;
-
     /// @brief return true if movement is blocked
     bool isMovementBlocked() const;
 
@@ -199,9 +196,6 @@ public:
     /// @}
 
 protected:
-    /// @brief the net to inform about updates
-    GNENet* myNet;
-
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 

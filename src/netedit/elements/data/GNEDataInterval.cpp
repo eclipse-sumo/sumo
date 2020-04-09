@@ -24,6 +24,7 @@
 // ===========================================================================
 #include <config.h>
 
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
@@ -46,7 +47,7 @@
 // ---------------------------------------------------------------------------
 
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
-    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL),
+    GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet()),
     myDataSetParent(dataSetParent),
     myBegin(begin),
     myEnd(end) {
@@ -82,12 +83,6 @@ GNEDataInterval::getID() const {
 GUIGlObject* 
 GNEDataInterval::getGUIGlObject() {
     return nullptr;
-}
-
-
-GNEViewNet*
-GNEDataInterval::getViewNet() const {
-    return myDataSetParent->getViewNet();
 }
 
 
@@ -154,8 +149,8 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
         // remove generic data child
         myGenericDataChildren.erase(it);
         // remove it from Inspector Frame and AttributeCarrierHierarchy
-        myDataSetParent->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(genericData);
-        myDataSetParent->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(genericData);
+        myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(genericData);
+        myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(genericData);
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }
@@ -289,7 +284,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     switch (key) {
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
-            undoList->p_add(new GNEChange_Attribute(this, myDataSetParent->getViewNet()->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myDataSetParent->getNet(), key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

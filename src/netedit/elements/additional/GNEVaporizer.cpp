@@ -34,8 +34,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNEViewNet* viewNet, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
-    GNEAdditional(edge->getID(), viewNet, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, 
+GNEVaporizer::GNEVaporizer(GNENet *net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
+    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, 
         {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myBegin(begin),
     myEnd(end) {
@@ -73,11 +73,11 @@ GNEVaporizer::updateGeometry() {
 
 void
 GNEVaporizer::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
                                           myAdditionalGeometry.getPosition(),
                                           myAdditionalGeometry.getRotation(),
-                                          myViewNet->getVisualisationSettings().additionalSettings.vaporizerSize,
-                                          myViewNet->getVisualisationSettings().additionalSettings.vaporizerSize);
+                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.vaporizerSize,
+                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.vaporizerSize);
 }
 
 
@@ -130,7 +130,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double vaporizerExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(vaporizerExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(vaporizerExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get values
         const int numberOfLanes = int(getParentEdges().front()->getLanes().size());
         const double width = (double) 2.0 * s.scale;
@@ -201,7 +201,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), vaporizerExaggeration, myDottedGeometry);
         }
         // pop name
@@ -258,7 +258,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLis
         case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -271,7 +271,7 @@ GNEVaporizer::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            if (myViewNet->getNet()->retrieveEdge(value, false) != nullptr) {
+            if (myNet->retrieveEdge(value, false) != nullptr) {
                 return isValidAdditionalID(value);
             } else {
                 return false;
@@ -326,7 +326,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             replaceParentEdges(this, value);
             break;
         case SUMO_ATTR_BEGIN:

@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getViewNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
+    GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
         {}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}),
     myTime(0),
     mySpeed(0) {
@@ -49,7 +49,7 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
-    GNEAdditional(variableSpeedSignParent, variableSpeedSignParent->getViewNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
+    GNEAdditional(variableSpeedSignParent, variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
         {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}, {}, {}, {}, {}),
     myTime(time),
     mySpeed(speed) {
@@ -159,7 +159,7 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         case SUMO_ATTR_TIME:
         case SUMO_ATTR_SPEED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -226,7 +226,7 @@ void
 GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_TIME:
             myTime = parse<double>(value);

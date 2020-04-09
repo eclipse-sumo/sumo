@@ -34,13 +34,13 @@ class GNEVehicleType : public GNEDemandElement, public SUMOVTypeParameter {
 
 public:
     /// @brief constructor for default VTypes
-    GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag);
+    GNEVehicleType(GNENet *net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag);
 
     /// @brief constructor
-    GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag);
+    GNEVehicleType(GNENet *net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag);
 
     /// @brief copy constructor
-    GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal);
+    GNEVehicleType(GNENet *net, const std::string& vTypeID, GNEVehicleType* vTypeOriginal);
 
     /// @brief destructor
     ~GNEVehicleType();

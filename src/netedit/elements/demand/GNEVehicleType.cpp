@@ -35,8 +35,8 @@
 // ===========================================================================
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
-    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, tag,
+GNEVehicleType::GNEVehicleType(GNENet *net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, tag,
         {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
@@ -49,8 +49,8 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, 
 }
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
-    GNEDemandElement(vTypeParameter.id, viewNet, GLO_VTYPE, tag,
+GNEVehicleType::GNEVehicleType(GNENet *net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
+    GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, tag,
         {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
@@ -65,8 +65,8 @@ GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const SUMOVTypeParameter& vT
 }
 
 
-GNEVehicleType::GNEVehicleType(GNEViewNet* viewNet, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
-    GNEDemandElement(vTypeID, viewNet, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(),
+GNEVehicleType::GNEVehicleType(GNENet *net, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
+    GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(),
 {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
 SUMOVTypeParameter(*vTypeOriginal),
 myDefaultVehicleType(false),
@@ -186,7 +186,7 @@ GNEVehicleType::getPositionInView() const {
 
 std::string
 GNEVehicleType::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return myNet->getMicrosimID();
 }
 
 
@@ -211,12 +211,12 @@ GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
 
 void
 GNEVehicleType::selectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_VTYPE);
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_VTYPE);
         if (changeFlag) {
             mySelected = true;
         }
@@ -226,12 +226,12 @@ GNEVehicleType::selectAttributeCarrier(bool changeFlag) {
 
 void
 GNEVehicleType::unselectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_VTYPE);
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_VTYPE);
         if (changeFlag) {
             mySelected = false;
 
@@ -543,7 +543,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -631,12 +631,12 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
-                undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true"));
+                undoList->p_add(new GNEChange_Attribute(this, myNet, true, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true"));
             }
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, true, key, value));
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), true, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, true, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -654,8 +654,8 @@ GNEVehicleType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // Vtypes and PTypes shares namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
-                    (myViewNet->getNet()->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
+                    (myNet->retrieveDemandElement(SUMO_TAG_VTYPE, value, false) == nullptr) &&
+                    (myNet->retrieveDemandElement(SUMO_TAG_PTYPE, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -1194,7 +1194,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value) {
     VClassDefaultValues defaultValues(vehicleClass);
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             // manually change VType parameters ID
             id = value;
             break;

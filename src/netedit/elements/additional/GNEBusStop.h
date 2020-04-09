@@ -35,7 +35,7 @@ public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] startPos Start position of the StoppingPlace
      * @param[in] endPos End position of the StoppingPlace
      * @param[in] name Name of busStop
@@ -43,7 +43,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
+    GNEBusStop(const std::string& id, GNELane* lane, GNENet *net, const double startPos, const double endPos, const int parametersSet,
                const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor

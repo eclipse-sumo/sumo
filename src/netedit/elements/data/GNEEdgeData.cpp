@@ -25,6 +25,7 @@
 #include <config.h>
 
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
@@ -145,7 +146,7 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     switch (key) {
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, getViewNet()->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -228,7 +229,7 @@ GNEEdgeData::setEnabledAttribute(const int /*enabledAttributes*/) {
 bool 
 GNEEdgeData::isVisible() const {
     // obtain pointer to edge data frame (only for code legibly)
-    const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
+    const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
     // check if we have to filter generic data
     if (edgeDataFrame->shown()) {
         // check interval

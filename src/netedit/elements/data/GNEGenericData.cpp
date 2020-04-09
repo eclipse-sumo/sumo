@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEGenericData.h>
@@ -58,7 +59,7 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, dataIntervalParent->getID()),
-    GNEAttributeCarrier(tag),
+    GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
     Parameterised(ParameterisedAttrType::DOUBLE, parameters),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
@@ -90,11 +91,11 @@ GNEGenericData::getDataIntervalParent() const {
 const RGBColor&
 GNEGenericData::getColor() const {
     // first check if we're in supermode demand
-    if (myDataIntervalParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    if (myDataIntervalParent->getNet()->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         // special case for edgeDatas
         if (myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
             // obtain pointer to edge data frame (only for code legibly)
-            const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
+            const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
             // check if we have to filter generic data
             if (edgeDataFrame->shown()) {
                 // get interval
@@ -120,18 +121,20 @@ GNEGenericData::getColor() const {
 
 bool
 GNEGenericData::isGenericDataVisible() const {
+    // get pointer to ViewNet
+    GNEViewNet *viewNet = myDataIntervalParent->getNet()->getViewNet();
     // first check if we're in supermode demand
-    if (myDataIntervalParent->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    if (viewNet->getEditModes().isCurrentSupermodeData()) {
         // check if we're in common mode
-        if ((myDataIntervalParent->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) ||
-            (myDataIntervalParent->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_DELETE) ||
-            (myDataIntervalParent->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_SELECT)) {
+        if ((viewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) ||
+            (viewNet->getEditModes().dataEditMode == DataEditMode::DATA_DELETE) ||
+            (viewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT)) {
             // obtain dataset, begin, end and attribute
-            const std::string genericDataType = myDataIntervalParent->getViewNet()->getIntervalBar().getGenericDataTypeStr();
-            const std::string dataSet = myDataIntervalParent->getViewNet()->getIntervalBar().getDataSetStr();
-            const std::string begin = myDataIntervalParent->getViewNet()->getIntervalBar().getBeginStr();
-            const std::string end = myDataIntervalParent->getViewNet()->getIntervalBar().getEndStr();
-            const std::string attribute = myDataIntervalParent->getViewNet()->getIntervalBar().getAttributeStr();
+            const std::string genericDataType = viewNet->getIntervalBar().getGenericDataTypeStr();
+            const std::string dataSet = viewNet->getIntervalBar().getDataSetStr();
+            const std::string begin = viewNet->getIntervalBar().getBeginStr();
+            const std::string end = viewNet->getIntervalBar().getEndStr();
+            const std::string attribute = viewNet->getIntervalBar().getAttributeStr();
             // chek genericData Type
             if (!genericDataType.empty() && (myTagProperty.getTagStr() != genericDataType)) {
                 return false;
@@ -169,7 +172,7 @@ void
 GNEGenericData::drawAttribute(const PositionVector& shape) const {
     if ((myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) && (shape.length() > 0)) {
         // obtain pointer to edge data frame (only for code legibly)
-        const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeDataFrame();
+        const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
         // check if we have to filter generic data
         if (edgeDataFrame->shown()) {
             // check attribute
@@ -208,12 +211,6 @@ GNEGenericData::fixGenericDataProblem() {
 }
 
 
-GNEViewNet*
-GNEGenericData::getViewNet() const {
-    return myDataIntervalParent->getViewNet();
-}
-
-
 GUIGLObjectPopupMenu* 
 GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -227,7 +224,7 @@ GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
-    myDataIntervalParent->getViewNet()->buildSelectionACPopupEntry(ret, this);
+    myDataIntervalParent->getNet()->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
     if (myTagProperty.hasDialog()) {
@@ -269,7 +266,7 @@ void
 GNEGenericData::selectAttributeCarrier(bool changeFlag) {
     gSelected.select(getGlID());
     // add object into list of selected objects
-    myDataIntervalParent->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
+    myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
     if (changeFlag) {
         mySelected = true;
     }
@@ -280,7 +277,7 @@ void
 GNEGenericData::unselectAttributeCarrier(bool changeFlag) {
     gSelected.deselect(getGlID());
     // remove object of list of selected objects
-    myDataIntervalParent->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
+    myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
     if (changeFlag) {
         mySelected = false;
     }
@@ -295,7 +292,7 @@ GNEGenericData::isAttributeCarrierSelected() const {
 
 bool
 GNEGenericData::drawUsingSelectColor() const {
-    if (mySelected && (myDataIntervalParent->getViewNet()->getEditModes().isCurrentSupermodeDemand())) {
+    if (mySelected && (myDataIntervalParent->getNet()->getViewNet()->getEditModes().isCurrentSupermodeDemand())) {
         return true;
     } else {
         return false;

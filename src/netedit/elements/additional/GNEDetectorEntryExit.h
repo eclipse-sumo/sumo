@@ -37,14 +37,14 @@ class GNEDetectorEntryExit  : public GNEDetector {
 public:
     /**@brief Constructor
      * @param[in] entryExitTag Child Tag (Either SUMO_TAG_DET_ENTRY or SUMO_TAG_DET_EXIT)
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parent pointer to GNEDetectorE3 of this GNEDetectorEntryExit belongs
      * @param[in] lane Lane of this detector is placed
      * @param[in] pos position of the detector on the lane
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNEViewNet* viewNet, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
+    GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement);
 
     /// @brief destructor
     ~GNEDetectorEntryExit();

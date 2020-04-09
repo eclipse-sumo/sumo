@@ -33,8 +33,10 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement, 
+GNERerouter::GNERerouter(const std::string& id, GNENet *net, const Position& pos, 
+    const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, 
+    double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
+    GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement, 
         {}, {}, {}, {}, {}, {}, edges, {}, {}, {}, {}, {}),
     myPosition(pos),
     myFilename(filename),
@@ -70,9 +72,9 @@ GNERerouter::updateGeometry() {
 
 void
 GNERerouter::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
-                                          myViewNet->getVisualisationSettings().additionalSettings.rerouterSize,
-                                          myViewNet->getVisualisationSettings().additionalSettings.rerouterSize);
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myPosition, 0,
+                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.rerouterSize,
+                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.rerouterSize);
 }
 
 
@@ -115,7 +117,7 @@ GNERerouter::moveGeometry(const Position& offset) {
     myPosition = myMove.originalViewPosition;
     myPosition.add(offset);
     // filtern position using snap to active grid
-    myPosition = myViewNet->snapToActiveGrid(myPosition);
+    myPosition = myNet->getViewNet()->snapToActiveGrid(myPosition);
     updateGeometry();
 }
 
@@ -124,14 +126,14 @@ void
 GNERerouter::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
 
 std::string
 GNERerouter::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return myNet->getMicrosimID();
 }
 
 
@@ -140,7 +142,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double rerouterExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(rerouterExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(rerouterExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -172,7 +174,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // Draw child connections
         drawChildConnections(s, getType());
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), rerouterExaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
@@ -234,7 +236,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
     switch (key) {
         case SUMO_ATTR_ID: {
             // change ID of Rerouter Interval
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             // Change Ids of all Rerouter interval children
             for (auto i : getChildAdditionals()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_INTERVAL), undoList);
@@ -252,7 +254,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -269,7 +271,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
             if (value.empty()) {
                 return false;
             } else {
-                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+                return canParse<std::vector<GNEEdge*> >(myNet, value, false);
             }
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
@@ -326,15 +328,15 @@ void
 GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_EDGES:
             changeChildEdges(this, value);
             break;
         case SUMO_ATTR_POSITION:
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

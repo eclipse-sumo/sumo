@@ -31,7 +31,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEViewNet;
+class GNENet;
 class GNEAdditional;
 class GNEDemandElement;
 class GNENetworkElement;
@@ -69,7 +69,7 @@ public:
 
     /**@brief Constructor
      * @param[in] id Gl-id of the demand element element (Must be unique)
-     * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
+     * @param[in] net pointer to GNEViewNet of this demand element element belongs
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
      * @param[in] edgeParents vector of edge parents
@@ -85,7 +85,7 @@ public:
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
      */
-    GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
+    GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
@@ -101,7 +101,7 @@ public:
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
-     * @param[in] viewNet pointer to GNEViewNet of this demand element element belongs
+     * @param[in] net pointer to GNEViewNet of this demand element element belongs
      * @param[in] type GUIGlObjectType of demand element
      * @param[in] tag Type of xml tag that define the demand element element (SUMO_TAG_ROUTE, SUMO_TAG_VEHICLE, etc...)
      * @param[in] edgeParents vector of edge parents
@@ -117,7 +117,7 @@ public:
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
      */
-    GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
+    GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
@@ -251,9 +251,6 @@ public:
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
     /// @}
 
-    /// @brief Returns a pointer to GNEViewNet in which demand element element is located
-    GNEViewNet* getViewNet() const;
-
     /// @name inherited from GUIGlObject
     /// @{
 
@@ -360,9 +357,6 @@ public:
     GNELane* getLastAllowedVehicleLane() const;
 
 protected:
-    /// @brief The GNEViewNet this demand element element belongs
-    GNEViewNet* myViewNet;
-
     /// @brief demand element geometry (also called "stacked geometry")
     GNEGeometry::Geometry myDemandElementGeometry;
 

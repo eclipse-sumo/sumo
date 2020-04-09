@@ -251,7 +251,7 @@ public:
 
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
-     * @brief viewNet viewNet that uses this GNEFrame
+     * @brief net net that uses this GNEFrame
      */
     GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet);
 

@@ -34,7 +34,7 @@ public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] filename The path to the output file.
      * @param[in] vehicleTypes space separated list of vehicle type ids to consider
@@ -42,7 +42,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
+    GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet *net, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor
     ~GNEDetectorE1Instant();

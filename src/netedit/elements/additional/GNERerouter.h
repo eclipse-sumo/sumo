@@ -38,7 +38,7 @@ class GNERerouter : public GNEAdditional {
 public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position (center) of the rerouter in the map
      * @param[in] edges vector with the edges of rerotuer
      * @param[in] name Rerouter name
@@ -47,7 +47,7 @@ public:
      * @param[in] off Whether the router should be inactive initially
      * @param[in] block movement enable or disable additional movement
      */
-    GNERerouter(const std::string& id, GNEViewNet* viewNet, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name,
+    GNERerouter(const std::string& id, GNENet *net, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name,
                 const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement);
 
     /// @brief Destructor

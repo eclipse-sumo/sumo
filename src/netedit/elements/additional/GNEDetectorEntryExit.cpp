@@ -34,8 +34,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNEViewNet* viewNet, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent, viewNet, GLO_DET_ENTRY, entryExitTag, pos, 0, "", "", friendlyPos, blockMovement, {lane}) {
+GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet *net, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
+    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, "", "", friendlyPos, blockMovement, {lane}) {
     //check that this is a TAZ Source OR a TAZ Sink
     if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
         throw InvalidArgument("Invalid E3 Child Tag");
@@ -80,7 +80,7 @@ GNEDetectorEntryExit::fixAdditionalProblem() {
     // fix pos and length  checkAndFixDetectorPosition
     GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
     // set new position
-    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myViewNet->getUndoList());
+    setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
 }
 
 
@@ -90,7 +90,7 @@ GNEDetectorEntryExit::moveGeometry(const Position& offset) {
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
     // filtern position using snap to active grid
-    newPosition = myViewNet->snapToActiveGrid(newPosition);
+    newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
     const bool storeNegative = myPositionOverLane < 0;
     myPositionOverLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
     if (storeNegative) {
@@ -105,7 +105,7 @@ void
 GNEDetectorEntryExit::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
     undoList->p_end();
 }
 
@@ -134,11 +134,11 @@ GNEDetectorEntryExit::updateGeometry() {
 
 void
 GNEDetectorEntryExit::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
                                           myAdditionalGeometry.getPosition(),
                                           myAdditionalGeometry.getRotation(),
-                                          myViewNet->getVisualisationSettings().detectorSettings.E3EntryExitWidth,
-                                          myViewNet->getVisualisationSettings().detectorSettings.E3EntryExitHeight);
+                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E3EntryExitWidth,
+                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E3EntryExitHeight);
 }
 
 
@@ -147,7 +147,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double entryExitExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(entryExitExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding gl identificator
         glPushName(getGlID());
         // Push detector matrix
@@ -255,7 +255,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
         }
         // pop gl identificator
@@ -303,7 +303,7 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case GNE_ATTR_PARENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -317,7 +317,7 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            return (myViewNet->getNet()->retrieveLane(value, false) != nullptr);
+            return (myNet->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
             return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
         case SUMO_ATTR_FRIENDLY_POS:
@@ -325,7 +325,7 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
         case GNE_ATTR_BLOCK_MOVEMENT:
             return canParse<bool>(value);
         case GNE_ATTR_PARENT:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_E3DETECTOR, value, false) != nullptr);
+            return (myNet->retrieveAdditional(SUMO_TAG_E3DETECTOR, value, false) != nullptr);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -346,7 +346,7 @@ void
 GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
             replaceParentLanes(this, value);

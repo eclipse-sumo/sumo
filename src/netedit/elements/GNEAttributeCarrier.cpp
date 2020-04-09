@@ -47,13 +47,20 @@ const double GNEAttributeCarrier::INVALID_POSITION(-1000000);
 // method definitions
 // ===========================================================================
 
-GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag) :
+GNEAttributeCarrier::GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net) :
     myTagProperty(getTagProperties(tag)),
+    myNet(net),
     mySelected(false) {
 }
 
 
 GNEAttributeCarrier::~GNEAttributeCarrier() {}
+
+
+GNENet* 
+GNEAttributeCarrier::getNet() const {
+    return myNet;
+}
 
 
 const GNEGeometry::DottedGeometry&

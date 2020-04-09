@@ -34,7 +34,7 @@ public:
     /**@brief Constructor for Single-Lane E2 detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lane Lane of this StoppingPlace belongs
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position of the detector on the lane
      * @param[in] length The length of the detector in meters.
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
@@ -47,13 +47,13 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE2(const std::string& id, GNELane* lane, GNEViewNet* viewNet, double pos, double length, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+    GNEDetectorE2(const std::string& id, GNELane* lane, GNENet *net, double pos, double length, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
                   const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /**@brief Constructor for Multi-Lane detectors
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] lanes vector of lanes Lane of this StoppingPlace belongs
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position of the detector on the first lane
      * @param[in] endPos position of the detector on the last lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
@@ -66,7 +66,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNEViewNet* viewNet, double pos, double endPos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet *net, double pos, double endPos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
                   const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor

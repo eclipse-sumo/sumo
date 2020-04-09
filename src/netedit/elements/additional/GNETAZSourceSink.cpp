@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent, TAZParent->getViewNet(), GLO_TAZ, sourceSinkTag, "", false, 
+    GNEAdditional(TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag, "", false,
         {edge}, {}, {}, {TAZParent}, {}, {}, {}, {}, {}, {}, {}, {}),
     myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
@@ -167,7 +167,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUnd
             case SUMO_ATTR_ID:
             case SUMO_ATTR_WEIGHT:
             case GNE_ATTR_PARAMETERS:
-                undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+                undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
                 break;
             default:
                 throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -222,7 +222,7 @@ void
 GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);

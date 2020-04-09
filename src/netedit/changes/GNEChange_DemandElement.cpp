@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
-    GNEChange(demandElement->getViewNet()->getNet(), demandElement, demandElement, forward),
+    GNEChange(demandElement->getNet(), demandElement, demandElement, forward),
     myDemandElement(demandElement),
     myEdgePath(demandElement->getPathEdges()) {
     myDemandElement->incRef("GNEChange_DemandElement");

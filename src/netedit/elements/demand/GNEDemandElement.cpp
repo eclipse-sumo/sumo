@@ -36,7 +36,7 @@
 // GNEDemandElement - methods
 // ---------------------------------------------------------------------------
 
-GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
+GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
@@ -50,15 +50,14 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNEViewNet* viewNet, G
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag),
+    GNEAttributeCarrier(tag, net),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myViewNet(viewNet),
     myStackedLabelNumber(0) {
 }
 
 
-GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag,
+GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
@@ -72,10 +71,10 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNEVie
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, demandElementParent->generateChildID(tag)),
-    GNEAttributeCarrier(tag),
+    GNEAttributeCarrier(tag, net),
     GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
-    myViewNet(viewNet) {
+    myStackedLabelNumber(0) {
 }
 
 
@@ -97,7 +96,7 @@ GNEDemandElement::getGUIGlObject() {
 std::string
 GNEDemandElement::generateChildID(SumoXMLTag childTag) {
     int counter = (int)getChildDemandElements().size();
-    while (myViewNet->getNet()->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
+    while (myNet->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
         counter++;
     }
     return (getID() + toString(childTag) + toString(counter));
@@ -170,12 +169,6 @@ GNEDemandElement::getBegin() const {
 }
 
 
-GNEViewNet*
-GNEDemandElement::getViewNet() const {
-    return myViewNet;
-}
-
-
 GUIGLObjectPopupMenu*
 GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -189,7 +182,7 @@ GNEDemandElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) 
     new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
-    myViewNet->buildSelectionACPopupEntry(ret, this);
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
@@ -222,7 +215,7 @@ GNEDemandElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 bool
 GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidVehicleID(newID) && (myViewNet->getNet()->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
+    if (SUMOXMLDefinitions::isValidVehicleID(newID) && (myNet->retrieveDemandElement(myTagProperty.getTag(), newID, false) == nullptr)) {
         return true;
     } else {
         return false;
@@ -399,7 +392,7 @@ GNEDemandElement::isAttributeCarrierSelected() const {
 
 bool
 GNEDemandElement::drawUsingSelectColor() const {
-    if (mySelected && (myViewNet->getEditModes().isCurrentSupermodeDemand())) {
+    if (mySelected && (myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand())) {
         return true;
     } else {
         return false;

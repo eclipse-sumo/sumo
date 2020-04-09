@@ -375,7 +375,7 @@ public:
      */
     void saveJoined(OptionsCont& oc);
 
-    /// @brief Set the viewNet to be notified of network changes
+    /// @brief Set the net to be notified of network changes
     void setViewNet(GNEViewNet* viewNet);
 
     /// @brief add GL Object into net
@@ -676,7 +676,7 @@ protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
 
-    /// @brief The viewNet to be notofied of about changes
+    /// @brief The net to be notofied of about changes
     GNEViewNet* myViewNet;
 
     /// @brief The internal netbuilder

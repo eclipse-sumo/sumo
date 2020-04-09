@@ -60,12 +60,11 @@ GNERoute::GNERoutePopupMenu::~GNERoutePopupMenu() {}
 long
 GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     GNERoute* route = static_cast<GNERoute*>(myObject);
-    GNEViewNet* viewNet = static_cast<GNEViewNet*>(myParent);
-    GNEUndoList* undoList =  route->myViewNet->getUndoList();
+    GNEUndoList* undoList = route->myNet->getViewNet()->getUndoList();
     undoList->p_begin("apply distance along route");
     double dist = (route->getParentEdges().size() > 0) ? route->getParentEdges().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getParentEdges()) {
-        undoList->p_add(new GNEChange_Attribute(edge, viewNet->getNet(), SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
+        undoList->p_add(new GNEChange_Attribute(edge, route->myNet, SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
         dist += edge->getNBEdge()->getFinalLength();
     }
     undoList->p_end();
@@ -76,8 +75,8 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // GNERoute - methods
 // ===========================================================================
 
-GNERoute::GNERoute(GNEViewNet* viewNet) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), viewNet, GLO_ROUTE, SUMO_TAG_ROUTE,
+GNERoute::GNERoute(GNENet *net) :
+    GNEDemandElement(myNet->generateDemandElementID("", SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
         {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(RGBColor::YELLOW),
@@ -85,8 +84,8 @@ GNERoute::GNERoute(GNEViewNet* viewNet) :
 }
 
 
-GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& routeParameters) :
-    GNEDemandElement(routeParameters.routeID, viewNet, GLO_ROUTE, SUMO_TAG_ROUTE, routeParameters.edges,
+GNERoute::GNERoute(GNENet *net, const GNERouteHandler::RouteParameter& routeParameters) :
+    GNEDemandElement(routeParameters.routeID, net, GLO_ROUTE, SUMO_TAG_ROUTE, routeParameters.edges,
         {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
@@ -94,8 +93,8 @@ GNERoute::GNERoute(GNEViewNet* viewNet, const GNERouteHandler::RouteParameter& r
 }
 
 
-GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), viewNet, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE, 
+GNERoute::GNERoute(GNENet *net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
+    GNEDemandElement(myNet->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), net, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE, 
         routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
@@ -104,7 +103,7 @@ GNERoute::GNERoute(GNEViewNet* viewNet, GNEDemandElement* vehicleParent, const G
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
-    GNEDemandElement(route->getViewNet()->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getViewNet(), GLO_ROUTE, SUMO_TAG_ROUTE, 
+    GNEDemandElement(route->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE, 
         route->getParentEdges(), {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(route->getColor()),
@@ -128,7 +127,7 @@ GNERoute::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
-    myViewNet->buildSelectionACPopupEntry(ret, this);
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
@@ -335,12 +334,12 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNERoute::selectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -350,12 +349,12 @@ GNERoute::selectAttributeCarrier(bool changeFlag) {
 
 void
 GNERoute::unselectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
         if (changeFlag) {
             mySelected = false;
 
@@ -400,7 +399,7 @@ GNERoute::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* u
         case SUMO_ATTR_COLOR:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -414,9 +413,9 @@ GNERoute::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidDemandElementID(value);
         case SUMO_ATTR_EDGES:
-            if (canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false)) {
+            if (canParse<std::vector<GNEEdge*> >(myNet, value, false)) {
                 // all edges exist, then check if compounds a valid route
-                return isRouteValid(parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value)).empty();
+                return isRouteValid(parse<std::vector<GNEEdge*> >(myNet, value)).empty();
             } else {
                 return false;
             }
@@ -501,7 +500,7 @@ void
 GNERoute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_EDGES:
             replaceParentEdges(this, value);

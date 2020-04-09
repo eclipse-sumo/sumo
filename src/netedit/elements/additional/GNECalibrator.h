@@ -41,7 +41,7 @@ public:
 
     /**@brief Constructor using edge
     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] net pointer to GNENet of this additional element belongs
     * @param[in] edge Edge of this calibrator belongs
     * @param[in] pos position of the calibrator on the edge (Currently not used)
     * @param[in] frequency the aggregation interval in which to calibrate the flows
@@ -51,11 +51,11 @@ public:
     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
     */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe);
+    GNECalibrator(const std::string& id, GNENet *net, GNEEdge* edge, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe);
 
     /**@brief Constructor using lane
     * @param[in] id The storage of gl-ids to get the one for this lane representation from
-    * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+    * @param[in] net pointer to GNENet of this additional element belongs
     * @param[in] lane Lane of this calibrator belongs
     * @param[in] pos position of the calibrator on the edge (Currently not used)
     * @param[in] frequency the aggregation interval in which to calibrate the flows
@@ -65,7 +65,7 @@ public:
     * @param[in] calibratorRoutes vector with the calibratorRoutes of calibrator
     * @param[in] calibratorFlows vector with the calibratorFlows of calibrator
     */
-    GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe);
+    GNECalibrator(const std::string& id, GNENet *net, GNELane* lane, double pos, SUMOTime frequency, const std::string& name, const std::string& output, const std::string& routeprobe);
 
     /// @brief Destructor
     ~GNECalibrator();

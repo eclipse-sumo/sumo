@@ -23,6 +23,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/additional/GNERerouter.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
@@ -148,7 +149,7 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     for (int i = 0; i < (int)myEditedAdditional->getChildAdditionals().size(); i++) {
         if (myIntervalTable->getItem(i, 2)->hasFocus()) {
             // remove interval
-            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getChildAdditionals().at(i), false), true);
+            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getChildAdditionals().at(i), false), true);
             // update interval table after removing
             updateIntervalTable();
             return 1;

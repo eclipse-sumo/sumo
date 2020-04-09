@@ -1487,7 +1487,7 @@ GNETAZFrame::shapeDrawed() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesOfElement, getPredefinedTagsMML(), toString(SUMO_TAG_TAZ));
         // return true if TAZ was successfully created
-        return GNEAdditionalHandler::buildAdditional(myViewNet, true, SUMO_TAG_TAZ, SUMOSAXAttrs, nullptr);
+        return GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, SUMO_TAG_TAZ, SUMOSAXAttrs, nullptr);
     }
 }
 

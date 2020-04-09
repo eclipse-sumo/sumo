@@ -34,7 +34,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class GNEViewNet;
+class GNENet;
 class GNEEdge;
 class GNEEdgeData;
 class GNEEdgeRelData;
@@ -86,7 +86,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEDataHandler(const std::string& file, GNEViewNet* viewNet);
+    GNEDataHandler(const std::string& file, GNENet *net);
 
     /// @brief Destructor
     ~GNEDataHandler();
@@ -122,40 +122,40 @@ public:
      * @param[in] HierarchyInsertedDatas pointer to HierarchyInsertedDatas (can be null)
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildData(GNEViewNet* viewNet, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+    static bool buildData(GNENet *net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /**@brief Builds DataSet
-     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] net GNENet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
      * @param[in] dataSetID data set interval
      * @exception InvalidArgument If the DataSet can not be added to the net
      */
-    static GNEDataSet* buildDataSet(GNEViewNet* viewNet, bool allowUndoRedo, const std::string& dataSetID);
+    static GNEDataSet* buildDataSet(GNENet *net, bool allowUndoRedo, const std::string& dataSetID);
 
     /**@brief Builds DataInterval
-     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] net GNENet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
      * @param[in] dataSet GNEDataInterval in which this DataInterval is saved
      * @param[in] begin interval begin
      * @param[in] end interval end
      * @exception InvalidArgument If the DataInterval can not be added to the net
      */
-    static GNEDataInterval* buildDataInterval(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataSet* dataSetParent, 
+    static GNEDataInterval* buildDataInterval(GNENet *net, bool allowUndoRedo, GNEDataSet* dataSetParent, 
         const double begin, const double end);
 
     /**@brief Builds edgeData
-     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] net GNENet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
      * @param[in] dataIntervalParent GNEDataInterval in which this edgeData is saved
      * @param[in] edge GNEEdge parent
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
-    static GNEEdgeData* buildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
+    static GNEEdgeData* buildEdgeData(GNENet *net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
         GNEEdge* edge, const std::map<std::string, std::string>& parameters);
     
     /**@brief Builds edgeRelationData
-     * @param[in] viewNet viewNet in which element will be inserted
+     * @param[in] net GNENet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
      * @param[in] dataIntervalParent GNEDataInterval in which this edgeRelationData is saved
      * @param[in] fromEdge GNEEdge from
@@ -163,7 +163,7 @@ public:
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeRelationData can not be added to the net
      */
-    static GNEEdgeRelData* buildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
+    static GNEEdgeRelData* buildEdgeRelationData(GNENet *net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
         GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters);
 
 protected:
@@ -176,17 +176,17 @@ protected:
     /**@brief Parses his values and builds a interval
      * @param[in] attrs SAX-attributes which define the data
      */
-    static bool parseAndBuildInterval(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+    static bool parseAndBuildInterval(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /**@brief Parses his values and builds a edge data
      * @param[in] attrs SAX-attributes which define the data
      */
-    static bool parseAndBuildEdgeData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+    static bool parseAndBuildEdgeData(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /**@brief Parses his values and builds a edge relation data
      * @param[in] attrs SAX-attributes which define the data
      */
-    static bool parseAndBuildEdgeRelationData(GNEViewNet* viewNet, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+    static bool parseAndBuildEdgeRelationData(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /// @}
 
@@ -196,8 +196,8 @@ private:
      */
     void parseParameter(const SUMOSAXAttributes& attrs);
 
-    /// @brief pointer to View's Net
-    GNEViewNet* myViewNet;
+    /// @brief pointer to net
+    GNENet* myNet;
 
     /// @brief HierarchyInsertedDatas used for insert children
     HierarchyInsertedDatas myHierarchyInsertedGenericDatas;

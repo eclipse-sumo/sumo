@@ -346,7 +346,7 @@ struct GNEViewNetHelper {
         FXButton* saveDataElements;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief Invalidated copy constructor.
@@ -405,7 +405,7 @@ struct GNEViewNetHelper {
         MFXCheckableButton* dataButton;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief the current supermode
@@ -487,7 +487,7 @@ struct GNEViewNetHelper {
         /// @brief menu check to create auto create opposite edge
         FXMenuCheck* menuCheckAutoOppositeEdge;
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief Invalidated copy constructor.
@@ -552,7 +552,7 @@ struct GNEViewNetHelper {
         FXMenuCheck* menuCheckLockPerson;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief pointer to locked person
@@ -598,7 +598,7 @@ struct GNEViewNetHelper {
         /// @brief menu check to show Demand Elements
         FXMenuCheck* menuCheckShowDemandElements;
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief Invalidated copy constructor.
@@ -688,7 +688,7 @@ struct GNEViewNetHelper {
         /// @brief flag to enable or disable update interval bar
         bool myIntervalBarUpdate;
 
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief combo box for generic data types
@@ -763,7 +763,7 @@ struct GNEViewNetHelper {
         /// calculate TAZ movement values (Position, Index, etc.)
         bool calculateTAZValues();
 
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
@@ -816,7 +816,7 @@ struct GNEViewNetHelper {
         bool isMovingSelection() const;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief original clicked position when moveSelection is called (used for calculate offset during moveSelection())
@@ -845,7 +845,7 @@ struct GNEViewNetHelper {
         void hideVehicleOptionsMenuChecks();
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
 
@@ -862,7 +862,7 @@ struct GNEViewNetHelper {
         void hideVehicleTypeOptionsMenuChecks();
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
 
@@ -910,7 +910,7 @@ struct GNEViewNetHelper {
         /// @brief second corner of the rectangle-selection
         Position selectionCorner2;
 
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
 
@@ -930,16 +930,16 @@ struct GNEViewNetHelper {
         bool isTestingEnabled() const;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief flag to enable or disable testing mode
         bool myTestingEnabled;
 
-        /// @brief Width of viewNet in testing mode
+        /// @brief Width of net in testing mode
         int myTestingWidth;
 
-        /// @brief Height of viewNet in testing mode
+        /// @brief Height of net in testing mode
         int myTestingHeight;
     };
 
@@ -974,7 +974,7 @@ struct GNEViewNetHelper {
         MFXCheckableButton* selectButton;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
 
@@ -1027,7 +1027,7 @@ struct GNEViewNetHelper {
         MFXCheckableButton* prohibitionButton;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
 
@@ -1077,7 +1077,7 @@ struct GNEViewNetHelper {
         MFXCheckableButton* personPlanButton;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
 
@@ -1109,7 +1109,7 @@ struct GNEViewNetHelper {
         MFXCheckableButton* edgeRelDataButton;
 
     private:
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
 
@@ -1138,7 +1138,7 @@ struct GNEViewNetHelper {
         /// @brief the previous edit mode before edit NetworkElement's shapes
         NetworkEditMode myPreviousNetworkEditMode;
 
-        /// @brief pointer to viewNet
+        /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
 };

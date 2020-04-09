@@ -36,9 +36,9 @@
 // method definitions
 // ===========================================================================
 
-GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
+GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet *net, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, double angle, bool blockMovement) :
-    GNEStoppingPlace(id, viewNet, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
+    GNEStoppingPlace(id, net, GLO_PARKING_AREA, SUMO_TAG_PARKING_AREA, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
     myRoadSideCapacity(roadSideCapacity),
     myOnRoad(onRoad),
     myWidth(width),
@@ -54,7 +54,7 @@ void
 GNEParkingArea::updateGeometry() {
     // first check if object has to be removed from grid (SUMOTree)
     if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myViewNet->getNet()->removeGLObjectFromGrid(this);
+        myNet->removeGLObjectFromGrid(this);
     }
 
     // Get value of option "lefthand"
@@ -80,7 +80,7 @@ GNEParkingArea::updateGeometry() {
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myViewNet->getNet()->addGLObjectIntoGrid(this);
+        myNet->addGLObjectIntoGrid(this);
     }
 
     // mark dotted geometry deprecated
@@ -90,7 +90,7 @@ GNEParkingArea::updateGeometry() {
 
 void
 GNEParkingArea::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myAdditionalGeometry.getShape(), myWidth);
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myAdditionalGeometry.getShape(), myWidth);
 }
 
 
@@ -120,7 +120,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(parkingAreaExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(parkingAreaExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -138,11 +138,11 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.stoppingPlaceSettings.parkingAreaColor);
         }
         // Draw base
-        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, myWidth * parkingAreaExaggeration);
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, myWidth * parkingAreaExaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForRectangleSelection) {
             // only draw circle depending of distance between sign and mouse cursor
-            if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
+            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
                 // Add a draw matrix for details
                 glPushMatrix();
                 // Start drawing sign traslating matrix to signal position
@@ -202,7 +202,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), parkingAreaExaggeration, myDottedGeometry);
         }
         // Pop name matrix
@@ -270,7 +270,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     switch (key) {
         case SUMO_ATTR_ID: {
             // change ID of Entry
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             // Change Ids of all Parking Spaces
             for (auto i : getChildAdditionals()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_PARKING_SPACE), undoList);
@@ -290,7 +290,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -304,7 +304,7 @@ GNEParkingArea::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
+            if (myNet->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -362,30 +362,30 @@ void
 GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
             replaceParentLanes(this, value);
             break;
         case SUMO_ATTR_STARTPOS:
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             if (!value.empty()) {
                 myStartPosition = parse<double>(value);
                 myParametersSet |= STOPPINGPLACE_STARTPOS_SET;
             } else {
                 myParametersSet &= ~STOPPINGPLACE_STARTPOS_SET;
             }
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_ENDPOS:
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             if (!value.empty()) {
                 myEndPosition = parse<double>(value);
                 myParametersSet |= STOPPINGPLACE_ENDPOS_SET;
             } else {
                 myParametersSet &= ~STOPPINGPLACE_ENDPOS_SET;
             }
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
@@ -400,9 +400,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
             myOnRoad = parse<bool>(value);
             break;
         case SUMO_ATTR_WIDTH:
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             myWidth = parse<double>(value);
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_LENGTH:
             myLength = value;

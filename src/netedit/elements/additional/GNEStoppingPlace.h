@@ -38,7 +38,7 @@ class GNEStoppingPlace : public GNEAdditional {
 public:
     /**@brief Constructor.
      * @param[in] id Gl-id of the stopping place (Must be unique)
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] type GUIGlObjectType of stoppingPlace
      * @param[in] tag Type of xml tag that define the StoppingPlace (SUMO_TAG_BUS_STOP, SUMO_TAG_CHARGING_STATION, etc...)
      * @param[in] lane Lane of this StoppingPlace belongs
@@ -49,7 +49,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
+    GNEStoppingPlace(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
                      int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor

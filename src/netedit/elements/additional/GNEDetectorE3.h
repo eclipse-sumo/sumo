@@ -33,7 +33,7 @@ class GNEDetectorE3 : public GNEAdditional {
 public:
     /**@brief GNEDetectorE3 Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position (center) of the detector in the map
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
      * @param[in] filename The path to the output file
@@ -43,7 +43,7 @@ public:
      * @param[in] speedThreshold The speed-based threshold that describes how slow a vehicle has to be to be recognized as halting
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement);
+    GNEDetectorE3(const std::string& id, GNENet *net, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement);
 
     /// @brief GNEDetectorE3 Destructor
     ~GNEDetectorE3();

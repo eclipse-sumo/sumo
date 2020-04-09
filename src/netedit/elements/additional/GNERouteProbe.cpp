@@ -36,9 +36,9 @@
 // member method definitions
 // ===========================================================================
 
-GNERouteProbe::GNERouteProbe(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, const std::string& frequency, 
+GNERouteProbe::GNERouteProbe(const std::string& id, GNENet *net, GNEEdge* edge, const std::string& frequency, 
         const std::string& name, const std::string& filename, SUMOTime begin) :
-    GNEAdditional(id, viewNet, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, 
+    GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false, 
         {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myFrequency(frequency),
     myFilename(filename),
@@ -81,11 +81,11 @@ GNERouteProbe::updateGeometry() {
 
 void
 GNERouteProbe::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
                                           myAdditionalGeometry.getPosition(),
                                           myAdditionalGeometry.getRotation(),
-                                          myViewNet->getVisualisationSettings().additionalSettings.routeProbeSize,
-                                          myViewNet->getVisualisationSettings().additionalSettings.routeProbeSize);
+                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.routeProbeSize,
+                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.routeProbeSize);
 }
 
 
@@ -137,7 +137,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double routeProbeExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(routeProbeExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(routeProbeExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // get values
         const double width = (double) 2.0 * s.scale;
         const int numberOfLanes = int(getParentEdges().front()->getLanes().size());
@@ -208,7 +208,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), routeProbeExaggeration, myDottedGeometry);
         }
         // pop name
@@ -267,7 +267,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_BEGIN:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -302,7 +302,7 @@ GNERouteProbe::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            if (myViewNet->getNet()->retrieveEdge(value, false) != nullptr) {
+            if (myNet->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -333,7 +333,7 @@ void
 GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_EDGE:
             replaceParentEdges(this, value);

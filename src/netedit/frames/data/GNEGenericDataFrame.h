@@ -239,7 +239,7 @@ public:
 protected:
     /**@brief Constructor (protected due GNEGenericDataFrame is abtract)
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
-     * @brief viewNet viewNet that uses this GNEFrame
+     * @brief net net that uses this GNEFrame
      * @brief title generic data frame title
      */
     GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& title);

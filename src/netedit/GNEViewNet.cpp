@@ -215,7 +215,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     buildEditModeControls();
     // Mark undo list
     myUndoList->mark();
-    // set this viewNet in Net
+    // set this net in Net
     myNet->setViewNet(this);
     // set drag delay
     ((GUIDanielPerspectiveChanger*)myChanger)->setDragDelay(100000000); // 100 milliseconds

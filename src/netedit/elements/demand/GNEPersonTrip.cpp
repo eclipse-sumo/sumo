@@ -40,9 +40,9 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
+GNEPersonTrip::GNEPersonTrip(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
     double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
+    GNEDemandElement(myNet->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
         {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(arrivalPosition),
@@ -55,9 +55,9 @@ GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
+GNEPersonTrip::GNEPersonTrip(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
                              const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(viewNet->getNet()->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), viewNet, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP, 
+    GNEDemandElement(myNet->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP,
         {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myArrivalPosition(-1),
@@ -86,7 +86,7 @@ GNEPersonTrip::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
-    myViewNet->buildSelectionACPopupEntry(ret, this);
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open demand element dialog
     if (myTagProperty.hasDialog()) {
@@ -152,7 +152,7 @@ GNEPersonTrip::getDemandElementProblem() const {
     } else {
         // check if exist at least a connection between every edge
         for (int i = 1; i < (int)getParentEdges().size(); i++) {
-            if (myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
+            if (myNet->getPathCalculator()->consecutiveEdgesConnected(getParentDemandElements().front()->getVClass(), getParentEdges().at((int)i - 1), getParentEdges().at(i)) == false) {
                 return ("Edge '" + getParentEdges().at((int)i - 1)->getID() + "' and edge '" + getParentEdges().at(i)->getID() + "' aren't consecutives");
             }
         }
@@ -234,7 +234,7 @@ GNEPersonTrip::moveGeometry(const Position& offset) {
         Position newPosition = myPersonTripMove.originalViewPosition;
         newPosition.add(offset);
         // filtern position using snap to active grid
-        newPosition = myViewNet->snapToActiveGrid(newPosition);
+        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
         // obtain lane shape (to improve code legibility)
         const PositionVector& laneShape = getParentEdges().back()->getLanes().front()->getLaneShape();
         // calculate offset lane
@@ -253,7 +253,7 @@ GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         undoList->p_begin("arrivalPos of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), true, myPersonTripMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), true, myPersonTripMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }
@@ -317,14 +317,14 @@ void
 GNEPersonTrip::computePath() {
     if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) {
         // calculate route and update routeEdges
-        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
+        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
     } else if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
         fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
         // calculate route and update routeEdges
-        replacePathEdges(this, myViewNet->getNet()->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
+        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
     }
     // update geometry
     updateGeometry();
@@ -391,12 +391,12 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNEPersonTrip::selectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(getType());
         if (changeFlag) {
             mySelected = true;
         }
@@ -406,12 +406,12 @@ GNEPersonTrip::selectAttributeCarrier(bool changeFlag) {
 
 void
 GNEPersonTrip::unselectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(getType());
         if (changeFlag) {
             mySelected = false;
 
@@ -485,7 +485,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -498,15 +498,15 @@ GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myViewNet->getNet()->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
         case SUMO_ATTR_VIA:
             if (value.empty()) {
                 return true;
             } else {
-                return canParse<std::vector<GNEEdge*> >(myViewNet->getNet(), value, false);
+                return canParse<std::vector<GNEEdge*> >(myNet, value, false);
             }
         case SUMO_ATTR_BUS_STOP:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+            return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_MODES: {
             SVCPermissions dummyModeSet;
             std::string dummyError;
@@ -580,21 +580,21 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
         // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
             // change first edge
-            replaceFirstParentEdge(this, myViewNet->getNet()->retrieveEdge(value));
+            replaceFirstParentEdge(this, myNet->retrieveEdge(value));
             // compute person trip
             computePath();
             break;
         }
         case SUMO_ATTR_TO: {
             // change last edge
-            replaceLastParentEdge(this, myViewNet->getNet()->retrieveEdge(value));
+            replaceLastParentEdge(this, myNet->retrieveEdge(value));
             // compute person trip
             computePath();
             break;
         }
         case SUMO_ATTR_VIA: {
             // update via
-            replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myViewNet->getNet(), value), true);
+            replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myNet, value), true);
             // compute person trip
             computePath();
             break;

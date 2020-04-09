@@ -42,14 +42,15 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNEViewNet* viewNet, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
-                                   int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement) :
-    GNEAdditional(id, viewNet, type, tag, name, blockMovement,
-{}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myStartPosition(startPos),
-myEndPosition(endPos),
-myParametersSet(parametersSet),
-myFriendlyPosition(friendlyPosition) {
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, 
+        GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name, 
+        bool friendlyPosition, bool blockMovement) :
+    GNEAdditional(id, net, type, tag, name, blockMovement,
+        {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+    myStartPosition(startPos),
+    myEndPosition(endPos),
+    myParametersSet(parametersSet),
+    myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -131,8 +132,8 @@ GNEStoppingPlace::fixAdditionalProblem() {
     // fix start and end positions using fixStoppingPlacePosition
     SUMORouteHandler::checkStopPos(newStartPos, newEndPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, true);
     // set new start and end positions
-    setAttribute(SUMO_ATTR_STARTPOS, toString(newStartPos), myViewNet->getUndoList());
-    setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPos), myViewNet->getUndoList());
+    setAttribute(SUMO_ATTR_STARTPOS, toString(newStartPos), myNet->getViewNet()->getUndoList());
+    setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPos), myNet->getViewNet()->getUndoList());
 }
 
 
@@ -206,7 +207,7 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
         Position newPosition = myMove.originalViewPosition;
         newPosition.add(offset);
         // filtern position using snap to active grid
-        newPosition = myViewNet->snapToActiveGrid(newPosition);
+        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
         double offsetLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false) - getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
         // check if both position has to be moved
         if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) && (myParametersSet & STOPPINGPLACE_ENDPOS_SET)) {
@@ -246,10 +247,10 @@ GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
     if (myParametersSet > 0) {
         undoList->p_begin("position of " + getTagStr());
         if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_STARTPOS, toString(myStartPosition), true, myMove.firstOriginalLanePosition));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_STARTPOS, toString(myStartPosition), true, myMove.firstOriginalLanePosition));
         }
         if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, toString(myEndPosition), true, myMove.secondOriginalPosition));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_ENDPOS, toString(myEndPosition), true, myMove.secondOriginalPosition));
         }
         undoList->p_end();
     }

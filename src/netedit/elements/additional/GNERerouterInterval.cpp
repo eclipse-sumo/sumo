@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
+    GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
         {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}),
     myBegin(0),
     myEnd(0) {
@@ -42,7 +42,7 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
-    GNEAdditional(rerouterParent, rerouterParent->getViewNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
+    GNEAdditional(rerouterParent, rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
         {}, {}, {}, {rerouterParent}, {}, {}, {}, {}, {}, {}, {}, {}),
     myBegin(begin),
     myEnd(end) {
@@ -144,7 +144,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
     switch (key) {
         case SUMO_ATTR_ID: {
             // change ID of Rerouter Interval
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             // Change Ids of all Rerouter children
             for (auto i : getChildAdditionals()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(i->getTagProperty().getTag()), undoList);
@@ -154,7 +154,7 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -204,7 +204,7 @@ void
 GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<SUMOTime>(value);

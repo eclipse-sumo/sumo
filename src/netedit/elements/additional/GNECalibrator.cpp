@@ -34,9 +34,9 @@
 // member method definitions
 // ===========================================================================
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge* edge, double pos, SUMOTime frequency, 
+GNECalibrator::GNECalibrator(const std::string& id, GNENet *net, GNEEdge* edge, double pos, SUMOTime frequency, 
         const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false,
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false,
         {edge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFrequency(frequency),
@@ -45,9 +45,9 @@ GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNEEdge
 }
 
 
-GNECalibrator::GNECalibrator(const std::string& id, GNEViewNet* viewNet, GNELane* lane, double pos, SUMOTime frequency, 
+GNECalibrator::GNECalibrator(const std::string& id, GNENet *net, GNELane* lane, double pos, SUMOTime frequency, 
         const std::string& name, const std::string& output, const std::string& routeprobe) :
-    GNEAdditional(id, viewNet, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false,
+    GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false,
         {}, {lane}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFrequency(frequency),
@@ -155,7 +155,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     // get values
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // begin draw
         glPushName(getGlID());
         glLineWidth(1.0);
@@ -231,7 +231,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ROUTEPROBE:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -246,13 +246,13 @@ GNECalibrator::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGE:
-            if (myViewNet->getNet()->retrieveEdge(value, false) != nullptr) {
+            if (myNet->retrieveEdge(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
             }
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
+            if (myNet->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -348,7 +348,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     }
     glPopMatrix();
     // check if dotted contour has to be drawn
-    if (myViewNet->getDottedAC() == this) {
+    if (myNet->getViewNet()->getDottedAC() == this) {
         GNEGeometry::drawShapeDottedContour(s, getType(), exaggeration, myDottedGeometry);
     }
 }
@@ -357,7 +357,7 @@ void
 GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_EDGE:
             replaceParentEdges(this, value);

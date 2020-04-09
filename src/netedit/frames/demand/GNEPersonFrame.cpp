@@ -423,7 +423,7 @@ GNEPersonFrame::edgePathCreated() {
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // now check that number of selected edges are correct
                 if (myEdgePathCreator->getClickedEdges().size() > 1) {
-                    GNERouteHandler::buildPersonTripFromTo(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), arrivalPos, types, modes);
+                    GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), arrivalPos, types, modes);
                     // end undo-redo operation
                     myViewNet->getUndoList()->p_end();
                 } else {
@@ -439,7 +439,7 @@ GNEPersonFrame::edgePathCreated() {
                 std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
                 // now check that number of selected edges are correct
                 if ((myEdgePathCreator->getClickedEdges().size() > 0) && myEdgePathCreator->getClickedBusStop()) {
-                    GNERouteHandler::buildPersonTripBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedBusStop(), types, modes);
+                    GNERouteHandler::buildPersonTripBusStop(myViewNet->getNet(), true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedBusStop(), types, modes);
                     // end undo-redo operation
                     myViewNet->getUndoList()->p_end();
                 } else {
@@ -452,7 +452,7 @@ GNEPersonFrame::edgePathCreated() {
             case SUMO_TAG_WALK_EDGES: {
                 // obtain attributes
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkEdges(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges(), arrivalPos);
+                GNERouteHandler::buildWalkEdges(myViewNet->getNet(), true, createdPerson, myEdgePathCreator->getClickedEdges(), arrivalPos);
                 // end undo-redo operation
                 myViewNet->getUndoList()->p_end();
                 break;
@@ -460,14 +460,14 @@ GNEPersonFrame::edgePathCreated() {
             case SUMO_TAG_WALK_FROMTO: {
                 // obtain attributes
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkFromTo(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), arrivalPos);
+                GNERouteHandler::buildWalkFromTo(myViewNet->getNet(), true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), arrivalPos);
                 // end undo-redo operation
                 myViewNet->getUndoList()->p_end();
                 break;
             }
             case SUMO_TAG_WALK_BUSSTOP: {
                 // obtain attributes
-                GNERouteHandler::buildWalkBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedBusStop());
+                GNERouteHandler::buildWalkBusStop(myViewNet->getNet(), true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedBusStop());
                 // end undo-redo operation
                 myViewNet->getUndoList()->p_end();
                 break;
@@ -476,7 +476,7 @@ GNEPersonFrame::edgePathCreated() {
                 // obtain attributes
                 std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildRideFromTo(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), lines, arrivalPos);
+                GNERouteHandler::buildRideFromTo(myViewNet->getNet(), true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), lines, arrivalPos);
                 // end undo-redo operation
                 myViewNet->getUndoList()->p_end();
                 break;
@@ -484,7 +484,7 @@ GNEPersonFrame::edgePathCreated() {
             case SUMO_TAG_RIDE_BUSSTOP: {
                 // obtain attributes
                 std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-                GNERouteHandler::buildRideBusStop(myViewNet, true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedBusStop(), lines);
+                GNERouteHandler::buildRideBusStop(myViewNet->getNet(), true, createdPerson, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedBusStop(), lines);
                 // end undo-redo operation
                 myViewNet->getUndoList()->p_end();
                 break;
@@ -513,7 +513,7 @@ GNEPersonFrame::buildPersonOverRoute(GNEDemandElement* route) {
             myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
         } else {
             // build person and walk over route
-            GNERouteHandler::buildWalkRoute(myViewNet, true, buildPerson(), route, 0);
+            GNERouteHandler::buildWalkRoute(myViewNet->getNet(), true, buildPerson(), route, 0);
             // end undo-redo operation
             myViewNet->getUndoList()->p_end();
             return true;
@@ -541,7 +541,7 @@ GNEPersonFrame::buildPersonOverStop(GNELane* lane, GNEAdditional* busStop) {
         if (GNEStopFrame::getStopParameter(stopParameter, myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
                                            myViewNet, myPersonPlanAttributes, myNeteditAttributes, lane, busStop)) {
             // create it in RouteFrame
-            GNERouteHandler::buildStop(myViewNet, true, stopParameter, buildPerson());
+            GNERouteHandler::buildStop(myViewNet->getNet(), true, stopParameter, buildPerson());
             // end undo-redo operation
             myViewNet->getUndoList()->p_end();
             // stop sucesfully created, then return true
@@ -580,7 +580,7 @@ GNEPersonFrame::buildPerson() {
         // obtain person parameters
         SUMOVehicleParameter* personParameters = SUMOVehicleParserHelper::parseVehicleAttributes(SUMO_TAG_PERSON, SUMOSAXAttrs, false, false, false);
         // build person in GNERouteHandler
-        GNERouteHandler::buildPerson(myViewNet, true, *personParameters);
+        GNERouteHandler::buildPerson(myViewNet->getNet(), true, *personParameters);
         // delete personParameters
         delete personParameters;
     } else {
@@ -596,7 +596,7 @@ GNEPersonFrame::buildPerson() {
         // obtain personFlow parameters
         SUMOVehicleParameter* personFlowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, false, 0, SUMOTime_MAX, true);
         // build personFlow in GNERouteHandler
-        GNERouteHandler::buildPersonFlow(myViewNet, true, *personFlowParameters);
+        GNERouteHandler::buildPersonFlow(myViewNet->getNet(), true, *personFlowParameters);
         // delete personFlowParameters
         delete personFlowParameters;
     }

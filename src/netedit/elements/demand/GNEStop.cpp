@@ -40,15 +40,15 @@
 // member method definitions
 // ===========================================================================
 
-GNEStop::GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
+GNEStop::GNEStop(SumoXMLTag tag, GNENet *net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
+    GNEDemandElement(stopParent, net, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
         {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
-GNEStop::GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, viewNet, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
+GNEStop::GNEStop(GNENet *net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
+    GNEDemandElement(stopParent, net, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
         stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
         {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
@@ -175,9 +175,9 @@ GNEStop::getVClass() const {
 const RGBColor&
 GNEStop::getColor() const {
     if (myTagProperty.isPersonStop()) {
-        return myViewNet->getVisualisationSettings().colorSettings.personStops;
+        return myNet->getViewNet()->getVisualisationSettings().colorSettings.personStops;
     } else {
-        return myViewNet->getVisualisationSettings().colorSettings.stops;
+        return myNet->getViewNet()->getVisualisationSettings().colorSettings.stops;
     }
 }
 
@@ -215,7 +215,7 @@ GNEStop::moveGeometry(const Position& offset) {
         Position newPosition = myStopMove.originalViewPosition;
         newPosition.add(offset);
         // filtern position using snap to active grid
-        newPosition = myViewNet->snapToActiveGrid(newPosition);
+        newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
         double offsetLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false) - getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(myStopMove.originalViewPosition, false);
         // check if both position has to be moved
         if ((parametersSet & STOP_START_SET) && (parametersSet & STOP_END_SET)) {
@@ -255,10 +255,10 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
     if ((getParentLanes().size() > 0) && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
         undoList->p_begin("position of " + getTagStr());
         if (parametersSet & STOP_START_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_STARTPOS, toString(startPos), true, myStopMove.firstOriginalLanePosition));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_STARTPOS, toString(startPos), true, myStopMove.firstOriginalLanePosition));
         }
         if (parametersSet & STOP_END_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_ENDPOS, toString(endPos), true, myStopMove.secondOriginalPosition));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_ENDPOS, toString(endPos), true, myStopMove.secondOriginalPosition));
         }
         undoList->p_end();
     }
@@ -403,18 +403,18 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;
     if (myTagProperty.isStop() || myTagProperty.isPersonStop()) {
-        if (myViewNet->getNetworkViewOptions().showDemandElements() && myViewNet->getDataViewOptions().showDemandElements() &&
-                myViewNet->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+        if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+                myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
             drawPersonPlan = true;
         }
-    } else if (myViewNet->getDemandViewOptions().showAllPersonPlans()) {
+    } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         drawPersonPlan = true;
-    } else if (myViewNet->getDottedAC() == getParentDemandElements().front()) {
+    } else if (myNet->getViewNet()->getDottedAC() == getParentDemandElements().front()) {
         drawPersonPlan = true;
-    } else if (myViewNet->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
+    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
         drawPersonPlan = true;
-    } else if (myViewNet->getDottedAC() && myViewNet->getDottedAC()->getTagProperty().isPersonPlan() &&
-               (myViewNet->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
+    } else if (myNet->getViewNet()->getDottedAC() && myNet->getViewNet()->getDottedAC()->getTagProperty().isPersonPlan() &&
+               (myNet->getViewNet()->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
         drawPersonPlan = true;
     }
     // check if stop can be drawn
@@ -485,7 +485,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw name if isn't being drawn for selecting
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // check if dotted contour has to be drawn
-            if (myViewNet->getDottedAC() == this) {
+            if (myNet->getViewNet()->getDottedAC() == this) {
                 // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
                 if (getParentLanes().size() > 0) {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),
@@ -496,7 +496,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myViewNet, myDemandElementGeometry, exaggeration * 0.8);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myDemandElementGeometry, exaggeration * 0.8);
             // pop draw matrix
             glPopMatrix();
         }
@@ -512,12 +512,12 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
 
 void
 GNEStop::selectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.select(getGlID());
         // add object of list into selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_STOP);
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->addedLockedObject(GLO_STOP);
         if (changeFlag) {
             mySelected = true;
         }
@@ -527,12 +527,12 @@ GNEStop::selectAttributeCarrier(bool changeFlag) {
 
 void
 GNEStop::unselectAttributeCarrier(bool changeFlag) {
-    if (!myViewNet) {
+    if (!myNet->getViewNet()) {
         throw ProcessError("ViewNet cannot be nullptr");
     } else {
         gSelected.deselect(getGlID());
         // remove object of list of selected objects
-        myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_STOP);
+        myNet->getViewNet()->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->removeLockedObject(GLO_STOP);
         if (changeFlag) {
             mySelected = false;
 
@@ -693,7 +693,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FRIENDLY_POS:
         //
         case GNE_ATTR_SELECTED:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -749,16 +749,16 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidVehicleID(value);
         // specific of Stops over stoppingPlaces
         case SUMO_ATTR_BUS_STOP:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+            return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
         case SUMO_ATTR_CONTAINER_STOP:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
+            return (myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, value, false) != nullptr);
         case SUMO_ATTR_CHARGING_STATION:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_CHARGING_STATION, value, false) != nullptr);
+            return (myNet->retrieveAdditional(SUMO_TAG_CHARGING_STATION, value, false) != nullptr);
         case SUMO_ATTR_PARKING_AREA:
-            return (myViewNet->getNet()->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
+            return (myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, value, false) != nullptr);
         // specific of stops over lanes
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
+            if (myNet->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -824,25 +824,25 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
     }
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(this, myNet, parametersSet, newParametersSet), true);
     // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_STARTPOS:
             if (parametersSet & STOP_END_SET) {
-                undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, toString(endPos - MIN_STOP_LENGTH)));
+                undoList->p_add(new GNEChange_Attribute(this, myNet, key, toString(endPos - MIN_STOP_LENGTH)));
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - MIN_STOP_LENGTH)));
+                undoList->p_add(new GNEChange_Attribute(this, myNet, key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - MIN_STOP_LENGTH)));
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength())));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength())));
             break;
         case SUMO_ATTR_DURATION:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         default:
             break;
@@ -884,7 +884,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
     }
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, myViewNet->getNet(), parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(this, myNet, parametersSet, newParametersSet), true);
 }
 
 
@@ -983,7 +983,7 @@ void
 GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_DURATION:
             if (value.empty()) {

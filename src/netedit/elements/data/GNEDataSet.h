@@ -31,7 +31,7 @@
 // class declarations
 // ===========================================================================
 
-class GNEViewNet;
+class GNENet;
 class GNEDataInterval;
 
 // ===========================================================================
@@ -42,9 +42,9 @@ class GNEDataSet : public GNEAttributeCarrier {
 
 public:
     /**@brief Constructor
-     * @param[in] viewNet pointer to GNEViewNet of this data element element belongs
+     * @param[in] net pointer to GNEViewNet of this data element element belongs
      */
-    GNEDataSet(GNEViewNet* viewNet, const std::string dataSetID);
+    GNEDataSet(GNENet* net, const std::string dataSetID);
 
     /// @brief Destructor
     ~GNEDataSet();
@@ -66,9 +66,6 @@ public:
 
     /// @brief Returns element position in view
     Position getPositionInView() const;
-
-    /// @brief Returns a pointer to GNEViewNet in which data element element is located
-    GNEViewNet* getViewNet() const;
 
     /// @brief write data set
     void writeDataSet(OutputDevice& device) const;
@@ -169,9 +166,6 @@ public:
     /// @}
 
 protected:
-    /// @brief The GNEViewNet this data element element belongs
-    GNEViewNet* myViewNet;
-
     /// @brief dataSet ID
     std::string myDataSetID;
 

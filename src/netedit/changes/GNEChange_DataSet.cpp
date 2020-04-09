@@ -36,7 +36,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataSet, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
-    GNEChange(dataSet->getViewNet()->getNet(), forward),
+    GNEChange(dataSet->getNet(), forward),
     myDataSet(dataSet) {
     myDataSet->incRef("GNEChange_DataSet");
 }

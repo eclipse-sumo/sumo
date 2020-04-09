@@ -302,7 +302,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNELane* lane) 
 
 
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAdditional* additional) :
-    SubordinatedElements(additional, additional->getViewNet()) {
+    SubordinatedElements(additional, additional->getNet()->getViewNet()) {
 }
 
 
@@ -312,12 +312,12 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEShape* shape
 
 
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEDemandElement* demandElement) :
-    SubordinatedElements(demandElement, demandElement->getViewNet()) {
+    SubordinatedElements(demandElement, demandElement->getNet()->getViewNet()) {
 }
 
 
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEGenericData* genericData) :
-    SubordinatedElements(genericData, genericData->getViewNet()) {
+    SubordinatedElements(genericData, genericData->getNet()->getViewNet()) {
 }
 
 

@@ -37,7 +37,7 @@ class GNEParkingSpace : public GNEAdditional {
 
 public:
     /**@brief Constructor
-     * @param[in] viewNet pointer to GNEViewNet of this additional element belongs
+     * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] parkingAreaParent pointer to Parking Area parent
      * @param[in] pos ParkingSpace's X-Y position
      * @param[in] width ParkingArea's width
@@ -45,7 +45,7 @@ public:
      * @param[in] angle ParkingArea's angle
      * @param[in] block movement enable or disable additional movement
      */
-    GNEParkingSpace(GNEViewNet* viewNet, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement);
+    GNEParkingSpace(GNENet *net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement);
 
     /// @brief Destructor
     ~GNEParkingSpace();

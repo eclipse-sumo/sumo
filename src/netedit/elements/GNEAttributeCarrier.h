@@ -59,11 +59,15 @@ public:
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
      * @param[in] icon GUIIcon associated to the type of object
+     * @param[in] net GNENet in which this AttributeCarrier is stored
      */
-    GNEAttributeCarrier(const SumoXMLTag tag);
+    GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net);
 
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
+
+    /// @brief getpointer to net
+    GNENet* getNet() const;
 
     /// @brief get ID (all Attribute Carriers have one)
     virtual const std::string &getID() const = 0;
@@ -341,6 +345,9 @@ public:
 protected:
     /// @brief the xml tag to which this attribute carrier corresponds
     const GNETagProperties& myTagProperty;
+
+    /// @brief pointer to net
+    GNENet* myNet;
 
     /// @brief boolean to check if this AC is selected (instead of GUIGlObjectStorage)
     bool mySelected;

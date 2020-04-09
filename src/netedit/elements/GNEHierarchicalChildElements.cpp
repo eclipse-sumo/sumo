@@ -523,7 +523,7 @@ GNEHierarchicalChildElements::changeChildEdges(GNEAdditional* elementChild, cons
         edge->removeParentAdditional(elementChild);
     }
     // obtain new child edges (note: it can be empty)
-    myChildEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getViewNet()->getNet(), newEdgeIDs);
+    myChildEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getNet(), newEdgeIDs);
     // add demandElement into parent edges
     for (const auto& edge : myChildEdges) {
         edge->addParentAdditional(elementChild);
@@ -540,7 +540,7 @@ GNEHierarchicalChildElements::changeChildLanes(GNEAdditional* elementChild, cons
         lane->removeParentAdditional(elementChild);
     }
     // obtain new child lanes (note: it can be empty)
-    myChildLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getViewNet()->getNet(), newLaneIDs);
+    myChildLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getNet(), newLaneIDs);
     // add demandElement into parent lanes
     for (const auto& lane : myChildLanes) {
         lane->addParentAdditional(elementChild);

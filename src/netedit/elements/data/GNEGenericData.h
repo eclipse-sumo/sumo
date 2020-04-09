@@ -107,9 +107,6 @@ public:
     // @brief draw attribute
     void drawAttribute(const PositionVector &shape) const;
 
-    /// @brief Returns a pointer to GNEViewNet in which data set element is located
-    GNEViewNet* getViewNet() const;
-
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 

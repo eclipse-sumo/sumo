@@ -77,7 +77,7 @@ GNEUndoList::p_begin(const std::string& description) {
 void
 GNEUndoList::p_end() {
     myCommandGroups.pop();
-    // check if viewNet has to be updated
+    // check if net has to be updated
     if (myCommandGroups.empty() && myGNEApplicationWindowParent->getViewNet()) {
         myGNEApplicationWindowParent->getViewNet()->updateViewNet();
     }

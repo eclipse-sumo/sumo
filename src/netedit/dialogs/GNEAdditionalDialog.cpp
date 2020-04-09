@@ -22,6 +22,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 
@@ -48,7 +49,7 @@ FXIMPLEMENT_ABSTRACT(GNEAdditionalDialog, FXTopWindow, GNEAdditionalDialogMap, A
 // ===========================================================================
 
 GNEAdditionalDialog::GNEAdditionalDialog(GNEAdditional* editedAdditional, bool updatingElement, int width, int height) :
-    FXTopWindow(editedAdditional->getViewNet(), ("Edit '" + editedAdditional->getID() + "' data").c_str(), editedAdditional->getIcon(), editedAdditional->getIcon(), GUIDesignDialogBoxExplicit(width, height)),
+    FXTopWindow(editedAdditional->getNet()->getViewNet(), ("Edit '" + editedAdditional->getID() + "' data").c_str(), editedAdditional->getIcon(), editedAdditional->getIcon(), GUIDesignDialogBoxExplicit(width, height)),
     myEditedAdditional(editedAdditional),
     myUpdatingElement(updatingElement),
     myChangesDescription("change " + editedAdditional->getTagStr() + " values"),
@@ -114,34 +115,34 @@ GNEAdditionalDialog::changeAdditionalDialogHeader(const std::string& newHeader) 
 void
 GNEAdditionalDialog::initChanges() {
     // init commandGroup
-    myEditedAdditional->getViewNet()->getUndoList()->p_begin(myChangesDescription);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_begin(myChangesDescription);
     // save number of command group changes
-    myNumberOfChanges = myEditedAdditional->getViewNet()->getUndoList()->currentCommandGroupSize();
+    myNumberOfChanges = myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize();
 }
 
 
 void
 GNEAdditionalDialog::acceptChanges() {
     // commit changes or abort last command group depending of number of changes did
-    if (myNumberOfChanges < myEditedAdditional->getViewNet()->getUndoList()->currentCommandGroupSize()) {
-        myEditedAdditional->getViewNet()->getUndoList()->p_end();
+    if (myNumberOfChanges < myEditedAdditional->getNet()->getViewNet()->getUndoList()->currentCommandGroupSize()) {
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_end();
     } else {
-        myEditedAdditional->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
     }
 }
 
 
 void
 GNEAdditionalDialog::cancelChanges() {
-    myEditedAdditional->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
 }
 
 
 void
 GNEAdditionalDialog::resetChanges() {
     // abort last command group an start editing again
-    myEditedAdditional->getViewNet()->getUndoList()->p_abortLastCommandGroup();
-    myEditedAdditional->getViewNet()->getUndoList()->p_begin(myChangesDescription);
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_abortLastCommandGroup();
+    myEditedAdditional->getNet()->getViewNet()->getUndoList()->p_begin(myChangesDescription);
 }
 
 

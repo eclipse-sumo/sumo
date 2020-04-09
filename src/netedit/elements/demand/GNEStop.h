@@ -32,10 +32,10 @@ class GNEStop : public GNEDemandElement, public SUMOVehicleParameter::Stop {
 
 public:
     /// @brief constructor used for stops over stoppingPlaces
-    GNEStop(SumoXMLTag tag, GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
+    GNEStop(SumoXMLTag tag, GNENet *net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent);
 
     /// @brief constructor used for stops over lanes
-    GNEStop(GNEViewNet* viewNet, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent);
+    GNEStop(GNENet *net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent);
 
     /// @brief destructor
     ~GNEStop();

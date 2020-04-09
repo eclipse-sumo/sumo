@@ -32,11 +32,11 @@
 // ===========================================================================
 
 GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
+    GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
         {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}) {
     // if exist a reroute, set newRoute ID
-    if (rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() > 0) {
-        myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getViewNet()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->first;
+    if (rerouterIntervalDialog->getEditedAdditional()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() > 0) {
+        myNewRouteId = rerouterIntervalDialog->getEditedAdditional()->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).begin()->first;
     }
     // fill route prob reroute interval with default values
     setDefaultValues();
@@ -44,7 +44,7 @@ GNERouteProbReroute::GNERouteProbReroute(GNERerouterIntervalDialog* rerouterInte
 
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) :
-    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getViewNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
+    GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
         {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}, {}, {}),
     myNewRouteId(newRouteId),
     myProbability(probability) {
@@ -143,7 +143,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         case SUMO_ATTR_ROUTE:
         case SUMO_ATTR_PROB:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -193,7 +193,7 @@ void
 GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_ROUTE:
             myNewRouteId = value;

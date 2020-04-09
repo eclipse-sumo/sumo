@@ -41,7 +41,7 @@ public:
      * @param[in] edges list of consecutive edges of this ride
      * @param[in] arrivalPosition arrival position on the destination edge
      */
-    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+    GNERide(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
             const std::vector<GNEEdge*>& via, double arrivalPosition, const std::vector<std::string>& lines);
 
     /**@brief parameter constructor for rideBusStop
@@ -50,7 +50,7 @@ public:
      * @param[in] edges list of consecutive edges of this ride
      * @param[in] busStop destination busStop
      */
-    GNERide(GNEViewNet* viewNet, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
+    GNERide(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
             const std::vector<GNEEdge*>& via, const std::vector<std::string>& lines);
 
     /// @brief destructor

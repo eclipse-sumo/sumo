@@ -155,7 +155,7 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_TO:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, getViewNet()->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -168,7 +168,7 @@ GNEEdgeRelData::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value, false) != nullptr);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
         case GNE_ATTR_PARAMETERS:
@@ -218,12 +218,12 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM: {
             // change first edge
-            replaceFirstParentEdge(this, myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value));
+            replaceFirstParentEdge(this, myNet->retrieveEdge(value));
             break;
         }
         case SUMO_ATTR_TO: {
             // change last edge
-            replaceLastParentEdge(this, myDataIntervalParent->getViewNet()->getNet()->retrieveEdge(value));
+            replaceLastParentEdge(this, myNet->retrieveEdge(value));
             break;
         }
         case GNE_ATTR_SELECTED:
@@ -251,7 +251,7 @@ GNEEdgeRelData::setEnabledAttribute(const int /*enabledAttributes*/) {
 bool
 GNEEdgeRelData::isVisible() const {
     // obtain pointer to edge data frame (only for code legibly)
-    const GNEEdgeRelDataFrame* edgeRelDataFrame = myDataIntervalParent->getViewNet()->getViewParent()->getEdgeRelDataFrame();
+    const GNEEdgeRelDataFrame* edgeRelDataFrame = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame();
     // check if we have to filter generic data
     if (edgeRelDataFrame->shown()) {
         // check interval

@@ -571,7 +571,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(file, myNet->getViewNet());
+        GNEAdditionalHandler additionalHandler(file, myNet);
         // begin undoList operation
         myUndoList->p_begin("Loading additionals from '" + file + "'");
         // Run parser for additionals
@@ -648,7 +648,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
-        GNERouteHandler demandHandler(file, myNet->getViewNet());
+        GNERouteHandler demandHandler(file, myNet);
         // begin undoList operation
         myUndoList->p_begin("Loading demand elements from '" + file + "'");
         // Run parser for additionals
@@ -689,7 +689,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto");
         // Create additional handler
-        GNEDataHandler dataHandler(file, myNet->getViewNet());
+        GNEDataHandler dataHandler(file, myNet);
         // begin undoList operation
         myUndoList->p_begin("Loading data elements from '" + file + "'");
         // Run parser for additionals
@@ -919,7 +919,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every additional file
         for (const auto& additionalFile : additionalFiles) {
             WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
-            GNEAdditionalHandler additionalHandler(additionalFile, myNet->getViewNet());
+            GNEAdditionalHandler additionalHandler(additionalFile, myNet);
             // disable validation for additionals
             XMLSubSys::setValidation("never", "auto");
             // Run parser
@@ -941,7 +941,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every route file
         for (const auto& demandElementsFile : demandElementsFiles) {
             WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
-            GNERouteHandler routeHandler(demandElementsFile, myNet->getViewNet());
+            GNERouteHandler routeHandler(demandElementsFile, myNet);
             // disable validation for demand elements
             XMLSubSys::setValidation("never", "auto");
             if (!XMLSubSys::runParser(routeHandler, demandElementsFile, false)) {
@@ -962,7 +962,7 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         // iterate over every data file
         for (const auto& dataElementsFile : dataElementsFiles) {
             WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
-            GNEDataHandler dataHandler(dataElementsFile, myNet->getViewNet());
+            GNEDataHandler dataHandler(dataElementsFile, myNet);
             // disable validation for data elements
             XMLSubSys::setValidation("never", "auto");
             if (!XMLSubSys::runParser(dataHandler, dataElementsFile, false)) {

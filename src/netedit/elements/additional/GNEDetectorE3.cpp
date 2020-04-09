@@ -32,9 +32,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE3::GNEDetectorE3(const std::string& id, GNEViewNet* viewNet, Position pos, SUMOTime freq, const std::string& filename, 
+GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet *net, Position pos, SUMOTime freq, const std::string& filename, 
         const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
-    GNEAdditional(id, viewNet, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement,
+    GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement,
         {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     myPosition(pos),
     myFreq(freq),
@@ -69,9 +69,9 @@ GNEDetectorE3::updateGeometry() {
 
 void
 GNEDetectorE3::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(), myPosition, 0,
-                                          myViewNet->getVisualisationSettings().detectorSettings.E3Size,
-                                          myViewNet->getVisualisationSettings().detectorSettings.E3Size);
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myPosition, 0,
+                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E3Size,
+                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E3Size);
 }
 
 
@@ -108,7 +108,7 @@ GNEDetectorE3::moveGeometry(const Position& offset) {
     myPosition.add(offset);
     // filtern position using snap to active grid
     // filtern position using snap to active grid
-    myPosition = myViewNet->snapToActiveGrid(myPosition);
+    myPosition = myNet->getViewNet()->snapToActiveGrid(myPosition);
     updateGeometry();
 }
 
@@ -117,14 +117,14 @@ void
 GNEDetectorE3::commitGeometryMoving(GNEUndoList* undoList) {
     // commit new position allowing undo/redo
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
+    undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPosition), true, toString(myMove.originalViewPosition)));
     undoList->p_end();
 }
 
 
 std::string
 GNEDetectorE3::getParentName() const {
-    return myViewNet->getNet()->getMicrosimID();
+    return myNet->getMicrosimID();
 }
 
 
@@ -133,7 +133,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double E3Exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(E3Exaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(E3Exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
@@ -169,7 +169,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), E3Exaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
@@ -227,7 +227,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
     switch (key) {
         case SUMO_ATTR_ID: {
             // change ID of Entry
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             // Change Ids of all Entry/Exits children
             for (auto i : getChildAdditionals()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(i->getTagProperty().getTag()), undoList);
@@ -244,7 +244,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -342,12 +342,12 @@ void
 GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_POSITION:
-            myViewNet->getNet()->removeGLObjectFromGrid(this);
+            myNet->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);
-            myViewNet->getNet()->addGLObjectIntoGrid(this);
+            myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_FREQUENCY:
             myFreq = parse<SUMOTime>(value);

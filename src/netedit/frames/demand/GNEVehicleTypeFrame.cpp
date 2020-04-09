@@ -257,7 +257,7 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCreateVehicleType(FXObject*, FXSele
     // obtain a new valid Vehicle Type ID
     std::string vehicleTypeID = myVehicleTypeFrameParent->myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_VTYPE);
     // create new vehicle type
-    GNEDemandElement* vehicleType = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet, vehicleTypeID, SUMO_TAG_VTYPE);
+    GNEDemandElement* vehicleType = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet->getNet(), vehicleTypeID, SUMO_TAG_VTYPE);
     // add it using undoList (to allow undo-redo)
     myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("create vehicle type");
     myVehicleTypeFrameParent->myViewNet->getUndoList()->add(new GNEChange_DemandElement(vehicleType, true), true);
@@ -348,7 +348,7 @@ GNEVehicleTypeFrame::VehicleTypeEditor::onCmdCopyVehicleType(FXObject*, FXSelect
     // check that vType exist
     if (vType) {
         // create a new Vehicle Type based on the current selected vehicle type
-        GNEDemandElement* vehicleTypeCopy = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet, vehicleTypeID, vType);
+        GNEDemandElement* vehicleTypeCopy = new GNEVehicleType(myVehicleTypeFrameParent->myViewNet->getNet(), vehicleTypeID, vType);
         // begin undo list operation
         myVehicleTypeFrameParent->myViewNet->getUndoList()->p_begin("copy vehicle type");
         // add it using undoList (to allow undo-redo)

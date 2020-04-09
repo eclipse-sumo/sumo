@@ -36,9 +36,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
+GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNENet *net, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, viewNet, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
+    GNEStoppingPlace(id, net, GLO_CHARGING_STATION, SUMO_TAG_CHARGING_STATION, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
     myChargingPower(chargingPower),
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
@@ -61,7 +61,7 @@ GNEChargingStation::updateGeometry() {
     PositionVector tmpShape = myAdditionalGeometry.getShape();
 
     // Move shape to side
-    tmpShape.move2side(myViewNet->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
+    tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
@@ -79,9 +79,9 @@ GNEChargingStation::updateGeometry() {
 
 void
 GNEChargingStation::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
                                           myAdditionalGeometry.getShape(),
-                                          myViewNet->getVisualisationSettings().stoppingPlaceSettings.chargingStationWidth);
+                                          myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.chargingStationWidth);
 }
 
 
@@ -96,7 +96,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Get exaggeration
     const double chargingStationExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(chargingStationExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(chargingStationExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Push name
         glPushName(getGlID());
         // Push base matrix
@@ -110,11 +110,11 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
         }
         // Draw base
-        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForRectangleSelection) {
             // only draw circle depending of distance between sign and mouse cursor
-            if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
+            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
                 // Add a draw matrix for details
                 glPushMatrix();
                 // Start drawing sign traslating matrix to signal position
@@ -187,7 +187,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), chargingStationExaggeration, myDottedGeometry);
         }
         // Pop name matrix
@@ -264,7 +264,7 @@ GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value, GNEU
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -278,7 +278,7 @@ GNEChargingStation::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
+            if (myNet->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -330,7 +330,7 @@ void
 GNEChargingStation::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
             replaceParentLanes(this, value);

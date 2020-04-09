@@ -35,8 +35,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNEViewNet* viewNet, double pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(busStop, viewNet, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
+GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet *net, double pos, const std::string& length, bool friendlyPos, bool blockMovement) :
+    GNEAdditional(busStop, net, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
         {}, {lane}, {}, {busStop}, {}, {}, {}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myLength(length),
@@ -54,7 +54,7 @@ GNEAccess::moveGeometry(const Position& offset) {
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
     // filtern position using snap to active grid
-    newPosition = myViewNet->snapToActiveGrid(newPosition);
+    newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
     myPositionOverLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
     // Update geometry
     updateGeometry();
@@ -66,7 +66,7 @@ GNEAccess::commitGeometryMoving(GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // commit new position allowing undo/redo
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }
@@ -169,7 +169,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // push matrix
@@ -187,7 +187,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 16);
             // check if dotted contour has to be drawn
-            if (myViewNet->getDottedAC() == this) {
+            if (myNet->getViewNet()->getDottedAC() == this) {
                 /*
                                 GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
                 */
@@ -248,7 +248,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -262,7 +262,7 @@ GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE: {
-            GNELane* lane = myViewNet->getNet()->retrieveLane(value, false);
+            GNELane* lane = myNet->retrieveLane(value, false);
             if (lane != nullptr) {
                 if (getParentLanes().front()->getParentEdge()->getID() != lane->getParentEdge()->getID()) {
                     return GNEAdditionalHandler::accessCanBeCreated(getParentAdditionals().at(0), lane->getParentEdge());
@@ -324,7 +324,7 @@ void
 GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
             replaceParentLanes(this, value);

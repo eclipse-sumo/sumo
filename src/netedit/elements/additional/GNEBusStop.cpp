@@ -37,9 +37,9 @@
 // method definitions
 // ===========================================================================
 
-GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNEViewNet* viewNet, const double startPos, const double endPos, const int parametersSet,
+GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNENet *net, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, bool blockMovement) :
-    GNEStoppingPlace(id, viewNet, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
+    GNEStoppingPlace(id, net, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
     myLines(lines),
     myPersonCapacity(personCapacity),
     myParkingLength(parkingLength)
@@ -61,7 +61,7 @@ GNEBusStop::updateGeometry() {
     PositionVector tmpShape = myAdditionalGeometry.getShape();
 
     // Move shape to side
-    tmpShape.move2side(myViewNet->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
+    tmpShape.move2side(myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.stoppingPlaceSignOffset * offsetSign);
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
@@ -99,9 +99,9 @@ GNEBusStop::updateGeometry() {
 
 void
 GNEBusStop::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myViewNet->getVisualisationSettings(),
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
                                           myAdditionalGeometry.getShape(),
-                                          myViewNet->getVisualisationSettings().stoppingPlaceSettings.busStopWidth);
+                                          myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopWidth);
 }
 
 
@@ -116,7 +116,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double busStopExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(busStopExaggeration) && myViewNet->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(busStopExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -132,11 +132,11 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         }
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-        GNEGeometry::drawGeometry(myViewNet, myAdditionalGeometry, s.stoppingPlaceSettings.busStopWidth * busStopExaggeration);
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.busStopWidth * busStopExaggeration);
         // Check if the distance is enought to draw details and if is being drawn for selecting
         if (s.drawForRectangleSelection) {
             // only draw circle depending of distance between sign and mouse cursor
-            if (myViewNet->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
+            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
                 // Add a draw matrix for details
                 glPushMatrix();
                 // Start drawing sign traslating matrix to signal position
@@ -220,7 +220,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn
-        if (myViewNet->getDottedAC() == this) {
+        if (myNet->getViewNet()->getDottedAC() == this) {
             GNEGeometry::drawShapeDottedContour(s, getType(), busStopExaggeration, myDottedGeometry);
         }
         // Pop name
@@ -284,7 +284,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
     switch (key) {
         case SUMO_ATTR_ID: {
             // change ID of BusStop
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             // Change Ids of all Acces children
             for (auto i : getChildAdditionals()) {
                 i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_ACCESS), undoList);
@@ -302,7 +302,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case GNE_ATTR_BLOCK_MOVEMENT:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myViewNet->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -316,7 +316,7 @@ GNEBusStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
-            if (myViewNet->getNet()->retrieveLane(value, false) != nullptr) {
+            if (myNet->retrieveLane(value, false) != nullptr) {
                 return true;
             } else {
                 return false;
@@ -366,7 +366,7 @@ void
 GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            myViewNet->getNet()->getAttributeCarriers()->updateID(this, value);
+            myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
             replaceParentLanes(this, value);

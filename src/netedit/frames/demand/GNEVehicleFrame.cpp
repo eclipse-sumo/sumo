@@ -197,9 +197,9 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 if (vehicleParameters) {
                     // check if we're creating a vehicle over a existent route or over a embedded route
                     if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                        GNERouteHandler::buildVehicleOverRoute(myViewNet, true, *vehicleParameters);
+                        GNERouteHandler::buildVehicleOverRoute(myViewNet->getNet(), true, *vehicleParameters);
                     } else {
-                        GNERouteHandler::buildVehicleWithEmbeddedRoute(myViewNet, true, *vehicleParameters, objectsUnderCursor.getDemandElementFront());
+                        GNERouteHandler::buildVehicleWithEmbeddedRoute(myViewNet->getNet(), true, *vehicleParameters, objectsUnderCursor.getDemandElementFront());
                     }
                     // delete vehicleParameters
                     delete vehicleParameters;
@@ -220,9 +220,9 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
                 if (routeFlowParameters) {
                     // check if we're creating a vehicle over a existent route or over a embedded route
                     if (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE) {
-                        GNERouteHandler::buildFlowOverRoute(myViewNet, true, *routeFlowParameters);
+                        GNERouteHandler::buildFlowOverRoute(myViewNet->getNet(), true, *routeFlowParameters);
                     } else {
-                        GNERouteHandler::buildFlowWithEmbeddedRoute(myViewNet, true, *routeFlowParameters, objectsUnderCursor.getDemandElementFront());
+                        GNERouteHandler::buildFlowWithEmbeddedRoute(myViewNet->getNet(), true, *routeFlowParameters, objectsUnderCursor.getDemandElementFront());
                     }
                     // delete routeFlowParameters
                     delete routeFlowParameters;
@@ -324,7 +324,7 @@ GNEVehicleFrame::edgePathCreated() {
             // obtain trip parameters
             SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
             // build trip in GNERouteHandler
-            GNERouteHandler::buildTrip(myViewNet, true, *tripParameters, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), viaEdges);
+            GNERouteHandler::buildTrip(myViewNet->getNet(), true, *tripParameters, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), viaEdges);
             // delete tripParameters
             delete tripParameters;
         } else {
@@ -337,7 +337,7 @@ GNEVehicleFrame::edgePathCreated() {
             // obtain flow parameters
             SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, false, 0, SUMOTime_MAX);
             // build flow in GNERouteHandler
-            GNERouteHandler::buildFlow(myViewNet, true, *flowParameters, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), viaEdges);
+            GNERouteHandler::buildFlow(myViewNet->getNet(), true, *flowParameters, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), viaEdges);
             // delete flowParameters
             delete flowParameters;
         }

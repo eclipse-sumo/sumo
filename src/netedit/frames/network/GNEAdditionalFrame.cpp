@@ -158,7 +158,7 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet, true, myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->getViewNet()->getNet(), true, myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // abort consecutive lane selector
             abortConsecutiveLaneSelector();
             // refresh additional attributes
@@ -856,7 +856,7 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myParentAdditional->refreshSelectorParentModul();
             // clear selected eddges and lanes
@@ -901,7 +901,7 @@ GNEAdditionalFrame::buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myParentAdditional->refreshSelectorParentModul();
             // clear selected eddges and lanes
@@ -962,7 +962,7 @@ GNEAdditionalFrame::buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>&
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
             // try to build additional
-            if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+            if (GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
                 // Refresh additional Parent Selector (For additionals that have a limited number of children)
                 myParentAdditional->refreshSelectorParentModul();
                 // abort lane selector
@@ -999,7 +999,7 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& 
         // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
         SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
         // try to build additional
-        if (GNEAdditionalHandler::buildAdditional(myViewNet, true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
+        if (GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
             // Refresh additional Parent Selector (For additionals that have a limited number of children)
             myParentAdditional->refreshSelectorParentModul();
             // clear selected eddges and lanes
