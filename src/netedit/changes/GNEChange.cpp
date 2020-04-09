@@ -52,7 +52,6 @@ const std::vector<GNEGenericData*> GNEChange::myEmptyGenericDatas = {};
 // ===========================================================================
 
 GNEChange::GNEChange(bool forward) :
-    myNet(nullptr),
     myForward(forward),
     myParentEdges(myEmptyEdges),
     myParentLanes(myEmptyLanes),
@@ -68,25 +67,7 @@ GNEChange::GNEChange(bool forward) :
     myChildGenericDatas(myEmptyGenericDatas) {}
 
 
-GNEChange::GNEChange(GNENet* net, bool forward) :
-    myNet(net),
-    myForward(forward),
-    myParentEdges(myEmptyEdges),
-    myParentLanes(myEmptyLanes),
-    myParentShapes(myEmptyShapes),
-    myParentAdditionals(myEmptyAdditionals),
-    myParentDemandElements(myEmptyDemandElements),
-    myParentGenericDatas(myEmptyGenericDatas),
-    myChildEdges(myEmptyEdges),
-    myChildLanes(myEmptyLanes),
-    myChildShapes(myEmptyShapes),
-    myChildAdditionals(myEmptyAdditionals),
-    myChildDemandElements(myEmptyDemandElements),
-    myChildGenericDatas(myEmptyGenericDatas) {}
-
-
-GNEChange::GNEChange(GNENet* net, GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* childs, bool forward) :
-    myNet(net),
+GNEChange::GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* childs, bool forward) :
     myForward(forward),
     myParentEdges(parents->getParentEdges()),
     myParentLanes(parents->getParentLanes()),

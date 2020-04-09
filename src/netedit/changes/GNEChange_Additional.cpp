@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Additional.h"
 
@@ -35,22 +34,21 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
-    GNEChange(additional->getNet(), additional, additional, forward),
+    GNEChange(additional, additional, forward),
     myAdditional(additional) {
     myAdditional->incRef("GNEChange_Additional");
 }
 
 
 GNEChange_Additional::~GNEChange_Additional() {
-    assert(myAdditional);
     myAdditional->decRef("GNEChange_Additional");
     if (myAdditional->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "'");
         // make sure that additional isn't in net before removing
-        if (myNet->getAttributeCarriers()->additionalExist(myAdditional)) {
+        if (myAdditional->getNet()->getAttributeCarriers()->additionalExist(myAdditional)) {
             // delete additional from net
-            myNet->getAttributeCarriers()->deleteAdditional(myAdditional);
+            myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
             // remove additional from parents and children
             removeAdditional(myAdditional);
         }
@@ -65,19 +63,19 @@ GNEChange_Additional::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
-        myNet->getAttributeCarriers()->deleteAdditional(myAdditional);
+        myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
         // remove additional from parents and children
         removeAdditional(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
-        myNet->getAttributeCarriers()->insertAdditional(myAdditional);
+        myAdditional->getNet()->getAttributeCarriers()->insertAdditional(myAdditional);
         // add additional in parent elements
         addAdditional(myAdditional);
     }
     // Requiere always save additionals
-    myNet->requireSaveAdditionals(true);
+    myAdditional->getNet()->requireSaveAdditionals(true);
 }
 
 
@@ -87,19 +85,19 @@ GNEChange_Additional::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
-        myNet->getAttributeCarriers()->insertAdditional(myAdditional);
+        myAdditional->getNet()->getAttributeCarriers()->insertAdditional(myAdditional);
         // add additional in parent elements
         addAdditional(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
-        myNet->getAttributeCarriers()->deleteAdditional(myAdditional);
+        myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
         // remove additional from parents and children
         removeAdditional(myAdditional);
     }
     // Requiere always save additionals
-    myNet->requireSaveAdditionals(true);
+    myAdditional->getNet()->requireSaveAdditionals(true);
 }
 
 

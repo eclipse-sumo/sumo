@@ -22,7 +22,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_DataInterval.h"
 
@@ -36,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataInterval, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bool forward) :
-    GNEChange(dataInterval->getDataSetParent()->getNet(), forward),
+    GNEChange(forward),
     myDataInterval(dataInterval),
     myDataSetParent(dataInterval->getDataSetParent()) {
     myDataInterval->incRef("GNEChange_DataInterval");
@@ -44,7 +43,6 @@ GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bo
 
 
 GNEChange_DataInterval::~GNEChange_DataInterval() {
-    assert(myDataInterval);
     myDataInterval->decRef("GNEChange_DataInterval");
     if (myDataInterval->unreferenced()) {
         // show extra information for tests
@@ -75,7 +73,7 @@ GNEChange_DataInterval::undo() {
         myDataSetParent->addDataIntervalChild(myDataInterval);
     }
     // Requiere always save elements
-    myNet->requireSaveDataElements(true);
+    myDataInterval->getDataSetParent()->getNet()->requireSaveDataElements(true);
 }
 
 
@@ -97,7 +95,7 @@ GNEChange_DataInterval::redo() {
         myDataSetParent->removeDataIntervalChild(myDataInterval);
     }
     // Requiere always save elements
-    myNet->requireSaveDataElements(true);
+    myDataInterval->getDataSetParent()->getNet()->requireSaveDataElements(true);
 }
 
 

@@ -35,12 +35,10 @@ class GNEChange_Attribute : public GNEChange {
 public:
     /**@brief Constructor
      * @param[in] ac The attribute-carrier to be modified
-     * @param[in] net Net in which AC is saved
      * @param[in] key The attribute key
      * @param[in] value The new value
      */
     GNEChange_Attribute(GNEAttributeCarrier* ac,
-                        GNENet* net,
                         const SumoXMLAttr key,
                         const std::string& value,
                         bool customOrigValue = false,
@@ -48,13 +46,11 @@ public:
 
     /**@brief Constructor
      * @param[in] ac The attribute-carrier to be modified
-     * @param[in] net Net in which AC is saved
      * @param[in] forceChange enable or disable force change
      * @param[in] key The attribute key
      * @param[in] value The new value
      */
     GNEChange_Attribute(GNEAttributeCarrier* ac,
-                        GNENet* net,
                         bool forceChange,
                         const SumoXMLAttr key,
                         const std::string& value);

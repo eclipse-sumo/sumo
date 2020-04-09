@@ -36,14 +36,13 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Junction, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating a junction
 GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
-    GNEChange(junction->getNet(), junction, junction, forward),
+    GNEChange(junction, junction, forward),
     myJunction(junction) {
     junction->incRef("GNEChange_Junction");
 }
 
 
 GNEChange_Junction::~GNEChange_Junction() {
-    assert(myJunction);
     myJunction->decRef("GNEChange_Junction");
     if (myJunction->unreferenced()) {
         // show extra information for tests
@@ -59,15 +58,15 @@ GNEChange_Junction::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // add junction to net
-        myNet->getAttributeCarriers()->deleteSingleJunction(myJunction);
+        myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         // delete junction from net
-        myNet->getAttributeCarriers()->insertJunction(myJunction);
+        myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myJunction->getNet()->requireSaveNet(true);
 }
 
 
@@ -77,15 +76,15 @@ GNEChange_Junction::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
         // add junction into net
-        myNet->getAttributeCarriers()->insertJunction(myJunction);
+        myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete junction from net
-        myNet->getAttributeCarriers()->deleteSingleJunction(myJunction);
+        myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myJunction->getNet()->requireSaveNet(true);
 }
 
 

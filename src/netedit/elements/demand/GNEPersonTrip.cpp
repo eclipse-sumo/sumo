@@ -253,7 +253,7 @@ GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         undoList->p_begin("arrivalPos of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), true, myPersonTripMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), true, myPersonTripMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }
@@ -485,7 +485,7 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ARRIVALPOS:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

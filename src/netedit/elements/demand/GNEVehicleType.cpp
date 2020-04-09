@@ -543,7 +543,7 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
     }
     switch (key) {
         case SUMO_ATTR_ID:
-            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         // CFM Attributes
         case SUMO_ATTR_ACCEL:
@@ -631,12 +631,12 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
-                undoList->p_add(new GNEChange_Attribute(this, myNet, true, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true"));
+                undoList->p_add(new GNEChange_Attribute(this, true, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true"));
             }
-            undoList->p_add(new GNEChange_Attribute(this, myNet, true, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, true, key, value));
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
-            undoList->p_add(new GNEChange_Attribute(this, myNet, true, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, true, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

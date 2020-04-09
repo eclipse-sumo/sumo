@@ -20,7 +20,6 @@
 #include <config.h>
 
 #include <netedit/elements/demand/GNEDemandElement.h>
-#include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 
 #include "GNEChange_Children.h"
@@ -35,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Children, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, GNEDemandElement* demandElementChild, const Operation operation) :
-    GNEChange(demandElementParent->getNet(), true),
+    GNEChange(true),
     myParentDemandElement(demandElementParent),
     myChildDemandElement(demandElementChild),
     myOperation(operation),
@@ -97,7 +96,7 @@ GNEChange_Children::undo() {
         }
     }
     // Requiere always save children
-    myNet->requireSaveDemandElements(true);
+    myParentDemandElement->getNet()->requireSaveDemandElements(true);
 }
 
 
@@ -131,7 +130,7 @@ GNEChange_Children::redo() {
         }
     }
     // Requiere always save children
-    myNet->requireSaveDemandElements(true);
+    myParentDemandElement->getNet()->requireSaveDemandElements(true);
 }
 
 

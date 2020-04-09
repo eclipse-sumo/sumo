@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
-    GNEChange(demandElement->getNet(), demandElement, demandElement, forward),
+    GNEChange(demandElement, demandElement, forward),
     myDemandElement(demandElement),
     myEdgePath(demandElement->getPathEdges()) {
     myDemandElement->incRef("GNEChange_DemandElement");
@@ -46,15 +46,14 @@ GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement
 
 
 GNEChange_DemandElement::~GNEChange_DemandElement() {
-    assert(myDemandElement);
     myDemandElement->decRef("GNEChange_DemandElement");
     if (myDemandElement->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
         // make sure that element isn't in net before removing
-        if (myNet->getAttributeCarriers()->demandElementExist(myDemandElement)) {
+        if (myDemandElement->getNet()->getAttributeCarriers()->demandElementExist(myDemandElement)) {
             // remove demand element of network
-            myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+            myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
             // remove element from path
             for (const auto& i : myEdgePath) {
                 i->removePathElement(myDemandElement);
@@ -73,7 +72,7 @@ GNEChange_DemandElement::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // delete demand element from net
-        myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
         for (const auto& i : myEdgePath) {
             i->removePathElement(myDemandElement);
@@ -84,20 +83,20 @@ GNEChange_DemandElement::undo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
-        myNet->getAttributeCarriers()->insertDemandElement(myDemandElement);
+        myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // add demand element in parents and children
         addDemandElement(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
-    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // update stack labels
     if (myParentEdges.size() > 0) {
         myParentEdges.front()->updateVehicleStackLabels();
     }
     // Requiere always save elements
-    myNet->requireSaveDemandElements(true);
+    myDemandElement->getNet()->requireSaveDemandElements(true);
 }
 
 
@@ -107,14 +106,14 @@ GNEChange_DemandElement::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
-        myNet->getAttributeCarriers()->insertDemandElement(myDemandElement);
+        myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // add demand element in parents and children
         addDemandElement(myDemandElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // delete demand element from net
-        myNet->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
         for (const auto& i : myEdgePath) {
             i->removePathElement(myDemandElement);
@@ -123,15 +122,15 @@ GNEChange_DemandElement::redo() {
         removeDemandElement(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
-    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
+    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // update stack labels
     if (myParentEdges.size() > 0) {
         myParentEdges.front()->updateVehicleStackLabels();
     }
     // Requiere always save elements
-    myNet->requireSaveDemandElements(true);
+    myDemandElement->getNet()->requireSaveDemandElements(true);
 }
 
 

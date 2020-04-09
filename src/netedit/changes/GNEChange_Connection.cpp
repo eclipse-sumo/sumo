@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, nullptr, 0)
 
 
 GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward) :
-    GNEChange(edge->getNet(), forward),
+    GNEChange(forward),
     myEdge(edge),
     myNBEdgeConnection(nbCon),
     mySelected(selected) {
@@ -67,7 +67,7 @@ GNEChange_Connection::undo() {
         myEdge->addConnection(myNBEdgeConnection, mySelected);
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myEdge->getNet()->requireSaveNet(true);
 }
 
 
@@ -90,7 +90,7 @@ GNEChange_Connection::redo() {
         myEdge->removeConnection(myNBEdgeConnection);
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myEdge->getNet()->requireSaveNet(true);
 }
 
 

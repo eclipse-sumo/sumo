@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/network/GNENetworkElement.h>
-#include <netedit/elements/additional/GNEShape.h>
 
 #include "GNEChange_EnableAttribute.h"
 
@@ -34,8 +33,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_EnableAttribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, GNENet* net, const int originalAttributes, const int newAttributes) :
-    GNEChange(net, true),
+GNEChange_EnableAttribute::GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const int originalAttributes, const int newAttributes) :
+    GNEChange(true),
     myAC(ac),
     myOriginalAttributes(originalAttributes),
     myNewAttributes(newAttributes) {
@@ -64,11 +63,11 @@ GNEChange_EnableAttribute::undo() {
     myAC->setEnabledAttribute(myOriginalAttributes);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
-        myNet->requireSaveNet(true);
+        myAC->getNet()->requireSaveNet(true);
     } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
-        myNet->requireSaveAdditionals(true);
+        myAC->getNet()->requireSaveAdditionals(true);
     } else if (myAC->getTagProperty().isDemandElement()) {
-        myNet->requireSaveDemandElements(true);
+        myAC->getNet()->requireSaveDemandElements(true);
     }
 }
 
@@ -81,11 +80,11 @@ GNEChange_EnableAttribute::redo() {
     myAC->setEnabledAttribute(myNewAttributes);
     // check if networkElements, additional or shapes has to be saved
     if (myAC->getTagProperty().isNetworkElement()) {
-        myNet->requireSaveNet(true);
+        myAC->getNet()->requireSaveNet(true);
     } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
-        myNet->requireSaveAdditionals(true);
+        myAC->getNet()->requireSaveAdditionals(true);
     } else if (myAC->getTagProperty().isDemandElement()) {
-        myNet->requireSaveDemandElements(true);
+        myAC->getNet()->requireSaveDemandElements(true);
     }
 }
 

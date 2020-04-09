@@ -23,7 +23,6 @@
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netbuild/NBNetBuilder.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_Crossing.h"
 
@@ -39,8 +38,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, nullptr, 0)
 
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges,
-                                       double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
-    GNEChange(junctionParent->getNet(), junctionParent, junctionParent, forward),
+        double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
+    GNEChange(junctionParent, junctionParent, forward),
     myJunctionParent(junctionParent),
     myEdges(edges),
     myWidth(width),
@@ -53,7 +52,7 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::v
 
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const NBNode::Crossing& crossing, bool forward):
-    GNEChange(junctionParent->getNet(), forward),
+    GNEChange(forward),
     myJunctionParent(junctionParent),
     myEdges(crossing.edges),
     myWidth(crossing.width),
@@ -62,12 +61,10 @@ GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const NBNode
     myCustomTLIndex2(crossing.customTLIndex2),
     myCustomShape(crossing.customShape),
     mySelected(false) {
-    assert(myNet);
 }
 
 
 GNEChange_Crossing::~GNEChange_Crossing() {
-    assert(myNet);
 }
 
 
@@ -80,9 +77,9 @@ void GNEChange_Crossing::undo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if ((myNet->netHasGNECrossings() == false) && (myNet->getNetBuilder()->haveNetworkCrossings())) {
+        if ((myJunctionParent->getNet()->netHasGNECrossings() == false) && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
             // change flag of NetBuilder (For build GNECrossing)
-            myNet->getNetBuilder()->setHaveNetworkCrossings(false);
+            myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests
             WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
         }
@@ -92,8 +89,8 @@ void GNEChange_Crossing::undo() {
         // add crossing of NBNode
         NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
-        if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
-            myNet->getNetBuilder()->setHaveNetworkCrossings(true);
+        if (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings() == false) {
+            myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(true);
             // show extra information for tests
             WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
         }
@@ -105,7 +102,7 @@ void GNEChange_Crossing::undo() {
         }
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myJunctionParent->getNet()->requireSaveNet(true);
 }
 
 
@@ -116,8 +113,8 @@ void GNEChange_Crossing::redo() {
         // add crossing of NBNode and update geometry
         NBNode::Crossing* c = myJunctionParent->getNBNode()->addCrossing(myEdges, myWidth, myPriority, myCustomTLIndex, myCustomTLIndex2, myCustomShape);
         // Check if Flag "haveNetworkCrossings" has to be enabled
-        if (myNet->getNetBuilder()->haveNetworkCrossings() == false) {
-            myNet->getNetBuilder()->setHaveNetworkCrossings(true);
+        if (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings() == false) {
+            myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(true);
             // show extra information for tests
             WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'false' to 'true'");
         }
@@ -135,15 +132,15 @@ void GNEChange_Crossing::redo() {
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
         // Check if Flag "haveNetworkCrossings" has to be disabled
-        if ((myNet->netHasGNECrossings() == false) && (myNet->getNetBuilder()->haveNetworkCrossings())) {
+        if ((myJunctionParent->getNet()->netHasGNECrossings() == false) && (myJunctionParent->getNet()->getNetBuilder()->haveNetworkCrossings())) {
             // change flag of NetBuilder (For build GNECrossing)
-            myNet->getNetBuilder()->setHaveNetworkCrossings(false);
+            myJunctionParent->getNet()->getNetBuilder()->setHaveNetworkCrossings(false);
             // show extra information for tests
             WRITE_DEBUG("Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'");
         }
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myJunctionParent->getNet()->requireSaveNet(true);
 }
 
 

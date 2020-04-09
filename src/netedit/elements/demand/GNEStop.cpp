@@ -255,10 +255,10 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
     if ((getParentLanes().size() > 0) && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
         undoList->p_begin("position of " + getTagStr());
         if (parametersSet & STOP_START_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_STARTPOS, toString(startPos), true, myStopMove.firstOriginalLanePosition));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(startPos), true, myStopMove.firstOriginalLanePosition));
         }
         if (parametersSet & STOP_END_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_ENDPOS, toString(endPos), true, myStopMove.secondOriginalPosition));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(endPos), true, myStopMove.secondOriginalPosition));
         }
         undoList->p_end();
     }
@@ -693,7 +693,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FRIENDLY_POS:
         //
         case GNE_ATTR_SELECTED:
-            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -824,25 +824,25 @@ GNEStop::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
     }
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, myNet, parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
     // modify parametersSetCopy depending of attr
     switch (key) {
         case SUMO_ATTR_STARTPOS:
             if (parametersSet & STOP_END_SET) {
-                undoList->p_add(new GNEChange_Attribute(this, myNet, key, toString(endPos - MIN_STOP_LENGTH)));
+                undoList->p_add(new GNEChange_Attribute(this, key, toString(endPos - MIN_STOP_LENGTH)));
             } else {
-                undoList->p_add(new GNEChange_Attribute(this, myNet, key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - MIN_STOP_LENGTH)));
+                undoList->p_add(new GNEChange_Attribute(this, key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - MIN_STOP_LENGTH)));
             }
             break;
         case SUMO_ATTR_ENDPOS:
-            undoList->p_add(new GNEChange_Attribute(this, myNet, key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength())));
+            undoList->p_add(new GNEChange_Attribute(this, key, toString(getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength())));
             break;
         case SUMO_ATTR_DURATION:
-            undoList->p_add(new GNEChange_Attribute(this, myNet, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-            undoList->p_add(new GNEChange_Attribute(this, myNet, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
+            undoList->p_add(new GNEChange_Attribute(this, key, myTagProperty.getAttributeProperties(key).getDefaultValue()));
             break;
         default:
             break;
@@ -884,7 +884,7 @@ GNEStop::disableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
             break;
     }
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, myNet, parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
 }
 
 

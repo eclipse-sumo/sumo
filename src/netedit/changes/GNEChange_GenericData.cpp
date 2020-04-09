@@ -26,7 +26,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_GenericData.h"
 
@@ -40,7 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_GenericData, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool forward) :
-    GNEChange(genericData->getNet(), genericData, genericData, forward),
+    GNEChange(genericData, genericData, forward),
     myGenericData(genericData),
     myDataIntervalParent(genericData->getDataIntervalParent()) {
     myGenericData->incRef("GNEChange_GenericData");
@@ -77,7 +76,7 @@ GNEChange_GenericData::undo() {
         addGenericData(myGenericData);
     }
     // Requiere always save elements
-    myNet->requireSaveDataElements(true);
+    myGenericData->getNet()->requireSaveDataElements(true);
 }
 
 
@@ -99,7 +98,7 @@ GNEChange_GenericData::redo() {
         removeGenericData(myGenericData);
     }
     // Requiere always save elements
-    myNet->requireSaveDataElements(true);
+    myGenericData->getNet()->requireSaveDataElements(true);
 }
 
 

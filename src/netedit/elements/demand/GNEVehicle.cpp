@@ -999,7 +999,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         //
         case GNE_ATTR_PARAMETERS:
         case GNE_ATTR_SELECTED:
-            undoList->p_add(new GNEChange_Attribute(this, myNet, key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
@@ -1194,7 +1194,7 @@ GNEVehicle::enableAttribute(SumoXMLAttr key, GNEUndoList* undoList) {
     // modify newParametersSet
     GNERouteHandler::setFlowParameters(key, newParametersSet);
     // add GNEChange_EnableAttribute
-    undoList->add(new GNEChange_EnableAttribute(this, myNet, parametersSet, newParametersSet), true);
+    undoList->add(new GNEChange_EnableAttribute(this, parametersSet, newParametersSet), true);
 }
 
 

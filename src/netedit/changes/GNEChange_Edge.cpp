@@ -42,7 +42,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Edge, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating an edge
 GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
-    GNEChange(edge->getNet(), edge, edge, forward),
+    GNEChange(edge, edge, forward),
     myEdge(edge) {
     edge->incRef("GNEChange_Edge");
     // save all hierarchical elements of edge's lane
@@ -60,7 +60,6 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
 
 
 GNEChange_Edge::~GNEChange_Edge() {
-    assert(myEdge);
     myEdge->decRef("GNEChange_Edge");
     if (myEdge->unreferenced()) {
         // show extra information for tests
@@ -85,19 +84,19 @@ GNEChange_Edge::undo() {
         // remove edge lanes from parents and children
         removeEdgeLanes();
         // delete edge from net
-        myNet->getAttributeCarriers()->deleteSingleEdge(myEdge);
+        myEdge->getNet()->getAttributeCarriers()->deleteSingleEdge(myEdge);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
-        myNet->getAttributeCarriers()->insertEdge(myEdge);
+        myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
         // add edge into parents and children
         addEdge(myEdge);
         // add edge lanes into parents and children
         addEdgeLanes();
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myEdge->getNet()->requireSaveNet(true);
 }
 
 
@@ -107,7 +106,7 @@ GNEChange_Edge::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // insert edge into net
-        myNet->getAttributeCarriers()->insertEdge(myEdge);
+        myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
         // add edge into parents and children
         addEdge(myEdge);
         // add edge lanes into parents and children
@@ -120,10 +119,10 @@ GNEChange_Edge::redo() {
         // remove edge lanes from parents and children
         removeEdgeLanes();
         // delete edge from net
-        myNet->getAttributeCarriers()->deleteSingleEdge(myEdge);
+        myEdge->getNet()->getAttributeCarriers()->deleteSingleEdge(myEdge);
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myEdge->getNet()->requireSaveNet(true);
 }
 
 

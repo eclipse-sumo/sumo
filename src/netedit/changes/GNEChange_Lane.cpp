@@ -37,7 +37,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
-    GNEChange(edge->getNet(), true),
+    GNEChange(true),
     myEdge(edge),
     myLane(nullptr),
     myLaneAttrs(laneAttrs),
@@ -47,7 +47,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
 
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
-    GNEChange(edge->getNet(), lane, lane, forward),
+    GNEChange(lane, lane, forward),
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs),
@@ -106,7 +106,7 @@ GNEChange_Lane::undo() {
         myEdge->addLane(myLane, myLaneAttrs, false);
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myEdge->getNet()->requireSaveNet(true);
 }
 
 
@@ -136,7 +136,7 @@ GNEChange_Lane::redo() {
         myEdge->removeLane(myLane, myRecomputeConnections);
     }
     // enable save networkElements
-    myNet->requireSaveNet(true);
+    myEdge->getNet()->requireSaveNet(true);
 }
 
 

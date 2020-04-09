@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/network/GNENetworkElement.h>
-#include <netedit/elements/additional/GNEShape.h>
 
 #include "GNEChange_Attribute.h"
 
@@ -34,10 +33,10 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, GNENet* net,
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
         SumoXMLAttr key, const std::string& value,
         bool customOrigValue, const std::string& origValue) :
-    GNEChange(net, true),
+    GNEChange(true),
     myAC(ac),
     myKey(key),
     myForceChange(false),
@@ -47,9 +46,9 @@ GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, GNENet* net,
 }
 
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, GNENet* net,
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
         bool forceChange, SumoXMLAttr key, const std::string& value) :
-    GNEChange(net, true),
+    GNEChange(true),
     myAC(ac),
     myKey(key),
     myForceChange(forceChange),
@@ -86,11 +85,11 @@ GNEChange_Attribute::undo() {
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
-            myNet->requireSaveNet(true);
+            myAC->getNet()->requireSaveNet(true);
         } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
-            myNet->requireSaveAdditionals(true);
+            myAC->getNet()->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
-            myNet->requireSaveDemandElements(true);
+            myAC->getNet()->requireSaveDemandElements(true);
         }
     }
 }
@@ -110,11 +109,11 @@ GNEChange_Attribute::redo() {
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
-            myNet->requireSaveNet(true);
+            myAC->getNet()->requireSaveNet(true);
         } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
-            myNet->requireSaveAdditionals(true);
+            myAC->getNet()->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
-            myNet->requireSaveDemandElements(true);
+            myAC->getNet()->requireSaveDemandElements(true);
         }
     }
 }

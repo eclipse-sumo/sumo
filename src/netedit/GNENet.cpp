@@ -1401,7 +1401,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load additionals if was recomputed with volatile options
     if (additionalPath != "") {
         // Create additional handler
-        GNEAdditionalHandler additionalHandler(additionalPath, myViewNet->getNet());
+        GNEAdditionalHandler additionalHandler(additionalPath, this);
         // Run parser
         if (!XMLSubSys::runParser(additionalHandler, additionalPath, false)) {
             WRITE_MESSAGE("Loading of " + additionalPath + " failed.");
@@ -1412,7 +1412,7 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
     // load demand elements if was recomputed with volatile options
     if (demandPath != "") {
         // Create demandElement handler
-        GNERouteHandler demandElementHandler(demandPath, myViewNet->getNet(), false);
+        GNERouteHandler demandElementHandler(demandPath, this, false);
         // Run parser
         if (!XMLSubSys::runParser(demandElementHandler, demandPath, false)) {
             WRITE_MESSAGE("Loading of " + demandPath + " failed.");

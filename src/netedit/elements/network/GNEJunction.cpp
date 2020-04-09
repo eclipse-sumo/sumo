@@ -645,7 +645,7 @@ GNEJunction::commitGeometryMoving(GNEUndoList* undoList) {
     endGeometryMoving();
     if (isValid(SUMO_ATTR_POSITION, toString(myNBNode->getPosition()))) {
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, myNet, SUMO_ATTR_POSITION, toString(myNBNode->getPosition()), true, toString(myMovingPosition)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNBNode->getPosition()), true, toString(myMovingPosition)));
         undoList->p_end();
     } else {
         // tried to set an invalid position, revert back to the previous one
@@ -685,7 +685,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
             removeConnectionsFrom(srcEdge, undoList, false); // false, because the whole tls will be invalidated at the end
             undoList->add(new GNEChange_Attribute(srcEdge, myNet, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
-        undoList->add(new GNEChange_Attribute(this, myNet, GNE_ATTR_MODIFICATION_STATUS, status), true);
+        undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
         invalidateTLS(undoList);
     } else {
         // logic valed, then rebuild GNECrossings to adapt it to the new logic
@@ -1020,7 +1020,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_NAME:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
-            undoList->add(new GNEChange_Attribute(this, myNet, key, value), true);
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             break;
         case SUMO_ATTR_KEEP_CLEAR:
             // change Keep Clear attribute in all connections
@@ -1059,7 +1059,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                 }
             }
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
-            undoList->add(new GNEChange_Attribute(this, myNet, key, value), true);
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             for (const auto& crossing : myGNECrossings) {
                 undoList->add(new GNEChange_Attribute(crossing, myNet, SUMO_ATTR_TLLINKINDEX, "-1"), true);
                 undoList->add(new GNEChange_Attribute(crossing, myNet, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
@@ -1084,7 +1084,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     }
                 }
             }
-            undoList->add(new GNEChange_Attribute(this, myNet, key, value), true);
+            undoList->add(new GNEChange_Attribute(this, key, value), true);
             undoList->p_end();
             break;
         }

@@ -62,18 +62,11 @@ public:
     GNEChange(bool forward);
 
     /**@brief Constructor
-     * @param[in] net GNENet net on which to apply changes
-     * @param[in] forward The direction of this change
-     */
-    GNEChange(GNENet* net, bool forward);
-
-    /**@brief Constructor
-     * @param[in] net GNENet net on which to apply changes
      * @param[in] forward The direction of this change
      * @param[in] parents hierarchical parent elements
      * @param[in] children hierarchical children elements
      */
-    GNEChange(GNENet* net, GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* children, bool forward);
+    GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* children, bool forward);
 
     /// @brief Destructor
     ~GNEChange();
@@ -129,12 +122,6 @@ protected:
 
     /// @brief remove given generic data from parents and children
     void removeGenericData(GNEGenericData* genericData);
-
-    /**@brief the net to which operations shall be applied or which shall be
-     * informed about gui updates
-     * (we are not responsible for the pointer)
-     */
-    GNENet* myNet;
 
     /**@brief we group antagonistic commands (create junction/delete
      * junction) and keep them apart by this flag

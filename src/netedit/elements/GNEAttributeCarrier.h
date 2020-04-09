@@ -66,7 +66,7 @@ public:
     /// @brief Destructor
     virtual ~GNEAttributeCarrier();
 
-    /// @brief getpointer to net
+    /// @brief get pointer to net
     GNENet* getNet() const;
 
     /// @brief get ID (all Attribute Carriers have one)
@@ -418,11 +418,11 @@ private:
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const GNETagProperties& tagProperties, const GNEAttributeProperties& attrProperties, const SumoXMLAttr attribute,
-                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
+        std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const GNETagProperties& tagProperties,
-            const GNEAttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+        const GNEAttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;

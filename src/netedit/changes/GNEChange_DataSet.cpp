@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/GNEViewNet.h>
 
 #include "GNEChange_DataSet.h"
@@ -36,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataSet, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DataSet::GNEChange_DataSet(GNEDataSet* dataSet, bool forward) :
-    GNEChange(dataSet->getNet(), forward),
+    GNEChange(forward),
     myDataSet(dataSet) {
     myDataSet->incRef("GNEChange_DataSet");
 }
@@ -49,8 +48,8 @@ GNEChange_DataSet::~GNEChange_DataSet() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "'");
         // make sure that element isn't in net before removing
-        if (myNet->getAttributeCarriers()->dataSetExist(myDataSet)) {
-            myNet->getAttributeCarriers()->deleteDataSet(myDataSet);
+        if (myDataSet->getNet()->getAttributeCarriers()->dataSetExist(myDataSet)) {
+            myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
         }
         // delete data set
         delete myDataSet;
@@ -64,17 +63,17 @@ GNEChange_DataSet::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
-        myNet->getAttributeCarriers()->deleteDataSet(myDataSet);
+        myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // insert data set into net
-        myNet->getAttributeCarriers()->insertDataSet(myDataSet);
+        myDataSet->getNet()->getAttributeCarriers()->insertDataSet(myDataSet);
     }
     // update toolbar
-    myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+    myDataSet->getNet()->getViewNet()->getIntervalBar().updateIntervalBar();
     // Requiere always save elements
-    myNet->requireSaveDataElements(true);
+    myDataSet->getNet()->requireSaveDataElements(true);
 }
 
 
@@ -84,17 +83,17 @@ GNEChange_DataSet::redo() {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // insert data set into net
-        myNet->getAttributeCarriers()->insertDataSet(myDataSet);
+        myDataSet->getNet()->getAttributeCarriers()->insertDataSet(myDataSet);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataSet->getTagStr() + " '" + myDataSet->getID() + "' in GNEChange_DataSet");
         // delete data set from net
-        myNet->getAttributeCarriers()->deleteDataSet(myDataSet);
+        myDataSet->getNet()->getAttributeCarriers()->deleteDataSet(myDataSet);
     }
     // update toolbar
-    myNet->getViewNet()->getIntervalBar().updateIntervalBar();
+    myDataSet->getNet()->getViewNet()->getIntervalBar().updateIntervalBar();
     // Requiere always save elements
-    myNet->requireSaveDataElements(true);
+    myDataSet->getNet()->requireSaveDataElements(true);
 }
 
 

@@ -35,11 +35,10 @@ class GNEChange_EnableAttribute : public GNEChange {
 public:
     /**@brief Constructor
      * @param[in] ac The attribute-carrier to be modified
-     * @param[in] net Net in which AC is saved
      * @param[in] originalAttributes original set of attributes
      * @param[in] newAttributes new set of attributes
      */
-    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, GNENet* net, const int originalAttributes, const int newAttributes);
+    GNEChange_EnableAttribute(GNEAttributeCarrier* ac, const int originalAttributes, const int newAttributes);
 
     /// @brief Destructor
     ~GNEChange_EnableAttribute();
