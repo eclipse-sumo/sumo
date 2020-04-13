@@ -86,6 +86,9 @@ distance
 junction_name
 connection_guessing
 
+# test load public transport related files
+public_transport
+
 # import params from plain xml
 params
 
