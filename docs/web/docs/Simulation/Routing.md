@@ -139,7 +139,7 @@ computed based on the travel time values described above. The effort can
 also be set using *traci.edge.setEffort*.
 
 !!! caution
-    The default effort value is -1 which causes detour routes to be preferred when not loading sensible effort values.
+    The default effort value is 0 which causes detour routes to be preferred when not loading sensible effort values.
     
 The applications [DUAROUTER](../DUAROUTER.md) and [MAROUTER](../MAROUTER.md) also support the options **--weight-file** and **--weight-attribute** but they can only be used with one of the weight attributes "CO", "CO2", "PMx", "HC", "NOx", "fuel", "electricity", "noise". However, the will still work as expected when the user loads custom effort values for these attributes.
 
