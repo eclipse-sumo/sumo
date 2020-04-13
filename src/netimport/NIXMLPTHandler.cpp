@@ -151,6 +151,10 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
         return;
     }
     SVCPermissions permissions = edge->getPermissions(laneIndex);
+    // possibly the stops were written for a different network. If the lane is not a typical public transport stop lane, assume bus as the default
+    if (!isRailway(permissions) && permissions != SVC_SHIP && permissions != SVC_TAXI) {
+        permissions = SVC_BUS;
+    }
     if (ok) {
         Position pos = edge->geometryPositionAtOffset((startPos + endPos) / 2);
         myCurrentStop = new NBPTStop(id, pos, edgeID, edgeID, endPos - startPos, name, permissions, parkingLength);
