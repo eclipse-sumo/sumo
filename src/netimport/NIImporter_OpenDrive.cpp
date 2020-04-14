@@ -1936,12 +1936,14 @@ NIImporter_OpenDrive::myStartElement(int element,
     bool ok = true;
     switch (element) {
         case OPENDRIVE_TAG_HEADER: {
+            /*
             int majorVersion = attrs.get<int>(OPENDRIVE_ATTR_REVMAJOR, nullptr, ok);
             int minorVersion = attrs.get<int>(OPENDRIVE_ATTR_REVMINOR, nullptr, ok);
             if (majorVersion != 1 || minorVersion != 2) {
                 // TODO: leave note of exceptions
                 WRITE_WARNING("Given openDrive file '" + getFileName() + "' uses version " + toString(majorVersion) + "." + toString(minorVersion) + ";\n Version 1.2 is supported.");
             }
+            */
         }
         break;
         case OPENDRIVE_TAG_ROAD: {
