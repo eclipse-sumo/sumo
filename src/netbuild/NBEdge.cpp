@@ -532,6 +532,9 @@ NBEdge::~NBEdge() {}
 void
 NBEdge::reshiftPosition(double xoff, double yoff) {
     myGeom.add(xoff, yoff, 0);
+    for (Lane& lane : myLanes) {
+        lane.customShape.add(xoff, yoff, 0);
+    }
     computeLaneShapes(); // old shapes are dubious if computed with large coordinates
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         (*i).customShape.add(xoff, yoff, 0);
