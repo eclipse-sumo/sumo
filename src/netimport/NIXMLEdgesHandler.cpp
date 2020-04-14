@@ -393,6 +393,11 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
             shape.push_front(myCurrentEdge->getFromNode()->getPosition());
             shape.push_back(myCurrentEdge->getToNode()->getPosition());
         }
+        shape.removeDoublePoints();
+        if (shape.size() < 2) {
+            // ignore lane shape for very short lanes
+            shape.clear();
+        }
         myCurrentEdge->setLaneShape(lane, shape);
     }
     // set custom lane type
