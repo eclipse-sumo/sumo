@@ -924,6 +924,9 @@ NBEdge::reduceGeometry(const double minDist) {
         myGeom = reverse.reverse();
     } else {
         myGeom.removeDoublePoints(minDist, true);
+        for (Lane& lane : myLanes) {
+            lane.customShape.removeDoublePoints(minDist, true);
+        }
     }
 }
 
