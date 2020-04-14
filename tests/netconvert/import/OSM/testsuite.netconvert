@@ -114,4 +114,7 @@ sidewalks
 
 # motorway without speed limit
 motorway
+
+# test import of maxspeed:forward and maxspeed:backward
+maxspeed_directional
 bugs

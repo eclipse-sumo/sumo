@@ -1,0 +1,6 @@
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '43167423').
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '385981665').
+Warning: Ambiguity in turnarounds computation at junction 'cluster_1823188364_253943505'.
+Warning: Ambiguity in turnarounds computation at junction 'cluster_1883585081_253943506'.
+Warning: The rail crossing 'cluster_1883585081_253943506' does not have any roads.
+Warning: Minor green from edge '43167423' to edge '-734152397#1' exceeds 19.44m/s. Maybe a left-turn lane is missing.

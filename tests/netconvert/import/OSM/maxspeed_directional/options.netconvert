@@ -1,0 +1,1 @@
+ --osm-files osm.xml  --geometry.remove --ramps.guess --junctions.join --tls.guess-signals --tls.discard-simple --remove-edges.by-type highway.track,highway.path
