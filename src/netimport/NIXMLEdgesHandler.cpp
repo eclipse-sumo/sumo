@@ -388,6 +388,11 @@ NIXMLEdgesHandler::addLane(const SUMOSAXAttributes& attrs) {
             const std::string laneID = myCurrentID + "_" + toString(lane);
             WRITE_ERROR("Unable to project coordinates for lane '" + laneID + "'.");
         }
+        if (shape.size() == 1) {
+            // lane shape of length 1 is not permitted
+            shape.push_front(myCurrentEdge->getFromNode()->getPosition());
+            shape.push_back(myCurrentEdge->getToNode()->getPosition());
+        }
         myCurrentEdge->setLaneShape(lane, shape);
     }
     // set custom lane type
