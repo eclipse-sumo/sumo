@@ -9,6 +9,9 @@ verbose
 # using edgedata as input
 edgedata
 
+# test option --od-files
+od_files
+
 # test additional vehicle attributes
 attrs
 mismatch-output
