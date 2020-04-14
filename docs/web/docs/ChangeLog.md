@@ -71,6 +71,7 @@ permalink: /ChangeLog/
 
 ### Enhancements
 - Simulation
+  - Added option **--extrapolate-departpos**. When this option is set, vehicles with a departure time that lies between simulation steps have their depart position shifted forward to better reflect their position at the actual insertion time. This can greatly reduce depart delay and incrase and insertion flow in high-flow situations. Issue #4277
   - Traffic lights of type 'actuated' and 'delay_based' now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom_detectors). Issue #5125, Issue #6773
   - The new route attriubte `period` is now applied repeatedly when rerouting the vehicle and the new route contains stops with attribute `until` to shift those times forward (e.g. on cyclical rerouters for public transport vehicles). Issue #6550
   - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554  
@@ -103,6 +104,7 @@ permalink: /ChangeLog/
   - Junction name is now listed in the junction parameter dialog and can optionally by drawn in the view. Issue #6635
   - Lanes that explicitly allow rail and passenger traffic are now highlighted with a distinct color in the default color scheme. Issue #6844
   - When loading a network with internal lanes and setting the option **--no-internal-links**, the internal lanes are still shown. This is mostly useful for railway simualation. Issue #6852
+  
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
   - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
@@ -110,6 +112,8 @@ permalink: /ChangeLog/
   - Added option **--default.connection-length** to overwrite the length of internal lanes with a specific value. Issue #6733
   - Added option **--railway.topology.direction-priority** to assign edge priority values based on the [preferred track usage direction](Simulation/Railways.md#routing_on_bidirectional_tracks) (determined heuristically from uni-directional track).
   - Added node attribute 'name' to hold an optional string label. Issue #6635
+  - Direction-specific speeds are now imported from OSM (*maxspeed:forward*, *maxspeed:backward*). Issue #6883
+  
 - DUAROUTER
   - When loading weights from edgeData files, arbitrary attributes can now be used with option **--weight-attribute**. Issue #6817
   - Added option **--weights.priority-factor FLOAT** to factor the priority of edges into the routing decision with a configurable weight (edges with higher priority are preferred increasingly when setting this to a higher value). Issue #6812
@@ -133,6 +137,7 @@ permalink: /ChangeLog/
     - supports limited optimization of route input (without resampling) by setting option **--optimize-input**
     - supports multi-edge counting data using `<edgeRelation from="A" to="D" via="B C" count="INT"/>`. Issue #6729
     - supports non-consecutive edgeRelations with maximum gap by using the new option **--turn-max-gap <INT>**. Issue #6726
+    - supports loading origin-destination relations with the new option **--od-files**. Issue #6888
     - supports writing results with routeIDs, routeDistribution and flows instead of vehicles. Issue #6730
 
 ### Other
