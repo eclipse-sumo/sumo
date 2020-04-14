@@ -67,6 +67,10 @@ To define count restrictions for longer consecutive edge sequences the optional 
 To define count restrictions on non-consecutive edges the option **--turn-max-gap <INT>** can be used. Example:
 When setting option **--turn-max-gap 2**, the edgeRelation `<edgeRelation from="A" to="D" .../>` would apply to routes containing "A B", "A X D" or "A X Y D" but not "A X Y Z D".
         
+## Origin-Destination restrictions
+When loading an edgeRelation file with the option **--od-files**, origin-destination counts will be added.
+This can be used to combine (edge-based) OD-relations with other couting data.
+        
 ## Output Styles
 By default, routeSampler will generate individual vehicles with embedded routes. This can be changed with the following options (which can also be combined):
 
