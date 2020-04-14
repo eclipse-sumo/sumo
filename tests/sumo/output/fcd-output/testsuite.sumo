@@ -27,8 +27,8 @@ acceleration
 # write additional parameters
 params
 
-# test caccControlMode parameter for CACC CFModel
-params_caccControlMode
+# test caccVehicleMode parameter for CACC CFModel
+params_caccVehicleMode
 subsecond
 
 # output not in every time step

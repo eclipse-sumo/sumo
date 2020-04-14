@@ -4,4 +4,4 @@
 --duration-log.statistics
 --tripinfo-output.write-unfinished
 --fcd-output=fcd.xml
---fcd-output.params caccControlMode
+--fcd-output.params caccVehicleMode

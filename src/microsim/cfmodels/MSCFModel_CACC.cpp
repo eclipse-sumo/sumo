@@ -64,6 +64,10 @@
 // override followSpeed when deemed unsafe by the given margin (the value was selected to reduce the number of necessary interventions)
 #define DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD 2.0
 
+std::map<MSCFModel_CACC::VehicleMode, std::string> MSCFModel_CACC::VehicleModeNames = {
+    {ACC_MODE, "ACC"},
+    {CACC_MODE, "CACC"}
+};
 
 // ===========================================================================
 // method definitions
@@ -86,8 +90,10 @@ MSCFModel_CACC::~MSCFModel_CACC() {}
 
 double
 MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
-    // set "caccControlMode" parameter to default value
-    const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "ACC");
+    // set "caccVehicleMode" parameter to default value
+    if (!MSGlobals::gComputeLC) {
+        const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[CACC_MODE]);
+    }
     return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
 }
 
@@ -196,8 +202,9 @@ MSCFModel_CACC::interactionGap(const MSVehicle* const /* veh */, double /* vL */
     return 250;
 }
 
-double MSCFModel_CACC::speedSpeedContol(const double speed, double vErr) const {
+double MSCFModel_CACC::speedSpeedControl(const double speed, double vErr, VehicleMode &vehMode) const {
     // Speed control law
+    vehMode = CACC_MODE;
     double sclAccel = mySpeedControlGain * vErr;
     double newSpeed = speed + ACCEL2SPEED(sclAccel);
     return newSpeed;
@@ -205,13 +212,13 @@ double MSCFModel_CACC::speedSpeedContol(const double speed, double vErr) const {
 
 double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pred,
                                        const double speed, const double predSpeed, const double desSpeed, double vErr,
-                                       const MSVehicle* const pred) const {
+                                       const MSVehicle* const pred, VehicleMode &vehMode) const {
     // Gap control law
     double newSpeed = 0.0;
 
     if (pred != nullptr) {
         if (pred->getCarFollowModel().getModelID() != SUMO_TAG_CF_CACC) {
-            //ACC control mode
+            vehMode = ACC_MODE;
             newSpeed = acc_CFM._v(veh, gap2pred, speed, predSpeed, desSpeed, true);
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
@@ -219,7 +226,7 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
             }
 #endif
         } else {
-            //CACC control mode
+            vehMode = CACC_MODE;
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
                 std::cout << "        CACC control mode" << std::endl;
@@ -266,7 +273,7 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
             std::cout << "        no leader" << std::endl;
         }
 #endif
-        newSpeed = speedSpeedContol(speed, vErr);
+        newSpeed = speedSpeedControl(speed, vErr, vehMode);
     }
 
     return newSpeed;
@@ -277,6 +284,7 @@ double
 MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double speed,
                    const double predSpeed, const double desSpeed, const bool /* respectMinGap */) const {
     double newSpeed = 0.0;
+    VehicleMode vehMode = CACC_MODE;
 
 #if DEBUG_CACC == 1
     if (DEBUG_COND) {
@@ -303,11 +311,13 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         }
 #endif
         // Find acceleration - Speed control law
-        newSpeed = speedSpeedContol(speed, vErr);
+        newSpeed = speedSpeedControl(speed, vErr, vehMode);
         // Set cl to vehicle parameters
         if (setControlMode) {
             vars->CACC_ControlMode = 0;
-            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "ACC");
+            if (!MSGlobals::gComputeLC) {
+                const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[vehMode]);
+            }
         }
     } else if (time_gap < 1.5) {
         // Find acceleration - Gap control law
@@ -316,30 +326,37 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
             std::cout << "        speedGapControl" << std::endl;
         }
 #endif
-        newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred);
+
+        newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred, vehMode);
         // Set cl to vehicle parameters
         if (setControlMode) {
             vars->CACC_ControlMode = 1;
-            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccControlMode", "CACC");
+            if (!MSGlobals::gComputeLC) {
+                const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[vehMode]);
+            }
         }
     } else {
         // Follow previous applied law
         int cm = vars->CACC_ControlMode;
-        if (!cm) {  // CACC_ControlMode = ACC
+        if (!cm) {  // CACC_ControlMode = speed control
 
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
                 std::cout << "        applying speedControl (previous)" << std::endl;
             }
 #endif
-            newSpeed = speedSpeedContol(speed, vErr);
-        } else {  // CACC_ControlMode = CACC
+            newSpeed = speedSpeedControl(speed, vErr, vehMode);
+        } else {  // CACC_ControlMode = gap control
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
                 std::cout << "        previous speedGapControl (previous)" << std::endl;
             }
 #endif
-            newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred);
+            newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred, vehMode);
+        }
+
+        if (setControlMode && !MSGlobals::gComputeLC) {
+            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[vehMode]);
         }
     }
 

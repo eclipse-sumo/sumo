@@ -64,7 +64,7 @@ public:
      * Returns the velocity of the vehicle in dependence to the length of the free street and the target
      *  velocity at the end of the free range. If onInsertion is true, the vehicle may still brake
      *  before the next movement.
-     * XXX: Currently only needed to (re-)set "caccControlMode" parameter to default value.
+     * XXX: Currently only needed to (re-)set "caccVehicleMode" parameter to default value.
      *
      * @param[in] veh The vehicle (EGO)
      * @param[in] speed The vehicle's speed
@@ -161,15 +161,24 @@ private:
         SUMOTime lastUpdateTime;
     };
 
+    /// @brief Vehicle mode (default is CACC)
+    /// Switch to ACC mode if CACC_ControlMode = 1 (gap control mode) _and_ leader's CFModel != CACC
+    enum VehicleMode {
+        ACC_MODE = 0,
+        CACC_MODE
+    };
+
+    /// @brief Vehicle mode name map
+    static std::map<VehicleMode, std::string> VehicleModeNames;
 
 private:
     double _v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double mySpeed,
               const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
-    double speedSpeedContol(const double speed, double vErr) const;
+    double speedSpeedControl(const double speed, double vErr, VehicleMode &vehMode) const;
     double speedGapControl(const MSVehicle* const veh, const double gap2pred,
                            const double speed, const double predSpeed, const double desSpeed, double vErr,
-                           const MSVehicle* const pred) const;
+                           const MSVehicle* const pred, VehicleMode &vehMode) const;
 
 private:
     MSCFModel_ACC acc_CFM;
