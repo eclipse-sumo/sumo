@@ -455,7 +455,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (e->myMaxSpeed != MAXSPEED_UNGIVEN) {
         speed = e->myMaxSpeed / 3.6;
     }
-    if (speed <= 0) {
+    double speedBackward = speed;
+    if (e->myMaxSpeedBackward != MAXSPEED_UNGIVEN) {
+        speedBackward = e->myMaxSpeedBackward / 3.6;
+    }
+    if (speed <= 0 || speedBackward <= 0) {
         WRITE_WARNINGF("Skipping edge '%' because it has speed %.", id, speed);
         ok = false;
     }
@@ -547,7 +551,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
         if (addBackward) {
             assert(numLanesBackward > 0);
-            NBEdge* nbe = new NBEdge(reverseID, to, from, type, speed, numLanesBackward, tc.getPriority(type),
+            NBEdge* nbe = new NBEdge(reverseID, to, from, type, speedBackward, numLanesBackward, tc.getPriority(type),
                                      backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(),
                                      StringUtils::escapeXML(streetName), origID, lsf, true);
             nbe->setPermissions(backwardPermissions);
@@ -915,6 +919,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         // we check whether the key is relevant (and we really need to transcode the value) to avoid hitting #1636
         if (!StringUtils::endsWith(key, "way") && !StringUtils::startsWith(key, "lanes")
                 && key != "maxspeed" && key != "maxspeed:type"
+                && key != "maxspeed:forward" && key != "maxspeed:backward"
                 && key != "junction" && key != "name" && key != "tracks" && key != "layer"
                 && key != "route"
                 && key != "sidewalk"
@@ -1037,25 +1042,11 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
                               toString(myCurrentEdge->id) + "'.");
             }
         } else if (myCurrentEdge->myMaxSpeed == MAXSPEED_UNGIVEN &&
-                   (key == "maxspeed" || key == "maxspeed:type")) {
+                   (key == "maxspeed" || key == "maxspeed:type" || key == "maxspeed:forward")) {
             // both 'maxspeed' and 'maxspeed:type' may be given so we must take care not to overwrite an already seen value
-            if (mySpeedMap.find(value) != mySpeedMap.end()) {
-                myCurrentEdge->myMaxSpeed = mySpeedMap[value];
-            } else {
-                double conversion = 1; // OSM default is km/h
-                if (StringUtils::to_lower_case(value).find("km/h") != std::string::npos) {
-                    value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
-                } else if (StringUtils::to_lower_case(value).find("mph") != std::string::npos) {
-                    value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
-                    conversion = KM_PER_MILE;
-                }
-                try {
-                    myCurrentEdge->myMaxSpeed = StringUtils::toDouble(value) * conversion;
-                } catch (...) {
-                    WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                                  toString(myCurrentEdge->id) + "'.");
-                }
-            }
+            myCurrentEdge->myMaxSpeed = interpretSpeed(key, value);
+        } else if (key == "maxspeed:backward" && myCurrentEdge->myMaxSpeedBackward == MAXSPEED_UNGIVEN) {
+            myCurrentEdge->myMaxSpeedBackward = interpretSpeed(key, value);
         } else if (key == "junction") {
             if ((value == "roundabout") && (myCurrentEdge->myIsOneWay.empty())) {
                 myCurrentEdge->myIsOneWay = "yes";
@@ -1117,6 +1108,30 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(int element,
         }
     }
 }
+
+
+double
+NIImporter_OpenStreetMap::EdgesHandler::interpretSpeed(const std::string& key, std::string value) {
+    if (mySpeedMap.find(value) != mySpeedMap.end()) {
+        return mySpeedMap[value];
+    } else {
+        double conversion = 1; // OSM default is km/h
+        if (StringUtils::to_lower_case(value).find("km/h") != std::string::npos) {
+            value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
+        } else if (StringUtils::to_lower_case(value).find("mph") != std::string::npos) {
+            value = StringUtils::prune(value.substr(0, value.find_first_not_of("0123456789")));
+            conversion = KM_PER_MILE;
+        }
+        try {
+            return StringUtils::toDouble(value) * conversion;
+        } catch (...) {
+            WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
+                    toString(myCurrentEdge->id) + "'.");
+            return MAXSPEED_UNGIVEN;
+        }
+    }
+}
+
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myEndElement(int element) {

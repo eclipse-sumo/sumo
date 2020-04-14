@@ -158,7 +158,9 @@ protected:
 
         explicit Edge(long long int _id)
             :
-            id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
+            id(_id), myNoLanes(-1), myNoLanesForward(0),
+            myMaxSpeed(MAXSPEED_UNGIVEN),
+            myMaxSpeedBackward(MAXSPEED_UNGIVEN),
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared
             mySidewalkType(WAY_UNKNOWN), // building of extra lanes depends on sidewalkWidth of loaded typemap
@@ -183,6 +185,8 @@ protected:
         int myNoLanesForward;
         /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
         double myMaxSpeed;
+        /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
+        double myMaxSpeedBackward;
         /// @brief The type, stored in "highway" key
         std::string myHighWayType;
         /// @brief Information whether this is an one-way road
@@ -439,6 +443,7 @@ protected:
         void myEndElement(int element) override;
         //@}
 
+        double interpretSpeed(const std::string& key, std::string value); 
 
     private:
         /// @brief The previously parsed nodes
