@@ -35,7 +35,7 @@ permalink: /ChangeLog/
     - Invalid stop position after splitting train. Issue #6788
     - Rail signal allows entering occupied block for joining trains. Issue #6794
     - Joining trains with different minGap values. Issue #6795   
-    - carFollowModel 'Rail' now longer ignores attributes 'accel', 'decel' and 'emergencyDecel', 'apparentDecel' and 'collisionMinGapFactor'. Issue #6834
+    - carFollowModel 'Rail' no longer ignores attributes 'accel', 'decel' and 'emergencyDecel', 'apparentDecel' and 'collisionMinGapFactor'. Issue #6834
     
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
