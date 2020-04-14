@@ -12,7 +12,7 @@ The generated traffic should obviously match the counting data but this requirem
 - [DFROUTER](../DFROUTER.md) uses edge based counts
 - [flowrouter](../Tools/Detector.md#flowrouterpy) uses edge based counts
 - [jtcrouter](../Tools/Turns.md#jtcrouterpy) uses turn-counts
-- [routeSampler](../Tools/Turns.md#routesamplerpy) uses turn-counts and edge counts
+- [routeSampler](../Tools/Turns.md#routesamplerpy) uses turn-counts and edge counts (and also origin-destination counts)
 
 # DFROUTER
 Since version 0.9.5, the SUMO-package contains a routing module named
