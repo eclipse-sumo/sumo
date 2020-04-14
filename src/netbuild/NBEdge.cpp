@@ -3238,7 +3238,7 @@ NBEdge::append(NBEdge* e) {
     // append geometry
     myGeom.append(e->myGeom);
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLanes[i].shape.append(e->myLanes[i].shape);
+        myLanes[i].customShape.append(e->myLanes[i].customShape);
         if (myLanes[i].knowsParameter(SUMO_PARAM_ORIGID) || e->myLanes[i].knowsParameter(SUMO_PARAM_ORIGID)
                 || OptionsCont::getOptions().getBool("output.original-names")) {
             const std::string origID = myLanes[i].getParameter(SUMO_PARAM_ORIGID, getID());
