@@ -7,6 +7,9 @@ set_internalShape
 reset_internalShape
 set_lane_shape
 
+# set lane shape that consists of only one geometry point
+set_lane_shape_1point
+
 # load a sumo net with custom lane shapes and define additional customization
 set_lane_shape_sumo_net
 
