@@ -49,8 +49,8 @@ public:
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
     SUMOSAXAttributesImpl_Xerces(const XERCES_CPP_NAMESPACE::Attributes& attrs,
-                                 const std::map<int, XMLCh*>& predefinedTags,
-                                 const std::map<int, std::string>& predefinedTagsMML,
+                                 const std::vector<XMLCh*>& predefinedTags,
+                                 const std::vector<std::string>& predefinedTagsMML,
                                  const std::string& objectType);
 
 
@@ -296,13 +296,12 @@ private:
     const XERCES_CPP_NAMESPACE::Attributes& myAttrs;
 
     /// @brief Definition of a map of attribute ids to their xerces-representation
-    typedef std::map<int, XMLCh*> AttrMap;
+    typedef std::vector<XMLCh*> AttrMap;
     /// @brief Map of attribute ids to their xerces-representation
     const AttrMap& myPredefinedTags;
 
     /// @brief Map of attribute ids to their (readable) string-representation
-    const std::map<int, std::string>& myPredefinedTagsMML;
-
+    const std::vector<std::string>& myPredefinedTagsMML;
 
 private:
     /// @brief Invalidated copy constructor.

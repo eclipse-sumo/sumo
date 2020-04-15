@@ -113,7 +113,7 @@ protected:
     const RGBColor& getEdgeCandidateSelectedColor() const;
 
     /// @brief get predefinedTagsMML
-    const std::map<int, std::string>& getPredefinedTagsMML() const;
+    const std::vector<std::string>& getPredefinedTagsMML() const;
 
     /// @brief View Net
     GNEViewNet* myViewNet = nullptr;
@@ -147,7 +147,7 @@ private:
     RGBColor myEdgeCandidateSelectedColor;
 
     /// @brief Map of attribute ids to their (readable) string-representation (needed for SUMOSAXAttributesImpl_Cached)
-    std::map<int, std::string> myPredefinedTagsMML;
+    std::vector<std::string> myPredefinedTagsMML;
 
     /// @brief Invalidated copy constructor.
     GNEFrame(const GNEFrame&) = delete;

@@ -46,8 +46,12 @@ GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet
     // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
     int i = 0;
     while (SUMOXMLDefinitions::attrs[i].key != SUMO_ATTR_NOTHING) {
-        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = toString(SUMOXMLDefinitions::attrs[i].str);
-        myPredefinedTagsMML[SUMOXMLDefinitions::attrs[i].key] = SUMOXMLDefinitions::attrs[i].str;
+        int key = SUMOXMLDefinitions::attrs[i].key;
+        assert(key >= 0);
+        while (key >= (int)myPredefinedTagsMML.size()) {
+            myPredefinedTagsMML.push_back("");
+        }
+        myPredefinedTagsMML[key] = SUMOXMLDefinitions::attrs[i].str;
         i++;
     }
 
@@ -276,7 +280,7 @@ GNEFrame::getEdgeCandidateSelectedColor() const {
 }
 
 
-const std::map<int, std::string>&
+const std::vector<std::string>&
 GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;
 }

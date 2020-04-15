@@ -48,9 +48,14 @@ GenericSAXHandler::GenericSAXHandler(
     }
     i = 0;
     while (attrs[i].key != terminatorAttr) {
-        assert(myPredefinedTags.find(attrs[i].key) == myPredefinedTags.end());
-        myPredefinedTags[attrs[i].key] = convert(attrs[i].str);
-        myPredefinedTagsMML[attrs[i].key] = attrs[i].str;
+        int key = attrs[i].key;
+        assert(key >= 0);
+        while (key >= (int)myPredefinedTags.size()) {
+            myPredefinedTags.push_back(nullptr);
+            myPredefinedTagsMML.push_back("");
+        }
+        myPredefinedTags[key] = convert(attrs[i].str);
+        myPredefinedTagsMML[key] = attrs[i].str;
         i++;
     }
 }
@@ -58,7 +63,7 @@ GenericSAXHandler::GenericSAXHandler(
 
 GenericSAXHandler::~GenericSAXHandler() {
     for (AttrMap::iterator i1 = myPredefinedTags.begin(); i1 != myPredefinedTags.end(); i1++) {
-        delete[](*i1).second;
+        delete[](*i1);
     }
 }
 

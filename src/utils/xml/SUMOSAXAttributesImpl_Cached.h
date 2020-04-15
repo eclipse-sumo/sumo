@@ -47,7 +47,7 @@ public:
      * @param[in] objectType object type in string format
      */
     SUMOSAXAttributesImpl_Cached(const std::map<std::string, std::string>& attrs,
-                                 const std::map<int, std::string>& predefinedTagsMML,
+                                 const std::vector<std::string>& predefinedTagsMML,
                                  const std::string& objectType);
 
     /** @brief Constructor
@@ -57,7 +57,7 @@ public:
      * @param[in] objectType object type in string format
      */
     SUMOSAXAttributesImpl_Cached(const std::map<SumoXMLAttr, std::string>& attrs,
-                                 const std::map<int, std::string>& predefinedTagsMML,
+                                 const std::vector<std::string>& predefinedTagsMML,
                                  const std::string& objectType);
 
     /// @brief Destructor
@@ -283,7 +283,7 @@ private:
     std::map<std::string, std::string> myAttrs;
 
     /// @brief Map of attribute ids to their (readable) string-representation
-    const std::map<int, std::string>& myPredefinedTagsMML;
+    const std::vector<std::string>& myPredefinedTagsMML;
 
 private:
     /// @brief Invalidated copy constructor.

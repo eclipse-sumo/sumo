@@ -39,8 +39,8 @@
 // class definitions
 // ===========================================================================
 SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const XERCES_CPP_NAMESPACE::Attributes& attrs,
-        const std::map<int, XMLCh*>& predefinedTags,
-        const std::map<int, std::string>& predefinedTagsMML,
+        const std::vector<XMLCh*>& predefinedTags,
+        const std::vector<std::string>& predefinedTagsMML,
         const std::string& objectType) :
     SUMOSAXAttributes(objectType),
     myAttrs(attrs),
@@ -54,11 +54,9 @@ SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() {
 
 bool
 SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const {
-    AttrMap::const_iterator i = myPredefinedTags.find(id);
-    if (i == myPredefinedTags.end()) {
-        return false;
-    }
-    return myAttrs.getIndex((*i).second) >= 0;
+    assert(id >= 0); 
+    assert(id < myPredefinedTags.size());
+    return myAttrs.getIndex(myPredefinedTags[id]) >= 0;
 }
 
 
@@ -106,9 +104,9 @@ SUMOSAXAttributesImpl_Xerces::getFloat(int id) const {
 
 const XMLCh*
 SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
-    AttrMap::const_iterator i = myPredefinedTags.find(id);
-    assert(i != myPredefinedTags.end());
-    return myAttrs.getValue((*i).second);
+    assert(id >= 0);
+    assert(id < myPredefinedTags.size());
+    return myAttrs.getValue(myPredefinedTags[id]);
 }
 
 
@@ -238,10 +236,9 @@ SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
-    if (myPredefinedTagsMML.find(attr) == myPredefinedTagsMML.end()) {
-        return "?";
-    }
-    return myPredefinedTagsMML.find(attr)->second;
+    assert(attr >= 0); 
+    assert(attr < myPredefinedTagsMML.size());
+    return myPredefinedTagsMML[attr];
 }
 
 

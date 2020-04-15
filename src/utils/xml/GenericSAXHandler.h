@@ -280,13 +280,13 @@ private:
     //@{
 
     // the type of the map from ids to their unicode-string representation
-    typedef std::map<int, XMLCh*> AttrMap;
+    typedef std::vector<XMLCh*> AttrMap;
 
     // the map from ids to their unicode-string representation
     AttrMap myPredefinedTags;
 
     /// the map from ids to their string representation
-    std::map<int, std::string> myPredefinedTagsMML;
+    std::vector<std::string> myPredefinedTagsMML;
     //@}
 
 
