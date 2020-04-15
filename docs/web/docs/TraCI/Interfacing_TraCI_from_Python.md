@@ -301,15 +301,17 @@ For this functionality it is recommended to use
 Sometimes SUMO may crash while running a simulation with TraCI. The
 below steps make it simple to run sumo with traci in a debugger:
 
-1\) add the option *--save-configuration* to your traci script:
+1\) Add the option *--save-configuration* to your traci script:
 
 ```
 traci.start([sumoBinary, '-c', 'run.sumocfg', '--save-configuration', 'debug.sumocfg'])
 ```
 
-2\) run your traci script. Instead of starting sumo it will just write
+2\) Run your traci script. Instead of starting sumo it will just write
 the configuration with the chosen port but it will still try to connect
-repeatedly 3) run
+repeatedly.
+
+3\) Run
 
 ```
 gdb --args sumoD -c debug.sumocfg
