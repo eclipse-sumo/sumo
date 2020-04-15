@@ -1215,7 +1215,7 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
             } else if (isRailway(myPermissions)) {
                 return 5;
             } else if ((myPermissions & SVC_PASSENGER) != 0) {
-                if ((myPermissions & SVC_RAIL_CLASSES) != 0 && (myPermissions & SVC_SHIP) == 0) {
+                if ((myPermissions & (SVC_RAIL_CLASSES & ~SVC_RAIL_FAST)) != 0 && (myPermissions & SVC_SHIP) == 0) {
                     return 6;
                 } else {
                     return 0;
