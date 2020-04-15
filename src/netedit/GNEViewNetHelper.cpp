@@ -2419,7 +2419,8 @@ GNEViewNetHelper::IntervalBar::setAttribute() {
 void 
 GNEViewNetHelper::IntervalBar::updateComboBoxAttributes() {
     // update attributes
-    myFilteredAttributes = myViewNet->getNet()->retrieveGenericDataParameters(getDataSetStr(), getBeginStr(), getEndStr());
+    myFilteredAttributes = myViewNet->getNet()->retrieveGenericDataParameters(getDataSetStr(), 
+        getGenericDataTypeStr() , getBeginStr(), getEndStr());
     // clear combo box
     myFilteredAttributesComboBox->clearItems();
     // check if there is dataSets

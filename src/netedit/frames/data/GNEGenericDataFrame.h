@@ -182,7 +182,7 @@ public:
 
     public:
         /// @brief constructor
-        AttributeSelector(GNEGenericDataFrame* genericDataFrameParent);
+        AttributeSelector(GNEGenericDataFrame* genericDataFrameParent, SumoXMLTag tag);
 
         /// @brief destructor
         ~AttributeSelector();
@@ -217,6 +217,9 @@ public:
         /// @brief label for min/max attribute
         FXLabel* myMinMaxLabel;
 
+        /// @brief generic data tag
+        SumoXMLTag myGenericDataTag;
+
         /// @brief vector with the scale colors
         std::vector<RGBColor> myScaleColors;
     };
@@ -239,10 +242,10 @@ public:
 protected:
     /**@brief Constructor (protected due GNEGenericDataFrame is abtract)
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
-     * @brief net net that uses this GNEFrame
-     * @brief title generic data frame title
+     * @brief viewNet GNEViewNet that uses this GNEFrame
+     * @brief tag generic data tag
      */
-    GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& title);
+    GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag);
 
     /// @brief Destructor
     ~GNEGenericDataFrame();

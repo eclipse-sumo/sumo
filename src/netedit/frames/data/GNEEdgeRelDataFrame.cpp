@@ -30,7 +30,7 @@
 // ===========================================================================
 
 GNEEdgeRelDataFrame::GNEEdgeRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEGenericDataFrame(horizontalFrameParent, viewNet, toString(SUMO_TAG_EDGEREL)) {
+    GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_EDGEREL) {
 }
 
 

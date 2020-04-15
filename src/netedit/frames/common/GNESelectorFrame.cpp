@@ -991,7 +991,7 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelecto
         const double begin = GNEAttributeCarrier::parse<double>(myBegin->getText().text());
         const double end = GNEAttributeCarrier::parse<double>(myEnd->getText().text());
         // obtain all Generic Data attributes for current generic tag
-        auto attributes = mySelectorFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(myCurrentTag, begin, end);
+        auto attributes = mySelectorFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(toString(myCurrentTag), begin, end);
         // set color and enable items
         myMatchGenericDataTagComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchGenericDataAttrComboBox->enable();
@@ -1020,7 +1020,7 @@ long
 GNESelectorFrame::MatchGenericDataAttribute::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // obtain all Generic Data attributes for current generic tag
     std::set<std::string> attributes = mySelectorFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
-        myCurrentTag, 
+        toString(myCurrentTag), 
         GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
         GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     // add extra data set parent attribute

@@ -2422,7 +2422,7 @@ GNENet::generateDataSetID(const std::string& prefix) const {
 
 
 std::set<std::string> 
-GNENet::retrieveGenericDataParameters(const SumoXMLTag genericDataTag, const double begin, const double end) const {
+GNENet::retrieveGenericDataParameters(const std::string& genericDataTag, const double begin, const double end) const {
     // declare solution
     std::set<std::string> attributesSolution;
     // declare generic data vector
@@ -2434,7 +2434,7 @@ GNENet::retrieveGenericDataParameters(const SumoXMLTag genericDataTag, const dou
             if ((interval.second->getAttributeDouble(SUMO_ATTR_BEGIN) >= begin) && (interval.second->getAttributeDouble(SUMO_ATTR_END) <= end)) {
                 // iterate over generic datas
                 for (const auto &genericData : interval.second->getGenericDataChildren()) {
-                    if (genericData->getTagProperty().getTag() == genericDataTag) {
+                    if (genericDataTag.empty() || (genericData->getTagProperty().getTagStr() == genericDataTag)) {
                         genericDatas.push_back(genericData);
                     }
                 }
@@ -2452,7 +2452,8 @@ GNENet::retrieveGenericDataParameters(const SumoXMLTag genericDataTag, const dou
 
 
 std::set<std::string>
-GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::string& beginStr, const std::string& endStr) const {
+GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::string& genericDataTag,
+    const std::string& beginStr, const std::string& endStr) const {
     // declare solution
     std::set<std::string> attributesSolution;
     // vector of data sets and intervals
@@ -2509,8 +2510,11 @@ GNENet::retrieveGenericDataParameters(const std::string& dataSetID, const std::s
     // finally iterate over intervals and get attributes
     for (const auto& dataInterval : dataIntervals) {
         for (const auto& genericData : dataInterval->getGenericDataChildren()) {
-            for (const auto& attribute : genericData->getParametersMap()) {
-                attributesSolution.insert(attribute.first);
+            // check generic data tag
+            if (genericDataTag.empty() || (genericData->getTagProperty().getTagStr() == genericDataTag)) {
+                for (const auto& attribute : genericData->getParametersMap()) {
+                    attributesSolution.insert(attribute.first);
+                }
             }
         }
     }

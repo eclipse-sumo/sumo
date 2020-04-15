@@ -386,10 +386,11 @@ GNEGenericDataFrame::IntervalSelector::addIntervalItem(GNEDataInterval* dataInte
 // GNEGenericDataFrame::AttributeSelector - methods
 // ---------------------------------------------------------------------------
 
-GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* genericDataFrameParent) :
+GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* genericDataFrameParent, SumoXMLTag tag) :
     FXGroupBox(genericDataFrameParent->myContentFrame, "Data attributes", GUIDesignGroupBoxFrame),
     myGenericDataFrameParent(genericDataFrameParent),
-    myMinMaxLabel(nullptr) {
+    myMinMaxLabel(nullptr),
+    myGenericDataTag(tag) {
     // Create FXComboBox
     myAttributesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
@@ -420,7 +421,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
         // add attributes depending of interval
         if (myGenericDataFrameParent->myIntervalSelector->getDataInterval() == nullptr) {
             const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
-                myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), "", "");
+                myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag), "", "");
             // add all parameters
             for (const auto& attribute : parameters) {
                 myAttributesComboBox->appendItem(attribute.c_str());
@@ -428,7 +429,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
         } else {
             // retrieve all parameters within begin and end
             const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
-                myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(),
+                myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag),
                 myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_BEGIN),
                 myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_END));
             // add all parameters
@@ -544,8 +545,8 @@ GNEGenericDataFrame::show() {
 }
 
 
-GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& title) :
-    GNEFrame(horizontalFrameParent, viewNet, title),
+GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag) :
+    GNEFrame(horizontalFrameParent, viewNet, toString(tag)),
     myDataSetSelector(nullptr),
     myIntervalSelector(nullptr),
     myAttributeSelector(nullptr),
@@ -556,7 +557,7 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     // create IntervalSelector modul
     myIntervalSelector = new IntervalSelector(this);
     // create AttributeSelector modul
-    myAttributeSelector = new AttributeSelector(this);
+    myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor modul
     myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this, "Attributes");
     // create EdgePathCreator modul

@@ -594,10 +594,11 @@ public:
     std::string generateDataSetID(const std::string& prefix) const;
 
     /// @brief return a set of parameters for the given data Interval
-    std::set<std::string> retrieveGenericDataParameters(const SumoXMLTag genericDataTag, const double begin, const double end) const;
+    std::set<std::string> retrieveGenericDataParameters(const std::string& genericDataTag, const double begin, const double end) const;
 
-    /// @brief return a set of parameters for the given dataSet and data Interval
-    std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& beginStr, const std::string& endStr) const;
+    /// @brief return a set of parameters for the given dataSet, generic data Type, begin and end
+    std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& genericDataTag,
+        const std::string& beginStr, const std::string& endStr) const;
     
     /// @brief get minimum interval
     double getDataSetIntervalMinimumBegin() const;
