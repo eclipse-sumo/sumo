@@ -16,6 +16,7 @@ Elevation data can be imported from the following sources
   - from a greyscale height-map using [NETCONVERT](../NETCONVERT.md) option **--heightmap.geotiff**.
   - from [*edg.xml files*](../Networks/PlainXML.md#edge_descriptions) as part of the shape specification
 
+- by shifting geometry points and junctions along the z-axis in [NETEDIT move mode](../NETEDIT.md#changing_elevation).
 
 # Related Topics
 
