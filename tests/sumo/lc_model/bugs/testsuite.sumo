@@ -13,3 +13,6 @@ ticket4108
 
 # approaching roundabout with an invalid route
 ticket5097
+
+# delayed lane change when trying to avoid counter-lane-change deadlock for IDM model
+ticket5124
