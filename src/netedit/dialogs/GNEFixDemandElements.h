@@ -76,6 +76,9 @@ protected:
         /// @brief vector with the invalid stops
         std::vector<GNEDemandElement*> myInvalidStops;
 
+        /// @brief vector with the invalid person plans
+        std::vector<GNEDemandElement*> myInvalidPersonPlans;
+
         /// @brief list with the demand elements
         FXTable* myTable;
     };
@@ -161,6 +164,35 @@ protected:
         FXRadioButton* selectInvalidStopsAndCancel;
     };
 
+    /// @brief groupbox for all radio buttons related with fix person plan options
+    class FixPersonPlanOptions : public FXGroupBox {
+
+    public:
+        /// @brief build Position Options
+        FixPersonPlanOptions(GNEFixDemandElements* fixDemandElementsDialogParents);
+
+        /// @brief select option
+        void selectOption(FXObject* option);
+
+        /// @brief enable position options
+        void enableFixPersonPlanOptions();
+
+        /// @brief disable position options
+        void disableFixPersonPlanOptions();
+
+        /// @brief Option "Activate friendlyPos and save"
+        FXRadioButton* activateFriendlyPositionAndSave;
+
+        /// @brief Option "Fix Positions and save"
+        FXRadioButton* fixPositionsAndSave;
+
+        /// @brief Option "Save invalid"
+        FXRadioButton* saveInvalid;
+
+        /// @brief Option "Select invalid person plans and cancel"
+        FXRadioButton* selectInvalidPersonPlansAndCancel;
+    };
+
     FOX_CONSTRUCTOR(GNEFixDemandElements)
 
     /// @brief view net
@@ -180,6 +212,9 @@ protected:
 
     /// @brief fix stop options
     FixStopOptions* myFixStopOptions;
+
+    /// @brief fix person plan options
+    FixPersonPlanOptions* myFixPersonPlanOptions;
 
     /// @brief accept button
     FXButton* myAcceptButton;
