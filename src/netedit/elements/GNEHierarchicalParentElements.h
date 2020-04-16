@@ -52,7 +52,8 @@ public:
     friend class GNEChange_Children;
 
     /**@brief Constructor used by elements that have another additionals as parent
-     * @param[in] tag Type of xml tag that define the element (SUMO_TAG_BUS_STOP, SUMO_TAG_JUNCTION, etc...)
+     * @param[in] AC Attribute carrier
+     * @param[in] parentJunctions vector of parent junctions
      * @param[in] parentEdges vector of parent edges
      * @param[in] parentLanes vector of parent lanes
      * @param[in] parentShapes vector of parent shapes
@@ -60,13 +61,14 @@ public:
      * @param[in] parentDemandElements vector of parent demand elements
      * @param[in] parentGenericData vector of parent generic data elements
      */
-    GNEHierarchicalParentElements(GNEAttributeCarrier* AC,
-                                  const std::vector<GNEEdge*>& parentEdges,
-                                  const std::vector<GNELane*>& parentLanes,
-                                  const std::vector<GNEShape*>& parentShapes,
-                                  const std::vector<GNEAdditional*>& parentAdditionals,
-                                  const std::vector<GNEDemandElement*>& parentDemandElements,
-                                  const std::vector<GNEGenericData*>& parentGenericDatas);
+    GNEHierarchicalParentElements(const GNEAttributeCarrier* AC,
+        const std::vector<GNEJunction*>& parentJunctions,
+        const std::vector<GNEEdge*>& parentEdges,
+        const std::vector<GNELane*>& parentLanes,
+        const std::vector<GNEShape*>& parentShapes,
+        const std::vector<GNEAdditional*>& parentAdditionals,
+        const std::vector<GNEDemandElement*>& parentDemandElements,
+        const std::vector<GNEGenericData*>& parentGenericDatas);
 
     /// @brief Destructor
     ~GNEHierarchicalParentElements();
@@ -280,7 +282,7 @@ private:
     std::vector<GNEGenericData*> myParentGenericDatas;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
-    GNEAttributeCarrier* myAC;
+    const GNEAttributeCarrier* myAC;
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalParentElements(const GNEHierarchicalParentElements&) = delete;

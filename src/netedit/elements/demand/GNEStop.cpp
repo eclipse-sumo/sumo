@@ -38,7 +38,7 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet *net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
-        {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {stoppingPlace}, {stopParent}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
 }
 
@@ -46,7 +46,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet *net, const SUMOVehicleParameter::Stop& 
 GNEStop::GNEStop(GNENet *net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
         stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
-        {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {lane}, {}, {}, {stopParent}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
 }
 

@@ -40,7 +40,8 @@
 // GNEHierarchicalParentElements - methods
 // ---------------------------------------------------------------------------
 
-GNEHierarchicalParentElements::GNEHierarchicalParentElements(GNEAttributeCarrier* AC,
+GNEHierarchicalParentElements::GNEHierarchicalParentElements(const GNEAttributeCarrier* AC,
+        const std::vector<GNEJunction*>& parentJunctions,
         const std::vector<GNEEdge*>& parentEdges,
         const std::vector<GNELane*>& parentLanes,
         const std::vector<GNEShape*>& parentShapes,

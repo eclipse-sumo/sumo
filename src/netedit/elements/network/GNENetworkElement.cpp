@@ -45,8 +45,8 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
-    GNEHierarchicalParentElements(this, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
-    GNEHierarchicalChildElements(this, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalParentElements(this, {}, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
+    GNEHierarchicalChildElements(this, {}, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
     myMovingGeometryBoundary() {
 }
 

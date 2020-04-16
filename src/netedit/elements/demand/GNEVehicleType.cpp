@@ -32,7 +32,7 @@
 
 GNEVehicleType::GNEVehicleType(GNENet *net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, tag,
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeID),
     myDefaultVehicleType(true),
     myDefaultVehicleTypeModified(false) {
@@ -46,7 +46,7 @@ GNEVehicleType::GNEVehicleType(GNENet *net, const std::string& vTypeID, const SU
 
 GNEVehicleType::GNEVehicleType(GNENet *net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
     GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, tag,
-        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
     SUMOVTypeParameter(vTypeParameter),
     myDefaultVehicleType(false),
     myDefaultVehicleTypeModified(false) {
@@ -62,7 +62,7 @@ GNEVehicleType::GNEVehicleType(GNENet *net, const SUMOVTypeParameter& vTypeParam
 
 GNEVehicleType::GNEVehicleType(GNENet *net, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(),
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
 SUMOVTypeParameter(*vTypeOriginal),
 myDefaultVehicleType(false),
 myDefaultVehicleTypeModified(false) {

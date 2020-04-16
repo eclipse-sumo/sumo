@@ -49,6 +49,8 @@ public:
     friend class GNEChange_Children;
 
     /**@brief Parameter Constructor
+     * @param[in] AC Attribute carrier
+     * @param[in] childJunctions vector of child junctions
      * @param[in] childEdges vector of child edges
      * @param[in] childLanes vector of child lanes
      * @param[in] childShapes vector of child shapes
@@ -56,13 +58,14 @@ public:
      * @param[in] childDemandElements vector of child demand elements
      * @param[in] childGenericDataElements vector of child generic data elements
      */
-    GNEHierarchicalChildElements(GNEAttributeCarrier* AC,
-                                 const std::vector<GNEEdge*>& childEdges,
-                                 const std::vector<GNELane*>& childLanes,
-                                 const std::vector<GNEShape*>& childShapes,
-                                 const std::vector<GNEAdditional*>& childAdditionals,
-                                 const std::vector<GNEDemandElement*>& childDemandElements,
-                                 const std::vector<GNEGenericData*>& childGenericDataElements);
+    GNEHierarchicalChildElements(const GNEAttributeCarrier* AC,
+        const std::vector<GNEJunction*>& childJunctions,
+        const std::vector<GNEEdge*>& childEdges,
+        const std::vector<GNELane*>& childLanes,
+        const std::vector<GNEShape*>& childShapes,
+        const std::vector<GNEAdditional*>& childAdditionals,
+        const std::vector<GNEDemandElement*>& childDemandElements,
+        const std::vector<GNEGenericData*>& childGenericDataElements);
 
     /// @brief Destructor
     ~GNEHierarchicalChildElements();
@@ -276,7 +279,7 @@ private:
     std::map<SumoXMLTag, std::vector<GNEDemandElement* >> myDemandElementsByType;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
-    GNEAttributeCarrier* myAC;
+    const GNEAttributeCarrier* myAC;
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalChildElements(const GNEHierarchicalChildElements&) = delete;
