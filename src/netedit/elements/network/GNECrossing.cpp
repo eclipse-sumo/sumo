@@ -38,10 +38,11 @@
 // ===========================================================================
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id,
-                      GLO_CROSSING, SUMO_TAG_CROSSING,
-{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}),
-myParentJunction(parentJunction),
-myCrossingEdges(crossingEdges) {
+        GLO_CROSSING, SUMO_TAG_CROSSING,
+        {}, {}, {}, {}, {}, {}, {},     // Parents
+        {}, {}, {}, {}, {}, {}, {}),    // Children
+    myParentJunction(parentJunction),
+    myCrossingEdges(crossingEdges) {
 }
 
 
