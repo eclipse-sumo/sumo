@@ -53,6 +53,7 @@ MSStageDriving::MSStageDriving(const MSEdge* destination,
     myVehicleID("NULL"),
     myVehicleVClass(SVC_IGNORING),
     myVehicleDistance(-1.),
+    myTimeLoss(-1),
     myWaitingSince(-1),
     myWaitingEdge(nullptr),
     myStopWaitPos(Position::INVALID),
@@ -218,6 +219,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
     os.writeAttr("duration", myArrived >= 0 ? time2string(duration) :
                  (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
     os.writeAttr("routeLength", myVehicleDistance);
+    os.writeAttr("timeLoss", myArrived >= 0 ? time2string(myTimeLoss) : "-1");
     os.closeTag();
 }
 
@@ -296,11 +298,13 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
         myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
                                 myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
                                 myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge()) - myVehicleDistance;
+        myTimeLoss = myVehicle->getTimeLoss() - myTimeLoss;
         if (myVehicle->isStopped()) {
             myArrivalPos = myVehicle->getPositionOnLane();
         }
     } else {
         myVehicleDistance = -1.;
+        myTimeLoss = -1;
     }
     return "";
 }
@@ -316,6 +320,7 @@ MSStageDriving::setVehicle(SUMOVehicle* v) {
         myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
                 myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
                 myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
+        myTimeLoss = myVehicle->getTimeLoss();
     }
 }
 

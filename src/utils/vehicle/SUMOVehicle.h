@@ -307,6 +307,8 @@ public:
 
     virtual SUMOTime getDepartDelay() const = 0;
 
+    virtual SUMOTime getTimeLoss() const = 0;
+
     /// @brief get distance for coming to a stop (used for rerouting checks)
     virtual double getBrakeGap() const = 0;
 

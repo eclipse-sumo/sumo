@@ -316,6 +316,11 @@ public:
         return MAX2(SUMOTime(0), myEventTime - myBlockTime);
     }
 
+    inline SUMOTime getTimeLoss() const {
+        // slow-downs while driving are not modelled
+        return getWaitingTime();
+    }
+
     /// @brief Returns the duration for which the vehicle was blocked
     inline SUMOTime getAccumulatedWaitingTime() const {
         return getWaitingTime();

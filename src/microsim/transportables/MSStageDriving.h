@@ -157,6 +157,8 @@ protected:
 
     SUMOVehicleClass myVehicleVClass;
     double myVehicleDistance;
+    /// @brief While driving, this is the timeLoss of the vehicle when the ride started, after arrival this is the timeLoss which the vehicle accumulated during the ride
+    SUMOTime myTimeLoss;
 
     double myWaitingPos;
     /// @brief The time since which this person is waiting for a ride
