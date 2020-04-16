@@ -1025,6 +1025,7 @@ placeholder `<DEVICENAME>` below
 - [toc](ToC_Device.md)
 - [driverstate](Driver_State.md)
 - [fcd](Simulation/Output/FCDOutput.md)
+- [tripinfo](Simulation/Output/TripInfo.md)
 - [Demand Responsive Transport (Taxis)](Simulation/Taxi.md)
 - [example](Developer/How_To/Device.md)
 
