@@ -15,3 +15,6 @@ insert_with_speedLimit_speedFactor0.8
 
 # test acceleration and deceleration when there are no vehicles around (speed limit change)
 free_speed
+
+# test insertion of a fast vehicle behind a slow vehicle
+insertion_speed
