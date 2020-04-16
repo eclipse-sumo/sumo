@@ -180,11 +180,8 @@ protected:
         /// @brief disable position options
         void disableFixPersonPlanOptions();
 
-        /// @brief Option "Activate friendlyPos and save"
-        FXRadioButton* activateFriendlyPositionAndSave;
-
-        /// @brief Option "Fix Positions and save"
-        FXRadioButton* fixPositionsAndSave;
+        /// @brief Option "delete person plan"
+        FXRadioButton* deletePersonPlan;
 
         /// @brief Option "Save invalid"
         FXRadioButton* saveInvalid;

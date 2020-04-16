@@ -186,7 +186,8 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // check options for person plans
     if (myDemandList->myInvalidPersonPlans.size() > 0) {
-        if (myFixPersonPlanOptions->activateFriendlyPositionAndSave->getCheck() == TRUE) {
+        if (myFixPersonPlanOptions->deletePersonPlan->getCheck() == TRUE) {
+            /*
             // begin undo list
             myViewNet->getUndoList()->p_begin("change " + toString(SUMO_ATTR_FRIENDLY_POS) + " of invalid person plans");
             // iterate over invalid person plans to enable friendly position
@@ -194,13 +195,7 @@ GNEFixDemandElements::onCmdAccept(FXObject*, FXSelector, void*) {
                 i->setAttribute(SUMO_ATTR_FRIENDLY_POS, "true", myViewNet->getUndoList());
             }
             myViewNet->getUndoList()->p_end();
-        } else if (myFixPersonPlanOptions->fixPositionsAndSave->getCheck() == TRUE) {
-            myViewNet->getUndoList()->p_begin("fix positions of invalid person plans");
-            // iterate over invalid person plans to fix positions
-            for (auto i : myDemandList->myInvalidPersonPlans) {
-                i->fixDemandElementProblem();
-            }
-            myViewNet->getUndoList()->p_end();
+            */
         } else if (myFixPersonPlanOptions->selectInvalidPersonPlansAndCancel->getCheck() == TRUE) {
             myViewNet->getUndoList()->p_begin("select invalid person plans");
             // iterate over invalid person plans to select all elements
@@ -529,41 +524,32 @@ GNEFixDemandElements::FixPersonPlanOptions::FixPersonPlanOptions(GNEFixDemandEle
     FXHorizontalFrame* RadioButtons = new FXHorizontalFrame(this, GUIDesignHorizontalFrame);
     // create Vertical Frame for left options
     FXVerticalFrame* RadioButtonsLeft = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    activateFriendlyPositionAndSave = new FXRadioButton(RadioButtonsLeft, "Activate friendlyPos and save",
+    deletePersonPlan = new FXRadioButton(RadioButtonsLeft, "Delete person plan",
         fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid positions",
+    saveInvalid = new FXRadioButton(RadioButtonsLeft, "Save invalid person plans",
         fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Vertical Frame for right options
     FXVerticalFrame* RadioButtonsRight = new FXVerticalFrame(RadioButtons, GUIDesignAuxiliarVerticalFrame);
-    selectInvalidPersonPlansAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid PersonPlans",
-        fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
-    fixPositionsAndSave = new FXRadioButton(RadioButtonsRight, "Fix positions and save",
+    selectInvalidPersonPlansAndCancel = new FXRadioButton(RadioButtonsRight, "Select invalid person plans",
         fixDemandElementsDialogParents, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // leave option "activateFriendlyPositionAndSave" as default
-    activateFriendlyPositionAndSave->setCheck(true);
+    deletePersonPlan->setCheck(true);
 }
 
 
 void
 GNEFixDemandElements::FixPersonPlanOptions::selectOption(FXObject* option) {
-    if (option == activateFriendlyPositionAndSave) {
-        activateFriendlyPositionAndSave->setCheck(true);
-        fixPositionsAndSave->setCheck(false);
+    if (option == deletePersonPlan) {
+        deletePersonPlan->setCheck(true);
         saveInvalid->setCheck(false);
         selectInvalidPersonPlansAndCancel->setCheck(false);
-    } else if (option == fixPositionsAndSave) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(true);
-        saveInvalid->setCheck(false);
         selectInvalidPersonPlansAndCancel->setCheck(false);
     } else if (option == saveInvalid) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(false);
+        deletePersonPlan->setCheck(false);
         saveInvalid->setCheck(true);
         selectInvalidPersonPlansAndCancel->setCheck(false);
     } else if (option == selectInvalidPersonPlansAndCancel) {
-        activateFriendlyPositionAndSave->setCheck(false);
-        fixPositionsAndSave->setCheck(false);
+        deletePersonPlan->setCheck(false);
         saveInvalid->setCheck(false);
         selectInvalidPersonPlansAndCancel->setCheck(true);
     }
@@ -572,8 +558,7 @@ GNEFixDemandElements::FixPersonPlanOptions::selectOption(FXObject* option) {
 
 void
 GNEFixDemandElements::FixPersonPlanOptions::enableFixPersonPlanOptions() {
-    activateFriendlyPositionAndSave->enable();
-    fixPositionsAndSave->enable();
+    deletePersonPlan->enable();
     saveInvalid->enable();
     selectInvalidPersonPlansAndCancel->enable();
 }
@@ -581,8 +566,7 @@ GNEFixDemandElements::FixPersonPlanOptions::enableFixPersonPlanOptions() {
 
 void
 GNEFixDemandElements::FixPersonPlanOptions::disableFixPersonPlanOptions() {
-    activateFriendlyPositionAndSave->disable();
-    fixPositionsAndSave->disable();
+    deletePersonPlan->disable();
     saveInvalid->disable();
     selectInvalidPersonPlansAndCancel->disable();
 }
