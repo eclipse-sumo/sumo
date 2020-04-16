@@ -97,11 +97,11 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
             case SUMO_TAG_PERSONTRIP_BUSSTOP:
                 information
                         << "- Click over an edge and\n"
-                        << "  a bus to create a trip.";
+                        << "  a busStop to create a trip.";
                 break;
             case SUMO_TAG_WALK_EDGES:
                 information
-                        << "- Click over a sequenz of\n"
+                        << "- Click over a sequence of\n"
                         << "  consecutive edges to\n"
                         << "  create a walk.";
                 break;
@@ -113,7 +113,7 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
             case SUMO_TAG_WALK_BUSSTOP:
                 information
                         << "- Click over an edge and\n"
-                        << "  a bus to create a walk.";
+                        << "  a busStop to create a walk.";
                 break;
             case SUMO_TAG_WALK_ROUTE:
                 information
@@ -127,7 +127,7 @@ GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
             case SUMO_TAG_RIDE_BUSSTOP:
                 information
                         << "- Click over an edge and\n"
-                        << "  a bus to create a ride";
+                        << "  a busStop to create a ride";
                 break;
             default:
                 break;
