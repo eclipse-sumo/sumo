@@ -26,6 +26,9 @@ permalink: /ChangeLog/
   - Option **--ignore-route-errors** can now be used to ignore the error 'will not be able to depart using the given velocity (slow lane ahead)'. Issue #6853
   - Fixed crash when using option **--no-internal-links** and defining a stop on an internal lane. Issue #6855
   - Fixed invalid vehicle angles when using option **--lanechange.duration** in a left-hand network. Issue #6856
+  - Ride arrival stop is now considered when a vehicle stops multiple times on the arrival edge. Issue #2811
+  - Fixed unsafe insertion speed for IDM-vehicles. Issue #6904
+  - Fixed bug that was causing cooperative speed adjustments to fail. Issue #5124
   - Railway fixes:
     - Train reversal problems. Issue #6692, #6782, #6797, #6851, #6860
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
@@ -45,6 +48,8 @@ permalink: /ChangeLog/
   - OpenDRIVE networks where a single edges is connected to more than two junctions are now supported. Issue #6828
   - Fixed invalid link state at railway switch that would cause uncessary deceleration. Issue #6833
   - OpenDRIVE import now correctly handles `signalReference` and signal `laneValidity` elements. Issue #2517, #2366
+  - Fixed errors when loading custom lane shapes. Issue #6892, #6893, #6894, #6895
+  - Fixed bug that could cause an invalid intermodal network to be written. Issue #6901
 - SUMO-GUI
   - Fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
   - Fixed crash when simulation ends while tracking person attributes. Issue #6784
@@ -77,6 +82,7 @@ permalink: /ChangeLog/
   - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554  
   - Added option **--fcd-output.params KEY1,KEY2,...** to extend fcd-output with additional vehicle [generic parameters](Simulation/GenericParameters.md). Issue #6685
   - Tripinfo-output attribute vaporized now includes specific description for premature vehicle removal (collision, traci, calibrator, ...). Issue #6718
+  - Tripinfo-output now includes timeloss for person rides. Issue #6891
   - Added option **--statistic-output** to write [various statistics](Simulation/Output.md#commandline_output_verbose) in XML format. Issue #3751
   - vType attribute 'lcSigma' now always affect lateral position (previously, only sublane model and continuous lanechange modle were affected).
   - Option **--save-state.times** now accepts human-readable time. Issue #6810
