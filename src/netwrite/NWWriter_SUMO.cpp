@@ -548,15 +548,12 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     into.writeAttr(SUMO_ATTR_TYPE, n.getType());
     NWFrame::writePositionLong(n.getPosition(), into);
     // write the incoming lanes
-    std::string incLanes;
+    std::vector<std::string> incLanes;
     const std::vector<NBEdge*>& incoming = n.getIncomingEdges();
     for (std::vector<NBEdge*>::const_iterator i = incoming.begin(); i != incoming.end(); ++i) {
         int noLanes = (*i)->getNumLanes();
         for (int j = 0; j < noLanes; j++) {
-            incLanes += (*i)->getLaneID(j);
-            if (i != incoming.end() - 1 || j < noLanes - 1) {
-                incLanes += ' ';
-            }
+            incLanes.push_back((*i)->getLaneID(j));
         }
     }
     std::vector<NBNode::Crossing*> crossings = n.getCrossings();
@@ -564,36 +561,31 @@ NWWriter_SUMO::writeJunction(OutputDevice& into, const NBNode& n) {
     // avoid duplicates
     for (auto c : crossings) {
         if (prevWAs.count(c->prevWalkingArea) == 0) {
-            incLanes += ' ' + c->prevWalkingArea + "_0";
+            incLanes.push_back(c->prevWalkingArea + "_0");
             prevWAs.insert(c->prevWalkingArea);
         }
     }
     into.writeAttr(SUMO_ATTR_INCLANES, incLanes);
     // write the internal lanes
-    std::string intLanes;
+    std::vector<std::string> intLanes;
     if (!OptionsCont::getOptions().getBool("no-internal-links")) {
-        int l = 0;
         for (EdgeVector::const_iterator i = incoming.begin(); i != incoming.end(); i++) {
             const std::vector<NBEdge::Connection>& elv = (*i)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = elv.begin(); k != elv.end(); ++k) {
                 if ((*k).toEdge == nullptr) {
                     continue;
                 }
-                if (l != 0) {
-                    intLanes += ' ';
-                }
                 if (!(*k).haveVia) {
-                    intLanes += (*k).getInternalLaneID();
+                    intLanes.push_back((*k).getInternalLaneID());
                 } else {
-                    intLanes += (*k).viaID + "_0";
+                    intLanes.push_back((*k).viaID + "_0");
                 }
-                l++;
             }
         }
     }
     if (n.getType() != SumoXMLNodeType::DEAD_END && n.getType() != SumoXMLNodeType::NOJUNCTION) {
         for (auto c : crossings) {
-            intLanes += ' ' + c->id + "_0";
+            intLanes.push_back(c->id + "_0");
         }
     }
     into.writeAttr(SUMO_ATTR_INTLANES, intLanes);
