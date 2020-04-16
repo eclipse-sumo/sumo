@@ -824,11 +824,16 @@ MSBaseVehicle::getContainers() const {
 
 bool
 MSBaseVehicle::isLineStop(double position) const {
-    if (myParameter->line == "" || myParameter->stops.empty()) {
+    if (myParameter->line == "") {
         // not a public transport line
         return false;
     }
     for (const SUMOVehicleParameter::Stop& stop : myParameter->stops) {
+        if (stop.startPos <= position && position <= stop.endPos) {
+            return true;
+        }
+    }
+    for (const SUMOVehicleParameter::Stop& stop : myRoute->getStops()) {
         if (stop.startPos <= position && position <= stop.endPos) {
             return true;
         }
