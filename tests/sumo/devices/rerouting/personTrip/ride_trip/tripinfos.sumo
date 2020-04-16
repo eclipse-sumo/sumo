@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 11 22:24:09 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+<!-- generated on Thu Apr 16 23:38:25 2020 by Eclipse SUMO Version v1_5_0+1178-2eafbbddc0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="trainBA.1" depart="962.00" departLane="railNS_0" departPos="135.10" departSpeed="0.00" departDelay="0.00" arrival="1191.00" arrivalLane="railNS_0" arrivalPos="1200.00" arrivalSpeed="13.25" duration="229.00" routeLength="1064.90" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="89.78" rerouteNo="0" devices="tripinfo_trainBA.1" vType="train" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="400.00" type="DEFAULT_PEDTYPE">
         <stop duration="1.00" arrival="401.00" arrivalPos="300.00" actType="waiting"/>
-        <ride waitingTime="38.00" vehicle="trainBA.0" depart="439.00" arrival="508.00" arrivalPos="850.00" duration="69.00" routeLength="500.00"/>
+        <ride waitingTime="38.00" vehicle="trainBA.0" depart="439.00" arrival="508.00" arrivalPos="850.00" duration="69.00" routeLength="500.00" timeLoss="33.00"/>
         <walk depart="508.00" departPos="111.92" arrival="533.00" arrivalPos="81.39" duration="25.00" routeLength="30.53" timeLoss="3.02" maxSpeed="1.39"/>
         <access stop="stopA_E" duration="73.00" routeLength="102.24"/>
         <walk depart="606.00" departPos="81.39" arrival="1568.00" arrivalPos="109.86" duration="962.00" routeLength="1199.65" timeLoss="98.25" maxSpeed="1.39"/>

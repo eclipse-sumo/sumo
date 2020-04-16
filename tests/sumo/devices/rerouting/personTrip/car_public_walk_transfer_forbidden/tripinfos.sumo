@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 12 09:42:26 2020 by Eclipse SUMO Version v1_5_0+0671-ab1576c
+<!-- generated on Thu Apr 16 23:38:25 2020 by Eclipse SUMO Version v1_5_0+1178-2eafbbddc0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="0.00" arrival="606.00" arrivalPos="250.00" duration="606.00" routeLength="755.66" timeLoss="61.92" maxSpeed="1.39"/>
         <access stop="beg2left" duration="17.00" routeLength="24.16"/>
-        <ride waitingTime="1.00" vehicle="train.2" depart="624.00" arrival="705.00" arrivalPos="1300.00" duration="81.00" routeLength="1000.00"/>
+        <ride waitingTime="1.00" vehicle="train.2" depart="624.00" arrival="705.00" arrivalPos="1300.00" duration="81.00" routeLength="1000.00" timeLoss="9.01"/>
         <access stop="left2end" duration="17.00" routeLength="24.54"/>
         <walk depart="722.00" departPos="250.00" arrival="1125.00" arrivalPos="249.28" duration="403.00" routeLength="502.13" timeLoss="41.47" maxSpeed="1.39"/>
     </personinfo>
