@@ -38,7 +38,8 @@
 
 GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
     GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_WALK_EDGES), net, GLO_WALK, SUMO_TAG_WALK_EDGES, 
-        {}, {edges}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {edges}, {}, {}, {}, {personParent}, {},    // Parents
+        {}, {}, {}, {}, {}, {}, {}),                    // Children
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
 }
@@ -46,7 +47,8 @@ GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, const std::vector<
 
 GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, double arrivalPosition) :
     GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_WALK_FROMTO), net, GLO_WALK, SUMO_TAG_WALK_FROMTO,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, // Parents
+        {}, {}, {}, {}, {}, {}, {}),                            // Children
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
     // set via parameter without updating references
@@ -58,7 +60,8 @@ GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via) :
     GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_WALK_BUSSTOP), net, GLO_WALK, SUMO_TAG_WALK_BUSSTOP, 
-        {}, {fromEdge}, {}, {}, {busStop}, {personParent}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {fromEdge}, {}, {}, {busStop}, {personParent}, {},  // Parents
+        {}, {}, {}, {}, {}, {}, {}),                            // Children
     Parameterised(),
     myArrivalPosition(-1) {
     // set via parameter without updating references
@@ -70,7 +73,8 @@ GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 GNEWalk::GNEWalk(GNENet *net, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition) :
     GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), net, GLO_WALK, SUMO_TAG_WALK_ROUTE,
-        {}, {}, {}, {}, {}, {personParent, routeParent}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {}, {personParent, routeParent}, {},    // Parents
+        {}, {}, {}, {}, {}, {}, {}),                            // Children
     Parameterised(),
     myArrivalPosition(arrivalPosition) {
 }
