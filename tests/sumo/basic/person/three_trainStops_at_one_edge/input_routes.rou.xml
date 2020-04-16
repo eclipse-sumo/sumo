@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 16 Apr 2020 09:38:20 AM CEST by Eclipse SUMO netedit Version v1_5_0+1157-b8d6aa306e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/2811/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <additional-files value="/home/kobo/dlr/debug/2811/input_additional.add.xml"/>
+        <route-files value="/home/kobo/dlr/debug/2811/input_routes.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" length="40.00" vClass="rail"/>
+    <route edges="a" color="yellow" id="route_0"/>
+    <vehicle id="v0" type="train" depart="0.00" line="S42" route="route_0">
+        <stop busStop="B" until="60.00"/>
+        <stop busStop="C" until="70.00"/>
+        <stop busStop="D" until="80.00"/>
+    </vehicle>
+    <person id="p0" depart="0">
+        <walk from="b" busStop="B"/>
+        <ride busStop="D" lines="S42"/>
+        <walk to="d"/>
+    </person>
+</routes>
