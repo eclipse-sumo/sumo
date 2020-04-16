@@ -44,12 +44,14 @@
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
         const std::map<std::string, std::string>& parameters,
+        const std::vector<GNEJunction*>& junctionParents,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
         const std::vector<GNEAdditional*>& additionalParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEJunction*>& junctionChildren,
         const std::vector<GNEEdge*>& edgeChildren,
         const std::vector<GNELane*>& laneChildren,
         const std::vector<GNEShape*>& shapeChildren,
@@ -59,8 +61,8 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
     GUIGlObject(type, dataIntervalParent->getID()),
     GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
     Parameterised(ParameterisedAttrType::DOUBLE, parameters),
-    GNEHierarchicalParentElements(this, {}, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
-    GNEHierarchicalChildElements(this, {}, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
+    GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
     myDataIntervalParent(dataIntervalParent) {
 }
 

@@ -48,7 +48,8 @@
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
     const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELDATA, dataIntervalParent, parameters,
-        {fromEdge, toEdge}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {},     // Parents
+        {}, {}, {}, {}, {}, {}, {}) {                   // Children
 }
 
 
