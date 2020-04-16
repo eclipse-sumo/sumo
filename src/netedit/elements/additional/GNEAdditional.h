@@ -53,12 +53,14 @@ public:
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
      * @param[in] block movement enable or disable additional movement
+     * @param[in] junctionParents vector of junction parents
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
+     * @param[in] junctionChildren vector of junction children
      * @param[in] edgeChildren vector of edge children
      * @param[in] laneChildren vector of lane children
      * @param[in] shapeChildren vector of shape children
@@ -67,18 +69,20 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNEAdditional(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-                  const std::vector<GNEEdge*>& edgeParents,
-                  const std::vector<GNELane*>& laneParents,
-                  const std::vector<GNEShape*>& shapeParents,
-                  const std::vector<GNEAdditional*>& additionalParents,
-                  const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::vector<GNEEdge*>& edgeChildren,
-                  const std::vector<GNELane*>& laneChildren,
-                  const std::vector<GNEShape*>& shapeChildren,
-                  const std::vector<GNEAdditional*>& additionalChildren,
-                  const std::vector<GNEDemandElement*>& demandElementChildren,
-                  const std::vector<GNEGenericData*>& genericDataChildren);
+        const std::vector<GNEJunction*>& junctionParents,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEJunction*>& junctionChildren,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren);
 
     /**@brief Constructor used by Additionals that have two additionals as parent
      * @param[in] additionalParent pointer to parent additional pointer (used to generate an ID)
@@ -87,12 +91,14 @@ public:
      * @param[in] tag Type of xml tag that define the additional element (SUMO_TAG_BUS_STOP, SUMO_TAG_REROUTER, etc...)
      * @param[in] name Additional name
      * @param[in] block movement enable or disable additional movement
+     * @param[in] junctionParents vector of junction parents
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] shapeParents vector of shape parents
      * @param[in] additionalParents vector of additional parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
+     * @param[in] junctionChildren vector of junction children
      * @param[in] edgeChildren vector of edge children
      * @param[in] laneChildren vector of lane children
      * @param[in] shapeChildren vector of shape children
@@ -101,18 +107,20 @@ public:
      * @param[in] genericDataChildren vector of genericData children
     */
     GNEAdditional(GNEAdditional* additionalParent, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-                  const std::vector<GNEEdge*>& edgeParents,
-                  const std::vector<GNELane*>& laneParents,
-                  const std::vector<GNEShape*>& shapeParents,
-                  const std::vector<GNEAdditional*>& additionalParents,
-                  const std::vector<GNEDemandElement*>& demandElementParents,
-                  const std::vector<GNEGenericData*>& genericDataParents,
-                  const std::vector<GNEEdge*>& edgeChildren,
-                  const std::vector<GNELane*>& laneChildren,
-                  const std::vector<GNEShape*>& shapeChildren,
-                  const std::vector<GNEAdditional*>& additionalChildren,
-                  const std::vector<GNEDemandElement*>& demandElementChildren,
-                  const std::vector<GNEGenericData*>& genericDataChildren);
+        const std::vector<GNEJunction*>& junctionParents,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEJunction*>& junctionChildren,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
     virtual ~GNEAdditional();

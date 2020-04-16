@@ -33,7 +33,8 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, "", false,
-        {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {},    // Parents
+        {}, {}, {}, {}, {}, {}, {}),                                                // Children
     myNewEdgeDestination(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals().at(0)->getChildEdges().at(0)) {
     // fill dest prob reroute interval with default values
     setDefaultValues();
@@ -42,7 +43,8 @@ GNEDestProbReroute::GNEDestProbReroute(GNERerouterIntervalDialog* rerouterInterv
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, "", false,
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}, {}, {}, {}, {}),
+        {}, {}, {}, {}, {rerouterIntervalParent}, {}, {},   // Parents
+        {}, {}, {}, {}, {}, {}, {}),                        // Children
     myNewEdgeDestination(newEdgeDestination),
     myProbability(probability) {
 }

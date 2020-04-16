@@ -32,12 +32,14 @@
 // ===========================================================================
 
 GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
+        const std::vector<GNEJunction*>& junctionParents,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEShape*>& shapeParents,
         const std::vector<GNEAdditional*>& additionalParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEJunction*>& junctionChildren,
         const std::vector<GNEEdge*>& edgeChildren,
         const std::vector<GNELane*>& laneChildren,
         const std::vector<GNEShape*>& shapeChildren,
@@ -45,8 +47,8 @@ GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GNEAttributeCarrier(tag, net),
-    GNEHierarchicalParentElements(this, {}, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
-    GNEHierarchicalChildElements(this, {}, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, shapeParents, additionalParents, demandElementParents, genericDataParents),
+    GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, shapeChildren, additionalChildren, demandElementChildren, genericDataChildren),
     myBlockMovement(movementBlocked) {
 }
 
