@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 21 10:25:45 2019 by Eclipse SUMO Version v1_3_0+0010-bf1bf00cae
+<!-- generated on Fri Apr 17 07:57:36 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,16 +42,16 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="train1" depart="57.00" departLane="" departPos="0.00" departSpeed="13.90" departDelay="7.00" arrival="197.00" arrivalLane="" arrivalPos="90.50" arrivalSpeed="13.90" duration="140.00" routeLength="455.50" waitingTime="0.00" waitingCount="0" stopTime="100.25" timeLoss="106.47" rerouteNo="0" devices="tripinfo_train1 person_train1" vType="train" speedFactor="1.00" vaporized=""/>
     <personinfo id="person1" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="80.00" arrival="49.00" arrivalPos="55.00" duration="49.00" routeLength="65.50" timeLoss="1.84" maxSpeed="1.39"/>
-        <ride waitingTime="88.00" vehicle="train1" depart="137.00" arrival="190.00" arrivalPos="0.00" duration="53.00" routeLength="182.50"/>
+        <ride waitingTime="88.00" vehicle="train1" depart="137.00" arrival="190.00" arrivalPos="0.00" duration="53.00" routeLength="182.50" timeLoss="0.00"/>
         <walk depart="190.00" departPos="0.00" arrival="279.00" arrivalPos="30.00" duration="89.00" routeLength="122.00" timeLoss="1.16" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="299.00" arrivalPos="30.00" actType="singing"/>
     </personinfo>
     <personinfo id="person0" depart="0.00" type="DEFAULT_PEDTYPE">
         <walk depart="0.00" departPos="80.00" arrival="49.00" arrivalPos="55.00" duration="49.00" routeLength="65.50" timeLoss="1.84" maxSpeed="1.39"/>
-        <ride waitingTime="85.00" vehicle="train0" depart="134.00" arrival="187.00" arrivalPos="0.00" duration="53.00" routeLength="182.50"/>
+        <ride waitingTime="85.00" vehicle="train0" depart="134.00" arrival="187.00" arrivalPos="0.00" duration="53.00" routeLength="182.50" timeLoss="0.00"/>
         <walk depart="187.00" departPos="0.00" arrival="276.00" arrivalPos="30.00" duration="89.00" routeLength="122.00" timeLoss="1.16" maxSpeed="1.39"/>
         <stop duration="20.00" arrival="296.00" arrivalPos="30.00" actType="singing"/>
-        <ride waitingTime="0.00" vehicle="car0" depart="296.00" arrival="336.00" arrivalPos="92.00" duration="40.00" routeLength="180.00"/>
+        <ride waitingTime="0.00" vehicle="car0" depart="296.00" arrival="336.00" arrivalPos="92.00" duration="40.00" routeLength="180.00" timeLoss="-0.00"/>
     </personinfo>
     <tripinfo id="car0" depart="296.00" departLane="" departPos="0.00" departSpeed="3.41" departDelay="0.00" arrival="336.00" arrivalLane="" arrivalPos="92.00" arrivalSpeed="13.90" duration="40.00" routeLength="273.00" waitingTime="0.00" waitingCount="0" stopTime="20.00" timeLoss="20.00" rerouteNo="0" devices="tripinfo_car0 person_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>
