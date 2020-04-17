@@ -354,9 +354,15 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
+    // parse the function
+    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
     // omit internal edges if not wished
     if (id[0] == ':') {
         myHaveSeenInternalEdge = true;
+        if (!MSGlobals::gUsingInternalLanes && (func == SumoXMLEdgeFunc::CROSSING || func == SumoXMLEdgeFunc::WALKINGAREA)) {
+            myCurrentIsInternalToSkip = true;
+            return;
+        }
         std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id);
         myJunctionGraph[id] = std::make_pair(junctionID, junctionID);
     } else {
@@ -370,8 +376,6 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         }
     }
     myCurrentIsInternalToSkip = false;
-    // parse the function
-    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
     if (!ok) {
         WRITE_ERROR("Edge '" + id + "' has an invalid type.");
         myCurrentIsBroken = true;
