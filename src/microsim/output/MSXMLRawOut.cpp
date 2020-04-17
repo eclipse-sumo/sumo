@@ -59,6 +59,9 @@ MSXMLRawOut::write(OutputDevice& of, const MSEdgeControl& ec,
 
 void
 MSXMLRawOut::writeEdge(OutputDevice& of, const MSEdge& edge, SUMOTime timestep) {
+    if (!MSGlobals::gUsingInternalLanes && !edge.isNormal()) {
+        return;
+    }
     //en
     bool dump = !MSGlobals::gOmitEmptyEdgesOnDump;
     if (!dump) {

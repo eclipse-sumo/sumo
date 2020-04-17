@@ -90,6 +90,9 @@ MSFullExport::writeEdge(OutputDevice& of) {
     const MSEdgeVector& edges = ec.getEdges();
     for (MSEdgeVector::const_iterator e = edges.begin(); e != edges.end(); ++e) {
         MSEdge& edge = **e;
+        if (!MSGlobals::gUsingInternalLanes && !edge.isNormal()) {
+            continue;
+        }
         of.openTag("edge").writeAttr("id", edge.getID()).writeAttr("traveltime", edge.getCurrentTravelTime());
         const std::vector<MSLane*>& lanes = edge.getLanes();
         for (std::vector<MSLane*>::const_iterator lane = lanes.begin(); lane != lanes.end(); ++lane) {
