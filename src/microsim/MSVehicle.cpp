@@ -3803,6 +3803,15 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     MSNet::getInstance()->getEdgeControl().checkCollisionForInactive(approachedLane);
                 }
                 if (link != nullptr) {
+                    if ((getVClass() & SVC_RAIL_CLASSES) != 0
+                            && !myLane->isInternal()
+                            && myLane->getBidiLane() != nullptr
+                            && link->getLane()->getBidiLane() == myLane
+                            && !reverseTrain) {
+                        emergencyReason = " because it must reverse direction";
+                        approachedLane = nullptr;
+                        break;
+                    }
                     approachedLane = link->getViaLaneOrLane();
                     if (myInfluencer == nullptr || myInfluencer->getEmergencyBrakeRedLight()) {
                         bool beyondStopLine = linkDist < link->getLaneBefore()->getStopOffset(this);
