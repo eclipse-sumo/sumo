@@ -1,16 +1,18 @@
-Loading net-file from 'net.net.xml' ... done (4ms).
-Loading additional-files from 'input_additional.add.xml'... 
-done (1ms).
+Loading net-file from 'net.net.xml' ... done (5ms).
+Loading additional-files from 'input_additional.add.xml' ... 
+done (0ms).
 Loading done.
-Simulation started with time: 0.00
+Simulation version v1_5_0+1182-c674b91ce6 started with time: 0.00
 Simulation ended at time: 400.00
 Reason: The final simulation step has been reached.
 Performance: 
- Duration: 99ms
- Real time factor: 4040.4
- UPS: 33747.474747
+ Duration: 44ms
+ Real time factor: 9090.91
+ UPS: 35931.818182
 Vehicles: 
- Inserted: 49 (Loaded: 180)
- Running: 4
- Waiting: 131
+ Inserted: 23 (Loaded: 180)
+ Running: 1
+ Waiting: 157
+Teleports: 2 (Collisions: 2)
+Emergency Stops: 2
 

@@ -1,55 +1,24 @@
 Warning: Missing yellow phase in tlLogic '0', program 'freaky' for tl-index 0 when switching to phase 1
 Warning: Vehicle 'always_right.0'; collision with vehicle 'horizontal.0', lane='2o_0', gap=-5.00, time=25.00 stage=move.
 Warning: Vehicle 'always_right.1'; collision with vehicle 'horizontal.1', lane='2o_0', gap=-5.00, time=29.00 stage=move.
-Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-5.00, time=33.00 stage=move.
-Warning: Vehicle 'always_right.3'; collision with vehicle 'horizontal.3', lane='2o_0', gap=-5.00, time=37.00 stage=move.
+Warning: Vehicle 'always_right.2'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-5.00, time=35.00 stage=move.
 Warning: Removing vehicle 'horizontal.0' after earlier collision, lane='2o_0, time=41.00.
-Warning: Vehicle 'always_right.4'; collision with vehicle 'horizontal.4', lane='2o_0', gap=-5.00, time=41.00 stage=move.
-Warning: Vehicle 'always_right.5'; collision with vehicle 'horizontal.5', lane='2o_0', gap=-5.00, time=45.00 stage=move.
-Warning: Vehicle 'always_right.6'; collision with vehicle 'horizontal.6', lane='2o_0', gap=-5.00, time=49.00 stage=move.
-Warning: Vehicle 'always_right.7'; collision with vehicle 'horizontal.7', lane='2o_0', gap=-5.00, time=53.00 stage=move.
-Warning: Vehicle 'always_right.8'; collision with vehicle 'horizontal.8', lane='2o_0', gap=-5.00, time=57.00 stage=move.
-Warning: Removing vehicle 'horizontal.5' after earlier collision, lane='2o_0, time=61.00.
-Warning: Vehicle 'always_right.9'; collision with vehicle 'horizontal.9', lane='2o_0', gap=-5.00, time=61.00 stage=move.
-Warning: Vehicle 'always_right.10'; collision with vehicle 'horizontal.10', lane='2o_0', gap=-5.00, time=65.00 stage=move.
-Warning: Vehicle 'always_right.11'; collision with vehicle 'horizontal.11', lane='2o_0', gap=-5.00, time=69.00 stage=move.
-Warning: Vehicle 'always_right.12'; collision with vehicle 'horizontal.12', lane='2o_0', gap=-5.00, time=73.00 stage=move.
-Warning: Vehicle 'always_right.13'; collision with vehicle 'horizontal.13', lane='2o_0', gap=-5.00, time=77.00 stage=move.
-Warning: Removing vehicle 'horizontal.10' after earlier collision, lane='2o_0, time=81.00.
-Warning: Vehicle 'always_right.14'; collision with vehicle 'horizontal.14', lane='2o_0', gap=-5.00, time=81.00 stage=move.
-Warning: Vehicle 'always_right.15'; collision with vehicle 'horizontal.15', lane='2o_0', gap=-5.00, time=85.00 stage=move.
-Warning: Vehicle 'always_right.16'; collision with vehicle 'horizontal.16', lane='2o_0', gap=-5.00, time=89.00 stage=move.
-Warning: Vehicle 'always_right.17'; collision with vehicle 'horizontal.17', lane='2o_0', gap=-5.00, time=93.00 stage=move.
-Warning: Vehicle 'always_right.18'; collision with vehicle 'horizontal.18', lane='2o_0', gap=-5.00, time=97.00 stage=move.
-Warning: Removing vehicle 'horizontal.15' after earlier collision, lane='2o_0, time=101.00.
-Warning: Vehicle 'horizontal.19' performs emergency stop at the end of lane '1si_1' because of a red traffic light (decel=-4.90, offset=2.30), time=103.00.
-Warning: Vehicle 'always_right.19' performs emergency stop at the end of lane '3si_0' because of a red traffic light (decel=-4.90, offset=2.30), time=103.00.
-Warning: Vehicle 'horizontal.20'; collision with vehicle 'horizontal.19', lane='1si_1', gap=-0.73, time=106.00 stage=move.
-Warning: Vehicle 'always_right.20'; collision with vehicle 'always_right.19', lane='3si_0', gap=-0.73, time=106.00 stage=move.
-Warning: Vehicle 'horizontal.21'; collision with vehicle 'horizontal.20', lane='1si_1', gap=-inf, time=107.00 stage=move.
-Warning: Vehicle 'always_right.21'; collision with vehicle 'always_right.20', lane='3si_0', gap=-inf, time=107.00 stage=move.
-Warning: Vehicle 'always_right.22'; collision with vehicle 'always_right.21', lane='3si_1', gap=-152.50, time=107.00 stage=laneChange.
-Warning: Vehicle 'horizontal.22'; collision with vehicle 'horizontal.21', lane='1si_2', gap=-152.50, time=107.00 stage=laneChange.
-Warning: Vehicle 'always_right.23'; collision with vehicle 'always_right.22', lane='3si_1', gap=-98.10, time=107.00 stage=insertion.
-Warning: Vehicle 'horizontal.23'; collision with vehicle 'horizontal.22', lane='1si_2', gap=-98.10, time=107.00 stage=insertion.
-Warning: Vehicle 'always_right.24'; collision with vehicle 'always_right.23', lane='3si_1', gap=-56.50, time=108.00 stage=events.
-Warning: Vehicle 'horizontal.24'; collision with vehicle 'horizontal.23', lane='1si_2', gap=-65.70, time=108.00 stage=events.
-Warning: Vehicle 'always_right.25'; collision with vehicle 'always_right.24', lane='3si_1', gap=-inf, time=108.00 stage=move.
-Warning: Vehicle 'horizontal.25'; collision with vehicle 'horizontal.24', lane='1si_2', gap=-inf, time=108.00 stage=move.
-Warning: Vehicle 'always_right.26'; collision with vehicle 'always_right.25', lane='3si_2', gap=-14.50, time=108.00 stage=laneChange.
-Warning: Vehicle 'horizontal.26'; collision with vehicle 'horizontal.25', lane='1si_2', gap=-30.69, time=108.00 stage=laneChange.
-Warning: Vehicle 'horizontal.27'; collision with vehicle 'horizontal.26', lane='1si_2', gap=-18.10, time=108.00 stage=insertion.
-Warning: Removing vehicle 'horizontal.19' after earlier collision, lane='1si_1, time=117.00.
-Warning: Removing vehicle 'horizontal.20' after earlier collision, lane='1si_1, time=117.00.
-Warning: Removing vehicle 'always_right.19' after earlier collision, lane='3si_0, time=117.00.
-Warning: Removing vehicle 'always_right.20' after earlier collision, lane='3si_0, time=117.00.
-Warning: Removing vehicle 'always_right.22' after earlier collision, lane='3si_1, time=118.00.
-Warning: Removing vehicle 'always_right.23' after earlier collision, lane='3si_1, time=118.00.
-Warning: Removing vehicle 'always_right.24' after earlier collision, lane='3si_1, time=118.00.
-Warning: Removing vehicle 'horizontal.22' after earlier collision, lane='1si_2, time=118.00.
-Warning: Removing vehicle 'horizontal.23' after earlier collision, lane='1si_2, time=118.00.
-Warning: Removing vehicle 'horizontal.24' after earlier collision, lane='1si_2, time=118.00.
-Warning: Removing vehicle 'always_right.26' after earlier collision, lane='3si_2, time=119.00.
-Warning: Removing vehicle 'horizontal.25' after earlier collision, lane='1si_2, time=119.00.
-Warning: Removing vehicle 'horizontal.26' after earlier collision, lane='1si_2, time=119.00.
-Warning: Removing vehicle 'horizontal.27' after earlier collision, lane='1si_2, time=119.00.
+Warning: Removing vehicle 'horizontal.1' after earlier collision, lane='2o_0, time=43.00.
+Warning: Removing vehicle 'always_right.2' after earlier collision, lane='2o_0, time=46.00.
+Warning: Vehicle 'horizontal.3'; collision with vehicle 'horizontal.2', lane='2o_0', gap=-40.91, time=47.00 stage=move.
+Warning: Vehicle 'horizontal.5'; collision with vehicle 'horizontal.4', lane='1si_1', gap=-3.60, time=52.00 stage=move.
+Warning: Vehicle 'horizontal.6'; collision with vehicle 'horizontal.5', lane='1si_1', gap=-0.79, time=53.00 stage=move.
+Warning: Removing vehicle 'always_right.0' after earlier collision, lane='2o_0, time=54.00.
+Warning: Removing vehicle 'always_right.1' after earlier collision, lane='2o_0, time=58.00.
+Warning: Removing vehicle 'horizontal.3' after earlier collision, lane='2o_0, time=58.00.
+Warning: Removing vehicle 'horizontal.4' after earlier collision, lane='1si_1, time=63.00.
+Warning: Removing vehicle 'horizontal.5' after earlier collision, lane='1si_1, time=63.00.
+Warning: Removing vehicle 'horizontal.2' after earlier collision, lane='2o_0, time=63.00.
+Warning: Vehicle 'horizontal.7'; collision with vehicle 'always_right.4', lane='2o_0', gap=-4.00, time=68.00 stage=move.
+Warning: Removing vehicle 'horizontal.7' after earlier collision, lane='2o_0, time=79.00.
+Warning: Vehicle 'always_right.13'; collision with vehicle 'always_right.12', lane='3si_0', gap=-3.90, time=79.00 stage=move.
+Warning: Vehicle 'horizontal.8'; collision with vehicle 'always_right.4', lane='2o_0', gap=-4.84, time=83.00 stage=move.
+Warning: Removing vehicle 'always_right.12' after earlier collision, lane='3si_0, time=90.00.
+Warning: Removing vehicle 'always_right.13' after earlier collision, lane='3si_0, time=90.00.
+Warning: Removing vehicle 'horizontal.8' after earlier collision, lane='2o_0, time=94.00.
+Warning: Removing vehicle 'always_right.4' after earlier collision, lane='2o_0, time=95.00.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 30 09:19:27 2018 by Eclipse SUMO Version baab8c4
+<!-- generated on Fri Apr 17 08:19:35 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,6 +20,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -75,34 +76,31 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="veh0" x="104.95" y="101.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="10.00" lane=":C_11_0" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="veh0" x="104.95" y="101.95" angle="0.00" type="DEFAULT_VEHTYPE" speed="0.00" pos="10.00" lane=":C_11_0" slope="0.00"/>
-    </timestep>
-    <timestep time="15.00">
         <vehicle id="veh0" x="104.95" y="103.25" angle="0.00" type="DEFAULT_VEHTYPE" speed="2.60" pos="11.30" lane=":C_11_0" slope="0.00"/>
     </timestep>
-    <timestep time="16.00">
+    <timestep time="15.00">
         <vehicle id="veh0" x="104.95" y="107.15" angle="0.00" type="DEFAULT_VEHTYPE" speed="5.20" pos="15.20" lane=":C_11_0" slope="0.00"/>
     </timestep>
-    <timestep time="17.00">
+    <timestep time="16.00">
         <vehicle id="veh0" x="104.95" y="113.65" angle="0.00" type="DEFAULT_VEHTYPE" speed="7.80" pos="5.60" lane="CN_0" slope="0.00"/>
     </timestep>
-    <timestep time="18.00">
+    <timestep time="17.00">
         <vehicle id="veh0" x="104.95" y="122.75" angle="0.00" type="DEFAULT_VEHTYPE" speed="10.40" pos="14.70" lane="CN_0" slope="0.00"/>
     </timestep>
-    <timestep time="19.00">
+    <timestep time="18.00">
         <vehicle id="veh0" x="104.95" y="134.45" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.00" pos="26.40" lane="CN_0" slope="0.00"/>
     </timestep>
-    <timestep time="20.00">
+    <timestep time="19.00">
         <vehicle id="veh0" x="104.95" y="147.89" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="39.84" lane="CN_0" slope="0.00"/>
     </timestep>
-    <timestep time="21.00">
+    <timestep time="20.00">
         <vehicle id="veh0" x="104.95" y="161.78" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="53.73" lane="CN_0" slope="0.00"/>
     </timestep>
+    <timestep time="21.00">
+        <vehicle id="veh0" x="104.95" y="175.68" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="67.62" lane="CN_0" slope="0.00"/>
+    </timestep>
     <timestep time="22.00">
-        <vehicle id="veh0" x="104.95" y="175.67" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="67.62" lane="CN_0" slope="0.00"/>
+        <vehicle id="veh0" x="104.95" y="189.56" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="81.52" lane="CN_0" slope="0.00"/>
     </timestep>
-    <timestep time="23.00">
-        <vehicle id="veh0" x="104.95" y="189.56" angle="0.00" type="DEFAULT_VEHTYPE" speed="13.89" pos="81.51" lane="CN_0" slope="0.00"/>
-    </timestep>
-    <timestep time="24.00"/>
+    <timestep time="23.00"/>
 </fcd-export>

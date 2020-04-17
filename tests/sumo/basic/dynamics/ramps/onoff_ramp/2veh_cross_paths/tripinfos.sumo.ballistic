@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb  1 11:28:54 2017 by SUMO Version dev-SVN-r21650
+<!-- generated on Fri Apr 17 08:19:30 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,11 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -33,5 +35,5 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="A" depart="0.00" departLane="main_beg_0" departPos="5.10" departSpeed="30.00" departDelay="0.00" arrival="14.00" arrivalLane="ramp_end_0" arrivalPos="0.00" arrivalSpeed="11.16" duration="14.00" routeLength="302.89" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.36" rerouteNo="0" devices="tripinfo_A" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="B" depart="0.00" departLane="ramp_beg_0" departPos="145.00" departSpeed="13.89" departDelay="0.00" arrival="15.00" arrivalLane="main_end_0" arrivalPos="0.00" arrivalSpeed="10.57" duration="15.00" routeLength="184.84" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.42" rerouteNo="0" devices="tripinfo_B" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="B" depart="0.00" departLane="ramp_beg_0" departPos="145.00" departSpeed="13.89" departDelay="0.00" arrival="15.00" arrivalLane="main_end_0" arrivalPos="0.00" arrivalSpeed="10.60" duration="15.00" routeLength="184.84" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.42" rerouteNo="0" devices="tripinfo_B" vType="t0" speedFactor="1.00" vaporized=""/>
 </tripinfos>
