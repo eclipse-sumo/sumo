@@ -2617,6 +2617,14 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
         // check for train direction reversal
+        if ((getVClass() & SVC_RAIL_CLASSES) != 0
+                && !lane->isInternal()
+                && lane->getBidiLane() != nullptr
+                && (*link)->getLane()->getBidiLane() == lane) {
+            double vMustReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - POSITION_EPS);
+            v = MIN2(v, vMustReverse);
+        }
+
         bool canReverseEventually = false;
         const double vReverse = checkReversal(canReverseEventually, laneMaxV, seen);
         v = MIN2(v, vReverse);
@@ -3670,21 +3678,12 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
        ) {
         //if (isSelected()) std::cout << "   check1 passed\n";
 
-        // prevent running into a buffer stop
-        double vReverse = getCarFollowModel().stopSpeed(this, getSpeed(), seen - POSITION_EPS);
-
-#ifdef DEBUG_REVERSE_BIDI
-        if (DEBUG_COND) {
-            std::cout << SIMTIME << " seen=" << seen  << " vReverseEnd=" << vReverse << "\n";
-        }
-#endif
-
         // ensure that the vehicle is fully on bidi edges that allow reversal
         if ((int)(myRoute->end() - myCurrEdge) <= (int)myFurtherLanes.size()) {
 #ifdef DEBUG_REVERSE_BIDI
             if (DEBUG_COND) std::cout << "    fail: remainingEdges=" << ((int)(myRoute->end() - myCurrEdge)) << " further=" << myFurtherLanes.size() << "\n";
 #endif
-            return vReverse;
+            return getVehicleType().getMaxSpeed();
         }
         //if (isSelected()) std::cout << "   check2 passed\n";
 
@@ -3694,7 +3693,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 #ifdef DEBUG_REVERSE_BIDI
             if (DEBUG_COND) std::cout << "    noTurn (bidi=" << myLane->getEdge().getBidiEdge()->getID() << " succ=" << toString(succ) << "\n";
 #endif
-            return vReverse;
+            return getVehicleType().getMaxSpeed();
         }
         //if (isSelected()) std::cout << "   check3 passed\n";
         
@@ -3708,7 +3707,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                 if (DEBUG_COND) std::cout << "    reversal would go past stop on " << myLane->getBidiLane()->getID() << "\n";
 #endif
                 if (seen > MAX2(brakeDist, 1.0)) {
-                    return vReverse;
+                    return getVehicleType().getMaxSpeed();
                 } else {
 #ifdef DEBUG_REVERSE_BIDI
                     if (DEBUG_COND) std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
@@ -3726,7 +3725,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 #ifdef DEBUG_REVERSE_BIDI
                     if (DEBUG_COND) std::cout << "    noBidi view=" << view << " further=" << further->getID() << " furtherBidi=" << Named::getIDSecure(further->getEdge().getBidiEdge()) << " future=" << (*(myCurrEdge + view))->getID() << "\n";
 #endif
-                    return vReverse;
+                    return getVehicleType().getMaxSpeed();
                 }
                 if (!myStops.empty() && myStops.front().edge == (myCurrEdge + view)) {
                     const double brakeDist = getCarFollowModel().brakeGap(getSpeed(), getCarFollowModel().getMaxDecel(), 0);
@@ -3738,7 +3737,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 #endif
                         if (seen > MAX2(brakeDist, 1.0)) {
                             canReverse = false;
-                            return vReverse;
+                            return getVehicleType().getMaxSpeed();
                         } else {
 #ifdef DEBUG_REVERSE_BIDI
                             if (DEBUG_COND) std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
@@ -3751,14 +3750,13 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         }
         // reverse as soon as comfortably possible
         const double vMinComfortable = getCarFollowModel().minNextSpeed(getSpeed(), this);
-        vReverse = MIN2(vReverse, vMinComfortable);
 #ifdef DEBUG_REVERSE_BIDI
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " seen=" << seen  << " vReverseOK=" << vReverse << "\n";
+            std::cout << SIMTIME << " seen=" << seen  << " vReverseOK=" << vMinComfortable << "\n";
         }
 #endif
         canReverse = true;
-        return vReverse;
+        return vMinComfortable;
     }
     return getVehicleType().getMaxSpeed();
 }
