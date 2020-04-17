@@ -327,6 +327,16 @@
         </xsd:union>
     </xsd:simpleType>
 
+    <xsd:simpleType name="timeTypeWithErrorValue">
+        <xsd:union memberTypes="nonNegativeFloatTypeWithErrorValue">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="&FloatPattern;:&FloatPattern;:&FloatPattern;(:&FloatPattern;)?"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:union>
+    </xsd:simpleType>
+
     <xsd:simpleType name="idType">
         <xsd:restriction base="xsd:string">
             <xsd:pattern value="[^ \t\n\r|\\;,']+"/>

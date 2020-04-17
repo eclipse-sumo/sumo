@@ -26,8 +26,8 @@
             <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="departPosLat" use="optional" type="xsd:float"/>
             <xsd:attribute name="departSpeed" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="departDelay" use="required" type="timeType"/>
-            <xsd:attribute name="arrival" use="required" type="timeType"/>
+            <xsd:attribute name="departDelay" use="required" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrivalLane" use="required" type="xsd:string"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
             <xsd:attribute name="arrivalPosLat" use="optional" type="xsd:float"/>
@@ -124,14 +124,14 @@
 
     <xsd:element name="ride">
         <xsd:complexType>
-            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="waitingTime" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
-            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="duration" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="duration" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
-            <xsd:attribute name="timeLoss" use="required" type="timeType"/> <!-- negative values indicate jumps -->
+            <xsd:attribute name="timeLoss" use="required" type="timeTypeWithErrorValue"/> <!-- negative values indicate jumps -->
         </xsd:complexType>
     </xsd:element>
 
@@ -139,11 +139,11 @@
         <xsd:complexType>
             <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="departPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="duration" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="duration" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="timeLoss" use="required" type="timeType"/> <!-- negative values indicate jumps -->
+            <xsd:attribute name="timeLoss" use="required" type="timeTypeWithErrorValue"/> <!-- negative values indicate jumps -->
             <xsd:attribute name="maxSpeed" use="required" type="nonNegativeFloatType"/>
         </xsd:complexType>
     </xsd:element>
@@ -158,13 +158,14 @@
 
     <xsd:element name="transport">
         <xsd:complexType>
-            <xsd:attribute name="waitingTime" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="waitingTime" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="vehicle" use="required" type="xsd:string"/>
-            <xsd:attribute name="depart" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
-            <xsd:attribute name="arrival" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="depart" use="required" type="timeTypeWithErrorValue"/>
+            <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="arrivalPos" use="required" type="nonNegativeFloatType"/>
-            <xsd:attribute name="duration" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="duration" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="routeLength" use="required" type="nonNegativeFloatTypeWithErrorValue"/>
+            <xsd:attribute name="timeLoss" use="required" type="timeTypeWithErrorValue"/> <!-- negative values indicate jumps -->
         </xsd:complexType>
     </xsd:element>
 
