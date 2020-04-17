@@ -45,3 +45,6 @@ reverse_before_stop_no_internal_links
 # 
 # 
 reverse_on_signal
+
+# vehicle needs to slow down even if reversal is still far away
+anticipate_reversal
