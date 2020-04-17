@@ -1067,7 +1067,8 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         // get the lane
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
         if (ok && stop.lane != "") {
-            if (MSLane::dictionary(stop.lane) == nullptr) {
+            MSLane* stopLane = MSLane::dictionary(stop.lane);
+            if (stopLane == nullptr || (stopLane->isInternal() && !MSGlobals::gUsingInternalLanes)) {
                 WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                 return;
             }
