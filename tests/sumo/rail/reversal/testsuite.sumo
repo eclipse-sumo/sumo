@@ -48,3 +48,6 @@ reverse_on_signal
 
 # vehicle needs to slow down even if reversal is still far away
 anticipate_reversal
+
+# unsafe speed when approaching reversal should cause emergency stop instead of collision
+anticipate_reversal_unafe_insertion
