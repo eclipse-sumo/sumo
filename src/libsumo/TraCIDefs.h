@@ -146,10 +146,50 @@ struct TraCIColor : TraCIResult {
     int r, g, b, a;
 };
 
+
+/** @struct TraCILeaderDistance
+ * @brief A leaderId and distance to leader
+ */
+struct TraCILeaderDistance : TraCIResult {
+    std::string getString() {
+        std::ostringstream os;
+        os << "TraCILeaderDistance(" << leaderID << "," << dist << ")";
+        return os.str();
+    }
+    std::string leaderID;
+    double dist;
+};
+
+
+/** @struct TraCIStop
+ * @brief A vehicle stop (lane, endPos, stoppingPlaceID,
+ * stopFlags, duration, until)
+ */
+struct TraCIStop : TraCIResult {
+    std::string getString() {
+        std::ostringstream os;
+        os << "TraCIStop(" << lane << "," << endPos << "," << stoppingPlaceID << "," << stopFlags << "," << duration << "," << until << ")";
+        return os.str();
+    }
+    std::string lane;
+    double endPos;
+    std::string stoppingPlaceID;
+    int stopFlags;
+    int duration;
+    int until;
+};
+
+
 /** @struct TraCIPositionVector
     * @brief A list of positions
     */
 typedef std::vector<TraCIPosition> TraCIPositionVector;
+
+
+/** @struct TraCIStopVector
+ * @brief A list of stops
+ */
+typedef std::vector<TraCIStop> TraCIStopVector;
 
 
 struct TraCIInt : TraCIResult {
