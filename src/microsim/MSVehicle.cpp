@@ -5036,6 +5036,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     int seen = 0;
     double seenLength = 0;
     bool progress = true;
+    const double maxBrakeDist = getCarFollowModel().brakeGap(getMaxSpeed()) + getVehicleType().getMinGap();
     for (MSRouteIterator ce = myCurrEdge; progress;) {
         std::vector<LaneQ> currentLanes;
         const std::vector<MSLane*>* allowed = nullptr;
@@ -5079,8 +5080,8 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         ++seen;
         seenLength += currentLanes[0].lane->getLength();
         ++ce;
-        progress &= (seen <= 4 || seenLength < 3000); // motorway
-        progress &= (seen <= 8 || seenLength < 200);  // urban
+        progress &= (seen <= 4 || seenLength < MAX2(maxBrakeDist, 3000.0)); // motorway
+        progress &= (seen <= 8 || seenLength < MAX2(maxBrakeDist, 200.0));  // urban
         progress &= ce != myRoute->end();
         /*
         if(progress) {
