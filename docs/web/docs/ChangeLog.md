@@ -30,7 +30,7 @@ permalink: /ChangeLog/
   - Fixed unsafe insertion speed for IDM-vehicles. Issue #6904
   - Fixed bug that was causing cooperative speed adjustments to fail. Issue #5124
   - Railway fixes:
-    - Train reversal problems. Issue #6692, #6782, #6797, #6851, #6860
+    - Train reversal problems. Issue #6692, #6782, #6797, #6851, #6860, #6906, #6908
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
     - Train routing is no longer effected by occupied edges that are beyond rail signal control. Issue #6741    
     - Invalid train speed after insertion on short edge. Issue #6801 
