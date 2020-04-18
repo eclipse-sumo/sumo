@@ -20,7 +20,7 @@ permalink: /ChangeLog/
   - ACC model no longer uses double minGap when queued. Issue #6728
   - Fixed extremely low speed of W99 model when approaching intersections and stops. Issue #6823
   - Fixed crash after rerouting. Issue #6835
-  - Fixed bugs were stops on cyclical routes where ignored after loading simulation state. Issue #6811
+  - Fixed bugs where stops on cyclical routes where ignored after loading simulation state. Issue #6811
   - Fixed invalid 'density' and 'occupancy' values (too high) in edgeData output. Issue #5723
   - Fixed crash when running with multiple threads. Issue #6806
   - Option **--ignore-route-errors** can now be used to ignore the error 'will not be able to depart using the given velocity (slow lane ahead)'. Issue #6853
