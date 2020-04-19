@@ -88,15 +88,11 @@ def get_options(cmd_args=None):
 class ReroutersGeneration(object):
     """ Generate parking area rerouters from the parking area definition. """
 
-    _opt = None
-
-    _sumo_net = None
-    _parking_areas = dict()
-    _sumo_rerouters = dict()
-
     def __init__(self, options):
 
         self._opt = options
+        self._parking_areas = dict()
+        self._sumo_rerouters = dict()
 
         logging.info('Loading SUMO network: %s', options.sumo_net_definition)
         self._sumo_net = sumolib.net.readNet(options.sumo_net_definition)
@@ -129,8 +125,6 @@ class ReroutersGeneration(object):
         pool = multiprocessing.Pool(processes=self._opt.processes)
         list_parameters = list()
         splits = numpy.array_split(list(self._parking_areas.keys()), self._opt.processes)
-        import pickle
-        pickle.loads(pickle.dumps(self._parking_areas))
         for parkings in splits:
             parameters = {
                 'selection': parkings,
