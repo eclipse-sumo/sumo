@@ -210,7 +210,11 @@ MSPerson::MSPersonStage_Walking::tripInfoOutput(OutputDevice& os, const MSTransp
     const double distance = walkDistance();
     const double maxSpeed = getMaxSpeed(person);
     const SUMOTime duration = myArrived - myDeparted;
-    const SUMOTime timeLoss = myArrived == -1 ? 0 : duration - TIME2STEPS(distance / maxSpeed);
+    SUMOTime timeLoss = myArrived == -1 ? 0 : duration - TIME2STEPS(distance / maxSpeed);
+    if (timeLoss < 0 && timeLoss > TIME2STEPS(-0.1)) {
+        // avoid negative timeLoss due to rounding errors
+        timeLoss = 0;
+    }
     MSDevice_Tripinfo::addPedestrianData(distance, duration, timeLoss);
     os.openTag("walk");
     os.writeAttr("depart", time2string(myDeparted));
