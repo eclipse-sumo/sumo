@@ -356,6 +356,10 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     }
     // parse the function
     const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
+    if (!ok) {
+        WRITE_ERROR("Edge '" + id + "' has an invalid type.");
+        myCurrentIsBroken = true;
+    }
     // omit internal edges if not wished
     if (id[0] == ':') {
         myHaveSeenInternalEdge = true;
@@ -370,17 +374,12 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         myJunctionGraph[id] = std::make_pair(
                                   attrs.get<std::string>(SUMO_ATTR_FROM, id.c_str(), ok),
                                   attrs.get<std::string>(SUMO_ATTR_TO, id.c_str(), ok));
-        if (!ok) {
-            myCurrentIsBroken = true;
-            return;
-        }
     }
-    myCurrentIsInternalToSkip = false;
     if (!ok) {
-        WRITE_ERROR("Edge '" + id + "' has an invalid type.");
         myCurrentIsBroken = true;
         return;
     }
+    myCurrentIsInternalToSkip = false;
     // get the street name
     const std::string streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     // get the edge type
