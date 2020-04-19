@@ -257,7 +257,7 @@ GNEFixDemandElements::DemandList::DemandList(GNEFixDemandElements* fixDemandElem
     // clear table
     myTable->clearItems();
     // set number of rows
-    myTable->setTableSize((int)(myInvalidRoutes.size() + myInvalidVehicles.size() + myInvalidStops.size(), myInvalidPersonPlans.size()), 3);
+    myTable->setTableSize((int)(myInvalidRoutes.size() + myInvalidVehicles.size() + myInvalidStops.size() + myInvalidPersonPlans.size()), 3);
     // Configure list
     myTable->setVisibleColumns(4);
     myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);

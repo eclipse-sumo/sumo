@@ -35,7 +35,7 @@
 // ===========================================================================
 
 GNEHierarchicalChildElements::GNEHierarchicalChildElements(const GNEAttributeCarrier* AC,
-        const std::vector<GNEJunction*>& childJunctions,
+        const std::vector<GNEJunction*>& /* childJunctions */,
         const std::vector<GNEEdge*>& childEdges,
         const std::vector<GNELane*>& childLanes,
         const std::vector<GNEShape*>& childShapes,
