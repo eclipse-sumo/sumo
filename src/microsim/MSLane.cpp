@@ -3791,6 +3791,24 @@ MSLane::initRNGs(const OptionsCont& oc) {
     }
 }
 
+void
+MSLane::saveRNGStates(OutputDevice& out) {
+    for (int i = 0; i < getNumRNGs(); i++) {
+        out.openTag(SUMO_TAG_RNGLANE);
+        out.writeAttr(SUMO_ATTR_INDEX, i);
+        out.writeAttr(SUMO_ATTR_STATE, RandHelper::saveState(&myRNGs[i]));
+        out.closeTag();
+    }
+}
+
+void
+MSLane::loadRNGState(int index, const std::string& state) {
+    if (index >= getNumRNGs()) {
+        throw ProcessError("State was saved with more than " + toString(getNumRNGs()) + " threads. Change the number of threads or do not load RNG state");
+    }
+    RandHelper::loadState(state, &myRNGs[index]);
+}
+
 
 MSLane*
 MSLane::getBidiLane() const {

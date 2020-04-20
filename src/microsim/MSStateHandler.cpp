@@ -75,7 +75,9 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     out.writeHeader<MSEdge>(SUMO_TAG_SNAPSHOT);
     out.writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/state_file.xsd");
     out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, time2string(step));
-    //saveRNGs(out);
+    if (OptionsCont::getOptions().getBool("save-state.rng")) {
+        saveRNGs(out);
+    }
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getInsertionControl().saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
@@ -133,6 +135,12 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE_TOC)) {
                 RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSDevice_ToC::getResponseTimeRNG());
             }
+            break;
+        }
+        case SUMO_TAG_RNGLANE: {
+            const int index = attrs.getInt(SUMO_ATTR_INDEX);
+            const std::string state = attrs.getString(SUMO_ATTR_STATE);
+            MSLane::loadRNGState(index, state);
             break;
         }
         case SUMO_TAG_DELAY: {
@@ -281,6 +289,7 @@ MSStateHandler::saveRNGs(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_RNG_DEVICE_BT, RandHelper::saveState(MSDevice_BTreceiver::getRNG()));
     out.writeAttr(SUMO_ATTR_RNG_DRIVERSTATE, RandHelper::saveState(OUProcess::getRNG()));
     out.writeAttr(SUMO_ATTR_RNG_DEVICE_TOC, RandHelper::saveState(MSDevice_ToC::getResponseTimeRNG()));
+    MSLane::saveRNGStates(out);
     out.closeTag();
 
 }

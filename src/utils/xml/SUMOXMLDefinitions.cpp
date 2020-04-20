@@ -170,6 +170,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "scalingScheme",              SUMO_TAG_SCALINGSCHEME },
     { "entry",                      SUMO_TAG_ENTRY },
     { "rngState",                   SUMO_TAG_RNGSTATE },
+    { "rngLane" ,                   SUMO_TAG_RNGLANE },
     { "vehicleTransfer",            SUMO_TAG_VEHICLETRANSFER },
     { "device",                     SUMO_TAG_DEVICE },
     // Cars
@@ -787,6 +788,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "insertionControl",  SUMO_ATTR_RNG_INSERTIONCONTROL },
     { "device",            SUMO_ATTR_RNG_DEVICE },
     { "device.btreceiver", SUMO_ATTR_RNG_DEVICE_BT },
+    { "device.toc",        SUMO_ATTR_RNG_DEVICE_TOC },
     { "driverState",       SUMO_ATTR_RNG_DRIVERSTATE },
     // @}
 

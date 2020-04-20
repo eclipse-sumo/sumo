@@ -227,6 +227,12 @@ public:
         return (int)myRNGs.size();
     }
 
+    /// @brief save random number generator states to the given output device
+    static void saveRNGStates(OutputDevice& out);
+
+    /// @brief load random number generator state for the given rng index
+    static void loadRNGState(int index, const std::string& state);
+
     /// @name Additional initialisation
     /// @{
 

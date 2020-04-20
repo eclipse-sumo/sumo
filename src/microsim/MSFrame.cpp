@@ -273,6 +273,8 @@ MSFrame::fillOptions() {
     oc.addDescription("save-state.suffix", "Output", "Suffix for network states (.xml.gz or .xml)");
     oc.doRegister("save-state.files", new Option_FileName());//
     oc.addDescription("save-state.files", "Output", "Files for network states");
+    oc.doRegister("save-state.rng", new Option_Bool(false));
+    oc.addDescription("save-state.rng", "Output", "Save randon number generator states");
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));
