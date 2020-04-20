@@ -684,7 +684,7 @@ GNEJunction::setLogicValid(bool valid, GNEUndoList* undoList, const std::string&
         for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
             GNEEdge* srcEdge = myNet->retrieveEdge((*it)->getID());
             removeConnectionsFrom(srcEdge, undoList, false); // false, because the whole tls will be invalidated at the end
-            undoList->add(new GNEChange_Attribute(srcEdge, myNet, GNE_ATTR_MODIFICATION_STATUS, status), true);
+            undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, status), true);
         }
         undoList->add(new GNEChange_Attribute(this, GNE_ATTR_MODIFICATION_STATUS, status), true);
         invalidateTLS(undoList);
@@ -824,7 +824,7 @@ GNEJunction::markAsModified(GNEUndoList* undoList) {
     for (EdgeVector::iterator it = incoming.begin(); it != incoming.end(); it++) {
         NBEdge* srcNBE = *it;
         GNEEdge* srcEdge = myNet->retrieveEdge(srcNBE->getID());
-        undoList->add(new GNEChange_Attribute(srcEdge, myNet, GNE_ATTR_MODIFICATION_STATUS, FEATURE_MODIFIED), true);
+        undoList->add(new GNEChange_Attribute(srcEdge, GNE_ATTR_MODIFICATION_STATUS, FEATURE_MODIFIED), true);
     }
 }
 
@@ -850,11 +850,11 @@ GNEJunction::invalidateTLS(GNEUndoList* undoList, const NBConnection& deletedCon
                     // however, the could remain valud so we register a change but keep them at their old value
                     for (GNECrossing* c : myGNECrossings) {
                         const std::string oldValue = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
-                        undoList->add(new GNEChange_Attribute(c, myNet, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
-                        undoList->add(new GNEChange_Attribute(c, myNet, SUMO_ATTR_TLLINKINDEX, oldValue), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX, oldValue), true);
                         const std::string oldValue2 = c->getAttribute(SUMO_ATTR_TLLINKINDEX);
-                        undoList->add(new GNEChange_Attribute(c, myNet, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
-                        undoList->add(new GNEChange_Attribute(c, myNet, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, toString(NBConnection::InvalidTlIndex)), true);
+                        undoList->add(new GNEChange_Attribute(c, SUMO_ATTR_TLLINKINDEX2, oldValue2), true);
                     }
                 }
                 NBLoadedSUMOTLDef* repl = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
@@ -1028,7 +1028,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->p_begin("change keepClear for whole junction");
             for (const auto& i : myGNEIncomingEdges) {
                 for (const auto& j : i->getGNEConnections()) {
-                    undoList->add(new GNEChange_Attribute(j, myNet, key, value), true);
+                    undoList->add(new GNEChange_Attribute(j, key, value), true);
                 }
             }
             undoList->p_end();
@@ -1062,8 +1062,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             // must be the final step, otherwise we do not know which traffic lights to remove via GNEChange_TLS
             undoList->add(new GNEChange_Attribute(this, key, value), true);
             for (const auto& crossing : myGNECrossings) {
-                undoList->add(new GNEChange_Attribute(crossing, myNet, SUMO_ATTR_TLLINKINDEX, "-1"), true);
-                undoList->add(new GNEChange_Attribute(crossing, myNet, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
+                undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX, "-1"), true);
+                undoList->add(new GNEChange_Attribute(crossing, SUMO_ATTR_TLLINKINDEX2, "-1"), true);
             }
             undoList->p_end();
             break;
