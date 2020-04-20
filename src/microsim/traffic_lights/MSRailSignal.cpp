@@ -359,7 +359,25 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
     MSEdge* first = &myLink->getLane()->getEdge();
     MSRouteIterator firstIt = std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), first);
     if (firstIt == veh->getRoute().end()) {
-        WRITE_WARNING("Invalid approach information after rerouting");
+        // possibly the vehicle has already gone past the first edge (i.e.
+        // because first is short or the step-length is high)
+        // lets look backward along the route
+        // give some slack because the vehicle might have been braking from a higher speed and using ballistic integration
+        double lookBack = SPEED2DIST(veh->getSpeed() + 10);
+        int routeIndex = veh->getRoutePosition() - 1;
+        while (lookBack > 0 && routeIndex > 0) {
+            const MSEdge* prevEdge = veh->getRoute().getEdges()[routeIndex];
+            if (prevEdge == first) {
+                firstIt = veh->getRoute().begin() + routeIndex;
+                break;
+            }
+            lookBack -= prevEdge->getLength();
+            routeIndex--;
+        }
+    }
+    if (firstIt == veh->getRoute().end()) {
+        WRITE_WARNING("Invalid approach information after rerouting for vehicle '" + veh->getID()
+                + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         return myDriveways.front();
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " rsl=" << getID() << " dws=" << myDriveways.size() << "\n";

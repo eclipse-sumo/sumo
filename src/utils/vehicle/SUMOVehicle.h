@@ -85,6 +85,9 @@ public:
     /// Returns the current route
     virtual const MSRoute& getRoute() const = 0;
 
+    /// @brief return index of edge within route
+    virtual int getRoutePosition() const = 0;
+
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
      * If the rest of the route (counted from the current edge) than nSuccs,
