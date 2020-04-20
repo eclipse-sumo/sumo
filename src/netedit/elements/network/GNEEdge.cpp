@@ -240,7 +240,7 @@ GNEEdge::commitShapeChangeBegin(GNEUndoList* undoList) {
     endEdgeGeometryMoving();
     // set attribute using undolist
     undoList->p_begin("shape start of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), true, toString(myPositionBeforeMoving)));
+    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), toString(myPositionBeforeMoving)));
     undoList->p_end();
 }
 
@@ -255,7 +255,7 @@ GNEEdge::commitShapeChangeEnd(GNEUndoList* undoList) {
     endEdgeGeometryMoving();
     // set attribute using undolist
     undoList->p_begin("shape end of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), true, toString(myPositionBeforeMoving)));
+    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), toString(myPositionBeforeMoving)));
     undoList->p_end();
 }
 
@@ -969,7 +969,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
                 it->setAttribute(key, value, undoList);
             }
             // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
-            undoList->p_add(new GNEChange_Attribute(this, key, value, true, origValue));
+            undoList->p_add(new GNEChange_Attribute(this, key, value, origValue));
             undoList->p_end();
             break;
         }

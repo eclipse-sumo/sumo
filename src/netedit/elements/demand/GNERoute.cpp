@@ -58,7 +58,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
     undoList->p_begin("apply distance along route");
     double dist = (route->getParentEdges().size() > 0) ? route->getParentEdges().front()->getNBEdge()->getDistance() : 0;
     for (GNEEdge* edge : route->getParentEdges()) {
-        undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_DISTANCE, toString(dist), true, edge->getAttribute(SUMO_ATTR_DISTANCE)));
+        undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_DISTANCE, toString(dist), edge->getAttribute(SUMO_ATTR_DISTANCE)));
         dist += edge->getNBEdge()->getFinalLength();
     }
     undoList->p_end();

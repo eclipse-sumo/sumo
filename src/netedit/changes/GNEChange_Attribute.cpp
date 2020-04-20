@@ -33,26 +33,24 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Attribute, GNEChange, nullptr, 0)
 // member method definitions
 // ===========================================================================
 
-GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
-        SumoXMLAttr key, const std::string& value,
-        bool customOrigValue, const std::string& origValue) :
+GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac, SumoXMLAttr key, const std::string& value) :
     GNEChange(true),
     myAC(ac),
     myKey(key),
     myForceChange(false),
-    myOrigValue(customOrigValue ? origValue : ac->getAttribute(key)),
+    myOrigValue(ac->getAttribute(key)),
     myNewValue(value) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
 
 
 GNEChange_Attribute::GNEChange_Attribute(GNEAttributeCarrier* ac,
-        bool forceChange, SumoXMLAttr key, const std::string& value) :
+        SumoXMLAttr key, const std::string& value, const std::string& origValue) :
     GNEChange(true),
     myAC(ac),
     myKey(key),
-    myForceChange(forceChange),
-    myOrigValue(ac->getAttribute(key)),
+    myForceChange(false),
+    myOrigValue(origValue),
     myNewValue(value) {
     myAC->incRef("GNEChange_Attribute " + toString(myKey));
 }
@@ -116,6 +114,12 @@ GNEChange_Attribute::redo() {
             myAC->getNet()->requireSaveDemandElements(true);
         }
     }
+}
+
+
+void
+GNEChange_Attribute::forceChange() {
+    myForceChange = true;
 }
 
 

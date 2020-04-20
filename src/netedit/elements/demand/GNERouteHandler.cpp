@@ -809,7 +809,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             }
             // check if vehicle has to be selected
             if (selected) {
-                undoList->p_add(new GNEChange_Attribute(vehicle, vehicle->getNet(), GNE_ATTR_SELECTED, "true"));
+                undoList->p_add(new GNEChange_Attribute(vehicle, GNE_ATTR_SELECTED, "true"));
             }
         } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
             // create route using values of originalVehicle flow/trip
@@ -823,7 +823,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
             undoList->add(new GNEChange_DemandElement(vehicle, true), true);
             // check if vehicle has to be selected
             if (selected) {
-                undoList->p_add(new GNEChange_Attribute(vehicle, vehicle->getNet(), GNE_ATTR_SELECTED, "true"));
+                undoList->p_add(new GNEChange_Attribute(vehicle, GNE_ATTR_SELECTED, "true"));
             }
         }
         // end undo-redo operation
@@ -869,7 +869,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             }
             // check if flow has to be selected
             if (selected) {
-                undoList->p_add(new GNEChange_Attribute(flow, flow->getNet(), GNE_ATTR_SELECTED, "true"));
+                undoList->p_add(new GNEChange_Attribute(flow, GNE_ATTR_SELECTED, "true"));
             }
         } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
             // create route using values of originalVehicle flow/trip
@@ -883,7 +883,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
             undoList->add(new GNEChange_DemandElement(flow, true), true);
             // check if flow has to be selected
             if (selected) {
-                undoList->p_add(new GNEChange_Attribute(flow, flow->getNet(), GNE_ATTR_SELECTED, "true"));
+                undoList->p_add(new GNEChange_Attribute(flow, GNE_ATTR_SELECTED, "true"));
             }
         }
         // end undo-redo operation
@@ -929,7 +929,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
             undoList->add(new GNEChange_DemandElement(trip, true), true);
             // check if trip has to be selected
             if (selected) {
-                undoList->p_add(new GNEChange_Attribute(trip, trip->getNet(), GNE_ATTR_SELECTED, "true"));
+                undoList->p_add(new GNEChange_Attribute(trip, GNE_ATTR_SELECTED, "true"));
             }
         } else if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP)) {
             // create trip using values of original vehicle (including ID)
@@ -944,7 +944,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
             undoList->add(new GNEChange_DemandElement(trip, true), true);
             // check if trip has to be selected
             if (selected) {
-                undoList->p_add(new GNEChange_Attribute(trip, trip->getNet(), GNE_ATTR_SELECTED, "true"));
+                undoList->p_add(new GNEChange_Attribute(trip, GNE_ATTR_SELECTED, "true"));
             }
         }
         // check if separatedEmbeddedRoute has to be removed
@@ -1006,7 +1006,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
             undoList->add(new GNEChange_DemandElement(flow, true), true);
             // check if flow has to be selected
             if (selected) {
-                undoList->p_add(new GNEChange_Attribute(flow, flow->getNet(), GNE_ATTR_SELECTED, "true"));
+                undoList->p_add(new GNEChange_Attribute(flow, GNE_ATTR_SELECTED, "true"));
             }
         }
         // check if separatedEmbeddedRoute has to be removed

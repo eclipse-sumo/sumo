@@ -33,27 +33,21 @@ class GNEChange_Attribute : public GNEChange {
     FXDECLARE_ABSTRACT(GNEChange_Attribute)
 
 public:
-    /**@brief Constructor
+    /**@brief constructor
      * @param[in] ac The attribute-carrier to be modified
      * @param[in] key The attribute key
      * @param[in] value The new value
      */
-    GNEChange_Attribute(GNEAttributeCarrier* ac,
-                        const SumoXMLAttr key,
-                        const std::string& value,
-                        bool customOrigValue = false,
-                        const std::string& origValue = "");
+    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value);
 
-    /**@brief Constructor
+    /**@brief Constructor with custom origin value
      * @param[in] ac The attribute-carrier to be modified
-     * @param[in] forceChange enable or disable force change
      * @param[in] key The attribute key
      * @param[in] value The new value
+     * @param[in] customOrigValue custon original value
      */
-    GNEChange_Attribute(GNEAttributeCarrier* ac,
-                        bool forceChange,
-                        const SumoXMLAttr key,
-                        const std::string& value);
+    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value, 
+        const std::string& customOrigValue);
 
     /// @brief Destructor
     ~GNEChange_Attribute();
@@ -73,6 +67,9 @@ public:
     void redo();
     /// @}
 
+    /// @brief force change
+    void forceChange();
+
     /// @brief wether original and new value differ
     bool trueChange();
 
@@ -91,6 +88,6 @@ private:
     /// @brief the original value
     const std::string myOrigValue;
 
-    /// @brief the original value
+    /// @brief the new value
     const std::string myNewValue;
 };

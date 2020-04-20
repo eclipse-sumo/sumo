@@ -231,12 +231,12 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
     if (getParentLanes().size() == 1) {
         // commit new position allowing undo/redo
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), myMove.firstOriginalLanePosition));
         undoList->p_end();
     } else {
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), true, myMove.secondOriginalPosition));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), myMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), myMove.secondOriginalPosition));
         undoList->p_end();
     }
 }

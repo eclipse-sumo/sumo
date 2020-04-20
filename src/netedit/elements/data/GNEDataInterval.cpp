@@ -259,7 +259,7 @@ GNEDataInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
     switch (key) {
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
-            undoList->p_add(new GNEChange_Attribute(this, myDataSetParent->getNet(), key, value));
+            undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

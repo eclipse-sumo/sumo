@@ -253,10 +253,10 @@ GNEStop::commitGeometryMoving(GNEUndoList* undoList) {
     if ((getParentLanes().size() > 0) && ((parametersSet & STOP_START_SET) || (parametersSet & STOP_END_SET))) {
         undoList->p_begin("position of " + getTagStr());
         if (parametersSet & STOP_START_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(startPos), true, myStopMove.firstOriginalLanePosition));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(startPos), myStopMove.firstOriginalLanePosition));
         }
         if (parametersSet & STOP_END_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(endPos), true, myStopMove.secondOriginalPosition));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(endPos), myStopMove.secondOriginalPosition));
         }
         undoList->p_end();
     }

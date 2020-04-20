@@ -505,6 +505,7 @@ GNEVehicleType::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
+    GNEChange_Attribute* vTypeChangeAttributeForced = nullptr;
     if (value == getAttribute(key)) {
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
@@ -598,12 +599,21 @@ GNEVehicleType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case GNE_ATTR_PARAMETERS:
             // if we change the original value of a default vehicle Type, change also flag "myDefaultVehicleType"
             if (myDefaultVehicleType) {
-                undoList->p_add(new GNEChange_Attribute(this, true, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true"));
+                vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
+                // force change
+                vTypeChangeAttributeForced->forceChange();
+                undoList->p_add(vTypeChangeAttributeForced);
             }
-            undoList->p_add(new GNEChange_Attribute(this, true, key, value));
+            vTypeChangeAttributeForced = new GNEChange_Attribute(this, key, value);
+            // force change
+            vTypeChangeAttributeForced->forceChange();
+            undoList->p_add(vTypeChangeAttributeForced);
             break;
         case GNE_ATTR_DEFAULT_VTYPE_MODIFIED:
-            undoList->p_add(new GNEChange_Attribute(this, true, key, value));
+            vTypeChangeAttributeForced = new GNEChange_Attribute(this, GNE_ATTR_DEFAULT_VTYPE_MODIFIED, "true");
+            // force change
+            vTypeChangeAttributeForced->forceChange();
+            undoList->p_add(vTypeChangeAttributeForced);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

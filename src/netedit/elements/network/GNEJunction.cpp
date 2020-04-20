@@ -646,7 +646,7 @@ GNEJunction::commitGeometryMoving(GNEUndoList* undoList) {
     endGeometryMoving();
     if (isValid(SUMO_ATTR_POSITION, toString(myNBNode->getPosition()))) {
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNBNode->getPosition()), true, toString(myMovingPosition)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNBNode->getPosition()), toString(myMovingPosition)));
         undoList->p_end();
     } else {
         // tried to set an invalid position, revert back to the previous one

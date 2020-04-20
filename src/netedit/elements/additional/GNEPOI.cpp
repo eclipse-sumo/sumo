@@ -141,11 +141,11 @@ GNEPOI::commitPOIGeometryMoving(GNEUndoList* undoList) {
             // restore old position before commit new position
             double originalPosOverLane = getParentLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myPositionBeforeMoving, false);
             undoList->p_begin("position of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane), true, toString(originalPosOverLane)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosOverLane), toString(originalPosOverLane)));
             undoList->p_end();
         } else {
             undoList->p_begin("position of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNewPosition), true, toString(myPositionBeforeMoving)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myNewPosition), toString(myPositionBeforeMoving)));
             undoList->p_end();
         }
     }

@@ -67,7 +67,7 @@ GNEAccess::commitGeometryMoving(GNEUndoList* undoList) {
     if (!myBlockMovement) {
         // commit new position allowing undo/redo
         undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), true, myMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), myMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }

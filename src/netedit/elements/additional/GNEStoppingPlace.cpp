@@ -247,10 +247,10 @@ GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
     if (myParametersSet > 0) {
         undoList->p_begin("position of " + getTagStr());
         if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosition), true, myMove.firstOriginalLanePosition));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(myStartPosition), myMove.firstOriginalLanePosition));
         }
         if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPosition), true, myMove.secondOriginalPosition));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPosition), myMove.secondOriginalPosition));
         }
         undoList->p_end();
     }

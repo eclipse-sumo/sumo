@@ -272,7 +272,7 @@ GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if myArrivalPosition isn't -1
     if (myArrivalPosition != -1) {
         undoList->p_begin("arrivalPos of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), true, myWalkMove.firstOriginalLanePosition));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ARRIVALPOS, toString(myArrivalPosition), myWalkMove.firstOriginalLanePosition));
         undoList->p_end();
     }
 }
