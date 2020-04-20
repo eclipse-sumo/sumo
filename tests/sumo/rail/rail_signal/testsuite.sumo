@@ -4,6 +4,9 @@ fork_without_signal
 # a simulation with a step size of 0.3 seconds  involving rail signals
 small_step_size
 
+# a simulation with a step size of 3 seconds  involving rail signals
+large_step_size
+
 # a train is following another one through several blocks
 two_following_trains
 

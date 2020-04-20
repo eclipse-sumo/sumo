@@ -1,0 +1,5 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent type="SaveTLSStates" source="gneJ1" dest="tls_state.xml"/>
+    <timedEvent type="SaveTLSStates" source="gneJ3" dest="tls_state.xml"/>
+    <timedEvent type="SaveTLSStates" source="gneJ5" dest="tls_state.xml"/>
+</additional>
