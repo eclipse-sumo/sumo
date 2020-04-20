@@ -753,7 +753,7 @@ NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, i
         double extrapolateBeg = 5. * fromE->getNumLanes();
         double extrapolateEnd = 5. * con.toEdge->getNumLanes();
         LinkDirection dir = getDirection(fromE, con.toEdge);
-        if (dir == LINKDIR_LEFT || dir == LINKDIR_TURN) {
+        if (dir == LinkDirection::LEFT || dir == LinkDirection::TURN) {
             shapeFlag += AVOID_WIDE_LEFT_TURN;
         }
 #ifdef DEBUG_SMOOTH_GEOM
@@ -823,7 +823,7 @@ NBNode::displaceShapeAtWidthChange(const NBEdge* from, const NBEdge::Connection&
                 // (on the left side for left turns)
                 // XXX indirect left turns should also start on the right side
                 LinkDirection dir = getDirection(from, con.toEdge);
-                if (dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT || dir == LINKDIR_TURN) {
+                if (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT || dir == LinkDirection::TURN) {
                     fromShape.move2side(-shift);
                 } else {
                     fromShape.move2side(shift);
@@ -846,7 +846,7 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
         return false;
     }
     LinkDirection d1 = getDirection(fromE, toE);
-    const bool thisRight = (d1 == LINKDIR_RIGHT || d1 == LINKDIR_PARTRIGHT);
+    const bool thisRight = (d1 == LinkDirection::RIGHT || d1 == LinkDirection::PARTRIGHT);
     const bool rightTurnConflict = (thisRight &&
                                     NBNode::rightTurnConflict(fromE, toE, c.fromLane, otherFromE, otherToE, otherC.fromLane));
     if (thisRight && !rightTurnConflict) {
@@ -857,17 +857,17 @@ NBNode::needsCont(const NBEdge* fromE, const NBEdge* otherFromE,
         return false;
     }
     LinkDirection d2 = getDirection(otherFromE, otherToE);
-    if (d2 == LINKDIR_TURN) {
+    if (d2 == LinkDirection::TURN) {
         return false;
     }
-    const bool thisLeft = (d1 == LINKDIR_LEFT || d1 == LINKDIR_TURN);
-    const bool otherLeft = (d2 == LINKDIR_LEFT || d2 == LINKDIR_TURN);
+    const bool thisLeft = (d1 == LinkDirection::LEFT || d1 == LinkDirection::TURN);
+    const bool otherLeft = (d2 == LinkDirection::LEFT || d2 == LinkDirection::TURN);
     const bool bothLeft = thisLeft && otherLeft;
     if (fromE == otherFromE && !thisRight) {
         // ignore same edge links except for right-turns
         return false;
     }
-    if (thisRight && d2 != LINKDIR_STRAIGHT) {
+    if (thisRight && d2 != LinkDirection::STRAIGHT) {
         return false;
     }
     if (c.tlID != "" && !bothLeft) {
@@ -1297,8 +1297,8 @@ NBNode::computeLanes2Lanes() {
             // assume that left-turns and turn-arounds are better satisfied from lanes to the left
             LinkDirection dir = getDirection(incoming, currentOutgoing);
             if (incoming->getStep() <= NBEdge::EdgeBuildingStep::LANES2LANES_DONE
-                    && ((bikeLaneTarget >= 0 && dir != LINKDIR_TURN)
-                        || dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT || dir == LINKDIR_STRAIGHT)) {
+                    && ((bikeLaneTarget >= 0 && dir != LinkDirection::TURN)
+                        || dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT)) {
                 bool builtConnection = false;
                 for (int i = 0; i < (int)incoming->getNumLanes(); i++) {
                     if (incoming->getPermissions(i) == SVC_BICYCLE
@@ -1327,7 +1327,7 @@ NBNode::computeLanes2Lanes() {
                     int start = 0;
                     int end = (int)incoming->getNumLanes();
                     int inc = 1;
-                    if (dir == LINKDIR_TURN || dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT) {
+                    if (dir == LinkDirection::TURN || dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) {
                         std::swap(start, end);
                         inc = -1;
                     }
@@ -1347,7 +1347,7 @@ NBNode::computeLanes2Lanes() {
         for (EdgeVector::const_iterator i = myIncomingEdges.begin(); i != myIncomingEdges.end(); i++) {
             const std::vector<NBEdge::Connection> cons = (*i)->getConnections();
             for (std::vector<NBEdge::Connection>::const_iterator k = cons.begin(); k != cons.end(); ++k) {
-                if (getDirection(*i, (*k).toEdge) == LINKDIR_TURN) {
+                if (getDirection(*i, (*k).toEdge) == LinkDirection::TURN) {
                     (*i)->removeFromConnections((*k).toEdge);
                 }
             }
@@ -1409,9 +1409,9 @@ NBNode::addedLanesRight(NBEdge* out, int addedLanes) const {
             const int outOffset = MAX2(0, succ->getFirstNonPedestrianLaneIndex(FORWARD, true));
             const int usableLanes = succ->getNumLanes() - outOffset;
             LinkDirection dir = to->getDirection(out, succ);
-            if (dir == LINKDIR_STRAIGHT) {
+            if (dir == LinkDirection::STRAIGHT) {
                 outLanesStraight += usableLanes;
-            } else if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+            } else if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
                 outLanesRight += usableLanes;
             } else {
                 outLanesLeft += usableLanes;
@@ -1798,7 +1798,7 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
     }
     const LinkDirection d1 = from->getToNode()->getDirection(from, to);
     // must be a right turn to qualify as rightTurnConflict
-    if (d1 == LINKDIR_STRAIGHT) {
+    if (d1 == LinkDirection::STRAIGHT) {
         // no conflict for straight going connections
         // XXX actually this should check the main direction (which could also
         // be a turn)
@@ -1811,10 +1811,10 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
             << " d1=" << toString(d1) << " d2=" << toString(d2)
             << "\n"; */
         bool flip = false;
-        if (d1 == LINKDIR_LEFT || d1 == LINKDIR_PARTLEFT) {
+        if (d1 == LinkDirection::LEFT || d1 == LinkDirection::PARTLEFT) {
             // check for leftTurnConflicht
             flip = !flip;
-            if (d2 == LINKDIR_RIGHT || d1 == LINKDIR_PARTRIGHT) {
+            if (d2 == LinkDirection::RIGHT || d1 == LinkDirection::PARTRIGHT) {
                 // assume that the left-turning bicycle goes straight at first
                 // and thus gets precedence over a right turning vehicle
                 return false;
@@ -2024,14 +2024,14 @@ LinkDirection
 NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing, bool leftHand) const {
     // ok, no connection at all -> dead end
     if (outgoing == nullptr) {
-        return LINKDIR_NODIR;
+        return LinkDirection::NODIR;
     }
     if (incoming->getJunctionPriority(this) == NBEdge::ROUNDABOUT && outgoing->getJunctionPriority(this) == NBEdge::ROUNDABOUT) {
-        return LINKDIR_STRAIGHT;
+        return LinkDirection::STRAIGHT;
     }
     // turning direction
     if (incoming->isTurningDirectionAt(outgoing)) {
-        return leftHand ? LINKDIR_TURN_LEFTHAND : LINKDIR_TURN;
+        return leftHand ? LinkDirection::TURN_LEFTHAND : LinkDirection::TURN;
     }
     // get the angle between incoming/outgoing at the junction
     const double angle = NBHelpers::normRelAngle(incoming->getAngleAtNode(this), outgoing->getAngleAtNode(this));
@@ -2049,9 +2049,9 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
             if (fabs(angle2) < fabs(angle)) {
                 if (fabs(angle2 - angle) > 5) {
                     if (angle2 > angle) {
-                        return LINKDIR_PARTLEFT;
+                        return LinkDirection::PARTLEFT;
                     } else {
-                        return LINKDIR_PARTRIGHT;
+                        return LinkDirection::PARTRIGHT;
                     }
                 }
             }
@@ -2062,37 +2062,37 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
             if (fabs(angle2) < fabs(angle)) {
                 if (fabs(angle2 - angle) > 5) {
                     if (angle2 > angle) {
-                        return LINKDIR_PARTLEFT;
+                        return LinkDirection::PARTLEFT;
                     } else {
-                        return LINKDIR_PARTRIGHT;
+                        return LinkDirection::PARTRIGHT;
                     }
                 }
             }
         }
-        return LINKDIR_STRAIGHT;
+        return LinkDirection::STRAIGHT;
     }
 
     if (angle > 0) {
         // check whether any other edge goes further to the right
         if (angle > 90) {
-            return LINKDIR_RIGHT;
+            return LinkDirection::RIGHT;
         }
         NBEdge* outCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, !leftHand);
         if (outCW != nullptr) {
-            return LINKDIR_PARTRIGHT;
+            return LinkDirection::PARTRIGHT;
         } else {
-            return LINKDIR_RIGHT;
+            return LinkDirection::RIGHT;
         }
     } else {
         // check whether any other edge goes further to the left
         if (angle < -90) {
-            return LINKDIR_LEFT;
+            return LinkDirection::LEFT;
         }
         NBEdge* outCCW = getNextCompatibleOutgoing(incoming, vehPerm, itOut, leftHand);
         if (outCCW != nullptr) {
-            return LINKDIR_PARTLEFT;
+            return LinkDirection::PARTLEFT;
         } else {
-            return LINKDIR_LEFT;
+            return LinkDirection::LEFT;
         }
     }
 }
@@ -2122,7 +2122,7 @@ NBNode::getLinkState(const NBEdge* incoming, NBEdge* outgoing, int fromlane, int
     if (!mayDefinitelyPass
             && mustBrake(incoming, outgoing, fromlane, toLane, true)
             // legacy mode
-            && (!incoming->isInsideTLS() || getDirection(incoming, outgoing) != LINKDIR_STRAIGHT)
+            && (!incoming->isInsideTLS() || getDirection(incoming, outgoing) != LinkDirection::STRAIGHT)
             // avoid linkstate minor at pure railway nodes
             && !NBNodeTypeComputer::isRailwayNode(this)) {
         return myType == SumoXMLNodeType::PRIORITY_STOP ? LINKSTATE_STOP : LINKSTATE_MINOR; // minor road

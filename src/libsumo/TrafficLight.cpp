@@ -270,21 +270,21 @@ TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, cons
         MSTrafficLightLogic* tlLogic = nullptr;
         SUMOTime nextSwitch = 0; //MSNet::getInstance()->getCurrentTimeStep();
         switch (logic.type) {
-            case TLTYPE_ACTUATED:
+            case TrafficLightType::ACTUATED:
                 tlLogic = new MSActuatedTrafficLightLogic(tlc,
                         tlsID, logic.programID,
                         phases, step, nextSwitch,
                         logic.subParameter, basePath);
                 break;
-            case TLTYPE_DELAYBASED:
+            case TrafficLightType::DELAYBASED:
                 tlLogic = new MSDelayBasedTrafficLightLogic(tlc,
                         tlsID, logic.programID,
                         phases, step, nextSwitch,
                         logic.subParameter, basePath);
                 break;
-            case TLTYPE_STATIC:
+            case TrafficLightType::STATIC:
                 tlLogic = new MSSimpleTrafficLightLogic(tlc,
-                                                        tlsID, logic.programID, TLTYPE_STATIC,
+                                                        tlsID, logic.programID, TrafficLightType::STATIC,
                                                         phases, step, nextSwitch,
                                                         logic.subParameter);
                 break;

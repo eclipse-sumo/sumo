@@ -395,7 +395,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
                 s->setJunctionPriority(&n, 1);
             }
         }
-        n.markBentPriority(n.getDirection(best1, bestOut) != LINKDIR_STRAIGHT);
+        n.markBentPriority(n.getDirection(best1, bestOut) != LinkDirection::STRAIGHT);
         return;
     }
 

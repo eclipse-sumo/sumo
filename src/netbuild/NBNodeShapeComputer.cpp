@@ -901,7 +901,7 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
         }
         for (NBEdge* out : myNode.getOutgoingEdges()) {
             if ((in->getPermissions() & out->getPermissions() & large) != 0) {
-                if (myNode.getDirection(in, out) == LINKDIR_TURN) {
+                if (myNode.getDirection(in, out) == LinkDirection::TURN) {
                     continue;
                 };
                 const double angle = GeomHelper::angleDiff(

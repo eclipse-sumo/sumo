@@ -107,7 +107,7 @@ public:
      * @param[in] type The algorithm type for the computed traffic light
      */
     NBTrafficLightLogic(const std::string& id, const std::string& subid, int noLinks,
-                        SUMOTime offset = 0, TrafficLightType type = TLTYPE_STATIC);
+                        SUMOTime offset = 0, TrafficLightType type = TrafficLightType::STATIC);
 
 
     /** @brief Copy Constructor

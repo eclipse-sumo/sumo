@@ -871,7 +871,7 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLTYPE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC,
             "An optional type for the traffic light algorithm");
-        attrProperty.setDiscreteValues({toString(TLTYPE_STATIC), toString(TLTYPE_ACTUATED), toString(TLTYPE_DELAYBASED)});
+        attrProperty.setDiscreteValues({toString(TrafficLightType::STATIC), toString(TrafficLightType::ACTUATED), toString(TrafficLightType::DELAYBASED)});
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLID,

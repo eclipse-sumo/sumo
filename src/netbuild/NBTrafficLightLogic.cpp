@@ -175,7 +175,7 @@ NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
     }
     // check if actuated lights are defined correctly
     if (checkVarDurations) {
-        if (myType != TLTYPE_STATIC) {
+        if (myType != TrafficLightType::STATIC) {
             bool found = false;
             for (auto p : myPhases) {
                 if (p.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION

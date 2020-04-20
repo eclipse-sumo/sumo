@@ -404,42 +404,42 @@ GUILane::drawArrows() const {
     for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
         LinkDirection dir = (*i)->getDirection();
         LinkState state = (*i)->getState();
-        if (state == LINKSTATE_DEADEND || dir == LINKDIR_NODIR) {
+        if (state == LINKSTATE_DEADEND || dir == LinkDirection::NODIR) {
             continue;
         }
         switch (dir) {
-            case LINKDIR_STRAIGHT:
+            case LinkDirection::STRAIGHT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 2, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 4), Position(0, 1), (double) 1, (double) .25);
                 break;
-            case LINKDIR_TURN:
+            case LinkDirection::TURN:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), 90, .5, .05);
                 GLHelper::drawBoxLine(Position(0.5, 2.5), 180, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(0.5, 2.5), Position(0.5, 4), (double) 1, (double) .25);
                 break;
-            case LINKDIR_TURN_LEFTHAND:
+            case LinkDirection::TURN_LEFTHAND:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
                 GLHelper::drawBoxLine(Position(-0.5, 2.5), -180, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(-0.5, 2.5), Position(-0.5, 4), (double) 1, (double) .25);
                 break;
-            case LINKDIR_LEFT:
+            case LinkDirection::LEFT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), 90, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.5, 2.5), (double) 1, (double) .25);
                 break;
-            case LINKDIR_RIGHT:
+            case LinkDirection::RIGHT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), -90, 1, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.5, 2.5), (double) 1, (double) .25);
                 break;
-            case LINKDIR_PARTLEFT:
+            case LinkDirection::PARTLEFT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), 45, .7, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(1.2, 1.3), (double) 1, (double) .25);
                 break;
-            case LINKDIR_PARTRIGHT:
+            case LinkDirection::PARTRIGHT:
                 GLHelper::drawBoxLine(Position(0, 4), 0, 1.5, .05);
                 GLHelper::drawBoxLine(Position(0, 2.5), -45, .7, .05);
                 GLHelper::drawTriangleAtEnd(Position(0, 2.5), Position(-1.2, 1.3), (double) 1, (double) .25);

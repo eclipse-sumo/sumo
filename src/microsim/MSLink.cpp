@@ -331,7 +331,7 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                 std::cout << "  sublaneFoeLink (same target): " << it->getViaLaneOrLane()->getID() << "\n";
 #endif
-            } else if (myDirection != LINKDIR_STRAIGHT && it->getDirection() == LINKDIR_STRAIGHT) {
+            } else if (myDirection != LinkDirection::STRAIGHT && it->getDirection() == LinkDirection::STRAIGHT) {
                 // potential turn conflicht
                 mySublaneFoeLinks2.push_back(it);
 #ifdef MSLink_DEBUG_CROSSING_POINTS
@@ -501,13 +501,13 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
         // (straight movers take precedence if the paths cross)
         const int lhSign = MSGlobals::gLefthand ? -1 : 1;
         for (const MSLink* foeLink : mySublaneFoeLinks2) {
-            assert(myDirection != LINKDIR_STRAIGHT);
+            assert(myDirection != LinkDirection::STRAIGHT);
             for (const auto& it : foeLink->myApproachingVehicles) {
                 const SUMOVehicle* foe = it.first;
                 // there only is a conflict if the paths cross
-                if (((myDirection == LINKDIR_RIGHT || myDirection == LINKDIR_PARTRIGHT)
+                if (((myDirection == LinkDirection::RIGHT || myDirection == LinkDirection::PARTRIGHT)
                         && (posLat * lhSign > foe->getLateralPositionOnLane() * lhSign))
-                        || ((myDirection == LINKDIR_LEFT || myDirection == LINKDIR_PARTLEFT)
+                        || ((myDirection == LinkDirection::LEFT || myDirection == LinkDirection::PARTLEFT)
                             && (posLat * lhSign < foe->getLateralPositionOnLane() * lhSign))) {
                     if (blockedByFoe(foe, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, false,
                                      impatience, decel, waitingTime, ego)) {
@@ -1037,7 +1037,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 const bool pastTheCrossingPoint = leaderBackDist + foeCrossingWidth < 0;
                 const bool ignoreIndirectBicycleTurn = (pastTheCrossingPoint
                                                         && leader->getVehicleType().getVehicleClass() == SVC_BICYCLE
-                                                        && foeLane->getIncomingLanes().front().viaLink->getDirection() == LINKDIR_LEFT);
+                                                        && foeLane->getIncomingLanes().front().viaLink->getDirection() == LinkDirection::LEFT);
                 const bool cannotIgnore = ((contLane && !ignoreIndirectBicycleTurn) || sameTarget || sameSource) && ego != nullptr;
                 const bool inTheWay = !pastTheCrossingPoint && leaderBackDist < leader->getVehicleType().getLength();
                 const bool isOpposite = leader->getLaneChangeModel().isOpposite();

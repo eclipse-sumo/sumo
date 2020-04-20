@@ -84,12 +84,12 @@ NBOwnTLDef::getToPrio(const NBEdge* const e) {
 double
 NBOwnTLDef::getDirectionalWeight(LinkDirection dir) {
     switch (dir) {
-        case LINKDIR_STRAIGHT:
-        case LINKDIR_PARTLEFT:
-        case LINKDIR_PARTRIGHT:
+        case LinkDirection::STRAIGHT:
+        case LinkDirection::PARTLEFT:
+        case LinkDirection::PARTRIGHT:
             return HEIGH_WEIGHT;
-        case LINKDIR_LEFT:
-        case LINKDIR_RIGHT:
+        case LinkDirection::LEFT:
+        case LinkDirection::RIGHT:
             return LOW_WEIGHT;
         default:
             break;
@@ -240,8 +240,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     myRightOnRedConflicts.clear();
     const SUMOTime brakingTime = TIME2STEPS(brakingTimeSeconds);
     const SUMOTime leftTurnTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.left-green.time"));
-    const SUMOTime minMinDur = myType == TLTYPE_STATIC ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
-    const SUMOTime maxDur = myType == TLTYPE_STATIC ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
+    const SUMOTime minMinDur = myType == TrafficLightType::STATIC ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
+    const SUMOTime maxDur = myType == TrafficLightType::STATIC ? UNSPECIFIED_DURATION : TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
 
     // build complete lists first
     const EdgeVector& incoming = getIncomingEdges();
@@ -272,13 +272,13 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     isTurnaround.push_back(true);
                 }
                 LinkDirection dir = fromEdge->getToNode()->getDirection(fromEdge, approached.toEdge);
-                if (dir == LINKDIR_STRAIGHT) {
+                if (dir == LinkDirection::STRAIGHT) {
                     hasStraight = true;
-                } else if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+                } else if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
                     hasRight = true;
-                } else if (dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT) {
+                } else if (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) {
                     hasLeft = true;
-                } else if (dir == LINKDIR_TURN) {
+                } else if (dir == LinkDirection::TURN) {
                     hasTurnaround = true;
                 }
                 noLinksAll++;
@@ -691,7 +691,7 @@ NBOwnTLDef::patchStateForCrossings(const std::string& state, const std::vector<N
                     const NBEdge* edge = *it;
                     const LinkDirection i2dir = cross.node->getDirection(fromEdges[i2], toEdges[i2]);
                     if (state[i2] != 'r' && state[i2] != 's' && (edge == fromEdges[i2] ||
-                            (edge == toEdges[i2] && (i2dir == LINKDIR_STRAIGHT || i2dir == LINKDIR_PARTLEFT || i2dir == LINKDIR_PARTRIGHT)))) {
+                            (edge == toEdges[i2] && (i2dir == LinkDirection::STRAIGHT || i2dir == LinkDirection::PARTLEFT || i2dir == LinkDirection::PARTRIGHT)))) {
                         isForbidden = true;
                         break;
                     }
@@ -759,7 +759,7 @@ NBOwnTLDef::initNeedsContRelation() const {
         if (myControlledNodes.size() > 0) {
             // we use a dummy node just to maintain const-correctness
             myNeedsContRelation.clear();
-            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TrafficLightType::STATIC);
             dummy.setParticipantsInformation();
             NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
             delete tllDummy;
@@ -960,7 +960,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
         }
         if (state[i1] == 'r') {
             if (fromEdges[i1]->getToNode()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
-                    fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LINKDIR_RIGHT) {
+                    fromEdges[i1]->getToNode()->getDirection(fromEdges[i1], toEdges[i1]) == LinkDirection::RIGHT) {
                 state[i1] = 's';
                 // do not allow right-on-red when in conflict with exclusive left-turn phase
                 for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
@@ -968,7 +968,7 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                             (forbids(fromEdges[i2], toEdges[i2], fromEdges[i1], toEdges[i1], true) ||
                              forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
                         const LinkDirection foeDir = fromEdges[i2]->getToNode()->getDirection(fromEdges[i2], toEdges[i2]);
-                        if (foeDir == LINKDIR_LEFT || foeDir == LINKDIR_PARTLEFT) {
+                        if (foeDir == LinkDirection::LEFT || foeDir == LinkDirection::PARTLEFT) {
                             state[i1] = 'r';
                             break;
                         }
@@ -1090,7 +1090,7 @@ NBOwnTLDef::corridorLike() const {
         return true;
     }
     assert(myControlledNodes.size() >= 2);
-    NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+    NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TrafficLightType::STATIC);
     dummy.setParticipantsInformation();
     NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
     int greenPhases = 0;

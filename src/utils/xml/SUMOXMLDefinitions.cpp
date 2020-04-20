@@ -885,32 +885,32 @@ const char SUMOXMLDefinitions::AllowedTLS_linkStatesInitializer[] = {
 const std::string SUMOXMLDefinitions::ALLOWED_TLS_LINKSTATES(AllowedTLS_linkStatesInitializer, 9);
 
 StringBijection<LinkDirection>::Entry SUMOXMLDefinitions::linkDirectionValues[] = {
-    { "s",      LINKDIR_STRAIGHT },
-    { "t",      LINKDIR_TURN },
-    { "T",      LINKDIR_TURN_LEFTHAND },
-    { "l",      LINKDIR_LEFT },
-    { "r",      LINKDIR_RIGHT },
-    { "L",      LINKDIR_PARTLEFT },
-    { "R",      LINKDIR_PARTRIGHT },
-    { "invalid", LINKDIR_NODIR } //< must be the last one
+    { "s",      LinkDirection::STRAIGHT },
+    { "t",      LinkDirection::TURN },
+    { "T",      LinkDirection::TURN_LEFTHAND },
+    { "l",      LinkDirection::LEFT },
+    { "r",      LinkDirection::RIGHT },
+    { "L",      LinkDirection::PARTLEFT },
+    { "R",      LinkDirection::PARTRIGHT },
+    { "invalid", LinkDirection::NODIR } //< must be the last one
 };
 
 
 StringBijection<TrafficLightType>::Entry SUMOXMLDefinitions::trafficLightTypesValues[] = {
-    { "static",         TLTYPE_STATIC },
-    { "railSignal",     TLTYPE_RAIL_SIGNAL },
-    { "railCrossing",   TLTYPE_RAIL_CROSSING },
-    { "actuated",       TLTYPE_ACTUATED },
-    { "delay_based",    TLTYPE_DELAYBASED },
-    { "sotl_phase",     TLTYPE_SOTL_PHASE },
-    { "sotl_platoon",   TLTYPE_SOTL_PLATOON },
-    { "sotl_request",   TLTYPE_SOTL_REQUEST },
-    { "sotl_wave",      TLTYPE_SOTL_WAVE },
-    { "sotl_marching",  TLTYPE_SOTL_MARCHING },
-    { "swarm",          TLTYPE_SWARM_BASED },
-    { "deterministic",  TLTYPE_HILVL_DETERMINISTIC },
-    { "off",            TLTYPE_OFF },
-    { "<invalid>",      TLTYPE_INVALID } //< must be the last one
+    { "static",         TrafficLightType::STATIC },
+    { "railSignal",     TrafficLightType::RAIL_SIGNAL },
+    { "railCrossing",   TrafficLightType::RAIL_CROSSING },
+    { "actuated",       TrafficLightType::ACTUATED },
+    { "delay_based",    TrafficLightType::DELAYBASED },
+    { "sotl_phase",     TrafficLightType::SOTL_PHASE },
+    { "sotl_platoon",   TrafficLightType::SOTL_PLATOON },
+    { "sotl_request",   TrafficLightType::SOTL_REQUEST },
+    { "sotl_wave",      TrafficLightType::SOTL_WAVE },
+    { "sotl_marching",  TrafficLightType::SOTL_MARCHING },
+    { "swarm",          TrafficLightType::SWARM_BASED },
+    { "deterministic",  TrafficLightType::HILVL_DETERMINISTIC },
+    { "off",            TrafficLightType::OFF },
+    { "<invalid>",      TrafficLightType::INVALID } //< must be the last one
 };
 
 
@@ -1012,10 +1012,10 @@ StringBijection<LinkState> SUMOXMLDefinitions::LinkStates(
     SUMOXMLDefinitions::linkStateValues, LINKSTATE_DEADEND);
 
 StringBijection<LinkDirection> SUMOXMLDefinitions::LinkDirections(
-    SUMOXMLDefinitions::linkDirectionValues, LINKDIR_NODIR);
+    SUMOXMLDefinitions::linkDirectionValues, LinkDirection::NODIR);
 
 StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
-    SUMOXMLDefinitions::trafficLightTypesValues, TLTYPE_INVALID);
+    SUMOXMLDefinitions::trafficLightTypesValues, TrafficLightType::INVALID);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LCM_DEFAULT);

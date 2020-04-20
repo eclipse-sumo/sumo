@@ -451,7 +451,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         } else if (!inEdge->getToNode()->geometryLike()) {
             // draw shorter road marks to indicate turning paths
             LinkDirection dir = inEdge->getToNode()->getDirection(inEdge, outEdge, OptionsCont::getOptions().getBool("lefthand"));
-            if (dir == LINKDIR_LEFT || dir == LINKDIR_RIGHT || dir == LINKDIR_PARTLEFT || dir == LINKDIR_PARTRIGHT) {
+            if (dir == LinkDirection::LEFT || dir == LinkDirection::RIGHT || dir == LinkDirection::PARTLEFT || dir == LinkDirection::PARTRIGHT) {
                 // XXX <type><line/><type> is not rendered by odrViewer so cannot be validated
                 // device << "                             <type name=\"broken\" width=\"0.13\">\n";
                 // device << "                                  <line length=\"0.5\" space=\"0.5\" tOffset=\"0\" sOffset=\"0\" rule=\"none\"/>\n";

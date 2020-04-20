@@ -1296,42 +1296,42 @@ enum LinkState {
  * stream between two edges).
  * used in netbuild (formerly NBMMLDirection) and MSLink
  */
-enum LinkDirection {
+enum class LinkDirection {
     /// @brief The link is a straight direction
-    LINKDIR_STRAIGHT = 0,
+    STRAIGHT = 0,
     /// @brief The link is a 180 degree turn
-    LINKDIR_TURN,
+    TURN,
     /// @brief The link is a 180 degree turn (left-hand network)
-    LINKDIR_TURN_LEFTHAND,
+    TURN_LEFTHAND,
     /// @brief The link is a (hard) left direction
-    LINKDIR_LEFT,
+    LEFT,
     /// @brief The link is a (hard) right direction
-    LINKDIR_RIGHT,
+    RIGHT,
     /// @brief The link is a partial left direction
-    LINKDIR_PARTLEFT,
+    PARTLEFT,
     /// @brief The link is a partial right direction
-    LINKDIR_PARTRIGHT,
+    PARTRIGHT,
     /// @brief The link has no direction (is a dead end link)
-    LINKDIR_NODIR
+    NODIR
 };
 
 
 /// @enum TrafficLightType
-enum TrafficLightType {
-    TLTYPE_STATIC,
-    TLTYPE_RAIL_SIGNAL,
-    TLTYPE_RAIL_CROSSING,
-    TLTYPE_ACTUATED,
-    TLTYPE_DELAYBASED,
-    TLTYPE_SOTL_PHASE,
-    TLTYPE_SOTL_PLATOON,
-    TLTYPE_SOTL_REQUEST,
-    TLTYPE_SOTL_WAVE,
-    TLTYPE_SOTL_MARCHING,
-    TLTYPE_SWARM_BASED,
-    TLTYPE_HILVL_DETERMINISTIC,
-    TLTYPE_OFF,
-    TLTYPE_INVALID //< must be the last one
+enum class TrafficLightType {
+    STATIC,
+    RAIL_SIGNAL,
+    RAIL_CROSSING,
+    ACTUATED,
+    DELAYBASED,
+    SOTL_PHASE,
+    SOTL_PLATOON,
+    SOTL_REQUEST,
+    SOTL_WAVE,
+    SOTL_MARCHING,
+    SWARM_BASED,
+    HILVL_DETERMINISTIC,
+    OFF,
+    INVALID //< must be the last one
 };
 
 

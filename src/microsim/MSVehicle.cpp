@@ -985,7 +985,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myLastBestLanesEdge(nullptr),
     myLastBestLanesInternalLane(nullptr),
     myAcceleration(0),
-    myNextTurn(0., LINKDIR_NODIR),
+    myNextTurn(0., LinkDirection::NODIR),
     mySignals(0),
     myAmOnNet(false),
     myAmIdling(false),
@@ -2366,7 +2366,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     // the distance already "seen"; in the following always up to the end of the current "lane"
     double seen = opposite ? myState.myPos : myLane->getLength() - myState.myPos;
     myNextTurn.first = seen;
-    myNextTurn.second = LINKDIR_NODIR;
+    myNextTurn.second = LinkDirection::NODIR;
     bool encounteredTurn = (MSGlobals::gLateralResolution <= 0); // next turn is only needed for sublane
     double seenNonInternal = 0;
     double seenInternal = myLane->isInternal() ? seen : 0;
@@ -2507,8 +2507,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             if (!lane->isLinkEnd(link) && lane->getLinkCont().size() > 1) {
                 LinkDirection linkDir = (*link)->getDirection();
                 switch (linkDir) {
-                    case LINKDIR_STRAIGHT:
-                    case LINKDIR_NODIR:
+                    case LinkDirection::STRAIGHT:
+                    case LinkDirection::NODIR:
                         break;
                     default:
                         myNextTurn.first = seen;
@@ -2635,7 +2635,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // check whether we need to slow down in order to finish a continuous lane change
         if (getLaneChangeModel().isChangingLanes()) {
             if (    // slow down to finish lane change before a turn lane
-                ((*link)->getDirection() == LINKDIR_LEFT || (*link)->getDirection() == LINKDIR_RIGHT) ||
+                ((*link)->getDirection() == LinkDirection::LEFT || (*link)->getDirection() == LinkDirection::RIGHT) ||
                 // slow down to finish lane change before the shadow lane ends
                 (getLaneChangeModel().getShadowLane() != nullptr &&
                  (*link)->getViaLaneOrLane()->getParallelLane(getLaneChangeModel().getShadowDirection()) == nullptr)) {
@@ -2763,7 +2763,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
             //std::cout << "   blockerLink=" << blocker.second << " link=" << *link << "\n";
             if (blocker.second == *link) {
-                const double threshold = (*link)->getDirection() == LINKDIR_STRAIGHT ? 0.25 : 0.75;
+                const double threshold = (*link)->getDirection() == LinkDirection::STRAIGHT ? 0.25 : 0.75;
                 if (RandHelper::rand(getRNG()) < threshold) {
                     //std::cout << "   abort request, threshold=" << threshold << "\n";
                     setRequest = false;
@@ -3869,7 +3869,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                         break;
                     }
                     if (getLaneChangeModel().isChangingLanes()) {
-                        if (link->getDirection() == LINKDIR_LEFT || link->getDirection() == LINKDIR_RIGHT) {
+                        if (link->getDirection() == LinkDirection::LEFT || link->getDirection() == LinkDirection::RIGHT) {
                             // abort lane change
                             WRITE_WARNING("Vehicle '" + getID() + "' could not finish continuous lane change (turn lane) time=" +
                                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
@@ -4806,8 +4806,8 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
             clane = clane->getLogicalPredecessorLane();
             if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane() 
                     || (clane->isInternal() && (
-                            clane->getLinkCont()[0]->getDirection() == LINKDIR_TURN
-                            || clane->getLinkCont()[0]->getDirection() == LINKDIR_TURN_LEFTHAND))) {
+                            clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
+                            || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
                 break;
             }
             myFurtherLanes.push_back(clane);
@@ -5569,13 +5569,13 @@ MSVehicle::setBlinkerInformation() {
         MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, 1, *lane, getBestLanesContinuation());
         if (link != lane->getLinkCont().end() && lane->getLength() - getPositionOnLane() < lane->getVehicleMaxSpeed(this) * (double) 7.) {
             switch ((*link)->getDirection()) {
-                case LINKDIR_TURN:
-                case LINKDIR_LEFT:
-                case LINKDIR_PARTLEFT:
+                case LinkDirection::TURN:
+                case LinkDirection::LEFT:
+                case LinkDirection::PARTLEFT:
                     switchOnSignal(VEH_SIGNAL_BLINKER_LEFT);
                     break;
-                case LINKDIR_RIGHT:
-                case LINKDIR_PARTRIGHT:
+                case LinkDirection::RIGHT:
+                case LinkDirection::PARTRIGHT:
                     switchOnSignal(VEH_SIGNAL_BLINKER_RIGHT);
                     break;
                 default:

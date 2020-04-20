@@ -123,7 +123,7 @@ MSInternalJunction::postloadInit() {
 bool
 MSInternalJunction::indirectBicycleTurn(const MSLane* specialLane, const MSLink* thisLink, const MSLane* foeFirstPart, const MSLink* foeLink) const {
     if (specialLane->getPermissions() == SVC_BICYCLE && foeFirstPart->getPermissions() == SVC_BICYCLE
-            && thisLink->getDirection() == LINKDIR_LEFT && foeLink->getDirection() == LINKDIR_LEFT
+            && thisLink->getDirection() == LinkDirection::LEFT && foeLink->getDirection() == LinkDirection::LEFT
             && thisLink->getViaLane() != nullptr
             && thisLink->getViaLane()->getShape().intersects(foeFirstPart->getShape())) {
         return true;

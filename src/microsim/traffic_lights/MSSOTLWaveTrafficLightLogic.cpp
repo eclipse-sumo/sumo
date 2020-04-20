@@ -26,7 +26,7 @@ MSSOTLWaveTrafficLightLogic::MSSOTLWaveTrafficLightLogic(
     const std::string& programID, const Phases& phases, int step,
     SUMOTime delay,
     const std::map<std::string, std::string>& parameters) :
-    MSSOTLTrafficLightLogic(tlcontrol, id, programID, TLTYPE_SOTL_WAVE, phases, step, delay,
+    MSSOTLTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::SOTL_WAVE, phases, step, delay,
                             parameters) {
     MsgHandler::getMessageInstance()->inform(
         "*** Intersection " + id
@@ -42,7 +42,7 @@ MSSOTLWaveTrafficLightLogic::MSSOTLWaveTrafficLightLogic(
     const std::string& programID, const Phases& phases, int step,
     SUMOTime delay, const std::map<std::string, std::string>& parameters,
     MSSOTLSensors* sensors) :
-    MSSOTLTrafficLightLogic(tlcontrol, id, programID, TLTYPE_SOTL_WAVE, phases, step, delay,
+    MSSOTLTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::SOTL_WAVE, phases, step, delay,
                             parameters, sensors) {
     //sets the lastDuration of every phase to the same value as the default duration of that phase
     for (int i = 0; i < getPhaseNumber(); i++) {

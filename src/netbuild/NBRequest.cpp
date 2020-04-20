@@ -286,14 +286,14 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
                                      << " 2:" << from2->getID() << "->" << to2->getID()
                                      << " dir1=" << toString(ld1) << " dir2=" << toString(ld2) << "\n";
 #endif
-        if (ld1 == LINKDIR_STRAIGHT) {
-            if (ld2 != LINKDIR_STRAIGHT) {
+        if (ld1 == LinkDirection::STRAIGHT) {
+            if (ld2 != LinkDirection::STRAIGHT) {
                 myForbids[idx1][idx2] = true;
                 myForbids[idx2][idx1] = false;
                 return;
             }
         } else {
-            if (ld2 == LINKDIR_STRAIGHT) {
+            if (ld2 == LinkDirection::STRAIGHT) {
                 myForbids[idx1][idx2] = false;
                 myForbids[idx2][idx1] = true;
                 return;
@@ -774,7 +774,7 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
             // for right turns the rightmost lane gets priority
             // otherwise the left lane
             LinkDirection dir = myJunction->getDirection(from, con.toEdge);
-            if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+            if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
                 return con.fromLane > prohibitorCon.fromLane;
             } else {
                 return con.fromLane < prohibitorCon.fromLane;
@@ -792,11 +792,11 @@ NBRequest::oppositeLeftTurnConflict(const NBEdge* from, const NBEdge::Connection
                                     const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     LinkDirection dir = myJunction->getDirection(from, con.toEdge);
     // XXX lefthand issue (solve via #4256)
-    if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
+    if (dir != LinkDirection::LEFT && dir != LinkDirection::PARTLEFT) {
         return false;
     }
     dir = myJunction->getDirection(prohibitorFrom, prohibitorCon.toEdge);
-    if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
+    if (dir != LinkDirection::LEFT && dir != LinkDirection::PARTLEFT) {
         return false;
     }
     if (from == prohibitorFrom || NBRequest::foes(from, con.toEdge, prohibitorFrom, prohibitorCon.toEdge)) {
@@ -959,7 +959,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
     // bicycles
     NBEdge::Connection queryCon = from->getConnection(fromLane, to, toLane);
     LinkDirection dir = myJunction->getDirection(from, to);
-    if (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT) {
+    if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
         for (const NBEdge::Connection& con : from->getConnections()) {
             if (rightTurnConflict(from, queryCon, from, con)) {
                 return true;
@@ -996,7 +996,7 @@ NBRequest::mustBrake(const NBEdge* const from, const NBEdge* const to, int fromL
 bool
 NBRequest::mustBrakeForCrossing(const NBNode* node, const NBEdge* const from, const NBEdge* const to, const NBNode::Crossing& crossing) {
     const LinkDirection dir = node->getDirection(from, to);
-    const bool mustYield = dir == LINKDIR_LEFT || dir == LINKDIR_RIGHT;
+    const bool mustYield = dir == LinkDirection::LEFT || dir == LinkDirection::RIGHT;
     if (crossing.priority || mustYield) {
         for (EdgeVector::const_iterator it_e = crossing.edges.begin(); it_e != crossing.edges.end(); ++it_e) {
             // left and right turns must yield to unprioritized crossings only on their destination edge

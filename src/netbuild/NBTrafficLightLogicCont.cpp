@@ -312,7 +312,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont& ec, const
     for (std::map<std::string, NBNode*>::const_iterator it = nc.begin(); it != nc.end(); it ++) {
         NBNode* n = it->second;
         if (n->getType() == SumoXMLNodeType::RAIL_SIGNAL || n->getType() == SumoXMLNodeType::RAIL_CROSSING) {
-            NBOwnTLDef dummy(n->getID(), n, 0, TLTYPE_STATIC);
+            NBOwnTLDef dummy(n->getID(), n, 0, TrafficLightType::STATIC);
             dummy.setParticipantsInformation();
             dummy.setTLControllingInformation();
             n->setCrossingTLIndices(dummy.getID(), (int)dummy.getControlledLinks().size());

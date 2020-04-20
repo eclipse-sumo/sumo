@@ -78,7 +78,7 @@ int MSRailSignal::myNumWarnings(0);
 MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
                            const std::string& id, const std::string& programID, SUMOTime delay,
                            const std::map<std::string, std::string>& parameters) :
-    MSTrafficLightLogic(tlcontrol, id, programID, TLTYPE_RAIL_SIGNAL, delay, parameters),
+    MSTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::RAIL_SIGNAL, delay, parameters),
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1), // dummy phase
     myPhaseIndex(0) {
     myDefaultCycleTime = DELTA_T;
@@ -781,11 +781,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             if (!seekForwardSignal) {
                 // look for switch that could protect from oncoming vehicles
                 for (const auto& ili : bidi->getIncomingLanes()) {
-                    if (ili.viaLink->getDirection() == LINKDIR_TURN) {
+                    if (ili.viaLink->getDirection() == LinkDirection::TURN) {
                         continue;
                     }
                     for (MSLink* link : ili.lane->getLinkCont()) {
-                        if (link->getDirection() == LINKDIR_TURN) {
+                        if (link->getDirection() == LinkDirection::TURN) {
                             continue;
                         }
                         if (link->getViaLaneOrLane() != bidi) {
@@ -801,7 +801,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
         toLane = nullptr;
         for (MSLink* link : links) {
             if (((next != end && &link->getLane()->getEdge() == *next) ||
-                    (next == end && link->getDirection() != LINKDIR_TURN))
+                    (next == end && link->getDirection() != LinkDirection::TURN))
                     && isRailway(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
                 if (link->getTLLogic() != nullptr) {
@@ -912,7 +912,7 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet
 #ifdef DEBUG_CHECK_FLANKS
                     std::cout << "   lane=" << lane->getID() << " cand=" << l2->getDescription() << "\n";
 #endif
-                    if (l2->getDirection() != LINKDIR_TURN && l2->getLane() != link->getLane()) {
+                    if (l2->getDirection() != LinkDirection::TURN && l2->getLane() != link->getLane()) {
                         foundPSwitch = true;
                         // found potential protection
 #ifdef DEBUG_CHECK_FLANKS
@@ -925,7 +925,7 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet
                     myFlank.push_back(lane);
                     // continue search for protection upstream recursively
                     for (auto ili : lane->getIncomingLanes()) {
-                        if (ili.viaLink->getDirection() != LINKDIR_TURN) {
+                        if (ili.viaLink->getDirection() != LinkDirection::TURN) {
                             findFlankProtection(ili.viaLink, length, visited, origLink);
                         }
                     }

@@ -315,7 +315,7 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
             if (incnode != outnode2) {
                 continue;
             }
-            if (incnode->getDirection(possProhibitedTo, *i) != LINKDIR_STRAIGHT) {
+            if (incnode->getDirection(possProhibitedTo, *i) != LinkDirection::STRAIGHT) {
                 continue;
             }
             bool ret1 = incnode->foes(possProhibitorFrom, possProhibitorTo,
@@ -347,7 +347,7 @@ NBTrafficLightDefinition::forbids(const NBEdge* const possProhibitorFrom,
             if (incnode2 != outnode) {
                 continue;
             }
-            if (incnode2->getDirection(possProhibitorTo, *i) != LINKDIR_STRAIGHT) {
+            if (incnode2->getDirection(possProhibitorTo, *i) != LinkDirection::STRAIGHT) {
                 continue;
             }
             bool ret1 = incnode2->foes(possProhibitorTo, *i,
@@ -468,7 +468,7 @@ NBTrafficLightDefinition::collectAllLinks(NBConnectionVector& into) {
                         // must be registered in MSRailCrossing
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, -1));
                     } else if (incoming->getToNode()->getType() == SumoXMLNodeType::RAIL_SIGNAL
-                               && incoming->getToNode()->getDirection(incoming, el.toEdge) == LINKDIR_TURN) {
+                               && incoming->getToNode()->getDirection(incoming, el.toEdge) == LinkDirection::TURN) {
                         // turnarounds stay uncontrolled at rail signal
                     } else {
                         into.push_back(NBConnection(incoming, el.fromLane, el.toEdge, el.toLane, tlIndex++));
@@ -497,7 +497,7 @@ NBTrafficLightDefinition::needsCont(const NBEdge* fromE, const NBEdge* toE, cons
 void
 NBTrafficLightDefinition::initNeedsContRelation() const {
     if (!amInvalid()) {
-        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TrafficLightType::STATIC);
         dummy.initNeedsContRelation();
         myNeedsContRelation = dummy.myNeedsContRelation;
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
@@ -511,7 +511,7 @@ NBTrafficLightDefinition::initNeedsContRelation() const {
 bool
 NBTrafficLightDefinition::rightOnRedConflict(int index, int foeIndex) const {
     if (!myRightOnRedConflictsReady) {
-        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TrafficLightType::STATIC);
         dummy.setParticipantsInformation();
         NBTrafficLightLogic* tllDummy = dummy.computeLogicAndConts(0, true);
         delete tllDummy;

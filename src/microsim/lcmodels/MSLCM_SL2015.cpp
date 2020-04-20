@@ -1726,18 +1726,18 @@ MSLCM_SL2015::_wantsChangeSublane(
                 if (turnInfo.first < myTurnAlignmentDist) {
                     // Vehicle is close enough to the link to change its default alignment
                     switch (turnInfo.second) {
-                        case LINKDIR_TURN:
-                        case LINKDIR_LEFT:
-                        case LINKDIR_PARTLEFT:
+                        case LinkDirection::TURN:
+                        case LinkDirection::LEFT:
+                        case LinkDirection::PARTLEFT:
                             align = MSGlobals::gLefthand ? LATALIGN_RIGHT : LATALIGN_LEFT;
                             break;
-                        case LINKDIR_TURN_LEFTHAND:
-                        case LINKDIR_RIGHT:
-                        case LINKDIR_PARTRIGHT:
+                        case LinkDirection::TURN_LEFTHAND:
+                        case LinkDirection::RIGHT:
+                        case LinkDirection::PARTRIGHT:
                             align = MSGlobals::gLefthand ? LATALIGN_LEFT : LATALIGN_RIGHT;
                             break;
-                        case LINKDIR_STRAIGHT:
-                        case LINKDIR_NODIR:
+                        case LinkDirection::STRAIGHT:
+                        case LinkDirection::NODIR:
                         default:
                             break;
                     }

@@ -462,7 +462,7 @@ GNETLSEditorFrame::onCmdPhaseSwitch(FXObject*, FXSelector, void*) {
 bool
 GNETLSEditorFrame::fixedDuration() const {
     assert(myEditedDef != nullptr);
-    return myEditedDef->getType() == TLTYPE_STATIC;
+    return myEditedDef->getType() == TrafficLightType::STATIC;
 }
 
 
@@ -1374,7 +1374,7 @@ GNETLSEditorFrame::TLSFile::onCmdSaveTLSProgram(FXObject*, FXSelector, void*) {
     device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
     device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
     // write the phases
-    const bool varPhaseLength = myTLSEditorParent->myEditedDef->getLogic()->getType() != TLTYPE_STATIC;
+    const bool varPhaseLength = myTLSEditorParent->myEditedDef->getLogic()->getType() != TrafficLightType::STATIC;
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
     for (auto j : phases) {
         device.openTag(SUMO_TAG_PHASE);

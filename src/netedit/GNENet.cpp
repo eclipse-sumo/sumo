@@ -1898,7 +1898,7 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
     std::map<GNEEdge*, std::vector<NBEdge::Connection>> straightConnections;
     for (GNEEdge* e : junction->getGNEIncomingEdges()) {
         for (const auto& c : e->getNBEdge()->getConnections()) {
-            if (c.fromLane >= 0 && junction->getNBNode()->getDirection(e->getNBEdge(), c.toEdge) == LINKDIR_STRAIGHT) {
+            if (c.fromLane >= 0 && junction->getNBNode()->getDirection(e->getNBEdge(), c.toEdge) == LinkDirection::STRAIGHT) {
                 straightConnections[e].push_back(c);
             }
         };

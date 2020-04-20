@@ -174,7 +174,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         // write connections from pedestrian crossings
         std::vector<NBNode::Crossing*> crossings = node->getCrossings();
         for (auto c : crossings) {
-            NWWriter_SUMO::writeInternalConnection(device, c->id, c->nextWalkingArea, 0, 0, "", LINKDIR_STRAIGHT, c->tlID, c->tlLinkIndex2);
+            NWWriter_SUMO::writeInternalConnection(device, c->id, c->nextWalkingArea, 0, 0, "", LinkDirection::STRAIGHT, c->tlID, c->tlLinkIndex2);
         }
         // write connections from pedestrian walking areas
         for (const NBNode::WalkingArea& wa : node->getWalkingAreas()) {
@@ -191,7 +191,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     assert(nextCrossing.tlLinkIndex >= 0);
                     device.writeAttr(SUMO_ATTR_TLLINKINDEX, nextCrossing.tlLinkIndex);
                 }
-                device.writeAttr(SUMO_ATTR_DIR, LINKDIR_STRAIGHT);
+                device.writeAttr(SUMO_ATTR_DIR, LinkDirection::STRAIGHT);
                 device.writeAttr(SUMO_ATTR_STATE, nextCrossing.priority ? LINKSTATE_MAJOR : LINKSTATE_MINOR);
                 device.closeTag();
             }
@@ -250,8 +250,8 @@ NWWriter_SUMO::getOppositeInternalID(const NBEdgeCont& ec, const NBEdge* from, c
                     && predOpp == conOpp.toEdge
                     && succOpp->getLaneID(conOpp.fromLane) == succ.oppositeID
                     && predOpp->getLaneID(conOpp.toLane) == pred.oppositeID
-                    && from->getToNode()->getDirection(from, con.toEdge, lefthand) == LINKDIR_STRAIGHT
-                    && from->getToNode()->getDirection(succOpp, predOpp, lefthand) == LINKDIR_STRAIGHT
+                    && from->getToNode()->getDirection(from, con.toEdge, lefthand) == LinkDirection::STRAIGHT
+                    && from->getToNode()->getDirection(succOpp, predOpp, lefthand) == LinkDirection::STRAIGHT
                ) {
 #ifdef DEBUG_OPPOSITE_INTERNAL
                 std::cout << "  found " << conOpp.getInternalLaneID() << "\n";
@@ -727,7 +727,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         if (style == SUMONET) {
             // write the direction information
             LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge, OptionsCont::getOptions().getBool("lefthand"));
-            assert(dir != LINKDIR_NODIR);
+            assert(dir != LinkDirection::NODIR);
             into.writeAttr(SUMO_ATTR_DIR, toString(dir));
             // write the state information
             const LinkState linkState = from.getToNode()->getLinkState(
@@ -935,7 +935,7 @@ NWWriter_SUMO::writeTrafficLight(OutputDevice& into, const NBTrafficLightLogic* 
     into.writeAttr(SUMO_ATTR_PROGRAMID, logic->getProgramID());
     into.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(logic->getOffset()));
     // write the phases
-    const bool varPhaseLength = logic->getType() != TLTYPE_STATIC;
+    const bool varPhaseLength = logic->getType() != TrafficLightType::STATIC;
     for (const NBTrafficLightLogic::PhaseDefinition& phase : logic->getPhases()) {
         into.openTag(SUMO_TAG_PHASE);
         into.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(phase.duration));

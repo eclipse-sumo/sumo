@@ -214,7 +214,7 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing, NBEdge* paren
     }
 #endif
     if (NBNode::isTrafficLight(to->getType()) &&
-            (straightestDir == LINKDIR_STRAIGHT || straightestDir == LINKDIR_PARTLEFT || straightestDir == LINKDIR_PARTRIGHT)) {
+            (straightestDir == LinkDirection::STRAIGHT || straightestDir == LinkDirection::PARTLEFT || straightestDir == LinkDirection::PARTRIGHT)) {
         myDirs.push_back(MainDirections::DIR_FORWARD);
         return;
     }
@@ -236,7 +236,7 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing, NBEdge* paren
     }
     // check whether the forward direction has a higher priority
     // check whether it has a higher priority and is going straight
-    if (straight->getJunctionPriority(to) == 1 && to->getDirection(parent, straight) == LINKDIR_STRAIGHT) {
+    if (straight->getJunctionPriority(to) == 1 && to->getDirection(parent, straight) == LinkDirection::STRAIGHT) {
         myDirs.push_back(MainDirections::DIR_FORWARD);
     }
 }
@@ -1573,8 +1573,8 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             continue;
         }
         LinkDirection dir = n.getDirection(this, con.toEdge);
-        const bool isRightTurn = (dir == LINKDIR_RIGHT || dir == LINKDIR_PARTRIGHT);
-        const bool isTurn = (isRightTurn || dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT);
+        const bool isRightTurn = (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT);
+        const bool isTurn = (isRightTurn || dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT);
 
         // put turning internal lanes on separate edges
         if (con.toEdge != toEdge || (isTurn && !joinTurns)) {
@@ -1592,7 +1592,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo, shapeFlag);
         std::vector<int> foeInternalLinks;
 
-        if (dir != LINKDIR_STRAIGHT && shape.length() < POSITION_EPS && !(isBidiRail() && getTurnDestination(true) == con.toEdge)) {
+        if (dir != LinkDirection::STRAIGHT && shape.length() < POSITION_EPS && !(isBidiRail() && getTurnDestination(true) == con.toEdge)) {
             WRITE_WARNINGF("Connection '%_%->%_%' is only %m short.", getID(), con.fromLane, con.toEdge->getID(), con.toLane, shape.length());
         }
 
@@ -1600,11 +1600,11 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         std::pair<double, std::vector<int> > crossingPositions(-1, std::vector<int>());
         std::set<std::string> tmpFoeIncomingLanes;
         switch (dir) {
-            case LINKDIR_RIGHT:
-            case LINKDIR_PARTRIGHT:
-            case LINKDIR_LEFT:
-            case LINKDIR_PARTLEFT:
-            case LINKDIR_TURN: {
+            case LinkDirection::RIGHT:
+            case LinkDirection::PARTRIGHT:
+            case LinkDirection::LEFT:
+            case LinkDirection::PARTLEFT:
+            case LinkDirection::TURN: {
                 int index = 0;
                 const std::vector<NBEdge*>& incoming = n.getIncomingEdges();
                 for (EdgeVector::const_iterator i2 = incoming.begin(); i2 != incoming.end(); ++i2) {
@@ -1669,7 +1669,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                         // compute foe incoming lanes
                         const bool signalised = hasSignalisedConnectionTo(con.toEdge);
-                        if ((n.forbids(*i2, (*k2).toEdge, this, con.toEdge, signalised) || rightTurnConflict) && (needsCont || dir == LINKDIR_TURN)) {
+                        if ((n.forbids(*i2, (*k2).toEdge, this, con.toEdge, signalised) || rightTurnConflict) && (needsCont || dir == LinkDirection::TURN)) {
                             tmpFoeIncomingLanes.insert((*i2)->getID() + "_" + toString((*k2).fromLane));
                         }
                         if (bothPrio && oppositeLeftIntersect && getID() < (*i2)->getID()) {
@@ -1707,7 +1707,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     index++;
                 }
 
-                if (dir == LINKDIR_TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
+                if (dir == LinkDirection::TURN && crossingPositions.first < 0 && crossingPositions.second.size() != 0 && shape.length() > 2. * POSITION_EPS) {
                     // let turnarounds wait in the middle if no other crossing point was found and it has a sensible length
                     // (if endOffset is used, the crossing point is in the middle of the part within the junction shape)
                     crossingPositions.first = (double)(shape.length() + getEndOffset(con.fromLane)) / 2.;
@@ -1755,10 +1755,10 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     const double reduction = con.vmax - limit;
                     // always treat connctions at roundabout as turns when warning
                     const bool atRoundabout = getJunctionPriority(myTo) == ROUNDABOUT || con.toEdge->getJunctionPriority(myFrom) == ROUNDABOUT;
-                    int dir2 = atRoundabout ? LINKDIR_LEFT : dir;
-                    if ((dir2 == LINKDIR_STRAIGHT && reduction > limitTurnSpeedWarnStraight)
-                            || (dir2 != LINKDIR_TURN && reduction > limitTurnSpeedWarnTurn)) {
-                        std::string dirType = std::string(dir == LINKDIR_STRAIGHT ? "straight" : "turning");
+                    const LinkDirection dir2 = atRoundabout ? LinkDirection::LEFT : dir;
+                    if ((dir2 == LinkDirection::STRAIGHT && reduction > limitTurnSpeedWarnStraight)
+                            || (dir2 != LinkDirection::TURN && reduction > limitTurnSpeedWarnTurn)) {
+                        std::string dirType = std::string(dir == LinkDirection::STRAIGHT ? "straight" : "turning");
                         if (atRoundabout) {
                             dirType = "roundabout";
                         }
@@ -1774,7 +1774,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                 //    std::cout << con.getDescription(this) << " angleRaw=" << angleRaw << " angle=" << RAD2DEG(angle) << " length=" << length << " radius=" << length / angle
                 //        << " vmaxTurn=" << sqrt(limitTurnSpeed * length / angle) << " vmax=" << con.vmax << "\n";
                 //}
-            } else if (fromRail && dir == LINKDIR_TURN) {
+            } else if (fromRail && dir == LinkDirection::TURN) {
                 con.vmax = 0.01;
             }
         } else {
@@ -1873,7 +1873,7 @@ NBEdge::bothLeftIntersect(const NBNode& n, const PositionVector& shape, LinkDire
         return false;
     }
     LinkDirection dir2 = n.getDirection(otherFrom, otherCon.toEdge);
-    const bool bothLeft = (dir == LINKDIR_LEFT || dir == LINKDIR_PARTLEFT) && (dir2 == LINKDIR_LEFT || dir2 == LINKDIR_PARTLEFT);
+    const bool bothLeft = (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) && (dir2 == LinkDirection::LEFT || dir2 == LinkDirection::PARTLEFT);
     if (bothLeft) {
         const PositionVector otherShape = n.computeInternalLaneShape(otherFrom, otherCon, numPoints, 0, shapeFlag);
         const double minDV = firstIntersection(shape, otherShape, width2);
@@ -2742,7 +2742,7 @@ NBEdge::addStraightConnections(const EdgeVector* outgoing, const std::vector<int
     for (int i = 0; i < numOutgoing; i++) {
         if (maxPrio < priorities[i]) {
             const LinkDirection dir = myTo->getDirection(this, (*outgoing)[i]);
-            if (dir == LINKDIR_STRAIGHT) {
+            if (dir == LinkDirection::STRAIGHT) {
                 maxPrio = priorities[i];
                 target = (*outgoing)[i];
                 rightOfTarget = i == 0 ? outgoing->back() : (*outgoing)[i - 1];
@@ -2926,7 +2926,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
     if (onlyTurnlane) {
         for (const Connection& c : getConnectionsFromLane(fromLane)) {
             LinkDirection dir = myTo->getDirection(this, c.toEdge);
-            if (dir != LINKDIR_LEFT && dir != LINKDIR_PARTLEFT) {
+            if (dir != LinkDirection::LEFT && dir != LinkDirection::PARTLEFT) {
                 return;
             }
         }

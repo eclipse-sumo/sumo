@@ -160,7 +160,7 @@ MSEdge::closeBuilding() {
                 if (std::find(to.myPredecessors.begin(), to.myPredecessors.end(), this) == to.myPredecessors.end()) {
                     to.myPredecessors.push_back(this);
                 }
-                if (link->getDirection() != LINKDIR_TURN) {
+                if (link->getDirection() != LinkDirection::TURN) {
                     myAmFringe = false;
                 }
             }
@@ -1054,7 +1054,7 @@ bool
 MSEdge::canChangeToOpposite() {
     return (!myLanes->empty() && myLanes->back()->getOpposite() != nullptr &&
             // do not change on curved internal lanes
-            (!isInternal() || myLanes->back()->getIncomingLanes()[0].viaLink->getDirection() == LINKDIR_STRAIGHT));
+            (!isInternal() || myLanes->back()->getIncomingLanes()[0].viaLink->getDirection() == LinkDirection::STRAIGHT));
 }
 
 

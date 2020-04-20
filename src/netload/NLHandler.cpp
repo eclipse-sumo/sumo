@@ -693,7 +693,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
-    TrafficLightType type = TLTYPE_STATIC;
+    TrafficLightType type = TrafficLightType::STATIC;
     std::string typeS;
     if (myJunctionControlBuilder.getTLLogicControlToUse().get(id, programID) == nullptr) {
         // SUMO_ATTR_TYPE is not needed when only modifying the offset of an
@@ -708,12 +708,12 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
         } else {
             WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'.");
         }
-        if (MSGlobals::gUseMesoSim && type == TLTYPE_ACTUATED) {
+        if (MSGlobals::gUseMesoSim && type == TrafficLightType::ACTUATED) {
             if (!myHaveWarnedAboutInvalidTLType) {
-                WRITE_WARNING("Traffic light type '" + toString(type) + "' cannot be used in mesoscopic simulation. Using '" + toString(TLTYPE_STATIC) + "' as fallback");
+                WRITE_WARNING("Traffic light type '" + toString(type) + "' cannot be used in mesoscopic simulation. Using '" + toString(TrafficLightType::STATIC) + "' as fallback");
                 myHaveWarnedAboutInvalidTLType = true;
             }
-            type = TLTYPE_STATIC;
+            type = TrafficLightType::STATIC;
         }
     }
     //
@@ -1250,8 +1250,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             // make sure that the index is in range
             logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
             if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size())
-                    && logic->getLogicType() != TLTYPE_RAIL_SIGNAL
-                    && logic->getLogicType() != TLTYPE_RAIL_CROSSING) {
+                    && logic->getLogicType() != TrafficLightType::RAIL_SIGNAL
+                    && logic->getLogicType() != TrafficLightType::RAIL_CROSSING) {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
                             "' in connection controlled by '" + tlID + "'");
                 return;

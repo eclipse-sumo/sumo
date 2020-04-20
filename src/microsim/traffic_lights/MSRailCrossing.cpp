@@ -39,7 +39,7 @@
 MSRailCrossing::MSRailCrossing(MSTLLogicControl& tlcontrol,
                                const std::string& id, const std::string& programID, SUMOTime delay,
                                const std::map<std::string, std::string>& parameters) :
-    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TLTYPE_RAIL_CROSSING, Phases(), 0, delay, parameters),
+    MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::RAIL_CROSSING, Phases(), 0, delay, parameters),
     // XXX make this configurable
     mySecurityGap(TIME2STEPS(15)),
     myMinGreenTime(TIME2STEPS(5)),

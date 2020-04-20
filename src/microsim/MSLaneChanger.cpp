@@ -925,7 +925,7 @@ MSLaneChanger::checkChange(
             MSLane* nextLane = vehicle->getLane();
             MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
             while (!nextLane->isLinkEnd(link) && seen <= space2change) {
-                if ((*link)->getDirection() == LINKDIR_LEFT || (*link)->getDirection() == LINKDIR_RIGHT
+                if ((*link)->getDirection() == LinkDirection::LEFT || (*link)->getDirection() == LinkDirection::RIGHT
                         // the lanes after an internal junction are on different
                         // edges and do not allow lane-changing
                         || (nextLane->getEdge().isInternal() && (*link)->getViaLaneOrLane()->getEdge().isInternal())
@@ -1221,7 +1221,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
             if (*(it - 1) != nullptr) {
                 MSLink* link = MSLinkContHelper::getConnectingLink(**(it - 1), **it);
                 if (link == nullptr || link->getState() == LINKSTATE_ZIPPER
-                        || (link->getDirection() != LINKDIR_STRAIGHT && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY)
+                        || (link->getDirection() != LinkDirection::STRAIGHT && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY)
                         || (!link->havePriority()
                             // consider traci-influence
                             && (!vehicle->hasInfluencer() || vehicle->getInfluencer().getRespectJunctionPriority())

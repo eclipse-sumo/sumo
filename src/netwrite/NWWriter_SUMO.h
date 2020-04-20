@@ -179,7 +179,7 @@ private:
     static void writeInternalConnection(OutputDevice& into,
                                         const std::string& from, const std::string& to,
                                         int fromLane, int toLane, const std::string& via,
-                                        LinkDirection dir = LINKDIR_STRAIGHT,
+                                        LinkDirection dir = LinkDirection::STRAIGHT,
                                         const std::string& tlID = "",
                                         int linkIndex = NBConnection::InvalidTlIndex);
 
