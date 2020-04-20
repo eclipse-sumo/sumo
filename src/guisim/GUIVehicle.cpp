@@ -611,9 +611,10 @@ GUIVehicle::drawBestLanes() const {
 
 
 void
-GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, const RGBColor& col) const {
+GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r, bool future, bool noLoop, const RGBColor& col) const {
     const double exaggeration = s.vehicleSize.getExaggeration(s, this) * (s.gaming ? 0.5 : 1);
-    MSRouteIterator i = future ? myCurrEdge : r.begin();
+    MSRouteIterator start = future ? myCurrEdge : r.begin();
+    MSRouteIterator i = start;
     const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation();
     // draw continuation lanes when drawing the current route where available
     int bestLaneIndex = (&r == myRoute ? 0 : (int)bestLaneConts.size());
@@ -653,6 +654,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         }
         repeatLane[lane]++;
         prevLane = lane;
+        if (noLoop && i != start && (*i) == (*start)) {
+            break;
+        }
     }
     // draw stop labels
     // (vertical shift for repeated stops at the same position
@@ -706,6 +710,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stopLanePos);
         const double textSize = s.vehicleName.size / s.scale;
         Position pos2 = pos - Position(0, textSize * repeat[stopPos]);
+        if (noLoop && repeat[stopPos] > 0) {
+            break;
+        }
         GLHelper::drawTextSettings(s.vehicleText, label, pos2, s.scale, s.angle, 1.0);
         repeat[stopPos]++;
         stopIndex++;

@@ -421,6 +421,10 @@ enum {
     MID_SHOW_FUTUREROUTE,
     /// @brief Hide vehicle's future route
     MID_HIDE_FUTUREROUTE,
+    /// @brief Show vehicle's future route (without loops)
+    MID_SHOW_ROUTE_NOLOOPS,
+    /// @brief Hide vehicle's future route (without loops)
+    MID_HIDE_ROUTE_NOLOOPS,
     /// @brief Show vehicle's best lanes
     MID_SHOW_BEST_LANES,
     /// @brief Hide vehicle's best lanes
