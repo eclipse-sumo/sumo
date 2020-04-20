@@ -385,7 +385,13 @@ Boundary
 GNEPerson::getCenteringBoundary() const {
     Boundary personBoundary;
     if (getChildDemandElements().size() > 0) {
-        personBoundary.add(getChildDemandElements().front()->getCenteringBoundary());
+        if (getChildDemandElements().front()->getTagProperty().isPersonStop()) {
+            // use boundary of stop center
+            return getChildDemandElements().front()->getCenteringBoundary();
+        } else {
+            // obtain boundary of first position over edge
+            personBoundary.add(getChildDemandElements().front()->getDemandElementSegmentGeometry().getFirstPosition());
+        }
     } else {
         personBoundary = Boundary(-0.1, -0.1, 0.1, 0.1);
     }
