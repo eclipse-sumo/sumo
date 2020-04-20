@@ -81,3 +81,9 @@ save_cyclic_stops
 
 # load state with cyclic stops
 load_cyclic_stops
+
+# save state including rng
+save_rng
+
+# load state including rng
+load_rng
