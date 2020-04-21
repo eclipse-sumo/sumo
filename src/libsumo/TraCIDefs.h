@@ -161,35 +161,28 @@ struct TraCILeaderDistance : TraCIResult {
 };
 
 
-/** @struct TraCIStop
- * @brief A vehicle stop (lane, endPos, stoppingPlaceID,
- * stopFlags, duration, until)
+/** @struct TraCINextStopDataVector
+ * @brief A list of vehicle stops
+ * @see TraCINextStopData
  */
-struct TraCIStop : TraCIResult {
+struct TraCINextStopDataVector : TraCIResult {
     std::string getString() {
         std::ostringstream os;
-        os << "TraCIStop(" << lane << "," << endPos << "," << stoppingPlaceID << "," << stopFlags << "," << duration << "," << until << ")";
+        os << "TraCINextStopDataVector[";
+        for (TraCINextStopData v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
         return os.str();
     }
-    std::string lane;
-    double endPos;
-    std::string stoppingPlaceID;
-    int stopFlags;
-    int duration;
-    int until;
-};
 
+    std::vector<TraCINextStopData> value;
+};
 
 /** @struct TraCIPositionVector
     * @brief A list of positions
     */
 typedef std::vector<TraCIPosition> TraCIPositionVector;
-
-
-/** @struct TraCIStopVector
- * @brief A list of stops
- */
-typedef std::vector<TraCIStop> TraCIStopVector;
 
 
 struct TraCIInt : TraCIResult {
@@ -347,7 +340,13 @@ struct TraCINextTLSData {
 };
 
 
-struct TraCINextStopData {
+struct TraCINextStopData : TraCIResult {
+    std::string getString() {
+        std::ostringstream os;
+        os << "TraCINextStopData(" << lane << "," << endPos << "," << stoppingPlaceID << "," << stopFlags << "," << duration << "," << until << ")";
+        return os.str();
+    }
+
     /// @brief The lane to stop at
     std::string lane;
     /// @brief The stopping position end
