@@ -824,12 +824,17 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             }
         }
         const MSLinkCont& links = toLane->getLinkCont();
+        const MSEdge* current = &toLane->getEdge();
         toLane = nullptr;
         for (MSLink* link : links) {
             if (((next != end && &link->getLane()->getEdge() == *next) ||
                     (next == end && link->getDirection() != LinkDirection::TURN))
                     && isRailway(link->getViaLaneOrLane()->getPermissions())) {
                 toLane = link->getViaLaneOrLane();
+                if (link->getLane()->getBidiLane() != nullptr && &link->getLane()->getEdge() == current->getBidiEdge()) {
+                    // do not follow turn-arounds even if the route contains a reversal
+                    return;
+                }
                 if (link->getTLLogic() != nullptr) {
                     if (link->getTLLogic() == origin->getTLLogic()) {
                         WRITE_WARNING("Found circular block at railSignal " + getClickableTLLinkID(origin) + " (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
