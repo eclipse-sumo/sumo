@@ -269,6 +269,11 @@ def Popen(extraParameters, debugInformation):
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
         neteditCall += ['-r',
                         os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
+                        
+    # Check if datas must be loaded
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.rou.xml")):
+        neteditCall += ['-d',
+                        os.path.join(_TEXTTEST_SANDBOX, "input_datas.rou.xml")]
 
     # check if a gui settings file has to be load
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "gui-settings.xml")):
@@ -286,6 +291,10 @@ def Popen(extraParameters, debugInformation):
     # set output for routes
     neteditCall += ['--demandelements-output',
                     os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
+                    
+    # set output for datas
+    neteditCall += ['--dataelements-output',
+                    os.path.join(_TEXTTEST_SANDBOX, "datas.xml")]
 
     # set output for gui
     neteditCall += ['--gui-testing.setting-output',
@@ -648,6 +657,18 @@ def saveRoutes(referencePosition, clickOverReference=True):
         leftClick(referencePosition, 0, 0)
     # save routes using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
+    
+
+def saveDatas(referencePosition, clickOverReference=True):
+    """
+    @brief save datas
+    """
+    # check if clickOverReference is enabled
+    if clickOverReference:
+        # click over reference (to avoid problem with undo-redo)
+        leftClick(referencePosition, 0, 0)
+    # save datas using hotkey
+    typeThreeKeys('ctrl', 'shift', 'b')
 
 
 def fixDemandElements(solution):
