@@ -161,24 +161,6 @@ struct TraCILeaderDistance : TraCIResult {
 };
 
 
-/** @struct TraCINextStopDataVector
- * @brief A list of vehicle stops
- * @see TraCINextStopData
- */
-struct TraCINextStopDataVector : TraCIResult {
-    std::string getString() {
-        std::ostringstream os;
-        os << "TraCINextStopDataVector[";
-        for (TraCINextStopData v : value) {
-            os << v.getString() << ",";
-        }
-        os << "]";
-        return os.str();
-    }
-
-    std::vector<TraCINextStopData> value;
-};
-
 /** @struct TraCIPositionVector
     * @brief A list of positions
     */
@@ -359,6 +341,25 @@ struct TraCINextStopData : TraCIResult {
     double duration;
     /// @brief The time at which the vehicle may continue its journey
     double until;
+};
+
+
+/** @struct TraCINextStopDataVector
+ * @brief A list of vehicle stops
+ * @see TraCINextStopData
+ */
+struct TraCINextStopDataVector : TraCIResult {
+    std::string getString() {
+        std::ostringstream os;
+        os << "TraCINextStopDataVector[";
+        for (TraCINextStopData v : value) {
+            os << v.getString() << ",";
+        }
+        os << "]";
+        return os.str();
+    }
+
+    std::vector<TraCINextStopData> value;
 };
 
 
