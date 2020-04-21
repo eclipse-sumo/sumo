@@ -75,7 +75,9 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
             const bool badPermissions = ((outedge->getPermissions() & e->getPermissions() & ~SVC_PEDESTRIAN) == 0
                                          && !geometryLike
                                          && outedge->getPermissions() != e->getPermissions());
-            if (e->getFromNode() == outedge->getToNode() && angle > 120 && !badPermissions) {
+            if (e->getFromNode() == outedge->getToNode()
+                    && (angle > 120 || e->getFromNode()->getPosition() == e->getToNode()->getPosition())
+                    && !badPermissions) {
                 // they connect the same nodes; should be the turnaround direction
                 // we'll assign a maximum number
                 //
