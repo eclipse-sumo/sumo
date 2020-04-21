@@ -390,11 +390,9 @@ RODFNet::buildRoutes(RODFDetectorCon& detcont, bool keepUnfoundEnds, bool includ
                         distance -= (*k)->getLength();
                         continue;
                     }
-                    // get the detectors
-                    const std::vector<std::string>& dets = myDetectorsOnEdges.find(*k)->second;
                     // go through the detectors
-                    for (std::vector<std::string>::const_iterator l = dets.begin(); l != dets.end(); ++l) {
-                        const RODFDetector& m = detcont.getDetector(*l);
+                    for (const std::string& l : myDetectorsOnEdges.find(*k)->second) {
+                        const RODFDetector& m = detcont.getDetector(l);
                         if (m.getType() == BETWEEN_DETECTOR) {
                             RODFRouteDesc nrd;
                             copy(k, routeend, back_inserter(nrd.edges2Pass));
@@ -512,23 +510,21 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
     std::vector<FlowDef> mflows;
     int index = 0;
     for (SUMOTime t = startTime; t < endTime; t += stepOffset, index++) {
+        // collect incoming
         FlowDef inFlow;
         inFlow.qLKW = 0;
         inFlow.qPKW = 0;
         inFlow.vLKW = 0;
         inFlow.vPKW = 0;
-        // collect incoming
-        {
-            // !! time difference is missing
-            for (ROEdgeVector::iterator i = previous.begin(); i != previous.end(); ++i) {
-                const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(*i)->getFlows();
-                if (flows.size() != 0) {
-                    const FlowDef& srcFD = flows[index];
-                    inFlow.qLKW += srcFD.qLKW;
-                    inFlow.qPKW += srcFD.qPKW;
-                    inFlow.vLKW += srcFD.vLKW;
-                    inFlow.vPKW += srcFD.vPKW;
-                }
+        // !! time difference is missing
+        for (const ROEdge* const e : previous) {
+            const std::vector<FlowDef>& eflows = static_cast<const RODFEdge*>(e)->getFlows();
+            if (eflows.size() != 0) {
+                const FlowDef& srcFD = eflows[index];
+                inFlow.qLKW += srcFD.qLKW;
+                inFlow.qPKW += srcFD.qPKW;
+                inFlow.vLKW += srcFD.vLKW;
+                inFlow.vPKW += srcFD.vPKW;
             }
         }
         inFlow.vLKW /= (double) previous.size();
@@ -539,17 +535,15 @@ RODFNet::revalidateFlows(const RODFDetector* detector,
         outFlow.qPKW = 0;
         outFlow.vLKW = 0;
         outFlow.vPKW = 0;
-        {
-            // !! time difference is missing
-            for (ROEdgeVector::iterator i = latter.begin(); i != latter.end(); ++i) {
-                const std::vector<FlowDef>& flows = static_cast<const RODFEdge*>(*i)->getFlows();
-                if (flows.size() != 0) {
-                    const FlowDef& srcFD = flows[index];
-                    outFlow.qLKW += srcFD.qLKW;
-                    outFlow.qPKW += srcFD.qPKW;
-                    outFlow.vLKW += srcFD.vLKW;
-                    outFlow.vPKW += srcFD.vPKW;
-                }
+        // !! time difference is missing
+        for (const ROEdge* const e : latter) {
+            const std::vector<FlowDef>& eflows = static_cast<const RODFEdge*>(e)->getFlows();
+            if (eflows.size() != 0) {
+                const FlowDef& srcFD = eflows[index];
+                outFlow.qLKW += srcFD.qLKW;
+                outFlow.qPKW += srcFD.qPKW;
+                outFlow.vLKW += srcFD.vLKW;
+                outFlow.vPKW += srcFD.vPKW;
             }
         }
         outFlow.vLKW /= (double) latter.size();

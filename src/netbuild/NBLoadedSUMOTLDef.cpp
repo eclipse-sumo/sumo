@@ -533,12 +533,11 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                             }
                         }
                         // rebuild the logic
-                        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
                         NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-                        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                            std::string newState = it->state;
+                        for (const NBTrafficLightLogic::PhaseDefinition& phase : myTLLogic->getPhases()) {
+                            std::string newState = phase.state;
                             newState.erase(newState.begin() + removed);
-                            newLogic->addStep(it->duration, newState);
+                            newLogic->addStep(phase.duration, newState);
                         }
                         delete myTLLogic;
                         myTLLogic = newLogic;

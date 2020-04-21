@@ -1860,15 +1860,13 @@ NIImporter_OpenStreetMap::extendRailwayDistances(Edge* e, NBTypeCont& tc) {
         std::vector<NIOSMNode*> nodes;
         std::vector<double> usablePositions;
         std::vector<int> usableIndex;
-        int i = 0;
         for (long long int n : e->myCurrentNodes) {
             NIOSMNode* node = myOSMNodes[n];
             node->positionMeters = interpretDistance(node);
             if (node->positionMeters != std::numeric_limits<double>::max()) {
                 usablePositions.push_back(node->positionMeters);
-                usableIndex.push_back(i);
+                usableIndex.push_back((int)nodes.size());
             }
-            i++;
             nodes.push_back(node);
         }
         if (usablePositions.size() == 0) {

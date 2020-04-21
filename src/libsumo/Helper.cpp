@@ -690,8 +690,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
             // Specifies maximal lateral distance for vehicles in context subscription result
             lateralDist = s.filterLateralDist;
         }
-        MSBaseVehicle* veh = getVehicle(s.id);
-        MSVehicle* v = dynamic_cast<MSVehicle*>(veh);
+        MSVehicle* v = dynamic_cast<MSVehicle*>(getVehicle(s.id));
         if (v == nullptr) {
             throw TraCIException("Subscription filter not yet implemented for meso vehicle");
         }

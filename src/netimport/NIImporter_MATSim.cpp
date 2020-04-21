@@ -177,9 +177,9 @@ NIImporter_MATSim::EdgesHandler::~EdgesHandler() {
 void
 NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         const SUMOSAXAttributes& attrs) {
-    bool ok = true;
     if (element == MATSIM_TAG_NETWORK) {
         if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
+            bool ok = true;
             int capDivider = attrs.get<int>(MATSIM_ATTR_CAPDIVIDER, "network", ok);
             if (ok) {
                 myCapacityNorm = (double)(capDivider * 3600);
@@ -209,6 +209,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if (element != MATSIM_TAG_LINK) {
         return;
     }
+    bool ok = true;
     std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, nullptr, ok);
     std::string fromNodeID = attrs.get<std::string>(MATSIM_ATTR_FROM, id.c_str(), ok);
     std::string toNodeID = attrs.get<std::string>(MATSIM_ATTR_TO, id.c_str(), ok);

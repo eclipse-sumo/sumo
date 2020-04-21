@@ -55,7 +55,7 @@ SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() {
 bool
 SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const {
     assert(id >= 0); 
-    assert(id < myPredefinedTags.size());
+    assert(id < (int)myPredefinedTags.size());
     return myAttrs.getIndex(myPredefinedTags[id]) >= 0;
 }
 
@@ -105,7 +105,7 @@ SUMOSAXAttributesImpl_Xerces::getFloat(int id) const {
 const XMLCh*
 SUMOSAXAttributesImpl_Xerces::getAttributeValueSecure(int id) const {
     assert(id >= 0);
-    assert(id < myPredefinedTags.size());
+    assert(id < (int)myPredefinedTags.size());
     return myAttrs.getValue(myPredefinedTags[id]);
 }
 
@@ -237,7 +237,7 @@ SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
 std::string
 SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
     assert(attr >= 0); 
-    assert(attr < myPredefinedTagsMML.size());
+    assert(attr < (int)myPredefinedTagsMML.size());
     return myPredefinedTagsMML[attr];
 }
 

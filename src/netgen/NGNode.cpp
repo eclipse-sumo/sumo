@@ -75,14 +75,14 @@ NGNode::buildNBNode(NBNetBuilder& nb, const Position& perturb) const {
                         OptionsCont::getOptions().getString("default-junction-type") : "";
 
     if (SUMOXMLDefinitions::NodeTypes.hasString(typeS)) {
-        SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.get(typeS);
+        const SumoXMLNodeType type = SUMOXMLDefinitions::NodeTypes.get(typeS);
         node = new NBNode(myID, pos, type);
 
         // check whether it is a traffic light junction
         if (NBNode::isTrafficLight(type)) {
-            TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(
+            const TrafficLightType tlType = SUMOXMLDefinitions::TrafficLightTypes.get(
                                         OptionsCont::getOptions().getString("tls.default-type"));
-            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(myID, node, 0, type);
+            NBTrafficLightDefinition* tlDef = new NBOwnTLDef(myID, node, 0, tlType);
             if (!nb.getTLLogicCont().insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;

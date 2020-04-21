@@ -416,8 +416,8 @@ GUIPerson::setFunctionalColor(int activeScheme) const {
             return true;
         }
         case 10: { // color randomly (by pointer)
-            const double hue = (long)this % 360; // [0-360]
-            const double sat = (((long)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            const double hue = (double)((long long int)this % 360); // [0-360]
+            const double sat = (((long long int)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
             GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }

@@ -174,9 +174,8 @@ NIXMLTrafficLightsHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs,
             loadedDef->addControlledInnerEdges(newDef->getControlledInnerEdges());
             if (deleteDefault) {
                 // replace default Program
-                std::vector<NBNode*> nodes = newDef->getNodes();
-                for (std::vector<NBNode*>::iterator it = nodes.begin(); it != nodes.end(); it++) {
-                    (*it)->removeTrafficLight(newDef);
+                for (NBNode* const n : newDef->getNodes()) {
+                    n->removeTrafficLight(newDef);
                 }
                 myTLLCont.removeProgram(id, NBTrafficLightDefinition::DefaultProgramID);
             }
