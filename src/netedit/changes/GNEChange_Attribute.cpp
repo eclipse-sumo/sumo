@@ -84,10 +84,12 @@ GNEChange_Attribute::undo() {
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
             myAC->getNet()->requireSaveNet(true);
-        } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
+        } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape() || myAC->getTagProperty().isTAZ()) {
             myAC->getNet()->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
             myAC->getNet()->requireSaveDemandElements(true);
+         } else if (myAC->getTagProperty().isDemandElement()) {
+            myAC->getNet()->requireSaveDataElements(true);
         }
     }
 }
@@ -108,10 +110,12 @@ GNEChange_Attribute::redo() {
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
             myAC->getNet()->requireSaveNet(true);
-        } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape()) {
+        } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isShape() || myAC->getTagProperty().isTAZ()) {
             myAC->getNet()->requireSaveAdditionals(true);
         } else if (myAC->getTagProperty().isDemandElement()) {
             myAC->getNet()->requireSaveDemandElements(true);
+        } else if (myAC->getTagProperty().isDemandElement()) {
+            myAC->getNet()->requireSaveDataElements(true);
         }
     }
 }
@@ -144,6 +148,5 @@ FXString
 GNEChange_Attribute::redoName() const {
     return ("Redo change " + myAC->getTagStr() + " attribute").c_str();
 }
-
 
 /****************************************************************************/

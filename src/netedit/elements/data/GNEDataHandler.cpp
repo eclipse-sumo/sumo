@@ -360,7 +360,7 @@ GNEDataHandler::parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, c
             const std::vector<std::string> attributes = attrs.getAttributeNames();
             // iterate over attributes and fill parameters map
             for (const auto& attribute : attributes) {
-                if (attribute != toString(SUMO_ATTR_ID)) {
+                if ((attribute != toString(SUMO_ATTR_ID)) && (attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
                     parameters[attribute] = attrs.getStringSecure(attribute, "");
                 }
             }

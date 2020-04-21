@@ -81,10 +81,12 @@ GNEEdgeRelData::getPositionInView() const {
 
 void
 GNEEdgeRelData::writeGenericData(OutputDevice& device) const {
-    // open device (don't use SUMO_TAG_EDGEREL)
-    device.openTag(SUMO_TAG_EDGE);
-    // write edge ID
-    device.writeAttr(SUMO_ATTR_ID, getParentEdges().front()->getID());
+    // open device
+    device.openTag(SUMO_TAG_EDGEREL);
+    // write from
+    device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
+    // write to
+    device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
     // iterate over attributes
     for (const auto& attribute : getParametersMap()) {
         // write attribute (don't use writeParams)
