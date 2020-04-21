@@ -118,8 +118,14 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myHardFail, myBeginDefault, myEndDefault);
             // check if myVehicleParameter was sucesfully created
             if (myVehicleParameter) {
-                // open a flow (using openTrip function)
-                openTrip(attrs);
+                // check tag
+                if ((myVehicleParameter->routeid.empty()) || (myVehicleParameter->tag == SUMO_TAG_ROUTEFLOW)) {
+                    // open a route flow
+                    openRouteFlow(attrs);
+                } else {
+                    // open a route flow
+                    openFlow(attrs);
+                }
             }
             break;
         case SUMO_TAG_PERSONFLOW:

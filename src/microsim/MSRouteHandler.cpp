@@ -493,6 +493,12 @@ MSRouteHandler::openFlow(const SUMOSAXAttributes& /*attrs*/) {
 
 
 void
+MSRouteHandler::openRouteFlow(const SUMOSAXAttributes& /*attrs*/) {
+    // Currently unused
+}
+
+
+void
 MSRouteHandler::openTrip(const SUMOSAXAttributes& /*attrs*/) {
     // Currently unsued
 }

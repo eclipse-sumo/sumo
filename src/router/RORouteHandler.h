@@ -101,6 +101,9 @@ protected:
     /// @brief opens a flow for reading
     void openFlow(const SUMOSAXAttributes& attrs);
 
+    /// @brief opens a route flow for reading
+    void openRouteFlow(const SUMOSAXAttributes& attrs);
+
     /// @brief opens a trip for reading
     void openTrip(const SUMOSAXAttributes& attrs);
 

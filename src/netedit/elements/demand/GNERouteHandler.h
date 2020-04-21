@@ -62,6 +62,9 @@ public:
         /// @brief set edges (from, to and via edges)
         void setEdges(GNENet *net, const std::string& vehicleID, const std::string& fromID, const std::string& toID, const std::string& viaIDs);
 
+        /// @brief clear edges
+        void clearEdges();
+
         /// @brief string for saving parsed Route ID
         std::string routeID;
 
@@ -199,6 +202,9 @@ protected:
 
     /// @brief opens a routeFlow for reading
     void openFlow(const SUMOSAXAttributes& attrs);
+
+    /// @brief opens a routeFlow for reading
+    void openRouteFlow(const SUMOSAXAttributes& attrs);
 
     /// @brief opens a trip for reading
     void openTrip(const SUMOSAXAttributes& attrs);

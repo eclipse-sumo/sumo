@@ -110,6 +110,12 @@ GNERouteHandler::RouteParameter::setEdges(GNENet *net, const std::string& vehicl
     }
 }
 
+
+void 
+GNERouteHandler::RouteParameter::clearEdges() {
+    edges.clear();
+}
+
 // ---------------------------------------------------------------------------
 // GNERouteHandler - methods
 // ---------------------------------------------------------------------------
@@ -1159,9 +1165,16 @@ GNERouteHandler::openFlow(const SUMOSAXAttributes& attrs) {
     myAbort = false;
     // parse flow attributes
     myRouteParameter.setEdges(myNet, myVehicleParameter->id,
-                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort),
-                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort),
-                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort));
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_FROM, myAbort),
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_TO, myAbort),
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_VIA, myAbort));
+}
+
+
+void
+GNERouteHandler::openRouteFlow(const SUMOSAXAttributes& /*attrs*/) {
+    // clear edges
+    myRouteParameter.clearEdges();
 }
 
 
@@ -1171,9 +1184,9 @@ GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
     myAbort = false;
     // parse trips attributes
     myRouteParameter.setEdges(myNet, myVehicleParameter->id,
-                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort),
-                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort),
-                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort));
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort),
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort),
+        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort));
 }
 
 
@@ -1491,10 +1504,19 @@ GNERouteHandler::closeContainer() {
 
 void
 GNERouteHandler::closeFlow() {
-    // first check if myVehicleParameter was sucesfully created
-    if (myVehicleParameter) {
+    // first check if we're closing a flow with embebbed routes and stops
+    if (myLoadedVehicleWithEmbebbedRoute) {
+        myLoadedVehicleWithEmbebbedRoute = nullptr;
+        // check if current command group size has to be ended
+        if (myNet->getViewNet()->getUndoList()->currentCommandGroupSize() > 0) {
+            myNet->getViewNet()->getUndoList()->p_end();
+        }
+    } else if (myVehicleParameter) {
         // check if we're creating a flow or a routeFlow over route
-        if (myRouteParameter.edges.size() > 1) {
+        if (myVehicleParameter->tag == SUMO_TAG_ROUTEFLOW) {
+            // build flow over route
+            buildFlowOverRoute(myNet, myUndoDemandElements, *myVehicleParameter);
+        } else if (myVehicleParameter->routeid.empty() && (myRouteParameter.edges.size() > 1)) {
             // extract via edges
             std::vector<GNEEdge*> viaEdges;
             for (int i = 1; i < ((int)myRouteParameter.edges.size() - 1); i++) {
@@ -1502,9 +1524,6 @@ GNERouteHandler::closeFlow() {
             }
             // build flow
             buildFlow(myNet, true, *myVehicleParameter, myRouteParameter.edges.front(), myRouteParameter.edges.back(), viaEdges);
-        } else if (myRouteParameter.edges.size() == 0) {
-            // build flow over route
-            buildFlowOverRoute(myNet, myUndoDemandElements, *myVehicleParameter);
         }
     }
 }

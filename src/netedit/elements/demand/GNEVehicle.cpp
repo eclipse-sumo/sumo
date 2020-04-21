@@ -984,10 +984,10 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             // Vehicles, Trips and Flows share namespace
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
+                (myNet->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
+                (myNet->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
+                (myNet->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
+                (myNet->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
                 return true;
             } else {
                 return false;
@@ -1643,22 +1643,22 @@ GNEVehicle::updateSpreadGeometry() {
     if (getPathEdges().size() > 0) {
         // calculate edge geometry path
         GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getPathEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // use route edges
         if (getParentDemandElements().size() == 2) {
             // calculate edge geometry path
             GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
-                                                    getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         } else if (getChildDemandElements().size() > 0) {
             // calculate edge geometry path
             GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getChildDemandElements().front()->getParentEdges(), getVClass(),
-                                                    getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         }
     } else {
         // calculate edge geometry path
         GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getParentEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+            getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     }
 }
 
@@ -1701,7 +1701,7 @@ GNEVehicle::updateStackedGeometry() {
     if (!firstLane) {
         if (getPathEdges().size() > 0) {
             firstLane = getPathEdges().front()->getLanes().front();
-        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
             // use route edges
             if (getParentDemandElements().size() == 2) {
                 firstLane = getParentDemandElements().at(1)->getParentEdges().front()->getLanes().front();
@@ -1721,22 +1721,22 @@ GNEVehicle::updateStackedGeometry() {
         // calculate spread geometry path
         if (getPathEdges().size() > 0) {
             GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
-                                                    firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+                firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
             // use route edges
             if (getParentDemandElements().size() == 2) {
                 // calculate edge geometry path
                 GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
-                                                        firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+                    firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
             } else if (getChildDemandElements().size() > 0) {
                 // calculate edge geometry path
                 GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getChildDemandElements().front()->getParentEdges(), getVClass(),
-                                                        firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+                    firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
             }
         } else {
             // calculate edge geometry path
             GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
-                                                    firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+                firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         }
         // update start pos geometry
         myDemandElementGeometry.updateGeometry(firstLane, departPosLane);
