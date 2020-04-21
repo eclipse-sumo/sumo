@@ -122,7 +122,7 @@ bool
 MSStoppingPlace::fits(double pos, const SUMOVehicle& veh) const {
     // always fit at the default position or if at least half the vehicle length
     // is within the stop range (debatable)
-    return pos + POSITION_EPS >= myEndPos || (pos - myBegPos >= veh.getVehicleType().getLength() / 2);
+    return pos + POSITION_EPS >= myEndPos || (pos - myBegPos >= veh.getVehicleType().getLength() * myParkingFactor / 2);
 }
 
 double
