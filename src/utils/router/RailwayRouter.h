@@ -122,6 +122,10 @@ public:
 #ifdef RailwayRouter_DEBUG_ROUTES
                 std::cout << "RailRouter: backLengths=" << toString(backLengths) << " final result=" << toString(into) << "\n";
 #endif
+                if (*(into.begin() + intoSize) != from) {
+                    WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID() 
+                            + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
+                }
             }
         }
         return success;
