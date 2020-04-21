@@ -24,6 +24,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
+#include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -92,7 +93,7 @@ const RGBColor&
 GNEGenericData::getColor() const {
     // first check if we're in supermode demand
     if (myDataIntervalParent->getNet()->getViewNet()->getEditModes().isCurrentSupermodeData()) {
-        // special case for edgeDatas
+        // case for edgeDatas
         if (myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) {
             // obtain pointer to edge data frame (only for code legibly)
             const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
@@ -110,6 +111,25 @@ GNEGenericData::getColor() const {
                     const double colorValue = getParametersMap().count(filteredAttribute) > 0 ? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
                     // return scaled color
                     return edgeDataFrame->getAttributeSelector()->getScaledColor(minimumValue, maximumValue, colorValue);
+                }
+            }
+        } else if (myTagProperty.getTag() == SUMO_TAG_EDGEREL) {
+            // obtain pointer to edge data frame (only for code legibly)
+            const GNEEdgeRelDataFrame* edgeRelDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeRelDataFrame();
+            // check if we have to filter generic data
+            if (edgeRelDataFrame->shown()) {
+                // get interval
+                const GNEDataInterval* dataInterval = edgeRelDataFrame->getIntervalSelector()->getDataInterval();
+                // get filtered attribute (can be empty)
+                const std::string filteredAttribute = edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute();
+                // check interval
+                if (dataInterval && (dataInterval == myDataIntervalParent) && (filteredAttribute.size() > 0)) {
+                    // get maximum and minimum value
+                    const double minimumValue = dataInterval->getMinimumGenericDataChildAttribute(filteredAttribute);
+                    const double maximumValue = dataInterval->getMaximunGenericDataChildAttribute(filteredAttribute);
+                    const double colorValue = getParametersMap().count(filteredAttribute) > 0 ? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
+                    // return scaled color
+                    return edgeRelDataFrame->getAttributeSelector()->getScaledColor(minimumValue, maximumValue, colorValue);
                 }
             }
         }
