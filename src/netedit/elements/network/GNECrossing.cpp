@@ -119,7 +119,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         (s.scale > 3.0)) {
         const auto NBCrossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
-            // push first draw matrix
+            // push draw matrix 1
             glPushMatrix();
             // push name
             glPushName(getGlID());
@@ -137,24 +137,26 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 GLHelper::setColor(s.colorSettings.crossing);
             }
-            // traslate to front
-            glTranslated(0, 0, .2);
             // set default values
             const double length = 0.5;
             const double spacing = 1.0;
             const double halfWidth = NBCrossing->width * 0.5;
-            // push second draw matrix
-            glPushMatrix();
-            // draw on top of of the white area between the rails
-            glTranslated(0, 0, 0.1);
-            for (int i = 0; i < (int)myCrossingGeometry.getShape().size() - 1; ++i) {
-                // push three draw matrix
+            // draw depending of selection
+            if (s.drawForRectangleSelection || s.drawForPositionSelection) {
+                // just drawn a box line
+                GLHelper::drawBoxLines(myCrossingGeometry.getShape(), halfWidth);
+            } else {
+                // push draw matrix 2
                 glPushMatrix();
-                // translate and rotate
-                glTranslated(myCrossingGeometry.getShape()[i].x(), myCrossingGeometry.getShape()[i].y(), 0.0);
-                glRotated(myCrossingGeometry.getShapeRotations()[i], 0, 0, 1);
-                // draw crossing depending if isn't being drawn for selecting
-                if (!s.drawForRectangleSelection) {
+                // draw on top of of the white area between the rails
+                glTranslated(0, 0, 0.1);
+                for (int i = 0; i < (int)myCrossingGeometry.getShape().size() - 1; i++) {
+                    // push draw matrix 3
+                    glPushMatrix();
+                    // translate and rotate
+                    glTranslated(myCrossingGeometry.getShape()[i].x(), myCrossingGeometry.getShape()[i].y(), 0.0);
+                    glRotated(myCrossingGeometry.getShapeRotations()[i], 0, 0, 1);
+                    // draw crossing depending if isn't being drawn for selecting
                     for (double t = 0; t < myCrossingGeometry.getShapeLengths()[i]; t += spacing) {
                         glBegin(GL_QUADS);
                         glVertex2d(-halfWidth, -t);
@@ -163,25 +165,15 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                         glVertex2d(halfWidth, -t);
                         glEnd();
                     }
-                } else {
-                    // only draw a single rectangle if it's being drawn only for selecting
-                    glBegin(GL_QUADS);
-                    glVertex2d(-halfWidth, 0);
-                    glVertex2d(-halfWidth, -myCrossingGeometry.getShapeLengths().back());
-                    glVertex2d(halfWidth, -myCrossingGeometry.getShapeLengths().back());
-                    glVertex2d(halfWidth, 0);
-                    glEnd();
+                    // pop draw matrix 3
+                    glPopMatrix();
                 }
-                // pop three draw matrix
+                // pop draw matrix 2
                 glPopMatrix();
             }
-            // pop second draw matrix
-            glPopMatrix();
-            // traslate to back
-            glTranslated(0, 0, -.2);
             // pop name
             glPopName();
-            // pop draw matrix
+            // pop draw matrix 1
             glPopMatrix();
         }
         // link indices must be drawn in all edit modes if isn't being drawn for selecting
