@@ -38,7 +38,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 31.60,90.00,68.40,110
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,31.60,10.00,68.40
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 29.60,29.60,70.40,70.40
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 90.00,31.60,110.00,68.40
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 32.60,-10.00,60.00,60.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 40.00,40.00,67.40,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,67.40
@@ -68,6 +68,7 @@ Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 2, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 2, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 1, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Value 'dummylinkIndex' for attribute linkIndex2 of crossing isn't valid
 Debug: Value '-3' for attribute linkIndex2 of crossing isn't valid
 Debug: Setting new attribute linkIndex2 '6' into crossing ':Center_c1'
@@ -96,7 +97,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 31.60,90.00,68.40,110
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,31.60,10.00,68.40
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 29.60,29.60,70.40,70.40
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 90.00,31.60,110.00,68.40
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 32.60,-10.00,60.00,60.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 40.00,40.00,67.40,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,67.40
@@ -107,6 +108,7 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,32.60,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,67.40
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute linkIndex2 '6' into crossing ':Center_c1'
@@ -132,7 +134,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 31.60,90.00,68.40,110
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,31.60,10.00,68.40
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 29.60,29.60,70.40,70.40
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 90.00,31.60,110.00,68.40
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 32.60,-10.00,60.00,60.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 40.00,40.00,67.40,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,67.40
@@ -143,6 +145,7 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,32.60,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,67.40
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute linkIndex2 '1' into crossing ':Center_c1'
@@ -167,7 +170,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 31.60,90.00,68.40,110
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,31.60,10.00,68.40
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 29.60,29.60,70.40,70.40
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 90.00,31.60,110.00,68.40
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 32.60,-10.00,60.00,60.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 40.00,40.00,67.40,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,67.40

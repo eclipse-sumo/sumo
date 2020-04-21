@@ -32,7 +32,7 @@ Warning: Connection '199425792_0->199425790#2_0' is only 0.06m short.
 Warning: Connection '199425793_0->321754182#1_0' is only 0.10m short.
 Warning: Speed of turning connection '272760867#0_0->27079979#0_0' reduced by 24.99 due to turning radius of 1.41 (length=1.47, angle=172.60).
 Warning: Speed of turning connection '27080261_0->177195505#2_0' reduced by 24.97 due to turning radius of 1.44 (length=1.54, angle=172.53).
-Warning: Speed of turning connection '199425798_0->252254904#36_0' reduced by 24.95 due to turning radius of 1.45 (length=1.53, angle=169.47).
+Warning: Speed of turning connection '199425798_0->252254904#36_0' reduced by 24.95 due to turning radius of 1.46 (length=1.55, angle=169.47).
 Warning: Found angle of 121.15 degrees at edge '-194073678#1', segment 0.
 Warning: Found angle of 121.15 degrees at edge '194073678#1', segment 0.
 Warning: Connection '199425792_0->199425790#2_0' is only 0.06m short.

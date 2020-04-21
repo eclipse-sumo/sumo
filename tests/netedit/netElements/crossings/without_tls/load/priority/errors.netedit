@@ -38,7 +38,7 @@ GLDebug: 	Inserted junction:E into SUMORTree with boundary 190.00,83.60,210.00,1
 GLDebug: 	Inserted junction:N into SUMORTree with boundary 83.60,190.00,116.40,210.00
 GLDebug: 	Inserted junction:S into SUMORTree with boundary 83.60,-10.00,116.40,10.00
 GLDebug: 	Inserted junction:W into SUMORTree with boundary -10.00,83.60,10.00,116.40
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:CE into SUMORTree with boundary 90.00,85.20,210.00,110.00
 GLDebug: 	Inserted edge:CN into SUMORTree with boundary 90.00,90.00,114.80,210.00
 GLDebug: 	Inserted edge:CS into SUMORTree with boundary 85.20,-10.00,110.00,110.00
@@ -92,7 +92,7 @@ GLDebug: 	Inserted junction:E into SUMORTree with boundary 190.00,83.60,210.00,1
 GLDebug: 	Inserted junction:N into SUMORTree with boundary 83.60,190.00,116.40,210.00
 GLDebug: 	Inserted junction:S into SUMORTree with boundary 83.60,-10.00,116.40,10.00
 GLDebug: 	Inserted junction:W into SUMORTree with boundary -10.00,83.60,10.00,116.40
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:CE into SUMORTree with boundary 90.00,85.20,210.00,110.00
 GLDebug: 	Inserted edge:CN into SUMORTree with boundary 90.00,90.00,114.80,210.00
 GLDebug: 	Inserted edge:CS into SUMORTree with boundary 85.20,-10.00,110.00,110.00
