@@ -59,6 +59,7 @@
 #define DEBUG_SIGNALSTATE
 #define DEBUG_SIGNALSTATE_PRIORITY
 #define DEBUG_FIND_PROTECTION
+//#define DEBUG_DRIVEWAY_BUILDROUTE
 //#define DEBUG_REROUTE
 
 #define DEBUG_COND DEBUG_HELPER(this)
@@ -763,7 +764,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
     bool seekForwardSignal = true;
     bool seekBidiSwitch = true;
     MSLane* toLane = origin->getViaLaneOrLane();
-    //std::cout << "buildRoute origin=" << getTLLinkID(origin) << " vehRoute=" << toString(ConstMSEdgeVector(next, end)) << " visited=" << joinNamedToString(visited, " ") << "\n";
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+    gDebugFlag4 = getClickableTLLinkID(origin) == "junction '36745', link 0";
+    if (gDebugFlag4) std::cout << "buildRoute origin=" << getTLLinkID(origin) << " vehRoute=" << toString(ConstMSEdgeVector(next, end)) 
+        << " visited=" << joinNamedToString(visited, " ") << "\n";
+#endif
     while ((seekForwardSignal || seekBidiSwitch)) {
         if (length > MAX_BLOCK_LENGTH) {
             if (myNumWarnings < MAX_SIGNAL_WARNINGS) {
@@ -774,9 +779,12 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             // length exceeded
             return;
         }
-        //std::cout << "   toLane=" << toLane->getID() << " visited=" << joinNamedToString(visited, " ") << "\n";
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+        if (gDebugFlag4) std::cout << "   toLane=" << toLane->getID() << " visited=" << joinNamedToString(visited, " ") << "\n";
+#endif
         if (visited.count(toLane) != 0) {
             WRITE_WARNING("Found circular block after railSignal " + getClickableTLLinkID(origin) + " (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
+            //std::cout << getClickableTLLinkID(origin) << " circularBlock1=" << toString(myRoute) << " visited=" << joinNamedToString(visited, " ") << "\n";
             return;
         }
         if (toLane->getEdge().isNormal()) {
@@ -825,6 +833,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 if (link->getTLLogic() != nullptr) {
                     if (link->getTLLogic() == origin->getTLLogic()) {
                         WRITE_WARNING("Found circular block at railSignal " + getClickableTLLinkID(origin) + " (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");
+                        //std::cout << getClickableTLLinkID(origin) << " circularBlock2=" << toString(myRoute) << "\n";
                         return;
                     }
                     seekForwardSignal = false;
