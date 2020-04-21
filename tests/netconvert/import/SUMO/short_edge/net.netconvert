@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:57 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Apr 21 15:45:55 2020 by Eclipse SUMO netconvert Version v1_5_0+1233-83527ac715
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,19 +49,19 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,0.10,0.10" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":C_0" function="internal">
-        <lane id=":C_0_0" index="0" speed="13.89" length="0.14" shape="1.23,-1.03 1.13,-1.13"/>
+        <lane id=":C_0_0" index="0" speed="13.89" length="4.67" shape="-1.13,1.13 -1.41,-0.28 -1.13,-1.13 -0.28,-1.41 1.13,-1.13"/>
     </edge>
     <edge id=":E_0" function="internal">
-        <lane id=":E_0_0" index="0" speed="13.89" length="0.14" shape="1.23,-1.03 1.13,-1.13"/>
+        <lane id=":E_0_0" index="0" speed="13.89" length="4.67" shape="1.23,-1.03 1.51,0.38 1.23,1.23 0.38,1.51 -1.03,1.23"/>
     </edge>
 
     <edge id="CW" from="C" to="E" priority="2" shape="0.00,0.00 0.10,0.10">
         <lane id="CW_0" index="0" speed="13.89" length="0.14" shape="3.39,-3.39 3.49,-3.29"/>
         <lane id="CW_1" index="1" speed="13.89" length="0.14" shape="1.13,-1.13 1.23,-1.03"/>
     </edge>
-    <edge id="WC" from="E" to="C" priority="2" shape="0.00,0.00 0.10,0.10">
-        <lane id="WC_0" index="0" speed="13.89" length="0.14" shape="3.39,-3.39 3.49,-3.29"/>
-        <lane id="WC_1" index="1" speed="13.89" length="0.14" shape="1.13,-1.13 1.23,-1.03"/>
+    <edge id="WC" from="E" to="C" priority="2" shape="0.10,0.10 0.00,0.00">
+        <lane id="WC_0" index="0" speed="13.89" length="0.14" shape="-3.29,3.49 -3.39,3.39"/>
+        <lane id="WC_1" index="1" speed="13.89" length="0.14" shape="-1.03,1.23 -1.13,1.13"/>
     </edge>
 
     <tlLogic id="C" type="actuated" programID="0" offset="0">
@@ -70,17 +70,17 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="r"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="0.00" y="0.00" incLanes="WC_0 WC_1" intLanes=":C_0_0" shape="0.05,0.05 4.58,-4.48 0.05,0.05">
+    <junction id="C" type="traffic_light" x="0.00" y="0.00" incLanes="WC_0 WC_1" intLanes=":C_0_0" shape="0.00,0.00 -4.53,4.53 0.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="E" type="priority" x="0.00" y="0.00" incLanes="CW_0 CW_1" intLanes=":E_0_0" shape="0.05,0.05 4.58,-4.48 0.05,0.05">
+    <junction id="E" type="priority" x="0.00" y="0.00" incLanes="CW_0 CW_1" intLanes=":E_0_0" shape="-0.00,-0.00 4.53,-4.53 -0.00,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <connection from="CW" to="WC" fromLane="1" toLane="1" via=":E_0_0" dir="s" state="M"/>
-    <connection from="WC" to="CW" fromLane="1" toLane="1" via=":C_0_0" tl="C" linkIndex="0" dir="s" state="O"/>
+    <connection from="CW" to="WC" fromLane="1" toLane="1" via=":E_0_0" dir="t" state="M"/>
+    <connection from="WC" to="CW" fromLane="1" toLane="1" via=":C_0_0" tl="C" linkIndex="0" dir="t" state="O"/>
 
-    <connection from=":C_0" to="CW" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":E_0" to="WC" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":C_0" to="CW" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":E_0" to="WC" fromLane="0" toLane="1" dir="t" state="M"/>
 
 </net>

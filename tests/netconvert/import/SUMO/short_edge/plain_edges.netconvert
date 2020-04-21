@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:57 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Apr 21 15:45:55 2020 by Eclipse SUMO netconvert Version v1_5_0+1233-83527ac715
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,5 +46,5 @@ SPDX-License-Identifier: EPL-2.0
 
 <edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="CW" from="C" to="E" priority="2" numLanes="2" speed="13.89" shape="0.00,0.00 0.10,0.10"/>
-    <edge id="WC" from="E" to="C" priority="2" numLanes="2" speed="13.89" shape="0.00,0.00 0.10,0.10"/>
+    <edge id="WC" from="E" to="C" priority="2" numLanes="2" speed="13.89" shape="0.10,0.10 0.00,0.00"/>
 </edges>
