@@ -76,3 +76,6 @@ circle_1signal
 
 # upstream signal that guards switch must take route of approaching trains into account for deciding signal state
 indirect_guard_check_route
+
+# driveway computation should end when hitting a buffer stop
+siding_deadend
