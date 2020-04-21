@@ -483,7 +483,8 @@ NBEdge::init(int noLanes, bool tryIgnoreNodePositions, const std::string& origID
     }
     if (myGeom.size() == 2 && myGeom[0] == myGeom[1]) {
         WRITE_WARNINGF("Edge's '%' from- and to-node are at the same position.", myID);
-        myGeom[1].add(Position(POSITION_EPS, POSITION_EPS));
+        int patchIndex = myFrom->getID() < myTo->getID() ? 1 : 0;
+        myGeom[patchIndex].add(Position(POSITION_EPS, POSITION_EPS));
     }
     //
     myFrom->addOutgoingEdge(this);
