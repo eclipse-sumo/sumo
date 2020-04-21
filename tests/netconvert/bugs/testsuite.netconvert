@@ -107,3 +107,6 @@ ticket6333
 
 # override right-turn-conflict
 ticket6497
+
+# rail turn-arounds should always have linkdir 't'
+ticket6924
