@@ -15,3 +15,6 @@ reverse_short_start
 
 # find reversal route when the starting edge is shorter than the train (route define via stops)
 reverse_short_start_stops
+
+# reverse on the starting edge that is shorter than the train
+reverse_on_short_start
