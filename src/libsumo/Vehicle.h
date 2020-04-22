@@ -100,7 +100,7 @@ public:
     static std::vector<std::string> getVia(const std::string& vehicleID);
     static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);
     static double getLastActionTime(const std::string& vehicleID);
-    static std::string getParameter(const std::string& vehicleID, const std::string& key);
+    static std::string getParameter(const std::string& vehicleID, const std::string& param);
     static std::vector<std::pair<std::string, double> > getNeighbors(const std::string& vehicleID, const int mode);
     static double getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
     static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
@@ -127,7 +127,7 @@ public:
 
     static void resume(const std::string& vehicleID);
 
-    static void add(const std::string& vehicleID,
+    static void add(const std::string& vehID,
                     const std::string& routeID,
                     const std::string& typeID = "DEFAULT_VEHTYPE",
                     const std::string& depart = "now",
@@ -173,7 +173,7 @@ public:
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
-    static void setParameter(const std::string& vehicleID, const std::string& key, const std::string& value);
+    static void setParameter(const std::string& vehicleID, const std::string& param, const std::string& value);
     static void highlight(const std::string& vehicleID, const TraCIColor& col = TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
     /// @}
 

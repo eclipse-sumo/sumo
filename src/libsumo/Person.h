@@ -60,7 +60,7 @@ public:
     static int getRemainingStages(const std::string& personID);
     static TraCIStage getStage(const std::string& personID, int nextStageIndex = 0);
     static std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0);
-    static std::string getParameter(const std::string& routeID, const std::string& param);
+    static std::string getParameter(const std::string& personID, const std::string& param);
     static double getAngle(const std::string& personID);
     static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);
@@ -77,7 +77,7 @@ public:
     static void rerouteTraveltime(const std::string& personID);
     static void moveTo(const std::string& personID, const std::string& edgeID, double position);
     static void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle = INVALID_DOUBLE_VALUE, const int keepRoute = 1);
-    static void setParameter(const std::string& personID, const std::string& key, const std::string& value);
+    static void setParameter(const std::string& personID, const std::string& param, const std::string& value);
     static void setSpeed(const std::string& personID, double speed);
     static void setType(const std::string& personID, const std::string& typeID);
 

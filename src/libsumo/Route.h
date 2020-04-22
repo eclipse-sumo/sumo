@@ -51,8 +51,8 @@ public:
     static std::vector<std::string> getEdges(const std::string& routeID);
     static std::string getParameter(const std::string& routeID, const std::string& param);
 
-    static void add(const std::string& routeID, const std::vector<std::string>& edgeIDs);
-    static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
+    static void add(const std::string& routeID, const std::vector<std::string>& edges);
+    static void setParameter(const std::string& routeID, const std::string& param, const std::string& value); // not needed so far
 
     LIBSUMO_SUBSCRIPTION_API
 
