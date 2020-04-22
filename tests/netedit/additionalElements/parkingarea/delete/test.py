@@ -40,6 +40,9 @@ netedit.leftClick(referencePosition, 250, 250)
 # Change to delete
 netedit.deleteMode()
 
+# disable 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+
 # delete created parkingArea
 netedit.leftClick(referencePosition, 260, 290)
 
@@ -55,7 +58,7 @@ netedit.undo(referencePosition, 3)
 # Change to delete
 netedit.deleteMode()
 
-# disble 'Automatically delete additionals'
+# enable 'Automatically delete additionals'
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded parkingArea (doesn't allowed)

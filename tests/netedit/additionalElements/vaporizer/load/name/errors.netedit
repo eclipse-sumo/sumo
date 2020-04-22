@@ -87,7 +87,7 @@ GLDebug: 	Inserted junction:gneJ6 into SUMORTree with boundary -10.00,-3.20,10.0
 GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary 40.00,-3.20,60.00,23.20
 GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -10.00,36.80,10.00,63.20
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 40.00,36.80,60.00,63.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary -10.00,50.00,60.00,71.60
 GLDebug: 	Inserted edge:10 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:11 into SUMORTree with boundary -10.00,0.00,60.00,21.60

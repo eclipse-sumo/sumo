@@ -38,25 +38,25 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # create E3 1
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 110)
 
 # create E3 2 (for check duplicated ID)
-netedit.leftClick(referencePosition, 450, 100)
+netedit.leftClick(referencePosition, 450, 110)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
 # Create Entry detector E3 (for saving)
-netedit.leftClick(referencePosition, 250, 100)
-netedit.leftClick(referencePosition, 250, 200)
-netedit.leftClick(referencePosition, 450, 100)
-netedit.leftClick(referencePosition, 450, 200)
+netedit.leftClick(referencePosition, 250, 110)
+netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 450, 110)
+netedit.leftClick(referencePosition, 450, 250)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create Exit detector E3 (for saving)
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 110)
 netedit.leftClick(referencePosition, 250, 450)
 netedit.leftClick(referencePosition, 450, 100)
 netedit.leftClick(referencePosition, 450, 450)
@@ -65,7 +65,7 @@ netedit.leftClick(referencePosition, 450, 450)
 netedit.inspectMode()
 
 # inspect first E3
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 110)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "e3Detector_1", False)

@@ -34,6 +34,9 @@ netedit.rebuildNetwork()
 # Change to delete
 netedit.deleteMode()
 
+# enable 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+
 # delete loaded vaporizer
 netedit.leftClick(referencePosition, 522, 200)
 

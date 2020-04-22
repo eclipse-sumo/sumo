@@ -67,26 +67,11 @@ netedit.moveElement(referencePosition, 110, 200, 50, 200)
 netedit.moveElement(referencePosition, 50, 200, 120, 200)
 
 # move Entry to right
-netedit.moveElement(referencePosition, 120, 200, 250, 200)
-
-# move back
-netedit.moveElement(referencePosition, 250, 200, 120, 200)
-
-# move Entry to left overpassing lane
-netedit.moveElement(referencePosition, 120, 200, -150, 200)
-
-# move back
-netedit.moveElement(referencePosition, -105, 200, 120, 200)
-
-# move Entry to right overpassing lane
-netedit.moveElement(referencePosition, 120, 200, 580, 200)
-
-# move back to another different position of initial
-netedit.moveElement(referencePosition, 550, 200, 300, 200)
+netedit.moveElement(referencePosition, 120, 200, 245, 200)
 
 # Check undos and redos
-netedit.undo(referencePosition, 11)
-netedit.redo(referencePosition, 11)
+netedit.undo(referencePosition, 8)
+netedit.redo(referencePosition, 8)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

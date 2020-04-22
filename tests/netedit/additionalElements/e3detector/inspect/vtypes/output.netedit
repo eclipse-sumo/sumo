@@ -5,14 +5,14 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 25
 25
 e3Detector
-TestFunctions: Clicked over position 554 - 268
+TestFunctions: Clicked over position 554 - 278
 detEntry
-TestFunctions: Clicked over position 554 - 268
-TestFunctions: Clicked over position 554 - 368
+TestFunctions: Clicked over position 554 - 278
+TestFunctions: Clicked over position 554 - 408
 detExit
-TestFunctions: Clicked over position 554 - 268
+TestFunctions: Clicked over position 554 - 278
 TestFunctions: Clicked over position 554 - 618
-TestFunctions: Clicked over position 554 - 268
+TestFunctions: Clicked over position 554 - 278
 $$$ @**@;@ %%%
 type1 type2 type3
 TestFunctions: Clicked over position 304 - 168

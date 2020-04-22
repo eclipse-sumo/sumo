@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05.12.2018 10:55:53 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 21.04.2020 23:48:47 by Eclipse SUMO netedit Version v1_5_0+1230-5308a0e38c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec105539.4676/netedit.gui/shapeElements/poi/create/geo_poi/lat_lon\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec105539.4676/netedit.gui/shapeElements/poi/create/geo_poi/lat_lon\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,27 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec105539.4676/netedit.gui/shapeElements/poi/create/geo_poi/lat_lon\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec105539.4676/netedit.gui/shapeElements/poi/create/geo_poi/lat_lon\shapes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec105539.4676/netedit.gui/shapeElements/poi/create/geo_poi/lat_lon\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Dec105539.4676/netedit.gui/shapeElements/poi/create/geo_poi/lat_lon\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\geo_poi\lat_lon\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="POI_0" color="red" layer="202.00" lon="10.511086" lat="0.000126"/>
+    <poi id="poi_0" color="red" layer="202.00" lon="10.511086" lat="0.000126"/>
 </additional>

@@ -1362,21 +1362,34 @@ def deleteUsingSuprKey():
     time.sleep(DELAY_REMOVESELECTION)
 
 
+def changeRemoveOnlyGeometryPoint(referencePosition):
+    """
+    @brief Enable or disable 'Remove only geometry point'
+    """
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
 def changeAutomaticallyDeleteAdditionals(referencePosition):
     """
     @brief Enable or disable 'automatically delete Additionals'
     """
     # select delete mode again to set mode
     deleteMode()
-    # use TAB to go to check box
-    typeTab()
+    # jump to checkbox
+    for _ in range(2):
+        typeTab()
     # type SPACE to change value
     typeSpace()
 
 
-def changeProtectDemandElements(referencePosition):
+def changeProtectTAZElements(referencePosition):
     """
-    @brief Enable or disable 'protect demand elements'
+    @brief Enable or disable 'protect TAZ elements'
     """
     # select delete mode again to set mode
     deleteMode()
@@ -1385,7 +1398,45 @@ def changeProtectDemandElements(referencePosition):
         typeTab()
     # type SPACE to change value
     typeSpace()
+    
 
+def changeProtectShapeElements(referencePosition):
+    """
+    @brief Enable or disable 'protect shape elements'
+    """
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(4):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
+    
+    
+def changeProtectDemandElements(referencePosition):
+    """
+    @brief Enable or disable 'protect demand elements'
+    """
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(5):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
+
+
+def changeProtectDemandElements(referencePosition):
+    """
+    @brief Enable or disable 'protect data elements'
+    """
+    # select delete mode again to set mode
+    deleteMode()
+    # jump to checkbox
+    for _ in range(6):
+        typeTab()
+    # type SPACE to change value
+    typeSpace()
 
 def waitDeleteWarning():
     """

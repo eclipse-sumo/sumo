@@ -60,6 +60,9 @@ netedit.leftClick(referencePosition, 250, 300)
 # Change to delete
 netedit.deleteMode()
 
+# enable 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+
 # delete created E3 1
 netedit.leftClick(referencePosition, 100, 50)
 
@@ -78,7 +81,7 @@ netedit.undo(referencePosition, 9)
 # Change to delete
 netedit.deleteMode()
 
-# disble 'Automatically delete additionals'
+# disable 'Automatically delete additionals'
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded entry (doesn't allowed)

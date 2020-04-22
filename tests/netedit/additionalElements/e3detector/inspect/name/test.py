@@ -38,27 +38,27 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # create E3
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 110)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
 # Create Entry detector E3 (for saving)
-netedit.leftClick(referencePosition, 250, 100)
-netedit.leftClick(referencePosition, 250, 200)
+netedit.leftClick(referencePosition, 250, 110)
+netedit.leftClick(referencePosition, 250, 240)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create Exit detector E3 (for saving)
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 110)
 netedit.leftClick(referencePosition, 250, 450)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E3
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 110)
 
 # Change parameter name with an non valid value
 netedit.modifyAttribute(3, "%%%;:..&&%$%$", False)
