@@ -117,6 +117,8 @@ There is no dedicated output format for traffic at junctions. Instead junction r
   or separate the approaching edges and to include or exclude the
   junction interior. (area-based detection on edges)
 
+Alternatively, the [values for edges or lanes](Output.md#values_for_edges_or_lanes) can be manually aggregated to obtain the flow at at a junction.
+
 ## vehicle-based information
 
 - [trip information](../Simulation/Output/TripInfo.md):
