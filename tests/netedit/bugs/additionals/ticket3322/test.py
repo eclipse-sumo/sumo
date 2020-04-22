@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to delete mode
 netedit.deleteMode()
 
+# disable 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+
 # delete junction
 netedit.leftClick(referencePosition, 100, 230)
 
