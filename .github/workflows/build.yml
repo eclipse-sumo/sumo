@@ -7,7 +7,7 @@ on:
   pull_request:    # run on pull requests
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
-  release:         # run on tags of new releases, 
+  release:         # run on tags of new releases
     types:
       - created
 
@@ -70,8 +70,9 @@ jobs:
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
     - name: Basic Test
-      run: ctest -V
-      working-directory: ${{ runner.workspace }}/sumo/build_msvc
+      run: |
+        cd sumo/build_msvc
+        ctest -V
 
     - name: Uploading artifacts (SUMO binaries)
       if: matrix.python-version == 3.8
