@@ -22,6 +22,7 @@ import os
 import sys
 import re
 import gzip
+import io
 import datetime
 try:
     import xml.etree.cElementTree as ET
@@ -222,7 +223,7 @@ def str_possibly_unicode(val):
 
 
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
-          heterogeneous=False, warn=False):
+          heterogeneous=False, warn=False, encoding="utf8"):
     """
     Parses the given element_names from xmlfile and yield compound objects for
     their xml subtrees (no extra objects are returned if element_names appear in
@@ -249,7 +250,7 @@ def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
     if isinstance(element_names, str):
         element_names = [element_names]
     elementTypes = {}
-    for _, parsenode in ET.iterparse(_open(xmlfile)):
+    for _, parsenode in ET.iterparse(_open(xmlfile, encoding)):
         if parsenode.tag in element_names:
             yield _get_compound_object(parsenode, elementTypes,
                                        parsenode.tag, element_attrs,
@@ -323,13 +324,13 @@ def _createRecordAndPattern(element_name, attrnames, warn, optional):
     return Record, reprog
 
 
-def _open(xmlfile):
+def _open(xmlfile, encoding="utf8"):
     if isinstance(xmlfile, str):
-        return gzip.open(xmlfile, "rt") if xmlfile.endswith(".gz") else open(xmlfile)
+        return gzip.open(xmlfile, "rt") if xmlfile.endswith(".gz") else io.open(xmlfile, encoding=encoding)
     return xmlfile
 
 
-def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
+def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, encoding="utf8"):
     """
     Parses the given attrnames from all elements with element_name
     @Note: The element must be on its own line and the attributes must appear in
@@ -337,7 +338,7 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
     @Example: parse_fast('plain.edg.xml', 'edge', ['id', 'speed'])
     """
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
-    for line in _open(xmlfile):
+    for line in _open(xmlfile, encoding):
         m = reprog.search(line)
         if m:
             if optional:
@@ -346,7 +347,7 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False):
                 yield Record(*m.groups())
 
 
-def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2, warn=False, optional=False):
+def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2, warn=False, optional=False, encoding="utf8"):
     """
     Parses the given attrnames from all elements with element_name
     And attrnames2 from element_name2 where element_name2 is a child element of element_name
@@ -357,7 +358,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
     Record, reprog = _createRecordAndPattern(element_name, attrnames, warn, optional)
     Record2, reprog2 = _createRecordAndPattern(element_name2, attrnames2, warn, optional)
     record = None
-    for line in _open(xmlfile):
+    for line in _open(xmlfile, encoding):
         m2 = reprog2.search(line)
         if m2:
             if optional:
