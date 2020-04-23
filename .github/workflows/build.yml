@@ -1,8 +1,10 @@
 name: build
 
 on: 
-  [push, pull_request, release]: # run on push events, pull requests and tags of new releases, 
-    paths-ignore:                # but ignore everything in the docs subfolder 
+  push:
+  pull_request:
+  release:         # run on push events, pull requests and tags of new releases, 
+    paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
 
 jobs:
