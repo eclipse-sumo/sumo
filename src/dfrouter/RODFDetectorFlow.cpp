@@ -77,8 +77,6 @@ RODFDetectorFlows::addFlow(const std::string& id, SUMOTime t, const FlowDef& fd)
 }
 
 
-
-
 void
 RODFDetectorFlows::setFlows(const std::string& detector_id,
                             std::vector<FlowDef>& flows) {

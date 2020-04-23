@@ -105,10 +105,11 @@ RODFDetFlowLoader::read(const std::string& file) {
                 WRITE_WARNING("At least one line does not contain the correct number of columns.");
             }
             continue;
-        } catch (UnknownElement&) {} catch (OutOfBoundsException&) {} catch (NumberFormatException&) {}
-        throw ProcessError("The detector-flow-file '" + lr.getFileName() + "' is corrupt;\n"
-                           + " The following values must be supplied : 'Detector', 'Time', 'qPKW'\n"
-                           + " The according column names must be given in the first line of the file.");
+        } catch (ProcessError& e) {
+            throw ProcessError(toString(e.what()) + " in '" + lr.getFileName() + "', line " + toString(lr.getLineNumber()) + ";\n"
+                               + " The following values must be supplied : 'Detector', 'Time', 'qPKW'\n"
+                               + " The according column names must be given in the first line of the file.");
+        }
     }
 }
 

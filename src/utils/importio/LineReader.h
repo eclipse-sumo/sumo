@@ -140,6 +140,10 @@ public:
     bool good() const;
 
 
+    int getLineNumber() {
+        return myLinesRead;
+    }
+
 private:
     /// @brief the name of the file to read the contents from
     std::string myFileName;
@@ -161,5 +165,8 @@ private:
 
     /// @brief Information how many bytes were read by the reader from the file
     int myRread;
+
+    /// @brief Information how many lines were read for meaningful error messages
+    int myLinesRead;
 
 };

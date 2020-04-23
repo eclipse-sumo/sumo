@@ -123,6 +123,7 @@ LineReader::readLine() {
         if (idx == 0) {
             myStrBuffer = myStrBuffer.substr(1);
             myRread++;
+            myLinesRead++;
             return "";
         }
         if (idx != std::string::npos) {
@@ -143,6 +144,7 @@ LineReader::readLine() {
                 toReport = myStrBuffer;
                 myRread += 1024;
                 if (toReport == "") {
+                    myLinesRead++;
                     return toReport;
                 }
             }
@@ -161,6 +163,7 @@ LineReader::readLine() {
     } else {
         toReport = "";
     }
+    myLinesRead++;
     return toReport;
 }
 
@@ -197,9 +200,19 @@ LineReader::reinit() {
     myStrm.seekg(0, std::ios::end);
     myAvailable = static_cast<int>(myStrm.tellg());
     myStrm.seekg(0, std::ios::beg);
+    if (myAvailable >= 3) {
+        // check for BOM
+        myStrm.read(myBuffer, 3);
+        if (myBuffer[0] == (char)0xef && myBuffer[1] == (char)0xbb && myBuffer[2] == (char)0xbf) {
+            myAvailable -= 3;
+        } else {
+            myStrm.seekg(0, std::ios::beg);
+        }
+    }
     myRead = 0;
     myRread = 0;
     myStrBuffer = "";
+    myLinesRead = 0;
 }
 
 
