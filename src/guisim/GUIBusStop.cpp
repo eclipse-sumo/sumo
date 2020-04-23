@@ -119,6 +119,7 @@ GUIBusStop::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("name", false, getMyName());
     ret->mkItem("begin position [m]", false, myBegPos);
     ret->mkItem("end position [m]", false, myEndPos);
+    ret->mkItem("lines", false, joinToString(myLines, " "));
     ret->mkItem("parking length [m]", false, (myEndPos - myBegPos) / myParkingFactor);
     ret->mkItem("person capacity [#]", false, myTransportableCapacity);
     ret->mkItem("person number [#]", true, new FunctionBinding<GUIBusStop, int>(this, &MSStoppingPlace::getTransportableNumber));
