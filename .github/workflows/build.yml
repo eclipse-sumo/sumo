@@ -69,8 +69,12 @@ jobs:
         python -c "import sys; print('[bdist_wheel]\npython-tag=cp%s%s' % sys.version_info[0:2], file=open('tools/build/setup.cfg', 'w'))"
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
+    - name: Basic Test
+      run: ctest -V
+      working-directory: ${{ runner.workspace }}/sumo/build_msvc
+
     - name: Uploading artifacts (SUMO binaries)
-      if: matrix.python-version == "3.8"
+      if: matrix.python-version == 3.8
       uses: actions/upload-artifact@v1
       with:
         name: Windows
