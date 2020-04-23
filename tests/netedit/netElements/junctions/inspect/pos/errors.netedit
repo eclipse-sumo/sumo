@@ -48,7 +48,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 33.60,90.00,66.40,110
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 29.60,29.60,70.40,70.40
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 90.00,33.60,110.00,66.40
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 35.20,-10.00,60.00,60.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 40.00,40.00,64.80,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,64.80
@@ -85,6 +85,7 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Value 'dummy position' for attribute pos of junction isn't valid
 Debug: Setting new attribute pos '40.00,40.00' into junction 'Center'
 GLDebug: <-- Invalidating shape of junction 'B' -->
@@ -121,12 +122,12 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -11.16,25.34,50.00,60.00
 GLDebug: 	Removed object edge:8 from SUMORTree with boundary 40.00,40.00,110.00,64.80
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 29.21,30.00,110.00,64.73
 GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
-GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
-GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -12.00,38.00,12.00,62.00
 GLDebug: 	Removed object junction:D from SUMORTree with boundary 90.00,33.60,110.00,66.40
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
+GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 28.00,28.00,52.00,52.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
@@ -152,7 +153,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 33.69,88.95,66.31,111
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -11.55,33.79,11.55,66.21
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 17.84,17.84,63.84,63.84
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.95,33.69,111.05,66.31
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 27.99,-11.16,60.00,50.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 30.00,30.00,64.73,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,30.00,50.00,64.66
@@ -163,6 +164,7 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -11.16,27.99,50.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 30.00,30.00,110.00,64.73
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute pos '50.00,50.00' into junction 'Center'
@@ -200,12 +202,12 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Removed object edge:8 from SUMORTree with boundary 30.00,30.00,110.00,64.73
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
-GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.69,88.95,66.31,111.05
-GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -11.55,33.79,11.55,66.21
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -12.00,38.00,12.00,62.00
 GLDebug: 	Removed object junction:D from SUMORTree with boundary 88.95,33.69,111.05,66.31
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.69,88.95,66.31,111.05
+GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 38.00,38.00,62.00,62.00
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -229,7 +231,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 33.60,90.00,66.40,110
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 29.60,29.60,70.40,70.40
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 90.00,33.60,110.00,66.40
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 35.20,-10.00,60.00,60.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 40.00,40.00,64.80,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,40.00,60.00,64.80
@@ -240,6 +242,7 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute pos '40.00,40.00' into junction 'Center'
@@ -277,12 +280,12 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -11.16,25.34,50.00,60.00
 GLDebug: 	Removed object edge:8 from SUMORTree with boundary 40.00,40.00,110.00,64.80
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 29.21,30.00,110.00,64.73
 GLDebug: 	Inserted junction:A into SUMORTree with boundary 38.00,-12.00,62.00,12.00
-GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
-GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Removed object junction:C from SUMORTree with boundary -10.00,33.60,10.00,66.40
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -12.00,38.00,12.00,62.00
 GLDebug: 	Removed object junction:D from SUMORTree with boundary 90.00,33.60,110.00,66.40
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.00,38.00,112.00,62.00
+GLDebug: 	Removed object junction:B from SUMORTree with boundary 33.60,90.00,66.40,110.00
+GLDebug: 	Inserted junction:B into SUMORTree with boundary 38.00,88.00,62.00,112.00
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 28.00,28.00,52.00,52.00
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -306,7 +309,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 33.69,88.95,66.31,111
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -11.55,33.79,11.55,66.21
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 17.84,17.84,63.84,63.84
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.95,33.69,111.05,66.31
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 27.99,-11.16,60.00,50.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 30.00,30.00,64.73,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,30.00,50.00,64.66
@@ -338,7 +341,7 @@ GLDebug: 	Inserted junction:B into SUMORTree with boundary 33.69,88.95,66.31,111
 GLDebug: 	Inserted junction:C into SUMORTree with boundary -11.55,33.79,11.55,66.21
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 17.84,17.84,63.84,63.84
 GLDebug: 	Inserted junction:D into SUMORTree with boundary 88.95,33.69,111.05,66.31
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:1 into SUMORTree with boundary 27.99,-11.16,60.00,50.00
 GLDebug: 	Inserted edge:2 into SUMORTree with boundary 30.00,30.00,64.73,110.00
 GLDebug: 	Inserted edge:3 into SUMORTree with boundary -10.00,30.00,50.00,64.66

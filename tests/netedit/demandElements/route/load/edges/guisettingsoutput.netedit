@@ -1,7 +1,7 @@
 <viewsettings>
     <scheme name="standard">
         <opengl dither="0" fps="0" drawBoundaries="0" forceDrawPositionSelection="0" forceDrawRectangleSelection="0"/>
-        <background backgroundColor="white" showGrid="0" gridXSize="100.00" gridYSize="100.00"/>
+        <background backgroundColor="white" showGrid="1" gridXSize="100.00" gridYSize="100.00"/>
         <edges laneEdgeMode="0" scaleMode="0" laneShowBorders="1" showBikeMarkings="1" showLinkDecals="1" showLinkRules="1" showRails="1" hideConnectors="0" widthExaggeration="1.00" minSize="0.00" showDirection="0" showSublanes="1" spreadSuperposed="0" edgeParam="EDGE_KEY" laneParam="LANE_KEY" vehicleParam="PARAM_NUMERICAL" vehicleTextParam="PARAM_TEXT" edgeData="speed"
                 edgeName_show="0" edgeName_size="60.00" edgeName_color="orange" edgeName_bgColor="128,0,0,0" edgeName_constantSize="1"
                 internalEdgeName_show="0" internalEdgeName_size="45.00" internalEdgeName_color="128,64,0" internalEdgeName_bgColor="128,0,0,0" internalEdgeName_constantSize="1"
@@ -10,12 +10,17 @@
                 edgeValue_show="0" edgeValue_size="100.00" edgeValue_color="cyan" edgeValue_bgColor="128,0,0,0" edgeValue_constantSize="1">
             <colorScheme name="uniform">
                 <entry color="black" name="road"/>
-                <entry color="grey" name="Sidewalk"/>
+                <entry color="grey" name="sidewalk"/>
                 <entry color="192,66,44" name="bike lane"/>
                 <entry color="200,255,200" name="green verge"/>
                 <entry color="150,200,200" name="waterway"/>
                 <entry color="black" name="railway"/>
+                <entry color="64,0,64" name="rails on road"/>
                 <entry color="92,92,92" name="no passenger"/>
+                <entry color="red" name="closed"/>
+                <entry color="green" name="connector"/>
+                <entry color="orange" name="forbidden"/>
+                <entry color="145,145,145" name="data mode"/>
             </colorScheme>
             <colorScheme name="by selection">
                 <entry color="grey" name="unselected"/>
@@ -48,12 +53,13 @@
                 <entry color="blue" threshold="5.00"/>
             </colorScheme>
             <colorScheme name="by given length/geometrical length" interpolated="1">
-                <entry color="black" threshold="0.00"/>
-                <entry color="red" threshold="0.25"/>
+                <entry color="red" threshold="0.00"/>
+                <entry color="orange" threshold="0.25"/>
                 <entry color="yellow" threshold="0.50"/>
                 <entry color="179,179,179" threshold="1.00"/>
                 <entry color="green" threshold="2.00"/>
-                <entry color="blue" threshold="4.00"/>
+                <entry color="cyan" threshold="4.00"/>
+                <entry color="blue" threshold="100.00"/>
             </colorScheme>
             <colorScheme name="by angle">
                 <entry color="yellow"/>
@@ -132,17 +138,20 @@
             </colorScheme>
         </containers>
         <junctions junctionMode="0"
-                   drawLinkTLIndex_show="0" drawLinkTLIndex_size="50.00" drawLinkTLIndex_color="128,128,255" drawLinkTLIndex_bgColor="128,0,0,0" drawLinkTLIndex_constantSize="1"
-                   drawLinkJunctionIndex_show="0" drawLinkJunctionIndex_size="50.00" drawLinkJunctionIndex_color="128,128,255" drawLinkJunctionIndex_bgColor="128,0,0,0" drawLinkJunctionIndex_constantSize="1"
-                   junctionName_show="0" junctionName_size="60.00" junctionName_color="0,255,128" junctionName_bgColor="128,0,0,0" junctionName_constantSize="1"
+                   drawLinkTLIndex_show="0" drawLinkTLIndex_size="65.00" drawLinkTLIndex_color="128,128,255" drawLinkTLIndex_bgColor="0,0,0,0" drawLinkTLIndex_constantSize="0"
+                   drawLinkJunctionIndex_show="0" drawLinkJunctionIndex_size="65.00" drawLinkJunctionIndex_color="128,128,255" drawLinkJunctionIndex_bgColor="0,0,0,0" drawLinkJunctionIndex_constantSize="0"
+                   junctionID_show="0" junctionID_size="60.00" junctionID_color="0,255,128" junctionID_bgColor="128,0,0,0" junctionID_constantSize="1"
+                   junctionName_show="0" junctionName_size="60.00" junctionName_color="192,255,128" junctionName_bgColor="128,0,0,0" junctionName_constantSize="1"
                    internalJunctionName_show="0" internalJunctionName_size="50.00" internalJunctionName_color="0,204,128" internalJunctionName_bgColor="128,0,0,0" internalJunctionName_constantSize="1"
-                   tlsPhaseIndex_show="0" tlsPhaseIndex_size="150.00" tlsPhaseIndex_color="yellow" tlsPhaseIndex_bgColor="128,0,0,0" tlsPhaseIndex_constantSize="1"
+                   tlsPhaseIndex_show="0" tlsPhaseIndex_size="150.00" tlsPhaseIndex_color="yellow" tlsPhaseIndex_bgColor="128,0,0,0" tlsPhaseIndex_constantSize="1" tlsPhaseName_show="0" tlsPhaseName_size="150.00" tlsPhaseName_color="orange" tlsPhaseName_bgColor="128,0,0,0" tlsPhaseName_constantSize="1"
                    showLane2Lane="0" drawShape="1" drawCrossingsAndWalkingareas="1" junction_minSize="1.00" junction_exaggeration="1.00" junction_constantSize="0" junction_constantSizeSelected="0">
             <colorScheme name="uniform">
                 <entry color="102,0,0"/>
-                <entry color="204,0,0" name="shape not computed"/>
-                <entry color="153,0,0" name="geometry points"/>
+                <entry color="204,0,0" name="junction bubble"/>
+                <entry color="230,100,115" name="geometry points"/>
                 <entry color="green" name="custom shape"/>
+                <entry color="magenta" name="connections missing"/>
+                <entry color="205,180,180" name="data mode"/>
             </colorScheme>
             <colorScheme name="by selection">
                 <entry color="grey" name="unselected"/>

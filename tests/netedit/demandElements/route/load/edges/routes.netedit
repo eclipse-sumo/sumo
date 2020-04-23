@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 17.07.2019 13:25:21 by Eclipse SUMO netedit Version v1_2_0+1261-4ef77299f0
+<!-- generated on 22.04.2020 17:38:15 by Eclipse SUMO netedit Version v1_5_0+1230-5308a0e38c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul132511.10316/netedit.gui/demandElements/route/load/edges\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul132511.10316/netedit.gui/demandElements/route/load/edges\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,29 +30,35 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul132511.10316/netedit.gui/demandElements/route/load/edges\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul132511.10316/netedit.gui/demandElements/route/load/edges\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul132511.10316/netedit.gui/demandElements/route/load/edges\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul132511.10316/netedit.gui/demandElements/route/load/edges\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\datas.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul132511.10316/netedit.gui/demandElements/route/load/edges\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\edges\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route edges="gneE2 gneE4 gneE5 gneE10 gneE8" color="yellow" id="route_4"/>
     <route edges="gneE2 gneE4" color="yellow" id="route_5"/>
     <route edges="gneE2" color="yellow" id="route_6"/>
 </routes>

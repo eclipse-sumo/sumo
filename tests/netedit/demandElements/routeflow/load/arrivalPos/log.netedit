@@ -1,17 +1,3 @@
 Error: Invalid arrivalPos definition for flow 'flow_0';
  must be one of ("random", "max", or a float)
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_0' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_0' is missing; trip cannot be created
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_1' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_1' is missing; trip cannot be created
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_2' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_2' is missing; trip cannot be created
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_3' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_3' is missing; trip cannot be created
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_4' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_4' is missing; trip cannot be created
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_5' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_5' is missing; trip cannot be created
-Warning: Essential unique string attribute 'to' of trip with ID 'flow_6' is missing; trip cannot be created
-Warning: Essential unique string attribute 'from' of trip with ID 'flow_6' is missing; trip cannot be created
-Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug133013.5732/netedit.gui/demandElements/routeflow/load/arrivalPos\input_routes.rou.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\routeflow\load\arrivalPos\input_routes.rou.xml failed.
