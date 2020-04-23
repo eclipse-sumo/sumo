@@ -499,10 +499,10 @@ void
 GNEApplicationWindowHelper::EditMenuCommands::DataMenuCommands::buildDataMenuCommands(FXMenuPane* editMenu) {
     // build every FXMenuCommand giving it a shortcut
     edgeData = new FXMenuCommand(editMenu,
-        "Edge Data Mode\tE\tCreate edge datas.",
+        "EdgeData Mode\tE\tCreate edgeData elements.",
         GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_E_MODES_EDGE_EDGEDATA);
     edgeRelData  = new FXMenuCommand(editMenu,
-        "Edge Rel Data Mode\tR\tCreate edge relation datas.",
+        "EdgeRelation Mode\tR\tCreate edgeRelation elements.",
         GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
