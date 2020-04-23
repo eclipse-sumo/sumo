@@ -1818,6 +1818,18 @@ GUIVisualizationSettings::getTextAngle(double objectAngle) const {
     return objectAngle;
 }
 
+bool
+GUIVisualizationSettings::flippedTextAngle(double objectAngle) const {
+    double viewAngle = objectAngle - angle;
+    while (viewAngle < 0) {
+        viewAngle += 360;
+    }
+    // fmod round towards zero which is not want we want for negative numbers
+    viewAngle = fmod(viewAngle, 360);
+    return (viewAngle > 90 && viewAngle < 270);
+}
+
+
 
 bool
 GUIVisualizationSettings::drawAdditionals(const double exaggeration) const {

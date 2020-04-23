@@ -476,6 +476,9 @@ public:
     /// @brief return an angle that is suitable for reading text aligned with the given angle (degrees)
     double getTextAngle(double objectAngle) const;
 
+    /// @brief return wether the text was flipped for reading at the given angle
+    bool flippedTextAngle(double objectAngle) const;
+
     /// @brief check if additionals must be drawn
     bool drawAdditionals(const double exaggeration) const;
 

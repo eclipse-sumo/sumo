@@ -147,17 +147,22 @@ GUIBusStop::drawGL(const GUIVisualizationSettings& s) const {
         // draw the lines
         const double rotSign = MSGlobals::gLefthand ? 1 : -1;
         // Iterate over every line
+        const double lineAngle = s.getTextAngle(rotSign * myFGSignRot);
+        RGBColor lineColor = s.stoppingPlaceSettings.busStopColor.changedBrightness(-51);
+        const double textOffset = s.flippedTextAngle(rotSign * myFGSignRot) ? -1 : 1;
+        const double textOffset2 = s.flippedTextAngle(rotSign * myFGSignRot) ? -1 : 0.3;
         for (int i = 0; i < (int)myLines.size(); ++i) {
             // push a new matrix for every line
             glPushMatrix();
             // traslate and rotate
             glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-            glRotated(rotSign * myFGSignRot, 0, 0, 1);
+            glRotated(lineAngle, 0, 0, 1);
             // draw line
-            GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.stoppingPlaceSettings.busStopColor, 0, FONS_ALIGN_LEFT);
+            GLHelper::drawText(myLines[i].c_str(), Position(1.2, i * textOffset + textOffset2), .1, 1.f, lineColor, 0, FONS_ALIGN_LEFT);
             // pop matrix for every line
             glPopMatrix();
         }
+        GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         for (std::vector<Position>::const_iterator i = myAccessCoords.begin(); i != myAccessCoords.end(); ++i) {
             GLHelper::drawBoxLine(*i, RAD2DEG(myFGSignPos.angleTo2D(*i)) - 90, myFGSignPos.distanceTo2D(*i), .05);
         }
