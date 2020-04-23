@@ -102,7 +102,7 @@ permalink: /ChangeLog/
   - Added option **--save-state.rng**. When this option is set, saved simulation state will include the state of all random number generators and this state will be restored upon loading. This RNG state takes up about 500kb. Issue #1418
       
 - NETEDIT
-  - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
+  - Added new 'Data Mode' to edit files with edge and turn-related data (`<edgeData>`, `<edgeRelation>`). Issue #6461
   - Traffic light phase editing function 'Insert Phase' now takes successive green states into account when synthesizing transition phases. Issue #6732
 - SUMO-GUI
   - Missing data values (color by edgeData) can now be distinguished from negative data values. Issue #6660
@@ -113,7 +113,7 @@ permalink: /ChangeLog/
   - Travelled distance (odometer) is now listed in the vehicle parameter dialog.
   - Junction name is now listed in the junction parameter dialog and can optionally by drawn in the view. Issue #6635
   - Lanes that explicitly allow rail and passenger traffic are now highlighted with a distinct color in the default color scheme. Issue #6844
-  - When loading a network with internal lanes and setting the option **--no-internal-links**, the internal lanes are still shown. This is mostly useful for railway simualation. Issue #6852
+  - When loading a network with internal lanes and setting the option **--no-internal-links**, the internal lanes are still shown. This helps to understand track topology in rail networks. Issue #6852
   - Visualization of a vehicles route can now be configured with the menu option 'Draw looped routes' which can be disabled to reduce clutter in looped public transport routes. Issue #6917
   
 - NETCONVERT
@@ -143,9 +143,9 @@ permalink: /ChangeLog/
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
     - supports loading multiple data intervals. Data aggregation can be customized using options **--begin**, **--end**, **--interval**
     - supports loading multiple files (routes, edgedata, turns). The corresponding options were renamed accordingly (**--route-files, --edgedata-files, --turn-files**)
-    - supports optimization by linear programming using option **--optimize** (requires scipy)
+    - supports optimization by linear programming using option **--optimize INT|full** (requires scipy). The interger argument can be used to configure the maximum deviation from the input route distribution.
     - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRelation` files using option **--mismatch-output**
-    - supports limited optimization of route input (without resampling) by setting option **--optimize-input**
+    - supports direct optimization of route input (without resampling) by setting option **--optimize-input**
     - supports multi-edge counting data using `<edgeRelation from="A" to="D" via="B C" count="INT"/>`. Issue #6729
     - supports non-consecutive edgeRelations with maximum gap by using the new option **--turn-max-gap <INT>**. Issue #6726
     - supports loading origin-destination relations with the new option **--od-files**. Issue #6888
