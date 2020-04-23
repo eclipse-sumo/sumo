@@ -1,11 +1,8 @@
 name: build
 
 on: 
-  push:                 # run on push events, 
-    paths-ignore:       # but ignore everything in the docs subfolder 
-      - 'docs/**'
-  pull_request:         # run on pull requests,
-    paths-ignore:       # but ignore everything in the docs subfolder
+  [push, pull_request, release]: # run on push events, pull requests and tags of new releases, 
+    paths-ignore:                # but ignore everything in the docs subfolder 
       - 'docs/**'
 
 jobs:
@@ -67,9 +64,10 @@ jobs:
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
     - name: Uploading artifacts (SUMO binaries)
+      if: matrix.python-version == "3.8"
       uses: actions/upload-artifact@v1
       with:
-        name: Windows-py${{ matrix.python-version }}
+        name: Windows
         path: sumo/bin
 
     - name: Uploading artifacts (Python wheels)
