@@ -608,9 +608,9 @@ struct GNEViewNetHelper {
         DataViewOptions& operator=(const DataViewOptions&) = delete;
     };
 
-    /// @brief struct used to group all variables related to interval bar
-    struct IntervalBar {
-
+    /// @brief class used to group all variables related to interval bar
+    class IntervalBar {
+    public:
         /// @brief default constructor
         IntervalBar(GNEViewNet* viewNet);
 
@@ -681,15 +681,16 @@ struct GNEViewNetHelper {
 
         /// @}
 
-    protected:
+    private:
         /// @brief update combo box attributes
         void updateComboBoxAttributes();
 
-        /// @brief flag to enable or disable update interval bar
-        bool myIntervalBarUpdate;
-
+    private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief flag to enable or disable update interval bar
+        bool myIntervalBarUpdate;
 
         /// @brief combo box for generic data types
         FXComboBox* myGenericDataTypesComboBox;
@@ -712,7 +713,6 @@ struct GNEViewNetHelper {
         /// @brief set for attribuets
         std::set<std::string> myFilteredAttributes;
 
-    private:
         /// @brief string with wildcard for no generic datas
         const FXString myNoGenericDatas;
 
@@ -728,6 +728,7 @@ struct GNEViewNetHelper {
         /// @brief string with wildcard for all attributes
         const FXString myAllAttributes;
 
+    private:
         /// @brief Invalidated copy constructor.
         IntervalBar(const IntervalBar&) = delete;
 

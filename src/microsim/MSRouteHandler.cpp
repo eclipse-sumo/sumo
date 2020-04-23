@@ -600,12 +600,12 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
 void
 MSRouteHandler::openRouteDistribution(const SUMOSAXAttributes& attrs) {
     // check whether the id is really necessary
-    bool ok = true;
     if (myVehicleParameter != nullptr) {
         // ok, a vehicle is wrapping the route,
         //  we may use this vehicle's id as default
         myCurrentRouteDistributionID = "!" + myVehicleParameter->id; // !!! document this
     } else {
+        bool ok = true;
         myCurrentRouteDistributionID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
         if (!ok) {
             return;
