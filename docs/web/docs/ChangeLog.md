@@ -39,6 +39,8 @@ permalink: /ChangeLog/
     - Rail signal allows entering occupied block for joining trains. Issue #6794
     - Joining trains with different minGap values. Issue #6795   
     - carFollowModel 'Rail' no longer ignores attributes 'accel', 'decel' and 'emergencyDecel', 'apparentDecel' and 'collisionMinGapFactor'. Issue #6834
+    - Fixed invalid warning "Invalid approach information after rerouting". Issue #6914
+    - Fixed invalid warning "Circular block" at dead-end sidings. Issue #6926
     
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
@@ -47,6 +49,7 @@ permalink: /ChangeLog/
   - Fixed missing connections when importing OpenDRIVE. Issue #6712
   - OpenDRIVE networks where a single edges is connected to more than two junctions are now supported. Issue #6828
   - Fixed invalid link state at railway switch that would cause uncessary deceleration. Issue #6833
+  - Fixed invalid link direction in rail networks with unusual geometry. Issue #6924
   - OpenDRIVE import now correctly handles `signalReference` and signal `laneValidity` elements. Issue #2517, #2366
   - Fixed errors when loading custom lane shapes. Issue #6892, #6893, #6894, #6895
   - Fixed bug that could cause an invalid intermodal network to be written. Issue #6901
@@ -96,6 +99,7 @@ permalink: /ChangeLog/
   - edgeData output now includes the new attribute 'laneDensity' which reports the density in vehs per km per lane. Issue #6840
   - edgeData and laneData definitions now support the new attribute 'writeAttributes' which can be used to reduce the list of output attributes to the given list of attribute names. Issue #6847
   - Public transport import from OSM now supports route definitions with abbreviated style. Issue #6862
+  - Added option **--save-state.rng**. When this option is set, saved simulation state will include the state of all random number generators and this state will be restored upon loading. This RNG state takes up about 500kb. Issue #1418
       
 - NETEDIT
   - Added new 'Data Mode' to edit files with edge and turn-related data. Issue #6461
@@ -110,6 +114,7 @@ permalink: /ChangeLog/
   - Junction name is now listed in the junction parameter dialog and can optionally by drawn in the view. Issue #6635
   - Lanes that explicitly allow rail and passenger traffic are now highlighted with a distinct color in the default color scheme. Issue #6844
   - When loading a network with internal lanes and setting the option **--no-internal-links**, the internal lanes are still shown. This is mostly useful for railway simualation. Issue #6852
+  - Visualization of a vehicles route can now be configured with the menu option 'Draw looped routes' which can be disabled to reduce clutter in looped public transport routes. Issue #6917
   
 - NETCONVERT
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
