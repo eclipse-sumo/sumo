@@ -1,0 +1,5 @@
+# crash when using routing-algorithm CH with --routing-threads > 0
+ticket6912
+
+# different results when using CH
+ticket6935

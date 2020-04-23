@@ -1,0 +1,7 @@
+
+[Reported by kobo at 23Apr11:02:42]
+search_string:-
+search_file:exitcode
+ignore_other_errors:1
+full_description:crash
+brief_description:see #6912
