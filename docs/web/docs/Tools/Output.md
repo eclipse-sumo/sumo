@@ -186,12 +186,12 @@ Other attributes can be selected using option **--attribute** (e.g. 'routeLength
 Output is given as plain text on the command line or in xml format if
 option **--output** is set.
 
-## attributeStates.py
+## attributeStats.py
 
 Computes statistics on an arbitrary numerical attribute in a flat xml
 document. (eg. attribute *timeLoss* for element *tripinfo* in
 [tripinfo-output](../Simulation/Output/TripInfo.md)) and writes the
-results to standard output.
+results to standard output. When the attribute contains time data in HH:MM:SS format, the values will automatically be converted to seconds.
 
 ```
 python tools/output/attributeStats --element tripinfo --attribute timeLoss
