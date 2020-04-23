@@ -119,6 +119,9 @@ fillOptions() {
     oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
     oc.addDescription("shapefile.guess-projection", "Input", "Guesses the shapefile's projection");
 
+    oc.doRegister("shapefile.traditional-axis-mapping", new Option_Bool(false));
+    oc.addDescription("shapefile.traditional-axis-mapping", "Input", "Use traditional axis order (lon, lat)");
+
     oc.doRegister("shapefile.id-column", new Option_String());
     oc.addSynonyme("shapefile.id-column", "shapefile.id-name", true);
     oc.addSynonyme("shapefile.id-column", "shape-files.id-name", true);

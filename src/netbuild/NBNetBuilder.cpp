@@ -683,8 +683,7 @@ NBNetBuilder::transformCoordinate(Position& from, bool includeInBoundary, GeoCon
             if (from_srs != nullptr && from_srs->usingGeoProjection()) {
                 from_srs->cartesian2geo(orig);
             }
-            double z = hm.getZ(orig);
-            from = Position(from.x(), from.y(), z);
+            from.setz(hm.getZ(orig));
         }
     }
     return ok;

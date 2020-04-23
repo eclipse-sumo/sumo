@@ -141,14 +141,19 @@ NIImporter_ArcView::load() {
     OGRSpatialReference destTransf;
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
+#if GDAL_VERSION_MAJOR > 2
+    if (myOptions.getBool("shapefile.traditional-axis-mapping")) {
+        destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+    }
+#endif
     OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
-    if (poCT == NULL) {
+    if (poCT == nullptr) {
         if (myOptions.isSet("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
         }
-        if (poCT == 0) {
+        if (poCT == nullptr) {
             WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
         }
     }
@@ -239,7 +244,7 @@ NIImporter_ArcView::load() {
             return;
         }
         OGRLineString* cgeom = (OGRLineString*) poGeometry;
-        if (poCT != 0) {
+        if (poCT != nullptr) {
             // try transform to wgs84
             cgeom->transform(poCT);
         }

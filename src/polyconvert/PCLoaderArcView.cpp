@@ -102,16 +102,18 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
 #if GDAL_VERSION_MAJOR > 2
-    destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+    if (oc.getBool("shapefile.traditional-axis-mapping")) {
+        destTransf.SetAxisMappingStrategy(OAMS_TRADITIONAL_GIS_ORDER);
+    }
 #endif
     OGRCoordinateTransformation* poCT = OGRCreateCoordinateTransformation(origTransf, &destTransf);
-    if (poCT == NULL) {
-        if (oc.isSet("shapefile.guess-projection")) {
+    if (poCT == nullptr) {
+        if (oc.getBool("shapefile.guess-projection")) {
             OGRSpatialReference origTransf2;
             origTransf2.SetWellKnownGeogCS("WGS84");
             poCT = OGRCreateCoordinateTransformation(&origTransf2, &destTransf);
         }
-        if (poCT == 0) {
+        if (poCT == nullptr) {
             WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
         }
     }
@@ -119,7 +121,7 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
     OGRFeature* poFeature;
     poLayer->ResetReading();
     int runningID = 0;
-    while ((poFeature = poLayer->GetNextFeature()) != NULL) {
+    while ((poFeature = poLayer->GetNextFeature()) != nullptr) {
         std::vector<Parameterised*> parCont;
         // read in edge attributes
         std::string id = useRunningID ? toString(runningID) : poFeature->GetFieldAsString(idField.c_str());
@@ -163,7 +165,9 @@ PCLoaderArcView::load(const std::string& file, OptionsCont& oc, PCPolyContainer&
             continue;
         }
         // try transform to wgs84
-        poGeometry->transform(poCT);
+        if (poCT != nullptr) {
+            poGeometry->transform(poCT);
+        }
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         switch (gtype) {
             case wkbPoint: {

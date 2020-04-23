@@ -245,6 +245,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addSynonyme("shapefile.guess-projection", "arcview.guess-projection", true);
     oc.addDescription("shapefile.guess-projection", "Formats", "Guess the proper projection");
 
+    oc.doRegister("shapefile.traditional-axis-mapping", new Option_Bool(false));
+    oc.addDescription("shapefile.traditional-axis-mapping", "Input", "Use traditional axis order (lon, lat)");
+
 
     // register vissim options
     oc.doRegister("vissim.join-distance", new Option_Float(5.0f));
