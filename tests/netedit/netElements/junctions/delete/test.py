@@ -36,20 +36,20 @@ netedit.rebuildNetwork()
 netedit.deleteMode()
 
 # remove one way edge
-netedit.leftClick(referencePosition, 50, 63)
+netedit.leftClick(referencePosition, 50, 55)
 
 # remove two way edges
-netedit.leftClick(referencePosition, 260, 63)
+netedit.leftClick(referencePosition, 260, 55)
 
 # remove two way edges
-netedit.leftClick(referencePosition, 500, 63)
+netedit.leftClick(referencePosition, 500, 55)
 
 # remove square
-netedit.leftClick(referencePosition, 58, 173)
-netedit.leftClick(referencePosition, 150, 280)
+netedit.leftClick(referencePosition, 58, 160)
+netedit.leftClick(referencePosition, 150, 260)
 
 # remove circular road
-netedit.leftClick(referencePosition, 450, 270)
+netedit.leftClick(referencePosition, 450, 240)
 
 # rebuild network
 netedit.rebuildNetwork()

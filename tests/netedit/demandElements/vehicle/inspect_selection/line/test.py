@@ -41,7 +41,7 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 413)
+netedit.leftClick(referencePosition, 45, 373)
 
 # change personNumber with an invalid value
 netedit.modifyAttribute(9, "custom Line", True)

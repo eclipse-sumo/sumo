@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # select two-way mode
-netedit.changeEditMode('4')
+netedit.changeEditMode('5')
 
 # Create two way edges
 netedit.leftClick(referencePosition, 350, 50)

@@ -32,10 +32,10 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # select two-way mode
-netedit.changeEditMode('4')
+netedit.changeEditMode('5')
 
 # select chain mode
-netedit.changeEditMode('3')
+netedit.changeEditMode('4')
 
 # create square
 netedit.leftClick(referencePosition, -50, 150)

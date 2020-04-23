@@ -1641,7 +1641,7 @@ def selectionRectangle(referencePosition, startX, startY, endX, endY):
     time.sleep(DELAY_SELECT)
 
 
-def selectionClear(previouslyInserted=False):
+def selectionClear():
     """
     @brief clear selection
     """
@@ -1669,13 +1669,27 @@ def selectionInvert():
     time.sleep(DELAY_SELECT)
 
 
+def selectionClearDemand():
+    """
+    @brief clear selection
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(25):
+        typeTab()
+    # type space to select clear option
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+
+
 def selectionInvertDemand():
     """
     @brief invert selection (demand mode)
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(28):
+    for _ in range(26):
         typeTab()
     # type space to select invert operation
     typeSpace()
