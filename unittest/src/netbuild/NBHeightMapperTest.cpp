@@ -26,7 +26,7 @@ class NBHeightMapperTest : public testing::Test {
 protected :
 
     virtual void SetUp() {
-        NBHeightMapper& hm = NBHeightMapper::Singleton;
+        NBHeightMapper& hm = NBHeightMapper::myInstance;
         PositionVector t1;
         t1.push_back(Position(0, 0, 0));
         t1.push_back(Position(1, 0, 0));
@@ -47,7 +47,7 @@ protected :
     }
 
     virtual void TearDown() {
-        NBHeightMapper& hm = NBHeightMapper::Singleton;
+        NBHeightMapper& hm = NBHeightMapper::myInstance;
         hm.clearData();
     }
 };

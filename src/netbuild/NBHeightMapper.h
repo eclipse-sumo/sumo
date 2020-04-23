@@ -57,7 +57,7 @@ class NBHeightMapper {
     friend class NBHeightMapperTest;
 
 public:
-    /** @brief loads heigh map data if any loading options are set
+    /** @brief loads height map data if any loading options are set
      *
      * @param[in] oc The options container to get further options from
      * @exception ProcessError if something fails
@@ -72,7 +72,7 @@ public:
 
     /// @brief returns the convex boundary of all known triangles
     const Boundary& getBoundary() {
-        return Singleton.myBoundary;
+        return myInstance.myBoundary;
     }
 
     /// @brief returns height for the given geo coordinate (WGS84)
@@ -123,7 +123,7 @@ public:
 
 private:
     /// @brief the singleton instance
-    static NBHeightMapper Singleton;
+    static NBHeightMapper myInstance;
 
     Triangles myTriangles;
 

@@ -47,13 +47,12 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-NBHeightMapper NBHeightMapper::Singleton;
+NBHeightMapper NBHeightMapper::myInstance;
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-
 NBHeightMapper::NBHeightMapper():
     myRTree(&Triangle::addSelf) {
 }
@@ -66,7 +65,7 @@ NBHeightMapper::~NBHeightMapper() {
 
 const NBHeightMapper&
 NBHeightMapper::get() {
-    return Singleton;
+    return myInstance;
 }
 
 
@@ -150,10 +149,10 @@ NBHeightMapper::loadIfSet(OptionsCont& oc) {
         std::vector<std::string> files = oc.getStringVector("heightmap.geotiff");
         for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
             PROGRESS_BEGIN_MESSAGE("Parsing from GeoTIFF '" + *file + "'");
-            int numFeatures = Singleton.loadTiff(*file);
+            int numFeatures = myInstance.loadTiff(*file);
             MsgHandler::getMessageInstance()->endProcessMsg(
                 " done (parsed " + toString(numFeatures) +
-                " features, Boundary: " + toString(Singleton.getBoundary()) + ").");
+                " features, Boundary: " + toString(myInstance.getBoundary()) + ").");
         }
     }
     if (oc.isSet("heightmap.shapefiles")) {
@@ -161,10 +160,10 @@ NBHeightMapper::loadIfSet(OptionsCont& oc) {
         std::vector<std::string> files = oc.getStringVector("heightmap.shapefiles");
         for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
             PROGRESS_BEGIN_MESSAGE("Parsing from shape-file '" + *file + "'");
-            int numFeatures = Singleton.loadShapeFile(*file);
+            int numFeatures = myInstance.loadShapeFile(*file);
             MsgHandler::getMessageInstance()->endProcessMsg(
                 " done (parsed " + toString(numFeatures) +
-                " features, Boundary: " + toString(Singleton.getBoundary()) + ").");
+                " features, Boundary: " + toString(myInstance.getBoundary()) + ").");
         }
     }
 }
@@ -178,9 +177,9 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     OGRDataSource* ds = OGRSFDriverRegistrar::Open(file.c_str(), FALSE);
 #else
     GDALAllRegister();
-    GDALDataset* ds = (GDALDataset*)GDALOpenEx(file.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
+    GDALDataset* ds = (GDALDataset*)GDALOpenEx(file.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, nullptr, nullptr, nullptr);
 #endif
-    if (ds == NULL) {
+    if (ds == nullptr) {
         throw ProcessError("Could not open shape file '" + file + "'.");
     }
 
@@ -194,14 +193,14 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     OGRSpatialReference sr_dest;
     sr_dest.SetWellKnownGeogCS("WGS84");
     OGRCoordinateTransformation* toWGS84 = OGRCreateCoordinateTransformation(sr_src, &sr_dest);
-    if (toWGS84 == 0) {
+    if (toWGS84 == nullptr) {
         WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
     }
 
     int numFeatures = 0;
     OGRFeature* feature;
     layer->ResetReading();
-    while ((feature = layer->GetNextFeature()) != NULL) {
+    while ((feature = layer->GetNextFeature()) != nullptr) {
         OGRGeometry* geom = feature->GetGeometryRef();
         assert(geom != 0);
 
