@@ -10,3 +10,5 @@ ticket133_beyond_time
 # Test for #134 dfrouter breaks on empty line
 ticket134_empty_lines
 
+# Test for #6931 dfrouter breaks on inpput files with byte order marker
+ticket6931BOM
