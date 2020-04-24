@@ -70,6 +70,11 @@ jobs:
         python -c "import sys; print('[bdist_wheel]\npython-tag=cp%s%s' % sys.version_info[0:2], file=open('tools/build/setup.cfg', 'w'))"
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
+    - name: Building Traas
+      run: |
+        cd sumo/build_msvc
+        cmake --build . --config Release --target traas
+
     - name: Basic Test
       run: |
         cd sumo/build_msvc
