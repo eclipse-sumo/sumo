@@ -73,7 +73,7 @@ jobs:
     - name: Basic Test
       run: |
         cd sumo/build_msvc
-        ctest -V
+        ctest --config Release --verbose
 
     - name: Uploading artifacts (SUMO binaries)
       if: matrix.python-version == 3.8
