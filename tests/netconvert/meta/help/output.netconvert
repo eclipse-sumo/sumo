@@ -528,6 +528,7 @@ Formats Options:
   --shapefile.use-defaults-on-failure  Uses edge type defaults on problems
   --shapefile.all-bidirectional        Insert edges in both directions
   --shapefile.guess-projection         Guess the proper projection
+  --shapefile.traditional-axis-mapping  Use traditional axis order (lon, lat)
   --vissim.join-distance FLOAT         Structure join offset
   --vissim.default-speed FLOAT         Use FLOAT as default speed
   --vissim.speed-norm FLOAT            Factor for edge velocity

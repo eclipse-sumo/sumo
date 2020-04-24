@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version v1_4_0+1029-d1b8be6105
+Eclipse SUMO polyconvert Version v1_5_0+1268-a616dd1043
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -35,6 +35,7 @@ Input Options:
                                       with gaps below FLOAT
   --shapefile-prefixes FILE         Reads shapes from shapefiles FILE+
   --shapefile.guess-projection      Guesses the shapefile's projection
+  --shapefile.traditional-axis-mapping  Use traditional axis order (lon, lat)
   --shapefile.id-column STR         Defines in which column the id can be found
   --shapefile.type-columns STR[]    Defines which columns form the type id
                                       (comma separated list)

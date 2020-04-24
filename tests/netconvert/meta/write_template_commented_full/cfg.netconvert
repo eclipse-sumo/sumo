@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 18 15:29:19 2020 by Eclipse SUMO netconvert Version v1_5_0+0822-2a1a910d54
+<!-- generated on Fri Apr 24 08:31:09 2020 by Eclipse SUMO netconvert Version v1_5_0+1280-e55420fefb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -791,6 +791,9 @@
 
         <!-- Guess the proper projection -->
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL"/>
+
+        <!-- Use traditional axis order (lon, lat) -->
+        <shapefile.traditional-axis-mapping value="false" type="BOOL"/>
 
         <!-- Structure join offset -->
         <vissim.join-distance value="5" synonymes="vissim.offset" type="FLOAT"/>

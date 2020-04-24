@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Mar 18 15:29:19 2020 by Eclipse SUMO netconvert Version v1_5_0+0822-2a1a910d54
+<!-- generated on Fri Apr 24 08:31:09 2020 by Eclipse SUMO netconvert Version v1_5_0+1280-e55420fefb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -296,6 +296,7 @@
         <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" type="BOOL" help="Uses edge type defaults on problems"/>
         <shapefile.all-bidirectional value="false" synonymes="arcview.all-bidi shapefile.all-bidi" type="BOOL" help="Insert edges in both directions"/>
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guess the proper projection"/>
+        <shapefile.traditional-axis-mapping value="false" type="BOOL" help="Use traditional axis order (lon, lat)"/>
         <vissim.join-distance value="5" synonymes="vissim.offset" type="FLOAT" help="Structure join offset"/>
         <vissim.default-speed value="50" type="FLOAT" help="Use FLOAT as default speed"/>
         <vissim.speed-norm value="1" type="FLOAT" help="Factor for edge velocity"/>
