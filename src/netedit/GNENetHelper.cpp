@@ -669,9 +669,7 @@ void
 GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
     // Check if shape element exists before insertion
     if (!shapeExist(shape)) {
-        std::cout << "insert shape...";
         myShapes.at(shape->getTagProperty().getTag()).insert(std::make_pair(shape->getID(), shape));
-        std::cout << "finished" << std::endl;
         // add element in grid
         myNet->addGLObjectIntoGrid(shape);
         // check if shape is selected
