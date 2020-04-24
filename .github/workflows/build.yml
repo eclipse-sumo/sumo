@@ -65,6 +65,7 @@ jobs:
         cd build_msvc
         cmake .. -G"Visual Studio 16 2019" -A x64
         cmake --build . --config Release
+        cmake --build . --config Release --target examples
         cd ..
         python -c "import sys; print('[bdist_wheel]\npython-tag=cp%s%s' % sys.version_info[0:2], file=open('tools/build/setup.cfg', 'w'))"
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
