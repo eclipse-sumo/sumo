@@ -246,7 +246,7 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("shapefile.guess-projection", "Formats", "Guess the proper projection");
 
     oc.doRegister("shapefile.traditional-axis-mapping", new Option_Bool(false));
-    oc.addDescription("shapefile.traditional-axis-mapping", "Input", "Use traditional axis order (lon, lat)");
+    oc.addDescription("shapefile.traditional-axis-mapping", "Formats", "Use traditional axis order (lon, lat)");
 
 
     // register vissim options
