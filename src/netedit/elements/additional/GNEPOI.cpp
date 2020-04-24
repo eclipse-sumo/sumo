@@ -86,6 +86,12 @@ GNEPOI::generateChildID(SumoXMLTag childTag) {
 }
 
 
+void 
+GNEPOI::setParameter(const std::string& key, const std::string& value) {
+    Parameterised::setParameter(key, value);
+}
+
+
 void
 GNEPOI::startPOIGeometryMoving() {
     myPositionBeforeMoving = *this;

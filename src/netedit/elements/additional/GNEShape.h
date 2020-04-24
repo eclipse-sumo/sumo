@@ -78,6 +78,12 @@ public:
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
 
+    /**@brief Sets a parameter
+     * @param[in] key The parameter's name
+     * @param[in] value The parameter's value
+     */
+    virtual void setParameter(const std::string& key, const std::string& value) = 0;
+
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
     */

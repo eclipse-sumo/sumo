@@ -90,6 +90,12 @@ GNEPoly::generateChildID(SumoXMLTag childTag) {
 
 
 void
+GNEPoly::setParameter(const std::string& key, const std::string& value) {
+    Parameterised::setParameter(key, value);
+}
+
+
+void
 GNEPoly::startPolyShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();

@@ -77,6 +77,12 @@ public:
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
+    /**@brief Sets a parameter
+     * @param[in] key The parameter's name
+     * @param[in] value The parameter's value
+     */
+    void setParameter(const std::string& key, const std::string& value);
+
     /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)

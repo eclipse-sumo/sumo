@@ -29,6 +29,7 @@
 #include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEAdditionalHandler.h"
+#include "GNEShape.h"
 #include "GNEBusStop.h"
 #include "GNEAccess.h"
 #include "GNECalibrator.h"
@@ -64,17 +65,20 @@
 GNEAdditionalHandler::GNEAdditionalHandler(const std::string& file, GNENet *net, GNEAdditional* additionalParent) :
     ShapeHandler(file, *net->getAttributeCarriers()),
     myNet(net) {
+    myLastInsertedElement = new LastInsertedElement();
     // check if we're loading values of another additionals (example: Rerouter values)
     if (additionalParent) {
-        myHierarchyInsertedAdditionals.insertElement(additionalParent->getTagProperty().getTag());
-        myHierarchyInsertedAdditionals.commitElementInsertion(additionalParent);
+        myLastInsertedElement->insertElement(additionalParent->getTagProperty().getTag());
+        myLastInsertedElement->commitAdditionalInsertion(additionalParent);
     }
     // define default values for shapes
     setDefaults("", RGBColor::RED, Shape::DEFAULT_LAYER_POI, true);
 }
 
 
-GNEAdditionalHandler::~GNEAdditionalHandler() {}
+GNEAdditionalHandler::~GNEAdditionalHandler() {
+    delete myLastInsertedElement;
+}
 
 
 void
@@ -84,16 +88,16 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
     // check if we're parsing a parameter
     if (tag == SUMO_TAG_PARAM) {
         // push element int stack
-        myHierarchyInsertedAdditionals.insertElement(tag);
+        myLastInsertedElement->insertElement(tag);
         // parse parameter
         parseParameter(attrs);
     } else if (tag != SUMO_TAG_NOTHING) {
         // push element int stack
         if (tag == SUMO_TAG_TRAIN_STOP) {
-            // ensure that access elements can find their parent in myHierarchyInsertedAdditionals
+            // ensure that access elements can find their parent in myLastInsertedElement
             tag = SUMO_TAG_BUS_STOP;
         }
-        myHierarchyInsertedAdditionals.insertElement(tag);
+        myLastInsertedElement->insertElement(tag);
         // Call parse and build depending of tag
         switch (tag) {
             case SUMO_TAG_POLY:
@@ -102,7 +106,7 @@ GNEAdditionalHandler::myStartElement(int element, const SUMOSAXAttributes& attrs
                 return parseAndBuildPOI(attrs);
             default:
                 // build additional
-                buildAdditional(myNet, true, tag, attrs, &myHierarchyInsertedAdditionals);
+                buildAdditional(myNet, true, tag, attrs, myLastInsertedElement);
         }
     }
 }
@@ -114,7 +118,7 @@ GNEAdditionalHandler::myEndElement(int element) {
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     switch (tag) {
         case SUMO_TAG_TAZ: {
-            GNETAZ* TAZ = dynamic_cast<GNETAZ*>(myHierarchyInsertedAdditionals.getLastInsertedAdditional());
+            GNETAZ* TAZ = dynamic_cast<GNETAZ*>(myLastInsertedElement->getLastInsertedAdditional());
             if (TAZ != nullptr) {
                 if (TAZ->getTAZShape().size() == 0) {
                     Boundary b;
@@ -138,7 +142,7 @@ GNEAdditionalHandler::myEndElement(int element) {
             break;
     }
     // pop last inserted element
-    myHierarchyInsertedAdditionals.popElement();
+    myLastInsertedElement->popElement();
     // execute myEndElement of ShapeHandler (needed to update myLastParameterised)
     ShapeHandler::myEndElement(element);
 }
@@ -165,7 +169,7 @@ GNEAdditionalHandler::getLanePos(const std::string& poiID, const std::string& la
 
 
 bool
-GNEAdditionalHandler::buildAdditional(GNENet *net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::buildAdditional(GNENet *net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     // Call parse and build depending of tag
     switch (tag) {
         case SUMO_TAG_BUS_STOP:
@@ -1063,7 +1067,7 @@ GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter,
 
 
 bool
-GNEAdditionalHandler::parseAndBuildVaporizer(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildVaporizer(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Vaporizer
     const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VAPORIZER, SUMO_ATTR_ID, abort);
@@ -1088,7 +1092,7 @@ GNEAdditionalHandler::parseAndBuildVaporizer(GNENet *net, bool allowUndoRedo, co
             GNEAdditional* additionalCreated = buildVaporizer(net, allowUndoRedo, edge, begin, end, name, centerAfterCreation);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1098,7 +1102,7 @@ GNEAdditionalHandler::parseAndBuildVaporizer(GNENet *net, bool allowUndoRedo, co
 
 
 bool
-GNEAdditionalHandler::parseAndBuildTAZ(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildTAZ(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Vaporizer
     const std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZ, SUMO_ATTR_ID, abort);
@@ -1136,7 +1140,7 @@ GNEAdditionalHandler::parseAndBuildTAZ(GNENet *net, bool allowUndoRedo, const SU
             GNEAdditional* additionalCreated = buildTAZ(net, allowUndoRedo, id, shape, color, edges, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1146,7 +1150,7 @@ GNEAdditionalHandler::parseAndBuildTAZ(GNENet *net, bool allowUndoRedo, const SU
 
 
 bool
-GNEAdditionalHandler::parseAndBuildTAZSource(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildTAZSource(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Vaporizer
     const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZSOURCE, SUMO_ATTR_ID, abort);
@@ -1158,7 +1162,7 @@ GNEAdditionalHandler::parseAndBuildTAZSource(GNENet *net, bool allowUndoRedo, co
         GNEAdditional* TAZ = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            TAZ = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_TAZ);
+            TAZ = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_TAZ);
         } else {
             bool ok = true;
             TAZ = net->retrieveAdditional(SUMO_TAG_TAZ, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1173,7 +1177,7 @@ GNEAdditionalHandler::parseAndBuildTAZSource(GNENet *net, bool allowUndoRedo, co
             GNEAdditional* additionalCreated = buildTAZSource(net, allowUndoRedo, TAZ, edge, departWeight);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1183,7 +1187,7 @@ GNEAdditionalHandler::parseAndBuildTAZSource(GNENet *net, bool allowUndoRedo, co
 
 
 bool
-GNEAdditionalHandler::parseAndBuildTAZSink(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildTAZSink(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Vaporizer
     const std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZSINK, SUMO_ATTR_ID, abort);
@@ -1195,7 +1199,7 @@ GNEAdditionalHandler::parseAndBuildTAZSink(GNENet *net, bool allowUndoRedo, cons
         GNEAdditional* TAZ = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            TAZ = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_TAZ);
+            TAZ = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_TAZ);
         } else {
             bool ok = true;
             TAZ = net->retrieveAdditional(SUMO_TAG_TAZ, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1210,7 +1214,7 @@ GNEAdditionalHandler::parseAndBuildTAZSink(GNENet *net, bool allowUndoRedo, cons
             GNEAdditional* additionalCreated = buildTAZSink(net, allowUndoRedo, TAZ, edge, arrivalWeight);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1220,7 +1224,7 @@ GNEAdditionalHandler::parseAndBuildTAZSink(GNENet *net, bool allowUndoRedo, cons
 
 
 bool
-GNEAdditionalHandler::parseAndBuildRouteProbe(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildRouteProbe(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of RouteProbe
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTEPROBE, SUMO_ATTR_ID, abort);
@@ -1258,7 +1262,7 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(GNENet *net, bool allowUndoRedo, c
             GNEAdditional* additionalCreated = buildRouteProbe(net, allowUndoRedo, id, edge, freq, name, file, begin, centerAfterCreation);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1268,7 +1272,7 @@ GNEAdditionalHandler::parseAndBuildRouteProbe(GNENet *net, bool allowUndoRedo, c
 
 
 bool
-GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of calibrator flows
     std::string vehicleTypeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_FLOW_CALIBRATOR, SUMO_ATTR_TYPE, abort);
@@ -1298,7 +1302,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNENet *net, bool allowUndoRed
         GNEAdditional* calibrator = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            calibrator = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_CALIBRATOR);
+            calibrator = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_CALIBRATOR);
         } else {
             bool ok = true;
             calibrator = net->retrieveAdditional(SUMO_TAG_CALIBRATOR, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1319,7 +1323,7 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNENet *net, bool allowUndoRed
                                                line, personNumber, containerNumber, reroute, departPosLat, arrivalPosLat, begin, end);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1328,58 +1332,8 @@ GNEAdditionalHandler::parseAndBuildCalibratorFlow(GNENet *net, bool allowUndoRed
 }
 
 
-void
-GNEAdditionalHandler::parseAndBuildPoly(const SUMOSAXAttributes& attrs) {
-    bool abort = false;
-    // parse attributes of polygons
-    std::string polygonID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_POLY, SUMO_ATTR_ID, abort);
-    PositionVector shape = GNEAttributeCarrier::parseAttributeFromXML<PositionVector>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_SHAPE, abort);
-    double layer = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_LAYER, abort);
-    bool fill = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_POLY, SUMO_ATTR_FILL, abort);
-    double lineWidth = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_LINEWIDTH, abort);
-    std::string type = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_TYPE, abort);
-    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_COLOR, abort);
-    double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_ANGLE, abort);
-    std::string imgFile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_IMGFILE, abort);
-    bool relativePath = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_RELATIVEPATH, abort);
-    // check if ID is valid
-    if (SUMOXMLDefinitions::isValidTypeID(polygonID) == false) {
-        WRITE_WARNING("Invalid characters for polygon ID");
-        abort = true;
-    }
-    // Continue if all parameters were sucesfully loaded
-    if (!abort) {
-        // check if shape must be loaded as geo attribute
-        bool geo = false;
-        const GeoConvHelper* gch = myGeoConvHelper != nullptr ? myGeoConvHelper : &GeoConvHelper::getFinal();
-        if (attrs.getOpt<bool>(SUMO_ATTR_GEO, polygonID.c_str(), abort, false)) {
-            geo = true;
-            bool success = true;
-            for (int i = 0; i < (int)shape.size(); i++) {
-                success &= gch->x2cartesian_const(shape[i]);
-            }
-            if (!success) {
-                WRITE_WARNING("Unable to project coordinates for polygon '" + polygonID + "'.");
-                return;
-            }
-        }
-        // check if img file is absolute
-        if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
-            imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
-        }
-        // create polygon, or show an error if polygon already exists
-        if (!myNet->getAttributeCarriers()->addPolygon(polygonID, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, false)) {
-            WRITE_WARNING("Polygon with ID '" + polygonID + "' already exists.");
-        } else {
-            // update myLastParameterised with the last inserted Polygon
-            myLastParameterised = myNet->getAttributeCarriers()->getPolygons().get(polygonID);
-        }
-    }
-}
-
-
 bool
-GNEAdditionalHandler::parseAndBuildVariableSpeedSign(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildVariableSpeedSign(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of VSS
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_VSS, SUMO_ATTR_ID, abort);
@@ -1409,7 +1363,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(GNENet *net, bool allowUndo
             GNEAdditional* additionalCreated = buildVariableSpeedSign(net, allowUndoRedo, id, pos, lanes, name, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1419,7 +1373,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSign(GNENet *net, bool allowUndo
 
 
 bool
-GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // Load step values
     double time = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, "", SUMO_TAG_STEP, SUMO_ATTR_TIME, abort);
@@ -1430,7 +1384,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(GNENet *net, bool allow
         GNEAdditional* variableSpeedSign = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            variableSpeedSign = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_VSS);
+            variableSpeedSign = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_VSS);
         } else {
             bool ok = true;
             variableSpeedSign = net->retrieveAdditional(SUMO_TAG_VSS, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1441,7 +1395,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(GNENet *net, bool allow
             GNEAdditional* additionalCreated = buildVariableSpeedSignStep(net, allowUndoRedo, variableSpeedSign, time, speed);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1451,7 +1405,7 @@ GNEAdditionalHandler::parseAndBuildVariableSpeedSignStep(GNENet *net, bool allow
 
 
 bool
-GNEAdditionalHandler::parseAndBuildRerouter(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildRerouter(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Rerouter
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_REROUTER, SUMO_ATTR_ID, abort);
@@ -1486,7 +1440,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(GNENet *net, bool allowUndoRedo, con
                                                file, off, timeThreshold, vTypes, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1496,7 +1450,7 @@ GNEAdditionalHandler::parseAndBuildRerouter(GNENet *net, bool allowUndoRedo, con
 
 
 bool
-GNEAdditionalHandler::parseAndBuildRerouterInterval(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildRerouterInterval(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Rerouter
     SUMOTime begin = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, "", SUMO_TAG_INTERVAL, SUMO_ATTR_BEGIN, abort);
@@ -1507,7 +1461,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(GNENet *net, bool allowUndoR
         GNEAdditional* rerouter;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouter = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_REROUTER);
+            rerouter = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_REROUTER);
         } else {
             bool ok = true;
             rerouter = net->retrieveAdditional(SUMO_TAG_REROUTER, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1517,7 +1471,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(GNENet *net, bool allowUndoR
             GNEAdditional* lastInsertedRerouterInterval = nullptr;
             // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
             if (insertedAdditionals) {
-                lastInsertedRerouterInterval = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_INTERVAL);
+                lastInsertedRerouterInterval = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_INTERVAL);
             } else {
                 bool ok = true;
                 lastInsertedRerouterInterval = net->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1534,7 +1488,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(GNENet *net, bool allowUndoR
             GNEAdditional* additionalCreated = buildRerouterInterval(net, allowUndoRedo, rerouter, begin, end);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1544,7 +1498,7 @@ GNEAdditionalHandler::parseAndBuildRerouterInterval(GNENet *net, bool allowUndoR
 
 
 bool
-GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Rerouter
     std::string laneID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CLOSING_LANE_REROUTE, SUMO_ATTR_ID, abort);
@@ -1557,7 +1511,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(GNENet *net, bool 
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = net->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1570,7 +1524,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(GNENet *net, bool 
             GNEAdditional* additionalCreated = buildClosingLaneReroute(net, allowUndoRedo, rerouterInterval, lane, parseVehicleClasses(allow, disallow));
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1580,7 +1534,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingLaneReroute(GNENet *net, bool 
 
 
 bool
-GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Rerouter
     std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CLOSING_REROUTE, SUMO_ATTR_ID, abort);
@@ -1593,7 +1547,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(GNENet *net, bool allo
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = net->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1606,7 +1560,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(GNENet *net, bool allo
             GNEAdditional* additionalCreated = buildClosingReroute(net, allowUndoRedo, rerouterInterval, edge, parseVehicleClasses(allow, disallow));
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1616,7 +1570,7 @@ GNEAdditionalHandler::parseAndBuildRerouterClosingReroute(GNENet *net, bool allo
 
 
 bool
-GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Rerouter
     std::string edgeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DEST_PROB_REROUTE, SUMO_ATTR_ID, abort);
@@ -1628,7 +1582,7 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(GNENet *net, bool all
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = net->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1641,7 +1595,7 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(GNENet *net, bool all
             GNEAdditional* additionalCreated = builDestProbReroute(net, allowUndoRedo, rerouterInterval, edge, probability);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1651,7 +1605,7 @@ GNEAdditionalHandler::parseAndBuildRerouterDestProbReroute(GNENet *net, bool all
 
 
 bool
-GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Rerouter
     std::string parkingAreaID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_PARKING_ZONE_REROUTE, SUMO_ATTR_ID, abort);
@@ -1664,7 +1618,7 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(GNENet *net, bool 
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = net->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1677,7 +1631,7 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(GNENet *net, bool 
             GNEAdditional* additionalCreated = builParkingAreaReroute(net, allowUndoRedo, rerouterInterval, parkingArea, probability, visible);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1687,7 +1641,7 @@ GNEAdditionalHandler::parseAndBuildRerouterParkingAreaReroute(GNENet *net, bool 
 
 
 bool
-GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Rerouter
     std::string routeID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ROUTE_PROB_REROUTE, SUMO_ATTR_ID, abort);
@@ -1698,7 +1652,7 @@ GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(GNENet *net, bool al
         GNEAdditional* rerouterInterval = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            rerouterInterval = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_INTERVAL);
+            rerouterInterval = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_INTERVAL);
         } else {
             bool ok = true;
             rerouterInterval = net->retrieveAdditional(SUMO_TAG_INTERVAL, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1709,7 +1663,7 @@ GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(GNENet *net, bool al
             GNEAdditional* additionalCreated = buildRouteProbReroute(net, allowUndoRedo, rerouterInterval, routeID, probability);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1719,7 +1673,7 @@ GNEAdditionalHandler::parseAndBuildRerouterRouteProbReroute(GNENet *net, bool al
 
 
 bool
-GNEAdditionalHandler::parseAndBuildBusStop(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildBusStop(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of bus stop
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_BUS_STOP, SUMO_ATTR_ID, abort);
@@ -1780,7 +1734,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNENet *net, bool allowUndoRedo, cons
                                                name, lines, personCapacity, parkingLength, friendlyPosition, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1790,7 +1744,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNENet *net, bool allowUndoRedo, cons
 
 
 bool
-GNEAdditionalHandler::parseAndBuildContainerStop(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildContainerStop(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of container stop
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CONTAINER_STOP, SUMO_ATTR_ID, abort);
@@ -1849,7 +1803,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(GNENet *net, bool allowUndoRedo
                                                name, lines, friendlyPosition, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1859,7 +1813,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(GNENet *net, bool allowUndoRedo
 
 
 bool
-GNEAdditionalHandler::parseAndBuildAccess(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildAccess(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Entry
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_ACCESS, SUMO_ATTR_LANE, abort);
@@ -1879,7 +1833,7 @@ GNEAdditionalHandler::parseAndBuildAccess(GNENet *net, bool allowUndoRedo, const
         GNEAdditional* busStop = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            busStop = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_BUS_STOP);
+            busStop = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_BUS_STOP);
         } else {
             bool ok = true;
             busStop = net->retrieveAdditional(SUMO_TAG_BUS_STOP, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -1898,7 +1852,7 @@ GNEAdditionalHandler::parseAndBuildAccess(GNENet *net, bool allowUndoRedo, const
             GNEAdditional* additionalCreated = buildAccess(net, allowUndoRedo, busStop, lane, posDouble, length, friendlyPos, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1908,7 +1862,7 @@ GNEAdditionalHandler::parseAndBuildAccess(GNENet *net, bool allowUndoRedo, const
 
 
 bool
-GNEAdditionalHandler::parseAndBuildChargingStation(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildChargingStation(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of charging station
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_CHARGING_STATION, SUMO_ATTR_ID, abort);
@@ -1970,7 +1924,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNENet *net, bool allowUndoRe
                                                name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -1980,7 +1934,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNENet *net, bool allowUndoRe
 
 
 bool
-GNEAdditionalHandler::parseAndBuildParkingArea(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildParkingArea(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of charging station
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_PARKING_AREA, SUMO_ATTR_ID, abort);
@@ -2043,7 +1997,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(GNENet *net, bool allowUndoRedo, 
                                                name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -2053,7 +2007,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(GNENet *net, bool allowUndoRedo, 
 
 
 bool
-GNEAdditionalHandler::parseAndBuildParkingSpace(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildParkingSpace(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Parking Spaces
     Position pos = GNEAttributeCarrier::parseAttributeFromXML<Position>(attrs, "", SUMO_TAG_PARKING_SPACE, SUMO_ATTR_POSITION, abort);
@@ -2071,7 +2025,7 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(GNENet *net, bool allowUndoRedo,
         GNEAdditional* parkingAreaParent = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            parkingAreaParent = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_PARKING_AREA);
+            parkingAreaParent = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_PARKING_AREA);
         } else {
             bool ok = true;
             parkingAreaParent = net->retrieveAdditional(SUMO_TAG_PARKING_AREA, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -2082,7 +2036,7 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(GNENet *net, bool allowUndoRedo,
             GNEAdditional* additionalCreated = buildParkingSpace(net, allowUndoRedo, parkingAreaParent, pos, width, length, angle, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -2092,7 +2046,7 @@ GNEAdditionalHandler::parseAndBuildParkingSpace(GNENet *net, bool allowUndoRedo,
 
 
 bool
-GNEAdditionalHandler::parseAndBuildCalibrator(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildCalibrator(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // due there is two differents calibrators, has to be parsed in a different way
     std::string edgeID, laneId, id;
@@ -2121,7 +2075,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNENet *net, bool allowUndoRedo, c
                 GNEAdditional* additionalCreated = buildCalibrator(net, allowUndoRedo, id, edge, position, name, outfile, freq, routeProbe, centerAfterCreation);
                 // check if insertion has to be commited
                 if (insertedAdditionals) {
-                    insertedAdditionals->commitElementInsertion(additionalCreated);
+                    insertedAdditionals->commitAdditionalInsertion(additionalCreated);
                 }
                 return true;
             }
@@ -2150,7 +2104,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNENet *net, bool allowUndoRedo, c
                 GNEAdditional* additionalCreated = buildCalibrator(net, allowUndoRedo, id, lane, position, name, outfile, freq, routeProbe, centerAfterCreation);
                 // check if insertion has to be commited
                 if (insertedAdditionals) {
-                    insertedAdditionals->commitElementInsertion(additionalCreated);
+                    insertedAdditionals->commitAdditionalInsertion(additionalCreated);
                 }
                 return true;
             }
@@ -2163,7 +2117,7 @@ GNEAdditionalHandler::parseAndBuildCalibrator(GNENet *net, bool allowUndoRedo, c
 
 
 bool
-GNEAdditionalHandler::parseAndBuildDetectorE1(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildDetectorE1(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of E1
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_E1DETECTOR, SUMO_ATTR_ID, abort);
@@ -2196,7 +2150,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(GNENet *net, bool allowUndoRedo, c
             GNEAdditional* additionalCreated = buildDetectorE1(net, allowUndoRedo, id, lane, position, frequency, file, vehicleTypes, name, friendlyPos, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -2206,7 +2160,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1(GNENet *net, bool allowUndoRedo, c
 
 
 bool
-GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     // Tag E2 detectors can build either E2 single lanes or E2 multilanes, depending of attribute "lanes"
     SumoXMLTag E2Tag = attrs.hasAttribute(SUMO_ATTR_LANES) ? SUMO_TAG_E2DETECTOR_MULTILANE : SUMO_TAG_E2DETECTOR;
     bool abort = false;
@@ -2278,7 +2232,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet *net, bool allowUndoRedo, c
                                                    name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, blockMovement);
                 // check if insertion has to be commited
                 if (insertedAdditionals) {
-                    insertedAdditionals->commitElementInsertion(additionalCreated);
+                    insertedAdditionals->commitAdditionalInsertion(additionalCreated);
                 }
                 return true;
             } else {
@@ -2287,7 +2241,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet *net, bool allowUndoRedo, c
                                                    name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, blockMovement);
                 // check if insertion has to be commited
                 if (insertedAdditionals) {
-                    insertedAdditionals->commitElementInsertion(additionalCreated);
+                    insertedAdditionals->commitAdditionalInsertion(additionalCreated);
                 }
                 return true;
             }
@@ -2298,7 +2252,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet *net, bool allowUndoRedo, c
 
 
 bool
-GNEAdditionalHandler::parseAndBuildDetectorE3(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildDetectorE3(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of E3
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_E3DETECTOR, SUMO_ATTR_ID, abort);
@@ -2324,7 +2278,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(GNENet *net, bool allowUndoRedo, c
             GNEAdditional* additionalCreated = buildDetectorE3(net, allowUndoRedo, id, pos, frequency, file, vehicleTypes, name, haltingTimeThreshold, haltingSpeedThreshold, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -2334,7 +2288,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE3(GNENet *net, bool allowUndoRedo, c
 
 
 bool
-GNEAdditionalHandler::parseAndBuildDetectorEntry(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildDetectorEntry(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Entry
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DET_ENTRY, SUMO_ATTR_LANE, abort);
@@ -2352,7 +2306,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(GNENet *net, bool allowUndoRedo
         GNEAdditional* E3Parent = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            E3Parent = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_E3DETECTOR);
+            E3Parent = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_E3DETECTOR);
         } else {
             bool ok = true;
             E3Parent = net->retrieveAdditional(SUMO_TAG_E3DETECTOR, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -2367,7 +2321,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(GNENet *net, bool allowUndoRedo
             GNEAdditional* additionalCreated = buildDetectorEntry(net, allowUndoRedo, E3Parent, lane, position, friendlyPos, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -2377,7 +2331,7 @@ GNEAdditionalHandler::parseAndBuildDetectorEntry(GNENet *net, bool allowUndoRedo
 
 
 bool
-GNEAdditionalHandler::parseAndBuildDetectorExit(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildDetectorExit(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of Exit
     std::string laneId = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_DET_EXIT, SUMO_ATTR_LANE, abort);
@@ -2395,7 +2349,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(GNENet *net, bool allowUndoRedo,
         GNEAdditional* E3Parent = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            E3Parent = insertedAdditionals->retrieveParentAdditional(net, SUMO_TAG_E3DETECTOR);
+            E3Parent = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_E3DETECTOR);
         } else {
             bool ok = true;
             E3Parent = net->retrieveAdditional(SUMO_TAG_E3DETECTOR, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
@@ -2410,7 +2364,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(GNENet *net, bool allowUndoRedo,
             GNEAdditional* additionalCreated = buildDetectorExit(net, allowUndoRedo, E3Parent, lane, position, friendlyPos, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -2420,7 +2374,7 @@ GNEAdditionalHandler::parseAndBuildDetectorExit(GNENet *net, bool allowUndoRedo,
 
 
 bool
-GNEAdditionalHandler::parseAndBuildDetectorE1Instant(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals) {
+GNEAdditionalHandler::parseAndBuildDetectorE1Instant(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals) {
     bool abort = false;
     // parse attributes of E1Instant
     std::string id = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_INSTANT_INDUCTION_LOOP, SUMO_ATTR_ID, abort);
@@ -2452,7 +2406,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE1Instant(GNENet *net, bool allowUndo
             GNEAdditional* additionalCreated = buildDetectorE1Instant(net, allowUndoRedo, id, lane, position, file, vehicleTypes, name, friendlyPos, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitElementInsertion(additionalCreated);
+                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
             }
             return true;
         }
@@ -2465,8 +2419,59 @@ GNEAdditionalHandler::parseAndBuildDetectorE1Instant(GNENet *net, bool allowUndo
 // ===========================================================================
 
 void
+GNEAdditionalHandler::parseAndBuildPoly(const SUMOSAXAttributes& attrs) {
+    bool abort = false;
+    // parse attributes of polygons
+    std::string polygonID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_POLY, SUMO_ATTR_ID, abort);
+    PositionVector shape = GNEAttributeCarrier::parseAttributeFromXML<PositionVector>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_SHAPE, abort);
+    double layer = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_LAYER, abort);
+    bool fill = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, "", SUMO_TAG_POLY, SUMO_ATTR_FILL, abort);
+    double lineWidth = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_LINEWIDTH, abort);
+    std::string type = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_TYPE, abort);
+    RGBColor color = GNEAttributeCarrier::parseAttributeFromXML<RGBColor>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_COLOR, abort);
+    double angle = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_ANGLE, abort);
+    std::string imgFile = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_IMGFILE, abort);
+    bool relativePath = GNEAttributeCarrier::parseAttributeFromXML<bool>(attrs, polygonID, SUMO_TAG_POLY, SUMO_ATTR_RELATIVEPATH, abort);
+    // check if ID is valid
+    if (SUMOXMLDefinitions::isValidTypeID(polygonID) == false) {
+        WRITE_WARNING("Invalid characters for polygon ID");
+        abort = true;
+    }
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // check if shape must be loaded as geo attribute
+        bool geo = false;
+        const GeoConvHelper* gch = myGeoConvHelper != nullptr ? myGeoConvHelper : &GeoConvHelper::getFinal();
+        if (attrs.getOpt<bool>(SUMO_ATTR_GEO, polygonID.c_str(), abort, false)) {
+            geo = true;
+            bool success = true;
+            for (int i = 0; i < (int)shape.size(); i++) {
+                success &= gch->x2cartesian_const(shape[i]);
+            }
+            if (!success) {
+                WRITE_WARNING("Unable to project coordinates for polygon '" + polygonID + "'.");
+                return;
+            }
+        }
+        // check if img file is absolute
+        if (imgFile != "" && !FileHelpers::isAbsolute(imgFile)) {
+            imgFile = FileHelpers::getConfigurationRelative(getFileName(), imgFile);
+        }
+        // create polygon, or show an error if polygon already exists
+        if (!myNet->getAttributeCarriers()->addPolygon(polygonID, type, color, layer, angle, imgFile, relativePath, shape, geo, fill, lineWidth, false)) {
+            WRITE_WARNING("Polygon with ID '" + polygonID + "' already exists.");
+        } else {
+            // commit shape element insertion
+            myLastInsertedElement->commitShapeInsertion(myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).at(polygonID));
+        }
+    }
+}
+
+
+void
 GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
     bool abort = false;
+    const SumoXMLTag POITag = attrs.hasAttribute(SUMO_ATTR_LANE)? SUMO_TAG_POILANE : SUMO_TAG_POI;
     // parse attributes of POIs
     std::string POIID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_POI, SUMO_ATTR_ID, abort);
     // POIs can be defined using a X,Y position,...
@@ -2533,8 +2538,8 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
         if (!myNet->getAttributeCarriers()->addPOI(POIID, type, color, pos, useGeo, laneID, lanePos, lanePosLat, layer, angle, imgFile, relativePath, width, height, false)) {
             WRITE_WARNING("POI with ID '" + POIID + "' already exists.");
         } else {
-            // update myLastParameterised with the last inserted POI
-            myLastParameterised = myNet->getAttributeCarriers()->getPOIs().get(POIID);
+            // commit shape element insertion
+            myLastInsertedElement->commitShapeInsertion(myNet->getAttributeCarriers()->getShapes().at(POITag).at(POIID));
         }
     }
 }
@@ -2572,9 +2577,9 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
             WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into shape.");
             getLastParameterised()->setParameter(key, val);
         }
-    } else if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()) {
+    } else if (myLastInsertedElement->getLastInsertedAdditional()) {
         // first check if given additional supports parameters
-        if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagProperty().hasParameters()) {
+        if (myLastInsertedElement->getLastInsertedAdditional()->getTagProperty().hasParameters()) {
             bool ok = true;
             std::string key;
             if (attrs.hasAttribute(SUMO_ATTR_KEY)) {
@@ -2599,17 +2604,56 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
                 ok = false;
             }
             // check double values
-            if (myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagProperty().hasDoubleParameters() && !GNEAttributeCarrier::canParse<double>(val)) {
+            if (myLastInsertedElement->getLastInsertedAdditional()->getTagProperty().hasDoubleParameters() && !GNEAttributeCarrier::canParse<double>(val)) {
                 WRITE_WARNING("Error parsing value from additional float parameter. Value cannot be parsed to float");
                 ok = false;
             }
             // set parameter in last inserted additional
             if (ok) {
-                WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into additional " + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + ".");
-                myHierarchyInsertedAdditionals.getLastInsertedAdditional()->setParameter(key, val);
+                WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into additional " + myLastInsertedElement->getLastInsertedAdditional()->getTagStr() + ".");
+                myLastInsertedElement->getLastInsertedAdditional()->setParameter(key, val);
             }
         } else {
-            WRITE_WARNING("Additionals of type '" + myHierarchyInsertedAdditionals.getLastInsertedAdditional()->getTagStr() + "' doesn't support parameters");
+            WRITE_WARNING("Additionals of type '" + myLastInsertedElement->getLastInsertedAdditional()->getTagStr() + "' doesn't support parameters");
+        }
+    } else if (myLastInsertedElement->getLastInsertedShape()) {
+        // first check if given shape supports parameters
+        if (myLastInsertedElement->getLastInsertedShape()->getTagProperty().hasParameters()) {
+            bool ok = true;
+            std::string key;
+            if (attrs.hasAttribute(SUMO_ATTR_KEY)) {
+                // obtain key
+                key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
+                if (key.empty()) {
+                    WRITE_WARNING("Error parsing key from shape parameter. Key cannot be empty");
+                    ok = false;
+                }
+                if (!SUMOXMLDefinitions::isValidTypeID(key)) {
+                    WRITE_WARNING("Error parsing key from shape parameter. Key contains invalid characters");
+                    ok = false;
+                }
+            } else {
+                WRITE_WARNING("Error parsing key from shape parameter. Key doesn't exist");
+                ok = false;
+            }
+            // circumventing empty string test
+            const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+            if (!SUMOXMLDefinitions::isValidAttribute(val)) {
+                WRITE_WARNING("Error parsing value from shape parameter. Value contains invalid characters");
+                ok = false;
+            }
+            // check double values
+            if (myLastInsertedElement->getLastInsertedShape()->getTagProperty().hasDoubleParameters() && !GNEAttributeCarrier::canParse<double>(val)) {
+                WRITE_WARNING("Error parsing value from shape float parameter. Value cannot be parsed to float");
+                ok = false;
+            }
+            // set parameter in last inserted shape
+            if (ok) {
+                WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into shape " + myLastInsertedElement->getLastInsertedShape()->getTagStr() + ".");
+                myLastInsertedElement->getLastInsertedShape()->setParameter(key, val);
+            }
+        } else {
+            WRITE_WARNING("Shape of type '" + myLastInsertedElement->getLastInsertedAdditional()->getTagStr() + "' doesn't support parameters");
         }
     } else {
         WRITE_WARNING("Parameters has to be declared within the definition of an additional or a shape element");
@@ -2617,23 +2661,29 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
 }
 
 // ===========================================================================
-// GNEAdditionalHandler::HierarchyInsertedAdditionals method definitions
+// GNEAdditionalHandler::LastInsertedElement method definitions
 // ===========================================================================
 
 void
-GNEAdditionalHandler::HierarchyInsertedAdditionals::insertElement(SumoXMLTag tag) {
-    myInsertedElements.push_back(std::make_pair(tag, nullptr));
+GNEAdditionalHandler::LastInsertedElement::insertElement(SumoXMLTag tag) {
+    myInsertedElements.push_back(StackElement(tag));
 }
 
 
 void
-GNEAdditionalHandler::HierarchyInsertedAdditionals::commitElementInsertion(GNEAdditional* additional) {
-    myInsertedElements.back().second = additional;
+GNEAdditionalHandler::LastInsertedElement::commitAdditionalInsertion(GNEAdditional* additional) {
+    myInsertedElements.back().additional = additional;
 }
 
 
 void
-GNEAdditionalHandler::HierarchyInsertedAdditionals::popElement() {
+GNEAdditionalHandler::LastInsertedElement::commitShapeInsertion(GNEShape* shapeCreated) {
+    myInsertedElements.back().shape = shapeCreated;
+}
+
+
+void
+GNEAdditionalHandler::LastInsertedElement::popElement() {
     if (!myInsertedElements.empty()) {
         myInsertedElements.pop_back();
     }
@@ -2641,28 +2691,28 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::popElement() {
 
 
 GNEAdditional*
-GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveParentAdditional(GNENet *net, SumoXMLTag expectedTag) const {
+GNEAdditionalHandler::LastInsertedElement::getAdditionalParent(GNENet *net, SumoXMLTag expectedTag) const {
     if (myInsertedElements.size() < 2) {
         // currently we're finding parent additional in the additional XML root
-        WRITE_WARNING("A " + toString(myInsertedElements.back().first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+        WRITE_WARNING("A " + toString(myInsertedElements.back().tag) + " must be declared within the definition of a " + toString(expectedTag) + ".");
         return nullptr;
     } else {
         if (myInsertedElements.size() < 2) {
             // additional was hierarchically bad loaded, then return nullptr
             return nullptr;
-        } else if ((myInsertedElements.end() - 2)->second == nullptr) {
-            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->first) + " was not loaded sucesfully.");
+        } else if ((myInsertedElements.end() - 2)->additional == nullptr) {
+            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->tag) + " was not loaded sucesfully.");
             // parent additional wasn't sucesfully loaded, then return nullptr
             return nullptr;
         }
-        GNEAdditional* retrievedAdditional = net->retrieveAdditional((myInsertedElements.end() - 2)->first, (myInsertedElements.end() - 2)->second->getID(), false);
+        GNEAdditional* retrievedAdditional = net->retrieveAdditional((myInsertedElements.end() - 2)->tag, (myInsertedElements.end() - 2)->additional->getID(), false);
         if (retrievedAdditional == nullptr) {
             // additional doesn't exist
-            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->tag) + " must be declared within the definition of a " + toString(expectedTag) + ".");
             return nullptr;
         } else if (retrievedAdditional->getTagProperty().getTag() != expectedTag) {
             // invalid parent additional
-            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->first) + " cannot be declared within the definition of a " + retrievedAdditional->getTagStr() + ".");
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->tag) + " cannot be declared within the definition of a " + retrievedAdditional->getTagStr() + ".");
             return nullptr;
         } else {
             return retrievedAdditional;
@@ -2671,17 +2721,67 @@ GNEAdditionalHandler::HierarchyInsertedAdditionals::retrieveParentAdditional(GNE
 }
 
 
+
+GNEShape*
+GNEAdditionalHandler::LastInsertedElement::getShapeParent(GNENet* net, SumoXMLTag expectedTag) const {
+    if (myInsertedElements.size() < 2) {
+        // currently we're finding parent shape in the shape XML root
+        WRITE_WARNING("A " + toString(myInsertedElements.back().tag) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+        return nullptr;
+    } else {
+        if (myInsertedElements.size() < 2) {
+            // shape was hierarchically bad loaded, then return nullptr
+            return nullptr;
+        } else if ((myInsertedElements.end() - 2)->shape == nullptr) {
+            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->tag) + " was not loaded sucesfully.");
+            // parent shape wasn't sucesfully loaded, then return nullptr
+            return nullptr;
+        }
+        GNEShape* retrievedShape = net->retrieveShape((myInsertedElements.end() - 2)->tag, (myInsertedElements.end() - 2)->shape->getID(), false);
+        if (retrievedShape == nullptr) {
+            // shape doesn't exist
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->tag) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+            return nullptr;
+        } else if (retrievedShape->getTagProperty().getTag() != expectedTag) {
+            // invalid parent shape
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->tag) + " cannot be declared within the definition of a " + retrievedShape->getTagStr() + ".");
+            return nullptr;
+        } else {
+            return retrievedShape;
+        }
+    }
+}
+
 GNEAdditional*
-GNEAdditionalHandler::HierarchyInsertedAdditionals::getLastInsertedAdditional() const {
+GNEAdditionalHandler::LastInsertedElement::getLastInsertedAdditional() const {
     // ierate in reverse mode over myInsertedElements to obtain last inserted additional
-    for (std::vector<std::pair<SumoXMLTag, GNEAdditional*> >::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
+    for (std::vector<StackElement>::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
         // we need to avoid Tag Param because isn't an additional
-        if (i->first != SUMO_TAG_PARAM) {
-            return i->second;
+        if (i->tag != SUMO_TAG_PARAM) {
+            return i->additional;
         }
     }
     return nullptr;
 }
 
+
+GNEShape*
+GNEAdditionalHandler::LastInsertedElement::getLastInsertedShape() const {
+    // ierate in reverse mode over myInsertedElements to obtain last inserted shape
+    for (std::vector<StackElement>::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
+        // we need to avoid Tag Param because isn't a shape
+        if (i->tag != SUMO_TAG_PARAM) {
+            return i->shape;
+        }
+    }
+    return nullptr;
+}
+
+
+GNEAdditionalHandler::LastInsertedElement::StackElement::StackElement(SumoXMLTag _tag) :
+    tag(_tag),
+    additional(nullptr),
+    shape(nullptr) {
+}
 
 /****************************************************************************/

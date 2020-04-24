@@ -34,6 +34,7 @@ class GNENet;
 class GNEEdge;
 class GNELane;
 class GNEAdditional;
+class GNEShape;
 class GNEDemandElement;
 
 // ===========================================================================
@@ -46,26 +47,51 @@ class GNEAdditionalHandler : public ShapeHandler {
 public:
 
     /// @brief Stack used to save the last inserted element
-    struct HierarchyInsertedAdditionals {
+    class LastInsertedElement {
 
+    public:
         /// @brief insert new element (called only in function myStartElement)
         void insertElement(SumoXMLTag tag);
 
-        /// @brief commit element insertion (used to save last correct created element)
-        void commitElementInsertion(GNEAdditional* additionalCreated);
+        /// @brief commit additional element insertion (used to save last correct created element)
+        void commitAdditionalInsertion(GNEAdditional* additionalCreated);
+
+        /// @brief commit shape element insertion (used to save last correct created element)
+        void commitShapeInsertion(GNEShape* shapeCreated);
 
         /// @brief pop last inserted element (used only in function myEndElement)
         void popElement();
 
         /// @brief retrieve parent additional correspond to current status of myInsertedElements
-        GNEAdditional* retrieveParentAdditional(GNENet *net, SumoXMLTag expectedTag) const;
+        GNEAdditional* getAdditionalParent(GNENet* net, SumoXMLTag expectedTag) const;
 
-        /// @brief return last additional inserted
+        /// @brief retrieve parent shape correspond to current status of myInsertedElements
+        GNEShape* getShapeParent(GNENet* net, SumoXMLTag expectedTag) const;
+
+        /// @brief return last inserted additional
         GNEAdditional* getLastInsertedAdditional() const;
 
+        /// @brief return last inserted shape
+        GNEShape* getLastInsertedShape() const;
+
     private:
+        /// @brief stack element
+        struct StackElement {
+            /// @brief constructor
+            StackElement(SumoXMLTag _tag);
+
+            /// @brief tag
+            SumoXMLTag tag;
+
+            /// @brief additional
+            GNEAdditional* additional;
+
+            /// @brief shape
+            GNEShape* shape;
+        };
+
         /// @brief vector used as stack
-        std::vector<std::pair<SumoXMLTag, GNEAdditional*> > myInsertedElements;
+        std::vector<StackElement> myInsertedElements;
     };
 
     /// @brief Constructor
@@ -108,10 +134,10 @@ public:
      * @param[in] allowUndoRedo enable or disable remove created additional with ctrl + Z / ctrl + Y
      * @param[in] tag tag of the additiona lto create
      * @param[in] attrs SUMOSAXAttributes with attributes
-     * @param[in] HierarchyInsertedAdditionals pointer to HierarchyInsertedAdditionals (can be null)
+     * @param[in] LastInsertedElement pointer to LastInsertedElement (can be null)
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildAdditional(GNENet *net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool buildAdditional(GNENet *net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Builds a bus stop
      * @param[in] net net in which element will be inserted
@@ -577,144 +603,144 @@ protected:
     /**@brief Builds a Vaporizer
      * @param[in] attrs SAX-attributes which define the vaporizer
      */
-    static bool parseAndBuildVaporizer(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildVaporizer(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Builds a TAZ
      * @param[in] attrs SAX-attributes which define the vaporizer
      */
-    static bool parseAndBuildTAZ(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildTAZ(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Builds a TAZ Source
      * @param[in] attrs SAX-attributes which define the vaporizer
      */
-    static bool parseAndBuildTAZSource(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildTAZSource(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Builds a TAZ Sink
      * @param[in] attrs SAX-attributes which define the vaporizer
      */
-    static bool parseAndBuildTAZSink(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildTAZSink(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Variable Speed Signal (GNENet *net, bool allowUndoRedo, lane speed additional)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildVariableSpeedSign(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildVariableSpeedSign(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Variable Speed Signal Step
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildVariableSpeedSignStep(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildVariableSpeedSignStep(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a rerouter
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildRerouter(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildRerouter(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Rerouter Interval
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterInterval(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildRerouterInterval(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Closing Lane reroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterClosingLaneReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildRerouterClosingLaneReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Closing Reroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterClosingReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildRerouterClosingReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Destiny Prob Reroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterDestProbReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildRerouterDestProbReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a parkingAreaReroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterParkingAreaReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildRerouterParkingAreaReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Route Prob Reroute
     * @param[in] attrs SAX-attributes which define the additional
     */
-    static bool parseAndBuildRerouterRouteProbReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildRerouterRouteProbReroute(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a bus stop
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildBusStop(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildBusStop(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses values and adds access to the current bus stop
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildAccess(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildAccess(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a container stop
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildContainerStop(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildContainerStop(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a charging station
      * @param[in] attrs SAXattributes which define the additional
      */
-    static bool parseAndBuildChargingStation(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildChargingStation(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a parking area
      * @param[in] attrs SAXattributes which define the additional
      */
-    static bool parseAndBuildParkingArea(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildParkingArea(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a parking space
      * @param[in] attrs SAXattributes which define the additional
      * @param[in] tag of the additional
      */
-    static bool parseAndBuildParkingSpace(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildParkingSpace(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a mesoscopic or microscopic calibrator
      * @param[in] attrs SAX-attributes which define the additional
      * @param[in] tag of the additional
      */
-    static bool parseAndBuildCalibrator(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildCalibrator(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a induction loop detector (GNENet *net, bool allowUndoRedo, E1)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorE1(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildDetectorE1(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a lane area detector (GNENet *net, bool allowUndoRedo, E2)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorE2(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildDetectorE2(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a multi entry exit detector (GNENet *net, bool allowUndoRedo, E3)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorE3(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildDetectorE3(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Entry detector
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorEntry(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildDetectorEntry(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Exit detector
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorExit(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildDetectorExit(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds a Instant induction loop detector (GNENet *net, bool allowUndoRedo, E1Instant)
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildDetectorE1Instant(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildDetectorE1Instant(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses his values and builds routeProbe
      * @param[in] attrs SAX-attributes which define the additional
      */
-    static bool parseAndBuildRouteProbe(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildRouteProbe(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /**@brief Parses flow values of Calibrators
      * @param[in] attrs SAX-attributes which define the flows
      */
-    static bool parseAndBuildCalibratorFlow(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedAdditionals* insertedAdditionals);
+    static bool parseAndBuildCalibratorFlow(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, LastInsertedElement* insertedAdditionals);
 
     /// @}
 
@@ -737,8 +763,8 @@ private:
     /// @brief pointer to net
     GNENet* myNet;
 
-    /// @brief HierarchyInsertedAdditionals used for insert children
-    HierarchyInsertedAdditionals myHierarchyInsertedAdditionals;
+    /// @brief LastInsertedElement used for insert children
+    LastInsertedElement *myLastInsertedElement;
 
     /// @brief invalidate copy constructor
     GNEAdditionalHandler(const GNEAdditionalHandler& s) = delete;
