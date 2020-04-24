@@ -75,10 +75,10 @@ jobs:
         cd sumo/build_msvc
         cmake --build . --config Release --target traas
 
-    - name: Basic Test
-      run: |
-        cd sumo/build_msvc
-        ctest --config Release --verbose
+#    - name: Basic Test
+#      run: |
+#        cd sumo/build_msvc
+#        ctest --config Release --verbose
 
     - name: Uploading artifacts (SUMO binaries)
       if: matrix.python-version == 3.8
