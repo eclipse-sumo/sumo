@@ -841,7 +841,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        loadConfigOrNet(file, false);
+        loadConfigOrNet(file);
         myRecentFiles.appendFile(file.c_str());
     }
     return 1;
@@ -861,7 +861,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     if (opendialog.execute()) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
-        loadConfigOrNet(file, true);
+        loadConfigOrNet(file);
         myRecentFiles.appendFile(file.c_str());
     }
     return 1;
@@ -941,13 +941,13 @@ GUIApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
 
 
 long
-GUIApplicationWindow::onCmdOpenRecent(FXObject* sender, FXSelector, void* ptr) {
+GUIApplicationWindow::onCmdOpenRecent(FXObject* /* sender */, FXSelector, void* ptr) {
     if (myAmLoading) {
         myStatusbar->getStatusLine()->setText("Already loading!");
         return 1;
     }
     std::string file((const char*)ptr);
-    loadConfigOrNet(file, sender == &myRecentFiles);
+    loadConfigOrNet(file);
     return 1;
 }
 
@@ -1691,14 +1691,14 @@ GUIApplicationWindow::checkGamingEventsDRT() {
 }
 
 void
-GUIApplicationWindow::loadConfigOrNet(const std::string& file, bool isNet) {
+GUIApplicationWindow::loadConfigOrNet(const std::string& file) {
     if (!myAmLoading) {
         storeWindowSizeAndPos();
         getApp()->beginWaitCursor();
         myAmLoading = true;
         closeAllWindows();
         gSchemeStorage.saveViewport(0, 0, -1, 0); // recenter view
-        myLoadThread->loadConfigOrNet(file, isNet);
+        myLoadThread->loadConfigOrNet(file);
         setStatusBarText("Loading '" + file + "'.");
         update();
     }
@@ -1809,7 +1809,7 @@ GUIApplicationWindow::getTrackerInterval() const {
 
 void
 GUIApplicationWindow::loadOnStartup() {
-    loadConfigOrNet("", false);
+    loadConfigOrNet("");
 }
 
 

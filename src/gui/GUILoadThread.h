@@ -58,7 +58,7 @@ public:
     FXint run();
 
     /// begins the loading of the given file
-    void loadConfigOrNet(const std::string& file, bool isNet);
+    void loadConfigOrNet(const std::string& file);
 
     /// Retrieves messages from the loading module
     void retrieveMessage(const MsgHandler::MsgType type, const std::string& msg);
@@ -93,8 +93,5 @@ protected:
     FXSynchQue<GUIEvent*>& myEventQue;
 
     FXEX::FXThreadEvent& myEventThrow;
-
-    /// Information whether only the network shall be loaded
-    bool myLoadNet;
 
 };

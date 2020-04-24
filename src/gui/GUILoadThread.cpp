@@ -94,11 +94,7 @@ GUILoadThread::run() {
             // triggered by menu option or reload
             oc.clear();
             MSFrame::fillOptions();
-            if (myLoadNet) {
-                oc.set("net-file", myFile);
-            } else {
-                oc.set("configuration-file", myFile);
-            }
+            oc.setByRootElement(OptionsIO::getRoot(myFile), myFile);
             oc.resetWritable(); // there may be command line options
             OptionsIO::getOptions();
         } else {
@@ -108,7 +104,6 @@ GUILoadThread::run() {
                 myFile = oc.getString("configuration-file");
             } else if (oc.isSet("net-file")) {
                 myFile = oc.getString("net-file");
-                myLoadNet = true;
             }
             myEventQue.push_back(new GUIEvent_Message("Loading '" + myFile + "'."));
             myEventThrow.signal();
@@ -249,9 +244,8 @@ GUILoadThread::submitEndAndCleanup(GUINet* net,
 
 
 void
-GUILoadThread::loadConfigOrNet(const std::string& file, bool isNet) {
+GUILoadThread::loadConfigOrNet(const std::string& file) {
     myFile = file;
-    myLoadNet = isNet;
     if (myFile != "") {
         OptionsIO::setArgs(0, nullptr);
     }

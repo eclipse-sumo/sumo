@@ -89,7 +89,6 @@ public:
     static void loadConfiguration();
 
 
-private:
     /** @brief Retrieves the XML root element of a supposed configuration or net
      *
      * @param[in] filename the XML file to parse
