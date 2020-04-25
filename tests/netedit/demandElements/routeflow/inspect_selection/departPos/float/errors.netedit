@@ -50,7 +50,7 @@ GLDebug: 	Inserted junction:gneJ6 into SUMORTree with boundary 49.60,42.80,86.40
 GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -2.00,45.30,23.50,73.20
 GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -2.00,26.80,23.50,54.70
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 30.00,26.80,50.00,53.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.00,30.00,20.00,70.00
 GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.00,70.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary 0.00,8.40,80.00,30.00
@@ -84,7 +84,7 @@ Debug: Setting new attribute departPos '500' into routeFlow 'flowA'
 Debug: Setting new attribute departPos '500' into routeFlow 'flowB'
 Debug: Setting new attribute departPos '20' into routeFlow 'flowA'
 Debug: Setting new attribute departPos '20' into routeFlow 'flowB'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 1, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute departPos '500.00' into routeFlow 'flowB'
@@ -106,11 +106,11 @@ Debug: Setting previous attribute selected '0' into route 'routeA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeFlow 'flowB' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing routeFlow 'flowA' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Removing route 'routeB' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing route 'routeA' in GNEChange_DemandElement
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -163,7 +163,7 @@ GLDebug: 	Inserted junction:gneJ6 into SUMORTree with boundary 49.60,42.80,86.40
 GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -2.00,45.30,23.50,73.20
 GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -2.00,26.80,23.50,54.70
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 30.00,26.80,50.00,53.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.00,30.00,20.00,70.00
 GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.00,70.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary 0.00,8.40,80.00,30.00
@@ -180,7 +180,6 @@ Debug: Current saving Status: net saved, additionals saved, demand elements unsa
 Debug: Deleting unreferenced routeFlow 'flowA'
 Debug: Deleting unreferenced route 'routeB'
 Debug: Deleting unreferenced route 'routeA'
-Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor
@@ -223,4 +222,5 @@ Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 16
