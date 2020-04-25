@@ -24,6 +24,7 @@
 """
 from __future__ import absolute_import
 from __future__ import print_function
+from __future__ import division
 
 import os
 import sys
@@ -89,18 +90,16 @@ def main(options):
     with open(options.outfile, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "edgeRelations", "edgerelations_file.xsd")  # noqa
         outf.write('    <interval id="%s" begin="%s" end="%s">\n' % (options.id, minDepart, maxDepart))
-        for from_edge in edgePairFlowsMap:
+        for from_edge in sorted(edgePairFlowsMap.keys()):
             if options.prob:
-                sum = 0.
-                for to_edge in edgePairFlowsMap[from_edge]:
-                    sum += edgePairFlowsMap[from_edge][to_edge]
-                for to_edge in edgePairFlowsMap[from_edge]:
+                s = sum(edgePairFlowsMap[from_edge].values())
+                for to_edge, count in sorted(edgePairFlowsMap[from_edge].items()):
                     outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" probability="%.2f"/>\n' %
-                               (from_edge, to_edge, edgePairFlowsMap[from_edge][to_edge]/sum))
+                               (from_edge, to_edge, count / s))
             else:
-                for to_edge in edgePairFlowsMap[from_edge]:
+                for to_edge, count in sorted(edgePairFlowsMap[from_edge].items()):
                     outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" count="%s"/>\n' %
-                               (from_edge, to_edge, edgePairFlowsMap[from_edge][to_edge]))
+                               (from_edge, to_edge, count))
         outf.write('    </interval>\n')
         outf.write('</edgeRelations>\n')
     outf.close()
