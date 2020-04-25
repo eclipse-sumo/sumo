@@ -156,7 +156,7 @@ class CountData:
         cands = list(self.routeSet.intersection(openRoutes))
         assert(cands)
         probs = [routeCounts[i] for i in cands]
-        x = random.random * sum(probs)
+        x = random.random() * sum(probs)
         seen = 0
         for route, prob in zip(cands, probs):
             seen += prob
@@ -453,6 +453,11 @@ def main(options):
         print(gehSummary)
 
 
+def _sample(sampleSet):
+    population = tuple(sampleSet)
+    return population[(int)(random.random() * len(population))]
+
+
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
     # store which routes are passing each counting location (using route index)
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr)
@@ -474,8 +479,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
         resetCounts(usedRoutes, routeUsage, countData)
     else:
         while openCounts:
-            cd = countData[random.sample(openCounts, 1)[0]]
-            routeIndex = random.sample(cd.routeSet.intersection(openRoutes), 1)[0]
+            cd = countData[_sample(openCounts)]
+            routeIndex = _sample(cd.routeSet.intersection(openRoutes))
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].count -= 1
@@ -490,7 +495,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
         optimize(options, countData, routes, usedRoutes, routeUsage)
         resetCounts(usedRoutes, routeUsage, countData)
     # avoid bias from sampling order / optimization
-    random.shuffle(usedRoutes)
+    random.shuffle(usedRoutes, random.random)
 
     if usedRoutes:
         outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
