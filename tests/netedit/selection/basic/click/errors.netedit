@@ -39,6 +39,8 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved
 Debug: Removing poi 'POI_3' from net in ~GNEChange_Shape()
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'POI_3' in ~GNEChange_Shape()
 Debug: Removing poi 'POI_2' from net in ~GNEChange_Shape()
 Debug: delete poi 'POI_2' in ~GNEChange_Shape()

@@ -191,14 +191,15 @@ Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '8' from net
 Debug: Removing junction 'Center' from net
-Debug: Removing poly 'poly_0' from viewNet
 Debug: Removing poi 'POI_3' from viewNet
+Debug: Removing poly 'poly_0' from viewNet
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding poly 'poly_0' into viewNet
+Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding junction 'Center' into net
 Debug: Adding edge '8' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -329,6 +330,7 @@ Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
@@ -459,14 +461,15 @@ Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '8' from net
 Debug: Removing junction 'Center' from net
-Debug: Removing poly 'poly_0' from viewNet
 Debug: Removing poi 'POI_3' from viewNet
+Debug: Removing poly 'poly_0' from viewNet
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding poly 'poly_0' into viewNet
+Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding junction 'Center' into net
 Debug: Adding edge '8' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
@@ -597,6 +600,8 @@ Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_4' in ~GNEChange_Shape()
@@ -611,8 +616,6 @@ Debug: delete poi 'POI_0' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced detExit 'e3Detector_3detExit1'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_3'
 Debug: Deleting unreferenced detExit 'e3Detector_2detExit1'
@@ -625,7 +628,6 @@ Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced busStop 'busStop_3_1_0'
-Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -682,3 +684,4 @@ Debug: Deleting unreferenced junction 'D' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor

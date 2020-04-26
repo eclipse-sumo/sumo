@@ -349,6 +349,7 @@ Debug: Removing poi 'POI_1' from viewNet
 Debug: Removing poi 'POI_2' from viewNet
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding poi 'POI_2' into viewNet
@@ -607,6 +608,7 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
@@ -865,6 +867,7 @@ Debug: Removing poi 'POI_1' from viewNet
 Debug: Removing poi 'POI_2' from viewNet
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Deleting unreferenced junction 'D' in GNEChange_Attribute
@@ -926,6 +929,8 @@ Debug: Deleting unreferenced lane '1_2' in GNEEdge destructor
 Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_4' in ~GNEChange_Shape()
 Debug: Removing poi 'POI_3' from net in ~GNEChange_Shape()
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'POI_3' in ~GNEChange_Shape()
 Debug: delete poi 'POI_2' in ~GNEChange_Shape()
 Debug: delete poi 'POI_1' in ~GNEChange_Shape()
@@ -938,16 +943,14 @@ Debug: Deleting unreferenced e3Detector 'e3Detector_3'
 Debug: Deleting unreferenced detExit 'e3Detector_2detExit1'
 Debug: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_2'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced detExit 'e3Detector_1detExit1'
 Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_1'
 Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
 Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor

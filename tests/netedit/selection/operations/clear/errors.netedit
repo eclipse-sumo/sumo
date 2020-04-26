@@ -139,6 +139,8 @@ Debug: Setting new attribute selected 'false' into poiLane 'POI_5'
 Debug: Key DEL (delete) pressed
 Debug: Additionals saved
 Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_4' in ~GNEChange_Shape()
@@ -153,8 +155,6 @@ Debug: delete poi 'POI_0' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced detExit 'e3Detector_3detExit1'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_3'
 Debug: Deleting unreferenced detExit 'e3Detector_2detExit1'

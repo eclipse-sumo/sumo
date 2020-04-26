@@ -9,13 +9,13 @@ Debug: Adding poi 'POI_0' into viewNet
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -33.00,27.00,-27.00,33.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Inserting parameter 'key1|value1' into shape.
+Debug: Inserting parameter 'key1|value1' into shape poi.
 Error: Attribute 'key' in definition of a param is empty.
-Debug: Inserting parameter 'key1|value5' into shape.
-Debug: Inserting parameter 'key2|' into shape.
-Debug: Inserting parameter 'key2|' into shape.
-Debug: Inserting parameter 'keyFinal|valueFinal' into shape.
-Error: Loading of /home/micha/.texttest/tmp/netedit.gui.20Mar162115.22904/netedit.gui/shapeElements/poi/load/parameters/input_additionals.add.xml failed.
+Debug: Inserting parameter 'key1|value5' into shape poi.
+Debug: Inserting parameter 'key2|' into shape poi.
+Debug: Inserting parameter 'key2|' into shape poi.
+Debug: Inserting parameter 'keyFinal|valueFinal' into shape poi.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\load\parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
@@ -28,13 +28,15 @@ GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,6
 GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'POI_0' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:POI_0 from SUMORTree with boundary -33.00,27.00,-27.00,33.00
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'POI_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

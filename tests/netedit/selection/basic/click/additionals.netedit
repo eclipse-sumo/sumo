@@ -1,11 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- generated on 26.04.2020 01:40:56 by Eclipse SUMO netedit Version v1_5_0+1295-13761d53b8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\datas.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\selection\basic\click\log.txt"/>
+    </report>
+
+</configuration>
+-->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="poly_0" color="green" fill="1" layer="0.00" shape="10.000000,20.000000 0.000000,20.000000 0.000000,10.000000 10.000000,10.000000 10.000000,20.000000"/>
     <poly id="poly_1" color="green" fill="1" layer="0.00" shape="40.000000,20.000000 40.000000,10.000000 50.000000,10.000000 50.000000,20.000000 40.000000,20.000000"/>
-    <poi id="POI_0" color="red" layer="3.00" lane="gneE1_0" pos="40.00" width="0.00" height="0.00"/>
-    <poi id="POI_1" color="red" layer="3.00" lane="gneE1_0" pos="10.00" width="0.00" height="0.00"/>
     <poi id="POI_2" color="red" layer="3.00" x="10.00" y="-10.00" width="0.00" height="0.00"/>
     <poi id="POI_3" color="red" layer="3.00" x="40.00" y="-10.00" width="0.00" height="0.00"/>
+    <poi id="POI_0" color="red" layer="3.00" lane="gneE1_0" pos="40.00" width="0.00" height="0.00"/>
+    <poi id="POI_1" color="red" layer="3.00" lane="gneE1_0" pos="10.00" width="0.00" height="0.00"/>
 </additional>

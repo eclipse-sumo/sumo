@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.04.2020 23:54:26 by Eclipse SUMO netedit Version v1_5_0+1230-5308a0e38c
+<!-- generated on 25.04.2020 19:11:56 by Eclipse SUMO netedit Version v1_5_0+1295-13761d53b8
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,35 +30,35 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poi\create\angle\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poi\create\angle\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poi id="poi_0" color="red" layer="202.00" x="1.00" y="20.00" angle="140.00"/>
+    <poi id="poi_0" color="red" layer="202.00" x="6.00" y="20.00" angle="140.00"/>
     <poi id="poi_1" color="red" layer="202.00" x="12.00" y="20.00" angle="-27.00"/>
     <poi id="poi_2" color="red" layer="202.00" x="17.00" y="20.00" angle="45.00"/>
 </additional>
