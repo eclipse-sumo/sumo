@@ -83,8 +83,8 @@ bool
 MSMeanData_Emissions::MSLaneMeanDataValues::notifyIdle(SUMOTrafficObject& veh) {
     if (veh.isVehicle()) {
         myEmissions.addScaled(PollutantsInterface::computeAll(veh.getVehicleType().getEmissionClass(),
-            0., 0., 0.,
-        static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
+                              0., 0., 0.,
+                              static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
     }
     return true;
 }
@@ -166,7 +166,7 @@ MSMeanData_Emissions::MSMeanData_Emissions(const std::string& id,
         const std::string& vTypes,
         const std::string& writeAttributes) :
     MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-            withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes)
+               withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes)
 { }
 
 

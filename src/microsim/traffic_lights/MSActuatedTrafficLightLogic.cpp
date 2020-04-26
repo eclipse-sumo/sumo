@@ -65,8 +65,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(MSTLLogicControl& tlcon
         const std::map<std::string, std::string>& parameter,
         const std::string& basePath) :
     MSSimpleTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::ACTUATED, phases, step, delay, parameter),
-    myLastTrySwitchTime(0)
-{
+    myLastTrySwitchTime(0) {
     myMaxGap = StringUtils::toDouble(getParameter("max-gap", DEFAULT_MAX_GAP));
     myPassingTime = StringUtils::toDouble(getParameter("passing-time", DEFAULT_PASSING_TIME));
     myDetectorGap = StringUtils::toDouble(getParameter("detector-gap", DEFAULT_DETECTOR_GAP));
@@ -136,8 +135,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             if (customID == "") {
                 double speed = lane->getSpeedLimit();
                 inductLoopPosition = MIN2(
-                        myDetectorGap * speed,
-                        (STEPS2TIME(minDur) / myPassingTime + 0.5) * DEFAULT_LENGTH_WITH_GAP);
+                                         myDetectorGap * speed,
+                                         (STEPS2TIME(minDur) / myPassingTime + 0.5) * DEFAULT_LENGTH_WITH_GAP);
 
                 // check whether the lane is long enough
                 ilpos = length - inductLoopPosition;
@@ -736,7 +735,7 @@ MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
                     && (state[i] == 'G' || state[i] == 'g')
                     && !(targetState[i] == 'G' || targetState[i] == 'g')) {
                 result = MAX2(result, myLinkMinGreenTimes[i] - myLinkGreenTimes[i]);
-                //std::cout << SIMTIME << " getLinkMinDuration myStep=" << myStep << " target=" << target << " i=" << i 
+                //std::cout << SIMTIME << " getLinkMinDuration myStep=" << myStep << " target=" << target << " i=" << i
                 //    << " greenTime=" << STEPS2TIME(myLinkGreenTimes[i]) << " min=" << STEPS2TIME(myLinkMinGreenTimes[i]) << " result=" << STEPS2TIME(result) << "\n";
             }
         }

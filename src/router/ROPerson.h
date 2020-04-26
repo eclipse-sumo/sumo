@@ -64,7 +64,7 @@ public:
                  const std::string& busStop, double walkFactor, const std::string& group);
 
     void addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines,
-            double arrivalPos, const std::string& destStop, const std::string& group);
+                 double arrivalPos, const std::string& destStop, const std::string& group);
 
     void addWalk(const ConstROEdgeVector& edges, const double duration, const double speed,
                  const double departPos, const double arrivalPos, const std::string& busStop);

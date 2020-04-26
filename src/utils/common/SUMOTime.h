@@ -70,4 +70,4 @@ SUMOTime string2time(const std::string& r);
 std::string time2string(SUMOTime t);
 
 /// @brief check if given SUMOTime is multiple of the step length
-bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "", SUMOTime deltaT=DELTA_T);
+bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "", SUMOTime deltaT = DELTA_T);

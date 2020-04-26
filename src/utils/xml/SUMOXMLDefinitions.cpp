@@ -170,7 +170,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "scalingScheme",              SUMO_TAG_SCALINGSCHEME },
     { "entry",                      SUMO_TAG_ENTRY },
     { "rngState",                   SUMO_TAG_RNGSTATE },
-    { "rngLane" ,                   SUMO_TAG_RNGLANE },
+    { "rngLane",                   SUMO_TAG_RNGLANE },
     { "vehicleTransfer",            SUMO_TAG_VEHICLETRANSFER },
     { "device",                     SUMO_TAG_DEVICE },
     // Cars
@@ -766,7 +766,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "blockShape",                         GNE_ATTR_BLOCK_SHAPE },
     { "closedShape",                        GNE_ATTR_CLOSE_SHAPE },
     { "parentItem",                         GNE_ATTR_PARENT },
-    { "dataSet",                            GNE_ATTR_DATASET },	
+    { "dataSet",                            GNE_ATTR_DATASET },
     { "genericParameter",                   GNE_ATTR_PARAMETERS },
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },

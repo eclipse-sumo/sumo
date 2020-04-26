@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEMoveShape.h
+/// @file    GNEMoveShape.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2020
 ///
@@ -28,7 +28,7 @@ GNEMoveShape::GNEMoveShape() :
 }
 
 
-void 
+void
 GNEMoveShape::startMoveShape(const PositionVector& shapeBeforeMoving, const double offsetMovingShape, const double sensibility) {
     // update shape before moving
     myShapeBeforeMoving = shapeBeforeMoving;
@@ -63,19 +63,19 @@ GNEMoveShape::getShapeBeforeMoving() const {
 }
 
 
-const Position& 
+const Position&
 GNEMoveShape::getPosOverShapeBeforeMoving() const {
     return myPosOverShape;
 }
 
 
-const int& 
+const int&
 GNEMoveShape::getGeometryPointIndex() const {
     return myGeometryPointIndex;
 }
 
 
-bool 
+bool
 GNEMoveShape::moveEntireShape() const {
     return myMoveEntireShape;
 }

@@ -258,9 +258,9 @@ NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
 void
 NIXMLPTHandler::addPTLineStop(const SUMOSAXAttributes& attrs) {
     bool ok = true;
-    const std::string id = attrs.hasAttribute(SUMO_ATTR_ID) 
-        ? attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok) 
-        : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
+    const std::string id = attrs.hasAttribute(SUMO_ATTR_ID)
+                           ? attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok)
+                           : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
     NBPTStop* stop = myStopCont.get(id);
     if (stop == nullptr) {
         WRITE_ERROR("Stop '" + id + "' within line '" + toString(myCurrentLine->getLineID()) + "' not found");
@@ -273,9 +273,9 @@ void
 NIXMLPTHandler::addRouteStop(const SUMOSAXAttributes& attrs) {
     assert(myCurrentRouteID != "");
     bool ok = true;
-    const std::string id = attrs.hasAttribute(SUMO_ATTR_ID) 
-        ? attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok) 
-        : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
+    const std::string id = attrs.hasAttribute(SUMO_ATTR_ID)
+                           ? attrs.get<std::string>(SUMO_ATTR_ID, "ptLine", ok)
+                           : attrs.get<std::string>(SUMO_ATTR_BUS_STOP, "ptline", ok);
     NBPTStop* stop = myStopCont.get(id);
     if (stop == nullptr) {
         WRITE_ERROR("Stop '" + id + "' within route '" + toString(myCurrentRouteID) + "' not found");

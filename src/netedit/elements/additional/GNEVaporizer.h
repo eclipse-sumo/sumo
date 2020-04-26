@@ -38,7 +38,7 @@ public:
      * @param[in] end end time of vaporizer
      * @param[in] name Vaporizer name
      */
-    GNEVaporizer(GNENet *net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name);
+    GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name);
 
     /// @brief Destructor
     ~GNEVaporizer();

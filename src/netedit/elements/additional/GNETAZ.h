@@ -37,7 +37,7 @@ public:
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] block movement enable or disable additional movement
      */
-    GNETAZ(const std::string& id, GNENet *net, PositionVector shape, RGBColor color, bool blockMovement);
+    GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement);
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();

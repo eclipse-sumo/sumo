@@ -99,7 +99,7 @@ struct GNENetHelper {
         GNEJunction* registerJunction(GNEJunction* junction);
 
         /// @brief map with the ID and pointer to junctions of net
-        const std::map<std::string, GNEJunction*> &getJunctions() const;
+        const std::map<std::string, GNEJunction*>& getJunctions() const;
 
         /// @brief clear junctions
         void clearJunctions();
@@ -112,7 +112,7 @@ struct GNENetHelper {
         GNEEdge* registerEdge(GNEEdge* edge);
 
         /// @brief map with the ID and pointer to edges of net
-        const std::map<std::string, GNEEdge*> &getEdges() const;
+        const std::map<std::string, GNEEdge*>& getEdges() const;
 
         /// @brief clear junctions
         void clearEdges();
@@ -136,8 +136,8 @@ struct GNENetHelper {
         * @return whether the polygon could be added
         */
         bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
-            double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
-            bool geo, bool fill, double lineWidth, bool ignorePruning = false);
+                        double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape,
+                        bool geo, bool fill, double lineWidth, bool ignorePruning = false);
 
         /**@brief Builds a POI using the given values and adds it to the container
         * @param[in] id The name of the POI
@@ -157,9 +157,9 @@ struct GNENetHelper {
         * @return whether the poi could be added
         */
         bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-            const std::string& lane, double posOverLane, double posLat, double layer, double angle,
-            const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
-        
+                    const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+                    const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
+
         /// @}
 
         /// @name function for additionals

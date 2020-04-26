@@ -1162,7 +1162,7 @@ MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position)
             }
             if (!vehicle->isLineStop(position)) {
                 WRITE_WARNING(transportable->getID() + " at edge '" + getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
-                        + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
+                              + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
             }
         }
     }

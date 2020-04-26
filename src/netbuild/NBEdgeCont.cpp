@@ -233,7 +233,7 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
         if (!(edge->getGeometry().getBoxBoundary().grow(POSITION_EPS).overlapsWith(myPruningBoundary))) {
             return true;
         } else if (!(edge->getGeometry().partialWithin(myPruningBoundary, 2 * POSITION_EPS) || edge->getGeometry().intersects(myPruningBoundary))) {
-            // a more detailed check is necessary because the bounding box may be much bigger than the edge 
+            // a more detailed check is necessary because the bounding box may be much bigger than the edge
             // @note: overlapsWith implicitly closes the edge shape but this is not wanted here
             return true;
         }
@@ -1056,7 +1056,7 @@ NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, cons
                                      bool keepClear, double contPos, double visibility, double speed, double length,
                                      const PositionVector& customShape, bool uncontrolled, bool warnOnly, SVCPermissions permissions) {
     myConnections[from].push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility,
-                speed, length, customShape, uncontrolled, warnOnly, permissions));
+                                  speed, length, customShape, uncontrolled, warnOnly, permissions));
 }
 
 bool

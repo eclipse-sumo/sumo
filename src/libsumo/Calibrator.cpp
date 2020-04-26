@@ -148,9 +148,9 @@ Calibrator::setParameter(const std::string& calibratorID, const std::string& key
 
 void
 Calibrator::setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
-        const std::string& routeID,
-        const std::string& departLane,
-        const std::string& departSpeed) {
+                    const std::string& routeID,
+                    const std::string& departLane,
+                    const std::string& departSpeed) {
     std::string error;
     SUMOVehicleParameter vehicleParams;
     vehicleParams.vtypeid = typeID;

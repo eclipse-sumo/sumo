@@ -141,8 +141,8 @@ NIXMLConnectionsHandler::myStartElement(int element,
                     || attrs.hasAttribute(SUMO_ATTR_SHAPE)
                     || attrs.hasAttribute(SUMO_ATTR_ALLOW)
                     || attrs.hasAttribute(SUMO_ATTR_DISALLOW)) {
-                WRITE_ERROR("No additional connection attributes are permitted in connection from edge '" + fromEdge->getID() + "' unless '" 
-                        + toString(SUMO_ATTR_FROM_LANE) + "' and '" + toString(SUMO_ATTR_TO_LANE) + "' are set.");
+                WRITE_ERROR("No additional connection attributes are permitted in connection from edge '" + fromEdge->getID() + "' unless '"
+                            + toString(SUMO_ATTR_FROM_LANE) + "' and '" + toString(SUMO_ATTR_TO_LANE) + "' are set.");
             }
         }
     }

@@ -46,8 +46,8 @@ public:
      * @param[in] value The new value
      * @param[in] customOrigValue custon original value
      */
-    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value, 
-        const std::string& customOrigValue);
+    GNEChange_Attribute(GNEAttributeCarrier* ac, const SumoXMLAttr key, const std::string& value,
+                        const std::string& customOrigValue);
 
     /// @brief Destructor
     ~GNEChange_Attribute();

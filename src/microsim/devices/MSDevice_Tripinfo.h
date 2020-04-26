@@ -75,7 +75,7 @@ public:
     static std::string printStatistics();
 
     /// @brief write statistic output to (xml) file
-    static void writeStatistics(OutputDevice& od); 
+    static void writeStatistics(OutputDevice& od);
 
     /// @brief accessors for GUINet-Parameters
     static double getAvgRouteLength();

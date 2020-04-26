@@ -74,21 +74,21 @@ public:
      * @param[in] genericDataChildren vector of genericData children
      */
     GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-        const std::map<std::string, std::string>& parameters,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEJunction*>& junctionChildren,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren);
+                   const std::map<std::string, std::string>& parameters,
+                   const std::vector<GNEJunction*>& junctionParents,
+                   const std::vector<GNEEdge*>& edgeParents,
+                   const std::vector<GNELane*>& laneParents,
+                   const std::vector<GNEShape*>& shapeParents,
+                   const std::vector<GNEAdditional*>& additionalParents,
+                   const std::vector<GNEDemandElement*>& demandElementParents,
+                   const std::vector<GNEGenericData*>& genericDataParents,
+                   const std::vector<GNEJunction*>& junctionChildren,
+                   const std::vector<GNEEdge*>& edgeChildren,
+                   const std::vector<GNELane*>& laneChildren,
+                   const std::vector<GNEShape*>& shapeChildren,
+                   const std::vector<GNEAdditional*>& additionalChildren,
+                   const std::vector<GNEDemandElement*>& demandElementChildren,
+                   const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
     virtual ~GNEGenericData();
@@ -103,13 +103,13 @@ public:
     GNEDataInterval* getDataIntervalParent() const;
 
     /// @brief get generic data color
-    const RGBColor &getColor() const;
+    const RGBColor& getColor() const;
 
     /// @brief check if current generic data is visible
     bool isGenericDataVisible() const;
 
     // @brief draw attribute
-    void drawAttribute(const PositionVector &shape) const;
+    void drawAttribute(const PositionVector& shape) const;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;

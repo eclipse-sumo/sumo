@@ -36,20 +36,20 @@
 // member method definitions
 // ===========================================================================
 
-GNEStop::GNEStop(SumoXMLTag tag, GNENet *net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
+GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
-        {}, {}, {}, {}, {stoppingPlace}, {stopParent}, {},  // Parents 
-        {}, {}, {}, {}, {}, {}, {}),                        // Childrens
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {}, {}, {stoppingPlace}, {stopParent}, {},  // Parents
+{}, {}, {}, {}, {}, {}, {}),                        // Childrens
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
-GNEStop::GNEStop(GNENet *net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
+GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
-        stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
-        {}, {}, {lane}, {}, {}, {stopParent}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}),                // Childrens
-    SUMOVehicleParameter::Stop(stopParameter) {
+                     stopParent->getTagProperty().isPerson() ? SUMO_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
+{}, {}, {lane}, {}, {}, {stopParent}, {},   // Parents
+{}, {}, {}, {}, {}, {}, {}),                // Childrens
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 

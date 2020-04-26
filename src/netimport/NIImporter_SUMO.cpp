@@ -83,8 +83,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCheckLaneFoesAll(false),
       myCheckLaneFoesRoundabout(true),
       myTlsIgnoreInternalJunctionJam(false),
-      myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT))
-{
+      myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT)) {
 }
 
 
@@ -426,7 +425,7 @@ NIImporter_SUMO::myStartElement(int element,
             myCheckLaneFoesRoundabout = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT, nullptr, ok, true);
             myTlsIgnoreInternalJunctionJam = attrs.getOpt<bool>(SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM, nullptr, ok, false);
             myDefaultSpreadType = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, nullptr, ok, myDefaultSpreadType);
-                
+
             break;
         }
         case SUMO_TAG_EDGE:

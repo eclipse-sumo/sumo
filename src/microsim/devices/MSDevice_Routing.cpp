@@ -149,15 +149,14 @@ MSDevice_Routing::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(SUMOVehicle& holder, const std::string& id,
-                                   SUMOTime period, SUMOTime preInsertionPeriod) : 
+                                   SUMOTime period, SUMOTime preInsertionPeriod) :
     MSVehicleDevice(holder, id),
     myPeriod(period),
     myPreInsertionPeriod(preInsertionPeriod),
     myLastRouting(-1),
     mySkipRouting(-1),
     myRerouteCommand(nullptr),
-    myRerouteRailSignal(getBoolParam(holder, OptionsCont::getOptions(), "rerouting.railsignal", true, true))
-{
+    myRerouteRailSignal(getBoolParam(holder, OptionsCont::getOptions(), "rerouting.railsignal", true, true)) {
     if (myPreInsertionPeriod > 0 || holder.getParameter().wasSet(VEHPARS_FORCE_REROUTE)) {
         // we do always a pre insertion reroute for trips to fill the best lanes of the vehicle with somehow meaningful values (especially for deaprtLane="best")
         myRerouteCommand = new WrappingCommand<MSDevice_Routing>(this, &MSDevice_Routing::preInsertionReroute);
@@ -185,9 +184,9 @@ MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notifi
         } else if (myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod) {
             // pre-insertion rerouting was disabled. Reroute once if insertion was delayed
             // this is happening in the run thread (not inbeginOfTimestepEvents) so we cannot safely use the threadPool
-            myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "device.rerouting", 
-                    MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass()),
-                    false, MSRoutingEngine::withTaz(), false);
+            myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "device.rerouting",
+                             MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass()),
+                             false, MSRoutingEngine::withTaz(), false);
         }
         myRerouteCommand = nullptr;
         // build repetition trigger if routing shall be done more often

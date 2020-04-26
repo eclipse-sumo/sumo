@@ -47,7 +47,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE2(const std::string& id, GNELane* lane, GNENet *net, double pos, double length, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+    GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
                   const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /**@brief Constructor for Multi-Lane detectors
@@ -66,7 +66,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly positions
      * @param[in] block movement enable or disable additional movement
      */
-    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet *net, double pos, double endPos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+    GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
                   const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /// @brief Destructor

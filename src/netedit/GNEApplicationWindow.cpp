@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEApplicationWindowHelper.h
+/// @file    GNEApplicationWindow.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    mar 2020
 ///
@@ -1028,19 +1028,19 @@ GNEApplicationWindow::fillMenuBar() {
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
     new FXMenuCommand(myFileMenu,
-        "&Quit\tCtrl+Q\tQuit the Application.",
-        nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE, 0);
+                      "&Quit\tCtrl+Q\tQuit the Application.",
+                      nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE, 0);
     // build edit menu
     myEditMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
     // build undo/redo command
     myEditMenuCommands.undoLastChange = new FXMenuCommand(myEditMenu,
-        "&Undo\tCtrl+Z\tUndo the last change.",
-        GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_HOTKEY_CTRL_Z_UNDO);
+            "&Undo\tCtrl+Z\tUndo the last change.",
+            GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_HOTKEY_CTRL_Z_UNDO);
     myEditMenuCommands.redoLastChange = new FXMenuCommand(myEditMenu,
-        "&Redo\tCtrl+Y\tRedo the last change.",
-        GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
+            "&Redo\tCtrl+Y\tRedo the last change.",
+            GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build Supermode commands and hide it
@@ -1068,11 +1068,11 @@ GNEApplicationWindow::fillMenuBar() {
     menuTitle->setHeight(23);
     // build help menu commands
     new FXMenuCommand(myHelpMenu,
-        "&Online Documentation\tF1\tOpen Online documentation.",
-        nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
+                      "&Online Documentation\tF1\tOpen Online documentation.",
+                      nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
     new FXMenuCommand(myHelpMenu,
-        "&About\tF12\tAbout netedit.",
-        GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
+                      "&About\tF12\tAbout netedit.",
+                      GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
 
 
@@ -1124,7 +1124,7 @@ GNEApplicationWindow::getUndoList() {
 }
 
 
-GNEViewNet* 
+GNEViewNet*
 GNEApplicationWindow::getViewNet() {
     return myViewNet;
 }
@@ -1727,8 +1727,8 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if ((myViewNet->getNetworkViewOptions().menuCheckShowGrid->getCheck() == TRUE) || 
-            (myViewNet->getDemandViewOptions().menuCheckShowGrid->getCheck() == TRUE)) {
+        if ((myViewNet->getNetworkViewOptions().menuCheckShowGrid->getCheck() == TRUE) ||
+                (myViewNet->getDemandViewOptions().menuCheckShowGrid->getCheck() == TRUE)) {
             myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(FALSE);
             myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(FALSE);
             // show extra information for tests
@@ -1768,14 +1768,14 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             return 1;
         }
         // toogle edit options
-        if (GNEApplicationWindowHelper::toogleEditOptionsNetwork(myViewNet, 
-            visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+        if (GNEApplicationWindowHelper::toogleEditOptionsNetwork(myViewNet,
+                visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
             return 1;
-        } else if (GNEApplicationWindowHelper::toogleEditOptionsDemand(myViewNet, 
-            visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+        } else if (GNEApplicationWindowHelper::toogleEditOptionsDemand(myViewNet,
+                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
             return 1;
-        } else if (GNEApplicationWindowHelper::toogleEditOptionsData(myViewNet, 
-            visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
+        } else if (GNEApplicationWindowHelper::toogleEditOptionsData(myViewNet,
+                   visibleMenuCommands.at(numericalKeyPressed), numericalKeyPressed, obj, sel)) {
             return 1;
         }
     }

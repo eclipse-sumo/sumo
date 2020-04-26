@@ -241,14 +241,13 @@ GNEDataHandler::buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* 
 
 GNEEdgeRelData*
 GNEDataHandler::buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
-    GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters) {
+                                      GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters) {
     GNEEdgeRelData* edgeRelationData = new GNEEdgeRelData(dataIntervalParent, fromEdge, toEdge, parameters);
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_EDGEREL));
         net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeRelationData, true), true);
         net->getViewNet()->getUndoList()->p_end();
-    }
-    else {
+    } else {
         dataIntervalParent->addGenericDataChild(edgeRelationData);
         fromEdge->addChildGenericDataElement(edgeRelationData);
         toEdge->addChildGenericDataElement(edgeRelationData);
@@ -365,8 +364,8 @@ GNEDataHandler::parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, c
                 }
             }
             // save ID of last created element
-            GNEGenericData* dataCreated = buildEdgeRelationData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(), 
-                fromEdge, toEdge, parameters);
+            GNEGenericData* dataCreated = buildEdgeRelationData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(),
+                                          fromEdge, toEdge, parameters);
             // check if insertion has to be commited
             if (insertedDatas) {
                 insertedDatas->commitGenericDataInsertion(dataCreated);

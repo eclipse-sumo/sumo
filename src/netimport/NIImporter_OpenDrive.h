@@ -378,7 +378,7 @@ protected:
          * @param[in] sArg The offset from the start, counted from the begin
          */
         OpenDriveSignal(const std::string& idArg, const std::string typeArg, const std::string nameArg,
-                int orientationArg, bool dynamicArg, double sArg) :
+                        int orientationArg, bool dynamicArg, double sArg) :
             id(idArg), type(typeArg), name(nameArg),
             orientation(orientationArg), dynamic(dynamicArg), s(sArg),
             minLane(0), maxLane(0)
@@ -653,7 +653,7 @@ protected:
     static NBTrafficLightDefinition* getTLSSecure(NBEdge* inEdge, NBNetBuilder& nb);
 
 
-    static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction); 
+    static std::pair<NBEdge*, NBEdge*> retrieveSignalEdges(NBNetBuilder& nb, const std::string& fromID, const std::string& toID, const std::string& junction);
 
     static void splitMinWidths(OpenDriveEdge* e, const NBTypeCont& tc, double minDist);
 

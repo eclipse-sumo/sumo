@@ -130,7 +130,7 @@ GUIGlObject::GUIGlObject(GUIGlObjectType type, const std::string& microsimID) :
 
 GUIGlObject::~GUIGlObject() {
     // remove all paramWindow related with this object
-    for (const auto &paramWindow : myParamWindows) {
+    for (const auto& paramWindow : myParamWindows) {
         paramWindow->removeObject(this);
     }
     // remove object from GLObjectValuePassConnector and GUIGlObjectStorage

@@ -46,9 +46,9 @@ GNEChange_DataInterval::~GNEChange_DataInterval() {
     myDataInterval->decRef("GNEChange_DataInterval");
     if (myDataInterval->unreferenced()) {
         // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + myDataInterval->getTagStr() + " [" + 
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " + 
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in ~GNEChange_DataInterval()");
+        WRITE_DEBUG("Deleting unreferenced " + myDataInterval->getTagStr() + " [" +
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in ~GNEChange_DataInterval()");
         // delete dataInterval
         delete myDataInterval;
     }
@@ -60,15 +60,15 @@ GNEChange_DataInterval::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataInterval->getTagStr() + " [" +
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in GNEChange_DataInterval");
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in GNEChange_DataInterval");
         // remove data interval from data set parent
         myDataSetParent->removeDataIntervalChild(myDataInterval);
     } else {
         // show extra information for tests
         WRITE_DEBUG("adding " + myDataInterval->getTagStr() + " [" +
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in GNEChange_DataInterval");
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in GNEChange_DataInterval");
         // add data interval into data set parent
         myDataSetParent->addDataIntervalChild(myDataInterval);
     }
@@ -82,15 +82,15 @@ GNEChange_DataInterval::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("adding " + myDataInterval->getTagStr() + " [" +
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in GNEChange_DataInterval");
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in GNEChange_DataInterval");
         // add data interval into data set parent
         myDataSetParent->addDataIntervalChild(myDataInterval);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDataInterval->getTagStr() + " [" +
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-            myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in GNEChange_DataInterval");
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                    myDataInterval->getAttribute(SUMO_ATTR_BEGIN) + "] in GNEChange_DataInterval");
         // remove data interval from data set parent
         myDataSetParent->removeDataIntervalChild(myDataInterval);
     }

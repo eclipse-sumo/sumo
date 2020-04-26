@@ -137,13 +137,13 @@ GNEHierarchicalChildElements::getChildAdditionals() const {
 }
 
 
-size_t 
+size_t
 GNEHierarchicalChildElements::getNumberOfChildAdditionals(GNETagProperties::TagType additionalType) const {
     size_t number = 0;
     // check additional type
     if (additionalType == GNETagProperties::TagType::ADDITIONALELEMENT) {
-        for (const auto &additional : myChildAdditionals) {
-            if (additional->getTagProperty().isAdditionalElement()){
+        for (const auto& additional : myChildAdditionals) {
+            if (additional->getTagProperty().isAdditionalElement()) {
                 number++;
             }
         }

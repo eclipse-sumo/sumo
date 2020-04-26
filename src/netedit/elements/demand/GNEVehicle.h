@@ -145,19 +145,19 @@ public:
     };
 
     /// @brief default constructor for vehicles and routeFlows without embedded routes
-    GNEVehicle(SumoXMLTag tag, GNENet *net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
+    GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route);
 
     /// @brief parameter constructor for vehicles and routeFlows without embedded routes
-    GNEVehicle(GNENet *net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
+    GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief parameter constructor for vehicles and routeFlows with embedded routes (note: After creation create immediately a embedded route referencing this vehicle)
-    GNEVehicle(GNENet *net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
+    GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief default constructor for trips and Flows
-    GNEVehicle(SumoXMLTag tag, GNENet *net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
+    GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via);
 
     /// @brief parameter constructor for trips and Flows
-    GNEVehicle(GNENet *net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, const SUMOVehicleParameter& vehicleParameters);
+    GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief destructor
     ~GNEVehicle();

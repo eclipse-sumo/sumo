@@ -54,16 +54,16 @@ const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE,
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    myNBEdge(nbe),
-    myGNEJunctionSource(myNet->retrieveJunction(nbe->getFromNode()->getID())),
-    myGNEJunctionDestiny(myNet->retrieveJunction(nbe->getToNode()->getID())),
-    myLanes(0),
-    myAmResponsible(false),
-    myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+myNBEdge(nbe),
+myGNEJunctionSource(myNet->retrieveJunction(nbe->getFromNode()->getID())),
+myGNEJunctionDestiny(myNet->retrieveJunction(nbe->getToNode()->getID())),
+myLanes(0),
+myAmResponsible(false),
+myWasSplit(wasSplit),
+myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -182,7 +182,7 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) {
 }
 
 
-void 
+void
 GNEEdge::startShapeBegin() {
     myPositionBeforeMoving = myNBEdge->getGeometry().front();
     // save current centering boundary
@@ -190,7 +190,7 @@ GNEEdge::startShapeBegin() {
 }
 
 
-void 
+void
 GNEEdge::startShapeEnd() {
     myPositionBeforeMoving = myNBEdge->getGeometry().back();
     // save current centering boundary
@@ -296,19 +296,19 @@ GNEEdge::startEdgeGeometryMoving(const double shapeOffset, const bool invertOffs
         startMoveShape(myNBEdge->getGeometry(), shapeOffset, SNAP_RADIUS);
     }
     // Save current centering boundary of lanes (and their children)
-    for (const auto &lane : myLanes) {
+    for (const auto& lane : myLanes) {
         lane->startGeometryMoving();
     }
     // Save current centering boundary of additionals children vinculated to this edge
-    for (const auto &additional : getChildAdditionals()) {
+    for (const auto& additional : getChildAdditionals()) {
         additional->startGeometryMoving();
     }
     // Save current centering boundary of parent additionals that have this edge as parent
-    for (const auto &additional : getParentAdditionals()) {
+    for (const auto& additional : getParentAdditionals()) {
         additional->startGeometryMoving();
     }
     // Save current centering boundary of demand elements children vinculated to this edge
-    for (const auto &demandElement : getChildDemandElements()) {
+    for (const auto& demandElement : getChildDemandElements()) {
         demandElement->startGeometryMoving();
     }
     // Save current centering boundary of demand elements parents that have this edge as parent
@@ -350,7 +350,7 @@ GNEEdge::moveEdgeShape(const Position& offset) {
             }
         }
     }
-    // pop front and back 
+    // pop front and back
     newShape.pop_front();
     newShape.pop_back();
     // set new inner shape
@@ -555,14 +555,14 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw dotted contour
     if (myNet->getViewNet()->getDottedAC()) {
         // get dotted (inspected) AC
-        const GNEAttributeCarrier *AC = myNet->getViewNet()->getDottedAC();
+        const GNEAttributeCarrier* AC = myNet->getViewNet()->getDottedAC();
         // declare a flag for drawing dotted geometry
         bool drawDottedGeometry = false;
         if (AC == this) {
             drawDottedGeometry = true;
         } else if (AC->getTagProperty().isGenericData()) {
             // iterate over generic data childs
-            for (const auto &genericData : getChildGenericDataElements()) {
+            for (const auto& genericData : getChildGenericDataElements()) {
                 // draw dotted contor around the first and last lane if isn't being drawn for selecting
                 if (genericData == AC) {
                     drawDottedGeometry = true;
@@ -689,7 +689,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
 }
 
 
-const Position 
+const Position
 GNEEdge::getFrontUpShapePosition() const {
     PositionVector laneShape = myLanes.front()->getLaneShape();
     laneShape.move2side(myLanes.front()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.front()->getIndex()) / 2);
@@ -697,7 +697,7 @@ GNEEdge::getFrontUpShapePosition() const {
 }
 
 
-const Position 
+const Position
 GNEEdge::getFrontDownShapePosition() const {
     PositionVector laneShape = myLanes.back()->getLaneShape();
     laneShape.move2side(-1 * myLanes.back()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.back()->getIndex()) / 2);
@@ -705,7 +705,7 @@ GNEEdge::getFrontDownShapePosition() const {
 }
 
 
-const Position 
+const Position
 GNEEdge::getBackUpShapePosition() const {
     PositionVector laneShape = myLanes.front()->getLaneShape();
     laneShape.move2side(myLanes.front()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.front()->getIndex()) / 2);
@@ -713,7 +713,7 @@ GNEEdge::getBackUpShapePosition() const {
 }
 
 
-const Position 
+const Position
 GNEEdge::getBackDownShapePosition() const {
     PositionVector laneShape = myLanes.back()->getLaneShape();
     laneShape.move2side(-1 * myLanes.back()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.back()->getIndex()) / 2);
@@ -727,7 +727,7 @@ GNEEdge::remakeGNEConnections() {
     // create a vector to keep retrieved and created connections
     std::vector<GNEConnection*> retrievedConnections;
     // iterate over NBEdge::Connections of GNEEdge
-    for (const auto &connection : connections) {
+    for (const auto& connection : connections) {
         // retrieve existent GNEConnection, or create it
         GNEConnection* retrievedGNEConnection = retrieveGNEConnection(connection.fromLane, connection.toEdge, connection.toLane);
         retrievedGNEConnection->updateLinkState();
@@ -744,7 +744,7 @@ GNEEdge::remakeGNEConnections() {
         retrievedGNEConnection->markConnectionGeometryDeprecated();
     }
     // delete non retrieved GNEConnections
-    for (const auto &connection : myGNEConnections) {
+    for (const auto& connection : myGNEConnections) {
         // decrease reference
         connection->decRef();
         // delete GNEConnection if is unreferenced
@@ -1589,7 +1589,7 @@ GNEEdge::updateDottedContour() {
     // obtain lane widdths
     const double myHalfLaneWidthFront = myNBEdge->getLaneWidth(frontLane->getIndex()) / 2;
     const double myHalfLaneWidthBack = (visualizationSetting.spreadSuperposed && backLane->drawAsRailway(visualizationSetting) &&
-        myNBEdge->isBidiRail()) ? 0 : myNBEdge->getLaneWidth(backLane->getIndex()) / 2;
+                                        myNBEdge->isBidiRail()) ? 0 : myNBEdge->getLaneWidth(backLane->getIndex()) / 2;
     // obtain shapes from NBEdge
     PositionVector mainShape = frontLane->getParentEdge()->getNBEdge()->getLaneShape(frontLane->getIndex());
     PositionVector backShape = backLane->getParentEdge()->getNBEdge()->getLaneShape(backLane->getIndex());

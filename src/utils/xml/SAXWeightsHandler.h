@@ -88,7 +88,7 @@ public:
         virtual void addEdgeWeight(const std::string& id, double val, double beg, double end) const = 0;
 
         virtual void addEdgeRelWeight(const std::string& from, const std::string& to,
-                                   double val, double beg, double end) const {
+                                      double val, double beg, double end) const {
             UNUSED_PARAMETER(from);
             UNUSED_PARAMETER(to);
             UNUSED_PARAMETER(val);
@@ -97,7 +97,7 @@ public:
         }
 
     private:
-    /// @brief we made the assignment operator invalid
+        /// @brief we made the assignment operator invalid
         EdgeFloatTimeLineRetriever& operator=(const EdgeFloatTimeLineRetriever&) = delete;
     };
 

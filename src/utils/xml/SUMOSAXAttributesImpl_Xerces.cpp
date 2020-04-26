@@ -54,7 +54,7 @@ SUMOSAXAttributesImpl_Xerces::~SUMOSAXAttributesImpl_Xerces() {
 
 bool
 SUMOSAXAttributesImpl_Xerces::hasAttribute(int id) const {
-    assert(id >= 0); 
+    assert(id >= 0);
     assert(id < (int)myPredefinedTags.size());
     return myAttrs.getIndex(myPredefinedTags[id]) >= 0;
 }
@@ -236,7 +236,7 @@ SUMOSAXAttributesImpl_Xerces::getBoundary(int attr) const {
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getName(int attr) const {
-    assert(attr >= 0); 
+    assert(attr >= 0);
     assert(attr < (int)myPredefinedTagsMML.size());
     return myPredefinedTagsMML[attr];
 }

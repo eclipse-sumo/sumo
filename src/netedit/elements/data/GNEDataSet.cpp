@@ -55,18 +55,18 @@ GNEDataSet::getID() const {
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GNEDataSet::getGUIGlObject() {
     return nullptr;
 }
 
 
-void 
+void
 GNEDataSet::setDataSetID(const std::string& newID) {
     // update ID
     myDataSetID = newID;
     // iterate over all intervals
-    for (const auto &interval : myDataIntervalChildren) {
+    for (const auto& interval : myDataIntervalChildren) {
         interval.second->updateGenericDataIDs();
     }
 }

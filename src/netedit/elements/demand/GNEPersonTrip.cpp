@@ -36,15 +36,15 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip::GNEPersonTrip(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
-        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO, 
-        {}, {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}),                            // Childrens
-    Parameterised(),
-    myArrivalPosition(arrivalPosition),
-    myVTypes(types),
-    myModes(modes) {
+GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO,
+{}, {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, // Parents
+{}, {}, {}, {}, {}, {}, {}),                            // Childrens
+Parameterised(),
+myArrivalPosition(arrivalPosition),
+myVTypes(types),
+myModes(modes) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute person trip
@@ -52,15 +52,15 @@ GNEPersonTrip::GNEPersonTrip(GNENet *net, GNEDemandElement* personParent, GNEEdg
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
-        const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
+                             const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP,
-        {}, {fromEdge}, {}, {}, {busStop}, {personParent}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}),                            // Childrens
-    Parameterised(),
-    myArrivalPosition(-1),
-    myVTypes(types),
-    myModes(modes) {
+{}, {fromEdge}, {}, {}, {busStop}, {personParent}, {},  // Parents
+{}, {}, {}, {}, {}, {}, {}),                            // Childrens
+Parameterised(),
+myArrivalPosition(-1),
+myVTypes(types),
+myModes(modes) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute person trip

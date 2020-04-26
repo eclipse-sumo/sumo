@@ -148,9 +148,8 @@ MSMeanData_Amitran::MSMeanData_Amitran(const std::string& id,
                                        const std::string& vTypes,
                                        const std::string& writeAttributes) :
     MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-            withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, vTypes, writeAttributes),
-    myHaltSpeed(haltSpeed)
-{
+               withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, vTypes, writeAttributes),
+    myHaltSpeed(haltSpeed) {
 }
 
 

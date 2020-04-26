@@ -175,10 +175,10 @@ private:
     double _v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double mySpeed,
               const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
-    double speedSpeedControl(const double speed, double vErr, VehicleMode &vehMode) const;
+    double speedSpeedControl(const double speed, double vErr, VehicleMode& vehMode) const;
     double speedGapControl(const MSVehicle* const veh, const double gap2pred,
                            const double speed, const double predSpeed, const double desSpeed, double vErr,
-                           const MSVehicle* const pred, VehicleMode &vehMode) const;
+                           const MSVehicle* const pred, VehicleMode& vehMode) const;
 
 private:
     MSCFModel_ACC acc_CFM;

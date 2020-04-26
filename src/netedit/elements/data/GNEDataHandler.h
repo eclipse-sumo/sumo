@@ -86,7 +86,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEDataHandler(const std::string& file, GNENet *net);
+    GNEDataHandler(const std::string& file, GNENet* net);
 
     /// @brief Destructor
     ~GNEDataHandler();
@@ -122,7 +122,7 @@ public:
      * @param[in] HierarchyInsertedDatas pointer to HierarchyInsertedDatas (can be null)
      * @return true if was sucesfully created, false in other case
      */
-    static bool buildData(GNENet *net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+    static bool buildData(GNENet* net, bool allowUndoRedo, SumoXMLTag tag, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /**@brief Builds DataSet
      * @param[in] net GNENet in which element will be inserted
@@ -130,7 +130,7 @@ public:
      * @param[in] dataSetID data set interval
      * @exception InvalidArgument If the DataSet can not be added to the net
      */
-    static GNEDataSet* buildDataSet(GNENet *net, bool allowUndoRedo, const std::string& dataSetID);
+    static GNEDataSet* buildDataSet(GNENet* net, bool allowUndoRedo, const std::string& dataSetID);
 
     /**@brief Builds DataInterval
      * @param[in] net GNENet in which element will be inserted
@@ -140,8 +140,8 @@ public:
      * @param[in] end interval end
      * @exception InvalidArgument If the DataInterval can not be added to the net
      */
-    static GNEDataInterval* buildDataInterval(GNENet *net, bool allowUndoRedo, GNEDataSet* dataSetParent, 
-        const double begin, const double end);
+    static GNEDataInterval* buildDataInterval(GNENet* net, bool allowUndoRedo, GNEDataSet* dataSetParent,
+            const double begin, const double end);
 
     /**@brief Builds edgeData
      * @param[in] net GNENet in which element will be inserted
@@ -151,9 +151,9 @@ public:
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
-    static GNEEdgeData* buildEdgeData(GNENet *net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
-        GNEEdge* edge, const std::map<std::string, std::string>& parameters);
-    
+    static GNEEdgeData* buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
+                                      GNEEdge* edge, const std::map<std::string, std::string>& parameters);
+
     /**@brief Builds edgeRelationData
      * @param[in] net GNENet in which element will be inserted
      * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
@@ -163,8 +163,8 @@ public:
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeRelationData can not be added to the net
      */
-    static GNEEdgeRelData* buildEdgeRelationData(GNENet *net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, 
-        GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters);
+    static GNEEdgeRelData* buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
+            GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters);
 
 protected:
     /// @name parsing methods
@@ -176,17 +176,17 @@ protected:
     /**@brief Parses his values and builds a interval
      * @param[in] attrs SAX-attributes which define the data
      */
-    static bool parseAndBuildInterval(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+    static bool parseAndBuildInterval(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /**@brief Parses his values and builds a edge data
      * @param[in] attrs SAX-attributes which define the data
      */
-    static bool parseAndBuildEdgeData(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+    static bool parseAndBuildEdgeData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /**@brief Parses his values and builds a edge relation data
      * @param[in] attrs SAX-attributes which define the data
      */
-    static bool parseAndBuildEdgeRelationData(GNENet *net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+    static bool parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /// @}
 

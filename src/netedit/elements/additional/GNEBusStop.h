@@ -43,7 +43,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEBusStop(const std::string& id, GNELane* lane, GNENet *net, const double startPos, const double endPos, const int parametersSet,
+    GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const double startPos, const double endPos, const int parametersSet,
                const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor

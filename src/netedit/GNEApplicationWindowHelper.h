@@ -482,14 +482,14 @@ struct GNEApplicationWindowHelper {
     };
 
     /// @brief toogle edit options Network menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsNetwork(GNEViewNet* viewNet, const FXMenuCheck* menuCheck, 
-        const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+    static bool toogleEditOptionsNetwork(GNEViewNet* viewNet, const FXMenuCheck* menuCheck,
+                                         const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 
     /// @brief toogle edit options Demand menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsDemand(GNEViewNet* viewNet, const FXMenuCheck* menuCheck, 
-        const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+    static bool toogleEditOptionsDemand(GNEViewNet* viewNet, const FXMenuCheck* menuCheck,
+                                        const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 
     /// @brief toogle edit options Data menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsData(GNEViewNet* viewNet, const FXMenuCheck* menuCheck, 
-        const int numericalKeyPressed, FXObject* obj, FXSelector sel);
+    static bool toogleEditOptionsData(GNEViewNet* viewNet, const FXMenuCheck* menuCheck,
+                                      const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 };

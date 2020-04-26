@@ -292,7 +292,7 @@ public:
     }
 
     /// @brief Get the waiting time for vehicles in all queues
-    double getWaitingSeconds() const; 
+    double getWaitingSeconds() const;
 
     /// @name State saving/loading
     /// @{

@@ -32,7 +32,7 @@
 // ===========================================================================
 bool
 TraCIServerAPI_VariableSpeedSign::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                 tcpip::Storage& outputStorage) {
+        tcpip::Storage& outputStorage) {
     const int variable = inputStorage.readUnsignedByte();
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_VARIABLESPEEDSIGN_VARIABLE, variable, id);
@@ -63,7 +63,7 @@ TraCIServerAPI_VariableSpeedSign::processGet(TraCIServer& server, tcpip::Storage
 
 bool
 TraCIServerAPI_VariableSpeedSign::processSet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                 tcpip::Storage& outputStorage) {
+        tcpip::Storage& outputStorage) {
     std::string warning = ""; // additional description for response
     // variable
     int variable = inputStorage.readUnsignedByte();

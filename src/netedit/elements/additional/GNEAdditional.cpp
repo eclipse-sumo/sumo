@@ -36,21 +36,21 @@
 // member method definitions
 // ===========================================================================
 
-GNEAdditional::GNEAdditional(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEJunction*>& junctionChildren,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren) :
+GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+                             const std::vector<GNEJunction*>& junctionParents,
+                             const std::vector<GNEEdge*>& edgeParents,
+                             const std::vector<GNELane*>& laneParents,
+                             const std::vector<GNEShape*>& shapeParents,
+                             const std::vector<GNEAdditional*>& additionalParents,
+                             const std::vector<GNEDemandElement*>& demandElementParents,
+                             const std::vector<GNEGenericData*>& genericDataParents,
+                             const std::vector<GNEJunction*>& junctionChildren,
+                             const std::vector<GNEEdge*>& edgeChildren,
+                             const std::vector<GNELane*>& laneChildren,
+                             const std::vector<GNEShape*>& shapeChildren,
+                             const std::vector<GNEAdditional*>& additionalChildren,
+                             const std::vector<GNEDemandElement*>& demandElementChildren,
+                             const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
     Parameterised(),
@@ -63,21 +63,21 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet *net, GUIGlObjectType
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEJunction*>& junctionChildren,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren) :
+GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+                             const std::vector<GNEJunction*>& junctionParents,
+                             const std::vector<GNEEdge*>& edgeParents,
+                             const std::vector<GNELane*>& laneParents,
+                             const std::vector<GNEShape*>& shapeParents,
+                             const std::vector<GNEAdditional*>& additionalParents,
+                             const std::vector<GNEDemandElement*>& demandElementParents,
+                             const std::vector<GNEGenericData*>& genericDataParents,
+                             const std::vector<GNEJunction*>& junctionChildren,
+                             const std::vector<GNEEdge*>& edgeChildren,
+                             const std::vector<GNELane*>& laneChildren,
+                             const std::vector<GNEShape*>& shapeChildren,
+                             const std::vector<GNEAdditional*>& additionalChildren,
+                             const std::vector<GNEDemandElement*>& demandElementChildren,
+                             const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, additionalParent->generateChildID(tag)),
     GNEAttributeCarrier(tag, net),
     Parameterised(),
@@ -99,7 +99,7 @@ GNEAdditional::getID() const {
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GNEAdditional::getGUIGlObject() {
     return this;
 }
@@ -146,7 +146,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             device.openTag(myTagProperty.getTag());
         }
         // iterate over attributes and write it
-        for (const auto &tagProperty : myTagProperty) {
+        for (const auto& tagProperty : myTagProperty) {
             // first check that attribute isn't ignored
             if (!tagProperty.isIgnored()) {
                 // obtain attribute
@@ -212,7 +212,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
             OutputDevice& deviceChildren = OutputDevice::getDevice(FileHelpers::getFilePath(OptionsCont::getOptions().getString("additional-files")) + getAttribute(SUMO_ATTR_FILE));
             deviceChildren.writeXMLHeader("rerouterValue", "additional_file.xsd");
             // save children in a different filename
-            for (const auto &additionalChild: getChildAdditionals()) {
+            for (const auto& additionalChild : getChildAdditionals()) {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (additionalChild->getParentAdditionals().size() < 1) {
                     additionalChild->writeAdditional(deviceChildren);

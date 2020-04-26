@@ -84,10 +84,10 @@ public:
     /// @name Function related with graphics (must be implemented in all childs)
     /// @{
     /// @brief get ID (all Attribute Carriers have one)
-    virtual const std::string &getID() const = 0;
+    virtual const std::string& getID() const = 0;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
-    virtual GUIGlObject *getGUIGlObject() = 0;
+    virtual GUIGlObject* getGUIGlObject() = 0;
 
     /// @brief get dotted geometry
     const GNEGeometry::DottedGeometry& getDottedGeometry() const;
@@ -422,11 +422,11 @@ private:
 
     /// @brief parse and check attribute (note: This function is only to improve legilibility)
     static bool checkParsedAttribute(const GNETagProperties& tagProperties, const GNEAttributeProperties& attrProperties, const SumoXMLAttr attribute,
-        std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
+                                     std::string& defaultValue, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief parse and check masked  (note: This function is only to improve legilibility)
     static bool parseMaskedPositionAttribute(const SUMOSAXAttributes& attrs, const std::string& objectID, const GNETagProperties& tagProperties,
-        const GNEAttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
+            const GNEAttributeProperties& attrProperties, std::string& parsedAttribute, std::string& warningMessage);
 
     /// @brief map with the tags properties
     static std::map<SumoXMLTag, GNETagProperties> myTagProperties;

@@ -195,19 +195,19 @@ public:
      *
      * @return The GUI angle, relative to the lane, in radians
      */
-        double getLastFreeLotGUIAngle() const;
+    double getLastFreeLotGUIAngle() const;
 
     /** @brief Return the manoeuver angle of the lot where the vehicle is parked
      *
      * @return The manoeuver angle in degrees
      */
-     int getManoeuverAngle(const SUMOVehicle& forVehicle) const;
+    int getManoeuverAngle(const SUMOVehicle& forVehicle) const;
 
     /** @brief  Return the GUI angle of the lot where the vehicle is parked
      *
      * @return The GUI angle, relative to the lane, in radians
      */
-     double getGUIAngle(const SUMOVehicle& forVehicle) const;
+    double getGUIAngle(const SUMOVehicle& forVehicle) const;
 
     /** @brief Add a lot entry to parking area
      *

@@ -161,11 +161,11 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 // member method definitions
 // ===========================================================================
 
-GNEPerson::GNEPerson(SumoXMLTag tag, GNENet *net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
+GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-        {}, {}, {}, {}, {}, {pType}, {}, // parents
-        {}, {}, {}, {}, {}, {}, {}),     // children
-    SUMOVehicleParameter(personparameters) {
+{}, {}, {}, {}, {}, {pType}, {}, // parents
+{}, {}, {}, {}, {}, {}, {}),     // children
+SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }

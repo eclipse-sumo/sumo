@@ -623,7 +623,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
         if (leaderInfo.first != nullptr) {
             MSVehicle* leader = leaderInfo.first;
             const double frontGapNeeded = veh.getCarFollowModel().getSecureGap(&veh, leader, speed, leader->getSpeed(),
-                    leader->getCarFollowModel().getMaxDecel());
+                                          leader->getCarFollowModel().getMaxDecel());
             dist = MIN2(dist, leaderInfo.second - frontGapNeeded);
         }
         veh.executeFractionalMove(dist);
@@ -1403,9 +1403,9 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
                         if (!(high < low2 || high2 < low)) {
 #ifdef DEBUG_COLLISIONS
                             if (DEBUG_COND) {
-                                std::cout << SIMTIME << " bidi-collision veh=" << (*veh)->getID() << " bidiVeh=" << (*veh2)->getID() 
-                                    << " vehFurther=" << toString((*veh)->getFurtherLanes())
-                                    << " high=" << high << " low=" << low << " high2=" << high2 << " low2=" << low2 << "\n";
+                                std::cout << SIMTIME << " bidi-collision veh=" << (*veh)->getID() << " bidiVeh=" << (*veh2)->getID()
+                                          << " vehFurther=" << toString((*veh)->getFurtherLanes())
+                                          << " high=" << high << " low=" << low << " high2=" << high2 << " low2=" << low2 << "\n";
                             }
 #endif
                             // the faster vehicle is at fault
@@ -3235,10 +3235,10 @@ MSLane::getFollowersOnConsecutive(const MSVehicle* ego, double backOffset,
                         if (ll.vehAndGap.first != nullptr) {
                             const bool egoIsLeader = ll.vehAndGap.first->isLeader((*it).viaLink, ego);
                             // if ego is leader the returned gap still assumes that ego follows the leader
-                            // if the foe vehicle follows ego we need to deduce that gap 
-                            const double gap = (egoIsLeader 
-                                    ? -ll.vehAndGap.second - ll.vehAndGap.first->getVehicleType().getLengthWithGap() - ego->getVehicleType().getMinGap()
-                                    : ll.vehAndGap.second + ego->getVehicleType().getLength());
+                            // if the foe vehicle follows ego we need to deduce that gap
+                            const double gap = (egoIsLeader
+                                                ? -ll.vehAndGap.second - ll.vehAndGap.first->getVehicleType().getLengthWithGap() - ego->getVehicleType().getMinGap()
+                                                : ll.vehAndGap.second + ego->getVehicleType().getLength());
                             result.addFollower(ll.vehAndGap.first, ego, gap);
 #ifdef DEBUG_CONTEXT
                             if (DEBUG_COND2(ego)) {

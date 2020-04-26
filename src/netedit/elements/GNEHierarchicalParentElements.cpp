@@ -91,7 +91,7 @@ GNEHierarchicalParentElements::getParentAdditionals() const {
 }
 
 
-size_t 
+size_t
 GNEHierarchicalParentElements::getNumberOfParentAdditionals(GNETagProperties::TagType additionalType) const {
     size_t number = 0;
     // check additional type

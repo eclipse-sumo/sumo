@@ -1126,7 +1126,7 @@ NIImporter_OpenStreetMap::EdgesHandler::interpretSpeed(const std::string& key, s
             return StringUtils::toDouble(value) * conversion;
         } catch (...) {
             WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" +
-                    toString(myCurrentEdge->id) + "'.");
+                          toString(myCurrentEdge->id) + "'.");
             return MAXSPEED_UNGIVEN;
         }
     }

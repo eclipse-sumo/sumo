@@ -34,12 +34,12 @@
 // member method definitions
 // ===========================================================================
 
-GNEVaporizer::GNEVaporizer(GNENet *net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
-    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false, 
-        {}, {edge}, {}, {}, {}, {}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    myBegin(begin),
-    myEnd(end) {
+GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
+    GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false,
+{}, {edge}, {}, {}, {}, {}, {}, // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+myBegin(begin),
+myEnd(end) {
 }
 
 

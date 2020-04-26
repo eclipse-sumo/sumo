@@ -650,64 +650,71 @@ MSBaseVehicle::addStops(const bool ignoreStopErrors, MSRouteIterator* searchStar
 
 double
 MSBaseVehicle::getCO2Emissions() const {
-    if (isOnRoad() || isIdling())
+    if (isOnRoad() || isIdling()) {
         return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO2, getSpeed(), getAcceleration(), getSlope());
-    else
+    } else {
         return 0.;
+    }
 }
 
 
 double
 MSBaseVehicle::getCOEmissions() const {
-    if (isOnRoad() || isIdling())
+    if (isOnRoad() || isIdling()) {
         return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::CO, getSpeed(), getAcceleration(), getSlope());
-    else
+    } else {
         return 0.;
+    }
 }
 
 
 double
 MSBaseVehicle::getHCEmissions() const {
-    if (isOnRoad() || isIdling())
+    if (isOnRoad() || isIdling()) {
         return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::HC, getSpeed(), getAcceleration(), getSlope());
-    else
+    } else {
         return 0.;
+    }
 }
 
 
 double
 MSBaseVehicle::getNOxEmissions() const {
-    if (isOnRoad() || isIdling())
+    if (isOnRoad() || isIdling()) {
         return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::NO_X, getSpeed(), getAcceleration(), getSlope());
-    else
+    } else {
         return 0.;
+    }
 }
 
 
 double
 MSBaseVehicle::getPMxEmissions() const {
-    if (isOnRoad() || isIdling())
+    if (isOnRoad() || isIdling()) {
         return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::PM_X, getSpeed(), getAcceleration(), getSlope());
-    else
+    } else {
         return 0.;
+    }
 }
 
 
 double
 MSBaseVehicle::getFuelConsumption() const {
-    if (isOnRoad() || isIdling())
+    if (isOnRoad() || isIdling()) {
         return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::FUEL, getSpeed(), getAcceleration(), getSlope());
-    else
+    } else {
         return 0.;
+    }
 }
 
 
 double
 MSBaseVehicle::getElectricityConsumption() const {
-    if (isOnRoad() || isIdling())
+    if (isOnRoad() || isIdling()) {
         return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::ELEC, getSpeed(), getAcceleration(), getSlope());
-    else
+    } else {
         return 0.;
+    }
 }
 
 double
@@ -737,10 +744,11 @@ MSBaseVehicle::getElecHybridCurrent() const {
 
 double
 MSBaseVehicle::getHarmonoise_NoiseEmissions() const {
-    if (isOnRoad() || isIdling())
+    if (isOnRoad() || isIdling()) {
         return HelpersHarmonoise::computeNoise(myType->getEmissionClass(), getSpeed(), getAcceleration());
-    else
+    } else {
         return 0.;
+    }
 }
 
 

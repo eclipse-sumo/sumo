@@ -318,7 +318,7 @@ GNEViewNet::updateViewNet() const {
 }
 
 
-void 
+void
 GNEViewNet::forceSupermodeNetwork() {
     myEditModes.setSupermode(Supermode::NETWORK, true);
 }
@@ -336,7 +336,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
         //  finish make OpenGL context current
         makeNonCurrent();
         // iterate over GUIGlIDs
-        for (const auto & GLId : GLIds) {
+        for (const auto& GLId : GLIds) {
             // avoid to select Net (i = 0)
             if (GLId != 0) {
                 GNEAttributeCarrier* retrievedAC = myNet->retrieveAttributeCarrier(GLId);
@@ -2575,50 +2575,49 @@ GNEViewNet::onCmdToogleShowDemandElements(FXObject*, FXSelector sel, void*) {
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
         myNetworkViewOptions.menuCheckShowDemandElements->setFocus();
-    }
-    else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
+    } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS)) {
         myDataViewOptions.menuCheckShowDemandElements->setFocus();
     }
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdIntervalBarGenericDataType(FXObject*, FXSelector, void*) {
     myIntervalBar.setGenericDataType();
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdIntervalBarDataSet(FXObject*, FXSelector, void*) {
     myIntervalBar.setDataSet();
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdIntervalBarLimit(FXObject*, FXSelector, void*) {
     myIntervalBar.setInterval();
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdIntervalBarSetBegin(FXObject*, FXSelector, void*) {
     myIntervalBar.setBegin();
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdIntervalBarSetEnd(FXObject*, FXSelector, void*) {
     myIntervalBar.setEnd();
     return 1;
 }
 
 
-long 
+long
 GNEViewNet::onCmdIntervalBarSetAttribute(FXObject*, FXSelector, void*) {
     myIntervalBar.setAttribute();
     return 1;
@@ -2869,7 +2868,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myIntervalBar.hideIntervalBar();
     // hide all frames
     myViewParent->hideAllFrames();
-    // always show "hide shapes", "show grid" and ·draw spread vehicles"
+    // always show "hide shapes", "show grid" and "draw spread vehicles"
     myDemandViewOptions.menuCheckShowGrid->show();
     myDemandViewOptions.menuCheckDrawSpreadVehicles->show();
     myDemandViewOptions.menuCheckHideShapes->show();
@@ -3201,7 +3200,7 @@ GNEViewNet::deleteSelectedGenericDatas() {
         std::string plural = genericDatas.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected generic data" + plural);
         // iterate over generic datas
-        for (const auto &genericData : genericDatas) {
+        for (const auto& genericData : genericDatas) {
             myNet->deleteGenericData(genericData, myUndoList);
         }
         myUndoList->p_end();
@@ -3486,7 +3485,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // before delete al selected attribute carriers, check if we clicked over a geometry point
                     if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
-                            (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getEdgeVertexIndex(getPositionInformation(), false) != -1)) || 
+                            (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getEdgeVertexIndex(getPositionInformation(), false) != -1)) ||
                              ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getPolyVertexIndex(getPositionInformation(), false) != -1)))) {
                         myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
                     } else {
@@ -4005,4 +4004,6 @@ GNEViewNet::processMoveMouseData() {
     }
 }
 
+
 /****************************************************************************/
+

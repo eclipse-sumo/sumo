@@ -82,7 +82,7 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
-    /// @brief expand boundary 
+    /// @brief expand boundary
     void expandBoundary(const Boundary& newBoundary);
 
     /// @brief Returns the Z boundary (stored in the x() coordinate) values of 0 do not affect the boundary
@@ -379,7 +379,7 @@ public:
     void setViewNet(GNEViewNet* viewNet);
 
     /// @brief add GL Object into net
-    void addGLObjectIntoGrid(GNEAttributeCarrier *AC);
+    void addGLObjectIntoGrid(GNEAttributeCarrier* AC);
 
     /// @brief add GL Object into net
     void removeGLObjectFromGrid(GNEAttributeCarrier* AC);
@@ -598,8 +598,8 @@ public:
 
     /// @brief return a set of parameters for the given dataSet, generic data Type, begin and end
     std::set<std::string> retrieveGenericDataParameters(const std::string& dataSetID, const std::string& genericDataTag,
-        const std::string& beginStr, const std::string& endStr) const;
-    
+            const std::string& beginStr, const std::string& endStr) const;
+
     /// @brief get minimum interval
     double getDataSetIntervalMinimumBegin() const;
 
@@ -684,7 +684,7 @@ protected:
     NBNetBuilder* myNetBuilder;
 
     /// @brief AttributeCarriers of net
-    GNENetHelper::AttributeCarriers *myAttributeCarriers;
+    GNENetHelper::AttributeCarriers* myAttributeCarriers;
 
     /// @brief PathCalculator instance
     GNENetHelper::PathCalculator* myPathCalculator;

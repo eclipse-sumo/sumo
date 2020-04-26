@@ -104,14 +104,22 @@ PollutantsInterface::getName(const SUMOEmissionClass c) {
 std::string
 PollutantsInterface::getPollutantName(const EmissionType e) {
     switch (e) {
-        case CO2: return "CO2";
-        case CO: return "CO";
-        case HC: return "HC";
-        case FUEL: return "fuel";
-        case NO_X: return "NOx";
-        case PM_X: return "PMx";
-        case ELEC: return "electricity";
-        default: throw InvalidArgument("Unknown emission type '" + toString(e) + "'");
+        case CO2:
+            return "CO2";
+        case CO:
+            return "CO";
+        case HC:
+            return "HC";
+        case FUEL:
+            return "fuel";
+        case NO_X:
+            return "NOx";
+        case PM_X:
+            return "PMx";
+        case ELEC:
+            return "electricity";
+        default:
+            throw InvalidArgument("Unknown emission type '" + toString(e) + "'");
     }
 }
 

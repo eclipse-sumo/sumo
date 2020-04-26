@@ -35,9 +35,9 @@
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
     GNEAdditional(rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false,
-        {}, {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {},    // Parents
-        {}, {}, {}, {}, {}, {}, {}),                                                // Children
-    myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals().at(0)->getChildEdges().at(0)->getLanes().at(0)) {
+{}, {}, {}, {}, {rerouterIntervalDialog->getEditedAdditional()}, {}, {},    // Parents
+{}, {}, {}, {}, {}, {}, {}),                                                // Children
+myClosedLane(rerouterIntervalDialog->getEditedAdditional()->getParentAdditionals().at(0)->getChildEdges().at(0)->getLanes().at(0)) {
     // fill closing lane reroute interval with default values
     setDefaultValues();
 }
@@ -45,10 +45,10 @@ GNEClosingLaneReroute::GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouter
 
 GNEClosingLaneReroute::GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent, rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_CLOSING_LANE_REROUTE, "", false,
-        {}, {}, {}, {}, {rerouterIntervalParent}, {}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}),                        // Children
-    myClosedLane(closedLane),
-    myPermissions(permissions) {
+{}, {}, {}, {}, {rerouterIntervalParent}, {}, {},   // Parents
+{}, {}, {}, {}, {}, {}, {}),                        // Children
+myClosedLane(closedLane),
+myPermissions(permissions) {
 }
 
 

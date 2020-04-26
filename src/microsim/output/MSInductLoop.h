@@ -309,7 +309,7 @@ protected:
     /// @brief Detector's position on lane [m]
     const double myPosition;
 
-     /// @brief whether internals need to be guarded against concurrent access (GUI or multi threading)
+    /// @brief whether internals need to be guarded against concurrent access (GUI or multi threading)
     const bool myNeedLock;
 
     /// @brief Leave-time of the last vehicle detected [s]

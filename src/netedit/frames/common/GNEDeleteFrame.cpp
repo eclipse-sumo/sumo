@@ -81,7 +81,7 @@ GNEDeleteFrame::DeleteOptions::deleteOnlyGeometryPoints() const {
 }
 
 
-bool 
+bool
 GNEDeleteFrame::DeleteOptions::protectAdditionals() const {
     return (myProtectAdditionals->getCheck() == TRUE);
 }
@@ -93,7 +93,7 @@ GNEDeleteFrame::DeleteOptions::protectTAZs() const {
 }
 
 
-bool 
+bool
 GNEDeleteFrame::DeleteOptions::protectShapes() const {
     return (myProtectShapes->getCheck() == TRUE);
 }
@@ -148,7 +148,7 @@ GNEDeleteFrame::removeSelectedAttributeCarriers() {
         if (myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             //junctions
             auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
-            for (const auto & selectedJunction : selectedJunctions) {
+            for (const auto& selectedJunction : selectedJunctions) {
                 myViewNet->getNet()->deleteJunction(selectedJunction, myViewNet->getUndoList());
             }
             // edges
@@ -372,8 +372,8 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
 
 
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet* viewNet,
-    const GNEHierarchicalParentElements* hierarchicalParent,
-    const GNEHierarchicalChildElements* hierarchicalChild) :
+        const GNEHierarchicalParentElements* hierarchicalParent,
+        const GNEHierarchicalChildElements* hierarchicalChild) :
     myAttributeCarrier(attributeCarrier),
     myViewNet(viewNet),
     myAdditionalParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
@@ -429,10 +429,10 @@ GNEDeleteFrame::SubordinatedElements::addValuesFromSubordinatedElements(Subordin
 }
 
 
-void 
+void
 GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type, const size_t number, const bool isChild) {
     // declare plural depending of "number"
-    const std::string plural = (number > 1)? "s" : ""; 
+    const std::string plural = (number > 1) ? "s" : "";
     // declare header
     const std::string header = "Problem deleting " + myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() + "'";
     // declare message
@@ -440,12 +440,12 @@ GNEDeleteFrame::SubordinatedElements::openWarningDialog(const std::string& type,
     // set message depending of isChild
     if (isChild) {
         message = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
-            "' cannot be deleted because it has " + toString(number) + " " + type + " element" + plural + ".\n" + 
-            "To delete it, uncheck 'protect " + type + " elements'.";
+                  "' cannot be deleted because it has " + toString(number) + " " + type + " element" + plural + ".\n" +
+                  "To delete it, uncheck 'protect " + type + " elements'.";
     } else {
         message = myAttributeCarrier->getTagProperty().getTagStr() + " '" + myAttributeCarrier->getID() +
-            "' cannot be deleted because it is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
-            "To delete it, uncheck 'protect " + type + " elements'.";
+                  "' cannot be deleted because it is part of " + toString(number) + " " + type + " element" + plural + ".\n" +
+                  "To delete it, uncheck 'protect " + type + " elements'.";
     }
     // write warning
     WRITE_DEBUG("Opened FXMessageBox " + header);
@@ -474,7 +474,7 @@ GNEDeleteFrame::selectedACsToDelete() const {
                     return true;
                 }
                 // check lanes
-                for (const auto &lane : edge->getLanes()) {
+                for (const auto& lane : edge->getLanes()) {
                     if (lane->isAttributeCarrierSelected()) {
                         return true;
                     }

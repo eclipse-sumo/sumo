@@ -299,11 +299,11 @@ public:
     void workOnMoveReminders(double oldPos, double newPos, double newSpeed);
     //@}
 
-   /** @brief cycle through vehicle devices invoking notifyIdle
-     *
-     *   This is only implemented on the emissions device
-     *     implemented to allow capture of emissions when vehicle is not on net.
-     */
+    /** @brief cycle through vehicle devices invoking notifyIdle
+      *
+      *   This is only implemented on the emissions device
+      *     implemented to allow capture of emissions when vehicle is not on net.
+      */
     void workOnIdleReminders();
 
     /** @brief Returns whether the vehicle is supposed to take action in the current simulation step
@@ -1903,7 +1903,7 @@ protected:
     virtual void drawOutsideNetwork(bool /*add*/) {};
 
     /// @brief board persons and load transportables at the given stop
-    void boardTransportables(Stop& stop); 
+    void boardTransportables(Stop& stop);
 
     /// @brief try joining the given vehicle to the rear of this one (to resolve joinTriggered)
     bool joinTrainPart(MSVehicle* veh);

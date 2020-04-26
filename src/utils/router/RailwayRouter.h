@@ -55,11 +55,10 @@ public:
 
     /// Constructor
     RailwayRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation effortOperation,
-                   typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr, bool silent = false,
-                   const bool havePermissions = false, const bool haveRestrictions = false) :
+                  typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr, bool silent = false,
+                  const bool havePermissions = false, const bool haveRestrictions = false) :
         SUMOAbstractRouter<E, V>("RailwayRouter", true, effortOperation, ttOperation, havePermissions, haveRestrictions),
-        myInternalRouter(nullptr)
-    {
+        myInternalRouter(nullptr) {
         myStaticOperation = effortOperation;
         std::vector<_RailEdge*> railEdges1; // a RailEdge for existing edge
         for (E* edge : edges) {
@@ -100,7 +99,7 @@ public:
             backLengths.push_back(prev->getLength() + (backLengths.empty() ? from->getLength() : backLengths.back()));
             start = prev;
         }
-        
+
         std::vector<const _RailEdge*> intoTmp;
         bool success = myInternalRouter->compute(start->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
         //std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime) << " success=" << success << "\n";
@@ -123,8 +122,8 @@ public:
                 std::cout << "RailRouter: backLengths=" << toString(backLengths) << " final result=" << toString(into) << "\n";
 #endif
                 if (*(into.begin() + intoSize) != from) {
-                    WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID() 
-                            + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
+                    WRITE_WARNING("Railway routing failure due to turn-around on short edge '" + from->getID()
+                                  + "' for vehicle '" + vehicle->getID() + "' time=" + time2string(msTime) + ".");
                 }
             }
         }
@@ -132,7 +131,7 @@ public:
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {
-        std::vector<_RailEdge*> railEdges; 
+        std::vector<_RailEdge*> railEdges;
         for (E* edge : toProhibit) {
             railEdges.push_back(edge->getRailwayRoutingEdge());
         }
@@ -148,7 +147,7 @@ private:
 
     static inline double getTravelTimeStatic(const RailEdge<E, V>* const edge, const V* const veh, double time) {
         if (edge->getOriginal() != nullptr) {
-            return  (*myStaticOperation)(edge->getOriginal(), veh, time);
+            return (*myStaticOperation)(edge->getOriginal(), veh, time);
         } else {
             // turnaround edge
             if (edge->isVirtual()) {

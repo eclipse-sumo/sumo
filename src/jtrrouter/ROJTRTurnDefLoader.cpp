@@ -65,8 +65,8 @@ ROJTRTurnDefLoader::myStartElement(int element,
         case SUMO_TAG_FROMEDGE:
             if (!myHaveWarnedAboutDeprecatedFormat) {
                 myHaveWarnedAboutDeprecatedFormat = true;
-                WRITE_WARNING("The turn-file format with elements " + toString(SUMO_TAG_FROMEDGE) + ", " + toString(SUMO_TAG_TOEDGE) + " is deprecated," 
-                        + " please use " + toString(SUMO_TAG_EDGEREL) + " instead.");
+                WRITE_WARNING("The turn-file format with elements " + toString(SUMO_TAG_FROMEDGE) + ", " + toString(SUMO_TAG_TOEDGE) + " is deprecated,"
+                              + " please use " + toString(SUMO_TAG_EDGEREL) + " instead.");
             }
             beginFromEdge(attrs);
             break;
@@ -190,8 +190,8 @@ ROJTRTurnDefLoader::addEdgeRel(const SUMOSAXAttributes& attrs) {
     std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, nullptr, ok);
     std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
     double probability = attrs.get<double>(
-            attrs.hasAttribute(SUMO_ATTR_COUNT) && !attrs.hasAttribute(SUMO_ATTR_PROB) ? SUMO_ATTR_COUNT : SUMO_ATTR_PROB,
-            (fromID + "->" + toID).c_str(), ok);
+                             attrs.hasAttribute(SUMO_ATTR_COUNT) && !attrs.hasAttribute(SUMO_ATTR_PROB) ? SUMO_ATTR_COUNT : SUMO_ATTR_PROB,
+                             (fromID + "->" + toID).c_str(), ok);
     if (!ok) {
         return;
     }

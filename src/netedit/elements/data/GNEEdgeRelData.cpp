@@ -45,11 +45,12 @@
 // GNEEdgeRelData - methods
 // ---------------------------------------------------------------------------
 
-GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-    const std::map<std::string, std::string>& parameters) :
+GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                               const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELDATA, dataIntervalParent, parameters,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}) {                   // Children
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}) {
+    // Children
 }
 
 
@@ -115,7 +116,7 @@ GNEEdgeRelData::fixGenericDataProblem() {
 }
 
 
-Boundary 
+Boundary
 GNEEdgeRelData::getCenteringBoundary() const {
     return getParentEdges().front()->getCenteringBoundary();
 }
@@ -259,18 +260,17 @@ GNEEdgeRelData::isVisible() const {
     if (edgeRelDataFrame->shown()) {
         // check interval
         if ((edgeRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
-            (edgeRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+                (edgeRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
             return false;
         }
         // check attribute
         if ((edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-            (getParametersMap().count(edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+                (getParametersMap().count(edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
             return false;
         }
         // all checks ok, then return true
         return true;
-    }
-    else {
+    } else {
         // GNEEdgeRelDataFrame hidden, then return false
         return false;
     }

@@ -500,8 +500,8 @@ public:
      */
     bool insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly = false, const bool forceCheck = false) const;
 
-    /// @brief check whether the given departSpeed is valid for this edge 
-    bool validateDepartSpeed(SUMOVehicle& v) const; 
+    /// @brief check whether the given departSpeed is valid for this edge
+    bool validateDepartSpeed(SUMOVehicle& v) const;
 
     /** @brief Finds the emptiest lane allowing the vehicle class
      *

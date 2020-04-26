@@ -604,7 +604,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::GRID3] = new FXXPMIcon(a, grid3_xpm);
 
     // ... and create them
-    for (const auto &icon : myIcons) {
+    for (const auto& icon : myIcons) {
         icon.second->create();
     }
 }

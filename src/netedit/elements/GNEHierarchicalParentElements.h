@@ -62,13 +62,13 @@ public:
      * @param[in] parentGenericData vector of parent generic data elements
      */
     GNEHierarchicalParentElements(const GNEAttributeCarrier* AC,
-        const std::vector<GNEJunction*>& parentJunctions,
-        const std::vector<GNEEdge*>& parentEdges,
-        const std::vector<GNELane*>& parentLanes,
-        const std::vector<GNEShape*>& parentShapes,
-        const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEDemandElement*>& parentDemandElements,
-        const std::vector<GNEGenericData*>& parentGenericDatas);
+                                  const std::vector<GNEJunction*>& parentJunctions,
+                                  const std::vector<GNEEdge*>& parentEdges,
+                                  const std::vector<GNELane*>& parentLanes,
+                                  const std::vector<GNEShape*>& parentShapes,
+                                  const std::vector<GNEAdditional*>& parentAdditionals,
+                                  const std::vector<GNEDemandElement*>& parentDemandElements,
+                                  const std::vector<GNEGenericData*>& parentGenericDatas);
 
     /// @brief Destructor
     ~GNEHierarchicalParentElements();

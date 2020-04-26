@@ -38,22 +38,21 @@ public:
     typedef RailEdge<E, V> _RailEdge;
     typedef std::vector<std::pair<const _RailEdge*, const _RailEdge*> > ConstEdgePairVector;
 
-    RailEdge(const E* orig) : 
+    RailEdge(const E* orig) :
         myNumericalID(orig->getNumericalID()),
         myOriginal(orig),
         myTurnaround(nullptr),
         myIsVirtual(true)
     { }
 
-    RailEdge(const E* turnStart, const E* turnEnd, int numericalID) : 
+    RailEdge(const E* turnStart, const E* turnEnd, int numericalID) :
         myNumericalID(numericalID),
         myID("TrainReversal!" + turnStart->getID() + "->" + turnEnd->getID()),
         myOriginal(nullptr),
         myTurnaround(nullptr),
         myIsVirtual(true),
         myMaxLength(turnStart->getLength()),
-        myStartLength(turnStart->getLength())
-    { 
+        myStartLength(turnStart->getLength()) {
         myViaSuccessors.push_back(std::make_pair(turnEnd->getRailwayRoutingEdge(), nullptr));
     }
 
@@ -68,13 +67,13 @@ public:
     }
 
     void addVirtualTurns(const E* forward, const E* backward,
-            std::vector<_RailEdge*>& railEdges, int& numericalID, double dist,
-            double maxTrainLength, const std::vector<const E*>& replacementEdges) {
+                         std::vector<_RailEdge*>& railEdges, int& numericalID, double dist,
+                         double maxTrainLength, const std::vector<const E*>& replacementEdges) {
         // search backwards until dist and add virtual turnaround edges with
         // replacement edges up to the real turnaround
 #ifdef RailEdge_DEBUG_INIT
-        std::cout << "addVirtualTurns forward=" << forward->getID() << " backward=" << backward->getID() << " dist=" << dist 
-            << " maxLength=" << maxTrainLength << " repl=" << toString(replacementEdges) << "\n";
+        std::cout << "addVirtualTurns forward=" << forward->getID() << " backward=" << backward->getID() << " dist=" << dist
+                  << " maxLength=" << maxTrainLength << " repl=" << toString(replacementEdges) << "\n";
 #endif
         if (dist <= 0) {
             return;
@@ -99,7 +98,7 @@ public:
                 replacementEdges2.push_back(prev);
                 replacementEdges2.insert(replacementEdges2.end(), replacementEdges.begin(), replacementEdges.end());
                 addVirtualTurns(prev, bidi, railEdges, numericalID, dist - prev->getLength(),
-                        maxTrainLength + prev->getLength(), replacementEdges2);
+                                maxTrainLength + prev->getLength(), replacementEdges2);
             }
         }
     }
@@ -119,10 +118,10 @@ public:
                 }
                 myTurnaround->myIsVirtual = false;
                 addVirtualTurns(myOriginal, viaPair.first, railEdges, numericalID,
-                        maxTrainLength - getLength(), getLength(), std::vector<const E*>{myOriginal});
+                                maxTrainLength - getLength(), getLength(), std::vector<const E*> {myOriginal});
             } else {
-                myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(), 
-                            viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
+                myViaSuccessors.push_back(std::make_pair(viaPair.first->getRailwayRoutingEdge(),
+                                          viaPair.second == nullptr ? nullptr : viaPair.second->getRailwayRoutingEdge()));
             }
         }
 #ifdef RailEdge_DEBUG_SUCCESSORS
@@ -220,8 +219,8 @@ public:
         ConstEdgePairVector& result = myClassesViaSuccessorMap[vClass];
         // this vClass is requested for the first time. rebuild all successors
         for (const auto& viaPair : myViaSuccessors) {
-            if (viaPair.first->myOriginal == nullptr 
-                    || viaPair.first->myOriginal->isTazConnector() 
+            if (viaPair.first->myOriginal == nullptr
+                    || viaPair.first->myOriginal->isTazConnector()
                     || myOriginal->isConnectedTo(*viaPair.first->myOriginal, vClass)) {
                 result.push_back(viaPair);
             }

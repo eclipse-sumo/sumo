@@ -58,8 +58,8 @@ GNERouteHandler::RouteParameter::RouteParameter() :
 
 GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemandElement) :
     routeID(originalDemandElement->getTagProperty().isRoute() ?
-        originalDemandElement->getID() :
-        originalDemandElement->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
+            originalDemandElement->getID() :
+            originalDemandElement->getNet()->generateDemandElementID(originalDemandElement->getID(), SUMO_TAG_ROUTE)),
     loadedID(false),
     edges(originalDemandElement->getParentEdges()),
     vClass(originalDemandElement->getVClass()),
@@ -68,7 +68,7 @@ GNERouteHandler::RouteParameter::RouteParameter(GNEDemandElement* originalDemand
 
 
 void
-GNERouteHandler::RouteParameter::setEdges(GNENet *net, const std::string& edgeIDs) {
+GNERouteHandler::RouteParameter::setEdges(GNENet* net, const std::string& edgeIDs) {
     // clear edges
     edges.clear();
     // obtain edges (And show warnings if isn't valid)
@@ -79,7 +79,7 @@ GNERouteHandler::RouteParameter::setEdges(GNENet *net, const std::string& edgeID
 
 
 void
-GNERouteHandler::RouteParameter::setEdges(GNENet *net, const std::string& vehicleID, const std::string& fromID, const std::string& toID, const std::string& viaIDs) {
+GNERouteHandler::RouteParameter::setEdges(GNENet* net, const std::string& vehicleID, const std::string& fromID, const std::string& toID, const std::string& viaIDs) {
     // clear edges
     edges.clear();
     // only continue if at least one of the edges is defined
@@ -111,7 +111,7 @@ GNERouteHandler::RouteParameter::setEdges(GNENet *net, const std::string& vehicl
 }
 
 
-void 
+void
 GNERouteHandler::RouteParameter::clearEdges() {
     edges.clear();
 }
@@ -120,7 +120,7 @@ GNERouteHandler::RouteParameter::clearEdges() {
 // GNERouteHandler - methods
 // ---------------------------------------------------------------------------
 
-GNERouteHandler::GNERouteHandler(const std::string& file, GNENet *net, bool undoDemandElements) :
+GNERouteHandler::GNERouteHandler(const std::string& file, GNENet* net, bool undoDemandElements) :
     SUMORouteHandler(file, "", false),
     myNet(net),
     myUndoDemandElements(undoDemandElements),
@@ -133,7 +133,7 @@ GNERouteHandler::~GNERouteHandler() {}
 
 
 bool
-GNERouteHandler::isVehicleIdDuplicated(GNENet *net, const std::string& id) {
+GNERouteHandler::isVehicleIdDuplicated(GNENet* net, const std::string& id) {
     for (SumoXMLTag vehicleTag : std::vector<SumoXMLTag>({SUMO_TAG_VEHICLE, SUMO_TAG_TRIP, SUMO_TAG_ROUTEFLOW, SUMO_TAG_FLOW})) {
         if (net->retrieveDemandElement(vehicleTag, id, false) != nullptr) {
             WRITE_ERROR("There is another " + toString(vehicleTag) + " with the same ID='" + id + "'.");
@@ -145,7 +145,7 @@ GNERouteHandler::isVehicleIdDuplicated(GNENet *net, const std::string& id) {
 
 
 bool
-GNERouteHandler::isPersonIdDuplicated(GNENet *net, const std::string& id) {
+GNERouteHandler::isPersonIdDuplicated(GNENet* net, const std::string& id) {
     for (SumoXMLTag personTag : std::vector<SumoXMLTag>({SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW})) {
         if (net->retrieveDemandElement(personTag, id, false) != nullptr) {
             WRITE_ERROR("There is another " + toString(personTag) + " with the same ID='" + id + "'.");
@@ -157,7 +157,7 @@ GNERouteHandler::isPersonIdDuplicated(GNENet *net, const std::string& id) {
 
 
 void
-GNERouteHandler::buildVehicleOverRoute(GNENet *net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters) {
+GNERouteHandler::buildVehicleOverRoute(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters) {
     // Check tag
     assert(vehicleParameters.tag == SUMO_TAG_VEHICLE);
     // first check if ID is duplicated
@@ -201,7 +201,7 @@ GNERouteHandler::buildVehicleOverRoute(GNENet *net, bool undoDemandElements, con
 
 
 void
-GNERouteHandler::buildFlowOverRoute(GNENet *net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters) {
+GNERouteHandler::buildFlowOverRoute(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters) {
     // Check tag
     assert(vehicleParameters.tag == SUMO_TAG_ROUTEFLOW);
     // first check if ID is duplicated
@@ -245,7 +245,7 @@ GNERouteHandler::buildFlowOverRoute(GNENet *net, bool undoDemandElements, const 
 
 
 void
-GNERouteHandler::buildVehicleWithEmbeddedRoute(GNENet *net, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy) {
+GNERouteHandler::buildVehicleWithEmbeddedRoute(GNENet* net, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy) {
     // Check tags
     assert(vehicleParameters.tag == SUMO_TAG_VEHICLE);
     // first check if ID is duplicated
@@ -295,7 +295,7 @@ GNERouteHandler::buildVehicleWithEmbeddedRoute(GNENet *net, bool undoDemandEleme
 
 
 void
-GNERouteHandler::buildFlowWithEmbeddedRoute(GNENet *net, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy) {
+GNERouteHandler::buildFlowWithEmbeddedRoute(GNENet* net, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, GNEDemandElement* embeddedRouteCopy) {
     // Check tags
     assert(vehicleParameters.tag == SUMO_TAG_ROUTEFLOW);
     // first check if ID is duplicated
@@ -345,7 +345,7 @@ GNERouteHandler::buildFlowWithEmbeddedRoute(GNENet *net, bool undoDemandElements
 
 
 void
-GNERouteHandler::buildTrip(GNENet *net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via) {
+GNERouteHandler::buildTrip(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via) {
     // Check tag
     assert(vehicleParameters.tag == SUMO_TAG_TRIP);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
@@ -395,7 +395,7 @@ GNERouteHandler::buildTrip(GNENet *net, bool undoDemandElements, const SUMOVehic
 
 
 void
-GNERouteHandler::buildFlow(GNENet *net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via) {
+GNERouteHandler::buildFlow(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via) {
     // Check tag
     assert(vehicleParameters.tag == SUMO_TAG_FLOW);
     // check if exist another vehicle with the same ID (note: Vehicles, Flows and Trips share namespace)
@@ -445,7 +445,7 @@ GNERouteHandler::buildFlow(GNENet *net, bool undoDemandElements, const SUMOVehic
 
 
 void
-GNERouteHandler::buildStop(GNENet *net, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent) {
+GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent) {
     // declare pointers to stopping place  and lane and obtain it
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;
@@ -536,7 +536,7 @@ GNERouteHandler::buildStop(GNENet *net, bool undoDemandElements, const SUMOVehic
 
 
 void
-GNERouteHandler::buildPerson(GNENet *net, bool undoDemandElements, const SUMOVehicleParameter& personParameters) {
+GNERouteHandler::buildPerson(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& personParameters) {
     // first check if ID is duplicated
     if (!isPersonIdDuplicated(net, personParameters.id)) {
         // obtain routes and vtypes
@@ -562,7 +562,7 @@ GNERouteHandler::buildPerson(GNENet *net, bool undoDemandElements, const SUMOVeh
 
 
 void
-GNERouteHandler::buildPersonFlow(GNENet *net, bool undoDemandElements, const SUMOVehicleParameter& personFlowParameters) {
+GNERouteHandler::buildPersonFlow(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& personFlowParameters) {
     // first check if ID is duplicated
     if (!isPersonIdDuplicated(net, personFlowParameters.id)) {
         // obtain routes and vtypes
@@ -588,7 +588,7 @@ GNERouteHandler::buildPersonFlow(GNENet *net, bool undoDemandElements, const SUM
 
 
 void
-GNERouteHandler::buildPersonTripFromTo(GNENet *net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos,
+GNERouteHandler::buildPersonTripFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos,
                                        const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     // create personTripFromTo
     GNEPersonTrip* personTripFromTo = new GNEPersonTrip(net, personParent, fromEdge, toEdge, {}, arrivalPos, types, modes);
@@ -609,7 +609,7 @@ GNERouteHandler::buildPersonTripFromTo(GNENet *net, bool undoDemandElements, GNE
 
 
 void
-GNERouteHandler::buildPersonTripBusStop(GNENet *net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
+GNERouteHandler::buildPersonTripBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
                                         const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     // create personTripBusStop
     GNEPersonTrip* personTripBusStop = new GNEPersonTrip(net, personParent, fromEdge, busStop, {}, types, modes);
@@ -632,7 +632,7 @@ GNERouteHandler::buildPersonTripBusStop(GNENet *net, bool undoDemandElements, GN
 
 
 void
-GNERouteHandler::buildWalkEdges(GNENet *net, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos) {
+GNERouteHandler::buildWalkEdges(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos) {
     // check that at least there is an edge
     if (edges.size() == 0) {
         WRITE_ERROR("A walk needs at least one edge. " + toString(SUMO_TAG_WALK_EDGES) + " within person with ID='" + personParent->getID() + "' cannot be created");
@@ -667,7 +667,7 @@ GNERouteHandler::buildWalkEdges(GNENet *net, bool undoDemandElements, GNEDemandE
 
 
 void
-GNERouteHandler::buildWalkFromTo(GNENet *net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos) {
+GNERouteHandler::buildWalkFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos) {
     // create walkFromTo
     GNEWalk* walkFromTo = new GNEWalk(net, personParent, fromEdge, toEdge, {}, arrivalPos);
     // add element using undo list or directly, depending of undoDemandElements flag
@@ -690,7 +690,7 @@ GNERouteHandler::buildWalkFromTo(GNENet *net, bool undoDemandElements, GNEDemand
 
 
 void
-GNERouteHandler::buildWalkBusStop(GNENet *net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop) {
+GNERouteHandler::buildWalkBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop) {
     // create walkBusStop
     GNEWalk* walkBusStop = new GNEWalk(net, personParent, fromEdge, busStop, {});
     // add element using undo list or directly, depending of undoDemandElements flag
@@ -712,7 +712,7 @@ GNERouteHandler::buildWalkBusStop(GNENet *net, bool undoDemandElements, GNEDeman
 
 
 void
-GNERouteHandler::buildWalkRoute(GNENet *net, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPos) {
+GNERouteHandler::buildWalkRoute(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPos) {
     // create walkRoute
     GNEWalk* walkRoute = new GNEWalk(net, personParent, route, arrivalPos);
     // add element using undo list or directly, depending of undoDemandElements flag
@@ -733,7 +733,7 @@ GNERouteHandler::buildWalkRoute(GNENet *net, bool undoDemandElements, GNEDemandE
 
 
 void
-GNERouteHandler::buildRideFromTo(GNENet *net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, double arrivalPos) {
+GNERouteHandler::buildRideFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, double arrivalPos) {
     // create rideFromTo
     GNERide* rideFromTo = new GNERide(net, personParent, fromEdge, toEdge, {}, arrivalPos, lines);
     // add element using undo list or directly, depending of undoDemandElements flag
@@ -756,7 +756,7 @@ GNERouteHandler::buildRideFromTo(GNENet *net, bool undoDemandElements, GNEDemand
 
 
 void
-GNERouteHandler::buildRideBusStop(GNENet *net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<std::string>& lines) {
+GNERouteHandler::buildRideBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<std::string>& lines) {
     // create rideBusStop
     GNERide* rideBusStop = new GNERide(net, personParent, fromEdge, busStop, {}, lines);
     // add element using undo list or directly, depending of undoDemandElements flag
@@ -1165,9 +1165,9 @@ GNERouteHandler::openFlow(const SUMOSAXAttributes& attrs) {
     myAbort = false;
     // parse flow attributes
     myRouteParameter.setEdges(myNet, myVehicleParameter->id,
-        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_FROM, myAbort),
-        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_TO, myAbort),
-        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_VIA, myAbort));
+                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_FROM, myAbort),
+                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_TO, myAbort),
+                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_FLOW, SUMO_ATTR_VIA, myAbort));
 }
 
 
@@ -1184,9 +1184,9 @@ GNERouteHandler::openTrip(const SUMOSAXAttributes& attrs) {
     myAbort = false;
     // parse trips attributes
     myRouteParameter.setEdges(myNet, myVehicleParameter->id,
-        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort),
-        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort),
-        GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort));
+                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_FROM, myAbort),
+                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_TO, myAbort),
+                              GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, myVehicleParameter->id, SUMO_TAG_TRIP, SUMO_ATTR_VIA, myAbort));
 }
 
 

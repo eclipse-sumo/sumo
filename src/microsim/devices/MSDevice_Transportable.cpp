@@ -102,7 +102,7 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
                 if (transportable->getDestination() == veh.getEdge()
-                        && (transportable->getCurrentStage()->getDestinationStop() == nullptr 
+                        && (transportable->getCurrentStage()->getDestinationStop() == nullptr
                             || myHolder.isStoppedInRange(transportable->getCurrentStage()->getArrivalPos(), myHolder.getLength()))) {
                     i = myTransportables.erase(i); // erase first in case proceed throws an exception
                     if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {

@@ -103,8 +103,8 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
 
 
 void
-ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines, 
-        double arrivalPos, const std::string& destStop, const std::string& group) {
+ROPerson::addRide(const ROEdge* const from, const ROEdge* const to, const std::string& lines,
+                  double arrivalPos, const std::string& destStop, const std::string& group) {
     if (myPlan.empty() || myPlan.back()->isStop()) {
         myPlan.push_back(new PersonTrip());
     }

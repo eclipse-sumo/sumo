@@ -32,7 +32,7 @@
 // ===========================================================================
 bool
 TraCIServerAPI_MeanData::processGet(TraCIServer& server, tcpip::Storage& inputStorage,
-                                 tcpip::Storage& outputStorage) {
+                                    tcpip::Storage& outputStorage) {
     const int variable = inputStorage.readUnsignedByte();
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_MEANDATA_VARIABLE, variable, id);

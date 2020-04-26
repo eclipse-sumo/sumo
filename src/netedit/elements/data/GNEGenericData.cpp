@@ -44,21 +44,21 @@
 // ---------------------------------------------------------------------------
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-        const std::map<std::string, std::string>& parameters,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEJunction*>& junctionChildren,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren) :
+                               const std::map<std::string, std::string>& parameters,
+                               const std::vector<GNEJunction*>& junctionParents,
+                               const std::vector<GNEEdge*>& edgeParents,
+                               const std::vector<GNELane*>& laneParents,
+                               const std::vector<GNEShape*>& shapeParents,
+                               const std::vector<GNEAdditional*>& additionalParents,
+                               const std::vector<GNEDemandElement*>& demandElementParents,
+                               const std::vector<GNEGenericData*>& genericDataParents,
+                               const std::vector<GNEJunction*>& junctionChildren,
+                               const std::vector<GNEEdge*>& edgeChildren,
+                               const std::vector<GNELane*>& laneChildren,
+                               const std::vector<GNEShape*>& shapeChildren,
+                               const std::vector<GNEAdditional*>& additionalChildren,
+                               const std::vector<GNEDemandElement*>& demandElementChildren,
+                               const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, dataIntervalParent->getID()),
     GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
     Parameterised(ParameterisedAttrType::DOUBLE, parameters),
@@ -77,7 +77,7 @@ GNEGenericData::getID() const {
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GNEGenericData::getGUIGlObject() {
     return this;
 }
@@ -142,13 +142,13 @@ GNEGenericData::getColor() const {
 bool
 GNEGenericData::isGenericDataVisible() const {
     // get pointer to ViewNet
-    GNEViewNet *viewNet = myDataIntervalParent->getNet()->getViewNet();
+    GNEViewNet* viewNet = myDataIntervalParent->getNet()->getViewNet();
     // first check if we're in supermode demand
     if (viewNet->getEditModes().isCurrentSupermodeData()) {
         // check if we're in common mode
         if ((viewNet->getEditModes().dataEditMode == DataEditMode::DATA_INSPECT) ||
-            (viewNet->getEditModes().dataEditMode == DataEditMode::DATA_DELETE) ||
-            (viewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT)) {
+                (viewNet->getEditModes().dataEditMode == DataEditMode::DATA_DELETE) ||
+                (viewNet->getEditModes().dataEditMode == DataEditMode::DATA_SELECT)) {
             // obtain dataset, begin, end and attribute
             const std::string genericDataType = viewNet->getIntervalBar().getGenericDataTypeStr();
             const std::string dataSet = viewNet->getIntervalBar().getDataSetStr();
@@ -188,7 +188,7 @@ GNEGenericData::isGenericDataVisible() const {
 }
 
 
-void 
+void
 GNEGenericData::drawAttribute(const PositionVector& shape) const {
     if ((myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) && (shape.length() > 0)) {
         // obtain pointer to edge data frame (only for code legibly)
@@ -197,7 +197,7 @@ GNEGenericData::drawAttribute(const PositionVector& shape) const {
         if (edgeDataFrame->shown()) {
             // check attribute
             if ((edgeDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-                (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) > 0)) {
+                    (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) > 0)) {
                 // get value
                 const std::string value = getParametersMap().at(edgeDataFrame->getAttributeSelector()->getFilteredAttribute());
                 // calculate center position
@@ -231,7 +231,7 @@ GNEGenericData::fixGenericDataProblem() {
 }
 
 
-GUIGLObjectPopupMenu* 
+GUIGLObjectPopupMenu*
 GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     // build header
@@ -257,7 +257,7 @@ GNEGenericData::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-GUIParameterTableWindow* 
+GUIParameterTableWindow*
 GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* parent */) {
     // Create table
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
@@ -276,7 +276,7 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
-void 
+void
 GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // currently unused
 }

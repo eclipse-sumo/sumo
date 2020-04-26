@@ -670,7 +670,7 @@ enum {
 
     /// @brief generic data selected
     MID_GNE_INTERVALBAR_GENERICDATATYPE,
-    /// @brief data set selected 
+    /// @brief data set selected
     MID_GNE_INTERVALBAR_DATASET,
     /// @brief enable/disable show data elements by interval
     MID_GNE_INTERVALBAR_LIMITED,
@@ -682,7 +682,7 @@ enum {
     MID_GNE_INTERVALBAR_ATTRIBUTE,
 
     /// @}
-    
+
     /// @name GNEFrame messages
     /// @{
 

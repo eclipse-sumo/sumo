@@ -105,7 +105,7 @@ public:
      */
     virtual void drawGLAdditional(GUISUMOAbstractView* const parent, const GUIVisualizationSettings& s) const;
     //* @}
-    
+
     /* @brief proceeds to the next step of the route,
      * @return Whether the transportables plan continues  */
     bool proceed(MSNet* net, SUMOTime time);

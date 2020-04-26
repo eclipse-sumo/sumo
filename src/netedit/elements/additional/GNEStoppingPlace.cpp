@@ -41,16 +41,16 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 // member method definitions
 // ===========================================================================
 
-GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, 
-        GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name, 
-        bool friendlyPosition, bool blockMovement) :
+GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+                                   GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name,
+                                   bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, blockMovement,
-        {}, {}, {lane}, {}, {}, {}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    myStartPosition(startPos),
-    myEndPosition(endPos),
-    myParametersSet(parametersSet),
-    myFriendlyPosition(friendlyPosition) {
+{}, {}, {lane}, {}, {}, {}, {}, // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+myStartPosition(startPos),
+myEndPosition(endPos),
+myParametersSet(parametersSet),
+myFriendlyPosition(friendlyPosition) {
 }
 
 

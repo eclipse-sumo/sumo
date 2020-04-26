@@ -56,30 +56,30 @@ GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, 
 GNEDataInterval::~GNEDataInterval() {}
 
 
-void 
+void
 GNEDataInterval::updateGenericDataIDs() {
     // iterate over generic data childrens
     for (const auto& genericData : myGenericDataChildren) {
         if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
             // {dataset}[{begin}m{end}]{edge}
-            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" + 
-            genericData->getParentEdges().front()->getID());
+            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
+                                       genericData->getParentEdges().front()->getID());
         } else if (genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
             // {dataset}[{begin}m{end}]{from}->{to}
-            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" + 
-            genericData->getParentEdges().front()->getID() + "->" + genericData->getParentEdges().back()->getID());
+            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
+                                       genericData->getParentEdges().front()->getID() + "->" + genericData->getParentEdges().back()->getID());
         }
     }
 }
 
 
-const std::string& 
+const std::string&
 GNEDataInterval::getID() const {
     return myDataSetParent->getID();
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GNEDataInterval::getGUIGlObject() {
     return nullptr;
 }

@@ -418,7 +418,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id, double val, double beg, double end) const;
-        void addEdgeRelWeight(const std::string& from, const std::string& to, double val, double beg, double end) const; 
+        void addEdgeRelWeight(const std::string& from, const std::string& to, double val, double beg, double end) const;
 
     private:
         /// @brief The storage that  edges shall be added to

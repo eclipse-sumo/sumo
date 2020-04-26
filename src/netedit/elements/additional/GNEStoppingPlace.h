@@ -49,7 +49,7 @@ public:
      * @param[in] friendlyPos enable or disable friendly position
      * @param[in] block movement enable or disable additional movement
      */
-    GNEStoppingPlace(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
+    GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, GNELane* lane, double startPos, double endPos,
                      int parametersSet, const std::string& name, bool friendlyPosition, bool blockMovement);
 
     /// @brief Destructor

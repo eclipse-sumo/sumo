@@ -564,7 +564,7 @@ GLHelper::getDottedcontourColors(const int size) {
 
 void
 GLHelper::drawText(const std::string& text, const Position& pos, const double layer, const double size,
-    const RGBColor& col, const double angle, const int align, double width, const bool mirrorText) {
+                   const RGBColor& col, const double angle, const int align, double width, const bool mirrorText) {
     if (width <= 0) {
         width = size;
     }

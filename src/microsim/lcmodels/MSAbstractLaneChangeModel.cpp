@@ -128,8 +128,7 @@ MSAbstractLaneChangeModel::MSAbstractLaneChangeModel(MSVehicle& v, const LaneCha
     myLastLaneChangeOffset(0),
     myAmOpposite(false),
     myManeuverDist(0.),
-    myPreviousManeuverDist(0.)
-{
+    myPreviousManeuverDist(0.) {
     saveLCState(-1, LCA_UNKNOWN, LCA_UNKNOWN);
     saveLCState(0, LCA_UNKNOWN, LCA_UNKNOWN);
     saveLCState(1, LCA_UNKNOWN, LCA_UNKNOWN);

@@ -125,38 +125,32 @@ void
 GNENetHelper::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::string newID) {
     if (AC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
         updateJunctionID(AC, newID);
-    }
-    else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         updateEdgeID(AC, newID);
-    }
-    else if (AC->getTagProperty().isAdditionalElement() || AC->getTagProperty().isTAZ()) {
+    } else if (AC->getTagProperty().isAdditionalElement() || AC->getTagProperty().isTAZ()) {
         updateAdditionalID(AC, newID);
-    }
-    else if (AC->getTagProperty().isShape()) {
+    } else if (AC->getTagProperty().isShape()) {
         updateShapeID(AC, newID);
-    }
-    else if (AC->getTagProperty().isDemandElement()) {
+    } else if (AC->getTagProperty().isDemandElement()) {
         updateDemandElementID(AC, newID);
-    }
-    else if (AC->getTagProperty().isDataElement()) {
+    } else if (AC->getTagProperty().isDataElement()) {
         updateDataSetID(AC, newID);
-    }
-    else {
+    } else {
         throw ProcessError("Unknow Attribute Carrier");
     }
 }
 
 
-void 
+void
 GNENetHelper::AttributeCarriers::remapJunctionAndEdgeIds() {
     std::map<std::string, GNEEdge*> newEdgeMap;
     std::map<std::string, GNEJunction*> newJunctionMap;
     // fill newEdgeMap
-    for (const auto &edge : myEdges) {
+    for (const auto& edge : myEdges) {
         edge.second->setMicrosimID(edge.second->getNBEdge()->getID());
         newEdgeMap[edge.second->getNBEdge()->getID()] = edge.second;
     }
-    for (const auto &junction : myJunctions) {
+    for (const auto& junction : myJunctions) {
         newJunctionMap[junction.second->getNBNode()->getID()] = junction.second;
         junction.second->setMicrosimID(junction.second->getNBNode()->getID());
     }
@@ -187,21 +181,21 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
 }
 
 
-const std::map<std::string, GNEJunction*>& 
+const std::map<std::string, GNEJunction*>&
 GNENetHelper::AttributeCarriers::getJunctions() const {
     return myJunctions;
 }
 
 
-void 
+void
 GNENetHelper::AttributeCarriers::clearJunctions() {
-/*
-    // removes all junctions of net  (It was already removed from grid)
-    auto copyOfJunctions = myAttributeCarriers->getJunctions();
-    for (auto junction : copyOfJunctions) {
-        myAttributeCarriers->getJunctions().erase(junction.second->getMicrosimID());
-    }
-*/
+    /*
+        // removes all junctions of net  (It was already removed from grid)
+        auto copyOfJunctions = myAttributeCarriers->getJunctions();
+        for (auto junction : copyOfJunctions) {
+            myAttributeCarriers->getJunctions().erase(junction.second->getMicrosimID());
+        }
+    */
     myJunctions.clear();
 }
 
@@ -227,27 +221,27 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
 }
 
 
-const std::map<std::string, GNEEdge*>& 
+const std::map<std::string, GNEEdge*>&
 GNENetHelper::AttributeCarriers::getEdges() const {
     return myEdges;
 }
 
 
 void GNENetHelper::AttributeCarriers::clearEdges() {
-/*
-    // remove all edges of net (It was already removed from grid)
-    auto copyOfEdges = myAttributeCarriers->getEdges();
-    for (auto edge : copyOfEdges) {
-        myAttributeCarriers->getEdges().erase(edge.second->getMicrosimID());
-    }
-*/
+    /*
+        // remove all edges of net (It was already removed from grid)
+        auto copyOfEdges = myAttributeCarriers->getEdges();
+        for (auto edge : copyOfEdges) {
+            myAttributeCarriers->getEdges().erase(edge.second->getMicrosimID());
+        }
+    */
     myEdges.clear();
 }
 
 
 bool
 GNENetHelper::AttributeCarriers::addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer, double angle,
-    const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, double lineWidth, bool /*ignorePruning*/) {
+        const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo, bool fill, double lineWidth, bool /*ignorePruning*/) {
     // check if ID is duplicated
     if (myShapes.at(SUMO_TAG_POLY).count(id) == 0) {
         // create poly
@@ -270,10 +264,10 @@ GNENetHelper::AttributeCarriers::addPolygon(const std::string& id, const std::st
 
 bool
 GNENetHelper::AttributeCarriers::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
-    const std::string& lane, double posOverLane, double posLat, double layer, double angle,
-    const std::string& imgFile, bool relativePath, double width, double height, bool /*ignorePruning*/) {
+                                        const std::string& lane, double posOverLane, double posLat, double layer, double angle,
+                                        const std::string& imgFile, bool relativePath, double width, double height, bool /*ignorePruning*/) {
     // get POITag (Depending of attribute lane)
-    const SumoXMLTag POITag = lane.empty()? SUMO_TAG_POI : SUMO_TAG_POILANE;
+    const SumoXMLTag POITag = lane.empty() ? SUMO_TAG_POI : SUMO_TAG_POILANE;
     // check if ID is duplicated
     if (myShapes.at(POITag).count(id) == 0) {
         // create POI or POILane depending of parameter lane
@@ -358,7 +352,7 @@ GNENetHelper::AttributeCarriers::clearShapes() {
 }
 
 
-const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >& 
+const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >&
 GNENetHelper::AttributeCarriers::getDemandElements() const {
     return myDemandElements;
 }
@@ -370,7 +364,7 @@ GNENetHelper::AttributeCarriers::getVehicleDepartures() const {
 }
 
 
-void 
+void
 GNENetHelper::AttributeCarriers::clearDemandElements() {
     // clear elements in grid
     for (const auto& demandElementsTags : myDemandElements) {
@@ -418,7 +412,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementBegin(const std::string& old
 }
 
 
-const std::map<std::string, GNEDataSet*>& 
+const std::map<std::string, GNEDataSet*>&
 GNENetHelper::AttributeCarriers::getDataSets() const {
     return myDataSets;
 }
@@ -576,7 +570,7 @@ GNENetHelper::AttributeCarriers::additionalExist(GNEAdditional* additional) cons
     // first check that additional pointer is valid
     if (additional) {
         return myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID()) !=
-            myAdditionals.at(additional->getTagProperty().getTag()).end();
+               myAdditionals.at(additional->getTagProperty().getTag()).end();
     } else {
         throw ProcessError("Invalid additional pointer");
     }
@@ -639,7 +633,7 @@ GNENetHelper::AttributeCarriers::updateAdditionalID(GNEAttributeCarrier* AC, con
     } else if (myAdditionals.at(AC->getTagProperty().getTag()).count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.additionals");
     } else {
-        // retrieve additional 
+        // retrieve additional
         GNEAdditional* additional = myAdditionals.at(AC->getTagProperty().getTag()).at(AC->getID());
         // remove additional from container
         myAdditionals.at(additional->getTagProperty().getTag()).erase(additional->getID());
@@ -658,7 +652,7 @@ GNENetHelper::AttributeCarriers::shapeExist(GNEShape* shape) const {
     // first check that shape pointer is valid
     if (shape) {
         return myShapes.at(shape->getTagProperty().getTag()).find(shape->getID()) !=
-            myShapes.at(shape->getTagProperty().getTag()).end();
+               myShapes.at(shape->getTagProperty().getTag()).end();
     } else {
         throw ProcessError("Invalid shape pointer");
     }
@@ -721,7 +715,7 @@ GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const st
     } else if (myShapes.at(AC->getTagProperty().getTag()).count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.shapes");
     } else {
-        // retrieve shape 
+        // retrieve shape
         GNEShape* shape = myShapes.at(AC->getTagProperty().getTag()).at(AC->getID());
         // remove shape from container
         myShapes.at(shape->getTagProperty().getTag()).erase(shape->getID());
@@ -740,9 +734,8 @@ GNENetHelper::AttributeCarriers::demandElementExist(GNEDemandElement* demandElem
     // first check that demandElement pointer is valid
     if (demandElement) {
         return myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID()) !=
-            myDemandElements.at(demandElement->getTagProperty().getTag()).end();
-    }
-    else {
+               myDemandElements.at(demandElement->getTagProperty().getTag()).end();
+    } else {
         throw ProcessError("Invalid demandElement pointer");
     }
 }
@@ -821,7 +814,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
     } else if (myDemandElements.at(AC->getTagProperty().getTag()).count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.myDemandElements");
     } else {
-        // retrieve demand element 
+        // retrieve demand element
         GNEDemandElement* demandElement = myDemandElements.at(AC->getTagProperty().getTag()).at(AC->getID());
         // remove demand from container
         myDemandElements.at(demandElement->getTagProperty().getTag()).erase(demandElement->getID());
@@ -1027,8 +1020,7 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
         // check if soultion is enmpty
         if (solution.size() == 2) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -1049,31 +1041,31 @@ GNENetHelper::GNEChange_ReplaceEdgeInTLS::GNEChange_ReplaceEdgeInTLS(NBTrafficLi
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::~GNEChange_ReplaceEdgeInTLS() {}
 
 
-FXString 
+FXString
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::undoName() const {
     return "Redo replace in TLS";
 }
 
 
-FXString 
+FXString
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::redoName() const {
     return "Undo replace in TLS";
 }
 
 
-void 
+void
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::undo() {
     myTllcont.replaceRemoved(myBy, -1, myReplaced, -1);
 }
 
 
-void 
+void
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::redo() {
     myTllcont.replaceRemoved(myReplaced, -1, myBy, -1);
 }
 
 
-bool 
+bool
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::trueChange() {
     return myReplaced != myBy;
 }

@@ -47,7 +47,7 @@ public:
      * @param[in] off Whether the router should be inactive initially
      * @param[in] block movement enable or disable additional movement
      */
-    GNERerouter(const std::string& id, GNENet *net, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name,
+    GNERerouter(const std::string& id, GNENet* net, const Position& pos, const std::vector<GNEEdge*>& edges, const std::string& name,
                 const std::string& filename, double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement);
 
     /// @brief Destructor

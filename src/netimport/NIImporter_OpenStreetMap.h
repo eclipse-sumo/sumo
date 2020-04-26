@@ -443,7 +443,7 @@ protected:
         void myEndElement(int element) override;
         //@}
 
-        double interpretSpeed(const std::string& key, std::string value); 
+        double interpretSpeed(const std::string& key, std::string value);
 
     private:
         /// @brief The previously parsed nodes

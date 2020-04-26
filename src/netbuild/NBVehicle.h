@@ -70,7 +70,7 @@ private:
     /// @brief vehicle ID for error reporting
     std::string myID;
 
-    /// @brief The vehicle class of the vehicle 
+    /// @brief The vehicle class of the vehicle
     SUMOVehicleClass myVClass;
 
     /// @brief The length of the vehicle (for rail-routing)

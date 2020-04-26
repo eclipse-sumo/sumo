@@ -42,16 +42,16 @@ const double GNEPoly::myHintSize = 0.8;
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-        const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
+                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
-    GNEShape(net, SUMO_TAG_POLY, movementBlocked, 
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Childrens
-    myNetworkElementShapeEdited(nullptr),
-    myBlockShape(shapeBlocked),
-    myClosedShape(shape.front() == shape.back()),
-    mySimplifiedShape(false),
-    myCurrentMovingVertexIndex(-1) {
+    GNEShape(net, SUMO_TAG_POLY, movementBlocked,
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Childrens
+myNetworkElementShapeEdited(nullptr),
+myBlockShape(shapeBlocked),
+myClosedShape(shape.front() == shape.back()),
+mySimplifiedShape(false),
+myCurrentMovingVertexIndex(-1) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -163,8 +163,8 @@ GNEPoly::movePolyShape(const Position& offset) {
         // get last index
         const int lastIndex = (int)newShape.size() - 1;
         // check if we have to move first and last postion
-        if ((newShape.size() > 2) && (newShape.front() == newShape.back()) && 
-            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+        if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
+                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
             // move first and last position in newShape
             newShape[0].add(offset);
             newShape[lastIndex] = newShape[0];
@@ -374,7 +374,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
                 // draw shape points only in Network supemode
                 if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                    for (const auto &vertex : myShape) {
+                    for (const auto& vertex : myShape) {
                         if (!s.drawForRectangleSelection || (mousePosition.distanceSquaredTo2D(vertex) <= (vertexWidthSquared + 2))) {
                             glPushMatrix();
                             glTranslated(vertex.x(), vertex.y(), GLO_POLYGON + 0.02);
@@ -811,7 +811,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
     switch (key) {
         case SUMO_ATTR_ID: {
-            // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes 
+            // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes
             myNet->getAttributeCarriers()->updateID(this, value);
             // set named ID
             myID = value;

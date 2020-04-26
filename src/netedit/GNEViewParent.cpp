@@ -295,7 +295,7 @@ GNEViewParent::getEdgeDataFrame() const {
 }
 
 
-GNEEdgeRelDataFrame* 
+GNEEdgeRelDataFrame*
 GNEViewParent::getEdgeRelDataFrame() const {
     return myFrames.edgeRelDataFrame;
 }
@@ -605,7 +605,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     myACChoosers.ACChooserPolygon->setFocus();
                 } else {
                     // fill ACsToLocate with polys
-                    for (const auto &polygon : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
+                    for (const auto& polygon : viewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
                         ACsToLocate.push_back(polygon.second);
                     }
                     myACChoosers.ACChooserPolygon = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), "Poly Chooser", ACsToLocate);

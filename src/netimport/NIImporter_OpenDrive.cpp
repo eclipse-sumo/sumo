@@ -364,7 +364,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 
     std::map<NBNode*, NBNode*> joinedNodes;
     for (NodeSet& joined : joinedNodeIDs) {
-        Position joinedPos(0,0);
+        Position joinedPos(0, 0);
         for (NBNode* j : joined) {
             joinedPos = joinedPos + j->getPosition();
         }
@@ -799,7 +799,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         }
                     }
                     getTLSSecure(from, nb);
-                    //std::cout << "odrEdge=" << e->id << " fromID=" << fromID << " toID=" << toID << " from=" << from->getID() << " to=" << to->getID() 
+                    //std::cout << "odrEdge=" << e->id << " fromID=" << fromID << " toID=" << toID << " from=" << from->getID() << " to=" << to->getID()
                     //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
                 } else {
                     WRITE_WARNINGF("Found a traffic light signal on an unknown edge (original edge id='%').", e->id);
@@ -824,7 +824,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         c.setParameter("signalID", signal.id);
                     }
                 }
-                //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID() 
+                //std::cout << "odrEdge=" << e->id << " sumoID=" << (*k).sumoID << " sumoEdge=" << edge->getID()
                 //    << " signal=" << signal.id << " minLane=" << signal.minLane << " maxLane=" << signal.maxLane << "\n";
             }
             // @note: tls 'signalID' parameters are set via NBTrafficLightLogicCont::setOpenDriveSignalParameters
@@ -966,7 +966,7 @@ NIImporter_OpenDrive::buildConnectionsToOuter(const Connection& c, const std::ma
 #ifdef DEBUG_CONNECTIONS
             if (DEBUG_COND3(c.fromEdge)) {
                 std::cout << "        laneSectionsConnected dest=" << dest->id << " in=" << in << " out=" << out
-                    << " connected=" <<  laneSectionsConnected(dest, in, out) << "\n";
+                          << " connected=" <<  laneSectionsConnected(dest, in, out) << "\n";
             }
 #endif
 

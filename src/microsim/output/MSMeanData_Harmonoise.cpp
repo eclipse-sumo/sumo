@@ -113,10 +113,9 @@ MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string& id,
         const bool trackVehicles,
         const double maxTravelTime, const double minSamples,
         const std::string& vTypes,
-        const std::string& writeAttributes) : 
+        const std::string& writeAttributes) :
     MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-            withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes) 
-{
+               withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes) {
 }
 
 

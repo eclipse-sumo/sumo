@@ -1203,8 +1203,7 @@ MSVehicle::workOnMoveReminders(double oldPos, double newPos, double newSpeed) {
 }
 
 void
-MSVehicle::workOnIdleReminders()
-{
+MSVehicle::workOnIdleReminders() {
     updateWaitingTime(0.);   // cf issue 2233
 
     // vehicle move reminders
@@ -1430,8 +1429,9 @@ MSVehicle::computeAngle() const {
     const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);
 
     // if parking manoeuvre is happening then rotate vehicle on each step
-    if (MSGlobals::gModelParkingManoeuver && !manoeuvreIsComplete())
+    if (MSGlobals::gModelParkingManoeuver && !manoeuvreIsComplete()) {
         return getAngle() + myManoeuvre.getGUIIncrement();
+    }
 
     if (isParking()) {
         if (myStops.begin()->parkingarea != nullptr) {
@@ -2099,8 +2099,8 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
             for (int i = (int)veh->myFurtherLanes.size() - 1; i >= 0; i--) {
                 MSEdge* edge = &veh->myFurtherLanes[i]->getEdge();
                 if (!edge->isInternal() && edge != myRoute->getEdges()[routeIndex]) {
-                    WRITE_WARNING("Cannot join vehicle '" + veh->getID() + " to vehicle '" + getID() 
-                            + "' due to incompatible routes. time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()));
+                    WRITE_WARNING("Cannot join vehicle '" + veh->getID() + " to vehicle '" + getID()
+                                  + "' due to incompatible routes. time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()));
                     return false;
                 }
             }
@@ -2341,15 +2341,21 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     if (myInfluencer != nullptr) {
         const double vMin = MAX2(0., cfModel.minNextSpeed(myState.mySpeed, this));
 #ifdef DEBUG_TRACI
-        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " speedBeforeTraci=" << v;
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << getID() << " speedBeforeTraci=" << v;
+        }
 #endif
         v = myInfluencer->influenceSpeed(MSNet::getInstance()->getCurrentTimeStep(), v, v, vMin, maxV);
 #ifdef DEBUG_TRACI
-        if (DEBUG_COND) std::cout << " influencedSpeed=" << v;
+        if (DEBUG_COND) {
+            std::cout << " influencedSpeed=" << v;
+        }
 #endif
         v = myInfluencer->gapControlSpeed(MSNet::getInstance()->getCurrentTimeStep(), this, v, v, vMin, maxV);
 #ifdef DEBUG_TRACI
-        if (DEBUG_COND) std::cout << " gapControlSpeed=" << v << "\n";
+        if (DEBUG_COND) {
+            std::cout << " gapControlSpeed=" << v << "\n";
+        }
 #endif
     }
     // all links within dist are taken into account (potentially)
@@ -2629,7 +2635,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         const double vReverse = checkReversal(canReverseEventually, laneMaxV, seen);
         v = MIN2(v, vReverse);
 #ifdef DEBUG_PLAN_MOVE
-        if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " canReverseEventually=" << canReverseEventually << " v=" << v << "\n";
+        if (DEBUG_COND) {
+            std::cout << SIMTIME << " veh=" << getID() << " canReverseEventually=" << canReverseEventually << " v=" << v << "\n";
+        }
 #endif
 
         // check whether we need to slow down in order to finish a continuous lane change
@@ -3681,7 +3689,9 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         // ensure that the vehicle is fully on bidi edges that allow reversal
         if ((int)(myRoute->end() - myCurrEdge) <= (int)myFurtherLanes.size()) {
 #ifdef DEBUG_REVERSE_BIDI
-            if (DEBUG_COND) std::cout << "    fail: remainingEdges=" << ((int)(myRoute->end() - myCurrEdge)) << " further=" << myFurtherLanes.size() << "\n";
+            if (DEBUG_COND) {
+                std::cout << "    fail: remainingEdges=" << ((int)(myRoute->end() - myCurrEdge)) << " further=" << myFurtherLanes.size() << "\n";
+            }
 #endif
             return getVehicleType().getMaxSpeed();
         }
@@ -3691,12 +3701,14 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
         const MSEdgeVector& succ = myLane->getEdge().getSuccessors();
         if (std::find(succ.begin(), succ.end(), myLane->getEdge().getBidiEdge()) == succ.end()) {
 #ifdef DEBUG_REVERSE_BIDI
-            if (DEBUG_COND) std::cout << "    noTurn (bidi=" << myLane->getEdge().getBidiEdge()->getID() << " succ=" << toString(succ) << "\n";
+            if (DEBUG_COND) {
+                std::cout << "    noTurn (bidi=" << myLane->getEdge().getBidiEdge()->getID() << " succ=" << toString(succ) << "\n";
+            }
 #endif
             return getVehicleType().getMaxSpeed();
         }
         //if (isSelected()) std::cout << "   check3 passed\n";
-        
+
         // ensure that the vehicle front will not move past a stop on the bidi edge of the current edge
         if (!myStops.empty() && myStops.front().edge == (myCurrEdge + 1)) {
             const double stopPos = myStops.front().getEndPos(*this);
@@ -3704,26 +3716,32 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
             const double newPos = myLane->getLength() - (getBackPositionOnLane() + brakeDist);
             if (newPos > stopPos) {
 #ifdef DEBUG_REVERSE_BIDI
-                if (DEBUG_COND) std::cout << "    reversal would go past stop on " << myLane->getBidiLane()->getID() << "\n";
+                if (DEBUG_COND) {
+                    std::cout << "    reversal would go past stop on " << myLane->getBidiLane()->getID() << "\n";
+                }
 #endif
                 if (seen > MAX2(brakeDist, 1.0)) {
                     return getVehicleType().getMaxSpeed();
                 } else {
 #ifdef DEBUG_REVERSE_BIDI
-                    if (DEBUG_COND) std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
+                    if (DEBUG_COND) {
+                        std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
+                    }
 #endif
                 }
             }
         }
         //if (isSelected()) std::cout << "   check4 passed\n";
-       
+
         // ensure that bidi-edges exist for all further edges and that no stops will be skipped when reversing
         int view = 2;
         for (MSLane* further : myFurtherLanes) {
             if (!further->getEdge().isInternal()) {
                 if (further->getEdge().getBidiEdge() != *(myCurrEdge + view)) {
 #ifdef DEBUG_REVERSE_BIDI
-                    if (DEBUG_COND) std::cout << "    noBidi view=" << view << " further=" << further->getID() << " furtherBidi=" << Named::getIDSecure(further->getEdge().getBidiEdge()) << " future=" << (*(myCurrEdge + view))->getID() << "\n";
+                    if (DEBUG_COND) {
+                        std::cout << "    noBidi view=" << view << " further=" << further->getID() << " furtherBidi=" << Named::getIDSecure(further->getEdge().getBidiEdge()) << " future=" << (*(myCurrEdge + view))->getID() << "\n";
+                    }
 #endif
                     return getVehicleType().getMaxSpeed();
                 }
@@ -3733,14 +3751,18 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
                     const double newPos = further->getLength() - (getBackPositionOnLane(further) + brakeDist);
                     if (newPos > stopPos) {
 #ifdef DEBUG_REVERSE_BIDI
-                        if (DEBUG_COND) std::cout << "    reversal would go past stop on further-opposite lane " << further->getBidiLane()->getID() << "\n";
+                        if (DEBUG_COND) {
+                            std::cout << "    reversal would go past stop on further-opposite lane " << further->getBidiLane()->getID() << "\n";
+                        }
 #endif
                         if (seen > MAX2(brakeDist, 1.0)) {
                             canReverse = false;
                             return getVehicleType().getMaxSpeed();
                         } else {
 #ifdef DEBUG_REVERSE_BIDI
-                            if (DEBUG_COND) std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
+                            if (DEBUG_COND) {
+                                std::cout << "    train is too long, skipping stop at " << stopPos << " cannot be avoided\n";
+                            }
 #endif
                         }
                     }
@@ -4804,7 +4826,7 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
         MSLane* clane = enteredLane;
         while (leftLength > 0) {
             clane = clane->getLogicalPredecessorLane();
-            if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane() 
+            if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane()
                     || (clane->isInternal() && (
                             clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
                             || clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN_LEFTHAND))) {
@@ -6445,7 +6467,7 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " veh=" << getID() << " egoET " << egoET << " with foe " << veh->getID()
-                        << " foeET=" << foeET  << " isLeader=" << (egoET > foeET) << "\n";
+                              << " foeET=" << foeET  << " isLeader=" << (egoET > foeET) << "\n";
                 }
 #endif
                 return egoET > foeET;
@@ -6608,7 +6630,7 @@ MSVehicle::Manoeuvre::operator!=(const Manoeuvre& manoeuvre) {
             myManoeuvreCompleteTime != manoeuvre.myManoeuvreCompleteTime ||
             myManoeuvreType != manoeuvre.myManoeuvreType ||
             myGUIIncrement != manoeuvre.myGUIIncrement
-            );
+           );
 }
 
 double
@@ -6649,7 +6671,9 @@ MSVehicle::Manoeuvre::configureEntryManoeuvre(MSVehicle* veh) {
 
     int manoeuverAngle = stop.parkingarea->getLastFreeLotAngle();
     double GUIAngle = stop.parkingarea->getLastFreeLotGUIAngle();
-    if (abs(GUIAngle) < 0.1) GUIAngle = -0.1; // Wiggle vehicle on parallel entry
+    if (abs(GUIAngle) < 0.1) {
+        GUIAngle = -0.1;    // Wiggle vehicle on parallel entry
+    }
     myManoeuvreVehicleID = veh->getID();
     myManoeuvreStop = stop.parkingarea->getID();
     myManoeuvreType = MSVehicle::MANOEUVRE_ENTRY;
@@ -6659,8 +6683,8 @@ MSVehicle::Manoeuvre::configureEntryManoeuvre(MSVehicle* veh) {
 
 #ifdef DEBUG_STOPS
     if (veh->isSelected()) {
-       std::cout << "ENTRY manoeuvre start: vehicle=" << veh->getID() << " Manoeuvre Angle=" << manoeuverAngle << " Rotation angle=" << RAD2DEG(GUIAngle) << " Road Angle" << RAD2DEG(veh->getAngle()) << " increment=" << RAD2DEG(myGUIIncrement) << " currentTime=" << currentTime <<
-                    " endTime=" << myManoeuvreCompleteTime << " manoeuvre time=" << myManoeuvreCompleteTime - currentTime << " parkArea="<< myManoeuvreStop << std::endl;
+        std::cout << "ENTRY manoeuvre start: vehicle=" << veh->getID() << " Manoeuvre Angle=" << manoeuverAngle << " Rotation angle=" << RAD2DEG(GUIAngle) << " Road Angle" << RAD2DEG(veh->getAngle()) << " increment=" << RAD2DEG(myGUIIncrement) << " currentTime=" << currentTime <<
+                  " endTime=" << myManoeuvreCompleteTime << " manoeuvre time=" << myManoeuvreCompleteTime - currentTime << " parkArea=" << myManoeuvreStop << std::endl;
     }
 #endif
 
@@ -6685,7 +6709,9 @@ MSVehicle::Manoeuvre::configureExitManoeuvre(MSVehicle* veh) {
 
     int manoeuverAngle = veh->getCurrentParkingArea()->getManoeuverAngle(*veh);
     double GUIAngle = veh->getCurrentParkingArea()->getGUIAngle(*veh);
-    if (abs(GUIAngle) < 0.1) GUIAngle = 0.1; // Wiggle vehicle on parallel exit
+    if (abs(GUIAngle) < 0.1) {
+        GUIAngle = 0.1;    // Wiggle vehicle on parallel exit
+    }
 
     myManoeuvreVehicleID = veh->getID();
     myManoeuvreStop = veh->getCurrentParkingArea()->getID();
@@ -6781,7 +6807,7 @@ MSVehicle::getStopDelay() const {
         const double stopEdgeDist = stop.pars.endPos - (myLane == stop.lane ? myLane->getLength() : 0);
         dist += stopEdgeDist;
         travelTime += stop.lane->getEdge().getMinimumTravelTime(this) * (stopEdgeDist / stop.lane->getLength());
-        // estimate time loss due to acceleration and deceleration 
+        // estimate time loss due to acceleration and deceleration
         // maximum speed is limited by available distance:
         const double a = getCarFollowModel().getMaxAccel();
         const double b = getCarFollowModel().getMaxDecel();
@@ -6791,7 +6817,7 @@ MSVehicle::getStopDelay() const {
         // distAccel = (v - v0)^2 / 2a
         // distDecel = v^2 / 2b
         // distAccel + distDecel < d
-        const double maxVD = MAX2(c, ((sqrt(MAX2(0.0, pow(2*c*b, 2) + (4*b*(2*d*a - c*c)*(b + a))))*0.5) + (c*b))/(b + a));
+        const double maxVD = MAX2(c, ((sqrt(MAX2(0.0, pow(2 * c * b, 2) + (4 * b * (2 * d * a - c * c) * (b + a)))) * 0.5) + (c * b)) / (b + a));
         it = myCurrEdge;
         double v0 = c;
         bool v0Stable = getAcceleration() == 0 && v0 > 0;
@@ -6831,7 +6857,7 @@ MSVehicle::getStopDelay() const {
         timeLossDecel += v0 / (2 * b);
         estimatedDepart += TIME2STEPS(travelTime + timeLossAccel + timeLossDecel + timeLossLength);
         const double result = MAX2(0.0, STEPS2TIME(estimatedDepart - stop.pars.until));
-        //std::cout << SIMTIME << " v=" << c << " a=" << a << " b=" << b << " maxVD=" << maxVD << " tt=" << travelTime 
+        //std::cout << SIMTIME << " v=" << c << " a=" << a << " b=" << b << " maxVD=" << maxVD << " tt=" << travelTime
         //    << " ta=" << timeLossAccel << " td=" << timeLossDecel << " tl=" << timeLossLength << " res=" << result << "\n";
         return result;
     } else {

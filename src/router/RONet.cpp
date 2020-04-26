@@ -60,7 +60,7 @@ RONet::getInstance(void) {
 }
 
 
-RONet::RONet() : 
+RONet::RONet() :
     myVehicleTypes(), myDefaultVTypeMayBeDeleted(true),
     myDefaultPedTypeMayBeDeleted(true), myDefaultBikeTypeMayBeDeleted(true),
     myHaveActiveFlows(true),
@@ -69,11 +69,10 @@ RONet::RONet() :
     myHavePermissions(false),
     myNumInternalEdges(0),
     myErrorHandler(OptionsCont::getOptions().exists("ignore-errors")
-            && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
+                   && OptionsCont::getOptions().getBool("ignore-errors") ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance()),
     myKeepVTypeDist(OptionsCont::getOptions().exists("keep-vtype-distributions")
-            && OptionsCont::getOptions().getBool("keep-vtype-distributions")),
-    myHasBidiEdges(false)
-{
+                    && OptionsCont::getOptions().getBool("keep-vtype-distributions")),
+    myHasBidiEdges(false) {
     if (myInstance != nullptr) {
         throw ProcessError("A network was already constructed.");
     }

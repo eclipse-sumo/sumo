@@ -149,14 +149,13 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             const int numLanes = (int)veh2->getEdge()->getLanes().size();
             //make sure that vehicle are still building the a rescue lane
             if (influencedVehicles.count(veh2->getID()) > 0) {
-               //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
+                //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
                 MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
                 //Setting the lateral alignment to build a rescue lane
                 if (veh2->getLane()->getIndex() == numLanes - 1) {
                     t.setPreferredLateralAlignment(LATALIGN_LEFT);
                     // the alignement is changet to left for the vehicle std::cout << "New alignment to left for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
-                }
-                else {
+                } else {
                     t.setPreferredLateralAlignment(LATALIGN_RIGHT);
                     // the alignement is changet to right for the vehicle std::cout << "New alignment to right for vehicle: " << veh2->getID() << " " << veh2->getVehicleType().getPreferredLateralAlignment() << "\n";
                 }

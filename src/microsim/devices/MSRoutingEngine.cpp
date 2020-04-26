@@ -174,8 +174,8 @@ MSRoutingEngine::getEffortBike(const MSEdge* const e, const SUMOVehicle* const v
 double
 MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const v, double t) {
     double effort = (!myBikeSpeeds || v == nullptr || v->getVClass() != SVC_BICYCLE
-            ? getEffort(e, v, t)
-            : getEffortBike(e, v, t));
+                     ? getEffort(e, v, t)
+                     : getEffortBike(e, v, t));
     if (gWeightsRandomFactor != 1.) {
         effort *= RandHelper::rand(1., gWeightsRandomFactor);
     }

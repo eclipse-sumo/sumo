@@ -38,12 +38,13 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-        const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
-        bool relativePath, double width, double height, bool movementBlocked) :
+               const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
+               bool relativePath, double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(net, SUMO_TAG_POI, movementBlocked, 
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}) {   // Children
+    GNEShape(net, SUMO_TAG_POI, movementBlocked,
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}) {
+    // Children
     // set GEO Position
     myGEOPosition = pos;
     GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
@@ -51,19 +52,20 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-        double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
-        double width, double height, bool movementBlocked) :
+               double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
+               double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(net, SUMO_TAG_POILANE, movementBlocked, 
-        {}, {}, {lane}, {}, {}, {}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}) {   // Children
+    GNEShape(net, SUMO_TAG_POILANE, movementBlocked,
+{}, {}, {lane}, {}, {}, {}, {}, // Parents
+{}, {}, {}, {}, {}, {}, {}) {
+    // Children
 }
 
 
 GNEPOI::~GNEPOI() {}
 
 
-const std::string& 
+const std::string&
 GNEPOI::getID() const {
     return getMicrosimID();
 }
@@ -79,14 +81,14 @@ std::string
 GNEPOI::generateChildID(SumoXMLTag childTag) {
     int counter = (int)myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size();
     while ((myNet->retrieveShape(SUMO_TAG_POI, getID() + toString(childTag) + toString(counter), false) != nullptr) &&
-           (myNet->retrieveShape(SUMO_TAG_POILANE, getID() + toString(childTag) + toString(counter), false) != nullptr)) {
+            (myNet->retrieveShape(SUMO_TAG_POILANE, getID() + toString(childTag) + toString(counter), false) != nullptr)) {
         counter++;
     }
     return (getID() + toString(childTag) + toString(counter));
 }
 
 
-void 
+void
 GNEPOI::setParameter(const std::string& key, const std::string& value) {
     Parameterised::setParameter(key, value);
 }
@@ -207,9 +209,9 @@ GNEPOI::getGlID() const {
 
 std::string
 GNEPOI::getParentName() const {
-    if (getParentLanes().size() > 0)
+    if (getParentLanes().size() > 0) {
         return getParentLanes().front()->getID();
-    else {
+    } else {
         return myNet->getMicrosimID();
     }
 }
@@ -368,9 +370,9 @@ bool
 GNEPOI::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidTypeID(value) && 
-                (myNet->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
-                (myNet->retrieveShape(SUMO_TAG_POILANE, value, false) == nullptr);
+            return SUMOXMLDefinitions::isValidTypeID(value) &&
+                   (myNet->retrieveShape(SUMO_TAG_POI, value, false) == nullptr) &&
+                   (myNet->retrieveShape(SUMO_TAG_POILANE, value, false) == nullptr);
         case SUMO_ATTR_COLOR:
             return canParse<RGBColor>(value);
         case SUMO_ATTR_LANE:
@@ -441,7 +443,7 @@ void
 GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID: {
-            // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes 
+            // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes
             myNet->getAttributeCarriers()->updateID(this, value);
             // set named ID
             myID = value;

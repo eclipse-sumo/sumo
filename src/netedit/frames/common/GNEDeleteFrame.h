@@ -182,12 +182,12 @@ protected:
 
     private:
         // default constructor for non-net elements
-        SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet * viewNet);
+        SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet* viewNet);
 
         // default constructor for Net Elements
         SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet* viewNet,
-            const GNEHierarchicalParentElements* hierarchicalParent, 
-            const GNEHierarchicalChildElements* hierarchicalChild);
+                             const GNEHierarchicalParentElements* hierarchicalParent,
+                             const GNEHierarchicalChildElements* hierarchicalChild);
 
         /// @brief add in originalSE the values of newSE
         void addValuesFromSubordinatedElements(SubordinatedElements* originalSE, const SubordinatedElements& newSE);

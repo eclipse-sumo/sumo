@@ -70,21 +70,21 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GNETAZ::GNETAZ(const std::string& id, GNENet *net, PositionVector shape, RGBColor color, bool blockMovement) :
-    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement, 
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    myColor(color),
-    myTAZShape(shape),
-    myBlockShape(false),
-    myDrawFill(false),
-    myCurrentMovingVertexIndex(-1),
-    myMaxWeightSource(0),
-    myMinWeightSource(0),
-    myAverageWeightSource(0),
-    myMaxWeightSink(0),
-    myMinWeightSink(0),
-    myAverageWeightSink(0) {
+GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
+    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement,
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+myColor(color),
+myTAZShape(shape),
+myBlockShape(false),
+myDrawFill(false),
+myCurrentMovingVertexIndex(-1),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
 }
 
 
@@ -224,7 +224,7 @@ GNETAZ::moveTAZShape(const Position& offset) {
         const int lastIndex = (int)newShape.size() - 1;
         // check if we have to move first and last postion
         if ((newShape.size() > 2) &&
-            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
             // move first and last position in newShape
             newShape[0].add(offset);
             newShape[lastIndex].add(offset);
@@ -334,8 +334,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     const double TAZExaggeration = s.polySize.getExaggeration(s, this);
     const Boundary TAZBoundary = myTAZShape.getBoxBoundary();
     // check if TAZ can be drawn
-    if ((TAZExaggeration > 0) && myNet->getViewNet()->getDataViewOptions().showAdditionals() && 
-        (s.scale * MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight())) >= s.polySize.minSize) {
+    if ((TAZExaggeration > 0) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
+            (s.scale * MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight())) >= s.polySize.minSize) {
         // push name
         glPushName(getGlID());
         // check TAZ ssize
@@ -571,7 +571,7 @@ GNETAZ::updateParentAdditional() {
     int numberOfSources = 0;
     int numberOfSinks = 0;
     // iterate over child additional
-    for (const auto &additional : getChildAdditionals()) {
+    for (const auto& additional : getChildAdditionals()) {
         if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
             double weight = additional->getAttributeDouble(SUMO_ATTR_WEIGHT);
             // check max Weight

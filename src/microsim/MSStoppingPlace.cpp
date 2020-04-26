@@ -43,8 +43,7 @@ MSStoppingPlace::MSStoppingPlace(const std::string& id,
     myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos),
     myName(name),
     myTransportableCapacity(capacity),
-    myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength)
-{
+    myParkingFactor(parkingLength <= 0 ? 1 : (endPos - begPos) / parkingLength) {
     computeLastFreePos();
     for (int i = 0; i < capacity; i++) {
         myWaitingSpots.insert(i);

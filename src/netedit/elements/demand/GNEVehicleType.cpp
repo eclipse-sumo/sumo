@@ -30,13 +30,13 @@
 // ===========================================================================
 
 
-GNEVehicleType::GNEVehicleType(GNENet *net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
+GNEVehicleType::GNEVehicleType(GNENet* net, const std::string& vTypeID, const SUMOVehicleClass& defaultVClass, SumoXMLTag tag) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, tag,
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    SUMOVTypeParameter(vTypeID),
-    myDefaultVehicleType(true),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+SUMOVTypeParameter(vTypeID),
+myDefaultVehicleType(true),
+myDefaultVehicleTypeModified(false) {
     // set default vehicle class
     vehicleClass = defaultVClass;
     parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
@@ -45,13 +45,13 @@ GNEVehicleType::GNEVehicleType(GNENet *net, const std::string& vTypeID, const SU
 }
 
 
-GNEVehicleType::GNEVehicleType(GNENet *net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
+GNEVehicleType::GNEVehicleType(GNENet* net, const SUMOVTypeParameter& vTypeParameter, SumoXMLTag tag) :
     GNEDemandElement(vTypeParameter.id, net, GLO_VTYPE, tag,
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    SUMOVTypeParameter(vTypeParameter),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+SUMOVTypeParameter(vTypeParameter),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // if we're creating a Person Type, set manually VClass
     if (tag == SUMO_TAG_PTYPE) {
         vehicleClass = SVC_PEDESTRIAN;
@@ -62,13 +62,13 @@ GNEVehicleType::GNEVehicleType(GNENet *net, const SUMOVTypeParameter& vTypeParam
 }
 
 
-GNEVehicleType::GNEVehicleType(GNENet *net, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
+GNEVehicleType::GNEVehicleType(GNENet* net, const std::string& vTypeID, GNEVehicleType* vTypeOriginal) :
     GNEDemandElement(vTypeID, net, GLO_VTYPE, vTypeOriginal->getTagProperty().getTag(),
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    SUMOVTypeParameter(*vTypeOriginal),
-    myDefaultVehicleType(false),
-    myDefaultVehicleTypeModified(false) {
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+SUMOVTypeParameter(*vTypeOriginal),
+myDefaultVehicleType(false),
+myDefaultVehicleTypeModified(false) {
     // change manually the ID (to avoid to use the ID of vTypeOriginal)
     id = vTypeID;
     // init Rail Visualization Parameters

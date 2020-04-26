@@ -69,43 +69,43 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // GNERoute - methods
 // ===========================================================================
 
-GNERoute::GNERoute(GNENet *net) :
+GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Childrens
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Childrens
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myVClass(SVC_PASSENGER) {
 }
 
 
-GNERoute::GNERoute(GNENet *net, const GNERouteHandler::RouteParameter& routeParameters) :
-    GNEDemandElement(routeParameters.routeID, net, GLO_ROUTE, SUMO_TAG_ROUTE, 
-        {}, routeParameters.edges, {}, {}, {}, {}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}),                    // Childrens
-    Parameterised(routeParameters.parameters),
-    myColor(routeParameters.color),
-    myVClass(routeParameters.vClass) {
+GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routeParameters) :
+    GNEDemandElement(routeParameters.routeID, net, GLO_ROUTE, SUMO_TAG_ROUTE,
+{}, routeParameters.edges, {}, {}, {}, {}, {},  // Parents
+{}, {}, {}, {}, {}, {}, {}),                    // Childrens
+Parameterised(routeParameters.parameters),
+myColor(routeParameters.color),
+myVClass(routeParameters.vClass) {
 }
 
 
-GNERoute::GNERoute(GNENet *net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), net, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE, 
-        {}, routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}),                                // Childrens
-    Parameterised(routeParameters.parameters),
-    myColor(routeParameters.color),
-    myVClass(routeParameters.vClass) {
+GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
+    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_EMBEDDEDROUTE), net, GLO_EMBEDDEDROUTE, SUMO_TAG_EMBEDDEDROUTE,
+{}, routeParameters.edges, {}, {}, {}, {vehicleParent}, {}, // Parents
+{}, {}, {}, {}, {}, {}, {}),                                // Childrens
+Parameterised(routeParameters.parameters),
+myColor(routeParameters.color),
+myVClass(routeParameters.vClass) {
 }
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
-    GNEDemandElement(route->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE, 
-        {}, route->getParentEdges(), {}, {}, {}, {}, {},    // Parents
-        {}, {}, {}, {}, {}, {}, {}),                        // Childrens
-    Parameterised(),
-    myColor(route->getColor()),
-    myVClass(route->getVClass()) {
+    GNEDemandElement(route->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
+{}, route->getParentEdges(), {}, {}, {}, {}, {},    // Parents
+{}, {}, {}, {}, {}, {}, {}),                        // Childrens
+Parameterised(),
+myColor(route->getColor()),
+myVClass(route->getVClass()) {
 }
 
 

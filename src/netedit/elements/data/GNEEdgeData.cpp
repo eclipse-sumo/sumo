@@ -46,9 +46,10 @@
 // ---------------------------------------------------------------------------
 
 GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters) :
-    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, GLO_EDGEDATA, dataIntervalParent, parameters, 
-        {}, {edgeParent}, {}, {}, {}, {}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}) {           // Children
+    GNEGenericData(SUMO_TAG_MEANDATA_EDGE, GLO_EDGEDATA, dataIntervalParent, parameters,
+{}, {edgeParent}, {}, {}, {}, {}, {},   // Parents
+{}, {}, {}, {}, {}, {}, {}) {
+    // Children
 }
 
 
@@ -110,7 +111,7 @@ GNEEdgeData::fixGenericDataProblem() {
 }
 
 
-Boundary 
+Boundary
 GNEEdgeData::getCenteringBoundary() const {
     return getParentEdges().front()->getCenteringBoundary();
 }
@@ -227,7 +228,7 @@ GNEEdgeData::setEnabledAttribute(const int /*enabledAttributes*/) {
 }
 
 
-bool 
+bool
 GNEEdgeData::isVisible() const {
     // obtain pointer to edge data frame (only for code legibly)
     const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
@@ -235,18 +236,17 @@ GNEEdgeData::isVisible() const {
     if (edgeDataFrame->shown()) {
         // check interval
         if ((edgeDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
-            (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+                (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
             return false;
         }
         // check attribute
         if ((edgeDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-            (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+                (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
             return false;
         }
         // all checks ok, then return true
         return true;
-    }
-    else {
+    } else {
         // GNEEdgeDataFrame hidden, then return false
         return false;
     }

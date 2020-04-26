@@ -663,7 +663,7 @@ struct GNEViewNetHelper {
 
         /// @brief set generic data type
         void setGenericDataType();
-        
+
         /// @brief set dataSet
         void setDataSet();
 

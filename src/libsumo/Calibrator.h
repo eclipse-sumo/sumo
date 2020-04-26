@@ -62,9 +62,9 @@ public:
     static std::string getParameter(const std::string& calibratorID, const std::string& param);
 
     static void setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
-            const std::string& routeID,
-            const std::string& departLane = "first",
-            const std::string& departSpeed = "max");
+                        const std::string& routeID,
+                        const std::string& departLane = "first",
+                        const std::string& departSpeed = "max");
 
     static void setParameter(const std::string& calibratorID, const std::string& key, const std::string& value); // not needed so far
 

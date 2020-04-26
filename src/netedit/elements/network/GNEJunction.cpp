@@ -59,16 +59,16 @@ const double GNEJunction::BUBBLE_RADIUS(4);
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    myNBNode(nbn),
-    myMaxSize(1),
-    myAmCreateEdgeSource(false),
-    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myAmResponsible(false),
-    myHasValidLogic(loaded),
-    myAmTLSSelected(false),
-    myColorForMissingConnections(false) {
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+myNBNode(nbn),
+myMaxSize(1),
+myAmCreateEdgeSource(false),
+myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myAmResponsible(false),
+myHasValidLogic(loaded),
+myAmTLSSelected(false),
+myColorForMissingConnections(false) {
 }
 
 
@@ -1387,13 +1387,13 @@ void
 GNEJunction::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const {
     // iterate over incoming edges
     for (const auto& incomingEdge : myGNEIncomingEdges) {
-        for (const auto &genericData : incomingEdge->getChildGenericDataElements()) {
+        for (const auto& genericData : incomingEdge->getChildGenericDataElements()) {
             // check if incomingEdge correspond to edgeRel from edge
             if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
-                (genericData->getAttribute(SUMO_ATTR_FROM) == incomingEdge->getID()) &&
-                genericData->isGenericDataVisible()) {
+                    (genericData->getAttribute(SUMO_ATTR_FROM) == incomingEdge->getID()) &&
+                    genericData->isGenericDataVisible()) {
                 // get To edge
-                const GNEEdge *edgeTo = genericData->getParentEdges().back();
+                const GNEEdge* edgeTo = genericData->getParentEdges().back();
                 // get the four points
                 const Position positionA = incomingEdge->getBackDownShapePosition();
                 const Position positionB = incomingEdge->getBackUpShapePosition();
@@ -1423,8 +1423,8 @@ GNEJunction::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s)
                 // pop name
                 glPopName();
                 /*
-            // iterate over edges
-            for (int i = 0; i < (genericData->getPathEdges().size()-1); i++) {
+                // iterate over edges
+                for (int i = 0; i < (genericData->getPathEdges().size()-1); i++) {
                 if (genericData->isGenericDataVisible() && (genericData->getPathEdges().at(i) == this)) {
                     // obtain lanes edge
                     PositionVector laneShapeFromA = myLanes.front()->getLaneShape();
@@ -1435,7 +1435,7 @@ GNEJunction::drawPathGenericDataElementChilds(const GUIVisualizationSettings& s)
                     laneShapeToA.move2side(genericData->getPathEdges().at(i + 1)->getLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(genericData->getPathEdges().at(i + 1)->getLanes().front()->getIndex()) / 2);
                     PositionVector laneShapeToB = genericData->getPathEdges().at(i + 1)->getLanes().back()->getLaneShape();
                     laneShapeToB.move2side(-1 * genericData->getPathEdges().at(i + 1)->getLanes().back()->getParentEdge()->getNBEdge()->getLaneWidth(genericData->getPathEdges().at(i + 1)->getLanes().back()->getIndex()) / 2);
-    
+
                 }
                 */
             }

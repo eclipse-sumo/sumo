@@ -914,7 +914,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::refreshAttributeCarrierHierarchy() {
 }
 
 
-void 
+void
 GNEFrameModuls::AttributeCarrierHierarchy::removeCurrentEditedAttribute(const GNEAttributeCarrier* AC) {
     // simply check if AC is the same of myAC
     if (AC == myAC) {
@@ -1103,7 +1103,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         FXMenuCommand* centerMenuCommand = new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
         // disable Centering for Vehicle Types, data sets and data intervals
         if (myClickedAC->getTagProperty().isVehicleType() || (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATASET) ||
-            (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL)) {
+                (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL)) {
             centerMenuCommand->disable();
         }
         // create inspect and delete menu commands
@@ -1987,7 +1987,7 @@ GNEFrameModuls::OverlappedInspection::showOverlappedInspection(const GNEViewNetH
         bool insert = true;
         // special case for supermode data
         if (myFrameParent->getViewNet()->getEditModes().isCurrentSupermodeData() &&
-            !AC->getTagProperty().isGenericData()) {
+                !AC->getTagProperty().isGenericData()) {
             insert = false;
         }
         // check filter
@@ -2203,7 +2203,7 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
 
 
 FXLabel*
-GNEFrameModuls::buildRainbow(FXComposite* parent, std::vector<RGBColor> & scaleColors) {
+GNEFrameModuls::buildRainbow(FXComposite* parent, std::vector<RGBColor>& scaleColors) {
     // create label for color information
     FXLabel* label = new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
     // fill scale colors (10)

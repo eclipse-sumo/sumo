@@ -631,7 +631,7 @@ public:
 
     virtual bool hasInfluencer() const  = 0;
 
-    
+
     /** @brief Returns the vehicle's internal edge travel times/efforts container
      *
      * If the vehicle does not have such a container, it is built.

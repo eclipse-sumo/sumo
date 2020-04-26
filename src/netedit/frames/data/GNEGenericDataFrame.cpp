@@ -242,10 +242,10 @@ GNEGenericDataFrame::IntervalSelector::refreshIntervalSelector() {
     if (dataSet) {
         // insert dataSetItem in Tree list
         FXTreeItem* dataSetItem = myIntervalsTreelist->insertItem(
-            nullptr, nullptr,
-            dataSet->getHierarchyName().c_str(),
-            dataSet->getIcon(),
-            dataSet->getIcon());
+                                      nullptr, nullptr,
+                                      dataSet->getHierarchyName().c_str(),
+                                      dataSet->getIcon(),
+                                      dataSet->getIcon());
         // by default item is expanded
         dataSetItem->setExpanded(true);
         // iterate over intevals
@@ -409,7 +409,7 @@ void
 GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
     // first clear items
     myAttributesComboBox->clearItems();
-    // restore myMinMaxLabel 
+    // restore myMinMaxLabel
     myMinMaxLabel->setText("Scale: Min -> Max");
     // fill myAttributesComboBox depending of data sets
     if (myGenericDataFrameParent->myDataSetSelector->getDataSet() == nullptr) {
@@ -421,7 +421,7 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
         // add attributes depending of interval
         if (myGenericDataFrameParent->myIntervalSelector->getDataInterval() == nullptr) {
             const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
-                myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag), "", "");
+                                        myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag), "", "");
             // add all parameters
             for (const auto& attribute : parameters) {
                 myAttributesComboBox->appendItem(attribute.c_str());
@@ -429,9 +429,9 @@ GNEGenericDataFrame::AttributeSelector::refreshAttributeSelector() {
         } else {
             // retrieve all parameters within begin and end
             const auto parameters = myGenericDataFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
-                myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag),
-                myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_BEGIN),
-                myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_END));
+                                        myGenericDataFrameParent->myDataSetSelector->getDataSet()->getID(), toString(myGenericDataTag),
+                                        myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_BEGIN),
+                                        myGenericDataFrameParent->myIntervalSelector->getDataInterval()->getAttribute(SUMO_ATTR_END));
             // add all parameters
             for (const auto& attribute : parameters) {
                 myAttributesComboBox->appendItem(attribute.c_str());
@@ -526,7 +526,7 @@ GNEGenericDataFrame::getAttributeSelector() const {
 }
 
 
-GNEFrameModuls::EdgePathCreator* 
+GNEFrameModuls::EdgePathCreator*
 GNEGenericDataFrame::getEdgePathCreator() const {
     return myEdgePathCreator;
 }

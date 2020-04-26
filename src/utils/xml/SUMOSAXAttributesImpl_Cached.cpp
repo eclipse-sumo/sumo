@@ -65,7 +65,7 @@ SUMOSAXAttributesImpl_Cached::~SUMOSAXAttributesImpl_Cached() { }
 
 bool
 SUMOSAXAttributesImpl_Cached::hasAttribute(int id) const {
-    assert(id >= 0); 
+    assert(id >= 0);
     assert(id < (int)myPredefinedTagsMML.size());
     return myAttrs.find(myPredefinedTagsMML[id]) != myAttrs.end();
 }
@@ -110,7 +110,7 @@ SUMOSAXAttributesImpl_Cached::getFloat(int id) const {
 
 const std::string&
 SUMOSAXAttributesImpl_Cached::getAttributeValueSecure(int id) const {
-    assert(id >= 0); 
+    assert(id >= 0);
     assert(id < (int)myPredefinedTagsMML.size());
     return myAttrs.find(myPredefinedTagsMML[id])->second;
 }
@@ -235,7 +235,7 @@ SUMOSAXAttributesImpl_Cached::getBoundary(int attr) const {
 
 std::string
 SUMOSAXAttributesImpl_Cached::getName(int attr) const {
-    assert(attr >= 0); 
+    assert(attr >= 0);
     assert(attr < (int)myPredefinedTagsMML.size());
     return myPredefinedTagsMML[attr];
 }

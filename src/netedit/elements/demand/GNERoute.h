@@ -66,20 +66,20 @@ public:
     /**@brief default constructor
      * @param[in] viewNet view in which this Route is placed
      */
-    GNERoute(GNENet *net);
+    GNERoute(GNENet* net);
 
     /**@brief parameter constructor
      * @param[in] viewNet view in which this Route is placed
      * @param[in] routeParameters route parameters
      */
-    GNERoute(GNENet *net, const GNERouteHandler::RouteParameter& routeParameters);
+    GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routeParameters);
 
     /**@brief parameter constructor for embedded routes
      * @param[in] viewNet view in which this Route is placed
      * @param[in] vehicleParent vehicle parent of this embedded route
      * @param[in] routeParameters route parameters
      */
-    GNERoute(GNENet *net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters);
+    GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters);
 
     /// @brief copy constructor (used to create a route based on the parameters of other GNERoute)
     GNERoute(GNEDemandElement* route);

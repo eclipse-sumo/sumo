@@ -33,18 +33,18 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouter::GNERerouter(const std::string& id, GNENet *net, const Position& pos, 
-    const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename, 
-    double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
-    GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement, 
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, edges, {}, {}, {}, {}, {}), // Children
-    myPosition(pos),
-    myFilename(filename),
-    myProbability(probability),
-    myOff(off),
-    myTimeThreshold(timeThreshold),
-    myVTypes(vTypes) {
+GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos,
+                         const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename,
+                         double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
+    GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement,
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, edges, {}, {}, {}, {}, {}), // Children
+myPosition(pos),
+myFilename(filename),
+myProbability(probability),
+myOff(off),
+myTimeThreshold(timeThreshold),
+myVTypes(vTypes) {
 }
 
 

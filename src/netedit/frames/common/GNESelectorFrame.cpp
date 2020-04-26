@@ -194,7 +194,7 @@ GNESelectorFrame::LockGLObjectTypes::showTypeEntries() {
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* matrixParent, const Supermode supermode, const std::string& label) :
     FXObject(),
     mySupermode(supermode),
-    myLabelCounter(nullptr), 
+    myLabelCounter(nullptr),
     myLabelTypeName(nullptr),
     myCheckBoxLocked(nullptr),
     myCounter(0) {
@@ -205,7 +205,7 @@ GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::ObjectTypeEntry(FXMatrix* 
 }
 
 
-Supermode 
+Supermode
 GNESelectorFrame::LockGLObjectTypes::ObjectTypeEntry::getSupermode() const {
     return mySupermode;
 }
@@ -276,13 +276,13 @@ GNESelectorFrame::ModificationMode::ModificationMode(GNESelectorFrame* selectorF
     myModificationModeType(Operation::ADD) {
     // Create all options buttons
     myAddRadioButton = new FXRadioButton(this, "add\t\tSelected objects are added to the previous selection",
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                         this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myRemoveRadioButton = new FXRadioButton(this, "remove\t\tSelected objects are removed from the previous selection",
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myKeepRadioButton = new FXRadioButton(this, "keep\t\tRestrict previous selection by the current selection",
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+                                          this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myReplaceRadioButton = new FXRadioButton(this, "replace\t\tReplace previous selection by the current selection",
-        this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
+            this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     myAddRadioButton->setCheck(true);
 }
 
@@ -494,7 +494,7 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
         throw ProcessError("Invalid element set");
     }
     // fill combo box
-    for (const auto & ACTag : ACTags) {
+    for (const auto& ACTag : ACTags) {
         myMatchTagComboBox->appendItem(ACTag.c_str());
     }
     // set first item as current item
@@ -518,13 +518,13 @@ GNESelectorFrame::MatchAttribute::disableMatchAttribute() {
 }
 
 
-void 
+void
 GNESelectorFrame::MatchAttribute::showMatchAttribute() {
     show();
 }
 
 
-void 
+void
 GNESelectorFrame::MatchAttribute::hideMatchAttribute() {
     hide();
 }
@@ -548,7 +548,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         throw ProcessError("Unkown set");
     }
     // fill myMatchTagComboBox
-    for (const auto &ACTag : ACTags) {
+    for (const auto& ACTag : ACTags) {
         if (toString(ACTag) == myMatchTagComboBox->getText().text()) {
             myCurrentTag = ACTag;
         }
@@ -563,7 +563,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         myMatchString->enable();
         myMatchAttrComboBox->clearItems();
         // fill attribute combo box
-        for (const auto &attribute : tagValue) {
+        for (const auto& attribute : tagValue) {
             myMatchAttrComboBox->appendItem(attribute.getAttrStr().c_str());
         }
         // Add extra attribute "Parameter"
@@ -612,47 +612,47 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     // add an extra AttributeValues to allow select ACs using as criterium "parameters"
     GNEAttributeProperties extraAttrProperty;
     extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARAMETERS,
-        GNEAttributeProperties::AttrProperty::STRING,
-        "Parameters");
+                        GNEAttributeProperties::AttrProperty::STRING,
+                        "Parameters");
     tagPropertiesCopy.addAttribute(extraAttrProperty);
     // add extra attribute if item can block movement
     if (tagValue.canBlockMovement()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block movement"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_BLOCK_MOVEMENT,
-            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
-            "Block movement",
-            "false");
+                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
+                            "Block movement",
+                            "false");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can block shape
     if (tagValue.canBlockShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "block shape"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_BLOCK_SHAPE,
-            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
-            "Block shape",
-            "false");
+                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
+                            "Block shape",
+                            "false");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can close shape
     if (tagValue.canCloseShape()) {
         // add an extra AttributeValues to allow select ACs using as criterium "close shape"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_CLOSE_SHAPE,
-            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
-            "Close shape",
-            "true");
+                            GNEAttributeProperties::AttrProperty::BOOL | GNEAttributeProperties::AttrProperty::DEFAULTVALUESTATIC,
+                            "Close shape",
+                            "true");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can have parent
     if (tagValue.hasParent()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARENT,
-            GNEAttributeProperties::AttrProperty::STRING,
-            "Parent element");
+                            GNEAttributeProperties::AttrProperty::STRING,
+                            "Parent element");
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // set current selected attribute
     myCurrentAttribute = SUMO_ATTR_NOTHING;
-    for (const auto &attribute : tagPropertiesCopy) {
+    for (const auto& attribute : tagPropertiesCopy) {
         if (attribute.getAttrStr() == myMatchAttrComboBox->getText().text()) {
             myCurrentAttribute = attribute.getAttr();
         }
@@ -729,26 +729,26 @@ GNESelectorFrame::MatchAttribute::onCmdHelp(FXObject*, FXSelector, void*) {
     // set help text
     std::ostringstream help;
     help
-        << "- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
-        << "  according to the current 'Modification Mode'.\n"
-        << "     1. Select an object type from the first input box\n"
-        << "     2. Select an attribute from the second input box\n"
-        << "     3. Enter a 'match expression' in the third input box and press <return>\n"
-        << "\n"
-        << "- The empty expression matches all objects\n"
-        << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
-        << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
-        << "\n"
-        << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
-        << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
-        << "     '=' matches if string is an exact match.\n"
-        << "     '!' matches if string is not a substring.\n"
-        << "     '^' matches if string is not an exact match.\n"
-        << "\n"
-        << "- Examples:\n"
-        << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-        << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
-        << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
+            << "- The 'Match Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
+            << "  according to the current 'Modification Mode'.\n"
+            << "     1. Select an object type from the first input box\n"
+            << "     2. Select an attribute from the second input box\n"
+            << "     3. Enter a 'match expression' in the third input box and press <return>\n"
+            << "\n"
+            << "- The empty expression matches all objects\n"
+            << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
+            << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+            << "\n"
+            << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
+            << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
+            << "     '=' matches if string is an exact match.\n"
+            << "     '!' matches if string is not a substring.\n"
+            << "     '^' matches if string is not an exact match.\n"
+            << "\n"
+            << "- Examples:\n"
+            << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+            << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
+            << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -837,10 +837,10 @@ GNESelectorFrame::MatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myMatchGenericDataTagComboBox->enable();
         myMatchGenericDataAttrComboBox->enable();
         myMatchGenericDataString->enable();
-        // clear combo box interval selector 
+        // clear combo box interval selector
         myIntervalSelector->clearItems();
         // fill combo Box
-        for (auto &interval : myIntervals) {
+        for (auto& interval : myIntervals) {
             interval.second = myIntervalSelector->appendItem((" [" + toString(interval.first.first) + "," + toString(interval.first.second) + "]").c_str());
         }
         // set number of visible items
@@ -887,21 +887,21 @@ GNESelectorFrame::MatchGenericDataAttribute::disableMatchGenericDataAttribute() 
 }
 
 
-void 
+void
 GNESelectorFrame::MatchGenericDataAttribute::showMatchGenericDataAttribute() {
     // just show Modul
     show();
 }
 
 
-void 
+void
 GNESelectorFrame::MatchGenericDataAttribute::hideMatchGenericDataAttribute() {
     // just hide modul
     hide();
 }
 
 
-long 
+long
 GNESelectorFrame::MatchGenericDataAttribute::onCmdSetInterval(FXObject*, FXSelector, void*) {
     // iterate over interval and update begin and end
     for (auto& interval : myIntervals) {
@@ -915,16 +915,16 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdSetInterval(FXObject*, FXSelec
         }
     }
     // call onCmdSelectTag
-    onCmdSelectTag(0,0,0);
+    onCmdSelectTag(0, 0, 0);
     return 1;
 }
 
 
-long 
+long
 GNESelectorFrame::MatchGenericDataAttribute::onCmdSetBegin(FXObject*, FXSelector, void*) {
     // check if can be parsed to double
     if (GNEAttributeCarrier::canParse<double>(myBegin->getText().text()) &&
-        GNEAttributeCarrier::canParse<double>(myEnd->getText().text())) {
+            GNEAttributeCarrier::canParse<double>(myEnd->getText().text())) {
         // set valid color text and kill focus
         myBegin->setTextColor(FXRGB(0, 0, 0));
         myBegin->killFocus();
@@ -946,11 +946,11 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdSetBegin(FXObject*, FXSelector
 }
 
 
-long 
+long
 GNESelectorFrame::MatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, void*) {
     // check if can be parsed to double
-    if (GNEAttributeCarrier::canParse<double>(myBegin->getText().text()) && 
-        GNEAttributeCarrier::canParse<double>(myEnd->getText().text())) {
+    if (GNEAttributeCarrier::canParse<double>(myBegin->getText().text()) &&
+            GNEAttributeCarrier::canParse<double>(myEnd->getText().text())) {
         // set valid color text and kill focus
         myEnd->setTextColor(FXRGB(0, 0, 0));
         myEnd->killFocus();
@@ -960,8 +960,7 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdSetEnd(FXObject*, FXSelector, 
         myMatchGenericDataString->enable();
         // call onCmdSelectTag
         onCmdSelectTag(0, 0, 0);
-    }
-    else {
+    } else {
         // set invalid color text
         myEnd->setTextColor(FXRGB(255, 0, 0));
         // disable elements
@@ -1020,9 +1019,9 @@ long
 GNESelectorFrame::MatchGenericDataAttribute::onCmdSelectAttribute(FXObject*, FXSelector, void*) {
     // obtain all Generic Data attributes for current generic tag
     std::set<std::string> attributes = mySelectorFrameParent->getViewNet()->getNet()->retrieveGenericDataParameters(
-        toString(myCurrentTag), 
-        GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
-        GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
+                                           toString(myCurrentTag),
+                                           GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
+                                           GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     // add extra data set parent attribute
     attributes.insert(toString(GNE_ATTR_DATASET));
     // clear current attribute
@@ -1052,8 +1051,8 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdProcessString(FXObject*, FXSel
     bool valid = true;
     // get all Generic datas
     const auto genericDatas = mySelectorFrameParent->getViewNet()->getNet()->getAttributeCarriers()->retrieveGenericDatas(myCurrentTag,
-        GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
-        GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
+                              GNEAttributeCarrier::parse<double>(myBegin->getText().text()),
+                              GNEAttributeCarrier::parse<double>(myEnd->getText().text()));
     if (expression == "") {
         // the empty expression matches all objects
         mySelectorFrameParent->handleIDs(mySelectorFrameParent->getGenericMatches(genericDatas, myCurrentAttribute, '@', 0, expression));
@@ -1109,26 +1108,26 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdHelp(FXObject*, FXSelector, vo
     // set help text
     std::ostringstream help;
     help
-        << "- The 'MatchGenericData Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
-        << "  according to the current 'Modification Mode'.\n"
-        << "     1. Select an object type from the first input box\n"
-        << "     2. Select an attribute from the second input box\n"
-        << "     3. Enter a 'match expression' in the third input box and press <return>\n"
-        << "\n"
-        << "- The empty expression matches all objects\n"
-        << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
-        << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
-        << "\n"
-        << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
-        << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
-        << "     '=' matches if string is an exact match.\n"
-        << "     '!' matches if string is not a substring.\n"
-        << "     '^' matches if string is not an exact match.\n"
-        << "\n"
-        << "- Examples:\n"
-        << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
-        << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
-        << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
+            << "- The 'MatchGenericData Attribute' controls allow to specify a set of objects which are then applied to the current selection\n"
+            << "  according to the current 'Modification Mode'.\n"
+            << "     1. Select an object type from the first input box\n"
+            << "     2. Select an attribute from the second input box\n"
+            << "     3. Enter a 'match expression' in the third input box and press <return>\n"
+            << "\n"
+            << "- The empty expression matches all objects\n"
+            << "- For numerical attributes the match expression must consist of a comparison operator ('<', '>', '=') and a number.\n"
+            << "- An object matches if the comparison between its attribute and the given number by the given operator evaluates to 'true'\n"
+            << "\n"
+            << "- For string attributes the match expression must consist of a comparison operator ('', '=', '!', '^') and a string.\n"
+            << "     '' (no operator) matches if string is a substring of that object'ts attribute.\n"
+            << "     '=' matches if string is an exact match.\n"
+            << "     '!' matches if string is not a substring.\n"
+            << "     '^' matches if string is not an exact match.\n"
+            << "\n"
+            << "- Examples:\n"
+            << "     junction; id; 'foo' -> match all junctions that have 'foo' in their id\n"
+            << "     junction; type; '=priority' -> match all junctions of type 'priority', but not of type 'priority_stop'\n"
+            << "     edge; speed; '>10' -> match all edges with a speed above 10\n";
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -1260,9 +1259,9 @@ GNESelectorFrame::SelectionOperation::onCmdLoad(FXObject*, FXSelector, void*) {
 
 long
 GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
-    FXString file = MFXUtils::getFilename2Write(this, 
-        "Save List of selected Items", ".txt", 
-        GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
+    FXString file = MFXUtils::getFilename2Write(this,
+                    "Save List of selected Items", ".txt",
+                    GUIIconSubSys::getIcon(GUIIcon::EMPTY), gCurrentFolder);
     if (file == "") {
         return 1;
     }
@@ -1270,7 +1269,7 @@ GNESelectorFrame::SelectionOperation::onCmdSave(FXObject*, FXSelector, void*) {
         OutputDevice& dev = OutputDevice::getDevice(file.text());
         // get selected attribute carriers
         const auto selectedACs = mySelectorFrameParent->myViewNet->getNet()->getSelectedAttributeCarriers(false);
-        for (const auto &selectedAC : selectedACs) {
+        for (const auto& selectedAC : selectedACs) {
             GUIGlObject* object = dynamic_cast<GUIGlObject*>(selectedAC);
             if (object) {
                 dev << GUIGlObject::TypeNames.getString(object->getType()) << ":" << selectedAC->getID() << "\n";
@@ -1308,7 +1307,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         // invert selection of elements depending of current supermode
         if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeNetwork()) {
             // iterate over junctions
-            for (const auto &junction : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+            for (const auto& junction : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                 // check if junction selection is locked
                 if (!locks->IsObjectTypeLocked(GLO_JUNCTION)) {
                     if (junction.second->isAttributeCarrierSelected()) {
@@ -1318,7 +1317,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
                 // due we iterate over all junctions, only it's neccesary iterate over incoming edges
-                for (const auto &incomingEdge : junction.second->getGNEIncomingEdges()) {
+                for (const auto& incomingEdge : junction.second->getGNEIncomingEdges()) {
                     // only select edges if "select edges" flag is enabled. In other case, select only lanes
                     if (mySelectorFrameParent->myViewNet->getNetworkViewOptions().selectEdges()) {
                         // check if edge selection is locked
@@ -1332,7 +1331,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     } else {
                         // check if lane selection is locked
                         if (!locks->IsObjectTypeLocked(GLO_LANE)) {
-                            for (const auto &lane : incomingEdge->getLanes()) {
+                            for (const auto& lane : incomingEdge->getLanes()) {
                                 if (lane->isAttributeCarrierSelected()) {
                                     lane->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                                 } else {
@@ -1354,7 +1353,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 }
                 // check if crossing selection is locked
                 if (!locks->IsObjectTypeLocked(GLO_CROSSING)) {
-                    for (const auto &crossing : junction.second->getGNECrossings()) {
+                    for (const auto& crossing : junction.second->getGNECrossings()) {
                         if (crossing->isAttributeCarrierSelected()) {
                             crossing->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                         } else {
@@ -1600,12 +1599,12 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 }
             }
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-            // select dataSets 
+            // select dataSets
             for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                        if ((!locks->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) || 
-                            (!locks->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
+                        if ((!locks->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
+                                (!locks->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
                             if (genericData->isAttributeCarrierSelected()) {
                                 genericData->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                             } else {
@@ -1755,8 +1754,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-        }
-        else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+        } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
             // select routes
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE)) {
                 for (const auto& route : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
@@ -1906,13 +1904,12 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-        }
-        else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
+        } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
             for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                         if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
-                            (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
+                                (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
                             if (genericData->isAttributeCarrierSelected()) {
                                 genericData->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                             }
@@ -1938,41 +1935,41 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
         // obtain selected ACs depending of current supermode
         std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers(false);
         // add id into ACs to unselect
-        for (const auto &selectedAC : selectedACs) {
+        for (const auto& selectedAC : selectedACs) {
             ACsToUnselect.insert(std::make_pair(selectedAC->getID(), selectedAC));
         }
     }
     // handle ids
-    for (const auto &AC : ACs) {
+    for (const auto& AC : ACs) {
         // iterate over AtributeCarriers an place it in ACsToSelect or ACsToUnselect
         switch (setOperation) {
-        case GNESelectorFrame::ModificationMode::Operation::SUB:
-            ACsToUnselect.insert(std::make_pair(AC->getID(), AC));
-            break;
-        case GNESelectorFrame::ModificationMode::Operation::RESTRICT:
-            if (ACsToUnselect.find(std::make_pair(AC->getID(), AC)) != ACsToUnselect.end()) {
+            case GNESelectorFrame::ModificationMode::Operation::SUB:
+                ACsToUnselect.insert(std::make_pair(AC->getID(), AC));
+                break;
+            case GNESelectorFrame::ModificationMode::Operation::RESTRICT:
+                if (ACsToUnselect.find(std::make_pair(AC->getID(), AC)) != ACsToUnselect.end()) {
+                    ACsToSelect.insert(std::make_pair(AC->getID(), AC));
+                }
+                break;
+            default:
                 ACsToSelect.insert(std::make_pair(AC->getID(), AC));
-            }
-            break;
-        default:
-            ACsToSelect.insert(std::make_pair(AC->getID(), AC));
-            break;
+                break;
         }
     }
     // select junctions and their connections if Auto select junctions is enabled (note: only for "add mode")
     if (myViewNet->autoSelectNodes() && (setop == ModificationMode::Operation::ADD)) {
         std::vector<GNEEdge*> edgesToSelect;
         // iterate over ACsToSelect and extract edges
-        for (const auto & AC : ACsToSelect) {
+        for (const auto& AC : ACsToSelect) {
             if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
                 edgesToSelect.push_back(myViewNet->getNet()->retrieveEdge(AC.second->getID()));
             }
         }
         // iterate over extracted edges
-        for (const auto &edgeToSelect : edgesToSelect) {
+        for (const auto& edgeToSelect : edgesToSelect) {
             // select junction source and all connections and crossings
             ACsToSelect.insert(std::make_pair(edgeToSelect->getGNEJunctionSource()->getID(), edgeToSelect->getGNEJunctionSource()));
-            for (const auto &connectionToSelect : edgeToSelect->getGNEJunctionSource()->getGNEConnections()) {
+            for (const auto& connectionToSelect : edgeToSelect->getGNEJunctionSource()->getGNEConnections()) {
                 ACsToSelect.insert(std::make_pair(connectionToSelect->getID(), connectionToSelect));
             }
             for (const auto& crossingToSelect : edgeToSelect->getGNEJunctionSource()->getGNECrossings()) {
@@ -1992,12 +1989,12 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
     if ((ACsToSelect.size() + ACsToUnselect.size()) > 0) {
         // first unselect AC of ACsToUnselect and then selects AC of ACsToSelect
         myViewNet->getUndoList()->p_begin("selection");
-        for (const auto & ACToUnselect : ACsToUnselect) {
+        for (const auto& ACToUnselect : ACsToUnselect) {
             if (ACToUnselect.second->getTagProperty().isSelectable()) {
                 ACToUnselect.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
             }
         }
-        for (const auto &ACToSelect : ACsToSelect) {
+        for (const auto& ACToSelect : ACsToSelect) {
             if (ACToSelect.second->getTagProperty().isSelectable()) {
                 ACToSelect.second->setAttribute(GNE_ATTR_SELECTED, "true", myViewNet->getUndoList());
             }
@@ -2034,25 +2031,24 @@ GNESelectorFrame::ACsToSelected() const {
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ADDITIONALELEMENT)) {
             for (const auto& additionalTag : myViewNet->getNet()->getAttributeCarriers()->getAdditionals()) {
                 // first check if additional is selectable
-                if (GNEAttributeCarrier::getTagProperties(additionalTag.first).isSelectable() && 
-                    (myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(additionalTag.first).size() > 0)) {
+                if (GNEAttributeCarrier::getTagProperties(additionalTag.first).isSelectable() &&
+                        (myViewNet->getNet()->getAttributeCarriers()->getAdditionals().at(additionalTag.first).size() > 0)) {
                     return true;
                 }
             }
         }
         // check polygons
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) && 
-            (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON) &&
+                (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY).size() > 0)) {
             return true;
         }
         // check POIs
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) && 
-            ((myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0) || 
-             (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE).size() > 0))) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI) &&
+                ((myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).size() > 0) ||
+                 (myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POILANE).size() > 0))) {
             return true;
         }
-    }
-    else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
+    } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
         // check routes
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE) && (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size() > 0)) {
             return true;
@@ -2080,9 +2076,9 @@ GNESelectorFrame::ACsToSelected() const {
         // check stops
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_STOP)) {
             if ((myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE).size() > 0) ||
-                (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() > 0) ||
-                (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP).size() > 0) ||
-                (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION).size() > 0)) {
+                    (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP).size() > 0) ||
+                    (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP).size() > 0) ||
+                    (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION).size() > 0)) {
                 return true;
             }
         }
@@ -2097,39 +2093,38 @@ GNESelectorFrame::ACsToSelected() const {
         // check persontrips
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONTRIP)) {
             if ((myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONTRIP_FROMTO).size() > 0) ||
-                (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONTRIP_BUSSTOP).size() > 0)) {
+                    (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONTRIP_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
         // check ride
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_RIDE)) {
             if ((myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_RIDE_FROMTO).size() > 0) ||
-                (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_RIDE_BUSSTOP).size() > 0)) {
+                    (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_RIDE_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
         // check walks
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
             if ((myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_WALK_FROMTO).size() > 0) ||
-                (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_WALK_BUSSTOP).size() > 0) ||
-                (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_WALK_ROUTE).size() > 0)) {
+                    (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_WALK_BUSSTOP).size() > 0) ||
+                    (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_WALK_ROUTE).size() > 0)) {
                 return true;
             }
         }
         // check person stops
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONSTOP)) {
             if ((myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONSTOP_LANE).size() > 0) ||
-                (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
+                    (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
                 return true;
             }
         }
-    }
-    else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
+    } else if (myViewNet->getEditModes().isCurrentSupermodeData()) {
         for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
             for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                 for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
                     if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
-                        (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
+                            (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
                         return true;
                     }
                 }
@@ -2149,7 +2144,7 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
     // get Tag value
     const auto& tagValue = GNEAttributeCarrier::getTagProperties(ACTag);
     // iterate over all ACs
-    for (const auto &AC : allACbyTag) {
+    for (const auto& AC : allACbyTag) {
         if (expr == "") {
             result.push_back(AC);
         } else if (tagValue.hasAttribute(ACAttr) && tagValue.getAttributeProperties(ACAttr).isNumerical()) {
@@ -2157,46 +2152,46 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
             std::istringstream buf(AC->getAttribute(ACAttr));
             buf >> acVal;
             switch (compOp) {
-            case '<':
-                if (acVal < val) {
-                    result.push_back(AC);
-                }
-                break;
-            case '>':
-                if (acVal > val) {
-                    result.push_back(AC);
-                }
-                break;
-            case '=':
-                if (acVal == val) {
-                    result.push_back(AC);
-                }
-                break;
+                case '<':
+                    if (acVal < val) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '>':
+                    if (acVal > val) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '=':
+                    if (acVal == val) {
+                        result.push_back(AC);
+                    }
+                    break;
             }
         } else {
             // string match
             std::string acVal = AC->getAttributeForSelection(ACAttr);
             switch (compOp) {
-            case '@':
-                if (acVal.find(expr) != std::string::npos) {
-                    result.push_back(AC);
-                }
-                break;
-            case '!':
-                if (acVal.find(expr) == std::string::npos) {
-                    result.push_back(AC);
-                }
-                break;
-            case '=':
-                if (acVal == expr) {
-                    result.push_back(AC);
-                }
-                break;
-            case '^':
-                if (acVal != expr) {
-                    result.push_back(AC);
-                }
-                break;
+                case '@':
+                    if (acVal.find(expr) != std::string::npos) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '!':
+                    if (acVal.find(expr) == std::string::npos) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '=':
+                    if (acVal == expr) {
+                        result.push_back(AC);
+                    }
+                    break;
+                case '^':
+                    if (acVal != expr) {
+                        result.push_back(AC);
+                    }
+                    break;
             }
         }
     }
@@ -2205,59 +2200,57 @@ GNESelectorFrame::getMatches(const SumoXMLTag ACTag, const SumoXMLAttr ACAttr, c
 
 
 std::vector<GNEAttributeCarrier*>
-GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*> &genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr) {
+GNESelectorFrame::getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr) {
     std::vector<GNEAttributeCarrier*> result;
     // iterate over generic datas
-    for (const auto &genericData : genericDatas) {
+    for (const auto& genericData : genericDatas) {
         if (expr == "") {
             result.push_back(genericData);
-        }
-        else if (attr != toString(GNE_ATTR_PARENT)) {
+        } else if (attr != toString(GNE_ATTR_PARENT)) {
             double acVal;
             std::istringstream buf(genericData->getParameter(attr, "0"));
             buf >> acVal;
             switch (compOp) {
-            case '<':
-                if (acVal < val) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '>':
-                if (acVal > val) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '=':
-                if (acVal == val) {
-                    result.push_back(genericData);
-                }
-                break;
+                case '<':
+                    if (acVal < val) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '>':
+                    if (acVal > val) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '=':
+                    if (acVal == val) {
+                        result.push_back(genericData);
+                    }
+                    break;
             }
-        }
-        else {
+        } else {
             // string match
             std::string acVal = genericData->getAttributeForSelection(GNE_ATTR_PARENT);
             switch (compOp) {
-            case '@':
-                if (acVal.find(expr) != std::string::npos) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '!':
-                if (acVal.find(expr) == std::string::npos) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '=':
-                if (acVal == expr) {
-                    result.push_back(genericData);
-                }
-                break;
-            case '^':
-                if (acVal != expr) {
-                    result.push_back(genericData);
-                }
-                break;
+                case '@':
+                    if (acVal.find(expr) != std::string::npos) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '!':
+                    if (acVal.find(expr) == std::string::npos) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '=':
+                    if (acVal == expr) {
+                        result.push_back(genericData);
+                    }
+                    break;
+                case '^':
+                    if (acVal != expr) {
+                        result.push_back(genericData);
+                    }
+                    break;
             }
         }
     }

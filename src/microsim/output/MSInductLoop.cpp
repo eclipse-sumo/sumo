@@ -301,9 +301,9 @@ MSInductLoop::collectVehiclesOnDet(SUMOTime tMS, bool includeEarly, bool leaveTi
 
 MSInductLoop::VehicleData::VehicleData(const SUMOTrafficObject& v, double entryTimestep,
                                        double leaveTimestep, const bool leftEarly)
-            : idM(v.getID()), lengthM(v.getVehicleType().getLength()), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-              speedM(v.getVehicleType().getLength() / MAX2(leaveTimestep - entryTimestep, NUMERICAL_EPS)), typeIDM(v.getVehicleType().getID()),
-              leftEarlyM(leftEarly) {}
+    : idM(v.getID()), lengthM(v.getVehicleType().getLength()), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
+      speedM(v.getVehicleType().getLength() / MAX2(leaveTimestep - entryTimestep, NUMERICAL_EPS)), typeIDM(v.getVehicleType().getID()),
+      leftEarlyM(leftEarly) {}
 
 
 /****************************************************************************/

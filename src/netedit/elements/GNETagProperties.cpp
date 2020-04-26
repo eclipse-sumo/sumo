@@ -335,7 +335,7 @@ GNETagProperties::isPersonStop() const {
 }
 
 
-bool 
+bool
 GNETagProperties::isGenericData() const {
     return (myTagType & GENERICDATA) != 0;
 }

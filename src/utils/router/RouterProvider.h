@@ -38,19 +38,19 @@ public:
     RouterProvider(SUMOAbstractRouter<E, V>* vehRouter,
                    PedestrianRouter<E, L, N, V>* pedRouter,
                    IntermodalRouter<E, L, N, V>* interRouter,
-                   RailwayRouter<E, V>* railRouter) : 
-        myVehRouter(vehRouter), 
-        myPedRouter(pedRouter), 
+                   RailwayRouter<E, V>* railRouter) :
+        myVehRouter(vehRouter),
+        myPedRouter(pedRouter),
         myInterRouter(interRouter),
         myRailRouter(railRouter)
     {}
 
-    RouterProvider(const RouterProvider& original) : 
+    RouterProvider(const RouterProvider& original) :
         myVehRouter(original.myVehRouter->clone()),
         myPedRouter(static_cast<PedestrianRouter<E, L, N, V>*>(original.myPedRouter == 0 ? 0 : original.myPedRouter->clone())),
         myInterRouter(static_cast<IntermodalRouter<E, L, N, V>*>(original.myInterRouter == 0 ? 0 : original.myInterRouter->clone())),
         myRailRouter(static_cast<RailwayRouter<E, V>*>(original.myRailRouter == 0 ? 0 : original.myRailRouter->clone()))
-        {}
+    {}
 
     RouterProvider* clone() {
         return new RouterProvider(*this);

@@ -126,7 +126,7 @@ MSParkingArea::addLotEntry(double x, double y, double z,
         lsd.myManoeuverAngle = relativeAngle;
 
         //   if p2.y is -ve the lot is on LHS of lane relative to lane direction
-        //    we need to know this because it inverts the complexity of the parking manoeuver 
+        //    we need to know this because it inverts the complexity of the parking manoeuver
         Position p2 = this->getLane().getShape().transformToVectorCoordinates(lsd.myPosition);
         if (p2.y() < (0. + POSITION_EPS)) {
             lsd.mySideIsLHS = true;
@@ -151,22 +151,24 @@ MSParkingArea::getLastFreeLotAngle() const {
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
 
     const LotSpaceDefinition& lsd = mySpaceOccupancies[myLastFreeLot];
-    if ( lsd.mySideIsLHS )
+    if (lsd.mySideIsLHS) {
         return abs(int(lsd.myManoeuverAngle)) % 180;
-    else
+    } else {
         return abs(abs(int(lsd.myManoeuverAngle)) % 180 - 180) % 180;
     }
+}
 
 double
 MSParkingArea::getLastFreeLotGUIAngle() const {
     assert(myLastFreeLot >= 0);
     assert(myLastFreeLot < (int)mySpaceOccupancies.size());
 
-    const LotSpaceDefinition &lsd = mySpaceOccupancies[myLastFreeLot];
-    if (lsd.myManoeuverAngle > 180.)
+    const LotSpaceDefinition& lsd = mySpaceOccupancies[myLastFreeLot];
+    if (lsd.myManoeuverAngle > 180.) {
         return DEG2RAD(lsd.myManoeuverAngle - 360.);
-    else
+    } else {
         return DEG2RAD(lsd.myManoeuverAngle);
+    }
 }
 
 
@@ -218,10 +220,11 @@ double
 MSParkingArea::getGUIAngle(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
-            if (lsd.myManoeuverAngle > 180.)
+            if (lsd.myManoeuverAngle > 180.) {
                 return DEG2RAD(lsd.myManoeuverAngle - 360.);
-            else
+            } else {
                 return DEG2RAD(lsd.myManoeuverAngle);
+            }
         }
     }
     return 0.;
@@ -231,10 +234,11 @@ int
 MSParkingArea::getManoeuverAngle(const SUMOVehicle& forVehicle) const {
     for (const auto& lsd : mySpaceOccupancies) {
         if (lsd.vehicle == &forVehicle) {
-            if (lsd.mySideIsLHS)
+            if (lsd.mySideIsLHS) {
                 return abs(int(lsd.myManoeuverAngle)) % 180;
-            else
+            } else {
                 return abs(abs(int(lsd.myManoeuverAngle)) % 180 - 180) % 180;
+            }
         }
     }
     return 0;

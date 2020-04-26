@@ -107,7 +107,7 @@ public:
         SUMOVehicleParameter* vehicleParameter;
     };
 
-    AspiredState getCurrentStateInterval() const; 
+    AspiredState getCurrentStateInterval() const;
 
     const MSEdge* getEdge() const {
         return myEdge;

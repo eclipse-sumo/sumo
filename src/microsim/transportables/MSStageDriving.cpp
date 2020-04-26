@@ -318,8 +318,8 @@ MSStageDriving::setVehicle(SUMOVehicle* v) {
         myVehicleLine = v->getParameter().line;
         myVehicleVClass = v->getVClass();
         myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
-                myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
-                myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
+                                myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
+                                myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
         myTimeLoss = myVehicle->getTimeLoss();
     }
 }

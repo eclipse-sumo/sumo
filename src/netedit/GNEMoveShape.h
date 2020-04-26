@@ -34,13 +34,13 @@ public:
     GNEMoveShape();
 
     /// @gbrief start move shape
-    void startMoveShape(const PositionVector &shapeBeforeMoving, const double offsetMovingShape, const double sensibility);
+    void startMoveShape(const PositionVector& shapeBeforeMoving, const double offsetMovingShape, const double sensibility);
 
     /// @brief get shape before moving
     const PositionVector& getShapeBeforeMoving() const;
 
     /// @brief get position over shape before moving
-    const Position &getPosOverShapeBeforeMoving() const;
+    const Position& getPosOverShapeBeforeMoving() const;
 
     /// @brief get geometry point index
     const int& getGeometryPointIndex() const;

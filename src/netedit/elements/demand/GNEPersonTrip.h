@@ -43,7 +43,7 @@ public:
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      */
-    GNEPersonTrip(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
                   const std::vector<GNEEdge*>& via, double arrivalPosition, const std::vector<std::string>& types,
                   const std::vector<std::string>& modes);
 
@@ -55,7 +55,7 @@ public:
      * @param[in] types list of possible vehicle types to take
      * @param[in] modes list of possible traffic modes
      */
-    GNEPersonTrip(GNENet *net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
+    GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
                   const std::vector<GNEEdge*>& via, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief destructor

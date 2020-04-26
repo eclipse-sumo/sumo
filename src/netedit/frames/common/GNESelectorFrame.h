@@ -50,7 +50,7 @@ public:
             /// @brief constructor
             ObjectTypeEntry(FXMatrix* matrixParent, const Supermode supermode, const std::string& label);
 
-            /// @brief get supermode associated to this ObjectTypeEntry 
+            /// @brief get supermode associated to this ObjectTypeEntry
             Supermode getSupermode() const;
 
             /// @brief show ObjectTypeEntry
@@ -80,7 +80,7 @@ public:
             ObjectTypeEntry();
 
         private:
-            /// @brief supermode associated to this ObjectTypeEntry 
+            /// @brief supermode associated to this ObjectTypeEntry
             const Supermode mySupermode;
 
             /// @brief label counter
@@ -549,5 +549,5 @@ private:
      * @param[in] attr XML Attribute used to filter
      * @param[in] compOp One of {<,>,=} for matching against val or '@' for matching against expr
      */
-    std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string &attr, const char compOp, const double val, const std::string& expr);
+    std::vector<GNEAttributeCarrier*> getGenericMatches(const std::vector<GNEGenericData*>& genericDatas, const std::string& attr, const char compOp, const double val, const std::string& expr);
 };

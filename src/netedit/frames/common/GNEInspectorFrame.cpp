@@ -374,7 +374,7 @@ GNEInspectorFrame::getOverlappedInspection() const {
 }
 
 
-GNEFrameModuls::AttributeCarrierHierarchy* 
+GNEFrameModuls::AttributeCarrierHierarchy*
 GNEInspectorFrame::getAttributeCarrierHierarchy() const {
     return myAttributeCarrierHierarchy;
 }

@@ -123,7 +123,7 @@ private:
         if (this->getEdge() == trip->to && trip->arrivalPos >= myStartPos && trip->arrivalPos < myStartPos + this->getLength()) {
             distTravelled = trip->arrivalPos - myStartPos;
         }
-        if (this->getEdge() == trip->from && trip->departPos >= myStartPos&& trip->departPos < myStartPos + this->getLength()) {
+        if (this->getEdge() == trip->from && trip->departPos >= myStartPos && trip->departPos < myStartPos + this->getLength()) {
             distTravelled -= trip->departPos - myStartPos;
         }
         assert(fullTravelTime * distTravelled / this->getEdge()->getLength() >= 0.);

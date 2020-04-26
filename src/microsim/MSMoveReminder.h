@@ -174,7 +174,7 @@ public:
     * @see MSMoveReminder::notifyMove
     * @see PollutantsInterface
     */
-    virtual bool notifyIdle(SUMOTrafficObject& veh ) {
+    virtual bool notifyIdle(SUMOTrafficObject& veh) {
         UNUSED_PARAMETER(&veh);
         return true;
     }

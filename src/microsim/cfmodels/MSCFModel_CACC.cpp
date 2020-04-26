@@ -202,7 +202,7 @@ MSCFModel_CACC::interactionGap(const MSVehicle* const /* veh */, double /* vL */
     return 250;
 }
 
-double MSCFModel_CACC::speedSpeedControl(const double speed, double vErr, VehicleMode &vehMode) const {
+double MSCFModel_CACC::speedSpeedControl(const double speed, double vErr, VehicleMode& vehMode) const {
     // Speed control law
     vehMode = CACC_MODE;
     double sclAccel = mySpeedControlGain * vErr;
@@ -212,7 +212,7 @@ double MSCFModel_CACC::speedSpeedControl(const double speed, double vErr, Vehicl
 
 double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pred,
                                        const double speed, const double predSpeed, const double desSpeed, double vErr,
-                                       const MSVehicle* const pred, VehicleMode &vehMode) const {
+                                       const MSVehicle* const pred, VehicleMode& vehMode) const {
     // Gap control law
     double newSpeed = 0.0;
 

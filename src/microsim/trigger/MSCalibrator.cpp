@@ -661,7 +661,7 @@ MSCalibrator::setFlow(SUMOTime begin, SUMOTime end, double vehsPerHour, double s
             throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with overlapping interval.");
         } else if (begin >= end) {
             throw ProcessError("Cannot set flow for calibrator '" + getID() + "' with negative interval.");
-        } 
+        }
         it++;
     }
     // add interval at the end of the known intervals

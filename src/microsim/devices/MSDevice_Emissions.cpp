@@ -78,7 +78,7 @@ bool
 MSDevice_Emissions::notifyIdle(SUMOTrafficObject& veh) {
     const SUMOEmissionClass c = veh.getVehicleType().getEmissionClass();
     myEmissions.addScaled(PollutantsInterface::computeAll(c, 0., 0., 0.,
-                    static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
+                          static_cast<const SUMOVehicle&>(veh).getEmissionParameters()), TS);
     return true;
 }
 

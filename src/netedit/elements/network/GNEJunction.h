@@ -288,7 +288,7 @@ private:
     /// @brief draw demand elements childs
     void drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge* edge) const;
 
-    /// @brief draw generic data between two edges 
+    /// @brief draw generic data between two edges
     void drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

@@ -38,11 +38,11 @@
 // ===========================================================================
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id,
-        GLO_CROSSING, SUMO_TAG_CROSSING,
-        {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}),    // Children
-    myParentJunction(parentJunction),
-    myCrossingEdges(crossingEdges) {
+                      GLO_CROSSING, SUMO_TAG_CROSSING,
+{}, {}, {}, {}, {}, {}, {},     // Parents
+{}, {}, {}, {}, {}, {}, {}),    // Children
+myParentJunction(parentJunction),
+myCrossingEdges(crossingEdges) {
 }
 
 
@@ -113,10 +113,10 @@ void
 GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     // only draw if option drawCrossingsAndWalkingareas is enabled and size of shape is greather than 0 and zoom is close enough
     if (s.drawCrossingsAndWalkingareas &&
-        !myNet->getViewNet()->getEditModes().isCurrentSupermodeData() &&
-        (myCrossingGeometry.getShapeRotations().size() > 0) &&
-        (myCrossingGeometry.getShapeLengths().size() > 0) &&
-        (s.scale > 3.0)) {
+            !myNet->getViewNet()->getEditModes().isCurrentSupermodeData() &&
+            (myCrossingGeometry.getShapeRotations().size() > 0) &&
+            (myCrossingGeometry.getShapeLengths().size() > 0) &&
+            (s.scale > 3.0)) {
         const auto NBCrossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
             // push draw matrix 1

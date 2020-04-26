@@ -2838,16 +2838,16 @@ GNEFrameAttributesModuls::NeteditAttributes::setEndPosition(double positionOfThe
 bool
 GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeCarrier* AC) {
     if (viewNet->getEditModes().isCurrentSupermodeNetwork() && (
-        AC->getTagProperty().isNetworkElement() || 
-        AC->getTagProperty().isAdditionalElement() || 
-        AC->getTagProperty().isShape() || 
-        AC->getTagProperty().isTAZ())) {
+                AC->getTagProperty().isNetworkElement() ||
+                AC->getTagProperty().isAdditionalElement() ||
+                AC->getTagProperty().isShape() ||
+                AC->getTagProperty().isTAZ())) {
         return true;
-    } else if (viewNet->getEditModes().isCurrentSupermodeDemand() && 
-        AC->getTagProperty().isDemandElement()) {
+    } else if (viewNet->getEditModes().isCurrentSupermodeDemand() &&
+               AC->getTagProperty().isDemandElement()) {
         return true;
-    } else if (viewNet->getEditModes().isCurrentSupermodeData() && 
-        AC->getTagProperty().isDataElement()) {
+    } else if (viewNet->getEditModes().isCurrentSupermodeData() &&
+               AC->getTagProperty().isDataElement()) {
         return true;
     } else {
         return false;
@@ -2857,8 +2857,8 @@ GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEA
 
 bool
 GNEFrameAttributesModuls::isSupermodeValid(const GNEViewNet* viewNet, const GNEAttributeProperties& ACAttr) {
-    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement() || 
-        ACAttr.getTagPropertyParent().isShape() || ACAttr.getTagPropertyParent().isTAZ()) {
+    if (ACAttr.getTagPropertyParent().isNetworkElement() || ACAttr.getTagPropertyParent().isAdditionalElement() ||
+            ACAttr.getTagPropertyParent().isShape() || ACAttr.getTagPropertyParent().isTAZ()) {
         return (viewNet->getEditModes().isCurrentSupermodeNetwork());
     } else if (ACAttr.getTagPropertyParent().isDemandElement()) {
         return (viewNet->getEditModes().isCurrentSupermodeDemand());

@@ -378,7 +378,7 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
     }
     if (firstIt == veh->getRoute().end()) {
         WRITE_WARNING("Invalid approach information after rerouting for vehicle '" + veh->getID()
-                + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+                      + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         return myDriveways.front();
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " rsl=" << getID() << " dws=" << myDriveways.size() << "\n";
@@ -474,12 +474,12 @@ void
 MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) {
     MSDevice_Routing* rDev = static_cast<MSDevice_Routing*>(veh->getDevice(typeid(MSDevice_Routing)));
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    if (rDev != nullptr 
+    if (rDev != nullptr
             && rDev->mayRerouteRailSignal()
             && (myLastRerouteVehicle != veh
-             // reroute each vehicle only once if no periodic routing is allowed,
-             // otherwise with the specified period
-             || (rDev->getPeriod() > 0 && myLastRerouteTime + rDev->getPeriod() <= now))) {
+                // reroute each vehicle only once if no periodic routing is allowed,
+                // otherwise with the specified period
+                || (rDev->getPeriod() > 0 && myLastRerouteTime + rDev->getPeriod() <= now))) {
         myLastRerouteVehicle = veh;
         myLastRerouteTime = now;
 
@@ -766,8 +766,8 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
     MSLane* toLane = origin->getViaLaneOrLane();
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
     gDebugFlag4 = getClickableTLLinkID(origin) == "junction '36745', link 0";
-    if (gDebugFlag4) std::cout << "buildRoute origin=" << getTLLinkID(origin) << " vehRoute=" << toString(ConstMSEdgeVector(next, end)) 
-        << " visited=" << joinNamedToString(visited, " ") << "\n";
+    if (gDebugFlag4) std::cout << "buildRoute origin=" << getTLLinkID(origin) << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
+                                   << " visited=" << joinNamedToString(visited, " ") << "\n";
 #endif
     while ((seekForwardSignal || seekBidiSwitch)) {
         if (length > MAX_BLOCK_LENGTH) {
@@ -780,7 +780,9 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             return;
         }
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-        if (gDebugFlag4) std::cout << "   toLane=" << toLane->getID() << " visited=" << joinNamedToString(visited, " ") << "\n";
+        if (gDebugFlag4) {
+            std::cout << "   toLane=" << toLane->getID() << " visited=" << joinNamedToString(visited, " ") << "\n";
+        }
 #endif
         if (visited.count(toLane) != 0) {
             WRITE_WARNING("Found circular block after railSignal " + getClickableTLLinkID(origin) + " (" + toString(myRoute.size()) + " edges, length " + toString(length) + ")");

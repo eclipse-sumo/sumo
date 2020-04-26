@@ -1568,8 +1568,8 @@ MSLCM_SL2015::_wantsChangeSublane(
         // ONLY FOR CHANGING TO THE RIGHT
         // start keepRight maneuver when no speed loss is expected and continue
         // started maneuvers if the loss isn't too big
-        if (right && (maxGainRight >= 0 
-                    || ((myPreviousState & LCA_KEEPRIGHT) != 0 && maxGainRight >= -myKeepRightParam))) {
+        if (right && (maxGainRight >= 0
+                      || ((myPreviousState & LCA_KEEPRIGHT) != 0 && maxGainRight >= -myKeepRightParam))) {
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane
             //const double vMax = myLookAheadSpeed;
@@ -1925,13 +1925,17 @@ MSLCM_SL2015::saveBlockerLength(const MSVehicle* blocker, int lcaCounter) {
             // save at least his length in myLeadingBlockerLength
             myLeadingBlockerLength = MAX2(blocker->getVehicleType().getLengthWithGap(), myLeadingBlockerLength);
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (gDebugFlag2) std::cout << "    saving myLeadingBlockerLength=" << myLeadingBlockerLength << "\n";
+            if (gDebugFlag2) {
+                std::cout << "    saving myLeadingBlockerLength=" << myLeadingBlockerLength << "\n";
+            }
 #endif
         } else {
             // we cannot save enough space for the blocker. It needs to save
             // space for ego instead
 #ifdef DEBUG_SAVE_BLOCKER_LENGTH
-            if (gDebugFlag2) std::cout << "    cannot save space=" << blocker->getVehicleType().getLengthWithGap() << " potential=" << potential << " (blocker must save)\n";
+            if (gDebugFlag2) {
+                std::cout << "    cannot save space=" << blocker->getVehicleType().getLengthWithGap() << " potential=" << potential << " (blocker must save)\n";
+            }
 #endif
             ((MSVehicle*)blocker)->getLaneChangeModel().saveBlockerLength(myVehicle.getVehicleType().getLengthWithGap());
         }

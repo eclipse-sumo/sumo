@@ -49,13 +49,13 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
 }
 
 
-void 
+void
 GNEEdgeRelDataFrame::edgePathCreated() {
     // first check that we have at least two edges
     if (myEdgePathCreator->getClickedEdges().size() > 1) {
         // just create EdgeRelationData
         GNEDataHandler::buildEdgeRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myEdgePathCreator->getClickedEdges().front(),
-            myEdgePathCreator->getClickedEdges().back(), myParametersEditor->getParametersMap());
+                                              myEdgePathCreator->getClickedEdges().back(), myParametersEditor->getParametersMap());
     }
 }
 

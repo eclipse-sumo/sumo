@@ -42,7 +42,7 @@ public:
         NETWORKELEMENT =    1 << 0,  // Network elements (Edges, Junctions, Lanes...)
         ADDITIONALELEMENT = 1 << 1,  // Additional elements (Bus Stops, Charging Stations, Detectors...)
         TAZ =               1 << 2,  // Traffic Assignment Zones
-        SHAPE =             1 << 3,  // Shapes (Polygons and POIs) 
+        SHAPE =             1 << 3,  // Shapes (Polygons and POIs)
         DEMANDELEMENT =     1 << 4,  // Demand elements (Routes, Vehicles, Trips...)
         DATAELEMENT =       1 << 5,  // Data elements (DataSets, Data Intervals, EdgeData...)
         // sub additional elements

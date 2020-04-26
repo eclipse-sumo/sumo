@@ -134,7 +134,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("desired depart [s]", false, time2string(getParameter().depart));
     ret->mkItem("depart delay [s]", false, time2string(getDepartDelay()));
     ret->mkItem("odometer [m]", true,
-            new FunctionBinding<GUIVehicle, double>(this, &MSBaseVehicle::getOdometer));
+                new FunctionBinding<GUIVehicle, double>(this, &MSBaseVehicle::getOdometer));
     if (getParameter().repetitionNumber < std::numeric_limits<int>::max()) {
         ret->mkItem("remaining [#]", false, (int) getParameter().repetitionNumber - getParameter().repetitionsDone);
     }
@@ -648,7 +648,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             std::string label = toString((int)(i - myCurrEdge));
             const double laneAngle = lane->getShape().angleAt2D(0);
             Position pos = lane->getShape().front() - Position(0, textSize * repeatLane[lane]) + Position(
-                    (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.4 * indexDigits * textSize, 0);
+                               (laneAngle >= -0.25 * M_PI && laneAngle < 0.75 * M_PI ? 1 : -1) * 0.4 * indexDigits * textSize, 0);
             //GLHelper::drawText(label, pos, 1.0, textSize, s.vehicleName.color);
             GLHelper::drawTextSettings(s.vehicleName, label, pos, s.scale, s.angle, 1.0);
         }

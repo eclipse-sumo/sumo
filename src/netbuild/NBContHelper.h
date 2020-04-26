@@ -219,7 +219,7 @@ public:
     class edge_similar_direction_sorter {
     public:
         /// constructor
-        explicit edge_similar_direction_sorter(const NBEdge* const e, bool outgoing=true) : 
+        explicit edge_similar_direction_sorter(const NBEdge* const e, bool outgoing = true) :
             myCompareOutgoing(outgoing),
             myAngle(outgoing ? e->getShapeEndAngle() : e->getShapeStartAngle())
         {}

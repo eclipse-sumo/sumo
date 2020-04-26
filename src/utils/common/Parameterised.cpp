@@ -40,18 +40,18 @@ Parameterised::Parameterised(ParameterisedAttrType attrType) :
 }
 
 
-Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) : 
+Parameterised::Parameterised(const std::map<std::string, std::string>& mapArg) :
     myAttrType(ParameterisedAttrType::STRING),
     myMap(mapArg) {
 }
 
 
-Parameterised::Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) : 
+Parameterised::Parameterised(ParameterisedAttrType attrType, const std::map<std::string, std::string>& mapArg) :
     myAttrType(attrType) {
     // check if map has to be cleaned
     if (myAttrType == ParameterisedAttrType::DOUBLE) {
         // iterate over map
-        for (const auto &keyValue : mapArg) {
+        for (const auto& keyValue : mapArg) {
             try {
                 // try to parse to do double, and if fails, write warning
                 StringUtils::toDouble(keyValue.second);
@@ -96,7 +96,7 @@ Parameterised::unsetParameter(const std::string& key) {
 
 void
 Parameterised::updateParameters(const std::map<std::string, std::string>& mapArg) {
-    for (const auto &keyValue : mapArg) {
+    for (const auto& keyValue : mapArg) {
         setParameter(keyValue.first, keyValue.second);
     }
 }
@@ -153,7 +153,7 @@ Parameterised::getParametersStr(const std::string kvsep, const std::string sep) 
     std::string result;
     // Generate an string using configurable seperatrs, default: "key1=value1|key2=value2|...|keyN=valueN"
     bool addSep = false;
-    for (const auto &keyValue : myMap) {
+    for (const auto& keyValue : myMap) {
         if (addSep) {
             result += sep;
         }
@@ -169,7 +169,7 @@ Parameterised::setParameters(const Parameterised& params) {
     // first clear map
     myMap.clear();
     // set parameter
-    for (const auto &keyValue : params.getParametersMap()) {
+    for (const auto& keyValue : params.getParametersMap()) {
         setParameter(keyValue.first, keyValue.second);
     }
 }
@@ -180,7 +180,7 @@ Parameterised::setParametersMap(const std::map<std::string, std::string>& params
     // first clear map
     myMap.clear();
     // set parameter
-    for (const auto &keyValue : paramsMap) {
+    for (const auto& keyValue : paramsMap) {
         setParameter(keyValue.first, keyValue.second);
     }
 }
@@ -193,7 +193,7 @@ Parameterised::setParametersStr(const std::string& paramsString, const std::stri
     // separate value in a vector of string using | as separator
     std::vector<std::string> parameters = StringTokenizer(paramsString, sep).getVector();
     // iterate over all values
-    for (const auto &keyValue : parameters) {
+    for (const auto& keyValue : parameters) {
         // obtain key and value and save it in myParameters
         std::vector<std::string> keyValueStr = StringTokenizer(keyValue, kvsep).getVector();
         setParameter(keyValueStr.front(), keyValueStr.back());
@@ -204,7 +204,7 @@ Parameterised::setParametersStr(const std::string& paramsString, const std::stri
 void
 Parameterised::writeParams(OutputDevice& device) const {
     // iterate over all parameters and write it
-    for (const auto &keyValue : myMap) {
+    for (const auto& keyValue : myMap) {
         device.openTag(SUMO_TAG_PARAM);
         device.writeAttr(SUMO_ATTR_KEY, StringUtils::escapeXML(keyValue.first));
         device.writeAttr(SUMO_ATTR_VALUE, StringUtils::escapeXML(keyValue.second));
@@ -214,11 +214,11 @@ Parameterised::writeParams(OutputDevice& device) const {
 
 
 bool
-Parameterised::areParametersValid(const std::string& value, bool report, 
-    const ParameterisedAttrType attrType, const std::string kvsep, const std::string sep) {
+Parameterised::areParametersValid(const std::string& value, bool report,
+                                  const ParameterisedAttrType attrType, const std::string kvsep, const std::string sep) {
     std::vector<std::string> parameters = StringTokenizer(value, sep).getVector();
     // first check if parsed parameters are valid
-    for (const auto &keyValueStr : parameters) {
+    for (const auto& keyValueStr : parameters) {
         // check if parameter is valid
         if (!isParameterValid(keyValueStr, attrType, kvsep, sep)) {
             // report depending of flag
@@ -237,8 +237,8 @@ Parameterised::areParametersValid(const std::string& value, bool report,
 // ===========================================================================
 
 bool
-Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType attrType, 
-    const std::string &kvsep, const std::string &sep) {
+Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType attrType,
+                                const std::string& kvsep, const std::string& sep) {
     if (value.find(sep) != std::string::npos || value.find(kvsep) == std::string::npos) {
         return false;
     }

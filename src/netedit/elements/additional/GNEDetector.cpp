@@ -30,30 +30,30 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetector::GNEDetector(const std::string& id, GNENet *net, GUIGlObjectType type, SumoXMLTag tag,
-        double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
-        const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
+GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+                         double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+                         const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
     GNEAdditional(id, net, type, tag, name, blockMovement,
-        {}, {}, parentLanes, {}, {}, {}, {},    // Parents
-        {}, {}, {}, {}, {}, {}, {}),            // Children
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myFriendlyPosition(friendlyPos) {
+{}, {}, parentLanes, {}, {}, {}, {},    // Parents
+{}, {}, {}, {}, {}, {}, {}),            // Children
+myPositionOverLane(pos),
+myFreq(freq),
+myFilename(filename),
+myVehicleTypes(vehicleTypes),
+myFriendlyPosition(friendlyPos) {
 }
 
 
-GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet *net, GUIGlObjectType type, SumoXMLTag tag,
-        double pos, SUMOTime freq, const std::string& filename, const std::string& name, bool friendlyPos,
-        bool blockMovement, const std::vector<GNELane*>& parentLanes) :
+GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
+                         double pos, SUMOTime freq, const std::string& filename, const std::string& name, bool friendlyPos,
+                         bool blockMovement, const std::vector<GNELane*>& parentLanes) :
     GNEAdditional(additionalParent, net, type, tag, name, blockMovement,
-        {}, {}, parentLanes, {}, {additionalParent}, {}, {},    // Parents 
-        {}, {}, {}, {}, {}, {}, {}),                            // Children
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myFriendlyPosition(friendlyPos) {
+{}, {}, parentLanes, {}, {additionalParent}, {}, {},    // Parents
+{}, {}, {}, {}, {}, {}, {}),                            // Children
+myPositionOverLane(pos),
+myFreq(freq),
+myFilename(filename),
+myFriendlyPosition(friendlyPos) {
 }
 
 

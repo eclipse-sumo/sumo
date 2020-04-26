@@ -1078,11 +1078,11 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         && !leader->willStop()) {
                     continue;
                 }
-                if (MSGlobals::gSublane && ego!= nullptr && sameSource) {
+                if (MSGlobals::gSublane && ego != nullptr && sameSource) {
                     const double posLat = ego->getLateralPositionOnLane();
                     const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
                     const double latGap = (fabs(posLat - posLatLeader)
-                            - 0.5 * ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth());
+                                           - 0.5 * ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth());
                     if (gDebugFlag1) {
                         std::cout << " sameSource-sublaneFoe lane=" << myInternalLaneBefore->getID()
                                   << " foeLane=" << foeLane->getID()
@@ -1136,7 +1136,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             continue; // next vehicle
                         }
                         gap = distToCrossing - ego->getVehicleType().getMinGap() - leaderBackDist - foeCrossingWidth;
-                        // factor 2 is to give some slack for lane-changing 
+                        // factor 2 is to give some slack for lane-changing
                         if (gap < leader->getVehicleType().getLength() * 2 && leader->getLaneChangeModel().isStrategicBlocked()) {
                             // do not encroach on leader when it tries to change lanes
                             gap = -1;
