@@ -71,12 +71,14 @@ else:
 
 import sumolib.net  # noqa
 
+
 def getEdgeID(laneOrEdgeID):
     sep = laneOrEdgeID.rfind('_')
     if sep > 0 and laneOrEdgeID[sep + 1:].isdigit():
         return laneOrEdgeID[:sep]
     else:
         return laneOrEdgeID
+
 
 def isLaneID(laneOrEdgeID):
     return laneOrEdgeID != getEdgeID(laneOrEdgeID)
@@ -400,8 +402,8 @@ if __name__ == "__main__":
     net = None
     if(len(options.net) > 0):
         net = sumolib.net.readNet(options.net,
-                withInternal=True,
-                withPedestrianConnections=True)
+                                  withInternal=True,
+                                  withPedestrianConnections=True)
 
         if(len(options.make_input_dir) > 0):  # check input template directory
             if(os.path.isdir(options.make_input_dir)):
@@ -474,9 +476,9 @@ if __name__ == "__main__":
                         else:
                             sgID = line[colIndices["id"]]
                             sg = SignalGroup(sgID,
-                                transTimeOn=int(line[colIndices["transOn"]]),
-                                transTimeOff=int(line[colIndices["transOff"]]),
-                                debug=options.debug)
+                                             transTimeOn=int(line[colIndices["transOn"]]),
+                                             transTimeOff=int(line[colIndices["transOff"]]),
+                                             debug=options.debug)
                             sg.addFreeTime(int(line[colIndices["on1"]]), int(line[colIndices["off1"]]))
                             if(secondFreeTime):
                                 if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):

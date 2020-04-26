@@ -349,7 +349,8 @@ def parse_fast(xmlfile, element_name, attrnames, warn=False, optional=False, enc
                 yield Record(*m.groups())
 
 
-def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2, warn=False, optional=False, encoding="utf8"):
+def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames2,
+                      warn=False, optional=False, encoding="utf8"):
     """
     Parses the given attrnames from all elements with element_name
     And attrnames2 from element_name2 where element_name2 is a child element of element_name

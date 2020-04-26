@@ -269,7 +269,7 @@ def Popen(extraParameters, debugInformation):
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
         neteditCall += ['-r',
                         os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
-                        
+
     # Check if datas must be loaded
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_datas.rou.xml")):
         neteditCall += ['-d',
@@ -291,7 +291,7 @@ def Popen(extraParameters, debugInformation):
     # set output for routes
     neteditCall += ['--demandelements-output',
                     os.path.join(_TEXTTEST_SANDBOX, "routes.xml")]
-                    
+
     # set output for datas
     neteditCall += ['--dataelements-output',
                     os.path.join(_TEXTTEST_SANDBOX, "datas.xml")]
@@ -657,7 +657,7 @@ def saveRoutes(referencePosition, clickOverReference=True):
         leftClick(referencePosition, 0, 0)
     # save routes using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
-    
+
 
 def saveDatas(referencePosition, clickOverReference=True):
     """
@@ -1398,7 +1398,7 @@ def changeProtectTAZElements(referencePosition):
         typeTab()
     # type SPACE to change value
     typeSpace()
-    
+
 
 def changeProtectShapeElements(referencePosition):
     """
@@ -1411,8 +1411,8 @@ def changeProtectShapeElements(referencePosition):
         typeTab()
     # type SPACE to change value
     typeSpace()
-    
-    
+
+
 def changeProtectDemandElements(referencePosition):
     """
     @brief Enable or disable 'protect demand elements'
@@ -1426,7 +1426,7 @@ def changeProtectDemandElements(referencePosition):
     typeSpace()
 
 
-def changeProtectDemandElements(referencePosition):
+def changeProtectDataElements(referencePosition):
     """
     @brief Enable or disable 'protect data elements'
     """
@@ -1437,6 +1437,7 @@ def changeProtectDemandElements(referencePosition):
         typeTab()
     # type SPACE to change value
     typeSpace()
+
 
 def waitDeleteWarning():
     """

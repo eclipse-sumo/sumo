@@ -222,14 +222,15 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, isOD=False
                         value = float(value)
                     except TypeError:
                         if warn:
-                            print("Warning: Missing '%s' value in file '%s' for edge(s) '%s'" % (
-                                attr, fname, ' '.join(edges)), file=sys.stderr)
+                            print("Warning: Missing '%s' value in file '%s' for edge(s) '%s'" %
+                                  (attr, fname, ' '.join(edges)), file=sys.stderr)
                         continue
                     if edges not in locations:
                         result.append(CountData(0, edges, allRoutes, isOD))
                         locations[edges] = result[-1]
                     elif isOD != locations[edges].isOD:
-                        print("Warning: Edge relation '%s' occurs as turn relation and also as OD-relation" % ' '.join(edges), file=sys.stderr)
+                        print("Warning: Edge relation '%s' occurs as turn relation and also as OD-relation" %
+                              ' '.join(edges), file=sys.stderr)
                     locations[edges].addCount(int(value * overlap))
     return result
 
@@ -402,9 +403,12 @@ def main(options):
     # preliminary integrity check for the whole time range
     b = intervals[0][0]
     e = intervals[-1][-1]
-    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e, routes, options.turnAttr, warn=True)
-               + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e, routes, options.edgeDataAttr, warn=True)
-               + parseDataIntervals(parseTurnCounts, options.odFiles, b, e, routes, options.turnAttr, True, warn=True))
+    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
+                                    routes, options.turnAttr, warn=True) +
+                 parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
+                                    routes, options.edgeDataAttr, warn=True) +
+                 parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
+                                    routes, options.turnAttr, True, warn=True))
     routeUsage = getRouteUsage(routes, countData)
 
     for cd in countData:

@@ -30,7 +30,7 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(os.path.join(tools))
     import sumolib
-    from sumolib.xml import parse,parse_fast  # noqa
+    from sumolib.xml import parse, parse_fast  # noqa
     from sumolib.miscutils import Statistics  # noqa
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
@@ -93,18 +93,19 @@ def main():
                 val = sumolib.miscutils.parseTime(stringVal)
                 vals[elementID].append(val)
                 stats.add(val, elementID)
-            except:
+            except Exception:
                 invalidType.add(stringVal)
         else:
             missingAttr.add(elementID)
 
     print(stats)
     if missingAttr:
-        print("%s elements did not provide attribute '%s' Example ids: %s" % (
-            len(missingAttr), options.attribute, sorted(missingAttr)[:10]))
+        print("%s elements did not provide attribute '%s' Example ids: %s" %
+              (len(missingAttr), options.attribute, sorted(missingAttr)[:10]))
     if invalidType:
-        print("%s distinct values of attribute '%s' could not be interpreted as numerical value or time. Example values: %s" % (
-            len(invalidType), options.attribute, sorted(invalidType)[:10]))
+        print(("%s distinct values of attribute '%s' could not be interpreted " +
+               "as numerical value or time. Example values: %s") %
+              (len(invalidType), options.attribute, sorted(invalidType)[:10]))
 
     if options.hist_output is not None:
         with open(options.hist_output, 'w') as f:
