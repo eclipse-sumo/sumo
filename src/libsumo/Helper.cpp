@@ -1047,8 +1047,12 @@ Helper::applySubscriptionFilterLateralDistanceSinglePass(const Subscription& s, 
                 }
             } else {
                 double geometryPos = lane->interpolateLanePosToGeometryPos(posOnLane);
-                auto pair = laneShape.splitAt(geometryPos, false);
-                laneShape = isDownstream ? pair.second : pair.first;
+                if (geometryPos >= laneShape.length()) {
+                    laneShape = isDownstream ? PositionVector() : laneShape;
+                } else {
+                    auto pair = laneShape.splitAt(geometryPos, false);
+                    laneShape = isDownstream ? pair.second : pair.first;
+                }
             }
         }
         double laneLength = lane->interpolateGeometryPosToLanePos(laneShape.length());
