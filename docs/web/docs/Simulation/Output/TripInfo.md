@@ -104,7 +104,7 @@ By default, tripinfo-output is only written on vehicle arrival. This means vehic
 To change this, the option **--tripinfo-output.write-unfinished** can be used.
 
 ## Output only for selected vehicles or vehicle types
-By default all vehicles will generated tripinfo-output. By [assigning a tripinfo device](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) to selected vehicles or types, this can be changed.
+By default all vehicles will generated tripinfo-output. By [assigning a tripinfo device](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) to selected vehicles or types, this can be changed.
 
 Example:
 Setting SUMO-option **--device.tripinfo.probability false** will disable the device for all vehicles by default.
