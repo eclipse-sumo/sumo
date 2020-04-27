@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 10 21:16:33 2020 by Eclipse SUMO netconvert Version v1_4_0+1027-bf5720cef5
+<!-- generated on Mon Apr 27 19:52:46 2020 by Eclipse SUMO netconvert Version v1_5_0+1309-533c90b613
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -150,6 +150,7 @@
         <xsd:all>
             <xsd:element name="default.lanenumber" type="intOptionType" minOccurs="0"/>
             <xsd:element name="default.lanewidth" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.spreadtype" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.priority" type="intOptionType" minOccurs="0"/>
             <xsd:element name="default.type" type="strOptionType" minOccurs="0"/>
@@ -159,6 +160,7 @@
             <xsd:element name="default.disallow" type="strOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.keep-clear" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="default.junctions.radius" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="default.connection-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="default.right-of-way" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -301,8 +303,10 @@
             <xsd:element name="railway.signals.discard" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.repair" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.repair.connect-straight" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="railway.topology.repair.stop-turn" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.all-bidi" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.topology.all-bidi.input-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="railway.topology.direction-priority" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="railway.access-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-accesses" type="intOptionType" minOccurs="0"/>
             <xsd:element name="railway.access-factor" type="floatOptionType" minOccurs="0"/>
@@ -335,6 +339,7 @@
             <xsd:element name="shapefile.use-defaults-on-failure" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.all-bidirectional" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.guess-projection" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.traditional-axis-mapping" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vissim.join-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="vissim.default-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="vissim.speed-norm" type="floatOptionType" minOccurs="0"/>

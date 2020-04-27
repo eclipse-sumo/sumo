@@ -261,6 +261,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 |--------|-------------|
 | **-L** {{DT_INT}}<br> **--default.lanenumber** {{DT_INT}} | The default number of lanes in an edge; *default:* **1** |
 | **--default.lanewidth** {{DT_FLOAT}} | The default width of lanes; *default:* **-1** |
+| **--default.spreadtype** {{DT_STR}} | The default method for computing lane shapes from edge shapes; *default:* **right** |
 | **-S** {{DT_FLOAT}}<br> **--default.speed** {{DT_FLOAT}} | The default speed on an edge (in m/s); *default:* **13.89** |
 | **-P** {{DT_INT}}<br> **--default.priority** {{DT_INT}} | The default priority of an edge; *default:* **-1** |
 | **--default.type** {{DT_STR}} | The default edge type |
@@ -270,6 +271,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--default.disallow** {{DT_STR}} | The default for disallowed vehicle classes |
 | **--default.junctions.keep-clear** {{DT_BOOL}} | Whether junctions should be kept clear by default; *default:* **true** |
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
+| **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
 
 ### Tls Building
@@ -412,8 +414,10 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--railway.signals.discard** {{DT_BOOL}} | Discard all railway signal information loaded from other formats than plain-xml; *default:* **false** |
 | **--railway.topology.repair** {{DT_BOOL}} | Repair topology of the railway network; *default:* **false** |
 | **--railway.topology.repair.connect-straight** {{DT_BOOL}} | Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle; *default:* **false** |
+| **--railway.topology.repair.stop-turn** {{DT_BOOL}} | Add turn-around connections at all loaded stops.; *default:* **false** |
 | **--railway.topology.all-bidi** {{DT_BOOL}} | Make all rails usable in both direction; *default:* **false** |
 | **--railway.topology.all-bidi.input-file** {{DT_FILE}} | Make all rails edge ids from FILE usable in both direction |
+| **--railway.topology.direction-priority** {{DT_BOOL}} | Set edge priority values based on estimated main direction; *default:* **false** |
 | **--railway.access-distance** {{DT_FLOAT}} | The search radius for finding suitable road accesses for rail stops; *default:* **150** |
 | **--railway.max-accesses** {{DT_INT}} | The maximum roud accesses registered per rail stops; *default:* **5** |
 | **--railway.access-factor** {{DT_FLOAT}} | The walking length of the access is computed as air-line distance multiplied by FLOAT; *default:* **1.5** |
@@ -446,6 +450,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--shapefile.use-defaults-on-failure** {{DT_BOOL}} | Uses edge type defaults on problems; *default:* **false** |
 | **--shapefile.all-bidirectional** {{DT_BOOL}} | Insert edges in both directions; *default:* **false** |
 | **--shapefile.guess-projection** {{DT_BOOL}} | Guess the proper projection; *default:* **false** |
+| **--shapefile.traditional-axis-mapping** {{DT_BOOL}} | Use traditional axis order (lon, lat); *default:* **false** |
 | **--vissim.join-distance** {{DT_FLOAT}} | Structure join offset; *default:* **5** |
 | **--vissim.default-speed** {{DT_FLOAT}} | Use FLOAT as default speed; *default:* **50** |
 | **--vissim.speed-norm** {{DT_FLOAT}} | Factor for edge velocity; *default:* **1** |

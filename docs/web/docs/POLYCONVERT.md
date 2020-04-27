@@ -79,6 +79,7 @@ distinct shape file.
 | **--osm.merge-relations** {{DT_FLOAT}} | If FLOAT >= 0, assemble one polygon from all ways of a relation if they all connect with gaps below FLOAT; *default:* **-1** |
 | **--shapefile-prefixes** {{DT_FILE}} | Reads shapes from shapefiles FILE+ |
 | **--shapefile.guess-projection** {{DT_BOOL}} | Guesses the shapefile's projection; *default:* **false** |
+| **--shapefile.traditional-axis-mapping** {{DT_BOOL}} | Use traditional axis order (lon, lat); *default:* **false** |
 | **--shapefile.id-column** {{DT_STR}} | Defines in which column the id can be found |
 | **--shapefile.type-columns** {{DT_STR[]}} | Defines which columns form the type id (comma separated list) |
 | **--shapefile.use-running-id** {{DT_BOOL}} | A running number will be used as id; *default:* **false** |

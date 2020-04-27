@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_5_0+1220-f40bb57172
+Eclipse SUMO Version v1_5_0+1309-533c90b613
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -130,7 +130,7 @@ Output Options:
   --save-state.suffix STR              Suffix for network states (.xml.gz or
                                          .xml)
   --save-state.files FILE              Files for network states
-  --save-state.rng                     Save randon number generator states
+  --save-state.rng                     Save random number generator states
 
 Time Options:
   -b, --begin TIME                     Defines the begin time in seconds;

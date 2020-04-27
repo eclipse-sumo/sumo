@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 10 21:16:33 2020 by Eclipse SUMO duarouter Version v1_4_0+1027-bf5720cef5
+<!-- generated on Mon Apr 27 19:52:46 2020 by Eclipse SUMO duarouter Version v1_5_0+1309-533c90b613
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -76,6 +76,7 @@
             <xsd:element name="weights.random-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="routing-algorithm" type="strOptionType" minOccurs="0"/>
             <xsd:element name="weight-period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="weights.priority-factor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="astar.all-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="astar.save-landmark-distances" type="fileOptionType" minOccurs="0"/>

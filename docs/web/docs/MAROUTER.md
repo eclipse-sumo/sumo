@@ -122,6 +122,7 @@ configuration:
 | **--max-alternatives** {{DT_INT}} | Prune the number of alternatives to INT; *default:* **5** |
 | **--weights.interpolate** {{DT_BOOL}} | Interpolate edge weights at interval boundaries; *default:* **false** |
 | **--weights.expand** {{DT_BOOL}} | Expand weights behind the simulation's end; *default:* **false** |
+| **--weights.priority-factor** {{DT_FLOAT}} | Consider edge priorities in addition to travel times, weighted by factor; *default:* **0** |
 | **--routing-algorithm** {{DT_STR}} | Select among routing algorithms ['dijkstra', 'astar', 'CH', 'CHWrapper']; *default:* **dijkstra** |
 | **--bulk-routing.vtypes** {{DT_BOOL}} | Aggregate routing queries with the same origin for different vehicle types; *default:* **false** |
 | **--routing-threads** {{DT_INT}} | The number of parallel execution threads used for routing; *default:* **0** |

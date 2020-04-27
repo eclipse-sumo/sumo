@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 10 21:16:33 2020 by Eclipse SUMO polyconvert Version v1_4_0+1027-bf5720cef5
+<!-- generated on Mon Apr 27 19:52:46 2020 by Eclipse SUMO polyconvert Version v1_5_0+1309-533c90b613
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -33,6 +33,7 @@
             <xsd:element name="osm.merge-relations" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="shapefile-prefixes" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.guess-projection" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.traditional-axis-mapping" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.id-column" type="strOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.type-columns" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.use-running-id" type="boolOptionType" minOccurs="0"/>
