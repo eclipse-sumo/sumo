@@ -47,6 +47,16 @@ A person can also use a taxi by including it as a [personTrip](../Specification/
     </person>
 ```
 
+## Groups of Persons
+Multiple persons can travel together as a group using attribute `group` (if the taxi has sufficient capacity):
+
+    <person id="p0" depart="0.00">
+        <ride from="B2C2" to="A0B0" lines="taxi" group="g0"/>
+    </person>
+    <person id="p1" depart="0.00">
+        <ride from="B2C2" to="A0B0" lines="taxi" group="g0"/>
+    </person>
+
 # Dispatch
 The dispatch algorithm assigns taxis to waiting customers. The algorithm is
 selected using option **--device.taxi.dispatch-algorithm ALGONAME**. The following
@@ -59,6 +69,8 @@ algorithms are available
 - greedyClosest: For each available taxi, the closest customer (in terms of
   travel time) is assigned. If the reservation date is too far in the future,
   the customer is postponed.
+
+- greedyShared: like 'greed' but tries to pick up another passenger while delivering the first passenger to it's destination. The algorithm supports parameters **absLossThreshold** and **relLossThreshold** to configure acceptable detours.
 
 !!! note
     User-contributed dispatch algorithms are welcome.
