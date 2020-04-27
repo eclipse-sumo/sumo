@@ -68,6 +68,9 @@ MSMeanData_Emissions::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& va
 
 void
 MSMeanData_Emissions::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTrafficObject& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
+    if (myParent != nullptr && !myParent->vehicleApplies(veh)) {
+        return;
+    }
     if (veh.isVehicle()) {
         sampleSeconds += timeOnLane;
         travelledDistance += travelledDistanceVehicleOnLane;
