@@ -59,8 +59,8 @@ markdown_extensions:
   - plantuml_markdown
 
 extra:
-    Version: 1.5.0
-    ReleaseDate: 11.02.2020
+    Version: 1.6.0
+    ReleaseDate: 28.04.2020
 
     AdditionalFile: '[*additional-file*](/docs/SUMO.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/SUMO.html#format_of_additional_files)'

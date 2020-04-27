@@ -3,7 +3,7 @@ title: ChangeLog
 permalink: /ChangeLog/
 ---
 
-## Git Master
+## Version 1.6.0 (28.04.2020)
 
 ### Bugfixes
 
