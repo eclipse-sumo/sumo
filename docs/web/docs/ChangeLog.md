@@ -29,6 +29,7 @@ permalink: /ChangeLog/
   - Ride arrival stop is now considered when a vehicle stops multiple times on the arrival edge. Issue #2811
   - Fixed unsafe insertion speed for IDM-vehicles. Issue #6904
   - Fixed bug that was causing cooperative speed adjustments to fail. Issue #5124
+  - Fixed invalid emission-edgeData when restricting the output time interval. Issue #6944
   - Railway fixes:
     - Train reversal problems. Issue #6692, #6782, #6797, #6851, #6860, #6906, #6908
     - Train routing now considers space requirement for train reversal. Issue #6697, #6743, #6799
@@ -70,7 +71,7 @@ permalink: /ChangeLog/
 - TraCI
   - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
   - Fixed crash when trying add subscription filter for context subscrition of persons around an ego vehicle. Issue #6735
-  - Fixed crash and invalid results when using 'vehicle.addSubscriptionFilterLateralDistance'. Issue #6770
+  - Fixed crash and invalid results when using 'vehicle.addSubscriptionFilterLateralDistance'. Issue #6770, #6941
   - Fixed crash when adding vehicle with `depart="triggered"`. Issue #6793
   - Fixed invalid routing results when calling 'traci.simulation.findIntermodalRoute(..., routingMode=ROUTING_MODE_AGGREGATED)'. Issue #6827
 - Tools
