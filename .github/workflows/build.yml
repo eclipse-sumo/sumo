@@ -95,6 +95,7 @@ jobs:
         path: sumo/bin
 
     - name: Uploading artifacts (Python wheels)
+      if: matrix.optional-libs == false
       uses: actions/upload-artifact@v1
       with:
         name: Py${{ matrix.python-version }}-wheels
