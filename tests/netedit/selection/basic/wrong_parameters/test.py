@@ -48,7 +48,7 @@ for x in range(0, 13):
     netedit.typeTab()
 
 # paste the new elementClass
-netedit.pasteIntoTextField("Net Element")
+netedit.pasteIntoTextField("network element")
 
 # jump to element
 for x in range(0, 2):
@@ -66,7 +66,7 @@ for x in range(0, 13):
     netedit.typeTab()
 
 # paste the new elementClass
-netedit.pasteIntoTextField("Net Element")
+netedit.pasteIntoTextField("network element")
 
 # jump to element
 for x in range(0, 2):

@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.selectMode()
 
 # show connections
-netedit.changeEditMode('3')
+netedit.changeEditMode('5')
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
@@ -44,7 +44,7 @@ netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)
 netedit.selectionClear()
 
 # disable select edges
-netedit.changeEditMode('2')
+netedit.changeEditMode('4')
 
 # use a rectangle to check add mode
 netedit.selectionRectangle(referencePosition, 25, 0, 550, 470)

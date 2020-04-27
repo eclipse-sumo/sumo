@@ -41,7 +41,7 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -13.20,-13.20,13.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 36.80,-13.20,63.20,13.20
 GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -13.20,6.80,13.20,33.20
 GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 36.80,6.80,63.20,33.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:-gneE2 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
@@ -87,7 +87,7 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -13.20,-13.20,13.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 36.80,-13.20,63.20,13.20
 GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -13.20,6.50,14.70,33.20
 GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 35.30,6.50,63.20,33.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:-gneE2 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
@@ -98,6 +98,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute width '-1.00' into lane 'gneE2_0'
@@ -123,7 +124,7 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -13.20,-13.20,13.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 36.80,-13.20,63.20,13.20
 GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -13.20,6.80,13.20,33.20
 GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 36.80,6.80,63.20,33.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:-gneE2 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
@@ -134,6 +135,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,3
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,30.00
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
+Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute allow 'private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle moped bicycle evehicle tram rail_urban rail rail_electric rail_fast ship custom1 custom2' into lane 'gneE2_0'
@@ -159,7 +161,7 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -13.20,-13.20,13.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 36.80,-13.20,63.20,13.20
 GLDebug: 	Inserted junction:gneJ2 into SUMORTree with boundary -13.20,6.50,14.70,33.20
 GLDebug: 	Inserted junction:gneJ3 into SUMORTree with boundary 35.30,6.50,63.20,33.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:-gneE2 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60

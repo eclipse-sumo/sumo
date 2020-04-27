@@ -34,6 +34,9 @@ netedit.rebuildNetwork()
 # go to delete mode
 netedit.deleteMode()
 
+# enable 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+
 # delete edge
 netedit.leftClick(referencePosition, 220, 200)
 
