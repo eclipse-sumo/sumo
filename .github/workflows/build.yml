@@ -20,7 +20,12 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
+        optional-libs: [false]
         python-version: [3.5, 3.6, 3.7, 3.8]
+        include:
+          - optional-libs: true
+            build-type: full
+            python-version: 3.8
 
     steps:
     - name: Cloning SUMO
@@ -51,9 +56,6 @@ jobs:
         python-version: ${{ matrix.python-version }} 
         architecture: x64
 
-    - name: Installing Python Wheel
-      run: python -m pip install wheel
-
     - name: Building SUMO
       env:
         # Allow CMake build to use multiple processors (4)
@@ -63,10 +65,15 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake .. -G"Visual Studio 16 2019" -A x64
+        cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=${{ matrix.optional-libs }}
         cmake --build . --config Release
         cmake --build . --config Release --target examples
-        cd ..
+
+    - name: Building Python Wheel
+      if: matrix.optional-libs == false
+      run: |
+        python -m pip install wheel
+        cd sumo
         python -c "import sys; print('[bdist_wheel]\npython-tag=cp%s%s' % sys.version_info[0:2], file=open('tools/build/setup.cfg', 'w'))"
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
@@ -84,7 +91,7 @@ jobs:
       if: matrix.python-version == 3.8
       uses: actions/upload-artifact@v1
       with:
-        name: Windows
+        name: Windows${{ matrix.build-type }}
         path: sumo/bin
 
     - name: Uploading artifacts (Python wheels)
