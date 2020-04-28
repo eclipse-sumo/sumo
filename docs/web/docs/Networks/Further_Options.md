@@ -90,13 +90,13 @@ deceleration lanes are added on highway junctions with one incoming and
 one outgoing highway edge and one outgoing minor edge. Lanes are only
 added if the sum of incoming lanes differs from the sum of outgoing
 lanes. You can constrain the classification of highways by setting a
-minimum speed of this edge using **--ramp.min-highway-speed** {{DT_FLOAT}} and the classification of the minor
+minimum speed of this edge using **--ramps.min-highway-speed** {{DT_FLOAT}} and the classification of the minor
 edge is by setting its maximum speed using **--ramps.max-ramp-speed** {{DT_FLOAT}} (both options assume a speed
-in m/s). Furthermore, **--ramp.ramp-length** tells [NETCONVERT](../NETCONVERT.md) how
+in m/s). Furthermore, **--ramps.ramp-length** tells [NETCONVERT](../NETCONVERT.md) how
 long the added ramp shall be in meters.
 
 !!! note
-    Normally, we keep **--ramp.ramp-length** unset and let the geometry computation do the rest.
+    Normally, we keep **--ramps.ramp-length** unset and let the geometry computation do the rest.
 
 ## Inner-junction Traffic
 
