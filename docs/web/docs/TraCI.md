@@ -34,7 +34,7 @@ before TraCI commands will be processed.
 
 The number of clients which can connect can be given as an additional
 option **--num-clients** {{DT_INT}}, where 1 is the default. Please note that in multi client
-scenarios you must explicity specify the execution order of the clients
+scenarios you must explicitly specify the execution order of the clients
 using the
 [*SetOrder*-command](TraCI/Control-related_commands.md#command_0x03_setorder).
 
