@@ -61,7 +61,7 @@ The meanings of the written values are given in the following table.
 | waiting     | seconds              | The time the vehicle is waiting                                                                |
 | lane        | id                   | The name of the lane where the vehicle is moving                                               |
 | pos         | meters               | The vehicle position measured from the start of the current lane                               |
-| speed       | km/h                 | The speed of the vehicle                                                                       |
+| speed       | m/s                  | The speed of the vehicle                                                                       |
 | angle       | degree               | The angle of the vehicle                                                                       |
 | pos_x      | \---                 | The absolut X coordinate of the vehicle. The value depends on the given geographic projection. |
 | pos_y      | \---                 | The absolut Y coordinate of the vehicle. The value depends on the given geographic projection. |
