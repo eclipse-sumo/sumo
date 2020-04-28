@@ -43,7 +43,7 @@ def getOptions(args=None):
     argParser.add_argument("-m", "--min-speed", dest="minspeed", type=float, default=5,
                            help="Minimum speed to consider vehicle undelayed")
     argParser.add_argument("--filter-route", dest="filterRoute",
-                           help="only consider vehicles that pass the given list of edges (regardless of gaps)")
+                           help="only consider vehicles while they pass the given list of edges in order (regardless of gaps)")
 
     options = argParser.parse_args()
 
@@ -65,10 +65,15 @@ def main(options):
     for vehicle in parse_fast(options.fcdfile, 'vehicle', ['id', 'speed', 'lane']):
         vehID = vehicle.id
         edge = vehicle.lane[0:vehicle.lane.rfind('_')]
-        if len(routes[vehID]) == 0 or routes[vehID][-1] != edge:
+        prevEdge = None if len(routes[vehID]) == 0 else routes[vehID][-1]
+        if prevEdge != edge:
+            if options.filterRoute and prevEdge == options.filterRoute[-1]:
+                # vehicle has left the filtered corridor
+                continue
             routes[vehID].append(edge)
         if options.filterRoute and vehID not in active:
-            if edge in options.filterRoute:
+            if edge == options.filterRoute[0]:
+                # vehicle has entered the filtered corridor
                 active.add(vehID)
             else:
                 continue
