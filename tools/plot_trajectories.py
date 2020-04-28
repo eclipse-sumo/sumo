@@ -53,6 +53,8 @@ def getOptions(args=None):
                          help="perform ballistic integration of distance")
     optParser.add_option("--filter-route", dest="filterRoute",
                          help="only export trajectories that pass the given list of edges (regardless of gaps)")
+    optParser.add_option("--filter-edges", dest="filterEdges",
+                         help="only consider data for the given list of edges")
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
@@ -70,6 +72,8 @@ def getOptions(args=None):
 
     if options.filterRoute is not None:
         options.filterRoute = options.filterRoute.split(',')
+    if options.filterEdges is not None:
+        options.filterEdges = set(options.filterEdges.split(','))
     return options
 
 
@@ -135,6 +139,11 @@ def main(options):
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     vehID += "#" + suffix
+            edge = vehicle.lane[0:vehicle.lane.rfind('_')]
+            if len(routes[vehID]) == 0 or routes[vehID][-1] != edge:
+                routes[vehID].append(edge)
+            if options.filterEdges and edge not in options.filterEdges:
+                continue
             time = float(timestep.time)
             speed = float(vehicle.speed)
             prevTime = time
@@ -159,9 +168,6 @@ def main(options):
             else:
                 avgSpeed = speed
             data[vehID][2].append(prevDist + (time - prevTime) * avgSpeed)
-            edge = vehicle.lane[0:vehicle.lane.rfind('_')]
-            if len(routes[vehID]) == 0 or routes[vehID][-1] != edge:
-                routes[vehID].append(edge)
 
     def line_picker(line, mouseevent):
         if mouseevent.xdata is None:
