@@ -42,6 +42,14 @@ def get_version(padZero=True):
     return sumolib.version.gitDescribe(gitDir=join(SUMO_ROOT, ".git"), padZero=padZero)
 
 
+def get_digit_version():
+    v = get_version(padZero=False)[1:-11].replace("_", ".").replace("+", ".")
+    vs = v.split(".")
+    if len(vs) == 4 and vs[3] == "0":
+        v = v[:-2]
+    return v
+
+
 def create_version_file(versionFile, revision, vcsFile):
     print('generating %s from revision in %s' % (versionFile, vcsFile))
     with open(versionFile, 'w') as f:

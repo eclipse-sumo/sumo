@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 import os
 import version
 
-SUMO_VERSION = version.get_version(padZero=False)[1:-11].replace("_", ".").replace("+", ".")
+SUMO_VERSION = version.get_digit_version()
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(
@@ -31,9 +31,10 @@ setup(
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',
+    description="Python helper modules to read networks, parse output data and do other useful stuff related to the traffic simulation SUMO",
 
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)',
