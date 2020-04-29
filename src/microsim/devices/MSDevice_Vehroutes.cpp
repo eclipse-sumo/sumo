@@ -220,6 +220,7 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
             lastEdge = myReplacedRoutes[i].edge;
         }
         myReplacedRoutes[index].route->writeEdgeIDs(os, lastEdge);
+        os << "\"";
     } else {
         if (myDUAStyle || myWriteCosts) {
             os.writeAttr(SUMO_ATTR_COST, myHolder.getRoute().getCosts());
@@ -241,27 +242,27 @@ MSDevice_Vehroutes::writeXMLRoute(OutputDevice& os, int index) const {
                 lastEdge = myReplacedRoutes[i].edge;
             }
         }
-        const MSEdge* upTo = nullptr;
+        myCurrentRoute->writeEdgeIDs(os, lastEdge, nullptr);
+        os << "\"";
+
         if (mySaveExits) {
+            int missingExitTimes = 0;
             int remainingWithExitTime = (int)myExits.size() - numWritten;
             assert(remainingWithExitTime >= 0);
             assert(remainingWithExitTime <= (int)myCurrentRoute->size());
             if (remainingWithExitTime < (int)myCurrentRoute->size()) {
-                upTo = *(myCurrentRoute->begin() + remainingWithExitTime);
+                missingExitTimes = myCurrentRoute->size() - remainingWithExitTime;
             }
-        }
-        myCurrentRoute->writeEdgeIDs(os, lastEdge, upTo);
-        if (mySaveExits) {
-            os << "\" exitTimes=\"";
-            for (std::vector<SUMOTime>::const_iterator it = myExits.begin(); it != myExits.end(); ++it) {
-                if (it != myExits.begin()) {
-                    os << " ";
-                }
-                os << time2string(*it);
+            std::vector<std::string> exits;
+            for (SUMOTime t : myExits) {
+                exits.push_back(time2string(t));
             }
+            std::vector<std::string> missing(missingExitTimes, "-1");
+            exits.insert(exits.end(), missing.begin(), missing.end());
+            os.writeAttr("exitTimes", exits);
         }
     }
-    (os << "\"").closeTag();
+    os.closeTag();
 }
 
 
