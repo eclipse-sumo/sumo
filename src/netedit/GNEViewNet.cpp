@@ -23,6 +23,7 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataSet.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
@@ -511,6 +512,9 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
         }
         for (GNELane* lane : myNet->retrieveLanes()) {
             const double val = lane->getColorValue(s, active);
+            if (val == s.MISSING_DATA) {
+                continue;
+            }
             minValue = MIN2(minValue, val);
             maxValue = MAX2(maxValue, val);
         }
@@ -629,6 +633,20 @@ GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
     return std::vector<std::string>(keys.begin(), keys.end());
 }
 
+std::vector<std::string>
+GNEViewNet::getEdgeDataAttrs() const {
+    std::set<std::string> keys;
+    for (auto idEdge : myNet->getAttributeCarriers()->getEdges()) {
+        GNEEdge* edge = idEdge.second;
+        GNEGenericData* data = edge->getCurrentGenericDataElement();
+        if (data != nullptr) {
+            for (auto keyVal : data->getParametersMap()) {
+                keys.insert(keyVal.first);
+            }
+        }
+    }
+    return std::vector<std::string>(keys.begin(), keys.end());
+}
 
 
 int

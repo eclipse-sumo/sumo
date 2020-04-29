@@ -1133,7 +1133,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         }
     }
     // check if we're in data mode
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && s.laneColorer.getActive() != 16) {
         color = s.laneColorer.getSchemes()[0].getColor(11);
         // check if we have to change color if parent edge has generic data elements
         GNEGenericData* data = myParentEdge->getCurrentGenericDataElement();
@@ -1282,7 +1282,12 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         }
         case 16: {
             // by edge data value
-            return 0; //GUINet::getGUIInstance()->getEdgeData(myEdge, s.edgeData);
+            GNEGenericData* data = myParentEdge->getCurrentGenericDataElement();
+            if (data == nullptr) {
+                return GUIVisualizationSettings::MISSING_DATA;
+            } else {
+                return data->getDouble(s.edgeData, GUIVisualizationSettings::MISSING_DATA);
+            }
         }
     }
     return 0;

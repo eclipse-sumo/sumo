@@ -90,6 +90,9 @@ public:
     /// @brief return list of available edge parameters
     std::vector<std::string> getEdgeLaneParamKeys(bool edgeKeys) const;
 
+    /// @brief return list of loaded edgeData attributes
+    std::vector<std::string> getEdgeDataAttrs() const;
+
     /// @brief open object dialog
     void openObjectDialog();
 
