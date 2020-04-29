@@ -25,5 +25,8 @@ permissions
 # moved vehicle should block intersections on approach and while on the intersection
 intersection
 
+# moved vehicle should update waitingTime
+waitingTime
+
 # moveToXY for persons
 person
