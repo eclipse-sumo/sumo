@@ -31,7 +31,8 @@ import math  # noqa
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.xml import parse_fast  # noqa
+from sumolib.xml import parse_fast_nested  # noqa
+from sumolib.miscutils import parseTime  # noqa
 
 
 def getOptions(args=None):
@@ -44,6 +45,8 @@ def getOptions(args=None):
                            help="Minimum speed to consider vehicle undelayed")
     argParser.add_argument("--filter-route", dest="filterRoute",
                            help="only consider vehicles while they pass the given list of edges in order (regardless of gaps)")
+    argParser.add_argument("--delay-time-output", dest="delayTimeOutput",
+                           help="For each delayed, write the time when it entered the corridor and the time when it was first delayed")
 
     options = argParser.parse_args()
 
@@ -62,7 +65,11 @@ def main(options):
     routes = defaultdict(list)  # vehID -> recorded edges
     minSpeed = defaultdict(lambda: 1000)
     active = set()  # vehicles that have passed the first filterRoute edge
-    for vehicle in parse_fast(options.fcdfile, 'vehicle', ['id', 'speed', 'lane']):
+    entryTime = {} # vehID -> time when entering corridor
+    delayTime = {} # vehID -> time when vehicle speed first dropped below threshold
+    for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
+                                               'vehicle', ['id', 'speed', 'lane']):
+        time = parseTime(timestep.time)
         vehID = vehicle.id
         edge = vehicle.lane[0:vehicle.lane.rfind('_')]
         prevEdge = None if len(routes[vehID]) == 0 else routes[vehID][-1]
@@ -71,16 +78,21 @@ def main(options):
                 # vehicle has left the filtered corridor
                 continue
             routes[vehID].append(edge)
-        if options.filterRoute and vehID not in active:
-            if edge == options.filterRoute[0]:
-                # vehicle has entered the filtered corridor
+        if vehID not in active:
+            if not options.filterRoute or edge == options.filterRoute[0]:
+                 # vehicle has entered the filtered corridor
                 active.add(vehID)
+                entryTime[vehID] = time
             else:
                 continue
-        minSpeed[vehID] = min(minSpeed[vehID], float(vehicle.speed))
+        speed = float(vehicle.speed)
+        if speed < minSpeed[vehID]:
+            minSpeed[vehID] = speed
+            if speed < options.minspeed:
+                delayTime[vehID] = time
 
     n = 0
-    delayed = 0
+    delayed = []
 
     for vehID, route in routes.items():
         skip = False
@@ -91,9 +103,17 @@ def main(options):
         if not skip:
             n += 1
             if minSpeed[vehID] < options.minspeed:
-                delayed += 1
+                delayed.append((entryTime[vehID], delayTime[vehID], vehID))
 
-    print("n=%s d=%s coordinationFactor=%s" % (n, delayed, (n - delayed) / float(n)))
+    delayed.sort()
+    numDelayed = len(delayed)
+    print("n=%s d=%s coordinationFactor=%.2f" % (n, numDelayed, (n - numDelayed) / float(n)))
+
+    if options.delayTimeOutput:
+        with open(options.delayTimeOutput, 'w') as outf:
+            outf.write("# entryTime delayTime vehID\n")
+            for record in delayed:
+                outf.write(" ".join(map(str, record)) + "\n")
 
 
 if __name__ == "__main__":
