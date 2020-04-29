@@ -36,13 +36,13 @@
 // ===========================================================================
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
-                 double arrivalPosition, const std::vector<std::string>& lines) :
+        double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_RIDE_FROMTO), net, GLO_RIDE, SUMO_TAG_RIDE_FROMTO,
-{}, {fromEdge, toEdge}, {}, {}, {}, {personParent}, {}, // Parents
-{}, {}, {}, {}, {}, {}, {}),                            // Childrens
-Parameterised(),
-myArrivalPosition(arrivalPosition),
-myLines(lines) {
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}, // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
+    Parameterised(),
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute ride
@@ -51,13 +51,13 @@ myLines(lines) {
 
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
-                 const std::vector<std::string>& lines) :
+        const std::vector<std::string>& lines) :
     GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_RIDE_BUSSTOP), net, GLO_RIDE, SUMO_TAG_RIDE_BUSSTOP,
-{}, {fromEdge}, {}, {}, {busStop}, {personParent}, {},  // Parents
-{}, {}, {}, {}, {}, {}, {}),                            // Childrens
-Parameterised(),
-myArrivalPosition(-1),
-myLines(lines) {
+        {}, {fromEdge}, {}, {busStop}, {}, {}, {personParent}, {},  // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
+    Parameterised(),
+    myArrivalPosition(-1),
+    myLines(lines) {
     // set via parameter without updating references
     replaceMiddleParentEdges(this, via, false);
     // compute ride

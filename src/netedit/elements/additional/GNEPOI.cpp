@@ -38,13 +38,12 @@
 // ===========================================================================
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-               const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
-               bool relativePath, double width, double height, bool movementBlocked) :
+        const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
+        bool relativePath, double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POI, movementBlocked,
-{}, {}, {}, {}, {}, {}, {},     // Parents
-{}, {}, {}, {}, {}, {}, {}) {
-    // Children
+        {}, {}, {}, {}, {}, {}, {}, {},     // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}) {   // Children
     // set GEO Position
     myGEOPosition = pos;
     GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
@@ -52,13 +51,12 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 
 
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
-               double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
-               double width, double height, bool movementBlocked) :
+        double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
+        double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POILANE, movementBlocked,
-{}, {}, {lane}, {}, {}, {}, {}, // Parents
-{}, {}, {}, {}, {}, {}, {}) {
-    // Children
+        {}, {}, {lane}, {}, {}, {}, {}, {}, // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}) { // Children
 }
 
 

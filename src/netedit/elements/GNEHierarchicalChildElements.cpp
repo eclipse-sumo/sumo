@@ -38,18 +38,21 @@
 // ===========================================================================
 
 GNEHierarchicalChildElements::GNEHierarchicalChildElements(const GNEAttributeCarrier* AC,
-        const std::vector<GNEJunction*>& /* childJunctions */,
+        const std::vector<GNEJunction*>& childJunctions,
         const std::vector<GNEEdge*>& childEdges,
         const std::vector<GNELane*>& childLanes,
-        const std::vector<GNEShape*>& childShapes,
         const std::vector<GNEAdditional*>& childAdditionals,
+        const std::vector<GNEShape*>& childShapes,
+        const std::vector<GNETAZ*>& childTAZs,
         const std::vector<GNEDemandElement*>& childDemandElements,
         const std::vector<GNEGenericData*>& childGenericDataElements) :
     myChildConnections(this),
+    myChildJunctions(childJunctions),
     myChildEdges(childEdges),
     myChildLanes(childLanes),
-    myChildShapes(childShapes),
     myChildAdditionals(childAdditionals),
+    myChildShapes(childShapes),
+    myChildTAZs(childTAZs),
     myChildDemandElements(childDemandElements),
     myChildGenericDataElements(childGenericDataElements),
     myAC(AC) {

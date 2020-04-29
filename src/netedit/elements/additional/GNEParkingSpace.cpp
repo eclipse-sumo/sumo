@@ -33,12 +33,12 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement) :
     GNEAdditional(parkingAreaParent, net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement,
-{}, {}, {}, {}, {parkingAreaParent}, {}, {},    // Parents
-{}, {}, {}, {}, {}, {}, {}),                    // Children
-myPosition(pos),
-myWidth(width),
-myLength(length),
-myAngle(angle) {
+        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},    // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                    // Children
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle) {
 }
 
 

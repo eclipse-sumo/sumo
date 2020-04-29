@@ -29,8 +29,9 @@
 // ===========================================================================
 
 class GNEAdditional;
-class GNEDemandElement;
+class GNETAZ;
 class GNEShape;
+class GNEDemandElement;
 class GNEGenericData;
 
 // ===========================================================================
@@ -53,19 +54,21 @@ public:
      * @param[in] childJunctions vector of child junctions
      * @param[in] childEdges vector of child edges
      * @param[in] childLanes vector of child lanes
-     * @param[in] childShapes vector of child shapes
      * @param[in] childAdditionals vector of child additional
+     * @param[in] childShapes vector of child shapes
+     * @param[in] childTAZs vector of child TAZs
      * @param[in] childDemandElements vector of child demand elements
      * @param[in] childGenericDataElements vector of child generic data elements
      */
     GNEHierarchicalChildElements(const GNEAttributeCarrier* AC,
-                                 const std::vector<GNEJunction*>& childJunctions,
-                                 const std::vector<GNEEdge*>& childEdges,
-                                 const std::vector<GNELane*>& childLanes,
-                                 const std::vector<GNEShape*>& childShapes,
-                                 const std::vector<GNEAdditional*>& childAdditionals,
-                                 const std::vector<GNEDemandElement*>& childDemandElements,
-                                 const std::vector<GNEGenericData*>& childGenericDataElements);
+        const std::vector<GNEJunction*>& childJunctions,
+        const std::vector<GNEEdge*>& childEdges,
+        const std::vector<GNELane*>& childLanes,
+        const std::vector<GNEAdditional*>& childAdditionals,
+        const std::vector<GNEShape*>& childShapes,
+        const std::vector<GNETAZ*>& childTAZs,
+        const std::vector<GNEDemandElement*>& childDemandElements,
+        const std::vector<GNEGenericData*>& childGenericDataElements);
 
     /// @brief Destructor
     ~GNEHierarchicalChildElements();
@@ -120,19 +123,6 @@ public:
 
     /// @}
 
-    /// @name members and functions related to child shapes
-    /// @{
-    /// @brief add child shape
-    void addChildShape(GNEShape* shape);
-
-    /// @brief remove child shape
-    void removeChildShape(GNEShape* shape);
-
-    /// @brief get child shapes
-    const std::vector<GNEShape*>& getChildShapes() const;
-
-    /// @}
-
     /// @name members and functions related to child additionals
     /// @{
     /// @brief add child additional
@@ -152,6 +142,19 @@ public:
 
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
+
+    /// @}
+
+    /// @name members and functions related to child shapes
+    /// @{
+    /// @brief add child shape
+    void addChildShape(GNEShape* shape);
+
+    /// @brief remove child shape
+    void removeChildShape(GNEShape* shape);
+
+    /// @brief get child shapes
+    const std::vector<GNEShape*>& getChildShapes() const;
 
     /// @}
 
@@ -259,17 +262,23 @@ protected:
     ChildConnections myChildConnections;
 
 private:
-    /// @brief vector with the child edges of this element
+    /// @brief vector with the child junctions
+    std::vector<GNEJunction*> myChildJunctions;
+
+    /// @brief vector with the child edges
     std::vector<GNEEdge*> myChildEdges;
 
-    /// @brief vector with the child lanes of this element
+    /// @brief vector with the child lanes
     std::vector<GNELane*> myChildLanes;
 
-    /// @brief vector with the child lanes of this element
+    /// @brief vector with the child additionas
+    std::vector<GNEAdditional*> myChildAdditionals;
+
+    /// @brief vector with the child lanes
     std::vector<GNEShape*> myChildShapes;
 
-    /// @brief vector with the child additional
-    std::vector<GNEAdditional*> myChildAdditionals;
+    /// @brief vector with the child lanes
+    std::vector<GNETAZ*> myChildTAZs;
 
     /// @brief vector with the demand elements children
     std::vector<GNEDemandElement*> myChildDemandElements;
