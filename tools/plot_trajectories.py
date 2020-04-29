@@ -37,7 +37,7 @@ import matplotlib.pyplot as plt  # noqa
 import math  # noqa
 
 from sumolib.xml import parse_fast_nested  # noqa
-from sumolib.miscutils import uMin, uMax  # noqa
+from sumolib.miscutils import uMin, uMax, parseTime  # noqa
 
 
 def getOptions(args=None):
@@ -144,7 +144,7 @@ def main(options):
                 routes[vehID].append(edge)
             if options.filterEdges and edge not in options.filterEdges:
                 continue
-            time = float(timestep.time)
+            time = parseTime(timestep.time)
             speed = float(vehicle.speed)
             prevTime = time
             prevSpeed = speed
