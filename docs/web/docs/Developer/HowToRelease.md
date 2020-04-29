@@ -128,9 +128,11 @@ If everything is fine:
     service](https://build.opensuse.org/package/show?package=sumo&project=home%3Abehrisch)
 - update the ubuntu ppa (see
 <https://askubuntu.com/questions/642632/how-to-bump-the-version-of-a-package-available-in-another-users-ppa>)
+  - this assumes you have the devscripts package as well as all sumo dependencies installed
+  - if you try this on Windows Linux Subsystem you will also need to do `sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp`
   - download the source release and rename it to `sumo_{{Version}}+dfsg1.orig.tar.gz`
   - unzip the source release
-  - move the debian dir one level up
+  - copy the debian dir one level up
   - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
   - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable sumo_{{Version}}+dfsg1_source.changes` one level up
 - scenarios (optional)
