@@ -93,12 +93,12 @@ repositories include a nightly build as well (called sumo_nightly).
 - [openSUSE Leap 42.3 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_42.3/)
 - [openSUSE Leap 15.0 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_15.0/)
 - [openSUSE Leap 15.1 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_15.1/)
+- [openSUSE Leap 15.2 repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Leap_15.2/)
 - [openSUSE Tumbleweed repository](http://download.opensuse.org/repositories/home:/behrisch/openSUSE_Tumbleweed/)
-- [Fedora 26 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_26/)
-- [Fedora 27 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_27/)
-- [Fedora 28 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_28/)
 - [Fedora 29 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_29/)
 - [Fedora 30 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_30/)
+- [Fedora 31 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_31/)
+- [Fedora 32 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_32/)
 - [Fedora Rawhide repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_Rawhide/)
 
 There are [more Linux RPM
@@ -143,6 +143,10 @@ list of bug-fixes and enhancements at our
 [ChangeLog](ChangeLog.md). To make use of the latest features
 [(and to give us pre-release feedback)](Contact.md) we encourage
 you to use the latest version from our [code repository](https://github.com/eclipse/sumo/).
+
+Every push to our main branch also triggers a build for Windows, Linux and MacOS. The results can be found
+by clicking on the [relevant commit here](https://github.com/eclipse/sumo/actions) and downloading the
+appropriate file for your platform.
 
 ### Nightly Snapshots
 
