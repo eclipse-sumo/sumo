@@ -27,5 +27,4 @@ cfg:<!-- generated on{[->]}-->
 
 [bug_system_location]
 trac:https://sumo.dlr.de/trac.wsgi/
-github:https://github.com/eclipse/sumo/
-
+github:https://api.github.com/repos/eclipse/sumo/
