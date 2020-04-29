@@ -652,6 +652,31 @@ public:
     int getNumberOfShapes(SumoXMLTag type = SUMO_TAG_NOTHING) const;
     /// @}
 
+    /// @name Functions related with TAZElements
+    /// @{
+
+    /**@brief Returns the named TAZElement
+     * @param[in] type tag with the type of TAZElement
+     * @param[in] id The id of the TAZElement to return.
+     * @param[in] failHard Whether attempts to retrieve a nonexisting TAZElement should result in an exception
+     */
+    GNETAZElement* retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail = true) const;
+
+    /**@brief return all TAZElements
+     * @param[in] onlySelected Whether to return only selected TAZElements
+     */
+    std::vector<GNETAZElement*> retrieveTAZElements(bool onlySelected = false) const;
+
+    /// @brief generate TAZElement ID
+    std::string generateTAZElementID(SumoXMLTag TAZElementTag) const;
+
+    /**@brief Returns the number of TAZElements of the net
+     * @param[in] type type of TAZElement to count. SUMO_TAG_NOTHING will count all TAZElements
+     * @return Number of TAZElements of the net
+     */
+    int getNumberOfTAZElements(SumoXMLTag type = SUMO_TAG_NOTHING) const;
+    /// @}
+
     /// @name Functions related to TLS Programs
     /// @{
     /// @brief inform that TLS Programs has to be saved

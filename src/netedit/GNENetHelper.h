@@ -78,6 +78,7 @@ struct GNENetHelper {
         friend class GNEChange_Edge;
         friend class GNEChange_Additional;
         friend class GNEChange_Shape;
+        friend class GNEChange_TAZElement;
         friend class GNEChange_DemandElement;
         friend class GNEChange_DataSet;
 

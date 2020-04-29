@@ -29,6 +29,8 @@ set(netedit_changes_SRCS
    GNEChange_GenericData.cpp
    GNEChange_Shape.h
    GNEChange_Shape.cpp
+   GNEChange_TAZElement.h
+   GNEChange_TAZElement.cpp
    GNEChange_Children.h
    GNEChange_Children.cpp
    )

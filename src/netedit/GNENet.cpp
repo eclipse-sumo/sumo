@@ -2803,6 +2803,55 @@ GNENet::getNumberOfShapes(SumoXMLTag type) const {
 }
 
 
+GNETAZElement*
+GNENet::retrieveTAZElement(SumoXMLTag type, const std::string& id, bool hardFail) const {
+    if ((myAttributeCarriers->getTAZElements().count(type) > 0) && (myAttributeCarriers->getTAZElements().at(type).count(id) != 0)) {
+        return myAttributeCarriers->getTAZElements().at(type).at(id);
+    } else if (hardFail) {
+        throw ProcessError("Attempted to retrieve non-existant TAZElement");
+    } else {
+        return nullptr;
+    }
+}
+
+
+std::vector<GNETAZElement*>
+GNENet::retrieveTAZElements(bool onlySelected) const {
+    std::vector<GNETAZElement*> result;
+    // returns TAZElements depending of selection
+    for (auto i : myAttributeCarriers->getTAZElements()) {
+        for (auto j : i.second) {
+            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
+                result.push_back(j.second);
+            }
+        }
+    }
+    return result;
+}
+
+
+std::string
+GNENet::generateTAZElementID(SumoXMLTag tag) const {
+    int counter = 0;
+    while (myAttributeCarriers->getTAZElements().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
+        counter++;
+    }
+    return (toString(tag) + "_" + toString(counter));
+}
+
+
+int
+GNENet::getNumberOfTAZElements(SumoXMLTag type) const {
+    int counter = 0;
+    for (auto i : myAttributeCarriers->getTAZElements()) {
+        if ((type == SUMO_TAG_NOTHING) || (type == i.first)) {
+            counter += (int)i.second.size();
+        }
+    }
+    return counter;
+}
+
+
 void
 GNENet::requireSaveTLSPrograms() {
     if (myTLSProgramsSaved == true) {

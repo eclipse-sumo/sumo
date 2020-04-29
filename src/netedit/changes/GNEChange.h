@@ -40,6 +40,7 @@ class GNEDataInterval;
 class GNEEdge;
 class GNELane;
 class GNEShape;
+class GNETAZElement;
 class GNENet;
 class GNEViewNet;
 class GNEHierarchicalChildElements;
@@ -105,6 +106,12 @@ protected:
     /// @brief remove given shape from parents and children
     void removeShape(GNEShape* shape);
 
+    /// @brief add given TAZElement into parents and children
+    void addTAZElement(GNETAZElement* TAZElement);
+
+    /// @brief remove given TAZElement from parents and children
+    void removeTAZElement(GNETAZElement* TAZElement);
+
     /// @brief add given additional into parents and children
     void addAdditional(GNEAdditional* additional);
 
@@ -134,11 +141,14 @@ protected:
     /// @brief reference to vector of parent lanes
     const std::vector<GNELane*>& myParentLanes;
 
+    /// @brief reference to vector of parent additionals
+    const std::vector<GNEAdditional*>& myParentAdditionals;
+
     /// @brief reference to vector of parent shapes
     const std::vector<GNEShape*>& myParentShapes;
 
-    /// @brief reference to vector of parent additionals
-    const std::vector<GNEAdditional*>& myParentAdditionals;
+    /// @brief reference to vector of parent TAZElements
+    const std::vector<GNETAZElement*>& myParentTAZElements;
 
     /// @brief reference to vector of parent demand elements
     const std::vector<GNEDemandElement*>& myParentDemandElements;
@@ -152,11 +162,14 @@ protected:
     /// @brief reference to vector of child lanes
     const std::vector<GNELane*>& myChildLanes;
 
+    /// @brief reference to vector of child additional
+    const std::vector<GNEAdditional*>& myChildAdditionals;
+
     /// @brief reference to vector of child shapes
     const std::vector<GNEShape*>& myChildShapes;
 
-    /// @brief reference to vector of child additional
-    const std::vector<GNEAdditional*>& myChildAdditionals;
+    /// @brief reference to vector of child TAZElements
+    const std::vector<GNETAZElement*>& myChildTAZElements;
 
     /// @brief reference to vector of child demand elements
     const std::vector<GNEDemandElement*>& myChildDemandElements;
@@ -171,11 +184,14 @@ private:
     /// @brief vector of empty lanes
     static const std::vector<GNELane*> myEmptyLanes;
 
+    /// @brief vector of empty additionals
+    static const std::vector<GNEAdditional*> myEmptyAdditionals;
+
     /// @brief vector of empty shapes
     static const std::vector<GNEShape*> myEmptyShapes;
 
-    /// @brief vector of empty additionals
-    static const std::vector<GNEAdditional*> myEmptyAdditionals;
+    /// @brief vector of empty TAZ Elements
+    static const std::vector<GNETAZElement*> myEmptyTAZElements;
 
     /// @brief vector of empty demand elements
     static const std::vector<GNEDemandElement*> myEmptyDemandElements;
