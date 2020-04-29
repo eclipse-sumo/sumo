@@ -141,10 +141,10 @@ class GNECrossing;
 class GNEInternalLane;
 // additional elements
 class GNEAdditional;
+class GNETAZElement;
 class GNEShape;
 class GNEPoly;
 class GNEPOI;
-class GNETAZ;
 // demand elements
 class GNEDemandElement;
 class GNEVehicleType;
@@ -215,8 +215,8 @@ struct GNEViewNetHelper {
         /// @brief get front connection or a pointer to nullptr
         GNEConnection* getConnectionFront() const;
 
-        /// @brief get front TAZ or a pointer to nullptr
-        GNETAZ* getTAZFront() const;
+        /// @brief get front TAZElement or a pointer to nullptr
+        GNETAZElement* getTAZElementFront() const;
 
         /// @brief get front POI or a pointer to nullptr
         GNEPOI* getPOIFront() const;
@@ -270,8 +270,8 @@ struct GNEViewNetHelper {
         /// @brief vector with the clicked connections
         std::vector<GNEConnection*> myConnections;
 
-        /// @brief vector with the clicked TAZ elements (needed because uses a shape instead a position)
-        std::vector<GNETAZ*> myTAZs;
+        /// @brief vector with the clicked TAZ elements
+        std::vector<GNETAZElement*> myTAZElements;
 
         /// @brief vector with the clicked POIs
         std::vector<GNEPOI*> myPOIs;
@@ -788,14 +788,14 @@ struct GNEViewNetHelper {
         /// @brief the poi which position is being moved
         GNEPOI* myPOIToMove;
 
+        /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
+        GNETAZElement* myTAZElementToMove;
+
         /// @brief the additional element which position is being moved
         GNEAdditional* myAdditionalToMove;
 
         /// @brief the demand element which position is being moved
         GNEDemandElement* myDemandElementToMove;
-
-        /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
-        GNETAZ* myTAZToMove;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements

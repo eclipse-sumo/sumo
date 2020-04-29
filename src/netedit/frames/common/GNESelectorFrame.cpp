@@ -397,6 +397,11 @@ GNESelectorFrame::ElementSet::onCmdSelectElementSet(FXObject*, FXSelector, void*
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
             // enable match attribute
             mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
+        } else if (mySetComboBox->getText() == "TAZ") {
+            myCurrentElementSet = Type::TAZELEMENT;
+            mySetComboBox->setTextColor(FXRGB(0, 0, 0));
+            // enable match attribute
+            mySelectorFrameParent->myMatchAttribute->enableMatchAttribute();
         } else if (mySetComboBox->getText() == "Shape") {
             myCurrentElementSet = Type::SHAPE;
             mySetComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -485,9 +490,11 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
         ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::NETWORKELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
+        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::ADDITIONALELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
         ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::SHAPE, true);
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::TAZELEMENT) {
+        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::TAZELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
@@ -539,9 +546,11 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
         ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT | GNETagProperties::TagType::TAZ, true);
+        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
         ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
+    } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::TAZELEMENT) {
+        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
         ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {

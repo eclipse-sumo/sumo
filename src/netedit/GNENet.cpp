@@ -44,6 +44,7 @@
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/additional/GNEPoly.h>
+#include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEGenericData.h>
@@ -531,15 +532,6 @@ GNENet::deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList) {
 
 
 void
-GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
-    undoList->p_begin("delete " + shape->getTagStr());
-    // delete shape
-    undoList->add(new GNEChange_Shape(shape, false), true);
-    undoList->p_end();
-}
-
-
-void
 GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     undoList->p_begin("delete " + additional->getTagStr());
     // remove all demand element children of this additional deleteDemandElement this function recursively
@@ -556,6 +548,38 @@ GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
     }
     // remove additional
     undoList->add(new GNEChange_Additional(additional, false), true);
+    undoList->p_end();
+}
+
+
+void
+GNENet::deleteShape(GNEShape* shape, GNEUndoList* undoList) {
+    undoList->p_begin("delete " + shape->getTagStr());
+    // delete shape
+    undoList->add(new GNEChange_Shape(shape, false), true);
+    undoList->p_end();
+}
+
+
+void
+GNENet::deleteTAZElement(GNETAZElement* TAZElement, GNEUndoList* undoList) {
+    undoList->p_begin("delete " + TAZElement->getTagStr());
+    // remove all demand element children of this TAZElement deleteDemandElement this function recursively
+    while (TAZElement->getChildDemandElements().size() > 0) {
+        deleteDemandElement(TAZElement->getChildDemandElements().front(), undoList);
+    }
+    // remove all generic data children of this TAZElement deleteGenericData this function recursively
+    while (TAZElement->getChildGenericDataElements().size() > 0) {
+        deleteGenericData(TAZElement->getChildGenericDataElements().front(), undoList);
+    }
+    // remove all TAZElement children of this TAZElement calling this function recursively
+    while (TAZElement->getChildTAZElements().size() > 0) {
+        deleteTAZElement(TAZElement->getChildTAZElements().front(), undoList);
+    }
+    // remove TAZElement
+/*
+    undoList->add(new GNEChange_TAZElement(TAZElement, false), true);
+*/
     undoList->p_end();
 }
 
@@ -1272,93 +1296,124 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
     std::vector<GNEAttributeCarrier*> result;
     if (type == SUMO_TAG_NOTHING) {
         // return all elements
-        for (auto i : myAttributeCarriers->getJunctions()) {
-            result.push_back(i.second);
-            for (auto j : i.second->getGNECrossings()) {
-                result.push_back(j);
+        for (const auto &junction : myAttributeCarriers->getJunctions()) {
+            result.push_back(junction.second);
+            for (const auto &crossing : junction.second->getGNECrossings()) {
+                result.push_back(crossing);
             }
         }
-        for (auto i : myAttributeCarriers->getEdges()) {
-            result.push_back(i.second);
-            for (auto j : i.second->getLanes()) {
-                result.push_back(j);
+        for (const auto &edge : myAttributeCarriers->getEdges()) {
+            result.push_back(edge.second);
+            for (const auto &lane : edge.second->getLanes()) {
+                result.push_back(lane);
             }
-            for (auto j : i.second->getGNEConnections()) {
-                result.push_back(j);
-            }
-        }
-        for (auto i : myAttributeCarriers->getAdditionals()) {
-            for (auto j : i.second) {
-                result.push_back(j.second);
+            for (const auto &connection : edge.second->getGNEConnections()) {
+                result.push_back(connection);
             }
         }
-        for (auto i : myAttributeCarriers->getShapes()) {
-            for (auto j : i.second) {
-                result.push_back(j.second);
+        for (const auto &additionalSet : myAttributeCarriers->getAdditionals()) {
+            for (const auto &additional : additionalSet.second) {
+                result.push_back(additional.second);
             }
         }
-        for (auto i : myAttributeCarriers->getDemandElements()) {
-            for (auto j : i.second) {
-                result.push_back(j.second);
+        for (const auto &shapeSet : myAttributeCarriers->getShapes()) {
+            for (const auto &shape : shapeSet.second) {
+                result.push_back(shape.second);
             }
         }
-    } else if (GNEAttributeCarrier::getTagProperties(type).isAdditionalElement() || GNEAttributeCarrier::getTagProperties(type).isTAZ()) {
+        for (const auto &TAZSet : myAttributeCarriers->getTAZElements()) {
+            for (const auto &TAZElement : TAZSet.second) {
+                result.push_back(TAZElement.second);
+            }
+        }
+        for (const auto &demandElementSet: myAttributeCarriers->getDemandElements()) {
+            for (const auto &demandElement : demandElementSet.second) {
+                result.push_back(demandElement.second);
+            }
+        }
+        for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
+            result.push_back(dataSet.second);
+            for (const auto &dataInterval: dataSet.second->getDataIntervalChildren()) {
+                result.push_back(dataInterval.second);
+                for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
+                    result.push_back(genericData);
+                }
+            }
+        }
+    } else if (GNEAttributeCarrier::getTagProperties(type).isAdditionalElement()) {
         // only returns additionals of a certain type.
-        for (auto i : myAttributeCarriers->getAdditionals().at(type)) {
-            result.push_back(i.second);
+        for (const auto &additional : myAttributeCarriers->getAdditionals().at(type)) {
+            result.push_back(additional.second);
         }
-    } else if (GNEAttributeCarrier::getTagProperties(type).isDemandElement() || GNEAttributeCarrier::getTagProperties(type).isStop()) {
+    } else if (GNEAttributeCarrier::getTagProperties(type).isShape()) {
+        // only returns shapes of a certain type.
+        for (const auto &shape : myAttributeCarriers->getShapes().at(type)) {
+            result.push_back(shape.second);
+        }
+    } else if (GNEAttributeCarrier::getTagProperties(type).isTAZElement()) {
+        // only returns TAZ of a certain type.
+        for (const auto &TAZElement : myAttributeCarriers->getTAZElements().at(type)) {
+            result.push_back(TAZElement.second);
+        }
+    } else if (GNEAttributeCarrier::getTagProperties(type).isDemandElement()) {
         // only returns demand elements of a certain type.
-        for (auto i : myAttributeCarriers->getDemandElements().at(type)) {
-            result.push_back(i.second);
+        for (const auto &demandElemet : myAttributeCarriers->getDemandElements().at(type)) {
+            result.push_back(demandElemet.second);
+        }
+    } else if (GNEAttributeCarrier::getTagProperties(type).isGenericData()) {
+        for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+            for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+                for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
+                    if (genericData->getTagProperty().getTag() == type) {
+                        result.push_back(genericData);
+                    }
+                }
+            }
         }
     } else {
         // return only a part of elements, depending of type
         switch (type) {
             case SUMO_TAG_JUNCTION:
-                for (auto i : myAttributeCarriers->getJunctions()) {
-                    result.push_back(i.second);
+                for (const auto &junction : myAttributeCarriers->getJunctions()) {
+                    result.push_back(junction.second);
                 }
                 break;
             case SUMO_TAG_EDGE:
-                for (auto i : myAttributeCarriers->getEdges()) {
-                    result.push_back(i.second);
+                for (const auto &edge : myAttributeCarriers->getEdges()) {
+                    result.push_back(edge.second);
                 }
                 break;
             case SUMO_TAG_LANE:
-                for (auto i : myAttributeCarriers->getEdges()) {
-                    for (auto j : i.second->getLanes()) {
-                        result.push_back(j);
+                for (const auto &edge : myAttributeCarriers->getEdges()) {
+                    for (const auto &lane : edge.second->getLanes()) {
+                        result.push_back(lane);
                     }
                 }
                 break;
             case SUMO_TAG_CONNECTION:
-                for (auto i : myAttributeCarriers->getEdges()) {
-                    for (auto j : i.second->getGNEConnections()) {
-                        result.push_back(j);
+                for (const auto &edge : myAttributeCarriers->getEdges()) {
+                    for (const auto &connection : edge.second->getGNEConnections()) {
+                        result.push_back(connection);
                     }
                 }
                 break;
             case SUMO_TAG_CROSSING:
-                for (auto i : myAttributeCarriers->getJunctions()) {
-                    for (auto j : i.second->getGNECrossings()) {
-                        result.push_back(j);
+                for (const auto &junction : myAttributeCarriers->getJunctions()) {
+                    for (const auto &crossing : junction.second->getGNECrossings()) {
+                        result.push_back(crossing);
                     }
                 }
                 break;
-            case SUMO_TAG_POLY:
-                for (const auto& polygon : myAttributeCarriers->getShapes().at(SUMO_TAG_POLY)) {
-                    result.push_back(polygon.second);
+            case SUMO_TAG_DATASET:
+                for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+                    result.push_back(dataSet.second);
                 }
                 break;
-            case SUMO_TAG_POI:
-                for (const auto& POI : myAttributeCarriers->getShapes().at(SUMO_TAG_POI)) {
-                    result.push_back(POI.second);
-                }
-                break;
-            case SUMO_TAG_POILANE:
-                for (const auto& POILane : myAttributeCarriers->getShapes().at(SUMO_TAG_POILANE)) {
-                    result.push_back(POILane.second);
+            case SUMO_TAG_DATAINTERVAL:
+                for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+                    for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
+                        result.push_back(dataInterval.second);
+                    }
                 }
                 break;
             default:
@@ -2914,6 +2969,7 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         myAttributeCarriers->clearEdges();
         myAttributeCarriers->clearAdditionals();
         myAttributeCarriers->clearShapes();
+        myAttributeCarriers->clearTAZElements();
         myAttributeCarriers->clearDemandElements();
         // enable update geometry again
         myUpdateGeometryEnabled = true;

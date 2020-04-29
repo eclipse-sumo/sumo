@@ -75,11 +75,11 @@ GNETagProperties::getTagStr() const {
 void
 GNETagProperties::checkTagIntegrity() const {
     // check that element must ist at least networkElement, Additional, or shape
-    if (!isNetworkElement() && !isAdditionalElement() && !isShape() && !isTAZ() && !isDemandElement() && !isDataElement()) {
+    if (!isNetworkElement() && !isAdditionalElement() && !isShape() && !isTAZElement() && !isDemandElement() && !isDataElement()) {
         throw ProcessError("element must be at leas networkElement, additional, TAZ, shape, demandElement or dataElement");
     }
     // check that element only is networkElement, Additional, or shape at the same time
-    if ((isNetworkElement() + isAdditionalElement() + isShape() + isTAZ() + isDemandElement() + isDataElement()) > 1) {
+    if ((isNetworkElement() + isAdditionalElement() + isShape() + isTAZElement() + isDemandElement() + isDataElement()) > 1) {
         throw ProcessError("element can be only a networkElement, additional, TAZ, shape, demandElement or dataElement at the same time");
     }
     // if element can mask the start and end position, check that bot attributes exist
@@ -95,15 +95,15 @@ GNETagProperties::checkTagIntegrity() const {
         throw FormatException("Tag doesn't support synonyms");
     }
     // check integrity of all attributes
-    for (auto i : myAttributeProperties) {
-        i.checkAttributeIntegrity();
+    for (auto attributeProperty : myAttributeProperties) {
+        attributeProperty.checkAttributeIntegrity();
         // check that if attribute is vehicle classes, own a combination of Allow/disallow attibute
-        if (i.isVClasses()) {
-            if ((i.getAttr() != SUMO_ATTR_ALLOW) && (i.getAttr() != SUMO_ATTR_DISALLOW)) {
+        if (attributeProperty.isVClasses()) {
+            if ((attributeProperty.getAttr() != SUMO_ATTR_ALLOW) && (attributeProperty.getAttr() != SUMO_ATTR_DISALLOW)) {
                 throw ProcessError("Attributes aren't combinables");
-            } else if ((i.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
+            } else if ((attributeProperty.getAttr() == SUMO_ATTR_ALLOW) && !hasAttribute(SUMO_ATTR_DISALLOW)) {
                 throw ProcessError("allow need a disallow attribute in the same tag");
-            } else if ((i.getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
+            } else if ((attributeProperty.getAttr() == SUMO_ATTR_DISALLOW) && !hasAttribute(SUMO_ATTR_ALLOW)) {
                 throw ProcessError("disallow need an allow attribute in the same tag");
             }
         }
@@ -247,8 +247,8 @@ GNETagProperties::isShape() const {
 
 
 bool
-GNETagProperties::isTAZ() const {
-    return (myTagType & TAZ) != 0;
+GNETagProperties::isTAZElement() const {
+    return (myTagType & TAZELEMENT) != 0;
 }
 
 

@@ -58,6 +58,7 @@ class GNENetworkElement;
 class GNEPOI;
 class GNEPoly;
 class GNEShape;
+class GNETAZElement;
 class GNEUndoList;
 class GNEViewNet;
 
@@ -182,6 +183,16 @@ struct GNENetHelper {
 
         /// @}
 
+        /// @name function for TAZElements
+        /// @{
+        /// @brief get TAZElements
+        const std::map<SumoXMLTag, std::map<std::string, GNETAZElement*> >& getTAZElements() const;
+
+        /// @brief clear TAZElements
+        void clearTAZElements();
+
+        /// @}
+
         /// @name function for demand elements
         /// @{
         /// @brief get demand elements
@@ -287,6 +298,25 @@ struct GNENetHelper {
         /// @brief update shape ID in container
         void updateShapeID(GNEAttributeCarrier* AC, const std::string& newID);
 
+        /// @name Insertion and erasing of GNETAZElements items
+        /// @{
+
+        /// @brief return true if given TAZElement exist
+        bool TAZElementExist(GNETAZElement* TAZElement) const;
+
+        /**@brief Insert a TAZElement element int GNENet container.
+         * @throw processError if route was already inserted
+         */
+        void insertTAZElement(GNETAZElement* TAZElement);
+
+        /**@brief delete TAZElement element of GNENet container
+         * @throw processError if TAZElement wasn't previously inserted
+         */
+        bool deleteTAZElement(GNETAZElement* TAZElement);
+
+        /// @brief update TAZElement ID in container
+        void updateTAZElementID(GNEAttributeCarrier* AC, const std::string& newID);
+
         /// @}
 
         /// @name Insertion and erasing of GNEDemandElements items
@@ -343,6 +373,9 @@ struct GNENetHelper {
 
         /// @brief map with the ID and pointer to shape elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEShape*> > myShapes;
+
+        /// @brief map with the ID and pointer to TAZElement elements of net
+        std::map<SumoXMLTag, std::map<std::string, GNETAZElement*> > myTAZElements;
 
         /// @brief map with the ID and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > myDemandElements;

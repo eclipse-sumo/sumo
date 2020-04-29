@@ -43,7 +43,7 @@ GNEHierarchicalChildElements::GNEHierarchicalChildElements(const GNEAttributeCar
         const std::vector<GNELane*>& childLanes,
         const std::vector<GNEAdditional*>& childAdditionals,
         const std::vector<GNEShape*>& childShapes,
-        const std::vector<GNETAZ*>& childTAZs,
+        const std::vector<GNETAZElement*>& childTAZElements,
         const std::vector<GNEDemandElement*>& childDemandElements,
         const std::vector<GNEGenericData*>& childGenericDataElements) :
     myChildConnections(this),
@@ -52,7 +52,7 @@ GNEHierarchicalChildElements::GNEHierarchicalChildElements(const GNEAttributeCar
     myChildLanes(childLanes),
     myChildAdditionals(childAdditionals),
     myChildShapes(childShapes),
-    myChildTAZs(childTAZs),
+    myChildTAZElements(childTAZElements),
     myChildDemandElements(childDemandElements),
     myChildGenericDataElements(childGenericDataElements),
     myAC(AC) {
@@ -140,29 +140,6 @@ GNEHierarchicalChildElements::removeChildAdditional(GNEAdditional* additional) {
 const std::vector<GNEAdditional*>&
 GNEHierarchicalChildElements::getChildAdditionals() const {
     return myChildAdditionals;
-}
-
-
-size_t
-GNEHierarchicalChildElements::getNumberOfChildAdditionals(GNETagProperties::TagType additionalType) const {
-    size_t number = 0;
-    // check additional type
-    if (additionalType == GNETagProperties::TagType::ADDITIONALELEMENT) {
-        for (const auto& additional : myChildAdditionals) {
-            if (additional->getTagProperty().isAdditionalElement()) {
-                number++;
-            }
-        }
-    } else if (additionalType == GNETagProperties::TagType::TAZ) {
-        for (const auto& additional : myChildAdditionals) {
-            if (additional->getTagProperty().isTAZ()) {
-                number++;
-            }
-        }
-    } else {
-        throw ProcessError("invalid additionalType");
-    }
-    return number;
 }
 
 
@@ -282,6 +259,78 @@ GNEHierarchicalChildElements::checkChildAdditionalsOverlapping() const {
     } else {
         throw ProcessError("Some child additional were lost during sorting");
     }
+}
+
+
+void
+GNEHierarchicalChildElements::addChildShape(GNEShape* shape) {
+    // Check that shape is valid and doesn't exist previously
+    if (shape == nullptr) {
+        throw InvalidArgument("Trying to add an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end()) {
+        throw InvalidArgument("Trying to add a duplicate child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildShapes.push_back(shape);
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+void
+GNEHierarchicalChildElements::removeChildShape(GNEShape* shape) {
+    // Check that shape is valid and exist previously
+    if (shape == nullptr) {
+        throw InvalidArgument("Trying to remove an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) == myChildShapes.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildShapes.erase(std::find(myChildShapes.begin(), myChildShapes.end(), shape));
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+const std::vector<GNEShape*>&
+GNEHierarchicalChildElements::getChildShapes() const {
+    return myChildShapes;
+}
+
+
+void
+GNEHierarchicalChildElements::addChildTAZElement(GNETAZElement* TAZElement) {
+    // Check that TAZElement is valid and doesn't exist previously
+    if (TAZElement == nullptr) {
+        throw InvalidArgument("Trying to add an empty child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) != myChildTAZElements.end()) {
+        throw InvalidArgument("Trying to add a duplicate child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildTAZElements.push_back(TAZElement);
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+void
+GNEHierarchicalChildElements::removeChildTAZElement(GNETAZElement* TAZElement) {
+    // Check that TAZElement is valid and exist previously
+    if (TAZElement == nullptr) {
+        throw InvalidArgument("Trying to remove an empty child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) == myChildTAZElements.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildTAZElements.erase(std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement));
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+const std::vector<GNETAZElement*>&
+GNEHierarchicalChildElements::getChildTAZElements() const {
+    return myChildTAZElements;
 }
 
 
@@ -494,42 +543,6 @@ GNEHierarchicalChildElements::removeChildLane(GNELane* lane) {
 const std::vector<GNELane*>&
 GNEHierarchicalChildElements::getChildLanes() const {
     return myChildLanes;
-}
-
-
-void
-GNEHierarchicalChildElements::addChildShape(GNEShape* shape) {
-    // Check that shape is valid and doesn't exist previously
-    if (shape == nullptr) {
-        throw InvalidArgument("Trying to add an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end()) {
-        throw InvalidArgument("Trying to add a duplicate child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildShapes.push_back(shape);
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-void
-GNEHierarchicalChildElements::removeChildShape(GNEShape* shape) {
-    // Check that shape is valid and exist previously
-    if (shape == nullptr) {
-        throw InvalidArgument("Trying to remove an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) == myChildShapes.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildShapes.erase(std::find(myChildShapes.begin(), myChildShapes.end(), shape));
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-const std::vector<GNEShape*>&
-GNEHierarchicalChildElements::getChildShapes() const {
-    return myChildShapes;
 }
 
 

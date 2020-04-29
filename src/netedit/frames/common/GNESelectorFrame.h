@@ -195,6 +195,7 @@ public:
             NETWORKELEMENT,
             ADDITIONALELEMENT,
             SHAPE,
+            TAZELEMENT,
             DEMANDELEMENT,
             DATA,
             INVALID,

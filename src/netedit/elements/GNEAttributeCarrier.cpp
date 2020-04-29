@@ -103,7 +103,7 @@ GNEAttributeCarrier::isAttributeCarrierSelected() const {
 bool
 GNEAttributeCarrier::drawUsingSelectColor() const {
     // get flag for network element
-    const bool networkElement = myTagProperty.isNetworkElement() || myTagProperty.isAdditionalElement() || myTagProperty.isShape() || myTagProperty.isTAZ();
+    const bool networkElement = myTagProperty.isNetworkElement() || myTagProperty.isAdditionalElement() || myTagProperty.isShape() || myTagProperty.isTAZElement();
     // check supermode network
     if ((networkElement && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) ||
             (myTagProperty.isDemandElement() && myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) ||
@@ -548,10 +548,10 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
             }
         }
     }
-    if (tagPropertyCategory & GNETagProperties::TAZ) {
+    if (tagPropertyCategory & GNETagProperties::TAZELEMENT) {
         // fill taz tags
         for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isTAZ() && (!onlyDrawables || tagProperty.second.isDrawable())) {
+            if (tagProperty.second.isTAZElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
                 allowedTags.push_back(tagProperty.first);
             }
         }
@@ -672,6 +672,7 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillNetworkElements();
     fillAdditionals();
     fillShapes();
+    fillTAZElements();
     fillDemandElements();
     fillVehicleElements();
     fillStopElements();
@@ -679,8 +680,8 @@ GNEAttributeCarrier::fillAttributeCarriers() {
     fillPersonStopElements();
     fillDataElements();
     // check integrity of all Tags (function checkTagIntegrity() throw an exception if there is an inconsistency)
-    for (const auto& i : myTagProperties) {
-        i.second.checkTagIntegrity();
+    for (const auto& tagProperty : myTagProperties) {
+        tagProperty.second.checkTagIntegrity();
     }
 }
 
@@ -2108,67 +2109,6 @@ GNEAttributeCarrier::fillAdditionals() {
                                               "Name of " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_TAZ;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAZ, GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::BLOCKSHAPE | GNETagProperties::AUTOMATICSORTING, GUIIcon::TAZ);
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
-                                              "The id of the TAZ");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The shape of the TAZ");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
-                                              "The RGBA color with which the TAZ shall be displayed",
-                                              "red");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILL,
-                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLIGNORED,
-                                              "An information whether the TAZ shall be filled",
-                                              "0");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
-    currentTag = SUMO_TAG_TAZSOURCE;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAZ, GNETagProperties::PARENT, GUIIcon::TAZEDGE, SUMO_TAG_TAZ);
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The id of edge in the simulation network");
-        attrProperty.setSynonym(SUMO_ATTR_ID);
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_WEIGHT,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                              "Depart weight associated to this Edge",
-                                              "1");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
-    currentTag = SUMO_TAG_TAZSINK;
-    {
-        // set values of tag
-        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAZ, GNETagProperties::PARENT, GUIIcon::TAZEDGE, SUMO_TAG_TAZ);
-        // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
-                                              GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
-                                              "The id of edge in the simulation network");
-        attrProperty.setSynonym(SUMO_ATTR_ID);
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_WEIGHT,
-                                              GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
-                                              "Arrival weight associated to this Edget",
-                                              "1");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-    }
 }
 
 
@@ -2375,6 +2315,75 @@ GNEAttributeCarrier::fillShapes() {
                                               GNEAttributeProperties::FLOAT | GNEAttributeProperties::ANGLE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                               "Angle of rendered image in degree",
                                               toString(Shape::DEFAULT_ANGLE));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+}
+
+
+void 
+GNEAttributeCarrier::fillTAZElements() {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+    // fill TAZ ACs
+    SumoXMLTag currentTag = SUMO_TAG_TAZ;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAZELEMENT, GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::BLOCKSHAPE | GNETagProperties::AUTOMATICSORTING, GUIIcon::TAZ);
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+            "The id of the TAZ");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SHAPE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::POSITION | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
+            "The shape of the TAZ");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_COLOR,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::COLOR | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+            "The RGBA color with which the TAZ shall be displayed",
+            "red");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FILL,
+            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLIGNORED,
+            "An information whether the TAZ shall be filled",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_TAZSOURCE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAZELEMENT, GNETagProperties::PARENT, GUIIcon::TAZEDGE, SUMO_TAG_TAZ);
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
+            "The id of edge in the simulation network");
+        attrProperty.setSynonym(SUMO_ATTR_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_WEIGHT,
+            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+            "Depart weight associated to this Edge",
+            "1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = SUMO_TAG_TAZSINK;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::TAZELEMENT, GNETagProperties::PARENT, GUIIcon::TAZEDGE, SUMO_TAG_TAZ);
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::SYNONYM | GNEAttributeProperties::UPDATEGEOMETRY,
+            "The id of edge in the simulation network");
+        attrProperty.setSynonym(SUMO_ATTR_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_WEIGHT,
+            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+            "Arrival weight associated to this Edget",
+            "1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 }

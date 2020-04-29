@@ -58,7 +58,7 @@ public:
      * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
      * @param[in] shapeParents vector of shape parents
-     * @param[in] TAZParents vector of TAZ parents
+     * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] junctionChildren vector of junction children
@@ -66,7 +66,7 @@ public:
      * @param[in] laneChildren vector of lane children
      * @param[in] additionalChildren vector of additional children
      * @param[in] shapeChildren vector of shape children
-     * @param[in] TAZChildren vector of TAZ children
+     * @param[in] TAZElementChildren vector of TAZElement children
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
      */
@@ -76,7 +76,7 @@ public:
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEAdditional*>& additionalParents,
         const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZ*>& TAZParents,
+        const std::vector<GNETAZElement*>& TAZElementParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEGenericData*>& genericDataParents,
         const std::vector<GNEJunction*>& junctionChildren,
@@ -84,7 +84,7 @@ public:
         const std::vector<GNELane*>& laneChildren,
         const std::vector<GNEAdditional*>& additionalChildren,
         const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNETAZ*>& TAZChildren,
+        const std::vector<GNETAZElement*>& TAZElementChildren,
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren);
 
@@ -100,7 +100,7 @@ public:
      * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
      * @param[in] shapeParents vector of shape parents
-     * @param[in] TAZParents vector of TAZ parents
+     * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      * @param[in] junctionChildren vector of junction children
@@ -108,7 +108,7 @@ public:
      * @param[in] laneChildren vector of lane children
      * @param[in] additionalChildren vector of additional children
      * @param[in] shapeChildren vector of shape children
-     * @param[in] TAZChildren vector of TAZ children
+     * @param[in] TAZElementChildren vector of TAZElement children
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
     */
@@ -118,7 +118,7 @@ public:
         const std::vector<GNELane*>& laneParents,
         const std::vector<GNEAdditional*>& additionalParents,
         const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZ*>& TAZParents,
+        const std::vector<GNETAZElement*>& TAZElementParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEGenericData*>& genericDataParents,
         const std::vector<GNEJunction*>& junctionChildren,
@@ -126,7 +126,7 @@ public:
         const std::vector<GNELane*>& laneChildren,
         const std::vector<GNEAdditional*>& additionalChildren,
         const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNETAZ*>& TAZChildren,
+        const std::vector<GNETAZElement*>& TAZElementChildren,
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren);
 

@@ -11,11 +11,11 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEShape.h
+/// @file    GNETAZElement.h
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2017
+/// @date    April 2020
 ///
-// Abstract class for Shapes uses in netedit
+// Abstract class for TAZElements uses in netedit
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -28,7 +28,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNETAZElement : public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
 
 public:
     /**@brief Constructor.
@@ -39,7 +39,7 @@ public:
      * @param[in] edgeParents vector of edge parents
      * @param[in] laneParents vector of lane parents
      * @param[in] additionalParents vector of additional parents
-     * @param[in] shapeParents vector of shape parents
+     * @param[in] GNEShape vector of GNEShape parents
      * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
@@ -47,12 +47,12 @@ public:
      * @param[in] edgeChildren vector of edge children
      * @param[in] laneChildren vector of lane children
      * @param[in] additionalChildren vector of additional children
-     * @param[in] shapeChildren vector of shape children
+     * @param[in] GNEShape vector of GNEShape children
      * @param[in] TAZElementChildren vector of TAZElement children
      * @param[in] demandElementChildren vector of demandElement children
      * @param[in] genericDataChildren vector of genericData children
      */
-    GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
+    GNETAZElement(GNENet* net, SumoXMLTag tag, bool movementBlocked,
         const std::vector<GNEJunction*>& junctionParents,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
@@ -71,9 +71,9 @@ public:
         const std::vector<GNEGenericData*>& genericDataChildren);
 
     /// @brief Destructor
-    virtual ~GNEShape();
+    virtual ~GNETAZElement();
 
-    /// @brief get ID (all shapes have one)
+    /// @brief get ID (all TAZElements have one)
     virtual const std::string& getID() const = 0;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
@@ -88,10 +88,10 @@ public:
      */
     virtual void setParameter(const std::string& key, const std::string& value) = 0;
 
-    /**@brief writte shape element into a xml file
+    /**@brief writte TAZElement element into a xml file
     * @param[in] device device in which write parameters of additional element
     */
-    virtual void writeShape(OutputDevice& device) = 0;
+    virtual void writeTAZElement(OutputDevice& device) = 0;
 
     /// @brief Returns the numerical id of the object
     virtual GUIGlID getGlID() const = 0;
@@ -212,8 +212,8 @@ private:
     void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief Invalidated copy constructor.
-    GNEShape(const GNEShape&) = delete;
+    GNETAZElement(const GNETAZElement&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEShape& operator=(const GNEShape&) = delete;
+    GNETAZElement& operator=(const GNETAZElement&) = delete;
 };

@@ -120,7 +120,7 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         case GNETagProperties::TagType::SHAPE:
             setText("Shape elements");
             break;
-        case GNETagProperties::TagType::TAZ:
+        case GNETagProperties::TagType::TAZELEMENT:
             setText("TAZ elements");
             break;
         case GNETagProperties::TagType::VEHICLE:
@@ -1285,7 +1285,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
         } else {
             return nullptr;
         }
-    } else if (myAC->getTagProperty().isAdditionalElement() || myAC->getTagProperty().isTAZ()) {
+    } else if (myAC->getTagProperty().isAdditionalElement()) {
         // Obtain Additional
         GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(myAC->getTagProperty().getTag(), myAC->getID(), false);
         if (additional) {
@@ -1616,7 +1616,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
     } else if (AC->getTagProperty().isShape()) {
         // insert shape item
         addListItem(AC, itemParent);
-    } else if (AC->getTagProperty().isAdditionalElement() || AC->getTagProperty().isTAZ()) {
+    } else if (AC->getTagProperty().isAdditionalElement()) {
         // retrieve additional
         GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(AC->getTagProperty().getTag(), AC->getID(), false);
         if (additional) {

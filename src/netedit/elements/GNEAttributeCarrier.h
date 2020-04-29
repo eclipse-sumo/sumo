@@ -375,25 +375,28 @@ private:
     /// @brief fill network elements
     static void fillNetworkElements();
 
-    /// @brief fill Additionals
+    /// @brief fill additional elements
     static void fillAdditionals();
 
-    /// @brief fill Shapes
+    /// @brief fill shape elements
     static void fillShapes();
 
-    /// @brief fill Demand Elements
+    /// @brief fill TAZ elements
+    static void fillTAZElements();
+
+    /// @brief fill demand elements
     static void fillDemandElements();
 
     /// @brief fill vehicle elements
     static void fillVehicleElements();
 
-    /// @brief fill Stop elements
+    /// @brief fill stop elements
     static void fillStopElements();
 
-    /// @brief fill Person Elements
+    /// @brief fill person elements
     static void fillPersonElements();
 
-    /// @brief fill PersonStop elements
+    /// @brief fill personStop elements
     static void fillPersonStopElements();
 
     /// @brief fill common vehicle attributes (used by vehicles, trips, routeFlows and flows)

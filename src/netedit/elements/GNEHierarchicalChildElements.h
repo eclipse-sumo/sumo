@@ -29,7 +29,7 @@
 // ===========================================================================
 
 class GNEAdditional;
-class GNETAZ;
+class GNETAZElement;
 class GNEShape;
 class GNEDemandElement;
 class GNEGenericData;
@@ -56,7 +56,7 @@ public:
      * @param[in] childLanes vector of child lanes
      * @param[in] childAdditionals vector of child additional
      * @param[in] childShapes vector of child shapes
-     * @param[in] childTAZs vector of child TAZs
+     * @param[in] childTAZElements vector of child TAZs
      * @param[in] childDemandElements vector of child demand elements
      * @param[in] childGenericDataElements vector of child generic data elements
      */
@@ -66,7 +66,7 @@ public:
         const std::vector<GNELane*>& childLanes,
         const std::vector<GNEAdditional*>& childAdditionals,
         const std::vector<GNEShape*>& childShapes,
-        const std::vector<GNETAZ*>& childTAZs,
+        const std::vector<GNETAZElement*>& childTAZElements,
         const std::vector<GNEDemandElement*>& childDemandElements,
         const std::vector<GNEGenericData*>& childGenericDataElements);
 
@@ -134,9 +134,6 @@ public:
     /// @brief return child additionals
     const std::vector<GNEAdditional*>& getChildAdditionals() const;
 
-    /// @brief get number of child additionals
-    size_t getNumberOfChildAdditionals(GNETagProperties::TagType additionalType) const;
-
     /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
     void sortChildAdditionals();
 
@@ -155,6 +152,19 @@ public:
 
     /// @brief get child shapes
     const std::vector<GNEShape*>& getChildShapes() const;
+
+    /// @}
+
+    /// @name members and functions related to child TAZElements
+    /// @{
+    /// @brief add child TAZElement
+    void addChildTAZElement(GNETAZElement* TAZElement);
+
+    /// @brief remove child TAZElement
+    void removeChildTAZElement(GNETAZElement* TAZElement);
+
+    /// @brief get child TAZElements
+    const std::vector<GNETAZElement*>& getChildTAZElements() const;
 
     /// @}
 
@@ -277,8 +287,8 @@ private:
     /// @brief vector with the child lanes
     std::vector<GNEShape*> myChildShapes;
 
-    /// @brief vector with the child lanes
-    std::vector<GNETAZ*> myChildTAZs;
+    /// @brief vector with the child TAZ Elements
+    std::vector<GNETAZElement*> myChildTAZElements;
 
     /// @brief vector with the demand elements children
     std::vector<GNEDemandElement*> myChildDemandElements;

@@ -11,26 +11,27 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNENetworkElement.cpp
+/// @file    GNETAZElement.cpp
 /// @author  Pablo Alvarez Lopez
-/// @date    Jun 2016
+/// @date    April 2020
 ///
-// A abstract class for networkElements
+// Abstract class for TAZElements uses in netedit
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
-#include "GNENetworkElement.h"
+#include "GNETAZElement.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 
-GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
+GNETAZElement::GNETAZElement(GNENet* net, SumoXMLTag tag, bool movementBlocked,
         const std::vector<GNEJunction*>& junctionParents,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
@@ -47,98 +48,83 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
         const std::vector<GNETAZElement*>& TAZElementChildren,
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
-    GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
-    myMovingGeometryBoundary() {
+    myBlockMovement(movementBlocked) {
 }
 
 
-GNENetworkElement::~GNENetworkElement() {}
+GNETAZElement::~GNETAZElement() {}
 
 
-const std::string&
-GNENetworkElement::getID() const {
-    return getMicrosimID();
-}
-
-
-GUIGlObject*
-GNENetworkElement::getGUIGlObject() {
-    return this;
+bool
+GNETAZElement::isMovementBlocked() const {
+    return myBlockMovement;
 }
 
 
 void
-GNENetworkElement::updateDottedGeometry(const PositionVector& shape) {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), shape);
-}
-
-
-std::string
-GNENetworkElement::generateChildID(SumoXMLTag /*childTag*/) {
-    return "";
-}
-
-
-GUIParameterTableWindow*
-GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
-    // Create table
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
-    // Iterate over attributes
-    for (const auto& i : myTagProperty) {
-        // Add attribute and set it dynamic if aren't unique
-        if (i.isUnique()) {
-            ret->mkItem(i.getAttrStr().c_str(), false, getAttribute(i.getAttr()));
+GNETAZElement::draw(const Position& pos, double layer, double size) const {
+    if (myNet->getViewNet()->showLockIcon()) {
+        // Start pushing matrix
+        glPushMatrix();
+        // Traslate to middle of TAZElement
+        glTranslated(pos.x(), pos.y(), layer + 0.1);
+        // Rotate 180 degrees
+        glRotated(180, 0, 0, 1);
+        // Set draw color
+        glColor3d(1, 1, 1);
+        // Draw icon depending of the selection status
+        if (mySelected) {
+            if (myBlockMovement) {
+                // Draw lock texture if TAZElement is movable, is blocked and is selected
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);
+            } else {
+                // Draw empty texture if TAZElement is movable, isn't blocked and is selected
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED), size);
+            }
         } else {
-            ret->mkItem(i.getAttrStr().c_str(), true, getAttribute(i.getAttr()));
+            if (myBlockMovement) {
+                // Draw lock texture if TAZElement is movable and is blocked
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCK), size);
+            } else {
+                // Draw empty texture if TAZElement is movable and isn't blocked
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTY), size);
+            }
         }
+        // Pop matrix
+        glPopMatrix();
     }
-    // close building
-    ret->closeBuilding();
-    return ret;
 }
 
 
 void
-GNENetworkElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+GNETAZElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
 
 
 void
-GNENetworkElement::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
+GNETAZElement::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }
 
 
 std::string
-GNENetworkElement::getPopUpID() const {
-    if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {
-        return getAttribute(SUMO_ATTR_FROM) + "_" + getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO) + "_" + getAttribute(SUMO_ATTR_TO_LANE);
-    } else {
-        return getTagStr() + ": " + getID();
-    }
+GNETAZElement::getPopUpID() const {
+    return getTagStr() + ": " + getID();
 }
 
 
 std::string
-GNENetworkElement::getHierarchyName() const {
-    if (myTagProperty.getTag() == SUMO_TAG_LANE) {
-        return toString(SUMO_TAG_LANE) + " " + getAttribute(SUMO_ATTR_INDEX);
-    } else if (myTagProperty.getTag() == SUMO_TAG_CONNECTION) {
-        return getAttribute(SUMO_ATTR_FROM_LANE) + " -> " + getAttribute(SUMO_ATTR_TO_LANE);
-    } else if ((myTagProperty.getTag() == SUMO_TAG_EDGE) || (myTagProperty.getTag() == SUMO_TAG_CROSSING)) {
-        return getPopUpID();
-    } else {
-        return getTagStr();
-    }
+GNETAZElement::getHierarchyName() const {
+    return getTagStr();
 }
 
 
 void
-GNENetworkElement::setEnabledAttribute(const int /*enabledAttributes*/) {
+GNETAZElement::setEnabledAttribute(const int /*enabledAttributes*/) {
     //
 }
 

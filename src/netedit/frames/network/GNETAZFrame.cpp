@@ -27,6 +27,7 @@
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/additional/GNETAZSourceSink.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
@@ -1349,11 +1350,11 @@ GNETAZFrame::processClick(const Position& clickedPosition, const GNEViewNetHelpe
             myDrawingShape->addNewPoint(clickedPosition);
         }
         return true;
-    } else if ((myTAZCurrent->getTAZ() == nullptr) || (objectsUnderCursor.getTAZFront() && myTAZCurrent->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
+    } else if ((myTAZCurrent->getTAZ() == nullptr) || (objectsUnderCursor.getTAZElementFront() && myTAZCurrent->getTAZ() && !myTAZSaveChanges->isChangesPending())) {
         // if user click over an TAZ and there isn't changes pending, then select a new TAZ
-        if (objectsUnderCursor.getTAZFront()) {
+        if (objectsUnderCursor.getTAZElementFront()) {
             // avoid reset of Frame if user doesn't click over an TAZ
-            myTAZCurrent->setTAZ(objectsUnderCursor.getTAZFront());
+            myTAZCurrent->setTAZ(dynamic_cast<GNETAZ*>(objectsUnderCursor.getTAZElementFront()));
             return true;
         } else {
             return false;

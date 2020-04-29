@@ -167,17 +167,23 @@ public:
      */
     void deleteCrossing(GNECrossing* crossing, GNEUndoList* undoList);
 
+    /**@brief remove additional
+     * @param[in] additional The Shape to be removed
+     * @param[in] undoList The undolist in which to mark changes
+     */
+    void deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList);
+
     /**@brief remove shape
      * @param[in] shape The Shape to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
     void deleteShape(GNEShape* shape, GNEUndoList* undoList);
 
-    /**@brief remove additional
-     * @param[in] additional The Shape to be removed
+    /**@brief remove TAZElement
+     * @param[in] TAZElement The TAZElement to be removed
      * @param[in] undoList The undolist in which to mark changes
      */
-    void deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList);
+    void deleteTAZElement(GNETAZElement* TAZElement, GNEUndoList* undoList);
 
     /**@brief remove demand element
      * @param[in] demandElement The Shape to be removed

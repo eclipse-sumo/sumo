@@ -220,9 +220,11 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                     objectsUnderCursor.getPolyFront()->deleteGeometryPoint(clickedPosition);
                 }
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-                if (objectsUnderCursor.getTAZFront()->getVertexIndex(clickedPosition, false) != -1) {
-                    objectsUnderCursor.getTAZFront()->deleteGeometryPoint(clickedPosition);
+/*
+                if (objectsUnderCursor.getTAZElementFront()->getVertexIndex(clickedPosition, false) != -1) {
+                    objectsUnderCursor.getTAZElementFront()->deleteGeometryPoint(clickedPosition);
                 }
+*/
             }
         } else {
             // check type of of object under cursor object
@@ -250,7 +252,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
                 myViewNet->getNet()->deleteConnection(objectsUnderCursor.getConnectionFront(), myViewNet->getUndoList());
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-                myViewNet->getNet()->deleteAdditional(objectsUnderCursor.getTAZFront(), myViewNet->getUndoList());
+                myViewNet->getNet()->deleteTAZElement(objectsUnderCursor.getTAZElementFront(), myViewNet->getUndoList());
             } else if (objectsUnderCursor.getAttributeCarrierFront() && (objectsUnderCursor.getAdditionalFront() == objectsUnderCursor.getAttributeCarrierFront())) {
                 myViewNet->getNet()->deleteAdditional(objectsUnderCursor.getAdditionalFront(), myViewNet->getUndoList());
             } else if (objectsUnderCursor.getShapeFront() && (objectsUnderCursor.getShapeFront() == objectsUnderCursor.getAttributeCarrierFront())) {
@@ -376,10 +378,10 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
         const GNEHierarchicalChildElements* hierarchicalChild) :
     myAttributeCarrier(attributeCarrier),
     myViewNet(viewNet),
-    myAdditionalParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
-    myAdditionalChilds(hierarchicalChild->getNumberOfChildAdditionals(GNETagProperties::TagType::ADDITIONALELEMENT)),
-    myTAZParents(hierarchicalParent->getNumberOfParentAdditionals(GNETagProperties::TagType::TAZ)),
-    myTAZChilds(hierarchicalChild->getNumberOfChildAdditionals(GNETagProperties::TagType::TAZ)),
+    myAdditionalParents(hierarchicalParent->getParentAdditionals().size()),
+    myAdditionalChilds(hierarchicalChild->getChildAdditionals().size()),
+    myTAZParents(hierarchicalParent->getParentTAZElements().size()),
+    myTAZChilds(hierarchicalChild->getChildTAZElements().size()),
     myShapeParents(hierarchicalParent->getParentShapes().size()),
     myShapeChilds(hierarchicalChild->getChildShapes().size()),
     myDemandElementParents(hierarchicalParent->getParentDemandElements().size()),

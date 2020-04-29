@@ -41,8 +41,8 @@ public:
         // basic types
         NETWORKELEMENT =    1 << 0,  // Network elements (Edges, Junctions, Lanes...)
         ADDITIONALELEMENT = 1 << 1,  // Additional elements (Bus Stops, Charging Stations, Detectors...)
-        TAZ =               1 << 2,  // Traffic Assignment Zones
-        SHAPE =             1 << 3,  // Shapes (Polygons and POIs)
+        SHAPE =             1 << 2,  // Shapes (Polygons and POIs)
+        TAZELEMENT =        1 << 3,  // Traffic Assignment Zones
         DEMANDELEMENT =     1 << 4,  // Demand elements (Routes, Vehicles, Trips...)
         DATAELEMENT =       1 << 5,  // Data elements (DataSets, Data Intervals, EdgeData...)
         // sub additional elements
@@ -147,8 +147,8 @@ public:
     /// @brief return true if tag correspond to a shape
     bool isShape() const;
 
-    /// @brief return true if tag correspond to a TAZ
-    bool isTAZ() const;
+    /// @brief return true if tag correspond to a TAZ element
+    bool isTAZElement() const;
 
     /// @brief return true if tag correspond to a demand element
     bool isDemandElement() const;

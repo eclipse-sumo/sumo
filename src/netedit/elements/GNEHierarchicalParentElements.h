@@ -32,7 +32,7 @@
 
 class GNENetworkElement;
 class GNEAdditional;
-class GNETAZ;
+class GNETAZElement;
 class GNEShape;
 class GNEDemandElement;
 class GNEGenericData;
@@ -59,7 +59,7 @@ public:
      * @param[in] parentLanes vector of parent lanes
      * @param[in] parentAdditionals vector of parent additionals
      * @param[in] parentShapes vector of parent shapes
-     * @param[in] parentTAZs vector of parent TAZs
+     * @param[in] parentTAZElements vector of parent TAZs
      * @param[in] parentDemandElements vector of parent demand elements
      * @param[in] parentGenericData vector of parent generic data elements
      */
@@ -69,7 +69,7 @@ public:
         const std::vector<GNELane*>& parentLanes,
         const std::vector<GNEAdditional*>& parentAdditionals,
         const std::vector<GNEShape*>& parentShapes,
-        const std::vector<GNETAZ*>& parentTAZs,
+        const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& parentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas);
 
@@ -117,6 +117,19 @@ public:
 
     /// @}
 
+    /// @name members and functions related to parent additionals
+    /// @{
+    /// @brief add parent additional
+    void addParentAdditional(GNEAdditional* additional);
+
+    /// @brief remove parent additional
+    void removeParentAdditional(GNEAdditional* additional);
+
+    /// @brief get parent additionals
+    const std::vector<GNEAdditional*>& getParentAdditionals() const;
+
+    /// @}
+
     /// @name members and functions related to parent shapes
     /// @{
     /// @brief add parent shape
@@ -130,19 +143,16 @@ public:
 
     /// @}
 
-    /// @name members and functions related to parent additionals
+    /// @name members and functions related to parent TAZElements
     /// @{
-    /// @brief add parent additional
-    void addParentAdditional(GNEAdditional* additional);
+    /// @brief add parent TAZElement
+    void addParentTAZElement(GNETAZElement* TAZElement);
 
-    /// @brief remove parent additional
-    void removeParentAdditional(GNEAdditional* additional);
+    /// @brief remove parent TAZElement
+    void removeParentTAZElement(GNETAZElement* TAZElement);
 
-    /// @brief get parent additionals
-    const std::vector<GNEAdditional*>& getParentAdditionals() const;
-
-    /// @brief get number of parent additionals
-    size_t getNumberOfParentAdditionals(GNETagProperties::TagType additionalType) const;
+    /// @brief get parent TAZElements
+    const std::vector<GNETAZElement*>& getParentTAZElements() const;
 
     /// @}
 
@@ -281,8 +291,8 @@ private:
     /// @brief vector of shape parents
     std::vector<GNEShape*> myParentShapes;
 
-    /// @brief vector of TAZ parents
-    std::vector<GNETAZ*> myParentTAZs;
+    /// @brief vector of TAZElement parents
+    std::vector<GNETAZElement*> myParentTAZElements;
 
     /// @brief vector of demand elements parents
     std::vector<GNEDemandElement*> myParentDemandElements;
