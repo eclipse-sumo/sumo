@@ -531,6 +531,11 @@ GNEGenericDataFrame::getEdgePathCreator() const {
     return myEdgePathCreator;
 }
 
+SumoXMLTag
+GNEGenericDataFrame::getTag() const {
+    return myGenericDataTag;
+}
+
 
 void
 GNEGenericDataFrame::show() {
@@ -551,7 +556,8 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     myIntervalSelector(nullptr),
     myAttributeSelector(nullptr),
     myParametersEditor(nullptr),
-    myEdgePathCreator(nullptr) {
+    myEdgePathCreator(nullptr),
+    myGenericDataTag(tag) {
     // create DataSetSelector
     myDataSetSelector = new DataSetSelector(this);
     // create IntervalSelector modul

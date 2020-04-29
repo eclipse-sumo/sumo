@@ -236,6 +236,9 @@ public:
     /// @brief get EdgePathCreator modul
     GNEFrameModuls::EdgePathCreator* getEdgePathCreator() const;
 
+    /// @bried get element type of this data frame
+    SumoXMLTag getTag() const;
+
     /// @brief show Frame
     void show();
 
@@ -270,6 +273,9 @@ protected:
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEFrameModuls::EdgePathCreator* myEdgePathCreator;
+
+    /// @brief generic data tag
+    SumoXMLTag myGenericDataTag;
 
 private:
     /// @brief Invalidated copy constructor.

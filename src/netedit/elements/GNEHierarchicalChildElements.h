@@ -194,6 +194,8 @@ public:
     /// @brief return child generic data elements
     const std::vector<GNEGenericData*>& getChildGenericDataElements() const;
 
+    /// @brief return data element for the current dataset and interval or nullptr
+    GNEGenericData* getCurrentGenericDataElement() const;
     /// @}
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)

@@ -57,6 +57,7 @@ class GNEStopFrame;
 class GNEVehicleFrame;
 class GNEVehicleTypeFrame;
 // data frames
+class GNEGenericDataFrame;
 class GNEEdgeDataFrame;
 class GNEEdgeRelDataFrame;
 
@@ -168,6 +169,9 @@ public:
 
     /// @brief get frame for DATA_EDGERELDATA
     GNEEdgeRelDataFrame* getEdgeRelDataFrame() const;
+
+    /// @brief get current data frame
+    GNEGenericDataFrame* getDataFrame() const;
 
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();

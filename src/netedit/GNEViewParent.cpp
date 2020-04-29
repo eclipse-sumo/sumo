@@ -301,6 +301,18 @@ GNEViewParent::getEdgeRelDataFrame() const {
 }
 
 
+GNEGenericDataFrame*
+GNEViewParent::getDataFrame() const {
+    if (myFrames.edgeDataFrame->shown()) {
+        return myFrames.edgeDataFrame;
+    } else if (myFrames.edgeRelDataFrame->shown()) {
+        return myFrames.edgeRelDataFrame;
+    } else {
+        return nullptr;
+    }
+}
+
+
 void
 GNEViewParent::showFramesArea() {
     // show and recalc framesArea if at least there is a frame shown

@@ -25,6 +25,9 @@
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
+#include <netedit/frames/data/GNEGenericDataFrame.h>
+#include <netedit/GNENet.h>
+#include <netedit/GNEViewParent.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -400,8 +403,30 @@ GNEHierarchicalChildElements::removeChildGenericDataElement(GNEGenericData* gene
 
 
 const std::vector<GNEGenericData*>&
-GNEHierarchicalChildElements:: getChildGenericDataElements() const {
+GNEHierarchicalChildElements::getChildGenericDataElements() const {
     return myChildGenericDataElements;
+}
+
+
+GNEGenericData*
+GNEHierarchicalChildElements::getCurrentGenericDataElement() const {
+    // it would be reasonable to cache this rather than search through all
+    // datasets and intervals
+    const GNEDataInterval* activeInterval = nullptr;
+    const GNEGenericDataFrame* dataFrame = myAC->getNet()->getViewNet()->getViewParent()->getDataFrame();
+    if (dataFrame != nullptr) {
+        activeInterval = dataFrame->getIntervalSelector()->getDataInterval();
+    }
+    // XXX activeInterval could also be supplied in other data-submocdes (inspect, select, delete)
+    if (activeInterval == nullptr) {
+        return nullptr;
+    }
+    for (GNEGenericData* data : myChildGenericDataElements) {
+        if (data->getDataIntervalParent() == activeInterval) {
+            return data;
+        }
+    }
+    return nullptr;
 }
 
 
