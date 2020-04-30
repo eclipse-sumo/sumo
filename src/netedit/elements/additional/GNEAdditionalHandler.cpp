@@ -119,9 +119,9 @@ GNEAdditionalHandler::myEndElement(int element) {
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     switch (tag) {
         case SUMO_TAG_TAZ: {
-            GNETAZ* TAZ = dynamic_cast<GNETAZ*>(myLastInsertedElement->getLastInsertedAdditional());
+            GNETAZElement* TAZ = myLastInsertedElement->getLastInsertedTAZElement();
             if (TAZ != nullptr) {
-                if (TAZ->getTAZShape().size() == 0) {
+                if (TAZ->getTAZElementShape().size() == 0) {
                     Boundary b;
                     if (TAZ->getChildAdditionals().size() > 0) {
                         for (const auto& i : TAZ->getChildAdditionals()) {
@@ -833,24 +833,24 @@ GNEAdditionalHandler::buildTAZ(GNENet* net, bool allowUndoRedo, const std::strin
         for (const auto &edge : edges) {
             // create TAZ Source using GNEChange_Additional
             GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
-            net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
             // create TAZ Sink using GNEChange_Additional
             GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
-            net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
         }
         net->getViewNet()->getUndoList()->p_end();
     } else {
         net->getAttributeCarriers()->insertTAZElement(TAZ);
         TAZ->incRef("buildTAZ");
-        for (auto i : edges) {
+        for (const auto& edge : edges) {
             // create TAZ Source
-            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, i, 1);
+            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
             TAZSource->incRef("buildTAZ");
-            TAZ->addChildAdditional(TAZSource);
+            TAZ->addChildTAZElement(TAZSource);
             // create TAZ Sink
-            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, i, 1);
+            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
             TAZSink->incRef("buildTAZ");
-            TAZ->addChildAdditional(TAZSink);
+            TAZ->addChildTAZElement(TAZSink);
         }
     }
     // enable updating geometry again and update geometry of TAZ
@@ -862,13 +862,13 @@ GNEAdditionalHandler::buildTAZ(GNENet* net, bool allowUndoRedo, const std::strin
 }
 
 
-GNEAdditional*
+GNETAZElement*
 GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double departWeight) {
-    GNEAdditional* TAZSink = nullptr;
+    GNETAZElement* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (auto i : TAZ->getChildAdditionals()) {
-        if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
-            TAZSink = i;
+    for (const auto & TAZElement : TAZ->getChildTAZElements()) {
+        if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSink = TAZElement;
         }
     }
     // check if TAZSink has to be created
@@ -877,19 +877,19 @@ GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElem
         TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
-            net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            net->getAttributeCarriers()->insertAdditional(TAZSink);
+            net->getAttributeCarriers()->insertTAZElement(TAZSink);
             TAZSink->incRef("buildTAZSource");
         }
     }
     // now check check if TAZSource exist
-    GNEAdditional* TAZSource = nullptr;
+    GNETAZElement* TAZSource = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (auto i : TAZ->getChildAdditionals()) {
-        if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
-            TAZSource = i;
+    for (const auto &TAZElement : TAZ->getChildTAZElements()) {
+        if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSource = TAZElement;
         }
     }
     // check if TAZSource has to be created
@@ -898,10 +898,10 @@ GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElem
         TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, departWeight);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
-            net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            net->getAttributeCarriers()->insertAdditional(TAZSource);
+            net->getAttributeCarriers()->insertTAZElement(TAZSource);
             TAZSource->incRef("buildTAZSource");
         }
     } else {
@@ -919,13 +919,13 @@ GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElem
 }
 
 
-GNEAdditional*
+GNETAZElement*
 GNEAdditionalHandler::buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double arrivalWeight) {
-    GNEAdditional* TAZSource = nullptr;
+    GNETAZElement* TAZSource = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (auto i : TAZ->getChildAdditionals()) {
-        if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
-            TAZSource = i;
+    for (const auto& TAZElement : TAZ->getChildTAZElements()) {
+        if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSource = TAZElement;
         }
     }
     // check if TAZSource has to be created
@@ -934,18 +934,18 @@ GNEAdditionalHandler::buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElemen
         TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSOURCE));
-            net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            net->getAttributeCarriers()->insertAdditional(TAZSource);
+            net->getAttributeCarriers()->insertTAZElement(TAZSource);
             TAZSource->incRef("buildTAZSink");
         }
     }
-    GNEAdditional* TAZSink = nullptr;
+    GNETAZElement* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (auto i : TAZ->getChildAdditionals()) {
-        if ((i->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (i->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
-            TAZSink = i;
+    for (const auto &TAZElement : TAZ->getChildTAZElements()) {
+        if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
+            TAZSink = TAZElement;
         }
     }
     // check if TAZSink has to be created
@@ -954,10 +954,10 @@ GNEAdditionalHandler::buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElemen
         TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, arrivalWeight);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZSINK));
-            net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            net->getAttributeCarriers()->insertAdditional(TAZSink);
+            net->getAttributeCarriers()->insertTAZElement(TAZSink);
             TAZSink->incRef("buildTAZSink");
         }
     } else {
@@ -1175,10 +1175,10 @@ GNEAdditionalHandler::parseAndBuildTAZSource(GNENet* net, bool allowUndoRedo, co
             WRITE_WARNING("A " + toString(SUMO_TAG_TAZSOURCE) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
         } else {
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildTAZSource(net, allowUndoRedo, TAZ, edge, departWeight);
+            GNETAZElement* additionalCreated = buildTAZSource(net, allowUndoRedo, TAZ, edge, departWeight);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
+                insertedAdditionals->commitTAZElementInsertion(additionalCreated);
             }
             return true;
         }
@@ -1212,10 +1212,10 @@ GNEAdditionalHandler::parseAndBuildTAZSink(GNENet* net, bool allowUndoRedo, cons
             WRITE_WARNING("A " + toString(SUMO_TAG_TAZSINK) + " must be declared within the definition of a " + toString(SUMO_TAG_TAZ) + ".");
         } else {
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildTAZSink(net, allowUndoRedo, TAZ, edge, arrivalWeight);
+            GNETAZElement* additionalCreated = buildTAZSink(net, allowUndoRedo, TAZ, edge, arrivalWeight);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
+                insertedAdditionals->commitTAZElementInsertion(additionalCreated);
             }
             return true;
         }

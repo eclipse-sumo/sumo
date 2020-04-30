@@ -72,15 +72,11 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
-    GNETAZElement(net, /*GLO_TAZ, */SUMO_TAG_TAZ, blockMovement,
+    GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ, blockMovement,
         {}, {}, {}, {}, {}, {}, {}, {},     // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),    // Children
     GUIPolygon(id, "", color, shape, false, false, 1),
-    myColor(color),
-    myTAZShape(shape),
     myBlockShape(false),
-    myDrawFill(false),
-    myCurrentMovingVertexIndex(-1),
     myMaxWeightSource(0),
     myMinWeightSource(0),
     myAverageWeightSource(0),
@@ -92,34 +88,15 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColo
 
 GNETAZ::~GNETAZ() {}
 
-
-const std::string& 
-GNETAZ::getID() const {
-    return getMicrosimID();
-}
-
-
-GUIGlObject* 
-GNETAZ::getGUIGlObject() {
-    return this;
+const PositionVector& 
+GNETAZ::getTAZElementShape() const {
+    return myShape;
 }
 
 
 void 
-GNETAZ::writeTAZElement(OutputDevice& device) {
+GNETAZ::writeTAZElement(OutputDevice& device) const {
 
-}
-
-
-GUIGlID 
-GNETAZ::getGlID() const {
-    return GUIPolygon::getGlID();
-}
-
-
-const PositionVector&
-GNETAZ::getTAZShape() const {
-    return myTAZShape;
 }
 
 
@@ -131,13 +108,13 @@ GNETAZ::updateGeometry() {
 
 void
 GNETAZ::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myTAZShape);
+    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myShape);
 }
 
 
 Position
 GNETAZ::getPositionInView() const {
-    return myTAZShape.getCentroid();
+    return myShape.getCentroid();
 }
 
 
@@ -146,8 +123,8 @@ GNETAZ::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
     if (myMovingGeometryBoundary.isInitialised()) {
         return myMovingGeometryBoundary;
-    } else if (myTAZShape.size() > 0) {
-        Boundary b = myTAZShape.getBoxBoundary();
+    } else if (myShape.size() > 0) {
+        Boundary b = myShape.getBoxBoundary();
         b.grow(20);
         return b;
     } else {
@@ -289,15 +266,15 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // obtain Exaggeration
-    const double TAZExaggeration = s.polySize.getExaggeration(s, this);
-    const Boundary TAZBoundary = myTAZShape.getBoxBoundary();
+    const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
+    const Boundary TAZBoundary = myShape.getBoxBoundary();
     // check if TAZ can be drawn
     if ((TAZExaggeration > 0) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
             (s.scale * MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight())) >= s.polySize.minSize) {
         // push name
-        glPushName(getGlID());
+        glPushName(GNETAZElement::getGlID());
         // check TAZ ssize
-        if (myTAZShape.size() > 1) {
+        if (myShape.size() > 1) {
             // push line matrix
             glPushMatrix();
             // translate to 0 (GLO_NETWORK)
@@ -306,14 +283,14 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             if (drawUsingSelectColor()) {
                 GLHelper::setColor(s.colorSettings.selectionColor);
             } else {
-                GLHelper::setColor(myColor);
+                GLHelper::setColor(getShapeColor());
             }
             // recall tesselation
             performTesselation(s, 1);
             // pop tesselation matrix
             glPopMatrix();
             // draw name
-            drawName(myTAZShape.getPolygonCenter(), s.scale, s.polyName, s.angle);
+            GNETAZElement::drawName(myShape.getPolygonCenter(), s.scale, s.polyName, s.angle);
         }
         // draw geometry details hints if is not too small and isn't in selecting mode
         if (s.scale * myHintSize > 1.) {
@@ -321,7 +298,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             bool mouseOverVertex = false;
             bool modeMove = myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
             Position mousePosition = myNet->getViewNet()->getPositionInformation();
-            double distanceToShape = myTAZShape.distance2D(mousePosition);
+            double distanceToShape = myShape.distance2D(mousePosition);
             // set colors
             RGBColor invertedColor, darkerColor;
             if (drawUsingSelectColor()) {
@@ -337,11 +314,11 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 glPushMatrix();
                 glTranslated(0, 0, GLO_TAZ);
                 GLHelper::setColor(darkerColor);
-                GLHelper::drawBoxLines(myTAZShape, (myHintSize / 4) * s.polySize.getExaggeration(s, this));
+                GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s, (GNETAZElement*)this));
                 glPopMatrix();
                 // draw shape points only in Network supemode
                 if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-                    for (const auto& TAZVertex : myTAZShape) {
+                    for (const auto& TAZVertex : myShape) {
                         if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
                             glPushMatrix();
                             glTranslated(TAZVertex.x(), TAZVertex.y(), GLO_TAZ + 0.01);
@@ -360,7 +337,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                     if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
                         // push matrix
                         glPushMatrix();
-                        Position hintPos = myTAZShape.size() > 1 ? myTAZShape.positionAtOffset2D(myTAZShape.nearest_offset_to_point2D(mousePosition)) : myTAZShape[0];
+                        Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
                         glTranslated(hintPos.x(), hintPos.y(), GLO_TAZ + 0.02);
                         GLHelper::setColor(invertedColor);
                         GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
@@ -385,11 +362,11 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_SHAPE:
-            return toString(myTAZShape);
+            return toString(myShape);
         case SUMO_ATTR_COLOR:
-            return toString(myColor);
+            return toString(getShapeColor());
         case SUMO_ATTR_FILL:
-            return toString(myDrawFill);
+            return toString(myFill);
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edgeIDs;
             for (auto i : getChildAdditionals()) {
@@ -404,7 +381,7 @@ GNETAZ::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
-            return getParametersStr();
+            return GNETAZElement::getParametersStr();
         case GNE_ATTR_MIN_SOURCE:
             return toString(myMinWeightSource);
         case GNE_ATTR_MIN_SINK:
@@ -572,9 +549,9 @@ GNETAZ::updateParentAdditional() {
 void
 GNETAZ::performTesselation(const GUIVisualizationSettings& s, double /*lineWidth*/) const {
     const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
-    if (myDrawFill && (!s.drawForPositionSelection || moveMode || myBlockShape)) {
+    if (myFill && (!s.drawForPositionSelection || moveMode || myBlockShape)) {
         // draw the tesselated shape
-        double* points = new double[myTAZShape.size() * 3];
+        double* points = new double[myShape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
         gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
         gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginTAZCallback);
@@ -584,9 +561,9 @@ GNETAZ::performTesselation(const GUIVisualizationSettings& s, double /*lineWidth
         gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
         gluTessBeginPolygon(tobj, nullptr);
         gluTessBeginContour(tobj);
-        for (int i = 0; i != (int)myTAZShape.size(); ++i) {
-            points[3 * i]  = myTAZShape[(int) i].x();
-            points[3 * i + 1]  = myTAZShape[(int) i].y();
+        for (int i = 0; i != (int)myShape.size(); ++i) {
+            points[3 * i]  = myShape[(int) i].x();
+            points[3 * i + 1]  = myShape[(int) i].y();
             points[3 * i + 2]  = 0;
             gluTessVertex(tobj, points + 3 * i, points + 3 * i);
         }
@@ -597,7 +574,7 @@ GNETAZ::performTesselation(const GUIVisualizationSettings& s, double /*lineWidth
         delete[] points;
     } else {
         // draw line around TAZ
-        GLHelper::drawBoxLines(myTAZShape, 1);
+        GLHelper::drawBoxLines(myShape, 1);
     }
 
 }
@@ -611,14 +588,14 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_SHAPE:
             myNet->removeGLObjectFromGrid(this);
-            myTAZShape = parse<PositionVector>(value);
+            myShape = parse<PositionVector>(value);
             myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_COLOR:
-            myColor = parse<RGBColor>(value);
+            setShapeColor(parse<RGBColor>(value));
             break;
         case SUMO_ATTR_FILL:
-            myDrawFill = parse<bool>(value);
+            myFill = parse<bool>(value);
             break;
         case SUMO_ATTR_EDGES:
             break;
@@ -636,7 +613,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
+            GNETAZElement::setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

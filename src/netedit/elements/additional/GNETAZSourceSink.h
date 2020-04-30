@@ -18,16 +18,8 @@
 //
 /****************************************************************************/
 #pragma once
-#include "GNEAdditional.h"
 #include "GNETAZElement.h"
 
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNETAZ;
-class GNETAZSink;
 
 // ===========================================================================
 // class definitions
@@ -36,7 +28,7 @@ class GNETAZSink;
  * @class GNETAZSourceSink
  * class used to represent a interval used in Traffic Assignment Zones
  */
-class GNETAZSourceSink : public GNEAdditional {
+class GNETAZSourceSink : public GNETAZElement {
 
 public:
     /**@brief Constructor
@@ -49,6 +41,14 @@ public:
 
     /// @brief destructor
     ~GNETAZSourceSink();
+
+    /// @brief get TAZ Shape
+    const PositionVector& getTAZElementShape() const;
+
+    /**@brief writte TAZElement element into a xml file
+     * @param[in] device device in which write parameters of TAZElement element
+     */
+    void writeTAZElement(OutputDevice& device) const;
 
     /// @brief get depart weight
     double getDepartWeight() const;

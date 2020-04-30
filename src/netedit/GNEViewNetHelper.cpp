@@ -635,18 +635,12 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
     if (myPolyToMove) {
         // move poly's geometry without commiting changes
         myPolyToMove->movePolyShape(offsetMovement);
-        // update view (needed to see the movement)
-        myViewNet->updateViewNet();
     } else if (myPOIToMove) {
         // Move POI's geometry without commiting changes
         myPOIToMove->movePOIGeometry(offsetMovement);
-        // update view (needed to see the movement)
-        myViewNet->updateViewNet();
     } else if (myJunctionToMove) {
         // Move Junction's geometry without commiting changes
         myJunctionToMove->moveGeometry(offsetMovement);
-        // update view (needed to see the movement)
-        myViewNet->updateViewNet();
     } else if (myEdgeToMove) {
         // check if we're moving the start or end position, or a geometry point
         if (myMovingStartPos) {
@@ -657,26 +651,15 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             // move edge's geometry without commiting changes
             myEdgeToMove->moveEdgeShape(offsetMovement);
         }
-        // update view (needed to see the movement)
-        myViewNet->updateViewNet();
     } else if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
         myAdditionalToMove->moveGeometry(offsetMovement);
-        // update view (needed to see the movement)
-        myViewNet->updateViewNet();
     } else if (myDemandElementToMove/* && (myDemandElementToMove->isDemandElementBlocked() == false)*/) {
         // Move DemandElement geometry without commiting changes
         myDemandElementToMove->moveGeometry(offsetMovement);
-        // update view (needed to see the movement)
-        myViewNet->updateViewNet();
     } else if (myTAZElementToMove) {
-        /// move TAZ's geometry without commiting changes depending if polygon is blocked
-        if (myTAZElementToMove->isShapeBlocked()) {
-            // move TAZ's geometry without commiting changes
-            myTAZElementToMove->moveTAZShape(offsetMovement);
-        }
-        // update view (needed to see the movement)
-        myViewNet->updateViewNet();
+        // move TAZ's geometry without commiting changes
+        myTAZElementToMove->moveTAZShape(offsetMovement);
     }
 }
 
@@ -810,7 +793,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateTAZValues() {
     // assign clicked TAZ to TAZToMove
     myTAZElementToMove = myViewNet->myObjectsUnderCursor.getTAZFront();
     // calculate TAZShapeOffset
-    const double TAZShapeOffset = myTAZElementToMove->getTAZShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+    const double TAZShapeOffset = myTAZElementToMove->getTAZElementShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
         // check if in the clicked position a geometry point exist

@@ -24,7 +24,7 @@
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_TAZElement.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/additional/GNETAZElement.h>
@@ -260,8 +260,8 @@ GNETAZFrame::TAZCurrent::refreshTAZEdges() {
     // only refresh if we're editing an TAZ
     if (myEditedTAZ) {
         // iterate over child additional and create TAZEdges
-        for (const auto& i : myEditedTAZ->getChildAdditionals()) {
-            addTAZChild(dynamic_cast<GNETAZSourceSink*>(i));
+        for (const auto& TAZElement : myEditedTAZ->getChildTAZElements()) {
+            addTAZChild(dynamic_cast<GNETAZSourceSink*>(TAZElement));
         }
         // update colors after add all edges
         for (auto& i : myTAZEdges) {
@@ -1503,8 +1503,8 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
                 // enable save changes button
                 myTAZSaveChanges->enableButtonsAndBeginUndoList();
                 // remove Source and Sinks using GNEChange_Additional
-                myViewNet->getUndoList()->add(new GNEChange_Additional(i.TAZSource, false), true);
-                myViewNet->getUndoList()->add(new GNEChange_Additional(i.TAZSink, false), true);
+                myViewNet->getUndoList()->add(new GNEChange_TAZElement(i.TAZSource, false), true);
+                myViewNet->getUndoList()->add(new GNEChange_TAZElement(i.TAZSink, false), true);
                 // always refresh TAZ Edges after removing TAZSources/Sinks
                 myTAZCurrent->refreshTAZEdges();
                 // update select edges button
@@ -1516,10 +1516,10 @@ GNETAZFrame::addOrRemoveTAZMember(GNEEdge* edge) {
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
         // create TAZ Sink using GNEChange_Additional and value of TAZChild default parameters
         GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, myTAZCurrent->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSourceWeight());
-        myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
+        myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
         // create TAZ Sink using GNEChange_Additional and value of TAZChild default parameters
         GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, myTAZCurrent->getTAZ(), edge, myTAZChildDefaultParameters->getDefaultTAZSinkWeight());
-        myViewNet->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
+        myViewNet->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
         // always refresh TAZ Edges after adding TAZSources/Sinks
         myTAZCurrent->refreshTAZEdges();
         // update selected button
@@ -1538,8 +1538,8 @@ GNETAZFrame::dropTAZMembers() {
         // enable save changes button
         myTAZSaveChanges->enableButtonsAndBeginUndoList();
         // remove Source and Sinks using GNEChange_Additional
-        myViewNet->getUndoList()->add(new GNEChange_Additional(i.TAZSource, false), true);
-        myViewNet->getUndoList()->add(new GNEChange_Additional(i.TAZSink, false), true);
+        myViewNet->getUndoList()->add(new GNEChange_TAZElement(i.TAZSource, false), true);
+        myViewNet->getUndoList()->add(new GNEChange_TAZElement(i.TAZSink, false), true);
     }
     // always refresh TAZ Edges after removing TAZSources/Sinks
     myTAZCurrent->refreshTAZEdges();

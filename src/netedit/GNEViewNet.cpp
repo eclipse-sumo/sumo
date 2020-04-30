@@ -3743,6 +3743,10 @@ GNEViewNet::processMoveMouseNetwork() {
         // move single elements
         myMoveSingleElementValues.moveSingleElement();
     }
+    // update in move mode (for geometry points)
+    if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+        updateViewNet();
+    }
 }
 
 

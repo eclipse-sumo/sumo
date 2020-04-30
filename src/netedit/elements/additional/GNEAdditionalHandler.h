@@ -562,7 +562,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double departWeight);
+    static GNETAZElement* buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double departWeight);
 
     /**@brief Builds a TAZSink (Traffic Assignment Zone)
      * @param[in] net net in which element will be inserted
@@ -573,7 +573,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double arrivalWeight);
+    static GNETAZElement* buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double arrivalWeight);
 
     /**@brief extracts the position, checks whether it shall be mirrored and checks whether it is within the lane.
      * @param[in] pos position of additional over lane

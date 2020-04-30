@@ -19,19 +19,24 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/images/GUITextureSubSys.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/images/GUITextureSubSys.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNETAZElement.h"
 
-
 // ===========================================================================
-// method definitions
+// member method definitions
 // ===========================================================================
 
-GNETAZElement::GNETAZElement(GNENet* net, SumoXMLTag tag, bool movementBlocked,
+GNETAZElement::GNETAZElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool blockMovement,
         const std::vector<GNEJunction*>& junctionParents,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
@@ -48,14 +53,52 @@ GNETAZElement::GNETAZElement(GNENet* net, SumoXMLTag tag, bool movementBlocked,
         const std::vector<GNETAZElement*>& TAZElementChildren,
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
+    GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
-    myBlockMovement(movementBlocked) {
+    myBlockMovement(blockMovement) {
+}
+
+
+GNETAZElement::GNETAZElement(GNETAZElement* TAZElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool blockMovement,
+        const std::vector<GNEJunction*>& junctionParents,
+        const std::vector<GNEEdge*>& edgeParents,
+        const std::vector<GNELane*>& laneParents,
+        const std::vector<GNEAdditional*>& additionalParents,
+        const std::vector<GNEShape*>& shapeParents,
+        const std::vector<GNETAZElement*>& TAZElementParents,
+        const std::vector<GNEDemandElement*>& demandElementParents,
+        const std::vector<GNEGenericData*>& genericDataParents,
+        const std::vector<GNEJunction*>& junctionChildren,
+        const std::vector<GNEEdge*>& edgeChildren,
+        const std::vector<GNELane*>& laneChildren,
+        const std::vector<GNEAdditional*>& additionalChildren,
+        const std::vector<GNEShape*>& shapeChildren,
+        const std::vector<GNETAZElement*>& TAZElementChildren,
+        const std::vector<GNEDemandElement*>& demandElementChildren,
+        const std::vector<GNEGenericData*>& genericDataChildren) :
+    GUIGlObject(type, TAZElementParent->generateChildID(tag)),
+    GNEAttributeCarrier(tag, net),
+    GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+    myBlockMovement(blockMovement) {
 }
 
 
 GNETAZElement::~GNETAZElement() {}
+
+
+const std::string&
+GNETAZElement::getID() const {
+    return getMicrosimID();
+}
+
+
+GUIGlObject*
+GNETAZElement::getGUIGlObject() {
+    return this;
+}
 
 
 std::string
@@ -68,43 +111,65 @@ GNETAZElement::generateChildID(SumoXMLTag childTag) {
 }
 
 
+void
+GNETAZElement::updateDottedContour() {
+    //
+}
+
+
 bool
-GNETAZElement::isMovementBlocked() const {
+GNETAZElement::isTAZElementBlocked() const {
     return myBlockMovement;
 }
 
 
-void
-GNETAZElement::draw(const Position& pos, double layer, double size) const {
-    if (myNet->getViewNet()->showLockIcon()) {
-        // Start pushing matrix
-        glPushMatrix();
-        // Traslate to middle of TAZElement
-        glTranslated(pos.x(), pos.y(), layer + 0.1);
-        // Rotate 180 degrees
-        glRotated(180, 0, 0, 1);
-        // Set draw color
-        glColor3d(1, 1, 1);
-        // Draw icon depending of the selection status
-        if (mySelected) {
-            if (myBlockMovement) {
-                // Draw lock texture if TAZElement is movable, is blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);
-            } else {
-                // Draw empty texture if TAZElement is movable, isn't blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED), size);
-            }
+GUIGLObjectPopupMenu*
+GNETAZElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
+    // build header
+    buildPopupHeader(ret, app);
+    // build menu command for center button and copy cursor position to clipboard
+    buildCenterPopupEntry(ret);
+    buildPositionCopyEntry(ret, false);
+    // buld menu commands for names
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
+    new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
+    new FXMenuSeparator(ret);
+    // build selection and show parameters menu
+    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
+    buildShowParamsPopupEntry(ret);
+    return ret;
+}
+
+
+GUIParameterTableWindow*
+GNETAZElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
+    // Create table
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
+    // Iterate over attributes
+    for (const auto& i : myTagProperty) {
+        // Add attribute and set it dynamic if aren't unique
+        if (i.isUnique()) {
+            ret->mkItem(i.getAttrStr().c_str(), false, getAttribute(i.getAttr()));
         } else {
-            if (myBlockMovement) {
-                // Draw lock texture if TAZElement is movable and is blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCK), size);
-            } else {
-                // Draw empty texture if TAZElement is movable and isn't blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTY), size);
-            }
+            ret->mkItem(i.getAttrStr().c_str(), true, getAttribute(i.getAttr()));
         }
-        // Pop matrix
-        glPopMatrix();
+    }
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+
+// ---------------------------------------------------------------------------
+// GNETAZElement - protected methods
+// ---------------------------------------------------------------------------
+
+bool
+GNETAZElement::isValidTAZElementID(const std::string& newID) const {
+    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->retrieveTAZElement(myTagProperty.getTag(), newID, false) == nullptr)) {
+        return true;
+    } else {
+        return false;
     }
 }
 
@@ -121,25 +186,10 @@ GNETAZElement::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 }
 
 
-std::string
-GNETAZElement::getPopUpID() const {
-    return getTagStr() + ": " + getID();
-}
-
-
-std::string
-GNETAZElement::getHierarchyName() const {
-    return getTagStr();
-}
-
-
 bool
-GNETAZElement::isValidTAZElementID(const std::string& newID) const {
-    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->retrieveTAZElement(myTagProperty.getTag(), newID, false) == nullptr)) {
-        return true;
-    } else {
-        return false;
-    }
+GNETAZElement::checkChildTAZElementRestriction() const {
+    // throw exception because this function mus be implemented in child (see GNEE3Detector)
+    throw ProcessError("Calling non-implemented function checkChildTAZElementRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
 }
 
 

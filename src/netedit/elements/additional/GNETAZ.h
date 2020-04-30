@@ -30,14 +30,11 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNETAZElement, public GUIPolygon, protected GNEMoveShape {
+class GNETAZ : public GNETAZElement, private GUIPolygon, protected GNEMoveShape {
 
 public:
-    /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
+    /// @brief needed to avoid diamond Problem between GUIPolygon and GNETAZElement
     using GNETAZElement::getID;
-    using GNETAZElement::getParametersStr;
-    using GNETAZElement::setParametersStr;
-    using GNETAZElement::getGlID;
 
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
@@ -49,22 +46,13 @@ public:
     /// @brief GNETAZ Destructor
     ~GNETAZ();
 
-    /// @brief get ID (all TAZElements have one)
-    const std::string& getID() const;
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
+    /// @brief get TAZ Shape
+    const PositionVector& getTAZElementShape() const;
 
     /**@brief writte TAZElement element into a xml file
      * @param[in] device device in which write parameters of additional element
      */
-    void writeTAZElement(OutputDevice& device);
-
-    /// @brief Returns the numerical id of the object
-    GUIGlID getGlID() const;
-
-    /// @brief get TAZ shape
-    const PositionVector& getTAZShape() const;
+    void writeTAZElement(OutputDevice& device) const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -173,20 +161,8 @@ protected:
     /// @brief boundary used during moving of elements
     Boundary myMovingGeometryBoundary;
 
-    /// @brief TAZ Color
-    RGBColor myColor;
-
-    /// @brief TAZ shape
-    PositionVector myTAZShape;
-
     /// @brief flag for block shape
     bool myBlockShape;
-
-    /// @brief flag for draw TAZ filled
-    bool myDrawFill;
-
-    /// @brief index of vertex that is been moved (-1 means that none vertex is been moved)
-    int myCurrentMovingVertexIndex;
 
 private:
     /// @brief hint size of vertex

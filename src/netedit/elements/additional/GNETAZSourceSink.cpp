@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNETAZElement* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional((GNEAdditional*)TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag, "", false,
+    GNETAZElement(TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag, false,
         {}, {edge}, {}, {}, {}, {TAZParent}, {}, {},    // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                // Children
     myDepartWeight(departWeight) {
@@ -46,6 +46,18 @@ GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNETAZElement* TAZP
 GNETAZSourceSink::~GNETAZSourceSink() {}
 
 
+const PositionVector& 
+GNETAZSourceSink::getTAZElementShape() const {
+    return getParentTAZElements().front()->getTAZElementShape();
+}
+
+
+void 
+GNETAZSourceSink::writeTAZElement(OutputDevice& /*device*/) const {
+    // nothing to write
+}
+
+
 double
 GNETAZSourceSink::getDepartWeight() const {
     return myDepartWeight;
@@ -54,30 +66,30 @@ GNETAZSourceSink::getDepartWeight() const {
 
 void
 GNETAZSourceSink::moveGeometry(const Position&) {
-    // This additional cannot be moved
+    // This TAZElement cannot be moved
 }
 
 
 void
 GNETAZSourceSink::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+    // This TAZElement cannot be moved
 }
 
 
 void
 GNETAZSourceSink::updateGeometry() {
-    // This additional doesn't own a geometry
+    // This TAZElement doesn't own a geometry
 }
 
 void
 GNETAZSourceSink::updateDottedContour() {
-    // This additional doesn't own a dotted contour
+    // This TAZElement doesn't own a dotted contour
 }
 
 
 Position
 GNETAZSourceSink::getPositionInView() const {
-    return getParentAdditionals().at(0)->getPositionInView();
+    return getParentTAZElements().at(0)->getPositionInView();
 }
 
 
@@ -95,13 +107,13 @@ GNETAZSourceSink::splitEdgeGeometry(const double /*splitPosition*/, const GNENet
 
 std::string
 GNETAZSourceSink::getParentName() const {
-    return getParentAdditionals().at(0)->getID();
+    return getParentTAZElements().at(0)->getID();
 }
 
 
 void
 GNETAZSourceSink::drawGL(const GUIVisualizationSettings&) const {
-    // Currently This additional isn't drawn
+    // Currently This TAZElement isn't drawn
 }
 
 
@@ -115,13 +127,13 @@ GNETAZSourceSink::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_WEIGHT:
             return toString(myDepartWeight);
         case GNE_ATTR_PARENT:
-            return getParentAdditionals().at(0)->getID();
+            return getParentTAZElements().at(0)->getID();
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         case GNE_ATTR_TAZCOLOR: {
             // obtain max and min weight source
-            double maxWeightSource = getParentAdditionals().at(0)->getAttributeDouble(GNE_ATTR_MAX_SOURCE);
-            double minWeightSource = getParentAdditionals().at(0)->getAttributeDouble(GNE_ATTR_MIN_SOURCE);
+            double maxWeightSource = getParentTAZElements().at(0)->getAttributeDouble(GNE_ATTR_MAX_SOURCE);
+            double minWeightSource = getParentTAZElements().at(0)->getAttributeDouble(GNE_ATTR_MIN_SOURCE);
             // avoid division between zero
             if ((maxWeightSource - minWeightSource) == 0) {
                 return "0";
@@ -156,7 +168,7 @@ GNETAZSourceSink::getAttributeDouble(SumoXMLAttr key) const {
 
 void
 GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
-    // this additional is the only that can edit a variable directly, see GNEAdditionalHandler::buildTAZEdge(...)
+    // this TAZElement is the only that can edit a variable directly, see GNEAdditionalHandler::buildTAZEdge(...)
     if (undoList == nullptr) {
         setAttribute(key, value);
     } else {
@@ -180,7 +192,7 @@ bool
 GNETAZSourceSink::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidTAZElementID(value);
         case SUMO_ATTR_WEIGHT:
             return canParse<double>(value) && (parse<double>(value) >= 0);
         case GNE_ATTR_PARAMETERS:
@@ -227,7 +239,7 @@ GNETAZSourceSink::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WEIGHT:
             myDepartWeight = parse<double>(value);
             // update statictis of TAZ parent
-            getParentAdditionals().at(0)->updateParentAdditional();
+            getParentTAZElements().at(0)->updateParentAdditional();
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
