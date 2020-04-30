@@ -50,8 +50,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
     myNetworkElementShapeEdited(nullptr),
     myBlockShape(shapeBlocked),
     myClosedShape(shape.front() == shape.back()),
-    mySimplifiedShape(false),
-    myCurrentMovingVertexIndex(-1) {
+    mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");

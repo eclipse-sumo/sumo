@@ -243,9 +243,6 @@ protected:
     /// @brief flag to indicate if polygon is simplified
     bool mySimplifiedShape;
 
-    /// @brief index of vertex that is been moved (-1 means that none vertex is been moved)
-    int myCurrentMovingVertexIndex;
-
 private:
     /// @brief hint size of vertex
     static const double myHintSize;
