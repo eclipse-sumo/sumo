@@ -22,13 +22,14 @@
 
 #include <netedit/elements/GNEHierarchicalParentElements.h>
 #include <netedit/elements/GNEHierarchicalChildElements.h>
+#include <utils/common/Parameterised.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNETAZElement : public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNETAZElement : public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
 
 public:
     /**@brief Constructor.
@@ -73,20 +74,14 @@ public:
     /// @brief Destructor
     virtual ~GNETAZElement();
 
+    /// @brief gererate a new ID for an element child
+    std::string generateChildID(SumoXMLTag childTag);
+
     /// @brief get ID (all TAZElements have one)
     virtual const std::string& getID() const = 0;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
     virtual GUIGlObject* getGUIGlObject() = 0;
-
-    /// @brief gererate a new ID for an element child
-    virtual std::string generateChildID(SumoXMLTag childTag) = 0;
-
-    /**@brief Sets a parameter
-     * @param[in] key The parameter's name
-     * @param[in] value The parameter's value
-     */
-    virtual void setParameter(const std::string& key, const std::string& value) = 0;
 
     /**@brief writte TAZElement element into a xml file
     * @param[in] device device in which write parameters of additional element
@@ -119,34 +114,6 @@ public:
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
 
-    /// @}
-
-    /// @name inherited from GUIPolygon/GUIPointOfInterest
-    /// @{
-
-    /**@brief Returns an own popup-menu
-     *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
-     */
-    virtual GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
-
-    /**@brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) = 0;
-
-    /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
-    virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -203,6 +170,9 @@ protected:
 
     /// @brief flag to block movement
     bool myBlockMovement;
+
+    /// @brief check if a new TAZElement ID is valid
+    bool isValidTAZElementID(const std::string& newID) const;
 
 private:
     /// @brief set attribute after validation

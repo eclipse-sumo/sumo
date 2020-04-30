@@ -145,6 +145,7 @@ class GNETAZElement;
 class GNEShape;
 class GNEPoly;
 class GNEPOI;
+class GNETAZ;
 // demand elements
 class GNEDemandElement;
 class GNEVehicleType;
@@ -194,6 +195,9 @@ struct GNEViewNetHelper {
         /// @brief get front shape element or a pointer to nullptr
         GNEShape* getShapeFront() const;
 
+        /// @brief get front TAZElement or a pointer to nullptr
+        GNETAZElement* getTAZElementFront() const;
+
         /// @brief get front demand element or a pointer to nullptr
         GNEDemandElement* getDemandElementFront() const;
 
@@ -215,8 +219,8 @@ struct GNEViewNetHelper {
         /// @brief get front connection or a pointer to nullptr
         GNEConnection* getConnectionFront() const;
 
-        /// @brief get front TAZElement or a pointer to nullptr
-        GNETAZElement* getTAZElementFront() const;
+        /// @brief get front TAZ or a pointer to nullptr
+        GNETAZ* getTAZFront() const;
 
         /// @brief get front POI or a pointer to nullptr
         GNEPOI* getPOIFront() const;
@@ -249,6 +253,9 @@ struct GNEViewNetHelper {
         /// @brief vector with the clicked shape elements (Poly and POIs)
         std::vector<GNEShape*> myShapes;
 
+        /// @brief vector with the clicked TAZ elements
+        std::vector<GNETAZElement*> myTAZElements;
+
         /// @brief vector with the clicked demand elements
         std::vector<GNEDemandElement*> myDemandElements;
 
@@ -271,7 +278,7 @@ struct GNEViewNetHelper {
         std::vector<GNEConnection*> myConnections;
 
         /// @brief vector with the clicked TAZ elements
-        std::vector<GNETAZElement*> myTAZElements;
+        std::vector<GNETAZ*> myTAZs;
 
         /// @brief vector with the clicked POIs
         std::vector<GNEPOI*> myPOIs;
@@ -789,7 +796,7 @@ struct GNEViewNetHelper {
         GNEPOI* myPOIToMove;
 
         /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
-        GNETAZElement* myTAZElementToMove;
+        GNETAZ* myTAZElementToMove;
 
         /// @brief the additional element which position is being moved
         GNEAdditional* myAdditionalToMove;

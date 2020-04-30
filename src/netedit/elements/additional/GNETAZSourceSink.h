@@ -19,6 +19,8 @@
 /****************************************************************************/
 #pragma once
 #include "GNEAdditional.h"
+#include "GNETAZElement.h"
+
 
 // ===========================================================================
 // class declarations
@@ -43,7 +45,7 @@ public:
      * @param[in] edge Edge of this TAZ Child belongs
      * @param[in] departWeight depart weight of this TAZ child
      */
-    GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight);
+    GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNETAZElement* TAZParent, GNEEdge* edge, double departWeight);
 
     /// @brief destructor
     ~GNETAZSourceSink();

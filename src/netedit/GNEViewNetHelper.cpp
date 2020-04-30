@@ -22,6 +22,7 @@
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNETAZElement.h>
+#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
@@ -70,13 +71,14 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     myNetworkElementEdges.clear();
     myAdditionals.clear();
     myShapes.clear();
+    myTAZElements.clear();
     myDemandElements.clear();
     myJunctions.clear();
     myEdges.clear();
     myLanes.clear();
     myCrossings.clear();
     myConnections.clear();
-    myTAZElements.clear();
+    myTAZs.clear();
     myPOIs.clear();
     myPolys.clear();
     myGenericDatas.clear();
@@ -184,6 +186,14 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                     } else if (AC->getTagProperty().isTAZElement()) {
                         // cast TAZ element from attribute carrier
                         myTAZElements.push_back(dynamic_cast<GNETAZElement*>(AC));
+                        // cast specific TAZ
+                        switch (GUIGlObject->getType()) {
+                            case GLO_TAZ:
+                                myTAZs.push_back(dynamic_cast<GNETAZ*>(AC));
+                                break;
+                            default:
+                                break;
+                        }
                     } else if (AC->getTagProperty().isShape()) {
                         // cast shape element from attribute carrier
                         myShapes.push_back(dynamic_cast<GNEShape*>(AC));
@@ -239,7 +249,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                 ", Lanes: " + toString(myLanes.size()) +
                 ", Crossings: " + toString(myCrossings.size()) +
                 ", Connections: " + toString(myConnections.size()) +
-                ", TAZs: " + toString(myTAZElements.size()) +
+                ", TAZs: " + toString(myTAZs.size()) +
                 ", Polys: " + toString(myPolys.size()) +
                 ", POIs: " + toString(myPOIs.size()) +
                 ", EdgeDatas: " + toString(myEdgeDatas.size()) +
@@ -340,6 +350,16 @@ GNEViewNetHelper::ObjectsUnderCursor::getShapeFront() const {
 }
 
 
+GNETAZElement*
+GNEViewNetHelper::ObjectsUnderCursor::getTAZElementFront() const {
+    if (myTAZElements.size() > 0) {
+        return myTAZElements.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
 GNEDemandElement*
 GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
     if (myDemandElements.size() > 0) {
@@ -410,16 +430,6 @@ GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
 }
 
 
-GNETAZElement*
-GNEViewNetHelper::ObjectsUnderCursor::getTAZElementFront() const {
-    if (myTAZElements.size() > 0) {
-        return myTAZElements.front();
-    } else {
-        return nullptr;
-    }
-}
-
-
 GNEPOI*
 GNEViewNetHelper::ObjectsUnderCursor::getPOIFront() const {
     if (myPOIs.size() > 0) {
@@ -434,6 +444,16 @@ GNEPoly*
 GNEViewNetHelper::ObjectsUnderCursor::getPolyFront() const {
     if (myPolys.size() > 0) {
         return myPolys.front();
+    } else {
+        return nullptr;
+    }
+}
+
+
+GNETAZ*
+GNEViewNetHelper::ObjectsUnderCursor::getTAZFront() const {
+    if (myTAZs.size() > 0) {
+        return myTAZs.front();
     } else {
         return nullptr;
     }
@@ -559,7 +579,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         myAdditionalToMove->startGeometryMoving();
         // there is moved items, then return true
         return true;
-    } else if (myViewNet->myObjectsUnderCursor.getTAZElementFront()) {
+    } else if (myViewNet->myObjectsUnderCursor.getTAZFront()) {
         // calculate TAZ movement values (can be entire shape or single geometry points)
         return calculateTAZValues();
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
@@ -651,10 +671,10 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
         myViewNet->updateViewNet();
     } else if (myTAZElementToMove) {
         /// move TAZ's geometry without commiting changes depending if polygon is blocked
-        /*if (myTAZElementToMove->isShapeBlocked()) {*/
-        // move TAZ's geometry without commiting changes
-        /* myTAZElementToMove->moveTAZShape(offsetMovement); */
-        /*}*/
+        if (myTAZElementToMove->isShapeBlocked()) {
+            // move TAZ's geometry without commiting changes
+            myTAZElementToMove->moveTAZShape(offsetMovement);
+        }
         // update view (needed to see the movement)
         myViewNet->updateViewNet();
     }
@@ -696,7 +716,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myDemandElementToMove->endGeometryMoving();
         myDemandElementToMove = nullptr;
     } else if (myTAZElementToMove) {
-        /* myTAZElementToMove->commitTAZShapeChange(myViewNet->getUndoList()); */
+        myTAZElementToMove->commitTAZShapeChange(myViewNet->getUndoList());
         myTAZElementToMove = nullptr;
     }
 }
@@ -788,16 +808,15 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
 bool
 GNEViewNetHelper::MoveSingleElementValues::calculateTAZValues() {
     // assign clicked TAZ to TAZToMove
-    myTAZElementToMove = myViewNet->myObjectsUnderCursor.getTAZElementFront();
+    myTAZElementToMove = myViewNet->myObjectsUnderCursor.getTAZFront();
     // calculate TAZShapeOffset
-/*
     const double TAZShapeOffset = myTAZElementToMove->getTAZShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
         // check if in the clicked position a geometry point exist
         if (myTAZElementToMove->getTAZVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
             // start geometry moving
-            myTAZElementToMove->startTAZGeometryMoving(TAZShapeOffset);
+            myTAZElementToMove->startTAZShapeGeometryMoving(TAZShapeOffset);
             // TAZ values sucesfully calculated, then return true
             return true;
         } else {
@@ -808,13 +827,10 @@ GNEViewNetHelper::MoveSingleElementValues::calculateTAZValues() {
         }
     } else {
         // start geometry moving
-        myTAZElementToMove->startTAZGeometryMoving(TAZShapeOffset);
+        myTAZElementToMove->startTAZShapeGeometryMoving(TAZShapeOffset);
         // TAZ values sucesfully calculated, then return true
         return true;
     }
-*/
-    // temporal
-    return false;
 }
 
 // ---------------------------------------------------------------------------

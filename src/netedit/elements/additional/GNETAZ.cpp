@@ -29,6 +29,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNETAZ.h"
+#include "GNEAdditional.h"
 
 
 // ===========================================================================
@@ -71,9 +72,10 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // member method definitions
 // ===========================================================================
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
-    GNEAdditional(id, net, GLO_TAZ, SUMO_TAG_TAZ, "", blockMovement,
+    GNETAZElement(net, /*GLO_TAZ, */SUMO_TAG_TAZ, blockMovement,
         {}, {}, {}, {}, {}, {}, {}, {},     // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),    // Children
+    GUIPolygon(id, "", color, shape, false, false, 1),
     myColor(color),
     myTAZShape(shape),
     myBlockShape(false),
@@ -89,6 +91,30 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColo
 
 
 GNETAZ::~GNETAZ() {}
+
+
+const std::string& 
+GNETAZ::getID() const {
+    return getMicrosimID();
+}
+
+
+GUIGlObject* 
+GNETAZ::getGUIGlObject() {
+    return this;
+}
+
+
+void 
+GNETAZ::writeTAZElement(OutputDevice& device) {
+
+}
+
+
+GUIGlID 
+GNETAZ::getGlID() const {
+    return GUIPolygon::getGlID();
+}
 
 
 const PositionVector&
@@ -118,8 +144,8 @@ GNETAZ::getPositionInView() const {
 Boundary
 GNETAZ::getCenteringBoundary() const {
     // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMove.movingGeometryBoundary.isInitialised()) {
-        return myMove.movingGeometryBoundary;
+    if (myMovingGeometryBoundary.isInitialised()) {
+        return myMovingGeometryBoundary;
     } else if (myTAZShape.size() > 0) {
         Boundary b = myTAZShape.getBoxBoundary();
         b.grow(20);
@@ -137,45 +163,26 @@ GNETAZ::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElemen
 
 
 void
-GNETAZ::moveGeometry(const Position& offset) {
-    // restore old position, apply offset and update Geometry
-    myTAZShape[0] = myMove.originalViewPosition;
-    myTAZShape[0].add(offset);
-    // filtern position using snap to active grid
-    myTAZShape[0] = myNet->getViewNet()->snapToActiveGrid(myTAZShape[0]);
-}
-
-
-void
-GNETAZ::commitGeometryMoving(GNEUndoList* undoList) {
-    // commit new position allowing undo/redo
-    undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(myTAZShape[0]), toString(myMove.originalViewPosition)));
-    undoList->p_end();
-}
-
-
-void
-GNETAZ::startTAZGeometryMoving(const double shapeOffset) {
+GNETAZ::startTAZShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
-    myMove.movingGeometryBoundary = getCenteringBoundary();
+    myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
     if (myBlockShape) {
-        startMoveShape(myTAZShape, -1, myHintSize);
+        startMoveShape(myShape, -1, myHintSize);
     } else {
-        startMoveShape(myTAZShape, shapeOffset, myHintSize);
+        startMoveShape(myShape, shapeOffset, myHintSize);
     }
 }
 
 
 void
-GNETAZ::endTAZGeometryMoving() {
+GNETAZ::endTAZShapeGeometryMoving() {
     // check that endGeometryMoving was called only once
-    if (myMove.movingGeometryBoundary.isInitialised()) {
+    if (myMovingGeometryBoundary.isInitialised()) {
         // Remove object from net
         myNet->removeGLObjectFromGrid(this);
         // reset myMovingGeometryBoundary
-        myMove.movingGeometryBoundary.reset();
+        myMovingGeometryBoundary.reset();
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
     }
@@ -188,16 +195,16 @@ GNETAZ::getTAZVertexIndex(Position pos, const bool snapToGrid) const {
     if (snapToGrid) {
         pos = myNet->getViewNet()->snapToActiveGrid(pos);
     }
-    const double offset = myTAZShape.nearest_offset_to_point2D(pos, true);
+    const double offset = myShape.nearest_offset_to_point2D(pos, true);
     if (offset == GeomHelper::INVALID_OFFSET) {
         return -1;
     }
-    Position newPos = myTAZShape.positionAtOffset2D(offset);
+    Position newPos = myShape.positionAtOffset2D(offset);
     // first check if vertex already exists in the inner geometry
-    for (int i = 0; i < (int)myTAZShape.size(); i++) {
-        if (myTAZShape[i].distanceTo2D(newPos) < myHintSize) {
+    for (int i = 0; i < (int)myShape.size(); i++) {
+        if (myShape[i].distanceTo2D(newPos) < myHintSize) {
             // index refers to inner geometry
-            if (i == 0 || i == (int)(myTAZShape.size() - 1)) {
+            if (i == 0 || i == (int)(myShape.size() - 1)) {
                 return -1;
             }
             return i;
@@ -223,25 +230,25 @@ GNETAZ::moveTAZShape(const Position& offset) {
         // get last index
         const int lastIndex = (int)newShape.size() - 1;
         // check if we have to move first and last postion
-        if ((newShape.size() > 2) &&
-                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+        if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
+            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
             // move first and last position in newShape
             newShape[0].add(offset);
-            newShape[lastIndex].add(offset);
+            newShape[lastIndex] = newShape[0];
         } else {
             // move geometry point within newShape
             newShape[geometryPointIndex].add(offset);
         }
     }
-    // set new TAZ shape
-    myTAZShape = newShape;
+    // set new poly shape
+    myShape = newShape;
 }
 
 
 void
 GNETAZ::commitTAZShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
-    PositionVector shapeToCommit = myTAZShape;
+    PositionVector shapeToCommit = myShape;
     // get geometryPoint radius
     const double geometryPointRadius = myHintSize * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
     // remove double points
@@ -253,62 +260,13 @@ GNETAZ::commitTAZShapeChange(GNEUndoList* undoList) {
     // update geometry
     updateGeometry();
     // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    myTAZShape = getShapeBeforeMoving();
+    myShape = getShapeBeforeMoving();
     // finish geometry moving
-    endTAZGeometryMoving();
+    endTAZShapeGeometryMoving();
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
     undoList->p_end();
-}
-
-
-int
-GNETAZ::getVertexIndex(Position pos, bool snapToGrid) {
-    // check if position has to be snapped to grid
-    if (snapToGrid) {
-        pos = myNet->getViewNet()->snapToActiveGrid(pos);
-    }
-    // first check if vertex already exists
-    for (auto i : myTAZShape) {
-        if (i.distanceTo2D(pos) < myHintSize) {
-            return myTAZShape.indexOfClosest(i);
-        }
-    }
-    return -1;
-}
-
-
-void
-GNETAZ::deleteGeometryPoint(const Position& pos, bool allowUndo) {
-    if (myTAZShape.size() > 2) {
-        // obtain index
-        PositionVector modifiedShape = myTAZShape;
-        int index = modifiedShape.indexOfClosest(pos);
-        // remove point dependending of
-        if ((index == 0 || index == (int)modifiedShape.size() - 1)) {
-            modifiedShape.erase(modifiedShape.begin());
-            modifiedShape.erase(modifiedShape.end() - 1);
-            modifiedShape.push_back(modifiedShape.front());
-        } else {
-            modifiedShape.erase(modifiedShape.begin() + index);
-        }
-        // set new shape depending of allowUndo
-        if (allowUndo) {
-            myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
-            setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
-            myNet->getViewNet()->getUndoList()->p_end();
-        } else {
-            // first remove object from grid due shape is used for boundary
-            myNet->removeGLObjectFromGrid(this);
-            // set new shape
-            myTAZShape = modifiedShape;
-            // add object into grid again
-            myNet->addGLObjectIntoGrid(this);
-        }
-    } else {
-        WRITE_WARNING("Number of remaining points insufficient")
-    }
 }
 
 
@@ -513,7 +471,7 @@ bool
 GNETAZ::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
+            return isValidTAZElementID(value);
         case SUMO_ATTR_SHAPE:
             return canParse<PositionVector>(value);
         case SUMO_ATTR_COLOR:

@@ -19,8 +19,9 @@
 /****************************************************************************/
 #pragma once
 #include <netedit/GNEMoveShape.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 
-#include "GNEAdditional.h"
+#include "GNETAZElement.h"
 
 // ===========================================================================
 // class definitions
@@ -29,9 +30,15 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNEAdditional, protected GNEMoveShape {
+class GNETAZ : public GNETAZElement, public GUIPolygon, protected GNEMoveShape {
 
 public:
+    /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
+    using GNETAZElement::getID;
+    using GNETAZElement::getParametersStr;
+    using GNETAZElement::setParametersStr;
+    using GNETAZElement::getGlID;
+
     /**@brief GNETAZ Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -42,21 +49,25 @@ public:
     /// @brief GNETAZ Destructor
     ~GNETAZ();
 
+    /// @brief get ID (all TAZElements have one)
+    const std::string& getID() const;
+
+    /// @brief get GUIGlObject associated with this AttributeCarrier
+    GUIGlObject* getGUIGlObject();
+
+    /**@brief writte TAZElement element into a xml file
+     * @param[in] device device in which write parameters of additional element
+     */
+    void writeTAZElement(OutputDevice& device);
+
+    /// @brief Returns the numerical id of the object
+    GUIGlID getGlID() const;
+
     /// @brief get TAZ shape
     const PositionVector& getTAZShape() const;
 
     /// @name Functions related with geometry of element
     /// @{
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] offset Position used for calculate new position of geometry without updating RTree
-     */
-    void moveGeometry(const Position& offset);
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void commitGeometryMoving(GNEUndoList* undoList);
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -73,13 +84,13 @@ public:
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
     /// @}
 
-    /// @name Functions related with shape of element
+    /// @name functions for edit geometry
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void startTAZGeometryMoving(const double shapeOffset);
+    void startTAZShapeGeometryMoving(const double shapeOffset);
 
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
-    void endTAZGeometryMoving();
+    void endTAZShapeGeometryMoving();
 
     /**@brief return index of geometry point placed in given position, or -1 if no exist
     * @param pos position of new/existent vertex
@@ -97,17 +108,7 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitTAZShapeChange(GNEUndoList* undoList);
-
-    /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
-     * @param pos position of new/existent vertex
-     * @param snapToGrid enable or disable snapToActiveGrid
-     * @return index of position vector
-     */
-    int getVertexIndex(Position pos, bool snapToGrid);
-
-    /// @brief delete the geometry point closest to the given pos
-    void deleteGeometryPoint(const Position& pos, bool allowUndo = true);
-
+  
     /// @brief return true if Shape TAZ is blocked
     bool isShapeBlocked() const;
     /// @}
@@ -169,6 +170,9 @@ public:
     void updateParentAdditional();
 
 protected:
+    /// @brief boundary used during moving of elements
+    Boundary myMovingGeometryBoundary;
+
     /// @brief TAZ Color
     RGBColor myColor;
 

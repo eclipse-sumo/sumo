@@ -412,6 +412,104 @@ GNEChange::removeShape(GNEShape* shape) {
 
 
 void
+GNEChange::addTAZElement(GNETAZElement* TAZElement) {
+    // add shape in parent elements
+    for (const auto& parent : myParentEdges) {
+        parent->addChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentLanes) {
+        parent->addChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentAdditionals) {
+        parent->addChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentShapes) {
+        parent->addChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentTAZElements) {
+        parent->addChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentDemandElements) {
+        parent->addChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentGenericDatas) {
+        parent->addChildTAZElement(TAZElement);
+    }
+    // add shape in child elements
+    for (const auto& child : myChildEdges) {
+        child->addParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildLanes) {
+        child->addParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildAdditionals) {
+        child->addParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildShapes) {
+        child->addParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildTAZElements) {
+        child->addParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildDemandElements) {
+        child->addParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildGenericDatas) {
+        child->addParentTAZElement(TAZElement);
+    }
+}
+
+
+void
+GNEChange::removeTAZElement(GNETAZElement* TAZElement) {
+    // Remove shape from parent elements
+    for (const auto& parent : myParentEdges) {
+        parent->removeChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentLanes) {
+        parent->removeChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentAdditionals) {
+        parent->removeChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentShapes) {
+        parent->removeChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentTAZElements) {
+        parent->removeChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentDemandElements) {
+        parent->removeChildTAZElement(TAZElement);
+    }
+    for (const auto& parent : myParentGenericDatas) {
+        parent->removeChildTAZElement(TAZElement);
+    }
+    // Remove shape from child elements
+    for (const auto& child : myChildEdges) {
+        child->removeParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildLanes) {
+        child->removeParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildAdditionals) {
+        child->removeParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildShapes) {
+        child->removeParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildTAZElements) {
+        child->removeParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildDemandElements) {
+        child->removeParentTAZElement(TAZElement);
+    }
+    for (const auto& child : myChildGenericDatas) {
+        child->removeParentTAZElement(TAZElement);
+    }
+}
+
+
+void
 GNEChange::addAdditional(GNEAdditional* additional) {
     // add additional in parent elements
     for (const auto& parent : myParentEdges) {

@@ -35,6 +35,7 @@ class GNEEdge;
 class GNELane;
 class GNEAdditional;
 class GNEShape;
+class GNETAZElement;
 class GNEDemandElement;
 
 // ===========================================================================
@@ -59,6 +60,9 @@ public:
         /// @brief commit shape element insertion (used to save last correct created element)
         void commitShapeInsertion(GNEShape* shapeCreated);
 
+        /// @brief commit TAZElement element insertion (used to save last correct created element)
+        void commitTAZElementInsertion(GNETAZElement* TAZElementCreated);
+
         /// @brief pop last inserted element (used only in function myEndElement)
         void popElement();
 
@@ -68,11 +72,17 @@ public:
         /// @brief retrieve parent shape correspond to current status of myInsertedElements
         GNEShape* getShapeParent(GNENet* net, SumoXMLTag expectedTag) const;
 
+        /// @brief retrieve parent TAZElement correspond to current status of myInsertedElements
+        GNETAZElement* getTAZElementParent(GNENet* net, SumoXMLTag expectedTag) const;
+
         /// @brief return last inserted additional
         GNEAdditional* getLastInsertedAdditional() const;
 
         /// @brief return last inserted shape
         GNEShape* getLastInsertedShape() const;
+
+        /// @brief return last inserted TAZElement
+        GNETAZElement* getLastInsertedTAZElement() const;
 
     private:
         /// @brief stack element
@@ -88,6 +98,9 @@ public:
 
             /// @brief shape
             GNEShape* shape;
+
+            /// @brief TAZElement
+            GNETAZElement* TAZElement;
         };
 
         /// @brief vector used as stack
@@ -538,7 +551,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZ(GNENet* net, bool allowUndoRedo, const std::string& id, const PositionVector& shape, const RGBColor& color, const std::vector<GNEEdge*>& edges, bool blockMovement);
+    static GNETAZElement* buildTAZ(GNENet* net, bool allowUndoRedo, const std::string& id, const PositionVector& shape, const RGBColor& color, const std::vector<GNEEdge*>& edges, bool blockMovement);
 
     /**@brief Builds a TAZSource (Traffic Assignment Zone)
      * @param[in] net net in which element will be inserted
@@ -549,7 +562,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZSource(GNENet* net, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double departWeight);
+    static GNEAdditional* buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double departWeight);
 
     /**@brief Builds a TAZSink (Traffic Assignment Zone)
      * @param[in] net net in which element will be inserted
@@ -560,7 +573,7 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception ProcessError If the XML definition file is errornous
      */
-    static GNEAdditional* buildTAZSink(GNENet* net, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double arrivalWeight);
+    static GNEAdditional* buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double arrivalWeight);
 
     /**@brief extracts the position, checks whether it shall be mirrored and checks whether it is within the lane.
      * @param[in] pos position of additional over lane

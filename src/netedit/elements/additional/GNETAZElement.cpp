@@ -58,6 +58,16 @@ GNETAZElement::GNETAZElement(GNENet* net, SumoXMLTag tag, bool movementBlocked,
 GNETAZElement::~GNETAZElement() {}
 
 
+std::string
+GNETAZElement::generateChildID(SumoXMLTag childTag) {
+    int counter = (int)getChildTAZElements().size();
+    while (myNet->retrieveTAZElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
+        counter++;
+    }
+    return (getID() + toString(childTag) + toString(counter));
+}
+
+
 bool
 GNETAZElement::isMovementBlocked() const {
     return myBlockMovement;
@@ -120,6 +130,16 @@ GNETAZElement::getPopUpID() const {
 std::string
 GNETAZElement::getHierarchyName() const {
     return getTagStr();
+}
+
+
+bool
+GNETAZElement::isValidTAZElementID(const std::string& newID) const {
+    if (SUMOXMLDefinitions::isValidAdditionalID(newID) && (myNet->retrieveTAZElement(myTagProperty.getTag(), newID, false) == nullptr)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 

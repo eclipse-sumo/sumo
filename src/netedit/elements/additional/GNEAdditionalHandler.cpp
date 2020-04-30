@@ -20,6 +20,7 @@
 #include <config.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
+#include <netedit/changes/GNEChange_TAZElement.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/GNEViewNet.h>
@@ -820,26 +821,26 @@ GNEAdditionalHandler::buildVaporizer(GNENet* net, bool allowUndoRedo, GNEEdge* e
 }
 
 
-GNEAdditional*
+GNETAZElement*
 GNEAdditionalHandler::buildTAZ(GNENet* net, bool allowUndoRedo, const std::string& id, const PositionVector& shape, const RGBColor& color, const std::vector<GNEEdge*>& edges, bool blockMovement) {
     GNETAZ* TAZ = new GNETAZ(id, net, shape, color, blockMovement);
     // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
     net->disableUpdateGeometry();
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
-        net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZ, true), true);
+        net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZ, true), true);
         // create TAZEdges
-        for (auto i : edges) {
+        for (const auto &edge : edges) {
             // create TAZ Source using GNEChange_Additional
-            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, i, 1);
+            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSource, true), true);
             // create TAZ Sink using GNEChange_Additional
-            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, i, 1);
+            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(TAZSink, true), true);
         }
         net->getViewNet()->getUndoList()->p_end();
     } else {
-        net->getAttributeCarriers()->insertAdditional(TAZ);
+        net->getAttributeCarriers()->insertTAZElement(TAZ);
         TAZ->incRef("buildTAZ");
         for (auto i : edges) {
             // create TAZ Source
@@ -862,7 +863,7 @@ GNEAdditionalHandler::buildTAZ(GNENet* net, bool allowUndoRedo, const std::strin
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double departWeight) {
+GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double departWeight) {
     GNEAdditional* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
     for (auto i : TAZ->getChildAdditionals()) {
@@ -919,7 +920,7 @@ GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNEAdditio
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildTAZSink(GNENet* net, bool allowUndoRedo, GNEAdditional* TAZ, GNEEdge* edge, double arrivalWeight) {
+GNEAdditionalHandler::buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double arrivalWeight) {
     GNEAdditional* TAZSource = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
     for (auto i : TAZ->getChildAdditionals()) {
@@ -1133,14 +1134,14 @@ GNEAdditionalHandler::parseAndBuildTAZ(GNENet* net, bool allowUndoRedo, const SU
     // Continue if all parameters were successfully loaded
     if (!abort) {
         // check that all parameters are valid
-        if (net->retrieveAdditional(SUMO_TAG_TAZ, id, false) != nullptr) {
+        if (net->retrieveTAZElement(SUMO_TAG_TAZ, id, false) != nullptr) {
             WRITE_WARNING("There is another " + toString(SUMO_TAG_TAZ) + " with the same ID='" + id + "'.");
         } else {
             // save ID of last created element
-            GNEAdditional* additionalCreated = buildTAZ(net, allowUndoRedo, id, shape, color, edges, blockMovement);
+            GNETAZElement* TAZElementCreated = buildTAZ(net, allowUndoRedo, id, shape, color, edges, blockMovement);
             // check if insertion has to be commited
             if (insertedAdditionals) {
-                insertedAdditionals->commitAdditionalInsertion(additionalCreated);
+                insertedAdditionals->commitTAZElementInsertion(TAZElementCreated);
             }
             return true;
         }
@@ -1159,13 +1160,13 @@ GNEAdditionalHandler::parseAndBuildTAZSource(GNENet* net, bool allowUndoRedo, co
     if (!abort) {
         // get edge and TAZ
         GNEEdge* edge = net->retrieveEdge(edgeID, false);
-        GNEAdditional* TAZ = nullptr;
+        GNETAZElement* TAZ = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            TAZ = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_TAZ);
+            TAZ = insertedAdditionals->getTAZElementParent(net, SUMO_TAG_TAZ);
         } else {
             bool ok = true;
-            TAZ = net->retrieveAdditional(SUMO_TAG_TAZ, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
+            TAZ = net->retrieveTAZElement(SUMO_TAG_TAZ, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
         }
         // check that all parameters are valid
         if (edge == nullptr) {
@@ -1196,13 +1197,13 @@ GNEAdditionalHandler::parseAndBuildTAZSink(GNENet* net, bool allowUndoRedo, cons
     if (!abort) {
         // get edge and TAZ
         GNEEdge* edge = net->retrieveEdge(edgeID, false);
-        GNEAdditional* TAZ = nullptr;
+        GNETAZElement* TAZ = nullptr;
         // obtain parent depending if we're loading or creating it using GNEAdditionalFrame
         if (insertedAdditionals) {
-            TAZ = insertedAdditionals->getAdditionalParent(net, SUMO_TAG_TAZ);
+            TAZ = insertedAdditionals->getTAZElementParent(net, SUMO_TAG_TAZ);
         } else {
             bool ok = true;
-            TAZ = net->retrieveAdditional(SUMO_TAG_TAZ, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
+            TAZ = net->retrieveTAZElement(SUMO_TAG_TAZ, attrs.get<std::string>(GNE_ATTR_PARENT, "", ok));
         }
         // check that all parameters are valid
         if (edge == nullptr) {
@@ -2683,6 +2684,12 @@ GNEAdditionalHandler::LastInsertedElement::commitShapeInsertion(GNEShape* shapeC
 
 
 void
+GNEAdditionalHandler::LastInsertedElement::commitTAZElementInsertion(GNETAZElement* TAZElementCreated) {
+    myInsertedElements.back().TAZElement = TAZElementCreated;
+}
+
+
+void
 GNEAdditionalHandler::LastInsertedElement::popElement() {
     if (!myInsertedElements.empty()) {
         myInsertedElements.pop_back();
@@ -2721,7 +2728,6 @@ GNEAdditionalHandler::LastInsertedElement::getAdditionalParent(GNENet* net, Sumo
 }
 
 
-
 GNEShape*
 GNEAdditionalHandler::LastInsertedElement::getShapeParent(GNENet* net, SumoXMLTag expectedTag) const {
     if (myInsertedElements.size() < 2) {
@@ -2752,6 +2758,38 @@ GNEAdditionalHandler::LastInsertedElement::getShapeParent(GNENet* net, SumoXMLTa
     }
 }
 
+
+GNETAZElement*
+GNEAdditionalHandler::LastInsertedElement::getTAZElementParent(GNENet* net, SumoXMLTag expectedTag) const {
+    if (myInsertedElements.size() < 2) {
+        // currently we're finding parent TAZElement in the TAZElement XML root
+        WRITE_WARNING("A " + toString(myInsertedElements.back().tag) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+        return nullptr;
+    } else {
+        if (myInsertedElements.size() < 2) {
+            // TAZElement was hierarchically bad loaded, then return nullptr
+            return nullptr;
+        } else if ((myInsertedElements.end() - 2)->TAZElement == nullptr) {
+            WRITE_WARNING(toString(expectedTag) + " parent of " + toString((myInsertedElements.end() - 1)->tag) + " was not loaded sucesfully.");
+            // parent TAZElement wasn't sucesfully loaded, then return nullptr
+            return nullptr;
+        }
+        GNETAZElement* retrievedTAZElement = net->retrieveTAZElement((myInsertedElements.end() - 2)->tag, (myInsertedElements.end() - 2)->TAZElement->getID(), false);
+        if (retrievedTAZElement == nullptr) {
+            // TAZElement doesn't exist
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->tag) + " must be declared within the definition of a " + toString(expectedTag) + ".");
+            return nullptr;
+        } else if (retrievedTAZElement->getTagProperty().getTag() != expectedTag) {
+            // invalid parent TAZElement
+            WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->tag) + " cannot be declared within the definition of a " + retrievedTAZElement->getTagStr() + ".");
+            return nullptr;
+        } else {
+            return retrievedTAZElement;
+        }
+    }
+}
+
+
 GNEAdditional*
 GNEAdditionalHandler::LastInsertedElement::getLastInsertedAdditional() const {
     // ierate in reverse mode over myInsertedElements to obtain last inserted additional
@@ -2778,10 +2816,24 @@ GNEAdditionalHandler::LastInsertedElement::getLastInsertedShape() const {
 }
 
 
+GNETAZElement*
+GNEAdditionalHandler::LastInsertedElement::getLastInsertedTAZElement() const {
+    // ierate in reverse mode over myInsertedElements to obtain last inserted TAZElement
+    for (std::vector<StackElement>::const_reverse_iterator i = myInsertedElements.rbegin(); i != myInsertedElements.rend(); i++) {
+        // we need to avoid Tag Param because isn't a TAZElement
+        if (i->tag != SUMO_TAG_PARAM) {
+            return i->TAZElement;
+        }
+    }
+    return nullptr;
+}
+
+
 GNEAdditionalHandler::LastInsertedElement::StackElement::StackElement(SumoXMLTag _tag) :
     tag(_tag),
     additional(nullptr),
-    shape(nullptr) {
+    shape(nullptr),
+    TAZElement(nullptr) {
 }
 
 /****************************************************************************/

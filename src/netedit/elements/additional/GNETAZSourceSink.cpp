@@ -31,9 +31,9 @@
 // member method definitions
 // ===========================================================================
 
-GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNEAdditional* TAZParent, GNEEdge* edge, double departWeight) :
-    GNEAdditional(TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag, "", false,
-        {}, {edge}, {}, {TAZParent}, {}, {}, {}, {},    // Parents
+GNETAZSourceSink::GNETAZSourceSink(SumoXMLTag sourceSinkTag, GNETAZElement* TAZParent, GNEEdge* edge, double departWeight) :
+    GNEAdditional((GNEAdditional*)TAZParent, TAZParent->getNet(), GLO_TAZ, sourceSinkTag, "", false,
+        {}, {edge}, {}, {}, {}, {TAZParent}, {}, {},    // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                // Children
     myDepartWeight(departWeight) {
     //check that this is a TAZ Source OR a TAZ Sink
