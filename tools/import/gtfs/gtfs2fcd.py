@@ -1,12 +1,22 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-@file     gtfs2fcd.py
-@author   Michael Behrisch
-@author   Robert Hilbrich
-@date     2018-06-13
-@version  $Id: gtfs2fcd.py 7695 2019-04-10 12:49:04Z erdm_ja $
+#!/usr/bin/env python3
+# Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+# Copyright (C) 2010-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
+# @file    gtfs2fcd.py
+# @author  Michael Behrisch
+# @author  Robert Hilbrich
+# @date    2018-06-13
+
+"""
 Converts GTFS data into separate fcd traces for every distinct trip
 """
 
@@ -137,7 +147,7 @@ def main(options):
         os.makedirs(options.fcd)
     for mode in set(gtfs_modes.values()):
         filePrefix = os.path.join(options.fcd, mode)
-        fcdFile[mode] = io.open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
+        fcdFile[mode] = open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
         sumolib.writeXMLHeader(fcdFile[mode], "gtfs2fcd.py")
         fcdFile[mode].write('<fcd-export>\n')
         print('Writing fcd file "%s"' % fcdFile[mode].name)
@@ -160,7 +170,6 @@ def main(options):
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
                 buf += ('    <timestep time="%s"><vehicle id="%s_%s" x="%s" y="%s" until="%s" name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n' %
                         (arrivalSec - offset, d.route_short_name, trip_id, d.stop_lon, d.stop_lat, until, 
-                            #sumolib.xml.quoteattr(d.stop_name).decode('latin1').encode('utf8'),
                             sumolib.xml.quoteattr(d.stop_name),
                             d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
