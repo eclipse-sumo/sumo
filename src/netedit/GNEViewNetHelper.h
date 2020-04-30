@@ -145,7 +145,9 @@ class GNETAZElement;
 class GNEShape;
 class GNEPoly;
 class GNEPOI;
+class GNETAZElement;
 class GNETAZ;
+class GNETAZSourceSink;
 // demand elements
 class GNEDemandElement;
 class GNEVehicleType;

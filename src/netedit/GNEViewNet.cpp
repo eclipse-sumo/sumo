@@ -3499,7 +3499,11 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_DELETE: {
             // check that we have clicked over an non-demand element
-            if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+            if (myObjectsUnderCursor.getAttributeCarrierFront() &&
+                (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement() || 
+                 myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isAdditionalElement() || 
+                 myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isShape() ||
+                 myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isTAZElement())) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // before delete al selected attribute carriers, check if we clicked over a geometry point

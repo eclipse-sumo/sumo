@@ -856,6 +856,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* f
     myClickedCrossing(nullptr),
     myClickedConnection(nullptr),
     myClickedShape(nullptr),
+    myClickedTAZElement(nullptr),
     myClickedAdditional(nullptr),
     myClickedDemandElement(nullptr),
     myClickedDataSet(nullptr),
@@ -892,6 +893,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
     myClickedCrossing = nullptr;
     myClickedConnection = nullptr;
     myClickedShape = nullptr;
+    myClickedTAZElement = nullptr;
     myClickedAdditional = nullptr;
     myClickedDemandElement = nullptr;
     myClickedDataSet = nullptr;
@@ -955,6 +957,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector
         myFrameParent->myViewNet->centerTo(myClickedAdditional->getGlID(), true, -1);
     } else if (myClickedShape) {
         myFrameParent->myViewNet->centerTo(myClickedShape->getGlID(), true, -1);
+    } else if (myClickedTAZElement) {
+        myFrameParent->myViewNet->centerTo(myClickedTAZElement->getGlID(), true, -1);
     } else if (myClickedDemandElement) {
         myFrameParent->myViewNet->centerTo(myClickedDemandElement->getGlID(), true, -1);
     } else if (myClickedGenericData) {
@@ -994,6 +998,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
         myFrameParent->myViewNet->getNet()->deleteAdditional(myClickedAdditional, myFrameParent->myViewNet->getUndoList());
     } else if (myClickedShape) {
         myFrameParent->myViewNet->getNet()->deleteShape(myClickedShape, myFrameParent->myViewNet->getUndoList());
+    } else if (myClickedTAZElement) {
+        myFrameParent->myViewNet->getNet()->deleteTAZElement(myClickedTAZElement, myFrameParent->myViewNet->getUndoList());
     } else if (myClickedDemandElement) {
         // check that default VTypes aren't removed
         if ((myClickedDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && (GNEAttributeCarrier::parse<bool>(myClickedDemandElement->getAttribute(GNE_ATTR_DEFAULT_VTYPE)))) {
@@ -1089,6 +1095,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         myClickedCrossing = dynamic_cast<GNECrossing*>(clickedAC);
         myClickedConnection = dynamic_cast<GNEConnection*>(clickedAC);
         myClickedShape = dynamic_cast<GNEShape*>(clickedAC);
+        myClickedTAZElement = dynamic_cast<GNETAZElement*>(clickedAC);
         myClickedAdditional = dynamic_cast<GNEAdditional*>(clickedAC);
         myClickedDemandElement = dynamic_cast<GNEDemandElement*>(clickedAC);
         myClickedDataSet = dynamic_cast<GNEDataSet*>(clickedAC);
@@ -1161,6 +1168,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
         myClickedCrossing = nullptr;
         myClickedConnection = nullptr;
         myClickedShape = nullptr;
+        myClickedTAZElement = nullptr;
         myClickedAdditional = nullptr;
         myClickedDemandElement = nullptr;
         myClickedDataSet = nullptr;
@@ -1347,6 +1355,71 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
                 }
                 // return last inserted item
                 root = addListItem(additional->getParentLanes().back());
+            }
+            // return last inserted list item
+            return root;
+        }
+    } else if (myAC->getTagProperty().isTAZElement()) {
+        // Obtain TAZElement
+        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(myAC->getTagProperty().getTag(), myAC->getID(), false);
+        if (TAZElement) {
+            // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
+            FXTreeItem* root = nullptr;
+            // check if there is demand elements parents
+            if (TAZElement->getParentTAZElements().size() > 0) {
+                // check if we have more than one edge
+                if (TAZElement->getParentTAZElements().size() > 1) {
+                    // insert first item
+                    addListItem(TAZElement->getParentTAZElements().front());
+                    // insert "spacer"
+                    if (TAZElement->getParentTAZElements().size() > 2) {
+                        addListItem(nullptr, ("..." + toString((int)TAZElement->getParentTAZElements().size() - 2) + " TAZElements...").c_str(), 0, false);
+                    }
+                }
+                // return last inserted item
+                root = addListItem(TAZElement->getParentTAZElements().back());
+            }
+            // check if there is parent demand elements
+            if (TAZElement->getParentDemandElements().size() > 0) {
+                // check if we have more than one demand element
+                if (TAZElement->getParentDemandElements().size() > 1) {
+                    // insert first item
+                    addListItem(TAZElement->getParentDemandElements().front());
+                    // insert "spacer"
+                    if (TAZElement->getParentDemandElements().size() > 2) {
+                        addListItem(nullptr, ("..." + toString((int)TAZElement->getParentDemandElements().size() - 2) + " demand elements...").c_str(), 0, false);
+                    }
+                }
+                // return last inserted item
+                root = addListItem(TAZElement->getParentDemandElements().back());
+            }
+            // check if there is parent edges
+            if (TAZElement->getParentEdges().size() > 0) {
+                // check if we have more than one edge
+                if (TAZElement->getParentEdges().size() > 1) {
+                    // insert first item
+                    addListItem(TAZElement->getParentEdges().front());
+                    // insert "spacer"
+                    if (TAZElement->getParentEdges().size() > 2) {
+                        addListItem(nullptr, ("..." + toString((int)TAZElement->getParentEdges().size() - 2) + " edges...").c_str(), 0, false);
+                    }
+                }
+                // return last inserted item
+                root = addListItem(TAZElement->getParentEdges().back());
+            }
+            // check if there is parent lanes
+            if (TAZElement->getParentLanes().size() > 0) {
+                // check if we have more than one parent lane
+                if (TAZElement->getParentLanes().size() > 1) {
+                    // insert first item
+                    addListItem(TAZElement->getParentLanes().front());
+                    // insert "spacer"
+                    if (TAZElement->getParentLanes().size() > 2) {
+                        addListItem(nullptr, ("..." + toString((int)TAZElement->getParentLanes().size() - 2) + " lanes...").c_str(), 0, false);
+                    }
+                }
+                // return last inserted item
+                root = addListItem(TAZElement->getParentLanes().back());
             }
             // return last inserted list item
             return root;
@@ -1539,12 +1612,16 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                     for (const auto& i : edge->getLanes()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
+                    // insert child additional
+                    for (const auto& i : edge->getChildAdditionals()) {
+                        showAttributeCarrierChildren(i, edgeItem);
+                    }
                     // insert child shapes
                     for (const auto& i : edge->getChildShapes()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
-                    // insert child additional
-                    for (const auto& i : edge->getChildAdditionals()) {
+                    // insert child TAZElements
+                    for (const auto& i : edge->getChildTAZElements()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                     // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
@@ -1570,12 +1647,16 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                 if (lane) {
                     // insert lane item
                     FXTreeItem* laneItem = addListItem(AC, itemParent);
+                    // insert child additional
+                    for (const auto& i : lane->getChildAdditionals()) {
+                        showAttributeCarrierChildren(i, laneItem);
+                    }
                     // insert child shapes
                     for (const auto& i : lane->getChildShapes()) {
                         showAttributeCarrierChildren(i, laneItem);
                     }
-                    // insert child additional
-                    for (const auto& i : lane->getChildAdditionals()) {
+                    // insert child TAZElements
+                    for (const auto& i : lane->getChildTAZElements()) {
                         showAttributeCarrierChildren(i, laneItem);
                     }
                     // insert demand elements children
@@ -1631,12 +1712,16 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
             for (const auto& i : additional->getChildLanes()) {
                 showAttributeCarrierChildren(i, additionalItem);
             }
+            // insert additional children
+            for (const auto& i : additional->getChildAdditionals()) {
+                showAttributeCarrierChildren(i, additionalItem);
+            }
             // insert child shapes
             for (const auto& i : additional->getChildShapes()) {
                 showAttributeCarrierChildren(i, additionalItem);
             }
-            // insert additionals children
-            for (const auto& i : additional->getChildAdditionals()) {
+            // insert TAZElements children
+            for (const auto& i : additional->getChildTAZElements()) {
                 showAttributeCarrierChildren(i, additionalItem);
             }
             // insert child demand elements
@@ -1644,6 +1729,39 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                 showAttributeCarrierChildren(i, additionalItem);
             }
         }
+
+    } else if (AC->getTagProperty().isTAZElement()) {
+        // retrieve TAZElement
+        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(AC->getTagProperty().getTag(), AC->getID(), false);
+        if (TAZElement) {
+            // insert TAZElement item
+            FXTreeItem* TAZElementItem = addListItem(AC, itemParent);
+            // insert child edges
+            for (const auto& i : TAZElement->getChildEdges()) {
+                showAttributeCarrierChildren(i, TAZElementItem);
+            }
+            // insert child lanes
+            for (const auto& i : TAZElement->getChildLanes()) {
+                showAttributeCarrierChildren(i, TAZElementItem);
+            }
+            // insert additional children
+            for (const auto& i : TAZElement->getChildAdditionals()) {
+                showAttributeCarrierChildren(i, TAZElementItem);
+            }
+            // insert child shapes
+            for (const auto& i : TAZElement->getChildShapes()) {
+                showAttributeCarrierChildren(i, TAZElementItem);
+            }
+            // insert TAZElements children
+            for (const auto& i : TAZElement->getChildTAZElements()) {
+                showAttributeCarrierChildren(i, TAZElementItem);
+            }
+            // insert child demand elements
+            for (const auto& i : TAZElement->getChildDemandElements()) {
+                showAttributeCarrierChildren(i, TAZElementItem);
+            }
+        }
+
     } else if (AC->getTagProperty().isDemandElement()) {
         // retrieve demandElement
         GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(AC->getTagProperty().getTag(), AC->getID(), false);
@@ -1658,12 +1776,16 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
             for (const auto& i : demandElement->getChildLanes()) {
                 showAttributeCarrierChildren(i, demandElementItem);
             }
+            // insert additional children
+            for (const auto& i : demandElement->getChildAdditionals()) {
+                showAttributeCarrierChildren(i, demandElementItem);
+            }
             // insert child shapes
             for (const auto& i : demandElement->getChildShapes()) {
                 showAttributeCarrierChildren(i, demandElementItem);
             }
-            // insert additionals children
-            for (const auto& i : demandElement->getChildAdditionals()) {
+            // insert TAZElements children
+            for (const auto& i : demandElement->getChildTAZElements()) {
                 showAttributeCarrierChildren(i, demandElementItem);
             }
             // insert child demand elements

@@ -35,6 +35,7 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
+#include <netedit/changes/GNEChange_TAZElement.h>
 #include <netedit/changes/GNEChange_Edge.h>
 #include <netedit/changes/GNEChange_Junction.h>
 #include <netedit/changes/GNEChange_Lane.h>
@@ -577,9 +578,7 @@ GNENet::deleteTAZElement(GNETAZElement* TAZElement, GNEUndoList* undoList) {
         deleteTAZElement(TAZElement->getChildTAZElements().front(), undoList);
     }
     // remove TAZElement
-/*
     undoList->add(new GNEChange_TAZElement(TAZElement, false), true);
-*/
     undoList->p_end();
 }
 
