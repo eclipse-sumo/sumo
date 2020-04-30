@@ -33,35 +33,6 @@
 
 
 // ===========================================================================
-// callbacks definitions
-// ===========================================================================
-
-void APIENTRY beginTAZCallback(GLenum which) {
-    glBegin(which);
-}
-
-
-void APIENTRY endTAZCallback(void) {
-    glEnd();
-}
-
-
-void APIENTRY combineTAZCallback(GLdouble coords[3],
-                                 GLdouble* vertex_data[4],
-                                 GLfloat weight[4], GLdouble** dataOut) {
-    UNUSED_PARAMETER(weight);
-    UNUSED_PARAMETER(*vertex_data);
-    GLdouble* vertex;
-
-    vertex = (GLdouble*) malloc(7 * sizeof(GLdouble));
-
-    vertex[0] = coords[0];
-    vertex[1] = coords[1];
-    vertex[2] = coords[2];
-    *dataOut = vertex;
-}
-
-// ===========================================================================
 // static members
 // ===========================================================================
 const double GNETAZ::myHintSize = 0.8;
@@ -261,44 +232,42 @@ GNETAZ::getParentName() const {
 
 void
 GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
-    // check if boundary has to be drawn
-    if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
-    }
-    // obtain Exaggeration
-    const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
-    const Boundary TAZBoundary = myShape.getBoxBoundary();
-    // check if TAZ can be drawn
-    if ((TAZExaggeration > 0) && myNet->getViewNet()->getDataViewOptions().showAdditionals() &&
-            (s.scale * MAX2(TAZBoundary.getWidth(), TAZBoundary.getHeight())) >= s.polySize.minSize) {
-        // push name
+    // first obtain poly exaggeration
+    const double polyExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
+    // first check if poly can be drawn
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() && (polyExaggeration > 0)) {
+        // Obtain constants
+        const Position mousePosition = myNet->getViewNet()->getPositionInformation();
+        const double vertexWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, (GNETAZElement*)this));
+        const double vertexWidthSquared = (vertexWidth * vertexWidth);
+        const double contourWidth = (myHintSize / 4.0) * polyExaggeration;
+        const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
+        // check if boundary has to be drawn
+        if (s.drawBoundaries) {
+            GLHelper::drawBoundary(getCenteringBoundary());
+        }
+        // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(GNETAZElement::getGlID());
-        // check TAZ ssize
-        if (myShape.size() > 1) {
-            // push line matrix
-            glPushMatrix();
-            // translate to 0 (GLO_NETWORK)
-            glTranslated(0, 0, GLO_NETWORK);
-            // set color
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectionColor);
-            } else {
-                GLHelper::setColor(getShapeColor());
+        // first check if inner polygon can be drawn
+        if (s.drawForPositionSelection && getFill()) {
+            if ((moveMode || myBlockShape) && myShape.around(mousePosition)) {
+                // push matrix
+                glPushMatrix();
+                glTranslated(mousePosition.x(), mousePosition.y(), GLO_TAZ);
+                setColor(s, false);
+                GLHelper::drawFilledCircle(1, s.getCircleResolution());
+                glPopMatrix();
             }
-            // recall tesselation
-            performTesselation(s, 1);
-            // pop tesselation matrix
-            glPopMatrix();
-            // draw name
-            GNETAZElement::drawName(myShape.getPolygonCenter(), s.scale, s.polyName, s.angle);
+        } else if (checkDraw(s)) {
+            // draw inner polygon
+            drawInnerPolygon(s, drawUsingSelectColor());
         }
         // draw geometry details hints if is not too small and isn't in selecting mode
-        if (s.scale * myHintSize > 1.) {
-            // set values relative to mouse position regarding to shape
+        if (s.scale * vertexWidth > 1.) {
+            // obtain values relative to mouse position regarding to shape
             bool mouseOverVertex = false;
-            bool modeMove = myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE;
-            Position mousePosition = myNet->getViewNet()->getPositionInformation();
-            double distanceToShape = myShape.distance2D(mousePosition);
+            const double distanceToShape = myShape.distance2D(mousePosition);
+            const Position positionOverLane = myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition));
             // set colors
             RGBColor invertedColor, darkerColor;
             if (drawUsingSelectColor()) {
@@ -312,43 +281,68 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             if (myBlockShape == false) {
                 // draw a boundary for moving using darkerColor
                 glPushMatrix();
-                glTranslated(0, 0, GLO_TAZ);
+                glTranslated(0, 0, GLO_TAZ + 0.01);
                 GLHelper::setColor(darkerColor);
-                GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s, (GNETAZElement*)this));
+                if (s.drawForPositionSelection) {
+                    if (positionOverLane.distanceSquaredTo2D(mousePosition) <= (contourWidth * contourWidth)) {
+                        // push matrix
+                        glPushMatrix();
+                        // translate to position over lane
+                        glTranslated(positionOverLane.x(), positionOverLane.y(), 0);
+                        // Draw circle
+                        GLHelper::drawFilledCircle(contourWidth, myNet->getViewNet()->getVisualisationSettings().getCircleResolution());
+                        // pop draw matrix
+                        glPopMatrix();
+                    }
+                } else if (!s.drawForPositionSelection) {
+                    GLHelper::drawBoxLines(myShape, (myHintSize / 4) * s.polySize.getExaggeration(s, (GNETAZElement*)this));
+                }
                 glPopMatrix();
                 // draw shape points only in Network supemode
-                if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
-                    for (const auto& TAZVertex : myShape) {
-                        if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(TAZVertex) <= (myHintSizeSquared + 2))) {
+                if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                    for (const auto& vertex : myShape) {
+                        if (!s.drawForRectangleSelection || (mousePosition.distanceSquaredTo2D(vertex) <= (vertexWidthSquared + 2))) {
                             glPushMatrix();
-                            glTranslated(TAZVertex.x(), TAZVertex.y(), GLO_TAZ + 0.01);
+                            glTranslated(vertex.x(), vertex.y(), GLO_TAZ + 0.02);
                             // Change color of vertex and flag mouseOverVertex if mouse is over vertex
-                            if (modeMove && (TAZVertex.distanceTo2D(mousePosition) < myHintSize)) {
+                            if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) && (vertex.distanceSquaredTo2D(mousePosition) < vertexWidthSquared)) {
                                 mouseOverVertex = true;
                                 GLHelper::setColor(invertedColor);
                             } else {
                                 GLHelper::setColor(darkerColor);
                             }
-                            GLHelper::drawFilledCircle(myHintSize, s.getCircleResolution());
+                            GLHelper::drawFilledCircle(vertexWidth, s.getCircleResolution());
                             glPopMatrix();
+                            // draw elevation or special symbols (Start, End and Block)
+                            if (!s.drawForRectangleSelection && !s.drawForPositionSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
+                                // Push matrix
+                                glPushMatrix();
+                                // Traslate to center of detector
+                                glTranslated(vertex.x(), vertex.y(), GLO_TAZ + 0.03);
+                                // draw Z
+                                GLHelper::drawText(toString(vertex.z()), Position(), .1, 0.7, RGBColor::BLUE);
+                                // pop matrix
+                                glPopMatrix();
+                            }
                         }
                     }
                     // check if draw moving hint has to be drawed
-                    if (modeMove && (mouseOverVertex == false) && (myBlockMovement == false) && (distanceToShape < myHintSize)) {
+                    if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) && (distanceToShape < vertexWidth) &&
+                        (mouseOverVertex == false) && (myBlockMovement == false)) {
                         // push matrix
                         glPushMatrix();
-                        Position hintPos = myShape.size() > 1 ? myShape.positionAtOffset2D(myShape.nearest_offset_to_point2D(mousePosition)) : myShape[0];
-                        glTranslated(hintPos.x(), hintPos.y(), GLO_TAZ + 0.02);
+                        const Position hintPos = myShape.size() > 1 ? positionOverLane : myShape[0];
+                        glTranslated(hintPos.x(), hintPos.y(), GLO_TAZ + 0.04);
                         GLHelper::setColor(invertedColor);
-                        GLHelper:: drawFilledCircle(myHintSize, s.getCircleResolution());
+                        GLHelper::drawFilledCircle(vertexWidth, s.getCircleResolution());
                         glPopMatrix();
                     }
                 }
             }
         }
         // check if dotted contour has to be drawn
-        if ((myNet->getViewNet()->getDottedAC() == this) || (myNet->getViewNet()->getViewParent()->getTAZFrame()->getTAZCurrentModul()->getTAZ() == this)) {
-            GNEGeometry::drawShapeDottedContour(s, GLO_TAZ + 1, TAZExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getDottedAC() == this) {
+            GNEGeometry::drawShapeDottedContour(s, GLO_TAZ + 0.05, polyExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();
@@ -547,40 +541,6 @@ GNETAZ::updateParentAdditional() {
 // ===========================================================================
 
 void
-GNETAZ::performTesselation(const GUIVisualizationSettings& s, double /*lineWidth*/) const {
-    const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
-    if (myFill && (!s.drawForPositionSelection || moveMode || myBlockShape)) {
-        // draw the tesselated shape
-        double* points = new double[myShape.size() * 3];
-        GLUtesselator* tobj = gluNewTess();
-        gluTessCallback(tobj, GLU_TESS_VERTEX, (GLvoid(APIENTRY*)()) &glVertex3dv);
-        gluTessCallback(tobj, GLU_TESS_BEGIN, (GLvoid(APIENTRY*)()) &beginTAZCallback);
-        gluTessCallback(tobj, GLU_TESS_END, (GLvoid(APIENTRY*)()) &endTAZCallback);
-        //gluTessCallback(tobj, GLU_TESS_ERROR, (GLvoid (APIENTRY*) ()) &errorCallback);
-        gluTessCallback(tobj, GLU_TESS_COMBINE, (GLvoid(APIENTRY*)()) &combineTAZCallback);
-        gluTessProperty(tobj, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
-        gluTessBeginPolygon(tobj, nullptr);
-        gluTessBeginContour(tobj);
-        for (int i = 0; i != (int)myShape.size(); ++i) {
-            points[3 * i]  = myShape[(int) i].x();
-            points[3 * i + 1]  = myShape[(int) i].y();
-            points[3 * i + 2]  = 0;
-            gluTessVertex(tobj, points + 3 * i, points + 3 * i);
-        }
-        gluTessEndContour(tobj);
-
-        gluTessEndPolygon(tobj);
-        gluDeleteTess(tobj);
-        delete[] points;
-    } else {
-        // draw line around TAZ
-        GLHelper::drawBoxLines(myShape, 1);
-    }
-
-}
-
-
-void
 GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
@@ -589,6 +549,10 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_SHAPE:
             myNet->removeGLObjectFromGrid(this);
             myShape = parse<PositionVector>(value);
+            // always close shape
+            if ((myShape.size() > 1) && (myShape.front() != myShape.back())) {
+                myShape.push_back(myShape.front());
+            }
             myNet->addGLObjectIntoGrid(this);
             break;
         case SUMO_ATTR_COLOR:

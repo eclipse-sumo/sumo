@@ -189,9 +189,6 @@ private:
     /// @brief Average Sink weight
     double myAverageWeightSink;
 
-    // @brief perform the tesselation / drawing
-    void performTesselation(const GUIVisualizationSettings& s, double lineWidth) const;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
