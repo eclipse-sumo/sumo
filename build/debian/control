@@ -24,7 +24,7 @@ Build-Depends: cmake,
 Build-Depends-Indep: doxygen,
                      maven,
                      openjdk-8-jdk,
-                     python-matplotlib,
+                     python-matplotlib | python3-matplotlib,
                      python,
                      python-setuptools
 Standards-Version: 3.9.6

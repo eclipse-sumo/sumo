@@ -1,3 +1,15 @@
+sumo (1.6.0+dfsg1-1) bionic; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Wed, 29 Apr 2020 11:32:49 +0200
+
+sumo (1.5.0+dfsg1-5) bionic; urgency=medium
+
+  * new upstream version
+
+ -- Michael Behrisch <oss@behrisch.de>  Sun, 16 Feb 2020 08:51:34 +0000
+
 sumo (1.4.0+dfsg1-5) bionic; urgency=medium
 
   * new upstream version
