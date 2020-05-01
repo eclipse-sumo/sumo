@@ -46,7 +46,6 @@ def add_options():
     argParser.add_argument("--date", type=int, help="define the day to import")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
-    argParser.add_argument("--encoding", default="latin1", help="input encoding")
     argParser.add_argument("--verbose", action="store_true", default=False, help="tell me what you are doing")
     return argParser
 
