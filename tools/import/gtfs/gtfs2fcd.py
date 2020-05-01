@@ -35,13 +35,9 @@ import sumolib
 import traceExporter
 
 
-URMO = "berlin_rail"
-
-
 def add_options():
     argParser = sumolib.options.ArgumentParser()
-    argParser.add_argument("-r", "--region", default=URMO,
-                           help="define the region to process")
+    argParser.add_argument("-r", "--region", help="define the region to process")
     argParser.add_argument("--gtfs", help="define gtfs zip file to load")
     argParser.add_argument("--date", type=int, help="define the day to import")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
@@ -51,12 +47,6 @@ def add_options():
 
 
 def check_options(options):
-    if options.region == "moin":
-        options.gtfs = 'resources/moin/dataMDV2019TestSet.zip'
-        options.date = 20190522
-    elif options.gtfs is None:
-        options.gtfs = '../public-transit-berlin/GTFS_VBB_Juni-Dezember-2016.zip'
-        options.date = 20160713
     if options.fcd is None:
         options.fcd = os.path.join('fcd', options.region)
     if options.gpsdat is None:

@@ -48,10 +48,8 @@ def get_options(args=None):
     argParser.add_argument("--map-parameter", default="conf/parameters_template.xml",
                            help="parameter template for the mapper library")
     argParser.add_argument("--poly-output", help="file to write the generated polygon files to")
-    argParser.add_argument("--route-output", default="publictransport.add.xml",
-                           help="file to write the generated public transport stops and routes to")
-    argParser.add_argument("--vehicle-output", default="publictransport.rou.xml",
-                           help="file to write the generated public transport vehicles to")
+    argParser.add_argument("--route-output", help="file to write the generated public transport stops and routes to")
+    argParser.add_argument("--vehicle-output", help="file to write the generated public transport vehicles to")
     argParser.add_argument("-n", "--network", help="sumo network to use")
     argParser.add_argument("--network-split", help="directory to write generated networks to")
     argParser.add_argument("-b", "--begin", default=0,
@@ -65,6 +63,10 @@ def get_options(args=None):
         options.map_output = os.path.join('output', options.region)
     if options.network_split is None:
         options.network_split = os.path.join('resources', options.region)
+    if options.route_output is None:
+        options.route_output = options.region + "_publictransport.add.xml"
+    if options.vehicle_output is None:
+        options.vehicle_output = options.region + "_publictransport.rou.xml"
     return options
 
 
@@ -260,10 +262,7 @@ def main(options):
             else:
                 print("Warning! Empty route", vehID)
         rout.write('</additional>\n')
-    if options.region == gtfs2fcd.URMO:
-        filter_trips(options, routes, stops, options.vehicle_output, 23 * 3600, 49 * 3600)
-    else:
-        filter_trips(options, routes, stops, options.vehicle_output, options.begin, options.end)
+    filter_trips(options, routes, stops, options.vehicle_output, options.begin, options.end)
 
 
 if __name__ == "__main__":
