@@ -82,6 +82,9 @@ remove_lane
 # load a network with edge types and write it to plain-xml and .net.xml
 edge_types
 params
+
+# discarding params
+discard_params
 short_edge
 
 # merge 2 networks without geo-referencing that are shifted appropriately
