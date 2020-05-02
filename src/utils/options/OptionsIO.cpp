@@ -38,6 +38,11 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#ifdef HAVE_ZLIB
+#include <foreign/zstr/zstr.hpp>
+#endif
+#include <utils/xml/IStreamInputSource.h>
+
 
 // ===========================================================================
 // static member definitions
@@ -142,7 +147,14 @@ OptionsIO::getRoot(const std::string& filename) {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         XERCES_CPP_NAMESPACE::XMLPScanToken token;
-        if (!parser.parseFirst(filename.c_str(), token)) {
+#ifdef HAVE_ZLIB
+        zstr::ifstream istream(filename.c_str(), std::fstream::in | std::fstream::binary);
+        IStreamInputSource inputStream(istream);
+        const bool result = parser.parseFirst(inputStream, token);
+#else
+        const bool result = parser.parseFirst(filename.c_str(), token);
+#endif
+        if (!result) {
             throw ProcessError("Can not read XML-file '" + filename + "'.");
         }
         while (parser.parseNext(token) && handler.getItem() == "");
