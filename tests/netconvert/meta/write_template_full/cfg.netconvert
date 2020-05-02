@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 24 08:31:09 2020 by Eclipse SUMO netconvert Version v1_5_0+1280-e55420fefb
+<!-- generated on Sat May  2 14:41:37 2020 by Eclipse SUMO netconvert Version v1_6_0+0040-b6852ef6b1
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -272,6 +272,7 @@
     </railway>
 
     <formats>
+        <discard-params value="" type="STR[]" help="Remove the list of keys from all params"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.elevation value="false" type="BOOL" help="Imports elevation data"/>
         <osm.layer-elevation value="0" type="FLOAT" help="Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 24 08:31:09 2020 by Eclipse SUMO netconvert Version v1_5_0+1280-e55420fefb
+<!-- generated on Sat May  2 14:41:37 2020 by Eclipse SUMO netconvert Version v1_6_0+0040-b6852ef6b1
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -720,6 +720,9 @@
     </railway>
 
     <formats>
+        <!-- Remove the list of keys from all params -->
+        <discard-params value="" type="STR[]"/>
+
         <!-- Skips the check for duplicate nodes and edges -->
         <osm.skip-duplicates-check value="false" type="BOOL"/>
 
