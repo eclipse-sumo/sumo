@@ -32,6 +32,7 @@ from collections import defaultdict
 sys.path += [os.path.join(os.environ["SUMO_HOME"], "tools"), os.path.join(os.environ['SUMO_HOME'], 'tools', 'route')] 
 import route2poly
 import sumolib
+import tracemapper
 
 import gtfs2fcd
 
@@ -123,8 +124,13 @@ def mapFCD(options, typedNets):
 
 
 def traceMap(options, typedNets):
-    for o in glob.glob("output/%s/*.dat" % options.region):
-        os.remove(o)
+    routes = defaultdict(lambda:[])
+    for railType in typedNets.keys():
+        net = sumolib.net.readNet(os.path.join(options.network_split, railType + ".net.xml"))
+        traces = tracemapper.readFCD(os.path.join(options.fcd, railType + ".fcd.xml"), net, True)
+        for tid, trace in traces:
+            routes[tid] = [e.getID() for e in sumolib.route.mapTrace(trace, net, 100)]
+    return routes
 
 
 def generate_polygons(net, routes, outfile):
@@ -241,17 +247,17 @@ def main(options):
     if not options.skip_fcd:
         gtfs2fcd.main(options)
     edgeMap, typedNets = splitNet(options)
-    if not options.skip_map:
-        if os.path.exists(options.mapperlib):
+    if os.path.exists(options.mapperlib):
+        if not options.skip_map:
             mapFCD(options, typedNets)
-        else:
-            print("Warning! No mapping library found, falling back to tracemapper.")
-            traceMap(options, typedNets)
-    routes = defaultdict(lambda:[])
-    for o in glob.glob(os.path.join(options.map_output, "*.dat")):
-        for line in open(o):
-            time, edge, speed, coverage, id, minute_of_week = line.split('\t')[:6]
-            routes[id].append(edge)
+        routes = defaultdict(lambda:[])
+        for o in glob.glob(os.path.join(options.map_output, "*.dat")):
+            for line in open(o):
+                time, edge, speed, coverage, id, minute_of_week = line.split('\t')[:6]
+                routes[id].append(edge)
+    else:
+        print("Warning! No mapping library found, falling back to tracemapper.")
+        routes = traceMap(options, typedNets)
     net = sumolib.net.readNet(options.network)
     if options.poly_output:
         generate_polygons(net, routes, options.poly_output)
