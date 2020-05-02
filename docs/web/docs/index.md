@@ -99,6 +99,10 @@ This Documentation is continuously updated and always refers to the latest devel
 
 **Commercial Extensions**
 
+- [TETCOS NetSim](https://www.tetcos.com/vanets.html)
+
+    supports VANET simulations by interfacing with SUMO
+    
 - [Webots](https://www.cyberbotics.com/automobile/sumo-interface.php)
 
     coupling with a robot simulator
