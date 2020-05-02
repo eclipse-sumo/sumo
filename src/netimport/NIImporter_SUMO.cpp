@@ -106,8 +106,10 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
     if (!oc.isUsableFileList("sumo-net-file")) {
         return;
     }
+    const std::vector<std::string> discardableParams = oc.getStringVector("discard-params");
+    myDiscardableParams.insert(discardableParams.begin(), discardableParams.end());
     // parse file(s)
-    std::vector<std::string> files = oc.getStringVector("sumo-net-file");
+    const std::vector<std::string> files = oc.getStringVector("sumo-net-file");
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         if (!FileHelpers::isReadable(*file)) {
             WRITE_ERROR("Could not open sumo-net-file '" + *file + "'.");
@@ -473,9 +475,11 @@ NIImporter_SUMO::myStartElement(int element,
             if (myLastParameterised.size() != 0) {
                 bool ok = true;
                 const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
-                // circumventing empty string test
-                const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-                myLastParameterised.back()->setParameter(key, val);
+                if (myDiscardableParams.count(key) == 0) {
+                    // circumventing empty string test
+                    const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+                    myLastParameterised.back()->setParameter(key, val);
+                }
             }
             break;
         default:

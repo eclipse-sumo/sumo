@@ -158,6 +158,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("flatten", new Option_Bool(false));
     oc.addDescription("flatten", "Processing", "Remove all z-data");
 
+    oc.doRegister("discard-params", new Option_StringVector());
+    oc.addDescription("discard-params", "Formats", "Remove the list of keys from all params");
+
     // register xml options
     oc.doRegister("plain.extend-edge-shape", new Option_Bool(false));
     oc.addSynonyme("plain.extend-edge-shape", "xml.keep-shape", true);
