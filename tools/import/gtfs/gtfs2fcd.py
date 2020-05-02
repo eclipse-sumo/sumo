@@ -42,6 +42,7 @@ def add_options():
     argParser.add_argument("--date", type=int, help="define the day to import")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
+    argParser.add_argument("--vtype-output", help="file to write the generated vehicle types to")
     argParser.add_argument("--verbose", action="store_true", default=False, help="tell me what you are doing")
     return argParser
 
@@ -134,12 +135,14 @@ def main(options):
     tripFile = {}
     if not os.path.exists(options.fcd):
         os.makedirs(options.fcd)
+    seenModes = set()
     for mode in set(gtfs_modes.values()):
         filePrefix = os.path.join(options.fcd, mode)
         fcdFile[mode] = open(filePrefix + '.fcd.xml', 'w', encoding="utf8")
         sumolib.writeXMLHeader(fcdFile[mode], "gtfs2fcd.py")
         fcdFile[mode].write('<fcd-export>\n')
-        print('Writing fcd file "%s"' % fcdFile[mode].name)
+        if options.verbose:
+            print('Writing fcd file "%s"' % fcdFile[mode].name)
         tripFile[mode] = open(filePrefix + '.rou.xml', 'w')
         tripFile[mode].write("<routes>\n")
     timeIndex = 0
@@ -172,6 +175,7 @@ def main(options):
                 timeIndex = arrivalSec
             tripFile[mode].write('    <vehicle id="%s" route="%s" type="%s" depart="%s" line="%s_%s"/>\n' %
                                  (trip_id, seqs[s], mode, firstDep, d.route_short_name, seqs[s]))
+            seenModes.add(mode)
     if options.gpsdat:
         if not os.path.exists(options.gpsdat):
             os.makedirs(options.gpsdat)
@@ -180,12 +184,22 @@ def main(options):
             fcdFile[mode].close()
             tripFile[mode].write("</routes>\n")
             tripFile[mode].close()
-            f = "gpsdat_%s.csv" % mode
-            traceExporter.main(['', '--base-date', '0', '-i', fcdFile[mode].name, '--gpsdat-output', f])
-            with open(f) as inp, open(os.path.join(options.gpsdat, f), "w") as outp:
-                for l in inp:
-                    outp.write(l[l.index("_")+1:])
-            os.remove(f)
+            if mode in seenModes:
+                f = "gpsdat_%s.csv" % mode
+                traceExporter.main(['', '--base-date', '0', '-i', fcdFile[mode].name, '--gpsdat-output', f])
+                with open(f) as inp, open(os.path.join(options.gpsdat, f), "w") as outp:
+                    for l in inp:
+                        outp.write(l[l.index("_")+1:])
+                os.remove(f)
+            else:
+                os.remove(fcdFile[mode].name)
+                os.remove(tripFile[mode].name)
+    if options.vtype_output:
+        with open(options.vtype_output, 'w', encoding="utf8") as vout:
+            sumolib.xml.writeHeader(vout, os.path.basename(__file__), "additional")
+            for mode in sorted(seenModes):
+                vout.write('    <vType id="%s" vClass="%s"/>\n' % (mode, "rail_urban" if mode in ("light_rail", "subway") else mode))
+            vout.write('</additional>\n')
 
 if __name__ == "__main__":
     main(check_options(add_options().parse_args()))
