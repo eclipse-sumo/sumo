@@ -26,13 +26,10 @@ import os
 import sys
 import pandas as pd
 import zipfile
-import datetime
-import subprocess
-import io
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-import sumolib
-import traceExporter
+import sumolib  # noqa
+import traceExporter  # noqa
 
 
 def add_options():
@@ -87,19 +84,20 @@ def main(options):
                                 trips_routes_merged,
                                 on='trip_id')[['trip_id', 'route_id', 'route_short_name', 'route_type',
                                                'stop_id', 'stop_name', 'stop_lat', 'stop_lon', 'stop_sequence',
-                                               'fare_zone', 'fare_token', 'start_char', 'arrival_time', 'departure_time']].drop_duplicates()
+                                               'fare_zone', 'fare_token', 'start_char',
+                                               'arrival_time', 'departure_time']].drop_duplicates()
 
     gtfs_modes = {
-    # modes according to https://developers.google.com/transit/gtfs/reference/#routestxt
+        # modes according to https://developers.google.com/transit/gtfs/reference/#routestxt
         0:  'tram',
         1:  'subway',
         2:  'rail',
         3:  'bus',
         4:  'ship',
-        #5:  'cableTram',
-        #6:  'aerialLift',
-        #7:  'funicular',
-    # modes used in Berlin and MDV see https://developers.google.com/transit/gtfs/reference/extended-route-types
+        # 5:  'cableTram',
+        # 6:  'aerialLift',
+        # 7:  'funicular',
+        # modes used in Berlin and MDV see https://developers.google.com/transit/gtfs/reference/extended-route-types
         100:  'rail',        # DB
         109:  'light_rail',  # S-Bahn
         400:  'subway',      # U-Bahn
@@ -108,16 +106,16 @@ def main(options):
         715:  'bus',         # Rufbus
         900:  'tram',        # Tram
         1000: 'ship',        # Faehre
-    # modes used by hafas
-        's'  : 'light_rail',
-        'RE' : 'rail',
-        'RB' : 'rail',
+        # modes used by hafas
+        's': 'light_rail',
+        'RE': 'rail',
+        'RB': 'rail',
         'IXB': 'rail',        # tbd
         'ICE': 'rail_electric',
-        'IC' : 'rail_electric',
+        'IC': 'rail_electric',
         'IRX': 'rail',        # tbd
-        'EC' : 'rail',
-        'NJ' : 'rail',        # tbd
+        'EC': 'rail',
+        'NJ': 'rail',        # tbd
         'RHI': 'rail',        # tbd
         'DPN': 'rail',        # tbd
         'SCH': 'rail',        # tbd
@@ -125,11 +123,11 @@ def main(options):
         'KAT': 'rail',        # tbd
         'AIR': 'rail',        # tbd
         'DPS': 'rail',        # tbd
-        'lt' : 'light_rail', #tbd
+        'lt': 'light_rail',  # tbd
         'BUS': 'bus',        # tbd
         'Str': 'tram',        # tbd
         'DPF': 'rail',        # tbd
-        '3'  : 'bus',        # tbd
+        '3': 'bus',        # tbd
     }
     fcdFile = {}
     tripFile = {}
@@ -160,10 +158,10 @@ def main(options):
                 departure = list(map(int, d.departure_time.split(":")))
                 departureSec = departure[0] * 3600 + departure[1] * 60 + departure[2] + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
-                buf += ('    <timestep time="%s"><vehicle id="%s_%s" x="%s" y="%s" until="%s" name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n' %
-                        (arrivalSec - offset, d.route_short_name, trip_id, d.stop_lon, d.stop_lat, until, 
-                            sumolib.xml.quoteattr(d.stop_name),
-                            d.fare_zone, d.fare_token, d.start_char))
+                buf += (('    <timestep time="%s"><vehicle id="%s_%s" x="%s" y="%s" until="%s" ' +
+                         'name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
+                        (arrivalSec - offset, d.route_short_name, trip_id, d.stop_lon, d.stop_lat, until,
+                         sumolib.xml.quoteattr(d.stop_name), d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
                 offset += departureSec - arrivalSec
@@ -198,8 +196,10 @@ def main(options):
         with open(options.vtype_output, 'w', encoding="utf8") as vout:
             sumolib.xml.writeHeader(vout, os.path.basename(__file__), "additional")
             for mode in sorted(seenModes):
-                vout.write('    <vType id="%s" vClass="%s"/>\n' % (mode, "rail_urban" if mode in ("light_rail", "subway") else mode))
+                vout.write('    <vType id="%s" vClass="%s"/>\n' %
+                           (mode, "rail_urban" if mode in ("light_rail", "subway") else mode))
             vout.write('</additional>\n')
+
 
 if __name__ == "__main__":
     main(check_options(add_options().parse_args()))

@@ -65,8 +65,8 @@ def main(options):
     routes = defaultdict(list)  # vehID -> recorded edges
     minSpeed = defaultdict(lambda: 1000)
     active = set()  # vehicles that have passed the first filterRoute edge
-    entryTime = {} # vehID -> time when entering corridor
-    delayTime = {} # vehID -> time when vehicle speed first dropped below threshold
+    entryTime = {}  # vehID -> time when entering corridor
+    delayTime = {}  # vehID -> time when vehicle speed first dropped below threshold
     for timestep, vehicle in parse_fast_nested(options.fcdfile, 'timestep', ['time'],
                                                'vehicle', ['id', 'speed', 'lane']):
         time = parseTime(timestep.time)

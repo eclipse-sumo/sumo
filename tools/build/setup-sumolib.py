@@ -31,7 +31,8 @@ setup(
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',
-    description="Python helper modules to read networks, parse output data and do other useful stuff related to the traffic simulation SUMO",
+    description=("Python helper modules to read networks, parse output data and " +
+                 "do other useful stuff related to the traffic simulation SUMO"),
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',

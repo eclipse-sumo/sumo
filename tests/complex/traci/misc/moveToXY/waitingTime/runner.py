@@ -49,7 +49,7 @@ vehID = "ego"
 traci.start(cmd)
 traci.simulationStep()
 x, y = traci.vehicle.getPosition(vehID)
-for dy in [1,1,1,2,2,2,0,0,0,1,1,1,2,2,2,0,0,0,-1,-1,-1,1,1,1]:
+for dy in [1, 1, 1, 2, 2, 2, 0, 0, 0, 1, 1, 1, 2, 2, 2, 0, 0, 0, -1, -1, -1, 1, 1, 1]:
     traci.vehicle.moveToXY(vehID, "", 0, x, y)
     traci.simulationStep()
     print("speed=%.2f waitingTime=%s" % (
