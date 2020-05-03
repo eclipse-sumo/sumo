@@ -169,7 +169,7 @@ class PropertyReader(xml.sax.handler.ContentHandler):
         if ext in (".py", ".pyw"):
             if lines[0][:2] == '#!':
                 idx += 1
-                if lines[0] != '#!/usr/bin/env python\n':
+                if lines[0] not in ('#!/usr/bin/env python\n', '#!/usr/bin/env python3\n'):
                     print(self._file, "wrong shebang")
                     if self._fix:
                         lines[0] = '#!/usr/bin/env python\n'
