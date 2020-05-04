@@ -42,3 +42,6 @@ ticket6584
 
 # difficult junction shape impacts junction joining
 ticket6585
+
+# signal position for guess-signals should not be broken by --junctions.join
+ticket6977
