@@ -1,10 +1,10 @@
 Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '537914721').
 Warning: Discarding unusable type 'railway.construction' (first occurence for edge '736823803').
-Warning: PT line in relation 8614125 with is defined with platform members instead of stops. Stop location accuracy may be reduced.
+Warning: PT line in relation 8614125 is defined with platform members instead of stops. Stop location accuracy may be reduced.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 8614125 are ignored
-Warning: PT line in relation 8617712 with is defined with platform members instead of stops. Stop location accuracy may be reduced.
+Warning: PT line in relation 8617712 is defined with platform members instead of stops. Stop location accuracy may be reduced.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 8617712 are ignored
-Warning: PT line in relation 8617761 with is defined with platform members instead of stops. Stop location accuracy may be reduced.
+Warning: PT line in relation 8617761 is defined with platform members instead of stops. Stop location accuracy may be reduced.
 Warning: Done reading first coherent chunk of pt stops. Further stops in relation 8617761 are ignored
 Warning: Incomplete route for ptline '8617712' (社区巴士9003路)
 Warning: Incomplete route for ptline '8617761' (社区巴士9004路)
