@@ -1543,6 +1543,10 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
         myViewNet->myNet->computeNetwork(myViewNet->myViewParent->getGNEAppWindows());
         // update DijkstraRouter of RouteCalculatorInstance
         myViewNet->myNet->getPathCalculator()->updatePathCalculator();
+        // update all datasets
+        for (const auto &dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
+            dataSet.second->updateAttributeColors();
+        }
         // update network mode specific controls
         myViewNet->updateDataModeSpecificControls();
     }

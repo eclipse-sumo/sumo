@@ -108,8 +108,8 @@ GNEGenericData::getColor() const {
                 // check interval
                 if (dataInterval && (dataInterval == myDataIntervalParent) && (filteredAttribute.size() > 0)) {
                     // get maximum and minimum value
-                    const double minimumValue = dataInterval->getMinimumGenericDataChildAttribute(filteredAttribute);
-                    const double maximumValue = dataInterval->getMaximunGenericDataChildAttribute(filteredAttribute);
+                    const double minimumValue = dataInterval->getMinimumParameterValue(filteredAttribute);
+                    const double maximumValue = dataInterval->getMaximumParameterValue(filteredAttribute);
                     const double colorValue = getParametersMap().count(filteredAttribute) > 0 ? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
                     // return scaled color
                     return edgeDataFrame->getAttributeSelector()->getScaledColor(minimumValue, maximumValue, colorValue);
@@ -127,8 +127,8 @@ GNEGenericData::getColor() const {
                 // check interval
                 if (dataInterval && (dataInterval == myDataIntervalParent) && (filteredAttribute.size() > 0)) {
                     // get maximum and minimum value
-                    const double minimumValue = dataInterval->getMinimumGenericDataChildAttribute(filteredAttribute);
-                    const double maximumValue = dataInterval->getMaximunGenericDataChildAttribute(filteredAttribute);
+                    const double minimumValue = dataInterval->getMinimumParameterValue(filteredAttribute);
+                    const double maximumValue = dataInterval->getMaximumParameterValue(filteredAttribute);
                     const double colorValue = getParametersMap().count(filteredAttribute) > 0 ? parse<double>(getParametersMap().at(filteredAttribute)) : 0;
                     // return scaled color
                     return edgeRelDataFrame->getAttributeSelector()->getScaledColor(minimumValue, maximumValue, colorValue);

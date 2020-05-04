@@ -85,14 +85,49 @@ GNEDataInterval::markAttributeColorsDeprecated() {
 void 
 GNEDataInterval::updateAttributeColors() {
     if (myAttributeColorsDeprecated) {
+        // first clear container
         myAttributeColors.clear();
-
+        // iterate over generic data children
         for (const auto &genericData : myGenericDataChildren) {
             for (const auto &param : genericData->getParametersMap()) {
-                myAttributeColors[param.first] = colorAttributeColors();
+                // parse param value
+                const double value = parse<double>(param.second);
+                // if param doesn't exist, simply add it
+                if (myAttributeColors.count(param.first) == 0) {
+                    myAttributeColors[param.first] = AttributeColors(value);
+                } else {
+                    // update min value
+                    if (value < myAttributeColors.at(param.first).minValue) {
+                        myAttributeColors.at(param.first).minValue = value;
+                    }
+                    // update max value
+                    if (value > myAttributeColors.at(param.first).maxValue) {
+                        myAttributeColors.at(param.first).minValue = value;
+                    }
+                }
             }
         }
         myAttributeColorsDeprecated = false;
+    }
+}
+
+
+double 
+GNEDataInterval::getMinimumParameterValue(const std::string& parameter) const {
+    if (myAttributeColors.count(parameter) > 0) {
+        return myAttributeColors.at(parameter).minValue;
+    } else {
+        return 0;
+    }
+}
+
+
+double
+GNEDataInterval::getMaximumParameterValue(const std::string& parameter) const {
+    if (myAttributeColors.count(parameter) > 0) {
+        return myAttributeColors.at(parameter).maxValue;
+    } else {
+        return 0;
     }
 }
 
@@ -196,64 +231,6 @@ GNEDataInterval::getGenericDataChildren() const {
 }
 
 
-double
-GNEDataInterval::getMinimumGenericDataChildAttribute(const std::string& paramStr) const {
-    double result = INVALID_DOUBLE;
-    // iterate over generic data children
-    for (const auto& genericData : myGenericDataChildren) {
-        // iterate over generic data params
-        for (const auto& param : genericData->getParametersMap()) {
-            // check paramStr and if attribute can be parsed to double
-            if ((param.first == paramStr) && canParse<double>(param.second)) {
-                // parse param value
-                const double paramDouble = parse<double>(param.second);
-                // update result
-                if (result == INVALID_DOUBLE) {
-                    result = paramDouble;
-                } else if (paramDouble < result) {
-                    result = paramDouble;
-                }
-            }
-        }
-    }
-    // return solution depending of result
-    if (result == INVALID_DOUBLE) {
-        return 0;
-    } else {
-        return result;
-    }
-}
-
-
-double
-GNEDataInterval::getMaximunGenericDataChildAttribute(const std::string& paramStr) const {
-    double result = INVALID_DOUBLE;
-    // iterate over generic data children
-    for (const auto& genericData : myGenericDataChildren) {
-        // iterate over generic data params
-        for (const auto& param : genericData->getParametersMap()) {
-            // check paramStr and if attribute can be parsed to double
-            if ((param.first == paramStr) && canParse<double>(param.second)) {
-                // parse param value
-                const double paramDouble = parse<double>(param.second);
-                // update result
-                if (result == INVALID_DOUBLE) {
-                    result = paramDouble;
-                } else if (paramDouble > result) {
-                    result = paramDouble;
-                }
-            }
-        }
-    }
-    // return solution depending of result
-    if (result == INVALID_DOUBLE) {
-        return 0;
-    } else {
-        return result;
-    }
-}
-
-
 std::string
 GNEDataInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
@@ -340,6 +317,18 @@ GNEDataInterval::getPopUpID() const {
 std::string
 GNEDataInterval::getHierarchyName() const {
     return "interval: " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+}
+
+
+GNEDataInterval::AttributeColors::AttributeColors() :
+    minValue(0),
+    maxValue(0) {
+}
+
+
+GNEDataInterval::AttributeColors::AttributeColors(const double defaultValue) :
+    minValue(defaultValue),
+    maxValue(defaultValue) {
 }
 
 

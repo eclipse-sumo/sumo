@@ -64,6 +64,12 @@ public:
     /// @brief update attribute colors deprecated
     void updateAttributeColors();
 
+    /// @brief get minimum parameter value
+    double getMinimumParameterValue(const std::string& parameter) const;
+
+    /// @brief get maximum parameter value
+    double getMaximumParameterValue(const std::string& parameter) const;
+
     /// @brief get ID
     const std::string& getID() const;
 
@@ -108,12 +114,6 @@ public:
 
     /// @brief get generic data children
     const std::vector<GNEGenericData*>& getGenericDataChildren() const;
-
-    /// @brief get minimun genericData child attribute value
-    double getMinimumGenericDataChildAttribute(const std::string& paramStr) const;
-
-    /// @brief get maximun genericData child attribute value
-    double getMaximunGenericDataChildAttribute(const std::string& paramStr) const;
 
     /// @}
     /// @name inherited from GNEAttributeCarrier
@@ -172,19 +172,23 @@ public:
 
 protected:
 
-    struct colorAttributeColors {
-        colorAttributeColors() :
-            minValue(0),
-            maxValue(0) {}
+    /// @bief attribute colors
+    struct AttributeColors {
+        /// @brief default constructor
+        AttributeColors();
+        
+        /// @brief parameter constructor
+        AttributeColors(const double defaultValue);
 
+        /// @brief minimum value
         double minValue;
-        double maxValue;
 
-        std::string minColor;
-        std::string maxColor;
+        /// @brief maximum value
+        double maxValue;
     };
 
-    std::map<std::string, colorAttributeColors> myAttributeColors;
+    /// @brief attribute colors
+    std::map<std::string, AttributeColors> myAttributeColors;
 
     /// @brief GNEDataSet parent to which this data interval belongs.
     GNEDataSet* myDataSetParent;
