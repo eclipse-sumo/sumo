@@ -120,6 +120,8 @@ public:
 
     static void clearPending(const std::string& routeID = "");
     static void saveState(const std::string& fileName);
+    /// @brief quick-load simulation state from file and return the state time
+    static double loadState(const std::string& fileName);
     static void writeMessage(const std::string& msg);
 
     static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = INVALID_DOUBLE_VALUE, double end = INVALID_DOUBLE_VALUE);

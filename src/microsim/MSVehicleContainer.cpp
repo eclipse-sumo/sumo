@@ -247,5 +247,13 @@ std::ostream& operator << (std::ostream& strm, MSVehicleContainer& cont) {
     return strm;
 }
 
+void
+MSVehicleContainer::clearState() {
+    for (VehicleDepartureVector& vdv : array) {
+        vdv.first = 0;
+        vdv.second.clear();
+    }
+    currentSize = 0;
+}
 
 /****************************************************************************/

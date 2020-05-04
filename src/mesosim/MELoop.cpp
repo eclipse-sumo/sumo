@@ -216,6 +216,10 @@ MELoop::setApproaching(MEVehicle* veh, MSLink* link) {
     }
 }
 
+void
+MELoop::clearState() {
+    myLeaderCars.clear();
+}
 
 void
 MELoop::removeLeaderCar(MEVehicle* v) {

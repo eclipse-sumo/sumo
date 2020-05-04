@@ -281,6 +281,18 @@ MSRoute::dict_saveState(OutputDevice& out) {
     }
 }
 
+void
+MSRoute::dict_clearState() {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
+    for (auto item : myDict) {
+        delete item.second;
+    }
+    myDistDict.clear();
+    myDict.clear();
+}
+
 
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,

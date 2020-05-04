@@ -38,6 +38,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSVehicleTransfer.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSStateHandler.h>
 #include <microsim/MSStoppingPlace.h>
@@ -45,6 +46,8 @@
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
 #include <netload/NLBuilder.h>
 #include <libsumo/TraCIConstants.h>
 #include "Simulation.h"
@@ -664,6 +667,40 @@ Simulation::clearPending(const std::string& routeID) {
 void
 Simulation::saveState(const std::string& fileName) {
     MSStateHandler::saveState(fileName, MSNet::getInstance()->getCurrentTimeStep());
+}
+
+double
+Simulation::loadState(const std::string& fileName) {
+    long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + fileName + "'");
+    // clean up state
+    MSNet::getInstance()->getInsertionControl().clearState();
+    MSNet::getInstance()->getVehicleControl().clearState();
+    MSVehicleTransfer::getInstance()->clearState();
+    MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet->clearState();
+        for (int i = 0; i < MSEdge::dictSize(); i++) {
+            for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*MSEdge::getAllEdges()[i]); s != nullptr; s = s->getNextSegment()) {
+                s->clearState();
+            }
+        }
+    } else {
+        for (int i = 0; i < MSEdge::dictSize(); i++) {
+            const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
+            for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
+                (*it)->clearState();
+            }
+        }
+    }
+    // load state
+    MSStateHandler h(fileName, 0);
+    XMLSubSys::runParser(h, fileName);
+    if (MsgHandler::getErrorInstance()->wasInformed()) {
+        throw TraCIException("Loading state from '" + fileName + "' failed.");
+    }
+    MSNet::getInstance()->setCurrentTimeStep(h.getTime());
+    PROGRESS_TIME_MESSAGE(before);
+    return STEPS2TIME(h.getTime());
 }
 
 void

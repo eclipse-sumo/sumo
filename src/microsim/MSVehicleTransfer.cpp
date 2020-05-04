@@ -216,6 +216,12 @@ MSVehicleTransfer::saveState(OutputDevice& out) {
 
 
 void
+MSVehicleTransfer::clearState() {
+    myVehicles.clear();
+}
+
+
+void
 MSVehicleTransfer::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset, MSVehicleControl& vc) {
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vc.getVehicle(attrs.getString(SUMO_ATTR_ID)));
     if (veh == nullptr) {

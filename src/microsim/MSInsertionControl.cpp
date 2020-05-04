@@ -343,6 +343,19 @@ MSInsertionControl::saveState(OutputDevice& out) {
     }
 }
 
+void
+MSInsertionControl::clearState() {
+    for (std::vector<Flow>::iterator i = myFlows.begin(); i != myFlows.end(); ++i) {
+        delete (i->pars);
+    }
+    myFlows.clear();
+    myFlowIDs.clear();
+    myAllVeh.clearState();
+    myPendingEmits.clear();
+    myEmitCandidates.clear();
+    myAbortedEmits.clear();
+    myPendingEmitsForLane.clear();
+}
 
 SUMOTime
 MSInsertionControl::computeRandomDepartOffset() const {

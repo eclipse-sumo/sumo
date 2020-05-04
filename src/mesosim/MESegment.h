@@ -308,6 +308,9 @@ public:
      */
     void saveState(OutputDevice& out);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
+
     /** @brief Loads the state of this segment with the given parameters
      *
      * This method is called for every internal que the segment has.

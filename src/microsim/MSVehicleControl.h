@@ -473,6 +473,9 @@ public:
     /** @brief Saves the current state into the given stream
      */
     void saveState(OutputDevice& out);
+
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
     /// @}
 
     /// @brief avoid counting a vehicle twice if it was loaded from state and route input

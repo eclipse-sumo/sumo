@@ -104,7 +104,7 @@ public:
 
     const MSEdge* operator[](int index) const;
 
-    /// @name State I/O (mesosim only)
+    /// @name State I/O
     /// @{
 
     /** @brief Saves all known routes into the given stream
@@ -112,6 +112,9 @@ public:
      * @param[in] os The stream to write the routes into (binary)
      */
     static void dict_saveState(OutputDevice& out);
+
+    /** @brief Decrement  all route references before quick-loading state */
+    static void dict_clearState();
     /// @}
 
     const ConstMSEdgeVector& getEdges() const {

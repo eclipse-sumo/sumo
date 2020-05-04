@@ -154,6 +154,9 @@ public:
      */
     void saveState(OutputDevice& out);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
+
     /// @brief retrieve internal RNG
     std::mt19937* getFlowRNG() {
         return &myFlowRNG;

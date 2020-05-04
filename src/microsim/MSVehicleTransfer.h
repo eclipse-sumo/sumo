@@ -99,6 +99,9 @@ public:
     /** @brief Saves the current state into the given stream */
     void saveState(OutputDevice& out);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
+
     /** @brief Loads one transfer vehicle state from the given descriptionn */
     void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset, MSVehicleControl& vc);
 

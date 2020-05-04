@@ -91,6 +91,9 @@ public:
     friend std::ostream& operator << (std::ostream& strm,
                                       MSVehicleContainer& cont);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
+
 private:
     /** @brief Replaces the existing single departure time vector by the one given
     */

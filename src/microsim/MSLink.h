@@ -213,6 +213,9 @@ public:
         return myApproachingVehicles;
     }
 
+    /** @brief Remove all approaching vehicles before quick-loading state */
+    void clearState(); 
+
     /** @brief Returns the information whether the link may be passed
      *
      * Valid after the junctions have set their reponds

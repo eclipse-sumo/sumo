@@ -442,6 +442,10 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
     }
 }
 
+void
+MSLink::clearState() {
+    myApproachingVehicles.clear();
+}
 
 SUMOTime
 MSLink::getLeaveTime(const SUMOTime arrivalTime, const double arrivalSpeed,

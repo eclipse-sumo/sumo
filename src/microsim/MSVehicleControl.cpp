@@ -88,21 +88,7 @@ MSVehicleControl::MSVehicleControl() :
 
 
 MSVehicleControl::~MSVehicleControl() {
-    // delete vehicles
-    for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
-        delete (*i).second;
-    }
-    myVehicleDict.clear();
-    // delete vehicle type distributions
-    for (VTypeDistDictType::iterator i = myVTypeDistDict.begin(); i != myVTypeDistDict.end(); ++i) {
-        delete (*i).second;
-    }
-    myVTypeDistDict.clear();
-    // delete vehicle types
-    for (VTypeDictType::iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
-        delete (*i).second;
-    }
-    myVTypeDict.clear();
+    clearState();
 }
 
 
@@ -225,6 +211,29 @@ MSVehicleControl::saveState(OutputDevice& out) {
     for (VehicleDictType::iterator it = myVehicleDict.begin(); it != myVehicleDict.end(); ++it) {
         (*it).second->saveState(out);
     }
+}
+
+
+void
+MSVehicleControl::clearState() {
+    for (VehicleDictType::iterator i = myVehicleDict.begin(); i != myVehicleDict.end(); ++i) {
+        delete (*i).second;
+    }
+    myVehicleDict.clear();
+    // delete vehicle type distributions
+    for (VTypeDistDictType::iterator i = myVTypeDistDict.begin(); i != myVTypeDistDict.end(); ++i) {
+        delete (*i).second;
+    }
+    myVTypeDistDict.clear();
+    // delete vehicle types
+    for (VTypeDictType::iterator i = myVTypeDict.begin(); i != myVTypeDict.end(); ++i) {
+        delete (*i).second;
+    }
+    myVTypeDict.clear();
+    myDefaultVTypeMayBeDeleted = true;
+    myDefaultPedTypeMayBeDeleted = true;
+    myDefaultContainerTypeMayBeDeleted = true;
+    myDefaultBikeTypeMayBeDeleted = true;
 }
 
 

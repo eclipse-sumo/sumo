@@ -532,6 +532,12 @@ class SimulationDomain(Domain):
         self._connection._packString(fileName)
         self._connection._sendExact()
 
+    def loadState(self, fileName):
+        self._connection._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_LOAD_SIMSTATE, "",
+                                       1 + 4 + len(fileName))
+        self._connection._packString(fileName)
+        self._connection._sendExact()
+
     def writeMessage(self, msg):
         self._connection._beginMessage(tc.CMD_SET_SIM_VARIABLE, tc.CMD_MESSAGE, "",
                                        1 + 4 + len(msg))

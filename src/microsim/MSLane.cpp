@@ -3114,6 +3114,22 @@ MSLane::saveState(OutputDevice& out) {
     }
 }
 
+void
+MSLane::clearState() {
+    myVehicles.clear();
+    myParkingVehicles.clear();
+    myPartialVehicles.clear();
+    myManeuverReservations.clear();
+    myBruttoVehicleLengthSum = 0;
+    myNettoVehicleLengthSum = 0;
+    myBruttoVehicleLengthSumToRemove = 0;
+    myNettoVehicleLengthSumToRemove = 0;
+    myLeaderInfoTime = SUMOTime_MIN;
+    myFollowerInfoTime = SUMOTime_MIN;
+    for (MSLink* link : myLinks) {
+        link->clearState();
+    }
+}
 
 void
 MSLane::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc) {

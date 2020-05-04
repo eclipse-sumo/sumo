@@ -657,6 +657,13 @@ MESegment::saveState(OutputDevice& out) {
 
 
 void
+MESegment::clearState() {
+    for (Queue& q : myCarQues) {
+        q.clear();
+    }
+}
+
+void
 MESegment::loadState(const std::vector<std::string>& vehIds, MSVehicleControl& vc, const SUMOTime block, const int queIdx) {
     for (const std::string& id : vehIds) {
         MEVehicle* v = static_cast<MEVehicle*>(vc.getVehicle(id));

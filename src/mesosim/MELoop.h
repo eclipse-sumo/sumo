@@ -103,6 +103,8 @@ public:
      */
     static void setApproaching(MEVehicle* veh, MSLink* link);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
 
 private:
     /** @brief Check whether the vehicle may move
