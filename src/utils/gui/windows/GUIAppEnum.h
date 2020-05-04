@@ -55,7 +55,7 @@ enum {
     MID_HOTKEY_P_MODES_POLYGON_PERSON,
     /// @brief hotkey for mode selecting objects
     MID_HOTKEY_S_MODES_SELECT,
-    /// @brief hotkey for mode editing crossing, routes and edges
+    /// @brief hotkey for mode editing crossing, routes and edge rel datas
     MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA,
     /// @brief hotkey for mode editing TLS AND Vehicle Types
     MID_HOTKEY_T_MODES_TLS_VTYPE,
@@ -63,8 +63,8 @@ enum {
     MID_HOTKEY_V_MODES_VEHICLE,
     /// @brief hotkey for mode editing connection prohibitions AND person types
     MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,
-    /// @brief hotkey for mode editing TAZ
-    MID_HOTKEY_Z_MODES_TAZ,
+    /// @brief hotkey for mode editing TAZ and TAZRel
+    MID_HOTKEY_Z_MODES_TAZ_TAZREL,
 
     /// @}
 
