@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May  4 11:58:00 2020 by Eclipse SUMO netconvert Version v1_6_0+0053-832b0b08ee
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-4589475946" name="Stansfield Road" lane="-266550338#3_0" startPos="21.47" endPos="36.47" friendlyPos="true" lines="322 2 345 333 N2 196">
+        <access lane="-12344177_0" pos="71.77" length="126.18" friendlyPos="1"/>
+        <access lane="12344177_0" pos="42.94" length="121.38" friendlyPos="1"/>
+        <access lane="155062255#0_0" pos="0.00" length="131.30" friendlyPos="1"/>
+        <access lane="155062261_0" pos="0.00" length="43.88" friendlyPos="1"/>
+        <access lane="634044342_0" pos="0.30" length="126.52" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-4589475948" name="Brixton Academy" lane="-572772256#3_0" startPos="13.94" endPos="28.94" friendlyPos="true" lines="333 345 2 N2 196 322">
+        <access lane="-529616561_0" pos="57.23" length="41.89" friendlyPos="1"/>
+        <access lane="12163239_0" pos="53.41" length="22.74" friendlyPos="1"/>
+        <access lane="210812678_0" pos="0.00" length="80.10" friendlyPos="1"/>
+        <access lane="26627464_0" pos="100.25" length="54.28" friendlyPos="1"/>
+        <access lane="529616561_0" pos="0.00" length="38.33" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-469765146" name="Gresham Road / Brixton Police Station" lane="-321325247#1_0" startPos="26.08" endPos="41.08" friendlyPos="true" lines="35 45 345 P4"/>
+    <busStop id="-469786435" name="Brixton Station Road" lane="-639169633#0_0" startPos="85.58" endPos="100.58" friendlyPos="true" lines="35 45 345 P4"/>
+    <busStop id="-4701534125" name="Brixton Road / Brixton Police Station" lane="-253362216#2_0" startPos="5.64" endPos="20.64" friendlyPos="true" lines="159 3 N3 N109 59">
+        <access lane="-743127583_0" pos="46.60" length="28.31" friendlyPos="1"/>
+        <access lane="743127580_0" pos="1.19" length="72.29" friendlyPos="1"/>
+        <access lane="743127582_0" pos="0.20" length="70.10" friendlyPos="1"/>
+        <access lane="743127583_0" pos="33.69" length="23.51" friendlyPos="1"/>
+        <access lane="743127586_0" pos="0.00" length="71.86" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-4701534127" name="Brixton Road / Brixton Police Station" lane="-504900413#0_0" startPos="0.00" endPos="11.54" friendlyPos="true" lines="133 N133 415">
+        <access lane="-321325247#1_0" pos="46.13" length="69.80" friendlyPos="1"/>
+        <access lane="-743127583_0" pos="0.00" length="18.88" friendlyPos="1"/>
+        <access lane="253362215#0_0" pos="0.00" length="59.77" friendlyPos="1"/>
+        <access lane="253362215#1_0" pos="0.00" length="60.39" friendlyPos="1"/>
+        <access lane="743127583_0" pos="75.13" length="17.02" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-4701534129" name="Villa Road" lane="-66924592#7_0" startPos="113.98" endPos="128.98" friendlyPos="true" lines="159 3 N3 N109 133 N133 415 59">
+        <access lane="184724451#1_0" pos="72.93" length="173.37" friendlyPos="1"/>
+        <access lane="184724451#2_0" pos="71.03" length="67.53" friendlyPos="1"/>
+        <access lane="184724454_0" pos="0.00" length="174.73" friendlyPos="1"/>
+        <access lane="743127584#0_0" pos="0.00" length="181.14" friendlyPos="1"/>
+        <access lane="743127584#1_0" pos="29.33" length="168.22" friendlyPos="1"/>
+    </busStop>
+    <busStop id="-4701534132" name="Loughborough Road" lane="-66924592#4_0" startPos="161.84" endPos="176.84" friendlyPos="true" lines="159 3 N3 N109 133 N133 415 59"/>
+    <busStop id="-4703199264" name="Groveway" lane="-66924592#3_0" startPos="267.72" endPos="282.72" friendlyPos="true" lines="159 3 N3 N109 133 N133 415 59"/>
+    <busStop id="-4703199266" name="Hillyard Street" lane="-66924592#0_0" startPos="66.61" endPos="81.61" friendlyPos="true" lines="159 3 N3 N109 133 N133 415 59"/>
+    <busStop id="4589475947" name="Stansfield Road" lane="266550338#4_0" startPos="0.00" endPos="4.25" friendlyPos="true" lines="333 345 2 N2 196 322">
+        <access lane="12344177_0" pos="73.26" length="108.36" friendlyPos="1"/>
+        <access lane="155062255#0_0" pos="0.00" length="84.50" friendlyPos="1"/>
+        <access lane="155062255#1_0" pos="0.00" length="85.14" friendlyPos="1"/>
+        <access lane="155062261_0" pos="0.00" length="11.80" friendlyPos="1"/>
+        <access lane="634044342_0" pos="0.30" length="79.88" friendlyPos="1"/>
+    </busStop>
+    <busStop id="4589475949" name="Brixton Academy" lane="572772256#2_0" startPos="1.72" endPos="16.72" friendlyPos="true" lines="322 2 345 333 N2 196">
+        <access lane="-210812678_0" pos="19.07" length="43.47" friendlyPos="1"/>
+        <access lane="12163239_0" pos="53.41" length="24.19" friendlyPos="1"/>
+        <access lane="210812678_0" pos="0.00" length="38.72" friendlyPos="1"/>
+        <access lane="210812681_0" pos="0.00" length="53.71" friendlyPos="1"/>
+        <access lane="26627464_0" pos="105.67" length="16.94" friendlyPos="1"/>
+    </busStop>
+    <busStop id="469765144" name="Gresham Road / Brixton Police Station" lane="321325247#1_0" startPos="19.22" endPos="34.22" friendlyPos="true" lines="345 45 35 P4"/>
+    <busStop id="469789541" name="Western Road" lane="639169633#0_0" startPos="20.69" endPos="35.69" friendlyPos="true" lines="345 45 35 P4"/>
+    <busStop id="4701534126" name="Brixton Road / Brixton Police Station" lane="253362216#2_0" startPos="24.47" endPos="32.15" friendlyPos="true" lines="3 N3 415">
+        <access lane="-743127583_0" pos="33.46" length="28.59" friendlyPos="1"/>
+        <access lane="26627464_0" pos="30.57" length="76.65" friendlyPos="1"/>
+        <access lane="743127580_0" pos="1.19" length="90.91" friendlyPos="1"/>
+        <access lane="743127582_0" pos="0.20" length="89.80" friendlyPos="1"/>
+        <access lane="743127583_0" pos="46.82" length="23.79" friendlyPos="1"/>
+    </busStop>
+    <busStop id="4701534128" name="Brixton Road / Brixton Police Station" lane="504900412_0" startPos="8.46" endPos="15.96" friendlyPos="true" lines="59 159 N109 N133 133">
+        <access lane="-743127583_0" pos="0.00" length="24.76" friendlyPos="1"/>
+        <access lane="253362215#0_0" pos="0.00" length="68.98" friendlyPos="1"/>
+        <access lane="253362215#1_0" pos="0.00" length="69.57" friendlyPos="1"/>
+        <access lane="26627464_0" pos="46.53" length="76.66" friendlyPos="1"/>
+        <access lane="743127583_0" pos="75.13" length="21.26" friendlyPos="1"/>
+    </busStop>
+    <busStop id="4701534130" name="Villa Road" lane="66924592#7_0" startPos="29.75" endPos="44.75" friendlyPos="true" lines="59 159 3 N3 N109 N133 133 415">
+        <access lane="184724451#1_0" pos="72.93" length="191.93" friendlyPos="1"/>
+        <access lane="184724451#2_0" pos="71.03" length="88.54" friendlyPos="1"/>
+        <access lane="184724454_0" pos="0.00" length="192.73" friendlyPos="1"/>
+        <access lane="743127584#0_0" pos="0.00" length="209.33" friendlyPos="1"/>
+        <access lane="743127584#1_0" pos="32.42" length="195.79" friendlyPos="1"/>
+    </busStop>
+    <busStop id="4701534131" name="Loughborough Road" lane="66924592#4_0" startPos="59.36" endPos="74.36" friendlyPos="true" lines="59 159 3 N3 N109 N133 133 415"/>
+    <busStop id="4703199265" name="Groveway" lane="66924592#3_0" startPos="41.84" endPos="56.84" friendlyPos="true" lines="59 159 3 N3 N109 N133 133 415"/>
+    <busStop id="4703199271" name="Vassall Road" lane="66924592#0_0" startPos="69.08" endPos="84.08" friendlyPos="true" lines="59 159 3 N3 N109 N133 133 415"/>
+</additional>
