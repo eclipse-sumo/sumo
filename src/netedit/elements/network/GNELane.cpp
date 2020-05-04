@@ -481,7 +481,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawMarkings(s, exaggeration);
             }
             // draw ROWs only if target junction has a valid logic)
-            if (s.showLinkDecals && myParentEdge->getGNEJunctionDestiny()->isLogicValid() && s.scale > 3) {
+            if (s.showLinkDecals && myParentEdge->getSecondParentJunction()->isLogicValid() && s.scale > 3) {
                 drawArrows(s);
             }
             // Draw direction indicators if the correspondient option is enabled
@@ -1412,7 +1412,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION - 0.01);
     glLineWidth(4);
-    GLHelper::drawLine(customShape.front(), myParentEdge->getGNEJunctionSource()->getPositionInView());
+    GLHelper::drawLine(customShape.front(), myParentEdge->getFirstParentJunction()->getPositionInView());
     glPopMatrix();
     // draw "e" depending of detail
     if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
@@ -1429,7 +1429,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     glTranslated(0, 0, GLO_JUNCTION - 0.01);
     glLineWidth(4);
-    GLHelper::drawLine(customShape.back(), myParentEdge->getGNEJunctionDestiny()->getPositionInView());
+    GLHelper::drawLine(customShape.back(), myParentEdge->getSecondParentJunction()->getPositionInView());
     glPopMatrix();
 }
 
@@ -1458,7 +1458,7 @@ GNELane::getGNEIncomingConnections() {
     // Declare a vector to save incoming connections
     std::vector<GNEConnection*> incomingConnections;
     // Obtain incoming edges if junction source was already created
-    GNEJunction* junctionSource =  myParentEdge->getGNEJunctionSource();
+    GNEJunction* junctionSource =  myParentEdge->getFirstParentJunction();
     if (junctionSource) {
         // Iterate over incoming GNEEdges of junction
         for (auto i : junctionSource->getGNEIncomingEdges()) {

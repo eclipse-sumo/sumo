@@ -98,9 +98,9 @@ void
 GNEHierarchicalParentElements::addParentTAZElement(GNETAZElement* TAZElement) {
     // Check that TAZElement is valid and doesn't exist previously
     if (TAZElement == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_TAZ) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement) != myParentTAZElements.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_TAZ) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myParentTAZElements.push_back(TAZElement);
     }
@@ -111,9 +111,9 @@ void
 GNEHierarchicalParentElements::removeParentTAZElement(GNETAZElement* TAZElement) {
     // Check that TAZElement is valid and exist previously
     if (TAZElement == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_TAZ) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement) == myParentTAZElements.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_TAZ) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myParentTAZElements.erase(std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement));
     }
@@ -130,9 +130,9 @@ void
 GNEHierarchicalParentElements::addParentShape(GNEShape* shape) {
     // Check that shape is valid and doesn't exist previously
     if (shape == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty shape parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myParentShapes.begin(), myParentShapes.end(), shape) != myParentShapes.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add a duplicate shape parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myParentShapes.push_back(shape);
     }
@@ -143,9 +143,9 @@ void
 GNEHierarchicalParentElements::removeParentShape(GNEShape* shape) {
     // Check that shape is valid and exist previously
     if (shape == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty shape parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myParentShapes.begin(), myParentShapes.end(), shape) == myParentShapes.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove a non previously inserted shape parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myParentShapes.erase(std::find(myParentShapes.begin(), myParentShapes.end(), shape));
     }
@@ -248,6 +248,46 @@ GNEHierarchicalParentElements::getNewListOfParents(const GNENetworkElement* curr
 }
 
 
+GNEJunction*
+GNEHierarchicalParentElements::getFirstParentJunction() const {
+    if (myParentJunctions.size() > 0) {
+        return myParentJunctions.at(0);
+    } else {
+        throw InvalidArgument("Invalid number of parent junctions (0)");
+    }
+}
+
+
+GNEJunction*
+GNEHierarchicalParentElements::getSecondParentJunction()const {
+    if (myParentJunctions.size() > 1) {
+        return myParentJunctions.at(1);
+    } else {
+        throw InvalidArgument("Invalid number of parent junctions (<1)");
+    }
+}
+
+
+void 
+GNEHierarchicalParentElements::updateFirstParentJunction(GNEJunction* junction) {
+    if (myParentJunctions.size() > 0) {
+        myParentJunctions.at(0) = junction;
+    } else {
+        throw InvalidArgument("Invalid number of parent junctions (0)");
+    }
+}
+
+
+void 
+GNEHierarchicalParentElements::updateSecondParentJunction(GNEJunction* junction) {
+    if (myParentJunctions.size() > 1) {
+        myParentJunctions.at(1) = junction;
+    } else {
+        throw InvalidArgument("Invalid number of parent junctions (<1)");
+    }
+}
+
+
 void
 GNEHierarchicalParentElements::addParentEdge(GNEEdge* edge) {
     // Check that edge is valid and doesn't exist previously
@@ -309,9 +349,9 @@ void
 GNEHierarchicalParentElements::addParentLane(GNELane* lane) {
     // Check that lane is valid and doesn't exist previously
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add an empty " + toString(SUMO_TAG_LANE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myParentLanes.begin(), myParentLanes.end(), lane) != myParentLanes.end()) {
-        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to add a duplicate " + toString(SUMO_TAG_LANE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myParentLanes.push_back(lane);
     }
@@ -322,9 +362,9 @@ void
 GNEHierarchicalParentElements::removeParentLane(GNELane* lane) {
     // Check that lane is valid and exist previously
     if (lane == nullptr) {
-        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove an empty " + toString(SUMO_TAG_LANE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else if (std::find(myParentLanes.begin(), myParentLanes.end(), lane) == myParentLanes.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_EDGE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+        throw InvalidArgument("Trying to remove a non previously inserted " + toString(SUMO_TAG_LANE) + " parent in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
     } else {
         myParentLanes.erase(std::find(myParentLanes.begin(), myParentLanes.end(), lane));
     }

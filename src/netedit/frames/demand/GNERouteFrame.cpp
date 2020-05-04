@@ -303,10 +303,10 @@ GNERouteFrame::ConsecutiveEdges::addEdge(GNEEdge* edge) {
         return true;
     } else {
         // check if clicked edge is in the candidate edges
-        for (const auto& i : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for (const auto& i : myRouteEdges.back()->getSecondParentJunction()->getGNEOutgoingEdges()) {
             if ((i == edge) && myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), edge)) {
                 // restore colors of outgoing edges
-                for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+                for (const auto& j : myRouteEdges.back()->getSecondParentJunction()->getGNEOutgoingEdges()) {
                     for (const auto& k : j->getLanes()) {
                         k->setSpecialColor(nullptr);
                     }
@@ -338,7 +338,7 @@ GNERouteFrame::ConsecutiveEdges::refreshEdgeCandidates() {
             }
         }
         // set new candidate colors
-        for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for (const auto& j : myRouteEdges.back()->getSecondParentJunction()->getGNEOutgoingEdges()) {
             // check if exist a connection between both edges
             if (myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), myRouteEdges.back(), j)) {
                 for (const auto& k : j->getLanes()) {
@@ -357,7 +357,7 @@ GNERouteFrame::ConsecutiveEdges::refreshEdgeCandidates() {
 void
 GNERouteFrame::ConsecutiveEdges::clearEdges() {
     // disable special color in candidate edges
-    for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+    for (const auto& j : myRouteEdges.back()->getSecondParentJunction()->getGNEOutgoingEdges()) {
         for (const auto& k : j->getLanes()) {
             k->setSpecialColor(nullptr);
         }
@@ -439,7 +439,7 @@ long
 GNERouteFrame::ConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*) {
     if (myRouteEdges.size() > 1) {
         // restore colors of last inserted edge edges
-        for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for (const auto& j : myRouteEdges.back()->getSecondParentJunction()->getGNEOutgoingEdges()) {
             for (const auto& k : j->getLanes()) {
                 k->setSpecialColor(nullptr);
             }
@@ -453,7 +453,7 @@ GNERouteFrame::ConsecutiveEdges::onCmdRemoveLastRouteEdge(FXObject*, FXSelector,
             }
         }
         // set new candidate colors
-        for (const auto& j : myRouteEdges.back()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+        for (const auto& j : myRouteEdges.back()->getSecondParentJunction()->getGNEOutgoingEdges()) {
             if (j != myRouteEdges.back()) {
                 for (const auto& k : j->getLanes()) {
                     k->setSpecialColor(&myRouteFrameParent->getEdgeCandidateSelectedColor());

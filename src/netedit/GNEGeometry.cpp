@@ -383,7 +383,7 @@ GNEGeometry::SegmentGeometry::Segment::Segment(const GNEAttributeCarrier* _AC, c
     AC(_AC),
     edge(nullptr),
     lane(nextLane),
-    junction(currentLane->getParentEdge()->getGNEJunctionDestiny()),
+    junction(currentLane->getParentEdge()->getSecondParentJunction()),
     valid(_valid),
     myUseLaneShape(false),
     mySegmentGeometry(currentLane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(),
@@ -567,7 +567,7 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
     // clear connectionsMap
     connectionsMap.clear();
     // iterate over outgoingEdge's lanes
-    for (const auto& outgoingEdge : myOriginLane->getParentEdge()->getGNEJunctionDestiny()->getGNEOutgoingEdges()) {
+    for (const auto& outgoingEdge : myOriginLane->getParentEdge()->getSecondParentJunction()->getGNEOutgoingEdges()) {
         for (const auto& outgoingLane : outgoingEdge->getLanes()) {
             // get NBEdges from and to
             const NBEdge* NBEdgeFrom = myOriginLane->getParentEdge()->getNBEdge();

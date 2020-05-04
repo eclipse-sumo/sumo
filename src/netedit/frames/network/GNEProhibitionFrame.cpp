@@ -236,7 +236,7 @@ GNEProhibitionFrame::buildProhibition(GNEConnection* conn, bool /* mayDefinitely
         myCurrentConn->setSpecialColor(&myViewNet->getVisualisationSettings().colorSettings.selectedProhibitionColor);
 
         // determine prohibition status of all other connections with respect to the selected one
-        GNEJunction* junction = myCurrentConn->getEdgeFrom()->getGNEJunctionDestiny();
+        GNEJunction* junction = myCurrentConn->getEdgeFrom()->getSecondParentJunction();
         std::vector<GNEConnection*> allConns = junction->getGNEConnections();
         NBNode* node = junction->getNBNode();
         NBEdge* currentConnFrom = myCurrentConn->getEdgeFrom()->getNBEdge();

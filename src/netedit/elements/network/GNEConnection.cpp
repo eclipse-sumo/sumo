@@ -155,7 +155,7 @@ Boundary
 GNEConnection::getBoundary() const {
     if (myConnectionGeometry.getShape().size() == 0) {
         // we need to use the center of junction parent as boundary if shape is empty
-        Position junctionParentPosition = myFromLane->getParentEdge()->getGNEJunctionDestiny()->getPositionInView();
+        Position junctionParentPosition = myFromLane->getParentEdge()->getSecondParentJunction()->getPositionInView();
         return Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
                         junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
     } else {

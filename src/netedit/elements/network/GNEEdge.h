@@ -171,12 +171,6 @@ public:
     /// @brief returns the internal NBEdge
     NBEdge* getNBEdge() const;
 
-    /// @brief returns the source-junction
-    GNEJunction* getGNEJunctionSource() const;
-
-    /// @brief returns the destination-junction
-    GNEJunction* getGNEJunctionDestiny() const;
-
     /// @brief get opposite edge
     GNEEdge* getOppositeEdge() const;
 
@@ -327,12 +321,6 @@ public:
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;
-
-    /// @brief pointer to GNEJunction source
-    GNEJunction* myGNEJunctionSource;
-
-    /// @brief pointer to GNEJunction destiny
-    GNEJunction* myGNEJunctionDestiny;
 
     /// @brief vector with the lanes of this edge
     LaneVector myLanes;

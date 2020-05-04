@@ -1188,12 +1188,12 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
                 GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(myAC->getID(), false);
                 if (edge) {
                     // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getFirstParentJunction()->getHierarchyName() + " origin").c_str(), edge->getFirstParentJunction()->getIcon(), edge->getFirstParentJunction()->getIcon());
+                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getFirstParentJunction()->getHierarchyName() + " destiny").c_str(), edge->getFirstParentJunction()->getIcon(), edge->getFirstParentJunction()->getIcon());
                     junctionDestinyItem->setExpanded(true);
                     // Save items in myTreeItemToACMap
-                    myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-                    myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+                    myTreeItemToACMap[junctionSourceItem] = edge->getFirstParentJunction();
+                    myTreeItemToACMap[junctionDestinyItem] = edge->getSecondParentJunction();
                     // return junction destiny Item
                     return junctionDestinyItem;
                 } else {
@@ -1207,15 +1207,15 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
                     // obtain parent edge
                     GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
                     //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+                    FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getFirstParentJunction()->getHierarchyName() + " origin").c_str(), edge->getFirstParentJunction()->getIcon(), edge->getFirstParentJunction()->getIcon());
+                    FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getFirstParentJunction()->getHierarchyName() + " destiny").c_str(), edge->getFirstParentJunction()->getIcon(), edge->getFirstParentJunction()->getIcon());
                     junctionDestinyItem->setExpanded(true);
                     // Create edge item
                     FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
                     edgeItem->setExpanded(true);
                     // Save items in myTreeItemToACMap
-                    myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-                    myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+                    myTreeItemToACMap[junctionSourceItem] = edge->getFirstParentJunction();
+                    myTreeItemToACMap[junctionDestinyItem] = edge->getSecondParentJunction();
                     myTreeItemToACMap[edgeItem] = edge;
                     // return edge item
                     return edgeItem;
@@ -1275,8 +1275,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             // obtain parent edge
             GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
             //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
-            FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " origin").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
-            FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getGNEJunctionSource()->getHierarchyName() + " destiny").c_str(), edge->getGNEJunctionSource()->getIcon(), edge->getGNEJunctionSource()->getIcon());
+            FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getFirstParentJunction()->getHierarchyName() + " origin").c_str(), edge->getFirstParentJunction()->getIcon(), edge->getFirstParentJunction()->getIcon());
+            FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getFirstParentJunction()->getHierarchyName() + " destiny").c_str(), edge->getFirstParentJunction()->getIcon(), edge->getFirstParentJunction()->getIcon());
             junctionDestinyItem->setExpanded(true);
             // Create edge item
             FXTreeItem* edgeItem = myTreelist->insertItem(nullptr, junctionDestinyItem, edge->getHierarchyName().c_str(), edge->getIcon(), edge->getIcon());
@@ -1285,8 +1285,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             FXTreeItem* laneItem = myTreelist->insertItem(nullptr, edgeItem, lane->getHierarchyName().c_str(), lane->getIcon(), lane->getIcon());
             laneItem->setExpanded(true);
             // Save items in myTreeItemToACMap
-            myTreeItemToACMap[junctionSourceItem] = edge->getGNEJunctionSource();
-            myTreeItemToACMap[junctionDestinyItem] = edge->getGNEJunctionDestiny();
+            myTreeItemToACMap[junctionSourceItem] = edge->getFirstParentJunction();
+            myTreeItemToACMap[junctionDestinyItem] = edge->getSecondParentJunction();
             myTreeItemToACMap[edgeItem] = edge;
             myTreeItemToACMap[laneItem] = lane;
             // return Lane item

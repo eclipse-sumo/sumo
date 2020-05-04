@@ -448,7 +448,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
         myNumChanges = 0;
         myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
     } else if (myPotentialTargets.count(lane)
-               || (allowConflict && lane->getParentEdge()->getGNEJunctionSource() == myCurrentEditedLane->getParentEdge()->getGNEJunctionDestiny())) {
+               || (allowConflict && lane->getParentEdge()->getFirstParentJunction() == myCurrentEditedLane->getParentEdge()->getSecondParentJunction())) {
         const int fromIndex = myCurrentEditedLane->getIndex();
         GNEEdge* srcEdge = myCurrentEditedLane->getParentEdge();
         GNEEdge* destEdge = lane->getParentEdge();
@@ -474,7 +474,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
                     NBConnection newNBCon(srcEdge->getNBEdge(), fromIndex, destEdge->getNBEdge(), lane->getIndex(), newCon.tlLinkIndex);
                     myViewNet->getUndoList()->add(new GNEChange_Connection(srcEdge, newCon, false, true), true);
                     lane->setSpecialColor(mayDefinitelyPass ? &myConnectionLegend->getTargetPassColor() : &myConnectionLegend->getTargetColor());
-                    srcEdge->getGNEJunctionDestiny()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
+                    srcEdge->getSecondParentJunction()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
                 }
                 break;
             case CONNECTED:
@@ -512,7 +512,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, bool mayDefinitelyPass, bool a
 void
 GNEConnectorFrame::initTargets() {
     // gather potential targets
-    NBNode* nbn = myCurrentEditedLane->getParentEdge()->getGNEJunctionDestiny()->getNBNode();
+    NBNode* nbn = myCurrentEditedLane->getParentEdge()->getSecondParentJunction()->getNBNode();
 
     for (auto it : nbn->getOutgoingEdges()) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(it->getID());

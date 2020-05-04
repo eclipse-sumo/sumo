@@ -415,10 +415,10 @@ GNEJunction::getJunctionNeighbours() const {
     // use set to avoid duplicates junctions
     std::set<GNEJunction*> junctions;
     for (const auto& i : myGNEIncomingEdges) {
-        junctions.insert(i->getGNEJunctionSource());
+        junctions.insert(i->getFirstParentJunction());
     }
     for (const auto& i : myGNEOutgoingEdges) {
-        junctions.insert(i->getGNEJunctionDestiny());
+        junctions.insert(i->getSecondParentJunction());
     }
     return std::vector<GNEJunction*>(junctions.begin(), junctions.end());
 }
@@ -547,14 +547,14 @@ GNEJunction::startGeometryMoving(bool extendToNeighbors) {
     // Iterate over GNEEdges
     for (const auto& edge : myGNEEdges) {
         // Add source and destiny junctions
-        affectedJunctions.insert(edge->getGNEJunctionSource());
-        affectedJunctions.insert(edge->getGNEJunctionDestiny());
+        affectedJunctions.insert(edge->getFirstParentJunction());
+        affectedJunctions.insert(edge->getSecondParentJunction());
         // Obtain neighbors of Junction source
-        for (const auto& junctionSourceEdge : edge->getGNEJunctionSource()->getGNEEdges()) {
+        for (const auto& junctionSourceEdge : edge->getFirstParentJunction()->getGNEEdges()) {
             affectedEdges.insert(junctionSourceEdge);
         }
         // Obtain neighbors of Junction destiny
-        for (const auto& junctionDestinyEdge : edge->getGNEJunctionDestiny()->getGNEEdges()) {
+        for (const auto& junctionDestinyEdge : edge->getSecondParentJunction()->getGNEEdges()) {
             affectedEdges.insert(junctionDestinyEdge);
         }
     }
@@ -590,14 +590,14 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
         // Iterate over GNEEdges
         for (const auto& edge : myGNEEdges) {
             // Add source and destiny junctions
-            affectedJunctions.insert(edge->getGNEJunctionSource());
-            affectedJunctions.insert(edge->getGNEJunctionDestiny());
+            affectedJunctions.insert(edge->getFirstParentJunction());
+            affectedJunctions.insert(edge->getSecondParentJunction());
             // Obtain neighbors of Junction source
-            for (const auto& junctionSourceEdge : edge->getGNEJunctionSource()->getGNEEdges()) {
+            for (const auto& junctionSourceEdge : edge->getFirstParentJunction()->getGNEEdges()) {
                 affectedEdges.insert(junctionSourceEdge);
             }
             // Obtain neighbors of Junction destiny
-            for (const auto& junctionDestinyEdge : edge->getGNEJunctionDestiny()->getGNEEdges()) {
+            for (const auto& junctionDestinyEdge : edge->getSecondParentJunction()->getGNEEdges()) {
                 affectedEdges.insert(junctionDestinyEdge);
             }
         }
@@ -943,7 +943,7 @@ GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
             j->markConnectionGeometryDeprecated();
         }
         if (includingNeighbours) {
-            i->getGNEJunctionSource()->markConnectionsDeprecated(false);
+            i->getFirstParentJunction()->markConnectionsDeprecated(false);
         }
     }
 }
@@ -1642,14 +1642,14 @@ GNEJunction::moveJunctionGeometry(const Position& pos) {
     // Iterate over GNEEdges
     for (const auto& edge : myGNEEdges) {
         // Add source and destiny junctions
-        affectedJunctions.insert(edge->getGNEJunctionSource());
-        affectedJunctions.insert(edge->getGNEJunctionDestiny());
+        affectedJunctions.insert(edge->getFirstParentJunction());
+        affectedJunctions.insert(edge->getSecondParentJunction());
         // Obtain neighbors of Junction source
-        for (const auto& junctionSourceEdge : edge->getGNEJunctionSource()->getGNEEdges()) {
+        for (const auto& junctionSourceEdge : edge->getFirstParentJunction()->getGNEEdges()) {
             affectedEdges.insert(junctionSourceEdge);
         }
         // Obtain neighbors of Junction destiny
-        for (const auto& junctionDestinyEdge : edge->getGNEJunctionDestiny()->getGNEEdges()) {
+        for (const auto& junctionDestinyEdge : edge->getSecondParentJunction()->getGNEEdges()) {
             affectedEdges.insert(junctionDestinyEdge);
         }
     }

@@ -54,11 +54,10 @@ const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE,
-        {}, {}, {}, {}, {}, {}, {}, {},     // Parents
+        { net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())},    // Parents
+            {}, {}, {}, {}, {}, {}, {},
         {}, {}, {}, {}, {}, {}, {}, {}),    // Children
     myNBEdge(nbe),
-    myGNEJunctionSource(myNet->retrieveJunction(nbe->getFromNode()->getID())),
-    myGNEJunctionDestiny(myNet->retrieveJunction(nbe->getToNode()->getID())),
     myLanes(0),
     myAmResponsible(false),
     myWasSplit(wasSplit),
@@ -164,7 +163,7 @@ GNEEdge::getPositionInView() const {
 
 bool
 GNEEdge::clickedOverShapeStart(const Position& pos) {
-    if (myNBEdge->getGeometry().front() != myGNEJunctionSource->getPositionInView()) {
+    if (myNBEdge->getGeometry().front() != getFirstParentJunction()->getPositionInView()) {
         return (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
         return false;
@@ -174,7 +173,7 @@ GNEEdge::clickedOverShapeStart(const Position& pos) {
 
 bool
 GNEEdge::clickedOverShapeEnd(const Position& pos) {
-    if (myNBEdge->getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) {
+    if (myNBEdge->getGeometry().back() != getSecondParentJunction()->getPositionInView()) {
         return (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
         return false;
@@ -323,7 +322,7 @@ GNEEdge::moveEdgeShape(const Position& offset) {
     // first make a copy of myMovingShape
     PositionVector newShape = getShapeBeforeMoving();
     // move entire shap if this edge and their junctions is selected
-    const bool allSelected = mySelected && myGNEJunctionSource->isAttributeCarrierSelected() && myGNEJunctionDestiny->isAttributeCarrierSelected();
+    const bool allSelected = mySelected && getFirstParentJunction()->isAttributeCarrierSelected() && getSecondParentJunction()->isAttributeCarrierSelected();
     if (moveEntireShape() || allSelected) {
         // move entire shape
         newShape.add(offset);
@@ -338,12 +337,12 @@ GNEEdge::moveEdgeShape(const Position& offset) {
         // check if edge is selected
         if (isAttributeCarrierSelected()) {
             // move more geometry points, depending if junctions are selected
-            if (myGNEJunctionSource->isAttributeCarrierSelected()) {
+            if (getFirstParentJunction()->isAttributeCarrierSelected()) {
                 for (int i = 1; i < geometryPointIndex; i++) {
                     newShape[i].add(offset);
                 }
             }
-            if (myGNEJunctionDestiny->isAttributeCarrierSelected()) {
+            if (getSecondParentJunction()->isAttributeCarrierSelected()) {
                 for (int i = (geometryPointIndex + 1); i < (int)newShape.size(); i++) {
                     newShape[i].add(offset);
                 }
@@ -446,7 +445,7 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
     Position delta = junction->getNBNode()->getPosition() - origPos;
     PositionVector geom = myNBEdge->getGeometry();
     // geometry endpoint need not equal junction position hence we modify it with delta
-    if (junction == myGNEJunctionSource) {
+    if (junction == getFirstParentJunction()) {
         geom[0].add(delta);
     } else {
         geom[-1].add(delta);
@@ -494,21 +493,9 @@ GNEEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-GNEJunction*
-GNEEdge::getGNEJunctionSource() const {
-    return myGNEJunctionSource;
-}
-
-
-GNEJunction*
-GNEEdge::getGNEJunctionDestiny() const {
-    return myGNEJunctionDestiny;
-}
-
-
 GNEEdge*
 GNEEdge::getOppositeEdge() const {
-    return myNet->retrieveEdge(myGNEJunctionDestiny, myGNEJunctionSource, false);
+    return myNet->retrieveEdge(getSecondParentJunction(), getFirstParentJunction(), false);
 }
 
 
@@ -598,11 +585,11 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
-    if ((myNBEdge->getGeometry().front() != myGNEJunctionSource->getPositionInView()) && (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS)) {
+    if ((myNBEdge->getGeometry().front() != getFirstParentJunction()->getPositionInView()) && (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->p_end();
-    } else if ((myNBEdge->getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) && (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS)) {
+    } else if ((myNBEdge->getGeometry().back() != getSecondParentJunction()->getPositionInView()) && (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->p_end();
@@ -621,14 +608,14 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
             if (geom[index].distanceTo2D(pos) < SNAP_RADIUS) {
                 pos = geom[index];
             }
-            Position destPos = myGNEJunctionDestiny->getNBNode()->getPosition();
-            Position sourcePos = myGNEJunctionSource->getNBNode()->getPosition();
+            Position destPos = getSecondParentJunction()->getNBNode()->getPosition();
+            Position sourcePos = getFirstParentJunction()->getNBNode()->getPosition();
             if (pos.distanceTo2D(destPos) < pos.distanceTo2D(sourcePos)) {
                 setAttribute(GNE_ATTR_SHAPE_END, toString(newPos), undoList);
-                myGNEJunctionDestiny->invalidateShape();
+                getSecondParentJunction()->invalidateShape();
             } else {
                 setAttribute(GNE_ATTR_SHAPE_START, toString(newPos), undoList);
-                myGNEJunctionSource->invalidateShape();
+                getFirstParentJunction()->invalidateShape();
             }
             // possibly existing inner point is no longer needed
             if (myNBEdge->getInnerGeometry().size() > 0 && getEdgeVertexIndex(pos, false) != -1) {
@@ -642,14 +629,14 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
 
 void
 GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
-    Position destPos = myGNEJunctionDestiny->getNBNode()->getPosition();
-    Position sourcePos = myGNEJunctionSource->getNBNode()->getPosition();
+    Position destPos = getSecondParentJunction()->getNBNode()->getPosition();
+    Position sourcePos = getFirstParentJunction()->getNBNode()->getPosition();
     if (pos.distanceTo2D(destPos) < pos.distanceTo2D(sourcePos)) {
         setAttribute(GNE_ATTR_SHAPE_END, toString(destPos), undoList);
-        myGNEJunctionDestiny->invalidateShape();
+        getSecondParentJunction()->invalidateShape();
     } else {
         setAttribute(GNE_ATTR_SHAPE_START, toString(sourcePos), undoList);
-        myGNEJunctionSource->invalidateShape();
+        getFirstParentJunction()->invalidateShape();
     }
 }
 
@@ -669,21 +656,21 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
     // update geometry
     updateGeometry();
     // invalidate junction source shape
-    myGNEJunctionSource->invalidateShape();
-    // iterate over GNEJunctionSource edges and update geometry
-    for (const auto& edge : myGNEJunctionSource->getGNEIncomingEdges()) {
+    getFirstParentJunction()->invalidateShape();
+    // iterate over first parent junction edges and update geometry
+    for (const auto& edge : getFirstParentJunction()->getGNEIncomingEdges()) {
         edge->updateGeometry();
     }
-    for (const auto& edge : myGNEJunctionSource->getGNEOutgoingEdges()) {
+    for (const auto& edge : getFirstParentJunction()->getGNEOutgoingEdges()) {
         edge->updateGeometry();
     }
     // invalidate junction destiny shape
-    myGNEJunctionDestiny->invalidateShape();
-    // iterate over GNEJunctionDestiny edges and update geometry
-    for (const auto& edge : myGNEJunctionDestiny->getGNEIncomingEdges()) {
+    getSecondParentJunction()->invalidateShape();
+    // iterate over second parent junction edges and update geometry
+    for (const auto& edge : getSecondParentJunction()->getGNEIncomingEdges()) {
         edge->updateGeometry();
     }
-    for (const auto& edge : myGNEJunctionDestiny->getGNEOutgoingEdges()) {
+    for (const auto& edge : getSecondParentJunction()->getGNEOutgoingEdges()) {
         edge->updateGeometry();
     }
 }
@@ -803,12 +790,12 @@ GNEEdge::getRouteProbeRelativePosition(GNERouteProbe* routeProbe) const {
 std::vector<GNECrossing*>
 GNEEdge::getGNECrossings() {
     std::vector<GNECrossing*> crossings;
-    for (auto i : myGNEJunctionSource->getGNECrossings()) {
+    for (auto i : getFirstParentJunction()->getGNECrossings()) {
         if (i->checkEdgeBelong(this)) {
             crossings.push_back(i);
         }
     }
-    for (auto i : myGNEJunctionDestiny->getGNECrossings()) {
+    for (auto i : getSecondParentJunction()->getGNECrossings()) {
         if (i->checkEdgeBelong(this)) {
             crossings.push_back(i);
         }
@@ -876,9 +863,9 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_FROM:
-            return myGNEJunctionSource->getID();
+            return getFirstParentJunction()->getID();
         case SUMO_ATTR_TO:
-            return myGNEJunctionDestiny->getID();
+            return getSecondParentJunction()->getID();
         case SUMO_ATTR_NUMLANES:
             return toString(myNBEdge->getNumLanes());
         case SUMO_ATTR_PRIORITY:
@@ -921,13 +908,13 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_MODIFICATION_STATUS:
             return myConnectionStatus;
         case GNE_ATTR_SHAPE_START:
-            if (myNBEdge->getGeometry().front() == myGNEJunctionSource->getPositionInView()) {
+            if (myNBEdge->getGeometry().front() == getFirstParentJunction()->getPositionInView()) {
                 return "";
             } else {
                 return toString(myNBEdge->getGeometry().front());
             }
         case GNE_ATTR_SHAPE_END:
-            if (myNBEdge->getGeometry().back() == myGNEJunctionDestiny->getPositionInView()) {
+            if (myNBEdge->getGeometry().back() == getSecondParentJunction()->getPositionInView()) {
                 return "";
             } else {
                 return toString(myNBEdge->getGeometry().back());
@@ -976,39 +963,39 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_FROM: {
             undoList->p_begin("change  " + getTagStr() + "  attribute");
             // Remove edge from crossings of junction source
-            removeEdgeFromCrossings(myGNEJunctionSource, undoList);
+            removeEdgeFromCrossings(getFirstParentJunction(), undoList);
             // continue changing from junction
-            GNEJunction* oldGNEJunctionSource = myGNEJunctionSource;
-            myGNEJunctionSource->setLogicValid(false, undoList);
+            GNEJunction* originalFirstParentJunction = getFirstParentJunction();
+            getFirstParentJunction()->setLogicValid(false, undoList);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            myGNEJunctionSource->setLogicValid(false, undoList);
+            getFirstParentJunction()->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
-            setAttribute(GNE_ATTR_SHAPE_START, toString(myGNEJunctionSource->getNBNode()->getPosition()), undoList);
-            myGNEJunctionSource->invalidateShape();
+            setAttribute(GNE_ATTR_SHAPE_START, toString(getFirstParentJunction()->getNBNode()->getPosition()), undoList);
+            getFirstParentJunction()->invalidateShape();
             undoList->p_end();
             // update geometries of all implicated junctions
-            oldGNEJunctionSource->updateGeometry();
-            myGNEJunctionSource->updateGeometry();
-            myGNEJunctionDestiny->updateGeometry();
+            originalFirstParentJunction->updateGeometry();
+            getFirstParentJunction()->updateGeometry();
+            getSecondParentJunction()->updateGeometry();
             break;
         }
         case SUMO_ATTR_TO: {
             undoList->p_begin("change  " + getTagStr() + "  attribute");
             // Remove edge from crossings of junction destiny
-            removeEdgeFromCrossings(myGNEJunctionDestiny, undoList);
+            removeEdgeFromCrossings(getSecondParentJunction(), undoList);
             // continue changing destiny junction
-            GNEJunction* oldGNEJunctionDestiny = myGNEJunctionDestiny;
-            myGNEJunctionDestiny->setLogicValid(false, undoList);
+            GNEJunction* originalSecondParentJunction = getSecondParentJunction();
+            getSecondParentJunction()->setLogicValid(false, undoList);
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            myGNEJunctionDestiny->setLogicValid(false, undoList);
+            getSecondParentJunction()->setLogicValid(false, undoList);
             myNet->retrieveJunction(value)->setLogicValid(false, undoList);
-            setAttribute(GNE_ATTR_SHAPE_END, toString(myGNEJunctionDestiny->getNBNode()->getPosition()), undoList);
-            myGNEJunctionDestiny->invalidateShape();
+            setAttribute(GNE_ATTR_SHAPE_END, toString(getSecondParentJunction()->getNBNode()->getPosition()), undoList);
+            getSecondParentJunction()->invalidateShape();
             undoList->p_end();
             // update geometries of all implicated junctions
-            oldGNEJunctionDestiny->updateGeometry();
-            myGNEJunctionDestiny->updateGeometry();
-            myGNEJunctionSource->updateGeometry();
+            originalSecondParentJunction->updateGeometry();
+            getSecondParentJunction()->updateGeometry();
+            getFirstParentJunction()->updateGeometry();
             break;
         }
         case SUMO_ATTR_ID:
@@ -1033,9 +1020,9 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_NUMLANES:
             if (value != getAttribute(key)) {
                 // Remove edge from crossings of junction source
-                removeEdgeFromCrossings(myGNEJunctionSource, undoList);
+                removeEdgeFromCrossings(getFirstParentJunction(), undoList);
                 // Remove edge from crossings of junction destiny
-                removeEdgeFromCrossings(myGNEJunctionDestiny, undoList);
+                removeEdgeFromCrossings(getSecondParentJunction(), undoList);
                 // set num lanes
                 setNumLanes(parse<int>(value), undoList);
             }
@@ -1062,10 +1049,10 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) == nullptr);
         case SUMO_ATTR_FROM: {
             // check that is a valid ID and is different of ID of junction destiny
-            if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionDestiny->getID())) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (value != getSecondParentJunction()->getID())) {
                 GNEJunction* junctionFrom = myNet->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
-                if ((junctionFrom != nullptr) && (myNet->retrieveEdge(junctionFrom, myGNEJunctionDestiny, false) == nullptr)) {
+                if ((junctionFrom != nullptr) && (myNet->retrieveEdge(junctionFrom, getSecondParentJunction(), false) == nullptr)) {
                     return true;
                 } else {
                     return false;
@@ -1076,10 +1063,10 @@ GNEEdge::isValid(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TO: {
             // check that is a valid ID and is different of ID of junction Source
-            if (SUMOXMLDefinitions::isValidNetID(value) && (value != myGNEJunctionSource->getID())) {
+            if (SUMOXMLDefinitions::isValidNetID(value) && (value != getFirstParentJunction()->getID())) {
                 GNEJunction* junctionTo = myNet->retrieveJunction(value, false);
                 // check that there isn't already another edge with the same From and To Edge
-                if ((junctionTo != nullptr) && (myNet->retrieveEdge(myGNEJunctionSource, junctionTo, false) == nullptr)) {
+                if ((junctionTo != nullptr) && (myNet->retrieveEdge(getFirstParentJunction(), junctionTo, false) == nullptr)) {
                     return true;
                 } else {
                     return false;
@@ -1667,22 +1654,22 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_FROM:
-            myNet->changeEdgeEndpoints(this, value, myGNEJunctionDestiny->getID());
-            // update this edge of list of outgoings edges of the old GNEJunctionSource
-            myGNEJunctionSource->removeOutgoingGNEEdge(this);
-            // update GNEJunctionSource
-            myGNEJunctionSource = myNet->retrieveJunction(myNBEdge->getFromNode()->getID());
-            // update this edge of list of outgoings edges of the new GNEJunctionSource
-            myGNEJunctionSource->addOutgoingGNEEdge(this);
+            myNet->changeEdgeEndpoints(this, value, getSecondParentJunction()->getID());
+            // update this edge of list of outgoings edges of the old first parent junction
+            getFirstParentJunction()->removeOutgoingGNEEdge(this);
+            // update first parent junction
+            updateFirstParentJunction(myNet->retrieveJunction(myNBEdge->getFromNode()->getID()));
+            // update this edge of list of outgoings edges of the new first parent junction
+            getFirstParentJunction()->addOutgoingGNEEdge(this);
             break;
         case SUMO_ATTR_TO:
-            myNet->changeEdgeEndpoints(this, myGNEJunctionSource->getID(), value);
-            // update this edge of list of incomings edges of the old GNEJunctionDestiny
-            myGNEJunctionDestiny->removeIncomingGNEEdge(this);
-            // update GNEJunctionDestiny
-            myGNEJunctionDestiny = myNet->retrieveJunction(myNBEdge->getToNode()->getID());
-            // update this edge of list of incomings edges of the new GNEJunctionDestiny
-            myGNEJunctionDestiny->addIncomingGNEEdge(this);
+            myNet->changeEdgeEndpoints(this, getFirstParentJunction()->getID(), value);
+            // update this edge of list of incomings edges of the old second parent junction
+            getSecondParentJunction()->removeIncomingGNEEdge(this);
+            // update second parent junction
+            updateSecondParentJunction(myNet->retrieveJunction(myNBEdge->getFromNode()->getID()));
+            // update this edge of list of incomings edges of the new second parent junction
+            getSecondParentJunction()->addIncomingGNEEdge(this);
             break;
         case SUMO_ATTR_NUMLANES:
             throw InvalidArgument("GNEEdge::setAttribute (private) called for attr SUMO_ATTR_NUMLANES. This should never happen");
@@ -1741,7 +1728,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             // get geometry of NBEdge, remove FIRST element with the new value (or with the Junction Source position) and set it back to edge
             Position newShapeStart;
             if (value == "") {
-                newShapeStart = myGNEJunctionSource->getPositionInView();
+                newShapeStart = getFirstParentJunction()->getPositionInView();
             } else {
                 newShapeStart = parse<Position>(value);
             }
@@ -1757,7 +1744,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destiny position) and set it back to edge
             Position newShapeEnd;
             if (value == "") {
-                newShapeEnd = myGNEJunctionDestiny->getPositionInView();
+                newShapeEnd = getSecondParentJunction()->getPositionInView();
             } else {
                 newShapeEnd = parse<Position>(value);
             }
@@ -1792,8 +1779,8 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     // begin undo list
     undoList->p_begin("change number of " + toString(SUMO_TAG_LANE) +  "s");
     // invalidate logic of source/destiny edges
-    myGNEJunctionSource->setLogicValid(false, undoList);
-    myGNEJunctionDestiny->setLogicValid(false, undoList);
+    getFirstParentJunction()->setLogicValid(false, undoList);
+    getSecondParentJunction()->setLogicValid(false, undoList);
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
     // remove edge of RTREE
@@ -1853,17 +1840,17 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
         myLanes[i]->setIndex(i);
     }
     /* while technically correct, this looks ugly
-    myGNEJunctionSource->invalidateShape();
-    myGNEJunctionDestiny->invalidateShape();
+    getFirstParentJunction()->invalidateShape();
+    getSecondParentJunction()->invalidateShape();
     */
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (auto i : myGNEJunctionSource->getGNEEdges()) {
+    for (auto i : getFirstParentJunction()->getGNEEdges()) {
         i->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (auto i : myGNEJunctionDestiny->getGNEEdges()) {
+    for (auto i : getSecondParentJunction()->getGNEEdges()) {
         i->remakeGNEConnections();
     }
     // add object again
@@ -1907,17 +1894,17 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
         myLanes[i]->setIndex(i);
     }
     /* while technically correct, this looks ugly
-    myGNEJunctionSource->invalidateShape();
-    myGNEJunctionDestiny->invalidateShape();
+    getFirstParentJunction()->invalidateShape();
+    getSecondParentJunction()->invalidateShape();
     */
     // Remake connections of this edge
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (auto i : myGNEJunctionSource->getGNEEdges()) {
+    for (auto i : getFirstParentJunction()->getGNEEdges()) {
         i->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (auto i : myGNEJunctionDestiny->getGNEEdges()) {
+    for (auto i : getSecondParentJunction()->getGNEEdges()) {
         i->remakeGNEConnections();
     }
     // add object again
@@ -2301,7 +2288,7 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
         }
         // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
         if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-            if ((myNBEdge->getGeometry().front() != myGNEJunctionSource->getPositionInView()) &&
+            if ((myNBEdge->getGeometry().front() != getFirstParentJunction()->getPositionInView()) &&
                     (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
                 glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), GLO_JUNCTION + 0.01);
@@ -2318,13 +2305,13 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                     glPushMatrix();
                     glTranslated(0, 0, GLO_JUNCTION - 0.01);
                     glLineWidth(4);
-                    GLHelper::drawLine(myNBEdge->getGeometry().front(), myGNEJunctionSource->getPositionInView());
+                    GLHelper::drawLine(myNBEdge->getGeometry().front(), getFirstParentJunction()->getPositionInView());
                     // draw line between begin point of last lane shape and the first edge shape point
                     GLHelper::drawLine(myNBEdge->getGeometry().front(), myNBEdge->getLanes().back().shape.front());
                     glPopMatrix();
                 }
             }
-            if ((myNBEdge->getGeometry().back() != myGNEJunctionDestiny->getPositionInView()) &&
+            if ((myNBEdge->getGeometry().back() != getSecondParentJunction()->getPositionInView()) &&
                     (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
                 glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), GLO_JUNCTION + 0.01);
@@ -2341,7 +2328,7 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                     glPushMatrix();
                     glTranslated(0, 0, GLO_JUNCTION - 0.01);
                     glLineWidth(4);
-                    GLHelper::drawLine(myNBEdge->getGeometry().back(), myGNEJunctionDestiny->getPositionInView());
+                    GLHelper::drawLine(myNBEdge->getGeometry().back(), getSecondParentJunction()->getPositionInView());
                     // draw line between last point of first lane shape and the last edge shape point
                     GLHelper::drawLine(myNBEdge->getGeometry().back(), myNBEdge->getLanes().back().shape.back());
                     glPopMatrix();

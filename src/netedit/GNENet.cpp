@@ -364,23 +364,23 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     // invalidate path element childrens
     edge->invalidatePathChildElements();
     // remove edge from crossings related with this edge
-    edge->getGNEJunctionSource()->removeEdgeFromCrossings(edge, undoList);
-    edge->getGNEJunctionDestiny()->removeEdgeFromCrossings(edge, undoList);
+    edge->getFirstParentJunction()->removeEdgeFromCrossings(edge, undoList);
+    edge->getSecondParentJunction()->removeEdgeFromCrossings(edge, undoList);
     // update affected connections
     if (recomputeConnections) {
-        edge->getGNEJunctionSource()->setLogicValid(false, undoList);
-        edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
+        edge->getFirstParentJunction()->setLogicValid(false, undoList);
+        edge->getSecondParentJunction()->setLogicValid(false, undoList);
     } else {
-        edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true);
-        edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true);
+        edge->getFirstParentJunction()->removeConnectionsTo(edge, undoList, true);
+        edge->getFirstParentJunction()->removeConnectionsFrom(edge, undoList, true);
     }
     // if junction source is a TLS and after deletion will have only an edge, remove TLS
-    if (edge->getGNEJunctionSource()->getNBNode()->isTLControlled() && (edge->getGNEJunctionSource()->getGNEOutgoingEdges().size() <= 1)) {
-        edge->getGNEJunctionSource()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
+    if (edge->getFirstParentJunction()->getNBNode()->isTLControlled() && (edge->getFirstParentJunction()->getGNEOutgoingEdges().size() <= 1)) {
+        edge->getFirstParentJunction()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
     }
     // if junction destiny is a TLS and after deletion will have only an edge, remove TLS
-    if (edge->getGNEJunctionDestiny()->getNBNode()->isTLControlled() && (edge->getGNEJunctionDestiny()->getGNEIncomingEdges().size() <= 1)) {
-        edge->getGNEJunctionDestiny()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
+    if (edge->getSecondParentJunction()->getNBNode()->isTLControlled() && (edge->getSecondParentJunction()->getGNEIncomingEdges().size() <= 1)) {
+        edge->getSecondParentJunction()->setAttribute(SUMO_ATTR_TYPE, toString(SumoXMLNodeType::PRIORITY), undoList);
     }
     // Delete edge
     undoList->add(new GNEChange_Edge(edge, false), true);
@@ -439,7 +439,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         replaceInListAttribute(rerouter, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
     // replace in crossings
-    for (const auto& crossing : which->getGNEJunctionDestiny()->getGNECrossings()) {
+    for (const auto& crossing : which->getSecondParentJunction()->getGNECrossings()) {
         // if at least one of the edges of junction to remove belongs to a crossing of the source junction, delete it
         replaceInListAttribute(crossing, SUMO_ATTR_EDGES, which->getID(), by->getID(), undoList);
     }
@@ -483,11 +483,11 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         }
         // update affected connections
         if (recomputeConnections) {
-            edge->getGNEJunctionSource()->setLogicValid(false, undoList);
-            edge->getGNEJunctionDestiny()->setLogicValid(false, undoList);
+            edge->getFirstParentJunction()->setLogicValid(false, undoList);
+            edge->getSecondParentJunction()->setLogicValid(false, undoList);
         } else {
-            edge->getGNEJunctionSource()->removeConnectionsTo(edge, undoList, true, lane->getIndex());
-            edge->getGNEJunctionSource()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
+            edge->getFirstParentJunction()->removeConnectionsTo(edge, undoList, true, lane->getIndex());
+            edge->getFirstParentJunction()->removeConnectionsFrom(edge, undoList, true, lane->getIndex());
         }
         // delete lane
         const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
@@ -504,7 +504,7 @@ GNENet::deleteConnection(GNEConnection* connection, GNEUndoList* undoList) {
     undoList->p_begin("delete " + toString(SUMO_TAG_CONNECTION));
     // obtain NBConnection to remove
     NBConnection deleted = connection->getNBConnection();
-    GNEJunction* junctionDestiny = connection->getEdgeFrom()->getGNEJunctionDestiny();
+    GNEJunction* junctionDestiny = connection->getEdgeFrom()->getSecondParentJunction();
     junctionDestiny->markAsModified(undoList);
     undoList->add(new GNEChange_Connection(connection->getEdgeFrom(), connection->getNBEdgeConnection(), connection->isAttributeCarrierSelected(), false), true);
     junctionDestiny->invalidateTLS(undoList, deleted);
@@ -665,8 +665,8 @@ GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnec
     GNEEdge* edge = lane->getParentEdge();
     const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
     if (recomputeConnections) {
-        edge->getGNEJunctionSource()->setLogicValid(false, undoList);
-        edge->getGNEJunctionSource()->setLogicValid(false, undoList);
+        edge->getFirstParentJunction()->setLogicValid(false, undoList);
+        edge->getFirstParentJunction()->setLogicValid(false, undoList);
     }
     GNELane* newLane = new GNELane(edge, lane->getIndex());
     undoList->add(new GNEChange_Lane(edge, newLane, laneAttrs, true, recomputeConnections), true);
@@ -791,16 +791,16 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     baseName += '.';
     // create a new edge from the new junction to the previous destination
-    GNEEdge* secondPart = createEdge(newJunction, edge->getGNEJunctionDestiny(), edge,
+    GNEEdge* secondPart = createEdge(newJunction, edge->getSecondParentJunction(), edge,
                                      undoList, baseName + toString(posBase + (int)edgeSplitPosition), true, false, false);
     // fix connections from the split edge (must happen before changing SUMO_ATTR_TO)
-    edge->getGNEJunctionDestiny()->replaceIncomingConnections(edge, secondPart, undoList);
+    edge->getSecondParentJunction()->replaceIncomingConnections(edge, secondPart, undoList);
     // remove affected crossings from junction (must happen before changing SUMO_ATTR_TO)
     std::vector<NBNode::Crossing> affectedCrossings;
-    for (GNECrossing* crossing : edge->getGNEJunctionDestiny()->getGNECrossings()) {
+    for (GNECrossing* crossing : edge->getSecondParentJunction()->getGNECrossings()) {
         if (crossing->checkEdgeBelong(edge)) {
             NBNode::Crossing nbC = *crossing->getNBCrossing();
-            undoList->add(new GNEChange_Crossing(edge->getGNEJunctionDestiny(), nbC, false), true);
+            undoList->add(new GNEChange_Crossing(edge->getSecondParentJunction(), nbC, false), true);
             EdgeVector newEdges;
             for (NBEdge* nbEdge : nbC.edges) {
                 if (nbEdge == edge->getNBEdge()) {
@@ -831,7 +831,7 @@ GNENet::splitEdge(GNEEdge* edge, const Position& pos, GNEUndoList* undoList, GNE
     }
     // re-add modified crossings
     for (const auto& nbC : affectedCrossings) {
-        undoList->add(new GNEChange_Crossing(secondPart->getGNEJunctionDestiny(), nbC, true), true);
+        undoList->add(new GNEChange_Crossing(secondPart->getSecondParentJunction(), nbC, true), true);
     }
     // Split geometry of all child additional
     for (const auto& additional : edge->getChildAdditionals()) {
@@ -876,7 +876,7 @@ void
 GNENet::reverseEdge(GNEEdge* edge, GNEUndoList* undoList) {
     undoList->p_begin("reverse " + toString(SUMO_TAG_EDGE));
     deleteEdge(edge, undoList, false); // still exists. we delete it so we can reuse the name in case of resplit
-    GNEEdge* reversed = createEdge(edge->getGNEJunctionDestiny(), edge->getGNEJunctionSource(), edge, undoList, edge->getID(), false, true);
+    GNEEdge* reversed = createEdge(edge->getSecondParentJunction(), edge->getFirstParentJunction(), edge, undoList, edge->getID(), false, true);
     assert(reversed != 0);
     reversed->setAttribute(SUMO_ATTR_SHAPE, toString(edge->getNBEdge()->getInnerGeometry().reverse()), undoList);
     reversed->setAttribute(GNE_ATTR_SHAPE_START, edge->getAttribute(GNE_ATTR_SHAPE_END), undoList);
@@ -891,7 +891,7 @@ GNENet::addReversedEdge(GNEEdge* edge, GNEUndoList* undoList) {
     GNEEdge* reversed = nullptr;
     if (edge->getNBEdge()->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT || isRailway(edge->getNBEdge()->getPermissions())) {
         // for rail edges, we assume bi-directional tracks are wanted
-        reversed = createEdge(edge->getGNEJunctionDestiny(), edge->getGNEJunctionSource(), edge, undoList, "-" + edge->getID(), false, true);
+        reversed = createEdge(edge->getSecondParentJunction(), edge->getFirstParentJunction(), edge, undoList, "-" + edge->getID(), false, true);
         assert(reversed != 0);
         reversed->setAttribute(SUMO_ATTR_SHAPE, toString(edge->getNBEdge()->getInnerGeometry().reverse()), undoList);
         reversed->setAttribute(GNE_ATTR_SHAPE_START, edge->getAttribute(GNE_ATTR_SHAPE_END), undoList);
@@ -930,7 +930,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     for (const auto& incomingNBEdge : incomingNBEdges) {
         // delete edges between the merged junctions
         GNEEdge* edge = myAttributeCarriers->getEdges().at(incomingNBEdge->getID());
-        if (edge->getGNEJunctionSource() == target) {
+        if (edge->getFirstParentJunction() == target) {
             deleteEdge(edge, undoList, false);
         } else {
             undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_TO, target->getID()));
@@ -941,7 +941,7 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
     for (const auto& outgoingNBEdge : outgoingNBEdges) {
         // delete edges between the merged junctions
         GNEEdge* edge = myAttributeCarriers->getEdges().at(outgoingNBEdge->getID());
-        if (edge->getGNEJunctionDestiny() == target) {
+        if (edge->getSecondParentJunction() == target) {
             deleteEdge(edge, undoList, false);
         } else {
             undoList->p_add(new GNEChange_Attribute(edge, SUMO_ATTR_FROM, target->getID()));
@@ -1053,7 +1053,7 @@ GNENet::retrieveEdge(GNEJunction* from, GNEJunction* to, bool failHard) const {
     if ((from != nullptr) && (to != nullptr)) {
         // iterate over Junctions of net
         for (const auto& edge : myAttributeCarriers->getEdges()) {
-            if ((edge.second->getGNEJunctionSource() == from) && (edge.second->getGNEJunctionDestiny() == to)) {
+            if ((edge.second->getFirstParentJunction() == from) && (edge.second->getSecondParentJunction() == to)) {
                 return edge.second;
             }
         }
@@ -1651,7 +1651,7 @@ GNENet::joinSelectedJunctions(GNEUndoList* undoList) {
     for (auto it : allOutgoing) {
         // delete edges within the cluster
         GNEEdge* edge = myAttributeCarriers->getEdges().at(it->getID());
-        if (edge->getGNEJunctionDestiny() == joined) {
+        if (edge->getSecondParentJunction() == joined) {
             edgesWithin.insert(it);
             deleteEdge(edge, undoList, false);
         } else {
@@ -1999,11 +1999,11 @@ GNENet::splitJunction(GNEJunction* junction, bool reconnect, GNEUndoList* undoLi
             for (auto& c : item.second) {
                 GNEEdge* out = retrieveEdge(c.toEdge->getID());
                 GNEEdge* newEdge = nullptr;
-                if (in->getGNEJunctionDestiny() == out->getGNEJunctionSource()) {
+                if (in->getSecondParentJunction() == out->getFirstParentJunction()) {
                     continue;
                 }
                 if (newEdges.count(c.toEdge) == 0) {
-                    newEdge = createEdge(in->getGNEJunctionDestiny(), out->getGNEJunctionSource(), in, undoList);
+                    newEdge = createEdge(in->getSecondParentJunction(), out->getFirstParentJunction(), in, undoList);
                     newEdges[c.toEdge] = newEdge;
                     newEdge->setAttribute(SUMO_ATTR_NUMLANES, "1", undoList);
                 } else {

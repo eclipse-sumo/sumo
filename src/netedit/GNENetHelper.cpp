@@ -219,8 +219,8 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
         edge->selectAttributeCarrier(false);
     }
     // Add references into GNEJunctions
-    edge->getGNEJunctionSource()->addOutgoingGNEEdge(edge);
-    edge->getGNEJunctionDestiny()->addIncomingGNEEdge(edge);
+    edge->getFirstParentJunction()->addOutgoingGNEEdge(edge);
+    edge->getSecondParentJunction()->addIncomingGNEEdge(edge);
     return edge;
 }
 
@@ -558,8 +558,8 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     edge->decRef("GNENet::deleteSingleEdge");
     edge->setResponsible(true);
     // Remove refrences from GNEJunctions
-    edge->getGNEJunctionSource()->removeOutgoingGNEEdge(edge);
-    edge->getGNEJunctionDestiny()->removeIncomingGNEEdge(edge);
+    edge->getFirstParentJunction()->removeOutgoingGNEEdge(edge);
+    edge->getSecondParentJunction()->removeIncomingGNEEdge(edge);
 }
 
 

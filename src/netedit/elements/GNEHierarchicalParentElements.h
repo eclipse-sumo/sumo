@@ -85,6 +85,22 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
+    /// @name members and functions related to parent junctions
+    /// @{
+    /// @brief get front parent junction
+    GNEJunction* getFirstParentJunction() const;
+
+    /// @brief remove parent junction
+    GNEJunction* getSecondParentJunction()const ;
+
+    /// @brief update front parent junction
+    void updateFirstParentJunction(GNEJunction* junction);
+
+    /// @brief update last parent junction
+    void updateSecondParentJunction(GNEJunction* junction);
+
+    /// @}
+
     /// @name members and functions related to parent edges
     /// @{
     /// @brief add parent edge
