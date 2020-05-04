@@ -34,3 +34,6 @@ patch_on_import
 
 # test diffing a network with invalidated <neigh> information
 invalidated_neigh
+
+# test diffing a network with an edge that has no connections at the to-node
+delete_dead_end_edge

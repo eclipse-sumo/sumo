@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlLogics version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Copied Elements -->
+    <tlLogic id="C" programID="0" >
+        <phase duration="42" state="GGggrrrrGGGg"/>
+        <phase duration="3" state="yyyyrrrryyyy"/>
+        <phase duration="42" state="rrrrGGGgGrrr"/>
+        <phase duration="3" state="rrrryyyyyrrr"/>
+    </tlLogic>
+    <connection from="EC" fromLane="0" to="CN" toLane="0" linkIndex="4"/>
+    <connection from="EC" fromLane="1" to="CS" toLane="1" linkIndex="6"/>
+    <connection from="EC" fromLane="1" to="CE" toLane="1" linkIndex="7"/>
+    <connection from="NC" fromLane="0" to="CS" toLane="0" linkIndex="0"/>
+    <connection from="NC" fromLane="1" to="CS" toLane="1" linkIndex="1"/>
+    <connection from="NC" fromLane="1" to="CE" toLane="1" linkIndex="2"/>
+    <connection from="NC" fromLane="1" to="CN" toLane="1" linkIndex="3"/>
+    <connection from="SC" fromLane="0" to="CE" toLane="0" linkIndex="8"/>
+    <connection from="SC" fromLane="0" to="CN" toLane="0" linkIndex="9"/>
+    <connection from="SC" fromLane="1" to="CN" toLane="1" linkIndex="10"/>
+    <connection from="SC" fromLane="1" to="CS" toLane="1" linkIndex="11"/>
+    <!-- Deleted Elements -->
+    <delete from="EC" fromLane="0" to="CW" toLane="0" linkIndex="6" tl="C"/>
+    <delete from="EC" fromLane="1" to="CW" toLane="1" linkIndex="7" tl="C"/>
+    <delete from="NC" fromLane="0" to="CW" toLane="0" linkIndex="0" tl="C"/>
+    <delete from="SC" fromLane="1" to="CW" toLane="1" linkIndex="13" tl="C"/>
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <tlLogic id="C" programID="0" >
+        <phase duration="42" state="GGggrrrrGGGg"/>
+        <phase duration="3" state="yyyyrrrryyyy"/>
+        <phase duration="42" state="rrrrGGGgGrrr"/>
+        <phase duration="3" state="rrrryyyyyrrr"/>
+    </tlLogic>
+    <!-- Created Elements -->
+    <connection from="EC" fromLane="1" to="CN" toLane="1" linkIndex="5" tl="C"/>
+    <!-- Changed Elements -->
+    <connection from="EC" fromLane="0" to="CN" toLane="0" linkIndex="4"/>
+    <connection from="EC" fromLane="1" to="CS" toLane="1" linkIndex="6"/>
+    <connection from="EC" fromLane="1" to="CE" toLane="1" linkIndex="7"/>
+    <connection from="NC" fromLane="0" to="CS" toLane="0" linkIndex="0"/>
+    <connection from="NC" fromLane="1" to="CS" toLane="1" linkIndex="1"/>
+    <connection from="NC" fromLane="1" to="CE" toLane="1" linkIndex="2"/>
+    <connection from="NC" fromLane="1" to="CN" toLane="1" linkIndex="3"/>
+    <connection from="SC" fromLane="0" to="CE" toLane="0" linkIndex="8"/>
+    <connection from="SC" fromLane="0" to="CN" toLane="0" linkIndex="9"/>
+    <connection from="SC" fromLane="1" to="CN" toLane="1" linkIndex="10"/>
+    <connection from="SC" fromLane="1" to="CS" toLane="1" linkIndex="11"/>
+</tlLogics>
