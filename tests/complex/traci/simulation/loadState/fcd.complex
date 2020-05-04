@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May  4 21:19:13 2020 by Eclipse SUMO Version v1_6_0+0059-50b15c0a2e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <traci_server>
+        <remote-port value="42719"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="50.00">
+        <vehicle id="trip_0" x="130.76" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.01" pos="22.71" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="trip_0" x="143.96" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.20" pos="35.91" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="trip_0" x="158.53" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.57" pos="50.48" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="trip_0" x="172.63" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.09" pos="64.58" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="trip_0" x="186.48" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.85" pos="78.43" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00"/>
+    <timestep time="56.00"/>
+    <timestep time="57.00"/>
+    <timestep time="58.00"/>
+    <timestep time="59.00"/>
+    <timestep time="50.00">
+        <vehicle id="trip_0" x="131.24" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.49" pos="23.19" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="trip_0" x="144.97" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.73" pos="36.92" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="trip_0" x="158.91" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.94" pos="50.86" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="trip_0" x="173.27" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.36" pos="65.22" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="trip_0" x="187.23" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.96" pos="79.18" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00"/>
+    <timestep time="56.00"/>
+    <timestep time="57.00"/>
+    <timestep time="58.00"/>
+    <timestep time="59.00"/>
+    <timestep time="50.00">
+        <vehicle id="trip_0" x="131.44" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.69" pos="23.39" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="trip_0" x="145.40" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.96" pos="37.35" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="trip_0" x="159.85" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.46" pos="51.80" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="trip_0" x="173.54" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.69" pos="65.49" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="trip_0" x="187.13" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.59" pos="79.08" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00"/>
+    <timestep time="56.00"/>
+    <timestep time="57.00"/>
+    <timestep time="58.00"/>
+    <timestep time="59.00"/>
+    <timestep time="50.00">
+        <vehicle id="trip_0" x="131.82" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="12.07" pos="23.77" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="trip_0" x="146.29" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.47" pos="38.24" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="trip_0" x="160.47" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.18" pos="52.42" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="trip_0" x="174.08" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.61" pos="66.03" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="trip_0" x="188.23" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.15" pos="80.18" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00"/>
+    <timestep time="56.00"/>
+    <timestep time="57.00"/>
+    <timestep time="58.00"/>
+    <timestep time="59.00"/>
+    <timestep time="50.00">
+        <vehicle id="trip_0" x="130.96" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="11.21" pos="22.91" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="trip_0" x="143.99" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.03" pos="35.94" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="trip_0" x="158.39" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.40" pos="50.34" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="trip_0" x="172.15" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.76" pos="64.10" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="trip_0" x="185.61" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="13.46" pos="77.56" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="trip_0" x="199.85" y="95.05" angle="90.00" type="DEFAULT_VEHTYPE" speed="14.23" pos="91.80" lane="CE_0" slope="0.00"/>
+    </timestep>
+    <timestep time="56.00"/>
+    <timestep time="57.00"/>
+    <timestep time="58.00"/>
+    <timestep time="59.00"/>
+</fcd-export>

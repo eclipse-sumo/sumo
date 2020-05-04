@@ -3,3 +3,6 @@ simulation
 
 # test loading a simulation
 load
+
+# test loading a simulation state
+loadState

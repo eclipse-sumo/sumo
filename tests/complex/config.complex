@@ -20,6 +20,7 @@ copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.turns.xml
 copy_test_path:input_types.typ.xml
 copy_test_path:input_types2.typ.xml
+copy_test_path:input_state.xml
 copy_test_path:settings.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:sumo_log.sumocfg
