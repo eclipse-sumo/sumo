@@ -1821,7 +1821,10 @@ NBNodeCont::guessTLs(OptionsCont& oc, NBTrafficLightLogicCont& tlc) {
                 }
 #endif
                 for (NBEdge* edge : node->getOutgoingEdges()) {
-                    edge->setSignalPosition(node->getPosition(), node);
+                    // do not overwrite closer signals
+                    if (edge->getSignalOffset() == NBEdge::UNSPECIFIED_SIGNAL_OFFSET) {
+                        edge->setSignalPosition(node->getPosition(), node);
+                    }
                 }
             }
         }
