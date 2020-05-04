@@ -1420,7 +1420,7 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output")) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService, interpretTransportType(myPTRouteType));
             if (myStops.size() == 0 && myPlatforms.size() != 0) {
-                WRITE_WARNINGF("PT line in relation % with is defined with platform members instead of stops. Stop location accuracy may be reduced.", myCurrentRelation);
+                WRITE_WARNINGF("PT line in relation % is defined with platform members instead of stops. Stop location accuracy may be reduced.", myCurrentRelation);
                 for (NIIPTPlatform& p : myPlatforms) {
                     myStops.push_back(p.ref);
                 }
