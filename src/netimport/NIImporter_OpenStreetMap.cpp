@@ -259,7 +259,7 @@ NIImporter_OpenStreetMap::load(const OptionsCont& oc, NBNetBuilder& nb) {
     // load relations (after edges are built since we want to apply
     // turn-restrictions directly to NBEdges)
     RelationHandler relationHandler(myOSMNodes, myEdges, &(nb.getPTStopCont()), myPlatformShapes,
-                                    &(nb.getPTLineCont()), oc);
+                                    &nb.getPTLineCont(), oc);
     for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
         // relations
         relationHandler.setFileName(*file);
@@ -1156,8 +1156,7 @@ NIImporter_OpenStreetMap::RelationHandler::RelationHandler(
     const std::map<long long int, Edge*>& osmEdges, NBPTStopCont* nbptStopCont,
     const std::map<long long int, Edge*>& platformShapes,
     NBPTLineCont* nbptLineCont,
-    const OptionsCont& oc)
-    :
+    const OptionsCont& oc) :
     SUMOSAXHandler("osm - file"),
     myOSMNodes(osmNodes),
     myOSMEdges(osmEdges),
@@ -1246,6 +1245,10 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
                     myPlatforms.push_back(platform);
                 }
             } else if (memberType == "node") {
+                if (!myIsStopArea) {
+                    // for routes, a mix of stop and platform members is permitted
+                    myStops.push_back(ref);
+                }
                 NIIPTPlatform platform;
                 platform.isWay = false;
                 platform.ref = ref;
@@ -1256,6 +1259,8 @@ NIImporter_OpenStreetMap::RelationHandler::myStartElement(int element,
             std::string memberType = attrs.get<std::string>(SUMO_ATTR_TYPE, nullptr, ok);
             if (memberType == "way") {
                 myWays.push_back(ref);
+            } else if (memberType == "node") {
+                myStops.push_back(ref);
             }
         }
         return;
@@ -1419,12 +1424,6 @@ NIImporter_OpenStreetMap::RelationHandler::myEndElement(int element) {
             }
         } else if (myPTRouteType != "" && myIsRoute && OptionsCont::getOptions().isSet("ptline-output")) {
             NBPTLine* ptLine = new NBPTLine(toString(myCurrentRelation), myName, myPTRouteType, myRef, myInterval, myNightService, interpretTransportType(myPTRouteType));
-            if (myStops.size() == 0 && myPlatforms.size() != 0) {
-                WRITE_WARNINGF("PT line in relation % is defined with platform members instead of stops. Stop location accuracy may be reduced.", myCurrentRelation);
-                for (NIIPTPlatform& p : myPlatforms) {
-                    myStops.push_back(p.ref);
-                }
-            }
             ptLine->setMyNumOfStops((int)myStops.size());
             for (long long ref : myStops) {
                 if (myOSMNodes.find(ref) == myOSMNodes.end()) {
@@ -1538,6 +1537,7 @@ NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(long long int wayRef,
     }
     return result;
 }
+
 
 void
 NIImporter_OpenStreetMap::reconstructLayerElevation(const double layerElevation, NBNetBuilder& nb) {

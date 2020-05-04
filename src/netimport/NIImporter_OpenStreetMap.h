@@ -258,6 +258,9 @@ private:
     /** @brief the map from OSM way ids to platform shapes */
     std::map<long long int, Edge*> myPlatformShapes;
 
+    /** @brief the map from stop_area relations to member node */
+    std::map<long long int, std::set<long long int> > myStopAreas;
+
     /// @brief The compounds types that do not contain known types
     std::set<std::string> myUnusableTypes;
 
@@ -496,7 +499,6 @@ protected:
 
         /// @brief Destructor
         ~RelationHandler() override;
-
 
     protected:
         /// @name inherited from GenericSAXHandler
