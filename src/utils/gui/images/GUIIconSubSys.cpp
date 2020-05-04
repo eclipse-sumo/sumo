@@ -169,6 +169,7 @@
 
 #include "modeedgedata.xpm"
 #include "modeedgereldata.xpm"
+#include "modetazreldata.xpm"
 
 #include "computejunctions.xpm"
 #include "cleanjunctions.xpm"
@@ -464,6 +465,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
 
     myIcons[GUIIcon::MODEEDGEDATA] = new FXXPMIcon(a, modeedgedata_xpm);
     myIcons[GUIIcon::MODEEDGERELDATA] = new FXXPMIcon(a, modeedgereldata_xpm);
+    myIcons[GUIIcon::MODETAZRELDATA] = new FXXPMIcon(a, modetazreldata_xpm);
 
     myIcons[GUIIcon::COMPUTEJUNCTIONS] = new FXXPMIcon(a, computejunctions_xpm);
     myIcons[GUIIcon::CLEANJUNCTIONS] = new FXXPMIcon(a, cleanjunctions_xpm);
