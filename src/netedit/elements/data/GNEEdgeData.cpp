@@ -214,6 +214,8 @@ GNEEdgeData::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
+            // mark interval parent as deprecated
+            myDataIntervalParent->markAttributeColorsDeprecated();
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");

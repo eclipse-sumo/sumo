@@ -58,6 +58,12 @@ public:
     /// @brief set new ID in dataSet
     void setDataSetID(const std::string& newID);
 
+    /// @brief mark attribute colors deprecated
+    void markAttributeColorsDeprecated();
+
+    /// @brief update attribute colors deprecated
+    void updateAttributeColors();
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -159,6 +165,9 @@ protected:
 
     /// @brief map with dataIntervals children sorted by begin
     std::map<const double, GNEDataInterval*> myDataIntervalChildren;
+
+    /// @brief flag for update attributeColors
+    bool myAttributeColorsDeprecated;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

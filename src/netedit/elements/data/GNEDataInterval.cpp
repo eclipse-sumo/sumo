@@ -49,7 +49,8 @@ GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, 
     GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet()),
     myDataSetParent(dataSetParent),
     myBegin(begin),
-    myEnd(end) {
+    myEnd(end),
+    myAttributeColorsDeprecated(true) {
 }
 
 
@@ -69,6 +70,29 @@ GNEDataInterval::updateGenericDataIDs() {
             genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
                                        genericData->getParentEdges().front()->getID() + "->" + genericData->getParentEdges().back()->getID());
         }
+    }
+}
+
+
+void 
+GNEDataInterval::markAttributeColorsDeprecated() {
+    myAttributeColorsDeprecated = true;
+    // also mark it in data set parent
+    myDataSetParent->markAttributeColorsDeprecated();
+}
+
+
+void 
+GNEDataInterval::updateAttributeColors() {
+    if (myAttributeColorsDeprecated) {
+        myAttributeColors.clear();
+
+        for (const auto &genericData : myGenericDataChildren) {
+            for (const auto &param : genericData->getParametersMap()) {
+                myAttributeColors[param.first] = colorAttributeColors();
+            }
+        }
+        myAttributeColorsDeprecated = false;
     }
 }
 
@@ -132,6 +156,8 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
     // check that GenericData wasn't previously inserted
     if (!hasGenericDataChild(genericData)) {
         myGenericDataChildren.push_back(genericData);
+        // mark attributeColors deprecated
+        myAttributeColorsDeprecated = true;
         // update generic data IDs
         updateGenericDataIDs();
     } else {
@@ -147,6 +173,8 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
     if (it != myGenericDataChildren.end()) {
         // remove generic data child
         myGenericDataChildren.erase(it);
+        // mark attributeColors deprecated
+        myAttributeColorsDeprecated = true;
         // remove it from Inspector Frame and AttributeCarrierHierarchy
         myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(genericData);
         myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(genericData);

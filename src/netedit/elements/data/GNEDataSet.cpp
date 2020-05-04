@@ -42,7 +42,8 @@
 
 GNEDataSet::GNEDataSet(GNENet* net, const std::string dataSetID) :
     GNEAttributeCarrier(SUMO_TAG_DATASET, net),
-    myDataSetID(dataSetID) {
+    myDataSetID(dataSetID),
+    myAttributeColorsDeprecated(true) {
 }
 
 
@@ -70,6 +71,24 @@ GNEDataSet::setDataSetID(const std::string& newID) {
         interval.second->updateGenericDataIDs();
     }
 }
+
+
+void
+GNEDataSet::markAttributeColorsDeprecated() {
+    myAttributeColorsDeprecated = true;
+}
+
+
+void
+GNEDataSet::updateAttributeColors() {
+    if (myAttributeColorsDeprecated) {
+        for (const auto& interval : myDataIntervalChildren) {
+            interval.second->updateAttributeColors();
+        }
+        myAttributeColorsDeprecated = false;
+    }
+}
+
 
 void
 GNEDataSet::updateGeometry() {

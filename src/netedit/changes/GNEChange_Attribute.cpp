@@ -21,6 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/network/GNENetworkElement.h>
+#include <netedit/elements/data/GNEDataSet.h>
 
 #include "GNEChange_Attribute.h"
 
@@ -81,6 +82,14 @@ GNEChange_Attribute::undo() {
         if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requireUpdateGeometry()) {
             myAC->updateGeometry();
         }
+        // if is a dataelement, update attribute colors
+        if (myAC->getTagProperty().isDataElement()) {
+            if (myAC->getTagProperty().isGenericData()) {
+                myAC->getNet()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
+            } else {
+                myAC->getNet()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
+            }
+        }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {
             myAC->getNet()->requireSaveNet(true);
@@ -106,6 +115,14 @@ GNEChange_Attribute::redo() {
         // check if updated attribute requires a update geometry
         if (myAC->getTagProperty().hasAttribute(myKey) && myAC->getTagProperty().getAttributeProperties(myKey).requireUpdateGeometry()) {
             myAC->updateGeometry();
+        }
+        // if is a dataelement, update attribute colors
+        if (myAC->getTagProperty().isDataElement()) {
+            if (myAC->getTagProperty().isGenericData()) {
+                myAC->getNet()->retrieveDataSet(myAC->getAttribute(GNE_ATTR_DATASET))->updateAttributeColors();
+            } else {
+                myAC->getNet()->retrieveDataSet(myAC->getAttribute(SUMO_ATTR_ID))->updateAttributeColors();
+            }
         }
         // check if networkElements, additional or shapes has to be saved (only if key isn't GNE_ATTR_SELECTED)
         if (myAC->getTagProperty().isNetworkElement()) {

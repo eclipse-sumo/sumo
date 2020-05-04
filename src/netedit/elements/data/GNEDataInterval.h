@@ -58,6 +58,12 @@ public:
     /// @brief update generic data child IDs
     void updateGenericDataIDs();
 
+    /// @brief mark attribute colors deprecated
+    void markAttributeColorsDeprecated();
+
+    /// @brief update attribute colors deprecated
+    void updateAttributeColors();
+
     /// @brief get ID
     const std::string& getID() const;
 
@@ -165,6 +171,21 @@ public:
     /// @}
 
 protected:
+
+    struct colorAttributeColors {
+        colorAttributeColors() :
+            minValue(0),
+            maxValue(0) {}
+
+        double minValue;
+        double maxValue;
+
+        std::string minColor;
+        std::string maxColor;
+    };
+
+    std::map<std::string, colorAttributeColors> myAttributeColors;
+
     /// @brief GNEDataSet parent to which this data interval belongs.
     GNEDataSet* myDataSetParent;
 
@@ -176,6 +197,9 @@ protected:
 
     /// @brief vector with generic data children
     std::vector<GNEGenericData*> myGenericDataChildren;
+
+    /// @brief flag for update attributeColors
+    bool myAttributeColorsDeprecated;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
