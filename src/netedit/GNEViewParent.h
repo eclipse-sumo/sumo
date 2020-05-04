@@ -60,6 +60,7 @@ class GNEVehicleTypeFrame;
 class GNEGenericDataFrame;
 class GNEEdgeDataFrame;
 class GNEEdgeRelDataFrame;
+class GNETAZRelDataFrame;
 
 
 // ===========================================================================
@@ -169,6 +170,9 @@ public:
 
     /// @brief get frame for DATA_EDGERELDATA
     GNEEdgeRelDataFrame* getEdgeRelDataFrame() const;
+
+    /// @brief get frame for DATA_TAZRELDATA
+    GNETAZRelDataFrame* getTAZRelDataFrame() const;
 
     /// @brief get current data frame
     GNEGenericDataFrame* getDataFrame() const;
@@ -294,6 +298,9 @@ private:
 
         /// @brief frame for DATA_EDGERELDATA
         GNEEdgeRelDataFrame* edgeRelDataFrame;
+
+        /// @brief frame for DATA_TAZRELDATA
+        GNETAZRelDataFrame* TAZRelDataFrame;
     };
 
     /// @brief struct for ACChoosers dialog

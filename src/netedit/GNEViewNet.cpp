@@ -36,6 +36,7 @@
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
+#include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -1397,6 +1398,9 @@ GNEViewNet::onCmdSetMode(FXObject*, FXSelector sel, void*) {
                 break;
             case MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA:
                 myEditModes.setDataEditMode(DataEditMode::DATA_EDGERELDATA);
+                break;
+            case MID_HOTKEY_Z_MODES_TAZ_TAZREL:
+                myEditModes.setDataEditMode(DataEditMode::DATA_TAZRELDATA);
                 break;
         }
     }
@@ -3119,6 +3123,17 @@ GNEViewNet::updateDataModeSpecificControls() {
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
+        case DataEditMode::DATA_TAZRELDATA:
+            myViewParent->getTAZRelDataFrame()->show();
+            myViewParent->getTAZRelDataFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getTAZRelDataFrame();
+            // set checkable button
+            myDataCheckableButtons.TAZRelDataButton->setChecked(true);
+            // disable IntervalBar
+            myIntervalBar.disableIntervalBar();
+            // show toolbar grip of view options
+            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
+            break;
         default:
             break;
     }
@@ -3987,6 +4002,17 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myObjectsUnderCursor)) {
                     // update view to show the new edge data
+                    updateViewNet();
+                }
+            }
+            // process click
+            processClick(eventData);
+            break;
+        case DataEditMode::DATA_TAZRELDATA:
+            // avoid create TAZData if control key is pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                if (myViewParent->getTAZRelDataFrame()->addTAZRelationData(myObjectsUnderCursor)) {
+                    // update view to show the new TAZ data
                     updateViewNet();
                 }
             }

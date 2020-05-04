@@ -2771,14 +2771,20 @@ void
 GNEViewNetHelper::DataCheckableButtons::buildDataCheckableButtons() {
     // edgeData mode
     edgeDataButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                            "\tcreate edge data mode\tMode for creating edge datas.",
-                                            GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myViewNet, MID_HOTKEY_E_MODES_EDGE_EDGEDATA, GUIDesignButtonToolbarCheckable);
+        "\tcreate edge data mode\tMode for creating edge datas.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myViewNet, MID_HOTKEY_E_MODES_EDGE_EDGEDATA, GUIDesignButtonToolbarCheckable);
     edgeDataButton->create();
     // edgeRelData mode
     edgeRelDataButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tcreate edge relation data mode\tMode for creating edge relation datas.",
-            GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myViewNet, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA, GUIDesignButtonToolbarCheckable);
+        "\tcreate edge relation data mode\tMode for creating edge relation datas.",
+        GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myViewNet, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA, GUIDesignButtonToolbarCheckable);
     edgeRelDataButton->create();
+    // TAZRelData mode
+    TAZRelDataButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
+        "\tcreate TAZ relation data mode\tMode for creating TAZ relation datas.",
+        GUIIconSubSys::getIcon(GUIIcon::MODETAZRELDATA), myViewNet, MID_HOTKEY_Z_MODES_TAZ_TAZREL, GUIDesignButtonToolbarCheckable);
+    
+    TAZRelDataButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
 }
@@ -2788,6 +2794,7 @@ void
 GNEViewNetHelper::DataCheckableButtons::showDataCheckableButtons() {
     edgeDataButton->show();
     edgeRelDataButton->show();
+    TAZRelDataButton->show();
 }
 
 
@@ -2795,6 +2802,7 @@ void
 GNEViewNetHelper::DataCheckableButtons::hideDataCheckableButtons() {
     edgeDataButton->hide();
     edgeRelDataButton->hide();
+    TAZRelDataButton->hide();
 }
 
 
@@ -2802,6 +2810,7 @@ void
 GNEViewNetHelper::DataCheckableButtons::disableDataCheckableButtons() {
     edgeDataButton->setChecked(false);
     edgeRelDataButton->setChecked(false);
+    TAZRelDataButton->setChecked(false);
 }
 
 
@@ -2809,6 +2818,7 @@ void
 GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
     edgeDataButton->update();
     edgeRelDataButton->update();
+    TAZRelDataButton->update();
 }
 
 // ---------------------------------------------------------------------------

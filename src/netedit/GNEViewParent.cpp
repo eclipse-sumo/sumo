@@ -30,6 +30,7 @@
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
+#include <netedit/frames/data/GNETAZRelDataFrame.h>
 #include <netedit/frames/demand/GNEPersonFrame.h>
 #include <netedit/frames/demand/GNEPersonPlanFrame.h>
 #include <netedit/frames/demand/GNEPersonTypeFrame.h>
@@ -144,8 +145,11 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     myFrames.personTypeFrame = new GNEPersonTypeFrame(myFramesArea, viewNet);
     myFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
     myFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
+
+    // create Data frames
     myFrames.edgeDataFrame = new GNEEdgeDataFrame(myFramesArea, viewNet);
     myFrames.edgeRelDataFrame = new GNEEdgeRelDataFrame(myFramesArea, viewNet);
+    myFrames.TAZRelDataFrame = new GNETAZRelDataFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -301,12 +305,20 @@ GNEViewParent::getEdgeRelDataFrame() const {
 }
 
 
+GNETAZRelDataFrame*
+GNEViewParent::getTAZRelDataFrame() const {
+    return myFrames.TAZRelDataFrame;
+}
+
+
 GNEGenericDataFrame*
 GNEViewParent::getDataFrame() const {
     if (myFrames.edgeDataFrame->shown()) {
         return myFrames.edgeDataFrame;
     } else if (myFrames.edgeRelDataFrame->shown()) {
         return myFrames.edgeRelDataFrame;
+    } else if (myFrames.TAZRelDataFrame->shown()) {
+        return myFrames.TAZRelDataFrame;
     } else {
         return nullptr;
     }

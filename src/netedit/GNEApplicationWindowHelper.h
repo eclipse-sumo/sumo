@@ -295,6 +295,9 @@ struct GNEApplicationWindowHelper {
             /// @brief menu command for edge rel mode
             FXMenuCommand* edgeRelData;
 
+            /// @brief menu command for TAZ rel mode
+            FXMenuCommand* TAZRelData;
+
         private:
             /// @brief reference to EditMenuCommands
             const EditMenuCommands* myEditMenuCommandsParent;
