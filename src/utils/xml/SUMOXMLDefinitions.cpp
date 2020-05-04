@@ -99,6 +99,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "step",                       SUMO_TAG_STEP },
     { "interval",                   SUMO_TAG_INTERVAL },
     { "edgeRelation",               SUMO_TAG_EDGEREL },
+    { "tazRelation",                SUMO_TAG_TAZREL },
     { "timedEvent",                 SUMO_TAG_TIMEDEVENT },
     { "fromEdge",                   SUMO_TAG_FROMEDGE },
     { "toEdge",                     SUMO_TAG_TOEDGE },
