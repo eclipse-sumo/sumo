@@ -77,7 +77,13 @@ insertion delay:
   
 ## Effect of simulation step-length
 Insertion attemps can only happen in every simulation step. This may cause artifacts in insertion spacing because at the default step-length of 1s is (usually) too short for vehicles to be inserted in successive steps on the same depart location.
-By default, the next attempt happens 2 seconds after the first vehicle has departed and this gap may be much larger then mandated by the carFollowModel. To avoid this effect, either the step-lenght can be reduced or the insertion location must be modified. The latter can either be done by specifying a specific departPos or by using `departPos="last"`.
+By default, the next attempt happens 2 seconds after the first vehicle has departed and this gap may be much larger then mandated by the carFollowModel. There are multiple ways to avoid this effect:
+
+- the step-length can be reduced
+- the insertion location must be modified by any of the following methods
+  - specifying a specific departPos
+  - using `departPos="last"`
+  - setting option **--extrapolate-departpos**
 
 ## Forcing Insertion / Avoiding depart delay
 
@@ -108,6 +114,7 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
   edge. By default, insertion on an edge stops after the first failure
   in each time step
 - **--step-length** {{DT_FLOAT}}: the frequency of insertion attempts can be raised and also the number of possible headways (for a fixed departPos) is increased by setting a lower step-length.
+- **--extrapolate-departpos** {{DT_BOOL}}: Moves the default depart position of a vehicle downstream if it's departure time is a fraction of the simulation step-length. The offset in depart position is proportional to the depart delay from step-length discretization.
 
 # Miscellaneous
 
