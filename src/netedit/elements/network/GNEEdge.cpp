@@ -1667,7 +1667,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             // update this edge of list of incomings edges of the old second parent junction
             getSecondParentJunction()->removeIncomingGNEEdge(this);
             // update second parent junction
-            updateSecondParentJunction(myNet->retrieveJunction(myNBEdge->getFromNode()->getID()));
+            updateSecondParentJunction(myNet->retrieveJunction(myNBEdge->getToNode()->getID()));
             // update this edge of list of incomings edges of the new second parent junction
             getSecondParentJunction()->addIncomingGNEEdge(this);
             break;
