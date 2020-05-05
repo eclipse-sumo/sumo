@@ -52,6 +52,8 @@ GNEChange_GenericData::~GNEChange_GenericData() {
     if (myGenericData->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "'");
+        // remove genericData from parents and children
+        removeGenericData(myGenericData);
         // delete generic data
         delete myGenericData;
     }
