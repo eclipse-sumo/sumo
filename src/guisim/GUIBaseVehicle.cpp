@@ -374,7 +374,9 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
     double upscaleLength = upscale;
     if (upscale > 1 && length > 5) {
         // reduce the length/width ratio because this is not usefull at high zoom
-        upscaleLength = MAX2(1.0, upscaleLength * (5 + sqrt(length - 5)) / length);
+        const double widthLengthFactor = length / getVType().getWidth();
+        const double shrinkFactor = MIN2(widthLengthFactor, sqrt(upscaleLength));
+        upscaleLength /= shrinkFactor;
     }
     glScaled(upscale, upscaleLength, 1);
     /*
