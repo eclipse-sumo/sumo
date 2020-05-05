@@ -50,7 +50,7 @@ GNEChange_Additional::~GNEChange_Additional() {
             // delete additional from net
             myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
             // remove additional from parents and children
-            removeAdditional(myAdditional);
+            removeElementFromParentsAndChildren(myAdditional);
         }
         delete myAdditional;
     }
@@ -65,14 +65,14 @@ GNEChange_Additional::undo() {
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
         // remove additional from parents and children
-        removeAdditional(myAdditional);
+        removeElementFromParentsAndChildren(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // insert additional into net
         myAdditional->getNet()->getAttributeCarriers()->insertAdditional(myAdditional);
         // add additional in parent elements
-        addAdditional(myAdditional);
+        addElementInParentsAndChildren(myAdditional);
     }
     // Requiere always save additionals
     myAdditional->getNet()->requireSaveAdditionals(true);
@@ -87,14 +87,14 @@ GNEChange_Additional::redo() {
         // insert additional into net
         myAdditional->getNet()->getAttributeCarriers()->insertAdditional(myAdditional);
         // add additional in parent elements
-        addAdditional(myAdditional);
+        addElementInParentsAndChildren(myAdditional);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
         // remove additional from parents and children
-        removeAdditional(myAdditional);
+        removeElementFromParentsAndChildren(myAdditional);
     }
     // Requiere always save additionals
     myAdditional->getNet()->requireSaveAdditionals(true);

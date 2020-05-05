@@ -59,7 +59,7 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
                 i->removePathElement(myDemandElement);
             }
             // remove demand element from parents and children
-            removeDemandElement(myDemandElement);
+            removeElementFromParentsAndChildren(myDemandElement);
         }
         delete myDemandElement;
     }
@@ -78,14 +78,14 @@ GNEChange_DemandElement::undo() {
             i->removePathElement(myDemandElement);
         }
         // remove demand element from parents and children
-        removeDemandElement(myDemandElement);
+        removeElementFromParentsAndChildren(myDemandElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
         // insert demand element into net
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // add demand element in parents and children
-        addDemandElement(myDemandElement);
+        addElementInParentsAndChildren(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
@@ -108,7 +108,7 @@ GNEChange_DemandElement::redo() {
         // insert demand element into net
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // add demand element in parents and children
-        addDemandElement(myDemandElement);
+        addElementInParentsAndChildren(myDemandElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -119,7 +119,7 @@ GNEChange_DemandElement::redo() {
             i->removePathElement(myDemandElement);
         }
         // remove demand element from parents and children
-        removeDemandElement(myDemandElement);
+        removeElementFromParentsAndChildren(myDemandElement);
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {

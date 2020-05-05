@@ -50,7 +50,7 @@ GNEChange_TAZElement::~GNEChange_TAZElement() {
             // remove TAZElement from AttributeCarreirs
             myTAZElement->getNet()->getAttributeCarriers()->deleteTAZElement(myTAZElement);
             // Remove element from parents and children
-            removeTAZElement(myTAZElement);
+            removeElementFromParentsAndChildren(myTAZElement);
         }
         // show extra information for tests
         WRITE_DEBUG("delete " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' in ~GNEChange_TAZElement()");
@@ -67,14 +67,14 @@ GNEChange_TAZElement::undo() {
         // remove TAZElement from net
         myTAZElement->getNet()->getAttributeCarriers()->deleteTAZElement(myTAZElement);
         // Remove element from parents and children
-        removeTAZElement(myTAZElement);
+        removeElementFromParentsAndChildren(myTAZElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' into viewNet");
         // Add TAZElement in net
         myTAZElement->getNet()->getAttributeCarriers()->insertTAZElement(myTAZElement);
         // Add element in parents and children
-        addTAZElement(myTAZElement);
+        addElementInParentsAndChildren(myTAZElement);
     }
 }
 
@@ -87,14 +87,14 @@ GNEChange_TAZElement::redo() {
         // Add TAZElement in net
         myTAZElement->getNet()->getAttributeCarriers()->insertTAZElement(myTAZElement);
         // Add element in parents and children
-        addTAZElement(myTAZElement);
+        addElementInParentsAndChildren(myTAZElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' from viewNet");
         // remove TAZElement from net
         myTAZElement->getNet()->getAttributeCarriers()->deleteTAZElement(myTAZElement);
         // Remove element from parents and children
-        removeTAZElement(myTAZElement);
+        removeElementFromParentsAndChildren(myTAZElement);
     }
 }
 

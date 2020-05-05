@@ -53,7 +53,7 @@ GNEChange_GenericData::~GNEChange_GenericData() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "'");
         // remove genericData from parents and children
-        removeGenericData(myGenericData);
+        removeElementFromParentsAndChildren(myGenericData);
         // delete generic data
         delete myGenericData;
     }
@@ -68,14 +68,14 @@ GNEChange_GenericData::undo() {
         // delete generic data from interval parent
         myDataIntervalParent->removeGenericDataChild(myGenericData);
         // remove genericData from parents and children
-        removeGenericData(myGenericData);
+        removeElementFromParentsAndChildren(myGenericData);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // insert generic data into interval parent
         myDataIntervalParent->addGenericDataChild(myGenericData);
         // add genericData in parents and children
-        addGenericData(myGenericData);
+        addElementInParentsAndChildren(myGenericData);
     }
     // Requiere always save elements
     myGenericData->getNet()->requireSaveDataElements(true);
@@ -90,14 +90,14 @@ GNEChange_GenericData::redo() {
         // insert generic data into interval parent
         myDataIntervalParent->addGenericDataChild(myGenericData);
         // add genericData in parents and children
-        addGenericData(myGenericData);
+        addElementInParentsAndChildren(myGenericData);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
         // delete generic data from interval parent
         myDataIntervalParent->removeGenericDataChild(myGenericData);
         // remove genericData from parents and children
-        removeGenericData(myGenericData);
+        removeElementFromParentsAndChildren(myGenericData);
     }
     // Requiere always save elements
     myGenericData->getNet()->requireSaveDataElements(true);

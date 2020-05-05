@@ -50,7 +50,7 @@ GNEChange_Shape::~GNEChange_Shape() {
             // remove polygon from AttributeCarreirs
             myShape->getNet()->getAttributeCarriers()->deleteShape(myShape);
             // Remove element from parents and children
-            removeShape(myShape);
+            removeElementFromParentsAndChildren(myShape);
         }
         // show extra information for tests
         WRITE_DEBUG("delete " + myShape->getTagStr() + " '" + myShape->getID() + "' in ~GNEChange_Shape()");
@@ -67,14 +67,14 @@ GNEChange_Shape::undo() {
         // remove shape from net
         myShape->getNet()->getAttributeCarriers()->deleteShape(myShape);
         // Remove element from parents and children
-        removeShape(myShape);
+        removeElementFromParentsAndChildren(myShape);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
         // Add shape in net
         myShape->getNet()->getAttributeCarriers()->insertShape(myShape);
         // Add element in parents and children
-        addShape(myShape);
+        addElementInParentsAndChildren(myShape);
     }
 }
 
@@ -87,14 +87,14 @@ GNEChange_Shape::redo() {
         // Add shape in net
         myShape->getNet()->getAttributeCarriers()->insertShape(myShape);
         // Add element in parents and children
-        addShape(myShape);
+        addElementInParentsAndChildren(myShape);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
         // remove shape from net
         myShape->getNet()->getAttributeCarriers()->deleteShape(myShape);
         // Remove element from parents and children
-        removeShape(myShape);
+        removeElementFromParentsAndChildren(myShape);
     }
 }
 

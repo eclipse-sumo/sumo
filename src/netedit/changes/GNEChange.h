@@ -88,47 +88,12 @@ public:
     virtual void redo();
 
 protected:
-    /// @brief add given edge into parents and children
-    void addEdge(GNEEdge* edge);
+    /// @brief add given element into parents and children
+    template<typename T>
+    void addElementInParentsAndChildren(T* element);
 
-    /// @brief remove given edge from parents and children
-    void removeEdge(GNEEdge* edge);
-
-    /// @brief add given lane into parents and children
-    void addLane(GNELane* lane);
-
-    /// @brief remove given lane from parents and children
-    void removeLane(GNELane* lane);
-
-    /// @brief add given shape into parents and children
-    void addShape(GNEShape* shape);
-
-    /// @brief remove given shape from parents and children
-    void removeShape(GNEShape* shape);
-
-    /// @brief add given TAZElement into parents and children
-    void addTAZElement(GNETAZElement* TAZElement);
-
-    /// @brief remove given TAZElement from parents and children
-    void removeTAZElement(GNETAZElement* TAZElement);
-
-    /// @brief add given additional into parents and children
-    void addAdditional(GNEAdditional* additional);
-
-    /// @brief remove given additional from parents and children
-    void removeAdditional(GNEAdditional* additional);
-
-    /// @brief add given demand element into parents and children
-    void addDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief remove given demand element from parents and children
-    void removeDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief add given generic data into parents and children
-    void addGenericData(GNEGenericData* genericData);
-
-    /// @brief remove given generic data from parents and children
-    void removeGenericData(GNEGenericData* genericData);
+    template<typename T>
+    void removeElementFromParentsAndChildren(T* element);
 
     /**@brief we group antagonistic commands (create junction/delete
      * junction) and keep them apart by this flag

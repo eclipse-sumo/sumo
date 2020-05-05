@@ -65,7 +65,7 @@ GNEChange_Edge::~GNEChange_Edge() {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' GNEChange_Edge");
         // remove edge from parents and children
-        removeEdge(myEdge);
+        removeElementFromParentsAndChildren(myEdge);
         // remove edge lanes from parents and children
         removeEdgeLanes();
         // delete edge
@@ -80,7 +80,7 @@ GNEChange_Edge::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // remove edge from parents and children
-        removeEdge(myEdge);
+        removeElementFromParentsAndChildren(myEdge);
         // remove edge lanes from parents and children
         removeEdgeLanes();
         // delete edge from net
@@ -91,7 +91,7 @@ GNEChange_Edge::undo() {
         // insert edge into net
         myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
         // add edge into parents and children
-        addEdge(myEdge);
+        addElementInParentsAndChildren(myEdge);
         // add edge lanes into parents and children
         addEdgeLanes();
     }
@@ -108,14 +108,14 @@ GNEChange_Edge::redo() {
         // insert edge into net
         myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
         // add edge into parents and children
-        addEdge(myEdge);
+        addElementInParentsAndChildren(myEdge);
         // add edge lanes into parents and children
         addEdgeLanes();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
         // remove edge from parents and children
-        removeEdge(myEdge);
+        removeElementFromParentsAndChildren(myEdge);
         // remove edge lanes from parents and children
         removeEdgeLanes();
         // delete edge from net
