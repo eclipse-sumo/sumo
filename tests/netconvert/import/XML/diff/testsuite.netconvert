@@ -10,6 +10,9 @@ delete_edge2
 # delete a node (and all incident edges)
 delete_node
 
+# delete a node from a joined tls. The remaining node should still be controlled.
+delete_node_joinedTLS
+
 # delete a node (but not all incident edges)
 delete_node_invalid
 
