@@ -941,11 +941,14 @@ When running in verbose mode, SUMO will tell you the UPS metric. This is vehicle
 Running time is inversely proportional to step-length (**--step-length 0.1** computes 10 times as many steps compared to the default of 1s and thus takes 10 times as long).
 
 Some examples on an average desktop PC:
+
 - vehicles on a long single lane: 700k UPS
 - vehicles on a long four-lane road: 240k UPS
 - complex grid network: 80k UPS
 
-In a city simulation of one day running with 80k UPS where a vehicle spends on average 30 minutes driving, 3.8 million vehicles can be simulated in 24h wall-clock time. However, the simulation would run slower than real-time whenver there are more than 80k Vehicles in the network at the same time (rush hours and low-traffic times would average out).
+In a city simulation of one day running with 80k UPS where a vehicle spends on average 30 minutes driving, 3.8 million vehicles can be simulated in 24h wall-clock time. However, the simulation would run slower than real-time whenver there are more than 80k Vehicles in the network at the same time because rush hours and low-traffic times would average out.
+
+Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 
 ## Visualisation
 
