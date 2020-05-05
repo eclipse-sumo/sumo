@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEShape.h>
+#include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEEdge.h>
@@ -693,6 +694,39 @@ GNEHierarchicalParentElements::replaceParentAdditional(GNEDemandElement* demandE
         myParentAdditionals.at(additionalParentIndex)->removeChildDemandElement(demandElementTobeChanged);
         // update geometry after inserting
         demandElementTobeChanged->updateGeometry();
+    }
+}
+
+
+void
+GNEHierarchicalParentElements::replaceFirstParentTAZElement(GNEGenericData* elementChild, GNETAZElement* newFirstTAZElement) {
+    // first check that at least there is two TAZElements
+    if (myParentTAZElements.size() < 2) {
+        throw InvalidArgument("Invalid minimum number of TAZElements");
+    } else {
+        // remove generic data of parent TAZElements
+        myParentTAZElements.front()->removeChildGenericDataElement(elementChild);
+        // replace first TAZElement
+        myParentTAZElements[0] = newFirstTAZElement;
+        // add generic data into parent TAZElements
+        myParentTAZElements.front()->addChildGenericDataElement(elementChild);
+    }
+}
+
+
+void
+GNEHierarchicalParentElements::replaceLastParentTAZElement(GNEGenericData* elementChild, GNETAZElement* newLastTAZElement) {
+    // first check that at least there is two TAZElements
+    if (myParentTAZElements.size() < 2) {
+        throw InvalidArgument("Invalid minimum number of TAZElements");
+    } else {
+        // remove demandElement of parent TAZElements
+        myParentTAZElements.back()->removeChildGenericDataElement(elementChild);
+        // replace last TAZElement
+        myParentTAZElements.pop_back();
+        myParentTAZElements.push_back(newLastTAZElement);
+        // add demandElement into parent TAZElements
+        myParentTAZElements.back()->addChildGenericDataElement(elementChild);
     }
 }
 

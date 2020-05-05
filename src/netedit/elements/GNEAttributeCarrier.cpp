@@ -3813,6 +3813,22 @@ GNEAttributeCarrier::fillDataElements() {
                                               "The name of the edge the " + toString(currentTag) + " ends at");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = SUMO_TAG_TAZREL;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DATAELEMENT | GNETagProperties::GENERICDATA, GNETagProperties::DRAWABLE | GNETagProperties::PARAMETERSDOUBLE | GNETagProperties::SELECTABLE, GUIIcon::TAZRELDATA, SUMO_TAG_DATAINTERVAL);
+
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+            "The name of the TAZ the " + toString(currentTag) + " starts at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+            "The name of the TAZ the " + toString(currentTag) + " ends at");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 }
 
 

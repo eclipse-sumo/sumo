@@ -265,6 +265,12 @@ protected:
      */
     void replaceParentAdditional(GNEDemandElement* demandElementTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex);
 
+    /// @brief replace the first parent TAZElement (used by generic data elements)
+    void replaceFirstParentTAZElement(GNEGenericData* elementChild, GNETAZElement* newFirstTAZElement);
+
+    /// @brief replace the last parent TAZElement (used by demand elements)
+    void replaceLastParentTAZElement(GNEGenericData* elementChild, GNETAZElement* newLastTAZElement);
+
     /**@brief replace the parent demand element of a shape
      * @throw exception if this demand element doesn't have previously a defined DemandElement parent
      * @throw exception if demand element with ID newParentDemandElementID doesn't exist
