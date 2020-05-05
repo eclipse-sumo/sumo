@@ -94,7 +94,7 @@ def splitNet(options):
         netPrefix = os.path.join(options.network_split, railType)
         if railType != "bus":
             edgeType = railType
-            if "rail" in railType:
+            if "rail" in railType or railType == "subway":
                 edgeType = "railway." + railType
             if railType == "tram":
                 edgeType = "railway.tram,highway.residential\|railway.tram"
