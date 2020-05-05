@@ -286,13 +286,11 @@ NIXMLTrafficLightsHandler::removeTlConnection(const SUMOSAXAttributes& attrs) {
         // parse identifying attributes
         NBEdge* from = retrieveEdge(attrs, SUMO_ATTR_FROM, ok);
         NBEdge* to = retrieveEdge(attrs, SUMO_ATTR_TO, ok);
-        if (!ok) {
-            return;
-        }
-        int fromLane = retrieveLaneIndex(attrs, SUMO_ATTR_FROM_LANE, from, ok, true);
-        int toLane = retrieveLaneIndex(attrs, SUMO_ATTR_TO_LANE, to, ok, true);
-        if (!ok) {
-            return;
+        int fromLane = -1;
+        int toLane = -1;
+        if (ok) {
+            fromLane = retrieveLaneIndex(attrs, SUMO_ATTR_FROM_LANE, from, ok, true);
+            toLane = retrieveLaneIndex(attrs, SUMO_ATTR_TO_LANE, to, ok, true);
         }
         int tlIndex = attrs.get<int>(SUMO_ATTR_TLLINKINDEX, nullptr, ok);
 

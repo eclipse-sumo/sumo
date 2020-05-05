@@ -185,42 +185,43 @@ NBLoadedSUMOTLDef::amInvalid() const {
         return true;
     }
     // make sure that myControlledNodes are the original nodes
-    if (myControlledNodes.size() != myOriginalNodes.size()) {
-        //std::cout << " myControlledNodes=" << myControlledNodes.size() << " myOriginalNodes=" << myOriginalNodes.size() << "\n";
-        return true;
-    }
+    //if (myControlledNodes.size() != myOriginalNodes.size()) {
+    //    //std::cout << " myControlledNodes=" << myControlledNodes.size() << " myOriginalNodes=" << myOriginalNodes.size() << "\n";
+    //    return true;
+    //}
     if (myIncomingEdges.size() == 0) {
         return true;
     }
-    for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        if (myOriginalNodes.count(*i) != 1) {
-            //std::cout << " node " << (*i)->getID() << " missing from myOriginalNodes\n";
-            return true;
-        }
-    }
+    //for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
+    //    if (myOriginalNodes.count(*i) != 1) {
+    //        //std::cout << " node " << (*i)->getID() << " missing from myOriginalNodes\n";
+    //        return true;
+    //    }
+    //}
     return false;
 }
 
 
 void
 NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) {
-    NBConnectionVector::iterator it = myControlledLinks.begin();
-    // find the connection but ignore its TLIndex since it might have been
-    // invalidated by an earlier removal
-    for (; it != myControlledLinks.end(); ++it) {
-        if (it->getFrom() == conn.getFrom() &&
+    for (auto it = myControlledLinks.begin(); it != myControlledLinks.end();) {
+        if ((it->getFrom() == conn.getFrom() &&
                 it->getTo() == conn.getTo() &&
                 it->getFromLane() == conn.getFromLane() &&
-                it->getToLane() == conn.getToLane()) {
-            break;
+                it->getToLane() == conn.getToLane())
+                || (it->getTLIndex() == conn.getTLIndex() &&
+                    conn.getTLIndex() != conn.InvalidTlIndex &&
+                    (it->getFrom() == nullptr || it->getTo() == nullptr))) {
+            if (reconstruct) {
+                myReconstructRemovedConnections = true;
+                it++;
+            } else {
+                it = myControlledLinks.erase(it);
+            }
+        } else {
+            it++;
         }
     }
-    if (it == myControlledLinks.end()) {
-        // a traffic light doesn't always controll all connections at a junction
-        // especially when using the option --tls.join
-        return;
-    }
-    myReconstructRemovedConnections |= reconstruct;
 }
 
 
@@ -451,7 +452,11 @@ NBLoadedSUMOTLDef::reconstructLogic() {
     const bool netedit = NBNetBuilder::runningNetedit();
 #ifdef DEBUG_RECONSTRUCTION
     bool debugPrintModified = myReconstructAddedConnections || myReconstructRemovedConnections;
-    std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " valid=" << hasValidIndices() << " oldLinks:\n";
+    std::cout << getID() << " reconstructLogic added=" << myReconstructAddedConnections
+        << " removed=" << myReconstructRemovedConnections
+        << " valid=" << hasValidIndices()
+        << " phasesLoaded=" << myPhasesLoaded
+        << " oldLinks:\n";
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
         std::cout << "    " << *it << "\n";
     }
