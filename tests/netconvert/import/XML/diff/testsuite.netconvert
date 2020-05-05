@@ -4,6 +4,9 @@ create_and_modify
 # delete a edges
 delete_edge
 
+# delete a edges from a tl-controlled intersection, keeping most of the original signal plan unchanged.
+delete_edge2
+
 # delete a node (and all incident edges)
 delete_node
 
