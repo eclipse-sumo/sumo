@@ -42,3 +42,8 @@ When the network was built with [NETCONVERT option](../NETCONVERT) **--no-intern
 In some types of simulation it is beneficial to define edges with
 length-geometry-mismatch. For example, railway networks with switches and parallel tracks are much easier to understand when the
 geometrical lengths are reduced. To keep the driving-lengths at their realistic values, each edge is given a custom length value the mismatch.
+
+# Vehicle lengths in SUMO-GUI
+By default, vehicle lengths are not affected by length-geometry-mismatch. This means, vehicles may seem to violate minimum gaps or even collide if they are driving on an edge where the (driving) length is longer than the geometrical (euclidean) length. 
+
+
