@@ -860,12 +860,13 @@ develops.
 
 ### How do I get high flows/vehicle densities?
 
-The following parameters will allow flows in the range of 2500
-vehicles/hour/lane
+By default, insertion flow is [limited by the time resolution of the simulation](Simulation/VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) (vehicles are only inserted every full second) and by the defaulti insertion speed of 0.
 
-- `<vType speedDev="0.1" .../>` (needed to allow vehicles to catch up with their leader which is
-  impossible if all drive at the same speed)
-- `<vehicle departSpeed="max" departPos="last" departLane="best" ../>`
+The following definition will allow flows in the range of 2500 vehicles/hour/lane:
+
+`<vehicle departSpeed="max" departPos="last" departLane="best" ../>`
+
+Instead of setting `departPos="last"`, the option **--extrapolate-departpos** can also be used.
 
 !!! caution
     When using *departLane* values *best*, *free* or *random_free* high flows on multi-lane roads require insertion edges that are somewhat longer than the braking distance of the fastest vehicles. This is because the lane selection checks vehicles on the insertion edge to determine a suitable insertion lane and short edges give insufficient information.
@@ -874,7 +875,6 @@ To increase flows even further the following settings can be used
 (potentially sacrificing some realism)
 
 - `<vType sigma="0" minGap="1" length="3" .../>`
-- \--step-length 0.5
 - `<vType tau="0.5" .../>` (should not be lower than step-length)
 
 ### How do I insert vehicles with a fixed density?
