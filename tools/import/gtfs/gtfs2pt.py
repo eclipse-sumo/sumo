@@ -56,6 +56,8 @@ def get_options(args=None):
                            type=int, help="Defines the begin time to export")
     argParser.add_argument("-e", "--end", default=86400,
                            type=int, help="Defines the end time for the export")
+    argParser.add_argument("--duration", default=10,
+                           type=int, help="minimum time to wait on a stop")
     argParser.add_argument("--skip-fcd", action="store_true", default=False, help="skip generating fcd data")
     argParser.add_argument("--skip-map", action="store_true", default=False, help="skip network mapping")
 
@@ -228,7 +230,7 @@ def map_stops(options, net, routes, rout):
                                                (accessEdge.getID(), accessPos, 1.5 * accessDist))
                                     numAccess += 1
                             rout.write('    </trainStop>\n')
-                    stops[rid].append((stop, veh.until))
+                    stops[rid].append((stop, int(veh.until)))
                     found = True
                     break
             if not found:
@@ -244,12 +246,13 @@ def filter_trips(options, routes, stops, outfile, begin, end):
         sumolib.xml.writeHeader(outf, os.path.basename(__file__), "routes")
         for inp in glob.glob(os.path.join(options.fcd, "*.rou.xml")):
             for veh in sumolib.xml.parse_fast(inp, "vehicle", ("id", "route", "type", "depart", "line")):
-                if veh.route in routes and len(routes[veh.route]) > 0 and veh.route in stops and len(stops[veh.route]) > 1:
+                if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
+                    until = stops[veh.route][0][1]
                     for d in range(numDays):
-                        depart = d * 86400 + int(veh.depart)
-                        if begin <= depart < end:
-                            outf.write('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
-                                       (veh.id, d, veh.route, veh.type, depart, veh.line))
+                         depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
+                         if begin <= depart < end:
+                             outf.write('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
+                                        (veh.id, d, veh.route, veh.type, depart, veh.line))
         outf.write('</routes>\n')
 
 
@@ -275,11 +278,14 @@ def main(options):
         sumolib.xml.writeHeader(rout, os.path.basename(__file__), "additional")
         stops = map_stops(options, net, routes, rout)
         for vehID, edges in routes.items():
-            print(vehID, edges, [edgeMap.get(e, e) for e in edges])
             if edges:
                 rout.write('    <route id="%s" edges="%s">\n' % (vehID, " ".join([edgeMap[e] for e in edges])))
+                offset = None
                 for stop in stops[vehID]:
-                    rout.write('        <stop busStop="%s" duration="10" until="%s"/>\n' % stop)
+                    if offset is None:
+                        offset = stop[1]
+                    rout.write('        <stop busStop="%s" duration="%s" until="%s"/>\n' %
+                               (stop[0], options.duration, stop[1] - offset))
                 rout.write('    </route>\n')
             else:
                 print("Warning! Empty route", vehID)
