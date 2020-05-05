@@ -46,6 +46,7 @@ def getOptions(args=None):
                          help="select two letters from [t, s, d, a, i, x, y] to plot"
                          + " Time, Speed, Distance, Acceleration, Angle, x-Position, y-Position."
                          + " Default 'ds' plots Distance vs. Speed")
+    optParser.add_option("--persons", action="store_true", default=False, help="plot person trajectories")
     optParser.add_option("-s", "--show", action="store_true", default=False, help="show plot directly")
     optParser.add_option("-o", "--output", help="outputfile for saving plots", default="plot.png")
     optParser.add_option("--csv-output", dest="csv_output", help="write plot as csv", metavar="FILE")
@@ -128,18 +129,27 @@ def main(options):
     else:
         sys.exit("unsupported plot type '%s'" % options.ttype)
 
+    element = 'vehicle'
+    location = 'lane'
+    if options.persons:
+        element = 'person'
+        location = 'edge'
+
     routes = defaultdict(list)  # vehID -> recorded edges
     # vehID -> (times, speeds, distances, accelerations, angles, xPositions, yPositions)
     data = defaultdict(lambda: ([], [], [], [], [], [], []))
     for fileIndex, fcdfile in enumerate(options.fcdfiles):
         for timestep, vehicle in parse_fast_nested(fcdfile, 'timestep', ['time'],
-                                                   'vehicle', ['id', 'x', 'y', 'angle', 'speed', 'lane']):
+                                                   element, ['id', 'x', 'y', 'angle', 'speed', location]):
             vehID = vehicle.id
             if len(options.fcdfiles) > 1:
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
                     vehID += "#" + suffix
-            edge = vehicle.lane[0:vehicle.lane.rfind('_')]
+            if options.persons:
+                edge = vehicle.edge
+            else:
+                edge = vehicle.lane[0:vehicle.lane.rfind('_')]
             if len(routes[vehID]) == 0 or routes[vehID][-1] != edge:
                 routes[vehID].append(edge)
             if options.filterEdges and edge not in options.filterEdges:
