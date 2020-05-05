@@ -24,9 +24,17 @@
 #include <fx.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/additional/GNEShape.h>
+#include <netedit/elements/additional/GNETAZElement.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/elements/data/GNEEdgeData.h>
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
+
 
 // ===========================================================================
 // class declarations
@@ -90,10 +98,100 @@ public:
 protected:
     /// @brief add given element into parents and children
     template<typename T>
-    void addElementInParentsAndChildren(T* element);
+    void addElementInParentsAndChildren(T* element) {
+        // add element in parents
+        for (const auto& edge : myParentEdges) {
+            edge->addChildElement(element);
+        }
+        for (const auto& lane : myParentLanes) {
+            lane->addChildElement(element);
+        }
+        for (const auto& additional : myParentAdditionals) {
+            additional->addChildElement(element);
+        }
+        for (const auto& shape : myParentShapes) {
+            shape->addChildElement(element);
+        }
+        for (const auto& TAZElement : myParentTAZElements) {
+            TAZElement->addChildElement(element);
+        }
+        for (const auto& demandElement : myParentDemandElements) {
+            demandElement->addChildElement(element);
+        }
+        for (const auto& genericData : myParentGenericDatas) {
+            genericData->addChildElement(element);
+        }
+        // add element in children
+        for (const auto& edge : myChildEdges) {
+            edge->addParentElement(element);
+        }
+        for (const auto& lane : myChildLanes) {
+            lane->addParentElement(element);
+        }
+        for (const auto& additional : myChildAdditionals) {
+            additional->addParentElement(element);
+        }
+        for (const auto& shape : myChildShapes) {
+            shape->addParentElement(element);
+        }
+        for (const auto& TAZElement : myChildTAZElements) {
+            TAZElement->addParentElement(element);
+        }
+        for (const auto& demandElement : myChildDemandElements) {
+            demandElement->addParentElement(element);
+        }
+        for (const auto& genericData : myChildGenericDatas) {
+            genericData->addParentElement(element);
+        }
+    }
 
     template<typename T>
-    void removeElementFromParentsAndChildren(T* element);
+    void removeElementFromParentsAndChildren(T* element) {
+        // Remove element from parents
+        for (const auto& edge : myParentEdges) {
+            edge->removeChildElement(element);
+        }
+        for (const auto& lane : myParentLanes) {
+            lane->removeChildElement(element);
+        }
+        for (const auto& additional : myParentAdditionals) {
+            additional->removeChildElement(element);
+        }
+        for (const auto& shape : myParentShapes) {
+            shape->removeChildElement(element);
+        }
+        for (const auto& TAZElement : myParentTAZElements) {
+            TAZElement->removeChildElement(element);
+        }
+        for (const auto& demandElement : myParentDemandElements) {
+            demandElement->removeChildElement(element);
+        }
+        for (const auto& genericData : myParentGenericDatas) {
+            genericData->removeChildElement(element);
+        }
+        // Remove element from children
+        for (const auto& edge : myChildEdges) {
+            edge->removeParentElement(element);
+        }
+        for (const auto& lane : myChildLanes) {
+            lane->removeParentElement(element);
+        }
+        for (const auto& additional : myChildAdditionals) {
+            additional->removeParentElement(element);
+        }
+        for (const auto& shape : myChildShapes) {
+            shape->removeParentElement(element);
+        }
+        for (const auto& TAZElement : myChildTAZElements) {
+            TAZElement->removeParentElement(element);
+        }
+        for (const auto& demandElement : myChildDemandElements) {
+            demandElement->removeParentElement(element);
+        }
+        for (const auto& genericData : myChildGenericDatas) {
+            genericData->removeParentElement(element);
+        }
+    }
 
     /**@brief we group antagonistic commands (create junction/delete
      * junction) and keep them apart by this flag
