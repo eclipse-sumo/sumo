@@ -110,4 +110,7 @@ ride_ANY_stopLane
 
 # successive stops on different edges should raise an error (teleporting instead via #6325)
 stop_teleport_stop
+
+# wait at busStop in a lefthand network
+lefthand_wait
 errors
