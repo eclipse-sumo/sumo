@@ -24,6 +24,7 @@
 #include <map>
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/geom/Position.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/MSVehicleType.h>
 #include <microsim/MSNet.h>
 #include "MSLane.h"
@@ -158,8 +159,9 @@ MSStoppingPlace::getWaitPosition(MSTransportable* t) const {
             row = 1 + myTransportableCapacity / getPersonsAbreast();
         }
     }
+    const double lefthandSign = (MSGlobals::gLefthand ? -1 : 1);
     return myLane.getShape().positionAtOffset(myLane.interpolateLanePosToGeometryPos(lanePos),
-            myLane.getWidth() / 2 + row * SUMO_const_waitingPersonDepth);
+            lefthandSign * (myLane.getWidth() / 2 + row * SUMO_const_waitingPersonDepth));
 }
 
 
