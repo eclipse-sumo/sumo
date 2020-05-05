@@ -606,8 +606,8 @@ GNEAdditionalHandler::buildRerouter(GNENet* net, bool allowUndoRedo, const std::
         } else {
             net->getAttributeCarriers()->insertAdditional(rerouter);
             // add this rerouter as parent of all edges
-            for (auto i : edges) {
-                i->addParentAdditional(rerouter);
+            for (const auto &edge : edges) {
+                edge->addParentElement(rerouter);
             }
             rerouter->incRef("buildRerouter");
         }
@@ -774,8 +774,8 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNENet* net, bool allowUndoRedo, co
         } else {
             net->getAttributeCarriers()->insertAdditional(variableSpeedSign);
             // add this VSS as parent of all edges
-            for (auto i : lanes) {
-                i->addParentAdditional(variableSpeedSign);
+            for (const auto &lane : lanes) {
+                lane->addParentElement(variableSpeedSign);
             }
             variableSpeedSign->incRef("buildVariableSpeedSign");
         }

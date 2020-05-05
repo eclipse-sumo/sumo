@@ -144,25 +144,25 @@ GNEChange::addElementInParentsAndChildren(GNEEdge* edge) {
     }
     // add edge in child elements
     for (const auto& child : myChildEdges) {
-        child->addParentEdge(edge);
+        child->addParentElement(edge);
     }
     for (const auto& child : myChildLanes) {
-        child->addParentEdge(edge);
+        child->addParentElement(edge);
     }
     for (const auto& child : myChildAdditionals) {
-        child->addParentEdge(edge);
+        child->addParentElement(edge);
     }
     for (const auto& child : myChildShapes) {
-        child->addParentEdge(edge);
+        child->addParentElement(edge);
     }
     for (const auto& child : myChildTAZElements) {
-        child->addParentEdge(edge);
+        child->addParentElement(edge);
     }
     for (const auto& child : myChildDemandElements) {
-        child->addParentEdge(edge);
+        child->addParentElement(edge);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->addParentEdge(edge);
+        child->addParentElement(edge);
     }
 }
 
@@ -193,25 +193,25 @@ GNEChange::removeElementFromParentsAndChildren(GNEEdge* edge) {
     }
     // Remove edge from child elements
     for (const auto& child : myChildEdges) {
-        child->removeParentEdge(edge);
+        child->removeParentElement(edge);
     }
     for (const auto& child : myChildLanes) {
-        child->removeParentEdge(edge);
+        child->removeParentElement(edge);
     }
     for (const auto& child : myChildAdditionals) {
-        child->removeParentEdge(edge);
+        child->removeParentElement(edge);
     }
     for (const auto& child : myChildShapes) {
-        child->removeParentEdge(edge);
+        child->removeParentElement(edge);
     }
     for (const auto& child : myChildTAZElements) {
-        child->removeParentEdge(edge);
+        child->removeParentElement(edge);
     }
     for (const auto& child : myChildDemandElements) {
-        child->removeParentEdge(edge);
+        child->removeParentElement(edge);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->removeParentEdge(edge);
+        child->removeParentElement(edge);
     }
 }
 
@@ -242,25 +242,25 @@ GNEChange::addElementInParentsAndChildren(GNELane* lane) {
     }
     // add lane in child elements
     for (const auto& child : myChildEdges) {
-        child->addParentLane(lane);
+        child->addParentElement(lane);
     }
     for (const auto& child : myChildLanes) {
-        child->addParentLane(lane);
+        child->addParentElement(lane);
     }
     for (const auto& child : myChildAdditionals) {
-        child->addParentLane(lane);
+        child->addParentElement(lane);
     }
     for (const auto& child : myChildShapes) {
-        child->addParentLane(lane);
+        child->addParentElement(lane);
     }
     for (const auto& child : myChildTAZElements) {
-        child->addParentLane(lane);
+        child->addParentElement(lane);
     }
     for (const auto& child : myChildDemandElements) {
-        child->addParentLane(lane);
+        child->addParentElement(lane);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->addParentLane(lane);
+        child->addParentElement(lane);
     }
 }
 
@@ -291,25 +291,25 @@ GNEChange::removeElementFromParentsAndChildren(GNELane* lane) {
     }
     // Remove lane from child elements
     for (const auto& child : myChildEdges) {
-        child->removeParentLane(lane);
+        child->removeParentElement(lane);
     }
     for (const auto& child : myChildLanes) {
-        child->removeParentLane(lane);
+        child->removeParentElement(lane);
     }
     for (const auto& child : myChildAdditionals) {
-        child->removeParentLane(lane);
+        child->removeParentElement(lane);
     }
     for (const auto& child : myChildShapes) {
-        child->removeParentLane(lane);
+        child->removeParentElement(lane);
     }
     for (const auto& child : myChildTAZElements) {
-        child->removeParentLane(lane);
+        child->removeParentElement(lane);
     }
     for (const auto& child : myChildDemandElements) {
-        child->removeParentLane(lane);
+        child->removeParentElement(lane);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->removeParentLane(lane);
+        child->removeParentElement(lane);
     }
 }
 
@@ -340,25 +340,25 @@ GNEChange::addElementInParentsAndChildren(GNEShape* shape) {
     }
     // add shape in child elements
     for (const auto& child : myChildEdges) {
-        child->addParentShape(shape);
+        child->addParentElement(shape);
     }
     for (const auto& child : myChildLanes) {
-        child->addParentShape(shape);
+        child->addParentElement(shape);
     }
     for (const auto& child : myChildAdditionals) {
-        child->addParentShape(shape);
+        child->addParentElement(shape);
     }
     for (const auto& child : myChildShapes) {
-        child->addParentShape(shape);
+        child->addParentElement(shape);
     }
     for (const auto& child : myChildTAZElements) {
-        child->addParentShape(shape);
+        child->addParentElement(shape);
     }
     for (const auto& child : myChildDemandElements) {
-        child->addParentShape(shape);
+        child->addParentElement(shape);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->addParentShape(shape);
+        child->addParentElement(shape);
     }
 }
 
@@ -389,25 +389,25 @@ GNEChange::removeElementFromParentsAndChildren(GNEShape* shape) {
     }
     // Remove shape from child elements
     for (const auto& child : myChildEdges) {
-        child->removeParentShape(shape);
+        child->removeParentElement(shape);
     }
     for (const auto& child : myChildLanes) {
-        child->removeParentShape(shape);
+        child->removeParentElement(shape);
     }
     for (const auto& child : myChildAdditionals) {
-        child->removeParentShape(shape);
+        child->removeParentElement(shape);
     }
     for (const auto& child : myChildShapes) {
-        child->removeParentShape(shape);
+        child->removeParentElement(shape);
     }
     for (const auto& child : myChildTAZElements) {
-        child->removeParentShape(shape);
+        child->removeParentElement(shape);
     }
     for (const auto& child : myChildDemandElements) {
-        child->removeParentShape(shape);
+        child->removeParentElement(shape);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->removeParentShape(shape);
+        child->removeParentElement(shape);
     }
 }
 
@@ -438,25 +438,25 @@ GNEChange::addElementInParentsAndChildren(GNETAZElement* TAZElement) {
     }
     // add shape in child elements
     for (const auto& child : myChildEdges) {
-        child->addParentTAZElement(TAZElement);
+        child->addParentElement(TAZElement);
     }
     for (const auto& child : myChildLanes) {
-        child->addParentTAZElement(TAZElement);
+        child->addParentElement(TAZElement);
     }
     for (const auto& child : myChildAdditionals) {
-        child->addParentTAZElement(TAZElement);
+        child->addParentElement(TAZElement);
     }
     for (const auto& child : myChildShapes) {
-        child->addParentTAZElement(TAZElement);
+        child->addParentElement(TAZElement);
     }
     for (const auto& child : myChildTAZElements) {
-        child->addParentTAZElement(TAZElement);
+        child->addParentElement(TAZElement);
     }
     for (const auto& child : myChildDemandElements) {
-        child->addParentTAZElement(TAZElement);
+        child->addParentElement(TAZElement);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->addParentTAZElement(TAZElement);
+        child->addParentElement(TAZElement);
     }
 }
 
@@ -487,25 +487,25 @@ GNEChange::removeElementFromParentsAndChildren(GNETAZElement* TAZElement) {
     }
     // Remove shape from child elements
     for (const auto& child : myChildEdges) {
-        child->removeParentTAZElement(TAZElement);
+        child->removeParentElement(TAZElement);
     }
     for (const auto& child : myChildLanes) {
-        child->removeParentTAZElement(TAZElement);
+        child->removeParentElement(TAZElement);
     }
     for (const auto& child : myChildAdditionals) {
-        child->removeParentTAZElement(TAZElement);
+        child->removeParentElement(TAZElement);
     }
     for (const auto& child : myChildShapes) {
-        child->removeParentTAZElement(TAZElement);
+        child->removeParentElement(TAZElement);
     }
     for (const auto& child : myChildTAZElements) {
-        child->removeParentTAZElement(TAZElement);
+        child->removeParentElement(TAZElement);
     }
     for (const auto& child : myChildDemandElements) {
-        child->removeParentTAZElement(TAZElement);
+        child->removeParentElement(TAZElement);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->removeParentTAZElement(TAZElement);
+        child->removeParentElement(TAZElement);
     }
 }
 
@@ -536,22 +536,22 @@ GNEChange::addElementInParentsAndChildren(GNEAdditional* additional) {
     }
     // add additional in child elements
     for (const auto& child : myChildEdges) {
-        child->addParentAdditional(additional);
+        child->addParentElement(additional);
     }
     for (const auto& child : myChildLanes) {
-        child->addParentAdditional(additional);
+        child->addParentElement(additional);
     }
     for (const auto& child : myChildAdditionals) {
-        child->addParentAdditional(additional);
+        child->addParentElement(additional);
     }
     for (const auto& child : myChildShapes) {
-        child->addParentAdditional(additional);
+        child->addParentElement(additional);
     }
     for (const auto& child : myChildTAZElements) {
-        child->addParentAdditional(additional);
+        child->addParentElement(additional);
     }
     for (const auto& child : myChildDemandElements) {
-        child->addParentAdditional(additional);
+        child->addParentElement(additional);
     }
     for (const auto& child : myChildGenericDatas) {
         child->addChildElement(additional);
@@ -585,25 +585,25 @@ GNEChange::removeElementFromParentsAndChildren(GNEAdditional* additional) {
     }
     // Remove additional from child elements
     for (const auto& child : myChildEdges) {
-        child->removeParentAdditional(additional);
+        child->removeParentElement(additional);
     }
     for (const auto& child : myChildLanes) {
-        child->removeParentAdditional(additional);
+        child->removeParentElement(additional);
     }
     for (const auto& child : myChildAdditionals) {
-        child->removeParentAdditional(additional);
+        child->removeParentElement(additional);
     }
     for (const auto& child : myChildShapes) {
-        child->removeParentAdditional(additional);
+        child->removeParentElement(additional);
     }
     for (const auto& child : myChildTAZElements) {
-        child->removeParentAdditional(additional);
+        child->removeParentElement(additional);
     }
     for (const auto& child : myChildDemandElements) {
-        child->removeParentAdditional(additional);
+        child->removeParentElement(additional);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->removeParentAdditional(additional);
+        child->removeParentElement(additional);
     }
 }
 
@@ -634,25 +634,25 @@ GNEChange::addElementInParentsAndChildren(GNEDemandElement* demandElement) {
     }
     // add demandElement in child elements
     for (const auto& child : myChildEdges) {
-        child->addParentDemandElement(demandElement);
+        child->addParentElement(demandElement);
     }
     for (const auto& child : myChildLanes) {
-        child->addParentDemandElement(demandElement);
+        child->addParentElement(demandElement);
     }
     for (const auto& child : myChildAdditionals) {
-        child->addParentDemandElement(demandElement);
+        child->addParentElement(demandElement);
     }
     for (const auto& child : myChildShapes) {
-        child->addParentDemandElement(demandElement);
+        child->addParentElement(demandElement);
     }
     for (const auto& child : myChildTAZElements) {
-        child->addParentDemandElement(demandElement);
+        child->addParentElement(demandElement);
     }
     for (const auto& child : myChildDemandElements) {
-        child->addParentDemandElement(demandElement);
+        child->addParentElement(demandElement);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->addParentDemandElement(demandElement);
+        child->addParentElement(demandElement);
     }
 }
 
@@ -683,25 +683,25 @@ GNEChange::removeElementFromParentsAndChildren(GNEDemandElement* demandElement) 
     }
     // remove demandElement in child elements
     for (const auto& child : myChildEdges) {
-        child->removeParentDemandElement(demandElement);
+        child->removeParentElement(demandElement);
     }
     for (const auto& child : myChildLanes) {
-        child->removeParentDemandElement(demandElement);
+        child->removeParentElement(demandElement);
     }
     for (const auto& child : myChildAdditionals) {
-        child->removeParentDemandElement(demandElement);
+        child->removeParentElement(demandElement);
     }
     for (const auto& child : myChildShapes) {
-        child->removeParentDemandElement(demandElement);
+        child->removeParentElement(demandElement);
     }
     for (const auto& child : myChildTAZElements) {
-        child->removeParentDemandElement(demandElement);
+        child->removeParentElement(demandElement);
     }
     for (const auto& child : myChildDemandElements) {
-        child->removeParentDemandElement(demandElement);
+        child->removeParentElement(demandElement);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->removeParentDemandElement(demandElement);
+        child->removeParentElement(demandElement);
     }
 }
 
@@ -732,25 +732,25 @@ GNEChange::addElementInParentsAndChildren(GNEGenericData* genericData) {
     }
     // add genericData in child elements
     for (const auto& child : myChildEdges) {
-        child->addParentGenericData(genericData);
+        child->addParentElement(genericData);
     }
     for (const auto& child : myChildLanes) {
-        child->addParentGenericData(genericData);
+        child->addParentElement(genericData);
     }
     for (const auto& child : myChildAdditionals) {
-        child->addParentGenericData(genericData);
+        child->addParentElement(genericData);
     }
     for (const auto& child : myChildShapes) {
-        child->addParentGenericData(genericData);
+        child->addParentElement(genericData);
     }
     for (const auto& child : myChildTAZElements) {
-        child->addParentGenericData(genericData);
+        child->addParentElement(genericData);
     }
     for (const auto& child : myChildDemandElements) {
-        child->addParentGenericData(genericData);
+        child->addParentElement(genericData);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->addParentGenericData(genericData);
+        child->addParentElement(genericData);
     }
 }
 
@@ -781,25 +781,25 @@ GNEChange::removeElementFromParentsAndChildren(GNEGenericData* genericData) {
     }
     // remove genericData in child elements
     for (const auto& child : myChildEdges) {
-        child->removeParentGenericData(genericData);
+        child->removeParentElement(genericData);
     }
     for (const auto& child : myChildLanes) {
-        child->removeParentGenericData(genericData);
+        child->removeParentElement(genericData);
     }
     for (const auto& child : myChildAdditionals) {
-        child->removeParentGenericData(genericData);
+        child->removeParentElement(genericData);
     }
     for (const auto& child : myChildShapes) {
-        child->removeParentGenericData(genericData);
+        child->removeParentElement(genericData);
     }
     for (const auto& child : myChildTAZElements) {
-        child->removeParentGenericData(genericData);
+        child->removeParentElement(genericData);
     }
     for (const auto& child : myChildDemandElements) {
-        child->removeParentGenericData(genericData);
+        child->removeParentElement(genericData);
     }
     for (const auto& child : myChildGenericDatas) {
-        child->removeParentGenericData(genericData);
+        child->removeParentElement(genericData);
     }
 }
 

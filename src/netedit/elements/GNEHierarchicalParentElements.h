@@ -85,8 +85,35 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @name members and functions related to parent junctions
-    /// @{
+    /// @brief add child
+    template<typename T>
+    void addParentElement(T* element);
+
+    /// @brief remove child
+    template<typename T>
+    void removeParentElement(T* element);
+
+    /// @brief get parent edges
+    const std::vector<GNEEdge*>& getParentEdges() const;
+
+    /// @brief get parent lanes
+    const std::vector<GNELane*>& getParentLanes() const;
+
+    /// @brief get parent additionals
+    const std::vector<GNEAdditional*>& getParentAdditionals() const;
+
+    /// @brief get parent shapes
+    const std::vector<GNEShape*>& getParentShapes() const;
+
+    /// @brief get parent TAZElements
+    const std::vector<GNETAZElement*>& getParentTAZElements() const;
+
+    /// @brief get parent demand elements
+    const std::vector<GNEDemandElement*>& getParentDemandElements() const;
+
+    /// @brief get parent demand elements
+    const std::vector<GNEGenericData*>& getParentGenericDatas() const;
+
     /// @brief get front parent junction
     GNEJunction* getFirstParentJunction() const;
 
@@ -99,104 +126,11 @@ public:
     /// @brief update last parent junction
     void updateSecondParentJunction(GNEJunction* junction);
 
-    /// @}
-
-    /// @name members and functions related to parent edges
-    /// @{
-    /// @brief add parent edge
-    void addParentEdge(GNEEdge* edge);
-
-    /// @brief remove parent edge
-    void removeParentEdge(GNEEdge* edge);
-
-    /// @brief get parent edges
-    const std::vector<GNEEdge*>& getParentEdges() const;
-
     /// @brief get middle (via) parent edges
     std::vector<GNEEdge*> getMiddleParentEdges() const;
 
     /// @brief get path edges
     const std::vector<GNEEdge*>& getPathEdges() const;
-
-    /// @}
-
-    /// @name members and functions related to parent lanes
-    /// @{
-    /// @brief add parent lane
-    void addParentLane(GNELane* lane);
-
-    /// @brief remove parent lane
-    void removeParentLane(GNELane* lane);
-
-    /// @brief get parent lanes
-    const std::vector<GNELane*>& getParentLanes() const;
-
-    /// @}
-
-    /// @name members and functions related to parent additionals
-    /// @{
-    /// @brief add parent additional
-    void addParentAdditional(GNEAdditional* additional);
-
-    /// @brief remove parent additional
-    void removeParentAdditional(GNEAdditional* additional);
-
-    /// @brief get parent additionals
-    const std::vector<GNEAdditional*>& getParentAdditionals() const;
-
-    /// @}
-
-    /// @name members and functions related to parent shapes
-    /// @{
-    /// @brief add parent shape
-    void addParentShape(GNEShape* shape);
-
-    /// @brief remove parent shape
-    void removeParentShape(GNEShape* shape);
-
-    /// @brief get parent shapes
-    const std::vector<GNEShape*>& getParentShapes() const;
-
-    /// @}
-
-    /// @name members and functions related to parent TAZElements
-    /// @{
-    /// @brief add parent TAZElement
-    void addParentTAZElement(GNETAZElement* TAZElement);
-
-    /// @brief remove parent TAZElement
-    void removeParentTAZElement(GNETAZElement* TAZElement);
-
-    /// @brief get parent TAZElements
-    const std::vector<GNETAZElement*>& getParentTAZElements() const;
-
-    /// @}
-
-    /// @name members and functions related to parent demand elements
-    /// @{
-    /// @brief add parent demand element
-    void addParentDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief remove parent demand element
-    void removeParentDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief get parent demand elements
-    const std::vector<GNEDemandElement*>& getParentDemandElements() const;
-
-    /// @}
-
-    /// @name members and functions related to parent generic data elements
-    /// @{
-    /// @brief add parent demand element
-    void addParentGenericData(GNEGenericData* genericData);
-
-    /// @brief remove parent demand element
-    void removeParentGenericData(GNEGenericData* genericData);
-
-    /// @brief get parent demand elements
-    const std::vector<GNEGenericData*>& getParentGenericDatas() const;
-
-    /// @}
 
     /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
     std::string getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const;
