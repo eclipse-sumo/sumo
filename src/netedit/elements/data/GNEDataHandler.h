@@ -153,7 +153,7 @@ public:
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
-    static GNEEdgeData* buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
+    static GNEGenericData* buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
                                       GNEEdge* edge, const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds edgeRelationData
@@ -165,7 +165,7 @@ public:
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the edgeRelationData can not be added to the net
      */
-    static GNEEdgeRelData* buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
+    static GNEGenericData* buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
             GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds TAZRelationData
@@ -177,7 +177,7 @@ public:
      * @param[in] parameters parameters map
      * @exception InvalidArgument If the TAZRelationData can not be added to the net
      */
-    static GNETAZRelData* buildTAZRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
+    static GNEGenericData* buildTAZRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
         GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters);
 
 protected:

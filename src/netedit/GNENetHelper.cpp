@@ -294,7 +294,7 @@ GNENetHelper::AttributeCarriers::addPOI(const std::string& id, const std::string
             if (retrievedLane == nullptr) {
                 WRITE_ERROR("invalid lane to use within POI " + id);
             } else {
-                GNEPOI* POILane = new GNEPOI(myNet, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, false);
+                GNEShape* POILane = new GNEPOI(myNet, id, type, color, layer, angle, imgFile, relativePath, retrievedLane, posOverLane, posLat, width, height, false);
                 if (myAllowUndoShapes) {
                     myNet->getViewNet()->getUndoList()->p_begin("add " + POILane->getTagStr());
                     myNet->getViewNet()->getUndoList()->add(new GNEChange_Shape(POILane, true), true);
@@ -302,7 +302,7 @@ GNENetHelper::AttributeCarriers::addPOI(const std::string& id, const std::string
                 } else {
                     // insert shape without allowing undo/redo
                     insertShape(POILane);
-                    retrievedLane->addChildShape(POILane);
+                    retrievedLane->addChildElement(POILane);
                     POILane->incRef("addPOILane");
                 }
             }

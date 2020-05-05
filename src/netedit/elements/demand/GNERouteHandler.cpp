@@ -175,7 +175,7 @@ GNERouteHandler::buildVehicleOverRoute(GNENet* net, bool undoDemandElements, con
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
             // create vehicle using vehicleParameters
-            GNEVehicle* vehicle = new GNEVehicle(net, vType, route, vehicleParameters);
+            GNEDemandElement* vehicle = new GNEVehicle(net, vType, route, vehicleParameters);
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + vehicle->getTagStr());
                 net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vehicle, true), true);
@@ -187,8 +187,8 @@ GNERouteHandler::buildVehicleOverRoute(GNENet* net, bool undoDemandElements, con
             } else {
                 net->getAttributeCarriers()->insertDemandElement(vehicle);
                 // set vehicle as child of vType and Route
-                vType->addChildDemandElement(vehicle);
-                route->addChildDemandElement(vehicle);
+                vType->addChildElement(vehicle);
+                route->addChildElement(vehicle);
                 vehicle->incRef("buildVehicleOverRoute");
                 // iterate over stops of vehicleParameters and create stops associated with it
                 for (const auto& i : vehicleParameters.stops) {
@@ -219,7 +219,7 @@ GNERouteHandler::buildFlowOverRoute(GNENet* net, bool undoDemandElements, const 
             WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(vehicleParameters.tag) + " '" + vehicleParameters.id + "'. " + toString(vehicleParameters.departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));
         } else {
             // create flow or trips using vehicleParameters
-            GNEVehicle* flow = new GNEVehicle(net, vType, route, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(net, vType, route, vehicleParameters);
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + flow->getTagStr());
                 net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
@@ -231,8 +231,8 @@ GNERouteHandler::buildFlowOverRoute(GNENet* net, bool undoDemandElements, const 
             } else {
                 net->getAttributeCarriers()->insertDemandElement(flow);
                 // set flow as child of vType and Route
-                vType->addChildDemandElement(flow);
-                route->addChildDemandElement(flow);
+                vType->addChildElement(flow);
+                route->addChildElement(flow);
                 flow->incRef("buildFlowOverRoute");
                 // iterate over stops of vehicleParameters and create stops associated with it
                 for (const auto& i : vehicleParameters.stops) {
@@ -264,9 +264,9 @@ GNERouteHandler::buildVehicleWithEmbeddedRoute(GNENet* net, bool undoDemandEleme
             // due vehicle was loaded without a route, change tag
             vehicleParameters.tag = SUMO_TAG_VEHICLE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
-            GNEVehicle* vehicle = new GNEVehicle(net, vType, vehicleParameters);
+            GNEDemandElement* vehicle = new GNEVehicle(net, vType, vehicleParameters);
             // creaste embedded route
-            GNERoute* embeddedRoute = new GNERoute(net, vehicle, RouteParameter(embeddedRouteCopy));
+            GNEDemandElement* embeddedRoute = new GNERoute(net, vehicle, RouteParameter(embeddedRouteCopy));
             // add both to net depending of myUndoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
@@ -278,15 +278,15 @@ GNERouteHandler::buildVehicleWithEmbeddedRoute(GNENet* net, bool undoDemandEleme
                 // add vehicleOrRouteFlow in net and in their vehicle type parent
                 net->getAttributeCarriers()->insertDemandElement(vehicle);
                 // set vehicle as child of vType
-                vType->addChildDemandElement(vehicle);
+                vType->addChildElement(vehicle);
                 vehicle->incRef("buildVehicleWithEmbeddedRoute");
                 // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
                 net->getAttributeCarriers()->insertDemandElement(embeddedRoute);
                 for (const auto& i : embeddedRouteCopy->getParentEdges()) {
-                    i->addChildDemandElement(vehicle);
+                    i->addChildElement(vehicle);
                 }
                 // set route as child of vehicle
-                vehicle->addChildDemandElement(embeddedRoute);
+                vehicle->addChildElement(embeddedRoute);
                 embeddedRoute->incRef("buildVehicleWithEmbeddedRoute");
             }
         }
@@ -314,9 +314,9 @@ GNERouteHandler::buildFlowWithEmbeddedRoute(GNENet* net, bool undoDemandElements
             // due vehicle was loaded without a route, change tag
             vehicleParameters.tag = SUMO_TAG_ROUTEFLOW;
             // create vehicle or trips using myTemporalVehicleParameter without a route
-            GNEVehicle* flow = new GNEVehicle(net, vType, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(net, vType, vehicleParameters);
             // creaste embedded route
-            GNERoute* embeddedRoute = new GNERoute(net, flow, RouteParameter(embeddedRouteCopy));
+            GNEDemandElement* embeddedRoute = new GNERoute(net, flow, RouteParameter(embeddedRouteCopy));
             // add both to net depending of myUndoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
@@ -328,15 +328,15 @@ GNERouteHandler::buildFlowWithEmbeddedRoute(GNENet* net, bool undoDemandElements
                 // add vehicleOrRouteFlow in net and in their vehicle type parent
                 net->getAttributeCarriers()->insertDemandElement(flow);
                 // set vehicle as child of vType
-                vType->addChildDemandElement(flow);
+                vType->addChildElement(flow);
                 flow->incRef("buildFlowWithEmbeddedRoute");
                 // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
                 net->getAttributeCarriers()->insertDemandElement(embeddedRoute);
                 for (const auto& i : embeddedRouteCopy->getParentEdges()) {
-                    i->addChildDemandElement(flow);
+                    i->addChildElement(flow);
                 }
                 // set route as child of flow
-                flow->addChildDemandElement(embeddedRoute);
+                flow->addChildElement(embeddedRoute);
                 embeddedRoute->incRef("buildFlowWithEmbeddedRoute");
             }
         }
@@ -364,7 +364,7 @@ GNERouteHandler::buildTrip(GNENet* net, bool undoDemandElements, const SUMOVehic
                 vehicleParameters.via.push_back(viaEdge->getID());
             }
             // create trip or flow using tripParameters
-            GNEVehicle* trip = new GNEVehicle(net, vType, fromEdge, toEdge, via, vehicleParameters);
+            GNEDemandElement* trip = new GNEVehicle(net, vType, fromEdge, toEdge, via, vehicleParameters);
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + trip->getTagStr());
                 net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(trip, true), true);
@@ -376,13 +376,13 @@ GNERouteHandler::buildTrip(GNENet* net, bool undoDemandElements, const SUMOVehic
             } else {
                 net->getAttributeCarriers()->insertDemandElement(trip);
                 // set vehicle as child of vType
-                vType->addChildDemandElement(trip);
+                vType->addChildElement(trip);
                 trip->incRef("buildTrip");
                 // add reference in all edges
-                fromEdge->addChildDemandElement(trip);
-                toEdge->addChildDemandElement(trip);
+                fromEdge->addChildElement(trip);
+                toEdge->addChildElement(trip);
                 for (const auto& viaEdge : via) {
-                    viaEdge->addChildDemandElement(trip);
+                    viaEdge->addChildElement(trip);
                 }
                 // iterate over stops of vehicleParameters and create stops associated with it
                 for (const auto& i : vehicleParameters.stops) {
@@ -414,7 +414,7 @@ GNERouteHandler::buildFlow(GNENet* net, bool undoDemandElements, const SUMOVehic
                 vehicleParameters.via.push_back(viaEdge->getID());
             }
             // create trip or flow using tripParameters
-            GNEVehicle* flow = new GNEVehicle(net, vType, fromEdge, toEdge, via, vehicleParameters);
+            GNEDemandElement* flow = new GNEVehicle(net, vType, fromEdge, toEdge, via, vehicleParameters);
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + flow->getTagStr());
                 net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(flow, true), true);
@@ -426,13 +426,13 @@ GNERouteHandler::buildFlow(GNENet* net, bool undoDemandElements, const SUMOVehic
             } else {
                 net->getAttributeCarriers()->insertDemandElement(flow);
                 // set vehicle as child of vType
-                vType->addChildDemandElement(flow);
+                vType->addChildElement(flow);
                 flow->incRef("buildFlow");
                 // add reference in all edges
-                fromEdge->addChildDemandElement(flow);
-                toEdge->addChildDemandElement(flow);
+                fromEdge->addChildElement(flow);
+                toEdge->addChildElement(flow);
                 for (const auto& viaEdge : via) {
-                    viaEdge->addChildDemandElement(flow);
+                    viaEdge->addChildElement(flow);
                 }
                 // iterate over stops of vehicleParameters and create stops associated with it
                 for (const auto& i : vehicleParameters.stops) {
@@ -504,7 +504,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
             WRITE_ERROR("A stop requires a stoppingPlace or a lane");
         } else if (stoppingPlace) {
             // create stop using stopParameters and stoppingPlace
-            GNEStop* stop = new GNEStop(stopTagType, net, stopParameters, stoppingPlace, stopParent);
+            GNEDemandElement* stop = new GNEStop(stopTagType, net, stopParameters, stoppingPlace, stopParent);
             // add it depending of undoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + stop->getTagStr());
@@ -512,13 +512,13 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
                 net->getViewNet()->getUndoList()->p_end();
             } else {
                 net->getAttributeCarriers()->insertDemandElement(stop);
-                stoppingPlace->addChildDemandElement(stop);
-                stopParent->addChildDemandElement(stop);
+                stoppingPlace->addChildElement(stop);
+                stopParent->addChildElement(stop);
                 stop->incRef("buildStoppingPlaceStop");
             }
         } else {
             // create stop using stopParameters and lane
-            GNEStop* stop = new GNEStop(net, stopParameters, lane, stopParent);
+            GNEDemandElement* stop = new GNEStop(net, stopParameters, lane, stopParent);
             // add it depending of undoDemandElements
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + stop->getTagStr());
@@ -526,8 +526,8 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
                 net->getViewNet()->getUndoList()->p_end();
             } else {
                 net->getAttributeCarriers()->insertDemandElement(stop);
-                lane->addChildDemandElement(stop);
-                stopParent->addChildDemandElement(stop);
+                lane->addChildElement(stop);
+                stopParent->addChildElement(stop);
                 stop->incRef("buildLaneStop");
             }
         }
@@ -545,7 +545,7 @@ GNERouteHandler::buildPerson(GNENet* net, bool undoDemandElements, const SUMOVeh
             WRITE_ERROR("Invalid person type '" + personParameters.vtypeid + "' used in " + toString(personParameters.tag) + " '" + personParameters.id + "'.");
         } else {
             // create person using personParameters
-            GNEPerson* person = new GNEPerson(SUMO_TAG_PERSON, net, pType, personParameters);
+            GNEDemandElement* person = new GNEPerson(SUMO_TAG_PERSON, net, pType, personParameters);
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + person->getTagStr());
                 net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
@@ -553,7 +553,7 @@ GNERouteHandler::buildPerson(GNENet* net, bool undoDemandElements, const SUMOVeh
             } else {
                 net->getAttributeCarriers()->insertDemandElement(person);
                 // set person as child of pType and Route
-                pType->addChildDemandElement(person);
+                pType->addChildElement(person);
                 person->incRef("buildPerson");
             }
         }
@@ -571,7 +571,7 @@ GNERouteHandler::buildPersonFlow(GNENet* net, bool undoDemandElements, const SUM
             WRITE_ERROR("Invalid personFlow type '" + personFlowParameters.vtypeid + "' used in " + toString(personFlowParameters.tag) + " '" + personFlowParameters.id + "'.");
         } else {
             // create personFlow using personFlowParameters
-            GNEPerson* personFlow = new GNEPerson(SUMO_TAG_PERSONFLOW, net, pType, personFlowParameters);
+            GNEDemandElement* personFlow = new GNEPerson(SUMO_TAG_PERSONFLOW, net, pType, personFlowParameters);
             if (undoDemandElements) {
                 net->getViewNet()->getUndoList()->p_begin("add " + personFlow->getTagStr());
                 net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personFlow, true), true);
@@ -579,7 +579,7 @@ GNERouteHandler::buildPersonFlow(GNENet* net, bool undoDemandElements, const SUM
             } else {
                 net->getAttributeCarriers()->insertDemandElement(personFlow);
                 // set personFlow as child of pType and Route
-                pType->addChildDemandElement(personFlow);
+                pType->addChildElement(personFlow);
                 personFlow->incRef("buildPersonFlow");
             }
         }
@@ -591,7 +591,7 @@ void
 GNERouteHandler::buildPersonTripFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos,
                                        const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     // create personTripFromTo
-    GNEPersonTrip* personTripFromTo = new GNEPersonTrip(net, personParent, fromEdge, toEdge, {}, arrivalPos, types, modes);
+    GNEDemandElement* personTripFromTo = new GNEPersonTrip(net, personParent, fromEdge, toEdge, {}, arrivalPos, types, modes);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_FROMTO) + " within person '" + personParent->getID() + "'");
@@ -600,7 +600,7 @@ GNERouteHandler::buildPersonTripFromTo(GNENet* net, bool undoDemandElements, GNE
     } else {
         // add vehicleOrPersonTripFlow in net and in their vehicle type parent
         net->getAttributeCarriers()->insertDemandElement(personTripFromTo);
-        personParent->addChildDemandElement(personTripFromTo);
+        personParent->addChildElement(personTripFromTo);
         personTripFromTo->incRef("buildPersonTripFromTo");
     }
     // update geometry
@@ -612,7 +612,7 @@ void
 GNERouteHandler::buildPersonTripBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
                                         const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     // create personTripBusStop
-    GNEPersonTrip* personTripBusStop = new GNEPersonTrip(net, personParent, fromEdge, busStop, {}, types, modes);
+    GNEDemandElement* personTripBusStop = new GNEPersonTrip(net, personParent, fromEdge, busStop, {}, types, modes);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_BUSSTOP) + " within person '" + personParent->getID() + "'");
@@ -621,9 +621,9 @@ GNERouteHandler::buildPersonTripBusStop(GNENet* net, bool undoDemandElements, GN
     } else {
         // add vehicleOrPersonTripFlow in net and in their vehicle type parent
         net->getAttributeCarriers()->insertDemandElement(personTripBusStop);
-        personParent->addChildDemandElement(personTripBusStop);
-        busStop->addChildDemandElement(personTripBusStop);
-        fromEdge->addChildDemandElement(personTripBusStop);
+        personParent->addChildElement(personTripBusStop);
+        busStop->addChildElement(personTripBusStop);
+        fromEdge->addChildElement(personTripBusStop);
         personTripBusStop->incRef("buildPersonTripBusStop");
     }
     // update geometry
@@ -644,7 +644,7 @@ GNERouteHandler::buildWalkEdges(GNENet* net, bool undoDemandElements, GNEDemandE
             pathEdges = edges;
         }
         // create walkEdges
-        GNEWalk* walkEdges = new GNEWalk(net, personParent, pathEdges, arrivalPos);
+        GNEDemandElement* walkEdges = new GNEWalk(net, personParent, pathEdges, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_EDGES) + " within person '" + personParent->getID() + "'");
@@ -653,10 +653,10 @@ GNERouteHandler::buildWalkEdges(GNENet* net, bool undoDemandElements, GNEDemandE
         } else {
             // add vehicleOrWalkEdgesFlow in net and in their vehicle type parent
             net->getAttributeCarriers()->insertDemandElement(walkEdges);
-            personParent->addChildDemandElement(walkEdges);
+            personParent->addChildElement(walkEdges);
             // add reference in all edges
             for (const auto& i : edges) {
-                i->addChildDemandElement(walkEdges);
+                i->addChildElement(walkEdges);
             }
             walkEdges->incRef("buildWalkEdges");
         }
@@ -669,7 +669,7 @@ GNERouteHandler::buildWalkEdges(GNENet* net, bool undoDemandElements, GNEDemandE
 void
 GNERouteHandler::buildWalkFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos) {
     // create walkFromTo
-    GNEWalk* walkFromTo = new GNEWalk(net, personParent, fromEdge, toEdge, {}, arrivalPos);
+    GNEDemandElement* walkFromTo = new GNEWalk(net, personParent, fromEdge, toEdge, {}, arrivalPos);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_FROMTO) + " within person '" + personParent->getID() + "'");
@@ -678,10 +678,10 @@ GNERouteHandler::buildWalkFromTo(GNENet* net, bool undoDemandElements, GNEDemand
     } else {
         // add vehicleOrWalkFromToFlow in net and in their vehicle type parent
         net->getAttributeCarriers()->insertDemandElement(walkFromTo);
-        personParent->addChildDemandElement(walkFromTo);
+        personParent->addChildElement(walkFromTo);
         // add reference in all edges
-        fromEdge->addChildDemandElement(walkFromTo);
-        toEdge->addChildDemandElement(walkFromTo);
+        fromEdge->addChildElement(walkFromTo);
+        toEdge->addChildElement(walkFromTo);
         walkFromTo->incRef("buildWalkFromTo");
     }
     // update geometry
@@ -692,7 +692,7 @@ GNERouteHandler::buildWalkFromTo(GNENet* net, bool undoDemandElements, GNEDemand
 void
 GNERouteHandler::buildWalkBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop) {
     // create walkBusStop
-    GNEWalk* walkBusStop = new GNEWalk(net, personParent, fromEdge, busStop, {});
+    GNEDemandElement* walkBusStop = new GNEWalk(net, personParent, fromEdge, busStop, {});
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_BUSSTOP) + " within person '" + personParent->getID() + "'");
@@ -701,9 +701,9 @@ GNERouteHandler::buildWalkBusStop(GNENet* net, bool undoDemandElements, GNEDeman
     } else {
         // add vehicleOrWalkBusStopFlow in net and in their vehicle type parent
         net->getAttributeCarriers()->insertDemandElement(walkBusStop);
-        personParent->addChildDemandElement(walkBusStop);
-        busStop->addChildDemandElement(walkBusStop);
-        fromEdge->addChildDemandElement(walkBusStop);
+        personParent->addChildElement(walkBusStop);
+        busStop->addChildElement(walkBusStop);
+        fromEdge->addChildElement(walkBusStop);
         walkBusStop->incRef("buildWalkBusStop");
     }
     // update geometry
@@ -714,7 +714,7 @@ GNERouteHandler::buildWalkBusStop(GNENet* net, bool undoDemandElements, GNEDeman
 void
 GNERouteHandler::buildWalkRoute(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPos) {
     // create walkRoute
-    GNEWalk* walkRoute = new GNEWalk(net, personParent, route, arrivalPos);
+    GNEDemandElement* walkRoute = new GNEWalk(net, personParent, route, arrivalPos);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_ROUTE) + " within person '" + personParent->getID() + "'");
@@ -723,8 +723,8 @@ GNERouteHandler::buildWalkRoute(GNENet* net, bool undoDemandElements, GNEDemandE
     } else {
         // add vehicleOrWalkBusStopFlow in net and in their vehicle type parent
         net->getAttributeCarriers()->insertDemandElement(walkRoute);
-        personParent->addChildDemandElement(walkRoute);
-        route->addChildDemandElement(walkRoute);
+        personParent->addChildElement(walkRoute);
+        route->addChildElement(walkRoute);
         walkRoute->incRef("buildWalkRoute");
     }
     // update geometry
@@ -735,7 +735,7 @@ GNERouteHandler::buildWalkRoute(GNENet* net, bool undoDemandElements, GNEDemandE
 void
 GNERouteHandler::buildRideFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, double arrivalPos) {
     // create rideFromTo
-    GNERide* rideFromTo = new GNERide(net, personParent, fromEdge, toEdge, {}, arrivalPos, lines);
+    GNEDemandElement* rideFromTo = new GNERide(net, personParent, fromEdge, toEdge, {}, arrivalPos, lines);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_RIDE_FROMTO) + " within person '" + personParent->getID() + "'");
@@ -744,10 +744,10 @@ GNERouteHandler::buildRideFromTo(GNENet* net, bool undoDemandElements, GNEDemand
     } else {
         // add vehicleOrRideFromToFlow in net and in their vehicle type parent
         net->getAttributeCarriers()->insertDemandElement(rideFromTo);
-        personParent->addChildDemandElement(rideFromTo);
+        personParent->addChildElement(rideFromTo);
         // add reference in all edges
-        fromEdge->addChildDemandElement(rideFromTo);
-        toEdge->addChildDemandElement(rideFromTo);
+        fromEdge->addChildElement(rideFromTo);
+        toEdge->addChildElement(rideFromTo);
         rideFromTo->incRef("buildRideFromTo");
     }
     // update geometry
@@ -758,7 +758,7 @@ GNERouteHandler::buildRideFromTo(GNENet* net, bool undoDemandElements, GNEDemand
 void
 GNERouteHandler::buildRideBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<std::string>& lines) {
     // create rideBusStop
-    GNERide* rideBusStop = new GNERide(net, personParent, fromEdge, busStop, {}, lines);
+    GNEDemandElement* rideBusStop = new GNERide(net, personParent, fromEdge, busStop, {}, lines);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_RIDE_BUSSTOP) + " within person '" + personParent->getID() + "'");
@@ -767,10 +767,10 @@ GNERouteHandler::buildRideBusStop(GNENet* net, bool undoDemandElements, GNEDeman
     } else {
         // add vehicleOrRideBusStopFlow in net and in their vehicle type parent
         net->getAttributeCarriers()->insertDemandElement(rideBusStop);
-        personParent->addChildDemandElement(rideBusStop);
-        busStop->addChildDemandElement(rideBusStop);
+        personParent->addChildElement(rideBusStop);
+        busStop->addChildElement(rideBusStop);
         // add reference in first edge
-        fromEdge->addChildDemandElement(rideBusStop);
+        fromEdge->addChildElement(rideBusStop);
         rideBusStop->incRef("buildRideBusStop");
     }
     // update geometry
@@ -1218,7 +1218,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 // create vehicle or trips using myTemporalVehicleParameter without a route
                 myLoadedVehicleWithEmbebbedRoute = new GNEVehicle(myNet, vType, *myVehicleParameter);
                 // creaste embedded route
-                GNERoute* embeddedRoute = new GNERoute(myNet, myLoadedVehicleWithEmbebbedRoute, myRouteParameter);
+                GNEDemandElement* embeddedRoute = new GNERoute(myNet, myLoadedVehicleWithEmbebbedRoute, myRouteParameter);
                 // add both to net depending of myUndoDemandElements
                 if (myUndoDemandElements) {
                     myNet->getViewNet()->getUndoList()->p_begin("add vehicle and " + embeddedRoute->getTagStr());
@@ -1232,14 +1232,14 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 } else {
                     // add vehicleOrRouteFlow in net and in their vehicle type parent
                     myNet->getAttributeCarriers()->insertDemandElement(myLoadedVehicleWithEmbebbedRoute);
-                    vType->addChildDemandElement(myLoadedVehicleWithEmbebbedRoute);
+                    vType->addChildElement(myLoadedVehicleWithEmbebbedRoute);
                     myLoadedVehicleWithEmbebbedRoute->incRef("buildVehicleAndRoute");
                     // add route manually in net, and in all of their edges and in vehicleOrRouteFlow
                     myNet->getAttributeCarriers()->insertDemandElement(embeddedRoute);
                     for (const auto& i : myRouteParameter.edges) {
-                        i->addChildDemandElement(myLoadedVehicleWithEmbebbedRoute);
+                        i->addChildElement(myLoadedVehicleWithEmbebbedRoute);
                     }
-                    myLoadedVehicleWithEmbebbedRoute->addChildDemandElement(embeddedRoute);
+                    myLoadedVehicleWithEmbebbedRoute->addChildElement(embeddedRoute);
                     embeddedRoute->incRef("buildVehicleAndRoute");
                     // iterate over stops of myActiveRouteStops and create stops associated with it
                     for (const auto& i : myActiveRouteStops) {
@@ -1258,7 +1258,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         WRITE_ERROR("A route needs at least one edge.");
     } else {
         // creaste GNERoute
-        GNERoute* route = new GNERoute(myNet, myRouteParameter);
+        GNEDemandElement* route = new GNERoute(myNet, myRouteParameter);
         if (myUndoDemandElements) {
             myNet->getViewNet()->getUndoList()->p_begin("add " + route->getTagStr());
             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
@@ -1270,7 +1270,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
         } else {
             myNet->getAttributeCarriers()->insertDemandElement(route);
             for (const auto& i : myRouteParameter.edges) {
-                i->addChildDemandElement(route);
+                i->addChildElement(route);
             }
             route->incRef("buildRoute");
             // iterate over stops of myActiveRouteStops and create stops associated with it
@@ -1327,7 +1327,7 @@ GNERouteHandler::closeVType() {
             WRITE_ERROR("There is another " + toString(vTypeTag) + " with the same ID='" + myCurrentVType->id + "'.");
         } else {
             // create vType/pType using myCurrentVType
-            GNEVehicleType* vType = new GNEVehicleType(myNet, *myCurrentVType, vTypeTag);
+            GNEDemandElement* vType = new GNEVehicleType(myNet, *myCurrentVType, vTypeTag);
             if (myUndoDemandElements) {
                 myNet->getViewNet()->getUndoList()->p_begin("add " + vType->getTagStr());
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(vType, true), true);

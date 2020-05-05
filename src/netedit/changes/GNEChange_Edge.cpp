@@ -153,16 +153,16 @@ GNEChange_Edge::addEdgeLanes() {
     for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
         // add lane's edge in parent elements
         for (const auto& j : myLaneParentShapes.at(i)) {
-            j->addChildLane(myEdge->getLanes().at(i));
+            j->addChildElement(myEdge->getLanes().at(i));
         }
         for (const auto& j : myLaneParentAdditionals.at(i)) {
-            j->addChildLane(myEdge->getLanes().at(i));
+            j->addChildElement(myEdge->getLanes().at(i));
         }
         for (const auto& j : myLaneParentDemandElements.at(i)) {
-            j->addChildLane(myEdge->getLanes().at(i));
+            j->addChildElement(myEdge->getLanes().at(i));
         }
         for (const auto& j : myLaneParentGenericData.at(i)) {
-            j->addChildLane(myEdge->getLanes().at(i));
+            j->addChildElement(myEdge->getLanes().at(i));
         }
         // add lane's edge in child elements
         for (const auto& j : myChildLaneShapes.at(i)) {
@@ -187,16 +187,16 @@ GNEChange_Edge::removeEdgeLanes() {
     for (int i = 0; i < (int)myEdge->getLanes().size(); i++) {
         // Remove every lane's edge from parent elements
         for (const auto& j : myLaneParentShapes.at(i)) {
-            j->removeChildLane(myEdge->getLanes().at(i));
+            j->removeChildElement(myEdge->getLanes().at(i));
         }
         for (const auto& j : myLaneParentAdditionals.at(i)) {
-            j->removeChildLane(myEdge->getLanes().at(i));
+            j->removeChildElement(myEdge->getLanes().at(i));
         }
         for (const auto& j : myLaneParentDemandElements.at(i)) {
-            j->removeChildLane(myEdge->getLanes().at(i));
+            j->removeChildElement(myEdge->getLanes().at(i));
         }
         for (const auto& j : myLaneParentGenericData.at(i)) {
-            j->removeChildLane(myEdge->getLanes().at(i));
+            j->removeChildElement(myEdge->getLanes().at(i));
         }
         // Remove every lane's edge from child elements
         for (const auto& j : myChildLaneShapes.at(i)) {

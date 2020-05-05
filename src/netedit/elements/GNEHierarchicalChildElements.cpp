@@ -101,8 +101,32 @@ GNEHierarchicalChildElements::drawChildConnections(const GUIVisualizationSetting
 }
 
 
-void
-GNEHierarchicalChildElements::addChildAdditional(GNEAdditional* additional) {
+template <> void
+GNEHierarchicalChildElements::addChildElement(GNEEdge* edge) {
+    // Check that edge is valid and doesn't exist previously
+    if (edge == nullptr) {
+        throw InvalidArgument("Trying to add an empty child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildEdges.push_back(edge);
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::addChildElement(GNELane* lane) {
+    // Check if lane is valid
+    if (lane == nullptr) {
+        throw InvalidArgument("Trying to add an empty child lane in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildLanes.push_back(lane);
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::addChildElement(GNEAdditional* additional) {
     // Check if additional is valid
     if (additional == nullptr) {
         throw InvalidArgument("Trying to add an empty child additional in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
@@ -119,8 +143,95 @@ GNEHierarchicalChildElements::addChildAdditional(GNEAdditional* additional) {
 }
 
 
-void
-GNEHierarchicalChildElements::removeChildAdditional(GNEAdditional* additional) {
+template <> void
+GNEHierarchicalChildElements::addChildElement(GNEShape* shape) {
+    // Check that shape is valid and doesn't exist previously
+    if (shape == nullptr) {
+        throw InvalidArgument("Trying to add an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end()) {
+        throw InvalidArgument("Trying to add a duplicate child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildShapes.push_back(shape);
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::addChildElement(GNETAZElement* TAZElement) {
+    // Check that TAZElement is valid and doesn't exist previously
+    if (TAZElement == nullptr) {
+        throw InvalidArgument("Trying to add an empty child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) != myChildTAZElements.end()) {
+        throw InvalidArgument("Trying to add a duplicate child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildTAZElements.push_back(TAZElement);
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::addChildElement(GNEDemandElement* demandElement) {
+    // Check if demand element is valid
+    if (demandElement == nullptr) {
+        throw InvalidArgument("Trying to add an empty child demand element in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        // add it in demandElement child container
+        myChildDemandElements.push_back(demandElement);
+        // add it also in SortedChildDemandElementsByType container
+        myDemandElementsByType.at(demandElement->getTagProperty().getTag()).push_back(demandElement);
+        // Check if children has to be sorted automatically
+        if (myAC->getTagProperty().canAutomaticSortChildren()) {
+            sortChildDemandElements();
+        }
+    }
+}
+
+template <> void
+GNEHierarchicalChildElements::addChildElement(GNEGenericData* genericDataElement) {
+    // Check if demand element is valid
+    if (genericDataElement == nullptr) {
+        throw InvalidArgument("Trying to add an empty child generic data element in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        // add it in generic data element child container
+        myChildGenericDataElements.push_back(genericDataElement);
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::removeChildElement(GNEEdge* edge) {
+    // Check that edge is valid and exist previously
+    if (edge == nullptr) {
+        throw InvalidArgument("Trying to remove an empty child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildEdges.begin(), myChildEdges.end(), edge) == myChildEdges.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildEdges.erase(std::find(myChildEdges.begin(), myChildEdges.end(), edge));
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::removeChildElement(GNELane* lane) {
+    // Check if lane is valid
+    if (lane == nullptr) {
+        throw InvalidArgument("Trying to remove an empty child lane in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildLanes.erase(std::find(myChildLanes.begin(), myChildLanes.end(), lane));
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::removeChildElement(GNEAdditional* additional) {
     // First check that additional was already inserted
     auto it = std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional);
     if (it == myChildAdditionals.end()) {
@@ -137,9 +248,110 @@ GNEHierarchicalChildElements::removeChildAdditional(GNEAdditional* additional) {
 }
 
 
+template <> void
+GNEHierarchicalChildElements::removeChildElement(GNEShape* shape) {
+    // Check that shape is valid and exist previously
+    if (shape == nullptr) {
+        throw InvalidArgument("Trying to remove an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) == myChildShapes.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildShapes.erase(std::find(myChildShapes.begin(), myChildShapes.end(), shape));
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::removeChildElement(GNETAZElement* TAZElement) {
+    // Check that TAZElement is valid and exist previously
+    if (TAZElement == nullptr) {
+        throw InvalidArgument("Trying to remove an empty child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else if (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) == myChildTAZElements.end()) {
+        throw InvalidArgument("Trying to remove a non previously inserted child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        myChildTAZElements.erase(std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement));
+        // update connections geometry
+        myChildConnections.update();
+    }
+}
+
+
+template <> void
+GNEHierarchicalChildElements::removeChildElement(GNEDemandElement* demandElement) {
+    // First check that demandElement was already inserted
+    auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
+    auto itByType = std::find(myDemandElementsByType.at(demandElement->getTagProperty().getTag()).begin(), myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end(), demandElement);
+    if (it == myChildDemandElements.end()) {
+        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        // first check if element is duplicated in vector
+        bool singleElement = std::count(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) == 1;
+        myChildDemandElements.erase(it);
+        // only remove it from mySortedChildDemandElementsByType if is a single element
+        if (singleElement && (itByType != myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end())) {
+            myDemandElementsByType.at(demandElement->getTagProperty().getTag()).erase(itByType);
+        }
+        // Check if children has to be sorted automatically
+        if (myAC->getTagProperty().canAutomaticSortChildren()) {
+            sortChildDemandElements();
+        }
+    }
+}
+
+template <> void
+GNEHierarchicalChildElements::removeChildElement(GNEGenericData* genericDataElement) {
+    // First check that genericDataElement was already inserted
+    auto it = std::find(myChildGenericDataElements.begin(), myChildGenericDataElements.end(), genericDataElement);
+    if (it == myChildGenericDataElements.end()) {
+        throw ProcessError(genericDataElement->getTagStr() + " with ID='" + genericDataElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
+    } else {
+        // remove it from child demand elements
+        myChildGenericDataElements.erase(it);
+    }
+}
+
+
+const std::vector<GNEEdge*>&
+GNEHierarchicalChildElements::getChildEdges() const {
+    return myChildEdges;
+}
+
+
+const std::vector<GNELane*>&
+GNEHierarchicalChildElements::getChildLanes() const {
+    return myChildLanes;
+}
+
+
 const std::vector<GNEAdditional*>&
 GNEHierarchicalChildElements::getChildAdditionals() const {
     return myChildAdditionals;
+}
+
+
+const std::vector<GNEShape*>&
+GNEHierarchicalChildElements::getChildShapes() const {
+    return myChildShapes;
+}
+
+
+const std::vector<GNETAZElement*>&
+GNEHierarchicalChildElements::getChildTAZElements() const {
+    return myChildTAZElements;
+}
+
+
+const std::vector<GNEDemandElement*>&
+GNEHierarchicalChildElements::getChildDemandElements() const {
+    return myChildDemandElements;
+}
+
+
+const std::vector<GNEGenericData*>&
+GNEHierarchicalChildElements::getChildGenericDataElements() const {
+    return myChildGenericDataElements;
 }
 
 
@@ -262,125 +474,6 @@ GNEHierarchicalChildElements::checkChildAdditionalsOverlapping() const {
 }
 
 
-void
-GNEHierarchicalChildElements::addChildShape(GNEShape* shape) {
-    // Check that shape is valid and doesn't exist previously
-    if (shape == nullptr) {
-        throw InvalidArgument("Trying to add an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end()) {
-        throw InvalidArgument("Trying to add a duplicate child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildShapes.push_back(shape);
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-void
-GNEHierarchicalChildElements::removeChildShape(GNEShape* shape) {
-    // Check that shape is valid and exist previously
-    if (shape == nullptr) {
-        throw InvalidArgument("Trying to remove an empty child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) == myChildShapes.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted child shape in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildShapes.erase(std::find(myChildShapes.begin(), myChildShapes.end(), shape));
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-const std::vector<GNEShape*>&
-GNEHierarchicalChildElements::getChildShapes() const {
-    return myChildShapes;
-}
-
-
-void
-GNEHierarchicalChildElements::addChildTAZElement(GNETAZElement* TAZElement) {
-    // Check that TAZElement is valid and doesn't exist previously
-    if (TAZElement == nullptr) {
-        throw InvalidArgument("Trying to add an empty child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) != myChildTAZElements.end()) {
-        throw InvalidArgument("Trying to add a duplicate child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildTAZElements.push_back(TAZElement);
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-void
-GNEHierarchicalChildElements::removeChildTAZElement(GNETAZElement* TAZElement) {
-    // Check that TAZElement is valid and exist previously
-    if (TAZElement == nullptr) {
-        throw InvalidArgument("Trying to remove an empty child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) == myChildTAZElements.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted child TAZElement in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildTAZElements.erase(std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement));
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-const std::vector<GNETAZElement*>&
-GNEHierarchicalChildElements::getChildTAZElements() const {
-    return myChildTAZElements;
-}
-
-
-void
-GNEHierarchicalChildElements::addChildDemandElement(GNEDemandElement* demandElement) {
-    // Check if demand element is valid
-    if (demandElement == nullptr) {
-        throw InvalidArgument("Trying to add an empty child demand element in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        // add it in demandElement child container
-        myChildDemandElements.push_back(demandElement);
-        // add it also in SortedChildDemandElementsByType container
-        myDemandElementsByType.at(demandElement->getTagProperty().getTag()).push_back(demandElement);
-        // Check if children has to be sorted automatically
-        if (myAC->getTagProperty().canAutomaticSortChildren()) {
-            sortChildDemandElements();
-        }
-    }
-}
-
-
-void
-GNEHierarchicalChildElements::removeChildDemandElement(GNEDemandElement* demandElement) {
-    // First check that demandElement was already inserted
-    auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
-    auto itByType = std::find(myDemandElementsByType.at(demandElement->getTagProperty().getTag()).begin(), myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end(), demandElement);
-    if (it == myChildDemandElements.end()) {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        // first check if element is duplicated in vector
-        bool singleElement = std::count(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) == 1;
-        myChildDemandElements.erase(it);
-        // only remove it from mySortedChildDemandElementsByType if is a single element
-        if (singleElement && (itByType != myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end())) {
-            myDemandElementsByType.at(demandElement->getTagProperty().getTag()).erase(itByType);
-        }
-        // Check if children has to be sorted automatically
-        if (myAC->getTagProperty().canAutomaticSortChildren()) {
-            sortChildDemandElements();
-        }
-    }
-}
-
-
-const std::vector<GNEDemandElement*>&
-GNEHierarchicalChildElements::getChildDemandElements() const {
-    return myChildDemandElements;
-}
-
-
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalChildElements::getChildDemandElementsByType(SumoXMLTag tag) const {
     return myDemandElementsByType.at(tag);
@@ -429,35 +522,7 @@ GNEHierarchicalChildElements::getNextChildDemandElement(const GNEDemandElement* 
 }
 
 
-void
-GNEHierarchicalChildElements::addChildGenericDataElement(GNEGenericData* genericDataElement) {
-    // Check if demand element is valid
-    if (genericDataElement == nullptr) {
-        throw InvalidArgument("Trying to add an empty child generic data element in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        // add it in generic data element child container
-        myChildGenericDataElements.push_back(genericDataElement);
-    }
-}
 
-
-void
-GNEHierarchicalChildElements::removeChildGenericDataElement(GNEGenericData* genericDataElement) {
-    // First check that genericDataElement was already inserted
-    auto it = std::find(myChildGenericDataElements.begin(), myChildGenericDataElements.end(), genericDataElement);
-    if (it == myChildGenericDataElements.end()) {
-        throw ProcessError(genericDataElement->getTagStr() + " with ID='" + genericDataElement->getID() + "' doesn't exist in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        // remove it from child demand elements
-        myChildGenericDataElements.erase(it);
-    }
-}
-
-
-const std::vector<GNEGenericData*>&
-GNEHierarchicalChildElements::getChildGenericDataElements() const {
-    return myChildGenericDataElements;
-}
 
 
 GNEGenericData*
@@ -483,74 +548,9 @@ GNEHierarchicalChildElements::getCurrentGenericDataElement() const {
 
 
 void
-GNEHierarchicalChildElements::addChildEdge(GNEEdge* edge) {
-    // Check that edge is valid and doesn't exist previously
-    if (edge == nullptr) {
-        throw InvalidArgument("Trying to add an empty child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildEdges.push_back(edge);
-    }
-}
-
-
-void
-GNEHierarchicalChildElements::removeChildEdge(GNEEdge* edge) {
-    // Check that edge is valid and exist previously
-    if (edge == nullptr) {
-        throw InvalidArgument("Trying to remove an empty child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else if (std::find(myChildEdges.begin(), myChildEdges.end(), edge) == myChildEdges.end()) {
-        throw InvalidArgument("Trying to remove a non previously inserted child edge in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildEdges.erase(std::find(myChildEdges.begin(), myChildEdges.end(), edge));
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-const std::vector<GNEEdge*>&
-GNEHierarchicalChildElements::getChildEdges() const {
-    return myChildEdges;
-}
-
-
-void
-GNEHierarchicalChildElements::addChildLane(GNELane* lane) {
-    // Check if lane is valid
-    if (lane == nullptr) {
-        throw InvalidArgument("Trying to add an empty child lane in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildLanes.push_back(lane);
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-void
-GNEHierarchicalChildElements::removeChildLane(GNELane* lane) {
-    // Check if lane is valid
-    if (lane == nullptr) {
-        throw InvalidArgument("Trying to remove an empty child lane in " + myAC->getTagStr() + " with ID='" + myAC->getID() + "'");
-    } else {
-        myChildLanes.erase(std::find(myChildLanes.begin(), myChildLanes.end(), lane));
-        // update connections geometry
-        myChildConnections.update();
-    }
-}
-
-
-const std::vector<GNELane*>&
-GNEHierarchicalChildElements::getChildLanes() const {
-    return myChildLanes;
-}
-
-
-void
 GNEHierarchicalChildElements::updateParentAdditional() {
     // by default nothing to do
 }
-
 
 void
 GNEHierarchicalChildElements::updateParentDemandElement() {

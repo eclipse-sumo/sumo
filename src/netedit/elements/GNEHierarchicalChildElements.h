@@ -97,42 +97,35 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @name members and functions related to child edges
-    /// @{
-    /// @brief add child edge
-    void addChildEdge(GNEEdge* edge);
+    /// @brief add child
+    template<typename T>
+    void addChildElement(T* element);
 
-    /// @brief remove child edge
-    void removeChildEdge(GNEEdge* edge);
+    /// @brief remove child
+    template<typename T>
+    void removeChildElement(T* element);
 
     /// @brief get child edges
     const std::vector<GNEEdge*>& getChildEdges() const;
 
-    /// @}
-
-    /// @name members and functions related to child lanes
-    /// @{
-    /// @brief add child lane
-    void addChildLane(GNELane* lane);
-
-    /// @brief remove child lane
-    void removeChildLane(GNELane* lane);
-
     /// @brief get child lanes
     const std::vector<GNELane*>& getChildLanes() const;
 
-    /// @}
-
-    /// @name members and functions related to child additionals
-    /// @{
-    /// @brief add child additional
-    void addChildAdditional(GNEAdditional* additional);
-
-    /// @brief remove child additional
-    void removeChildAdditional(GNEAdditional* additional);
-
     /// @brief return child additionals
     const std::vector<GNEAdditional*>& getChildAdditionals() const;
+
+    /// @brief get child shapes
+    const std::vector<GNEShape*>& getChildShapes() const;
+
+    /// @brief get child TAZElements
+    const std::vector<GNETAZElement*>& getChildTAZElements() const;
+
+    /// @brief return child demand elements
+    const std::vector<GNEDemandElement*>& getChildDemandElements() const;
+
+    /// @brief return child generic data elements
+    const std::vector<GNEGenericData*>& getChildGenericDataElements() const;
+
 
     /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
     void sortChildAdditionals();
@@ -140,44 +133,7 @@ public:
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
 
-    /// @}
 
-    /// @name members and functions related to child shapes
-    /// @{
-    /// @brief add child shape
-    void addChildShape(GNEShape* shape);
-
-    /// @brief remove child shape
-    void removeChildShape(GNEShape* shape);
-
-    /// @brief get child shapes
-    const std::vector<GNEShape*>& getChildShapes() const;
-
-    /// @}
-
-    /// @name members and functions related to child TAZElements
-    /// @{
-    /// @brief add child TAZElement
-    void addChildTAZElement(GNETAZElement* TAZElement);
-
-    /// @brief remove child TAZElement
-    void removeChildTAZElement(GNETAZElement* TAZElement);
-
-    /// @brief get child TAZElements
-    const std::vector<GNETAZElement*>& getChildTAZElements() const;
-
-    /// @}
-
-    /// @name members and functions related to child demand elements
-    /// @{
-    /// @brief add child demand element
-    void addChildDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief remove child demand element
-    void removeChildDemandElement(GNEDemandElement* demandElement);
-
-    /// @brief return child demand elements
-    const std::vector<GNEDemandElement*>& getChildDemandElements() const;
 
     /// @brief return child demand elements by type
     const std::vector<GNEDemandElement*>& getChildDemandElementsByType(SumoXMLTag tag) const;
@@ -198,14 +154,7 @@ public:
 
     /// @name members and functions related to child generic data elements
     /// @{
-    /// @brief add child generic data element
-    void addChildGenericDataElement(GNEGenericData* genericDataElement);
 
-    /// @brief remove child generic data element
-    void removeChildGenericDataElement(GNEGenericData* genericDataElement);
-
-    /// @brief return child generic data elements
-    const std::vector<GNEGenericData*>& getChildGenericDataElements() const;
 
     /// @brief return data element for the current dataset and interval or nullptr
     GNEGenericData* getCurrentGenericDataElement() const;

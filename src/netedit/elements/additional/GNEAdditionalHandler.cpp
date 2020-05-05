@@ -247,14 +247,14 @@ GNEAdditionalHandler::buildBusStop(GNENet* net, bool allowUndoRedo, const std::s
                                    const std::string& name, const std::vector<std::string>& lines, int personCapacity, double parkingLength,
                                    bool friendlyPosition, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_BUS_STOP, id, false) == nullptr) {
-        GNEBusStop* busStop = new GNEBusStop(id, lane, net, startPos, endPos, parametersSet, name, lines, personCapacity, parkingLength, friendlyPosition, blockMovement);
+        GNEAdditional* busStop = new GNEBusStop(id, lane, net, startPos, endPos, parametersSet, name, lines, personCapacity, parkingLength, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_BUS_STOP));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(busStop, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(busStop);
-            lane->addChildAdditional(busStop);
+            lane->addChildElement(busStop);
             busStop->incRef("buildBusStop");
         }
         return busStop;
@@ -274,15 +274,15 @@ GNEAdditionalHandler::buildAccess(GNENet* net, bool allowUndoRedo, GNEAdditional
     } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " in netedit; " +  toString(SUMO_TAG_BUS_STOP) + " parent already owns a Acces in the edge '" + lane->getParentEdge()->getID() + "'");
     } else {
-        GNEAccess* access = new GNEAccess(busStop, lane, net, pos, length, friendlyPos, blockMovement);
+        GNEAdditional* access = new GNEAccess(busStop, lane, net, pos, length, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_ACCESS));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(access, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(access);
-            lane->addChildAdditional(access);
-            busStop->addChildAdditional(access);
+            lane->addChildElement(access);
+            busStop->addChildElement(access);
             access->incRef("buildAccess");
         }
         return access;
@@ -294,14 +294,14 @@ GNEAdditional*
 GNEAdditionalHandler::buildContainerStop(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, id, false) == nullptr) {
-        GNEContainerStop* containerStop = new GNEContainerStop(id, lane, net, startPos, endPos, parametersSet, name, lines, friendlyPosition, blockMovement);
+        GNEAdditional* containerStop = new GNEContainerStop(id, lane, net, startPos, endPos, parametersSet, name, lines, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CONTAINER_STOP));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(containerStop, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(containerStop);
-            lane->addChildAdditional(containerStop);
+            lane->addChildElement(containerStop);
             containerStop->incRef("buildContainerStop");
         }
         return containerStop;
@@ -315,14 +315,14 @@ GNEAdditional*
 GNEAdditionalHandler::buildChargingStation(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
         const std::string& name, double chargingPower, double efficiency, bool chargeInTransit, SUMOTime chargeDelay, bool friendlyPosition, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_CHARGING_STATION, id, false) == nullptr) {
-        GNEChargingStation* chargingStation = new GNEChargingStation(id, lane, net, startPos, endPos, parametersSet, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
+        GNEAdditional* chargingStation = new GNEChargingStation(id, lane, net, startPos, endPos, parametersSet, name, chargingPower, efficiency, chargeInTransit, chargeDelay, friendlyPosition, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CHARGING_STATION));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(chargingStation, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(chargingStation);
-            lane->addChildAdditional(chargingStation);
+            lane->addChildElement(chargingStation);
             chargingStation->incRef("buildChargingStation");
         }
         return chargingStation;
@@ -336,14 +336,14 @@ GNEAdditional*
 GNEAdditionalHandler::buildParkingArea(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, const double startPos, const double endPos, const int parametersSet,
                                        const std::string& name, bool friendlyPosition, int roadSideCapacity, bool onRoad, double width, const std::string& length, double angle, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_PARKING_AREA, id, false) == nullptr) {
-        GNEParkingArea* parkingArea = new GNEParkingArea(id, lane, net, startPos, endPos, parametersSet, name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, blockMovement);
+        GNEAdditional* parkingArea = new GNEParkingArea(id, lane, net, startPos, endPos, parametersSet, name, friendlyPosition, roadSideCapacity, onRoad, width, length, angle, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_AREA));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingArea, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(parkingArea);
-            lane->addChildAdditional(parkingArea);
+            lane->addChildElement(parkingArea);
             parkingArea->incRef("buildParkingArea");
         }
         return parkingArea;
@@ -355,14 +355,14 @@ GNEAdditionalHandler::buildParkingArea(GNENet* net, bool allowUndoRedo, const st
 
 GNEAdditional*
 GNEAdditionalHandler::buildParkingSpace(GNENet* net, bool allowUndoRedo, GNEAdditional* parkingAreaParent, Position pos, double width, double length, double angle, bool blockMovement) {
-    GNEParkingSpace* parkingSpace = new GNEParkingSpace(net, parkingAreaParent, pos, width, length, angle, blockMovement);
+    GNEAdditional* parkingSpace = new GNEParkingSpace(net, parkingAreaParent, pos, width, length, angle, blockMovement);
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PARKING_SPACE));
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingSpace, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
         net->getAttributeCarriers()->insertAdditional(parkingSpace);
-        parkingAreaParent->addChildAdditional(parkingSpace);
+        parkingAreaParent->addChildElement(parkingSpace);
         parkingSpace->incRef("buildParkingSpace");
     }
     return parkingSpace;
@@ -372,14 +372,14 @@ GNEAdditionalHandler::buildParkingSpace(GNENet* net, bool allowUndoRedo, GNEAddi
 GNEAdditional*
 GNEAdditionalHandler::buildDetectorE1(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_E1DETECTOR, id, false) == nullptr) {
-        GNEDetectorE1* detectorE1 = new GNEDetectorE1(id, lane, net, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement);
+        GNEAdditional* detectorE1 = new GNEDetectorE1(id, lane, net, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_E1DETECTOR));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE1, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(detectorE1);
-            lane->addChildAdditional(detectorE1);
+            lane->addChildElement(detectorE1);
             detectorE1->incRef("buildDetectorE1");
         }
         return detectorE1;
@@ -393,14 +393,14 @@ GNEAdditional*
 GNEAdditionalHandler::buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, SUMOTime freq, const std::string& filename,
         const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) {
-        GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lane, net, pos, length, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
+        GNEAdditional* detectorE2 = new GNEDetectorE2(id, lane, net, pos, length, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(detectorE2);
-            lane->addChildAdditional(detectorE2);
+            lane->addChildElement(detectorE2);
             detectorE2->incRef("buildDetectorE2");
         }
         return detectorE2;
@@ -421,8 +421,10 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, 
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(detectorE2);
-            for (auto i : lanes) {
-                i->addChildAdditional(detectorE2);
+            // use to avoid LNK2019
+            GNEAdditional *detectorE2Additional = detectorE2;
+            for (const auto &lane : lanes) {
+                lane->addChildElement(detectorE2Additional);
             }
             detectorE2->incRef("buildDetectorE2Multilane");
         }
@@ -439,7 +441,7 @@ GNEAdditional*
 GNEAdditionalHandler::buildDetectorE3(GNENet* net, bool allowUndoRedo, const std::string& id, Position pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
                                       const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_E3DETECTOR, id, false) == nullptr) {
-        GNEDetectorE3* detectorE3 = new GNEDetectorE3(id, net, pos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, blockMovement);
+        GNEAdditional* detectorE3 = new GNEDetectorE3(id, net, pos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_E3DETECTOR));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE3, true), true);
@@ -463,15 +465,15 @@ GNEAdditionalHandler::buildDetectorEntry(GNENet* net, bool allowUndoRedo, GNEAdd
     } else if (E3Parent == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_ENTRY) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
-        GNEDetectorEntryExit* entry = new GNEDetectorEntryExit(SUMO_TAG_DET_ENTRY, net, E3Parent, lane, pos, friendlyPos, blockMovement);
+        GNEAdditional* entry = new GNEDetectorEntryExit(SUMO_TAG_DET_ENTRY, net, E3Parent, lane, pos, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_ENTRY));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(entry, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(entry);
-            lane->addChildAdditional(entry);
-            E3Parent->addChildAdditional(entry);
+            lane->addChildElement(entry);
+            E3Parent->addChildElement(entry);
             entry->incRef("buildDetectorEntry");
         }
         return entry;
@@ -487,15 +489,15 @@ GNEAdditionalHandler::buildDetectorExit(GNENet* net, bool allowUndoRedo, GNEAddi
     } else if (E3Parent == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_DET_EXIT) + " in netedit; " +  toString(SUMO_TAG_E3DETECTOR) + " parent doesn't exist.");
     } else {
-        GNEDetectorEntryExit* exit = new GNEDetectorEntryExit(SUMO_TAG_DET_EXIT, net, E3Parent, lane, pos, friendlyPos, blockMovement);
+        GNEAdditional* exit = new GNEDetectorEntryExit(SUMO_TAG_DET_EXIT, net, E3Parent, lane, pos, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_DET_EXIT));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(exit, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(exit);
-            lane->addChildAdditional(exit);
-            E3Parent->addChildAdditional(exit);
+            lane->addChildElement(exit);
+            E3Parent->addChildElement(exit);
             exit->incRef("buildDetectorExit");
         }
         return exit;
@@ -506,14 +508,14 @@ GNEAdditionalHandler::buildDetectorExit(GNENet* net, bool allowUndoRedo, GNEAddi
 GNEAdditional*
 GNEAdditionalHandler::buildDetectorE1Instant(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_INSTANT_INDUCTION_LOOP, id, false) == nullptr) {
-        GNEDetectorE1Instant* detectorE1Instant = new GNEDetectorE1Instant(id, lane, net, pos, filename, vehicleTypes, name, friendlyPos, blockMovement);
+        GNEAdditional* detectorE1Instant = new GNEDetectorE1Instant(id, lane, net, pos, filename, vehicleTypes, name, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_INSTANT_INDUCTION_LOOP));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE1Instant, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(detectorE1Instant);
-            lane->addChildAdditional(detectorE1Instant);
+            lane->addChildElement(detectorE1Instant);
             detectorE1Instant->incRef("buildDetectorE1Instant");
         }
         return detectorE1Instant;
@@ -526,7 +528,7 @@ GNEAdditionalHandler::buildDetectorE1Instant(GNENet* net, bool allowUndoRedo, co
 GNEAdditional*
 GNEAdditionalHandler::buildCalibrator(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, bool centerAfterCreation) {
     if (net->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
-        GNECalibrator* calibrator = new GNECalibrator(id, net, lane, pos, freq, name, outfile, routeprobe);
+        GNEAdditional* calibrator = new GNECalibrator(id, net, lane, pos, freq, name, outfile, routeprobe);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
@@ -537,7 +539,7 @@ GNEAdditionalHandler::buildCalibrator(GNENet* net, bool allowUndoRedo, const std
             }
         } else {
             net->getAttributeCarriers()->insertAdditional(calibrator);
-            lane->addChildAdditional(calibrator);
+            lane->addChildElement(calibrator);
             calibrator->incRef("buildCalibrator");
         }
         return calibrator;
@@ -550,7 +552,7 @@ GNEAdditionalHandler::buildCalibrator(GNENet* net, bool allowUndoRedo, const std
 GNEAdditional*
 GNEAdditionalHandler::buildCalibrator(GNENet* net, bool allowUndoRedo, const std::string& id, GNEEdge* edge, double pos, const std::string& name, const std::string& outfile, const SUMOTime freq, const std::string& routeprobe, bool centerAfterCreation) {
     if (net->retrieveAdditional(SUMO_TAG_CALIBRATOR, id, false) == nullptr) {
-        GNECalibrator* calibrator = new GNECalibrator(id, net, edge, pos, freq, name, outfile, routeprobe);
+        GNEAdditional* calibrator = new GNECalibrator(id, net, edge, pos, freq, name, outfile, routeprobe);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_CALIBRATOR));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(calibrator, true), true);
@@ -561,7 +563,7 @@ GNEAdditionalHandler::buildCalibrator(GNENet* net, bool allowUndoRedo, const std
             }
         } else {
             net->getAttributeCarriers()->insertAdditional(calibrator);
-            edge->addChildAdditional(calibrator);
+            edge->addChildElement(calibrator);
             calibrator->incRef("buildCalibrator");
         }
         return calibrator;
@@ -578,7 +580,7 @@ GNEAdditionalHandler::buildCalibratorFlow(GNENet* net, bool allowUndoRedo, GNEAd
         int personNumber, int containerNumber, bool reroute, const std::string& departPosLat, const std::string& arrivalPosLat, SUMOTime begin, SUMOTime end) {
 
     // create Flow and add it to calibrator parent
-    GNECalibratorFlow* flow = new GNECalibratorFlow(calibratorParent, vType, route, vehsPerHour, speed, color, departLane, departPos, departSpeed,
+    GNEAdditional* flow = new GNECalibratorFlow(calibratorParent, vType, route, vehsPerHour, speed, color, departLane, departPos, departSpeed,
             arrivalLane, arrivalPos, arrivalSpeed, line, personNumber, containerNumber, reroute,
             departPosLat, arrivalPosLat, begin, end);
     if (allowUndoRedo) {
@@ -586,7 +588,7 @@ GNEAdditionalHandler::buildCalibratorFlow(GNENet* net, bool allowUndoRedo, GNEAd
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(flow, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
-        calibratorParent->addChildAdditional(flow);
+        calibratorParent->addChildElement(flow);
         flow->incRef("buildCalibratorFlow");
     }
     return flow;
@@ -596,7 +598,7 @@ GNEAdditionalHandler::buildCalibratorFlow(GNENet* net, bool allowUndoRedo, GNEAd
 GNEAdditional*
 GNEAdditionalHandler::buildRerouter(GNENet* net, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& name, const std::string& file, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
-        GNERerouter* rerouter = new GNERerouter(id, net, pos, edges, name, file, prob, off, timeThreshold, vTypes, blockMovement);
+        GNEAdditional* rerouter = new GNERerouter(id, net, pos, edges, name, file, prob, off, timeThreshold, vTypes, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_REROUTER));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
@@ -636,13 +638,13 @@ GNEAdditionalHandler::buildRerouterInterval(GNENet* net, bool allowUndoRedo, GNE
     // check if new interval will produce a overlapping
     if (checkOverlappingRerouterIntervals(rerouterParent, begin, end)) {
         // create rerouter interval and add it into rerouter parent
-        GNERerouterInterval* rerouterInterval = new GNERerouterInterval(rerouterParent, begin, end);
+        GNEAdditional* rerouterInterval = new GNERerouterInterval(rerouterParent, begin, end);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + rerouterInterval->getTagStr());
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterInterval, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            rerouterParent->addChildAdditional(rerouterInterval);
+            rerouterParent->addChildElement(rerouterInterval);
             rerouterInterval->incRef("buildRerouterInterval");
         }
         return rerouterInterval;
@@ -655,14 +657,14 @@ GNEAdditionalHandler::buildRerouterInterval(GNENet* net, bool allowUndoRedo, GNE
 GNEAdditional*
 GNEAdditionalHandler::buildClosingLaneReroute(GNENet* net, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions) {
     // create closing lane reorute
-    GNEClosingLaneReroute* closingLaneReroute = new GNEClosingLaneReroute(rerouterIntervalParent, closedLane, permissions);
+    GNEAdditional* closingLaneReroute = new GNEClosingLaneReroute(rerouterIntervalParent, closedLane, permissions);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + closingLaneReroute->getTagStr());
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addChildAdditional(closingLaneReroute);
+        rerouterIntervalParent->addChildElement(closingLaneReroute);
         closingLaneReroute->incRef("buildClosingLaneReroute");
     }
     return closingLaneReroute;
@@ -672,14 +674,14 @@ GNEAdditionalHandler::buildClosingLaneReroute(GNENet* net, bool allowUndoRedo, G
 GNEAdditional*
 GNEAdditionalHandler::buildClosingReroute(GNENet* net, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) {
     // create closing reroute
-    GNEClosingReroute* closingReroute = new GNEClosingReroute(rerouterIntervalParent, closedEdge, permissions);
+    GNEAdditional* closingReroute = new GNEClosingReroute(rerouterIntervalParent, closedEdge, permissions);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + closingReroute->getTagStr());
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addChildAdditional(closingReroute);
+        rerouterIntervalParent->addChildElement(closingReroute);
         closingReroute->incRef("buildClosingReroute");
     }
     return closingReroute;
@@ -689,14 +691,14 @@ GNEAdditionalHandler::buildClosingReroute(GNENet* net, bool allowUndoRedo, GNEAd
 GNEAdditional*
 GNEAdditionalHandler::builDestProbReroute(GNENet* net, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability) {
     // create dest probability reroute
-    GNEDestProbReroute* destProbReroute = new GNEDestProbReroute(rerouterIntervalParent, newEdgeDestination, probability);
+    GNEAdditional* destProbReroute = new GNEDestProbReroute(rerouterIntervalParent, newEdgeDestination, probability);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + destProbReroute->getTagStr());
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addChildAdditional(destProbReroute);
+        rerouterIntervalParent->addChildElement(destProbReroute);
         destProbReroute->incRef("builDestProbReroute");
     }
     return destProbReroute;
@@ -706,14 +708,14 @@ GNEAdditionalHandler::builDestProbReroute(GNENet* net, bool allowUndoRedo, GNEAd
 GNEAdditional*
 GNEAdditionalHandler::builParkingAreaReroute(GNENet* net, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible) {
     // create dest probability reroute
-    GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(rerouterIntervalParent, newParkingArea, probability, visible);
+    GNEAdditional* parkingAreaReroute = new GNEParkingAreaReroute(rerouterIntervalParent, newParkingArea, probability, visible);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + parkingAreaReroute->getTagStr());
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addChildAdditional(parkingAreaReroute);
+        rerouterIntervalParent->addChildElement(parkingAreaReroute);
         parkingAreaReroute->incRef("builParkingAreaReroute");
     }
     return parkingAreaReroute;
@@ -723,14 +725,14 @@ GNEAdditionalHandler::builParkingAreaReroute(GNENet* net, bool allowUndoRedo, GN
 GNEAdditional*
 GNEAdditionalHandler::buildRouteProbReroute(GNENet* net, bool allowUndoRedo, GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) {
     // create rout prob rereoute
-    GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(rerouterIntervalParent, newRouteId, probability);
+    GNEAdditional* routeProbReroute = new GNERouteProbReroute(rerouterIntervalParent, newRouteId, probability);
     // add it to interval parent depending of allowUndoRedo
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + routeProbReroute->getTagStr());
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
-        rerouterIntervalParent->addChildAdditional(routeProbReroute);
+        rerouterIntervalParent->addChildElement(routeProbReroute);
         routeProbReroute->incRef("buildRouteProbReroute");
     }
     return routeProbReroute;
@@ -740,7 +742,7 @@ GNEAdditionalHandler::buildRouteProbReroute(GNENet* net, bool allowUndoRedo, GNE
 GNEAdditional*
 GNEAdditionalHandler::buildRouteProbe(GNENet* net, bool allowUndoRedo, const std::string& id, GNEEdge* edge, const std::string& freq, const std::string& name, const std::string& file, SUMOTime begin, bool centerAfterCreation) {
     if (net->retrieveAdditional(SUMO_TAG_ROUTEPROBE, id, false) == nullptr) {
-        GNERouteProbe* routeProbe = new GNERouteProbe(id, net, edge, freq, name, file, begin);
+        GNEAdditional* routeProbe = new GNERouteProbe(id, net, edge, freq, name, file, begin);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_ROUTEPROBE));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbe, true), true);
@@ -751,7 +753,7 @@ GNEAdditionalHandler::buildRouteProbe(GNENet* net, bool allowUndoRedo, const std
             }
         } else {
             net->getAttributeCarriers()->insertAdditional(routeProbe);
-            edge->addChildAdditional(routeProbe);
+            edge->addChildElement(routeProbe);
             routeProbe->incRef("buildRouteProbe");
         }
         return routeProbe;
@@ -764,7 +766,7 @@ GNEAdditionalHandler::buildRouteProbe(GNENet* net, bool allowUndoRedo, const std
 GNEAdditional*
 GNEAdditionalHandler::buildVariableSpeedSign(GNENet* net, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
-        GNEVariableSpeedSign* variableSpeedSign = new GNEVariableSpeedSign(id, net, pos, lanes, name, blockMovement);
+        GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, net, pos, lanes, name, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
@@ -787,14 +789,14 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNENet* net, bool allowUndoRedo, co
 GNEAdditional*
 GNEAdditionalHandler::buildVariableSpeedSignStep(GNENet* net, bool allowUndoRedo, GNEAdditional* VSSParent, double time, double speed) {
     // create Variable Speed Sign
-    GNEVariableSpeedSignStep* variableSpeedSignStep = new GNEVariableSpeedSignStep(VSSParent, time, speed);
+    GNEAdditional* variableSpeedSignStep = new GNEVariableSpeedSignStep(VSSParent, time, speed);
     // add it depending of allow undoRedo
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + variableSpeedSignStep->getTagStr());
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSignStep, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
-        VSSParent->addChildAdditional(variableSpeedSignStep);
+        VSSParent->addChildElement(variableSpeedSignStep);
         variableSpeedSignStep->incRef("buildVariableSpeedSignStep");
     }
     return variableSpeedSignStep;
@@ -803,7 +805,7 @@ GNEAdditionalHandler::buildVariableSpeedSignStep(GNENet* net, bool allowUndoRedo
 
 GNEAdditional*
 GNEAdditionalHandler::buildVaporizer(GNENet* net, bool allowUndoRedo, GNEEdge* edge, SUMOTime startTime, SUMOTime endTime, const std::string& name, bool centerAfterCreation) {
-    GNEVaporizer* vaporizer = new GNEVaporizer(net, edge, startTime, endTime, name);
+    GNEAdditional* vaporizer = new GNEVaporizer(net, edge, startTime, endTime, name);
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VAPORIZER));
         net->getViewNet()->getUndoList()->add(new GNEChange_Additional(vaporizer, true), true);
@@ -814,7 +816,7 @@ GNEAdditionalHandler::buildVaporizer(GNENet* net, bool allowUndoRedo, GNEEdge* e
         }
     } else {
         net->getAttributeCarriers()->insertAdditional(vaporizer);
-        edge->addChildAdditional(vaporizer);
+        edge->addChildElement(vaporizer);
         vaporizer->incRef("buildVaporizer");
     }
     return vaporizer;
@@ -823,7 +825,7 @@ GNEAdditionalHandler::buildVaporizer(GNENet* net, bool allowUndoRedo, GNEEdge* e
 
 GNETAZElement*
 GNEAdditionalHandler::buildTAZ(GNENet* net, bool allowUndoRedo, const std::string& id, const PositionVector& shape, const RGBColor& color, const std::vector<GNEEdge*>& edges, bool blockMovement) {
-    GNETAZ* TAZ = new GNETAZ(id, net, shape, color, blockMovement);
+    GNETAZElement* TAZ = new GNETAZ(id, net, shape, color, blockMovement);
     // disable updating geometry of TAZ children during insertion (because in large nets provokes slowdowns)
     net->disableUpdateGeometry();
     if (allowUndoRedo) {
@@ -832,10 +834,10 @@ GNEAdditionalHandler::buildTAZ(GNENet* net, bool allowUndoRedo, const std::strin
         // create TAZEdges
         for (const auto &edge : edges) {
             // create TAZ Source using GNEChange_Additional
-            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+            GNETAZElement* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
             net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
             // create TAZ Sink using GNEChange_Additional
-            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+            GNETAZElement* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
             net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSink, true), true);
         }
         net->getViewNet()->getUndoList()->p_end();
@@ -844,13 +846,13 @@ GNEAdditionalHandler::buildTAZ(GNENet* net, bool allowUndoRedo, const std::strin
         TAZ->incRef("buildTAZ");
         for (const auto& edge : edges) {
             // create TAZ Source
-            GNETAZSourceSink* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
+            GNETAZElement* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
             TAZSource->incRef("buildTAZ");
-            TAZ->addChildTAZElement(TAZSource);
+            TAZ->addChildElement(TAZSource);
             // create TAZ Sink
-            GNETAZSourceSink* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
+            GNETAZElement* TAZSink = new GNETAZSourceSink(SUMO_TAG_TAZSINK, TAZ, edge, 1);
             TAZSink->incRef("buildTAZ");
-            TAZ->addChildTAZElement(TAZSink);
+            TAZ->addChildElement(TAZSink);
         }
     }
     // enable updating geometry again and update geometry of TAZ

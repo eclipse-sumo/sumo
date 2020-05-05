@@ -226,53 +226,53 @@ GNEDataHandler::buildDataInterval(GNENet* net, bool allowUndoRedo, GNEDataSet* d
 }
 
 
-GNEEdgeData*
+GNEGenericData*
 GNEDataHandler::buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent, GNEEdge* edge,
                               const std::map<std::string, std::string>& parameters) {
-    GNEEdgeData* edgeData = new GNEEdgeData(dataIntervalParent, edge, parameters);
+    GNEGenericData* edgeData = new GNEEdgeData(dataIntervalParent, edge, parameters);
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_MEANDATA_EDGE));
         net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeData, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
         dataIntervalParent->addGenericDataChild(edgeData);
-        edge->addChildGenericDataElement(edgeData);
+        edge->addChildElement(edgeData);
         edgeData->incRef("buildEdgeData");
     }
     return edgeData;
 }
 
 
-GNEEdgeRelData*
+GNEGenericData*
 GNEDataHandler::buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
                                       GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters) {
-    GNEEdgeRelData* edgeRelationData = new GNEEdgeRelData(dataIntervalParent, fromEdge, toEdge, parameters);
+    GNEGenericData* edgeRelationData = new GNEEdgeRelData(dataIntervalParent, fromEdge, toEdge, parameters);
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_EDGEREL));
         net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(edgeRelationData, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
         dataIntervalParent->addGenericDataChild(edgeRelationData);
-        fromEdge->addChildGenericDataElement(edgeRelationData);
-        toEdge->addChildGenericDataElement(edgeRelationData);
+        fromEdge->addChildElement(edgeRelationData);
+        toEdge->addChildElement(edgeRelationData);
         edgeRelationData->incRef("buildEdgeRelationData");
     }
     return edgeRelationData;
 }
 
 
-GNETAZRelData*
+GNEGenericData*
 GNEDataHandler::buildTAZRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
                                      GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters) {
-    GNETAZRelData* TAZRelationData = new GNETAZRelData(dataIntervalParent, fromTAZ, toTAZ, parameters);
+    GNEGenericData* TAZRelationData = new GNETAZRelData(dataIntervalParent, fromTAZ, toTAZ, parameters);
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZREL));
         net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(TAZRelationData, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
         dataIntervalParent->addGenericDataChild(TAZRelationData);
-        fromTAZ->addChildGenericDataElement(TAZRelationData);
-        toTAZ->addChildGenericDataElement(TAZRelationData);
+        fromTAZ->addChildElement(TAZRelationData);
+        toTAZ->addChildElement(TAZRelationData);
         TAZRelationData->incRef("buildTAZRelationData");
     }
     return TAZRelationData;
