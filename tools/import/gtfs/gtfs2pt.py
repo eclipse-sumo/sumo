@@ -83,26 +83,31 @@ def splitNet(options):
     netPrefix = os.path.join(options.network_split, "bus")
     subprocess.call(netcCall + ["-s", options.network, "-o", numIdNet, "--discard-params", "origId,origFrom,origTo",
                                 "--dlr-navteq-output", netPrefix])
+    edgeMap = {}
+    seenTypes = set()
+    for e in sumolib.net.readNet(numIdNet).getEdges():
+        edgeMap[e.getID()] = e.getLanes()[0].getParam("origId", e.getID())
+        seenTypes.add(e.getType())
     typedNets = {}
     for inp in glob.glob(os.path.join(options.gpsdat, "gpsdat_*.csv")):
         railType = os.path.basename(inp)[7:-4]
         netPrefix = os.path.join(options.network_split, railType)
-        ret = 0
         if railType != "bus":
             edgeType = railType
             if "rail" in railType:
                 edgeType = "railway." + railType
             if railType == "tram":
                 edgeType = "railway.tram,highway.residential\|railway.tram"
-            ret = subprocess.call(netcCall + ["-s", numIdNet,
-                                              "-o", os.path.join(options.network_split, railType + ".net.xml"),
-                                              "--dlr-navteq-output", netPrefix,
-                                              "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
-        if ret == 0:
+            for e in edgeType.split(","):
+                if e in seenTypes:
+                    subprocess.call(netcCall + ["-s", numIdNet,
+                                                "-o", os.path.join(options.network_split, railType + ".net.xml"),
+                                                "--dlr-navteq-output", netPrefix,
+                                                "--dismiss-vclasses", "--keep-edges.by-type", edgeType])
+                    typedNets[railType] = (inp, netPrefix)
+                    break
+        else:
             typedNets[railType] = (inp, netPrefix)
-    edgeMap = {}
-    for e in sumolib.net.readNet(numIdNet).getEdges():
-        edgeMap[e.getID()] = e.getLanes()[0].getParam("origId", e.getID())
     return edgeMap, typedNets
 
 
