@@ -1464,7 +1464,7 @@ GNETAZFrame::shapeDrawed() {
         myNeteditAttributes->getNeteditAttributesAndValues(valuesOfElement, nullptr);
 
         // generate new ID
-        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateAdditionalID(SUMO_TAG_TAZ);
+        valuesOfElement[SUMO_ATTR_ID] = myViewNet->getNet()->generateTAZElementID(SUMO_TAG_TAZ);
 
         // obtain shape and close it
         PositionVector shape = myDrawingShape->getTemporalShape();

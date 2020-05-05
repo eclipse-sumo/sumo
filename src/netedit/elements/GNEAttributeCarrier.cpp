@@ -2347,8 +2347,8 @@ GNEAttributeCarrier::fillTAZElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         attrProperty = GNEAttributeProperties(SUMO_ATTR_FILL,
-            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLIGNORED,
-            "An information whether the TAZ shall be filled",
+            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC,
+            "An information whether the TAZ shall be filled (Only in NETEDIT)",
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }

@@ -67,7 +67,18 @@ GNETAZ::getTAZElementShape() const {
 
 void 
 GNETAZ::writeTAZElement(OutputDevice& device) const {
-
+    // first open TAZ tag
+    device.openTag(SUMO_TAG_TAZ);
+    // write TAZ attributes
+    device.writeAttr(SUMO_ATTR_ID, getID());
+    device.writeAttr(SUMO_ATTR_SHAPE, myShape);
+    device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
+    // write all TAZ Source/sinks
+    for (const auto &sourceSink : getChildTAZElements()) {
+        sourceSink->writeTAZElement(device);
+    }
+    // close TAZ tag
+    device.closeTag();
 }
 
 

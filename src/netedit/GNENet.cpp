@@ -2176,13 +2176,13 @@ GNENet::saveAdditionals(const std::string& filename) {
     std::vector<GNEAdditional*> invalidSingleLaneAdditionals;
     std::vector<GNEAdditional*> invalidMultiLaneAdditionals;
     // iterate over additionals and obtain invalids
-    for (auto i : myAttributeCarriers->getAdditionals()) {
-        for (auto j : i.second) {
+    for (const auto &additionalPair : myAttributeCarriers->getAdditionals()) {
+        for (const auto &addditional : additionalPair.second) {
             // check if has to be fixed
-            if (j.second->getTagProperty().hasAttribute(SUMO_ATTR_LANE) && !j.second->isAdditionalValid()) {
-                invalidSingleLaneAdditionals.push_back(j.second);
-            } else if (j.second->getTagProperty().hasAttribute(SUMO_ATTR_LANES) && !j.second->isAdditionalValid()) {
-                invalidMultiLaneAdditionals.push_back(j.second);
+            if (addditional.second->getTagProperty().hasAttribute(SUMO_ATTR_LANE) && !addditional.second->isAdditionalValid()) {
+                invalidSingleLaneAdditionals.push_back(addditional.second);
+            } else if (addditional.second->getTagProperty().hasAttribute(SUMO_ATTR_LANES) && !addditional.second->isAdditionalValid()) {
+                invalidMultiLaneAdditionals.push_back(addditional.second);
             }
         }
     }
@@ -2621,46 +2621,50 @@ GNENet::saveAdditionalsConfirmed(const std::string& filename) {
     OutputDevice& device = OutputDevice::getDevice(filename);
     device.writeXMLHeader("additional", "additional_file.xsd");
     // now write all route probes (see Ticket #4058)
-    for (auto i : myAttributeCarriers->getAdditionals()) {
-        if (i.first == SUMO_TAG_ROUTEPROBE) {
-            for (auto j : i.second) {
-                j.second->writeAdditional(device);
+    for (const auto &additionalPair : myAttributeCarriers->getAdditionals()) {
+        if (additionalPair.first == SUMO_TAG_ROUTEPROBE) {
+            for (const auto &additional : additionalPair.second) {
+                additional.second->writeAdditional(device);
             }
         }
     }
     // now write all stoppingPlaces
-    for (auto i : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperties(i.first).isStoppingPlace()) {
-            for (auto j : i.second) {
+    for (const auto &additionalPair : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperties(additionalPair.first).isStoppingPlace()) {
+            for (const auto &additional : additionalPair.second) {
                 // only save stoppingPlaces that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (j.second->getParentAdditionals().empty()) {
-                    j.second->writeAdditional(device);
+                if (additional.second->getParentAdditionals().empty()) {
+                    additional.second->writeAdditional(device);
                 }
             }
         }
     }
     // now write all detectors
-    for (auto i : myAttributeCarriers->getAdditionals()) {
-        if (GNEAttributeCarrier::getTagProperties(i.first).isDetector()) {
-            for (auto j : i.second) {
+    for (const auto &additionalPair : myAttributeCarriers->getAdditionals()) {
+        if (GNEAttributeCarrier::getTagProperties(additionalPair.first).isDetector()) {
+            for (const auto &additional : additionalPair.second) {
                 // only save Detectors that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (j.second->getParentAdditionals().empty()) {
-                    j.second->writeAdditional(device);
+                if (additional.second->getParentAdditionals().empty()) {
+                    additional.second->writeAdditional(device);
                 }
             }
         }
     }
     // now write rest of additionals
-    for (auto i : myAttributeCarriers->getAdditionals()) {
-        const auto& tagValue = GNEAttributeCarrier::getTagProperties(i.first);
-        if (!tagValue.isStoppingPlace() && !tagValue.isDetector() && (i.first != SUMO_TAG_ROUTEPROBE) && (i.first != SUMO_TAG_VTYPE) && (i.first != SUMO_TAG_ROUTE)) {
-            for (auto j : i.second) {
+    for (const auto &additionalPair : myAttributeCarriers->getAdditionals()) {
+        const auto& tagValue = GNEAttributeCarrier::getTagProperties(additionalPair.first);
+        if (!tagValue.isStoppingPlace() && !tagValue.isDetector() && (additionalPair.first != SUMO_TAG_ROUTEPROBE) && (additionalPair.first != SUMO_TAG_VTYPE) && (additionalPair.first != SUMO_TAG_ROUTE)) {
+            for (const auto &additional : additionalPair.second) {
                 // only save additionals that doesn't have Additional parents, because they are automatically writed by writeAdditional(...) parent's function
-                if (j.second->getParentAdditionals().empty()) {
-                    j.second->writeAdditional(device);
+                if (additional.second->getParentAdditionals().empty()) {
+                    additional.second->writeAdditional(device);
                 }
             }
         }
+    }
+    // write TAZs
+    for (const auto& TAZ : myAttributeCarriers->getTAZElements().at(SUMO_TAG_TAZ)) {
+        TAZ.second->writeTAZElement(device);
     }
     // write Polygons
     for (const auto& poly : myAttributeCarriers->getShapes().at(SUMO_TAG_POLY)) {
