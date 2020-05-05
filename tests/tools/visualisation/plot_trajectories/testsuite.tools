@@ -5,3 +5,6 @@ filter_edges
 # gzipped input
 gz
 multiple_files
+
+# plot person trajectories
+persons
