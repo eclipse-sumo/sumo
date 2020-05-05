@@ -98,6 +98,9 @@ This Documentation is continuously updated and always refers to the latest devel
  - [ocit2SUMO](https://github.com/DLR-TS/sumo-ocit) Generate traffic light signal plans from OCIT® data.
 
 **Commercial Extensions**
+- [TETCOS NetSim](https://www.tetcos.com/vanets.html)
+
+    supports VANET simulations by interfacing with SUMO
 
 - [Webots](https://www.cyberbotics.com/automobile/sumo-interface.php)
 
