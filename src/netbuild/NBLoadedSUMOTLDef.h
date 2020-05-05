@@ -207,9 +207,6 @@ private:
     /** @brief phases are added directly to myTLLogic which is then returned in myCompute() */
     NBTrafficLightLogic* myTLLogic;
 
-    /// @brief The original nodes for which the loaded logic is valid
-    std::set<NBNode*> myOriginalNodes;
-
     /// @brief repair the plan if controlled nodes received pedestrian crossings
     void patchIfCrossingsAdded();
 

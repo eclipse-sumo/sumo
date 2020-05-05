@@ -58,7 +58,6 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const NBTrafficLightDefinition& def, const 
     // allow for adding a new program for the same def: take the offset and programID from the new logic
     NBTrafficLightDefinition(def.getID(), logic.getProgramID(), logic.getOffset(), def.getType()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def.getNodes().begin(), def.getNodes().end()),
     myReconstructAddedConnections(false),
     myReconstructRemovedConnections(false),
     myPhasesLoaded(false) {
@@ -110,8 +109,6 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     myControlledLinks.push_back(conn);
     addNode(from->getToNode());
     addNode(to->getFromNode());
-    myOriginalNodes.insert(from->getToNode());
-    myOriginalNodes.insert(to->getFromNode());
     // added connections are definitely controlled. make sure none are removed because they lie within the tl
     // myControlledInnerEdges.insert(from->getID()); // @todo recheck: this appears to be obsolete
     // set this information now so that it can be used while loading diffs
@@ -184,20 +181,9 @@ NBLoadedSUMOTLDef::amInvalid() const {
     if (myControlledLinks.size() == 0) {
         return true;
     }
-    // make sure that myControlledNodes are the original nodes
-    //if (myControlledNodes.size() != myOriginalNodes.size()) {
-    //    //std::cout << " myControlledNodes=" << myControlledNodes.size() << " myOriginalNodes=" << myOriginalNodes.size() << "\n";
-    //    return true;
-    //}
     if (myIncomingEdges.size() == 0) {
         return true;
     }
-    //for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-    //    if (myOriginalNodes.count(*i) != 1) {
-    //        //std::cout << " node " << (*i)->getID() << " missing from myOriginalNodes\n";
-    //        return true;
-    //    }
-    //}
     return false;
 }
 
@@ -289,7 +275,6 @@ NBLoadedSUMOTLDef::collectLinks() {
     if (myControlledLinks.size() == 0) {
         // maybe we only loaded a different program for a default traffic light.
         // Try to build links now.
-        myOriginalNodes.insert(myControlledNodes.begin(), myControlledNodes.end());
         collectAllLinks(myControlledLinks);
     }
 }
@@ -796,7 +781,6 @@ NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {
     const int maxIndex = MAX2(getMaxIndex(), def->getMaxIndex());
     myTLLogic->setStateLength(maxIndex + 1);
     myControlledLinks.insert(myControlledLinks.end(), def->getControlledLinks().begin(), def->getControlledLinks().end());
-    myOriginalNodes.insert(def->getNodes().begin(), def->getNodes().end());
 }
 
 bool
