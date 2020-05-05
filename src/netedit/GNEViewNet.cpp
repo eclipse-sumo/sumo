@@ -959,10 +959,14 @@ GNEViewNet::abortOperation(bool clearSelection) {
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
             myViewParent->getEdgeRelDataFrame()->getEdgePathCreator()->abortEdgePathCreation();
+        } else if (myEditModes.dataEditMode == DataEditMode::DATA_TAZRELDATA) {
+            myViewParent->getTAZRelDataFrame()->clearTAZSelection();
         }
     }
     // abort undo list
     myUndoList->p_abort();
+    // update view
+    updateViewNet();
 }
 
 

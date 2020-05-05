@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/frames/network/GNETAZFrame.h>
+#include <netedit/elements/data/GNETAZRelData.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -246,7 +247,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     // first obtain poly exaggeration
     const double polyExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() && (polyExaggeration > 0)) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && (polyExaggeration > 0)) {
         // Obtain constants
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         const double vertexWidth = myHintSize * MIN2((double)1, s.polySize.getExaggeration(s, (GNETAZElement*)this));
@@ -357,6 +358,27 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         }
         // pop name
         glPopName();
+        // draw TAZRel datas
+        for (const auto &TAZRel : getChildGenericDataElements()) {
+            // only draw for the first TAZ
+            if ((TAZRel->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (TAZRel->getParentTAZElements().front() == this)) {
+                // push name (needed for getGUIGlObjectsUnderCursor(...)
+                glPushName(TAZRel->getGlID());
+                // push matrix
+                glPushMatrix();
+                // set custom line width
+                glLineWidth(3);
+                GLHelper::setColor(TAZRel->getColor());
+                // draw line between two TAZs
+                GLHelper::drawLine(TAZRel->getParentTAZElements().front()->getPositionInView(), TAZRel->getParentTAZElements().back()->getPositionInView());
+                //restore line width
+                glLineWidth(1);
+                // pop matrix
+                glPopMatrix();
+                // pop name
+                glPopName();
+            }
+        }
     }
 }
 

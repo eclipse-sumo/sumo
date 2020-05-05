@@ -280,7 +280,7 @@ GNETAZRelData::isVisible() const {
 
 const RGBColor&
 GNETAZRelData::getSpecificColor() const {
-    return RGBColor::GREEN;
+    return RGBColor::ORANGE;
 }
 
 /****************************************************************************/

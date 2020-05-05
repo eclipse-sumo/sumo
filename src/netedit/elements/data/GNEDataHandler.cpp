@@ -263,7 +263,7 @@ GNEDataHandler::buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataIn
 
 GNETAZRelData*
 GNEDataHandler::buildTAZRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
-    GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters) {
+                                     GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters) {
     GNETAZRelData* TAZRelationData = new GNETAZRelData(dataIntervalParent, fromTAZ, toTAZ, parameters);
     if (allowUndoRedo) {
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZREL));

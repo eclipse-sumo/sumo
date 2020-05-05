@@ -30,7 +30,8 @@
 // ===========================================================================
 
 GNETAZRelDataFrame::GNETAZRelDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_TAZREL, false) {
+    GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_TAZREL, false),
+    myFirstTAZElement(nullptr) {
 }
 
 
@@ -39,16 +40,28 @@ GNETAZRelDataFrame::~GNETAZRelDataFrame() {}
 
 bool
 GNETAZRelDataFrame::addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
-/*
-    // first check if we clicked over an TAZ
-    if (objectsUnderCursor.getTAZFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
-        return myTAZPathCreator->addPathTAZ(objectsUnderCursor.getTAZFront());
+    // check if myFirstTAZElement is empty
+    if (myFirstTAZElement) {
+        if (objectsUnderCursor.getTAZElementFront()) {
+            // finally create TAZRelationData
+            GNEDataHandler::buildTAZRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myFirstTAZElement, objectsUnderCursor.getTAZElementFront(), myParametersEditor->getParametersMap());
+            // TAZRelationData created, then return true
+            return true;
+        } else {
+            return false;
+        }
+    } else if (objectsUnderCursor.getTAZElementFront()) {
+        myFirstTAZElement = objectsUnderCursor.getTAZElementFront();
+        return true;
     } else {
-        // invalid parent parameters
         return false;
     }
-*/
-    return false;
+}
+
+
+void 
+GNETAZRelDataFrame::clearTAZSelection() {
+    myFirstTAZElement = nullptr;
 }
 
 /****************************************************************************/

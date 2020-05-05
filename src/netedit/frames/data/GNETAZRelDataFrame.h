@@ -48,6 +48,13 @@ public:
      */
     bool addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
+    /// @brief clear TAZ selection
+    void clearTAZSelection();
+
+protected:
+    /// @brief first selected TAZ Element
+    GNETAZElement *myFirstTAZElement;
+
 private:
     /// @brief Invalidated copy constructor.
     GNETAZRelDataFrame(const GNETAZRelDataFrame&) = delete;
