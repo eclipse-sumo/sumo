@@ -693,7 +693,8 @@ GNEViewParent::Frames::Frames() :
     personTypeFrame(nullptr),
     personPlanFrame(nullptr),
     edgeDataFrame(nullptr),
-    edgeRelDataFrame(nullptr) {
+    edgeRelDataFrame(nullptr),
+    TAZRelDataFrame(nullptr) {
 }
 
 
@@ -721,6 +722,7 @@ GNEViewParent::Frames::hideFrames() {
     personPlanFrame->hide();
     edgeDataFrame->hide();
     edgeRelDataFrame->hide();
+    TAZRelDataFrame->hide();
 }
 
 
@@ -749,6 +751,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     personPlanFrame->setFrameWidth(frameWidth);
     edgeDataFrame->setFrameWidth(frameWidth);
     edgeRelDataFrame->setFrameWidth(frameWidth);
+    TAZRelDataFrame->setFrameWidth(frameWidth);
 }
 
 
@@ -796,6 +799,8 @@ GNEViewParent::Frames::isFrameShown() const {
     } else if (edgeDataFrame->shown()) {
         return true;
     } else if (edgeRelDataFrame->shown()) {
+        return true;
+    } else if (TAZRelDataFrame->shown()) {
         return true;
     } else {
         return false;
@@ -848,6 +853,8 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return edgeDataFrame;
     } else if (edgeRelDataFrame->shown()) {
         return edgeRelDataFrame;
+    } else if (TAZRelDataFrame->shown()) {
+        return TAZRelDataFrame;
     } else {
         return nullptr;
     }

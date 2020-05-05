@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNEEdgeDataFrame::GNEEdgeDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_MEANDATA_EDGE) {
+    GNEGenericDataFrame(horizontalFrameParent, viewNet, SUMO_TAG_MEANDATA_EDGE, false) {
 }
 
 

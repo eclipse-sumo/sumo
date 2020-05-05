@@ -531,6 +531,7 @@ GNEGenericDataFrame::getEdgePathCreator() const {
     return myEdgePathCreator;
 }
 
+
 SumoXMLTag
 GNEGenericDataFrame::getTag() const {
     return myGenericDataTag;
@@ -550,7 +551,7 @@ GNEGenericDataFrame::show() {
 }
 
 
-GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag) :
+GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator) :
     GNEFrame(horizontalFrameParent, viewNet, toString(tag)),
     myDataSetSelector(nullptr),
     myIntervalSelector(nullptr),
@@ -567,7 +568,9 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     // create parameter editor modul
     myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this, "Attributes");
     // create EdgePathCreator modul
-    myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
+    if (pathCreator) {
+        myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
+    }
 }
 
 
