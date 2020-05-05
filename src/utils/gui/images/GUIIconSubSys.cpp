@@ -239,6 +239,7 @@
 #include "datainterval.xpm"
 #include "edgedata.xpm"
 #include "edgereldata.xpm"
+#include "tazreldata.xpm"
 
 #include "vclass_ignoring.xpm"
 #include "vclass_private.xpm"
@@ -536,6 +537,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::DATAINTERVAL] = new FXXPMIcon(a, datainterval_xpm);
     myIcons[GUIIcon::EDGEDATA] = new FXXPMIcon(a, edgedata_xpm);
     myIcons[GUIIcon::EDGERELDATA] = new FXXPMIcon(a, edgereldata_xpm);
+    myIcons[GUIIcon::TAZRELDATA] = new FXXPMIcon(a, tazreldata_xpm);
 
     myIcons[GUIIcon::VCLASS_IGNORING] = new FXXPMIcon(a, vclass_ignoring_xpm);
     myIcons[GUIIcon::VCLASS_PRIVATE] = new FXXPMIcon(a, vclass_private_xpm);

@@ -332,6 +332,7 @@ enum class GUIIcon {
     DATAINTERVAL,
     EDGEDATA,
     EDGERELDATA,
+    TAZRELDATA,
     /// @}
 
     /// @name vehicle Class icons
