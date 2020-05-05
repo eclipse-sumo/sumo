@@ -56,6 +56,7 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"edgeData",            GLO_EDGEDATA},
     {"edgeRelData",         GLO_EDGERELDATA},
+    {"TAZRelData",          GLO_TAZRELDATA},
     //
     {"additional",          GLO_ADDITIONALELEMENT},
     {"busStop",             GLO_BUS_STOP},

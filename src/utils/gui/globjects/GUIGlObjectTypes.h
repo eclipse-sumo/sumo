@@ -65,6 +65,8 @@ enum GUIGlObjectType {
     GLO_EDGEDATA = 50,
     /// @brief edge relation data
     GLO_EDGERELDATA = 51,
+    /// @brief TAZ relation data
+    GLO_TAZRELDATA = 52,
 
     /// @}
 
