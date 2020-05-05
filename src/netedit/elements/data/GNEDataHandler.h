@@ -36,8 +36,10 @@
 // ===========================================================================
 class GNENet;
 class GNEEdge;
+class GNETAZElement;
 class GNEEdgeData;
 class GNEEdgeRelData;
+class GNETAZRelData;
 class GNEGenericData;
 class GNEDataSet;
 class GNEDataInterval;
@@ -166,6 +168,18 @@ public:
     static GNEEdgeRelData* buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
             GNEEdge* fromEdge, GNEEdge* toEdge, const std::map<std::string, std::string>& parameters);
 
+    /**@brief Builds TAZRelationData
+     * @param[in] net GNENet in which element will be inserted
+     * @param[in] allowUndoRedo enable or disable remove created data with ctrl + Z / ctrl + Y
+     * @param[in] dataIntervalParent GNEDataInterval in which this TAZRelationData is saved
+     * @param[in] fromTAZ GNETAZ from
+     * @param[in] toTAZ GNETAZ to
+     * @param[in] parameters parameters map
+     * @exception InvalidArgument If the TAZRelationData can not be added to the net
+     */
+    static GNETAZRelData* buildTAZRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
+        GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters);
+
 protected:
     /// @name parsing methods
     ///
@@ -187,6 +201,11 @@ protected:
      * @param[in] attrs SAX-attributes which define the data
      */
     static bool parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
+
+    /**@brief Parses his values and builds a TAZ relation data
+     * @param[in] attrs SAX-attributes which define the data
+     */
+    static bool parseAndBuildTAZRelationData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas);
 
     /// @}
 

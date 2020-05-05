@@ -26,8 +26,10 @@
 #include <netedit/changes/GNEChange_DataSet.h>
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
+#include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
+#include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/network/GNEEdge.h>
@@ -187,6 +189,8 @@ GNEDataHandler::buildData(GNENet* net, bool allowUndoRedo, SumoXMLTag tag, const
             return parseAndBuildEdgeData(net, allowUndoRedo, attrs, insertedDatas);
         case SUMO_TAG_EDGEREL:
             return parseAndBuildEdgeRelationData(net, allowUndoRedo, attrs, insertedDatas);
+        case SUMO_TAG_TAZREL:
+            return parseAndBuildTAZRelationData(net, allowUndoRedo, attrs, insertedDatas);
         default:
             return false;
     }
@@ -254,6 +258,24 @@ GNEDataHandler::buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataIn
         edgeRelationData->incRef("buildEdgeRelationData");
     }
     return edgeRelationData;
+}
+
+
+GNETAZRelData*
+GNEDataHandler::buildTAZRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
+    GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters) {
+    GNETAZRelData* TAZRelationData = new GNETAZRelData(dataIntervalParent, fromTAZ, toTAZ, parameters);
+    if (allowUndoRedo) {
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZREL));
+        net->getViewNet()->getUndoList()->add(new GNEChange_GenericData(TAZRelationData, true), true);
+        net->getViewNet()->getUndoList()->p_end();
+    } else {
+        dataIntervalParent->addGenericDataChild(TAZRelationData);
+        fromTAZ->addChildGenericDataElement(TAZRelationData);
+        toTAZ->addChildGenericDataElement(TAZRelationData);
+        TAZRelationData->incRef("buildTAZRelationData");
+    }
+    return TAZRelationData;
 }
 
 
@@ -366,6 +388,52 @@ GNEDataHandler::parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, c
             // save ID of last created element
             GNEGenericData* dataCreated = buildEdgeRelationData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(),
                                           fromEdge, toEdge, parameters);
+            // check if insertion has to be commited
+            if (insertedDatas) {
+                insertedDatas->commitGenericDataInsertion(dataCreated);
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool
+GNEDataHandler::parseAndBuildTAZRelationData(GNENet* net, bool allowUndoRedo, const SUMOSAXAttributes& attrs, HierarchyInsertedDatas* insertedDatas) {
+    bool abort = false;
+    // parse TAZRelationData attributes
+    std::string fromTAZStr = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZREL, SUMO_ATTR_FROM, abort);
+    std::string toTAZStr = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_TAZREL, SUMO_ATTR_TO, abort);
+    // Continue if all parameters were sucesfully loaded
+    if (!abort) {
+        // get pointers to TAZs
+        GNETAZElement* fromTAZ = net->retrieveTAZElement(SUMO_TAG_TAZ, fromTAZStr, false);
+        GNETAZElement* toTAZ = net->retrieveTAZElement(SUMO_TAG_TAZ, toTAZStr, false);
+        // check that TAZ is valid
+        if (fromTAZ == nullptr) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The from TAZ '" + fromTAZStr + "' to use within " + toString(SUMO_TAG_TAZREL) + " is not known.");
+        } else if (toTAZ == nullptr) {
+            // Write error if lane isn't valid
+            WRITE_WARNING("The to TAZ '" + toTAZStr + "' to use within " + toString(SUMO_TAG_TAZREL) + " is not known.");
+        } else if (insertedDatas->getLastInsertedDataInterval() == nullptr) {
+            // Write error if lane isn't valid
+            WRITE_WARNING(toString(SUMO_TAG_TAZREL) + " must be created within a data interval.");
+        } else {
+            // declare parameter map
+            std::map<std::string, std::string> parameters;
+            // obtain all attribute
+            const std::vector<std::string> attributes = attrs.getAttributeNames();
+            // iterate over attributes and fill parameters map
+            for (const auto& attribute : attributes) {
+                if ((attribute != toString(SUMO_ATTR_ID)) && (attribute != toString(SUMO_ATTR_FROM)) && (attribute != toString(SUMO_ATTR_TO))) {
+                    parameters[attribute] = attrs.getStringSecure(attribute, "");
+                }
+            }
+            // save ID of last created element
+            GNEGenericData* dataCreated = buildTAZRelationData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(),
+                fromTAZ, toTAZ, parameters);
             // check if insertion has to be commited
             if (insertedDatas) {
                 insertedDatas->commitGenericDataInsertion(dataCreated);
