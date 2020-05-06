@@ -133,6 +133,19 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeString(libsumo::TrafficLight::getParameter(id, paramName));
                     break;
                 }
+                case libsumo::VAR_PARAMETER_WITH_KEY: {
+                    std::string paramName = "";
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_TL_VARIABLE, "Retrieval of a parameter requires its name.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                    server.getWrapperStorage().writeInt(2);  /// length
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(paramName);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::TrafficLight::getParameter(id, paramName));
+                    break;
+                }
                 case libsumo::TL_EXTERNAL_STATE: {
                     if (!MSNet::getInstance()->getTLSControl().knows(id)) {
                         throw libsumo::TraCIException("Traffic light '" + id + "' is not known");

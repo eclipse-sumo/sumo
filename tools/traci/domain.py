@@ -207,6 +207,13 @@ class Domain:
             self._cmdGetID, tc.VAR_PARAMETER, objID)
         return result.readString()
 
+    def getParameterWithKey(self, objID, param):
+        """getParameterWithKey(string, string) -> (string, string)
+
+        Returns the (key, value) tuple of the given parameter for the given objID
+        """
+        return (param, self.getParameter(objID, param))
+
     def setParameter(self, objID, param, value):
         """setParameter(string, string, string) -> None
 

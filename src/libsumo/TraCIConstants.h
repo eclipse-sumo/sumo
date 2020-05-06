@@ -1129,6 +1129,9 @@ TRACI_CONST int CMD_LOAD_SIMSTATE = 0x96;
 // sets/retrieves abstract parameter
 TRACI_CONST int VAR_PARAMETER = 0x7e;
 
+// retrieves abstract parameter and returns (key, value) tuple
+TRACI_CONST int VAR_PARAMETER_WITH_KEY = 0x3e;
+
 
 // add an instance (poi, polygon, vehicle, person, route)
 TRACI_CONST int ADD = 0x80;

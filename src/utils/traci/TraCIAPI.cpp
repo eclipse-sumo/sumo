@@ -3699,6 +3699,12 @@ TraCIAPI::TraCIScopeWrapper::getParameter(const std::string& objectID, const std
 }
 
 
+std::pair<std::string, std::string>
+TraCIAPI::TraCIScopeWrapper::getParameterWithKey(const std::string& objectID, const std::string& key) const {
+    return std::make_pair(key, getParameter(objectID, key));
+}
+
+
 void
 TraCIAPI::TraCIScopeWrapper::setParameter(const std::string& objectID, const std::string& key, const std::string& value) const {
     tcpip::Storage content;

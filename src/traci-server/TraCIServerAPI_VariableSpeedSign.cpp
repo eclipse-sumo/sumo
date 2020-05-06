@@ -48,6 +48,20 @@ TraCIServerAPI_VariableSpeedSign::processGet(TraCIServer& server, tcpip::Storage
                     server.getWrapperStorage().writeString(libsumo::VariableSpeedSign::getParameter(id, paramName));
                     break;
                 }
+                case libsumo::VAR_PARAMETER_WITH_KEY: {
+                    std::string paramName = "";
+                    if (!server.readTypeCheckingString(inputStorage, paramName)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VARIABLESPEEDSIGN_VARIABLE, "Retrieval of a parameter requires its name.",
+                                                          outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                    server.getWrapperStorage().writeInt(2);  /// length
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(paramName);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                    server.getWrapperStorage().writeString(libsumo::VariableSpeedSign::getParameter(id, paramName));
+                    break;
+                }
                 default:
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_VARIABLESPEEDSIGN_VARIABLE, "Get VariableSpeedSign Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
             }

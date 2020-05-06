@@ -119,6 +119,9 @@ public:
         /// @brief retrieve generic paramter
         std::string getParameter(const std::string& objectID, const std::string& key) const;
 
+        /// @brief retrieve generic parameter and return (key, value) tuple
+        std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key) const;
+
         /// @brief set generic paramter
         void setParameter(const std::string& objectID, const std::string& key, const std::string& value) const;
 
