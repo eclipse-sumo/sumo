@@ -102,102 +102,39 @@ public:
     };
 
     // ===========================================================================
-    // class ConsecutiveEdges
+    // class RouteCreator
     // ===========================================================================
 
-    class ConsecutiveEdges : protected FXGroupBox {
+    class RouteCreator : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNERouteFrame::ConsecutiveEdges)
+        FXDECLARE(GNERouteFrame::RouteCreator)
 
     public:
-        /// @brief constructor
-        ConsecutiveEdges(GNERouteFrame* routeFrameParent);
+        enum class Mode {
+            MODE_CONSECUTIVE,
+            MODE_NOCONSECUTIVE
+        };
 
-        /// @brief destructor
-        ~ConsecutiveEdges();
-
-        /// @brief show ConsecutiveEdges modul
-        void showConsecutiveEdgesModul();
-
-        /// @brief hide ConsecutiveEdges modul
-        void hideConsecutiveEdgesModul();
-
-        /// @brief add edge to current route (note: edge must be included in set of candidate edges
-        bool addEdge(GNEEdge* edge);
-
-        /// @brief refresh edge candidates
-        void refreshEdgeCandidates();
-
-        /// @brief clear edges (and restore colors)
-        void clearEdges();
-
-        /// @brief get temporal route
-        const std::vector<GNEEdge*>& getRouteEdges() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user press create route button
-        long onCmdCreateRoute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press create route button
-        long onCmdAbortRoute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Remove las inserted edge"
-        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(ConsecutiveEdges)
-
-        /// @brief update InfoRouteLabel
-        void updateInfoRouteLabel();
-
-    private:
-        /// @brief pointer to Frame Parent
-        GNERouteFrame* myRouteFrameParent;
-
-        /// @brief label with route info
-        FXLabel* myInfoRouteLabel;
-
-        /// @brief FXButton for create routes
-        FXButton* myCreateRouteButton;
-
-        /// @bief FXButton for abort creating route
-        FXButton* myAbortCreationButton;
-
-        /// @brief button for removing last inserted edge
-        FXButton* myRemoveLastInsertedEdge;
-
-        /// @brief vector with current route edges
-        std::vector<GNEEdge*> myRouteEdges;
-    };
-
-    // ===========================================================================
-    // class NonConsecutiveEdges
-    // ===========================================================================
-
-    class NonConsecutiveEdges : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNERouteFrame::NonConsecutiveEdges)
-
-    public:
         /// @brief default constructor
-        NonConsecutiveEdges(GNERouteFrame* routeFrameParent);
+        RouteCreator(GNERouteFrame* routeFrameParent, Mode mode);
 
         /// @brief destructor
-        ~NonConsecutiveEdges();
+        ~RouteCreator();
 
-        /// @brief show NonConsecutiveEdges
-        void showNonConsecutiveEdgesModul();
+        /// @brief show RouteCreator
+        void showRouteCreatorModul();
 
-        /// @brief show NonConsecutiveEdges
-        void hideNonConsecutiveEdgesModul();
+        /// @brief show RouteCreator
+        void hideRouteCreatorModul();
 
         /// @brief check if from and to edges create a valid route
         bool isValid(SUMOVehicleClass vehicleClass) const;
 
         /// @brief get current selected edgesm
         std::vector<GNEEdge*> getSelectedEdges() const;
+
+        /// @brief change route mode
+        void setRouteCreatorMode(Mode mode);
 
         /// @brief set edge from (and change color)
         bool addEdge(GNEEdge* edge);
@@ -221,10 +158,13 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(NonConsecutiveEdges)
+        FOX_CONSTRUCTOR(RouteCreator)
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
+
+        /// @brief current mode
+        Mode myMode;
 
     private:
         /// @brief pointer to Vehicle Frame Parent
@@ -286,9 +226,6 @@ private:
     /// @brief internal additional attributes
     GNEFrameAttributesModuls::AttributesCreator* myRouteAttributes;
 
-    /// @brief Create routes using consecutive edges modul
-    ConsecutiveEdges* myConsecutiveEdges;
-
-    /// @brief Create routes using non consecutive edges modul
-    NonConsecutiveEdges* myNonConsecutiveEdges;
+    /// @brief route creator modul
+    RouteCreator* myRouteCreator;
 };
