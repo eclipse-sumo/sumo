@@ -31,8 +31,10 @@ if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
     import sumolib  # noqa
+    from sumolib.geomhelper import isWithin
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
+
 
 
 def get_options(args=None):
@@ -45,6 +47,8 @@ def get_options(args=None):
                          help="define y-position of the parking lot")
     optParser.add_option("-b", "--bounding-box", dest="bbox",
                          help="define the xmin, ymin, xmax, ymax of the parking lot")
+    optParser.add_option("--shape", dest="shape",
+                         help="define the boundary shape of the parking lot")
     optParser.add_option("-n", "--parking-spaces", dest="spaces", type="int",
                          default=5, help="define the number of the parking spaces")
     optParser.add_option("-c", "--connecting-edge", dest="connEdge",
@@ -56,7 +60,7 @@ def get_options(args=None):
     optParser.add_option("-l", "--space-length", dest="length", type="int",
                          default=5, help="define the length of each parking space")
     optParser.add_option("-a", "--space-angle", dest="angle", type="int",
-                         default=315, help="define the name of the output file")
+                         default=315, help="define the angle of each parking space")
     optParser.add_option("--x-space-distance", dest="xdist", type="float",
                          default=5, help="define the lateral distance (x-direction) between the locations of two " +
                          "parking spaces")
@@ -75,7 +79,7 @@ def get_options(args=None):
                          default=False, help="tell me what you are doing")
     (options, args) = optParser.parse_args(args=args)
 
-    if not options.bbox and (not options.xaxis or not options.yaxis) or not options.connEdge:
+    if not options.bbox and not options.shape and (not options.xaxis or not options.yaxis) or not options.connEdge:
         optParser.print_help()
         sys.exit()
 
@@ -88,11 +92,25 @@ def main(options):
     factorX = 0.
     factorY = 1.
     row = 0
-
-    if options.bbox:
-        xys = options.bbox.split(',')
-        x = int(xys[0])
-        y = int(xys[1])
+    xmax = None
+    ymax = None
+    
+    if options.shape:
+        numbers = map(float, options.shape.split(','))
+        options.shape = [(numbers[i], numbers[i+1]) for i in range(0, len(numbers), 2)]
+        xmin = min([x for x,y in options.shape])
+        xmax = max([x for x,y in options.shape])
+        ymin = min([y for x,y in options.shape])
+        ymax = max([y for x,y in options.shape])
+        if options.shape[0] != options.shape[-1]:
+            # close shape
+            options.shape.append(options.shape[0])
+        x = xmin
+        y = ymin
+    elif options.bbox:
+        xmin, ymin, xmax, ymax = map(float, options.bbox.split(','))
+        x = xmin
+        y = ymin
     else:
         x = options.xaxis
         y = options.yaxis
@@ -114,18 +132,24 @@ def main(options):
         name = ' name="%s"' % options.fullname if options.fullname is not None else ""
         outf.write('    <parkingArea id="%s" lane="%s" startPos="%s" endPos="%s"%s>\n' %
                    (options.parkId, options.connEdge, options.start, options.end, name))
-        for i in range(0, options.spaces):
-            outf.write(
-                '        <space x="%s" y="%s" length="%s" angle="%s"/>\n' %
-                (x, y, options.length, options.angle))
-            if options.bbox:
-                if x > float(xys[2]):
+        lots = 0
+        i = 0
+        while lots < options.spaces:
+            if not options.shape or isWithin((x,y), options.shape):
+                outf.write(
+                        '        <space x="%s" y="%s" length="%s" angle="%s"/>\n' %
+                        (x, y, options.length, options.angle))
+                lots += 1
+            if xmax is not None:
+                if x > xmax:
                     row += 1
-                    if y < float(xys[3]):
-                        y = float(xys[1]) + row * options.ydist * factorY
+                    if y < ymax:
+                        y = ymin + row * options.ydist * factorY
                     else:
-                        print("*** The maximum y is reached. Some of the parking lots are overlapped.")
-                    x = float(xys[0]) + row * movingX * factorX
+                        print("Warning: The area has been filed and only %s of %s lots were written" % (
+                            lots, options.spaces), file=sys.stderr)
+                        break;
+                    x = xmin + row * movingX * factorX
                 else:
                     x += movingX
                     if options.rotation != 0:
@@ -134,6 +158,7 @@ def main(options):
                 # No rotation degree is considered.
                 x += options.xdist
                 y += options.ydist
+            i += 1
         outf.write('    </parkingArea>\n')
         outf.write('</additional>\n')
 
