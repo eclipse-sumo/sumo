@@ -508,11 +508,13 @@ MSRailSignal::LinkInfo::reroute(SUMOVehicle* veh, const MSEdgeVector& occupied) 
 
 bool
 MSRailSignal::DriveWay::reserve(const Approaching& closest, MSEdgeVector& occupied) {
-    if (MSGlobals::gUseMesoSim) {
-        return true;
+    std::string joinVehicle = "";
+    if (!MSGlobals::gUseMesoSim) {
+        const SUMOVehicleParameter::Stop* stop = closest.first->getNextStopParameter();
+        if (stop != nullptr) {
+            joinVehicle = stop->join;
+        }
     }
-    const SUMOVehicleParameter::Stop* stop = closest.first->getNextStopParameter();
-    const std::string joinVehicle = stop != nullptr ? stop->join : "";
     if (conflictLaneOccupied(joinVehicle)) {
         for (MSLane* bidi : myBidi) {
             if (!bidi->empty() && bidi->getBidiLane() != nullptr) {
