@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 12:51:15 2017 by SUMO Version v0_31_0-859-gf5a680f
+<!-- generated on Wed May  6 14:37:56 2020 by Eclipse SUMO Version v1_6_0+0116-fc17f5a0a5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,8 +14,19 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
     </output>
+
+    <time>
+        <end value="200"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -25,13 +36,11 @@ SPDX-License-Identifier: EPL-2.0
 
     <mesoscopic>
         <mesosim value="true"/>
-        <meso-junction-control value="true"/>
     </mesoscopic>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="prio" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="14.00" arrivalLane="" arrivalPos="95.25" arrivalSpeed="13.89" duration="14.00" routeLength="190.50" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prio" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="noprio" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="14.00" arrivalLane="" arrivalPos="95.25" arrivalSpeed="13.89" duration="14.00" routeLength="190.50" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_noprio" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="rail1" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="33.00" arrivalLane="" arrivalPos="69.29" arrivalSpeed="13.89" duration="33.00" routeLength="448.93" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_rail1" vType="rail" speedFactor="1.00" vaporized=""/>
 </tripinfos>

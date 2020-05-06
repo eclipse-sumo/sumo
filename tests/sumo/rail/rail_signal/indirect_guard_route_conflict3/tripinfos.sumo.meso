@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed May  6 14:37:56 2020 by Eclipse SUMO Version v1_6_0+0116-fc17f5a0a5
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="RE2" depart="0.00" departLane="" departPos="0.00" departSpeed="44.44" departDelay="0.00" arrival="32.00" arrivalLane="" arrivalPos="700.00" arrivalSpeed="44.44" duration="32.00" routeLength="1382.34" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_RE2 routing_RE2" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="RE1" depart="0.00" departLane="" departPos="0.00" departSpeed="44.44" departDelay="0.00" arrival="32.00" arrivalLane="" arrivalPos="372.06" arrivalSpeed="44.44" duration="32.00" routeLength="1382.34" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_RE1 routing_RE1" vType="train" speedFactor="1.00" vaporized=""/>
+</tripinfos>

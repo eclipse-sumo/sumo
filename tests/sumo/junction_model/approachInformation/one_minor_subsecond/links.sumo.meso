@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 14 08:46:25 2015 by SUMO Version dev-SVN-r17587ID
+<!-- generated on Wed May  6 14:41:52 2020 by Eclipse SUMO Version v1_6_0+0116-fc17f5a0a5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,72 +14,86 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <link-output value="linkstate.xml"/>
     </output>
 
     <time>
         <end value="10"/>
+        <step-length value="0.2"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <mesoscopic>
         <mesosim value="true"/>
-        <meso-junction-control value="true"/>
     </mesoscopic>
+
+    <gui_only>
+        <tracker-interval value="0.2"/>
+    </gui_only>
 
 </configuration>
 -->
 
 <link-output>
-    <timestep id="0.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="1.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="2.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="3.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="4.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="5.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="6.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="7.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="8.00">
-        <link from="right2end_0" via="" to="end_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="8.33" arrivalTimeBraking="8.33" leaveTime="9.11" arrivalSpeed="12.00" arrivalSpeedBraking="12.00" leaveSpeed="12.00" willPass="1"/>
-        </link>
-    </timestep>
+    <timestep id="0.00"/>
+    <timestep id="0.20"/>
+    <timestep id="0.40"/>
+    <timestep id="0.60"/>
+    <timestep id="0.80"/>
+    <timestep id="1.00"/>
+    <timestep id="1.20"/>
+    <timestep id="1.40"/>
+    <timestep id="1.60"/>
+    <timestep id="1.80"/>
+    <timestep id="2.00"/>
+    <timestep id="2.20"/>
+    <timestep id="2.40"/>
+    <timestep id="2.60"/>
+    <timestep id="2.80"/>
+    <timestep id="3.00"/>
+    <timestep id="3.20"/>
+    <timestep id="3.40"/>
+    <timestep id="3.60"/>
+    <timestep id="3.80"/>
+    <timestep id="4.00"/>
+    <timestep id="4.20"/>
+    <timestep id="4.40"/>
+    <timestep id="4.60"/>
+    <timestep id="4.80"/>
+    <timestep id="5.00"/>
+    <timestep id="5.20"/>
+    <timestep id="5.40"/>
+    <timestep id="5.60"/>
+    <timestep id="5.80"/>
+    <timestep id="6.00"/>
+    <timestep id="6.20"/>
+    <timestep id="6.40"/>
+    <timestep id="6.60"/>
+    <timestep id="6.80"/>
+    <timestep id="7.00"/>
+    <timestep id="7.20"/>
+    <timestep id="7.40"/>
+    <timestep id="7.60"/>
+    <timestep id="7.80"/>
+    <timestep id="8.00"/>
+    <timestep id="8.20"/>
+    <timestep id="8.40"/>
+    <timestep id="8.60"/>
+    <timestep id="8.80"/>
     <timestep id="9.00"/>
+    <timestep id="9.20"/>
+    <timestep id="9.40"/>
+    <timestep id="9.60"/>
+    <timestep id="9.80"/>
 </link-output>

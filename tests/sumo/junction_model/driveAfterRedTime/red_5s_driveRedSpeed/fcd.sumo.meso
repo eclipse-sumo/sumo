@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed May  6 14:41:53 2020 by Eclipse SUMO Version v1_6_0+0116-fc17f5a0a5
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <time>
+        <begin value="25"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="25.00"/>
+    <timestep time="26.00"/>
+    <timestep time="27.00"/>
+    <timestep time="28.00"/>
+    <timestep time="29.00"/>
+    <timestep time="30.00"/>
+    <timestep time="31.00"/>
+    <timestep time="32.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="33.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="34.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="35.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="36.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="37.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="38.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="39.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="40.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="41.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="42.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="43.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="44.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="45.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="46.00"/>
+</fcd-export>

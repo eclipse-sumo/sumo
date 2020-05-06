@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan 14 08:46:25 2015 by SUMO Version dev-SVN-r17587ID
+<!-- generated on Wed May  6 14:41:52 2020 by Eclipse SUMO Version v1_6_0+0116-fc17f5a0a5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <link-output value="linkstate.xml"/>
     </output>
 
@@ -21,15 +22,19 @@ SPDX-License-Identifier: EPL-2.0
         <begin value="20"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <mesoscopic>
         <mesosim value="true"/>
-        <meso-junction-control value="true"/>
     </mesoscopic>
 
 </configuration>
@@ -38,31 +43,11 @@ SPDX-License-Identifier: EPL-2.0
 <link-output>
     <timestep id="20.00"/>
     <timestep id="21.00"/>
-    <timestep id="22.00">
-        <link from="0/0to1/0_0" via="" to="1/0to2/0_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="27.00" arrivalTimeBraking="27.00" leaveTime="27.73" arrivalSpeed="20.00" arrivalSpeedBraking="20.00" leaveSpeed="20.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="23.00">
-        <link from="0/0to1/0_0" via="" to="1/0to2/0_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="27.00" arrivalTimeBraking="27.00" leaveTime="27.73" arrivalSpeed="20.00" arrivalSpeedBraking="20.00" leaveSpeed="20.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="24.00">
-        <link from="0/0to1/0_0" via="" to="1/0to2/0_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="27.00" arrivalTimeBraking="27.00" leaveTime="27.73" arrivalSpeed="20.00" arrivalSpeedBraking="20.00" leaveSpeed="20.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="25.00">
-        <link from="0/0to1/0_0" via="" to="1/0to2/0_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="27.00" arrivalTimeBraking="27.00" leaveTime="27.73" arrivalSpeed="20.00" arrivalSpeedBraking="20.00" leaveSpeed="20.00" willPass="1"/>
-        </link>
-    </timestep>
-    <timestep id="26.00">
-        <link from="0/0to1/0_0" via="" to="1/0to2/0_0">
-            <approaching id="ego" impatience="0.00" arrivalTime="27.00" arrivalTimeBraking="27.00" leaveTime="27.73" arrivalSpeed="20.00" arrivalSpeedBraking="20.00" leaveSpeed="20.00" willPass="1"/>
-        </link>
-    </timestep>
+    <timestep id="22.00"/>
+    <timestep id="23.00"/>
+    <timestep id="24.00"/>
+    <timestep id="25.00"/>
+    <timestep id="26.00"/>
     <timestep id="27.00"/>
     <timestep id="28.00"/>
     <timestep id="29.00"/>
