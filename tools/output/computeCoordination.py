@@ -44,9 +44,13 @@ def getOptions(args=None):
     argParser.add_argument("-m", "--min-speed", dest="minspeed", type=float, default=5,
                            help="Minimum speed to consider vehicle undelayed")
     argParser.add_argument("--filter-route", dest="filterRoute",
-                           help="only consider vehicles while they pass the given list of edges in order (regardless of gaps)")
-    argParser.add_argument("--delay-time-output", dest="delayTimeOutput",
-                           help="For each delayed, write the time when it entered the corridor and the time when it was first delayed")
+                           help="only consider vehicles that passed the given list of edges in order (regardless of gaps)")
+    argParser.add_argument("--entry",
+                           help="detect delay after vehicles have passend one of the entry edges (defaults to the first edge of the route)")
+    argParser.add_argument("--exit",
+                           help="detect delay until vehicles have passend one of the exit edges (defaults to the last edge of the route)")
+    argParser.add_argument("--full-output", dest="fullOutput",
+                           help="For each vehicle that applies, write the time when it entered the corridor and the time when it was first delayed (-1 for undelayed)")
 
     options = argParser.parse_args()
 
@@ -57,6 +61,17 @@ def getOptions(args=None):
         options.filterRoute = options.filterRoute.split(',')
     else:
         options.filterRoute = []
+
+    if options.entry is not None:
+        options.entry = options.entry.split(',')
+    elif options.filterRoute:
+        options.entry = [options.filterRoute[0]]
+
+    if options.exit is not None:
+        options.exit = options.exit.split(',')
+    elif options.filterRoute:
+        options.exit = [options.filterRoute[-1]]
+
     return options
 
 
@@ -74,12 +89,12 @@ def main(options):
         edge = vehicle.lane[0:vehicle.lane.rfind('_')]
         prevEdge = None if len(routes[vehID]) == 0 else routes[vehID][-1]
         if prevEdge != edge:
-            if options.filterRoute and prevEdge == options.filterRoute[-1]:
+            if options.exit and prevEdge in options.exit:
                 # vehicle has left the filtered corridor
                 continue
             routes[vehID].append(edge)
         if vehID not in active:
-            if not options.filterRoute or edge == options.filterRoute[0]:
+            if not options.entry or edge in options.entry:
                  # vehicle has entered the filtered corridor
                 active.add(vehID)
                 entryTime[vehID] = time
@@ -91,8 +106,8 @@ def main(options):
             if speed < options.minspeed:
                 delayTime[vehID] = time
 
-    n = 0
-    delayed = []
+    vehs = []
+    numDelayed = 0
 
     for vehID, route in routes.items():
         skip = False
@@ -101,18 +116,20 @@ def main(options):
                 skip = True
                 break
         if not skip:
-            n += 1
             if minSpeed[vehID] < options.minspeed:
-                delayed.append((entryTime[vehID], delayTime[vehID], vehID))
+                numDelayed += 1
+                vehs.append((entryTime[vehID], delayTime[vehID], vehID))
+            else:
+                vehs.append((entryTime[vehID], -1, vehID))
 
-    delayed.sort()
-    numDelayed = len(delayed)
+    vehs.sort()
+    n = len(vehs)
     print("n=%s d=%s coordinationFactor=%.2f" % (n, numDelayed, (n - numDelayed) / float(n)))
 
-    if options.delayTimeOutput:
-        with open(options.delayTimeOutput, 'w') as outf:
+    if options.fullOutput:
+        with open(options.fullOutput, 'w') as outf:
             outf.write("# entryTime delayTime vehID\n")
-            for record in delayed:
+            for record in vehs:
                 outf.write(" ".join(map(str, record)) + "\n")
 
 
