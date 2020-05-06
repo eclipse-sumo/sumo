@@ -129,9 +129,6 @@ public:
     /// @brief get middle (via) parent edges
     std::vector<GNEEdge*> getMiddleParentEdges() const;
 
-    /// @brief get path edges
-    const std::vector<GNEEdge*>& getPathEdges() const;
-
     /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
     std::string getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const;
 
@@ -168,9 +165,6 @@ protected:
 
     /// @brief replace the last parent edge (used by generic data elements)
     void replaceLastParentEdge(GNEGenericData* elementChild, GNEEdge* newLastEdge);
-
-    /// @brief replace edge route Parents
-    void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges);
 
     /// @brief replace the parent edges of a shape
     void replaceParentLanes(GNEShape* elementChild, const std::string& newLaneIDs);
@@ -234,9 +228,6 @@ private:
 
     /// @brief vector of edge parents
     std::vector<GNEEdge*> myParentEdges;
-
-    /// @brief vector of edges used in Flow/Trips/PersonTrips
-    std::vector<GNEEdge*> myRouteEdges;
 
     /// @brief vector of lane parents
     std::vector<GNELane*> myParentLanes;

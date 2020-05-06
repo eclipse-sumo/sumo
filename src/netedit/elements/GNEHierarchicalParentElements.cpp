@@ -372,12 +372,6 @@ GNEHierarchicalParentElements::getMiddleParentEdges() const {
     return middleEdges;
 }
 
-
-const std::vector<GNEEdge*>&
-GNEHierarchicalParentElements::getPathEdges() const {
-    return myRouteEdges;
-}
-
 // ---------------------------------------------------------------------------
 // GNEHierarchicalParentElements - protected methods
 // ---------------------------------------------------------------------------
@@ -569,21 +563,6 @@ GNEHierarchicalParentElements::replaceLastParentEdge(GNEGenericData* elementChil
         myParentEdges.push_back(newLastEdge);
         // add generic data into parent edges
         myParentEdges.back()->addChildElement(elementChild);
-    }
-}
-
-
-void
-GNEHierarchicalParentElements::replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges) {
-    // remove demandElement of parent edges
-    for (const auto& edge : myRouteEdges) {
-        edge->removePathElement(elementChild);
-    }
-    // set new route edges
-    myRouteEdges = routeEdges;
-    // add demandElement into parent edges
-    for (const auto& edge : myRouteEdges) {
-        edge->addPathElement(elementChild);
     }
 }
 
