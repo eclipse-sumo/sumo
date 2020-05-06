@@ -99,7 +99,7 @@ def main(options):
         if ' ' in options.shape:
             options.shape = [tuple(map(float, xy.split(','))) for xy in options.shape.split(' ')]
         else:
-            numbers = map(float, options.shape.split(','))
+            numbers = list(map(float, options.shape.split(',')))
             options.shape = [(numbers[i], numbers[i+1]) for i in range(0, len(numbers), 2)]
         xmin = min([x for x,y in options.shape])
         xmax = max([x for x,y in options.shape])
@@ -140,7 +140,7 @@ def main(options):
         while lots < options.spaces:
             if not options.shape or isWithin((x,y), options.shape):
                 outf.write(
-                        '        <space x="%s" y="%s" length="%s" angle="%s"/>\n' %
+                        '        <space x="%.2f" y="%.2f" length="%s" angle="%s"/>\n' %
                         (x, y, options.length, options.angle))
                 lots += 1
             if xmax is not None:
