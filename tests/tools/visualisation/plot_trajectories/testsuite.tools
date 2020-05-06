@@ -1,6 +1,7 @@
 # Copy of plain
 plain
 filter_edges
+filter_ids
 
 # gzipped input
 gz

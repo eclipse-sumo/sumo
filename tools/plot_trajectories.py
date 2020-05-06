@@ -56,6 +56,8 @@ def getOptions(args=None):
                          help="only export trajectories that pass the given list of edges (regardless of gaps)")
     optParser.add_option("--filter-edges", dest="filterEdges",
                          help="only consider data for the given list of edges")
+    optParser.add_option("--filter-ids", dest="filterIDs",
+                         help="only consider data for the given list of vehicle (or person) ids")
     optParser.add_option("-p", "--pick-distance", dest="pickDist", type="float", default=1,
                          help="pick lines within the given distance in interactive plot mode")
     optParser.add_option("-i", "--invert-distance-angle", dest="invertDistanceAngle", type="float",
@@ -75,6 +77,8 @@ def getOptions(args=None):
         options.filterRoute = options.filterRoute.split(',')
     if options.filterEdges is not None:
         options.filterEdges = set(options.filterEdges.split(','))
+    if options.filterIDs is not None:
+        options.filterIDs = set(options.filterIDs.split(','))
     return options
 
 
@@ -142,6 +146,8 @@ def main(options):
         for timestep, vehicle in parse_fast_nested(fcdfile, 'timestep', ['time'],
                                                    element, ['id', 'x', 'y', 'angle', 'speed', location]):
             vehID = vehicle.id
+            if options.filterIDs and vehID not in options.filterIDs:
+                continue
             if len(options.fcdfiles) > 1:
                 suffix = shortFileNames[fileIndex]
                 if len(suffix) > 0:
