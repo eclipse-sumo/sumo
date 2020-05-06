@@ -36,10 +36,10 @@ permalink: /ChangeLog/
 ### Other
 
 - Tools
-  - [randomTrips.py]((Tools/Trip.md) now generates repeatable results by default (by using a fixed default seed). To obtain the prior random behavior without specifying a seed, the option **--random** can be used (just like for [SUMO](SUMO.md)). Issue #6989
+  - [randomTrips.py](Tools/Trip.md) now generates repeatable results by default (by using a fixed default seed). To obtain the prior random behavior without specifying a seed, the option **--random** can be used (just like for [SUMO](SUMO.md)). Issue #6989
 
 - Documentation
-  - Added documentation on [length-geometry-mismatch[(Simulation/Distances.md)
+  - Added documentation on [length-geometry-mismatch](Simulation/Distances.md)
 
 ## Version 1.6.0 (28.04.2020)
 
