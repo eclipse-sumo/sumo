@@ -96,8 +96,11 @@ def main(options):
     ymax = None
     
     if options.shape:
-        numbers = map(float, options.shape.split(','))
-        options.shape = [(numbers[i], numbers[i+1]) for i in range(0, len(numbers), 2)]
+        if ' ' in options.shape:
+            options.shape = [tuple(map(float, xy.split(','))) for xy in options.shape.split(' ')]
+        else:
+            numbers = map(float, options.shape.split(','))
+            options.shape = [(numbers[i], numbers[i+1]) for i in range(0, len(numbers), 2)]
         xmin = min([x for x,y in options.shape])
         xmax = max([x for x,y in options.shape])
         ymin = min([y for x,y in options.shape])
