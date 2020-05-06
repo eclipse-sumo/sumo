@@ -64,7 +64,7 @@ NBTrafficLightLogicCont::applyOptions(OptionsCont& oc) {
     //  them to a quarter of the duration
     if (oc.isSet("tls.quarter-offset")) {
         std::vector<std::string> ids = oc.getStringVector("tls.quarter-offset");
-        myHalfOffsetTLS.insert(ids.begin(), ids.end());
+        myQuarterOffsetTLS.insert(ids.begin(), ids.end());
     }
 }
 
@@ -203,10 +203,10 @@ NBTrafficLightLogicCont::computeSingleLogic(OptionsCont& oc, NBTrafficLightDefin
     // compute offset
     SUMOTime T = built->getDuration();
     if (myHalfOffsetTLS.count(id)) {
-        built->setOffset((SUMOTime)(T / 2.));
+        built->setOffset(TIME2STEPS(floor(STEPS2TIME(T / 2.))));
     }
     if (myQuarterOffsetTLS.count(id)) {
-        built->setOffset((SUMOTime)(T / 4.));
+        built->setOffset(TIME2STEPS(floor(STEPS2TIME(T / 4.))));
     }
     // and insert the result after computation
     // make sure we don't leak memory if computeSingleLogic is called externally
