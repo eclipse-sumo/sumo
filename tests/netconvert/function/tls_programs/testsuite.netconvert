@@ -31,6 +31,12 @@ multimodal_actuated_tram
 # guess tls for one-way nodes
 oneway
 
+# apply offset to selected tls
+half_offset
+
+# apply offset to selected tls
+quarter-offset
+
 # create tls program with signal groups
 group-signals
 
