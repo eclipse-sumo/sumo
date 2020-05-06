@@ -6,6 +6,40 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
+- Simulation
+  - When using the options **--vehroute-output.write-unfinished --vehroute-output.exit-times** all edges of the route are now included (instead passed edges only) and the exit times for unfinished edges are written as '-1'. Issue #6956
+- NETCONVERT
+  - Fixed missing traffic lights when using **--tls.guess-signals** together with **--junctions.join**. Issue #6977
+  - Fixed missing busStops when importing public transport lines from OSM. Issue #6963
+  - Fixed invalid error when patching network with netdiff patches. Issue #6981
+  - Fixed invalid offset when using option **--tls.quarter-offset**. Issue #6988
+- SUMO-GUI
+  - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
+  - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
+- Tools
+  - Fixed invalid connection diff when edges without any connections are removed. Issue #6643 
+
+
+### Enhancements
+- NETCONVERT
+  - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
+  
+- NETEDIT
+  - Edges can now be colored by edgeData attribute (as in SUMO-GUI). Issue #6953
+
+- SUMO-GUI
+  - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
+- Tools
+  - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
+  - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now visualize person trajectories using option **--persons**. Issue #6978
+    
+### Other
+
+- Tools
+  - [randomTrips.py]((Tools/Trip.md) now generates repeatable results by default (by using a fixed default seed). To obtain the prior random behavior without specifying a seed, the option **--random** can be used (just like for [SUMO](SUMO.md)). Issue #6989
+
+- Documentation
+  - Added documentation on [length-geometry-mismatch[(Simulation/Distances.md)
 
 ## Version 1.6.0 (28.04.2020)
 
