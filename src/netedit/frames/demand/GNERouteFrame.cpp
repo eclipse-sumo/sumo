@@ -544,6 +544,21 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
 
     // set RouteMode::NONCONSECUTIVE_EDGES as default mode
     myRouteModeSelector->setCurrentRouteMode(RouteMode::NONCONSECUTIVE_EDGES);
+
+    // Create groupbox for information
+    FXGroupBox* groupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
+    
+    // create keys Hint
+    new FXLabel(groupBoxInformation, "- Hold <SHIFT> while clicking\n  to create invalid route.", 0, GUIDesignLabelFrameInformation);
+    new FXLabel(groupBoxInformation, "- Press backspace key to remove\n  last inserted edge.", 0, GUIDesignLabelFrameInformation);
+    
+    // Create groupbox and labels for legends
+    FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
+    FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, " edge candidate", 0, GUIDesignLabelLeft);
+    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateElementColor));
+    colorCandidateLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
+    FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, " edge selected", 0, GUIDesignLabelLeft);
+    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateSelectedElementColor));
 }
 
 
