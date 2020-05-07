@@ -90,3 +90,4 @@ duarouter_options
 
 # use fromJunction and toJunction
 junctionTaz
+junctionTaz_validate
