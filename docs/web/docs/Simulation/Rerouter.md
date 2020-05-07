@@ -385,7 +385,11 @@ To following effects occur:
 - 1b-2b-3b-4b-5a: **I**
 - 1b-2b-3b-4b-5b: **I**
 
+## Departure on a closed edge
 
+When the departure edge for a vehicle is closed, vehicles will ignore this for
+'soft' closing and delay their departure until the closing has ended for a
+'hard' closing.
 
 
 
