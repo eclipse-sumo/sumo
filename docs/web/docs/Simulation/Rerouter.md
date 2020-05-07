@@ -306,3 +306,93 @@ where
 
 then the new route will also end at the new parkingArea and the endPos
 of the new parkingArea will be set as new arrivalPos.
+
+# Vehicle Behavior when closing a street
+The interaction of vehicles with reroutes is complex and depends on many
+different factors. Below we give a description of each of the factors and then
+describe the behavior for each combination of factors.
+The following assumes vehicles that have an edge affected by `<closingReroute .../>`
+along their route (other vehicles are not affected directly).
+
+1. closing style
+   - a) hard closing: `<closingReroute>` uses attribute 'allow' or 'disallow' to prohibit the vehicle
+   - b) soft closing: attribute is not used (edge use is discouraged but not forbidden)
+2. alternatives
+   - a) an alternative route exists
+   - b) no alternative route exists
+3. detour signage
+   - a) an rerouter edge is encountered before the alternative route branches off
+   - b) no rerouter edge is encountered before the alterantive route branches off
+4. vehicle style
+   - a) vehicle defined with origin and destination where the affected edge is on the preferred route (i.e. `<trip from="..." to="...">`)
+   - b) vehicle defined with fixed route
+5. closing time versus departure time
+   - a) vehicle departs after closing becomes active
+   - b) vehicle departs before closing becomes active (closing occurs while en-route)
+
+The following vehicle behaviors are possible:
+
+- **R**: use an alternative route upon reaching the rerouter edge
+- **D**: use an alternative route on departure
+- **I**: ignore the closed edge and keep driving
+- **W**: wait ahead of the cloeed edge until it reopens or time-to-teleport is
+  reached (in this case teleport accross the closed edge(s)
+- **E**: simulation generates an error
+
+To following effects occur:
+
+## Hard closing
+
+- 1a-2a-3a-4a-5a: **D** 
+- 1a-2a-3a-4a-5b: **R** 
+- 1a-2a-3a-4b-5a: **R** 
+- 1a-2a-3a-4b-5b: **R** 
+                       
+- 1a-2a-3b-4a-5a: **D**
+- 1a-2a-3b-4a-5b: **W**
+- 1a-2a-3b-4b-5a: **W**
+- 1a-2a-3b-4b-5b: **W**
+                       
+- 1a-2b-3a-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3a-4a-5b: **W**
+- 1a-2b-3a-4b-5a: **W**
+- 1a-2b-3a-4b-5b: **W**
+                       
+- 1a-2b-3b-4a-5a: **E** (becomes **W** with **--ignore-route-errors**)
+- 1a-2b-3b-4a-5b: **W**
+- 1a-2b-3b-4b-5a: **W**
+- 1a-2b-3b-4b-5b: **W**
+                       
+## Soft closing        
+                       
+- 1b-2a-3a-4a-5a: **R**
+- 1b-2a-3a-4a-5b: **R**
+- 1b-2a-3a-4b-5a: **R**
+- 1b-2a-3a-4b-5b: **R**
+                       
+- 1b-2a-3b-4a-5a: **I**
+- 1b-2a-3b-4a-5b: **I**
+- 1b-2a-3b-4b-5a: **I**
+- 1b-2a-3b-4b-5b: **I**
+                       
+- 1b-2b-3a-4a-5a: **I**
+- 1b-2b-3a-4a-5b: **I**
+- 1b-2b-3a-4b-5a: **I**
+- 1b-2b-3a-4b-5b: **I**
+                       
+- 1b-2b-3b-4a-5a: **I**
+- 1b-2b-3b-4a-5b: **I**
+- 1b-2b-3b-4b-5a: **I**
+- 1b-2b-3b-4b-5b: **I**
+
+
+
+
+
+
+
+
+
+
+
+
