@@ -91,6 +91,9 @@ public:
         return myIsLoose;
     }
 
+    /// @brief mirror coordinates along the x-axis
+    void mirrorX();
+
 private:
     void computeExtent(double center, double d);
 

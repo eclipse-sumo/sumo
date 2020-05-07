@@ -72,6 +72,10 @@ NBPTStop::getPosition() const {
     return myPosition;
 }
 
+void
+NBPTStop::mirrorX() {
+    myPosition.mul(1, -1);
+}
 
 void
 NBPTStop::computeExtent(double center, double edgeLength) {
