@@ -195,6 +195,9 @@
 /// @brief label extended over frame without thick and with text justify to left, used to show information in frames
 #define GUIDesignLabelFrameInformation      (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
+/// @brief label extended over frame without thick and with text justify to left, used to show information in frames
+#define GUIDesignLabelFrameThicked          (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+
 /// @brief label with thick, text justify to left and size of 100x23
 #define GUIDesignLabelThick100              (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
 

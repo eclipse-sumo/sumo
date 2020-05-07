@@ -46,14 +46,15 @@ FXDEFMAP(GNERouteFrame::RouteModeSelector) RouteModeSelectorMap[] = {
 };
 
 FXDEFMAP(GNERouteFrame::PathCreator) PathCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,      GNERouteFrame::PathCreator::onCmdAbortPathCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,     GNERouteFrame::PathCreator::onCmdCreatePath),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST, GNERouteFrame::PathCreator::onCmdRemoveLastElement)
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNERouteFrame::PathCreator::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNERouteFrame::PathCreator::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST,     GNERouteFrame::PathCreator::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_SHOWCANDIDATES, GNERouteFrame::PathCreator::onCmdShowCandidateEdges)
 };
 
 // Object implementation
 FXIMPLEMENT(GNERouteFrame::RouteModeSelector,   FXGroupBox,     RouteModeSelectorMap,   ARRAYNUMBER(RouteModeSelectorMap))
-FXIMPLEMENT(GNERouteFrame::PathCreator,        FXGroupBox,     PathCreatorMap,        ARRAYNUMBER(PathCreatorMap))
+FXIMPLEMENT(GNERouteFrame::PathCreator,         FXGroupBox,     PathCreatorMap,         ARRAYNUMBER(PathCreatorMap))
 
 
 // ===========================================================================
@@ -239,7 +240,7 @@ GNERouteFrame::PathCreator::PathCreator(GNERouteFrame* routeFrameParent, GNERout
     myRouteFrameParent(routeFrameParent),
     myMode(mode) {
     // create label for route info
-    myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameInformation);
+    myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
     myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
     myFinishCreationButton->disable();
@@ -249,6 +250,9 @@ GNERouteFrame::PathCreator::PathCreator(GNERouteFrame* routeFrameParent, GNERout
     // create button for remove last inserted edge
     myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
     myRemoveLastInsertedEdge->disable();
+    // create check button
+    myShowCandidateEdges = new FXCheckButton(this, "Show candidate edges", this, MID_GNE_EDGEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateEdges->setCheck(TRUE);
 }
 
 
@@ -456,6 +460,16 @@ GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*)
     }
 }
 
+
+long 
+GNERouteFrame::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
+    updateReachability();
+    // update view
+    myRouteFrameParent->myViewNet->updateViewNet();
+    return 1;
+}
+
+
 void
 GNERouteFrame::PathCreator::updateInfoRouteLabel() {
     if (myTemporalPath.size() > 0) {
@@ -486,9 +500,12 @@ GNERouteFrame::PathCreator::updateReachability() {
     for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->setCandidateEdge(false);
     }
-    // set reachability
-    if (mySelectedElements.size() > 0) {
-        setEdgesReachability(mySelectedElements.back(), myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass());
+    // only call setEdgesReachability if myShowCandidateEdges is enabled
+    if (myShowCandidateEdges->getCheck() == TRUE) {
+        // set reachability
+        if (mySelectedElements.size() > 0) {
+            setEdgesReachability(mySelectedElements.back(), myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass());
+        }
     }
 }
 

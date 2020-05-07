@@ -733,6 +733,8 @@ enum {
     MID_GNE_EDGEPATH_FINISH,
     /// @brief remove last inserted element in path
     MID_GNE_EDGEPATH_REMOVELAST,
+    /// @brief enable or disable show ppath candidates
+    MID_GNE_EDGEPATH_SHOWCANDIDATES,
     /// @brief In AttributeCarrierHierarchy list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
     /// @brief In AttributeCarrierHierarchy list, move element to up

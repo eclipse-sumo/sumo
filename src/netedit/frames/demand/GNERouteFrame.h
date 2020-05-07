@@ -155,6 +155,9 @@ public:
 
         /// @brief Called when the user click over button "Remove las inserted edge"
         long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over check button "show candidate edges"
+        long onCmdShowCandidateEdges(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
@@ -193,6 +196,9 @@ public:
 
         /// @brief button for removing last inserted edge
         FXButton* myRemoveLastInsertedEdge;
+
+        /// @brief CheckBox for show candidate edges
+        FXCheckButton* myShowCandidateEdges;
     };
 
     /**@brief Constructor
