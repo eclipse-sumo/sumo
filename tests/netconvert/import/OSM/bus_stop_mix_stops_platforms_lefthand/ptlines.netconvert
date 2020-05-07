@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May  4 11:58:00 2020 by Eclipse SUMO netconvert Version v1_6_0+0053-832b0b08ee
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="194651" name="London Buses route 35 → Clapham Junction" line="35" type="bus" vClass="bus" completeness="0.05">
+        <route edges="-639169633#1 -639169633#0 -321325247#3 -321325247#2 -321325247#1 -321325247#0 572772263#0 572772263#1 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="-469786435" name="Brixton Station Road"/>
+        <busStop id="-469765146" name="Gresham Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="2807957" name="London Buses route 322 → Clapham Common" line="322" type="bus" vClass="bus" completeness="0.06">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 24546642#0 24546642#1 572772256#0 572772256#1 572772256#2 572772256#3 572772256#4 572772256#5 572772256#6 572772256#7 743117132#0 743117132#1 743117131#0 743117131#1 -266550338#5 -266550338#4 -266550338#3 -266550338#2 -266550338#1 -266550338#0"/>
+        <busStop id="4589475949" name="Brixton Academy"/>
+        <busStop id="-4589475946" name="Stansfield Road"/>
+    </ptLine>
+    <ptLine id="2850927" name="London Buses route 2 → Marylebone" line="2" type="bus" vClass="bus" completeness="0.05">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 24546642#0 24546642#1 572772256#0 572772256#1 572772256#2 572772256#3 572772256#4 572772256#5 572772256#6 572772256#7 743117132#0 743117132#1 743117131#0 743117131#1 -266550338#5 -266550338#4 -266550338#3 -266550338#2 -266550338#1 -266550338#0"/>
+        <busStop id="4589475949" name="Brixton Academy"/>
+        <busStop id="-4589475946" name="Stansfield Road"/>
+    </ptLine>
+    <ptLine id="3065292" name="London Buses route 333 → Tooting Broadway" line="333" type="bus" vClass="bus" completeness="0.05">
+        <route edges="266550338#0 266550338#1 266550338#2 266550338#3 266550338#4 266550338#5 -743117131#1 -743117131#0 -743117132#1 -743117132#0 -572772256#7 -572772256#6 -572772256#5 -572772256#4 -572772256#3 -572772256#2 -572772256#1 -572772256#0 572772261#0 572772261#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4589475947" name="Stansfield Road"/>
+        <busStop id="-4589475948" name="Brixton Academy"/>
+    </ptLine>
+    <ptLine id="312147" name="London Buses route 45 → Clapham Park" line="45" type="bus" vClass="bus" completeness="0.08">
+        <route edges="-639169633#1 -639169633#0 -321325247#3 -321325247#2 -321325247#1 -321325247#0 572772263#0 572772263#1 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="-469786435" name="Brixton Station Road"/>
+        <busStop id="-469765146" name="Gresham Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="312674" name="London Buses route 59 → Streatham Hill, Telford Avenue" line="59" type="bus" vClass="bus" completeness="0.17">
+        <route edges="66924592#0 66924592#1 66924592#2 66924592#3 66924592#4 66924592#5 66924592#6 66924592#7 66924592#8 300873532#0 300873532#1 300873532#2 300873532#3 253362216#0 253362216#1 253362216#2 504900412 504900413#0 504900413#1 253362217#0 253362217#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4703199271" name="Vassall Road"/>
+        <busStop id="4703199265" name="Groveway"/>
+        <busStop id="4701534131" name="Loughborough Road"/>
+        <busStop id="4701534130" name="Villa Road"/>
+        <busStop id="4701534128" name="Brixton Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="3867723" name="London Buses route 345 → Peckham" line="345" type="bus" vClass="bus" completeness="0.08">
+        <route edges="266550338#0 266550338#1 266550338#2 266550338#3 266550338#4 266550338#5 -743117131#1 -743117131#0 -743117132#1 -743117132#0 -572772256#7 -572772256#6 -572772256#5 -572772256#4 -572772256#3 -572772256#2 -572772256#1 -572772256#0 572772261#0 572772261#1 572772260#0 572772260#1 321325247#0 321325247#1 321325247#2 321325247#3 639169633#0 639169633#1"/>
+        <busStop id="4589475947" name="Stansfield Road"/>
+        <busStop id="-4589475948" name="Brixton Academy"/>
+        <busStop id="469765144" name="Gresham Road / Brixton Police Station"/>
+        <busStop id="469789541" name="Western Road"/>
+    </ptLine>
+    <ptLine id="3999996" name="London Buses route 159 → Marble Arch" line="159" type="bus" vClass="bus" completeness="0.13">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 -253362217#1 -253362217#0 -504900413#1 -504900413#0 -504900412 -253362216#2 -253362216#1 -253362216#0 4060821#0 4060821#1 4060821#2 -66924592#8 -66924592#7 -66924592#6 -66924592#5 -66924592#4 -66924592#3 -66924592#2 -66924592#1 -66924592#0"/>
+        <busStop id="-4701534125" name="Brixton Road / Brixton Police Station"/>
+        <busStop id="-4701534129" name="Villa Road"/>
+        <busStop id="-4701534132" name="Loughborough Road"/>
+        <busStop id="-4703199264" name="Groveway"/>
+        <busStop id="-4703199266" name="Hillyard Street"/>
+    </ptLine>
+    <ptLine id="3999997" name="London Buses route 159 → Streatham Station" line="159" type="bus" vClass="bus" completeness="0.12">
+        <route edges="66924592#0 66924592#1 66924592#2 66924592#3 66924592#4 66924592#5 66924592#6 66924592#7 66924592#8 300873532#0 300873532#1 300873532#2 300873532#3 253362216#0 253362216#1 253362216#2 504900412 504900413#0 504900413#1 253362217#0 253362217#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4703199271" name="Vassall Road"/>
+        <busStop id="4703199265" name="Groveway"/>
+        <busStop id="4701534131" name="Loughborough Road"/>
+        <busStop id="4701534130" name="Villa Road"/>
+        <busStop id="4701534128" name="Brixton Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="4000000" name="London Buses route 3 → Whitehall, Horse Guards" line="3" type="bus" vClass="bus" completeness="0.12">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 -253362217#1 -253362217#0 -504900413#1 -504900413#0 -504900412 -253362216#2 -253362216#1 -253362216#0 4060821#0 4060821#1 4060821#2 -66924592#8 -66924592#7 -66924592#6 -66924592#5 -66924592#4 -66924592#3 -66924592#2 -66924592#1 -66924592#0"/>
+        <busStop id="-4701534125" name="Brixton Road / Brixton Police Station"/>
+        <busStop id="-4701534129" name="Villa Road"/>
+        <busStop id="-4701534132" name="Loughborough Road"/>
+        <busStop id="-4703199264" name="Groveway"/>
+        <busStop id="-4703199266" name="Hillyard Street"/>
+    </ptLine>
+    <ptLine id="4000001" name="London Buses route 3 → Crystal Palace" line="3" type="bus" vClass="bus" completeness="0.12">
+        <route edges="66924592#0 66924592#1 66924592#2 66924592#3 66924592#4 66924592#5 66924592#6 66924592#7 66924592#8 300873532#0 300873532#1 300873532#2 300873532#3 253362216#0 253362216#1 253362216#2 504900412 504900413#0 504900413#1 253362217#0 253362217#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4703199271" name="Vassall Road"/>
+        <busStop id="4703199265" name="Groveway"/>
+        <busStop id="4701534131" name="Loughborough Road"/>
+        <busStop id="4701534130" name="Villa Road"/>
+        <busStop id="4701534126" name="Brixton Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="5672934" name="London Buses route 345 → South Kensington" line="345" type="bus" vClass="bus" completeness="0.08">
+        <route edges="-639169633#1 -639169633#0 -321325247#3 -321325247#2 -321325247#1 -321325247#0 572772263#0 572772263#1 24546642#0 24546642#1 572772256#0 572772256#1 572772256#2 572772256#3 572772256#4 572772256#5 572772256#6 572772256#7 743117132#0 743117132#1 743117131#0 743117131#1 -266550338#5 -266550338#4 -266550338#3 -266550338#2 -266550338#1 -266550338#0"/>
+        <busStop id="-469786435" name="Brixton Station Road"/>
+        <busStop id="-469765146" name="Gresham Road / Brixton Police Station"/>
+        <busStop id="4589475949" name="Brixton Academy"/>
+        <busStop id="-4589475946" name="Stansfield Road"/>
+    </ptLine>
+    <ptLine id="6704474" name="London Buses route 2 → West Norwood" line="2" type="bus" vClass="bus" completeness="0.05">
+        <route edges="266550338#0 266550338#1 266550338#2 266550338#3 266550338#4 266550338#5 -743117131#1 -743117131#0 -743117132#1 -743117132#0 -572772256#7 -572772256#6 -572772256#5 -572772256#4 -572772256#3 -572772256#2 -572772256#1 -572772256#0 572772261#0 572772261#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4589475947" name="Stansfield Road"/>
+        <busStop id="-4589475948" name="Brixton Academy"/>
+    </ptLine>
+    <ptLine id="7183294" name="London Buses route 333 → Elephant &amp; Castle" line="333" type="bus" vClass="bus" completeness="0.05">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 24546642#0 24546642#1 572772256#0 572772256#1 572772256#2 572772256#3 572772256#4 572772256#5 572772256#6 572772256#7 743117132#0 743117132#1 743117131#0 743117131#1 -266550338#5 -266550338#4 -266550338#3 -266550338#2 -266550338#1 -266550338#0"/>
+        <busStop id="4589475949" name="Brixton Academy"/>
+        <busStop id="-4589475946" name="Stansfield Road"/>
+    </ptLine>
+    <ptLine id="7192545" name="London Buses route N2 → Crystal Palace" line="N2" type="bus" vClass="bus" completeness="0.04">
+        <route edges="266550338#0 266550338#1 266550338#2 266550338#3 266550338#4 266550338#5 -743117131#1 -743117131#0 -743117132#1 -743117132#0 -572772256#7 -572772256#6 -572772256#5 -572772256#4 -572772256#3 -572772256#2 -572772256#1 -572772256#0 572772261#0 572772261#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4589475947" name="Stansfield Road"/>
+        <busStop id="-4589475948" name="Brixton Academy"/>
+    </ptLine>
+    <ptLine id="7192546" name="London Buses route N2 → Marylebone" line="N2" type="bus" vClass="bus" completeness="0.04">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 24546642#0 24546642#1 572772256#0 572772256#1 572772256#2 572772256#3 572772256#4 572772256#5 572772256#6 572772256#7 743117132#0 743117132#1 743117131#0 743117131#1 -266550338#5 -266550338#4 -266550338#3 -266550338#2 -266550338#1 -266550338#0"/>
+        <busStop id="4589475949" name="Brixton Academy"/>
+        <busStop id="-4589475946" name="Stansfield Road"/>
+    </ptLine>
+    <ptLine id="7258391" name="London Buses route N3 → Oxford Circus" line="N3" type="bus" vClass="bus" completeness="0.06">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 -253362217#1 -253362217#0 -504900413#1 -504900413#0 -504900412 -253362216#2 -253362216#1 -253362216#0 4060821#0 4060821#1 4060821#2 -66924592#8 -66924592#7 -66924592#6 -66924592#5 -66924592#4 -66924592#3 -66924592#2 -66924592#1 -66924592#0"/>
+        <busStop id="-4701534125" name="Brixton Road / Brixton Police Station"/>
+        <busStop id="-4701534129" name="Villa Road"/>
+        <busStop id="-4701534132" name="Loughborough Road"/>
+        <busStop id="-4703199264" name="Groveway"/>
+        <busStop id="-4703199266" name="Hillyard Street"/>
+    </ptLine>
+    <ptLine id="7258392" name="London Buses route N3 → Bromley North" line="N3" type="bus" vClass="bus" completeness="0.06">
+        <route edges="66924592#0 66924592#1 66924592#2 66924592#3 66924592#4 66924592#5 66924592#6 66924592#7 66924592#8 300873532#0 300873532#1 300873532#2 300873532#3 253362216#0 253362216#1 253362216#2 504900412 504900413#0 504900413#1 253362217#0 253362217#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4703199271" name="Vassall Road"/>
+        <busStop id="4703199265" name="Groveway"/>
+        <busStop id="4701534131" name="Loughborough Road"/>
+        <busStop id="4701534130" name="Villa Road"/>
+        <busStop id="4701534126" name="Brixton Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="7390920" name="London Buses route N109 → Oxford Circus" line="N109" type="bus" vClass="bus" completeness="0.09">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 -253362217#1 -253362217#0 -504900413#1 -504900413#0 -504900412 -253362216#2 -253362216#1 -253362216#0 4060821#0 4060821#1 4060821#2 -66924592#8 -66924592#7 -66924592#6 -66924592#5 -66924592#4 -66924592#3 -66924592#2 -66924592#1 -66924592#0"/>
+        <busStop id="-4701534125" name="Brixton Road / Brixton Police Station"/>
+        <busStop id="-4701534129" name="Villa Road"/>
+        <busStop id="-4701534132" name="Loughborough Road"/>
+        <busStop id="-4703199264" name="Groveway"/>
+        <busStop id="-4703199266" name="Hillyard Street"/>
+    </ptLine>
+    <ptLine id="7390921" name="London Buses route N109 → Croydon Town Centre" line="N109" type="bus" vClass="bus" completeness="0.08">
+        <route edges="66924592#0 66924592#1 66924592#2 66924592#3 66924592#4 66924592#5 66924592#6 66924592#7 66924592#8 300873532#0 300873532#1 300873532#2 300873532#3 253362216#0 253362216#1 253362216#2 504900412 504900413#0 504900413#1 253362217#0 253362217#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4703199271" name="Vassall Road"/>
+        <busStop id="4703199265" name="Groveway"/>
+        <busStop id="4701534131" name="Loughborough Road"/>
+        <busStop id="4701534130" name="Villa Road"/>
+        <busStop id="4701534128" name="Brixton Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="7554550" name="London Buses route N133 → Morden" line="N133" type="bus" vClass="bus" completeness="0.08">
+        <route edges="66924592#0 66924592#1 66924592#2 66924592#3 66924592#4 66924592#5 66924592#6 66924592#7 66924592#8 300873532#0 300873532#1 300873532#2 300873532#3 253362216#0 253362216#1 253362216#2 504900412 504900413#0 504900413#1 253362217#0 253362217#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4703199271" name="Vassall Road"/>
+        <busStop id="4703199265" name="Groveway"/>
+        <busStop id="4701534131" name="Loughborough Road"/>
+        <busStop id="4701534130" name="Villa Road"/>
+        <busStop id="4701534128" name="Brixton Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="7554551" name="London Buses route 133 → Liverpool Street" line="133" type="bus" vClass="bus" completeness="0.14">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 -253362217#1 -253362217#0 -504900413#1 -504900413#0 -504900412 -253362216#2 -253362216#1 -253362216#0 4060821#0 4060821#1 4060821#2 -66924592#8 -66924592#7 -66924592#6 -66924592#5 -66924592#4 -66924592#3 -66924592#2 -66924592#1 -66924592#0"/>
+        <busStop id="-4701534127" name="Brixton Road / Brixton Police Station"/>
+        <busStop id="-4701534129" name="Villa Road"/>
+        <busStop id="-4701534132" name="Loughborough Road"/>
+        <busStop id="-4703199264" name="Groveway"/>
+        <busStop id="-4703199266" name="Hillyard Street"/>
+    </ptLine>
+    <ptLine id="7554552" name="London Buses route 133 → Streatham Station" line="133" type="bus" vClass="bus" completeness="0.14">
+        <route edges="66924592#0 66924592#1 66924592#2 66924592#3 66924592#4 66924592#5 66924592#6 66924592#7 66924592#8 300873532#0 300873532#1 300873532#2 300873532#3 253362216#0 253362216#1 253362216#2 504900412 504900413#0 504900413#1 253362217#0 253362217#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4703199271" name="Vassall Road"/>
+        <busStop id="4703199265" name="Groveway"/>
+        <busStop id="4701534131" name="Loughborough Road"/>
+        <busStop id="4701534130" name="Villa Road"/>
+        <busStop id="4701534128" name="Brixton Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="7554553" name="London Buses route N133 → Liverpool Street" line="N133" type="bus" vClass="bus" completeness="0.08">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 -253362217#1 -253362217#0 -504900413#1 -504900413#0 -504900412 -253362216#2 -253362216#1 -253362216#0 4060821#0 4060821#1 4060821#2 -66924592#8 -66924592#7 -66924592#6 -66924592#5 -66924592#4 -66924592#3 -66924592#2 -66924592#1 -66924592#0"/>
+        <busStop id="-4701534127" name="Brixton Road / Brixton Police Station"/>
+        <busStop id="-4701534129" name="Villa Road"/>
+        <busStop id="-4701534132" name="Loughborough Road"/>
+        <busStop id="-4703199264" name="Groveway"/>
+        <busStop id="-4703199266" name="Hillyard Street"/>
+    </ptLine>
+    <ptLine id="7571548" name="London Buses route 196 → Elephant &amp; Castle" line="196" type="bus" vClass="bus" completeness="0.04">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 24546642#0 24546642#1 572772256#0 572772256#1 572772256#2 572772256#3 572772256#4 572772256#5 572772256#6 572772256#7 743117132#0 743117132#1 743117131#0 743117131#1 -266550338#5 -266550338#4 -266550338#3 -266550338#2 -266550338#1 -266550338#0"/>
+        <busStop id="4589475949" name="Brixton Academy"/>
+        <busStop id="-4589475946" name="Stansfield Road"/>
+    </ptLine>
+    <ptLine id="7571549" name="London Buses route 196 → Norwood Junction" line="196" type="bus" vClass="bus" completeness="0.04">
+        <route edges="266550338#0 266550338#1 266550338#2 266550338#3 266550338#4 266550338#5 -743117131#1 -743117131#0 -743117132#1 -743117132#0 -572772256#7 -572772256#6 -572772256#5 -572772256#4 -572772256#3 -572772256#2 -572772256#1 -572772256#0 572772261#0 572772261#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4589475947" name="Stansfield Road"/>
+        <busStop id="-4589475948" name="Brixton Academy"/>
+    </ptLine>
+    <ptLine id="7634503" name="London Buses route 322 → Crystal Palace" line="322" type="bus" vClass="bus" completeness="0.06">
+        <route edges="266550338#0 266550338#1 266550338#2 266550338#3 266550338#4 266550338#5 -743117131#1 -743117131#0 -743117132#1 -743117132#0 -572772256#7 -572772256#6 -572772256#5 -572772256#4 -572772256#3 -572772256#2 -572772256#1 -572772256#0 572772261#0 572772261#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4589475947" name="Stansfield Road"/>
+        <busStop id="-4589475948" name="Brixton Academy"/>
+    </ptLine>
+    <ptLine id="7728798" name="London Buses route 45 → Elephant &amp; Castle" line="45" type="bus" vClass="bus" completeness="0.07">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 572772260#0 572772260#1 321325247#0 321325247#1 321325247#2 321325247#3 639169633#0 639169633#1"/>
+        <busStop id="469765144" name="Gresham Road / Brixton Police Station"/>
+        <busStop id="469789541" name="Western Road"/>
+    </ptLine>
+    <ptLine id="7996946" name="London Buses route 35 → Shoreditch" line="35" type="bus" vClass="bus" completeness="0.04">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 572772260#0 572772260#1 321325247#0 321325247#1 321325247#2 321325247#3 639169633#0 639169633#1"/>
+        <busStop id="469765144" name="Gresham Road / Brixton Police Station"/>
+        <busStop id="469789541" name="Western Road"/>
+    </ptLine>
+    <ptLine id="8332512" name="London Buses route 415 → Old Kent Road, Tesco" line="415" type="bus" vClass="bus" completeness="0.19">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 -253362217#1 -253362217#0 -504900413#1 -504900413#0 -504900412 -253362216#2 -253362216#1 -253362216#0 4060821#0 4060821#1 4060821#2 -66924592#8 -66924592#7 -66924592#6 -66924592#5 -66924592#4 -66924592#3 -66924592#2 -66924592#1 -66924592#0"/>
+        <busStop id="-4701534127" name="Brixton Road / Brixton Police Station"/>
+        <busStop id="-4701534129" name="Villa Road"/>
+        <busStop id="-4701534132" name="Loughborough Road"/>
+        <busStop id="-4703199264" name="Groveway"/>
+        <busStop id="-4703199266" name="Hillyard Street"/>
+    </ptLine>
+    <ptLine id="8332513" name="London Buses route 415 → Tulse Hill" line="415" type="bus" vClass="bus" completeness="0.19">
+        <route edges="66924592#0 66924592#1 66924592#2 66924592#3 66924592#4 66924592#5 66924592#6 66924592#7 66924592#8 300873532#0 300873532#1 300873532#2 300873532#3 253362216#0 253362216#1 253362216#2 504900412 504900413#0 504900413#1 253362217#0 253362217#1 24687193 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="4703199271" name="Vassall Road"/>
+        <busStop id="4703199265" name="Groveway"/>
+        <busStop id="4701534131" name="Loughborough Road"/>
+        <busStop id="4701534130" name="Villa Road"/>
+        <busStop id="4701534126" name="Brixton Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="8846515" name="London Buses route 59 → Euston" line="59" type="bus" vClass="bus" completeness="0.16">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 -253362217#1 -253362217#0 -504900413#1 -504900413#0 -504900412 -253362216#2 -253362216#1 -253362216#0 4060821#0 4060821#1 4060821#2 -66924592#8 -66924592#7 -66924592#6 -66924592#5 -66924592#4 -66924592#3 -66924592#2 -66924592#1 -66924592#0"/>
+        <busStop id="-4701534125" name="Brixton Road / Brixton Police Station"/>
+        <busStop id="-4701534129" name="Villa Road"/>
+        <busStop id="-4701534132" name="Loughborough Road"/>
+        <busStop id="-4703199264" name="Groveway"/>
+        <busStop id="-4703199266" name="Hillyard Street"/>
+    </ptLine>
+    <ptLine id="8911412" name="London Buses route P4 → Brixton" line="P4" type="bus" vClass="bus" completeness="0.05">
+        <route edges="-639169633#1 -639169633#0 -321325247#3 -321325247#2 -321325247#1 -321325247#0 572772263#0 572772263#1 572772255 613141473 613141472 321450388#0 321450388#1"/>
+        <busStop id="-469786435" name="Brixton Station Road"/>
+        <busStop id="-469765146" name="Gresham Road / Brixton Police Station"/>
+    </ptLine>
+    <ptLine id="8911414" name="London Buses route P4 → Lewisham Station" line="P4" type="bus" vClass="bus" completeness="0.05">
+        <route edges="-321450388#1 -321450388#0 -613141472 -613141473 -572772255 -24687193 572772260#0 572772260#1 321325247#0 321325247#1 321325247#2 321325247#3 639169633#0 639169633#1"/>
+        <busStop id="469765144" name="Gresham Road / Brixton Police Station"/>
+        <busStop id="469789541" name="Western Road"/>
+    </ptLine>
+</ptLines>

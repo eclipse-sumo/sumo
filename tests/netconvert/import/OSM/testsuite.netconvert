@@ -41,6 +41,9 @@ bus_stop_match_line
 # import bus stops that use a non-redundant mix of stop and platform members in the route relation
 bus_stop_mix_stops_platforms
 
+# import bus stops that use a non-redundant mix of stop and platform members in the route relation
+bus_stop_mix_stops_platforms_lefthand
+
 # Area around the ITS in Berlin, Adlershof (13.52494,52.42582,13.53625,52.43026)
 adlershof_dlr
 adlershof_dlr_discard-tls
