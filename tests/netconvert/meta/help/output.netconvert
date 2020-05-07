@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_6_0+0040-b6852ef6b1
+Eclipse SUMO netconvert Version v1_6_0+0124-7a98a41e1c
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -32,6 +32,7 @@ Input Options:
   --osm-files FILE                     Read OSM-network from path 'FILE(s)'
   --opendrive-files FILE               Read OpenDRIVE-network from FILE
   --visum-file FILE                    Read VISUM-net from FILE
+  --vissim-file FILE                   Read VISSIM-net from FILE
   --robocup-dir FILE                   Read RoboCup-net from DIR
   --matsim-files FILE                  Read MATsim-net from FILE
   --itsumo-files FILE                  Read ITSUMO-net from FILE
