@@ -29,6 +29,7 @@
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/frames/demand/GNERouteFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -1175,7 +1176,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     }
     // special color for candidate edges
     if (myParentEdge->isCandidateEdge()) {
-        color = s.colorSettings.candidateElementColor;
+        // extra check for route frame
+        if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->showCandidateEdges()) {
+            color = s.colorSettings.candidateElementColor;
+        }
     }
     // special color for candidate selected edges (has more priority than candidates)
     if (myParentEdge->isCandidateSelectedEdge()) {

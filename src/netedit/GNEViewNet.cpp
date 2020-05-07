@@ -3851,7 +3851,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // check if we clicked over a lane and Control key isn't pressed
             if (myObjectsUnderCursor.getLaneFront() && !myKeyPressed.controlKeyPressed()) {
                 // Handle edge click
-                myViewParent->getRouteFrame()->handleEdgeClick(myObjectsUnderCursor.getLaneFront()->getParentEdge());
+                myViewParent->getRouteFrame()->handleEdgeClick(myObjectsUnderCursor.getLaneFront()->getParentEdge(), myKeyPressed.shiftKeyPressed());
             }
             // process click
             processClick(eventData);

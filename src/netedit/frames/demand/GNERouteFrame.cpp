@@ -296,7 +296,7 @@ GNERouteFrame::PathCreator::setPathCreatorMode(GNERouteFrame::PathCreator::Mode 
 
 
 bool
-GNERouteFrame::PathCreator::addEdge(GNEEdge* edge) {
+GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed) {
     if (mySelectedElements.size() > 0) {
         // doppel edges aren't allowed
         if(mySelectedElements.back() == edge) {
@@ -359,9 +359,9 @@ GNERouteFrame::PathCreator::getPathRoute() const {
 }
 
 
-bool
-GNERouteFrame::PathCreator::isPathValid(SUMOVehicleClass /* vehicleClass */) const {
-    return mySelectedElements.size() > 0;
+bool 
+GNERouteFrame::PathCreator::showCandidateEdges() const {
+    return (myShowCandidateEdges->getCheck() == TRUE);
 }
 
 
@@ -463,8 +463,7 @@ GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*)
 
 long 
 GNERouteFrame::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
-    updateReachability();
-    // update view
+    // just update view
     myRouteFrameParent->myViewNet->updateViewNet();
     return 1;
 }
@@ -500,12 +499,9 @@ GNERouteFrame::PathCreator::updateReachability() {
     for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->setCandidateEdge(false);
     }
-    // only call setEdgesReachability if myShowCandidateEdges is enabled
-    if (myShowCandidateEdges->getCheck() == TRUE) {
-        // set reachability
-        if (mySelectedElements.size() > 0) {
-            setEdgesReachability(mySelectedElements.back(), myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass());
-        }
+    // set reachability
+    if (mySelectedElements.size() > 0) {
+        setEdgesReachability(mySelectedElements.back(), myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass());
     }
 }
 
@@ -549,8 +545,9 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     FXGroupBox* groupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
     
     // create keys Hint
-    new FXLabel(groupBoxInformation, "- Hold <SHIFT> while clicking\n  to create invalid route.", 0, GUIDesignLabelFrameInformation);
-    new FXLabel(groupBoxInformation, "- Press backspace key to remove\n  last inserted edge.", 0, GUIDesignLabelFrameInformation);
+    new FXLabel(groupBoxInformation, "- Hold SHIFT key while clicking\n  over an edge to create a\n  invalid route.", 0, GUIDesignLabelFrameInformation);
+    new FXLabel(groupBoxInformation, "- Press BACKSPACE key to remove\n  last inserted edge.", 0, GUIDesignLabelFrameInformation);
+    new FXLabel(groupBoxInformation, "- Press ESC key to abort route\n  creation.", 0, GUIDesignLabelFrameInformation);
     
     // Create groupbox and labels for legends
     FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
@@ -559,6 +556,8 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     colorCandidateLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, " edge selected", 0, GUIDesignLabelLeft);
     colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateSelectedElementColor));
+    FXLabel* colorConflictLabel = new FXLabel(groupBoxLegend, " edge selected (conflict)", 0, GUIDesignLabelLeft);
+    colorConflictLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateConflictElementColor));
 }
 
 
@@ -581,14 +580,14 @@ GNERouteFrame::hide() {
 
 
 void
-GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge) {
+GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed) {
     // first check if current vClass is valid and edge exist
     if (myRouteModeSelector->isValidVehicleClass() && clickedEdge) {
         // continue dependig of current mode
         switch (myRouteModeSelector->getCurrentRouteMode()) {
             case RouteMode::CONSECUTIVE_EDGES:
                 // check if edge can be inserted in consecutive edges modul modul
-                if (myPathCreator->addEdge(clickedEdge)) {
+                if (myPathCreator->addEdge(clickedEdge, shiftKeyPressed)) {
                     WRITE_DEBUG("Edge added in ConsecutiveEdges mode");
                 } else {
                     WRITE_DEBUG("Edge wasn't added in ConsecutiveEdges mode");
@@ -596,7 +595,7 @@ GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge) {
                 break;
             case RouteMode::NONCONSECUTIVE_EDGES:
                 // check if edge can be inserted in non consecutive edges modul modul
-                if (myPathCreator->addEdge(clickedEdge)) {
+                if (myPathCreator->addEdge(clickedEdge, shiftKeyPressed)) {
                     WRITE_DEBUG("Edge added in PathCreator mode");
                 } else {
                     WRITE_DEBUG("Edge wasn't added in PathCreator mode");
@@ -678,5 +677,10 @@ GNERouteFrame::drawTemporalRoute() const {
     }
 }
 
+
+GNERouteFrame::PathCreator* 
+GNERouteFrame::getPathCreator() const {
+    return myPathCreator;
+}
 
 /****************************************************************************/

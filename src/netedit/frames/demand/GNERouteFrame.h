@@ -127,9 +127,6 @@ public:
         /// @brief show PathCreator
         void hidePathCreatorModul();
 
-        /// @brief check if from and to edges create a valid route
-        bool isPathValid(SUMOVehicleClass vehicleClass) const;
-
         /// @brief get current selected edgesm
         std::vector<GNEEdge*> getSelectedEdges() const;
 
@@ -137,13 +134,16 @@ public:
         void setPathCreatorMode(Mode mode);
 
         /// @brief set edge from (and change color)
-        bool addEdge(GNEEdge* edge);
+        bool addEdge(GNEEdge* edge, const bool shiftKeyPressed);
 
         /// @brief clear edges (and restore colors)
         void clearPath();
 
         /// @brief get temporal route
         const std::vector<GNEEdge*>& getPathRoute() const;
+
+        /// @brief show candidate edges
+        bool showCandidateEdges() const;
 
         /// @name FOX-callbacks
         /// @{
@@ -217,7 +217,7 @@ public:
     void hide();
 
     /// @brief handle edge click
-    void handleEdgeClick(GNEEdge* clickedEdge);
+    void handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed);
 
     /// @brief function called when user press ENTER key
     void hotkeyEnter();
@@ -230,6 +230,9 @@ public:
 
     /// @brief draw temporal route
     void drawTemporalRoute() const;
+
+    /// @brief get path creator modul
+    PathCreator* getPathCreator() const;
 
 private:
     /// @brief route mode selector
