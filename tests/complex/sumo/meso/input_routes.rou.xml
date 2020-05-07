@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 07.05.2020 17:54:34 by Eclipse SUMO netedit Version v1_6_0+0043-774b384505
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <output>
+        <output-file value="C:\Users\behr_mi\Projekte\simo\tests\tapasVEU\template\data\scenario_templates\berlin_2010\test.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+    <netedit>
+        <route-files value="C:\Users\behr_mi\Projekte\simo\tests\tapasVEU\template\data\scenario_templates\berlin_2010\demand.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flow_0" begin="0.00" from="gneE4" to="gneE2" end="3600.00" number="3800"/>
+    <flow id="flow_1" begin="0.00" from="gneE3" to="gneE2" end="3600.00" number="3200"/>
+</routes>
