@@ -76,8 +76,8 @@ def get_options(args=None):
                          "<person> and <walk> are supported.")
     optParser.add_option("--fringe-start-attributes", dest="fringeattrs",
                          default="", help="additional trip attributes when starting on a fringe.")
-    optParser.add_option("-b", "--begin", type="float", default=0, help="begin time")
-    optParser.add_option("-e", "--end", type="float", default=3600, help="end time (default 3600)")
+    optParser.add_option("-b", "--begin", default=0, help="begin time")
+    optParser.add_option("-e", "--end", default=3600, help="end time (default 3600)")
     optParser.add_option(
         "-p", "--period", type="float", default=1, help="Generate vehicles with equidistant departure times and " +
         "period=FLOAT (default 1.0). If option --binomial is used, the expected arrival rate is set to 1/period.")
@@ -515,10 +515,11 @@ def main(options):
                             (options.vtypeID, options.vehicle_class, vtypeattrs))
             options.tripattrs += ' type="%s"' % options.vtypeID
             personattrs += ' type="%s"' % options.vtypeID
-        depart = options.begin
+        depart = sumolib.miscutils.parseTime(options.begin)
+        maxTime = sumolib.miscutils.parseTime(options.end)
         if trip_generator:
             if options.flows == 0:
-                while depart < options.end:
+                while depart < maxTime:
                     if options.binomial is None:
                         # generate with constant spacing
                         idx = generate_one(idx)
