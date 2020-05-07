@@ -322,7 +322,7 @@ along their route (other vehicles are not affected directly).
    - b) no alternative route exists
 3. detour signage
    - a) an rerouter edge is encountered before the alternative route branches off
-   - b) no rerouter edge is encountered before the alterantive route branches off
+   - b) no rerouter edge is encountered before the alternative route branches off
 4. vehicle style
    - a) vehicle defined with origin and destination where the affected edge is on the preferred route (i.e. `<trip from="..." to="...">`)
    - b) vehicle defined with fixed route
@@ -335,9 +335,9 @@ The following vehicle behaviors are possible:
 - **R**: use an alternative route upon reaching the rerouter edge
 - **D**: use an alternative route on departure
 - **I**: ignore the closed edge and keep driving
-- **W**: wait ahead of the cloeed edge until it reopens or time-to-teleport is
-  reached (in this case teleport accross the closed edge(s)
-- **E**: simulation generates an error
+- **W**: wait ahead of the closed edge until it reopens or time-to-teleport is
+  reached (in this case teleport across the closed edge(s))
+- **E**: generate an error
 
 To following effects occur:
 
@@ -388,8 +388,8 @@ To following effects occur:
 ## Departure on a closed edge
 
 When the departure edge for a vehicle is closed, vehicles will ignore this for
-'soft' closing and delay their departure until the closing has ended for a
-'hard' closing.
+'soft' closing. For a 'hard' closing they delay their departure until the 
+closing has ended.
 
 
 
