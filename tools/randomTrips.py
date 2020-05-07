@@ -567,6 +567,8 @@ def main(options):
         # write to temporary file because the input is read incrementally
         tmpTrips = options.tripfile + ".tmp"
         args2 = args + ['-o', tmpTrips, '--write-trips']
+        if options.junctionTaz:
+            args2 += ['--write-trips.junctions']
         print("calling ", " ".join(args2))
         subprocess.call(args2)
         os.remove(options.tripfile)  # on windows, rename does not overwrite
