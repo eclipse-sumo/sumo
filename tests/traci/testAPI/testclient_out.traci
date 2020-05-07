@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Mar 20 13:39:58 2020
+TraCITestClient output file. Date: Wed May  6 19:36:47 2020
 
 
 -> Command sent: <SetOrder>:
@@ -87,6 +87,7 @@ testAPI:
     getStopState: 0
     getStopDelay: -1.00
     param: 42
+    parameterWithKey: (meaningOfLife, 42)
     getColor:  r=255 g=255 b=0 a=128
     getSignals: 0
     getRoutingMode: 1

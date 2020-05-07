@@ -808,6 +808,8 @@ TraCITestClient::testAPI() {
     answerLog << "    getStopDelay: " << vehicle.getStopDelay("0") << "\n";
     vehicle.setParameter("0", "meaningOfLife", "42");
     answerLog << "    param: " << vehicle.getParameter("0", "meaningOfLife") << "\n";
+    std::pair<std::string, std::string> paramTuple = vehicle.getParameterWithKey("0", "meaningOfLife");
+    answerLog << "    parameterWithKey: (" << paramTuple.first << ", " << paramTuple.second << ")\n";
     libsumo::TraCIColor col1;
     col1.r = 255;
     col1.g = 255;
