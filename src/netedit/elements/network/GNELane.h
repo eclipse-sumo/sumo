@@ -58,6 +58,18 @@ public:
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
 
+    /// @brief check if lane is selected
+    bool isCandidateLane() const;
+
+    /// @brief check if lane is candidate selected
+    bool isCandidateSelectedLane() const;
+
+    /// @brief set candidate lane
+    void setCandidateLane(bool value);
+
+    /// @brief set candidate selected lane
+    void setCandidateSelectedLane(bool value);
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief get elements shape
@@ -234,6 +246,12 @@ protected:
 
     /// @brief lane2lane connections
     GNEGeometry::Lane2laneConnection myLane2laneConnections;
+
+    /// @brief flag to mark lane as candidate
+    bool myCandidateLane;
+
+    /// @brief flag to mark lane as selected
+    bool myCandidateSelectedLane;
 
 private:
     /// @brief set attribute after validation

@@ -308,7 +308,7 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge) {
     // in other case, add it
     mySelectedElements.push_back(edge);
     // set selected color
-    edge->setSelectedEdge(true);
+    edge->setCandidateSelectedEdge(true);
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -338,7 +338,7 @@ void
 GNERouteFrame::PathCreator::clearPath() {
     // reset edge reachability
     for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->setSelectedEdge(false);
+        edge.second->setCandidateSelectedEdge(false);
         edge.second->setCandidateEdge(false);
     }
     // clear edges
@@ -430,7 +430,7 @@ long
 GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     if (mySelectedElements.size() > 1) {
         // remove special color of last selected edge
-        mySelectedElements.back()->setSelectedEdge(false);
+        mySelectedElements.back()->setCandidateSelectedEdge(false);
         // remove last edge
         mySelectedElements.pop_back();
         // check if remove last route edge button has to be disabled

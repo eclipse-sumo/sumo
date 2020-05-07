@@ -74,9 +74,6 @@ public:
         /// @brief return true if modul is shown
         bool isShown() const;
 
-        /// @brief get selected lane color
-        const RGBColor& getSelectedLaneColor() const;
-
         /// @brief get current selected lanes
         const std::vector<std::pair<GNELane*, double> >& getSelectedLanes() const;
 
@@ -107,12 +104,6 @@ public:
 
         /// @brief Vector with the colored lanes
         std::vector<GNELane*> myCandidateLanes;
-
-        /// @brief color for candidate lanes
-        RGBColor myCandidateLaneColor;
-
-        /// @brief color for selected lanes
-        RGBColor mySelectedLaneColor;
 
         /// @brief check if certain lane is selected
         bool isLaneSelected(GNELane* lane) const;

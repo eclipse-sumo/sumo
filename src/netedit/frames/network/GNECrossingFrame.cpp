@@ -153,7 +153,7 @@ GNECrossingFrame::EdgesSelector::restoreEdgeColors() {
         // restore color of all lanes of edge candidates
         for (const auto &edge : myCurrentJunction->getGNEEdges()) {
             edge->setCandidateEdge(false);
-            edge->setSelectedEdge(false);
+            edge->setCandidateSelectedEdge(false);
         }
         // Update view net to show the new colors
         myCrossingFrameParent->getViewNet()->updateViewNet();
@@ -402,11 +402,11 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     // Update colors of edges
     for (const auto &edge: myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
         // restore colors
-        edge->setSelectedEdge(false);
+        edge->setCandidateSelectedEdge(false);
         edge->setCandidateEdge(false);
         // set selected or candidate color
         if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge) != myCurrentSelectedEdges.end()) {
-            edge->setSelectedEdge(true);
+            edge->setCandidateSelectedEdge(true);
         } else {
             edge->setCandidateEdge(true);
         }
@@ -518,9 +518,9 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create groupbox and labels for legends
     FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
     FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, "Candidate", 0, GUIDesignLabelLeft);
-    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(RGBColor(0, 64, 0, 255)));
+    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateElementColor));
     FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
-    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(RGBColor::GREEN));
+    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateSelectedElementColor));
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();

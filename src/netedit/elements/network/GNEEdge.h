@@ -70,17 +70,17 @@ public:
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
     
-    /// @brief get candidate edge
+    /// @brief check if edge is candidate
     bool isCandidateEdge() const;
 
-    /// @brief get selected edge
-    bool isSelectedEdge() const;
+    /// @brief check if edge is candidate selected
+    bool isCandidateSelectedEdge() const;
 
-    /// @brief get candidate edge
+    /// @brief set candidate edge
     void setCandidateEdge(bool value);
 
-    /// @brief set selected edge
-    void setSelectedEdge(bool value);
+    /// @brief set candidate selected edge
+    void setCandidateSelectedEdge(bool value);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -358,8 +358,8 @@ protected:
     /// @brief flag to mark edge as candidate
     bool myCandidateEdge;
 
-    /// @brief flag to mark edge as selected
-    bool mySelectedEdge;
+    /// @brief flag to mark edge as candidate selected
+    bool myCandidateSelectedEdge;
 
 private:
     /// @brief Stack position (used to stack demand elements over edges)

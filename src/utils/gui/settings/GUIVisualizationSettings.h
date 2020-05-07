@@ -162,6 +162,12 @@ struct GUIVisualizationColorSettings {
     /// @brief color for highlighthing deadends
     static const RGBColor SUMO_color_DEADEND_SHOW;
 
+    /// @brief color for candidate element
+    static const RGBColor candidateElementColor;
+
+    /// @brief color for selected candidate element
+    static const RGBColor candidateSelectedElementColor;
+
     /// @brief color for child connections between parents and child elements
     static const RGBColor childConnections;
 

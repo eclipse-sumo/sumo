@@ -53,12 +53,14 @@ const RGBColor SUMO_color_STOP(128, 0, 128);
 const RGBColor SUMO_color_ALLWAY_STOP(0, 0, 192);
 const RGBColor SUMO_color_ZIPPER(192, 128, 64);
 const RGBColor SUMO_color_DEADEND(0, 0, 0);
-const RGBColor GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW(255, 0, 255);
 
 // -------------------------------------------------------------------------
 // color constants for other objects
 // -------------------------------------------------------------------------
 
+const RGBColor GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW(255, 0, 255);
+const RGBColor GUIVisualizationColorSettings::candidateElementColor(0, 64, 0, 255);
+const RGBColor GUIVisualizationColorSettings::candidateSelectedElementColor(0, 200, 0, 255);
 const RGBColor GUIVisualizationColorSettings::childConnections(255, 235, 0);
 const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
 const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);

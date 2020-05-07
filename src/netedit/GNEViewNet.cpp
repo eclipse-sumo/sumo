@@ -3429,7 +3429,7 @@ GNEViewNet::drawLaneCandidates() const {
                 // obtain connection shape
                 shape = from->getParentEdge()->getNBEdge()->getConnection(from->getIndex(), to->getParentEdge()->getNBEdge(), to->getIndex()).shape;
                 // set special color
-                GLHelper::setColor(myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->getSelectedLaneColor());
+                GLHelper::setColor(myVisualizationSettings->colorSettings.candidateSelectedElementColor);
                 // Obtain lengths and shape rotations
                 int segments = (int) shape.size() - 1;
                 if (segments >= 0) {

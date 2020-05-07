@@ -77,9 +77,6 @@ GNEAdditionalFrame::SelectorParentLanes::SelectorParentLanes(GNEAdditionalFrame*
     // disable stop and abort functions as init
     myStopSelectingButton->disable();
     myAbortSelectingButton->disable();
-    // define colors
-    myCandidateLaneColor = RGBColor(0, 64, 0, 255);
-    mySelectedLaneColor = RGBColor::GREEN;
 }
 
 
@@ -174,14 +171,16 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
 void
 GNEAdditionalFrame::SelectorParentLanes::abortConsecutiveLaneSelector() {
     // reset color of all candidate lanes
-    for (auto i : myCandidateLanes) {
-        i->setSpecialColor(nullptr);
+    for (const auto &lane : myCandidateLanes) {
+        lane->setCandidateLane(false);
+        lane->setCandidateSelectedLane(false);
     }
     // clear candidate colors
     myCandidateLanes.clear();
     // reset color of all selected lanes
-    for (auto i : mySelectedLanes) {
-        i.first->setSpecialColor(nullptr);
+    for (const auto &lane : mySelectedLanes) {
+        lane.first->setCandidateLane(false);
+        lane.first->setCandidateSelectedLane(false);
     }
     // clear selected lanes
     mySelectedLanes.clear();
@@ -219,22 +218,20 @@ GNEAdditionalFrame::SelectorParentLanes::addSelectedLane(GNELane* lane, const Po
     // select lane and save the clicked position
     mySelectedLanes.push_back(std::make_pair(lane, lane->getLaneShape().nearest_offset_to_point2D(clickedPosition) / lane->getLengthGeometryFactor()));
     // change color of selected lane
-    lane->setSpecialColor(&mySelectedLaneColor);
+    lane->setCandidateSelectedLane(true);
     // restore original color of candidates (except already selected)
-    for (auto i : myCandidateLanes) {
-        if (!isLaneSelected(i)) {
-            i->setSpecialColor(nullptr);
-        }
+    for (const auto &lane : myCandidateLanes) {
+        lane->setCandidateLane(false);
     }
     // clear candidate lanes
     myCandidateLanes.clear();
     // fill candidate lanes
-    for (auto i : lane->getParentEdge()->getGNEConnections()) {
+    for (const auto &connection : lane->getParentEdge()->getGNEConnections()) {
         // check that possible candidate lane isn't already selected
-        if ((lane == i->getLaneFrom()) && (!isLaneSelected(i->getLaneTo()))) {
+        if ((lane == connection->getLaneFrom()) && (!isLaneSelected(connection->getLaneTo()))) {
             // set candidate lane
-            i->getLaneTo()->setSpecialColor(&myCandidateLaneColor);
-            myCandidateLanes.push_back(i->getLaneTo());
+            connection->getLaneTo()->setCandidateLane(true);
+            myCandidateLanes.push_back(connection->getLaneTo());
         }
     }
     // update view (due colors)
@@ -262,12 +259,6 @@ GNEAdditionalFrame::SelectorParentLanes::isSelectingLanes() const {
 bool
 GNEAdditionalFrame::SelectorParentLanes::isShown() const {
     return shown();
-}
-
-
-const RGBColor&
-GNEAdditionalFrame::SelectorParentLanes::getSelectedLaneColor() const {
-    return mySelectedLaneColor;
 }
 
 

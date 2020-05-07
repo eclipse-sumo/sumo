@@ -60,7 +60,9 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
     myIndex(index),
     mySpecialColor(nullptr),
     mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+    myLane2laneConnections(this),
+    myCandidateLane(false),
+    myCandidateSelectedLane(false) {
 }
 
 GNELane::GNELane() :
@@ -71,7 +73,9 @@ GNELane::GNELane() :
     myIndex(-1),
     mySpecialColor(nullptr),
     mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+    myLane2laneConnections(this),
+    myCandidateLane(false),
+    myCandidateSelectedLane(false) {
 }
 
 
@@ -81,6 +85,30 @@ std::string
 GNELane::generateChildID(SumoXMLTag /*childTag*/) {
     // currently unused
     return "";
+}
+
+
+bool
+GNELane::isCandidateLane() const {
+    return myCandidateLane;
+}
+
+
+bool
+GNELane::isCandidateSelectedLane() const {
+    return myCandidateSelectedLane;
+}
+
+
+void
+GNELane::setCandidateLane(bool value) {
+    myCandidateLane = value;
+}
+
+
+void
+GNELane::setCandidateSelectedLane(bool value) {
+    myCandidateSelectedLane = value;
 }
 
 
@@ -1145,13 +1173,21 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
             }
         }
     }
-    // special color for reachable edges
+    // special color for candidate edges
     if (myParentEdge->isCandidateEdge()) {
-        color = RGBColor(0, 64, 0, 255);
+        color = s.colorSettings.candidateElementColor;
     }
-    // special color for reachable edges (has more priority as candidates
-    if (myParentEdge->isSelectedEdge()) {
-        color = RGBColor::GREEN;
+    // special color for candidate selected edges (has more priority than candidates)
+    if (myParentEdge->isCandidateSelectedEdge()) {
+        color = s.colorSettings.candidateSelectedElementColor;
+    }
+    // special color for candidate lanes
+    if (myCandidateLane) {
+        color = s.colorSettings.candidateElementColor;
+    }
+    // special color for candidate selected lanes (has more priority than candidates
+    if (myCandidateSelectedLane) {
+        color = s.colorSettings.candidateSelectedElementColor;
     }
     // set color in GLHelper
     GLHelper::setColor(color);
