@@ -1,0 +1,4 @@
+Warning: Vehicle 'tripClosedAlready' is not allowed on source edge 'beg'.
+Warning: No route for vehicle 'tripClosedAlready' found.
+Error: Vehicle 'tripClosedAlready' has no valid route.
+Quitting (on error).

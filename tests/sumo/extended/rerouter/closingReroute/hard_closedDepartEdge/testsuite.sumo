@@ -1,2 +1,6 @@
-trip_closedAlready
-vehicle_closedAlready
+trip_departLane_default
+
+# Copy of trip_closedAlready
+trip_departLane_best
+vehicle_departLane_default
+vehicle_departLane_best
