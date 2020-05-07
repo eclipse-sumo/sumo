@@ -64,7 +64,8 @@ GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
     myUpdateGeometry(true),
     myCandidateEdge(false),
-    myCandidateSelectedEdge(false) {
+    myCandidateSelectedEdge(false),
+    myCandidateConflictedEdge(false) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -123,6 +124,11 @@ GNEEdge::isCandidateSelectedEdge() const {
 }
 
 
+bool 
+GNEEdge::isCandidateConflictedEdge() const {
+    return myCandidateConflictedEdge;
+}
+
 void 
 GNEEdge::setCandidateEdge(bool value) {
     myCandidateEdge = value;
@@ -132,6 +138,12 @@ GNEEdge::setCandidateEdge(bool value) {
 void 
 GNEEdge::setCandidateSelectedEdge(bool value) {
     myCandidateSelectedEdge = value;
+}
+
+
+void 
+GNEEdge::setCandidateConflictedEdge(bool value) {
+    myCandidateConflictedEdge = value;
 }
 
 

@@ -76,11 +76,17 @@ public:
     /// @brief check if edge is candidate selected
     bool isCandidateSelectedEdge() const;
 
+    /// @brief check if edge is candidate selected
+    bool isCandidateConflictedEdge() const;
+
     /// @brief set candidate edge
     void setCandidateEdge(bool value);
 
     /// @brief set candidate selected edge
     void setCandidateSelectedEdge(bool value);
+
+    /// @brief set candidate conflicted edge
+    void setCandidateConflictedEdge(bool value);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -360,6 +366,9 @@ protected:
 
     /// @brief flag to mark edge as candidate selected
     bool myCandidateSelectedEdge;
+
+    /// @brief flag to mark edge as candidate conflicted
+    bool myCandidateConflictedEdge;
 
 private:
     /// @brief Stack position (used to stack demand elements over edges)

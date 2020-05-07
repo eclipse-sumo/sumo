@@ -197,6 +197,7 @@ GNEPersonPlanFrame::PersonPlanCreator::hidePersonPlanCreator() {
     // restore colors
     for (const auto& edge : myClickedEdges) {
         edge->setCandidateSelectedEdge(false);
+        edge->setCandidateConflictedEdge(false);
     }
     // clear edges
     myClickedEdges.clear();
@@ -216,6 +217,7 @@ GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
     // restore colors
     for (const auto& edge : myClickedEdges) {
         edge->setCandidateSelectedEdge(false);
+        edge->setCandidateConflictedEdge(false);
     }
     // clear edges
     myClickedEdges.clear();

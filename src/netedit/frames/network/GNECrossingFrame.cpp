@@ -399,11 +399,11 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
         myCrossingEdges->setTextColor(FXRGB(255, 0, 0));
         myCurrentParametersValid = false;
     }
-    // Update colors of edges
+    // Update edge colors
     for (const auto &edge: myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
         // restore colors
-        edge->setCandidateSelectedEdge(false);
         edge->setCandidateEdge(false);
+        edge->setCandidateSelectedEdge(false);
         // set selected or candidate color
         if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge) != myCurrentSelectedEdges.end()) {
             edge->setCandidateSelectedEdge(true);

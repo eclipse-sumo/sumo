@@ -1181,9 +1181,13 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
             color = s.colorSettings.candidateElementColor;
         }
     }
-    // special color for candidate selected edges (has more priority than candidates)
+    // special color for candidate selected edges
     if (myParentEdge->isCandidateSelectedEdge()) {
         color = s.colorSettings.candidateSelectedElementColor;
+    }
+    // special color for candidate conflicted edges
+    if (myParentEdge->isCandidateConflictedEdge()) {
+        color = s.colorSettings.candidateConflictElementColor;
     }
     // special color for candidate lanes
     if (myCandidateLane) {
