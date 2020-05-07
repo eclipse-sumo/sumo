@@ -254,6 +254,13 @@ MSTriggeredRerouter::myEndElement(int element) {
             }
             ri.closedLanesAffected.insert(ri.closedLanesAffected.begin(), affected.begin(), affected.end());
         }
+        SUMOTime closingBegin = ri.begin;
+        SUMOTime simBegin = string2time(OptionsCont::getOptions().getString("begin"));
+        if (closingBegin < simBegin && ri.end > simBegin) {
+            // interval started before simulation begin but is still active at
+            // the start of the simulation
+            ri.begin = simBegin;
+        }
         myCurrentClosed.clear();
         myCurrentClosedLanes.clear();
         myCurrentEdgeProb.clear();
