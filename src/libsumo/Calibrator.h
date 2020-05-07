@@ -60,6 +60,7 @@ public:
     static int getInserted(const std::string& calibratorID);
     static int getRemoved(const std::string& calibratorID);
     static std::string getParameter(const std::string& calibratorID, const std::string& param);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     static void setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
                         const std::string& routeID,

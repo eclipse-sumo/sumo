@@ -47,6 +47,7 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static std::string getParameter(const std::string& probeID, const std::string& param);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     static void setParameter(const std::string& probeID, const std::string& key, const std::string& value); // not needed so far
 

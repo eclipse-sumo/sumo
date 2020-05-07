@@ -59,6 +59,8 @@ VariableSpeedSign::getParameter(const std::string& /* vssID */, const std::strin
     return "";
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(VariableSpeedSign)
+
 void
 VariableSpeedSign::setParameter(const std::string& /* vssID */, const std::string& /* key */, const std::string& /* value */) {
     //MSVariableSpeedSign* r = const_cast<MSVariableSpeedSign*>(getVariableSpeedSign(vssID));
@@ -96,8 +98,6 @@ VariableSpeedSign::handleVariable(const std::string& objID, const int variable, 
             return false;
     }
 }
-
-
 }
 
 

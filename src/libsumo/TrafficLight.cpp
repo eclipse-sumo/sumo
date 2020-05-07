@@ -208,6 +208,9 @@ TrafficLight::getParameter(const std::string& tlsID, const std::string& paramNam
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(TrafficLight)
+
+
 void
 TrafficLight::setRedYellowGreenState(const std::string& tlsID, const std::string& state) {
     getTLS(tlsID).setStateInstantiatingOnline(MSNet::getInstance()->getTLSControl(), state);
@@ -352,8 +355,6 @@ TrafficLight::handleVariable(const std::string& objID, const int variable, Varia
             return false;
     }
 }
-
-
 }
 
 

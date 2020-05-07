@@ -66,6 +66,8 @@ BusStop::getParameter(const std::string& stopID, const std::string& param) {
     return s->getParameter(param, "");
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(BusStop)
+
 void
 BusStop::setParameter(const std::string& stopID, const std::string& key, const std::string& value) {
     MSStoppingPlace* s = getBusStop(stopID);

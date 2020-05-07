@@ -140,6 +140,8 @@ Calibrator::getParameter(const std::string& calibratorID, const std::string& par
     return c->getParameter(param, "");
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Calibrator)
+
 void
 Calibrator::setParameter(const std::string& calibratorID, const std::string& key, const std::string& value) {
     MSCalibrator* c = getCalibrator(calibratorID);
@@ -234,7 +236,6 @@ Calibrator::handleVariable(const std::string& objID, const int variable, Variabl
             return false;
     }
 }
-
 
 }
 

@@ -93,6 +93,7 @@ public:
     static int getIDCount();
     LIBSUMO_VEHICLE_TYPE_GETTER
     static std::string getParameter(const std::string& typeID, const std::string& key);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     LIBSUMO_VEHICLE_TYPE_SETTER
     static void copy(const std::string& origTypeID, const std::string& newTypeID);

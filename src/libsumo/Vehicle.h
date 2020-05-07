@@ -101,6 +101,7 @@ public:
     static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);
     static double getLastActionTime(const std::string& vehicleID);
     static std::string getParameter(const std::string& vehicleID, const std::string& param);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
     static std::vector<std::pair<std::string, double> > getNeighbors(const std::string& vehicleID, const int mode);
     static double getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
     static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");

@@ -59,6 +59,8 @@ RouteProbe::getParameter(const std::string& /* probeID */, const std::string& /*
     return "";
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(RouteProbe)
+
 void
 RouteProbe::setParameter(const std::string& /* probeID */, const std::string& /* key */, const std::string& /* value */) {
     //MSRouteProbe* r = const_cast<MSRouteProbe*>(getRouteProbe(probeID));
@@ -96,7 +98,6 @@ RouteProbe::handleVariable(const std::string& objID, const int variable, Variabl
             return false;
     }
 }
-
 
 }
 

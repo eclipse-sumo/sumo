@@ -59,6 +59,8 @@ MeanData::getParameter(const std::string& /* dataID */, const std::string& /* pa
     return "";
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(MeanData)
+
 void
 MeanData::setParameter(const std::string& /* dataID */, const std::string& /* key */, const std::string& /* value */) {
     //MSMeanData* r = const_cast<MSMeanData*>(getMeanData(dataID));
@@ -96,7 +98,6 @@ MeanData::handleVariable(const std::string& objID, const int variable, VariableW
             return false;
     }
 }
-
 
 }
 

@@ -349,6 +349,9 @@ Lane::getParameter(const std::string& laneID, const std::string& param) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Lane)
+
+
 void
 Lane::setParameter(const std::string& laneID, const std::string& key, const std::string& value) {
     MSLane* l = const_cast<MSLane*>(getLane(laneID));
@@ -438,8 +441,6 @@ Lane::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return false;
     }
 }
-
-
 }
 
 

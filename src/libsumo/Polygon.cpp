@@ -94,6 +94,9 @@ Polygon::getParameter(const std::string& polygonID, const std::string& key) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Polygon)
+
+
 void
 Polygon::setType(const std::string& polygonID, const std::string& setType) {
     SUMOPolygon* p = getPolygon(polygonID);
@@ -294,7 +297,6 @@ Polygon::exists(std::string polyID) {
     SUMOPolygon* p = MSNet::getInstance()->getShapeContainer().getPolygons().get(polyID);
     return p != nullptr;
 }
-
 }
 
 

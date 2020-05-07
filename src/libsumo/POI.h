@@ -59,6 +59,7 @@ public:
     static double getAngle(const std::string& poiID);
     static std::string getImageFile(const std::string& poiID);
     static std::string getParameter(const std::string& poiID, const std::string& key);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     static void setType(const std::string& poiID, const std::string& setType);
     static void setColor(const std::string& poiID, const TraCIColor& c);

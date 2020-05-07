@@ -185,6 +185,8 @@ VehicleType::getParameter(const std::string& typeID, const std::string& key) {
     return getVType(typeID)->getParameter().getParameter(key, "");
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(VehicleType)
+
 int
 VehicleType::getPersonCapacity(const std::string& typeID) {
     return getVType(typeID)->getPersonCapacity();
@@ -415,7 +417,6 @@ VehicleType::handleVariable(const std::string& objID, const int variable, Variab
             return false;
     }
 }
-
 
 }
 

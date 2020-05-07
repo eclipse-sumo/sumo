@@ -81,6 +81,15 @@ CLASS::getContextSubscriptionResults(const std::string& objectID) { \
 }
 
 
+#define LIBSUMO_GET_PARAMETER_WITH_KEY_API \
+static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key);
+
+#define LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(CLASS) \
+const std::pair<std::string, std::string> \
+CLASS::getParameterWithKey(const std::string& objectID, const std::string& key) { \
+    return std::make_pair(key, getParameter(objectID, key)); \
+}
+
 
 // ===========================================================================
 // class and type definitions

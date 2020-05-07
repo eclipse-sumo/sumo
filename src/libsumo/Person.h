@@ -61,6 +61,7 @@ public:
     static TraCIStage getStage(const std::string& personID, int nextStageIndex = 0);
     static std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0);
     static std::string getParameter(const std::string& personID, const std::string& param);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
     static double getAngle(const std::string& personID);
     static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);

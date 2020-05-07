@@ -50,6 +50,7 @@ public:
     static int getIDCount();
     static std::vector<std::string> getEdges(const std::string& routeID);
     static std::string getParameter(const std::string& routeID, const std::string& param);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     static void add(const std::string& routeID, const std::vector<std::string>& edges);
     static void setParameter(const std::string& routeID, const std::string& param, const std::string& value); // not needed so far

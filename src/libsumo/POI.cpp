@@ -107,6 +107,9 @@ POI::getParameter(const std::string& poiID, const std::string& key) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(POI)
+
+
 void
 POI::setType(const std::string& poiID, const std::string& type) {
     getPoI(poiID)->setShapeType(type);

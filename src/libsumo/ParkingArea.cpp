@@ -66,6 +66,8 @@ ParkingArea::getParameter(const std::string& stopID, const std::string& param) {
     return s->getParameter(param, "");
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(ParkingArea)
+
 void
 ParkingArea::setParameter(const std::string& stopID, const std::string& key, const std::string& value) {
     MSStoppingPlace* s = getParkingArea(stopID);
@@ -105,7 +107,6 @@ ParkingArea::handleVariable(const std::string& objID, const int variable, Variab
             return false;
     }
 }
-
 
 }
 

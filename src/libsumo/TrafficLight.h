@@ -65,6 +65,7 @@ public:
     static double getNextSwitch(const std::string& tlsID);
     static int getServedPersonCount(const std::string& tlsID, int index);
     static std::string getParameter(const std::string& tlsID, const std::string& paramName);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     static void setRedYellowGreenState(const std::string& tlsID, const std::string& state);
     static void setPhase(const std::string& tlsID, const int index);

@@ -656,6 +656,9 @@ Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Vehicle)
+
+
 std::vector<std::pair<std::string, double> >
 Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
     int dir = (1 & mode) != 0 ? -1 : 1;

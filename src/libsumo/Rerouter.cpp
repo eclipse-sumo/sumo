@@ -59,6 +59,10 @@ Rerouter::getParameter(const std::string& /* rerouterID */, const std::string& /
     return "";
 }
 
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Rerouter)
+
+
 void
 Rerouter::setParameter(const std::string& /* rerouterID */, const std::string& /* key */, const std::string& /* value */) {
     //MSRerouter* r = const_cast<MSRerouter*>(getRerouter(rerouterID));
@@ -96,7 +100,6 @@ Rerouter::handleVariable(const std::string& objID, const int variable, VariableW
             return false;
     }
 }
-
 
 }
 

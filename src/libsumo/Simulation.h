@@ -117,6 +117,7 @@ public:
             const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     static void clearPending(const std::string& routeID = "");
     static void saveState(const std::string& fileName);

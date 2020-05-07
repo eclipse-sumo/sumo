@@ -51,6 +51,7 @@ public:
     static bool getFilled(const std::string& polygonID);
     static double getLineWidth(const std::string& polygonID);
     static std::string getParameter(const std::string& polygonID, const std::string& key);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
     static void setType(const std::string& polygonID, const std::string& setType);
     static void setShape(const std::string& polygonID, const TraCIPositionVector& shape);
     static void setColor(const std::string& polygonID, const TraCIColor& c);

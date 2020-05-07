@@ -267,6 +267,9 @@ Edge::getParameter(const std::string& id, const std::string& paramName) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Edge)
+
+
 void
 Edge::setAllowedVehicleClasses(const std::string& id, std::vector<std::string> classes) {
     SVCPermissions permissions = parseVehicleClasses(classes);
@@ -389,7 +392,6 @@ Edge::handleVariable(const std::string& objID, const int variable, VariableWrapp
             return false;
     }
 }
-
 
 }
 

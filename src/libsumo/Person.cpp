@@ -251,6 +251,9 @@ Person::getParameter(const std::string& personID, const std::string& param) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Person)
+
+
 std::string
 Person::getEmissionClass(const std::string& personID) {
     return PollutantsInterface::getName(getPerson(personID)->getVehicleType().getEmissionClass());

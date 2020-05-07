@@ -66,6 +66,8 @@ OverheadWire::getParameter(const std::string& stopID, const std::string& param) 
     return s->getParameter(param, "");
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(OverheadWire)
+
 void
 OverheadWire::setParameter(const std::string& stopID, const std::string& key, const std::string& value) {
     MSStoppingPlace* s = getOverheadWire(stopID);
@@ -105,7 +107,6 @@ OverheadWire::handleVariable(const std::string& objID, const int variable, Varia
             return false;
     }
 }
-
 
 }
 

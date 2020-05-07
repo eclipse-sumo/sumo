@@ -48,6 +48,7 @@ public:
     static int getIDCount();
     static std::string getLaneID(const std::string& stopID);
     static std::string getParameter(const std::string& stopID, const std::string& param);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     static void setParameter(const std::string& stopID, const std::string& key, const std::string& value); // not needed so far
 

@@ -66,6 +66,8 @@ ChargingStation::getParameter(const std::string& stopID, const std::string& para
     return s->getParameter(param, "");
 }
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(ChargingStation)
+
 void
 ChargingStation::setParameter(const std::string& stopID, const std::string& key, const std::string& value) {
     MSStoppingPlace* s = getChargingStation(stopID);
@@ -105,7 +107,6 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
             return false;
     }
 }
-
 
 }
 

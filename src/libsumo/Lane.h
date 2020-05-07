@@ -87,6 +87,7 @@ public:
 
     // Generic parameter get/set
     static std::string getParameter(const std::string& laneID, const std::string& param);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
     static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
 
     LIBSUMO_SUBSCRIPTION_API
