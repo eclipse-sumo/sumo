@@ -1,6 +1,9 @@
 # test setting and getting of params to all objects which support it
 params
 
+# test getParameterWithKey().
+paramsWithKey
+
 # Test for the StepListener functions
 steplistener
 
