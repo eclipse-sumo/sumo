@@ -168,6 +168,9 @@ struct GUIVisualizationColorSettings {
     /// @brief color for selected candidate element
     static const RGBColor candidateSelectedElementColor;
 
+    /// @brief color for selected conflict element
+    static const RGBColor candidateConflictElementColor;
+
     /// @brief color for child connections between parents and child elements
     static const RGBColor childConnections;
 
