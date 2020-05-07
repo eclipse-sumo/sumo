@@ -102,63 +102,63 @@ public:
     };
 
     // ===========================================================================
-    // class RouteCreator
+    // class PathCreator
     // ===========================================================================
 
-    class RouteCreator : protected FXGroupBox {
+    class PathCreator : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNERouteFrame::RouteCreator)
+        FXDECLARE(GNERouteFrame::PathCreator)
 
     public:
         enum class Mode {
-            MODE_CONSECUTIVE,
-            MODE_NOCONSECUTIVE
+            CONSECUTIVE,
+            NOCONSECUTIVE
         };
 
         /// @brief default constructor
-        RouteCreator(GNERouteFrame* routeFrameParent, Mode mode);
+        PathCreator(GNERouteFrame* routeFrameParent, Mode mode);
 
         /// @brief destructor
-        ~RouteCreator();
+        ~PathCreator();
 
-        /// @brief show RouteCreator
-        void showRouteCreatorModul();
+        /// @brief show PathCreator
+        void showPathCreatorModul();
 
-        /// @brief show RouteCreator
-        void hideRouteCreatorModul();
+        /// @brief show PathCreator
+        void hidePathCreatorModul();
 
         /// @brief check if from and to edges create a valid route
-        bool isValid(SUMOVehicleClass vehicleClass) const;
+        bool isPathValid(SUMOVehicleClass vehicleClass) const;
 
         /// @brief get current selected edgesm
         std::vector<GNEEdge*> getSelectedEdges() const;
 
         /// @brief change route mode
-        void setRouteCreatorMode(Mode mode);
+        void setPathCreatorMode(Mode mode);
 
         /// @brief set edge from (and change color)
         bool addEdge(GNEEdge* edge);
 
         /// @brief clear edges (and restore colors)
-        void clearEdges();
+        void clearPath();
 
         /// @brief get temporal route
-        const std::vector<GNEEdge*>& getTemporalRoute() const;
+        const std::vector<GNEEdge*>& getPathRoute() const;
 
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user click over button "Finish route creation"
-        long onCmdCreateRoute(FXObject*, FXSelector, void*);
+        long onCmdCreatePath(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user click over button "Abort route creation"
-        long onCmdAbortRoute(FXObject*, FXSelector, void*);
+        long onCmdAbortPathCreation(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user click over button "Remove las inserted edge"
-        long onCmdRemoveLastRouteEdge(FXObject*, FXSelector, void*);
+        long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(RouteCreator)
+        FOX_CONSTRUCTOR(PathCreator)
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
@@ -174,10 +174,10 @@ public:
         FXLabel* myInfoRouteLabel;
 
         /// @brief current selected edges
-        std::vector<GNEEdge*> mySelectedEdges;
+        std::vector<GNEEdge*> mySelectedElements;
 
         /// @brief vector with temporal route edges
-        std::vector<GNEEdge*> myTemporalRoute;
+        std::vector<GNEEdge*> myTemporalPath;
 
         /// @brief button for finish route creation
         FXButton* myFinishCreationButton;
@@ -223,9 +223,9 @@ private:
     /// @brief route mode selector
     RouteModeSelector* myRouteModeSelector;
 
-    /// @brief internal additional attributes
+    /// @brief internal route attributes
     GNEFrameAttributesModuls::AttributesCreator* myRouteAttributes;
 
-    /// @brief route creator modul
-    RouteCreator* myRouteCreator;
+    /// @brief path creator modul
+    PathCreator* myPathCreator;
 };
