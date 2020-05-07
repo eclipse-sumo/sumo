@@ -1,3 +1,12 @@
+# test different variants of closing reroute
+# - vehicle vs trip
+# - departure before/after closing
+# - hard vs soft closing (usage of allow or not)
+# - alternative does/doesn't exist
+# - rerouter edge (detour sign) encountered before alternative route branches off  vs not encountered
+# - ignore-route-errors on/off
+closingReroute
+
 # circular route tests
 cyclic_route
 

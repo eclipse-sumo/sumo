@@ -1,0 +1,4 @@
+Warning: No connection between edge 'beg' and edge 'end2' found.
+Warning: No route for vehicle 'tripClosedAlready' found.
+Error: Vehicle 'tripClosedAlready' has no valid route.
+Quitting (on error).
