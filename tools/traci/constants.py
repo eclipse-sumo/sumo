@@ -1111,6 +1111,9 @@ CMD_LOAD_SIMSTATE = 0x96
 #  sets/retrieves abstract parameter
 VAR_PARAMETER = 0x7e
 
+#  retrieves abstract parameter and returns (key, value) tuple
+VAR_PARAMETER_WITH_KEY = 0x3e
+
 
 #  add an instance (poi, polygon, vehicle, person, route)
 ADD = 0x80
