@@ -39,9 +39,7 @@ FXFont* GNEFrame::myFrameHeaderFont = nullptr;
 
 GNEFrame::GNEFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, const std::string& frameLabel) :
     FXVerticalFrame(horizontalFrameParent, GUIDesignAuxiliarFrame),
-    myViewNet(viewNet),
-    myEdgeCandidateColor(RGBColor(0, 64, 0, 255)),
-    myEdgeCandidateSelectedColor(RGBColor::GREEN) {
+    myViewNet(viewNet) {
 
     // fill myPredefinedTagsMML (to avoid repeating this fill during every element creation)
     int i = 0;
@@ -268,22 +266,9 @@ GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const 
 }
 
 
-const RGBColor&
-GNEFrame::getEdgeCandidateColor() const {
-    return myEdgeCandidateColor;
-}
-
-
-const RGBColor&
-GNEFrame::getEdgeCandidateSelectedColor() const {
-    return myEdgeCandidateSelectedColor;
-}
-
-
 const std::vector<std::string>&
 GNEFrame::getPredefinedTagsMML() const {
     return myPredefinedTagsMML;
 }
-
 
 /****************************************************************************/

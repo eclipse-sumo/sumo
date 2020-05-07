@@ -54,7 +54,7 @@ const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE,
-        { net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())},    // Parents
+        {net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())},    // Parents
             {}, {}, {}, {}, {}, {}, {},
         {}, {}, {}, {}, {}, {}, {}, {}),    // Children
     myNBEdge(nbe),
@@ -62,7 +62,9 @@ GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     myAmResponsible(false),
     myWasSplit(wasSplit),
     myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+    myUpdateGeometry(true),
+    myCandidateEdge(false),
+    mySelectedEdge(false) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -106,6 +108,30 @@ std::string
 GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
     // currently unused
     return "";
+}
+
+
+bool 
+GNEEdge::isCandidateEdge() const {
+    return myCandidateEdge;
+}
+
+
+bool 
+GNEEdge::isSelectedEdge() const {
+    return mySelectedEdge;
+}
+
+
+void 
+GNEEdge::setCandidateEdge(bool value) {
+    myCandidateEdge = value;
+}
+
+
+void 
+GNEEdge::setSelectedEdge(bool value) {
+    mySelectedEdge = value;
 }
 
 

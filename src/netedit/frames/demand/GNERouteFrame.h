@@ -163,10 +163,16 @@ public:
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
 
+        /// @brief update reachability
+        void updateReachability();
+
         /// @brief current mode
         Mode myMode;
 
     private:
+        /// @brief set edgereachability (This function will be called recursively)
+        void setEdgesReachability(GNEEdge* edge, SUMOVehicleClass vClass);
+
         /// @brief pointer to Vehicle Frame Parent
         GNERouteFrame* myRouteFrameParent;
 

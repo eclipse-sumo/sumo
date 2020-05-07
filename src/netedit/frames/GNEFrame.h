@@ -106,12 +106,6 @@ protected:
     /// @brief Open help attributes dialog
     void openHelpAttributesDialog(const GNETagProperties& tagProperties) const;
 
-    /// @brief get edge candidate color
-    const RGBColor& getEdgeCandidateColor() const;
-
-    /// @brief get selected color
-    const RGBColor& getEdgeCandidateSelectedColor() const;
-
     /// @brief get predefinedTagsMML
     const std::vector<std::string>& getPredefinedTagsMML() const;
 
@@ -139,12 +133,6 @@ private:
 
     /// @brief the label for the frame's header
     FXLabel* myFrameHeaderLabel = nullptr;
-
-    /// @brief edge candidate color (used by some modulds to mark edges)
-    RGBColor myEdgeCandidateColor;
-
-    /// @brief selected edge candidate color (used by some modulds to selected mark edges)
-    RGBColor myEdgeCandidateSelectedColor;
 
     /// @brief Map of attribute ids to their (readable) string-representation (needed for SUMOSAXAttributesImpl_Cached)
     std::vector<std::string> myPredefinedTagsMML;

@@ -123,8 +123,8 @@ GNECrossingFrame::EdgesSelector::enableEdgeSelector(GNEJunction* currentJunction
     myCrossingFrameParent->getViewNet()->updateViewNet();
     // check if use selected eges must be enabled
     myUseSelectedEdges->disable();
-    for (auto i : myCurrentJunction->getGNEEdges()) {
-        if (i->isAttributeCarrierSelected()) {
+    for (const auto &edge : myCurrentJunction->getGNEEdges()) {
+        if (edge->isAttributeCarrierSelected()) {
             myUseSelectedEdges->enable();
         }
     }
@@ -151,10 +151,9 @@ void
 GNECrossingFrame::EdgesSelector::restoreEdgeColors() {
     if (myCurrentJunction != nullptr) {
         // restore color of all lanes of edge candidates
-        for (auto i : myCurrentJunction->getGNEEdges()) {
-            for (auto j : i->getLanes()) {
-                j->setSpecialColor(nullptr);
-            }
+        for (const auto &edge : myCurrentJunction->getGNEEdges()) {
+            edge->setCandidateEdge(false);
+            edge->setSelectedEdge(false);
         }
         // Update view net to show the new colors
         myCrossingFrameParent->getViewNet()->updateViewNet();
@@ -392,7 +391,6 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
             }
         }
     }
-
     // change color of textfield dependig of myCurrentParametersValid
     if (myCurrentParametersValid) {
         myCrossingEdges->setTextColor(FXRGB(0, 0, 0));
@@ -401,17 +399,16 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
         myCrossingEdges->setTextColor(FXRGB(255, 0, 0));
         myCurrentParametersValid = false;
     }
-
     // Update colors of edges
-    for (auto i : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
-        if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), i) != myCurrentSelectedEdges.end()) {
-            for (auto j : i->getLanes()) {
-                j->setSpecialColor(&myCrossingFrameParent->getEdgeCandidateSelectedColor());
-            }
+    for (const auto &edge: myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
+        // restore colors
+        edge->setSelectedEdge(false);
+        edge->setCandidateEdge(false);
+        // set selected or candidate color
+        if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge) != myCurrentSelectedEdges.end()) {
+            edge->setSelectedEdge(true);
         } else {
-            for (auto j : i->getLanes()) {
-                j->setSpecialColor(&myCrossingFrameParent->getEdgeCandidateColor());
-            }
+            edge->setCandidateEdge(true);
         }
     }
     // Update view net
@@ -521,9 +518,9 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create groupbox and labels for legends
     FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
     FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, "Candidate", 0, GUIDesignLabelLeft);
-    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(getEdgeCandidateColor()));
+    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(RGBColor(0, 64, 0, 255)));
     FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, "Selected", 0, GUIDesignLabelLeft);
-    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(getEdgeCandidateSelectedColor()));
+    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(RGBColor::GREEN));
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();

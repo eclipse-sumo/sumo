@@ -69,6 +69,18 @@ public:
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
+    
+    /// @brief get candidate edge
+    bool isCandidateEdge() const;
+
+    /// @brief get selected edge
+    bool isSelectedEdge() const;
+
+    /// @brief get candidate edge
+    void setCandidateEdge(bool value);
+
+    /// @brief set selected edge
+    void setSelectedEdge(bool value);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -342,6 +354,12 @@ protected:
 
     /// @brief vector with references to path element childs
     std::vector<GNEDemandElement*> myPathDemandElementsElementChilds;
+
+    /// @brief flag to mark edge as candidate
+    bool myCandidateEdge;
+
+    /// @brief flag to mark edge as selected
+    bool mySelectedEdge;
 
 private:
     /// @brief Stack position (used to stack demand elements over edges)

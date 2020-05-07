@@ -270,6 +270,9 @@ GNERouteFrame::PathCreator::showPathCreatorModul() {
 
 void
 GNERouteFrame::PathCreator::hidePathCreatorModul() {
+    // clear path
+    clearPath();
+    // hide modul
     hide();
 }
 
@@ -304,16 +307,14 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge) {
     }
     // in other case, add it
     mySelectedElements.push_back(edge);
+    // set selected color
+    edge->setSelectedEdge(true);
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
     myFinishCreationButton->enable();
     // disable undo/redo
     myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
-    // set special color
-    for (const auto &lane : edge->getLanes()) {
-        lane->setSpecialColor(&myRouteFrameParent->getEdgeCandidateSelectedColor());
-    }
     // calculate route if there is more than two edges
     if (mySelectedElements.size() > 1) {
         // enable remove last edge button
@@ -327,21 +328,24 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge) {
     }
     // update info route label
     updateInfoRouteLabel();
+    // update reachability
+    updateReachability();
     return true;
 }
 
 
 void
 GNERouteFrame::PathCreator::clearPath() {
-    // restore colors
-    for (const auto& edge : mySelectedElements) {
-        for (const auto& lane : edge->getLanes()) {
-            lane->setSpecialColor(nullptr);
-        }
+    // reset edge reachability
+    for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->setSelectedEdge(false);
+        edge.second->setCandidateEdge(false);
     }
     // clear edges
     mySelectedElements.clear();
     myTemporalPath.clear();
+    // update info route label
+    updateInfoRouteLabel();
 }
 
 
@@ -426,9 +430,7 @@ long
 GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     if (mySelectedElements.size() > 1) {
         // remove special color of last selected edge
-        for (const auto &lane : mySelectedElements.back()->getLanes()) {
-            lane->setSpecialColor(0);
-        }
+        mySelectedElements.back()->setSelectedEdge(false);
         // remove last edge
         mySelectedElements.pop_back();
         // check if remove last route edge button has to be disabled
@@ -444,6 +446,8 @@ GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*)
         }
         // update info route label
         updateInfoRouteLabel();
+        // update reachability
+        updateReachability();
         // update view
         myRouteFrameParent->myViewNet->updateViewNet();
         return true;
@@ -472,6 +476,36 @@ GNERouteFrame::PathCreator::updateInfoRouteLabel() {
         myInfoRouteLabel->setText(information.str().c_str());
     } else {
         myInfoRouteLabel->setText("No edges selected");
+    }
+}
+
+
+void 
+GNERouteFrame::PathCreator::updateReachability() {
+    // reset candidate edges
+    for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->setCandidateEdge(false);
+    }
+    // set reachability
+    if (mySelectedElements.size() > 0) {
+        setEdgesReachability(mySelectedElements.back(), myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass());
+    }
+}
+
+
+void 
+GNERouteFrame::PathCreator::setEdgesReachability(GNEEdge* edge, SUMOVehicleClass vClass) {
+    // set edge reachable
+    edge->setCandidateEdge(true);
+    // iterate over outgoing edges of second junction's edge
+    for (const auto &nextEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
+        if (!nextEdge->isCandidateEdge() && myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(vClass, edge, nextEdge)) {
+            if (myMode == Mode::CONSECUTIVE) {
+                nextEdge->setCandidateEdge(true);
+            } else if (myMode == Mode::NOCONSECUTIVE) {
+                setEdgesReachability(nextEdge, vClass);
+            }
+        }
     }
 }
 

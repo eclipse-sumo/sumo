@@ -195,10 +195,8 @@ GNEPersonPlanFrame::PersonPlanCreator::hidePersonPlanCreator() {
     myFinishCreationButton->disable();
     myRemoveLastEdge->disable();
     // restore colors
-    for (const auto& i : myClickedEdges) {
-        for (const auto& j : i->getLanes()) {
-            j->setSpecialColor(nullptr);
-        }
+    for (const auto& edge : myClickedEdges) {
+        edge->setSelectedEdge(false);
     }
     // clear edges
     myClickedEdges.clear();
@@ -216,10 +214,8 @@ GNEPersonPlanFrame::PersonPlanCreator::refreshPersonPlanCreator() {
     myAbortCreationButton->disable();
     myRemoveLastEdge->disable();
     // restore colors
-    for (const auto& i : myClickedEdges) {
-        for (const auto& j : i->getLanes()) {
-            j->setSpecialColor(nullptr);
-        }
+    for (const auto& edge : myClickedEdges) {
+        edge->setSelectedEdge(false);
     }
     // clear edges
     myClickedEdges.clear();
@@ -279,9 +275,7 @@ GNEPersonPlanFrame::PersonPlanCreator::addEdge(GNEEdge* edge) {
         // disable undo/redo
         myPersonPlanFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
         // set special color
-        for (auto i : edge->getLanes()) {
-            i->setSpecialColor(&myPersonPlanFrameParent->getEdgeCandidateSelectedColor());
-        }
+        edge->setSelectedEdge(true);
         // calculate route if there is more than two edges
         if (myClickedEdges.size() > 1) {
             // enable remove last edge button

@@ -1145,6 +1145,14 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
             }
         }
     }
+    // special color for reachable edges
+    if (myParentEdge->isCandidateEdge()) {
+        color = RGBColor(0, 64, 0, 255);
+    }
+    // special color for reachable edges (has more priority as candidates
+    if (myParentEdge->isSelectedEdge()) {
+        color = RGBColor::GREEN;
+    }
     // set color in GLHelper
     GLHelper::setColor(color);
     return color;

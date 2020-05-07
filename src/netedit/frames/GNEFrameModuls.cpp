@@ -645,10 +645,8 @@ GNEFrameModuls::EdgePathCreator::addPathEdge(GNEEdge* edge) {
         myAbortCreationButton->enable();
         // disable undo/redo
         myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
-        // set special color
-        for (auto i : edge->getLanes()) {
-            i->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
-        }
+        // set candidate color
+        edge->setCandidateEdge(true);
         // enable remove last edge button
         myRemoveLastInsertedEdge->enable();
         // enable finish button
@@ -673,7 +671,7 @@ GNEFrameModuls::EdgePathCreator::addBusStop(GNEAdditional* busStop) {
     // check that at least there is a selected edge
     if (!myClickedEdges.empty() && (mySelectedBusStop == nullptr)) {
         mySelectedBusStop = busStop;
-        mySelectedBusStop->setSpecialColor(&myFrameParent->getEdgeCandidateSelectedColor());
+        mySelectedBusStop->setSpecialColor(&RGBColor::GREEN);
     }
     return false;
 }
