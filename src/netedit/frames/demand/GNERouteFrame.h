@@ -134,7 +134,7 @@ public:
         void setPathCreatorMode(Mode mode);
 
         /// @brief set edge from (and change color)
-        bool addEdge(GNEEdge* edge, const bool shiftKeyPressed);
+        bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
 
         /// @brief clear edges (and restore colors)
         void clearPath();
@@ -217,7 +217,7 @@ public:
     void hide();
 
     /// @brief handle edge click
-    void handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed);
+    void handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed, const bool controlKeyPressed);
 
     /// @brief function called when user press ENTER key
     void hotkeyEnter();

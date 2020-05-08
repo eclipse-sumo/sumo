@@ -296,7 +296,7 @@ GNERouteFrame::PathCreator::setPathCreatorMode(GNERouteFrame::PathCreator::Mode 
 
 
 bool
-GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed) {
+GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
     // check double edges
     if ((mySelectedElements.size() > 0) && (mySelectedElements.back() == edge)) {
         // Write warning
@@ -321,6 +321,11 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed) {
         WRITE_WARNING("Only candidate edges are allowed");
         // abort add edge
         return false;
+    }
+    // change last edge flag
+    if (mySelectedElements.size() > 0 && mySelectedElements.back()->isTargetCandidate()) {
+        mySelectedElements.back()->setTargetCandidate(false);
+        mySelectedElements.back()->setSourceCandidate(true);
     }
     // All checks ok, then add it in selected elements
     mySelectedElements.push_back(edge);
@@ -453,6 +458,11 @@ GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*)
         mySelectedElements.back()->resetCandidateFlags();
         // remove last edge
         mySelectedElements.pop_back();
+        // change last edge flag
+        if (mySelectedElements.size() > 0 && mySelectedElements.back()->isSourceCandidate()) {
+            mySelectedElements.back()->setSourceCandidate(false);
+            mySelectedElements.back()->setTargetCandidate(true);
+        }
         // check if remove last route edge button has to be disabled
         if (mySelectedElements.size() == 1) {
             // avoid remove last edge
@@ -561,18 +571,32 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     FXGroupBox* groupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
     
     // create keys Hint
-    new FXLabel(groupBoxInformation, "- Hold SHIFT key while clicking\n  to add an invalid edge.", 0, GUIDesignLabelFrameInformation);
-    new FXLabel(groupBoxInformation, "- Press BACKSPACE key to remove\n  last inserted edge.", 0, GUIDesignLabelFrameInformation);
+    new FXLabel(groupBoxInformation, 
+        "- Hold SHIFT while clicking\n  to add an disjoint edge.", 
+        0, GUIDesignLabelFrameInformation);
+    new FXLabel(groupBoxInformation, 
+        "- Hold CONTROL while clicking\n  to add an invalid vclass edge.", 
+        0, GUIDesignLabelFrameInformation);
+    new FXLabel(groupBoxInformation, 
+        "- Press BACKSPACE to remove\n  last inserted edge.", 
+        0, GUIDesignLabelFrameInformation);
     
     // Create groupbox and labels for legends
     FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
-    FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, " edge candidate", 0, GUIDesignLabelLeft);
-    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.possible));
-    colorCandidateLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
-    FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, " edge selected", 0, GUIDesignLabelLeft);
-    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.target));
-    FXLabel* colorConflictLabel = new FXLabel(groupBoxLegend, " edge selected (conflict)", 0, GUIDesignLabelLeft);
-    colorConflictLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.conflict));
+
+    // declare label
+    FXLabel* legendLabel = nullptr;
+    legendLabel = new FXLabel(groupBoxLegend, " edge candidate", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.possible));
+    legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
+    legendLabel = new FXLabel(groupBoxLegend, " last edge selected", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.target));
+    legendLabel = new FXLabel(groupBoxLegend, " edge selected", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.source));
+    legendLabel = new FXLabel(groupBoxLegend, " edge conflic (vClass)", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.special));
+    legendLabel = new FXLabel(groupBoxLegend, " edge conflict (disjointed)", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.conflict));
 }
 
 
@@ -595,12 +619,12 @@ GNERouteFrame::hide() {
 
 
 void
-GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed) {
+GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed, const bool controlKeyPressed) {
     // first check if current vClass is valid and edge exist
     if (myRouteModeSelector->isValidVehicleClass() && clickedEdge &&
         (myRouteModeSelector->getCurrentRouteMode() != RouteMode::INVALID)) {
         // add edge in path
-        myPathCreator->addEdge(clickedEdge, shiftKeyPressed);
+        myPathCreator->addEdge(clickedEdge, shiftKeyPressed, controlKeyPressed);
         // update view
         myViewNet->updateViewNet();
     }
