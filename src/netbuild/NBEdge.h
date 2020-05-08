@@ -951,11 +951,11 @@ public:
 
     /** @brief Returns the information whethe a connection to the given edge has been added (or computed)
      *
-     * Turnaround edge is not ignored!
      * @param[in] e The destination edge
+     * @param[in] ignoreTurnaround flag to ignore or not Turnaround
      * @return Whether a connection to the specified edge exists
      */
-    bool isConnectedTo(const NBEdge* e) const;
+    bool isConnectedTo(const NBEdge* e, const bool ignoreTurnaround = false) const;
 
     /** @brief Returns the connections
      * @return This edge's connections to following edges

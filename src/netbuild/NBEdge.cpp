@@ -1195,8 +1195,8 @@ NBEdge::hasConnectionTo(NBEdge* destEdge, int destLane, int fromLane) const {
 
 
 bool
-NBEdge::isConnectedTo(const NBEdge* e) const {
-    if (e == myTurnDestination) {
+NBEdge::isConnectedTo(const NBEdge* e, const bool ignoreTurnaround) const {
+    if (!ignoreTurnaround && (e == myTurnDestination)) {
         return true;
     }
     return
