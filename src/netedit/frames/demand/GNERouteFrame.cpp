@@ -124,6 +124,8 @@ GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
     if (routemode != RouteMode::INVALID) {
         // show route creator
         myRouteFrameParent->myPathCreator->showPathCreatorModul();
+        // update reachability
+        myRouteFrameParent->myPathCreator->updateReachability();
         // restore color
         myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
         // set current route mode
@@ -159,6 +161,8 @@ GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, vo
         if (i.second == myRouteModeMatchBox->getText().text()) {
             // show route creator
             myRouteFrameParent->myPathCreator->showPathCreatorModul();
+            // update reachability
+            myRouteFrameParent->myPathCreator->updateReachability();
             // set color of myTypeMatchBox to black (valid)
             myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
@@ -202,6 +206,8 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
             myVClassMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
             myCurrentVehicleClass = SumoVehicleClassStrings.get(i);
+            // update reachability
+            myRouteFrameParent->myPathCreator->updateReachability();
             // change flag
             myValidVClass = true;
             // show route attributes modul
@@ -316,11 +322,18 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, c
         }
     }
     // check candidate edge
-    if ((mySelectedElements.size() > 0) && !edge->isPossibleCandidate() && !shiftKeyPressed) {
-        // Write warning
-        WRITE_WARNING("Only candidate edges are allowed");
-        // abort add edge
-        return false;
+    if (!edge->isPossibleCandidate()) {
+        if (!edge->isSpecialCandidate() && !shiftKeyPressed) {
+            // Write warning
+            WRITE_WARNING("Invalid edge (SHIFT + click to add an invalid vClass edge)");
+            // abort add edge
+            return false;
+        } else if (!edge->isConflictedCandidate() && !controlKeyPressed) {
+            // Write warning
+            WRITE_WARNING("Invalid edge (CTRL + click to add an invalid disjoint edge)");
+            // abort add edge
+            return false;
+        }
     }
     // change last edge flag
     if (mySelectedElements.size() > 0 && mySelectedElements.back()->isTargetCandidate()) {
@@ -495,6 +508,54 @@ GNERouteFrame::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*
 }
 
 
+void 
+GNERouteFrame::PathCreator::updateReachability() {
+    // get vehicle class 
+    const SUMOVehicleClass vClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
+    // reset all flags
+    for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->resetCandidateFlags();
+    }
+    // check that vClass is valid
+    if (vClass != SVC_IGNORING) {
+        // set reachability
+        if (mySelectedElements.size() > 0) {
+            // mark all edges as conflicted (to mark special candidates) 
+            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                edge.second->setConflictedCandidate(true);
+            }
+            // call recursively setSpecialCandidates(...)
+            setSpecialCandidates(mySelectedElements.back());
+            // mark again all edges as conflicted (to mark possible candidates)
+            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                edge.second->setConflictedCandidate(true);
+            }
+            // call recursively setSpecialCandidates(...)
+            setPossibleCandidates(mySelectedElements.back(), vClass);
+            // now mark selected eges
+            for (const auto &edge : mySelectedElements) {
+                edge->resetCandidateFlags();
+                edge->setSourceCandidate(true);
+            }
+            // finally mark last selected element as target
+            mySelectedElements.back()->resetCandidateFlags();
+            mySelectedElements.back()->setTargetCandidate(true);
+        } else {
+            // mark all edges that have at least one lane that allow given vClass
+            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                if (edge.second->getNBEdge()->getNumLanesThatAllow(vClass) > 0) {
+                    edge.second->setPossibleCandidate(true);
+                } else {
+                    edge.second->setSpecialCandidate(true);
+                }
+            }
+        }
+    }
+    // update view net
+    myRouteFrameParent->myViewNet->updateViewNet();
+}
+
+
 void
 GNERouteFrame::PathCreator::updateInfoRouteLabel() {
     if (myTemporalPath.size() > 0) {
@@ -519,30 +580,43 @@ GNERouteFrame::PathCreator::updateInfoRouteLabel() {
 }
 
 
-void 
-GNERouteFrame::PathCreator::updateReachability() {
-    // reset candidate edges
-    for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->setPossibleCandidate(false);
-    }
-    // set reachability
-    if (mySelectedElements.size() > 0) {
-        setEdgesReachability(mySelectedElements.back(), myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass());
+void
+GNERouteFrame::PathCreator::setSpecialCandidates(GNEEdge* edge) {
+    // set edge as special candidate
+    edge->setSpecialCandidate(true);
+    // disable edge as invalid candidate (this is the stop for recursive function)
+    edge->setConflictedCandidate(false);
+    // iterate over outgoing edges of second junction's edge
+    for (const auto& nextEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
+        // check that isn't conflicted
+        if (nextEdge->isConflictedCandidate() && edge->getNBEdge()->isConnectedTo(nextEdge->getNBEdge(), true)) {
+            // now continue depending of mode
+            if (myMode == Mode::CONSECUTIVE) {
+                nextEdge->setSpecialCandidate(true);
+                nextEdge->setConflictedCandidate(false);
+            } else if (myMode == Mode::NOCONSECUTIVE) {
+                setSpecialCandidates(nextEdge);
+            }
+        }
     }
 }
 
-
-void 
-GNERouteFrame::PathCreator::setEdgesReachability(GNEEdge* edge, SUMOVehicleClass vClass) {
-    // set edge reachable
+void
+GNERouteFrame::PathCreator::setPossibleCandidates(GNEEdge* edge, SUMOVehicleClass vClass) {
+    // set edge as special candidate
     edge->setPossibleCandidate(true);
+    // disable edge as invalid candidate (this is the stop for recursive function)
+    edge->setConflictedCandidate(false);
     // iterate over outgoing edges of second junction's edge
-    for (const auto &nextEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
-        if (!nextEdge->isPossibleCandidate() && myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(vClass, edge, nextEdge)) {
+    for (const auto& nextEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
+        // check that isn't conflicted
+        if (nextEdge->isConflictedCandidate() && myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(vClass, edge, nextEdge)) {
+            // now continue depending of mode
             if (myMode == Mode::CONSECUTIVE) {
                 nextEdge->setPossibleCandidate(true);
+                nextEdge->setConflictedCandidate(false);
             } else if (myMode == Mode::NOCONSECUTIVE) {
-                setEdgesReachability(nextEdge, vClass);
+                setPossibleCandidates(nextEdge, vClass);
             }
         }
     }
@@ -564,18 +638,15 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     // create consecutive edges modul
     myPathCreator = new PathCreator(this, PathCreator::Mode::NOCONSECUTIVE);
 
-    // set RouteMode::NONCONSECUTIVE_EDGES as default mode
-    myRouteModeSelector->setCurrentRouteMode(RouteMode::NONCONSECUTIVE_EDGES);
-
     // Create groupbox for information
     FXGroupBox* groupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
     
     // create keys Hint
     new FXLabel(groupBoxInformation, 
-        "- Hold SHIFT while clicking\n  to add an disjoint edge.", 
+        "- Hold SHIFT while clicking\n  to add an invalid vclass edge.", 
         0, GUIDesignLabelFrameInformation);
     new FXLabel(groupBoxInformation, 
-        "- Hold CONTROL while clicking\n  to add an invalid vclass edge.", 
+        "- Hold CONTROL while clicking\n  to add an disjoint edge.", 
         0, GUIDesignLabelFrameInformation);
     new FXLabel(groupBoxInformation, 
         "- Press BACKSPACE to remove\n  last inserted edge.", 
@@ -614,6 +685,10 @@ GNERouteFrame::show() {
 
 void
 GNERouteFrame::hide() {
+    // reset candidate edges
+    for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->setPossibleCandidate(false);
+    }
     GNEFrame::hide();
 }
 

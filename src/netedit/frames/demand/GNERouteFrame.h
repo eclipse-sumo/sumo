@@ -160,21 +160,24 @@ public:
         long onCmdShowCandidateEdges(FXObject*, FXSelector, void*);
         /// @}
 
+        /// @brief update reachability
+        void updateReachability();
+
     protected:
         FOX_CONSTRUCTOR(PathCreator)
 
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
 
-        /// @brief update reachability
-        void updateReachability();
-
         /// @brief current mode
         Mode myMode;
 
     private:
+        /// @brief set special candidates (This function will be called recursively)
+        void setSpecialCandidates(GNEEdge* edge);
+
         /// @brief set edgereachability (This function will be called recursively)
-        void setEdgesReachability(GNEEdge* edge, SUMOVehicleClass vClass);
+        void setPossibleCandidates(GNEEdge* edge, SUMOVehicleClass vClass);
 
         /// @brief pointer to Vehicle Frame Parent
         GNERouteFrame* myRouteFrameParent;
