@@ -1175,18 +1175,22 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         }
     }
     // special color for candidate edges
-    if (myParentEdge->isCandidateEdge()) {
+    if (myParentEdge->isPossibleCandidate()) {
         // extra check for route frame
         if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->showCandidateEdges()) {
             color = s.candidateColorSettings.possible;
         }
     }
-    // special color for candidate selected edges
-    if (myParentEdge->isCandidateSelectedEdge()) {
+    // special color for source candidate edges
+    if (myParentEdge->isSourceCandidate()) {
+        color = s.candidateColorSettings.source;
+    }
+    // special color for target candidate edges
+    if (myParentEdge->isTargetCandidate()) {
         color = s.candidateColorSettings.target;
     }
-    // special color for candidate conflicted edges
-    if (myParentEdge->isCandidateConflictedEdge()) {
+    // special color for conflicted candidateedges
+    if (myParentEdge->isConflictedCandidate()) {
         color = s.candidateColorSettings.conflict;
     }
     // special color for candidate lanes

@@ -42,7 +42,7 @@ GNECandidateElement::~GNECandidateElement() {}
 
 
 void
-GNECandidateElement::resetFlags() {
+GNECandidateElement::resetCandidateFlags() {
     myPossibleCandidate = false;
     mySourceCandidate = false;
     myTargetCandidate = false;
@@ -82,31 +82,31 @@ GNECandidateElement::isConflictedCandidate() const {
 }
 
 
-bool 
+void
 GNECandidateElement::setPossibleCandidate(const bool value) {
     myPossibleCandidate = value;
 }
 
 
-bool 
+void
 GNECandidateElement::setSourceCandidate(const bool value) {
     mySourceCandidate = value;
 }
 
 
-bool 
+void
 GNECandidateElement::setTargetCandidate(const bool value) {
     myTargetCandidate = value;
 }
 
 
-bool 
+void
 GNECandidateElement::setSpecialCandidate(const bool value) {
     mySpecialCandidate = value;
 }
 
 
-bool 
+void 
 GNECandidateElement::setConflictedCandidate(const bool value) {
     myConflictedCandidate = value;
 }

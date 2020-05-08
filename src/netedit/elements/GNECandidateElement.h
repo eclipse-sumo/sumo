@@ -34,8 +34,8 @@ public:
     /// @brief Destructor
     ~GNECandidateElement();
 
-    /// @brief reset flags
-    void resetFlags();
+    /// @brief reset candidate flags
+    void resetCandidateFlags();
 
     /// @brief check if this element is a possible candidate
     bool isPossibleCandidate() const;
@@ -53,19 +53,19 @@ public:
     bool isConflictedCandidate() const;
 
     /// @brief set element as possible candidate
-    bool setPossibleCandidate(const bool value);
+    void setPossibleCandidate(const bool value);
 
     /// @brief set element as source candidate
-    bool setSourceCandidate(const bool value);
+    void setSourceCandidate(const bool value);
 
     /// @brief set element as target candidate
-    bool setTargetCandidate(const bool value);
+    void setTargetCandidate(const bool value);
 
     /// @brief set element as special candidate
-    bool setSpecialCandidate(const bool value);
+    void setSpecialCandidate(const bool value);
 
     /// @brief set element as conflicted candidate
-    bool setConflictedCandidate(const bool value);
+    void setConflictedCandidate(const bool value);
 
 protected:
     /// @brief flag to mark this element as possible candidate

@@ -646,7 +646,7 @@ GNEFrameModuls::EdgePathCreator::addPathEdge(GNEEdge* edge) {
         // disable undo/redo
         myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
         // set candidate color
-        edge->setCandidateEdge(true);
+        edge->setPossibleCandidate(true);
         // enable remove last edge button
         myRemoveLastInsertedEdge->enable();
         // enable finish button

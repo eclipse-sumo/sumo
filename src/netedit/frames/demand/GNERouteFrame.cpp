@@ -316,7 +316,7 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed) {
         }
     }
     // check candidate edge
-    if ((mySelectedElements.size() > 0) && !edge->isCandidateEdge() && !shiftKeyPressed) {
+    if ((mySelectedElements.size() > 0) && !edge->isPossibleCandidate() && !shiftKeyPressed) {
         // Write warning
         WRITE_WARNING("Only candidate edges are allowed");
         // abort add edge
@@ -325,10 +325,10 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed) {
     // All checks ok, then add it in selected elements
     mySelectedElements.push_back(edge);
     // set selected color (check)
-    if ((mySelectedElements.size() == 1) || edge->isCandidateEdge()) {
-        edge->setCandidateSelectedEdge(true);
+    if ((mySelectedElements.size() == 1) || edge->isPossibleCandidate()) {
+        edge->setTargetCandidate(true);
     } else {
-        edge->setCandidateConflictedEdge(true);
+        edge->setConflictedCandidate(true);
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -359,9 +359,7 @@ void
 GNERouteFrame::PathCreator::clearPath() {
     // reset all flags
     for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->setCandidateEdge(false);
-        edge.second->setCandidateSelectedEdge(false);
-        edge.second->setCandidateConflictedEdge(false);
+        edge.second->resetCandidateFlags();
     }
     // clear edges
     mySelectedElements.clear();
@@ -452,8 +450,7 @@ long
 GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
     if (mySelectedElements.size() > 1) {
         // remove special color of last selected edge
-        mySelectedElements.back()->setCandidateSelectedEdge(false);
-        mySelectedElements.back()->setCandidateConflictedEdge(false);
+        mySelectedElements.back()->resetCandidateFlags();
         // remove last edge
         mySelectedElements.pop_back();
         // check if remove last route edge button has to be disabled
@@ -516,7 +513,7 @@ void
 GNERouteFrame::PathCreator::updateReachability() {
     // reset candidate edges
     for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->setCandidateEdge(false);
+        edge.second->setPossibleCandidate(false);
     }
     // set reachability
     if (mySelectedElements.size() > 0) {
@@ -528,12 +525,12 @@ GNERouteFrame::PathCreator::updateReachability() {
 void 
 GNERouteFrame::PathCreator::setEdgesReachability(GNEEdge* edge, SUMOVehicleClass vClass) {
     // set edge reachable
-    edge->setCandidateEdge(true);
+    edge->setPossibleCandidate(true);
     // iterate over outgoing edges of second junction's edge
     for (const auto &nextEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
-        if (!nextEdge->isCandidateEdge() && myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(vClass, edge, nextEdge)) {
+        if (!nextEdge->isPossibleCandidate() && myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(vClass, edge, nextEdge)) {
             if (myMode == Mode::CONSECUTIVE) {
-                nextEdge->setCandidateEdge(true);
+                nextEdge->setPossibleCandidate(true);
             } else if (myMode == Mode::NOCONSECUTIVE) {
                 setEdgesReachability(nextEdge, vClass);
             }

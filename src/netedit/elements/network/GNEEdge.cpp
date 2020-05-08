@@ -62,10 +62,7 @@ GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     myAmResponsible(false),
     myWasSplit(wasSplit),
     myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true),
-    myCandidateEdge(false),
-    myCandidateSelectedEdge(false),
-    myCandidateConflictedEdge(false) {
+    myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -109,41 +106,6 @@ std::string
 GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
     // currently unused
     return "";
-}
-
-
-bool 
-GNEEdge::isCandidateEdge() const {
-    return myCandidateEdge;
-}
-
-
-bool 
-GNEEdge::isCandidateSelectedEdge() const {
-    return myCandidateSelectedEdge;
-}
-
-
-bool 
-GNEEdge::isCandidateConflictedEdge() const {
-    return myCandidateConflictedEdge;
-}
-
-void 
-GNEEdge::setCandidateEdge(bool value) {
-    myCandidateEdge = value;
-}
-
-
-void 
-GNEEdge::setCandidateSelectedEdge(bool value) {
-    myCandidateSelectedEdge = value;
-}
-
-
-void 
-GNEEdge::setCandidateConflictedEdge(bool value) {
-    myCandidateConflictedEdge = value;
 }
 
 

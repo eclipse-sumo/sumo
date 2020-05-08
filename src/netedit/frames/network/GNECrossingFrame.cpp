@@ -152,8 +152,7 @@ GNECrossingFrame::EdgesSelector::restoreEdgeColors() {
     if (myCurrentJunction != nullptr) {
         // restore color of all lanes of edge candidates
         for (const auto &edge : myCurrentJunction->getGNEEdges()) {
-            edge->setCandidateEdge(false);
-            edge->setCandidateSelectedEdge(false);
+            edge->resetCandidateFlags();
         }
         // Update view net to show the new colors
         myCrossingFrameParent->getViewNet()->updateViewNet();
@@ -402,13 +401,12 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
     // Update edge colors
     for (const auto &edge: myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getGNEEdges()) {
         // restore colors
-        edge->setCandidateEdge(false);
-        edge->setCandidateSelectedEdge(false);
+        edge->resetCandidateFlags();
         // set selected or candidate color
         if (std::find(myCurrentSelectedEdges.begin(), myCurrentSelectedEdges.end(), edge) != myCurrentSelectedEdges.end()) {
-            edge->setCandidateSelectedEdge(true);
+            edge->setTargetCandidate(true);
         } else {
-            edge->setCandidateEdge(true);
+            edge->setPossibleCandidate(true);
         }
     }
     // Update view net

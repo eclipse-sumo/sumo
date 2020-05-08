@@ -23,6 +23,7 @@
 
 #include <netbuild/NBEdge.h>
 #include <netedit/GNEMoveShape.h>
+#include <netedit/elements/GNECandidateElement.h>
 
 
 // ===========================================================================
@@ -44,7 +45,7 @@ class GNECrossing;
  *
  * @see MSEdge
  */
-class GNEEdge : public GNENetworkElement, protected GNEMoveShape {
+class GNEEdge : public GNENetworkElement, public GNECandidateElement, protected GNEMoveShape {
 
     /// @brief Friend class
     friend class GNEChange_Lane;
@@ -69,24 +70,6 @@ public:
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
-    
-    /// @brief check if edge is candidate
-    bool isCandidateEdge() const;
-
-    /// @brief check if edge is candidate selected
-    bool isCandidateSelectedEdge() const;
-
-    /// @brief check if edge is candidate selected
-    bool isCandidateConflictedEdge() const;
-
-    /// @brief set candidate edge
-    void setCandidateEdge(bool value);
-
-    /// @brief set candidate selected edge
-    void setCandidateSelectedEdge(bool value);
-
-    /// @brief set candidate conflicted edge
-    void setCandidateConflictedEdge(bool value);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -360,15 +343,6 @@ protected:
 
     /// @brief vector with references to path element childs
     std::vector<GNEDemandElement*> myPathDemandElementsElementChilds;
-
-    /// @brief flag to mark edge as candidate
-    bool myCandidateEdge;
-
-    /// @brief flag to mark edge as candidate selected
-    bool myCandidateSelectedEdge;
-
-    /// @brief flag to mark edge as candidate conflicted
-    bool myCandidateConflictedEdge;
 
 private:
     /// @brief Stack position (used to stack demand elements over edges)
