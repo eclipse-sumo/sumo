@@ -1,0 +1,1 @@
+ --osm-files osm.xml --edges.join-tram-dist 1.6

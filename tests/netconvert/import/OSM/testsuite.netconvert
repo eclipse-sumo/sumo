@@ -123,4 +123,7 @@ motorway
 
 # test import of maxspeed:forward and maxspeed:backward
 maxspeed_directional
+
+# test option edges.join-tram-dist
+join_tram
 bugs
