@@ -61,9 +61,7 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
     myIndex(index),
     mySpecialColor(nullptr),
     mySpecialColorValue(-1),
-    myLane2laneConnections(this),
-    myCandidateLane(false),
-    myCandidateSelectedLane(false) {
+    myLane2laneConnections(this) {
 }
 
 GNELane::GNELane() :
@@ -74,9 +72,7 @@ GNELane::GNELane() :
     myIndex(-1),
     mySpecialColor(nullptr),
     mySpecialColorValue(-1),
-    myLane2laneConnections(this),
-    myCandidateLane(false),
-    myCandidateSelectedLane(false) {
+    myLane2laneConnections(this) {
 }
 
 
@@ -86,30 +82,6 @@ std::string
 GNELane::generateChildID(SumoXMLTag /*childTag*/) {
     // currently unused
     return "";
-}
-
-
-bool
-GNELane::isCandidateLane() const {
-    return myCandidateLane;
-}
-
-
-bool
-GNELane::isCandidateSelectedLane() const {
-    return myCandidateSelectedLane;
-}
-
-
-void
-GNELane::setCandidateLane(bool value) {
-    myCandidateLane = value;
-}
-
-
-void
-GNELane::setCandidateSelectedLane(bool value) {
-    myCandidateSelectedLane = value;
 }
 
 
@@ -1189,17 +1161,29 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     if (myParentEdge->isTargetCandidate()) {
         color = s.candidateColorSettings.target;
     }
-    // special color for conflicted candidateedges
+    // special color for special candidate edges
+    if (myParentEdge->isSpecialCandidate()) {
+        color = s.candidateColorSettings.special;
+    }
+    // special color for conflicted candidate edges
     if (myParentEdge->isConflictedCandidate()) {
         color = s.candidateColorSettings.conflict;
     }
-    // special color for candidate lanes
-    if (myCandidateLane) {
-        color = s.candidateColorSettings.possible;
+    // special color for source candidate lanes
+    if (mySourceCandidate) {
+        color = s.candidateColorSettings.source;
     }
-    // special color for candidate selected lanes (has more priority than candidates
-    if (myCandidateSelectedLane) {
+    // special color for target candidate lanes
+    if (myTargetCandidate) {
         color = s.candidateColorSettings.target;
+    }
+    // special color for special candidate lanes
+    if (mySpecialCandidate) {
+        color = s.candidateColorSettings.special;
+    }
+    // special color for conflicted candidate lanes
+    if (myConflictedCandidate) {
+        color = s.candidateColorSettings.conflict;
     }
     // set color in GLHelper
     GLHelper::setColor(color);

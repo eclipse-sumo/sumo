@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include "GNENetworkElement.h"
+#include <netedit/elements/GNECandidateElement.h>
 
 // ===========================================================================
 // class declarations
@@ -40,7 +41,7 @@ class GNEConnection;
  * @brief This lane is powered by an underlying GNEEdge and basically knows how
  * to draw itself
  */
-class GNELane : public GNENetworkElement, public FXDelegator {
+class GNELane : public GNENetworkElement, public GNECandidateElement, public FXDelegator {
     /// @brief FOX-declaration
     FXDECLARE(GNELane)
 
@@ -57,18 +58,6 @@ public:
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);
-
-    /// @brief check if lane is selected
-    bool isCandidateLane() const;
-
-    /// @brief check if lane is candidate selected
-    bool isCandidateSelectedLane() const;
-
-    /// @brief set candidate lane
-    void setCandidateLane(bool value);
-
-    /// @brief set candidate selected lane
-    void setCandidateSelectedLane(bool value);
 
     /// @name Functions related with geometry of element
     /// @{
@@ -246,12 +235,6 @@ protected:
 
     /// @brief lane2lane connections
     GNEGeometry::Lane2laneConnection myLane2laneConnections;
-
-    /// @brief flag to mark lane as candidate
-    bool myCandidateLane;
-
-    /// @brief flag to mark lane as selected
-    bool myCandidateSelectedLane;
 
 private:
     /// @brief set attribute after validation
