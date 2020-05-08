@@ -599,6 +599,9 @@ public:
     /// @brief join adjacent lanes with the given permissions
     int joinLanes(SVCPermissions perms);
 
+    /// @brief join tram edges into adjacent lanes
+    int joinTramEdges(NBDistrictCont& dc, double maxDist);
+
     /// @brief return all edges
     EdgeVector getAllEdges() const;
     RouterEdgeVector getAllRouterEdges() const;

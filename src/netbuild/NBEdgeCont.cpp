@@ -48,7 +48,11 @@
 #include "NBDistrictCont.h"
 #include "NBTypeCont.h"
 
+#define JOIN_TRAM_MAX_ANGLE 10
+#define JOIN_TRAM_MIN_LENGTH 3
+
 //#define DEBUG_GUESS_ROUNDABOUT
+//#define DEBUG_JOIN_TRAM
 #define DEBUG_EDGE_ID "301241681#2"
 
 // ===========================================================================
@@ -1611,6 +1615,194 @@ NBEdgeCont::joinLanes(SVCPermissions perms) {
     }
     return affectedEdges;
 }
+
+
+int
+NBEdgeCont::joinTramEdges(NBDistrictCont& dc, double maxDist) {
+    // this is different from joinSimilarEdges because there don't need to be
+    // shared nodes and tram edges may be split
+    std::set<NBEdge*> tramEdges;
+    std::set<NBEdge*> targetEdges;
+    for (auto item : myEdges) {
+        SVCPermissions permissions = item.second->getPermissions();
+        if (permissions == SVC_TRAM) {
+            if (item.second->getNumLanes() == 1) {
+                tramEdges.insert(item.second);
+            } else {
+                WRITE_WARNINGF("Not joining tram edge '%s' with % lanes", item.second->getID(), item.second->getNumLanes());
+            }
+        } else if ((permissions & SVC_PASSENGER) != 0) {
+            targetEdges.insert(item.second);
+        }
+    }
+    if (tramEdges.size() == 0 || targetEdges.size() == 0) {
+        return 0;
+    }
+    int numJoined = 0;
+    NamedRTree tramTree;
+    for (NBEdge* edge : tramEdges) {
+        const Boundary& bound = edge->getGeometry().getBoxBoundary();
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        tramTree.Insert(min, max, edge);
+    }
+    // {targetEdge, laneIndex : tramEdge}
+    std::map<std::pair<NBEdge*, int>, NBEdge*> matches;
+
+    for (NBEdge* edge : targetEdges) {
+        Boundary bound = edge->getGeometry().getBoxBoundary();
+        bound.grow(maxDist + edge->getTotalWidth());
+        float min[2] = { static_cast<float>(bound.xmin()), static_cast<float>(bound.ymin()) };
+        float max[2] = { static_cast<float>(bound.xmax()), static_cast<float>(bound.ymax()) };
+        std::set<const Named*> nearby;
+        Named::StoringVisitor visitor(nearby);
+        tramTree.Search(min, max, visitor);
+        for (const Named* namedEdge : nearby) {
+            // find a continous stretch of tramEdge that runs along one of the
+            // lanes of the road edge
+            NBEdge* tramEdge = const_cast<NBEdge*>(dynamic_cast<const NBEdge*>(namedEdge));
+            const PositionVector& tramShape = tramEdge->getGeometry();
+            double minEdgeDist = maxDist + 1;
+            int minLane = -1;
+            // find the lane where the maximum distance from the tram geometry
+            // is minimal and within maxDist
+            for (int i = 0; i < edge->getNumLanes(); i++) {
+                double maxLaneDist = -1;
+                if ((edge->getPermissions(i) & SVC_PASSENGER) != 0) {
+                    const PositionVector& laneShape = edge->getLaneShape(i);
+                    for (Position pos : laneShape) {
+                        const double dist = tramShape.distance2D(pos, false);
+                        //if (edge->getID() == "24021667#1" && i == 1) {
+                        //    std::cout << " tramEdge=" << tramEdge->getID() << " pos=" << pos << " dist=" << dist << "\n";
+                        //}
+                        if (dist == GeomHelper::INVALID_OFFSET || dist > maxDist) {
+                            maxLaneDist = -1;
+                            break;
+                        }
+                        maxLaneDist = MAX2(maxLaneDist, dist);
+                    }
+                    if (maxLaneDist >= 0 && maxLaneDist < minEdgeDist) {
+                        minEdgeDist = maxLaneDist;
+                        minLane = i;
+                    }
+                }
+            }
+            if (minLane >= 0) {
+                // edge could run in the wrong direction and still fit the threshold we check the angle as well
+                const PositionVector& laneShape = edge->getLaneShape(minLane);
+                const double offset1 = tramShape.nearest_offset_to_point2D(laneShape.front(), false);
+                const double offset2 = tramShape.nearest_offset_to_point2D(laneShape.back(), false);
+                Position p1 = tramShape.positionAtOffset2D(offset1);
+                Position p2 = tramShape.positionAtOffset2D(offset2);
+                double tramAngle = GeomHelper::legacyDegree(p1.angleTo2D(p2), true);
+                bool angleOK = GeomHelper::getMinAngleDiff(tramAngle, edge->getTotalAngle()) < JOIN_TRAM_MAX_ANGLE;
+                if (angleOK && offset2 > offset1) {
+                    std::pair<NBEdge*, int> key = std::make_pair(edge, minLane);
+                    if (matches.count(key) == 0) {
+                        matches[key] = tramEdge;
+                    } else {
+                        WRITE_WARNINGF("Ambigous tram edges '%' and '%' for lane '%'", matches[key]->getID(), tramEdge->getID(), edge->getLaneID(minLane));
+                    }
+#ifdef DEBUG_JOIN_TRAM
+                    std::cout << edge->getLaneID(minLane) << " is close to tramEdge " << tramEdge->getID() << " maxLaneDist=" << minEdgeDist << " tramLength=" << tramEdge->getLength() << " edgeLength=" << edge->getLength() << " tramAngle=" << tramAngle << " edgeAngle=" << edge->getTotalAngle() << "\n";
+#endif
+                }
+            }
+        }
+    }
+    if (matches.size() == 0) {
+        return 0;
+    }
+    // find continous runs of matched edges for each tramEdge
+    for (NBEdge* tramEdge : tramEdges) {
+        std::vector<std::pair<double, std::pair<NBEdge*, int> > > roads;
+        for (auto item : matches) {
+            if (item.second == tramEdge) {
+                NBEdge* road = item.first.first;
+                int laneIndex = item.first.second;
+                const PositionVector& laneShape = road->getLaneShape(laneIndex);
+                double tramPos = tramEdge->getGeometry().nearest_offset_to_point2D(laneShape.front(), false);
+                roads.push_back(std::make_pair(tramPos, item.first));
+            }
+        }
+        if (roads.size() != 0) {
+
+            sort(roads.begin(), roads.end());
+#ifdef DEBUG_JOIN_TRAM
+            std::cout << " tramEdge=" << tramEdge->getID() << " roads=";
+            for (auto item : roads) {
+                std::cout << item.second.first->getLaneID(item.second.second) << ",";
+            }
+            std::cout << " offsets=";
+            for (auto item : roads) {
+                std::cout << item.first << ",";
+            }
+            std::cout << "\n";
+#endif
+            // merge tramEdge into road lanes
+            double pos = 0;
+            int tramPart = 0;
+            std::string tramEdgeID = tramEdge->getID();
+            NBNode* tramFrom = tramEdge->getFromNode();
+            PositionVector tramShape = tramEdge->getGeometry();
+            const double tramLength = tramShape.length();
+            EdgeVector incoming = tramFrom->getIncomingEdges();
+            EdgeVector outgoing = tramFrom->getOutgoingEdges();
+            outgoing.erase(std::find(outgoing.begin(), outgoing.end(), tramEdge));
+            bool erasedLast = false;
+            for (auto item : roads) {
+                const double gap = item.first - pos;
+                NBEdge* road = item.second.first;
+                int laneIndex = item.second.second;
+                if (gap >= JOIN_TRAM_MIN_LENGTH) {
+#ifdef DEBUG_JOIN_TRAM
+                    std::cout << "    splitting tramEdge=" << tramEdge->getID() << " at " << item.first << " (gap=" << gap << ")\n";
+#endif
+                    const std::string firstPartID = tramEdgeID + "#" + toString(tramPart++);
+                    splitAt(dc, tramEdge, road->getFromNode(), firstPartID, tramEdgeID, 1 , 1);
+                    tramEdge = retrieve(tramEdgeID); // second part;
+                    incoming.clear();
+                    incoming.push_back(retrieve(firstPartID));
+                }
+                pos = item.first + road->getGeometry().length();
+                numJoined++;
+                // merge section of tramEdge into road lane
+                if (road->getToNode() != tramEdge->getToNode() && (tramLength - pos) >= JOIN_TRAM_MIN_LENGTH) {
+                    tramEdge->reinitNodes(road->getToNode(), tramEdge->getToNode());
+                    tramEdge->setGeometry(tramShape.getSubpart(pos, tramShape.length()));
+#ifdef DEBUG_JOIN_TRAM
+                    std::cout << "    shorted tramEdge=" << tramEdge->getID() << " (joined with roadEdge=" << road->getID() << "\n";
+#endif
+                } else {
+#ifdef DEBUG_JOIN_TRAM
+                    std::cout << "    erased tramEdge=" << tramEdge->getID() << "\n";
+#endif
+                    extract(dc, tramEdge);
+                    erasedLast = true;
+                }
+                road->setPermissions(road->getPermissions(laneIndex) | SVC_TRAM, laneIndex);
+                for (NBEdge* in : incoming) {
+                    if (in->getPermissions() == SVC_TRAM && !in->isConnectedTo(road)) {
+                        in->reinitNodes(in->getFromNode(), road->getFromNode());
+                        in->setConnection(0, road, laneIndex, NBEdge::L2L_COMPUTED);
+                    }
+                }
+                incoming.clear();
+            }
+            NBEdge* lastRoad = roads.back().second.first;
+            if (erasedLast) {
+                for (NBEdge* out : outgoing) {
+                    if (out->getPermissions() == SVC_TRAM && !lastRoad->isConnectedTo(out)) {
+                        out->reinitNodes(lastRoad->getToNode(), out->getToNode());
+                    }
+                }
+            }
+        }
+    }
+
+    return numJoined;
+}
+
 
 EdgeVector
 NBEdgeCont::getAllEdges() const {

@@ -300,6 +300,10 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("speed.minimum", new Option_Float(0));
         oc.addDescription("speed.minimum", "Processing", "Modifies all edge speeds to at least FLOAT");
+
+        oc.doRegister("edges.join-tram-dist", new Option_Float(-1));
+        oc.addDescription("edges.join-tram-dist", "Processing",
+                "Joins tram edges into road lanes with similar geometry (within FLOAT distance)");
     }
 
     oc.doRegister("junctions.corner-detail", new Option_Integer(5));

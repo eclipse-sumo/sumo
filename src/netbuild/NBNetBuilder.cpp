@@ -161,6 +161,16 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         NBRailwayTopologyAnalyzer::analyzeTopology(*this);
     }
 
+
+    if (mayAddOrRemove && oc.exists("edges.join-tram-dist") && oc.getFloat("edges.join-tram-dist") >= 0) {
+        // should come before joining junctions
+        before = PROGRESS_BEGIN_TIME_MESSAGE("Joining tram edges");
+        int numJoinedTramEdges = myEdgeCont.joinTramEdges(myDistrictCont, oc.getFloat("edges.join-tram-dist"));
+        PROGRESS_TIME_MESSAGE(before);
+        if (numJoinedTramEdges > 0) {
+            WRITE_MESSAGE(" Joined " + toString(numJoinedTramEdges) + " tram edges into roads.");
+        }
+    }
     if (oc.getBool("junctions.join")
             || (oc.exists("ramps.guess") && oc.getBool("ramps.guess"))
             || oc.getBool("tls.guess.joining")
@@ -244,7 +254,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     }
     // @note: removing geometry can create similar edges so joinSimilarEdges  must come afterwards
     // @note: likewise splitting can destroy similarities so joinSimilarEdges must come before
-    if (mayAddOrRemove &&  oc.getBool("edges.join")) {
+    if (mayAddOrRemove && oc.getBool("edges.join")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Joining similar edges");
         myNodeCont.joinSimilarEdges(myDistrictCont, myEdgeCont, myTLLCont);
         PROGRESS_TIME_MESSAGE(before);
