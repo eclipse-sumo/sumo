@@ -30,8 +30,85 @@
 // ===========================================================================
 
 
-GNECandidateElement::GNECandidateElement() {}
+GNECandidateElement::GNECandidateElement() :
+    myPossibleCandidate(false),
+    mySourceCandidate(false),
+    myTargetCandidate(false),
+    mySpecialCandidate(false),
+    myConflictedCandidate(false) {}
+
 
 GNECandidateElement::~GNECandidateElement() {}
+
+
+void
+GNECandidateElement::resetFlags() {
+    myPossibleCandidate = false;
+    mySourceCandidate = false;
+    myTargetCandidate = false;
+    mySpecialCandidate = false;
+    myConflictedCandidate = false;
+}
+
+
+bool 
+GNECandidateElement::isPossibleCandidate() const {
+    return myPossibleCandidate;
+}
+
+
+
+bool
+GNECandidateElement::isSourceCandidate() const {
+    return mySourceCandidate;
+}
+
+
+bool 
+GNECandidateElement::isTargetCandidate() const {
+    return myTargetCandidate;
+}
+
+
+bool 
+GNECandidateElement::isSpecialCandidate() const {
+    return mySpecialCandidate;
+}
+
+
+bool 
+GNECandidateElement::isConflictedCandidate() const {
+    return myConflictedCandidate;
+}
+
+
+bool 
+GNECandidateElement::setPossibleCandidate(const bool value) {
+    myPossibleCandidate = value;
+}
+
+
+bool 
+GNECandidateElement::setSourceCandidate(const bool value) {
+    mySourceCandidate = value;
+}
+
+
+bool 
+GNECandidateElement::setTargetCandidate(const bool value) {
+    myTargetCandidate = value;
+}
+
+
+bool 
+GNECandidateElement::setSpecialCandidate(const bool value) {
+    mySpecialCandidate = value;
+}
+
+
+bool 
+GNECandidateElement::setConflictedCandidate(const bool value) {
+    myConflictedCandidate = value;
+}
 
 /****************************************************************************/
