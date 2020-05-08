@@ -16,6 +16,8 @@ set(netedit_elements_SRCS
    GNEHierarchicalChildElements.cpp
    GNEPathElements.h
    GNEPathElements.cpp
+   GNECandidateElement.h
+   GNECandidateElement.cpp
    )
 
 add_library(netedit_elements STATIC ${netedit_elements_SRCS})
