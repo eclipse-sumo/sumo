@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_6_0+0124-7a98a41e1c
+Eclipse SUMO netconvert Version v1_6_0+0152-de7d7032c4
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -200,6 +200,9 @@ Processing Options:
                                          by FLOAT
   --speed.minimum FLOAT                Modifies all edge speeds to at least
                                          FLOAT
+  --edges.join-tram-dist FLOAT         Joins tram edges into road lanes with
+                                         similar geometry (within FLOAT
+                                         distance)
 
 Building Defaults Options:
   -L, --default.lanenumber INT         The default number of lanes in an edge

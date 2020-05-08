@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat May  2 14:41:37 2020 by Eclipse SUMO netconvert Version v1_6_0+0040-b6852ef6b1
+<!-- generated on Fri May  8 23:36:02 2020 by Eclipse SUMO netconvert Version v1_6_0+0152-de7d7032c4
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -323,6 +323,9 @@
 
         <!-- Modifies all edge speeds to at least FLOAT -->
         <speed.minimum value="0" type="FLOAT"/>
+
+        <!-- Joins tram edges into road lanes with similar geometry (within FLOAT distance) -->
+        <edges.join-tram-dist value="-1" type="FLOAT"/>
 
     </processing>
 
