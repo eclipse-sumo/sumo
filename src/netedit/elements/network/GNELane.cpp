@@ -1178,24 +1178,24 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     if (myParentEdge->isCandidateEdge()) {
         // extra check for route frame
         if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->showCandidateEdges()) {
-            color = s.colorSettings.candidateElementColor;
+            color = s.candidateColorSettings.possible;
         }
     }
     // special color for candidate selected edges
     if (myParentEdge->isCandidateSelectedEdge()) {
-        color = s.colorSettings.candidateSelectedElementColor;
+        color = s.candidateColorSettings.target;
     }
     // special color for candidate conflicted edges
     if (myParentEdge->isCandidateConflictedEdge()) {
-        color = s.colorSettings.candidateConflictElementColor;
+        color = s.candidateColorSettings.conflict;
     }
     // special color for candidate lanes
     if (myCandidateLane) {
-        color = s.colorSettings.candidateElementColor;
+        color = s.candidateColorSettings.possible;
     }
     // special color for candidate selected lanes (has more priority than candidates
     if (myCandidateSelectedLane) {
-        color = s.colorSettings.candidateSelectedElementColor;
+        color = s.candidateColorSettings.target;
     }
     // set color in GLHelper
     GLHelper::setColor(color);

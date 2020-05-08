@@ -518,10 +518,10 @@ GNECrossingFrame::GNECrossingFrame(FXHorizontalFrame* horizontalFrameParent, GNE
     // Create groupbox and labels for legends
     FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "", GUIDesignGroupBoxFrame);
     FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, " Candidate", 0, GUIDesignLabelLeft);
-    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateElementColor));
+    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.possible));
     colorCandidateLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, " Selected", 0, GUIDesignLabelLeft);
-    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateSelectedElementColor));
+    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.target));
 
     // disable edge selector
     myEdgeSelector->disableEdgeSelector();

@@ -195,51 +195,7 @@ public:
         /// @brief destructor
         ~ConnectionLegend();
 
-        /// @brief get color for the from-lane of a connection
-        const RGBColor& getSourceColor() const;
-
-        /// @brief get color for the to-lane of a connection
-        const RGBColor& getTargetColor() const;
-
-        /// @brief get color for potential to-lane targets (currently unconnected)
-        const RGBColor& getPotentialTargetColor() const;
-
-        /// @brief get color for the to-lane of a connection with pass attribute
-        const RGBColor& getTargetPassColor() const;
-
-        /// @brief get color for a to-lane that cannot be used because another connection conflicts
-        const RGBColor& getConflictColor() const;
-
     private:
-        /// @brief source label
-        FXLabel* mySourceLabel;
-
-        /// @brief target label
-        FXLabel* myTargetLabel;
-
-        /// @brief possible target label
-        FXLabel* myPossibleTargetLabel;
-
-        /// @brief target pass label
-        FXLabel* myTargetPassLabel;
-
-        /// @brief conflict label
-        FXLabel* myConflictLabel;
-
-        /// @brief color for the from-lane of a connection
-        RGBColor mySourceColor;
-
-        /// @brief color for the to-lane of a connection
-        RGBColor myTargetColor;
-
-        /// @brief color for potential to-lane targets (currently unconnected)
-        RGBColor myPotentialTargetColor;
-
-        /// @brief color for the to-lane of a connection with pass attribute
-        RGBColor myTargetPassColor;
-
-        /// @brief color for a to-lane that cannot be used because another connection conflicts
-        RGBColor myConflictColor;
     };
 
     /**@brief Constructor
@@ -261,7 +217,7 @@ public:
 
 private:
     /// @brief the status of a target lane
-    enum LaneStatus {
+    enum class LaneStatus {
         UNCONNECTED,
         CONNECTED,
         CONNECTED_PASS,
@@ -274,7 +230,7 @@ private:
      * @param[in] mayDefinitelyPass Whether new connections shall have the pass attribute set
      * @param[in] toggle Whether non-existing connections shall be created
      */
-    void buildConnection(GNELane* lane, bool mayDefinitelyPass, bool allowConflict, bool toggle);
+    void buildConnection(GNELane* lane, const bool mayDefinitelyPass, const bool allowConflict, const bool toggle);
 
     /// @brief init targets
     void initTargets();
@@ -286,7 +242,7 @@ private:
     void removeConnections(GNELane* lane);
 
     /// @brief return the status of toLane
-    LaneStatus getLaneStatus(const std::vector<NBEdge::Connection>& connections, GNELane* targetLane);
+    LaneStatus getLaneStatus(const std::vector<NBEdge::Connection>& connections, const GNELane* targetLane) const;
 
     /// @brief CurrentLane modul
     CurrentLane* myCurrentLane;

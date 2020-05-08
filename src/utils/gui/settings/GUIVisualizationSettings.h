@@ -162,15 +162,6 @@ struct GUIVisualizationColorSettings {
     /// @brief color for highlighthing deadends
     static const RGBColor SUMO_color_DEADEND_SHOW;
 
-    /// @brief color for candidate element
-    static const RGBColor candidateElementColor;
-
-    /// @brief color for selected candidate element
-    static const RGBColor candidateSelectedElementColor;
-
-    /// @brief color for selected conflict element
-    static const RGBColor candidateConflictElementColor;
-
     /// @brief color for child connections between parents and child elements
     static const RGBColor childConnections;
 
@@ -200,6 +191,26 @@ struct GUIVisualizationColorSettings {
 
     /// @brief color for rides
     static const RGBColor ride;
+};
+
+
+/// @brief struct for candidate color settings
+struct GUIVisualizationCandidateColorSettings {
+
+    /// @brief color for possible candidate element
+    static const RGBColor possible;
+
+    /// @brief color for selected candidate source
+    static const RGBColor source;
+
+    /// @brief color for selected candidate target
+    static const RGBColor target;
+
+    /// @brief color for selected special candidate element (Usually selected using shift+click)
+    static const RGBColor special;
+
+    /// @brief color for selected conflict candidate element (Usually selected using ctrl+click)
+    static const RGBColor conflict;
 };
 
 
@@ -779,6 +790,9 @@ public:
 
     /// @brief color settings
     GUIVisualizationColorSettings colorSettings;
+
+    /// @brief candidate color settings
+    GUIVisualizationCandidateColorSettings candidateColorSettings;
 
     /// @brief Additional settings
     GUIVisualizationAdditionalSettings additionalSettings;

@@ -59,9 +59,6 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 // -------------------------------------------------------------------------
 
 const RGBColor GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW(255, 0, 255);
-const RGBColor GUIVisualizationColorSettings::candidateElementColor(0, 64, 0, 255);
-const RGBColor GUIVisualizationColorSettings::candidateSelectedElementColor(0, 200, 0, 255);
-const RGBColor GUIVisualizationColorSettings::candidateConflictElementColor(255, 255, 0, 255);
 const RGBColor GUIVisualizationColorSettings::childConnections(255, 235, 0);
 const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
 const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
@@ -72,6 +69,16 @@ const RGBColor GUIVisualizationColorSettings::personStops(255, 0, 0);
 const RGBColor GUIVisualizationColorSettings::personTrip(200, 0, 255);
 const RGBColor GUIVisualizationColorSettings::walk(0, 255, 0);
 const RGBColor GUIVisualizationColorSettings::ride(0, 0, 255);
+
+// -------------------------------------------------------------------------
+// color constants for other objects
+// -------------------------------------------------------------------------
+
+const RGBColor GUIVisualizationCandidateColorSettings::possible(0, 64, 0, 255);
+const RGBColor GUIVisualizationCandidateColorSettings::source(0, 255, 255, 255);    // Cyan
+const RGBColor GUIVisualizationCandidateColorSettings::target(0, 255, 0, 255);      // Green
+const RGBColor GUIVisualizationCandidateColorSettings::special(255, 0, 255, 255);   // Magenta
+const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255);  // Yellow
 
 // -------------------------------------------------------------------------
 // additional values

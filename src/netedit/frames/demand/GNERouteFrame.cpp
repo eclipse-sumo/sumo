@@ -570,12 +570,12 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     // Create groupbox and labels for legends
     FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
     FXLabel* colorCandidateLabel = new FXLabel(groupBoxLegend, " edge candidate", 0, GUIDesignLabelLeft);
-    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateElementColor));
+    colorCandidateLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.possible));
     colorCandidateLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
     FXLabel* colorSelectedLabel = new FXLabel(groupBoxLegend, " edge selected", 0, GUIDesignLabelLeft);
-    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateSelectedElementColor));
+    colorSelectedLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.target));
     FXLabel* colorConflictLabel = new FXLabel(groupBoxLegend, " edge selected (conflict)", 0, GUIDesignLabelLeft);
-    colorConflictLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().colorSettings.candidateConflictElementColor));
+    colorConflictLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.conflict));
 }
 
 
