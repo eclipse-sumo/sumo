@@ -54,7 +54,7 @@ class Net(sumolib.net.Net):
         self.setAdditionalNodeInfo(self._id2node[id], type, coord, incLanes)
         return self._id2node[id]
 
-    def addEdge(self, id, fromID, toID, prio, function, name):
+    def addEdge(self, id, fromID, toID, prio, function, name, *others):
         if id not in self._id2edge:
             fromN = self.addNode(fromID)
             toN = self.addNode(toID)
