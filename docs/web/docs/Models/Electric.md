@@ -50,6 +50,7 @@ An example of a vehicle with electric attribute:
 ```
 <routes>
     <vType id="ElectricBus" accel="1.0" decel="1.0" lenght="12" maxSpeed="100.0" sigma="0.0" minGap="2.5" color="1,1,1">
+        <param key="has.battery.device" value="true"/>
         <param key="maximumBatteryCapacity" value="2000"/>
         <param key="maximumPower" value="1000"/>
         <param key="vehicleMass" value="10000"/>
