@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_5_0+1309-533c90b613
+Eclipse SUMO Version v1_6_0+0169-997ba5ddf1
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -87,6 +87,7 @@ Output Options:
                                          Amitran format
   --summary-output FILE                Save aggregated vehicle departure info
                                          into FILE
+  --person-summary-output FILE         Save aggregated person counts into FILE
   --tripinfo-output FILE               Save single vehicle trip info into FILE
   --tripinfo-output.write-unfinished   Write tripinfo output for vehicles which
                                          have not arrived at simulation end
