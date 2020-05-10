@@ -24,6 +24,7 @@ tls
 
 # Tests for summary-output (earlier: emission-output)
 summary
+personSummary
 
 # Tests for tripinfo-output
 tripinfo
