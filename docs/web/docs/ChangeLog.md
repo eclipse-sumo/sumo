@@ -17,10 +17,15 @@ permalink: /ChangeLog/
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
 - Tools
-  - Fixed invalid connection diff when edges without any connections are removed. Issue #6643 
+  - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
+  - [randomTrips.py](Tools/Trip.md) options **--junction-taz** and **--validate** no work as expected when combined. Issue #7002
+  - [randomTrips.py](Tools/Trip.md) no longer generates trips were *fromJunction* equals *toJunctoin* when setting option  **--junction-taz**. Issue #7005
 
 
 ### Enhancements
+- Simulation
+  - Added option **--person-summary-output** which causes statists on person numers and their travel modes to be written in every simulation step. Issue #6964
+  
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
   
@@ -32,6 +37,7 @@ permalink: /ChangeLog/
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now visualize person trajectories using option **--persons**. Issue #6978
+  - Added new tool [computeCoordination.py](Tools/Output/computecoordinationpy) to compute the fraction of delayed vehicles along a defined corridor. Issue #6987
     
 ### Other
 
