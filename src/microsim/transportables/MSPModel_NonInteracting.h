@@ -63,11 +63,21 @@ public:
         return false;
     }
 
+    /// @brief return the number of active objects
+    int getActiveNumber() {
+        return myNumActivePedestrians;
+    }
+
+    void registerArrived() {
+        myNumActivePedestrians--;
+    }
+
 private:
     class MoveToNextEdge : public Command {
     public:
-        MoveToNextEdge(MSTransportable* transportable, MSStageMoving& walk) : myParent(walk), myTransportable(transportable) {}
-        ~MoveToNextEdge() {}
+        MoveToNextEdge(MSTransportable* transportable, MSStageMoving& walk, MSPModel_NonInteracting* model) :
+            myParent(walk), myTransportable(transportable), myModel(model) {}
+        virtual ~MoveToNextEdge(); 
         SUMOTime execute(SUMOTime currentTime);
         void abortWalk() {
             myTransportable = nullptr;
@@ -79,6 +89,8 @@ private:
     private:
         MSStageMoving& myParent;
         MSTransportable* myTransportable;
+        MSPModel_NonInteracting* myModel;
+
     private:
         /// @brief Invalidated assignment operator.
         MoveToNextEdge& operator=(const MoveToNextEdge&);
@@ -138,6 +150,9 @@ private:
 private:
     /// @brief the net to which to issue moveToNextEdge commands
     MSNet* myNet;
+
+    /// @brief the total number of active pedestrians
+    int myNumActivePedestrians;
 
 };
 

@@ -49,6 +49,11 @@ public:
         MSPModel_Remote* myRemoteModel;
     };
 
+    /// @brief return the number of active objects
+    int getActiveNumber() {
+        return (int)remoteIdPStateMapping.size();
+    }
+
 private:
     /**
     * @class PState
@@ -92,7 +97,6 @@ private:
     std::map<int, const MSEdge*> transitionsEdgesMapping;
     int myLastId = 0;
     int myLastTransitionId = 0;
-
 
     MSLane* getFirstPedestrianLane(const MSEdge* const& edge);
 };

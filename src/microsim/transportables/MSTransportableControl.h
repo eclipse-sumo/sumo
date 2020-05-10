@@ -180,6 +180,7 @@ public:
         return myLoadedNumber;
     }
 
+    int getDepartedNumber() const; 
 
     /** @brief Returns the number of build and inserted, but not yet deleted transportables
      * @return The number of simulated transportables
@@ -195,10 +196,38 @@ public:
         return myJammedNumber;
     }
 
-    /** @brief Returns the number of vehicles waiting for a ride
+    /** @brief Returns the number of transportables waiting for a ride
      */
     int getWaitingForVehicleNumber() const {
         return myWaitingForVehicleNumber;
+    }
+
+    /** @brief Returns the number of transportables waiting for a specified
+     * amount of time
+     */
+    int getWaitingUntilNumber() const {
+        return myWaitingUntilNumber;
+    }
+
+    /** @brief Returns the number of transportables moving by themselvs (i.e. walking)
+     */
+    int getMovingNumber() const; 
+
+    /** @brief Returns the number of transportables riding a vehicle
+     */
+    int getRidingNumber() const;
+
+    /** @brief Returns the number of transportables that exited the simulation
+     */
+    int getEndedNumber() const {
+        return myEndedNumber;
+    }
+
+    /** @brief Returns the number of transportables that arrived at their
+     * destination
+     */
+    int getArrivedNumber() const {
+        return myArrivedNumber;
     }
 
     /// @}
@@ -217,6 +246,9 @@ public:
         return myNonInteractingModel;
     }
 
+    void addArrived() {
+        myArrivedNumber++;
+    }
 
 protected:
     /// all currently created transportables by id
@@ -240,8 +272,20 @@ protected:
     /// @brief The number of jammed transportables
     int myJammedNumber;
 
+    /// @brief The number of transportables waiting for departure
+    int myWaitingForDepartureNumber;
+
     /// @brief The number of transportables waiting for vehicles
     int myWaitingForVehicleNumber;
+
+    /// @brief The number of transportables waiting for a specified time
+    int myWaitingUntilNumber;
+
+    /// @brief The number of transportables that exited the simulation
+    int myEndedNumber;
+
+    /// @brief The number of transportables that arrived at their destination
+    int myArrivedNumber;
 
     /// @brief whether a new transportable waiting for a vehicle has been added in the last step
     bool myHaveNewWaiting;

@@ -854,6 +854,26 @@ MSNet::writeOutput() {
         }
         od.closeTag();
     }
+    if (OptionsCont::getOptions().isSet("person-summary-output")) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("person-summary-output");
+        MSTransportableControl& pc = getPersonControl();
+        od.openTag("step");
+        od.writeAttr("time", time2string(myStep));
+        od.writeAttr("loaded", pc.getLoadedNumber());
+        od.writeAttr("inserted", pc.getDepartedNumber());
+        od.writeAttr("walking", pc.getMovingNumber());
+        od.writeAttr("waitingForRide", pc.getWaitingForVehicleNumber());
+        od.writeAttr("riding", pc.getRidingNumber());
+        od.writeAttr("stopping", pc.getWaitingUntilNumber());
+        od.writeAttr("jammed", pc.getJammedNumber());
+        od.writeAttr("ended", pc.getEndedNumber());
+        od.writeAttr("arrived", pc.getArrivedNumber());
+        if (myLogExecutionTime) {
+            od.writeAttr("duration", mySimStepDuration);
+        }
+        od.closeTag();
+
+    }
 
     // write detector values
     myDetectorControl->writeOutput(myStep + DELTA_T, false);

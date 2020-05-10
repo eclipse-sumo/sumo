@@ -478,6 +478,12 @@ private:
 
     static bool addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double lateral_offset,
                               double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds);
+
+    /// @brief return the number of active objects
+    int getActiveNumber() {
+        return myNumActivePedestrians;
+    }
+
 private:
     /// @brief the total number of active pedestrians
     int myNumActivePedestrians;

@@ -112,6 +112,9 @@ public:
     /// @brief whether movements on intersections are modelled
     virtual bool usingInternalLanes() = 0;
 
+    /// @brief return the number of active objects
+    virtual int getActiveNumber() = 0;
+
 };
 
 

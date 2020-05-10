@@ -44,7 +44,11 @@ MSTransportableControl::MSTransportableControl(const bool isPerson):
     myLoadedNumber(0),
     myRunningNumber(0),
     myJammedNumber(0),
+    myWaitingForDepartureNumber(0),
     myWaitingForVehicleNumber(0),
+    myWaitingUntilNumber(0),
+    myEndedNumber(0),
+    myArrivedNumber(0),
     myHaveNewWaiting(false) {
     const OptionsCont& oc = OptionsCont::getOptions();
     MSNet* const net = MSNet::getInstance();
@@ -85,6 +89,7 @@ MSTransportableControl::add(MSTransportable* transportable) {
         const SUMOTime step = param.depart % DELTA_T == 0 ? param.depart : (param.depart / DELTA_T + 1) * DELTA_T;
         myWaiting4Departure[step].push_back(transportable);
         myLoadedNumber++;
+        myWaitingForDepartureNumber++;
         return true;
     }
     return false;
@@ -116,6 +121,7 @@ MSTransportableControl::erase(MSTransportable* transportable) {
     const std::map<std::string, MSTransportable*>::iterator i = myTransportables.find(transportable->getID());
     if (i != myTransportables.end()) {
         myRunningNumber--;
+        myEndedNumber++;
         delete i->second;
         myTransportables.erase(i);
     }
@@ -129,6 +135,7 @@ MSTransportableControl::setWaitEnd(const SUMOTime time, MSTransportable* transpo
     const TransportableVector& transportables = myWaiting4Departure[step];
     if (std::find(transportables.begin(), transportables.end(), transportable) == transportables.end()) {
         myWaitingUntil[step].push_back(transportable);
+        myWaitingUntilNumber++;
     }
 }
 
@@ -140,6 +147,7 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
         const TransportableVector& transportables = myWaiting4Departure[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (int i = 0; i < (int)transportables.size(); ++i) {
+            myWaitingForDepartureNumber--;
             if (transportables[i]->proceed(net, time)) {
                 myRunningNumber++;
             } else {
@@ -152,6 +160,7 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
         const TransportableVector& transportables = myWaitingUntil[time];
         // we cannot use an iterator here because there might be additions to the vector while proceeding
         for (int i = 0; i < (int)transportables.size(); ++i) {
+            myWaitingUntilNumber--;
             if (!transportables[i]->proceed(net, time)) {
                 erase(transportables[i]);
             }
@@ -280,6 +289,21 @@ MSTransportableControl::getActiveCount() {
     return (int)myWaiting4Departure.size() + myRunningNumber - myWaitingForVehicleNumber;
 }
 
+int
+MSTransportableControl::getMovingNumber() const {
+    return myMovementModel->getActiveNumber();
+}
+
+
+int
+MSTransportableControl::getRidingNumber() const {
+    return myRunningNumber - myWaitingUntilNumber - myWaitingForVehicleNumber - getMovingNumber();
+}
+
+int
+MSTransportableControl::getDepartedNumber() const {
+    return myLoadedNumber - myWaitingForDepartureNumber;
+}
 
 void
 MSTransportableControl::abortAnyWaitingForVehicle() {

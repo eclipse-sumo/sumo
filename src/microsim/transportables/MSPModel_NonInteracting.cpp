@@ -51,7 +51,8 @@ const double MSPModel_NonInteracting::CState::LATERAL_OFFSET(0);
 // MSPModel_NonInteracting method definitions
 // ===========================================================================
 MSPModel_NonInteracting::MSPModel_NonInteracting(const OptionsCont& oc, MSNet* net) :
-    myNet(net) {
+    myNet(net),
+    myNumActivePedestrians(0) {
     assert(myNet != 0);
     UNUSED_PARAMETER(oc);
 }
@@ -63,7 +64,8 @@ MSPModel_NonInteracting::~MSPModel_NonInteracting() {
 
 MSTransportableStateAdapter*
 MSPModel_NonInteracting::add(MSTransportable* transportable, MSStageMoving* stage, SUMOTime now) {
-    MoveToNextEdge* cmd = new MoveToNextEdge(transportable, *stage);
+    myNumActivePedestrians++;
+    MoveToNextEdge* cmd = new MoveToNextEdge(transportable, *stage, this);
     if (transportable->isPerson()) {
         PState* state = new PState(cmd);
         const SUMOTime firstEdgeDuration = state->computeWalkingTime(nullptr, *stage, now);
@@ -81,9 +83,13 @@ MSPModel_NonInteracting::add(MSTransportable* transportable, MSStageMoving* stag
 
 void
 MSPModel_NonInteracting::remove(MSTransportableStateAdapter* state) {
+    myNumActivePedestrians--;
     dynamic_cast<PState*>(state)->getCommand()->abortWalk();
 }
 
+MSPModel_NonInteracting::MoveToNextEdge::~MoveToNextEdge() { 
+    myModel->registerArrived();
+}
 
 SUMOTime
 MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
@@ -93,7 +99,6 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
     const MSEdge* old = myParent.getEdge();
     const bool arrived = myParent.moveToNextEdge(myTransportable, currentTime);
     if (arrived) {
-        // movement finished
         return 0;
     }
     if (myTransportable->isPerson()) {

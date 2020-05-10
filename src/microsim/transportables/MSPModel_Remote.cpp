@@ -33,8 +33,8 @@ using grpc::Channel;
 using grpc::ClientContext;
 using grpc::Status;
 
-MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net)
-    : myNet(net) {
+MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net) : 
+    myNet(net) {
     const std::string address = oc.getString("pedestrian.remote.address");
     myHybridsimStub = hybridsim::HybridSimulation::NewStub(grpc::CreateChannel(
                           address, grpc::InsecureChannelCredentials()));
@@ -44,8 +44,9 @@ MSPModel_Remote::MSPModel_Remote(const OptionsCont& oc, MSNet* net)
     Event* e = new Event(this);
     net->getBeginOfTimestepEvents()->addEvent(e, net->getCurrentTimeStep() + DELTA_T);
 }
-PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) {
 
+
+PedestrianState* MSPModel_Remote::add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) {
     assert(person->getCurrentStageType() == MSTransportable::MOVING_WITHOUT_VEHICLE);
 
     PState* state = new PState(person, stage);
@@ -213,6 +214,7 @@ MSLane* MSPModel_Remote::getFirstPedestrianLane(const MSEdge* const& edge) {
 }
 
 void MSPModel_Remote::remove(PedestrianState* state) {
+    // XXX do something here
 
 }
 

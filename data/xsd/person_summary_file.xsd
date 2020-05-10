@@ -3,7 +3,7 @@
 
     <xsd:include schemaLocation="baseTypes.xsd"/>
 
-    <xsd:element name="summary">
+    <xsd:element name="personSummary">
         <xsd:complexType>
             <xsd:sequence>
                 <xsd:element minOccurs="0" maxOccurs="unbounded" ref="step"/>
@@ -15,17 +15,13 @@
             <xsd:attribute name="time" use="required" type="nonNegativeFloat"/>
             <xsd:attribute name="loaded" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="inserted" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="running" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="waiting" type="xsd:nonNegativeInteger" use="required"/>
+            <xsd:attribute name="walking" type="xsd:nonNegativeInteger" use="required"/>
+            <xsd:attribute name="waitingForRide" type="xsd:nonNegativeInteger" use="required"/>
+            <xsd:attribute name="riding" type="xsd:nonNegativeInteger" use="required"/>
+            <xsd:attribute name="stopping" type="xsd:nonNegativeInteger" use="required"/>
+            <xsd:attribute name="jammed" use="required" type="xsd:nonNegativeInteger"/>
             <xsd:attribute name="ended" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="arrived" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="collisions" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="teleports" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="halting" type="xsd:nonNegativeInteger" use="required"/>
-            <xsd:attribute name="meanWaitingTime" use="required" type="xsd:float"/>
-            <xsd:attribute name="meanTravelTime" use="required" type="xsd:float"/>
-            <xsd:attribute name="meanSpeed" use="required" type="xsd:float"/>
-            <xsd:attribute name="meanSpeedRelative" use="required" type="xsd:float"/>
             <xsd:attribute name="duration" use="optional" type="xsd:float"/>
         </xsd:complexType>
     </xsd:element>

@@ -178,6 +178,9 @@ MSFrame::fillOptions() {
     oc.addSynonyme("summary-output", "summary");
     oc.addDescription("summary-output", "Output", "Save aggregated vehicle departure info into FILE");
 
+    oc.doRegister("person-summary-output", new Option_FileName());
+    oc.addDescription("person-summary-output", "Output", "Save aggregated person counts into FILE");
+
     oc.doRegister("tripinfo-output", new Option_FileName());
     oc.addSynonyme("tripinfo-output", "tripinfo");
     oc.addDescription("tripinfo-output", "Output", "Save single vehicle trip info into FILE");
@@ -586,6 +589,7 @@ MSFrame::buildStreams() {
     // standard outputs
     OutputDevice::createDeviceByOption("netstate-dump", "netstate", "netstate_file.xsd");
     OutputDevice::createDeviceByOption("summary-output", "summary", "summary_file.xsd");
+    OutputDevice::createDeviceByOption("person-summary-output", "personSummary", "person_summary_file.xsd");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos", "tripinfo_file.xsd");
 
     //extended

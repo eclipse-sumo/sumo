@@ -102,6 +102,7 @@ MSTransportable::proceed(MSNet* net, SUMOTime time) {
         if (prior->getDestinationStop() != nullptr) {
             prior->getDestinationStop()->removeTransportable(this);
         }
+        MSNet::getInstance()->getPersonControl().addArrived();
         return false;
     }
 }

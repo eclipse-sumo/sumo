@@ -173,6 +173,7 @@ MSPModel_Striping::remove(MSTransportableStateAdapter* state) {
     for (Pedestrians::iterator it = pedestrians.begin(); it != pedestrians.end(); ++it) {
         if (*it == state) {
             pedestrians.erase(it);
+            myNumActivePedestrians--;
             return;
         }
     }
