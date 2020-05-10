@@ -225,7 +225,7 @@ class RandomTripGenerator:
         self.intermediate = intermediate
         self.pedestrians = pedestrians
 
-    def get_trip(self, min_distance, max_distance, maxtries=100):
+    def get_trip(self, min_distance, max_distance, maxtries=100, junctionTaz=False):
         for _ in range(maxtries):
             source_edge = self.source_generator.get()
             intermediate = [self.via_generator.get()
@@ -241,7 +241,9 @@ class RandomTripGenerator:
                       [destCoord])
             distance = sum([euclidean(p, q)
                             for p, q in zip(coords[:-1], coords[1:])])
-            if distance >= min_distance and (max_distance is None or distance < max_distance):
+            if (distance >= min_distance
+                    and (not junctionTaz or source_edge.getFromNode() != sink_edge.getToNode())
+                    and (max_distance is None or distance < max_distance)):
                 return source_edge, sink_edge, intermediate
         raise Exception("no trip found after %s tries" % maxtries)
 
@@ -458,7 +460,8 @@ def main(options):
         label = "%s%s" % (options.tripprefix, idx)
         try:
             source_edge, sink_edge, intermediate = trip_generator.get_trip(
-                options.min_distance, options.max_distance, options.maxtries)
+                options.min_distance, options.max_distance, options.maxtries,
+                options.junctionTaz)
             combined_attrs = options.tripattrs
             if options.fringeattrs and source_edge.is_fringe(source_edge._incoming):
                 combined_attrs += " " + options.fringeattrs
