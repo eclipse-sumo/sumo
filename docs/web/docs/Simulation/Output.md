@@ -137,7 +137,9 @@ Alternatively, the [values for edges or lanes](Output.md#values_for_edges_or_lan
 ## simulation(network)-based information
 
 - [simulation state statistics](../Simulation/Output/Summary.md):
-  information about the current state of the simulation
+  information about the current state of the simulation (vehicle count etc.)
+- [simulation state person statistics](../Simulation/Output/PersonSummary.md):
+  information about the current state of persons the simulation (person count etc.)
 
 ## [traffic lights-based information](../Simulation/Output/Traffic_Lights.md)
 
