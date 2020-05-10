@@ -199,3 +199,15 @@ python tools/output/attributeStats --element tripinfo --attribute timeLoss
 
 With option **--hist-output** {{DT_FILE}} a histogram data file (e.g. for plotting with gnuplot) is
 generated.
+
+## computeCoordination.py
+
+This tool reads fcd-outut and a cooridor definition. It computes the fraction of vehicles that passed the corridor without significant slow-dow.
+
+Example:
+```
+python tools/output/computeCoordination.py --fcd-file fcd.xml --filter-route B,C,D,E --entry C --min-speed 5
+```
+This computes the fraction of vehicles that passed the edges *B,C,D,E* in order (possibly with gaps) and were delayed after passing edge *C* to less then 5m/s.
+
+With option **--full-output** {{DT_FILE}} Each vehicle that passed the corridor is recored with entry time and the time at which it was delayd (-1 it it was not delayed).
