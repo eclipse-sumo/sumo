@@ -136,6 +136,7 @@ SUMOVTypeParameter::VClassDefaultValues::VClassDefaultValues(SUMOVehicleClass vc
             width = 2.4;
             height = 3.2;
             shape = SVS_RAIL_CAR;
+            osgFile = "tram.obj";
             carriageLength = 5.71; // http://de.wikipedia.org/wiki/Bombardier_Flexity_Berlin
             locomotiveLength = 5.71;
             personCapacity = 120;
