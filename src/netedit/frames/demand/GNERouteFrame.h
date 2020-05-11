@@ -169,9 +169,6 @@ public:
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
 
-        /// @brief current mode
-        Mode myMode;
-
     private:
         /// @brief set special candidates (This function will be called recursively)
         void setSpecialCandidates(GNEEdge* edge);
@@ -181,6 +178,9 @@ public:
 
         /// @brief pointer to Vehicle Frame Parent
         GNERouteFrame* myRouteFrameParent;
+
+        /// @brief current mode
+        Mode myMode;
 
         /// @brief label with route info
         FXLabel* myInfoRouteLabel;

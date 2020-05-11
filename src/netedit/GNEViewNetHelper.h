@@ -799,14 +799,14 @@ struct GNEViewNetHelper {
         /// @brief the poi which position is being moved
         GNEPOI* myPOIToMove;
 
-        /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
-        GNETAZ* myTAZElementToMove;
-
         /// @brief the additional element which position is being moved
         GNEAdditional* myAdditionalToMove;
 
         /// @brief the demand element which position is being moved
         GNEDemandElement* myDemandElementToMove;
+
+        /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
+        GNETAZ* myTAZElementToMove;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
