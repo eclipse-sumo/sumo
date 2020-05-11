@@ -31,6 +31,7 @@
 // ===========================================================================
 class OutputDevice;
 class NBEdgeCont;
+class NBEdge;
 
 
 // ===========================================================================
@@ -69,6 +70,8 @@ public:
     void registerAdditionalEdge(std::string wayId, std::string edgeId);
     void addPlatformCand(NBPTPlatform platform);
     bool findLaneAndComputeBusStopExtent(const NBEdgeCont& ec);
+
+    bool findLaneAndComputeBusStopExtent(const NBEdge* edge);
 
     void setMyPTStopId(std::string id);
     void addAccess(std::string laneID, double offset, double length);

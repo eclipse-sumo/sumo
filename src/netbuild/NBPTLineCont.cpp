@@ -345,6 +345,15 @@ NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) 
 }
 
 
+void
+NBPTLineCont::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) {
+    //std::cout << " replaceEdge " << edgeID << " replacement=" << toString(replacement) << "\n";
+    for (auto& item : myPTLines) {
+        item.second->replaceEdge(edgeID, replacement);
+    }
+}
+
+
 std::set<std::string>&
 NBPTLineCont::getServedPTStops() {
     return myServedPTStops;

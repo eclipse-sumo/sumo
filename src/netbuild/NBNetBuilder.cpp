@@ -165,7 +165,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     if (mayAddOrRemove && oc.exists("edges.join-tram-dist") && oc.getFloat("edges.join-tram-dist") >= 0) {
         // should come before joining junctions
         before = PROGRESS_BEGIN_TIME_MESSAGE("Joining tram edges");
-        int numJoinedTramEdges = myEdgeCont.joinTramEdges(myDistrictCont, oc.getFloat("edges.join-tram-dist"));
+        int numJoinedTramEdges = myEdgeCont.joinTramEdges(myDistrictCont, myPTLineCont, oc.getFloat("edges.join-tram-dist"));
         PROGRESS_TIME_MESSAGE(before);
         if (numJoinedTramEdges > 0) {
             WRITE_MESSAGE(" Joined " + toString(numJoinedTramEdges) + " tram edges into roads.");

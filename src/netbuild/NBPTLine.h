@@ -80,6 +80,9 @@ public:
     /// @brief replace the given stop
     void replaceStop(NBPTStop* oldStop, NBPTStop* newStop);
 
+    /// @brief replace the edge with the given edge list
+    void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+
     void setName(const std::string& name) {
         myName = name;
     }

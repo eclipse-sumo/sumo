@@ -46,6 +46,7 @@ class NBNode;
 class NBDistrictCont;
 class NBTrafficLightLogicCont;
 class NBPTStopCont;
+class NBPTLineCont;
 
 
 // ===========================================================================
@@ -600,7 +601,7 @@ public:
     int joinLanes(SVCPermissions perms);
 
     /// @brief join tram edges into adjacent lanes
-    int joinTramEdges(NBDistrictCont& dc, double maxDist);
+    int joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist);
 
     /// @brief return all edges
     EdgeVector getAllEdges() const;

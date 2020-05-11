@@ -47,6 +47,9 @@ public:
     /// @brief add edges that must be kept
     void addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into);
 
+    /// @brief replace the edge with the given edge list in all lines
+    void replaceEdge(const std::string& edgeID, const EdgeVector& replacement);
+
     /// @brief select the correct stop on superposed rail edges
     void fixBidiStops(const NBEdgeCont& ec);
 

@@ -42,6 +42,7 @@
 #include "NBNetBuilder.h"
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
+#include "NBPTLineCont.h"
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBTrafficLightLogicCont.h"
@@ -662,7 +663,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     patchRoundabouts(edge, one, two, myRoundabouts);
     patchRoundabouts(edge, one, two, myGuessedRoundabouts);
     const std::string oldID = edge->getID();
-    erase(dc, edge);
+    extract(dc, edge);
     if (!insert(one, true)) {
         WRITE_ERROR("Could not insert edge '" + one->getID() + "' before split of edge '" + oldID + "'");
     };
@@ -1618,7 +1619,7 @@ NBEdgeCont::joinLanes(SVCPermissions perms) {
 
 
 int
-NBEdgeCont::joinTramEdges(NBDistrictCont& dc, double maxDist) {
+NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) {
     // this is different from joinSimilarEdges because there don't need to be
     // shared nodes and tram edges may be split
     std::set<NBEdge*> tramEdges;
@@ -1740,6 +1741,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, double maxDist) {
             std::cout << "\n";
 #endif
             // merge tramEdge into road lanes
+            EdgeVector replacement;
             double pos = 0;
             int tramPart = 0;
             std::string tramEdgeID = tramEdge->getID();
@@ -1761,15 +1763,19 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, double maxDist) {
                     const std::string firstPartID = tramEdgeID + "#" + toString(tramPart++);
                     splitAt(dc, tramEdge, road->getFromNode(), firstPartID, tramEdgeID, 1 , 1);
                     tramEdge = retrieve(tramEdgeID); // second part;
+                    NBEdge* firstPart = retrieve(firstPartID);
                     incoming.clear();
-                    incoming.push_back(retrieve(firstPartID));
+                    incoming.push_back(firstPart);
+                    replacement.push_back(firstPart);
                 }
                 pos = item.first + road->getGeometry().length();
                 numJoined++;
+                replacement.push_back(road);
                 // merge section of tramEdge into road lane
                 if (road->getToNode() != tramEdge->getToNode() && (tramLength - pos) >= JOIN_TRAM_MIN_LENGTH) {
                     tramEdge->reinitNodes(road->getToNode(), tramEdge->getToNode());
                     tramEdge->setGeometry(tramShape.getSubpart(pos, tramShape.length()));
+                    erasedLast = false;
 #ifdef DEBUG_JOIN_TRAM
                     std::cout << "    shorted tramEdge=" << tramEdge->getID() << " (joined with roadEdge=" << road->getID() << "\n";
 #endif
@@ -1796,7 +1802,11 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, double maxDist) {
                         out->reinitNodes(lastRoad->getToNode(), out->getToNode());
                     }
                 }
+            } else {
+                replacement.push_back(tramEdge);
             }
+            // update ptlines
+            lc.replaceEdge(tramEdgeID, replacement);
         }
     }
 
