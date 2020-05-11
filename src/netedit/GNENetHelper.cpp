@@ -1091,20 +1091,6 @@ GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const
 }
 
 
-std::vector<GNEEdge*>
-GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const {
-    // declare a vector of GNEEdges
-    std::vector<GNEEdge*> partialEdges;
-    partialEdges.reserve(partialEdgesStr.size());
-    // convert to vector of GNEEdges
-    for (const auto& egeID : partialEdgesStr) {
-        partialEdges.push_back(myNet->retrieveEdge(egeID));
-    }
-    // calculate DijkstraRoute using partialEdges
-    return calculatePath(vClass, partialEdges);
-}
-
-
 bool
 GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
     // check conditions

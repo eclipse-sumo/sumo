@@ -416,9 +416,6 @@ struct GNENetHelper {
         /// @brief calculate Dijkstra path between a list of partial edges
         std::vector<GNEEdge*> calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
-        /// @brief calculate Dijkstra path between a list of partial edges (in string format)
-        std::vector<GNEEdge*> calculatePath(const SUMOVehicleClass vClass, const std::vector<std::string>& partialEdgesStr) const;
-
         /// @brief check if exist a path between the two given consecutives edges for the given VClass
         bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 

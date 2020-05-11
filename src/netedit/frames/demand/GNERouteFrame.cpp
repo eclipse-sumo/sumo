@@ -210,6 +210,41 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 // GNERouteFrame::PathCreator - methods
 // ---------------------------------------------------------------------------
 
+GNERouteFrame::PathCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
+    subPath({edge}),
+    conflictVClass(false),
+    conflictDisconnected(false) {
+    // check if we have to change vClass flag
+    if (edge->getNBEdge()->getNumLanesThatAllow(vClass) == 0) {
+        conflictVClass = true;
+    }
+}
+
+
+GNERouteFrame::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
+    conflictVClass(false),
+    conflictDisconnected(false) {
+    // calculate subpath
+    subPath = viewNet->getNet()->getPathCalculator()->calculatePath(vClass, {edgeFrom, edgeTo});
+    // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
+    if (subPath.empty()) {
+        subPath = viewNet->getNet()->getPathCalculator()->calculatePath(SVC_PEDESTRIAN, { edgeFrom, edgeTo });
+        if (subPath.empty()) {
+            subPath = {edgeFrom, edgeTo};
+            conflictDisconnected = true;
+        } else {
+            conflictVClass = true;
+        }
+    }
+}
+
+
+GNERouteFrame::PathCreator::Path::Path() :
+    conflictVClass(false),
+    conflictDisconnected(false) {
+}
+
+
 GNERouteFrame::PathCreator::PathCreator(GNERouteFrame* routeFrameParent, GNERouteFrame::PathCreator::Mode mode) :
     FXGroupBox(routeFrameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myRouteFrameParent(routeFrameParent),
@@ -325,17 +360,14 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, c
     myFinishCreationButton->enable();
     // disable undo/redo
     myRouteFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
-    // calculate route if there is more than two edges
+    // enable or disable remove last edge button
     if (mySelectedElements.size() > 1) {
-        // enable remove last edge button
         myRemoveLastInsertedEdge->enable();
-        // calculate temporal route
-        myTemporalPath = myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->calculatePath(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedElements);
     } else {
-        // Routes with only one edge are allowed
-        myTemporalPath.clear();
-        myTemporalPath.push_back(mySelectedElements.front());
+        myRemoveLastInsertedEdge->disable();
     }
+    // recalculate path
+    recalculatePath();
     // update info route label
     updateInfoRouteLabel();
     // update edge colors
@@ -352,15 +384,15 @@ GNERouteFrame::PathCreator::clearPath() {
     }
     // clear edges
     mySelectedElements.clear();
-    myTemporalPath.clear();
+    myPath.clear();
     // update info route label
     updateInfoRouteLabel();
 }
 
 
-const std::vector<GNEEdge*>&
-GNERouteFrame::PathCreator::getPathRoute() const {
-    return myTemporalPath;
+const std::vector<GNERouteFrame::PathCreator::Path>&
+GNERouteFrame::PathCreator::getPath() const {
+    return myPath;
 }
 
 
@@ -428,14 +460,14 @@ GNERouteFrame::PathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
         std::map<SumoXMLAttr, std::string> valuesMap = myRouteFrameParent->myRouteAttributes->getAttributesAndValues(true);
         // declare a route parameter
         GNERouteHandler::RouteParameter routeParameters;
-        if (myTemporalPath.size() > 0) {
-            routeParameters.edges.reserve(myTemporalPath.size());
-            for (const auto& edge : myTemporalPath) {
-                routeParameters.edges.push_back(myRouteFrameParent->myViewNet->getNet()->retrieveEdge(edge->getID()));
-            }
-        } else {
-            for (const auto& edge : mySelectedElements) {
-                routeParameters.edges.push_back(myRouteFrameParent->myViewNet->getNet()->retrieveEdge(edge->getID()));
+        for (const auto &path : myPath) {
+            for (const auto& edgeID : path.subPath) {
+                // get edge
+                GNEEdge *edge = myRouteFrameParent->myViewNet->getNet()->retrieveEdge(edgeID->getID());
+                // avoid double edges
+                if (routeParameters.edges.empty() || (routeParameters.edges.back() != edge)) {
+                    routeParameters.edges.push_back(edge);
+                }
             }
         }
         // Check if ID has to be generated
@@ -497,17 +529,14 @@ GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*)
             mySelectedElements.back()->setSourceCandidate(false);
             mySelectedElements.back()->setTargetCandidate(true);
         }
-        // check if remove last route edge button has to be disabled
-        if (mySelectedElements.size() == 1) {
-            // avoid remove last edge
-            myRemoveLastInsertedEdge->disable();
-            // Routes with only one edge are allowed
-            myTemporalPath.clear();
-            myTemporalPath.push_back(mySelectedElements.front());
+        // enable or disable remove last edge button
+        if (mySelectedElements.size() > 1) {
+            myRemoveLastInsertedEdge->enable();
         } else {
-            // calculate temporal route
-            myTemporalPath = myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->calculatePath(myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass(), mySelectedElements);
+            myRemoveLastInsertedEdge->disable();
         }
+        // recalculate path
+        recalculatePath();
         // update info route label
         updateInfoRouteLabel();
         // update reachability
@@ -531,24 +560,47 @@ GNERouteFrame::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*
 
 void
 GNERouteFrame::PathCreator::updateInfoRouteLabel() {
-    if (myTemporalPath.size() > 0) {
+    if (myPath.size() > 0) {
         // declare variables for route info
         double length = 0;
         double speed = 0;
-        for (const auto& edge : myTemporalPath) {
-            length += edge->getNBEdge()->getLength();
-            speed += edge->getNBEdge()->getSpeed();
+        int pathSize = 0;
+        for (const auto& path : myPath) {
+            for (const auto& edge : path.subPath) {
+                length += edge->getNBEdge()->getLength();
+                speed += edge->getNBEdge()->getSpeed();
+            }
+            pathSize += (int)path.subPath.size();
         }
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
-            << "- Number of Edges: " << toString(myTemporalPath.size()) << "\n"
+            << "- Selected edges: " << toString(mySelectedElements.size()) << "\n"
+            << "- Path edges: " << toString(pathSize) << "\n"
             << "- Length: " << toString(length) << "\n"
-            << "- Average speed: " << toString(speed / myTemporalPath.size());
+            << "- Average speed: " << toString(speed / pathSize);
         // set new label
         myInfoRouteLabel->setText(information.str().c_str());
     } else {
         myInfoRouteLabel->setText("No edges selected");
+    }
+}
+
+
+void
+GNERouteFrame::PathCreator::recalculatePath() {
+    // get vehicle class 
+    const SUMOVehicleClass vClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
+    // first clear path
+    myPath.clear();
+    // check if remove last route edge button has to be disabled
+    if (mySelectedElements.size() == 1) {
+        myPath.push_back(Path(vClass, mySelectedElements.front()));
+    } else {
+        // add every segment
+        for (int i = 1; i < (int)mySelectedElements.size(); i++) {
+            myPath.push_back(Path(myRouteFrameParent->getViewNet(), vClass, mySelectedElements.at(i-1), mySelectedElements.at(i)));
+        }
     }
 }
 
@@ -754,33 +806,40 @@ GNERouteFrame::hotkeyEsc() {
 
 
 void
-GNERouteFrame::drawTemporalRoute() const {
-    // declare a vector with temporal route edges
-    std::vector<GNEEdge*> temporalRoute;
-    if (myPathCreator->getPathRoute().size() > 0) {
-        temporalRoute = myPathCreator->getPathRoute();
-    } else {
-        temporalRoute = myPathCreator->getSelectedEdges();
-    }
-    // only draw if there is at least two edges
-    if (temporalRoute.size() > 1) {
+GNERouteFrame::drawTemporalRoute(const GUIVisualizationSettings* s) const {
+    if (myPathCreator->getPath().size() > 0) {
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, GLO_MAX);
-        // set orange color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // set line width
-        glLineWidth(5);
-        // draw first line
-        GLHelper::drawLine(temporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
-                           temporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
-        // draw rest of lines
-        for (int i = 1; i < (int)temporalRoute.size(); i++) {
-            GLHelper::drawLine(temporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                               temporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
-            GLHelper::drawLine(temporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
-                               temporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
+        // iterate over path
+        for (int i = 0; i < myPathCreator->getPath().size(); i++) {
+            // get path
+            const GNERouteFrame::PathCreator::Path &path = myPathCreator->getPath().at(i);
+            // set path color color
+            if (path.conflictDisconnected) {
+                GLHelper::setColor(s->candidateColorSettings.conflict);
+            } else if (path.conflictVClass) {
+                GLHelper::setColor(s->candidateColorSettings.special);
+            } else {
+                GLHelper::setColor(RGBColor::ORANGE);
+            }
+            // draw line over 
+            for (int j = 0; j < path.subPath.size(); j++) {
+                const GNELane* lane = path.subPath.at(j)->getLanes().back();
+                if (j > 0) {
+                    GLHelper::drawBoxLines(lane->getLaneShape(), 0.3);
+                }
+                // draw connection between lanes
+                if ((j+1) < path.subPath.size()) {
+                    const GNELane* nextLane = path.subPath.at(j+1)->getLanes().back();
+                    if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
+                        GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), 0.3);
+                    } else {
+                        GLHelper::drawBoxLines({lane->getLaneShape().back(), nextLane->getLaneShape().front()}, 0.3);
+                    }
+                }
+            }
         }
         // Pop last matrix
         glPopMatrix();

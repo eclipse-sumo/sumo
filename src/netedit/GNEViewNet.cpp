@@ -712,7 +712,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myViewParent->getPersonFrame()->getEdgePathCreator()->drawTemporalPath();
         myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->drawTemporalRoute();
         // draw temporal non consecutive edge
-        myViewParent->getRouteFrame()->drawTemporalRoute();
+        myViewParent->getRouteFrame()->drawTemporalRoute(myVisualizationSettings);
         // draw temporal edgeRelPath
         myViewParent->getEdgeRelDataFrame()->getEdgePathCreator()->drawTemporalPath();
     }

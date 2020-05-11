@@ -113,9 +113,31 @@ public:
         FXDECLARE(GNERouteFrame::PathCreator)
 
     public:
+        // @brief creation mode
         enum class Mode {
             CONSECUTIVE,
             NOCONSECUTIVE
+        };
+
+        /// @brief struct for path
+        struct Path {
+
+            /// @brief constructor for single edge
+            Path(const SUMOVehicleClass vClass, GNEEdge* edge);
+
+            /// @brief constructor for multiple edges
+            Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+
+            ///
+            std::vector<GNEEdge*> subPath;
+
+            bool conflictVClass;
+
+            bool conflictDisconnected;
+
+        private:
+            /// @brief default constructor
+            Path();
         };
 
         /// @brief default constructor
@@ -142,8 +164,8 @@ public:
         /// @brief clear edges (and restore colors)
         void clearPath();
 
-        /// @brief get temporal route
-        const std::vector<GNEEdge*>& getPathRoute() const;
+        /// @brief get path route
+        const std::vector<Path>& getPath() const;
 
         /// @brief draw candidate edges with special color (Only for candidates, special and conflicted)
         bool drawCandidateEdgesWithSpecialColor() const;
@@ -172,6 +194,9 @@ public:
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
 
+        /// @brief recalculate path
+        void recalculatePath();
+
     private:
         /// @brief set special candidates (This function will be called recursively)
         void setSpecialCandidates(GNEEdge* edge);
@@ -191,8 +216,8 @@ public:
         /// @brief current selected edges
         std::vector<GNEEdge*> mySelectedElements;
 
-        /// @brief vector with temporal route edges
-        std::vector<GNEEdge*> myTemporalPath;
+        /// @brief vector with current path
+        std::vector<Path> myPath;
 
         /// @brief button for finish route creation
         FXButton* myFinishCreationButton;
@@ -277,7 +302,7 @@ public:
     void hotkeyEsc();
 
     /// @brief draw temporal route
-    void drawTemporalRoute() const;
+    void drawTemporalRoute(const GUIVisualizationSettings* s) const;
 
     /// @brief get path creator modul
     PathCreator* getPathCreator() const;
