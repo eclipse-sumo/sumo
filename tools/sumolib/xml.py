@@ -328,7 +328,8 @@ def _open(xmlfile, encoding="utf8"):
     if isinstance(xmlfile, str):
         if xmlfile.endswith(".gz"):
             return gzip.open(xmlfile, "rt")
-        return open(xmlfile) if encoding is None else io.open(xmlfile, encoding=encoding)
+        if encoding is not None:
+            return io.open(xmlfile, encoding=encoding)
     return xmlfile
 
 

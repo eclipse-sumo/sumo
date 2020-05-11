@@ -28,6 +28,7 @@ import os
 import sys
 import copy
 import itertools
+import io
 
 from optparse import OptionParser
 from collections import defaultdict
@@ -410,7 +411,7 @@ def main(options):
 
     busStopEdges = {}
     if options.stops_output:
-        busStops = open(options.stops_output, 'w')
+        busStops = io.open(options.stops_output, 'w', encoding="utf8")
         writeHeader(busStops, os.path.basename(__file__), 'additional')
     if options.additional_input:
         num_busstops = 0
@@ -472,7 +473,7 @@ def main(options):
         options.routeFiles = [options.pt_input]
         finalRouteEdge = {}
         finalEdgeMap = {}
-        with open(options.pt_output if options.pt_output else options.pt_input + ".cut", 'w') as f:
+        with io.open(options.pt_output if options.pt_output else options.pt_input + ".cut", 'w', encoding="utf8") as f:
             writeHeader(f, os.path.basename(__file__), 'routes')
             for _, v in cut_routes(edges, orig_net, options, busStopEdges):
                 f.write(v.toXML('    '))
@@ -488,14 +489,14 @@ def main(options):
     if options.big:
         # write output unsorted
         tmpname = options.output + ".unsorted"
-        with open(tmpname, 'w') as f:
+        with io.open(tmpname, 'w', encoding="utf8") as f:
             write_to_file(cut_routes(edges, orig_net, options, busStopEdges, finalEdgeMap), f)
         # sort out of memory
         sort_routes.main([tmpname, '--big', '--outfile', options.output])
     else:
         routes = list(cut_routes(edges, orig_net, options, busStopEdges, finalEdgeMap))
         routes.sort(key=lambda v: v[0])
-        with open(options.output, 'w') as f:
+        with io.open(options.output, 'w', encoding="utf8") as f:
             write_to_file(routes, f)
 
 
