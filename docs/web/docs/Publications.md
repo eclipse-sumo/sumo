@@ -19,7 +19,7 @@ BibTex:
            year = {2018},
         journal = {IEEE Intelligent Transportation Systems Conference (ITSC)},
        keywords = {traffic simulation, modelling, optimization},
-            url = {<https://elib.dlr.de/124092/},
+            url = {https://elib.dlr.de/124092/}
  }
 ```
 
