@@ -154,7 +154,7 @@ NBNode::ApproachingDivider::execute(const int src, const int dest) {
     for (int i = 0; i < (int)approachedLanes->size(); i++) {
         assert((int)approachingLanes.size() > i);
         int approached = myAvailableLanes[(*approachedLanes)[i]];
-        incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing, approached, NBEdge::L2L_COMPUTED);
+        incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing, approached, NBEdge::Lane2LaneInfoType::COMPUTED);
     }
     delete approachedLanes;
 }
@@ -1069,17 +1069,17 @@ NBNode::computeLanes2Lanes() {
             const int addedLeft = addedLanes - addedRight;
             // "straight" connections
             for (int i = inOffset; i < in->getNumLanes(); ++i) {
-                in->setConnection(i, out, i - inOffset + outOffset + addedRight, NBEdge::L2L_COMPUTED);
+                in->setConnection(i, out, i - inOffset + outOffset + addedRight, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             // connect extra lane on the right
             for (int i = 0; i < addedRight; ++i) {
-                in->setConnection(inOffset, out, outOffset + i, NBEdge::L2L_COMPUTED);
+                in->setConnection(inOffset, out, outOffset + i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             // connect extra lane on the left
             const int inLeftMost = in->getNumLanes() - 1;
             const int outOffset2 = outOffset + addedRight + in->getNumLanes() - inOffset;
             for (int i = 0; i < addedLeft; ++i) {
-                in->setConnection(inLeftMost, out, outOffset2 + i, NBEdge::L2L_COMPUTED);
+                in->setConnection(inLeftMost, out, outOffset2 + i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             return;
         }
@@ -1119,8 +1119,8 @@ NBNode::computeLanes2Lanes() {
                 std::swap(in1, in2);
                 std::swap(in1Offset, in2Offset);
             }
-            in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::L2L_VALIDATED, true);
-            in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::L2L_VALIDATED, true);
+            in1->addLane2LaneConnections(in1Offset, out, outOffset, in1->getNumLanes() - in1Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
+            in2->addLane2LaneConnections(in2Offset, out, in1->getNumLanes() + outOffset - in1Offset, in2->getNumLanes() - in2Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
             return;
         }
     }
@@ -1154,8 +1154,8 @@ NBNode::computeLanes2Lanes() {
                 std::swap(out1, out2);
                 std::swap(out1Offset, out2Offset);
             }
-            in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::L2L_VALIDATED, true);
-            in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset - deltaLaneSum, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::L2L_VALIDATED, false);
+            in->addLane2LaneConnections(inOffset, out1, out1Offset, out1->getNumLanes() - out1Offset, NBEdge::Lane2LaneInfoType::VALIDATED, true);
+            in->addLane2LaneConnections(out1->getNumLanes() + inOffset - out1Offset - deltaLaneSum, out2, out2Offset, out2->getNumLanes() - out2Offset, NBEdge::Lane2LaneInfoType::VALIDATED, false);
             return;
         }
     }
@@ -1181,7 +1181,7 @@ NBNode::computeLanes2Lanes() {
                 && in != out
                 && in->isConnectedTo(out)) {
             for (int i = inOffset; i < in->getNumLanes(); ++i) {
-                in->setConnection(i, out, MIN2(outOffset + i, out->getNumLanes() - 1), NBEdge::L2L_COMPUTED, true);
+                in->setConnection(i, out, MIN2(outOffset + i, out->getNumLanes() - 1), NBEdge::Lane2LaneInfoType::COMPUTED, true);
             }
             return;
         }
@@ -1210,7 +1210,7 @@ NBNode::computeLanes2Lanes() {
             // in case of reduced lane number, let the rightmost lanse end
             inOffset += reduction;
             for (int i = outOffset; i < out->getNumLanes(); ++i) {
-                in->setConnection(i + inOffset - outOffset, out, i, NBEdge::L2L_COMPUTED);
+                in->setConnection(i + inOffset - outOffset, out, i, NBEdge::Lane2LaneInfoType::COMPUTED);
             }
             //std::cout << " special case f at node=" << getID() << " inOffset=" << inOffset << " outOffset=" << outOffset << "\n";
             return;
@@ -1271,7 +1271,7 @@ NBNode::computeLanes2Lanes() {
                             for (int toLane = 0; toLane < currentOutgoing->getNumLanes(); ++toLane) {
                                 const SVCPermissions satisfied = incoming->getPermissions(fromLane) & currentOutgoing->getPermissions(toLane) & unsatisfied;
                                 if (satisfied != 0 && !incoming->getLaneStruct(fromLane).connectionsDone) {
-                                    incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::L2L_COMPUTED);
+                                    incoming->setConnection((int)fromLane, currentOutgoing, toLane, NBEdge::Lane2LaneInfoType::COMPUTED);
 #ifdef DEBUG_CONNECTION_GUESSING
                                     if (DEBUGCOND) {
                                         std::cout << "  new connection from=" << fromLane << " to=" << currentOutgoing->getID() << "_" << toLane << " satisfies=" << getVehicleClassNames(satisfied) << "\n";
@@ -1305,7 +1305,7 @@ NBNode::computeLanes2Lanes() {
                             && incoming->getConnectionsFromLane(i, currentOutgoing).size() == 0) {
                         // find a dedicated bike lane as target
                         if (bikeLaneTarget >= 0) {
-                            incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::L2L_COMPUTED);
+                            incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
                             builtConnection = true;
                         } else {
                             // use any lane that allows bicycles
@@ -1313,7 +1313,7 @@ NBNode::computeLanes2Lanes() {
                                 if ((currentOutgoing->getPermissions(i2) & SVC_BICYCLE) != 0) {
                                     // possibly a double-connection
                                     // XXX could use 'true' here but this requires additional work on tls generation
-                                    incoming->setConnection(i, currentOutgoing, i2, NBEdge::L2L_COMPUTED, false);
+                                    incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, false);
                                     builtConnection = true;
                                     break;
                                 }
@@ -1333,7 +1333,7 @@ NBNode::computeLanes2Lanes() {
                     }
                     for (int i = start; i < end; i += inc) {
                         if ((incoming->getPermissions(i) & SVC_BICYCLE) != 0) {
-                            incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::L2L_COMPUTED);
+                            incoming->setConnection(i, currentOutgoing, bikeLaneTarget, NBEdge::Lane2LaneInfoType::COMPUTED);
                             break;
                         }
                     }
@@ -2026,7 +2026,7 @@ NBNode::getDirection(const NBEdge* const incoming, const NBEdge* const outgoing,
     if (outgoing == nullptr) {
         return LinkDirection::NODIR;
     }
-    if (incoming->getJunctionPriority(this) == NBEdge::ROUNDABOUT && outgoing->getJunctionPriority(this) == NBEdge::ROUNDABOUT) {
+    if (incoming->getJunctionPriority(this) == NBEdge::JunctionPriority::ROUNDABOUT && outgoing->getJunctionPriority(this) == NBEdge::JunctionPriority::ROUNDABOUT) {
         return LinkDirection::STRAIGHT;
     }
     // turning direction

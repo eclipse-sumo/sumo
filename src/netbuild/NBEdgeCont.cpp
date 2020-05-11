@@ -472,13 +472,13 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
             int rightMostP = currLanes[0];
             int rightMostN = newLanes[0];
             for (int l = 0; l < (int) rightMostP - (int) rightMostN; ++l) {
-                pe->addLane2LaneConnection(0, ne, l, NBEdge::L2L_VALIDATED, true);
+                pe->addLane2LaneConnection(0, ne, l, NBEdge::Lane2LaneInfoType::VALIDATED, true);
             }
             //  new on left
             int leftMostP = currLanes.back();
             int leftMostN = newLanes.back();
             for (int l = 0; l < (int) leftMostN - (int) leftMostP; ++l) {
-                pe->addLane2LaneConnection(pe->getNumLanes() - 1, ne, leftMostN - l - rightMostN, NBEdge::L2L_VALIDATED, true);
+                pe->addLane2LaneConnection(pe->getNumLanes() - 1, ne, leftMostN - l - rightMostN, NBEdge::Lane2LaneInfoType::VALIDATED, true);
             }
             //  all other connected
             for (int l = 0; l < noLanesMax; ++l) {
@@ -488,7 +488,7 @@ NBEdgeCont::processSplits(NBEdge* e, std::vector<Split> splits,
                 if (find(newLanes.begin(), newLanes.end(), l) == newLanes.end()) {
                     continue;
                 }
-                pe->addLane2LaneConnection(l - rightMostP, ne, l - rightMostN, NBEdge::L2L_VALIDATED, true);
+                pe->addLane2LaneConnection(l - rightMostP, ne, l - rightMostN, NBEdge::Lane2LaneInfoType::VALIDATED, true);
             }
             //  if there are edges at this node which are not connected
             //  we can assume that this split was attached to an
@@ -644,7 +644,7 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     const int offset = (int)one->getNumLanes() - (int)two->getNumLanes() + changedLeft;
     for (int i2 = 0; i2 < (int)two->getNumLanes(); i2++) {
         const int i1 = MIN2(MAX2((int)0, i2 + offset), (int)one->getNumLanes());
-        if (!one->addLane2LaneConnection(i1, two, i2, NBEdge::L2L_COMPUTED)) {
+        if (!one->addLane2LaneConnection(i1, two, i2, NBEdge::Lane2LaneInfoType::COMPUTED)) {
             throw ProcessError("Could not set connection!");
         }
     }
@@ -871,7 +871,7 @@ NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
             NBEdge* to = edge->getTurnDestination(true);
             assert(to != 0);
             edge->setConnection(edge->getNumLanes() - 1,
-                                to, to->getNumLanes() - 1, NBEdge::L2L_VALIDATED, false, false, true,
+                                to, to->getNumLanes() - 1, NBEdge::Lane2LaneInfoType::VALIDATED, false, false, true,
                                 NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
                                 SUMO_const_haltingSpeed);
         }
@@ -1089,7 +1089,7 @@ NBEdgeCont::recheckPostProcessConnections() {
             NBEdge* from = retrievePossiblySplit((*i).from, true);
             NBEdge* to = retrievePossiblySplit((*i).to, false);
             if (from == nullptr || to == nullptr ||
-                    !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::L2L_USER, true, (*i).mayDefinitelyPass,
+                    !from->addLane2LaneConnection((*i).fromLane, to, (*i).toLane, NBEdge::Lane2LaneInfoType::USER, true, (*i).mayDefinitelyPass,
                                                   (*i).keepClear, (*i).contPos, (*i).visibility, (*i).speed, (*i).customLength, (*i).customShape,
                                                   (*i).uncontrolled, SVC_UNSPECIFIED,
                                                   true)) {
@@ -1401,8 +1401,8 @@ NBEdgeCont::markRoundabouts() {
                 }
             }
             // let the connections to succeeding roundabout edge have a higher priority
-            edge->setJunctionPriority(node, NBEdge::ROUNDABOUT);
-            edge->setJunctionPriority(edge->getFromNode(), NBEdge::ROUNDABOUT);
+            edge->setJunctionPriority(node, NBEdge::JunctionPriority::ROUNDABOUT);
+            edge->setJunctionPriority(edge->getFromNode(), NBEdge::JunctionPriority::ROUNDABOUT);
             node->setRoundabout();
         }
     }
@@ -1784,7 +1784,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, double maxDist) {
                 for (NBEdge* in : incoming) {
                     if (in->getPermissions() == SVC_TRAM && !in->isConnectedTo(road)) {
                         in->reinitNodes(in->getFromNode(), road->getFromNode());
-                        in->setConnection(0, road, laneIndex, NBEdge::L2L_COMPUTED);
+                        in->setConnection(0, road, laneIndex, NBEdge::Lane2LaneInfoType::COMPUTED);
                     }
                 }
                 incoming.clear();

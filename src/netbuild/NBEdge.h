@@ -126,13 +126,13 @@ public:
     /** @enum Lane2LaneInfoType
     * @brief Modes of setting connections between lanes
     */
-    enum Lane2LaneInfoType {
+    enum class Lane2LaneInfoType {
         /// @brief The connection was computed
-        L2L_COMPUTED,
+        COMPUTED,
         /// @brief The connection was given by the user
-        L2L_USER,
+        USER,
         /// @brief The connection was computed and validated
-        L2L_VALIDATED
+        VALIDATED
     };
 
 
@@ -1487,7 +1487,11 @@ private:
     class MainDirections {
     public:
         /// @brief enum of possible directions
-        enum Direction { DIR_RIGHTMOST, DIR_LEFTMOST, DIR_FORWARD };
+        enum class Direction { 
+            RIGHTMOST, 
+            LEFTMOST, 
+            FORWARD 
+        };
 
     public:
         /// @brief constructor

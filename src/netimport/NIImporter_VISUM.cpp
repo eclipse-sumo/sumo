@@ -1137,7 +1137,7 @@ void NIImporter_VISUM::parse_LanesConnections() {
         return;
     }
     //
-    fromEdge->addLane2LaneConnection(fromLane, toEdge, toLane, NBEdge::L2L_VALIDATED);
+    fromEdge->addLane2LaneConnection(fromLane, toEdge, toLane, NBEdge::Lane2LaneInfoType::VALIDATED);
 }
 
 

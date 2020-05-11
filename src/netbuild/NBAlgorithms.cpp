@@ -300,7 +300,7 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
     for (const auto& node : nc) {
         // preset all junction's edge priorities to zero
         for (NBEdge* const edge : node.second->myAllEdges) {
-            edge->setJunctionPriority(node.second, NBEdge::MINOR_ROAD);
+            edge->setJunctionPriority(node.second, NBEdge::JunctionPriority::MINOR_ROAD);
         }
         node.second->markBentPriority(false);
         // check if the junction is not a real junction

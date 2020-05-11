@@ -410,7 +410,7 @@ int
 NWWriter_DlrNavteq::getFormOfWay(NBEdge* edge) {
     if (edge->getPermissions() == SVC_PEDESTRIAN) {
         return 15;
-    } else if (edge->getJunctionPriority(edge->getToNode()) == NBEdge::ROUNDABOUT) {
+    } else if (edge->getJunctionPriority(edge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
         return 4;
     } else if (edge->getTypeID() == "highway.service") {
         return 14;

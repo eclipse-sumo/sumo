@@ -803,7 +803,7 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         WRITE_WARNINGF("Ignoring invalid lane index '%' in connection to edge '%' with % lanes", toLaneS, endEdge, to->getNumLanes());
         return true;
     }
-    if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::L2L_USER, true)) {
+    if (!from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, true)) {
         if (OptionsCont::getOptions().getBool("show-errors.connections-first-try")) {
             WRITE_WARNINGF("Could not set loaded connection from '%' to '%'.", from->getLaneID(fromLane), to->getLaneID(toLane));
         }

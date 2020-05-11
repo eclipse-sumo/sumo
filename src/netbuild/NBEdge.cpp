@@ -215,11 +215,11 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing, NBEdge* paren
 #endif
     if (NBNode::isTrafficLight(to->getType()) &&
             (straightestDir == LinkDirection::STRAIGHT || straightestDir == LinkDirection::PARTLEFT || straightestDir == LinkDirection::PARTRIGHT)) {
-        myDirs.push_back(MainDirections::DIR_FORWARD);
+        myDirs.push_back(MainDirections::Direction::FORWARD);
         return;
     }
     if (outgoing[0]->getJunctionPriority(to) == 1) {
-        myDirs.push_back(MainDirections::DIR_RIGHTMOST);
+        myDirs.push_back(MainDirections::Direction::RIGHTMOST);
     }
     // check whether the left turn has a higher priority
     if (outgoing.back()->getJunctionPriority(to) == 1) {
@@ -227,17 +227,17 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing, NBEdge* paren
         //  let's check, whether it has also a higher priority (lane number/speed)
         //  than the current
         if (outgoing.back()->getPriority() > straight->getPriority()) {
-            myDirs.push_back(MainDirections::DIR_LEFTMOST);
+            myDirs.push_back(MainDirections::Direction::LEFTMOST);
         } else {
             if (outgoing.back()->getNumLanes() > straight->getNumLanes()) {
-                myDirs.push_back(MainDirections::DIR_LEFTMOST);
+                myDirs.push_back(MainDirections::Direction::LEFTMOST);
             }
         }
     }
     // check whether the forward direction has a higher priority
     // check whether it has a higher priority and is going straight
     if (straight->getJunctionPriority(to) == 1 && to->getDirection(parent, straight) == LinkDirection::STRAIGHT) {
-        myDirs.push_back(MainDirections::DIR_FORWARD);
+        myDirs.push_back(MainDirections::Direction::FORWARD);
     }
 }
 
@@ -1115,11 +1115,11 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
     myConnections.back().customLength = length;
     myConnections.back().customShape = customShape;
     myConnections.back().uncontrolled = uncontrolled;
-    if (type == L2L_USER) {
+    if (type == Lane2LaneInfoType::USER) {
         myStep = EdgeBuildingStep::LANES2LANES_USER;
     } else {
         // check whether we have to take another look at it later
-        if (type == L2L_COMPUTED) {
+        if (type == Lane2LaneInfoType::COMPUTED) {
             // yes, the connection was set using an algorithm which requires a recheck
             myStep = EdgeBuildingStep::LANES2LANES_RECHECK;
         } else {
@@ -1499,7 +1499,7 @@ NBEdge::replaceInConnections(NBEdge* which, const std::vector<NBEdge::Connection
                        << " newTarget=" << i->toEdge->getID() << " fromLane=" << toUse << " toLane=" << i->toLane << "\n";
         }
 #endif
-        setConnection(toUse, i->toEdge, i->toLane, L2L_COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
+        setConnection(toUse, i->toEdge, i->toLane, Lane2LaneInfoType::COMPUTED, false, i->mayDefinitelyPass, i->keepClear,
                       i->contPos, i->visibility, i->speed, i->customLength, i->customShape, i->uncontrolled);
     }
     // remove the remapped edge from connections
@@ -1534,7 +1534,7 @@ NBEdge::moveConnectionToLeft(int lane) {
     std::vector<Connection>::iterator i = myConnections.begin() + index;
     Connection c = *i;
     myConnections.erase(i);
-    setConnection(lane + 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
+    setConnection(lane + 1, c.toEdge, c.toLane, Lane2LaneInfoType::VALIDATED, false);
 }
 
 
@@ -1544,7 +1544,7 @@ NBEdge::moveConnectionToRight(int lane) {
         if ((*i).fromLane == (int)lane && canMoveConnection(*i, lane - 1)) {
             Connection c = *i;
             i = myConnections.erase(i);
-            setConnection(lane - 1, c.toEdge, c.toLane, L2L_VALIDATED, false);
+            setConnection(lane - 1, c.toEdge, c.toLane, Lane2LaneInfoType::VALIDATED, false);
             return;
         }
     }
@@ -1755,7 +1755,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                     const double limit = sqrt(limitTurnSpeed * radius);
                     const double reduction = con.vmax - limit;
                     // always treat connctions at roundabout as turns when warning
-                    const bool atRoundabout = getJunctionPriority(myTo) == ROUNDABOUT || con.toEdge->getJunctionPriority(myFrom) == ROUNDABOUT;
+                    const bool atRoundabout = getJunctionPriority(myTo) == JunctionPriority::ROUNDABOUT || con.toEdge->getJunctionPriority(myFrom) == JunctionPriority::ROUNDABOUT;
                     const LinkDirection dir2 = atRoundabout ? LinkDirection::LEFT : dir;
                     if ((dir2 == LinkDirection::STRAIGHT && reduction > limitTurnSpeedWarnStraight)
                             || (dir2 != LinkDirection::TURN && reduction > limitTurnSpeedWarnTurn)) {
@@ -2840,7 +2840,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>
                                  << " dist=" << dist
                                  << "\n";
 #endif
-    if (dist != 0 && !mainDirections.includes(MainDirections::DIR_RIGHTMOST)) {
+    if (dist != 0 && !mainDirections.includes(MainDirections::Direction::RIGHTMOST)) {
         assert(priorities.size() > 0);
         priorities[0] /= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
@@ -2865,7 +2865,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>
         priorities[dist] += 1;
     } else {
         // try to ensure separation of left turns
-        if (mainDirections.includes(MainDirections::DIR_RIGHTMOST) && mainDirections.includes(MainDirections::DIR_LEFTMOST)) {
+        if (mainDirections.includes(MainDirections::Direction::RIGHTMOST) && mainDirections.includes(MainDirections::Direction::LEFTMOST)) {
             priorities[0] /= 4;
             priorities[(int)priorities.size() - 1] /= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
@@ -2875,7 +2875,7 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>
 #endif
         }
     }
-    if (mainDirections.includes(MainDirections::DIR_FORWARD)) {
+    if (mainDirections.includes(MainDirections::Direction::FORWARD)) {
         if (myLanes.size() > 2) {
             priorities[dist] *= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
@@ -2951,7 +2951,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
         // @todo #4382: once the network fringe is tagged, it also should not receive turn-arounds)
         if (isBidiRail() && isRailDeadEnd()) {
             // add a slow connection because direction-reversal implies stopping
-            setConnection(fromLane, myTurnDestination, toLane, L2L_VALIDATED, false, false, true, UNSPECIFIED_CONTPOS, UNSPECIFIED_VISIBILITY_DISTANCE, SUMO_const_haltingSpeed);
+            setConnection(fromLane, myTurnDestination, toLane, Lane2LaneInfoType::VALIDATED, false, false, true, UNSPECIFIED_CONTPOS, UNSPECIFIED_VISIBILITY_DISTANCE, SUMO_const_haltingSpeed);
             return;
         } else {
             return;
@@ -2965,7 +2965,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
             return;
         }
     }
-    setConnection(fromLane, myTurnDestination, toLane, L2L_VALIDATED);
+    setConnection(fromLane, myTurnDestination, toLane, Lane2LaneInfoType::VALIDATED);
 }
 
 
@@ -3004,7 +3004,7 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge* e, int laneOff) {
         for (std::vector<NBEdge::Connection>::iterator j = elv.begin(); j != elv.end(); j++) {
             NBEdge::Connection el = *j;
             assert(el.tlID == "");
-            addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, L2L_COMPUTED);
+            addLane2LaneConnection(i + laneOff, el.toEdge, el.toLane, Lane2LaneInfoType::COMPUTED);
         }
     }
 }
