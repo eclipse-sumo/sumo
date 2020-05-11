@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 11 17:06:55 2020 by Eclipse SUMO netconvert Version v1_6_0+0177-a73435a41c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <edges.join-tram-dist value="1.6"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="1991333" name="Bus N50: Buchholz-West/Hugenottenplatz =&gt; U Tierpark" line="N50" type="bus" vClass="bus" nightService="only" completeness="0.02">
+        <route edges="415222850#0 415222850#1 415222850#2 415222845 4687133#0 4687133#1 4687133#2"/>
+        <busStop id="3885075778" name="Möllendorffstraße/Storkower Straße"/>
+    </ptLine>
+    <ptLine id="1991334" name="Bus N50: U Tierpark =&gt; Buchholz-West/Hugenottenplatz" line="N50" type="bus" vClass="bus" nightService="only" completeness="0.04">
+        <route edges="26139644#0 26139644#1 26139644#2 356139756 623919825#0 623919825#1 623919825#2 415222818 4687135#0 4687135#1 4687135#2 4687135#3"/>
+        <busStop id="3885075777" name="Möllendorffstraße/Storkower Straße"/>
+        <busStop id="3901927133" name="Roederplatz"/>
+    </ptLine>
+    <ptLine id="2015440" name="Tram M8: Ahrensfelde/Stadtgrenze =&gt; S+U Hauptbahnhof" line="M8" type="tram" vClass="tram" period="600" completeness="0.18">
+        <route edges="30706183#0#0 -28162580#6 -28162580#5 -28162580#4 -28162580#3 -28162580#2 -28162580#1 -28162580#0 -432427267#1 30706183#2 175859959 25331262 175857460#0#0 10864676#1 10864676#2 10864676#3 10864676#4 10864676#5 10864676#6 10864676#7 10864676#8 10864676#9 10864676#10 10864676#11 10864676#12 10864676#13 10864676#14 10864676#15 10864676#16 10864676#17 10864676#18 10864676#19 10864676#20 10864676#21 10864676#22 10864676#23 106838214#0 175857460#1 106838214#2 415222793#0 415222793#1 415222793#2 43115510#0 43115510#1 43115510#2 175777883 170782998 99729382#0 99729382#1 99729382#2 99729382#3 99729382#4 155531549#0 155531549#1 39232656"/>
+        <busStop id="1864168423" name="Ev. Krankenhaus KEH"/>
+        <busStop id="3901927131" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="1830277393" name="Herzbergstraße/Industriegebiet"/>
+        <busStop id="276002421" name="Bernhard-Bästlein-Straße"/>
+        <busStop id="30695385" name="Roederplatz"/>
+        <busStop id="1829909910" name="Anton-Saefkow-Platz"/>
+        <busStop id="1867058882" name="Landsberger Allee/Karl-Lade-Straße"/>
+    </ptLine>
+    <ptLine id="2015441" name="Tram M8: S+U Hauptbahnhof =&gt; Ahrensfelde/Stadtgrenze" line="M8" type="tram" vClass="tram" period="600" completeness="0.13">
+        <route edges="93707132 167584726#0 167584726#1 155531558#0 155531558#1 155531558#2 155531558#3 155531558#4 170782997#0#0 -43115510#2 -43115510#1 -43115510#0 -415222793#2 -415222793#1 -415222793#0 -106838214#2 -106838214#1 -106838214#0 -10864676#23 -10864676#22 -10864676#21 -10864676#20 -10864676#19 -10864676#18 -10864676#17 -10864676#16 -10864676#15 -10864676#14 -10864676#13 -10864676#12 -10864676#11 -10864676#10 -10864676#9 -10864676#8 -10864676#7 -10864676#6 -10864676#5 -10864676#4 -10864676#3 -10864676#2 -10864676#1 170782997#1 175859607#0 175859607#1 175859607#2 175859608#0#0 432427267#1 28162580#0 28162580#1 28162580#2 28162580#3 28162580#4 28162580#5 28162580#6 175857481"/>
+        <busStop id="1679204729" name="Roederplatz"/>
+        <busStop id="2480027318" name="Bernhard-Bästlein-Straße"/>
+        <busStop id="1895220895" name="Herzbergstraße/Industriegebiet"/>
+        <busStop id="3708887804" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="30695361" name="Ev. Krankenhaus KEH"/>
+    </ptLine>
+    <ptLine id="2022132" name="Tram 16: Ahrensfelde/Stadtgrenze =&gt; S+U Frankfurter Allee" line="16" type="tram" vClass="tram" period="600" completeness="0.08">
+        <route edges="93707131 155531560#0 155531560#1 155531560#2 4789146 99729384#0 99729384#1 99729384#2"/>
+        <busStop id="1830281726" name="Roederplatz"/>
+        <busStop id="30695393" name="Möllendorffstraße/Storkower Straße"/>
+    </ptLine>
+    <ptLine id="2022133" name="Tram 16: S+U Frankfurter Allee =&gt; Ahrensfelde/Stadtgrenze" line="16" type="tram" vClass="tram" period="600" completeness="0.04">
+        <route edges="171184262 155531552"/>
+        <busStop id="1679204628" name="Möllendorffstraße/Storkower Straße"/>
+    </ptLine>
+    <ptLine id="2077076" name="Tram M13: S Warschauer Straße =&gt; Wedding, Virchow-Klinikum" line="M13" type="tram" vClass="tram" period="600" completeness="0.03">
+        <route edges="171184262 155531552"/>
+        <busStop id="1679204628" name="Möllendorffstraße/Storkower Straße"/>
+    </ptLine>
+    <ptLine id="2077077" name="Tram M13: Wedding, Virchow-Klinikum =&gt; S Warschauer Straße" line="M13" type="tram" vClass="tram" period="600" completeness="0.05">
+        <route edges="93707131 155531560#0 155531560#1 155531560#2 4789146 99729384#0 99729384#1 99729384#2"/>
+        <busStop id="1830281726" name="Roederplatz"/>
+        <busStop id="30695393" name="Möllendorffstraße/Storkower Straße"/>
+    </ptLine>
+    <ptLine id="2077769" name="Tram 21: S Schöneweide =&gt; S+U Lichtenberg/Gudrunstraße" line="21" type="tram" vClass="tram" period="1200" completeness="0.18">
+        <route edges="171184262 155531552 6181948#0#0 415222813#0 6181948#1 170782997#0#0 -43115510#2 -43115510#1 -43115510#0 -415222793#2 -415222793#1 -415222793#0 -106838214#2 -106838214#1 -106838214#0 -10864676#23 -10864676#22 -10864676#21 -10864676#20 -10864676#19 -10864676#18 -10864676#17 -10864676#16 -10864676#15 -10864676#14 -10864676#13 -10864676#12 -10864676#11 -10864676#10 -10864676#9 -10864676#8 -10864676#7 -10864676#6 -10864676#5 -10864676#4 -10864676#3 -10864676#2 -10864676#1 170782997#1 175857473 175859960#0 -432427280#0 -32035133 175859960"/>
+        <busStop id="1679204628" name="Möllendorffstraße/Storkower Straße"/>
+        <busStop id="2480027318" name="Bernhard-Bästlein-Straße"/>
+        <busStop id="1895220895" name="Herzbergstraße/Industriegebiet"/>
+        <busStop id="3708887804" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="1864168565" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="3901927140" name="Siegfriedstraße/Josef-Orlopp-Straße"/>
+        <busStop id="1868463702" name="Betriebshof Lichtenberg"/>
+    </ptLine>
+    <ptLine id="2077770" name="Tram 21: S+U Lichtenberg/Gudrunstraße =&gt; S Schöneweide" line="21" type="tram" vClass="tram" period="1200" completeness="0.17">
+        <route edges="175857462#0 32035133 432427280#0 175857462 175857470#0 175857470#1 175857470#2 175857460#0#0 10864676#1 10864676#2 10864676#3 10864676#4 10864676#5 10864676#6 10864676#7 10864676#8 10864676#9 10864676#10 10864676#11 10864676#12 10864676#13 10864676#14 10864676#15 10864676#16 10864676#17 10864676#18 10864676#19 10864676#20 10864676#21 10864676#22 10864676#23 106838214#0 175857460#1 106838214#2 415222793#0 415222793#1 415222793#2 43115510#0 43115510#1 43115510#2 175777883 170782998 155531553#0 155531553#1 4789146 99729384#0 99729384#1 99729384#2"/>
+        <busStop id="1864168419" name="Betriebshof Lichtenberg"/>
+        <busStop id="1864168424" name="Siegfriedstraße/Josef-Orlopp-Straße"/>
+        <busStop id="1819268905" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="3901927131" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="1830277393" name="Herzbergstraße/Industriegebiet"/>
+        <busStop id="276002421" name="Bernhard-Bästlein-Straße"/>
+        <busStop id="30695393" name="Möllendorffstraße/Storkower Straße"/>
+    </ptLine>
+    <ptLine id="2077892" name="Tram 37: S+U Lichtenberg/Gudrunstraße =&gt; S Schöneweide" line="37" type="tram" vClass="tram" period="1200" completeness="0.15">
+        <route edges="175857462#0 32035133 432427280#0 175857462 175857465 175859608#0#0 432427267#1 28162580#0 28162580#1 28162580#2 28162580#3 28162580#4 28162580#5 28162580#6 175857481"/>
+        <busStop id="1864168419" name="Betriebshof Lichtenberg"/>
+        <busStop id="1864168424" name="Siegfriedstraße/Josef-Orlopp-Straße"/>
+        <busStop id="1819268905" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="30695361" name="Ev. Krankenhaus KEH"/>
+    </ptLine>
+    <ptLine id="2077893" name="Tram 37: S Schöneweide =&gt; S+U Lichtenberg/Gudrunstraße" line="37" type="tram" vClass="tram" period="1200" completeness="0.15">
+        <route edges="30706183#0#0 -28162580#6 -28162580#5 -28162580#4 -28162580#3 -28162580#2 -28162580#1 -28162580#0 -432427267#1 30706183#2 175857468#0 175857468#1 175857468#2 175859960#0 -432427280#0 -32035133 175859960"/>
+        <busStop id="1864168423" name="Ev. Krankenhaus KEH"/>
+        <busStop id="1864168565" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="3901927140" name="Siegfriedstraße/Josef-Orlopp-Straße"/>
+        <busStop id="1868463702" name="Betriebshof Lichtenberg"/>
+    </ptLine>
+    <ptLine id="2335700" name="Buslinie 256: Zentralfriedhof Friedrichsfelde =&gt; Siedlung Wartenberg" line="256" type="bus" vClass="bus" completeness="0.06">
+        <route edges="32035133 432427280#0 432427280#1 432427279"/>
+        <busStop id="3901927141" name="Siegfriedstraße/Josef-Orlopp-Straße"/>
+        <busStop id="1864168552" name="Herzbergstraße/Siegfriedstraße"/>
+    </ptLine>
+    <ptLine id="2341762" name="Bus N56: U Magdalenenstraße → Wartenberg, Hagenower Ring → U Magdalenenstraße" line="N56" type="bus" vClass="bus" nightService="only" completeness="0.04">
+        <route edges="32035133 432427280#0 432427280#1 432427279 -432427280#1 -432427280#0 -32035133"/>
+        <busStop id="3901927141" name="Siegfriedstraße/Josef-Orlopp-Straße"/>
+        <busStop id="1864168552" name="Herzbergstraße/Siegfriedstraße"/>
+    </ptLine>
+    <ptLine id="3084339" name="Bus 256: Siedlung Wartenberg =&gt; Zentralfriedhof Friedrichsfelde" line="256" type="bus" vClass="bus" completeness="0.03">
+        <route edges="-432427279 -432427280#1 -432427280#0 -32035133"/>
+        <busStop id="-3901927130" name="Herzbergstraße/Siegfriedstraße"/>
+    </ptLine>
+    <ptLine id="5829221" name="Straßenbahnlinie M8: Ahrensfelde/Stadtgrenze =&gt; Landsberger Allee/Petersburger Straße" line="M8" type="tram" vClass="tram" period="600" completeness="0.29">
+        <route edges="30706183#0#0 -28162580#6 -28162580#5 -28162580#4 -28162580#3 -28162580#2 -28162580#1 -28162580#0 -432427267#1 30706183#2 175859959 25331262 175857460#0#0 10864676#1 10864676#2 10864676#3 10864676#4 10864676#5 10864676#6 10864676#7 10864676#8 10864676#9 10864676#10 10864676#11 10864676#12 10864676#13 10864676#14 10864676#15 10864676#16 10864676#17 10864676#18 10864676#19 10864676#20 10864676#21 10864676#22 10864676#23 106838214#0 175857460#1 106838214#2 415222793#0 415222793#1 415222793#2 43115510#0 43115510#1 43115510#2 175777883 170782998 99729382#0 99729382#1 99729382#2 99729382#3 99729382#4 155531549#0 155531549#1 39232656"/>
+        <busStop id="1864168423" name="Ev. Krankenhaus KEH"/>
+        <busStop id="3901927131" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="1830277393" name="Herzbergstraße/Industriegebiet"/>
+        <busStop id="276002421" name="Bernhard-Bästlein-Straße"/>
+        <busStop id="30695385" name="Roederplatz"/>
+        <busStop id="1829909910" name="Anton-Saefkow-Platz"/>
+        <busStop id="1867058882" name="Landsberger Allee/Karl-Lade-Straße"/>
+    </ptLine>
+    <ptLine id="5829222" name="Straßenbahnlinie M8: Landsberger Allee/Petersburger Straße =&gt; Ahrensfelde/Stadtgrenze" line="M8" type="tram" vClass="tram" period="600" completeness="0.21">
+        <route edges="93707132 167584726#0 167584726#1 155531558#0 155531558#1 155531558#2 155531558#3 155531558#4 170782997#0#0 -43115510#2 -43115510#1 -43115510#0 -415222793#2 -415222793#1 -415222793#0 -106838214#2 -106838214#1 -106838214#0 -10864676#23 -10864676#22 -10864676#21 -10864676#20 -10864676#19 -10864676#18 -10864676#17 -10864676#16 -10864676#15 -10864676#14 -10864676#13 -10864676#12 -10864676#11 -10864676#10 -10864676#9 -10864676#8 -10864676#7 -10864676#6 -10864676#5 -10864676#4 -10864676#3 -10864676#2 -10864676#1 170782997#1 175859607#0 175859607#1 175859607#2 175859608#0#0 432427267#1 28162580#0 28162580#1 28162580#2 28162580#3 28162580#4 28162580#5 28162580#6 175857481"/>
+        <busStop id="1679204729" name="Roederplatz"/>
+        <busStop id="2480027318" name="Bernhard-Bästlein-Straße"/>
+        <busStop id="1895220895" name="Herzbergstraße/Industriegebiet"/>
+        <busStop id="3708887804" name="Herzbergstraße/Siegfriedstraße"/>
+        <busStop id="30695361" name="Ev. Krankenhaus KEH"/>
+    </ptLine>
+</ptLines>

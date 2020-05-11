@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 11 17:06:55 2020 by Eclipse SUMO netconvert Version v1_6_0+0177-a73435a41c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <osm-files value="osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <edges.join-tram-dist value="1.6"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-3901927130" name="Herzbergstraße/Siegfriedstraße" lane="-32035133_0" startPos="2.65" endPos="17.65" friendlyPos="true" lines="256"/>
+    <busStop id="1679204628" name="Möllendorffstraße/Storkower Straße" lane="171184262_0" startPos="0.00" endPos="24.07" friendlyPos="true" lines="16 M13 21">
+        <access lane="197740390#0_0" pos="130.93" length="91.32" friendlyPos="1"/>
+        <access lane="24685976_0" pos="251.65" length="139.15" friendlyPos="1"/>
+        <access lane="26139644#0_0" pos="18.81" length="99.86" friendlyPos="1"/>
+        <access lane="26139644#1_0" pos="65.47" length="15.22" friendlyPos="1"/>
+        <access lane="4687133#2_0" pos="272.82" length="26.59" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1679204729" name="Roederplatz" lane="167584726#1_0" startPos="87.90" endPos="112.90" friendlyPos="true" lines="M8">
+        <access lane="197740390#2_0" pos="2.27" length="22.57" friendlyPos="1"/>
+        <access lane="197742433_0" pos="3.55" length="26.01" friendlyPos="1"/>
+        <access lane="197742437#0_0" pos="9.16" length="22.09" friendlyPos="1"/>
+        <access lane="25760224#1_0" pos="0.00" length="26.63" friendlyPos="1"/>
+        <access lane="25760224#3_0" pos="10.79" length="22.27" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1819268905" name="Herzbergstraße/Siegfriedstraße" lane="432427280#0_1" startPos="7.41" endPos="24.16" friendlyPos="true" lines="21 37"/>
+    <busStop id="1829909910" name="Anton-Saefkow-Platz" lane="39232656_0" startPos="471.78" endPos="496.78" friendlyPos="true" lines="M8"/>
+    <busStop id="1830277393" name="Herzbergstraße/Industriegebiet" lane="10864676#17_0" startPos="0.49" endPos="25.49" friendlyPos="true" lines="M8 21"/>
+    <busStop id="1830281726" name="Roederplatz" lane="93707131_0" startPos="540.36" endPos="565.36" friendlyPos="true" lines="16 M13">
+        <access lane="23851940#1_0" pos="4.36" length="34.37" friendlyPos="1"/>
+        <access lane="342543858_0" pos="12.35" length="16.49" friendlyPos="1"/>
+        <access lane="342543860_0" pos="11.16" length="15.16" friendlyPos="1"/>
+        <access lane="415222850#0_0" pos="80.61" length="25.64" friendlyPos="1"/>
+        <access lane="4687135#1_0" pos="20.27" length="22.67" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1864168419" name="Betriebshof Lichtenberg" lane="175857462#0_0" startPos="262.96" endPos="287.96" friendlyPos="true" lines="21 37"/>
+    <busStop id="1864168423" name="Ev. Krankenhaus KEH" lane="30706183#0#0_0" startPos="528.39" endPos="553.39" friendlyPos="true" lines="M8 37">
+        <access lane="-7540867#0_0" pos="79.59" length="158.38" friendlyPos="1"/>
+        <access lane="120371689_0" pos="0.00" length="224.46" friendlyPos="1"/>
+        <access lane="176050302_0" pos="0.00" length="28.60" friendlyPos="1"/>
+        <access lane="645946448#1_0" pos="76.52" length="208.84" friendlyPos="1"/>
+        <access lane="7540867#0_0" pos="0.00" length="162.56" friendlyPos="1"/>
+    </busStop>
+    <busStop id="1864168424" name="Siegfriedstraße/Josef-Orlopp-Straße" lane="32035133_0" startPos="78.23" endPos="103.23" friendlyPos="true" lines="21 37"/>
+    <busStop id="1864168552" name="Herzbergstraße/Siegfriedstraße" lane="432427280#0_0" startPos="12.50" endPos="24.16" friendlyPos="true" lines="256 N56"/>
+    <busStop id="1864168565" name="Herzbergstraße/Siegfriedstraße" lane="-32035133_0" startPos="0.00" endPos="15.30" friendlyPos="true" lines="21 37"/>
+    <busStop id="1867058882" name="Landsberger Allee/Karl-Lade-Straße" lane="39232656_0" startPos="917.21" endPos="942.21" friendlyPos="true" lines="M8"/>
+    <busStop id="1868463702" name="Betriebshof Lichtenberg" lane="175859960_0" startPos="366.07" endPos="391.07" friendlyPos="true" lines="21 37"/>
+    <busStop id="1895220895" name="Herzbergstraße/Industriegebiet" lane="-10864676#15_0" startPos="0.00" endPos="14.99" friendlyPos="true" lines="M8 21"/>
+    <busStop id="2480027318" name="Bernhard-Bästlein-Straße" lane="-43115510#0_0" startPos="25.24" endPos="50.24" friendlyPos="true" lines="M8 21"/>
+    <busStop id="276002421" name="Bernhard-Bästlein-Straße" lane="43115510#0_0" startPos="32.23" endPos="57.23" friendlyPos="true" lines="M8 21"/>
+    <busStop id="30695361" name="Ev. Krankenhaus KEH" lane="175857481_0" startPos="265.25" endPos="290.25" friendlyPos="true" lines="M8 37">
+        <access lane="-7540867#0_0" pos="79.59" length="143.90" friendlyPos="1"/>
+        <access lane="120371689_0" pos="0.00" length="186.04" friendlyPos="1"/>
+        <access lane="176050302_0" pos="14.22" length="10.61" friendlyPos="1"/>
+        <access lane="645946448#1_0" pos="76.52" length="198.74" friendlyPos="1"/>
+        <access lane="7540867#0_0" pos="0.00" length="148.57" friendlyPos="1"/>
+    </busStop>
+    <busStop id="30695385" name="Roederplatz" lane="155531549#0_0" startPos="48.89" endPos="73.89" friendlyPos="true" lines="M8">
+        <access lane="197740390#2_0" pos="12.31" length="52.75" friendlyPos="1"/>
+        <access lane="197740390#3_0" pos="26.68" length="22.89" friendlyPos="1"/>
+        <access lane="197742437#0_0" pos="53.22" length="22.68" friendlyPos="1"/>
+        <access lane="25760224#3_0" pos="14.79" length="76.32" friendlyPos="1"/>
+        <access lane="38238350#2_0" pos="105.82" length="51.78" friendlyPos="1"/>
+    </busStop>
+    <busStop id="30695393" name="Möllendorffstraße/Storkower Straße" lane="99729384#0_0" startPos="231.25" endPos="252.79" friendlyPos="true" lines="16 M13 21">
+        <access lane="197740390#0_0" pos="126.26" length="167.41" friendlyPos="1"/>
+        <access lane="24685976_0" pos="251.65" length="213.37" friendlyPos="1"/>
+        <access lane="26139644#0_0" pos="18.81" length="25.49" friendlyPos="1"/>
+        <access lane="26139644#1_0" pos="8.90" length="21.48" friendlyPos="1"/>
+        <access lane="4687133#2_0" pos="272.82" length="91.26" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3708887804" name="Herzbergstraße/Siegfriedstraße" lane="170782997#1_0" startPos="26.33" endPos="51.33" friendlyPos="true" lines="M8 21">
+        <access lane="-10864676#0_0" pos="34.08" length="0.11" friendlyPos="1"/>
+        <access lane="-552943160#1_0" pos="0.00" length="54.36" friendlyPos="1"/>
+        <access lane="-552943165#0_0" pos="56.85" length="42.27" friendlyPos="1"/>
+        <access lane="10864676#0_0" pos="40.64" length="4.69" friendlyPos="1"/>
+        <access lane="552943165#0_0" pos="0.00" length="43.38" friendlyPos="1"/>
+    </busStop>
+    <busStop id="3885075777" name="Möllendorffstraße/Storkower Straße" lane="26139644#1_0" startPos="35.63" endPos="50.63" friendlyPos="true" lines="N50"/>
+    <busStop id="3885075778" name="Möllendorffstraße/Storkower Straße" lane="4687133#2_0" startPos="254.60" endPos="269.60" friendlyPos="true" lines="N50"/>
+    <busStop id="3901927131" name="Herzbergstraße/Siegfriedstraße" lane="10864676#3_0" startPos="0.00" endPos="12.87" friendlyPos="true" lines="M8 21"/>
+    <busStop id="3901927133" name="Roederplatz" lane="4687135#1_0" startPos="101.62" endPos="116.62" friendlyPos="true" lines="N50"/>
+    <busStop id="3901927140" name="Siegfriedstraße/Josef-Orlopp-Straße" lane="-32035133_0" startPos="239.81" endPos="264.81" friendlyPos="true" lines="21 37"/>
+    <busStop id="3901927141" name="Siegfriedstraße/Josef-Orlopp-Straße" lane="32035133_0" startPos="83.39" endPos="98.39" friendlyPos="true" lines="256 N56"/>
+</additional>
