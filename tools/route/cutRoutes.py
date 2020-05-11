@@ -27,6 +27,7 @@ from __future__ import print_function
 import os
 import sys
 import copy
+import itertools
 
 from optparse import OptionParser
 from collections import defaultdict
@@ -66,14 +67,13 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
     optParser.add_option("--trips-output", help="output trip file")
     optParser.add_option("--pt-input", help="read public transport flows from file")
     optParser.add_option("--pt-output", help="write reduced public transport flows to file")
-    optParser.add_option("--min-length", type='int', dest="min_length",
+    optParser.add_option("--min-length", type='int',
                          default=0, help="minimum route length in the subnetwork (in #edges)")
-    optParser.add_option("--min-air-dist", type='int', dest="min_air_dist",
-                         default=0, help="minimum route length in the subnetwork (in meters)")
+    optParser.add_option("--min-air-dist", type='float',
+                         default=0., help="minimum route length in the subnetwork (in meters)")
     optParser.add_option("-o", "--routes-output", help="output route file")
     optParser.add_option("--stops-output", help="output filtered stop file")
-    optParser.add_option(
-        "-a", "--additional-input", help="additional file (for bus stop locations)")
+    optParser.add_option("-a", "--additional-input", help="additional file (for bus stop locations)")
     optParser.add_option("--speed-factor", type='float', default=1.0,
                          help="Factor for modifying maximum edge speeds when extrapolating new departure times " +
                               "(default 1.0)")
@@ -89,6 +89,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                               "its parts.")
     optParser.add_option("-e", "--heterogeneous", action="store_true", default=False,
                          help="enable, if you use mixed style (external and internal routes) in the same file")
+    optParser.add_option("--missing-edges", type='int', metavar="N",
+                         default=0, help="print N most missing edges")
     # optParser.add_option("--orig-weights",
     # help="weight file for the original network for extrapolating new departure times")
     options, args = optParser.parse_args(args=args)
@@ -179,7 +181,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, finalEdgeMap=None):
 
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
-        for moving in parse(routeFile, ('vehicle', 'person', 'flow'), heterogeneous=options.heterogeneous):
+        for moving in parse(routeFile, ('vehicle', 'person', 'flow'), {"walk": ("edges", "busStop")},
+                            heterogeneous=options.heterogeneous):
             old_route = None
             if moving.name == 'person':
                 stats.num_persons += 1
@@ -301,9 +304,12 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, finalEdgeMap=None):
         if options.min_air_dist > 0:
             msg += " or the air-line distance between start and end is less than %s" % options.min_air_dist
         print(msg)
-    print("Number of disconnected routes: %s. Most frequent missing edges:" %
-          stats.multiAffectedRoutes)
-    printTop(stats.missingEdgeOccurences)
+    print("Number of disconnected routes: %s." % stats.multiAffectedRoutes)
+    if options.missing_edges > 0:
+        print("Most frequent missing edges:")
+        counts = sorted([(v, k) for k, v in stats.missingEdgeOccurences.items()], reverse=True)
+        for count, edge in itertools.islice(counts, options.missing_edges):
+            print(count, edge)
 
 
 def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0):
@@ -360,14 +366,6 @@ def missingEdges(areaEdges, edges, missingEdgeOccurences):
         #         print("edges = %s"%str(edges))
         route_intervals.append((start, len(edges) - 1))
     return route_intervals
-
-
-def printTop(missingEdgeOccurences, num=1000):
-    counts = sorted(
-        [(v, k) for k, v in missingEdgeOccurences.items()], reverse=True)
-    counts.sort(reverse=True)
-    for count, edge in counts[:num]:
-        print(count, edge)
 
 
 def write_trip(file, vehicle):
