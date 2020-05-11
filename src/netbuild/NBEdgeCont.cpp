@@ -1749,8 +1749,6 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
             PositionVector tramShape = tramEdge->getGeometry();
             const double tramLength = tramShape.length();
             EdgeVector incoming = tramFrom->getIncomingEdges();
-            EdgeVector outgoing = tramFrom->getOutgoingEdges();
-            outgoing.erase(std::find(outgoing.begin(), outgoing.end(), tramEdge));
             bool erasedLast = false;
             for (auto item : roads) {
                 const double gap = item.first - pos;
@@ -1797,7 +1795,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
             }
             NBEdge* lastRoad = roads.back().second.first;
             if (erasedLast) {
-                for (NBEdge* out : outgoing) {
+                for (NBEdge* out : tramEdge->getToNode()->getOutgoingEdges()) {
                     if (out->getPermissions() == SVC_TRAM && !lastRoad->isConnectedTo(out)) {
                         out->reinitNodes(lastRoad->getToNode(), out->getToNode());
                     }
