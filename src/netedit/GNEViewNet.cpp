@@ -2112,9 +2112,8 @@ GNEViewNet::updateCursor() {
             cursorMove = true;
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) ||
-                (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
-                (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
+            (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
             cursorMove = true;
         }
     } else if (myEditModes.isCurrentSupermodeData()) {

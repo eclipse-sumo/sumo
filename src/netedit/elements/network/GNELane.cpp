@@ -1099,6 +1099,8 @@ GNELane::updateDottedContour() {
 
 RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
+    // declare a RGBColor variable
+    RGBColor color;
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (myNet->getViewNet()->getDottedAC() && (myNet->getViewNet()->getDottedAC()->isAttributeCarrierSelected() == false) &&
             ((myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_TRIP) ||
@@ -1106,17 +1108,14 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         // obtain attribute "via"
         std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getDottedAC()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges
-        for (const auto& i : viaEdges) {
+        for (const auto& edge : viaEdges) {
             // check if parent edge is in the via edges
-            if (myParentEdge->getID() == i) {
+            if (myParentEdge->getID() == edge) {
                 // set green color in GLHelper and return it
-                GLHelper::setColor(RGBColor::GREEN);
-                return RGBColor::GREEN;
+                color = RGBColor::GREEN;
             }
         }
     }
-    // declare a RGBColor variable
-    RGBColor color;
     if (mySpecialColor != nullptr) {
         // If special color is enabled, set it
         color = *mySpecialColor;
@@ -1148,16 +1147,22 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     }
     // special color for conflicted candidate edges
     if (myParentEdge->isConflictedCandidate()) {
-        color = s.candidateColorSettings.conflict;
+        // extra check for route frame
+        if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
+            color = s.candidateColorSettings.conflict;
+        }
     }
     // special color for special candidate edges
     if (myParentEdge->isSpecialCandidate()) {
-        color = s.candidateColorSettings.special;
+        // extra check for route frame
+        if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
+            color = s.candidateColorSettings.special;
+        }
     }
     // special color for candidate edges
     if (myParentEdge->isPossibleCandidate()) {
         // extra check for route frame
-        if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->showCandidateEdges()) {
+        if (myNet->getViewNet()->getViewParent()->getRouteFrame()->getPathCreator()->drawCandidateEdgesWithSpecialColor()) {
             color = s.candidateColorSettings.possible;
         }
     }

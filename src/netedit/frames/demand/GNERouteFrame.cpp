@@ -77,16 +77,16 @@ GNERouteFrame::RouteModeSelector::RouteModeSelector(GNERouteFrame* routeFramePar
     // Create FXComboBox for Route mode
     myRouteModeMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_ROUTEMODE, GUIDesignComboBox);
     // fill myRouteModeMatchBox with route modes
-    for (const auto& i : myRouteModesStrings) {
-        myRouteModeMatchBox->appendItem(i.second.c_str());
+    for (const auto& routeMode : myRouteModesStrings) {
+        myRouteModeMatchBox->appendItem(routeMode.second.c_str());
     }
     // Set visible items
     myRouteModeMatchBox->setNumVisible((int)myRouteModeMatchBox->getNumItems());
     // Create FXComboBox for VClass
     myVClassMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_ROUTEFRAME_VCLASS, GUIDesignComboBox);
     // fill myVClassMatchBox with all VCLass
-    for (const auto& i : SumoVehicleClassStrings.getStrings()) {
-        myVClassMatchBox->appendItem(i.c_str());
+    for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
+        myVClassMatchBox->appendItem(vClass.c_str());
     }
     // set Passenger als default VCLass
     myVClassMatchBox->setCurrentItem(7);
@@ -113,41 +113,42 @@ GNERouteFrame::RouteModeSelector::getCurrentVehicleClass() const {
 
 
 bool
+GNERouteFrame::RouteModeSelector::isValidMode() const {
+    return (myCurrentRouteMode != RouteMode::INVALID);
+}
+
+
+bool
 GNERouteFrame::RouteModeSelector::isValidVehicleClass() const {
     return myValidVClass;
 }
 
 
 void
-GNERouteFrame::RouteModeSelector::setCurrentRouteMode(RouteMode routemode) {
-    // make sure that route isn't invalid
-    if (routemode != RouteMode::INVALID) {
-        // show route creator
-        myRouteFrameParent->myPathCreator->showPathCreatorModul();
-        // update reachability
-        myRouteFrameParent->myPathCreator->updateReachability();
-        // restore color
-        myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
-        // set current route mode
-        myCurrentRouteMode = routemode;
-        // set item in myTypeMatchBox
-        for (int i = 0; i < (int)myRouteModesStrings.size(); i++) {
-            if (myRouteModesStrings.at(i).first == myCurrentRouteMode) {
-                myRouteModeMatchBox->setCurrentItem(i);
-            }
-        }
+GNERouteFrame::RouteModeSelector::areParametersValid() {
+    // check if current mode is valid
+    if ((myCurrentRouteMode != RouteMode::INVALID) && myValidVClass) {
         // show route attributes modul
         myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
         // show modes moduls
-        if ((routemode == RouteMode::CONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
+        if (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES) {
             myRouteFrameParent->myPathCreator->setPathCreatorMode(PathCreator::Mode::CONSECUTIVE);
-        } else if ((routemode == RouteMode::NONCONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
+        } else if (myCurrentRouteMode == RouteMode::NONCONSECUTIVE_EDGES) {
             myRouteFrameParent->myPathCreator->setPathCreatorMode(PathCreator::Mode::NOCONSECUTIVE);
         }
+        // show route creator
+        myRouteFrameParent->myPathCreator->showPathCreatorModul();
+        // update edge colors
+        myRouteFrameParent->myPathCreator->updateEdgeColors();
+        // show information and label
+        myRouteFrameParent->myInformation->showInformationModul();
+        myRouteFrameParent->myLegend->showLegendModul();
     } else {
-        // hide all moduls if route mode isn't valid
+        // hide all moduls if route mode isnt' valid
         myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModul();
         myRouteFrameParent->myPathCreator->hidePathCreatorModul();
+        myRouteFrameParent->myInformation->hideInformationModul();
+        myRouteFrameParent->myLegend->hideLegendModul();
     }
 }
 
@@ -156,39 +157,23 @@ long
 GNERouteFrame::RouteModeSelector::onCmdSelectRouteMode(FXObject*, FXSelector, void*) {
     // first abort all current operations in moduls
     myRouteFrameParent->myPathCreator->onCmdAbortPathCreation(0, 0, 0);
-    // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myRouteModesStrings) {
-        if (i.second == myRouteModeMatchBox->getText().text()) {
-            // show route creator
-            myRouteFrameParent->myPathCreator->showPathCreatorModul();
-            // update reachability
-            myRouteFrameParent->myPathCreator->updateReachability();
-            // set color of myTypeMatchBox to black (valid)
-            myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
-            // Set new current type
-            myCurrentRouteMode = i.first;
-            // show route attributes modul
-            myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
-            // show modes moduls
-            if ((myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
-                myRouteFrameParent->myPathCreator->setPathCreatorMode(PathCreator::Mode::CONSECUTIVE);
-            } else if ((myCurrentRouteMode == RouteMode::NONCONSECUTIVE_EDGES) && (myCurrentVehicleClass != SVC_IGNORING)) {
-                myRouteFrameParent->myPathCreator->setPathCreatorMode(PathCreator::Mode::NOCONSECUTIVE);
-            }
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG(("Selected RouteMode '" + myRouteModeMatchBox->getText() + "' in RouteModeSelector").text());
-            return 1;
-        }
-    }
-    // if Route mode isn't correct, set RouteMode::INVALID as current route mde
+    // set invalid current route mode
     myCurrentRouteMode = RouteMode::INVALID;
-    // hide all moduls if route mode isn't valid
-    myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModul();
-    myRouteFrameParent->myPathCreator->hidePathCreatorModul();
     // set color of myTypeMatchBox to red (invalid)
     myRouteModeMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid RouteMode in RouteModeSelector");
+    // Check if value of myTypeMatchBox correspond of an allowed additional tags
+    for (const auto& routeMode : myRouteModesStrings) {
+        if (routeMode.second == myRouteModeMatchBox->getText().text()) {
+            // Set new current type
+            myCurrentRouteMode = routeMode.first;
+            // set color of myTypeMatchBox to black (valid)
+            myRouteModeMatchBox->setTextColor(FXRGB(0, 0, 0));
+            // Write Warning in console if we're in testing mode
+            WRITE_DEBUG(("Selected RouteMode '" + myRouteModeMatchBox->getText() + "' in RouteModeSelector").text());
+        }
+    }
+    // check if parameters are valid
+    areParametersValid();
     return 1;
 }
 
@@ -197,43 +182,27 @@ long
 GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*) {
     // first abort all current operations in moduls
     myRouteFrameParent->myPathCreator->onCmdAbortPathCreation(0, 0, 0);
+    // set vClass flag invalid
+    myValidVClass = false;
+    // if VClass name isn't correct, set SVC_IGNORING as current type
+    myCurrentVehicleClass = SVC_IGNORING;
+    // set color of myTypeMatchBox to red (invalid)
+    myVClassMatchBox->setTextColor(FXRGB(255, 0, 0));
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : SumoVehicleClassStrings.getStrings()) {
-        if (i == myVClassMatchBox->getText().text()) {
-            // show route creator
-            myRouteFrameParent->myPathCreator->showPathCreatorModul();
+    for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
+        if (vClass == myVClassMatchBox->getText().text()) {
+            // change flag
+            myValidVClass = true;
             // set color of myTypeMatchBox to black (valid)
             myVClassMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
-            myCurrentVehicleClass = SumoVehicleClassStrings.get(i);
-            // update reachability
-            myRouteFrameParent->myPathCreator->updateReachability();
-            // change flag
-            myValidVClass = true;
-            // show route attributes modul
-            myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
-            // enable moduls if current route is valid
-            if (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES) {
-                myRouteFrameParent->myPathCreator->setPathCreatorMode(PathCreator::Mode::CONSECUTIVE);
-            } else if (myCurrentRouteMode == RouteMode::NONCONSECUTIVE_EDGES) {
-                myRouteFrameParent->myPathCreator->setPathCreatorMode(PathCreator::Mode::NOCONSECUTIVE);
-            }
+            myCurrentVehicleClass = SumoVehicleClassStrings.get(vClass);
             // Write Warning in console if we're in testing mode
             WRITE_DEBUG(("Selected VClass '" + myVClassMatchBox->getText() + "' in RouteModeSelector").text());
-            return 1;
         }
     }
-    // if VClass name isn't correct, set SVC_IGNORING as current type
-    myCurrentVehicleClass = SVC_IGNORING;
-    // change flag
-    myValidVClass = false;
-    // hide all moduls if route mode isnt' valid
-    myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModul();
-    myRouteFrameParent->myPathCreator->hidePathCreatorModul();
-    // set color of myTypeMatchBox to red (invalid)
-    myVClassMatchBox->setTextColor(FXRGB(255, 0, 0));
-    // Write Warning in console if we're in testing mode
-    WRITE_DEBUG("Selected invalid VClass in RouteModeSelector");
+    // check if parameters are valid
+    areParametersValid();
     return 1;
 }
 
@@ -303,22 +272,24 @@ GNERouteFrame::PathCreator::setPathCreatorMode(GNERouteFrame::PathCreator::Mode 
 
 bool
 GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
-    // check double edges
-    if ((mySelectedElements.size() > 0) && (mySelectedElements.back() == edge)) {
-        // Write warning
-        WRITE_WARNING("Double edges aren't allowed");
-        // abort add edge
-        return false;
-    }
-    // check consecutive edges
-    if (myMode == Mode::CONSECUTIVE) {
-        // check that new edge is consecutive
-        const auto &outgoingEdges = mySelectedElements.back()->getSecondParentJunction()->getGNEOutgoingEdges();
-        if (std::find(outgoingEdges.begin(), outgoingEdges.end(), edge) == outgoingEdges.end()) {
+    if (mySelectedElements.size() > 0) {
+        // check double edges
+        if ((mySelectedElements.back() == edge)) {
             // Write warning
-            WRITE_WARNING("Only consecutives edges are allowed");
+            WRITE_WARNING("Double edges aren't allowed");
             // abort add edge
             return false;
+        }
+        // check consecutive edges
+        if (myMode == Mode::CONSECUTIVE) {
+            // check that new edge is consecutive
+            const auto &outgoingEdges = mySelectedElements.back()->getSecondParentJunction()->getGNEOutgoingEdges();
+            if (std::find(outgoingEdges.begin(), outgoingEdges.end(), edge) == outgoingEdges.end()) {
+                // Write warning
+                WRITE_WARNING("Only consecutives edges are allowed");
+                // abort add edge
+                return false;
+            }
         }
     }
     // check candidate edge
@@ -367,8 +338,8 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, c
     }
     // update info route label
     updateInfoRouteLabel();
-    // update reachability
-    updateReachability();
+    // update edge colors
+    updateEdgeColors();
     return true;
 }
 
@@ -394,8 +365,56 @@ GNERouteFrame::PathCreator::getPathRoute() const {
 
 
 bool 
-GNERouteFrame::PathCreator::showCandidateEdges() const {
+GNERouteFrame::PathCreator::drawCandidateEdgesWithSpecialColor() const {
     return (myShowCandidateEdges->getCheck() == TRUE);
+}
+
+
+void
+GNERouteFrame::PathCreator::updateEdgeColors() {
+    // reset all flags
+    for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->resetCandidateFlags();
+    }
+    // check that vClass is valid
+    if (myRouteFrameParent->myRouteModeSelector->isValidVehicleClass()) {
+        // get vehicle class 
+        const SUMOVehicleClass vClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
+        // set reachability
+        if (mySelectedElements.size() > 0) {
+            // mark all edges as conflicted (to mark special candidates) 
+            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                edge.second->setConflictedCandidate(true);
+            }
+            // call recursively setSpecialCandidates(...)
+            setSpecialCandidates(mySelectedElements.back());
+            // mark again all edges as conflicted (to mark possible candidates)
+            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                edge.second->setConflictedCandidate(true);
+            }
+            // call recursively setSpecialCandidates(...)
+            setPossibleCandidates(mySelectedElements.back(), vClass);
+            // now mark selected eges
+            for (const auto& edge : mySelectedElements) {
+                edge->resetCandidateFlags();
+                edge->setSourceCandidate(true);
+            }
+            // finally mark last selected element as target
+            mySelectedElements.back()->resetCandidateFlags();
+            mySelectedElements.back()->setTargetCandidate(true);
+        } else {
+            // mark all edges that have at least one lane that allow given vClass
+            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                if (edge.second->getNBEdge()->getNumLanesThatAllow(vClass) > 0) {
+                    edge.second->setPossibleCandidate(true);
+                } else {
+                    edge.second->setSpecialCandidate(true);
+                }
+            }
+        }
+    }
+    // update view net
+    myRouteFrameParent->myViewNet->updateViewNet();
 }
 
 
@@ -457,6 +476,8 @@ GNERouteFrame::PathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*)
         myRemoveLastInsertedEdge->disable();
         // update info route label
         updateInfoRouteLabel();
+        // update reachability
+        updateEdgeColors();
         // update view (to see the new route)
         myRouteFrameParent->getViewNet()->updateViewNet();
     }
@@ -490,7 +511,7 @@ GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*)
         // update info route label
         updateInfoRouteLabel();
         // update reachability
-        updateReachability();
+        updateEdgeColors();
         // update view
         myRouteFrameParent->myViewNet->updateViewNet();
         return true;
@@ -505,54 +526,6 @@ GNERouteFrame::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*
     // just update view
     myRouteFrameParent->myViewNet->updateViewNet();
     return 1;
-}
-
-
-void 
-GNERouteFrame::PathCreator::updateReachability() {
-    // get vehicle class 
-    const SUMOVehicleClass vClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
-    // reset all flags
-    for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->resetCandidateFlags();
-    }
-    // check that vClass is valid
-    if (vClass != SVC_IGNORING) {
-        // set reachability
-        if (mySelectedElements.size() > 0) {
-            // mark all edges as conflicted (to mark special candidates) 
-            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second->setConflictedCandidate(true);
-            }
-            // call recursively setSpecialCandidates(...)
-            setSpecialCandidates(mySelectedElements.back());
-            // mark again all edges as conflicted (to mark possible candidates)
-            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second->setConflictedCandidate(true);
-            }
-            // call recursively setSpecialCandidates(...)
-            setPossibleCandidates(mySelectedElements.back(), vClass);
-            // now mark selected eges
-            for (const auto &edge : mySelectedElements) {
-                edge->resetCandidateFlags();
-                edge->setSourceCandidate(true);
-            }
-            // finally mark last selected element as target
-            mySelectedElements.back()->resetCandidateFlags();
-            mySelectedElements.back()->setTargetCandidate(true);
-        } else {
-            // mark all edges that have at least one lane that allow given vClass
-            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                if (edge.second->getNBEdge()->getNumLanesThatAllow(vClass) > 0) {
-                    edge.second->setPossibleCandidate(true);
-                } else {
-                    edge.second->setSpecialCandidate(true);
-                }
-            }
-        }
-    }
-    // update view net
-    myRouteFrameParent->myViewNet->updateViewNet();
 }
 
 
@@ -623,6 +596,73 @@ GNERouteFrame::PathCreator::setPossibleCandidates(GNEEdge* edge, SUMOVehicleClas
 }
 
 // ---------------------------------------------------------------------------
+// GNERouteFrame::Information - methods
+// ---------------------------------------------------------------------------
+
+GNERouteFrame::Information::Information(GNERouteFrame* routeFrameParent) :
+    FXGroupBox(routeFrameParent->myContentFrame, "Information", GUIDesignGroupBoxFrame) {
+    // create keys Hint
+    new FXLabel(this,
+        "- Hold SHIFT while clicking\n  to add an invalid vclass edge.",
+        0, GUIDesignLabelFrameInformation);
+    new FXLabel(this,
+        "- Hold CONTROL while clicking\n  to add an disjoint edge.",
+        0, GUIDesignLabelFrameInformation);
+    new FXLabel(this,
+        "- Press BACKSPACE to remove\n  last inserted edge.",
+        0, GUIDesignLabelFrameInformation);
+}
+
+
+GNERouteFrame::Information::~Information() {}
+
+
+void 
+GNERouteFrame::Information::showInformationModul() {
+    show();
+}
+
+void 
+GNERouteFrame::Information::hideInformationModul() {
+    hide();
+}
+
+// ---------------------------------------------------------------------------
+// GNERouteFrame::Legend - methods
+// ---------------------------------------------------------------------------
+
+GNERouteFrame::Legend::Legend(GNERouteFrame* routeFrameParent) :
+    FXGroupBox(routeFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame) {
+    // declare label
+    FXLabel* legendLabel = nullptr;
+    legendLabel = new FXLabel(this, " edge candidate", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
+    legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
+    legendLabel = new FXLabel(this, " last edge selected", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
+    legendLabel = new FXLabel(this, " edge selected", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
+    legendLabel = new FXLabel(this, " edge conflic (vClass)", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
+    legendLabel = new FXLabel(this, " edge conflict (disjointed)", 0, GUIDesignLabelLeft);
+    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
+}
+
+
+GNERouteFrame::Legend::~Legend() {}
+
+
+void
+GNERouteFrame::Legend::showLegendModul() {
+    show();
+}
+
+void
+GNERouteFrame::Legend::hideLegendModul() {
+    hide();
+}
+
+// ---------------------------------------------------------------------------
 // GNERouteFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -638,36 +678,11 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     // create consecutive edges modul
     myPathCreator = new PathCreator(this, PathCreator::Mode::NOCONSECUTIVE);
 
-    // Create groupbox for information
-    FXGroupBox* groupBoxInformation = new FXGroupBox(myContentFrame, "Information", GUIDesignGroupBoxFrame);
-    
-    // create keys Hint
-    new FXLabel(groupBoxInformation, 
-        "- Hold SHIFT while clicking\n  to add an invalid vclass edge.", 
-        0, GUIDesignLabelFrameInformation);
-    new FXLabel(groupBoxInformation, 
-        "- Hold CONTROL while clicking\n  to add an disjoint edge.", 
-        0, GUIDesignLabelFrameInformation);
-    new FXLabel(groupBoxInformation, 
-        "- Press BACKSPACE to remove\n  last inserted edge.", 
-        0, GUIDesignLabelFrameInformation);
-    
-    // Create groupbox and labels for legends
-    FXGroupBox* groupBoxLegend = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
+    // create information modul
+    myInformation = new Information(this);
 
-    // declare label
-    FXLabel* legendLabel = nullptr;
-    legendLabel = new FXLabel(groupBoxLegend, " edge candidate", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.possible));
-    legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
-    legendLabel = new FXLabel(groupBoxLegend, " last edge selected", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.target));
-    legendLabel = new FXLabel(groupBoxLegend, " edge selected", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.source));
-    legendLabel = new FXLabel(groupBoxLegend, " edge conflic (vClass)", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.special));
-    legendLabel = new FXLabel(groupBoxLegend, " edge conflict (disjointed)", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(viewNet->getVisualisationSettings().candidateColorSettings.conflict));
+    // create legend label
+    myLegend = new Legend(this);
 }
 
 
@@ -676,8 +691,8 @@ GNERouteFrame::~GNERouteFrame() {}
 
 void
 GNERouteFrame::show() {
-    // refresh myRouteModeSelector
-    myRouteModeSelector->setCurrentRouteMode(myRouteModeSelector->getCurrentRouteMode());
+    // call are parameters valid
+    myRouteModeSelector->areParametersValid();
     // show route frame
     GNEFrame::show();
 }
@@ -695,9 +710,8 @@ GNERouteFrame::hide() {
 
 void
 GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed, const bool controlKeyPressed) {
-    // first check if current vClass is valid and edge exist
-    if (myRouteModeSelector->isValidVehicleClass() && clickedEdge &&
-        (myRouteModeSelector->getCurrentRouteMode() != RouteMode::INVALID)) {
+    // first check if current vClass and mode are valid and edge exist
+    if (clickedEdge && myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
         // add edge in path
         myPathCreator->addEdge(clickedEdge, shiftKeyPressed, controlKeyPressed);
         // update view
@@ -708,7 +722,7 @@ GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed,
 
 void
 GNERouteFrame::hotkeyEnter() {
-    if (myRouteModeSelector->getCurrentRouteMode() != RouteMode::INVALID) {
+    if (myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
         // create route
         myPathCreator->onCmdCreatePath(0, 0, 0);
         // update view
@@ -719,7 +733,7 @@ GNERouteFrame::hotkeyEnter() {
 
 void
 GNERouteFrame::hotkeyBackSpace() {
-    if (myRouteModeSelector->getCurrentRouteMode() != RouteMode::INVALID) {
+    if (myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
         // remove last edge
         myPathCreator->onCmdRemoveLastElement(0, 0, 0);
         // update view
@@ -730,7 +744,7 @@ GNERouteFrame::hotkeyBackSpace() {
 
 void
 GNERouteFrame::hotkeyEsc() {
-    if (myRouteModeSelector->getCurrentRouteMode() != RouteMode::INVALID) {
+    if (myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
         // abort route
         myPathCreator->onCmdAbortPathCreation(0, 0, 0);
         // update view

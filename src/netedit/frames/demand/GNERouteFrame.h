@@ -60,11 +60,14 @@ public:
         /// @brief get current selected VClass
         SUMOVehicleClass getCurrentVehicleClass() const;
 
+        /// @brief check if current mode is Valid
+        bool isValidMode() const;
+
         /// @brief check if current VClass is Valid
         bool isValidVehicleClass() const;
 
-        /// @brief set current route mode type manually
-        void setCurrentRouteMode(RouteMode routemode);
+        /// @brief called after setting a new route or vclass, for showing moduls
+        void areParametersValid();
 
         /// @name FOX-callbacks
         /// @{
@@ -142,8 +145,11 @@ public:
         /// @brief get temporal route
         const std::vector<GNEEdge*>& getPathRoute() const;
 
-        /// @brief show candidate edges
-        bool showCandidateEdges() const;
+        /// @brief draw candidate edges with special color (Only for candidates, special and conflicted)
+        bool drawCandidateEdgesWithSpecialColor() const;
+
+        /// @brief update edge colors
+        void updateEdgeColors();
 
         /// @name FOX-callbacks
         /// @{
@@ -159,9 +165,6 @@ public:
         /// @brief Called when the user click over check button "show candidate edges"
         long onCmdShowCandidateEdges(FXObject*, FXSelector, void*);
         /// @}
-
-        /// @brief update reachability
-        void updateReachability();
 
     protected:
         FOX_CONSTRUCTOR(PathCreator)
@@ -202,6 +205,48 @@ public:
 
         /// @brief CheckBox for show candidate edges
         FXCheckButton* myShowCandidateEdges;
+    };
+
+    // ===========================================================================
+    // class Information
+    // ===========================================================================
+
+    class Information : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        Information(GNERouteFrame* routeFrameParent);
+
+        /// @brief destructor
+        ~Information();
+
+        /// @brief show information modul
+        void showInformationModul();
+
+        /// @brief hide information modul
+        void hideInformationModul();
+
+    };
+
+    // ===========================================================================
+    // class Legend
+    // ===========================================================================
+
+    class Legend : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        Legend(GNERouteFrame* routeFrameParent);
+
+        /// @brief destructor
+        ~Legend();
+
+        /// @brief show Legend modul
+        void showLegendModul();
+
+        /// @brief hide Legend modul
+        void hideLegendModul();
+
     };
 
     /**@brief Constructor
@@ -246,4 +291,10 @@ private:
 
     /// @brief path creator modul
     PathCreator* myPathCreator;
+
+    /// @brief information modul
+    Information* myInformation;
+
+    /// @brief legend modul
+    Legend* myLegend;
 };
