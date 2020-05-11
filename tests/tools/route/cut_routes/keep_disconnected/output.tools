@@ -3,6 +3,5 @@ Parsing routes from input_routes.rou.xml
 Could not reconstruct new departure time for vehicle 'left'. Using old departure time.
 Could not reconstruct new departure time for vehicle 'straight'. Using old departure time.
 Parsed 2 vehicles, 0 persons, 0 flows and kept 3 routes
-Number of disconnected routes: 1. Most frequent missing edges:
-1 left
+Number of disconnected routes: 1.
 Wrote 2 vTypes, 3 vehicles

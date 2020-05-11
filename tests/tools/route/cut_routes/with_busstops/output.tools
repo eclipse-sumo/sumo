@@ -3,5 +3,5 @@ Kept 1 of 2 busStops
 Parsing routes from input_routes.rou.xml
 Could not reconstruct new departure time for vehicle 'straight'. Using old departure time.
 Parsed 1 vehicles, 0 persons, 0 flows and kept 1 routes
-Number of disconnected routes: 0. Most frequent missing edges:
+Number of disconnected routes: 0.
 Wrote 1 vehicles

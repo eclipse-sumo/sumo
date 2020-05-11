@@ -1,6 +1,5 @@
 Valid area contains 4 edges
 Parsing routes from input_routes.rou.xml
 Parsed 0 vehicles, 2 persons, 0 flows and kept 1 routes
-Number of disconnected routes: 2. Most frequent missing edges:
-2 left
+Number of disconnected routes: 2.
 Wrote 1 persons

@@ -1,1 +1,1 @@
-input_net.net.xml input_routes.rou.xml --routes-output out.rou.xml --heterogeneous tools/route/cutRoutes.py
+input_net.net.xml input_routes.rou.xml --routes-output out.rou.xml --heterogeneous --missing-edges 10 tools/route/cutRoutes.py
