@@ -212,7 +212,14 @@ class Domain:
 
         Returns the (key, value) tuple of the given parameter for the given objID
         """
-        return (param, self.getParameter(objID, param))
+        self._connection._beginMessage(self._cmdGetID, tc.VAR_PARAMETER_WITH_KEY, objID, 1 + 4 + len(param))
+        self._connection._packString(param)
+        result = self._connection._checkResult(self._cmdGetID, tc.VAR_PARAMETER_WITH_KEY, objID)
+        result.read("!iB")
+        key = result.readString()
+        result.read("!B")
+        val = result.readString()
+        return key, val
 
     def setParameter(self, objID, param, value):
         """setParameter(string, string, string) -> None

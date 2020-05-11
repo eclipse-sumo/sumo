@@ -3701,7 +3701,20 @@ TraCIAPI::TraCIScopeWrapper::getParameter(const std::string& objectID, const std
 
 std::pair<std::string, std::string>
 TraCIAPI::TraCIScopeWrapper::getParameterWithKey(const std::string& objectID, const std::string& key) const {
-    return std::make_pair(key, getParameter(objectID, key));
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(key);
+
+    myParent.createCommand(myCmdGetID, libsumo::VAR_PARAMETER_WITH_KEY, objectID, &content);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_COMPOUND)) {
+        myParent.myInput.readInt();  // number of components
+        myParent.myInput.readUnsignedByte();
+        const std::string returnedKey = myParent.myInput.readString();
+        myParent.myInput.readUnsignedByte();
+        const std::string value = myParent.myInput.readString();
+        return std::make_pair(returnedKey, value);
+    }
+    return std::make_pair(key, "");
 }
 
 
