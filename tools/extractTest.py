@@ -58,6 +58,8 @@ def get_options(args=None):
                          help="skips creation of an application config from the options.app file")
     optParser.add_option("-x", "--skip-validation", default=False, action="store_true",
                          help="remove all options related to XML validation")
+    optParser.add_option("-d", "--no-subdir", dest="noSubdir", action="store_true",
+                         default=False, help="store test files directly in the output directory")
     options, args = optParser.parse_args(args=args)
     if not options.file and len(args) == 0:
         optParser.print_help()
@@ -153,7 +155,7 @@ for p in [
         if not configFiles:
             print("Config not found for %s." % source, file=sys.stderr)
             continue
-        if target == "":
+        if target == "" and not options.noSubdir:
             target = generateTargetName(
                 os.path.dirname(configFiles[-1]), source)
         testPath = os.path.abspath(join(options.output, target))
