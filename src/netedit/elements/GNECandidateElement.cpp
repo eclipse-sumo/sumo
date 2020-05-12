@@ -35,7 +35,8 @@ GNECandidateElement::GNECandidateElement() :
     mySourceCandidate(false),
     myTargetCandidate(false),
     mySpecialCandidate(false),
-    myConflictedCandidate(false) {}
+    myConflictedCandidate(false),
+    myReachability(-1) {}
 
 
 GNECandidateElement::~GNECandidateElement() {}
@@ -109,6 +110,24 @@ GNECandidateElement::setSpecialCandidate(const bool value) {
 void 
 GNECandidateElement::setConflictedCandidate(const bool value) {
     myConflictedCandidate = value;
+}
+
+
+const double 
+GNECandidateElement::getReachability() const {
+    return myReachability;
+}
+
+
+void 
+GNECandidateElement::setReachability(const double reachability) {
+    myReachability = reachability;
+}
+
+
+void 
+GNECandidateElement::resetReachability() {
+    myReachability = -1;
 }
 
 /****************************************************************************/

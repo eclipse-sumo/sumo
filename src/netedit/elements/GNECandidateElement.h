@@ -67,6 +67,20 @@ public:
     /// @brief set element as conflicted candidate
     void setConflictedCandidate(const bool value);
 
+    /// @name functions for reachability
+    /// @{
+
+    /// @brief get current reability (traveltime)
+    const double getReachability() const;
+
+    /// @brief set current reachability (traveltime)
+    void setReachability(const double reachability);
+
+    /// @brief reset reachability (traveltime)
+    void resetReachability();
+
+    /// @}
+
 protected:
     /// @brief flag to mark this element as possible candidate
     bool myPossibleCandidate;
@@ -82,6 +96,9 @@ protected:
 
     /// @brief flag to mark this element as conflicted candidate
     bool myConflictedCandidate;
+
+    /// @brief value for reachability
+    double myReachability;
 
 private:
     /// @brief Invalidated copy constructor.
