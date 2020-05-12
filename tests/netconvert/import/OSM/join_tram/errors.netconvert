@@ -26,12 +26,6 @@ Warning: PT stop: 3901927130 has been moved to edge: -32035133
 Warning: Ambiguity in turnarounds computation at junction '2526575765'.
 Warning: Ambiguity in turnarounds computation at junction '632909234'.
 Warning: Ambiguity in turnarounds computation at junction '768038181'.
-Warning: Found and removed invalid connection from edge '170782997#0#0' to edge '170782997#0' via junction '55044170'.
-Warning: Found and removed invalid connection from edge '175857460#0#0' to edge '175857460#0' via junction '5338207813'.
-Warning: Found and removed invalid connection from edge '175857462#0' to edge '175857462' via junction '52003617'.
-Warning: Found and removed invalid connection from edge '175859608#0#0' to edge '175859608#0' via junction '4693579480'.
-Warning: Found and removed invalid connection from edge '175859960#0' to edge '175859960' via junction '4693579478'.
-Warning: Found and removed invalid connection from edge '30706183#0#0' to edge '30706183#0' via junction '1864168616'.
 Warning: Found angle of 99.21 degrees at edge '-24685976', segment 0.
 Warning: Found sharp turn with radius 7.06 at the end of edge '-49809488#0'.
 Warning: Found sharp turn with radius 8.19 at the end of edge '-552943165#1'.
