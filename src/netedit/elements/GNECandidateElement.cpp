@@ -113,7 +113,7 @@ GNECandidateElement::setConflictedCandidate(const bool value) {
 }
 
 
-const double 
+double
 GNECandidateElement::getReachability() const {
     return myReachability;
 }

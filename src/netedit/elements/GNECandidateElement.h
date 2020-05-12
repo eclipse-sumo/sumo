@@ -71,7 +71,7 @@ public:
     /// @{
 
     /// @brief get current reability (traveltime)
-    const double getReachability() const;
+    double getReachability() const;
 
     /// @brief set current reachability (traveltime)
     void setReachability(const double reachability);
