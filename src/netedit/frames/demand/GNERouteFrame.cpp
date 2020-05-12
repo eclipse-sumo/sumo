@@ -607,41 +607,74 @@ GNERouteFrame::PathCreator::recalculatePath() {
 
 void
 GNERouteFrame::PathCreator::setSpecialCandidates(GNEEdge* edge) {
-    // set edge as special candidate
-    edge->setSpecialCandidate(true);
-    // disable edge as invalid candidate (this is the stop for recursive function)
-    edge->setConflictedCandidate(false);
-    // iterate over outgoing edges of second junction's edge
-    for (const auto& nextEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
-        // check that isn't conflicted
-        if (nextEdge->isConflictedCandidate() && edge->getNBEdge()->isConnectedTo(nextEdge->getNBEdge(), true)) {
-            // now continue depending of mode
-            if (myMode == Mode::CONSECUTIVE) {
-                nextEdge->setSpecialCandidate(true);
-                nextEdge->setConflictedCandidate(false);
-            } else if (myMode == Mode::NOCONSECUTIVE) {
-                setSpecialCandidates(nextEdge);
+    // first calculate reachability for pedestrians
+    calculateReachability(edge, SVC_PEDESTRIAN);
+    // change flags
+    for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto& lane : edge.second->getLanes()) {
+            if (lane->getReachability() > 0) {
+                lane->getParentEdge()->resetCandidateFlags();
+                lane->getParentEdge()->setSpecialCandidate(true);
             }
         }
     }
 }
 
 void
-GNERouteFrame::PathCreator::setPossibleCandidates(GNEEdge* edge, SUMOVehicleClass vClass) {
-    // set edge as special candidate
-    edge->setPossibleCandidate(true);
-    // disable edge as invalid candidate (this is the stop for recursive function)
-    edge->setConflictedCandidate(false);
-    // iterate over outgoing edges of second junction's edge
-    for (const auto& nextEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
-        // check that isn't conflicted
-        if (nextEdge->isConflictedCandidate() && myRouteFrameParent->myViewNet->getNet()->getPathCalculator()->consecutiveEdgesConnected(vClass, edge, nextEdge)) {
-            // now continue depending of mode
-            if (myMode == Mode::CONSECUTIVE) {
-                nextEdge->setPossibleCandidate(true);
-                nextEdge->setConflictedCandidate(false);
-            } else if (myMode == Mode::NOCONSECUTIVE) {
-                setPossibleCandidates(nextEdge, vClass);
+GNERouteFrame::PathCreator::setPossibleCandidates(GNEEdge* edge, const SUMOVehicleClass vClass) {
+    // first calculate reachability for pedestrians
+    calculateReachability(edge, vClass);
+    // change flags
+    for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto& lane : edge.second->getLanes()) {
+            if (lane->getReachability() > 0) {
+                lane->getParentEdge()->resetCandidateFlags();
+                lane->getParentEdge()->setPossibleCandidate (true);
+            }
+        }
+    }
+}
+
+
+void 
+GNERouteFrame::PathCreator::calculateReachability(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
+    // get pointer to path calculator
+    const GNENetHelper::PathCalculator* pathCalculator = myRouteFrameParent->getViewNet()->getNet()->getPathCalculator();
+    // first reset reachability of all lanes
+    for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto& lane : edge.second->getLanes()) {
+            lane->resetReachability();
+        }
+    }
+    // get max speed
+    const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(vClass).maxSpeed;
+    // find reachable
+    std::map<GNEEdge*, double> reachableEdges;
+    reachableEdges[originEdge] = 0;
+    std::vector<GNEEdge*> check;
+    check.push_back(originEdge);
+    while (check.size() > 0) {
+        GNEEdge* edge = check.front();
+        check.erase(check.begin());
+        double traveltime = reachableEdges[edge];
+        for (const auto& lane : edge->getLanes()) {
+            if ((edge->getNBEdge()->getLaneStruct(lane->getIndex()).permissions & vClass) == vClass) {
+                lane->setReachability(traveltime);
+            }
+        }
+        traveltime += edge->getNBEdge()->getLength() / MIN2(edge->getNBEdge()->getSpeed(), defaultMaxSpeed);
+        std::vector<GNEEdge*> sucessors;
+        for (const auto& sucessorEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
+            if (edge->getNBEdge()->isConnectedTo(sucessorEdge->getNBEdge(), true) && pathCalculator->consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
+                sucessors.push_back(sucessorEdge);
+            }
+        }
+        for (const auto& nextEdge : sucessors) {
+            if (reachableEdges.count(nextEdge) == 0 ||
+                // revisit edge via faster path
+                reachableEdges[nextEdge] > traveltime) {
+                reachableEdges[nextEdge] = traveltime;
+                check.push_back(nextEdge);
             }
         }
     }
