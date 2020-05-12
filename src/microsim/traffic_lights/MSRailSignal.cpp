@@ -679,7 +679,8 @@ MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) con
         if (l2->getLane() != link->getLane()) {
 #ifdef DEBUG_FIND_PROTECTION
             if (gDebugFlag4) {
-                std::cout << " protectionCandidate=" << l2->getDescription() << " l2Via=" << Named::getIDSecure(l2->getViaLane()) << " occupied=" << !l2->getViaLane()->isEmpty() << "\n";
+                std::cout << " protectionCandidate=" << l2->getDescription() << " l2Via=" << Named::getIDSecure(l2->getViaLane())
+                    << " occupied=" << (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) << "\n";
             }
 #endif
             if (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) {
