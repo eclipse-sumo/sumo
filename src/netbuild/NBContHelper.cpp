@@ -273,12 +273,7 @@ NBContHelper::edge_by_angle_to_nodeShapeCentroid_sorter::operator()(const NBEdge
                 }
             }
             // break ties to ensure strictly weak ordering
-            if (e1->getFromNode() == myNode) {
-                return relative_outgoing_edge_sorter(angle1)(e1, e2);
-            } else {
-                // @note relative_incoming_edge_sorter sorts connections in ccw order but we need cw ordering here
-                return !relative_incoming_edge_sorter(angle1)(e1, e2);
-            }
+            return e1->getID() < e2->getID();
         } else {
             // sort incoming before outgoing, no need to break ties here
             return e1->getToNode() == myNode;
