@@ -1762,6 +1762,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
                     splitAt(dc, tramEdge, road->getFromNode(), firstPartID, tramEdgeID, 1 , 1);
                     tramEdge = retrieve(tramEdgeID); // second part;
                     NBEdge* firstPart = retrieve(firstPartID);
+                    firstPart->invalidateConnections(true);
                     incoming.clear();
                     incoming.push_back(firstPart);
                     replacement.push_back(firstPart);
@@ -1788,7 +1789,6 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
                 for (NBEdge* in : incoming) {
                     if (in->getPermissions() == SVC_TRAM && !in->isConnectedTo(road)) {
                         in->reinitNodes(in->getFromNode(), road->getFromNode());
-                        in->setConnection(0, road, laneIndex, NBEdge::Lane2LaneInfoType::COMPUTED);
                     }
                 }
                 incoming.clear();
