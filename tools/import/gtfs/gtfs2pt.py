@@ -182,6 +182,7 @@ def map_stops(options, net, routes, rout):
                                               ('startFare', veh.startFare))])
             if rid != veh.id.split("_")[1]:
                 lastIndex = 0
+                lastPos = -1
                 rid = veh.id.split("_")[1]
             if rid not in routes:
                 if rid not in seen:
@@ -207,8 +208,11 @@ def map_stops(options, net, routes, rout):
             found = False
             for edge, dist in sorted(typedNet.getNeighboringEdges(*p, r=200), key=lambda i: i[1]):
                 if edge.getID() in route[lastIndex:]:
-                    lastIndex = route.index(edge.getID(), lastIndex)
                     pos = edge.getClosestLanePosDist(p)[1]
+                    if edge.getID() == route[lastIndex] and pos < lastPos:
+                        continue
+                    lastIndex = route.index(edge.getID(), lastIndex)
+                    lastPos = pos
                     stop = "%s:%.2f" % (edge.getID(), pos)
                     if stop not in stopDef:
                         stopDef.add(stop)
