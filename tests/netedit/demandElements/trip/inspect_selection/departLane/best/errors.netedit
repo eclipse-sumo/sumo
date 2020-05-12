@@ -72,13 +72,11 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into trip 'tripA'
 Debug: Setting new attribute selected 'true' into trip 'tripB'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 1, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Setting new attribute departLane 'first' into trip 'tripA'
 Debug: Setting new attribute departLane 'first' into trip 'tripB'
 Debug: Value 'dummyDepart' for attribute departLane of trip isn't valid
 Debug: Setting new attribute departLane 'best' into trip 'tripA'
 Debug: Setting new attribute departLane 'best' into trip 'tripB'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute departLane 'first' into trip 'tripB'
@@ -98,7 +96,6 @@ Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing trip 'tripA' in GNEChange_DemandElement
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'tripA' in GNEChange_DemandElement
@@ -116,7 +113,6 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute departLane 'best' into trip 'tripA'
 Debug: Setting new attribute departLane 'best' into trip 'tripB'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20

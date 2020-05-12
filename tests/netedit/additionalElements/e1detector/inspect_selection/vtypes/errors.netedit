@@ -18,17 +18,11 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into e1Detector 'E1_A'
 Debug: Setting new attribute selected 'true' into e1Detector 'E1_B'
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 1, Additionals: 1, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 2, AttributeCarriers: 2, NetworkElements: 1, Additionals: 1, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 1, Lanes: 1, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Setting new attribute vTypes '' into e1Detector 'E1_A'
 Debug: Setting new attribute vTypes '' into e1Detector 'E1_B'
 Debug: Value 'Type%%%%%1 T;;yp$2 Type3' for attribute vTypes of e1Detector isn't valid
 Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_A'
 Debug: Setting new attribute vTypes 'Type1 Type2 Type3' into e1Detector 'E1_B'
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute vTypes '' into e1Detector 'E1_B'
@@ -52,9 +46,6 @@ Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing e1Detector 'E1_A' in GNEChange_Additional
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e1Detector 'E1_A' in GNEChange_Additional

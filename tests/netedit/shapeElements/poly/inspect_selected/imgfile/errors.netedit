@@ -13,15 +13,6 @@ Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 0, Shapes: 1, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 1, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 0, Shapes: 1, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 1, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 0, Shapes: 1, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 1, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 0, Shapes: 1, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 1, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 0, Shapes: 1, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 1, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 0, Shapes: 1, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 1, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Error: Could not load '%$$%%%%%'.
 Unknown file extension '' for image '%$$%%%%%'!
 Debug: Value '%$$%%%%%' for attribute imgFile of poly isn't valid
@@ -34,9 +25,6 @@ GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 0.00,6.00,14.00,2
 Debug: Setting new attribute imgFile 'berlin_icon.ico' into poly 'poly_1'
 GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,34.00,20.00
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 20.00,6.00,34.00,20.00
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute imgFile 'C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poly\inspect_selected\imgfile\berlin_icon.ico' into poly 'poly_1'
@@ -53,9 +41,6 @@ GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 20.00,6.00,
 Debug: Removing poly 'poly_0' from viewNet
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 0.00,6.00,14.00,20.00
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poly 'poly_0' into viewNet

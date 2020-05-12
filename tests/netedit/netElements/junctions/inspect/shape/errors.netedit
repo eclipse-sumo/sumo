@@ -83,9 +83,6 @@ Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 1, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 1, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Value 'dummy shape' for attribute shape of junction isn't valid
 Error: Shape of a(n) user-supplied shape is broken: not numeric position entry.
@@ -121,9 +118,6 @@ GLDebug: 	Inserted edge:5 into SUMORTree with boundary 40.00,-10.00,64.80,60.00
 GLDebug: 	Inserted edge:6 into SUMORTree with boundary 35.20,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStop_8_0_4' in GNEChange_Additional
@@ -165,9 +159,6 @@ GLDebug: 	Inserted edge:5 into SUMORTree with boundary 40.00,-10.00,64.80,60.00
 GLDebug: 	Inserted edge:6 into SUMORTree with boundary 35.20,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStop_1_0_7' in GNEChange_Additional

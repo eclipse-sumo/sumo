@@ -43,9 +43,6 @@ Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_A'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingArea_B'
 Debug: Setting new attribute selected 'true' into space 'parkingArea_Aspace0'
 Debug: Setting new attribute selected 'true' into space 'parkingArea_Bspace0'
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 1, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 1, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Value 'dummyAngle' for attribute angle of space isn't valid
 Debug: Setting new attribute angle '-6.00' into space 'parkingArea_Aspace0'
 GLDebug: 	Removed object parkingSpace:parkingArea_Aspace0 from SUMORTree with boundary 7.05,0.59,23.41,16.95
@@ -65,9 +62,6 @@ GLDebug: 	Inserted parkingSpace:parkingArea_Aspace0 into SUMORTree with boundary
 Debug: Setting new attribute angle '32.50' into space 'parkingArea_Bspace0'
 GLDebug: 	Removed object parkingSpace:parkingArea_Bspace0 from SUMORTree with boundary 20.52,-7.84,39.77,12.64
 GLDebug: 	Inserted parkingSpace:parkingArea_Bspace0 into SUMORTree with boundary 21.71,1.46,39.84,22.66
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute angle '140.00' into space 'parkingArea_Bspace0'
@@ -118,9 +112,6 @@ Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: 	Removed object parkingSpace:parkingArea_Aspace0 from SUMORTree with boundary 7.05,0.59,23.41,16.95
 Debug: Removing parkingArea 'parkingArea_A' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_A from SUMORTree with boundary 7.80,-10.60,26.20,-2.20
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 0, AttributeCarriers: 0, NetworkElements: 0, Additionals: 0, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_A' in GNEChange_Additional

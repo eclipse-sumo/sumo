@@ -33,9 +33,6 @@ Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaA'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaB'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaC'
 Debug: Setting new attribute selected 'true' into parkingArea 'parkingAreaD'
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 1, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: GUIGlObjects: 1, AttributeCarriers: 1, NetworkElements: 0, Additionals: 1, Shapes: 0, DemandElements: 0, GenericDatas: 0, Junctions: 0, Edges: 0, Lanes: 0, Crossings: 0, Connections: 0, TAZs: 0, Polys: 0, POIs: 0, EdgeDatas: 0, EdgeRelDatas: 0
-Debug: ObjectsUnderCursor: swapped Lanes to edges
 Debug: Setting new attribute friendlyPos 'false' into parkingArea 'parkingAreaA'
 Debug: Setting new attribute friendlyPos 'false' into parkingArea 'parkingAreaB'
 Debug: Setting new attribute friendlyPos 'false' into parkingArea 'parkingAreaC'
