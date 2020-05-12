@@ -230,10 +230,14 @@ MSRouteHandler::myStartElement(int element,
                         throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
                     }
                     if (!myActivePlan->empty() && myActivePlan->back()->getDestination() != from) {
-                        throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActivePlan->back()->getDestination()->getID() + ").");
+                        if (myActivePlan->back()->getDestinationStop() != nullptr && &myActivePlan->back()->getDestinationStop()->getLane().getEdge() != from) {
+                            throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id +
+                                "' (edge '" + fromID + "' != edge '" + myActivePlan->back()->getDestination()->getID() + "').");
+                        }
                     }
                     if (startVeh != nullptr && startVeh->getRoute().getEdges().front() != from) {
-                        throw ProcessError("Disconnected plan for triggered person '" + pid + "' (" + fromID + "!=" + startVeh->getRoute().getEdges().front()->getID() + ").");
+                        throw ProcessError("Disconnected plan for triggered person '" + pid +
+                                           "' (edge '" + fromID + "' != edge '" + startVeh->getRoute().getEdges().front()->getID() + "').");
                     }
                     if (myActivePlan->empty()) {
                         myActivePlan->push_back(new MSStageWaiting(
