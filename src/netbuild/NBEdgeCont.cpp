@@ -1673,9 +1673,11 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
                     const PositionVector& laneShape = edge->getLaneShape(i);
                     for (Position pos : laneShape) {
                         const double dist = tramShape.distance2D(pos, false);
-                        //if (edge->getID() == "24021667#1" && i == 1) {
-                        //    std::cout << " tramEdge=" << tramEdge->getID() << " pos=" << pos << " dist=" << dist << "\n";
+#ifdef DEBUG_JOIN_TRAM
+                        //if (edge->getID() == "106838214#1") {
+                        //    std::cout << " edge=" << edge->getID() << " tramEdge=" << tramEdge->getID() << " lane=" << i << " pos=" << pos << " dist=" << dist << "\n";
                         //}
+#endif
                         if (dist == GeomHelper::INVALID_OFFSET || dist > maxDist) {
                             maxLaneDist = -1;
                             break;
