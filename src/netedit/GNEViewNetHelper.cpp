@@ -236,24 +236,6 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             myGUIGlObjectEdges.push_back(GUIGlObject);
         }
     }
-    // write information in debug mode
-    WRITE_DEBUG("ObjectsUnderCursor: GUIGlObjects: " + toString(myGUIGlObjectLanes.size()) +
-                ", AttributeCarriers: " + toString(myAttributeCarrierLanes.size()) +
-                ", NetworkElements: " + toString(myNetworkElementLanes.size()) +
-                ", Additionals: " + toString(myAdditionals.size()) +
-                ", Shapes: " + toString(myShapes.size()) +
-                ", DemandElements: " + toString(myDemandElements.size()) +
-                ", GenericDatas: " + toString(myGenericDatas.size()) +
-                ", Junctions: " + toString(myJunctions.size()) +
-                ", Edges: " + toString(myEdges.size()) +
-                ", Lanes: " + toString(myLanes.size()) +
-                ", Crossings: " + toString(myCrossings.size()) +
-                ", Connections: " + toString(myConnections.size()) +
-                ", TAZs: " + toString(myTAZs.size()) +
-                ", Polys: " + toString(myPolys.size()) +
-                ", POIs: " + toString(myPOIs.size()) +
-                ", EdgeDatas: " + toString(myEdgeDatas.size()) +
-                ", EdgeRelDatas: " + toString(myEdgeRelDatas.size()));
 }
 
 
@@ -261,8 +243,6 @@ void
 GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
     // change flag
     mySwapLane2edge = true;
-    // write information for debug
-    WRITE_DEBUG("ObjectsUnderCursor: swapped Lanes to edges")
 }
 
 
