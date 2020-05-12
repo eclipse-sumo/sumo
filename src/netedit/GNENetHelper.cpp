@@ -33,6 +33,7 @@
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
+#include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNELane.h>
@@ -1104,18 +1105,25 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
         // for pedestrians consecutive myEdges are always connected
         return true;
     } else {
-        // declare temporal vehicle
-        NBVehicle tmpVehicle("temporalNBVehicle", vClass);
-        // declare a temporal route in which save route between two last myEdges
-        std::vector<const NBRouterEdge*> solution;
-        // calculate route betwen from and to edge
-        myDijkstraRouter->compute(from->getNBEdge(), to->getNBEdge(), &tmpVehicle, 10, solution);
-        // check if soultion is enmpty
-        if (solution.size() == 2) {
-            return true;
-        } else {
-            return false;
+        // iterate over connections of from edge
+        for (const auto &fromLane : from->getLanes()) {
+            for (const auto& fromConnection : from->getGNEConnections()) {
+                // within from loop, iterate ove to lanes
+                for (const auto& toLane : to->getLanes()) {
+                    if (fromConnection->getLaneTo() == toLane) {
+                        // get lane structs for both lanes
+                        const NBEdge::Lane NBFromLane = from->getNBEdge()->getLaneStruct(fromLane->getIndex());
+                        const NBEdge::Lane NBToLane = to->getNBEdge()->getLaneStruct(toLane->getIndex());
+                        // check vClass
+                        if (((NBFromLane.permissions & vClass) == vClass) && 
+                            ((NBToLane.permissions & vClass) == vClass)) {
+                            return true;
+                        }
+                    }
+                }
+            }
         }
+        return false;
     }
 }
 
