@@ -194,14 +194,14 @@ def compound_object(element_name, attrnames, warn=False):
             return "<%s,child_dict=%s%s>" % (self.getAttributes(), dict(self._child_dict), nodeText)
 
         def toXML(self, initialIndent="", indent="    "):
-            fields = ['%s="%s"' % (self._original_fields[i], str_possibly_unicode(getattr(self, k)))
+            fields = ['%s="%s"' % (self._original_fields[i], getattr(self, k))
                       for i, k in enumerate(self._fields) if getattr(self, k) is not None and
                       # see #3454
                       '{' not in self._original_fields[i]]
             if not self._child_dict and self._text is None:
-                return "%s<%s %s/>\n" % (initialIndent, self.name, " ".join(fields))
+                return initialIndent + "<%s %s/>\n" % (self.name, " ".join(fields))
             else:
-                s = "%s<%s %s>\n" % (initialIndent, self.name, " ".join(fields))
+                s = initialIndent + "<%s %s>\n" % (self.name, " ".join(fields))
                 for c in self._child_list:
                     s += c.toXML(initialIndent + indent)
                 if self._text is not None:
@@ -212,14 +212,6 @@ def compound_object(element_name, attrnames, warn=False):
             return str(self)
 
     return CompoundObject
-
-
-def str_possibly_unicode(val):
-    # there is probably a better way to do this
-    try:
-        return str(val)
-    except UnicodeEncodeError:
-        return val.encode('utf8')
 
 
 def parse(xmlfile, element_names, element_attrs={}, attr_conversions={},
@@ -380,7 +372,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
 
 def writeHeader(outf, script=None, root=None, schemaPath=None):
     script = os.path.basename(sys.argv[0]) + " " + version.gitDescribe()
-    outf.write("""<?xml version="1.0" encoding="UTF-8"?>
+    outf.write(u"""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s
   options: %s
 -->
@@ -389,8 +381,8 @@ def writeHeader(outf, script=None, root=None, schemaPath=None):
     if root is not None:
         if schemaPath is None:
             schemaPath = root + "_file.xsd"
-        outf.write(('<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                    'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
+        outf.write((u'<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                    u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
 
 
 def quoteattr(val):

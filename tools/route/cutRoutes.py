@@ -182,7 +182,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, finalEdgeMap=None):
 
     for routeFile in options.routeFiles:
         print("Parsing routes from %s" % routeFile)
-        for moving in parse(routeFile, ('vehicle', 'person', 'flow'), {"walk": ("edges", "busStop")},
+        for moving in parse(routeFile, (u'vehicle', u'person', u'flow'), {u"walk": (u"edges", u"busStop")},
                             heterogeneous=options.heterogeneous):
             old_route = None
             if moving.name == 'person':
@@ -371,19 +371,19 @@ def missingEdges(areaEdges, edges, missingEdgeOccurences):
 
 def write_trip(file, vehicle):
     edges = vehicle.route[0].edges.split()
-    file.write('    <trip depart="%s" id="%s" from="%s" to="%s" type="%s"' % (
-               vehicle.depart, vehicle.id, edges[0], edges[-1], vehicle.type))
+    file.write(u'    <trip depart="%s" id="%s" from="%s" to="%s" type="%s"' %
+               (vehicle.depart, vehicle.id, edges[0], edges[-1], vehicle.type))
     if vehicle.stop:
-        file.write('>\n')
+        file.write(u'>\n')
         for stop in vehicle.stop:
-            file.write(stop.toXML('        '))
-        file.write('</trip>\n')
+            file.write(stop.toXML(u'        '))
+        file.write(u'</trip>\n')
     else:
-        file.write('/>\n')
+        file.write(u'/>\n')
 
 
 def write_route(file, vehicle):
-    file.write(vehicle.toXML('    '))
+    file.write(vehicle.toXML(u'    '))
 
 
 def parse_standalone_routes(file, into, typesMap, heterogeneous):
@@ -426,7 +426,7 @@ def main(options):
                 kept_busstops += 1
                 if busStop.access:
                     busStop.access = [acc for acc in busStop.access if acc.lane[:-2] in edges]
-                busStops.write(busStop.toXML('    '))
+                busStops.write(busStop.toXML(u'    '))
         for taz in parse(options.additional_input, 'taz'):
             num_taz += 1
             taz_edges = [e for e in taz.edges.split() if e in edges]
@@ -434,19 +434,17 @@ def main(options):
                 taz.edges = " ".join(taz_edges)
                 if options.stops_output:
                     kept_taz += 1
-                    busStops.write(taz.toXML('    '))
+                    busStops.write(taz.toXML(u'    '))
         if num_busstops > 0 and num_taz > 0:
             print("Kept %s of %s busStops and %s of %s tazs" % (
                 kept_busstops, num_busstops, kept_taz, num_taz))
         elif num_busstops > 0:
-            print("Kept %s of %s busStops" % (
-                kept_busstops, num_busstops))
+            print("Kept %s of %s busStops" % (kept_busstops, num_busstops))
         elif num_taz > 0:
-            print("Kept %s of %s tazs" % (
-                kept_taz, num_taz))
+            print("Kept %s of %s tazs" % (kept_taz, num_taz))
 
     if options.stops_output:
-        busStops.write('</additional>\n')
+        busStops.write(u'</additional>\n')
         busStops.close()
 
     def write_to_file(vehicles, f):
@@ -458,10 +456,10 @@ def main(options):
             else:
                 numRefs[v.name] += 1
             if v.name == "vType":
-                f.write(v.toXML('    '))
+                f.write(v.toXML(u'    '))
             else:
                 writer(f, v)
-        f.write('</routes>\n')
+        f.write(u'</routes>\n')
         if numRefs:
             print("Wrote", ", ".join(["%s %ss" % (k[1], k[0]) for k in sorted(numRefs.items())]))
         else:
@@ -476,14 +474,14 @@ def main(options):
         with io.open(options.pt_output if options.pt_output else options.pt_input + ".cut", 'w', encoding="utf8") as f:
             writeHeader(f, os.path.basename(__file__), 'routes')
             for _, v in cut_routes(edges, orig_net, options, busStopEdges):
-                f.write(v.toXML('    '))
+                f.write(v.toXML(u'    '))
                 if v.name == "route":
                     finalRouteEdge[v.id] = v.edges.split()[-1]
                 elif isinstance(v.route, list):
                     finalEdgeMap[v.line] = v.route[0].edges.split()[-1]
                 elif v.route is not None:
                     finalEdgeMap[v.line] = finalRouteEdge[v.route]
-            f.write('</routes>\n')
+            f.write(u'</routes>\n')
         options.routeFiles = allRouteFiles
 
     if options.big:
