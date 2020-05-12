@@ -21,4 +21,5 @@ Warning: Found sharp turn with radius 8.58 at the start of edge '8225153#2'.
 Warning: The traffic light '1496363648' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '1496363648'
 Warning: Speed of straight connection '145345139#1_0->169453889_0' reduced by 8.91 due to turning radius of 15.22 (length=9.03, angle=50.88).
+Warning: Speed of straight connection '-8225153#2_0->-8225153#1_0' reduced by 5.34 due to turning radius of 1.63 (length=1.85, angle=141.84).
 Warning: 6 total messages of type: Not joining junctions % (%).
