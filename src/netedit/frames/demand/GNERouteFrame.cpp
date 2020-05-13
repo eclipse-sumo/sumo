@@ -860,7 +860,7 @@ GNERouteFrame::drawTemporalRoute(const GUIVisualizationSettings* s) const {
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, GLO_MAX);
         // iterate over path
-        for (int i = 0; i < myPathCreator->getPath().size(); i++) {
+        for (int i = 0; i < (int)myPathCreator->getPath().size(); i++) {
             // get path
             const GNERouteFrame::PathCreator::Path &path = myPathCreator->getPath().at(i);
             // set path color color
@@ -872,13 +872,13 @@ GNERouteFrame::drawTemporalRoute(const GUIVisualizationSettings* s) const {
                 GLHelper::setColor(RGBColor::ORANGE);
             }
             // draw line over 
-            for (int j = 0; j < path.subPath.size(); j++) {
+            for (int j = 0; j < (int)path.subPath.size(); j++) {
                 const GNELane* lane = path.subPath.at(j)->getLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
                     GLHelper::drawBoxLines(lane->getLaneShape(), 0.3);
                 }
                 // draw connection between lanes
-                if ((j+1) < path.subPath.size()) {
+                if ((j+1) < (int)path.subPath.size()) {
                     const GNELane* nextLane = path.subPath.at(j+1)->getLanes().back();
                     if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
                         GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), 0.3);
