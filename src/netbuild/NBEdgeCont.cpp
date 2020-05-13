@@ -1762,7 +1762,7 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
                     std::cout << "    splitting tramEdge=" << tramEdge->getID() << " at " << item.first << " (gap=" << gap << ")\n";
 #endif
                     const std::string firstPartID = tramEdgeID + "#" + toString(tramPart++);
-                    splitAt(dc, tramEdge, road->getFromNode(), firstPartID, tramEdgeID, 1 , 1);
+                    splitAt(dc, tramEdge, gap, road->getFromNode(), firstPartID, tramEdgeID, 1 , 1);
                     tramEdge = retrieve(tramEdgeID); // second part;
                     NBEdge* firstPart = retrieve(firstPartID);
                     firstPart->invalidateConnections(true);
