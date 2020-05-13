@@ -96,5 +96,9 @@ the error message.
 
 - The VAR_LEADER variable is special because the *getLeader (0x68)*
   command requires an additional distance argument. To subscribe to
-  VAR_LEADER the function *subscribeLeader* is provided by the
+  VAR_LEADER, the function *subscribeLeader* is provided by the
+  [python client](../TraCI/Interfacing_TraCI_from_Python.md).
+- The VAR_PARAMETER_WITH_KEY generic variable is special because the *getParameterWithKey (0x3e)*
+  command requires an additional key argument. To subscribe to
+  VAR_PARAMETER_WITH_KEY, the function *subscribeParameterWithKey* is provided by the
   [python client](../TraCI/Interfacing_TraCI_from_Python.md).
