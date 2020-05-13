@@ -625,6 +625,151 @@ public:
         Position mySavedClickedPosition;
     };
 
+    // ===========================================================================
+    // class PathCreator
+    // ===========================================================================
+
+    class PathCreator : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrameModuls::PathCreator)
+
+    public:
+        // @brief creation mode
+        enum class Mode {
+            CONSECUTIVE,
+            NOCONSECUTIVE
+        };
+
+        /// @brief struct for path
+        struct Path {
+
+            /// @brief constructor for single edge
+            Path(const SUMOVehicleClass vClass, GNEEdge* edge);
+
+            /// @brief constructor for multiple edges
+            Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
+
+            /// @brief sub path
+            std::vector<GNEEdge*> subPath;
+
+            /// @brief flag to mark this path as conflicted
+            bool conflictVClass;
+
+            /// @brief flag to mark this path as disconnected
+            bool conflictDisconnected;
+
+        private:
+            /// @brief default constructor
+            Path();
+        };
+
+        /// @brief default constructor
+        PathCreator(GNEFrame* frameParent, Mode mode);
+
+        /// @brief destructor
+        ~PathCreator();
+
+        /// @brief show PathCreator
+        void showPathCreatorModul();
+
+        /// @brief show PathCreator
+        void hidePathCreatorModul();
+
+        /// @brief get current selected edgesm
+        std::vector<GNEEdge*> getSelectedEdges() const;
+
+        /// @brief get vClass
+        SUMOVehicleClass getVClass() const;
+
+        /// @brief set vClass
+        void setVClass(SUMOVehicleClass vClass);
+
+        /// @brief change route mode
+        void setPathCreatorMode(Mode mode);
+
+        /// @brief set edge from (and change color)
+        bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
+
+        /// @brief clear edges (and restore colors)
+        void clearPath();
+
+        /// @brief get path route
+        const std::vector<Path>& getPath() const;
+
+        /// @brief draw candidate edges with special color (Only for candidates, special and conflicted)
+        bool drawCandidateEdgesWithSpecialColor() const;
+
+        /// @brief update edge colors
+        void updateEdgeColors();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user click over button "Finish route creation"
+        long onCmdCreatePath(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdAbortPathCreation(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Remove las inserted edge"
+        long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over check button "show candidate edges"
+        long onCmdShowCandidateEdges(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(PathCreator)
+
+        /// @brief update InfoRouteLabel
+        void updateInfoRouteLabel();
+
+        /// @brief recalculate path
+        void recalculatePath();
+
+        /// @brief set special candidates (This function will be called recursively)
+        void setSpecialCandidates(GNEEdge* originEdge);
+
+        /// @brief set edgereachability (This function will be called recursively)
+        void setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass);
+
+    private:
+        /// @brief current frame parent
+        GNEFrame* myFrameParent;
+
+        /// @brief current vClass
+        SUMOVehicleClass myVClass;
+
+        /// @brief current mode
+        Mode myMode;
+
+        /// @brief current selected edges
+        std::vector<GNEEdge*> mySelectedElements;
+
+        /// @brief label with route info
+        FXLabel* myInfoRouteLabel;
+
+        /// @brief vector with current path
+        std::vector<Path> myPath;
+
+        /// @brief button for finish route creation
+        FXButton* myFinishCreationButton;
+
+        /// @brief button for abort route creation
+        FXButton* myAbortCreationButton;
+
+        /// @brief button for removing last inserted edge
+        FXButton* myRemoveLastInsertedEdge;
+
+        /// @brief CheckBox for show candidate edges
+        FXCheckButton* myShowCandidateEdges;
+
+        /// @brief label for shift information
+        FXLabel* myShiftLabel;
+
+        /// @brief label for control information
+        FXLabel* myControlLabel;
+    };
+
     /// @brief build rainbow in frame modul
     static FXLabel* buildRainbow(FXComposite* parent, std::vector<RGBColor>& scaleColors);
 };

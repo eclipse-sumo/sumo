@@ -90,6 +90,14 @@ FXDEFMAP(GNEFrameModuls::OverlappedInspection) OverlappedInspectionMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HELP,                           GNEFrameModuls::OverlappedInspection::onCmdOverlappingHelp)
 };
 
+FXDEFMAP(GNEFrameModuls::PathCreator) PathCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,          GNEFrameModuls::PathCreator::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,         GNEFrameModuls::PathCreator::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST,     GNEFrameModuls::PathCreator::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_SHOWCANDIDATES, GNEFrameModuls::PathCreator::onCmdShowCandidateEdges)
+};
+
+
 // Object implementation
 FXIMPLEMENT(GNEFrameModuls::TagSelector,                FXGroupBox,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 FXIMPLEMENT(GNEFrameModuls::DemandElementSelector,      FXGroupBox,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
@@ -97,6 +105,7 @@ FXIMPLEMENT(GNEFrameModuls::EdgePathCreator,            FXGroupBox,     EdgePath
 FXIMPLEMENT(GNEFrameModuls::AttributeCarrierHierarchy,  FXGroupBox,     AttributeCarrierHierarchyMap,   ARRAYNUMBER(AttributeCarrierHierarchyMap))
 FXIMPLEMENT(GNEFrameModuls::DrawingShape,               FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrameModuls::OverlappedInspection,       FXGroupBox,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
+FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBox,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
 
 
 // ===========================================================================
@@ -2322,6 +2331,426 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
     myHelpButton = new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
 }
 
+// ---------------------------------------------------------------------------
+// GNEFrameModuls::PathCreator - methods
+// ---------------------------------------------------------------------------
+
+GNEFrameModuls::PathCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
+    subPath({ edge }),
+    conflictVClass(false),
+    conflictDisconnected(false) {
+    // check if we have to change vClass flag
+    if (edge->getNBEdge()->getNumLanesThatAllow(vClass) == 0) {
+        conflictVClass = true;
+    }
+}
+
+
+GNEFrameModuls::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
+    conflictVClass(false),
+    conflictDisconnected(false) {
+    // calculate subpath
+    subPath = viewNet->getNet()->getPathCalculator()->calculatePath(vClass, { edgeFrom, edgeTo });
+    // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
+    if (subPath.empty()) {
+        subPath = viewNet->getNet()->getPathCalculator()->calculatePath(SVC_PEDESTRIAN, { edgeFrom, edgeTo });
+        if (subPath.empty()) {
+            subPath = { edgeFrom, edgeTo };
+            conflictDisconnected = true;
+        } else {
+            conflictVClass = true;
+        }
+    }
+}
+
+
+GNEFrameModuls::PathCreator::Path::Path() :
+    conflictVClass(false),
+    conflictDisconnected(false) {
+}
+
+
+GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent, GNEFrameModuls::PathCreator::Mode mode) :
+    FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
+    myMode(mode),
+    myVClass(SVC_PASSENGER) {
+    // create label for route info
+    myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameThicked);
+    // create button for finish route creation
+    myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
+    myFinishCreationButton->disable();
+    // create button for abort route creation
+    myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
+    myAbortCreationButton->disable();
+    // create button for remove last inserted edge
+    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedEdge->disable();
+    // create check button
+    myShowCandidateEdges = new FXCheckButton(this, "Show candidate edges", this, MID_GNE_EDGEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateEdges->setCheck(TRUE);
+    // create shift label
+    myShiftLabel = new FXLabel(this,
+        "- Hold SHIFT while clicking\n  to add an invalid vclass edge.",
+        0, GUIDesignLabelFrameInformation);
+    // create control label
+    myControlLabel = new FXLabel(this,
+        "- Hold CONTROL while clicking\n  to add a disconnected edge.",
+        0, GUIDesignLabelFrameInformation);
+    // create backspace label (always shown)
+    new FXLabel(this,
+        "- Press BACKSPACE to remove\n  last inserted edge.",
+        0, GUIDesignLabelFrameInformation);
+}
+
+
+GNEFrameModuls::PathCreator::~PathCreator() {}
+
+
+void
+GNEFrameModuls::PathCreator::showPathCreatorModul() {
+    // disable buttons
+    myFinishCreationButton->disable();
+    myAbortCreationButton->disable();
+    myRemoveLastInsertedEdge->disable();
+    // recalc before show (to avoid graphic problems)
+    recalc();
+    // show modul
+    show();
+}
+
+
+void
+GNEFrameModuls::PathCreator::hidePathCreatorModul() {
+    // clear path
+    clearPath();
+    // hide modul
+    hide();
+}
+
+
+std::vector<GNEEdge*>
+GNEFrameModuls::PathCreator::getSelectedEdges() const {
+    return mySelectedElements;
+}
+
+
+SUMOVehicleClass 
+GNEFrameModuls::PathCreator::getVClass() const {
+    return myVClass;
+}
+
+
+void 
+GNEFrameModuls::PathCreator::setVClass(SUMOVehicleClass vClass) {
+    myVClass = vClass;
+}
+
+
+void
+GNEFrameModuls::PathCreator::setPathCreatorMode(GNEFrameModuls::PathCreator::Mode mode) {
+    // first abort route
+    onCmdAbortPathCreation(nullptr, 0, nullptr);
+    myMode = mode;
+}
+
+
+bool
+GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
+    if (mySelectedElements.size() > 0) {
+        // check double edges
+        if ((mySelectedElements.back() == edge)) {
+            // Write warning
+            WRITE_WARNING("Double edges aren't allowed");
+            // abort add edge
+            return false;
+        }
+        // check consecutive edges
+        if (myMode == Mode::CONSECUTIVE) {
+            // check that new edge is consecutive
+            const auto& outgoingEdges = mySelectedElements.back()->getSecondParentJunction()->getGNEOutgoingEdges();
+            if (std::find(outgoingEdges.begin(), outgoingEdges.end(), edge) == outgoingEdges.end()) {
+                // Write warning
+                WRITE_WARNING("Only consecutives edges are allowed");
+                // abort add edge
+                return false;
+            }
+        }
+    }
+    // check candidate edge
+    if ((myShowCandidateEdges->getCheck() == TRUE) && !edge->isPossibleCandidate()) {
+        if (edge->isSpecialCandidate()) {
+            if (!shiftKeyPressed) {
+                // Write warning
+                WRITE_WARNING("Invalid edge (SHIFT + click to add an invalid vClass edge)");
+                // abort add edge
+                return false;
+            }
+        } else if (edge->isConflictedCandidate()) {
+            if (!controlKeyPressed) {
+                // Write warning
+                WRITE_WARNING("Invalid edge (CONTROL + click to add a disconnected edge)");
+                // abort add edge
+                return false;
+            }
+        }
+    }
+    // All checks ok, then add it in selected elements
+    mySelectedElements.push_back(edge);
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    // enable or disable remove last edge button
+    if (mySelectedElements.size() > 1) {
+        myRemoveLastInsertedEdge->enable();
+    } else {
+        myRemoveLastInsertedEdge->disable();
+    }
+    // recalculate path
+    recalculatePath();
+    // update info route label
+    updateInfoRouteLabel();
+    // update edge colors
+    updateEdgeColors();
+    return true;
+}
+
+
+void
+GNEFrameModuls::PathCreator::clearPath() {
+    // reset all flags
+    for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->resetCandidateFlags();
+    }
+    // clear edges
+    mySelectedElements.clear();
+    myPath.clear();
+    // update info route label
+    updateInfoRouteLabel();
+}
+
+
+const std::vector<GNEFrameModuls::PathCreator::Path>&
+GNEFrameModuls::PathCreator::getPath() const {
+    return myPath;
+}
+
+
+bool
+GNEFrameModuls::PathCreator::drawCandidateEdgesWithSpecialColor() const {
+    return (myShowCandidateEdges->getCheck() == TRUE);
+}
+
+
+void
+GNEFrameModuls::PathCreator::updateEdgeColors() {
+    // reset all flags
+    for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->resetCandidateFlags();
+    }
+    // set reachability
+    if (mySelectedElements.size() > 0) {
+        // only coloring edges if checkbox "show candidate edges" is enabled
+        if (myShowCandidateEdges->getCheck() == TRUE) {
+            // mark all edges as conflicted (to mark special candidates) 
+            for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                edge.second->setConflictedCandidate(true);
+            }
+            // set special candidates (Edges that are connected but aren't compatibles with current vClass
+            setSpecialCandidates(mySelectedElements.back());
+            // mark again all edges as conflicted (to mark possible candidates)
+            for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                edge.second->setConflictedCandidate(true);
+            }
+            // set possible candidates (Edges that are connected AND are compatibles with current vClass
+            setPossibleCandidates(mySelectedElements.back(), myVClass);
+        }
+        // now mark selected eges
+        for (const auto& edge : mySelectedElements) {
+            edge->resetCandidateFlags();
+            edge->setSourceCandidate(true);
+        }
+        // finally mark last selected element as target
+        mySelectedElements.back()->resetCandidateFlags();
+        mySelectedElements.back()->setTargetCandidate(true);
+    } else if (myShowCandidateEdges->getCheck() == TRUE) {
+        // mark all edges that have at least one lane that allow given vClass
+        for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+            if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
+                edge.second->setPossibleCandidate(true);
+            } else {
+                edge.second->setSpecialCandidate(true);
+            }
+        }
+    }
+    // update view net
+    myFrameParent->myViewNet->updateViewNet();
+}
+
+
+long
+GNEFrameModuls::PathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
+    // just call create path
+    myFrameParent->createPath();
+    return 1;
+}
+
+
+long
+GNEFrameModuls::PathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+    // first check that there is route edges selected
+    if (mySelectedElements.size() > 0) {
+        // unblock undo/redo
+        myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+        // clear edges
+        clearPath();
+        // disable buttons
+        myFinishCreationButton->disable();
+        myAbortCreationButton->disable();
+        myRemoveLastInsertedEdge->disable();
+        // update info route label
+        updateInfoRouteLabel();
+        // update reachability
+        updateEdgeColors();
+        // update view (to see the new route)
+        myFrameParent->getViewNet()->updateViewNet();
+    }
+    return 1;
+}
+
+
+long
+GNEFrameModuls::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+    if (mySelectedElements.size() > 1) {
+        // remove special color of last selected edge
+        mySelectedElements.back()->resetCandidateFlags();
+        // remove last edge
+        mySelectedElements.pop_back();
+        // change last edge flag
+        if (mySelectedElements.size() > 0 && mySelectedElements.back()->isSourceCandidate()) {
+            mySelectedElements.back()->setSourceCandidate(false);
+            mySelectedElements.back()->setTargetCandidate(true);
+        }
+        // enable or disable remove last edge button
+        if (mySelectedElements.size() > 1) {
+            myRemoveLastInsertedEdge->enable();
+        } else {
+            myRemoveLastInsertedEdge->disable();
+        }
+        // recalculate path
+        recalculatePath();
+        // update info route label
+        updateInfoRouteLabel();
+        // update reachability
+        updateEdgeColors();
+        // update view
+        myFrameParent->myViewNet->updateViewNet();
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+long
+GNEFrameModuls::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
+    // update labels
+    if (myShowCandidateEdges->getCheck() == TRUE) {
+        myShiftLabel->show();
+        myControlLabel->show();
+    } else {
+        myShiftLabel->hide();
+        myControlLabel->hide();
+    }
+    // recalc frame
+    recalc();
+    // update edge colors (view will be updated within function)
+    updateEdgeColors();
+    return 1;
+}
+
+
+void
+GNEFrameModuls::PathCreator::updateInfoRouteLabel() {
+    if (myPath.size() > 0) {
+        // declare variables for route info
+        double length = 0;
+        double speed = 0;
+        int pathSize = 0;
+        for (const auto& path : myPath) {
+            for (const auto& edge : path.subPath) {
+                length += edge->getNBEdge()->getLength();
+                speed += edge->getNBEdge()->getSpeed();
+            }
+            pathSize += (int)path.subPath.size();
+        }
+        // declare ostringstream for label and fill it
+        std::ostringstream information;
+        information
+            << "- Selected edges: " << toString(mySelectedElements.size()) << "\n"
+            << "- Path edges: " << toString(pathSize) << "\n"
+            << "- Length: " << toString(length) << "\n"
+            << "- Average speed: " << toString(speed / pathSize);
+        // set new label
+        myInfoRouteLabel->setText(information.str().c_str());
+    } else {
+        myInfoRouteLabel->setText("No edges selected");
+    }
+}
+
+
+void
+GNEFrameModuls::PathCreator::recalculatePath() {
+    // first clear path
+    myPath.clear();
+    // check if remove last route edge button has to be disabled
+    if (mySelectedElements.size() == 1) {
+        myPath.push_back(Path(myVClass, mySelectedElements.front()));
+    } else {
+        // add every segment
+        for (int i = 1; i < (int)mySelectedElements.size(); i++) {
+            myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, mySelectedElements.at(i - 1), mySelectedElements.at(i)));
+        }
+    }
+}
+
+
+void
+GNEFrameModuls::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
+    // first calculate reachability for pedestrians (we use it, because pedestran can walk in almost all edges)
+    myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
+    // change flags
+    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto& lane : edge.second->getLanes()) {
+            if (lane->getReachability() > 0) {
+                lane->getParentEdge()->resetCandidateFlags();
+                lane->getParentEdge()->setSpecialCandidate(true);
+            }
+        }
+    }
+}
+
+void
+GNEFrameModuls::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
+    // first calculate reachability for pedestrians
+    myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculateReachability(vClass, originEdge);
+    // change flags
+    for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto& lane : edge.second->getLanes()) {
+            if (lane->getReachability() > 0) {
+                lane->getParentEdge()->resetCandidateFlags();
+                lane->getParentEdge()->setPossibleCandidate(true);
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrameModuls - methods
+// ---------------------------------------------------------------------------
 
 FXLabel*
 GNEFrameModuls::buildRainbow(FXComposite* parent, std::vector<RGBColor>& scaleColors) {

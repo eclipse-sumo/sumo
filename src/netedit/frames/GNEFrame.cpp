@@ -200,6 +200,11 @@ GNEFrame::selectedOverlappedElement(GNEAttributeCarrier* /* AC */) {
 
 
 void
+GNEFrame::createPath() {
+    // this function has to be reimplemente in all child frames that uses a path
+}
+
+void
 GNEFrame::openHelpAttributesDialog(const GNETagProperties& tagProperties) const {
     FXDialogBox* attributesHelpDialog = new FXDialogBox(myScrollWindowsContents, ("Parameters of " + tagProperties.getTagStr()).c_str(), GUIDesignDialogBoxResizable, 0, 0, 0, 0, 10, 10, 10, 38, 4, 4);
     // Create FXTable
