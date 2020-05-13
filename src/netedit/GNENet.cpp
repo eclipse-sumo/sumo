@@ -1533,6 +1533,12 @@ GNENet::requireRecompute() {
 
 
 bool
+GNENet::isNetRecomputed() const {
+    return (myNeedRecompute == false);
+}
+
+
+bool
 GNENet::netHasGNECrossings() const {
     for (auto n : myAttributeCarriers->getJunctions()) {
         if (n.second->getGNECrossings().size() > 0) {

@@ -1849,7 +1849,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector sel, void*) {
         myUndoList->p_begin("select lane reachability");
         for (const auto &edge : myNet->getAttributeCarriers()->getEdges()) {
             for (const auto& lane : edge.second->getLanes()) {
-                if (lane->getReachability() > 0) {
+                if (lane->getReachability() >= 0) {
                     lane->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
                 }
             }

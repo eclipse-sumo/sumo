@@ -647,13 +647,8 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             buildLaneOperations(parent, ret);
             // add separator
             new FXMenuSeparator(ret);
-            // addreachability menu
-            FXMenuPane* reachableByClass = new FXMenuPane(ret);
-            ret->insertMenuPaneChild(reachableByClass);
-            new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
-            for (const auto &vClass : SumoVehicleClassStrings.getStrings()) {
-                new FXMenuCommand(reachableByClass, vClass.c_str(), nullptr, &parent, MID_REACHABILITY);
-            }
+            // build rechable operations
+            buildRechableOperations(parent, ret);
         } else if (editMode == NetworkEditMode::NETWORK_TLS) {
             if (myNet->getViewNet()->getViewParent()->getTLSEditorFrame()->controlsEdge(myParentEdge)) {
                 new FXMenuCommand(ret, "Select state for all links from this edge:", nullptr, nullptr, 0);
@@ -1622,6 +1617,23 @@ GNELane::buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     }
     if (!edgeHasSidewalk && !edgeHasBikelane && !edgeHasBuslane && !edgeHasGreenVerge) {
         cascadeRemoveSpecialLane->disable();
+    }
+}
+
+
+void
+GNELane::buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret) {
+    // addreachability menu
+    FXMenuPane* reachableByClass = new FXMenuPane(ret);
+    ret->insertMenuPaneChild(reachableByClass);
+    if (myNet->isNetRecomputed()) {
+        new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
+        for (const auto& vClass : SumoVehicleClassStrings.getStrings()) {
+            new FXMenuCommand(reachableByClass, vClass.c_str(), nullptr, &parent, MID_REACHABILITY);
+        }
+    } else {
+        FXMenuCommand* menuCommand = new FXMenuCommand(ret, "Select reachable (compute junctions)", nullptr, nullptr, 0);
+        menuCommand->handle(&parent, FXSEL(SEL_COMMAND, FXWindow::ID_DISABLE), nullptr);
     }
 }
 

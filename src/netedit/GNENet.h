@@ -474,6 +474,9 @@ public:
     /// @brief inform the net about the need for recomputation
     void requireRecompute();
 
+    /// @brief check if net requiere recomputing
+    bool isNetRecomputed() const;
+
     /// @brief check if net has GNECrossings
     bool netHasGNECrossings() const;
 
