@@ -6,3 +6,6 @@ load
 
 # test loading a simulation state
 loadState
+
+# test that rail_signal switches correctly after loading a simulation state
+loadState_railSignal

@@ -1,0 +1,7 @@
+<routes>
+    <vType id="train" vClass="rail" length="45" maxSpeed="8">
+        <param key="carriageLength" value="10"/>
+    </vType>
+    <trip id="t0" from="a" to="e" depart="0" type="train" departSpeed="max"/>
+    <trip id="t1" from="a" to="e" depart="10" type="train" departSpeed="max"/>
+</routes>
