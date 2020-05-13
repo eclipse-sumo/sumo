@@ -32,6 +32,14 @@ from .exceptions import FatalTraCIError
 _defaultDomains = []
 
 
+def _readParameterWithKey(result):
+    result.read("!iB")
+    key = result.readString()
+    result.read("!B")
+    val = result.readString()
+    return key, val
+
+
 class SubscriptionResults:
 
     def __init__(self, valueFunc):
@@ -90,7 +98,8 @@ class Domain:
         self._contextID = contextID
         self._contextResponseID = contextResponseID
         self._retValFunc = {tc.TRACI_ID_LIST: Storage.readStringList,
-                            tc.ID_COUNT: Storage.readInt}
+                            tc.ID_COUNT: Storage.readInt,
+                            tc.VAR_PARAMETER_WITH_KEY: _readParameterWithKey}
         self._retValFunc.update(retValFunc)
         self._deprecatedFor = deprecatedFor
         self._connection = None
@@ -214,12 +223,14 @@ class Domain:
         """
         self._connection._beginMessage(self._cmdGetID, tc.VAR_PARAMETER_WITH_KEY, objID, 1 + 4 + len(param))
         self._connection._packString(param)
-        result = self._connection._checkResult(self._cmdGetID, tc.VAR_PARAMETER_WITH_KEY, objID)
-        result.read("!iB")
-        key = result.readString()
-        result.read("!B")
-        val = result.readString()
-        return key, val
+        return _readParameterWithKey(self._connection._checkResult(self._cmdGetID, tc.VAR_PARAMETER_WITH_KEY, objID))
+
+    def subscribeParameterWithKey(self, objID, key, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
+        """subscribeParameterWithKey(string, string) -> None
+
+        Subscribe for a generic parameter with the given key.
+        """
+        self._connection._subscribe(self._subscribeID, begin, end, objID, (tc.VAR_PARAMETER_WITH_KEY,), {tc.VAR_PARAMETER_WITH_KEY: struct.pack("!Bi", tc.TYPE_STRING, len(key)) + key.encode("latin1")})
 
     def setParameter(self, objID, param, value):
         """setParameter(string, string, string) -> None
