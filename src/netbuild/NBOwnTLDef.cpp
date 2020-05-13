@@ -750,7 +750,7 @@ NBOwnTLDef::remapRemoved(NBEdge* /*removed*/, const EdgeVector& /*incoming*/,
 
 void
 NBOwnTLDef::replaceRemoved(NBEdge* /*removed*/, int /*removedLane*/,
-                           NBEdge* /*by*/, int /*byLane*/) {}
+                           NBEdge* /*by*/, int /*byLane*/, bool /*incoming*/) {}
 
 
 void

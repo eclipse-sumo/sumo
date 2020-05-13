@@ -271,9 +271,10 @@ public:
      * @param[in] removedLane The lane of this edge to replace
      * @param[in] by The edge to insert instead
      * @param[in] byLane This edge's lane to insert instead
+     * @param[in] incoming Whether the removed edge is incoming or outgoing
      */
     virtual void replaceRemoved(NBEdge* removed, int removedLane,
-                                NBEdge* by, int byLane) = 0;
+                                NBEdge* by, int byLane, bool incoming) = 0;
 
     /// @brief patches (loaded) signal plans by modifying lane indices
     virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1) {

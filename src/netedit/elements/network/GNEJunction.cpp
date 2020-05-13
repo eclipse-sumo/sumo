@@ -802,7 +802,7 @@ GNEJunction::replaceIncomingConnections(GNEEdge* which, GNEEdge* by, GNEUndoList
             // create replacement before deleting the original because deletion will mess up saving original nodes
             NBLoadedSUMOTLDef* replacementDef = new NBLoadedSUMOTLDef(*tlDef, *tlDef->getLogic());
             for (int i = 0; i < (int)which->getLanes().size(); ++i) {
-                replacementDef->replaceRemoved(which->getNBEdge(), i, by->getNBEdge(), i);
+                replacementDef->replaceRemoved(which->getNBEdge(), i, by->getNBEdge(), i, true);
             }
             undoList->add(new GNEChange_TLS(this, tlDef, false), true);
             undoList->add(new GNEChange_TLS(this, replacementDef, true, false, newID), true);

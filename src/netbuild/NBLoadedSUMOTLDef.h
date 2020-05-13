@@ -85,7 +85,7 @@ public:
      * @param[in] byLane This edge's lane to insert instead
      */
     void replaceRemoved(NBEdge* removed, int removedLane,
-                        NBEdge* by, int byLane);
+                        NBEdge* by, int byLane, bool incoming);
 
     /** @brief patches signal plans by modifying lane indices
      * with the given offset, only indices with a value above threshold are modified

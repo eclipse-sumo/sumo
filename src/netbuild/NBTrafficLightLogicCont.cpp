@@ -249,10 +249,10 @@ NBTrafficLightLogicCont::remapRemoved(NBEdge* removed, const EdgeVector& incomin
 
 void
 NBTrafficLightLogicCont::replaceRemoved(NBEdge* removed, int removedLane,
-                                        NBEdge* by, int byLane) {
+                                        NBEdge* by, int byLane, bool incoming) {
     Definitions definitions = getDefinitions();
     for (Definitions::iterator it = definitions.begin(); it != definitions.end(); it++) {
-        (*it)->replaceRemoved(removed, removedLane, by, byLane);
+        (*it)->replaceRemoved(removed, removedLane, by, byLane, incoming);
     }
 }
 

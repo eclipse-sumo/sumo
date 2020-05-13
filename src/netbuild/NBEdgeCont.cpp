@@ -628,11 +628,11 @@ NBEdgeCont::splitAt(NBDistrictCont& dc,
     // patch tls
     std::set<NBTrafficLightDefinition*> fromTLS = edge->myFrom->getControllingTLS();
     for (std::set<NBTrafficLightDefinition*>::iterator i = fromTLS.begin(); i != fromTLS.end(); ++i) {
-        (*i)->replaceRemoved(edge, -1, one, -1);
+        (*i)->replaceRemoved(edge, -1, one, -1, false);
     }
     std::set<NBTrafficLightDefinition*> toTLS = edge->myTo->getControllingTLS();
     for (std::set<NBTrafficLightDefinition*>::iterator i = toTLS.begin(); i != toTLS.end(); ++i) {
-        (*i)->replaceRemoved(edge, -1, two, -1);
+        (*i)->replaceRemoved(edge, -1, two, -1, true);
     }
     // the edge is now occuring twice in both nodes...
     //  clean up
@@ -988,7 +988,8 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         int noLanes = (*i)->getNumLanes();
         for (int j = 0; j < noLanes; j++, currLane++) {
             // replace in traffic lights
-            tlc.replaceRemoved(*i, j, newEdge, currLane);
+            tlc.replaceRemoved(*i, j, newEdge, currLane, true);
+            tlc.replaceRemoved(*i, j, newEdge, currLane, false);
         }
     }
     // delete joined edges

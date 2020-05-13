@@ -162,10 +162,13 @@ NBLoadedSUMOTLDef::remapRemoved(NBEdge*, const EdgeVector&, const EdgeVector&) {
 
 
 void
-NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, int byLane) {
+NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, int byLane, bool incoming) {
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
-        (*it).replaceFrom(removed, removedLane, by, byLane);
-        (*it).replaceTo(removed, removedLane, by, byLane);
+        if (incoming) {
+            (*it).replaceFrom(removed, removedLane, by, byLane);
+        } else {
+            (*it).replaceTo(removed, removedLane, by, byLane);
+        }
     }
 }
 

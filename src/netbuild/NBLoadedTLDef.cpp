@@ -636,10 +636,10 @@ NBLoadedTLDef::remapRemoved(NBEdge* removed,
 
 void
 NBLoadedTLDef::replaceRemoved(NBEdge* removed, int removedLane,
-                              NBEdge* by, int byLane) {
+                              NBEdge* by, int byLane, bool incoming) {
     for (SignalGroupCont::const_iterator i = mySignalGroups.begin(); i != mySignalGroups.end(); i++) {
         SignalGroup* group = (*i).second;
-        if (group->containsIncoming(removed) || group->containsOutgoing(removed)) {
+        if ((incoming && group->containsIncoming(removed)) || (!incoming && group->containsOutgoing(removed))) {
             group->remap(removed, removedLane, by, byLane);
         }
     }

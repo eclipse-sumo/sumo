@@ -164,7 +164,7 @@ public:
      * @todo Recheck usage
      */
     void replaceRemoved(NBEdge* removed, int removedLane,
-                        NBEdge* by, int byLane);
+                        NBEdge* by, int byLane, bool incoming);
 
 
     /** @brief Returns the named definition

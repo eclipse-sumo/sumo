@@ -1206,13 +1206,15 @@ GNENetHelper::GNEChange_ReplaceEdgeInTLS::redoName() const {
 
 void
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::undo() {
-    myTllcont.replaceRemoved(myBy, -1, myReplaced, -1);
+    // assuming this is only used for replacing incoming connections (GNENet::replaceIncomingEdge)
+    myTllcont.replaceRemoved(myBy, -1, myReplaced, -1, true);
 }
 
 
 void
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::redo() {
-    myTllcont.replaceRemoved(myReplaced, -1, myBy, -1);
+    // assuming this is only used for replacing incoming connections (GNENet::replaceIncomingEdge)
+    myTllcont.replaceRemoved(myReplaced, -1, myBy, -1, true);
 }
 
 

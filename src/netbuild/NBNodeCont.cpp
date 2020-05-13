@@ -437,7 +437,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont& dc, NBEdgeCont& ec,
             NBEdge* continuation = (*j).second;
             begin->append(continuation);
             continuation->getToNode()->replaceIncoming(continuation, begin, 0);
-            tlc.replaceRemoved(continuation, -1, begin, -1);
+            tlc.replaceRemoved(continuation, -1, begin, -1, true);
             ec.extract(dc, continuation, true);
         }
         toRemove.push_back(current);
