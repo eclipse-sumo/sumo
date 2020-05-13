@@ -1200,6 +1200,19 @@ TraCIServer::addObjectVariableSubscription(const int commandId, const bool hasCo
         for (int j = 0; j < myParameterSizes[varID]; j++) {
             parameters.back().push_back(myInputStorage.readChar());
         }
+        if (varID == libsumo::VAR_PARAMETER_WITH_KEY) {
+            parameters.back().push_back(myInputStorage.readChar());
+            // the byte order of the int is unknown here, so we create a temp. storage
+            int length = myInputStorage.readInt();
+            tcpip::Storage tmp;
+            tmp.writeInt(length);
+            for (int j = 0; j < 4; j++) {  // write int (length of string) char by char
+                parameters.back().push_back(tmp.readChar());
+            }
+            for (int j = 0; j < length; j++) {  // write string char by char
+                parameters.back().push_back(myInputStorage.readChar());
+            }
+        }
     }
     // check subscribe/unsubscribe
     if (variables.empty()) {
