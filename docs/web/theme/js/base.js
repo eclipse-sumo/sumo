@@ -12,7 +12,14 @@ function getSearchTerm()
     }
 }
 
+
+
+
 $(document).ready(function() {
+
+    if (navigator.userAgent.match(/msie|trident/i)) {
+        $('#dark-mode-div').hide();
+      }
 
     var search_term = getSearchTerm(),
         $search_modal = $('#mkdocs_search_modal'),

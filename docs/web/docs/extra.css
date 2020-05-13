@@ -64,17 +64,52 @@ a.no-arrow-link:after {
 
 code {
     background-color: #f8f9fa;
-    border: 1px solid #eaecf0;
+    background-color: var(--code-bg);
+    border: 1px solid var(--code-border-color);
     border-radius: 2px;
     padding: 1px 4px;
     font-family: monospace,monospace;
+    color: #333;
+    color: var(--code-color);
 }
 
 .hljs {
-    background: #eff0f1;
+    background: var(--hljs-bg);
     border-radius: 3px;
     border: 1px solid #ddd !important;
     padding: 12px 8px;
+    color: var(--hljs-color);
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+ color: var(--hljs-attribute-color);
+ font-weight:normal
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+ color: var(--hljs-literal-color);
+}
+
+.hljs-comment, .hljs-quote {
+color: var(--hljs-comment-color);
+}
+
+.hljs-keyword, .hljs-selector-tag, .hljs-subst {
+    color: var(--hljs-color);
+}
+
+.hljs-symbol, .hljs-bullet {
+    color: var(--hljs-symbol-color);
+}
+
+.hljs-addition {
+    background: var(--hljs-addition-bg);
 }
 
 h1, h2 {
@@ -114,7 +149,8 @@ h5 {
 hTitles {
     font-size: 1.8em;
     font-weight: bold;
-    color: #338033;
+    color: #338033; /* for incompatible Browsers  */
+    color: var(--hTitles-color);
     margin-bottom: 0.5rem;
     font-family: inherit;
     line-height: 1.2;
@@ -130,9 +166,10 @@ margin-bottom: 10px;
 border-radius: 50%;
 -webkit-border-radius: 50%;
 -moz-border-radius: 50%;
-box-shadow: 0 0 8px rgba(0, 0, 0, .4);
--webkit-box-shadow: 0 0 8px rgba(0, 0, 0, .4);
--moz-box-shadow: 0 0 8px rgba(0, 0, 0, .4);
+box-shadow: 0 0 8px rgba(0, 0, 0, .4); /* for incompatible Browsers  */
+box-shadow: 0 0 8px var(--sumo-logo-shadow-color);
+-webkit-box-shadow: 0 0 8px var(--sumo-logo-shadow-color);
+-moz-box-shadow: 0 0 8px var(--sumo-logo-shadow-color);
 }
 
 ul {
@@ -140,7 +177,8 @@ ul {
   }
 
 table {
-    border: 1px solid #dee2e6;
+    border: 1px solid #dee2e6; /* for incompatible Browsers  */
+    border: 1px solid var(--table-border-color);
 }
 
 td {
@@ -150,7 +188,8 @@ td {
 thead th { 
     vertical-align: center;
     text-align: center;
-    background:#ddffdd;
+    background: #ddffdd; /* for incompatible Browsers  */
+    background: var(--thead-color);
 }
 
 .table th, .table td {
@@ -159,6 +198,7 @@ thead th {
 
 a {
     color: #0645ad;
+    color: var(--a-color);
 }
 
 @media (max-width: 768px) {

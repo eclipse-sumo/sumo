@@ -1,5 +1,66 @@
+:root {
+    --body-bg-color: #f6f6f6;
+    --body-color: #495057;
+    --main-area-bg-color: white;
+    --h-color: #444;
+    --a-color: #0645ad;
+    --toc-bg-color: #f6f6f6;
+    --card-border-color: rgba(0,0,0,0.125);
+    --sumo-logo-shadow-color: rgba(0, 0, 0, .4);
+    --table-border-color: #dee2e6;
+    --thead-color: #ddffdd;
+    --table-stripe-color: rgba(0,0,0,0.05);
+    --code-bg: #f8f9fa;
+    --code-border-color: #eaecf0;
+    --code-color: #333;
+    --note-conference-color: #000;
+    --note-conference-bg-color: rgb(171,221,139);
+    --note-bg-color: #ffffdd;
+    --hTitles-color: #338033;
+    --hljs-bg: #eff0f1;
+    --hljs-color: #333;
+    --hljs-attribute-color: #000080;
+    --hljs-literal-color: #008080;
+    --hljs-comment-color: #998;
+    --hljs-symbol-color:  #990073;
+    --hljs-addition-bg: #dfd;
+}
+
+[data-theme="dark"] {
+    --body-bg-color: rgb(30,30,30);
+    --body-color: rgb(240,240,240);
+    --main-area-bg-color: rgb(40,41,44);
+    --h-color: rgb(250,250,250);
+    --a-color: rgb(105,157,243);
+    --toc-bg-color: rgb(30,30,30);
+    --card-border-color: rgba(90,91,94,1);
+    --sumo-logo-shadow-color: rgba(255, 255, 255, 1);
+    --table-border-color: #fff;
+    --thead-color: #338033;
+    --table-stripe-color: rgba(255,255,255,0.08);
+    --code-bg: #000;
+    --code-border-color: #aaa;
+    --code-color: rgb(231,231,233);
+    --note-conference-color: rgb(171,221,139);
+    --note-conference-bg-color: rgb(31,54,39);
+    --note-bg-color: #fff5b1ff;
+    --hTitles-color: rgb(171,221,139);
+    --hljs-bg: #000;
+    --hljs-color: #eee;
+    --hljs-attribute-color: #79b8ff;
+    --hljs-literal-color: #7bcc72;
+    --hljs-comment-color: #777;
+    --hljs-symbol-color: #b392f0;
+    --hljs-addition-bg: rgb(31,54,39);
+}
+
+
 body {
     padding-top: 50px;
+    background: #f6f6f6; /* for incompatible Browsers  */
+    background:var(--body-bg-color);
+    color: #495057; /* for incompatible Browsers  */
+    color: var(--body-color);
 }
 
 /* Replacement for `body { background-attachment: fixed; }`, which has
@@ -11,7 +72,7 @@ body::before {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #f8f8f8;
+    /* background-color: #f8f8f8; */
     background: url(../images/mkdocs-grid.png) repeat-x;
     will-change: transform;
     z-index: -1;
@@ -29,15 +90,32 @@ ul.nav .main {
     float: right;
 }
 
+.table-striped tbody tr:nth-of-type(2n+1) {
+    background-color: rgba(0,0,0,0.05) !important; /* for incompatible Browsers  */
+    background-color: var(--table-stripe-color) !important;
+}
+
 .col-md-9 img {
     max-width: 100%;
     display: inline-block;
     padding: 4px;
     line-height: 1.428571429;
-    background-color: #fff;
     /* border: 1px solid #ddd; */
     border-radius: 4px;
     /* margin: 20px auto 30px auto; */
+}
+
+.toc {
+    background-color: #f6f6f6 !important; /* for incompatible Browsers  */
+    background-color: var(--toc-bg-color) !important;
+}
+
+.main-area {
+    background: white; /* for incompatible Browsers  */
+    background: var(--main-area-bg-color) !important;
+    padding:20px; 
+    border-radius:8px; 
+    margin-top:5px;
 }
 
 /*
@@ -54,13 +132,15 @@ ul.nav .main {
 }
 
 h1 {
-    color: #444;
+    color: #444; /* for incompatible Browsers  */
+    color: var(--h-color);
     font-weight: 400;
     font-size: 42px;
 }
 
 h2, h3, h4, h5, h6 {
-    color: #444;
+    color: #444; /* for incompatible Browsers  */
+    color: var(--h-color);
     font-weight: 300;
 }
 
@@ -215,6 +295,9 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
     display:inline-block;
 }
 
+.card {
+    border: 1px solid var(--card-border-color);
+}
 
 
 .admonition {
@@ -248,7 +331,8 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
 
 .admonition.note { /* csslint allow: adjoining-classes */
     color: #000000;
-    background-color: #ffffdd;
+    background-color: #ffffdd; /* for incompatible Browsers  */
+    background-color: var(--note-bg-color);
     border: 1px dashed #ffcc44;
     padding: .5em;
 }
@@ -260,8 +344,9 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
 }
 
 .admonition.conference { /* csslint allow: adjoining-classes */
-    color: #000000;
-    background-color: rgb(171,221,139);
+    color: var(--note-conference-color);
+    background-color: rgb(171,221,139); /* for incompatible Browsers  */
+    background-color: var(--note-conference-bg-color);
     border-color: #338033;
 }
 
@@ -337,4 +422,51 @@ h1:hover .headerlink, h2:hover .headerlink, h3:hover .headerlink, h4:hover .head
     -webkit-border-radius: 6px 0 6px 6px;
     -moz-border-radius: 6px 0 6px 6px;
     border-radius: 6px 0 6px 6px;
+}
+
+
+
+
+
+/* --- DARK MODE ---*/
+/* @media (prefers-color-scheme:dark){
+    body {
+    background:rgb(30,30,30);
+    color:rgb(240,240,240);
+    }
+
+    .toc {
+        
+        /* background-color: rgb(37,37,38) !important; 
+        background-color: rgb(30,30,30) !important;
+    }
+
+    .main-area {
+        background-color: rgb(48,49,52) !important;
+    }
+
+
+    
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #ccc;
+    }
+
+    .hljs {
+        background: #000;
+    }
+
+    .modal-content {
+        border: 2px solid #338033;
+    }
+
+    .modal-body {
+        color: #000
+    }
+
+
+} */
+
+table.gstl_50.gssb_c {
+    color: #495057 !important;
 }

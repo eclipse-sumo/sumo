@@ -69,9 +69,32 @@
       {%- endblock %}
 
       {%- block extrahead %} {% endblock %}
+
+      <script>
+        // DARK MODE
+        function detectColorScheme(){
+          var theme="light";
+
+          if(localStorage.getItem("sumo-docs-theme")){
+              if(localStorage.getItem("sumo-docs-theme") == "dark"){
+                  var theme = "dark";
+              }
+          } else if(!window.matchMedia) {
+              return false;
+          } else if(window.matchMedia("(prefers-color-scheme: dark)").matches) {
+              var theme = "dark";
+          }
+
+          if (theme=="dark") {
+              document.documentElement.setAttribute("data-theme", "dark");
+          }
+        }
+        detectColorScheme();
+      </script>
+
     </head>
 
-    <body{% if page and page.is_homepage %} class="homepage"{% endif %} style="background:#f6f6f6;">
+    <body{% if page and page.is_homepage %} class="homepage"{% endif %}>
 
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary text-center">
             <div class="container-fluid">
@@ -163,6 +186,9 @@
                           <div class="dropdown-menu dropdown-menu-right">
                             <a class="dropdown-item" href="{{ 'Editing_Articles.html'|url }}">Help on editing articles</a>
                             <a class="dropdown-item no-arrow-link" href="https://sumo.dlr.de/sumo_documentation.zip">Download the Documentation</a>
+                            <span class="dropdown-item" id="dark-mode-div">Dark mode <label id="theme-switch" class="theme-switch" for="checkbox_theme">
+                              <input type="checkbox" id="checkbox_theme">
+                          </label></span>
                           </div>
                         </li>
                     </ul>
@@ -177,7 +203,7 @@
                         <div class="text-center"><a href="{{ 'index.html'|url }}" style="display: inline-block; margin-top: 5px;"><img src="{{'images/sumo-logo.png'|url}}" class="sumoLogo" alt="SUMO Logo" width="120px"></a></div>
                       {% if not page.is_homepage %}{% include "toc.html" %}{% endif %}
                       {% if page.is_homepage %}{% include "note.html" %}{% endif %}</div>
-                    <div class="col-md-9" role="main" style="background:white; padding:20px; border-radius:8px; margin-top:5px;">
+                    <div class="col-md-9 main-area" role="main">
                         
                             {% if page and not page.is_homepage %}
                             <hTitles>{{page.title}}<hr style="border: 0.5px solid #338033; margin-top: 5px !important;"></hTitles>
@@ -239,6 +265,29 @@
 
         {% if 'search' in config['plugins'] %}{%- include "search-modal.html" %}{% endif %}
         {%- include "keyboard-modal.html" %}
+
+        <script>
+        const toggleSwitch = document.querySelector('#theme-switch input[type="checkbox"]');
+
+        function switchTheme(e) {
+            if (e.target.checked) {
+                localStorage.setItem('sumo-docs-theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                toggleSwitch.checked = true;
+            } else {
+                localStorage.setItem('sumo-docs-theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                toggleSwitch.checked = false;
+            }    
+        }
+
+        toggleSwitch.addEventListener('change', switchTheme, false);
+
+        if (document.documentElement.getAttribute("data-theme") == "dark"){
+            toggleSwitch.checked = true;
+        }
+        </script>
+
     </body>
 </html>
 {% if page and page.is_homepage %}

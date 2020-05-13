@@ -45,6 +45,7 @@ permalink: /ChangeLog/
   - [randomTrips.py](Tools/Trip.md) now generates repeatable results by default (by using a fixed default seed). To obtain the prior random behavior without specifying a seed, the option **--random** can be used (just like for [SUMO](SUMO.md)). Issue #6989
 
 - Documentation
+  - Dark Mode added (not available on Internet Explorer)
   - Added documentation on [length-geometry-mismatch](Simulation/Distances.md)
 
 ## Version 1.6.0 (28.04.2020)
