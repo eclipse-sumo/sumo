@@ -413,13 +413,13 @@ GNERouteFrame::PathCreator::updateEdgeColors() {
                 for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
                     edge.second->setConflictedCandidate(true);
                 }
-                // call recursively setSpecialCandidates(...)
+                // set special candidates (Edges that are connected but aren't compatibles with current vClass
                 setSpecialCandidates(mySelectedElements.back());
                 // mark again all edges as conflicted (to mark possible candidates)
                 for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
                     edge.second->setConflictedCandidate(true);
                 }
-                // call recursively setSpecialCandidates(...)
+                // set possible candidates (Edges that are connected AND are compatibles with current vClass
                 setPossibleCandidates(mySelectedElements.back(), vClass);
             }
             // now mark selected eges
@@ -605,7 +605,7 @@ GNERouteFrame::PathCreator::recalculatePath() {
 
 void
 GNERouteFrame::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
-    // first calculate reachability for pedestrians
+    // first calculate reachability for pedestrians (we use it, because pedestran can walk in almost all edges)
     calculateReachability(originEdge, SVC_PEDESTRIAN);
     // change flags
     for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
@@ -663,7 +663,8 @@ GNERouteFrame::PathCreator::calculateReachability(GNEEdge* originEdge, const SUM
         traveltime += edge->getNBEdge()->getLength() / MIN2(edge->getNBEdge()->getSpeed(), defaultMaxSpeed);
         std::vector<GNEEdge*> sucessors;
         for (const auto& sucessorEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
-            if (edge->getNBEdge()->isConnectedTo(sucessorEdge->getNBEdge(), true) && pathCalculator->consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
+            // check if edge is connected and 
+            if (pathCalculator->consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
                 sucessors.push_back(sucessorEdge);
             }
         }
