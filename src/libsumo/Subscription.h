@@ -69,6 +69,7 @@ public:
     * @param[in] commandIdArg The command id of the subscription
     * @param[in] idArg The id of the object that is subscribed
     * @param[in] variablesArg The subscribed variables
+    * @param[in] paramsArg The parameters for the subscribed variables
     * @param[in] beginTimeArg The begin time of the subscription
     * @param[in] endTimeArg The end time of the subscription
     * @param[in] contextDomainArg The domain ID of the context
