@@ -110,3 +110,6 @@ ticket6497
 
 # rail turn-arounds should always have linkdir 't'
 ticket6924
+
+# split edge within joined tls
+ticket7016

@@ -1,0 +1,6 @@
+<edges>
+    <edge id="845531522">
+        <split lanes="1" pos="20" idBefore="845531522.before"/>
+        <split pos="-20" idBefore="845531522" idAfter="845531522.after"/>
+    </edge>
+</edges>
