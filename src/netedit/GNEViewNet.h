@@ -214,6 +214,9 @@ public:
     /// @brief add/remove/restrict lane
     long onCmdLaneOperation(FXObject*, FXSelector sel, void*);
 
+    /// @brief show lane reachability
+    long onCmdLaneReachability(FXObject*, FXSelector sel, void*);
+
     /// @brief open additional dialog
     long onCmdOpenAdditionalDialog(FXObject*, FXSelector, void*);
 

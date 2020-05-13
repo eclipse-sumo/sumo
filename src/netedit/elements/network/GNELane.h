@@ -282,6 +282,12 @@ private:
     /// @brief set color according to edit mode and visualisation settings
     RGBColor setLaneColor(const GUIVisualizationSettings& s) const;
 
+    /// @brief build edge operations contextual menu
+    void buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret);
+
+    /// @brief build lane operations contextual menu
+    void buildLaneOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* ret);
+
     /// @brief Invalidated copy constructor.
     GNELane(const GNELane&) = delete;
 

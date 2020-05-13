@@ -1146,7 +1146,7 @@ GNENetHelper::PathCalculator::calculateReachability(const SUMOVehicleClass vClas
     std::vector<GNEEdge*> check;
     // add first edge
     check.push_back(originEdge);
-    // continue while there is edges to hceck
+    // continue while there is edges to check
     while (check.size() > 0) {
         GNEEdge* edge = check.front();
         check.erase(check.begin());
@@ -1161,16 +1161,15 @@ GNENetHelper::PathCalculator::calculateReachability(const SUMOVehicleClass vClas
         std::vector<GNEEdge*> sucessors;
         // get sucessor edges
         for (const auto& sucessorEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
-            // check if edge is connected and 
+            // check if edge is connected with sucessor edge
             if (consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
                 sucessors.push_back(sucessorEdge);
             }
         }
         // add sucessors to check vector
         for (const auto& nextEdge : sucessors) {
-            if (reachableEdges.count(nextEdge) == 0 ||
-                // revisit edge via faster path
-                reachableEdges[nextEdge] > traveltime) {
+            // revisit edge via faster path
+            if ((reachableEdges.count(nextEdge) == 0) || (reachableEdges[nextEdge] > traveltime)) {
                 reachableEdges[nextEdge] = traveltime;
                 check.push_back(nextEdge);
             }

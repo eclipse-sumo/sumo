@@ -160,6 +160,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BIKE,                        GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_BUS,                         GNEViewNet::onCmdLaneOperation),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_LANE_REMOVE_GREENVERGE,                  GNEViewNet::onCmdLaneOperation),
+    FXMAPFUNC(SEL_COMMAND, MID_REACHABILITY,                                GNEViewNet::onCmdLaneReachability),
     // Additionals
     FXMAPFUNC(SEL_COMMAND, MID_OPEN_ADDITIONAL_DIALOG,                      GNEViewNet::onCmdOpenAdditionalDialog),
     // Polygons
@@ -1833,6 +1834,31 @@ GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
             return 0;
             break;
     }
+}
+
+
+long 
+GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector sel, void*) {
+    GNELane* lane = getLaneAtPopupPosition();
+    if (lane != nullptr) {
+        // obtain vClass
+        const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
+        // calculate reachability
+        myNet->getPathCalculator()->calculateReachability(vClass, lane->getParentEdge());
+        // select all lanes with reachablility greather than 0
+        myUndoList->p_begin("select lane reachability");
+        for (const auto &edge : myNet->getAttributeCarriers()->getEdges()) {
+            for (const auto& lane : edge.second->getLanes()) {
+                if (lane->getReachability() > 0) {
+                    lane->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
+                }
+            }
+        }
+        myUndoList->p_end();
+    }
+    // update viewNet
+    updateViewNet();
+    return 1;
 }
 
 
