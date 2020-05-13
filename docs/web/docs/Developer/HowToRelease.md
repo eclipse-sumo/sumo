@@ -141,7 +141,8 @@ If everything is fine:
 - inform the users about the new release
   - post information about the release to sumo-user@eclipse.org and
     sumo-announce@eclipse.org
-  - tweet and post on facebook
+  - submit news about the release on the Eclipse Newsroom <https://newsroom.eclipse.org/node/add/news>
+  - tweet about it, post on Facebook and Instagram stories
   - trigger update of main website at <https://sumo.dlr.de>
 - close [the milestone](https://github.com/eclipse/sumo/milestones)
   (retargeting open tickets needs to be done manually for now)
