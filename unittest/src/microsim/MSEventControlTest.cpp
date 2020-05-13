@@ -31,7 +31,6 @@ TEST(MSEventControl, test_method_execute) {
 
     MSEventControl eventControl;
     CommandMock* mock = new CommandMock();
-    eventControl.setCurrentTimeStep(4);
     eventControl.addEvent(mock);
 
     EXPECT_FALSE(mock->isExecuteCalled());

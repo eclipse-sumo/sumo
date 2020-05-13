@@ -33,8 +33,8 @@
 // ===========================================================================
 // member definitions
 // ===========================================================================
-MSEventControl::MSEventControl()
-    : currentTimeStep(-1), myEvents() {}
+MSEventControl::MSEventControl() :
+    myEvents() {}
 
 
 MSEventControl::~MSEventControl() {
@@ -95,18 +95,6 @@ MSEventControl::isEmpty() {
     return myEvents.empty();
 }
 
-void
-MSEventControl::setCurrentTimeStep(SUMOTime time) {
-    currentTimeStep = time;
-}
-
-SUMOTime
-MSEventControl::getCurrentTimeStep() {
-    if (currentTimeStep < 0) {
-        return MSNet::getInstance()->getCurrentTimeStep();
-    }
-    return currentTimeStep;
-}
 
 
 /****************************************************************************/
