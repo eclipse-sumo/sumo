@@ -204,9 +204,6 @@ public:
         /// @brief set edgereachability (This function will be called recursively)
         void setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass);
 
-        /// @brief calculate Reachability
-        void calculateReachability(GNEEdge* originEdge, const SUMOVehicleClass vClass);
-
         /// @brief pointer to Vehicle Frame Parent
         GNERouteFrame* myRouteFrameParent;
 

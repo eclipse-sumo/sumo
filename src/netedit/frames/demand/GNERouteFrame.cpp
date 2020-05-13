@@ -606,7 +606,7 @@ GNERouteFrame::PathCreator::recalculatePath() {
 void
 GNERouteFrame::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
     // first calculate reachability for pedestrians (we use it, because pedestran can walk in almost all edges)
-    calculateReachability(originEdge, SVC_PEDESTRIAN);
+    myRouteFrameParent->getViewNet()->getNet()->getPathCalculator()->calculateReachability(SVC_PEDESTRIAN, originEdge);
     // change flags
     for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -621,59 +621,13 @@ GNERouteFrame::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
 void
 GNERouteFrame::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
     // first calculate reachability for pedestrians
-    calculateReachability(originEdge, vClass);
+    myRouteFrameParent->getViewNet()->getNet()->getPathCalculator()->calculateReachability(vClass, originEdge);
     // change flags
     for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
             if (lane->getReachability() > 0) {
                 lane->getParentEdge()->resetCandidateFlags();
                 lane->getParentEdge()->setPossibleCandidate (true);
-            }
-        }
-    }
-}
-
-
-void 
-GNERouteFrame::PathCreator::calculateReachability(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
-    // get pointer to path calculator
-    const GNENetHelper::PathCalculator* pathCalculator = myRouteFrameParent->getViewNet()->getNet()->getPathCalculator();
-    // first reset reachability of all lanes
-    for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto& lane : edge.second->getLanes()) {
-            lane->resetReachability();
-        }
-    }
-    // get max speed
-    const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(vClass).maxSpeed;
-    // find reachable
-    std::map<GNEEdge*, double> reachableEdges;
-    reachableEdges[originEdge] = 0;
-    std::vector<GNEEdge*> check;
-    check.push_back(originEdge);
-    while (check.size() > 0) {
-        GNEEdge* edge = check.front();
-        check.erase(check.begin());
-        double traveltime = reachableEdges[edge];
-        for (const auto& lane : edge->getLanes()) {
-            if ((edge->getNBEdge()->getLaneStruct(lane->getIndex()).permissions & vClass) == vClass) {
-                lane->setReachability(traveltime);
-            }
-        }
-        traveltime += edge->getNBEdge()->getLength() / MIN2(edge->getNBEdge()->getSpeed(), defaultMaxSpeed);
-        std::vector<GNEEdge*> sucessors;
-        for (const auto& sucessorEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
-            // check if edge is connected and 
-            if (pathCalculator->consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
-                sucessors.push_back(sucessorEdge);
-            }
-        }
-        for (const auto& nextEdge : sucessors) {
-            if (reachableEdges.count(nextEdge) == 0 ||
-                // revisit edge via faster path
-                reachableEdges[nextEdge] > traveltime) {
-                reachableEdges[nextEdge] = traveltime;
-                check.push_back(nextEdge);
             }
         }
     }

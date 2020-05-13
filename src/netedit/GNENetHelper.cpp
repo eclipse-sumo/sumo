@@ -1127,6 +1127,57 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
     }
 }
 
+
+void
+GNENetHelper::PathCalculator::calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge) {
+    // first reset reachability of all lanes
+    for (const auto& edge : originEdge->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto& lane : edge.second->getLanes()) {
+            lane->resetReachability();
+        }
+    }
+    // get max speed
+    const double defaultMaxSpeed = SUMOVTypeParameter::VClassDefaultValues(vClass).maxSpeed;
+    // declare map for reachable edges
+    std::map<GNEEdge*, double> reachableEdges;
+    // init first edge
+    reachableEdges[originEdge] = 0;
+    // declare a vector for checked edges
+    std::vector<GNEEdge*> check;
+    // add first edge
+    check.push_back(originEdge);
+    // continue while there is edges to hceck
+    while (check.size() > 0) {
+        GNEEdge* edge = check.front();
+        check.erase(check.begin());
+        double traveltime = reachableEdges[edge];
+        for (const auto& lane : edge->getLanes()) {
+            if ((edge->getNBEdge()->getLaneStruct(lane->getIndex()).permissions & vClass) == vClass) {
+                lane->setReachability(traveltime);
+            }
+        }
+        // update traveltime
+        traveltime += edge->getNBEdge()->getLength() / MIN2(edge->getNBEdge()->getSpeed(), defaultMaxSpeed);
+        std::vector<GNEEdge*> sucessors;
+        // get sucessor edges
+        for (const auto& sucessorEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
+            // check if edge is connected and 
+            if (consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
+                sucessors.push_back(sucessorEdge);
+            }
+        }
+        // add sucessors to check vector
+        for (const auto& nextEdge : sucessors) {
+            if (reachableEdges.count(nextEdge) == 0 ||
+                // revisit edge via faster path
+                reachableEdges[nextEdge] > traveltime) {
+                reachableEdges[nextEdge] = traveltime;
+                check.push_back(nextEdge);
+            }
+        }
+    }
+}
+
 // ---------------------------------------------------------------------------
 // GNENetHelper::GNEChange_ReplaceEdgeInTLS - methods
 // ---------------------------------------------------------------------------

@@ -419,6 +419,9 @@ struct GNENetHelper {
         /// @brief check if exist a path between the two given consecutives edges for the given VClass
         bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 
+        /// @brief calculate Reachability
+        void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
+
     private:
         /// @brief pointer to net
         const GNENet* myNet;
