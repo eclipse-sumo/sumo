@@ -1791,7 +1791,14 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
                 road->setPermissions(road->getPermissions(laneIndex) | SVC_TRAM, laneIndex);
                 for (NBEdge* in : incoming) {
                     if (in->getPermissions() == SVC_TRAM && !in->isConnectedTo(road)) {
-                        in->reinitNodes(in->getFromNode(), road->getFromNode());
+                        if (in->getFromNode() != road->getFromNode()) {
+                            in->reinitNodes(in->getFromNode(), road->getFromNode());
+                        } else {
+                            extract(dc, in);
+#ifdef DEBUG_JOIN_TRAM
+                            std::cout << "    erased incoming tramEdge=" << in->getID() << "\n";
+#endif
+                        }
                     }
                 }
                 incoming.clear();
@@ -1800,7 +1807,15 @@ NBEdgeCont::joinTramEdges(NBDistrictCont& dc, NBPTLineCont& lc, double maxDist) 
             if (erasedLast) {
                 for (NBEdge* out : tramEdge->getToNode()->getOutgoingEdges()) {
                     if (out->getPermissions() == SVC_TRAM && !lastRoad->isConnectedTo(out)) {
-                        out->reinitNodes(lastRoad->getToNode(), out->getToNode());
+                        if (lastRoad->getToNode() != out->getToNode()) {
+                            out->reinitNodes(lastRoad->getToNode(), out->getToNode());
+                        } else {
+                            extract(dc, out);
+#ifdef DEBUG_JOIN_TRAM
+                            std::cout << "    erased outgoing tramEdge=" << out->getID() << "\n";
+#endif
+
+                        }
                     }
                 }
             } else {
