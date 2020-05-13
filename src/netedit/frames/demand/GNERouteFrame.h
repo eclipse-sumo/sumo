@@ -199,10 +199,10 @@ public:
 
     private:
         /// @brief set special candidates (This function will be called recursively)
-        void setSpecialCandidates(GNEEdge* edge);
+        void setSpecialCandidates(GNEEdge* originEdge);
 
         /// @brief set edgereachability (This function will be called recursively)
-        void setPossibleCandidates(GNEEdge* edge, const SUMOVehicleClass vClass);
+        void setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass);
 
         /// @brief calculate Reachability
         void calculateReachability(GNEEdge* originEdge, const SUMOVehicleClass vClass);
@@ -254,6 +254,15 @@ public:
         /// @brief hide information modul
         void hideInformationModul();
 
+        /// @brief show control and shift label
+        void showControlAndShiftLabels(const bool value);
+
+    private:
+        /// @brief label for shift information
+        FXLabel* myShiftLabel;
+
+        /// @brief label for control information
+        FXLabel* myControlLabel;
     };
 
     // ===========================================================================

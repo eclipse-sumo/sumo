@@ -328,32 +328,25 @@ GNERouteFrame::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, c
         }
     }
     // check candidate edge
-    if (!edge->isPossibleCandidate()) {
-        if (!edge->isSpecialCandidate() && !shiftKeyPressed) {
-            // Write warning
-            WRITE_WARNING("Invalid edge (SHIFT + click to add an invalid vClass edge)");
-            // abort add edge
-            return false;
-        } else if (!edge->isConflictedCandidate() && !controlKeyPressed) {
-            // Write warning
-            WRITE_WARNING("Invalid edge (CTRL + click to add an invalid disjoint edge)");
-            // abort add edge
-            return false;
+    if ((myShowCandidateEdges->getCheck() == TRUE) && !edge->isPossibleCandidate()) {
+        if (edge->isSpecialCandidate()) {
+            if (!shiftKeyPressed) {
+                // Write warning
+                WRITE_WARNING("Invalid edge (SHIFT + click to add an invalid vClass edge)");
+                // abort add edge
+                return false;
+            }
+        } else if (edge->isConflictedCandidate()) {
+            if (!controlKeyPressed) {
+                // Write warning
+                WRITE_WARNING("Invalid edge (CONTROL + click to add a disconnected edge)");
+                // abort add edge
+                return false;
+            }
         }
-    }
-    // change last edge flag
-    if (mySelectedElements.size() > 0 && mySelectedElements.back()->isTargetCandidate()) {
-        mySelectedElements.back()->setTargetCandidate(false);
-        mySelectedElements.back()->setSourceCandidate(true);
     }
     // All checks ok, then add it in selected elements
     mySelectedElements.push_back(edge);
-    // set selected color (check)
-    if ((mySelectedElements.size() == 1) || edge->isPossibleCandidate()) {
-        edge->setTargetCandidate(true);
-    } else {
-        edge->setConflictedCandidate(true);
-    }
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -414,18 +407,21 @@ GNERouteFrame::PathCreator::updateEdgeColors() {
         const SUMOVehicleClass vClass = myRouteFrameParent->myRouteModeSelector->getCurrentVehicleClass();
         // set reachability
         if (mySelectedElements.size() > 0) {
-            // mark all edges as conflicted (to mark special candidates) 
-            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second->setConflictedCandidate(true);
+            // only coloring edges if checkbox "show candidate edges" is enabled
+            if (myShowCandidateEdges->getCheck() == TRUE) {
+                // mark all edges as conflicted (to mark special candidates) 
+                for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                    edge.second->setConflictedCandidate(true);
+                }
+                // call recursively setSpecialCandidates(...)
+                setSpecialCandidates(mySelectedElements.back());
+                // mark again all edges as conflicted (to mark possible candidates)
+                for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                    edge.second->setConflictedCandidate(true);
+                }
+                // call recursively setSpecialCandidates(...)
+                setPossibleCandidates(mySelectedElements.back(), vClass);
             }
-            // call recursively setSpecialCandidates(...)
-            setSpecialCandidates(mySelectedElements.back());
-            // mark again all edges as conflicted (to mark possible candidates)
-            for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second->setConflictedCandidate(true);
-            }
-            // call recursively setSpecialCandidates(...)
-            setPossibleCandidates(mySelectedElements.back(), vClass);
             // now mark selected eges
             for (const auto& edge : mySelectedElements) {
                 edge->resetCandidateFlags();
@@ -434,7 +430,7 @@ GNERouteFrame::PathCreator::updateEdgeColors() {
             // finally mark last selected element as target
             mySelectedElements.back()->resetCandidateFlags();
             mySelectedElements.back()->setTargetCandidate(true);
-        } else {
+        } else if (myShowCandidateEdges->getCheck() == TRUE) {
             // mark all edges that have at least one lane that allow given vClass
             for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
                 if (edge.second->getNBEdge()->getNumLanesThatAllow(vClass) > 0) {
@@ -552,8 +548,10 @@ GNERouteFrame::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*)
 
 long 
 GNERouteFrame::PathCreator::onCmdShowCandidateEdges(FXObject*, FXSelector, void*) {
-    // just update view
-    myRouteFrameParent->myViewNet->updateViewNet();
+    // update information and legend moduls
+    myRouteFrameParent->myInformation->showControlAndShiftLabels(myShowCandidateEdges->getCheck() == TRUE);
+    // update edge colors (view will be updated within function)
+    updateEdgeColors();
     return 1;
 }
 
@@ -606,9 +604,9 @@ GNERouteFrame::PathCreator::recalculatePath() {
 
 
 void
-GNERouteFrame::PathCreator::setSpecialCandidates(GNEEdge* edge) {
+GNERouteFrame::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
     // first calculate reachability for pedestrians
-    calculateReachability(edge, SVC_PEDESTRIAN);
+    calculateReachability(originEdge, SVC_PEDESTRIAN);
     // change flags
     for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -621,9 +619,9 @@ GNERouteFrame::PathCreator::setSpecialCandidates(GNEEdge* edge) {
 }
 
 void
-GNERouteFrame::PathCreator::setPossibleCandidates(GNEEdge* edge, const SUMOVehicleClass vClass) {
+GNERouteFrame::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass) {
     // first calculate reachability for pedestrians
-    calculateReachability(edge, vClass);
+    calculateReachability(originEdge, vClass);
     // change flags
     for (const auto& edge : myRouteFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
@@ -686,13 +684,15 @@ GNERouteFrame::PathCreator::calculateReachability(GNEEdge* originEdge, const SUM
 
 GNERouteFrame::Information::Information(GNERouteFrame* routeFrameParent) :
     FXGroupBox(routeFrameParent->myContentFrame, "Information", GUIDesignGroupBoxFrame) {
-    // create keys Hint
-    new FXLabel(this,
+    // create shift label
+    myShiftLabel = new FXLabel(this,
         "- Hold SHIFT while clicking\n  to add an invalid vclass edge.",
         0, GUIDesignLabelFrameInformation);
-    new FXLabel(this,
-        "- Hold CONTROL while clicking\n  to add an disjoint edge.",
+    // create control label
+    myControlLabel = new FXLabel(this,
+        "- Hold CONTROL while clicking\n  to add a disconnected edge.",
         0, GUIDesignLabelFrameInformation);
+    // create backspace label (always shown)
     new FXLabel(this,
         "- Press BACKSPACE to remove\n  last inserted edge.",
         0, GUIDesignLabelFrameInformation);
@@ -712,6 +712,20 @@ GNERouteFrame::Information::hideInformationModul() {
     hide();
 }
 
+
+void 
+GNERouteFrame::Information::showControlAndShiftLabels(const bool value) {
+    if (value == true) {
+        myShiftLabel->show();
+        myControlLabel->show();
+    } else {
+        myShiftLabel->hide();
+        myControlLabel->hide();
+    }
+    // recalc frame
+    recalc();
+}
+
 // ---------------------------------------------------------------------------
 // GNERouteFrame::Legend - methods
 // ---------------------------------------------------------------------------
@@ -729,7 +743,7 @@ GNERouteFrame::Legend::Legend(GNERouteFrame* routeFrameParent) :
     legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
     legendLabel = new FXLabel(this, " edge conflic (vClass)", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
-    legendLabel = new FXLabel(this, " edge conflict (disjointed)", 0, GUIDesignLabelLeft);
+    legendLabel = new FXLabel(this, " edge disconnected", 0, GUIDesignLabelLeft);
     legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
 }
 
@@ -763,7 +777,7 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     // create consecutive edges modul
     myPathCreator = new PathCreator(this, PathCreator::Mode::NOCONSECUTIVE);
 
-    // create information modul
+    // create information modul (by default show control and shift keys information)
     myInformation = new Information(this);
 
     // create legend label
@@ -860,7 +874,7 @@ GNERouteFrame::drawTemporalRoute(const GUIVisualizationSettings* s) const {
             // draw line over 
             for (int j = 0; j < path.subPath.size(); j++) {
                 const GNELane* lane = path.subPath.at(j)->getLanes().back();
-                if (j > 0) {
+                if (((i == 0) && (j == 0)) || (j > 0)) {
                     GLHelper::drawBoxLines(lane->getLaneShape(), 0.3);
                 }
                 // draw connection between lanes
