@@ -4,6 +4,9 @@ params
 # test getParameterWithKey().
 paramsWithKey
 
+# test subscribeParameterWithKey().
+paramsWithKey_subscription
+
 # Test for the StepListener functions
 steplistener
 
