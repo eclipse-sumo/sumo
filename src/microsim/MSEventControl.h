@@ -94,7 +94,8 @@ public:
      */
     bool isEmpty();
 
-
+    /** @brief Remove all events before quick-loading state */
+    void clearState(SUMOTime currentTime, SUMOTime newTime);
 
 protected:
     /** @brief Sort-criterion for events.

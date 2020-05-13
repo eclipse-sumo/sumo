@@ -96,5 +96,22 @@ MSEventControl::isEmpty() {
 }
 
 
+void
+MSEventControl::clearState(SUMOTime currentTime, SUMOTime newTime) {
+    std::vector<Event> keep;
+    while (!myEvents.empty()) {
+        Event currEvent = myEvents.top();
+        myEvents.pop();
+        SUMOTime newExecTime = currEvent.first->shiftTime(currentTime, currEvent.second, newTime);
+        if (newExecTime >= 0) {
+            keep.push_back(std::make_pair(currEvent.first, newExecTime));
+        } else {
+            delete currEvent.first;
+        }
+    }
+    for (Event e : keep) {
+        myEvents.push(e);
+    }
+}
 
 /****************************************************************************/

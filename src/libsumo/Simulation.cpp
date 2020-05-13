@@ -701,7 +701,7 @@ Simulation::loadState(const std::string& fileName) {
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         throw TraCIException("Loading state from '" + fileName + "' failed.");
     }
-    MSNet::getInstance()->setCurrentTimeStep(h.getTime());
+    MSNet::getInstance()->clearState(h.getTime());
     PROGRESS_TIME_MESSAGE(before);
     return STEPS2TIME(h.getTime());
 }

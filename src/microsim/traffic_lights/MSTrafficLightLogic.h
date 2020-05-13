@@ -385,6 +385,18 @@ protected:
             return myAssumedNextSwitch;
         }
 
+        /** @brief Reschedule or deschedule the command when quick-loading state
+         *
+         * The implementations should return -1 if the command shall not be re-scheduled,
+         *  or a value >= 0 that describe the new time at which the command
+         *  shall be executed again.
+         *
+         * @param[in] currentTime The current simulation time
+         * @param[in] execTime The time at which the command would have been executed
+         * @param[in] newTime The simulation time at which the simulation is restarted
+         * @return The time at which the command shall be executed again
+         */
+        SUMOTime shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime);
 
     private:
         /// @brief The responsible traffic lights control

@@ -90,6 +90,18 @@ MSTrafficLightLogic::SwitchCommand::deschedule(MSTrafficLightLogic* tlLogic) {
     }
 }
 
+SUMOTime
+MSTrafficLightLogic::SwitchCommand::shiftTime(SUMOTime currentTime, SUMOTime execTime, SUMOTime newTime) {
+    if (myTLLogic->getDefaultCycleTime() == DELTA_T) {
+        // MSRailSignal
+        return newTime;
+    } else {
+        UNUSED_PARAMETER(currentTime);
+        UNUSED_PARAMETER(execTime);
+        // XXX changeStepAndDuration (computed as in NLJunctionControlBuilder::closeTrafficLightLogic
+        return newTime;
+    }
+}
 
 /* -------------------------------------------------------------------------
  * member method definitions

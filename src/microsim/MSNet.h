@@ -300,6 +300,11 @@ public:
     }
 
 
+    /** @brief Resets events when quick-loading state
+     * @param step The new simulation step
+     */
+    void clearState(const SUMOTime step);
+
     /** @brief Write netstate, summary and detector output
      * @todo Which exceptions may occur?
      */
