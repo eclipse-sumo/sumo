@@ -636,15 +636,15 @@ GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
     return std::vector<std::string>(keys.begin(), keys.end());
 }
 
+
 std::vector<std::string>
 GNEViewNet::getEdgeDataAttrs() const {
     std::set<std::string> keys;
-    for (auto idEdge : myNet->getAttributeCarriers()->getEdges()) {
-        GNEEdge* edge = idEdge.second;
-        GNEGenericData* data = edge->getCurrentGenericDataElement();
-        if (data != nullptr) {
-            for (auto keyVal : data->getParametersMap()) {
-                keys.insert(keyVal.first);
+    for (const auto &edge : myNet->getAttributeCarriers()->getEdges()) {
+        GNEGenericData* genericData = edge.second->getCurrentGenericDataElement();
+        if (genericData != nullptr) {
+            for (const auto &parameter : genericData->getParametersMap()) {
+                keys.insert(parameter.first);
             }
         }
     }
@@ -1840,13 +1840,13 @@ GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
 
 
 long 
-GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector sel, void*) {
-    GNELane* lane = getLaneAtPopupPosition();
-    if (lane != nullptr) {
+GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
+    GNELane* clickedLane = getLaneAtPopupPosition();
+    if (clickedLane != nullptr) {
         // obtain vClass
         const SUMOVehicleClass vClass = SumoVehicleClassStrings.get(dynamic_cast<FXMenuCommand*>(menu)->getText().text());
         // calculate reachability
-        myNet->getPathCalculator()->calculateReachability(vClass, lane->getParentEdge());
+        myNet->getPathCalculator()->calculateReachability(vClass, clickedLane->getParentEdge());
         // select all lanes with reachablility greather than 0
         myUndoList->p_begin("select lane reachability");
         for (const auto &edge : myNet->getAttributeCarriers()->getEdges()) {

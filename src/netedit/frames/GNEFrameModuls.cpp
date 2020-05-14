@@ -2305,7 +2305,14 @@ GNEFrameModuls::OverlappedInspection::onCmdOverlappingHelp(FXObject*, FXSelector
 
 
 GNEFrameModuls::OverlappedInspection::OverlappedInspection() :
-    myFilteredTag(SUMO_TAG_NOTHING) {
+    myFrameParent(nullptr),
+    myPreviousElement(nullptr),
+    myCurrentIndexButton(nullptr),
+    myNextElement(nullptr),
+    myOverlappedElementList(nullptr),
+    myHelpButton(nullptr),
+    myFilteredTag(SUMO_TAG_NOTHING),
+    myItemIndex(0) {
 }
 
 
