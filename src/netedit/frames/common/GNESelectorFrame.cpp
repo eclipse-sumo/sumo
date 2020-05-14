@@ -988,9 +988,9 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelecto
     // get generic data tags
     std::vector<SumoXMLTag> listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
     // fill myMatchGenericDataTagComboBox
-    for (const auto& tag : listOfTags) {
-        if (toString(tag) == myMatchGenericDataTagComboBox->getText().text()) {
-            myCurrentTag = tag;
+    for (const auto& genericDataTag : listOfTags) {
+        if (toString(genericDataTag) == myMatchGenericDataTagComboBox->getText().text()) {
+            myCurrentTag = genericDataTag;
         }
     }
     // check that typed-by-user value is correct

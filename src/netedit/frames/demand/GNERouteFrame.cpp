@@ -328,22 +328,22 @@ GNERouteFrame::drawTemporalRoute(const GUIVisualizationSettings* s) const {
             // get path
             const GNEFrameModuls::PathCreator::Path &path = myPathCreator->getPath().at(i);
             // set path color color
-            if (path.conflictDisconnected) {
+            if (path.isConflictDisconnected()) {
                 GLHelper::setColor(s->candidateColorSettings.conflict);
-            } else if (path.conflictVClass) {
+            } else if (path.isConflictVClass()) {
                 GLHelper::setColor(s->candidateColorSettings.special);
             } else {
                 GLHelper::setColor(RGBColor::ORANGE);
             }
             // draw line over 
-            for (int j = 0; j < (int)path.subPath.size(); j++) {
-                const GNELane* lane = path.subPath.at(j)->getLanes().back();
+            for (int j = 0; j < (int)path.getSubPath().size(); j++) {
+                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
                     GLHelper::drawBoxLines(lane->getLaneShape(), 0.3);
                 }
                 // draw connection between lanes
-                if ((j+1) < (int)path.subPath.size()) {
-                    const GNELane* nextLane = path.subPath.at(j+1)->getLanes().back();
+                if ((j+1) < (int)path.getSubPath().size()) {
+                    const GNELane* nextLane = path.getSubPath().at(j+1)->getLanes().back();
                     if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
                         GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), 0.3);
                     } else {
@@ -375,7 +375,7 @@ GNERouteFrame::createPath() {
         // declare a route parameter
         GNERouteHandler::RouteParameter routeParameters;
         for (const auto& path : myPathCreator->getPath()) {
-            for (const auto& edgeID : path.subPath) {
+            for (const auto& edgeID : path.getSubPath()) {
                 // get edge
                 GNEEdge* edge = myViewNet->getNet()->retrieveEdge(edgeID->getID());
                 // avoid double edges

@@ -2340,37 +2340,71 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
 // ---------------------------------------------------------------------------
 
 GNEFrameModuls::PathCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
-    subPath({ edge }),
-    conflictVClass(false),
-    conflictDisconnected(false) {
+    mySubPath({edge}),
+    myFromBusStop(nullptr),
+    myToBusStop(nullptr),
+    myConflictVClass(false),
+    myConflictDisconnected(false) {
     // check if we have to change vClass flag
     if (edge->getNBEdge()->getNumLanesThatAllow(vClass) == 0) {
-        conflictVClass = true;
+        myConflictVClass = true;
     }
 }
 
 
 GNEFrameModuls::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo) :
-    conflictVClass(false),
-    conflictDisconnected(false) {
+    myFromBusStop(nullptr),
+    myToBusStop(nullptr),
+    myConflictVClass(false),
+    myConflictDisconnected(false) {
     // calculate subpath
-    subPath = viewNet->getNet()->getPathCalculator()->calculatePath(vClass, { edgeFrom, edgeTo });
+    mySubPath = viewNet->getNet()->getPathCalculator()->calculatePath(vClass, {edgeFrom, edgeTo});
     // if subPath is empty, try it with pedestrian (i.e. ignoring vCass)
-    if (subPath.empty()) {
-        subPath = viewNet->getNet()->getPathCalculator()->calculatePath(SVC_PEDESTRIAN, { edgeFrom, edgeTo });
-        if (subPath.empty()) {
-            subPath = { edgeFrom, edgeTo };
-            conflictDisconnected = true;
+    if (mySubPath.empty()) {
+        mySubPath = viewNet->getNet()->getPathCalculator()->calculatePath(SVC_PEDESTRIAN, {edgeFrom, edgeTo});
+        if (mySubPath.empty()) {
+            mySubPath = { edgeFrom, edgeTo };
+            myConflictDisconnected = true;
         } else {
-            conflictVClass = true;
+            myConflictVClass = true;
         }
     }
 }
 
 
+const std::vector<GNEEdge*>& 
+GNEFrameModuls::PathCreator::Path::getSubPath() const {
+    return mySubPath;
+}
+
+
+GNEAdditional* GNEFrameModuls::PathCreator::Path::getFromBusStop() const{
+    return myFromBusStop;
+}
+
+
+GNEAdditional* GNEFrameModuls::PathCreator::Path::getToBusStop() const {
+    return myToBusStop;
+}
+
+
+const bool 
+GNEFrameModuls::PathCreator::Path::isConflictVClass() const {
+    return myConflictVClass;
+}
+
+
+const bool 
+GNEFrameModuls::PathCreator::Path::isConflictDisconnected() const {
+    return myConflictDisconnected;
+}
+
+
 GNEFrameModuls::PathCreator::Path::Path() :
-    conflictVClass(false),
-    conflictDisconnected(false) {
+    myFromBusStop(nullptr),
+    myToBusStop(nullptr),
+    myConflictVClass(false),
+    myConflictDisconnected(false) {
 }
 
 
@@ -2685,11 +2719,11 @@ GNEFrameModuls::PathCreator::updateInfoRouteLabel() {
         double speed = 0;
         int pathSize = 0;
         for (const auto& path : myPath) {
-            for (const auto& edge : path.subPath) {
+            for (const auto& edge : path.getSubPath()) {
                 length += edge->getNBEdge()->getLength();
                 speed += edge->getNBEdge()->getSpeed();
             }
-            pathSize += (int)path.subPath.size();
+            pathSize += (int)path.getSubPath().size();
         }
         // declare ostringstream for label and fill it
         std::ostringstream information;

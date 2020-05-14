@@ -640,23 +640,46 @@ public:
             NOCONSECUTIVE
         };
 
-        /// @brief struct for path
-        struct Path {
+        /// @brief class for path
+        class Path {
 
+        public:
             /// @brief constructor for single edge
             Path(const SUMOVehicleClass vClass, GNEEdge* edge);
 
             /// @brief constructor for multiple edges
             Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
 
+            /// @brief get sub path
+            const std::vector<GNEEdge*> &getSubPath() const;
+
+            /// @brief get from additional
+            GNEAdditional* getFromBusStop() const;
+
+            /// @brief to additional
+            GNEAdditional* getToBusStop() const;
+
+            /// @brief check if current path is conflict due vClass
+            const bool isConflictVClass() const;
+
+            /// @brief check if current path is conflict due is disconnected
+            const bool isConflictDisconnected() const;
+
+        protected:
             /// @brief sub path
-            std::vector<GNEEdge*> subPath;
+            std::vector<GNEEdge*> mySubPath;
+
+            /// @brief from additional (usually a busStop)
+            GNEAdditional* myFromBusStop;
+
+            /// @brief to additional (usually a busStop)
+            GNEAdditional* myToBusStop;
 
             /// @brief flag to mark this path as conflicted
-            bool conflictVClass;
+            bool myConflictVClass;
 
             /// @brief flag to mark this path as disconnected
-            bool conflictDisconnected;
+            bool myConflictDisconnected;
 
         private:
             /// @brief default constructor
