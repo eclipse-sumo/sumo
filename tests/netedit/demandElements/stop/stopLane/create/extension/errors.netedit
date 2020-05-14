@@ -27,7 +27,14 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'routeFlow' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
-Debug: Selected item 'stopLane' in TagSelectorDebug: Adding stopLane 'routeFlowstopLane0' in GNEChange_DemandElementDebug: Adding stopLane 'routeFlowstopLane1' in GNEChange_DemandElementDebug: Invalid input parameter of stopLane: 'extension' doesn't have a valid SUMOTime formatDebug: Invalid input parameter of stopLane: 'extension' doesn't have a valid SUMOTime formatDebug: Adding stopLane 'routeFlowstopLane2' in GNEChange_DemandElementDebug: Adding stopLane 'routeFlowstopLane3' in GNEChange_DemandElementDebug: Keys Ctrl+Z (Undo) pressed
+Debug: Selected item 'stopLane' in TagSelector
+Debug: Adding stopLane 'routeFlowstopLane0' in GNEChange_DemandElement
+Debug: Adding stopLane 'routeFlowstopLane1' in GNEChange_DemandElement
+Debug: Invalid input parameter of stopLane: 'extension' doesn't have a valid SUMOTime format
+Debug: Invalid input parameter of stopLane: 'extension' doesn't have a valid SUMOTime format
+Debug: Adding stopLane 'routeFlowstopLane2' in GNEChange_DemandElement
+Debug: Adding stopLane 'routeFlowstopLane3' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing stopLane 'routeFlowstopLane3' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -42,7 +49,8 @@ Debug: Removing stopLane 'routeFlowstopLane0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeFlow 'routeFlow' in GNEChange_DemandElement
-Debug: Removing route 'route_0' in GNEChange_DemandElementDebug: Keys Ctrl+Y (Redo) pressed
+Debug: Removing route 'route_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding routeFlow 'routeFlow' in GNEChange_DemandElement
@@ -57,7 +65,8 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding stopLane 'routeFlowstopLane2' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopLane 'routeFlowstopLane3' in GNEChange_DemandElementDebug: demand elements saved
+Debug: Adding stopLane 'routeFlowstopLane3' in GNEChange_DemandElement
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20

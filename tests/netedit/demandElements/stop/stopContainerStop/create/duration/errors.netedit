@@ -29,7 +29,14 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Selected item 'trip' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
-Debug: Selected item 'stopContainerStop' in TagSelectorDebug: Adding stopContainerStop 'tripstopContainerStop0' in GNEChange_DemandElementDebug: Adding stopContainerStop 'tripstopContainerStop1' in GNEChange_DemandElementDebug: Invalid input parameter of stopContainerStop: 'duration' doesn't have a valid 'float' formatDebug: Invalid input parameter of stopContainerStop: 'duration' cannot be negativeDebug: Adding stopContainerStop 'tripstopContainerStop2' in GNEChange_DemandElementDebug: Adding stopContainerStop 'tripstopContainerStop3' in GNEChange_DemandElementDebug: Keys Ctrl+Z (Undo) pressed
+Debug: Selected item 'stopContainerStop' in TagSelector
+Debug: Adding stopContainerStop 'tripstopContainerStop0' in GNEChange_DemandElement
+Debug: Adding stopContainerStop 'tripstopContainerStop1' in GNEChange_DemandElement
+Debug: Invalid input parameter of stopContainerStop: 'duration' doesn't have a valid 'float' format
+Debug: Invalid input parameter of stopContainerStop: 'duration' cannot be negative
+Debug: Adding stopContainerStop 'tripstopContainerStop2' in GNEChange_DemandElement
+Debug: Adding stopContainerStop 'tripstopContainerStop3' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing stopContainerStop 'tripstopContainerStop3' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -43,7 +50,8 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing stopContainerStop 'tripstopContainerStop0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing trip 'trip' in GNEChange_DemandElementDebug: Keys Ctrl+Y (Redo) pressed
+Debug: Removing trip 'trip' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'trip' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
@@ -58,7 +66,8 @@ Debug: Adding stopContainerStop 'tripstopContainerStop2' in GNEChange_DemandElem
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding stopContainerStop 'tripstopContainerStop3' in GNEChange_DemandElement
-Debug: Additionals savedDebug: demand elements saved
+Debug: Additionals saved
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20

@@ -32,10 +32,12 @@ Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopContainerStop' in TagSelector
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing trip 'trip' in GNEChange_DemandElementDebug: Keys Ctrl+Y (Redo) pressed
+Debug: Removing trip 'trip' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'trip' in GNEChange_DemandElement
-Debug: Additionals savedDebug: demand elements saved
+Debug: Additionals saved
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 40.00,-13.20,60.00,13.20

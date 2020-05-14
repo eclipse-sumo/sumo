@@ -56,7 +56,7 @@ output:\\{REPLACE /}
 output:script{LINES 1}
 output:  File{LINES 1}
 output:{INTERNAL writedir}
-guisettingsoutput:<scheme name="testing">{[->]}</scheme>
+guisettingsoutput:<scheme{[->]}</scheme>
 errors:Leaked object at 
 errors:*** 9 leaks found
 errors:delete: freed

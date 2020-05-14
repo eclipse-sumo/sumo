@@ -33,9 +33,10 @@ Debug: Adding routeFlow 'flow_7' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_8' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_9' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_10' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\routeflow\load\departPosLat\input_routes.rou.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\routeflow\load\departPosLat\input_routes.rou.xml failed.
 Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets savedDebug: Keys Ctrl+Z (Undo) pressed
+Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeFlow 'flow_10' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_9' in GNEChange_DemandElement
@@ -48,7 +49,8 @@ Debug: Removing routeFlow 'flow_3' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_2' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_1' in GNEChange_DemandElement
 Debug: Removing routeFlow 'flow_0' in GNEChange_DemandElement
-Debug: Removing route 'route_0' in GNEChange_DemandElementDebug: Keys Ctrl+Y (Redo) pressed
+Debug: Removing route 'route_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_0' in GNEChange_DemandElement
@@ -61,7 +63,8 @@ Debug: Adding routeFlow 'flow_6' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_7' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_8' in GNEChange_DemandElement
 Debug: Adding routeFlow 'flow_9' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_10' in GNEChange_DemandElementDebug: demand elements saved
+Debug: Adding routeFlow 'flow_10' in GNEChange_DemandElement
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00

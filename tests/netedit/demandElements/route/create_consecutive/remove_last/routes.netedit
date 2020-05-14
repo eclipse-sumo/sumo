@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 17.07.2019 08:09:07 by Eclipse SUMO netedit Version v1_2_0+1252-d79f2c5318
+<!-- generated on 13.05.2020 21:03:21 by Eclipse SUMO netedit Version v1_6_0+0225-03ba47aed8
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul080855.9072/netedit.gui/demandElements/route/create_consecutive/remove_last\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul080855.9072/netedit.gui/demandElements/route/create_consecutive/remove_last\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,28 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul080855.9072/netedit.gui/demandElements/route/create_consecutive/remove_last\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul080855.9072/netedit.gui/demandElements/route/create_consecutive/remove_last\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul080855.9072/netedit.gui/demandElements/route/create_consecutive/remove_last\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul080855.9072/netedit.gui/demandElements/route/create_consecutive/remove_last\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\datas.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul080855.9072/netedit.gui/demandElements/route/create_consecutive/remove_last\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\route\create_consecutive\remove_last\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route edges="gneE2 gneE4" color="yellow" id="route_0"/>
+    <route edges="gneE2" color="yellow" id="route_0"/>
 </routes>

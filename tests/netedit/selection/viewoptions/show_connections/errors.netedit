@@ -42,7 +42,8 @@ Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
-Debug: Enabled show connections throught alt + 5Debug: Setting new attribute selected '1' into edge '1'
+Debug: Enabled show connections throught alt + 5
+Debug: Setting new attribute selected '1' into edge '1'
 Debug: Setting new attribute selected '1' into edge '2'
 Debug: Setting new attribute selected '1' into edge '3'
 Debug: Setting new attribute selected '1' into edge '4'
@@ -142,7 +143,8 @@ Debug: Setting new attribute selected 'false' into poi 'POI_2'
 Debug: Setting new attribute selected 'false' into poi 'POI_3'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'false' into poiLane 'POI_5'
-Debug: Disabled show connections throught alt + 5Debug: Setting new attribute selected '1' into edge '1'
+Debug: Disabled show connections throught alt + 5
+Debug: Setting new attribute selected '1' into edge '1'
 Debug: Setting new attribute selected '1' into edge '2'
 Debug: Setting new attribute selected '1' into edge '3'
 Debug: Setting new attribute selected '1' into edge '4'

@@ -25,16 +25,19 @@ Debug: Created connection 'fromgneE5_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE0_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
-Debug: Disabled select edges throught alt + 4Debug: Value 'DummyAllowed' for attribute allow of lane isn't valid
+Debug: Disabled select edges throught alt + 4
+Debug: Value 'DummyAllowed' for attribute allow of lane isn't valid
 Debug: Setting new attribute allow '' into lane 'gneE2_1'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value 'authority  army, passenger; taxi. tram' for attribute allow of lane isn't valid
 Debug: Setting new attribute allow 'authority army vip passenger hov taxi bus coach tram bicycle' into lane 'gneE2_1'
-Debug: Key F5 (Compute) pressedDebug: Keys Ctrl+Z (Undo) pressed
+Debug: Key F5 (Compute) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute allow '' into lane 'gneE2_1'
-Debug: Key F5 (Compute) pressedDebug: Keys Ctrl+Y (Redo) pressed
+Debug: Key F5 (Compute) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute allow 'authority army vip passenger hov taxi bus coach tram bicycle' into lane 'gneE2_1'
 Debug: Additionals saved

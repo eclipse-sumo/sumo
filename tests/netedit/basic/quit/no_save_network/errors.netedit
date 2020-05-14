@@ -23,12 +23,13 @@ Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()Debug: Edge added in NonConsecutiveEdges modeDebug: Edge added in NonConsecutiveEdges mode
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Key ENTER pressed
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
-Debug: Additionals savedDebug: demand elements saved
+Debug: Additionals saved
+Debug: demand elements saved
 Debug: Opening FXMessageBox 'Confirm quit network'
 Debug: Closed FXMessageBox 'Confirm quit network' with 'Quit'
 Debug: Deleting unreferenced route 'route_0'

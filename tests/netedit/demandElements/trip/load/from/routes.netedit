@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05.08.2019 10:52:39 by Eclipse SUMO netedit Version v1_2_0+1406-58ee75451d
+<!-- generated on 14.05.2020 02:55:50 by Eclipse SUMO netedit Version v1_6_0+0225-03ba47aed8
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug105150.4912/netedit.gui/demandElements/trip/load/from\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug105150.4912/netedit.gui/demandElements/trip/load/from\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,29 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug105150.4912/netedit.gui/demandElements/trip/load/from\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug105150.4912/netedit.gui/demandElements/trip/load/from\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug105150.4912/netedit.gui/demandElements/trip/load/from\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug105150.4912/netedit.gui/demandElements/trip/load/from\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\datas.xml"/>
     </netedit>
 
     <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug105150.4912/netedit.gui/demandElements/trip/load/from\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\trip\load\from\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <trip id="trip_3" depart="20.00" from="gneE5" to="gneE5"/>
     <trip id="trip_4" depart="20.00" from="gneE2" to="gneE5"/>
 </routes>

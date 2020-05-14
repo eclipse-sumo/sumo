@@ -10,31 +10,7 @@ Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
-
-
-
-
-
-
-
-
-
-
-
-
 Debug: Enabled toogle spread vehicles throught alt + 2
-
-
-
-
-
-
-
-
-
-
-
-
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Additionals saved

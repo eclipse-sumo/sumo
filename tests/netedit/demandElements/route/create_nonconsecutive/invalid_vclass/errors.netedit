@@ -67,9 +67,6 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected RouteMode 'non consecutive edges' in RouteModeSelector
-Debug: Edge added in NonConsecutiveEdges mode
-Debug: Edge added in NonConsecutiveEdges mode
-Debug: Edge added in NonConsecutiveEdges mode
 Debug: Key ENTER pressed
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved

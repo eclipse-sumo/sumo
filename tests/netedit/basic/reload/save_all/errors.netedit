@@ -23,7 +23,7 @@ Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()Debug: Edge added in NonConsecutiveEdges modeDebug: Edge added in NonConsecutiveEdges mode
+Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Key ENTER pressed
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved

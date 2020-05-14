@@ -40,11 +40,6 @@ Debug: Created connection 'from8_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to3_2' in retrieveGNEConnection()
 Debug: Created connection 'from8_2to1_2' in retrieveGNEConnection()
-
-
-
-
-
 Debug: Setting new attribute selected '1' into edge '1'
 Debug: Setting new attribute selected '1' into edge '2'
 Debug: Setting new attribute selected '1' into edge '3'
@@ -76,11 +71,6 @@ Debug: Setting new attribute selected 'false' into detExit 'e3Detector_0detExit1
 Debug: Setting new attribute selected 'false' into detExit 'e3Detector_2detExit1'
 Debug: Setting new attribute selected 'false' into poly 'poly_0'
 Debug: Setting new attribute selected 'false' into poi 'POI_3'
-
-
-
-
-
 Debug: Setting new attribute selected '0' into junction 'Center'
 Debug: Setting new attribute selected 'true' into junction 'A'
 Debug: Setting new attribute selected 'true' into edge '1'
@@ -130,8 +120,6 @@ Debug: Setting new attribute selected 'true' into poi 'POI_2'
 Debug: Setting new attribute selected 'true' into poi 'POI_3'
 Debug: Setting new attribute selected 'true' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'true' into poiLane 'POI_5'
-
-
 Debug: Setting new attribute selected '0' into junction 'A'
 Debug: Setting new attribute selected '0' into junction 'B'
 Debug: Setting new attribute selected '0' into junction 'C'
@@ -244,8 +232,6 @@ Debug: Setting new attribute selected 'true' into poi 'POI_2'
 Debug: Setting new attribute selected 'false' into poi 'POI_3'
 Debug: Setting new attribute selected 'true' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'true' into poiLane 'POI_5'
-
-
 Debug: Setting new attribute selected '0' into junction 'A'
 Debug: Setting new attribute selected '0' into junction 'B'
 Debug: Setting new attribute selected '0' into junction 'C'
@@ -294,9 +280,6 @@ Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_1'
 Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_2'
 Debug: Setting new attribute selected '1' into detExit 'e3Detector_2detExit1'
 Debug: Setting new attribute selected '1' into poly 'poly_0'
-
-
-
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into poly 'poly_0'
@@ -572,9 +555,6 @@ Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
 Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-
-
-
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional

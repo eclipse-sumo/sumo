@@ -72,7 +72,8 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'vehicle' in TagSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
-Debug: Selected item 'flow' in TagSelectorDebug: Key ENTER pressed
+Debug: Selected item 'flow' in TagSelector
+Debug: Key ENTER pressed
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Value ';;;;' for attribute type of flow isn't valid
 Debug: Value 'dummyVType' for attribute type of flow isn't valid
