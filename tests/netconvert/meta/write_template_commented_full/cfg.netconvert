@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri May  8 23:36:02 2020 by Eclipse SUMO netconvert Version v1_6_0+0152-de7d7032c4
+<!-- generated on Thu May 14 10:39:21 2020 by Eclipse SUMO netconvert Version v1_6_0+0236-98705931b9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -800,6 +800,9 @@
 
         <!-- Use traditional axis order (lon, lat) -->
         <shapefile.traditional-axis-mapping value="false" type="BOOL"/>
+
+        <!-- Allow more vehicle classes by default -->
+        <dlr-navteq.tolerant-permissions value="false" type="BOOL"/>
 
         <!-- Structure join offset -->
         <vissim.join-distance value="5" synonymes="vissim.offset" type="FLOAT"/>
