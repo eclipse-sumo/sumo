@@ -137,15 +137,6 @@ public:
     /// @brief handle edge click
     void handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed, const bool controlKeyPressed);
 
-    /// @brief function called when user press ENTER key
-    void hotkeyEnter();
-
-    /// @brief function called when user press BACKSPACE key
-    void hotkeyBackSpace();
-
-    /// @brief function called when user press ESC key
-    void hotkeyEsc();
-
     /// @brief get path creator modul
     GNEFrameModuls::PathCreator* getPathCreator() const;
 

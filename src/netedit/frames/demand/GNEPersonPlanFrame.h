@@ -62,92 +62,6 @@ public:
         FXLabel* myInformationLabel;
     };
 
-    // ===========================================================================
-    // class PersonPlanCreator
-    // ===========================================================================
-
-    class PersonPlanCreator : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEPersonPlanFrame::PersonPlanCreator)
-
-    public:
-        /// @brief default constructor
-        PersonPlanCreator(GNEPersonPlanFrame* frameParent);
-
-        /// @brief destructor
-        ~PersonPlanCreator();
-
-        /// @brief update PersonPlanCreator name
-        void edgePathCreatorName(const std::string& name);
-
-        /// @brief show PersonPlanCreator
-        void showPersonPlanCreator();
-
-        /// @brief show PersonPlanCreator
-        void hidePersonPlanCreator();
-
-        /// @brief show PersonPlanCreator
-        void refreshPersonPlanCreator();
-
-        /// @brief get clicked edges
-        std::vector<GNEEdge*> getClickedEdges() const;
-
-        /// @brief get current edge path
-        const std::vector<GNEEdge*>& getEdgePath() const;
-
-        /// @brief add edge to route
-        bool addEdge(GNEEdge* edge);
-
-        /// @brief draw temporal route
-        void drawTemporalRoute() const;
-
-        /// @brief abort person plan creation
-        void abortPersonPlanCreation();
-
-        /// @brief finish person plan creation
-        void finishPersonPlanCreation();
-
-        /// @brief remove last added element
-        void removeLastAddedElement();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user click over button "Abort route creation"
-        long onCmdAbortPersonPlanCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Finish route creation"
-        long onCmdFinishPersonPlanCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Remove last inserted edge"
-        long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(PersonPlanCreator)
-
-    private:
-        /// @brief pointer to Person Plan Frame Parent
-        GNEPersonPlanFrame* myPersonPlanFrameParent;
-
-        /// @brief Label with current begin element
-        FXLabel* myCurrentBeginElementLabel;
-
-        /// @brief button for finish route creation
-        FXButton* myFinishCreationButton;
-
-        /// @brief button for abort route creation
-        FXButton* myAbortCreationButton;
-
-        /// @brief button for removing last edge
-        FXButton* myRemoveLastEdge;
-
-        /// @brief current clicked edges
-        std::vector<GNEEdge*> myClickedEdges;
-
-        /// @brief vector with temporal edge path
-        std::vector<GNEEdge*> myTemporalEdgePath;
-    };
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -169,8 +83,8 @@ public:
      */
     bool addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get PersonPlanCreator modul
-    PersonPlanCreator* getPersonPlanCreator() const;
+    /// @brief get path creator modul
+    GNEFrameModuls::PathCreator* getPathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -192,8 +106,8 @@ private:
     /// @brief internal vehicle attributes
     GNEFrameAttributesModuls::AttributesCreator* myPersonPlanAttributes;
 
-    /// @brief Person Plan Creator
-    PersonPlanCreator* myPersonPlanCreator;
+    /// @brief Path Creator
+    GNEFrameModuls::PathCreator* myPathCreator;
 
     /// @brief Person Hierarchy
     GNEFrameModuls::AttributeCarrierHierarchy* myPersonHierarchy;

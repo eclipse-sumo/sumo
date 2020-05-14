@@ -713,7 +713,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         myViewParent->getVehicleFrame()->getEdgePathCreator()->drawTemporalPath();
         // draw temporal person plan route
         myViewParent->getPersonFrame()->getEdgePathCreator()->drawTemporalPath();
-        myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->drawTemporalRoute();
+        myViewParent->getPersonPlanFrame()->getPathCreator()->drawTemporalRoute(myVisualizationSettings);
         // draw temporal route
         myViewParent->getRouteFrame()->getPathCreator()->drawTemporalRoute(myVisualizationSettings);
         // draw temporal edgeRelPath
@@ -953,13 +953,13 @@ GNEViewNet::abortOperation(bool clearSelection) {
                 myViewParent->getSelectorFrame()->clearCurrentSelection();
             }
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
-            myViewParent->getRouteFrame()->hotkeyEsc();
+            myViewParent->getRouteFrame()->getPathCreator()->abortPathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->abortEdgePathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->abortEdgePathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->abortPersonPlanCreation();
+            myViewParent->getPersonPlanFrame()->getPathCreator()->abortPathCreation();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
@@ -1048,13 +1048,13 @@ GNEViewNet::hotkeyEnter() {
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // abort operation depending of current mode
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
-            myViewParent->getRouteFrame()->hotkeyEnter();
+            myViewParent->getRouteFrame()->getPathCreator()->createPath();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->finishEdgePathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->finishEdgePathCreation();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->finishPersonPlanCreation();
+            myViewParent->getPersonPlanFrame()->getPathCreator()->createPath();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
@@ -1072,13 +1072,13 @@ GNEViewNet::hotkeyBackSpace() {
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // abort operation depending of current mode
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
-            myViewParent->getRouteFrame()->hotkeyBackSpace();
+            myViewParent->getRouteFrame()->getPathCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
             myViewParent->getVehicleFrame()->getEdgePathCreator()->removeLastInsertedElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSON) {
             myViewParent->getPersonFrame()->getEdgePathCreator()->removeLastInsertedElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_PERSONPLAN) {
-            myViewParent->getPersonPlanFrame()->getPersonPlanCreator()->removeLastAddedElement();
+            myViewParent->getPersonPlanFrame()->getPathCreator()->removeLastElement();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
         if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {

@@ -283,39 +283,6 @@ GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed,
 }
 
 
-void
-GNERouteFrame::hotkeyEnter() {
-    if (myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
-        // create route
-        myPathCreator->onCmdCreatePath(0, 0, 0);
-        // update view
-        myViewNet->updateViewNet();
-    }
-}
-
-
-void
-GNERouteFrame::hotkeyBackSpace() {
-    if (myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
-        // remove last edge
-        myPathCreator->onCmdRemoveLastElement(0, 0, 0);
-        // update view
-        myViewNet->updateViewNet();
-    }
-}
-
-
-void
-GNERouteFrame::hotkeyEsc() {
-    if (myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
-        // abort route
-        myPathCreator->onCmdAbortPathCreation(0, 0, 0);
-        // update view
-        myViewNet->updateViewNet();
-    }
-}
-
-
 GNEFrameModuls::PathCreator*
 GNERouteFrame::getPathCreator() const {
     return myPathCreator;

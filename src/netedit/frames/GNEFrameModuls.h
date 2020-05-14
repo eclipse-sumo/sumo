@@ -735,6 +735,15 @@ public:
         /// @brief draw temporal route
         void drawTemporalRoute(const GUIVisualizationSettings* s) const;
 
+        /// @brief create path
+        void createPath();
+
+        /// @brief abort path creation
+        void abortPathCreation();
+
+        /// @brief remove path element
+        void removeLastElement();
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user click over button "Finish route creation"

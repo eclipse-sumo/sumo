@@ -2677,16 +2677,17 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
 }
 
 
-long
-GNEFrameModuls::PathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
-    // just call create path
+void 
+GNEFrameModuls::PathCreator::createPath() {
+    // call create path implemented in frame parent
     myFrameParent->createPath();
-    return 1;
+    // abort path creation
+    abortPathCreation();
 }
 
 
-long
-GNEFrameModuls::PathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+void 
+GNEFrameModuls::PathCreator::abortPathCreation() {
     // first check that there is route edges selected
     if (mySelectedElements.size() > 0) {
         // unblock undo/redo
@@ -2704,12 +2705,11 @@ GNEFrameModuls::PathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*
         // update view (to see the new route)
         myFrameParent->getViewNet()->updateViewNet();
     }
-    return 1;
 }
 
 
-long
-GNEFrameModuls::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+void 
+GNEFrameModuls::PathCreator::removeLastElement() {
     if (mySelectedElements.size() > 1) {
         // remove special color of last selected edge
         mySelectedElements.back()->resetCandidateFlags();
@@ -2734,10 +2734,31 @@ GNEFrameModuls::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*
         updateEdgeColors();
         // update view
         myFrameParent->myViewNet->updateViewNet();
-        return true;
-    } else {
-        return false;
     }
+}
+
+
+long
+GNEFrameModuls::PathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
+    // just call create path
+    createPath();
+    return 1;
+}
+
+
+long
+GNEFrameModuls::PathCreator::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+    // just call abort path creation
+    abortPathCreation();
+    return 1;
+}
+
+
+long
+GNEFrameModuls::PathCreator::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+    // just call remove last element
+    removeLastElement();
+    return 1;
 }
 
 
