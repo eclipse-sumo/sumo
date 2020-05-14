@@ -220,6 +220,42 @@ class TrafficLightDomain(Domain):
             self._cmdGetID, tc.VAR_PERSON_NUMBER, tlsID)
         return result.readInt()
 
+    def getBlockingVehicles(self, tlsID, linkIndex):
+        """getBlockingVehicles(string, int) -> int
+        Returns the list of vehicles that are blocking the subsequent block for
+        the given tls-linkIndex
+        """
+        self._connection._beginMessage(
+            self._cmdGetID, tc.TL_BLOCKING_VEHICLES, tlsID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, linkIndex)
+        result = self._connection._checkResult(
+            self._cmdGetID, tc.TL_BLOCKING_VEHICLES, tlsID)
+        return result.readStringList()
+
+    def getRivalVehicles(self, tlsID, linkIndex):
+        """getRivalVehicles(string, int) -> int
+        Returns the list of vehicles that also wish to enter the subsequent block for
+        the given tls-linkIndex (regardless of priority)
+        """
+        self._connection._beginMessage(
+            self._cmdGetID, tc.TL_RIVAL_VEHICLES, tlsID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, linkIndex)
+        result = self._connection._checkResult(
+            self._cmdGetID, tc.TL_RIVAL_VEHICLES, tlsID)
+        return result.readStringList()
+
+    def getPriorityVehicles(self, tlsID, linkIndex):
+        """getPriorityVehicles(string, int) -> int
+        Returns the list of vehicles that also wish to enter the subsequent block for
+        the given tls-linkIndex (only those with higher priority)
+        """
+        self._connection._beginMessage(
+            self._cmdGetID, tc.TL_PRIORITY_VEHICLES, tlsID, 1 + 4)
+        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, linkIndex)
+        result = self._connection._checkResult(
+            self._cmdGetID, tc.TL_PRIORITY_VEHICLES, tlsID)
+        return result.readStringList()
+
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None
 

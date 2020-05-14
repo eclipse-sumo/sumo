@@ -745,6 +745,9 @@ TRACI_CONST int TL_PROGRAM = 0x23;
 // phase duration (set: traffic lights)
 TRACI_CONST int TL_PHASE_DURATION = 0x24;
 
+// vehicles that block passing the given signal (get: traffic lights)
+TRACI_CONST int TL_BLOCKING_VEHICLES = 0x25;
+
 // controlled lanes (get: traffic lights)
 TRACI_CONST int TL_CONTROLLED_LANES = 0x26;
 
@@ -756,6 +759,12 @@ TRACI_CONST int TL_CURRENT_PHASE = 0x28;
 
 // name of the current program (get: traffic lights)
 TRACI_CONST int TL_CURRENT_PROGRAM = 0x29;
+
+// vehicles that also wish to pass the given signal (get: traffic lights)
+TRACI_CONST int TL_RIVAL_VEHICLES = 0x30;
+
+// vehicles that also wish to pass the given signal and have higher priority (get: traffic lights)
+TRACI_CONST int TL_PRIORITY_VEHICLES = 0x31;
 
 // controlled junctions (get: traffic lights)
 TRACI_CONST int TL_CONTROLLED_JUNCTIONS = 0x2a;
@@ -989,7 +998,7 @@ TRACI_CONST int VAR_FUELCONSUMPTION = 0x65;
 // current noise emission of a node (get: vehicle, lane, edge)
 TRACI_CONST int VAR_NOISEEMISSION = 0x66;
 
-// current person number (get: vehicle)
+// current person number (get: vehicle, trafficlight)
 TRACI_CONST int VAR_PERSON_NUMBER = 0x67;
 
 // person capacity (vehicle , vehicle type)

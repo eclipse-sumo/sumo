@@ -117,6 +117,10 @@ public:
         void saveInitialStates();
         bool isActive(const MSTrafficLightLogic* tl) const;
         MSTrafficLightLogic* getActive() const;
+
+        /// @brief return the default program (that last used program except TRACI_PROGRAM)
+        MSTrafficLightLogic* getDefault() const;
+
         void switchTo(MSTLLogicControl& tlc, const std::string& programID);
 
         /* @brief get logic by programID. For the special case "off"
@@ -138,6 +142,9 @@ public:
     private:
         /// @brief The currently used program
         MSTrafficLightLogic* myCurrentProgram;
+
+        /// @brief The program that would be used in the absence of TraCI
+        MSTrafficLightLogic* myDefaultProgram;
 
         /// @brief A map of subkeys to programs
         std::map<std::string, MSTrafficLightLogic*> myVariants;

@@ -59,6 +59,7 @@ MSRailCrossing::init(NLDetectorBuilder&) {
     // init phases
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+    myNumLinks = myLinks.size();
 }
 
 

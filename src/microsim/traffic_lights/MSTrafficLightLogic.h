@@ -69,6 +69,9 @@ public:
 
     /// @brief Definition of a list that holds lists of lanes that do have the same attribute
     typedef std::vector<LaneVector> LaneVectorVector;
+
+    /// @brief list of vehicles
+    typedef std::vector<const SUMOVehicle*> VehicleVector;
     /// @}
 
 
@@ -269,6 +272,10 @@ public:
         return myDefaultCycleTime;
     }
 
+    /// @brief return the number of controlled link indices
+    int getNumLinks() {
+        return myNumLinks;
+    }
 
     /** @brief Returns the assumed next switch time
      *
@@ -344,6 +351,24 @@ public:
     /// @brief whether this logic is the active program
     bool isActive() const {
         return myAmActive;
+    }
+
+    /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
+    virtual VehicleVector getBlockingVehicles(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return VehicleVector();
+    }
+
+    /// @brief return vehicles that approach the intersection/rail signal and are in conflict with vehicles that wish to pass the given linkIndex
+    virtual VehicleVector getRivalVehicles(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return VehicleVector();
+    }
+
+    /// @brief return vehicles that approach the intersection/rail signal and have priority over vehicles that wish to pass the given linkIndex
+    virtual VehicleVector getPriorityVehicles(int linkIndex) {
+        UNUSED_PARAMETER(linkIndex);
+        return VehicleVector();
     }
 
 protected:

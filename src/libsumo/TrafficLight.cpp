@@ -202,6 +202,49 @@ TrafficLight::getServedPersonCount(const std::string& tlsID, int index) {
     return result;
 }
 
+std::vector<std::string>
+TrafficLight::getBlockingVehicles(const std::string& tlsID, int linkIndex) {
+    std::vector<std::string> result;
+    // for railsignals we cannot use the "online" program
+    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
+        throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
+                             + toString(active->getNumLinks() - 1) + "].");
+    }
+    for (const SUMOVehicle* veh : active->getBlockingVehicles(linkIndex)) {
+        result.push_back(veh->getID());
+    }
+    return result;
+}
+
+std::vector<std::string>
+TrafficLight::getRivalVehicles(const std::string& tlsID, int linkIndex) {
+    std::vector<std::string> result;
+    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
+        throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
+                             + toString(active->getNumLinks() - 1) + "].");
+    }
+    for (const SUMOVehicle* veh : active->getRivalVehicles(linkIndex)) {
+        result.push_back(veh->getID());
+    }
+    return result;
+}
+
+std::vector<std::string>
+TrafficLight::getPriorityVehicles(const std::string& tlsID, int linkIndex) {
+    std::vector<std::string> result;
+    MSTrafficLightLogic* const active = getTLS(tlsID).getDefault();
+    if (linkIndex < 0 || linkIndex >= active->getNumLinks()) {
+        throw TraCIException("The link index " + toString(linkIndex) + " is not in the allowed range [0,"
+                             + toString(active->getNumLinks() - 1) + "].");
+    }
+    for (const SUMOVehicle* veh : active->getPriorityVehicles(linkIndex)) {
+        result.push_back(veh->getID());
+    }
+    return result;
+}
+
 std::string
 TrafficLight::getParameter(const std::string& tlsID, const std::string& paramName) {
     return getTLS(tlsID).getActive()->getParameter(paramName, "");

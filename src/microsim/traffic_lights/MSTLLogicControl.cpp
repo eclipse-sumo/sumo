@@ -47,8 +47,10 @@
 /* -------------------------------------------------------------------------
  * MSTLLogicControl::TLSLogicVariants - methods
  * ----------------------------------------------------------------------- */
-MSTLLogicControl::TLSLogicVariants::TLSLogicVariants()
-    : myCurrentProgram(nullptr) {
+MSTLLogicControl::TLSLogicVariants::TLSLogicVariants() :
+    myCurrentProgram(nullptr),
+    myDefaultProgram(nullptr)
+{
 }
 
 
@@ -113,6 +115,7 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string& programID,
             myCurrentProgram->deactivateProgram();
         }
         myCurrentProgram = logic;
+        myDefaultProgram = logic;
         myCurrentProgram->activateProgram();
     }
     // add to the list of logic
@@ -203,6 +206,11 @@ MSTLLogicControl::TLSLogicVariants::getActive() const {
     return myCurrentProgram;
 }
 
+MSTrafficLightLogic*
+MSTLLogicControl::TLSLogicVariants::getDefault() const {
+    return myDefaultProgram;
+}
+
 
 void
 MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl& tlc, const std::string& programID) {
@@ -211,6 +219,7 @@ MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl& tlc, const std::s
     myCurrentProgram = getLogicInstantiatingOff(tlc, programID);
     myCurrentProgram->activateProgram();
     myCurrentProgram->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+    myDefaultProgram = myCurrentProgram;
     executeOnSwitchActions();
 }
 

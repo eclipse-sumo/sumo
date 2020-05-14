@@ -72,6 +72,10 @@
 // static value definitions
 // ===========================================================================
 int MSRailSignal::myNumWarnings(0);
+bool MSRailSignal::myStoreVehicles(false);
+MSRailSignal::VehicleVector MSRailSignal::myBlockingVehicles;
+MSRailSignal::VehicleVector MSRailSignal::myRivalVehicles;
+MSRailSignal::VehicleVector MSRailSignal::myPriorityVehicles;
 
 // ===========================================================================
 // method definitions
@@ -81,7 +85,8 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
                            const std::map<std::string, std::string>& parameters) :
     MSTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::RAIL_SIGNAL, delay, parameters),
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1), // dummy phase
-    myPhaseIndex(0) {
+    myPhaseIndex(0)
+{
     myDefaultCycleTime = DELTA_T;
 }
 
@@ -97,6 +102,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
     }
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
+    myNumLinks = myLinks.size();
 }
 
 
@@ -584,11 +590,11 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
         MSRailSignal* foeRS = const_cast<MSRailSignal*>(constFoeRS);
         if (foeRS != nullptr) {
             const DriveWay& foeDriveWay = foeRS->myLinkInfos[foeLink->getTLIndex()].getDriveWay(foe.first);
-            if (foeDriveWay.conflictLaneOccupied() ||
+            if (foeDriveWay.conflictLaneOccupied("", false) ||
                     !overlap(foeDriveWay)) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                 if (gDebugFlag4) {
-                    if (foeDriveWay.conflictLaneOccupied()) {
+                    if (foeDriveWay.conflictLaneOccupied("", false)) {
                         std::cout << "     foe blocked\n";
                     } else {
                         std::cout << "     no overlap\n";
@@ -607,23 +613,14 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
                         << "\n";
             }
 #endif
-            if (foe.second.arrivalSpeedBraking == veh.second.arrivalSpeedBraking) {
-                if (foe.second.arrivalTime == veh.second.arrivalTime) {
-                    if (foe.first->getSpeed() == veh.first->getSpeed()) {
-                        if (foe.second.dist  == veh.second.dist) {
-                            return foe.first->getNumericalID() < veh.first->getNumericalID();
-                        } else {
-                            return foe.second.dist < veh.second.dist;
-                        }
-                    } else {
-                        return foe.first->getSpeed() > veh.first->getSpeed();
-                    }
-                } else {
-                    return foe.second.arrivalTime < veh.second.arrivalTime;
+            const bool yield = mustYield(veh, foe);
+            if (myStoreVehicles) {
+                myRivalVehicles.push_back(foe.first);
+                if (yield) {
+                    myPriorityVehicles.push_back(foe.first);
                 }
-            } else {
-                return foe.second.arrivalSpeedBraking > veh.second.arrivalSpeedBraking;
             }
+            return yield;
         }
     }
     return false;
@@ -631,7 +628,29 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
 
 
 bool
-MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle) const {
+MSRailSignal::DriveWay::mustYield(const Approaching& veh, const Approaching& foe) const {
+    if (foe.second.arrivalSpeedBraking == veh.second.arrivalSpeedBraking) {
+        if (foe.second.arrivalTime == veh.second.arrivalTime) {
+            if (foe.first->getSpeed() == veh.first->getSpeed()) {
+                if (foe.second.dist  == veh.second.dist) {
+                    return foe.first->getNumericalID() < veh.first->getNumericalID();
+                } else {
+                    return foe.second.dist < veh.second.dist;
+                }
+            } else {
+                return foe.first->getSpeed() > veh.first->getSpeed();
+            }
+        } else {
+            return foe.second.arrivalTime < veh.second.arrivalTime;
+        }
+    } else {
+        return foe.second.arrivalSpeedBraking > veh.second.arrivalSpeedBraking;
+    }
+}
+
+
+bool
+MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle, bool store) const {
     for (const MSLane* lane : myConflictLanes) {
         if (!lane->isEmpty()) {
 #ifdef DEBUG_SIGNALSTATE
@@ -655,6 +674,9 @@ MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle) con
 #endif
                     continue;
                 }
+            }
+            if (myStoreVehicles && store) {
+                myBlockingVehicles.push_back(lane->getLastAnyVehicle());
             }
             return true;
         }
@@ -976,5 +998,40 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneSet
     myMaxFlankLength = MAX2(myMaxFlankLength, length);
 }
 
+void
+MSRailSignal::storeTraCIVehicles(int linkIndex) {
+    myBlockingVehicles.clear();
+    myRivalVehicles.clear();
+    myPriorityVehicles.clear();
+    myStoreVehicles = true;
+    LinkInfo& li = myLinkInfos[linkIndex];
+    if (li.myLink->getApproaching().size() > 0) {
+        Approaching closest = getClosest(li.myLink);
+        DriveWay& driveway = li.getDriveWay(closest.first);
+        MSEdgeVector occupied;
+        driveway.reserve(closest, occupied);
+    } else {
+        li.myDriveways.front().conflictLaneOccupied();
+    }
+    myStoreVehicles = false;
+}
+
+MSRailSignal::VehicleVector
+MSRailSignal::getBlockingVehicles(int linkIndex) {
+    storeTraCIVehicles(linkIndex);
+    return myBlockingVehicles;
+}
+
+MSRailSignal::VehicleVector
+MSRailSignal::getRivalVehicles(int linkIndex) {
+    storeTraCIVehicles(linkIndex);
+    return myRivalVehicles;
+}
+
+MSRailSignal::VehicleVector
+MSRailSignal::getPriorityVehicles(int linkIndex) {
+    storeTraCIVehicles(linkIndex);
+    return myPriorityVehicles;
+}
 
 /****************************************************************************/

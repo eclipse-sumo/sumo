@@ -64,6 +64,9 @@ public:
     static double getPhaseDuration(const std::string& tlsID);
     static double getNextSwitch(const std::string& tlsID);
     static int getServedPersonCount(const std::string& tlsID, int index);
+    static std::vector<std::string> getBlockingVehicles(const std::string& tlsID, int linkIndex);
+    static std::vector<std::string> getRivalVehicles(const std::string& tlsID, int linkIndex);
+    static std::vector<std::string> getPriorityVehicles(const std::string& tlsID, int linkIndex);
     static std::string getParameter(const std::string& tlsID, const std::string& paramName);
     LIBSUMO_GET_PARAMETER_WITH_KEY_API
 

@@ -124,6 +124,33 @@ TraCIServerAPI_TrafficLight::processGet(TraCIServer& server, tcpip::Storage& inp
                     server.getWrapperStorage().writeInt(libsumo::TrafficLight::getServedPersonCount(id, index));
                     break;
                 }
+                case libsumo::TL_BLOCKING_VEHICLES: {
+                    int index = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, index)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The link index must be given as an integer.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+                    server.getWrapperStorage().writeStringList(libsumo::TrafficLight::getBlockingVehicles(id, index));
+                    break;
+                }
+                case libsumo::TL_RIVAL_VEHICLES: {
+                    int index = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, index)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The link index must be given as an integer.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+                    server.getWrapperStorage().writeStringList(libsumo::TrafficLight::getRivalVehicles(id, index));
+                    break;
+                }
+                case libsumo::TL_PRIORITY_VEHICLES: {
+                    int index = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, index)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_TL_VARIABLE, "The link index must be given as an integer.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+                    server.getWrapperStorage().writeStringList(libsumo::TrafficLight::getPriorityVehicles(id, index));
+                    break;
+                }
                 case libsumo::VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
