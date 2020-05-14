@@ -1616,7 +1616,7 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
         } else if (reason == MOVE_AUTOMATIC) {
             Position newPos = l->geometryPositionAtOffset(position);
             const double dist = newPos.distanceTo2D(oldPos);
-            if (dist < veh->getMaxSpeed()) {
+            if (dist < SPEED2DIST(veh->getMaxSpeed())) {
                 moveReminderReason = MSMoveReminder::NOTIFICATION_JUNCTION;
             } else {
                 moveReminderReason = MSMoveReminder::NOTIFICATION_TELEPORT;
