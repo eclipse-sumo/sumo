@@ -118,9 +118,10 @@ def main(args=None):
         print("Error: a dump file must be given.")
         return 1
 
+    dumps = options.dumps.split(",")
     times = []
     hc = None
-    colorDump = options.dumps.split(",")[0]
+    colorDump = dumps[0]
     colorMeasure = options.measures.split(",")[0]
     if colorDump:
         if options.verbose:
@@ -130,9 +131,9 @@ def main(args=None):
         times = hc._edge2value
 
     hw = None
-    widthDump = options.dumps.split(",")[1]
-    widthMeasure = options.measures.split(",")[1]
-    if widthDump != "":
+    if len(dumps) > 1:
+        widthDump = dumps[1]
+        widthMeasure = options.measures.split(",")[1]
         if options.verbose:
             print("Reading widths from '%s'" % widthDump)
         hw = WeightsReader(widthMeasure)
