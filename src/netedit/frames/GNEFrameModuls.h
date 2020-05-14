@@ -660,10 +660,10 @@ public:
             GNEAdditional* getToBusStop() const;
 
             /// @brief check if current path is conflict due vClass
-            const bool isConflictVClass() const;
+            bool isConflictVClass() const;
 
             /// @brief check if current path is conflict due is disconnected
-            const bool isConflictDisconnected() const;
+            bool isConflictDisconnected() const;
 
         protected:
             /// @brief sub path

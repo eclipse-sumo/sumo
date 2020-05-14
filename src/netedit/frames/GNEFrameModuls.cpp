@@ -2388,13 +2388,13 @@ GNEAdditional* GNEFrameModuls::PathCreator::Path::getToBusStop() const {
 }
 
 
-const bool 
+bool 
 GNEFrameModuls::PathCreator::Path::isConflictVClass() const {
     return myConflictVClass;
 }
 
 
-const bool 
+bool 
 GNEFrameModuls::PathCreator::Path::isConflictDisconnected() const {
     return myConflictDisconnected;
 }
@@ -2411,8 +2411,8 @@ GNEFrameModuls::PathCreator::Path::Path() :
 GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent, GNEFrameModuls::PathCreator::Mode mode) :
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myMode(mode),
-    myVClass(SVC_PASSENGER) {
+    myVClass(SVC_PASSENGER),
+    myMode(mode) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
