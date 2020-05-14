@@ -51,9 +51,7 @@ def _readLeader(result):
     vehicleID = result.readString()
     result.read("!B")
     dist = result.readDouble()
-    if vehicleID:
-        return vehicleID, dist
-    return None
+    return vehicleID, dist
 
 
 def _readNeighbors(result):
