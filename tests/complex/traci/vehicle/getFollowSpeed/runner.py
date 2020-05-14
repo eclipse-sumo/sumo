@@ -38,9 +38,8 @@ traci.start([sumoBinary,
 vehID = "follower"
 
 while traci.simulation.getMinExpectedNumber() > 0:
-    leaderGap = traci.vehicle.getLeader(vehID, 100)
-    if leaderGap:
-        leader, gap = leaderGap
+    leader, gap = traci.vehicle.getLeader(vehID, 100)
+    if leader:
         vSafe = traci.vehicle.getFollowSpeed(vehID,
                 traci.vehicle.getSpeed(vehID), 
                     gap, traci.vehicle.getSpeed(leader),
