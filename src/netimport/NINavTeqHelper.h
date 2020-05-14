@@ -83,9 +83,12 @@ public:
      * @param[in] classS The string that contains the information whether a vehicle class is allowed
      * @see addVehicleClass
      */
-    static void addVehicleClasses(NBEdge& e, const std::string& classS);
+    static void addVehicleClasses(NBEdge& e, const std::string& classS, const SVCPermissions allPermissions, const SVCPermissions defaultPermissions);
 
     /// @brief same as addVehicleClasses but for version 6+
-    static void addVehicleClassesV6(NBEdge& e, const std::string& classS);
+    static void addVehicleClassesV6(NBEdge& e, const std::string& classS, const SVCPermissions allPermissions, const SVCPermissions defaultPermissions);
+
+private:
+    static bool addCommonVehicleClasses(NBEdge& e, const std::string& classS, const int offset);
 
 };

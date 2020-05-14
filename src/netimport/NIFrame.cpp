@@ -252,6 +252,11 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.addDescription("shapefile.traditional-axis-mapping", "Formats", "Use traditional axis order (lon, lat)");
 
 
+    // register dlr-navteq options
+    oc.doRegister("dlr-navteq.tolerant-permissions", new Option_Bool(false));
+    oc.addDescription("dlr-navteq.tolerant-permissions", "Formats", "Allow more vehicle classes by default");
+
+
     // register vissim options
     oc.doRegister("vissim.join-distance", new Option_Float(5.0f));
     oc.addSynonyme("vissim.join-distance", "vissim.offset", true);
@@ -297,7 +302,7 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("visum.verbose-warnings", new Option_Bool(false));
     oc.addDescription("visum.verbose-warnings", "Formats", "Prints all warnings, some of which are due to VISUM misbehaviour");
 
-    oc.doRegister("visum.lanes-from-capacity.norm", new Option_Float((double) 1800));
+    oc.doRegister("visum.lanes-from-capacity.norm", new Option_Float(1800.));
     oc.addSynonyme("visum.lanes-from-capacity.norm", "capacity-norm", true);
     oc.addSynonyme("visum.lanes-from-capacity.norm", "lanes-from-capacity.norm");
     oc.addDescription("visum.lanes-from-capacity.norm", "Formats", "The factor for flow to no. lanes conversion");

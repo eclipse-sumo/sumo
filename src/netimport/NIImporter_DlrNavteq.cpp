@@ -383,13 +383,12 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         e->setPermissions(myTypeCont.getPermissions(navTeqTypeId));
     } else {
         // add vehicle type information to the edge
+        const SVCPermissions allPermissions = myTypeCont.getPermissions("");
+        const SVCPermissions defaultPermissions = OptionsCont::getOptions().getBool("dlr-navteq.tolerant-permissions") ? allPermissions : 0;
         if (myVersion < 6.0) {
-            NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE));
+            NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE), allPermissions, defaultPermissions);
         } else {
-            NINavTeqHelper::addVehicleClassesV6(*e, getColumn(st, VEHICLE_TYPE));
-        }
-        if (e->getPermissions() == SVCAll) {
-            e->setPermissions(myTypeCont.getPermissions(""));
+            NINavTeqHelper::addVehicleClassesV6(*e, getColumn(st, VEHICLE_TYPE), allPermissions, defaultPermissions);
         }
         // permission modifications based on form_of_way
         if (form_of_way == 14) { // pedestrian area (fussgaengerzone)
