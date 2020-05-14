@@ -732,6 +732,9 @@ public:
         /// @brief update edge colors
         void updateEdgeColors();
 
+        /// @brief draw temporal route
+        void drawTemporalRoute(const GUIVisualizationSettings* s) const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user click over button "Finish route creation"

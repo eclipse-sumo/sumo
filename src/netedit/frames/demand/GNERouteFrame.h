@@ -146,9 +146,6 @@ public:
     /// @brief function called when user press ESC key
     void hotkeyEsc();
 
-    /// @brief draw temporal route
-    void drawTemporalRoute(const GUIVisualizationSettings* s) const;
-
     /// @brief get path creator modul
     GNEFrameModuls::PathCreator* getPathCreator() const;
 

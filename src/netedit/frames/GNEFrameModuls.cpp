@@ -2635,6 +2635,48 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
 }
 
 
+void
+GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s) const {
+    if (myPath.size() > 0) {
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, GLO_MAX);
+        // iterate over path
+        for (int i = 0; i < (int)myPath.size(); i++) {
+            // get path
+            const GNEFrameModuls::PathCreator::Path& path = myPath.at(i);
+            // set path color color
+            if (path.isConflictDisconnected()) {
+                GLHelper::setColor(s->candidateColorSettings.conflict);
+            } else if (path.isConflictVClass()) {
+                GLHelper::setColor(s->candidateColorSettings.special);
+            } else {
+                GLHelper::setColor(RGBColor::ORANGE);
+            }
+            // draw line over 
+            for (int j = 0; j < (int)path.getSubPath().size(); j++) {
+                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
+                if (((i == 0) && (j == 0)) || (j > 0)) {
+                    GLHelper::drawBoxLines(lane->getLaneShape(), 0.3);
+                }
+                // draw connection between lanes
+                if ((j + 1) < (int)path.getSubPath().size()) {
+                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
+                    if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
+                        GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), 0.3);
+                    } else {
+                        GLHelper::drawBoxLines({ lane->getLaneShape().back(), nextLane->getLaneShape().front() }, 0.3);
+                    }
+                }
+            }
+        }
+        // Pop last matrix
+        glPopMatrix();
+    }
+}
+
+
 long
 GNEFrameModuls::PathCreator::onCmdCreatePath(FXObject*, FXSelector, void*) {
     // just call create path
