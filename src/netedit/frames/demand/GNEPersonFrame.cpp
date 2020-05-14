@@ -37,98 +37,6 @@
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEPersonFrame::HelpCreation - methods
-// ---------------------------------------------------------------------------
-
-GNEPersonFrame::HelpCreation::HelpCreation(GNEPersonFrame* vehicleFrameParent) :
-    FXGroupBox(vehicleFrameParent->myContentFrame, "Help", GUIDesignGroupBoxFrame),
-    myPersonFrameParent(vehicleFrameParent) {
-    myInformationLabel = new FXLabel(this, "", 0, GUIDesignLabelFrameInformation);
-}
-
-
-GNEPersonFrame::HelpCreation::~HelpCreation() {}
-
-
-void
-GNEPersonFrame::HelpCreation::showHelpCreation() {
-    // first update help cration
-    updateHelpCreation();
-    // show modul
-    show();
-}
-
-
-void
-GNEPersonFrame::HelpCreation::hideHelpCreation() {
-    hide();
-}
-
-
-void
-GNEPersonFrame::HelpCreation::updateHelpCreation() {
-    // create information label
-    std::ostringstream information;
-    // set text depending of selected person plan
-    switch (myPersonFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
-        case SUMO_TAG_PERSONTRIP_FROMTO:
-            information
-                    << "- Click over edges to\n"
-                    << "  create a trip.";
-            break;
-        case SUMO_TAG_PERSONTRIP_BUSSTOP:
-            information
-                    << "- Click over an edge and\n"
-                    << "  a busStop to create a trip.";
-            break;
-        case SUMO_TAG_WALK_EDGES:
-            information
-                    << "- Click over a sequence of\n"
-                    << "  consecutive edges to\n"
-                    << "  create a walk.";
-            break;
-        case SUMO_TAG_WALK_FROMTO:
-            information
-                    << "- Click over edges to\n"
-                    << "  create a walk.";
-            break;
-        case SUMO_TAG_WALK_BUSSTOP:
-            information
-                    << "- Click over an edge and\n"
-                    << "  a busStop to create a walk.";
-            break;
-        case SUMO_TAG_WALK_ROUTE:
-            information
-                    << "- Click over a route";
-            break;
-        case SUMO_TAG_RIDE_FROMTO:
-            information
-                    << "- Click over edges to\n"
-                    << "  create a ride.";
-            break;
-        case SUMO_TAG_RIDE_BUSSTOP:
-            information
-                    << "- Click over an edge and\n"
-                    << "  a busStop to create a ride";
-            break;
-        case SUMO_TAG_PERSONSTOP_BUSSTOP:
-            information
-                    << "- Click over a busStop\n"
-                    << "  to create a stop";
-            break;
-        case SUMO_TAG_PERSONSTOP_LANE:
-            information
-                    << "- Click over a lane\n"
-                    << "  to create a stop";
-            break;
-        default:
-            throw ProcessError("Invalid person plan tag");
-    }
-    // set information label
-    myInformationLabel->setText(information.str().c_str());
-}
-
-// ---------------------------------------------------------------------------
 // GNEPersonFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -155,9 +63,6 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
 
     // create EdgePathCreator Modul
     myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
-
-    // create Help Creation Modul
-    myHelpCreation = new HelpCreation(this);
 
     // limit path creator to pedestrians
     myEdgePathCreator->setVClass(SVC_PEDESTRIAN);
@@ -283,13 +188,10 @@ GNEPersonFrame::tagSelected() {
                     // hide Netedit attributes modul
                     myNeteditAttributes->hideNeteditAttributesModul();
                 }
-                // show help modul
-                myHelpCreation->showHelpCreation();
             } else {
                 // hide modules
                 myPersonPlanAttributes->hideAttributesCreatorModul();
                 myEdgePathCreator->hideEdgePathCreator();
-                myHelpCreation->hideHelpCreation();
             }
         } else {
             // hide modules
@@ -298,7 +200,6 @@ GNEPersonFrame::tagSelected() {
             myPersonPlanAttributes->hideAttributesCreatorModul();
             myNeteditAttributes->hideNeteditAttributesModul();
             myEdgePathCreator->hideEdgePathCreator();
-            myHelpCreation->hideHelpCreation();
         }
     } else {
         // hide all moduls if person isn't valid
@@ -308,7 +209,6 @@ GNEPersonFrame::tagSelected() {
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myNeteditAttributes->hideNeteditAttributesModul();
         myEdgePathCreator->hideEdgePathCreator();
-        myHelpCreation->hideHelpCreation();
     }
 }
 
@@ -381,14 +281,11 @@ GNEPersonFrame::demandElementSelected() {
                 // hide Netedit attributes modul
                 myNeteditAttributes->hideNeteditAttributesModul();
             }
-            // show help modul
-            myHelpCreation->showHelpCreation();
         } else {
             // hide modules
             myPersonPlanAttributes->hideAttributesCreatorModul();
             myNeteditAttributes->hideNeteditAttributesModul();
             myEdgePathCreator->hideEdgePathCreator();
-            myHelpCreation->hideHelpCreation();
         }
     } else {
         // hide modules
@@ -397,7 +294,6 @@ GNEPersonFrame::demandElementSelected() {
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myNeteditAttributes->hideNeteditAttributesModul();
         myEdgePathCreator->hideEdgePathCreator();
-        myHelpCreation->hideHelpCreation();
     }
 }
 

@@ -31,36 +31,6 @@
 class GNEPersonFrame : public GNEFrame {
 
 public:
-    // ===========================================================================
-    // class HelpCreation
-    // ===========================================================================
-
-    class HelpCreation : protected FXGroupBox {
-
-    public:
-        /// @brief constructor
-        HelpCreation(GNEPersonFrame* vehicleFrameParent);
-
-        /// @brief destructor
-        ~HelpCreation();
-
-        /// @brief show HelpCreation
-        void showHelpCreation();
-
-        /// @brief hide HelpCreation
-        void hideHelpCreation();
-
-        /// @brief update HelpCreation
-        void updateHelpCreation();
-
-    private:
-        /// @brief pointer to Person Frame Parent
-        GNEPersonFrame* myPersonFrameParent;
-
-        /// @brief Label with creation information
-        FXLabel* myInformationLabel;
-    };
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -113,9 +83,6 @@ private:
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEFrameModuls::EdgePathCreator* myEdgePathCreator;
-
-    /// @brief Help creation
-    HelpCreation* myHelpCreation;
 
     /// @brief build person over route
     bool buildPersonOverRoute(GNEDemandElement* route);
