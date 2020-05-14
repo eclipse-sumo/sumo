@@ -19,14 +19,13 @@ permalink: /ChangeLog/
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
 - NETEDIT
-  -   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
+  - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
 - Tools
   - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
   - [randomTrips.py](Tools/Trip.md) options **--junction-taz** and **--validate** no work as expected when combined. Issue #7002
   - [randomTrips.py](Tools/Trip.md) no longer generates trips were *fromJunction* equals *toJunctoin* when setting option  **--junction-taz**. Issue #7005
-  
-  - TraCI
-    - Fixed memory leak when using libsumo. Issue #7012
+- TraCI
+  - Fixed memory leak when using libsumo. Issue #7012
 
 
 ### Enhancements
