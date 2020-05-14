@@ -1568,7 +1568,7 @@ Vehicle::setSignals(const std::string& vehicleID, int signals) {
 
 
 void
-Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double position) {
+Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double position, int reason) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -1595,6 +1595,7 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
               || l->getNextNormal() != *(it + 1)))) {
         throw TraCIException("Lane '" + laneID + "' is not on the route of vehicle '" + vehicleID + "'.");
     }
+    Position oldPos = vehicle->getPosition();
     veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
     if (veh->getLane() != nullptr) {
         veh->getLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT);
@@ -1605,10 +1606,29 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     veh->resetRoutePosition(newRouteIndex, veh->getParameter().departLaneProcedure);
     if (!veh->isOnRoad()) {
         MSNet::getInstance()->getInsertionControl().alreadyDeparted(veh);
-
     }
-    l->forceVehicleInsertion(veh, position,
-                             veh->hasDeparted() ? MSMoveReminder::NOTIFICATION_TELEPORT : MSMoveReminder::NOTIFICATION_DEPARTED);
+    MSMoveReminder::Notification moveReminderReason;
+    if (veh->hasDeparted()) {
+        if (reason == MOVE_TELEPORT) {
+            moveReminderReason = MSMoveReminder::NOTIFICATION_TELEPORT;
+        } else if (reason == MOVE_NORMAL) {
+            moveReminderReason = MSMoveReminder::NOTIFICATION_JUNCTION;
+        } else if (reason == MOVE_AUTOMATIC) {
+            Position newPos = l->geometryPositionAtOffset(position);
+            const double dist = newPos.distanceTo2D(oldPos);
+            if (dist < veh->getMaxSpeed()) {
+                moveReminderReason = MSMoveReminder::NOTIFICATION_JUNCTION;
+            } else {
+                moveReminderReason = MSMoveReminder::NOTIFICATION_TELEPORT;
+            }
+        } else {
+            throw TraCIException("Invalid moveTo reason '" + toString(reason) + "' for vehicle '" + vehicleID + "'.");
+        }
+    } else {
+        moveReminderReason = MSMoveReminder::NOTIFICATION_DEPARTED;
+    }
+
+    l->forceVehicleInsertion(veh, position, moveReminderReason);
 }
 
 

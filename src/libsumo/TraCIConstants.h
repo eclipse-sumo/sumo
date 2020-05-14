@@ -534,6 +534,16 @@ TRACI_CONST int REMOVE_VAPORIZED = 0x03;
 TRACI_CONST int REMOVE_TELEPORT_ARRIVED = 0x04;
 
 // ****************************************
+// VEHICLE MOVE REASONS
+// ****************************************
+// infer reason from move distance
+TRACI_CONST int MOVE_AUTOMATIC = 0x00;
+// vehicle teleports to another location
+TRACI_CONST int MOVE_TELEPORT = 0x01;
+// vehicle moved normally
+TRACI_CONST int MOVE_NORMAL = 0x02;
+
+// ****************************************
 // PERSON/CONTAINER STAGES
 // ****************************************
 // person / container stopping

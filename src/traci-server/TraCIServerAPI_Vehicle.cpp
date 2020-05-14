@@ -811,8 +811,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (inputStorage.readUnsignedByte() != libsumo::TYPE_COMPOUND) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting position requires a compound object.", outputStorage);
                 }
-                if (inputStorage.readInt() != 2) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting position should obtain the lane id and the position.", outputStorage);
+                const int numArgs = inputStorage.readInt();
+                if (numArgs < 2 || numArgs > 3) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting position should obtain the lane id and the position and optionally the reason.", outputStorage);
                 }
                 // lane ID
                 std::string laneID;
@@ -824,8 +825,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                 if (!server.readTypeCheckingDouble(inputStorage, position)) {
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The second parameter for setting a position must be the position given as a double.", outputStorage);
                 }
+                int reason = libsumo::MOVE_AUTOMATIC;
+                if (numArgs == 3) {
+                    if (!server.readTypeCheckingInt(inputStorage, reason)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The third parameter for setting a position must be the reason given as an int.", outputStorage);
+                    }
+                }
                 // process
-                libsumo::Vehicle::moveTo(id, laneID, position);
+                libsumo::Vehicle::moveTo(id, laneID, position, reason);
             }
             break;
             case libsumo::VAR_SPEED: {

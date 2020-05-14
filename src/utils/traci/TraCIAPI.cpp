@@ -3027,14 +3027,16 @@ TraCIAPI::VehicleScope::rerouteTraveltime(const std::string& vehicleID, bool cur
 }
 
 void
-TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& laneID, double position) const {
+TraCIAPI::VehicleScope::moveTo(const std::string& vehicleID, const std::string& laneID, double position, int reason) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
+    content.writeInt(3);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(laneID);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(position);
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(reason);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_MOVE_TO, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
