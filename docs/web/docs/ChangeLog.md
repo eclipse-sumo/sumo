@@ -9,6 +9,8 @@ permalink: /ChangeLog/
 - Simulation
   - When using the options **--vehroute-output.write-unfinished --vehroute-output.exit-times** all edges of the route are now included (instead passed edges only) and the exit times for unfinished edges are written as '-1'. Issue #6956
 - NETCONVERT
+  - Fixed crash when patching a network with '.tll.xml' file. Issue #7014 (Regression in 1.6.0)
+  - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7017
   - Fixed missing traffic lights when using **--tls.guess-signals** together with **--junctions.join**. Issue #6977
   - Fixed missing busStops when importing public transport lines from OSM. Issue #6963
   - Fixed invalid error when patching network with netdiff patches. Issue #6981
@@ -16,10 +18,15 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
+- NETEDIT
+  -   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
 - Tools
   - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
   - [randomTrips.py](Tools/Trip.md) options **--junction-taz** and **--validate** no work as expected when combined. Issue #7002
   - [randomTrips.py](Tools/Trip.md) no longer generates trips were *fromJunction* equals *toJunctoin* when setting option  **--junction-taz**. Issue #7005
+  
+  - TraCI
+    - Fixed memory leak when using libsumo. Issue #7012
 
 
 ### Enhancements
@@ -28,18 +35,29 @@ permalink: /ChangeLog/
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
+  - Added option **edges.join-tram-dist {{DT_FLOAT}}** which can be used to join overlying road and tram edges into a single lane with combined permissions. This is needed for the correct dynamics in OSM-derived networks. Issue #6980
   
 - NETEDIT
   - Edges can now be colored by edgeData attribute (as in SUMO-GUI). Issue #6953
+  - Added function 'select reachable' to the edge context menu (just like SUMO-GUI). Issue #6995
+  - In create-route-mode, edges can now be colored by reachability from the last selected edge. Issue #6995
+  
 
 - SUMO-GUI
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
+
+- TraCI
+  - Added new function *simulation.loadState* for quick-loading simulation a saved state. Issue #6201
+  
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now visualize person trajectories using option **--persons**. Issue #6978
   - Added new tool [computeCoordination.py](Tools/Output/computecoordinationpy) to compute the fraction of delayed vehicles along a defined corridor. Issue #6987
     
 ### Other
+
+- TraCI
+  - In the python client, function vehicle.getLeader now always returns a pair (leader, dist). If no leader is found, ("", -1) is returned rather than the None value. Issue #7013
 
 - Tools
   - [randomTrips.py](Tools/Trip.md) now generates repeatable results by default (by using a fixed default seed). To obtain the prior random behavior without specifying a seed, the option **--random** can be used (just like for [SUMO](SUMO.md)). Issue #6989
