@@ -117,9 +117,9 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
         // show modes moduls
         if (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES) {
-            myRouteFrameParent->myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::Mode::CONSECUTIVE);
+            myRouteFrameParent->myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::Mode::CONSECUTIVE_EDGES);
         } else if (myCurrentRouteMode == RouteMode::NONCONSECUTIVE_EDGES) {
-            myRouteFrameParent->myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::Mode::NOCONSECUTIVE);
+            myRouteFrameParent->myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::Mode::NONCONSECUTIVE_EDGES);
         }
         // show route creator
         myRouteFrameParent->myPathCreator->showPathCreatorModul();
@@ -242,7 +242,7 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myRouteAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create consecutive edges modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this, GNEFrameModuls::PathCreator::Mode::NOCONSECUTIVE);
+    myPathCreator = new GNEFrameModuls::PathCreator(this, GNEFrameModuls::PathCreator::Mode::NONCONSECUTIVE_EDGES);
 
     // create legend label
     myLegend = new Legend(this);

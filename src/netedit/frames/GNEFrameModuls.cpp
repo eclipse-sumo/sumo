@@ -2408,11 +2408,11 @@ GNEFrameModuls::PathCreator::Path::Path() :
 }
 
 
-GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent, GNEFrameModuls::PathCreator::Mode mode) :
+GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent, const int creationMode) :
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myVClass(SVC_PASSENGER),
-    myMode(mode) {
+    myCreationMode(creationMode),
+    myVClass(SVC_PASSENGER) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
@@ -2486,10 +2486,10 @@ GNEFrameModuls::PathCreator::setVClass(SUMOVehicleClass vClass) {
 
 
 void
-GNEFrameModuls::PathCreator::setPathCreatorMode(GNEFrameModuls::PathCreator::Mode mode) {
+GNEFrameModuls::PathCreator::setPathCreatorMode(const int creationMode) {
     // first abort route
     onCmdAbortPathCreation(nullptr, 0, nullptr);
-    myMode = mode;
+    myCreationMode = creationMode;
 }
 
 
@@ -2504,7 +2504,7 @@ GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, 
             return false;
         }
         // check consecutive edges
-        if (myMode == Mode::CONSECUTIVE) {
+        if ((myCreationMode == Mode::CONSECUTIVE_EDGES) != 0) {
             // check that new edge is consecutive
             const auto& outgoingEdges = mySelectedElements.back()->getSecondParentJunction()->getGNEOutgoingEdges();
             if (std::find(outgoingEdges.begin(), outgoingEdges.end(), edge) == outgoingEdges.end()) {
@@ -2554,6 +2554,12 @@ GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, 
     // update edge colors
     updateEdgeColors();
     return true;
+}
+
+
+bool
+GNEFrameModuls::PathCreator::addAdditional(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
+    return false;
 }
 
 

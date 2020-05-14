@@ -635,9 +635,13 @@ public:
 
     public:
         // @brief creation mode
-        enum class Mode {
-            CONSECUTIVE,
-            NOCONSECUTIVE
+        enum Mode {
+            CONSECUTIVE_EDGES    = 1 << 0,   // Path's edges are consecutives
+            NONCONSECUTIVE_EDGES = 1 << 1,   // Path's edges aren't consecutives
+            START_EDGE           = 1 << 2,   // Path begins in an edge
+            END_EDGE             = 1 << 3,   // Path ends in an edge
+            START_BUSSTOP        = 1 << 2,   // Path begins in a busStop
+            END_BUSSTOP          = 1 << 3,   // Path ends in a busStop
         };
 
         /// @brief class for path
@@ -687,7 +691,7 @@ public:
         };
 
         /// @brief default constructor
-        PathCreator(GNEFrame* frameParent, Mode mode);
+        PathCreator(GNEFrame* frameParent, const int creationMode);
 
         /// @brief destructor
         ~PathCreator();
@@ -708,10 +712,13 @@ public:
         void setVClass(SUMOVehicleClass vClass);
 
         /// @brief change route mode
-        void setPathCreatorMode(Mode mode);
+        void setPathCreatorMode(const int creationMode);
 
-        /// @brief set edge from (and change color)
+        /// @brief add edge
         bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
+
+        /// @brief add additional
+        bool addAdditional(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
 
         /// @brief clear edges (and restore colors)
         void clearPath();
@@ -762,8 +769,8 @@ public:
         /// @brief current vClass
         SUMOVehicleClass myVClass;
 
-        /// @brief current mode
-        Mode myMode;
+        /// @brief current creation mode
+        int myCreationMode;
 
         /// @brief current selected edges
         std::vector<GNEEdge*> mySelectedElements;
