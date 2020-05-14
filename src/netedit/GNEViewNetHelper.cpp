@@ -913,8 +913,6 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
     for (const auto& edge : myMovedEdges) {
         edge->moveEdgeShape(offsetMovement);
     }
-    // update view (needed to see the movement)
-    myViewNet->updateViewNet();
 }
 
 
@@ -1016,8 +1014,6 @@ GNEViewNetHelper::SelectingArea::moveRectangleSelection() {
     myViewNet->setStatusBarText("Selection width:" + toString(fabs(selectionCorner1.x() - selectionCorner2.x()))
                                 + " height:" + toString(fabs(selectionCorner1.y() - selectionCorner2.y()))
                                 + " diagonal:" + toString(selectionCorner1.distanceTo2D(selectionCorner2)));
-    // update view (needed to update rectangle)
-    myViewNet->updateViewNet();
 }
 
 

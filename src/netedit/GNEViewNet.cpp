@@ -858,6 +858,8 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     } else if (myEditModes.isCurrentSupermodeData()) {
         processMoveMouseData();
     }
+    // update view
+    updateViewNet();
     return 1;
 }
 
@@ -3779,8 +3781,8 @@ GNEViewNet::processMoveMouseNetwork() {
     // change "delete last created point" depending if during movement shift key is pressed
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
-        // update view (for see temporal line)
-        updateViewNet();
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+        myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
     }
     // check what type of additional is moved
     if (myMoveMultipleElementValues.isMovingSelection()) {
@@ -3792,10 +3794,6 @@ GNEViewNet::processMoveMouseNetwork() {
     } else {
         // move single elements
         myMoveSingleElementValues.moveSingleElement();
-    }
-    // update in move mode (for geometry points)
-    if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-        updateViewNet();
     }
 }
 

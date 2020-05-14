@@ -1856,18 +1856,15 @@ GNEFrameModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     myStartDrawingButton = new FXButton(this, "Start drawing", 0, this, MID_GNE_STARTDRAWING, GUIDesignButton);
     myStopDrawingButton = new FXButton(this, "Stop drawing", 0, this, MID_GNE_STOPDRAWING, GUIDesignButton);
     myAbortDrawingButton = new FXButton(this, "Abort drawing", 0, this, MID_GNE_ABORTDRAWING, GUIDesignButton);
-
     // create information label
     std::ostringstream information;
     information
-            << "- 'Start drawing' or ENTER\n"
-            << "  draws shape boundary.\n"
-            << "- 'Stop drawing' or ENTER\n"
-            << "  creates shape.\n"
-            << "- 'Shift + Click'\n"
-            << "  removes last created point.\n"
-            << "- 'Abort drawing' or ESC\n"
-            << "  removes drawed shape.";
+        << "- 'Start drawing' or ENTER\n"
+        << "  to create shape.\n"
+        << "- 'Stop drawing' or ESC to\n"
+        << "  abort shape creation.\n"
+        << "- 'Shift + Click' to remove\n"
+        << "  last inserted point.";
     myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
@@ -1911,8 +1908,7 @@ GNEFrameModuls::DrawingShape::stopDrawing() {
     // try to build shape
     if (myFrameParent->shapeDrawed()) {
         // clear created points
-        myTemporalShapeShape.clear();
-        myFrameParent->myViewNet->updateViewNet();
+        myTemporalShape.clear();
         // change buttons
         myStartDrawingButton->enable();
         myStopDrawingButton->disable();
@@ -1927,8 +1923,7 @@ GNEFrameModuls::DrawingShape::stopDrawing() {
 void
 GNEFrameModuls::DrawingShape::abortDrawing() {
     // clear created points
-    myTemporalShapeShape.clear();
-    myFrameParent->myViewNet->updateViewNet();
+    myTemporalShape.clear();
     // change buttons
     myStartDrawingButton->enable();
     myStopDrawingButton->disable();
@@ -1939,7 +1934,7 @@ GNEFrameModuls::DrawingShape::abortDrawing() {
 void
 GNEFrameModuls::DrawingShape::addNewPoint(const Position& P) {
     if (myStopDrawingButton->isEnabled()) {
-        myTemporalShapeShape.push_back(P);
+        myTemporalShape.push_back(P);
     } else {
         throw ProcessError("A new point cannot be added if drawing wasn't started");
     }
@@ -1948,13 +1943,15 @@ GNEFrameModuls::DrawingShape::addNewPoint(const Position& P) {
 
 void
 GNEFrameModuls::DrawingShape::removeLastPoint() {
-
+    if (myTemporalShape.size() > 1) {
+        myTemporalShape.pop_back();
+    }
 }
 
 
 const PositionVector&
 GNEFrameModuls::DrawingShape::getTemporalShape() const {
-    return myTemporalShapeShape;
+    return myTemporalShape;
 }
 
 

@@ -472,7 +472,7 @@ public:
         bool myDeleteLastCreatedPoint;
 
         /// @brief current drawed shape
-        PositionVector myTemporalShapeShape;
+        PositionVector myTemporalShape;
 
         /// @brief button for start drawing
         FXButton* myStartDrawingButton;
