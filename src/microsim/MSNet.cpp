@@ -853,6 +853,7 @@ MSNet::writeOutput() {
         od.writeAttr("collisions", myVehicleControl->getCollisionCount());
         od.writeAttr("teleports", myVehicleControl->getTeleportCount());
         od.writeAttr("halting", myVehicleControl->getHaltingVehicleNo());
+        od.writeAttr("stopped", myVehicleControl->getStoppedVehiclesCount());
         od.writeAttr("meanWaitingTime", meanWaitingTime);
         od.writeAttr("meanTravelTime", meanTravelTime);
         std::pair<double, double> meanSpeed = myVehicleControl->getVehicleMeanSpeeds();

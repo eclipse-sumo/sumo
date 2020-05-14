@@ -317,6 +317,11 @@ public:
         return myEmergencyStops;
     }
 
+    /// @brief return the number of vehicles that are currently stopped
+    int getStoppedVehiclesCount() const {
+        return myStoppedVehicles;
+    }
+
     /** @brief Returns the total departure delay
      * @return Sum of steps vehicles had to wait until being inserted
      */
@@ -463,6 +468,16 @@ public:
         myEmergencyStops++;
     }
 
+    /// @brief register emergency stop
+    void registerStopStarted() {
+        myStoppedVehicles++;
+    }
+
+    /// @brief register emergency stop
+    void registerStopEnded() {
+        myStoppedVehicles--;
+    }
+
     /// @name State I/O
     /// @{
 
@@ -557,6 +572,8 @@ private:
     /// @brief The number of emergency stops
     int myEmergencyStops;
 
+    /// @brief The number of stopped vehicles
+    int myStoppedVehicles;
     /// @}
 
 

@@ -22,6 +22,7 @@
             <xsd:attribute name="collisions" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="teleports" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="halting" type="xsd:nonNegativeInteger" use="required"/>
+            <xsd:attribute name="stopped" type="xsd:nonNegativeInteger" use="required"/>
             <xsd:attribute name="meanWaitingTime" use="required" type="xsd:float"/>
             <xsd:attribute name="meanTravelTime" use="required" type="xsd:float"/>
             <xsd:attribute name="meanSpeed" use="required" type="xsd:float"/>

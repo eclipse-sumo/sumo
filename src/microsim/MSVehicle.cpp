@@ -1951,6 +1951,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                 }
                 myLane->getEdge().addWaiting(this);
                 MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_STARTING_STOP);
+                MSNet::getInstance()->getVehicleControl().registerStopStarted();
                 // compute stopping time
                 if (stop.pars.until >= 0) {
                     if (stop.duration == -1) {
@@ -6224,6 +6225,7 @@ MSVehicle::resumeFromStopping() {
         updateBestLanes(true);
         // continue as wished...
         MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_ENDING_STOP);
+        MSNet::getInstance()->getVehicleControl().registerStopEnded();
         return true;
     }
     return false;
