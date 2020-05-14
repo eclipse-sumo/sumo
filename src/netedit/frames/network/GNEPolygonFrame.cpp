@@ -375,7 +375,7 @@ GNEPolygonFrame::shapeDrawed() {
         }
         // obtain shape and check if has to be closed
         PositionVector temporalShape = myDrawingShape->getTemporalShape();
-        if (valuesMap[GNE_ATTR_CLOSE_SHAPE] == "true") {
+        if (GNEAttributeCarrier::parse<bool>(valuesMap[GNE_ATTR_CLOSE_SHAPE])) {
             temporalShape.closePolygon();
         }
         valuesMap[SUMO_ATTR_SHAPE] = toString(temporalShape);

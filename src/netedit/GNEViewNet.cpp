@@ -3779,6 +3779,8 @@ GNEViewNet::processMoveMouseNetwork() {
     // change "delete last created point" depending if during movement shift key is pressed
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        // update view (for see temporal line)
+        updateViewNet();
     }
     // check what type of additional is moved
     if (myMoveMultipleElementValues.isMovingSelection()) {
