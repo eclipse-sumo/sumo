@@ -45,8 +45,9 @@ INVALID = traci.constants.INVALID_DOUBLE_VALUE
 vehID = "v0"
 
 
-def check(x, y, angle, exLane, exPos, exPosLat, comment, edgeHint="", laneHint=0):
-    traci.vehicle.moveToXY(vehID, edgeHint, laneHint, x, y, angle)
+def check(x, y, angle, exLane, exPos, exPosLat, comment, edgeHint="",
+        laneHint=0, keepRoute=1):
+    traci.vehicle.moveToXY(vehID, edgeHint, laneHint, x, y, angle, keepRoute)
     traci.simulationStep()
     x2, y2 = traci.vehicle.getPosition(vehID)
     lane2 = traci.vehicle.getLaneID(vehID)
@@ -84,6 +85,7 @@ check(101.65, 50,   ANGLE_UNDEF, None,         None, None,       "correct lane")
 check(101.65, 60,   ANGLE_UNDEF, None,         None, None,       "correct lane")
 check(101.65, 70,   ANGLE_UNDEF, None,         None, None,       "correct lane")
 check(101.65, 80,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-# test misleading lane hints (vehicle is on SC_1 and should move to SC_0
-check(104.95, 90,   ANGLE_UNDEF, "SC_0",         None, None,       "correct lane", edgeHint="SC", laneHint=1)
+# test misleading lane hints (vehicle is on SC_1 but position is on SC_0
+check(104.95, 90,   ANGLE_UNDEF, None,         None, None,       "inconsistent hint", edgeHint="SC", laneHint=1)
+check(104.95, 20,   ANGLE_UNDEF, None,         None, None,       "inconsistent hint", edgeHint="SC", laneHint=1, keepRoute=2)
 traci.close()

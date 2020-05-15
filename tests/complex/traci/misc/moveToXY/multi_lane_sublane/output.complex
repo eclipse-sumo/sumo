@@ -6,3 +6,4 @@
 6.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=-1.42108547152e-14  nextTLS=('C', 10, 31.950000000000003, 'G')  leader=('', -1.0)
 7.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=2.13162820728e-14  nextTLS=('C', 10, 21.94999999999999, 'G')  leader=('', -1.0)
 8.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=-2.84217094304e-14  nextTLS=('C', 10, 11.950000000000003, 'G')  leader=('', -1.0)
+9.0  lane=SC_0  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []  accel=1.42108547152e-14  nextTLS=('C', 10, 1.9500000000000028, 'G')  leader=('', -1.0)
