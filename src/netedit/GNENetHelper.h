@@ -416,11 +416,15 @@ struct GNENetHelper {
         /// @brief calculate Dijkstra path between a list of partial edges
         std::vector<GNEEdge*> calculatePath(const SUMOVehicleClass vClass, const std::vector<GNEEdge*>& partialEdges) const;
 
-        /// @brief check if exist a path between the two given consecutives edges for the given VClass
-        bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
-
         /// @brief calculate reachability for given edge
         void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
+
+        /// @brief check if exist a path between the two given consecutives edges for the given VClass
+        const bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
+
+        /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians
+        const bool busStopConnected(const GNEAdditional *busStop, const GNEEdge* edge) const;
+
     private:
         /// @brief pointer to net
         const GNENet* myNet;

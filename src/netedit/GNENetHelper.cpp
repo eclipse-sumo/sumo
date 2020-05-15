@@ -1092,42 +1092,6 @@ GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const
 }
 
 
-bool
-GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
-    // check conditions
-    if ((from == nullptr) || (to == nullptr)) {
-        // myEdges cannot be null
-        return false;
-    } else if (from == to) {
-        // the same edge cannot be consecutive of itself
-        return false;
-    } else if (vClass == SVC_PEDESTRIAN) {
-        // for pedestrians consecutive myEdges are always connected
-        return true;
-    } else {
-        // iterate over connections of from edge
-        for (const auto &fromLane : from->getLanes()) {
-            for (const auto& fromConnection : from->getGNEConnections()) {
-                // within from loop, iterate ove to lanes
-                for (const auto& toLane : to->getLanes()) {
-                    if (fromConnection->getLaneTo() == toLane) {
-                        // get lane structs for both lanes
-                        const NBEdge::Lane NBFromLane = from->getNBEdge()->getLaneStruct(fromLane->getIndex());
-                        const NBEdge::Lane NBToLane = to->getNBEdge()->getLaneStruct(toLane->getIndex());
-                        // check vClass
-                        if (((NBFromLane.permissions & vClass) == vClass) && 
-                            ((NBToLane.permissions & vClass) == vClass)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-        return false;
-    }
-}
-
-
 void
 GNENetHelper::PathCalculator::calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge) {
     // first reset reachability of all lanes
@@ -1175,6 +1139,77 @@ GNENetHelper::PathCalculator::calculateReachability(const SUMOVehicleClass vClas
             }
         }
     }
+}
+
+
+const bool
+GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
+    // check conditions
+    if ((from == nullptr) || (to == nullptr)) {
+        // myEdges cannot be null
+        return false;
+    } else if (from == to) {
+        // the same edge cannot be consecutive of itself
+        return false;
+    } else if (vClass == SVC_PEDESTRIAN) {
+        // for pedestrians consecutive myEdges are always connected
+        return true;
+    } else {
+        // iterate over connections of from edge
+        for (const auto &fromLane : from->getLanes()) {
+            for (const auto& fromConnection : from->getGNEConnections()) {
+                // within from loop, iterate ove to lanes
+                for (const auto& toLane : to->getLanes()) {
+                    if (fromConnection->getLaneTo() == toLane) {
+                        // get lane structs for both lanes
+                        const NBEdge::Lane NBFromLane = from->getNBEdge()->getLaneStruct(fromLane->getIndex());
+                        const NBEdge::Lane NBToLane = to->getNBEdge()->getLaneStruct(toLane->getIndex());
+                        // check vClass
+                        if (((NBFromLane.permissions & vClass) == vClass) && 
+                            ((NBToLane.permissions & vClass) == vClass)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+}
+
+
+const bool 
+GNENetHelper::PathCalculator::busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const {
+    if (busStop->getTagProperty().getTag() != SUMO_TAG_BUS_STOP) {
+        return false;
+    }
+    // check if busstop is placed over a pedestrian lane
+    if ((busStop->getParentLanes().front()->getParentEdge() == edge) &&
+        (edge->getNBEdge()->getLaneStruct(busStop->getParentLanes().front()->getIndex()).permissions & SVC_PEDESTRIAN) != 0) {
+        // busStop is placed over an lane that supports pedestrians, then return true 
+        return true;
+    }
+    // obtain a list with all edge lanes that supports pedestrians
+    std::vector<GNELane*> pedestrianLanes;
+    for (int laneIndex = 0; laneIndex < (int)edge->getLanes().size(); laneIndex++) {
+        if ((edge->getNBEdge()->getLaneStruct(laneIndex).permissions & SVC_PEDESTRIAN) != 0) {
+            pedestrianLanes.push_back(edge->getLanes().at(laneIndex));
+        }
+    }
+    // check if exist an access between busStop and pedestrian lanes
+    for (const auto &access : busStop->getChildAdditionals()) {
+        // check that child is an access
+        if (access->getTagProperty().getTag() == SUMO_TAG_ACCESS) {
+            for (const auto &lane : pedestrianLanes) {
+                if (access->getParentLanes().front() == lane) {
+                    // found, then return true
+                    return true;
+                }
+            }
+        }
+    }
+    // There isn't a valid access, then return false
+    return false;
 }
 
 // ---------------------------------------------------------------------------
