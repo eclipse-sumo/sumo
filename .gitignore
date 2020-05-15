@@ -29,6 +29,9 @@
 /build/cmake-build*
 /build/cmake_build*
 /build/cmake-codeblocks*
+/build/osx/.DS_STORE
+/build/osx/sumo-gui/.DS_STORE
+/build/osx/netedit/.DS_STORE
 /out
 # bin dir
 /bin/TraCITestClient*
