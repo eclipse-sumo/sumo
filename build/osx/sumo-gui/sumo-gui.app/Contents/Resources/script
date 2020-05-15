@@ -23,7 +23,7 @@
 emulate -LR zsh
 
 # Go through a list of possible config files, which may contain SUMO_HOME declaration
-FILE_LIST=('~/.profile' '~/.bashrc' '~/.zshrc')
+FILE_LIST=( "$HOME/.zshrc" "$HOME/.bash_profile" "$HOME/.bashrc" "$HOME/.profile" )
 
 for FILE in ${FILE_LIST[*]}; do
     if [ -z "$SUMO_HOME" ]; then

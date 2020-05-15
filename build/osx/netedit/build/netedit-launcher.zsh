@@ -20,15 +20,13 @@
 # Launcher script for OSX application bundle for sumo-gui
 # ****************************************************************************/
 
-emulate -LR zsh
-
 # Go through a list of possible config files, which may contain SUMO_HOME declaration
-FILE_LIST=('~/.profile' '~/.bashrc' '~/.zshrc')
+FILE_LIST=("$HOME/.zshrc" "$HOME/.bash_profile" "$HOME/.bashrc" "$HOME/.profile")
 
 for FILE in ${FILE_LIST[*]}; do
     if [ -z "$SUMO_HOME" ]; then
-        echo "Loading $FILE"
-        source $FILE 2> /dev/null
+        echo "Loading $FILE" 2> /dev/null
+        source $FILE 
     else
         echo "Found \$SUMO_HOME"
         break
