@@ -143,7 +143,9 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     const std::string edgeID = SUMOXMLDefinitions::getEdgeIDFromLane(laneID);
     NBEdge* edge = myEdgeCont.retrieve(edgeID);
     if (edge == nullptr) {
-        WRITE_ERROR("Edge '" + edgeID + "' for stop '" + id + "' not found");
+        if (!myEdgeCont.wasIgnored(edgeID)) {
+            WRITE_ERROR("Edge '" + edgeID + "' for stop '" + id + "' not found");
+        }
         return;
     }
     if (edge->getNumLanes() <= laneIndex) {
@@ -229,7 +231,9 @@ NIXMLPTHandler::addPTLineRoute(const SUMOSAXAttributes& attrs) {
     for (const std::string& edgeID : edgeIDs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
         if (edge == nullptr) {
-            WRITE_ERROR("Edge '" + edgeID + "' in route of line '" + myCurrentLine->getName() + "' not found");
+            if (!myEdgeCont.wasIgnored(edgeID)) {
+                WRITE_ERROR("Edge '" + edgeID + "' in route of line '" + myCurrentLine->getName() + "' not found");
+            }
         } else {
             edges.push_back(edge);
         }
@@ -246,7 +250,9 @@ NIXMLPTHandler::addRoute(const SUMOSAXAttributes& attrs) {
     for (const std::string& edgeID : edgeIDs) {
         NBEdge* edge = myEdgeCont.retrieve(edgeID);
         if (edge == nullptr) {
-            WRITE_ERROR("Edge '" + edgeID + "' in route of line '" + myCurrentLine->getName() + "' not found");
+            if (!myEdgeCont.wasIgnored(edgeID)) {
+                WRITE_ERROR("Edge '" + edgeID + "' in route of line '" + myCurrentLine->getName() + "' not found");
+            }
         } else {
             edges.push_back(edge);
         }
