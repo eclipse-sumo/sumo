@@ -34,6 +34,20 @@ SUMO2016](http://elib.dlr.de/106342/1/SUMOconference_proceedings_2016.pdf)
 !!! caution
     The sublane model is a developing subject. It is not compatible with [opposite direction driving](../Simulation/OppositeDirectionDriving.md) so far.
 
+## Lateral Resolution and Vehicle Position
+When the sublane model is activated, the lateral vehicle position (measured as offset from the centerline of the lane) can take on any value between [-laneWidth/2, laneWidth/2] regardless of the lateral resolution value.
+
+The resolution wich implicitly divides a lane into one or more sublane stripes defines the granularity of decision making and collision detection. 
+During normal simulation behavior two vehicles will never occupy the same stripe while having an overlap in the longitudinal direction of the lane. Consequently, the value of **--lateral-resoluton** should be low enough to account for the space requirements of the least wide traffic member.
+If three bicycles should be able to ride side by side on a 3.6m wide lane, the lateral resolution must not be higher than 1.2m.
+
+!!! note
+    It is recommended to set the lateral resolution to a valude that divides the lane width evenly to avoid artefacts from varyings stripe width (stripes end at the lane border).!!! note
+    It is recommended to set the lateral resolution to a valude that divides the lane width evenly to avoid artefacts from varyings stripe width (stripes end at the lane border).
+
+!!! caution
+    The smaller the value of **--lateral-resolution**, the higher the running time for computing the simulation state.
+
 ## New Parameters
 
 The vehicle behavior is subject to model-specific [vType attributes
