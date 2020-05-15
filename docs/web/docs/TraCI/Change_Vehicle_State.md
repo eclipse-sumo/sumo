@@ -154,10 +154,13 @@ The vehicle will be removed from its lane and moved to the given position on the
 ### move to XY (0xb4)
 
 The vehicle (the center of it's front bumper) is moved to the network
-position that best matches the given x,y network coordinates. The edgeID
-and laneIndex are compared against the original [OpenDRIVE lane
-id](../Networks/Import/OpenDRIVE.md#referencing_original_ids) when
-possible to resolve ambiguities. The optional keepRoute flag is a bitset that influences
+position that best matches the given x,y network coordinates. 
+
+The arguments edgeID and lane are optional and can be set to "" and -1 respectively if not known.
+Their use is to resolve ambiguities when there are multiple roads on top of each other (i.e. at bridges) or to provide additional guidance on intersections (where internal edges overlap). 
+If the edgeID and lane are given, they are compared against the 'origID'-attribute of the road lanes (which may be set to providate a mapping to some other network such as OpenDRIVE) and if the attribute isn't set against the actual lane id.
+
+The optional keepRoute flag is a bitset that influences
 mapping as follows:
 
 - **bit0** (keepRoute = 1 when only this bit is set)
