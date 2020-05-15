@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 15 May 2020 09:04:09 AM CEST by Eclipse SUMO netedit Version v1_6_0+0257-5a63b61eda
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="../plain/net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="../plain/net.netconvert"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="/home/kobo/dlr/sumo/tests/netconvert/function/remove_edges/removing_bottom_with_stops/input_ptstop.xml.add.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_3o_0_1" lane="3o_0" startPos="123.29" endPos="133.29"/>
+    <busStop id="busStop_3si_0_0" lane="3si_0" startPos="121.56" endPos="131.56"/>
+    <busStop id="busStop_4o_0_2" lane="4o_0" startPos="190.00" endPos="200.00"/>
+    <busStop id="busStop_4si_0_3" lane="4si_0" startPos="54.69" endPos="64.69"/>
+</additional>
