@@ -1131,7 +1131,7 @@ Helper::postProcessRemoteControl() {
 bool
 Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
                     double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
-                    SUMOVehicleClass vClass,
+                    SUMOVehicleClass vClass, bool setLateralPos,
                     double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle/person
     const MSEdge* const currentRouteEdge = currentRoute[routePosition];
@@ -1251,9 +1251,15 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                       << "\n";
             std::cout << l->getID() << " param=" << l->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
 #endif
+
+            bool origIDMatch = l->getParameter(SUMO_PARAM_ORIGID, l->getID()) == origID;
+            if (origIDMatch && setLateralPos
+                    && perpendicularDist > l->getWidth() / 2) {
+                origIDMatch = false;
+            }
             lane2utility.emplace(l, LaneUtility(
                                      dist2, perpendicularDist, off, angleDiff,
-                                     l->getParameter(SUMO_PARAM_ORIGID, l->getID()) == origID,
+                                     origIDMatch,
                                      onRoute, sameEdge, prevEdge, nextEdge));
             // update scaling value
             maxDist = MAX2(maxDist, MIN2(dist, SUMO_const_laneWidth));
@@ -1352,7 +1358,7 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
 bool
 Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string& origID,
         const ConstMSEdgeVector& currentRoute, int routeIndex,
-        SUMOVehicleClass vClass,
+        SUMOVehicleClass vClass, bool setLateralPos,
         double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
     //std::cout << "moveToXYMap_matchingRoutePosition pos=" << pos << "\n";
     routeOffset = 0;
@@ -1410,8 +1416,18 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         const std::vector<MSLane*>& lanes = (*lane)->getEdge().getLanes();
         for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
             if ((*i)->getParameter(SUMO_PARAM_ORIGID, (*i)->getID()) == origID) {
-                *lane = *i;
-                break;
+                if (setLateralPos) {
+                    // vehicle might end up on top of another lane with a big
+                    // lateral offset to the lane with origID.
+                    const double dist = (*i)->getShape().distance2D(pos); // get distance
+                    if (dist < (*i)->getWidth() / 2) {
+                        *lane = *i;
+                        break;
+                    }
+                } else {
+                    *lane = *i;
+                    break;
+                }
             }
         }
     }

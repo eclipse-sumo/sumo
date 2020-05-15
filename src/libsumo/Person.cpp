@@ -762,13 +762,13 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         //  we additionally assume it is moving forward (SUMO-limit);
         //  note that the route ("edges") is not changed in this case
         found = Helper::moveToXYMap_matchingRoutePosition(pos, edgeID,
-                ev, routeIndex, vClass,
+                ev, routeIndex, vClass, true,
                 bestDistance, &lane, lanePos, routeOffset);
     } else {
         double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle,
                                     speed, ev, routeIndex, currentLane, p->getEdgePos(), true,
-                                    vClass,
+                                    vClass, true,
                                     bestDistance, &lane, lanePos, routeOffset, edges);
     }
     if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {

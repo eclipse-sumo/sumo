@@ -1206,6 +1206,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
     const bool doKeepRoute = (keepRoute & 1) != 0 && veh->getID() != "VTD_EGO";
     const bool mayLeaveNetwork = (keepRoute & 2) != 0;
     const bool ignorePermissions = (keepRoute & 4) != 0;
+    const bool setLateralPos = (MSGlobals::gLateralResolution > 0 || mayLeaveNetwork);
     SUMOVehicleClass vClass = ignorePermissions ? SVC_IGNORING : veh->getVClass();
     // process
     const std::string origID = edgeID + "_" + toString(laneIndex);
@@ -1247,20 +1248,20 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
 
         found = Helper::moveToXYMap_matchingRoutePosition(pos, origID,
                 veh->getRoute().getEdges(), (int)(veh->getCurrentRouteEdge() - veh->getRoute().begin()),
-                vClass,
+                vClass, setLateralPos,
                 bestDistance, &lane, lanePos, routeOffset);
         // @note silenty ignoring mapping failure
     } else {
         double speed = pos.distanceTo2D(veh->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, origID, angle,
                                     speed, veh->getRoute().getEdges(), veh->getRoutePosition(), veh->getLane(), veh->getPositionOnLane(), veh->isOnRoad(),
-                                    vClass,
+                                    vClass, setLateralPos,
                                     bestDistance, &lane, lanePos, routeOffset, edges);
     }
     if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
         // optionally compute lateral offset
         pos.setz(veh->getPosition().z());
-        if (found && (MSGlobals::gLateralResolution > 0 || mayLeaveNetwork)) {
+        if (found && setLateralPos) {
             const double perpDist = lane->getShape().distance2D(pos, false);
             if (perpDist != GeomHelper::INVALID_OFFSET) {
                 lanePosLat = perpDist;
