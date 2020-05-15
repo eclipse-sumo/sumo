@@ -1,0 +1,13 @@
+Warning: Unused states in tlLogic 'C', program '0' in phase 0 after tl-index 18
+Warning: Collision of person 'pEW.8' and person 'pEW.3', lane=':C_9_0', time=157.00.
+Warning: Collision of person 'pEW.14' and person 'pEW.12', lane=':C_9_0', time=227.00.
+Warning: Collision of person 'pEW.29' and person 'pEW.30', lane=':C_9_0', time=407.00.
+Warning: Collision of person 'pEW.34' and person 'pEW.36', lane=':C_9_0', time=407.00.
+Warning: Collision of person 'pWE.49' and person 'pWE.52', lane='CEa_0', time=615.00.
+Warning: Collision of person 'pEW.74' and person 'pEW.75', lane=':C_9_0', time=767.00.
+Warning: Collision of person 'pEW.80' and person 'pEW.76', lane=':C_9_0', time=767.00.
+Warning: Collision of person 'pEW.80' and person 'pEW.77', lane=':C_9_0', time=776.00.
+Warning: Collision of person 'pEW.78' and person 'pEW.79', lane=':C_9_0', time=776.00.
+Warning: Vehicle 'veh.76' collision with person 'pWE.65', lane=':C_9_0', gap=-10.18, time=781.00 stage=laneChange.
+Warning: Collision of person 'pEW.91' and person 'pEW.85', lane=':C_9_0', time=858.00.
+Warning: Collision of person 'pEW.103' and person 'pEW.102', lane=':C_9_0', time=947.00.
