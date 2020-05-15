@@ -30,6 +30,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/geom/GeomConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
@@ -109,28 +110,48 @@ NBEdgeCont::applyOptions(OptionsCont& oc) {
     }
 
     if (oc.isSet("keep-edges.in-boundary") || oc.isSet("keep-edges.in-geo-boundary")) {
-        std::vector<std::string> polyS = oc.getStringVector(oc.isSet("keep-edges.in-boundary") ?
-                                         "keep-edges.in-boundary" : "keep-edges.in-geo-boundary");
-        // !!! throw something if length<4 || length%2!=0?
-        std::vector<double> poly;
-        for (std::vector<std::string>::iterator i = polyS.begin(); i != polyS.end(); ++i) {
-            poly.push_back(StringUtils::toDouble((*i))); // !!! may throw something anyhow...
-        }
-        if (poly.size() < 4) {
-            throw ProcessError("Invalid boundary: need at least 2 coordinates");
-        } else if (poly.size() % 2 != 0) {
-            throw ProcessError("Invalid boundary: malformed coordinate");
-        } else if (poly.size() == 4) {
-            // prunning boundary (box)
-            myPruningBoundary.push_back(Position(poly[0], poly[1]));
-            myPruningBoundary.push_back(Position(poly[2], poly[1]));
-            myPruningBoundary.push_back(Position(poly[2], poly[3]));
-            myPruningBoundary.push_back(Position(poly[0], poly[3]));
+
+        std::string polyPlainString = oc.getValueString(oc.isSet("keep-edges.in-boundary") ?
+                "keep-edges.in-boundary" : "keep-edges.in-geo-boundary");
+        // try interpreting the boundary like shape attribute with spaces
+        bool ok = true;
+        PositionVector boundaryShape = GeomConvHelper::parseShapeReporting(polyPlainString, "pruning-boundary", 0, ok, false, false);
+        if (ok) {
+            if (boundaryShape.size() < 2) {
+                throw ProcessError("Invalid boundary: need at least 2 coordinates");
+            } else if (boundaryShape.size() == 2) {
+                // prunning boundary (box)
+                myPruningBoundary.push_back(boundaryShape[0]);
+                myPruningBoundary.push_back(Position(boundaryShape[1].x(), boundaryShape[0].y()));
+                myPruningBoundary.push_back(boundaryShape[1]);
+                myPruningBoundary.push_back(Position(boundaryShape[0].x(), boundaryShape[1].y()));
+            } else {
+                myPruningBoundary = boundaryShape;
+            }
         } else {
-            for (std::vector<double>::iterator j = poly.begin(); j != poly.end();) {
-                double x = *j++;
-                double y = *j++;
-                myPruningBoundary.push_back(Position(x, y));
+            // maybe positions are separated by ',' instead of ' '
+            std::vector<std::string> polyS = oc.getStringVector(oc.isSet("keep-edges.in-boundary") ?
+                    "keep-edges.in-boundary" : "keep-edges.in-geo-boundary");
+            std::vector<double> poly;
+            for (std::vector<std::string>::iterator i = polyS.begin(); i != polyS.end(); ++i) {
+                poly.push_back(StringUtils::toDouble((*i))); // !!! may throw something anyhow...
+            }
+            if (poly.size() < 4) {
+                throw ProcessError("Invalid boundary: need at least 2 coordinates");
+            } else if (poly.size() % 2 != 0) {
+                throw ProcessError("Invalid boundary: malformed coordinate");
+            } else if (poly.size() == 4) {
+                // prunning boundary (box)
+                myPruningBoundary.push_back(Position(poly[0], poly[1]));
+                myPruningBoundary.push_back(Position(poly[2], poly[1]));
+                myPruningBoundary.push_back(Position(poly[2], poly[3]));
+                myPruningBoundary.push_back(Position(poly[0], poly[3]));
+            } else {
+                for (std::vector<double>::iterator j = poly.begin(); j != poly.end();) {
+                    double x = *j++;
+                    double y = *j++;
+                    myPruningBoundary.push_back(Position(x, y));
+                }
             }
         }
         myNeedGeoTransformedPruningBoundary = oc.isSet("keep-edges.in-geo-boundary");
