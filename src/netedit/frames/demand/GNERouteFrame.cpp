@@ -126,12 +126,12 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         // update edge colors
         myRouteFrameParent->myPathCreator->updateEdgeColors();
         // show legend
-        myRouteFrameParent->myLegend->showLegendModul();
+        myRouteFrameParent->myPathLegend->showPathLegendModul();
     } else {
         // hide all moduls if route mode isnt' valid
         myRouteFrameParent->myRouteAttributes->hideAttributesCreatorModul();
         myRouteFrameParent->myPathCreator->hidePathCreatorModul();
-        myRouteFrameParent->myLegend->hideLegendModul();
+        myRouteFrameParent->myPathLegend->hidePathLegendModul();
         // reset all flags
         for (const auto& edge : myRouteFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
             edge.second->resetCandidateFlags();
@@ -194,41 +194,6 @@ GNERouteFrame::RouteModeSelector::onCmdSelectVClass(FXObject*, FXSelector, void*
 }
 
 // ---------------------------------------------------------------------------
-// GNERouteFrame::Legend - methods
-// ---------------------------------------------------------------------------
-
-GNERouteFrame::Legend::Legend(GNERouteFrame* routeFrameParent) :
-    FXGroupBox(routeFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame) {
-    // declare label
-    FXLabel* legendLabel = nullptr;
-    legendLabel = new FXLabel(this, " edge candidate", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.possible));
-    legendLabel->setTextColor(MFXUtils::getFXColor(RGBColor::WHITE));
-    legendLabel = new FXLabel(this, " last edge selected", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.target));
-    legendLabel = new FXLabel(this, " edge selected", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.source));
-    legendLabel = new FXLabel(this, " edge conflic (vClass)", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.special));
-    legendLabel = new FXLabel(this, " edge disconnected", 0, GUIDesignLabelLeft);
-    legendLabel->setBackColor(MFXUtils::getFXColor(routeFrameParent->getViewNet()->getVisualisationSettings().candidateColorSettings.conflict));
-}
-
-
-GNERouteFrame::Legend::~Legend() {}
-
-
-void
-GNERouteFrame::Legend::showLegendModul() {
-    show();
-}
-
-void
-GNERouteFrame::Legend::hideLegendModul() {
-    hide();
-}
-
-// ---------------------------------------------------------------------------
 // GNERouteFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -245,7 +210,7 @@ GNERouteFrame::GNERouteFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNe
     myPathCreator = new GNEFrameModuls::PathCreator(this, GNEFrameModuls::PathCreator::Mode::NONCONSECUTIVE_EDGES);
 
     // create legend label
-    myLegend = new Legend(this);
+    myPathLegend = new GNEFrameModuls::PathLegend(this);
 }
 
 

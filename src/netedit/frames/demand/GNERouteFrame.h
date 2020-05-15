@@ -98,27 +98,6 @@ public:
         std::vector<std::pair<RouteMode, std::string> > myRouteModesStrings;
     };
 
-    // ===========================================================================
-    // class Legend
-    // ===========================================================================
-
-    class Legend : protected FXGroupBox {
-
-    public:
-        /// @brief constructor
-        Legend(GNERouteFrame* routeFrameParent);
-
-        /// @brief destructor
-        ~Legend();
-
-        /// @brief show Legend modul
-        void showLegendModul();
-
-        /// @brief hide Legend modul
-        void hideLegendModul();
-
-    };
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -154,6 +133,6 @@ private:
     /// @brief path creator modul
     GNEFrameModuls::PathCreator* myPathCreator;
 
-    /// @brief legend modul
-    Legend* myLegend;
+    /// @brief path legend modul
+    GNEFrameModuls::PathLegend* myPathLegend;
 };

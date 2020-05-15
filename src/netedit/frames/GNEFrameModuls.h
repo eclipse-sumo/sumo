@@ -640,6 +640,7 @@ public:
             NONCONSECUTIVE_EDGES = 1 << 1,   // Path's edges aren't consecutives
             START_EDGE           = 1 << 2,   // Path begins in an edge
             END_EDGE             = 1 << 3,   // Path ends in an edge
+            ONLY_FROMTO          = 1 << 3,   // Path only had two elements (first and last)
             START_BUSSTOP        = 1 << 2,   // Path begins in a busStop
             END_BUSSTOP          = 1 << 3,   // Path ends in a busStop
         };
@@ -702,8 +703,8 @@ public:
         /// @brief show PathCreator
         void hidePathCreatorModul();
 
-        /// @brief get current selected edgesm
-        std::vector<GNEEdge*> getSelectedEdges() const;
+        /// @brief change route mode
+        void setPathCreatorMode(const int creationMode);
 
         /// @brief get vClass
         SUMOVehicleClass getVClass() const;
@@ -711,17 +712,17 @@ public:
         /// @brief set vClass
         void setVClass(SUMOVehicleClass vClass);
 
-        /// @brief change route mode
-        void setPathCreatorMode(const int creationMode);
-
         /// @brief add edge
         bool addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
 
-        /// @brief add additional
-        bool addAdditional(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed);
+        /// @brief get current selected additionals
+        std::vector<GNEEdge*> getSelectedEdges() const;
 
-        /// @brief clear edges (and restore colors)
-        void clearPath();
+        /// @brief add additional
+        bool addAdditional(GNEAdditional* additional, const bool shiftKeyPressed, const bool controlKeyPressed);
+
+        /// @brief get current selected additionals
+        std::vector<GNEAdditional*> getSelectedAdditionals() const;
 
         /// @brief get path route
         const std::vector<Path>& getPath() const;
@@ -765,6 +766,9 @@ public:
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
 
+        /// @brief clear edges (and restore colors)
+        void clearPath();
+
         /// @brief recalculate path
         void recalculatePath();
 
@@ -784,14 +788,17 @@ public:
         /// @brief current creation mode
         int myCreationMode;
 
-        /// @brief current selected edges
-        std::vector<GNEEdge*> mySelectedElements;
+        /// @brief vector with selected edges
+        std::vector<GNEEdge*> mySelectedEdges;
 
-        /// @brief label with route info
-        FXLabel* myInfoRouteLabel;
+        /// @brief vector with selected additionals (usually busStops)
+        std::vector<GNEAdditional*> mySelectedAdditionals;
 
         /// @brief vector with current path
         std::vector<Path> myPath;
+
+        /// @brief label with route info
+        FXLabel* myInfoRouteLabel;
 
         /// @brief button for finish route creation
         FXButton* myFinishCreationButton;
@@ -799,8 +806,8 @@ public:
         /// @brief button for abort route creation
         FXButton* myAbortCreationButton;
 
-        /// @brief button for removing last inserted edge
-        FXButton* myRemoveLastInsertedEdge;
+        /// @brief button for removing last inserted element
+        FXButton* myRemoveLastInsertedElement;
 
         /// @brief CheckBox for show candidate edges
         FXCheckButton* myShowCandidateEdges;
@@ -811,6 +818,30 @@ public:
         /// @brief label for control information
         FXLabel* myControlLabel;
     };
+
+    // ===========================================================================
+    // class PathLegend
+    // ===========================================================================
+
+    class PathLegend : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        PathLegend(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~PathLegend();
+
+        /// @brief show Legend modul
+        void showPathLegendModul();
+
+        /// @brief hide Legend modul
+        void hidePathLegendModul();
+    };
+
+    // ===========================================================================
+    // Functions
+    // ===========================================================================
 
     /// @brief build rainbow in frame modul
     static FXLabel* buildRainbow(FXComposite* parent, std::vector<RGBColor>& scaleColors);
