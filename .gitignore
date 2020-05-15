@@ -123,7 +123,7 @@ Makefile.in
 *.class
 lib*.a
 .deps
-# .DS_STORE
+.DS_STORE
 .libs
 *.o
 *.pyc
