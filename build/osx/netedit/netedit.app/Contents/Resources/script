@@ -35,6 +35,7 @@ done
 
 if [ -z "$SUMO_HOME" ]; then
     echo "\$SUMO_HOME not found - aborting"
+    osascript -e 'tell application (path to frontmost application as text) to display dialog "Could not identify the location of SUMO (SUMO_HOME environment variable not found)\n\nPlease set this environment variable in .zshrc, .bash_profile or .profile" buttons {"OK"} with icon stop'
     exit -1
 else
     echo "Starting: $SUMO_HOME/bin/netedit"
