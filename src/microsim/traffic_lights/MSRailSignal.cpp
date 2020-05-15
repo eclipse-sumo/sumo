@@ -102,7 +102,7 @@ MSRailSignal::init(NLDetectorBuilder&) {
     }
     updateCurrentPhase();
     setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
-    myNumLinks = myLinks.size();
+    myNumLinks = (int)myLinks.size();
 }
 
 

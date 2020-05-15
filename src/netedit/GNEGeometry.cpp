@@ -1038,13 +1038,13 @@ GNEGeometry::drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometr
 
 
 void
-GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const int type, const double exaggeration, const DottedGeometry& dottedGeometry) {
+GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const double typeLayer, const double exaggeration, const DottedGeometry& dottedGeometry) {
     // first check that given shape isn't empty
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (dottedGeometry.getShape().size() > 0)) {
         // push matrix
         glPushMatrix();
         // Move to Centroid
-        glTranslated(dottedGeometry.getCentroid().x(), dottedGeometry.getCentroid().y(), type + 2);
+        glTranslated(dottedGeometry.getCentroid().x(), dottedGeometry.getCentroid().y(), typeLayer + 2);
         // scale matrix depending of the exaggeration
         if (exaggeration != 1) {
             glScaled(exaggeration, exaggeration, 1);
