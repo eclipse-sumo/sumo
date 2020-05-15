@@ -2560,15 +2560,16 @@ GNEFrameModuls::PathCreator::getSelectedEdges() const {
 
 bool
 GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool shiftKeyPressed, const bool controlKeyPressed) {
-    if (mySelectedAdditionals.size() > 0) {
-        // check double additionals
-        if ((mySelectedAdditionals.back() == additional)) {
-            // Write warning
-            WRITE_WARNING("Double additionals aren't allowed");
-            // abort add additional
-            return false;
-        }
+    // first check if additionals aren allowed
+    if (((myCreationMode & START_BUSSTOP) + (myCreationMode & START_BUSSTOP)) == 0) {
+        return false;
     }
+    // currently only two additionals are supported
+    if (mySelectedAdditionals.size() > 2) {
+        return false;
+    }
+
+
     // All checks ok, then add it in selected elements
     mySelectedAdditionals.push_back(additional);
     // enable abort route button

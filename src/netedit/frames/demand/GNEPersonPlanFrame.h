@@ -47,11 +47,12 @@ public:
     /// @brief hide Frame
     void hide();
 
-    /**@brief add vehicle element
+    /**@brief handle person plan click
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @return true if vehicle was sucesfully added
+     * @param shiftKeyPressed flag. True if shift key is pressed
+     * @param controlKeyPressed flag. True if control key is pressed
      */
-    bool addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool handlePersonPlanClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const bool shiftKeyPressed, const bool controlKeyPressed);
 
     /// @brief get path creator modul
     GNEFrameModuls::PathCreator* getPathCreator() const;

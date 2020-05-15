@@ -3942,11 +3942,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_PERSONPLAN: {
-            // make sure that Control key isn't pressed
-            if (!myKeyPressed.controlKeyPressed()) {
-                // Handle click
-                myViewParent->getPersonPlanFrame()->addPersonPlan(myObjectsUnderCursor);
-            }
+            // Handle person plan click
+            myViewParent->getPersonPlanFrame()->handlePersonPlanClick(myObjectsUnderCursor, myKeyPressed.shiftKeyPressed(), myKeyPressed.controlKeyPressed());
             // process click
             processClick(eventData);
             break;

@@ -108,7 +108,8 @@ GNEPersonPlanFrame::hide() {
 
 
 bool
-GNEPersonPlanFrame::addPersonPlan(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEPersonPlanFrame::handlePersonPlanClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
+        const bool shiftKeyPressed, const bool controlKeyPressed) {
     // first check if person selected is valid
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
         myViewNet->setStatusBarText("Current selected person isn't valid.");
