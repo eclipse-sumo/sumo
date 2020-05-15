@@ -41,93 +41,6 @@
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEPersonPlanFrame::HelpCreation - methods
-// ---------------------------------------------------------------------------
-
-GNEPersonPlanFrame::HelpCreation::HelpCreation(GNEPersonPlanFrame* vehicleFrameParent) :
-    FXGroupBox(vehicleFrameParent->myContentFrame, "Help", GUIDesignGroupBoxFrame),
-    myPersonPlanFrameParent(vehicleFrameParent) {
-    myInformationLabel = new FXLabel(this, "", 0, GUIDesignLabelFrameInformation);
-}
-
-
-GNEPersonPlanFrame::HelpCreation::~HelpCreation() {}
-
-
-void
-GNEPersonPlanFrame::HelpCreation::showHelpCreation() {
-    // first update help cration
-    updateHelpCreation();
-    // show modul
-    show();
-}
-
-
-void
-GNEPersonPlanFrame::HelpCreation::hideHelpCreation() {
-    hide();
-}
-
-void
-GNEPersonPlanFrame::HelpCreation::updateHelpCreation() {
-    // create information label
-    std::ostringstream information;
-    // first check if Person Plan selector is shown
-    if (myPersonPlanFrameParent->myPersonSelector->isDemandElementSelectorShown()) {
-        // set text depending of selected person plan
-        switch (myPersonPlanFrameParent->myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
-            case SUMO_TAG_PERSONTRIP_FROMTO:
-                information
-                        << "- Click over edges to\n"
-                        << "  create a trip.";
-                break;
-            case SUMO_TAG_PERSONTRIP_BUSSTOP:
-                information
-                        << "- Click over an edge and\n"
-                        << "  a busStop to create a trip.";
-                break;
-            case SUMO_TAG_WALK_EDGES:
-                information
-                        << "- Click over a sequence of\n"
-                        << "  consecutive edges to\n"
-                        << "  create a walk.";
-                break;
-            case SUMO_TAG_WALK_FROMTO:
-                information
-                        << "- Click over edges to\n"
-                        << "  create a walk.";
-                break;
-            case SUMO_TAG_WALK_BUSSTOP:
-                information
-                        << "- Click over an edge and\n"
-                        << "  a busStop to create a walk.";
-                break;
-            case SUMO_TAG_WALK_ROUTE:
-                information
-                        << "- Click over a route";
-                break;
-            case SUMO_TAG_RIDE_FROMTO:
-                information
-                        << "- Click over edges to\n"
-                        << "  create a ride.";
-                break;
-            case SUMO_TAG_RIDE_BUSSTOP:
-                information
-                        << "- Click over an edge and\n"
-                        << "  a busStop to create a ride";
-                break;
-            default:
-                break;
-        }
-    } else {
-        information << "-  There aren't persons or\n"
-                    << "   personFlows in network.";
-    }
-    // set information label
-    myInformationLabel->setText(information.str().c_str());
-}
-
-// ---------------------------------------------------------------------------
 // GNEPersonPlanFrame - methods
 // ---------------------------------------------------------------------------
 
@@ -145,9 +58,6 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
 
     // create myPathCreator Modul
     myPathCreator = new GNEFrameModuls::PathCreator(this, GNEFrameModuls::PathCreator::Mode::NONCONSECUTIVE_EDGES);
-
-    // Create Help Creation Modul
-    myHelpCreation = new HelpCreation(this);
 
     // Create AttributeCarrierHierarchy modul
     myPersonHierarchy = new GNEFrameModuls::AttributeCarrierHierarchy(this);
@@ -184,7 +94,6 @@ GNEPersonPlanFrame::show() {
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myPathCreator->hidePathCreatorModul();
         myPersonHierarchy->hideAttributeCarrierHierarchy();
-        myHelpCreation->showHelpCreation();
     }
     // show frame
     GNEFrame::show();
@@ -259,15 +168,12 @@ GNEPersonPlanFrame::tagSelected() {
         myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
         // show edge path creator
         myPathCreator->showPathCreatorModul();
-        // show help creation
-        myHelpCreation->showHelpCreation();
         // show person hierarchy
         myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
     } else {
         // hide moduls if tag selecte isn't valid
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myPathCreator->hidePathCreatorModul();
-        myHelpCreation->hideHelpCreation();
         myPersonHierarchy->hideAttributeCarrierHierarchy();
     }
 }
@@ -295,14 +201,11 @@ GNEPersonPlanFrame::demandElementSelected() {
             myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
             // show edge path creator
             myPathCreator->showPathCreatorModul();
-            // show help creation
-            myHelpCreation->showHelpCreation();
             // Show the person's children
             myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
         } else {
             myPersonPlanAttributes->hideAttributesCreatorModul();
             myPathCreator->hidePathCreatorModul();
-            myHelpCreation->hideHelpCreation();
             myPersonHierarchy->hideAttributeCarrierHierarchy();
         }
     } else {
@@ -310,7 +213,6 @@ GNEPersonPlanFrame::demandElementSelected() {
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myPathCreator->hidePathCreatorModul();
-        myHelpCreation->hideHelpCreation();
         myPersonHierarchy->hideAttributeCarrierHierarchy();
     }
 }

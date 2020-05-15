@@ -32,36 +32,6 @@ class GNEPersonPlanFrame : public GNEFrame {
 
 public:
 
-    // ===========================================================================
-    // class HelpCreation
-    // ===========================================================================
-
-    class HelpCreation : protected FXGroupBox {
-
-    public:
-        /// @brief constructor
-        HelpCreation(GNEPersonPlanFrame* vehicleFrameParent);
-
-        /// @brief destructor
-        ~HelpCreation();
-
-        /// @brief show HelpCreation
-        void showHelpCreation();
-
-        /// @brief hide HelpCreation
-        void hideHelpCreation();
-
-        /// @brief update HelpCreation
-        void updateHelpCreation();
-
-    private:
-        /// @brief pointer to PersonPlan Frame Parent
-        GNEPersonPlanFrame* myPersonPlanFrameParent;
-
-        /// @brief Label with creation information
-        FXLabel* myInformationLabel;
-    };
-
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
@@ -111,7 +81,4 @@ private:
 
     /// @brief Person Hierarchy
     GNEFrameModuls::AttributeCarrierHierarchy* myPersonHierarchy;
-
-    /// @brief Help creation
-    HelpCreation* myHelpCreation;
 };
