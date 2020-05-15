@@ -126,6 +126,7 @@ Makefile.in
 *.class
 lib*.a
 .deps
+.DS_STORE
 .libs
 *.o
 *.pyc
