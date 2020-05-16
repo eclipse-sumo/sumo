@@ -3154,6 +3154,15 @@ NBNode::setRoundabout() {
     }
 }
 
+bool
+NBNode::isRoundabout() const {
+    for (NBEdge* out : myOutgoingEdges) {
+        if (out->getJunctionPriority(this) == NBEdge::JunctionPriority::ROUNDABOUT) {
+            return true;
+        }
+    }
+    return false;
+}
 
 NBNode::Crossing*
 NBNode::addCrossing(EdgeVector edges, double width, bool priority, int tlIndex, int tlIndex2,

@@ -127,6 +127,8 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_REPLACE,                        GNEViewNet::onCmdReplaceJunction),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT,                          GNEViewNet::onCmdSplitJunction),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SPLIT_RECONNECT,                GNEViewNet::onCmdSplitJunctionReconnect),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_SELECT_ROUNDABOUT,              GNEViewNet::onCmdSelectRoundabout),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT,             GNEViewNet::onCmdConvertRoundabout),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_CLEAR_CONNECTIONS,              GNEViewNet::onCmdClearConnections),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_JUNCTION_RESET_CONNECTIONS,              GNEViewNet::onCmdResetConnections),
     // Connections
@@ -2242,6 +2244,32 @@ GNEViewNet::onCmdSplitJunctionReconnect(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         myNet->splitJunction(junction, true, myUndoList);
+        updateViewNet();
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+long
+GNEViewNet::onCmdSelectRoundabout(FXObject*, FXSelector, void*) {
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction != nullptr) {
+        myNet->selectRoundabout(junction, myUndoList);
+        updateViewNet();
+    }
+    // destroy pop-up and set focus in view net
+    destroyPopup();
+    setFocus();
+    return 1;
+}
+
+long
+GNEViewNet::onCmdConvertRoundabout(FXObject*, FXSelector, void*) {
+    GNEJunction* junction = getJunctionAtPopupPosition();
+    if (junction != nullptr) {
+        myNet->createRoundabout(junction, myUndoList);
         updateViewNet();
     }
     // destroy pop-up and set focus in view net

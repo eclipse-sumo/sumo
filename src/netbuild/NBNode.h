@@ -660,6 +660,9 @@ public:
     /// @brief update the type of this node as a roundabout
     void setRoundabout();
 
+    /// @brief return whether this node is part of a roundabout
+    bool isRoundabout() const;
+
     /// @brief add a pedestrian crossing to this node
     NBNode::Crossing* addCrossing(EdgeVector edges, double width, bool priority, int tlIndex = -1, int tlIndex2 = -1,
                                   const PositionVector& customShape = PositionVector::EMPTY, bool fromSumoNet = false);

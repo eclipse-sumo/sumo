@@ -953,6 +953,84 @@ GNENet::mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* und
 }
 
 
+void
+GNENet::selectRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
+    for (const EdgeSet& roundabout : myNetBuilder->getEdgeCont().getRoundabouts()) {
+        for (NBEdge* edge : roundabout) {
+            if (edge->getFromNode() == junction->getNBNode()) {
+                undoList->p_begin("select roundabout");
+                for (NBEdge* roundaboutEdge : roundabout) {
+                    GNEEdge* e = retrieveEdge(roundaboutEdge->getID());
+                    e->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    e->getSecondParentJunction()->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                }
+                undoList->p_end();
+                return;
+            }
+        }
+    }
+}
+
+
+void
+GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
+    undoList->p_begin("create roundabout");
+    const double radius = junction->getNBNode()->getRadius();
+    std::vector<GNEEdge*> edges;
+    // use clockwise sorting
+    for (NBEdge* nbEdge : junction->getNBNode()->getEdges()) {
+        edges.push_back(retrieveEdge(nbEdge->getID()));
+    }
+    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
+    const double lefthandSign = lefthand ? -1 : 1;
+    std::vector<GNEJunction*> newJunctions;
+    GNEEdge* prevOpposite = nullptr;
+    // split incoming/outgoing edges
+    for (GNEEdge* edge : edges) {
+        GNEJunction* newJunction = nullptr;
+        if (edge == prevOpposite) {
+            newJunction = newJunctions.back();
+        }
+        //std::cout << " edge=" << edge->getID() << " prevOpposite=" << Named::getIDSecure(prevOpposite) << " newJunction=" << Named::getIDSecure(newJunction) << "\n";
+        prevOpposite = edge->getOppositeEdge();
+        const double geomLength = edge->getNBEdge()->getGeometry().length2D();
+        const double splitOffset = (edge->getSecondParentJunction() == junction 
+                ? MAX2(POSITION_EPS, geomLength - radius)
+                : MIN2(geomLength - POSITION_EPS, radius));
+        Position pos = edge->getNBEdge()->getGeometry().positionAtOffset2D(splitOffset);
+        newJunction = splitEdge(edge, pos, undoList, newJunction);
+        if (newJunctions.empty() || newJunction != newJunctions.back()) {
+            newJunctions.push_back(newJunction);
+        }
+    }
+    Position center = junction->getPositionInView();
+    deleteJunction(junction, undoList);
+    // create new edges to connect roundabout junctions (counter-clockwise)
+    GNEEdge* tpl = myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate();
+    const double resolution = OptionsCont::getOptions().getFloat("opendrive.curve-resolution") * 3;
+    for (int i = 0; i < (int)newJunctions.size(); i++) {
+        GNEJunction* from = newJunctions[(i + 1) % newJunctions.size()];
+        GNEJunction* to = newJunctions[i];
+        GNEEdge* newEdge = createEdge(from, to, tpl, undoList);
+        const double angle1 = center.angleTo2D(from->getPositionInView());
+        const double angle2 = center.angleTo2D(to->getPositionInView());
+        // insert geometry points every resolution meters
+        const double angleDiff = fabs(GeomHelper::angleDiff(angle2, angle1));
+        // circumference = 2 * M_PI * radius, angularFraction = angleDiff / 2 * M_PI
+        int numSegments = MAX2(2, (int)ceil(angleDiff * radius / resolution));
+        PositionVector innerGeom;
+        for (int j = 1; j < numSegments; j++) {
+            const double angle = angle1 + lefthandSign * j * angleDiff / numSegments;
+            innerGeom.push_back(center + Position(cos(angle) * radius, sin(angle) * radius));
+        }
+        //std::cout << " newEdge=" << newEdge->getID() << " angle1=" << angle1 << " angle2=" << angle2 << " angleDiff=" << angleDiff 
+        //    << " numSegments=" << numSegments << " innerGeom=" << innerGeom << "\n";
+        newEdge->setAttribute(SUMO_ATTR_SHAPE, toString(innerGeom), undoList);
+    }
+    undoList->p_end();
+}
+
+
 bool
 GNENet::checkJunctionPosition(const Position& pos) {
     // Check that there isn't another junction in the same position as Pos

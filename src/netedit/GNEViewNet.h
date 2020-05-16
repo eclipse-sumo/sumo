@@ -235,6 +235,12 @@ public:
     /// @brief split junction into multiple junctions and reconnect them
     long onCmdSplitJunctionReconnect(FXObject*, FXSelector, void*);
 
+    /// @brief select all roundabout nodes and edges
+    long onCmdSelectRoundabout(FXObject*, FXSelector, void*);
+
+    /// @brief convert junction to roundabout
+    long onCmdConvertRoundabout(FXObject*, FXSelector, void*);
+
     /// @brief clear junction connections
     long onCmdClearConnections(FXObject*, FXSelector, void*);
 
