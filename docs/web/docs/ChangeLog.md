@@ -26,27 +26,33 @@ permalink: /ChangeLog/
   - [randomTrips.py](Tools/Trip.md) no longer generates trips were *fromJunction* equals *toJunctoin* when setting option  **--junction-taz**. Issue #7005
 - TraCI
   - Fixed memory leak when using libsumo. Issue #7012
+  - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
 
 
 ### Enhancements
 - Simulation
-  - Added option **--person-summary-output** which causes statists on person numers and their travel modes to be written in every simulation step. Issue #6964
+  - Added option **--person-summary-output** which causes statistics on person numers and their travel modes to be written in every simulation step. Issue #6964
+  - **summary-output** now includes number of stopped vehicles. Issue #6966
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
   - Added option **edges.join-tram-dist {{DT_FLOAT}}** which can be used to join overlying road and tram edges into a single lane with combined permissions. This is needed for the correct dynamics in OSM-derived networks. Issue #6980
+  - When loading **pstop-files** and filtering the network extend, the loaded stops will be filtered automatically. Issue #7024
+  - When specifying a polygon boundary for option **--keep-edges.in-boundary**, the argument may now contain spaces to separate positions. This allows copying a polygon shape attribute. Issue #7025
   
 - NETEDIT
   - Edges can now be colored by edgeData attribute (as in SUMO-GUI). Issue #6953
   - Added function 'select reachable' to the edge context menu (just like SUMO-GUI). Issue #6995
   - In create-route-mode, edges can now be colored by reachability from the last selected edge. Issue #6995
-  
+  - Added junction context-menu option *select roundabout*. Issue #5606
+  - Added junction context-menu option *convert to roundabout*. Issue #7030  
 
 - SUMO-GUI
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
 
 - TraCI
   - Added new function *simulation.loadState* for quick-loading simulation a saved state. Issue #6201
+  - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318. 
   
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
