@@ -50,6 +50,10 @@ automatically, when calling a gui-based application like "sumo-gui".
 (Alternatively, you may start X11 manually by pressing *cmd-space* and
 entering "XQuartz").
 
+SUMO provides native OSX application bundles for its graphical applications, so they can be added to the OSX dock or moved to the `Applications` folder. The brew installation will try to copy these bundles to `Applications` as part of the installation process. This can also be manually achieved by copying these application bundles from `$SUMO_HOME/build/osx/sumo-gui`, `$SUMO_HOME/build/osx/netedit` and `$SUMO_HOME/build/osx/osm-web-wizard` to the `Applications` folder. 
+
+These application bundles will try to determine the location of your SUMO installation by evaluating your `$SUMO_HOME` variable setting and start the binaries accordingly. Multiple SUMO installations may be used by changing the `$SUMO_HOME` variable.
+
 # Using Macports (legacy)
 
 !!! note
