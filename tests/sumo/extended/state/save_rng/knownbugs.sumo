@@ -1,0 +1,6 @@
+
+[Reported by Windows at 17Mai21:55:44]
+search_string:6 "\>
+search_file:state
+full_description:platform dependency in state saving #7032
+brief_description:see #7032
