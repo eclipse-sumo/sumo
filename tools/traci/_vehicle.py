@@ -29,6 +29,7 @@ from .domain import Domain
 from .storage import Storage
 from . import constants as tc
 from .exceptions import TraCIException
+from .main import legacyGetLeader
 
 
 def _readBestLanes(result):
@@ -51,6 +52,8 @@ def _readLeader(result):
     vehicleID = result.readString()
     result.read("!B")
     dist = result.readDouble()
+    if vehicleID == "" and legacyGetLeader():
+        return None
     return vehicleID, dist
 
 
