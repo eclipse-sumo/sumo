@@ -390,8 +390,11 @@ protected:
     /// @brief Draws a line with ticks, and the length information.
     void displayLegend();
 
-    /// @brief Draws a legend for the current edge coloring scheme
-    void displayColorLegend();
+    /// @brief Draws the configured legends
+    void displayLegends();
+
+    /// @brief Draws a legend for the given scheme
+    void displayColorLegend(const GUIColorScheme& scheme, bool leftSide);
 
     /// @brief Draws frames-per-second indicator
     void drawFPS();

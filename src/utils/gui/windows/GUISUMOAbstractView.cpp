@@ -299,12 +299,7 @@ GUISUMOAbstractView::paintGL() {
 
     Boundary bound = applyGLTransform();
     doPaintGL(GL_RENDER, bound);
-    if (myVisualizationSettings->showSizeLegend) {
-        displayLegend();
-    }
-    if (myVisualizationSettings->showColorLegend) {
-        displayColorLegend();
-    }
+    displayLegends();
     const long end = SysUtils::getCurrentMillis();
     myFrameDrawTime = end - start;
     if (myVisualizationSettings->fps) {
@@ -639,7 +634,17 @@ GUISUMOAbstractView::displayLegend() {
 }
 
 void
-GUISUMOAbstractView::displayColorLegend() {
+GUISUMOAbstractView::displayLegends() {
+    if (myVisualizationSettings->showSizeLegend) {
+        displayLegend();
+    }
+    if (myVisualizationSettings->showColorLegend) {
+        displayColorLegend(myVisualizationSettings->getLaneEdgeScheme(), false);
+    }
+}
+
+void
+GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftSide) {
     // compute the scale bar length
     glLineWidth(1.0);
     glMatrixMode(GL_PROJECTION);
@@ -655,7 +660,6 @@ GUISUMOAbstractView::displayColorLegend() {
     glPushMatrix();
     glTranslated(0, 0, z);
 
-    GUIColorScheme& scheme = myVisualizationSettings->getLaneEdgeScheme();
     const bool fixed = scheme.isFixed();
     const int numColors = (int)scheme.getColors().size();
 
@@ -1199,12 +1203,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
             glEnable(GL_POLYGON_OFFSET_LINE);
             myGrid->Search(minB, maxB, *myVisualizationSettings);
 
-            if (myVisualizationSettings->showSizeLegend) {
-                displayLegend();
-            }
-            if (myVisualizationSettings->showColorLegend) {
-                displayColorLegend();
-            }
+            displayLegends();
             state = gl2psEndPage();
             glFinish();
         }
@@ -1215,12 +1214,7 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
 #endif
     } else {
         doPaintGL(GL_RENDER, myChanger->getViewport());
-        if (myVisualizationSettings->showSizeLegend) {
-            displayLegend();
-        }
-        if (myVisualizationSettings->showColorLegend) {
-            displayColorLegend();
-        }
+        displayLegends();
         swapBuffers();
         glFinish();
         FXColor* buf;
