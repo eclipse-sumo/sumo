@@ -258,17 +258,13 @@ StringUtils::charToHex(unsigned char c) {
 unsigned char
 StringUtils::hexToChar(const std::string& str) {
     short c = 0;
-
     if (!str.empty()) {
         std::istringstream in(str);
-
         in >> std::hex >> c;
-
         if (in.fail()) {
-            throw std::runtime_error("stream decode failure");
+            throw NumberFormatException(str + " could not be interpreted as hex");
         }
     }
-
     return static_cast<unsigned char>(c);
 }
 

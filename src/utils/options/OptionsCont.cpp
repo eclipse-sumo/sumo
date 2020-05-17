@@ -345,7 +345,12 @@ OptionsCont::relocateFiles(const std::string& configuration) const {
         if (option->isFileName() && option->isSet()) {
             StringVector fileList = StringVector(option->getStringVector());
             for (std::string& f : fileList) {
-                f = StringUtils::urlDecode(FileHelpers::checkForRelativity(f, configuration));
+                f = FileHelpers::checkForRelativity(f, configuration);
+                try {
+                    f = StringUtils::urlDecode(f);
+                } catch (NumberFormatException& e) {
+                    WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + f + "'.");
+                }
             }
             const std::string conv = joinToString(fileList, ',');
             if (conv != joinToString(option->getStringVector(), ',')) {
