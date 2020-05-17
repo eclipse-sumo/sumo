@@ -35,6 +35,7 @@ traci.start([sumoBinary,
              "--no-step-log",
              ] + sys.argv[1:])
 
+traci.setLegacyGetLeader(False)
 vehID = "follower"
 
 while traci.simulation.getMinExpectedNumber() > 0:

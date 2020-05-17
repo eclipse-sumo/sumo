@@ -75,6 +75,7 @@ def check(x, y, angle, exLane, exPos, exPosLat, comment, edgeHint="",
 
 
 traci.start(cmd)
+traci.setLegacyGetLeader(False)
 traci.simulationStep()
 traci.route.add("SE", ["SC", "CE"])
 traci.vehicle.add(vehID, "SE")
