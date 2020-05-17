@@ -62,7 +62,7 @@ permalink: /ChangeLog/
 ### Other
 
 - TraCI
-  - In the python client, function vehicle.getLeader now always returns a pair (leader, dist). If no leader is found, ("", -1) is returned rather than the None value. Issue #7013
+  - In the python client, function vehicle.getLeader can now optionally return the pair ("", -1) instead of 'None' if no leader is found. The new behavior can be enabled by calling function traci.setLegacyGetLeader(False). In later versions this will be the default behavior. The return value 'None' is deprecated. Issue #7013
 
 - Tools
   - [randomTrips.py](Tools/Trip.md) now generates repeatable results by default (by using a fixed default seed). To obtain the prior random behavior without specifying a seed, the option **--random** can be used (just like for [SUMO](SUMO.md)). Issue #6989
