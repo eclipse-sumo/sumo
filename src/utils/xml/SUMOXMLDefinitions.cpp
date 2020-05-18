@@ -709,6 +709,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "checkLaneFoesAll",       SUMO_ATTR_CHECKLANEFOES_ALL },
     { "checkLaneFoesRoundabout", SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT },
     { "tlsIgnoreInternalJunctionJam", SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM },
+    { "avoidOverlap",           SUMO_ATTR_AVOID_OVELAP },
 
     { "actorConfig",            SUMO_ATTR_ACTORCONFIG },
     { "vehicle",                SUMO_ATTR_VEHICLE },
