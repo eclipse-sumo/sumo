@@ -478,7 +478,7 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
                     vClass = vtype->getVehicleClass();
                 }
             }
-            if (!myActiveRoute.front()->isConnectedTo(*myActiveRoute.back(), vClass)) {
+            if (!myActiveRoute.back()->isConnectedTo(*myActiveRoute.front(), vClass)) {
                 WRITE_ERROR("Disconnected route " + rid + " when repeating.");
             }
         }
