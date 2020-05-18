@@ -33,7 +33,7 @@ Windows users may also invoke the command by clicking *All Programs -\>
 SUMO -\> OSM Web Wizard*. Once the script is running, a web browser
 should open showing a map excerpt of central Berlin.
 
-![wz01.jpg](../images/Wz01.jpg "wz01.jpg")
+![wz01.jpg](../images/Wz01.png "wz01.png")
 
 You may zoom and pan to the area of your interest. Caution: if the map
 excerpt covers a very large area, the simulation might become slow or
@@ -45,7 +45,7 @@ generate the simulation scenario. The area selection will be activated
 by clicking the check box *Select Area* at the blue area selection panel
 on the right side of the map.
 
-![wz02.jpg](../images/Wz02.jpg "wz02.jpg")
+![wz02.jpg](../images/Wz02.png "wz02.png")
 
 You can change the size and location of this area by click and hold with
 the mouse pointer at the boundary between the grayed and non-grayed
@@ -66,7 +66,7 @@ The infrastructure import from OSM into the SUMO simulation are affected by diff
 The demand is defined by the demand generation panel. You activate this
 panel by clicking on the car pictogram.
 
-![wz03.jpg](../images/Wz03.jpg "wz03.jpg")
+![wz03.jpg](../images/Wz03.png "wz03.png")
 
 SUMO supports various modes of transport. At the demand generation
 panel, you can activate/deactivate the individual modes of transport by

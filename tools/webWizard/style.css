@@ -25,7 +25,7 @@ canvas {
     width: 250px;
     height: 100%;
     transition: 0.2s right;
-    background: #005ACC;
+    background: #5F5FD3;
     color: #FFF;
 }
 
@@ -42,7 +42,7 @@ canvas {
     text-align: center;
     cursor: pointer;
     border-radius: 4px 0 0 4px;
-    background: #005ACC;
+    background: #5F5FD3;
 }
 
 .tab img {
@@ -51,7 +51,7 @@ canvas {
 }
 
 .tab.open {
-    border-left: 4px solid #00449B;
+    border-left: 4px solid #2C2CA0;
 }
 
 .controls {
@@ -86,7 +86,7 @@ canvas {
 }
 
 .container, button, #status {
-    background: #00449B;
+    background: #2C2CA0;
     border-radius: 4px;
     font-size: 0.8em;
     margin: 5px;
@@ -95,7 +95,7 @@ canvas {
 
 button {
     color: #FFF;
-    border: 1.2px solid #228C3B;
+    border: 1.2px solid #2C2CA0;
     cursor: pointer;
     display: block;
     background-color: #28A745;
@@ -168,7 +168,7 @@ input[type=number] {
 #status > div {
     width: 0;
     height: 20px;
-    background: #005ACC;
+    background: #5F5FD3;
     border-radius: 2px;
     transition: 0.5s width;
 }
