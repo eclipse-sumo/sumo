@@ -975,7 +975,10 @@ GNENet::selectRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->p_begin("create roundabout");
-    const double radius = junction->getNBNode()->getRadius();
+    double radius = junction->getNBNode()->getRadius();
+    if (radius == NBNode::UNSPECIFIED_RADIUS) {
+        radius = OptionsCont::getOptions().getFloat("default.junctions.radius");
+    }
     std::vector<GNEEdge*> edges;
     // use clockwise sorting
     for (NBEdge* nbEdge : junction->getNBNode()->getEdges()) {
