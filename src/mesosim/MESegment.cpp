@@ -339,6 +339,9 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
             myEdge.unlock();
             return cars.back();
         }
+        if (myOccupancy < NUMERICAL_EPS) {
+            myOccupancy = 0;
+        }
     } else {
         cars.erase(std::find(cars.begin(), cars.end(), v));
     }
