@@ -44,7 +44,8 @@ def setParam(objectType, object, objectID):
 
 
 def getParamSubscriptionResult(objectType, object, objectID):
-    print("%s result: %s" % (objectType, object.getSubscriptionResults(objectID)[traci.constants.VAR_PARAMETER_WITH_KEY]))
+    print("%s result: %s" %
+          (objectType, object.getSubscriptionResults(objectID)[traci.constants.VAR_PARAMETER_WITH_KEY]))
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])

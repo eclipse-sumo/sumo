@@ -17,7 +17,7 @@
 # @date    2018-08-18
 
 """
-This script analyses fcd output to compute the coordination factor for a given cooridor
+This script analyses fcd output to compute the coordination factor for a given corridor
 The coordination factor is defined as the fraction of vehicles that passed the
 corridor without stopping to the total number of vehicles on the corridor
 """
@@ -36,22 +36,23 @@ from sumolib.miscutils import parseTime  # noqa
 
 
 def getOptions(args=None):
-
-    usage = "generateTLSE2Detectors.py -n example.net.xml -l 250 -d .1 -f 60"
-    argParser = sumolib.options.ArgumentParser(usage=usage)
+    argParser = sumolib.options.ArgumentParser()
     argParser.add_argument("-f", "--fcd-file", dest="fcdfile",
                            help="Input fcd file (mandatory)")
     argParser.add_argument("-m", "--min-speed", dest="minspeed", type=float, default=5,
                            help="Minimum speed to consider vehicle undelayed")
     argParser.add_argument("--filter-route", dest="filterRoute",
-                           help="only consider vehicles that passed the given list of edges in order (regardless of gaps)")
+                           help="only consider vehicles that passed the given list of edges in order " +
+                                "(regardless of gaps)")
     argParser.add_argument("--entry",
-                           help="detect delay after vehicles have passend one of the entry edges (defaults to the first edge of the route)")
+                           help="detect delay after vehicles have passend one of the entry edges " +
+                                "(defaults to the first edge of the route)")
     argParser.add_argument("--exit",
-                           help="detect delay until vehicles have passend one of the exit edges (defaults to the last edge of the route)")
+                           help="detect delay until vehicles have passend one of the exit edges " +
+                                "(defaults to the last edge of the route)")
     argParser.add_argument("--full-output", dest="fullOutput",
-                           help="For each vehicle that applies, write the time when it entered the corridor and the time when it was first delayed (-1 for undelayed)")
-
+                           help="For each vehicle that applies, write the time when it entered the corridor " +
+                                "and the time when it was first delayed (-1 for undelayed)")
     options = argParser.parse_args()
 
     if options.fcdfile is None:
@@ -95,7 +96,7 @@ def main(options):
             routes[vehID].append(edge)
         if vehID not in active:
             if not options.entry or edge in options.entry:
-                 # vehicle has entered the filtered corridor
+                # vehicle has entered the filtered corridor
                 active.add(vehID)
                 entryTime[vehID] = time
             else:

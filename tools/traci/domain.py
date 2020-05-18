@@ -230,7 +230,9 @@ class Domain:
 
         Subscribe for a generic parameter with the given key.
         """
-        self._connection._subscribe(self._subscribeID, begin, end, objID, (tc.VAR_PARAMETER_WITH_KEY,), {tc.VAR_PARAMETER_WITH_KEY: struct.pack("!Bi", tc.TYPE_STRING, len(key)) + key.encode("latin1")})
+        key = struct.pack("!Bi", tc.TYPE_STRING, len(key)) + key.encode("latin1")
+        self._connection._subscribe(self._subscribeID, begin, end, objID, (tc.VAR_PARAMETER_WITH_KEY,),
+                                    {tc.VAR_PARAMETER_WITH_KEY: key})
 
     def setParameter(self, objID, param, value):
         """setParameter(string, string, string) -> None

@@ -46,16 +46,16 @@ while traci.simulation.getMinExpectedNumber() > 0:
         # move onto detector (normal)
         traci.vehicle.moveTo(vehID, "WC_1", 50, tc.MOVE_NORMAL)
     if t == 60:
-        # move close to detector 
+        # move close to detector
         traci.vehicle.moveTo(vehID, "CW_1", 80)
         # move onto detector (automatic -> normal)
         traci.vehicle.moveTo(vehID, "WC_1", 10)
     if t == 70:
-        # move close to detector 
+        # move close to detector
         traci.vehicle.moveTo(vehID, "CW_1", 80)
         # move onto detector (teleport)
         traci.vehicle.moveTo(vehID, "WC_1", 10, tc.MOVE_TELEPORT)
     traci.simulationStep()
-    
+
 
 traci.close()

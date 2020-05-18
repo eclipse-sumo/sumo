@@ -36,7 +36,6 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
-
 def get_options(args=None):
     optParser = optparse.OptionParser()
     optParser.add_option("-i", "--parking-id", dest="parkId",
@@ -94,17 +93,17 @@ def main(options):
     row = 0
     xmax = None
     ymax = None
-    
+
     if options.shape:
         if ' ' in options.shape:
             options.shape = [tuple(map(float, xy.split(','))) for xy in options.shape.split(' ')]
         else:
             numbers = list(map(float, options.shape.split(',')))
             options.shape = [(numbers[i], numbers[i+1]) for i in range(0, len(numbers), 2)]
-        xmin = min([x for x,y in options.shape])
-        xmax = max([x for x,y in options.shape])
-        ymin = min([y for x,y in options.shape])
-        ymax = max([y for x,y in options.shape])
+        xmin = min([x for x, y in options.shape])
+        xmax = max([x for x, y in options.shape])
+        ymin = min([y for x, y in options.shape])
+        ymax = max([y for x, y in options.shape])
         if options.shape[0] != options.shape[-1]:
             # close shape
             options.shape.append(options.shape[0])
@@ -138,10 +137,10 @@ def main(options):
         lots = 0
         i = 0
         while lots < options.spaces:
-            if not options.shape or isWithin((x,y), options.shape):
+            if not options.shape or isWithin((x, y), options.shape):
                 outf.write(
-                        '        <space x="%.2f" y="%.2f" length="%s" angle="%s"/>\n' %
-                        (x, y, options.length, options.angle))
+                    '        <space x="%.2f" y="%.2f" length="%s" angle="%s"/>\n' %
+                    (x, y, options.length, options.angle))
                 lots += 1
             if xmax is not None:
                 if x > xmax:
@@ -151,7 +150,7 @@ def main(options):
                     else:
                         print("Warning: The area has been filed and only %s of %s lots were written" % (
                             lots, options.spaces), file=sys.stderr)
-                        break;
+                        break
                     x = xmin + row * movingX * factorX
                 else:
                     x += movingX

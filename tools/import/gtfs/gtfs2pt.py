@@ -233,11 +233,14 @@ def map_stops(options, net, routes, rout):
                             ap = net.convertLonLat2XY(float(veh.x), float(veh.y))
                             numAccess = 0
                             for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
-                                if accessEdge.getID() != edge.getID() and accessEdge.allows("passenger") and numAccess < 10:
+                                if accessEdge.getID() != edge.getID() and accessEdge.allows("passenger"):
                                     _, accessPos, accessDist = accessEdge.getClosestLanePosDist(ap)
-                                    rout.write('        <access friendlyPos="true" lane="%s_0" pos="%s" length="%s"/>\n' %
+                                    rout.write(('        <access friendlyPos="true" ' +
+                                                'lane="%s_0" pos="%s" length="%s"/>\n') %
                                                (accessEdge.getID(), accessPos, 1.5 * accessDist))
                                     numAccess += 1
+                                    if numAccess == 10:
+                                        break
                             rout.write('    </trainStop>\n')
                     stops[rid].append((stop, int(veh.until)))
                     found = True
@@ -258,10 +261,10 @@ def filter_trips(options, routes, stops, outfile, begin, end):
                 if len(routes.get(veh.route, [])) > 0 and len(stops.get(veh.route, [])) > 1:
                     until = stops[veh.route][0][1]
                     for d in range(numDays):
-                         depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
-                         if begin <= depart < end:
-                             outf.write('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
-                                        (veh.id, d, veh.route, veh.type, depart, veh.line))
+                        depart = max(0, d * 86400 + int(veh.depart) + until - options.duration)
+                        if begin <= depart < end:
+                            outf.write('    <vehicle id="%s.%s" route="%s" type="%s" depart="%s" line="%s"/>\n' %
+                                       (veh.id, d, veh.route, veh.type, depart, veh.line))
         outf.write('</routes>\n')
 
 

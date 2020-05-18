@@ -70,7 +70,8 @@ PLAIN_TYPES = [
 #     (all attributes defined for the edge type are applied. This must be avoided)
 # CAVEAT8 - TAG_TLL must always be written before TAG_CONNECTION
 # CAVEAT9 - when TAG_NEIGH is removed, <neigh lane=""/> must written into the diff to indicate removal
-# CAVEAT10 - when a connection element is written without 'to' it describes an edge without connections. This must be omitted from 'deleted elements'
+# CAVEAT10 - when a connection element is written without 'to' it describes an edge without connections.
+#     This must be omitted from 'deleted elements'
 
 TAG_TLL = 'tlLogic'
 TAG_CONNECTION = 'connection'

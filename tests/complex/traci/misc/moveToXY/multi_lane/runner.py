@@ -46,7 +46,7 @@ vehID = "v0"
 
 
 def check(x, y, angle, exLane, exPos, exPosLat, comment, edgeHint="",
-        laneHint=0, keepRoute=1):
+          laneHint=0, keepRoute=1):
     traci.vehicle.moveToXY(vehID, edgeHint, laneHint, x, y, angle, keepRoute)
     traci.simulationStep()
     x2, y2 = traci.vehicle.getPosition(vehID)
@@ -79,14 +79,14 @@ traci.setLegacyGetLeader(False)
 traci.simulationStep()
 traci.route.add("SE", ["SC", "CE"])
 traci.vehicle.add(vehID, "SE")
-check(104.95, 20,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(104.95, 30,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(104.95, 40,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(101.65, 50,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(101.65, 60,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(101.65, 70,   ANGLE_UNDEF, None,         None, None,       "correct lane")
-check(101.65, 80,   ANGLE_UNDEF, None,         None, None,       "correct lane")
+check(104.95, 20, ANGLE_UNDEF, None, None, None, "correct lane")
+check(104.95, 30, ANGLE_UNDEF, None, None, None, "correct lane")
+check(104.95, 40, ANGLE_UNDEF, None, None, None, "correct lane")
+check(101.65, 50, ANGLE_UNDEF, None, None, None, "correct lane")
+check(101.65, 60, ANGLE_UNDEF, None, None, None, "correct lane")
+check(101.65, 70, ANGLE_UNDEF, None, None, None, "correct lane")
+check(101.65, 80, ANGLE_UNDEF, None, None, None, "correct lane")
 # test misleading lane hints (vehicle is on SC_1 but position is on SC_0
-check(104.95, 90,   ANGLE_UNDEF, None,         None, None,       "inconsistent hint", edgeHint="SC", laneHint=1)
-check(104.95, 20,   ANGLE_UNDEF, None,         None, None,       "inconsistent hint", edgeHint="SC", laneHint=1, keepRoute=2)
+check(104.95, 90, ANGLE_UNDEF, None, None, None, "inconsistent hint", edgeHint="SC", laneHint=1)
+check(104.95, 20, ANGLE_UNDEF, None, None, None, "inconsistent hint", edgeHint="SC", laneHint=1, keepRoute=2)
 traci.close()

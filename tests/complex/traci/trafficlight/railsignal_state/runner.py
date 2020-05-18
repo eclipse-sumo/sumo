@@ -29,18 +29,18 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'),
-    '-n', 'input_net.net.xml',
-    '-r', 'input_routes.rou.xml',
-    '--no-step-log',
-    ])
+             '-n', 'input_net.net.xml',
+             '-r', 'input_routes.rou.xml',
+             '--no-step-log',
+             ])
 
 while traci.simulation.getMinExpectedNumber() > 0:
-    traci.simulationStep();
+    traci.simulationStep()
     t = traci.simulation.getTime()
     for signal, index in [("N1", 0), ("N2", 0)]:
         print("%s %s_%s b=%s r=%s p=%s" % (t, signal, index,
-            traci.trafficlight.getBlockingVehicles(signal, index),
-            traci.trafficlight.getRivalVehicles(signal, index),
-            traci.trafficlight.getPriorityVehicles(signal, index)))
+                                           traci.trafficlight.getBlockingVehicles(signal, index),
+                                           traci.trafficlight.getRivalVehicles(signal, index),
+                                           traci.trafficlight.getPriorityVehicles(signal, index)))
 
 traci.close()

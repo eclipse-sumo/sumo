@@ -1348,7 +1348,7 @@ class VehicleDomain(Domain):
         self._connection._sendIntCmd(
             tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SIGNALS, vehID, signals)
 
-    def moveTo(self, vehID, laneID, pos, reason = tc.MOVE_AUTOMATIC):
+    def moveTo(self, vehID, laneID, pos, reason=tc.MOVE_AUTOMATIC):
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE,
                                        tc.VAR_MOVE_TO, vehID, 1 + 4 + 1 + 4 + len(laneID)
                                        + 1 + 8 + 1 + 4)

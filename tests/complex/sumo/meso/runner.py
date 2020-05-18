@@ -37,7 +37,8 @@ def call(cmd):
 
 
 sumoBinary = sumolib.checkBinary("sumo")
-cmd = [sumoBinary, "-n", "input_net.net.xml", "-r", "input_routes.rou.xml", "--statistic-output", "stats.xml", "--no-step-log", "--duration-log.statistics"]
+cmd = [sumoBinary, "-n", "input_net.net.xml", "-r", "input_routes.rou.xml",
+       "--statistic-output", "stats.xml", "--no-step-log", "--duration-log.statistics"]
 duration = call(cmd)
 durationMeso = call(cmd + ["--mesosim"])
 cmd[2] = "input_net2.net.xml"

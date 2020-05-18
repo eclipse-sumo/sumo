@@ -30,16 +30,16 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'),
-    '-n', 'input_net.net.xml',
-    '-r', 'input_routes.rou.xml',
-    '--no-step-log',
-    '--tripinfo-output', 'tripinfo.xml',
-    ])
+             '-n', 'input_net.net.xml',
+             '-r', 'input_routes.rou.xml',
+             '--no-step-log',
+             '--tripinfo-output', 'tripinfo.xml',
+             ])
 
 for i in range(50):
-    traci.simulationStep();
+    traci.simulationStep()
 traci.simulation.loadState('input_state.xml')
 while traci.simulation.getMinExpectedNumber() > 0:
-    traci.simulationStep();
+    traci.simulationStep()
 
 traci.close()

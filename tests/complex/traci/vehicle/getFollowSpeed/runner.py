@@ -42,13 +42,13 @@ while traci.simulation.getMinExpectedNumber() > 0:
     leader, gap = traci.vehicle.getLeader(vehID, 100)
     if leader:
         vSafe = traci.vehicle.getFollowSpeed(vehID,
-                traci.vehicle.getSpeed(vehID), 
-                    gap, traci.vehicle.getSpeed(leader),
-                    traci.vehicle.getDecel(leader),
-                    leader)
+                                             traci.vehicle.getSpeed(vehID),
+                                             gap, traci.vehicle.getSpeed(leader),
+                                             traci.vehicle.getDecel(leader),
+                                             leader)
         traci.simulationStep()
         print("%s vSafe=%s vActual=%s" % (
-            traci.simulation.getTime(), 
+            traci.simulation.getTime(),
             vSafe,
             traci.vehicle.getSpeed(vehID)))
     else:

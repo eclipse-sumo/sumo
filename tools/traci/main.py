@@ -39,8 +39,11 @@ import sumolib  # noqa
 from sumolib.miscutils import getFreeSocketPort  # noqa
 
 # must be defined before _vehicle is imported
+
+
 def legacyGetLeader():
     return _legacyGetLeader[0]
+
 
 from .domain import _defaultDomains  # noqa
 # StepListener needs to be imported for backwards compatibility
@@ -238,6 +241,6 @@ def getConnection(label="default"):
         raise TraCIException("connection with label '%s' is not known")
     return _connections[label]
 
-def setLegacyGetLeader(enabled):
-    _legacyGetLeader[0] = enabled;
 
+def setLegacyGetLeader(enabled):
+    _legacyGetLeader[0] = enabled
