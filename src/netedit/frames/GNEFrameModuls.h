@@ -636,13 +636,14 @@ public:
     public:
         // @brief creation mode
         enum Mode {
-            CONSECUTIVE_EDGES    = 1 << 0,   // Path's edges are consecutives
-            NONCONSECUTIVE_EDGES = 1 << 1,   // Path's edges aren't consecutives
-            START_EDGE           = 1 << 2,   // Path begins in an edge
-            END_EDGE             = 1 << 3,   // Path ends in an edge
-            ONLY_FROMTO          = 1 << 3,   // Path only had two elements (first and last)
-            START_BUSSTOP        = 1 << 2,   // Path begins in a busStop
-            END_BUSSTOP          = 1 << 3,   // Path ends in a busStop
+            CONSECUTIVE_EDGES       = 1 << 0,   // Path's edges are consecutives
+            NONCONSECUTIVE_EDGES    = 1 << 1,   // Path's edges aren't consecutives
+            START_EDGE              = 1 << 2,   // Path begins in an edge
+            END_EDGE                = 1 << 3,   // Path ends in an edge
+            ONLY_FROMTO             = 1 << 4,   // Path only had two elements (first and last)
+            START_BUSSTOP           = 1 << 5,   // Path begins in a busStop
+            END_BUSSTOP             = 1 << 6,   // Path ends in a busStop
+            REQUIERE_FIRSTELEMENT   = 1 << 7,   // Path start always in a previous element
         };
 
         /// @brief class for path

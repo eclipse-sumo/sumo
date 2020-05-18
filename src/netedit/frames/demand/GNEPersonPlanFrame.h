@@ -64,8 +64,8 @@ protected:
     /// @brief selected demand element in DemandElementSelector
     void demandElementSelected();
 
-    /// @brief finish person plan creation
-    bool personPlanCreated(GNEAdditional* busStop, GNEDemandElement* route);
+    /// @brief create path
+    void createPath();
 
 private:
     /// @brief Person selectors
