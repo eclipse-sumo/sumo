@@ -422,6 +422,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     polyType(false, 60, RGBColor(255, 0, 128, 255)),
     showSizeLegend(true),
     showColorLegend(false),
+    showVehicleColorLegend(false),
     gaming(false),
     drawBoundaries(false),
     selectionScale(1.),
@@ -1512,6 +1513,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.openTag(SUMO_TAG_VIEWSETTINGS_LEGEND);
     dev.writeAttr("showSizeLegend", showSizeLegend);
     dev.writeAttr("showColorLegend", showColorLegend);
+    dev.writeAttr("showVehicleColorLegend", showVehicleColorLegend);
     dev.closeTag();
 
     dev.closeTag();
@@ -1770,6 +1772,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (showColorLegend != v2.showColorLegend) {
+        return false;
+    }
+    if (showVehicleColorLegend != v2.showVehicleColorLegend) {
         return false;
     }
 

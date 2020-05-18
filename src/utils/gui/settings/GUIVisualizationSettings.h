@@ -738,8 +738,11 @@ public:
     /// @brief Information whether the size legend shall be drawn
     bool showSizeLegend;
 
-    /// @brief Information whether the colo legend shall be drawn
+    /// @brief Information whether the edge color legend shall be drawn
     bool showColorLegend;
+
+    /// @brief Information whether the vehicle color legend shall be drawn
+    bool showVehicleColorLegend;
 
     /// @brief information about a lane's width (temporary, used for a single view)
     double scale;

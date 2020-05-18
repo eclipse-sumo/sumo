@@ -641,6 +641,9 @@ GUISUMOAbstractView::displayLegends() {
     if (myVisualizationSettings->showColorLegend) {
         displayColorLegend(myVisualizationSettings->getLaneEdgeScheme(), false);
     }
+    if (myVisualizationSettings->showVehicleColorLegend) {
+        displayColorLegend(myVisualizationSettings->vehicleColorer.getScheme(), true);
+    }
 }
 
 void
@@ -664,12 +667,24 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
     const int numColors = (int)scheme.getColors().size();
 
     // vertical
-    const double right = 0.98;
-    const double left = 0.95;
+    double right = 0.98;
+    double left = 0.95;
+    double textX = left - 0.01;
+    FONSalign textAlign = FONS_ALIGN_RIGHT;
     const double top = -0.8;
     const double bot = 0.8;
     const double dy = (top - bot) / numColors;
     const double bot2 = fixed ? bot : bot + dy / 2;
+    // legend placement
+    if (leftSide) {
+        right = -right;
+        left = -left;
+        std::swap(right, left);
+        textX = right + 0.01;
+        textAlign = FONS_ALIGN_LEFT;
+    }
+    // draw black boundary around legend colors
+    glColor3d(0, 0, 0);
     glBegin(GL_LINES);
     glVertex2d(right, top);
     glVertex2d(right, bot2);
@@ -729,7 +744,7 @@ GUISUMOAbstractView::displayColorLegend(const GUIColorScheme& scheme, bool leftS
         glVertex2d(left, topi + fontHeight * (1 + bgShift));
         glEnd();
         glTranslated(0, 0, -0.1);
-        GLHelper::drawText(text, Position(left - 0.01, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_RIGHT, fontWidth);
+        GLHelper::drawText(text, Position(textX, topi + textShift), 0, fontHeight, RGBColor::BLACK, 0, textAlign, fontWidth);
     }
     glPopMatrix();
     // restore matrices

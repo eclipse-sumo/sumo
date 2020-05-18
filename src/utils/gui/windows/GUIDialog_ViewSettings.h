@@ -358,6 +358,7 @@ private:
     FXCheckButton* myForceDrawForRectangleSelection;
     FXCheckButton* myShowSizeLegend;
     FXCheckButton* myShowColorLegend;
+    FXCheckButton* myShowVehicleColorLegend;
 
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,
                *myJunctionIndexPanel, *myTLIndexPanel,
