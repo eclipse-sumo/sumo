@@ -975,6 +975,7 @@ GNENet::selectRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
 void
 GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     undoList->p_begin("create roundabout");
+    junction->getNBNode()->updateSurroundingGeometry();
     double radius = junction->getNBNode()->getRadius();
     if (radius == NBNode::UNSPECIFIED_RADIUS) {
         radius = OptionsCont::getOptions().getFloat("default.junctions.radius");
