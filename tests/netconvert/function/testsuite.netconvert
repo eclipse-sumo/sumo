@@ -66,6 +66,7 @@ fringe
 
 # test differt spreadType values and options
 spreadType
+geometry.avoidOverlap
 
 # tests for railway related network analysis and modification
 railway
