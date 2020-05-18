@@ -228,7 +228,13 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
                 radius = OptionsCont::getOptions().getFloat("default.junctions.radius");
             }
             const std::string menuEntry = "Convert to roundabout (using junction radius " + toString(radius) + ")";
-            new FXMenuCommand(ret, menuEntry.c_str(), nullptr, &parent, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT);
+            FXMenuCommand* mcRoundabout = new FXMenuCommand(ret, menuEntry.c_str(), nullptr, &parent, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT);
+            if (myGNEEdges.size() < 2 ||
+                    (myGNEIncomingEdges.size() == 1
+                     && myGNEOutgoingEdges.size() == 1
+                     && myGNEIncomingEdges[0]->getFirstParentJunction() == myGNEOutgoingEdges[0]->getSecondParentJunction())) {
+                mcRoundabout->disable();
+            }
         }
         FXMenuCommand* mcClearConnections = new FXMenuCommand(ret, "Clear connections", nullptr, &parent, MID_GNE_JUNCTION_CLEAR_CONNECTIONS);
         FXMenuCommand* mcResetConnections = new FXMenuCommand(ret, "Reset connections", nullptr, &parent, MID_GNE_JUNCTION_RESET_CONNECTIONS);
