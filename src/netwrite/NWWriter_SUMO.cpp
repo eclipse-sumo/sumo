@@ -95,8 +95,8 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     if (oc.getString("default.spreadtype") != "right") {
         attrs[SUMO_ATTR_SPREADTYPE] = oc.getString("default.spreadtype");
     }
-    if (!oc.getBool("geometry.avoid-overlap")) {
-        attrs[SUMO_ATTR_AVOID_OVELAP] = toString(oc.getBool("geometry.avoid-overlap"));
+    if (oc.exists("geometry.avoid-overlap") && !oc.getBool("geometry.avoid-overlap")) {
+        attrs[SUMO_ATTR_AVOID_OVERLAP] = toString(oc.getBool("geometry.avoid-overlap"));
     }
     device.writeXMLHeader("net", "net_file.xsd", attrs); // street names may contain non-ascii chars
     device.lf();

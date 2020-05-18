@@ -432,7 +432,7 @@ NIImporter_SUMO::myStartElement(int element,
             myCheckLaneFoesRoundabout = attrs.getOpt<bool>(SUMO_ATTR_CHECKLANEFOES_ROUNDABOUT, nullptr, ok, true);
             myTlsIgnoreInternalJunctionJam = attrs.getOpt<bool>(SUMO_ATTR_TLS_IGNORE_INTERNAL_JUNCTION_JAM, nullptr, ok, false);
             myDefaultSpreadType = attrs.getOpt<std::string>(SUMO_ATTR_SPREADTYPE, nullptr, ok, myDefaultSpreadType);
-            myGeomAvoidOverlap = attrs.getOpt<bool>(SUMO_ATTR_AVOID_OVELAP, nullptr, ok, myGeomAvoidOverlap);
+            myGeomAvoidOverlap = attrs.getOpt<bool>(SUMO_ATTR_AVOID_OVERLAP, nullptr, ok, myGeomAvoidOverlap);
 
             break;
         }
