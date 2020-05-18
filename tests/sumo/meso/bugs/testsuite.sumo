@@ -21,3 +21,6 @@ ticket5723
 
 # invalid edgedata on short segments
 ticket5723b
+
+# invalid jam on short edge
+ticket7035

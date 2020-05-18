@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 18 16:46:17 2020 by Eclipse SUMO Version v1_6_0+0313-3c6f87e9dd
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.write-unfinished value="true"/>
+    </output>
+
+    <time>
+        <end value="18"/>
+    </time>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+    <random_number>
+        <seed value="2"/>
+    </random_number>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t0" sigma="0" length="3.5" color="red"/>
+    <vType id="t1" sigma="0" length="4.3" color="blue"/>
+    <vType id="t2" sigma="0" length="16.5" color="green"/>
+
+    <vehicle id="slow" type="t0" depart="0.00" speedFactor="0.81">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="fast" type="t1" depart="2.00" speedFactor="1.15">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+    <vehicle id="long" type="t2" depart="4.00" speedFactor="1.00">
+        <route edges="beg middle end"/>
+    </vehicle>
+
+
+</routes>
