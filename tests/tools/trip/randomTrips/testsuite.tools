@@ -90,4 +90,7 @@ duarouter_options
 
 # use fromJunction and toJunction
 junctionTaz
+
+# use fromJunction and toJunction with flows
+junctionTaz_flow
 junctionTaz_validate
