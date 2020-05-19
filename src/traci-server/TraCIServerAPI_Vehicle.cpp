@@ -170,27 +170,17 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                     break;
                 }
-                case libsumo::VAR_NEXT_STOPS: {
-                    std::vector<libsumo::TraCINextStopData> nextStops = libsumo::Vehicle::getNextStops(id);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
-                    const int cnt = 1 + (int)nextStops.size() * 4;
-                    server.getWrapperStorage().writeInt(cnt);
-                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                    server.getWrapperStorage().writeInt((int)nextStops.size());
-                    for (std::vector<libsumo::TraCINextStopData>::iterator it = nextStops.begin(); it != nextStops.end(); ++it) {
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->lane);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->endPos);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
-                        server.getWrapperStorage().writeString(it->stoppingPlaceID);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
-                        server.getWrapperStorage().writeInt(it->stopFlags);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->duration);
-                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
-                        server.getWrapperStorage().writeDouble(it->until);
+                case libsumo::VAR_NEXT_STOPS2: {
+                    // deliberate fallThrough!
+                    int limit = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, limit)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Stop retrieval uses an optional integer.", outputStorage);
                     }
+                    writeNextStops(server, id, limit);
+                    break;
+                }
+                case libsumo::VAR_NEXT_STOPS: {
+                    writeNextStops(server, id, 0);
                     break;
                 }
                 case libsumo::DISTANCE_REQUEST: {
@@ -1198,5 +1188,28 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
     return true;
 }
 
+void
+TraCIServerAPI_Vehicle::writeNextStops(TraCIServer& server, const std::string& id, int limit) {
+    std::vector<libsumo::TraCINextStopData> nextStops = libsumo::Vehicle::getNextStops(id, limit);
+    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    const int cnt = 1 + (int)nextStops.size() * 4;
+    server.getWrapperStorage().writeInt(cnt);
+    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+    server.getWrapperStorage().writeInt((int)nextStops.size());
+    for (std::vector<libsumo::TraCINextStopData>::iterator it = nextStops.begin(); it != nextStops.end(); ++it) {
+        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+        server.getWrapperStorage().writeString(it->lane);
+        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        server.getWrapperStorage().writeDouble(it->endPos);
+        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+        server.getWrapperStorage().writeString(it->stoppingPlaceID);
+        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_INTEGER);
+        server.getWrapperStorage().writeInt(it->stopFlags);
+        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        server.getWrapperStorage().writeDouble(it->duration);
+        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        server.getWrapperStorage().writeDouble(it->until);
+    }
+}
 
 /****************************************************************************/

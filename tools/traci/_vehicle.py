@@ -803,8 +803,8 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
-    def getNextStops(self, vehID):
-        """getNextStop(string) -> [(string, double, string, int, int, int)], ...
+    def getNextStops(self, vehID, limit = 0):
+        """getNextStop(string, int) -> [(string, double, string, int, int, int)], ...
 
         Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
         where integer stopFlag is defined as:
@@ -817,8 +817,17 @@ class VehicleDomain(Domain):
               64 * chargingStation +
              128 * parkingarea
         with each of these flags defined as 0 or 1.
+
+        The optional argument limit can be used to limit the returned stops to
+        the next INT number (i.e. limit=1 if only the next stop is required).
         """
-        return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
+        if limit == 0:
+            return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
+        else:
+            self._connection._beginMessage(
+                    tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEXT_STOPS2, vehID, 1 + 4)
+            self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, limit)
+            return _readNextStops(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEXT_STOPS2, vehID))
 
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double) -> None

@@ -1040,6 +1040,9 @@ TRACI_CONST int VAR_NEXT_TLS = 0x70;
 // upcoming stops (get: vehicle)
 TRACI_CONST int VAR_NEXT_STOPS = 0x73;
 
+// upcoming stops with selection (get: vehicle)
+TRACI_CONST int VAR_NEXT_STOPS2 = 0x74;
+
 // current acceleration (get: vehicle)
 TRACI_CONST int VAR_ACCELERATION = 0x72;
 

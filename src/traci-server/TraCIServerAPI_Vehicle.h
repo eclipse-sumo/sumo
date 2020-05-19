@@ -53,7 +53,10 @@ public:
      */
     static bool processSet(TraCIServer& server, tcpip::Storage& inputStorage,
                            tcpip::Storage& outputStorage);
+private:
 
+    /// @brief helper function to write the response for VAR_NEXT_STOPS and VAR_NEXT_STOPS2
+    static void writeNextStops(TraCIServer& server, const std::string& id, int limit);
 
 private:
     /// @brief invalidated copy constructor

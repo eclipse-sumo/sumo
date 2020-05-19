@@ -87,7 +87,7 @@ public:
     static int getSignals(const std::string& vehicleID);
     static std::vector<TraCIBestLanesData> getBestLanes(const std::string& vehicleID);
     static std::vector<TraCINextTLSData> getNextTLS(const std::string& vehicleID);
-    static std::vector<TraCINextStopData> getNextStops(const std::string& vehicleID);
+    static std::vector<TraCINextStopData> getNextStops(const std::string& vehicleID, int limit = 0);
     static int getStopState(const std::string& vehicleID);
     static double getDistance(const std::string& vehicleID);
     static double getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex = 0);
