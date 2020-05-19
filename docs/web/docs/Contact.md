@@ -16,7 +16,7 @@ There are three lists available:
   people are observing it and may give you some hints. Before you post
   to the list, please check the [FAQ](FAQ.md) for already
   answered questions. If you have a novel question, [here is some general advice before asking](FAQ.md#what_should_i_do_to_get_helpful_answers_on_the_mailing_list).
-  If you wish to report an error [please follow these suggestions](FAQ.md#how_do_i_report_erroneous_behavior_of_a_sumo-application).
+  If you wish to report an error [please follow these suggestions](FAQ.md#how_do_i_report_erroneous_behavior_of_a_sumo_application).
   Subscribe to this list for asking questions, reporting issues and
   getting information about what other people ask.
   Frequency: about 100 mails per month
