@@ -748,7 +748,9 @@ MSRouteHandler::closeVehicle() {
             myVehicleParameter->depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
             vehControl.addVehicle(myVehicleParameter->id, vehicle);
             for (int i = 1; i < quota; i++) {
-                MSNet::getInstance()->getInsertionControl().add(vehicle);
+                if (vehicle->getParameter().departProcedure == DEPART_GIVEN) {
+                    MSNet::getInstance()->getInsertionControl().add(vehicle);
+                }
                 SUMOVehicleParameter* newPars = new SUMOVehicleParameter(*myVehicleParameter);
                 newPars->id = myVehicleParameter->id + "." + toString(i);
                 newPars->depart = origDepart + MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
