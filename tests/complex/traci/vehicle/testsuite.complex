@@ -51,3 +51,6 @@ getFollowSpeed
 
 # check whether vehicles moved with moveTo can register on a detector
 moveTo_detector
+
+# retrieve stops with limits
+getNextStops
