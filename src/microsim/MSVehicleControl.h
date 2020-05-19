@@ -275,9 +275,10 @@ public:
      * considering that "frac" of all vehicles shall be emitted overall
      * if a negative fraction is given the demand scaling factor is used
      * (--scale)
+     * if a negative loaded number is is given, myLoadedVehNo is used
      * @return the number of vehicles to create (something between 0 and ceil(frac))
      */
-    int getQuota(double frac = -1) const;
+    int getQuota(double frac = -1, int loaded = -1) const;
 
 
     /** @brief Returns the number of build vehicles that have not been removed or

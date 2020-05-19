@@ -250,6 +250,11 @@ public:
         myArrivedNumber++;
     }
 
+    void addDiscarded() {
+        myLoadedNumber++;
+        myDiscardedNumber++;
+    }
+
 protected:
     /// all currently created transportables by id
     std::map<std::string, MSTransportable*> myTransportables;
@@ -265,6 +270,9 @@ protected:
 
     /// @brief The number of build transportables
     int myLoadedNumber;
+
+    /// @brief The number of discarded transportables
+    int myDiscardedNumber;
 
     /// @brief The number of transportables within the network (build and inserted but not removed)
     int myRunningNumber;

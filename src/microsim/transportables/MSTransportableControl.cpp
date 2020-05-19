@@ -42,6 +42,7 @@
 // ===========================================================================
 MSTransportableControl::MSTransportableControl(const bool isPerson):
     myLoadedNumber(0),
+    myDiscardedNumber(0),
     myRunningNumber(0),
     myJammedNumber(0),
     myWaitingForDepartureNumber(0),
@@ -302,7 +303,7 @@ MSTransportableControl::getRidingNumber() const {
 
 int
 MSTransportableControl::getDepartedNumber() const {
-    return myLoadedNumber - myWaitingForDepartureNumber;
+    return myLoadedNumber - myWaitingForDepartureNumber - myDiscardedNumber;
 }
 
 void

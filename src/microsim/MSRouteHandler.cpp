@@ -806,15 +806,8 @@ MSRouteHandler::closePerson() {
     }
     // type existence has been checked on opening
     MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid, &myParsingRNG);
-    MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan, &myParsingRNG);
-    // @todo: consider myScale?
-    if (MSNet::getInstance()->getPersonControl().add(person)) {
-        registerLastDepart();
-    } else {
-        ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
-        delete person;
-        throw error;
-    }
+    addFlowPerson(myVehicleParameter->depart, type, myVehicleParameter->id, -1);
+    registerLastDepart();
     myVehicleParameter = nullptr;
     myActivePlan = nullptr;
 }
@@ -867,24 +860,33 @@ MSRouteHandler::closePersonFlow() {
 
 void
 MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i) {
-    if (i > 0) {
-        // copy parameter and plan because the person takes over responsibility
-        SUMOVehicleParameter* copyParam = new SUMOVehicleParameter();
-        *copyParam = *myVehicleParameter;
-        myVehicleParameter = copyParam;
-        MSTransportable::MSTransportablePlan* copyPlan = new MSTransportable::MSTransportablePlan();
-        for (MSStage* s : *myActivePlan) {
-            copyPlan->push_back(s->clone());
-        }
-        myActivePlan = copyPlan;
+    MSTransportableControl& pc = MSNet::getInstance()->getPersonControl();
+    int quota = MSNet::getInstance()->getVehicleControl().getQuota(-1, pc.getLoadedNumber());
+    if (quota == 0) {
+        pc.addDiscarded();
     }
-    myVehicleParameter->id = baseID + "." + toString(i);
-    myVehicleParameter->depart = depart;
-    MSTransportable* person = MSNet::getInstance()->getPersonControl().buildPerson(myVehicleParameter, type, myActivePlan, &myParsingRNG);
-    if (!MSNet::getInstance()->getPersonControl().add(person)) {
-        ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
-        delete person;
-        throw error;
+    for (int j = 0; j < quota; j++) {
+        if (i > 0 || j > 0) {
+            // copy parameter and plan because the person takes over responsibility
+            SUMOVehicleParameter* copyParam = new SUMOVehicleParameter();
+            *copyParam = *myVehicleParameter;
+            myVehicleParameter = copyParam;
+            MSTransportable::MSTransportablePlan* copyPlan = new MSTransportable::MSTransportablePlan();
+            for (MSStage* s : *myActivePlan) {
+                copyPlan->push_back(s->clone());
+            }
+            myActivePlan = copyPlan;
+        }
+        myVehicleParameter->id = (baseID 
+                + (i >= 0 ? "." + toString(i) : "") 
+                + (j > 0 ?  "." + toString(j) : ""));
+        myVehicleParameter->depart = depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
+        MSTransportable* person = pc.buildPerson(myVehicleParameter, type, myActivePlan, &myParsingRNG);
+        if (!pc.add(person)) {
+            ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
+            delete person;
+            throw error;
+        }
     }
 }
 
