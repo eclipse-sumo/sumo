@@ -1,0 +1,20 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0">
+        <walk edges="SC CN" speed="5"/>
+    </person>
+    <person id="p1" depart="1">
+        <walk edges="SC CN" speed="5"/>
+    </person>
+    <person id="p2" depart="2">
+        <walk edges="SC CN" speed="5"/>
+    </person>
+    <person id="p3" depart="3">
+        <walk edges="SC CN" speed="5"/>
+    </person>
+    <person id="p4" depart="4">
+        <walk edges="SC CN" speed="5"/>
+    </person>
+    <person id="p5" depart="5">
+        <walk edges="SC CN" speed="5"/>
+    </person>
+</routes>

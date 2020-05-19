@@ -1,3 +1,6 @@
+# test option --scale
+scale
+
 # person walking between two unconnected edges
 walk_unconnected
 
