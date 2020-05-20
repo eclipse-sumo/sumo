@@ -1,1 +1,1 @@
--c data/s%mo.sumocfg
+-c data/s%mo.sumocfg --no-step-log
