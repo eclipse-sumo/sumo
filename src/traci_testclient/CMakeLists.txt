@@ -13,7 +13,7 @@ add_executable(testlibsumo testlibsumo_main.cpp)
 set_property(TARGET testlibsumo PROPERTY FOLDER "test_exe")
 set_target_properties(testlibsumo PROPERTIES OUTPUT_NAME testlibsumo${BINARY_SUFFIX})
 set_target_properties(testlibsumo PROPERTIES OUTPUT_NAME_DEBUG testlibsumo${BINARY_SUFFIX}D)
-target_link_libraries(testlibsumo libsumoc)
+target_link_libraries(testlibsumo libsumocpp)
 add_test(libsumotest ${CMAKE_SOURCE_DIR}/bin/testlibsumo)
 
 add_executable(testlibsumostatic testlibsumo_main.cpp)

@@ -64,13 +64,13 @@ BuildRequires:  pkgconfig(xrandr)
 highly portable, microscopic traffic simulation package
 designed to handle large road networks.
 
-%package -n libsumoc
+%package -n libsumocpp
 Summary:        Eclipse SUMO - Microscopic Traffic Simulation Library
 Group:          Development/Libraries/C and C++
 
-%description -n libsumoc
-libsumoc provides the C++-API for adding traffic simulation
-funtionality to your own application.
+%description -n libsumocpp
+libsumocpp provides the C++-API for adding traffic simulation
+functionality to your own application.
 
 %if 0%{?fedora_version}
 %global debug_package %{nil}
@@ -119,8 +119,8 @@ install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/applica
 #cd cmake-build
 #make %{?_smp_mflags} test
 
-%post -n libsumoc -p /sbin/ldconfig
-%postun -n libsumoc -p /sbin/ldconfig
+%post -n libsumocpp -p /sbin/ldconfig
+%postun -n libsumocpp -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
@@ -140,12 +140,12 @@ install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/applica
 %{_datadir}/mime/application
 %endif
 
-%files -n libsumoc
+%files -n libsumocpp
 %if 0%{?suse_version} < 1500
 %doc LICENSE
 %else
 %license LICENSE
 %endif
-%{_libdir}/libsumoc.so
+%{_libdir}/libsumocpp.so
 
 %changelog
