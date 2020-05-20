@@ -47,6 +47,7 @@
         <xsd:attribute name="checkLaneFoesRoundabout" type="boolType"/>
         <xsd:attribute name="tlsIgnoreInternalJunctionJam" type="boolType"/>
         <xsd:attribute name="spreadType" type="spreadTypeType"/>
+        <xsd:attribute name="avoidOverlap" type="boolType"/>
     </xsd:complexType>
 
     <xsd:complexType name="edgeType">
