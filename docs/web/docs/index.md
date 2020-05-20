@@ -19,8 +19,6 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Screenshots](Screenshots.md)
 - [Installing SUMO](Installing.md)
 - [Tutorials](Tutorials.md)
-- [Contact Information](Contact.md)
-- [ChangeLog](ChangeLog.md)
 
 ## Downloads
 **Release {{Version}}, {{ReleaseDate}}**
@@ -53,61 +51,5 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Status page](https://sumo.dlr.de/daily/)
 
 ## Extensions
-**Open Source Software**
 
-- [TraCI](TraCI.md)
-
-    online interaction with the simulation
-
-- [Cadyts](Contributed/Cadyts.md)
-
-    a tool by Gunnar Flötteröd which adapts the simulated flows to the real flows in a known net
-
-- [SUMOPy](Contributed/SUMOPy.md)
-
-    a tool by Joerg Schweizer supporting the whole SUMO toolchain with a GUI especially for demand modelling
-
-- [LiSuM](Tools/LiSuM.md)
-
-    couples [LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO to simulate real-world traffic light controllers.
-
-- [Veins](https://veins.car2x.org/)
-
-    connects SUMO to OMNeT++
-
-- [FLOW](https://flow-project.github.io/)
-
-    a framework for applying reinforcement learning and custom controllers to SUMO, developed at the University of California, Berkeley. 
-    [[1]](https://github.com/flow-project/flow)
-
-- [VSimRTI](https://www.dcaiti.tu-berlin.de/research/simulation/)
-
-    C2X environment connecting SUMO to different network and application simulators
-
-- [SAGA](https://github.com/lcodeca/SUMOActivityGen)
-
-    [Generate intermodal traffic demand from OSM input](https://github.com/eclipse/sumo/tree/master/tools/contributed) [howto](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/HOWTO.md)
-
-- [iTetris](https://www.ict-itetris.eu/)
-
-    connects SUMO to ns3, available here.
-    
- - [ocit2SUMO](https://github.com/DLR-TS/sumo-ocit) Generate traffic light signal plans from OCIT® data.
-
-**Commercial Extensions**
-
-- [TETCOS NetSim](https://www.tetcos.com/vanets.html)
-
-    supports VANET simulations by interfacing with SUMO
-
-- [Webots](https://www.cyberbotics.com/automobile/sumo-interface.php)
-
-    coupling with a robot simulator
-
-- [iTranSIM](Contributed/iTranSIM.md)
-
-    extension by online-calibration using induction loop data by Tino Morenz
-
-- [eWorld](http://eworld.sourceforge.net/)
-
-    an application that allows to convert and enrich roads networks
+View a list of extensions [here](Contributed.md)

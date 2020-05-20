@@ -16,7 +16,7 @@ In summary, the documentation works as follows:
 Building the documentation requires the python3-version of mkdocs along with several plugins. These can be installed with pip in the following manner:
 ```
  pip3 install mkdocs mkdocs-macros-plugin mkdocs-git-revision-date-plugin pymdown-extensions mdx_truly_sane_lists mdx_gh_links plantuml_markdown
- ```
+```
 You also need to install the plantuml package
 ```
  sudo apt install plantuml

@@ -94,7 +94,7 @@ extended character information use TeX or HTML notation instead.
 
 - Avoid them whenever possible and especially **do not use "using
   namespace ..."-statements within the .h-files\!** It's possible that
-  an included library tries to use a different impementation - who
+  an included library tries to use a different implementation - who
   knows? Using a "using namespace ..."-statement within your .h-file
   may yield in an unexpected behaviour.
 

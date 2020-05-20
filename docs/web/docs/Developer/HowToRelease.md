@@ -5,7 +5,7 @@ permalink: /Developer/HowToRelease/
 
 ## Packages
 
-for an overview of created packages and contents see
+For an overview of created packages and contents see
 [Downloads](../Downloads.md).
 
 ## Release steps
@@ -98,7 +98,7 @@ and committing the changes after careful inspection
 > git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
 > git push --tags
 ```
-- create new OSX application bundles with the new version number (`build/osx/...`) - can only be done on OSX with platypus installed (see `build/osx/README.txt`)
+- create new OSX application bundles with the new version number (`build/osx/...`) - can only be done on OSX with platypus installed (see {{Source}}build/osx/README.txt)
 
 ### Release day
 

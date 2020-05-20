@@ -13,6 +13,7 @@ copyright: "Copyright &copy; 2001 - 2020 German Aerospace Center (DLR) and other
 nav:
   - Home: index.md
   - Documentation: SUMO_User_Documentation.md
+  - Tutorials: Tutorials.md
   - Downloads: Downloads.md
   - FAQ: FAQ.md
   - Contact: Contact.md

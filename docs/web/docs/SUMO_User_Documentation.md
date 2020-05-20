@@ -23,6 +23,11 @@ If You use SUMO, please tell us about your
 Any help is appreciated - corrections and contributions to the
 documentation, submission of code, or other results.
 
+The content of this Documentation is freely editable according to the [wiki style](https://en.wikipedia.org/wiki/Wiki). That means, whenever you find a solution to a problem mentioned on the [mailing lists](Contact.md), feel free to add an article to this Documentation or an entry to the [frequently asked questions](FAQ.md). Write access is restricted. In order to edit this Documentation, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
+Here is a short help on [editing articles](Editing_Articles.md).
+
+This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version.
+
 # Introduction
 
 - [The traffic simulation SUMO](Sumo_at_a_Glance.md)
@@ -198,5 +203,4 @@ Below are links to some of the most important tools:
 - [ChangeLog](ChangeLog.md)
 - [Glossary](Other/Glossary.md)
 - [FAQ](FAQ.md)
-- [Additional Tools](Tools.md)
 - [Known File Extensions](Other/File_Extensions.md)
