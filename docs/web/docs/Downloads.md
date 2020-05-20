@@ -110,6 +110,8 @@ please see above for repository information.
 
 ### macOS binaries
 
+Read the Homebrew-based installation guide [here](Installing/MacOS_Build.md).
+
 "Bottles" are available for installing with
 [Homebrew](https://brew.sh/). They are built for the two most recent
 major macOS versions (currently High Sierra and Mojave) and are built
