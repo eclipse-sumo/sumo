@@ -8,6 +8,10 @@ permalink: /ChangeLog/
 ### Bugfixes
 - Simulation
   - When using the options **--vehroute-output.write-unfinished --vehroute-output.exit-times** all edges of the route are now included (instead passed edges only) and the exit times for unfinished edges are written as '-1'. Issue #6956
+  - Fixed invalid error when using route attribute 'repeat'. Issue #7036
+  - Fixed invalid error when using option **--scale** and vehicles are using attribute `depart="triggered"`. Issue #6790
+- Meso
+  - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
 - NETCONVERT
   - Fixed crash when patching a network with '.tll.xml' file. Issue #7014 (Regression in 1.6.0)
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7017
@@ -15,6 +19,7 @@ permalink: /ChangeLog/
   - Fixed missing busStops when importing public transport lines from OSM. Issue #6963
   - Fixed invalid error when patching network with netdiff patches. Issue #6981
   - Fixed invalid offset when using option **--tls.quarter-offset**. Issue #6988
+  - Option **--geometry.avoid-overlap** is no longer lost on reloading a network. Issue #7033
 - SUMO-GUI
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
@@ -27,12 +32,16 @@ permalink: /ChangeLog/
 - TraCI
   - Fixed memory leak when using libsumo. Issue #7012
   - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
+  
+- All Applications
+  - Fil names with a `%`-Sign can no be loaded. Issue #6574
 
 
 ### Enhancements
 - Simulation
   - Added option **--person-summary-output** which causes statistics on person numers and their travel modes to be written in every simulation step. Issue #6964
   - **summary-output** now includes number of stopped vehicles. Issue #6966
+  - Option **--scale** now also applies to persons. Issue #5564
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
@@ -49,10 +58,12 @@ permalink: /ChangeLog/
 
 - SUMO-GUI
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
+  - A color legend for vehicle colors can no be enabled via the 'Legend' tab. Issue #6930
 
 - TraCI
   - Added new function *simulation.loadState* for quick-loading simulation a saved state. Issue #6201
   - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318. 
+  - Added new optional 'limit' arguemtn to *vehicle.getNextStops* to limit the numer of returned stops. Issue #7015
   
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
