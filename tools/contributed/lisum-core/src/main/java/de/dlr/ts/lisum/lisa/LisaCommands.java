@@ -99,8 +99,8 @@ final class LisaCommands {
             post.setEntity(entity);
 
             execute(post);
-        } catch (UnsupportedEncodingException ex) {
-            DLRLogger.severe("", ex);
+//        } catch (UnsupportedEncodingException ex) {
+//            DLRLogger.severe("", ex);
         } catch (LisaRESTfulServerNotFoundException ex) {
             return false;
         }
@@ -114,7 +114,7 @@ final class LisaCommands {
      * @param id
      */
     public void getTask(int id) throws LisaRESTfulServerNotFoundException {
-        try {
+//        try {
             //HttpPost post = new HttpPost(lisaServerAddress + PUT_MESSAGE_SERVICE_URI);
             HttpPost post = new HttpPost(getURI() + PUT_MESSAGE_CALLBACK_URI);
             String request = Requests.INSTANCE.getGetTaskRequest(id);
@@ -125,9 +125,9 @@ final class LisaCommands {
 
             Response response = execute(post);
             DLRLogger.finer(this, response.statusCode + " | " + response.body);
-        } catch (UnsupportedEncodingException ex) {
-            DLRLogger.severe(this, ex);
-        }
+//        } catch (UnsupportedEncodingException ex) {
+//            DLRLogger.severe(this, ex);
+//        }
     }
 
     /**
@@ -138,7 +138,7 @@ final class LisaCommands {
     public PutMessageResponse putMessage(String message) throws LisaRESTfulServerNotFoundException {
         PutMessageResponse vektor = null;
 
-        try {
+//        try {
             //HttpPost post = new HttpPost(lisaServerAddress + PUT_MESSAGE_SERVICE_URI);
             HttpPost post = new HttpPost(getURI() + PUT_MESSAGE_CALLBACK_URI);
             String request = Requests.INSTANCE.getPutMessageRequest(message);
@@ -154,9 +154,9 @@ final class LisaCommands {
                 vektor = new PutMessageResponse(response.body);
             }
 
-        } catch (UnsupportedEncodingException ex) {
-            DLRLogger.severe(this, ex);
-        }
+//        } catch (UnsupportedEncodingException ex) {
+//            DLRLogger.severe(this, ex);
+//        }
 
         return vektor;
     }
@@ -181,7 +181,7 @@ final class LisaCommands {
 
             XMLAdmin2 x = new XMLAdmin2().load(response.body.getBytes());
             newTaskId = x.getNode("ns2:ID").getValue(0);
-        } catch (UnsupportedEncodingException | SAXException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
+        } catch (/* UnsupportedEncodingException |*/ SAXException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
             DLRLogger.severe(this, ex);
         }
 
@@ -193,7 +193,7 @@ final class LisaCommands {
      * @return
      */
     public String getObjectList() throws LisaRESTfulServerNotFoundException {
-        try {
+//        try {
             HttpPost post = new HttpPost(getURI() + GET_OBJECT_LIST_URI);
             String request = Requests.INSTANCE.getObjectListRequest(1, 1);
             StringEntity entity = new StringEntity(request, "UTF-8");
@@ -203,11 +203,11 @@ final class LisaCommands {
             DLRLogger.finer(this, response.statusCode + " | " + response.body);
 
             return response.body;
-        } catch (UnsupportedEncodingException ex) {
-            DLRLogger.severe(this, ex);
-        }
+//        } catch (UnsupportedEncodingException ex) {
+//            DLRLogger.severe(this, ex);
+//        }
 
-        return "";
+//        return "";
     }
 
     /**
@@ -215,7 +215,7 @@ final class LisaCommands {
      * @param id
      */
     public void removeTaskList(int id) throws LisaRESTfulServerNotFoundException {
-        try {
+//        try {
             HttpPost post = new HttpPost(getURI() + REMOVE_TASK_LIST_URI);
 
             String request = Requests.INSTANCE.getRemoveTaskListRequest(id);
@@ -224,9 +224,9 @@ final class LisaCommands {
 
             Response execute = execute(post);
             DLRLogger.finer(this, execute.statusCode + " | " + execute.body);
-        } catch (UnsupportedEncodingException ex) {
-            DLRLogger.severe(this, ex);
-        }
+//        } catch (UnsupportedEncodingException ex) {
+//            DLRLogger.severe(this, ex);
+//        }
 
     }
 
@@ -259,7 +259,7 @@ final class LisaCommands {
                 int id = x.getNode("ns2:TaskInfo", i).getNode("ns2:ID").getValue(-1);
                 ids[i] = id;
             }
-        } catch (UnsupportedEncodingException | SAXException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
+        } catch (/* UnsupportedEncodingException |*/ SAXException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
             DLRLogger.severe(this, ex);
         }
 
@@ -272,7 +272,7 @@ final class LisaCommands {
      * @return
      */
     public void setDataDir(final File dataDir) throws LisaRESTfulServerNotFoundException {
-        try {
+//        try {
             HttpPost post = new HttpPost(getURI() + SET_DATA_DIR_URI);
             String request = Requests.INSTANCE.getSetDataDirRequest(dataDir.getAbsolutePath());
 
@@ -284,10 +284,10 @@ final class LisaCommands {
             if (execute.statusCode == 200) {
                 DLRLogger.config(this, "Lisa DataDir set successfully.");
             }
-        } catch (UnsupportedEncodingException ex) {
+//        } catch (UnsupportedEncodingException ex) {
             //DLRLogger.severe(this, ex);
-            throw new LisaRESTfulServerNotFoundException();
-        }
+//            throw new LisaRESTfulServerNotFoundException();
+//        }
     }
 
     /**
