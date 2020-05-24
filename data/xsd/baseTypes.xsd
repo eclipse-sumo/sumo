@@ -93,6 +93,9 @@
                     <xsd:enumeration value="white"/>
                     <xsd:enumeration value="black"/>
                     <xsd:enumeration value="grey"/>
+                    <xsd:enumeration value="gray"/>
+                    <xsd:enumeration value="invisible"/>
+                    <xsd:enumeration value="random"/>
                 </xsd:restriction>
             </xsd:simpleType>
             <xsd:simpleType>
