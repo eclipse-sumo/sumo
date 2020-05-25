@@ -1,8 +1,8 @@
 Loading configuration ... done.
  Retrying in 1 seconds
-step 0
-step 1
-step 2
+step 0.0
+step 1.0
+step 2.0
 detour edges ('3si', '2o', '2fi', '2si', '4o')
 detour edges after routing ('3si', '4o')
 tripTest edges after routing ('2fi', '2si', '1si', '1fi')
@@ -28,11 +28,11 @@ remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 3
+step 3.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 4
+step 4.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 5
+step 5.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
 persons ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
 person count 5
@@ -58,32 +58,37 @@ persons ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
 person count 5
 examining bla
 recovering from exception after asking for unknown person
-step 6
+step 6.0
 getIDList ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')
 numVehs=0, numPersons=5, minExpected=5
-step 7
+step 7.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 8
+step 8.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 9
+step 9.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 10
+step 10.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 11
+step 11.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 12
+step 12.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 13
+step 13.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 14
+step 14.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 15
+step 15.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
-step 16
+step 16.0
 {0: ('detour', 'detour2', 'horiz', 'newPerson', 'tripTest')}
 riding in vehicle: 'newPerson'
 riding in vehicle (direct): 'newPerson'
 persons on edge :0_10 at time 17.0: ('newPerson',)
+prio stages for 'newPerson' past plan
+  -4: Stage(type=0, edges=('3si',), travelTime=-1.0, cost=-1.0, length=0.0, depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=225.05, description=waiting (awaiting departure))
+  -3: Stage(type=2, edges=('3si', '2si'), travelTime=-1.0, cost=-1.0, length=54.5277393985, depart=-1073741824.0, departPos=225.05, arrivalPos=215.05, description=walking)
+  -2: Stage(type=1, edges=('3si',), travelTime=-1.0, cost=-1.0, length=0.0, depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=231.794681405, description=waiting (last stage removed))
+  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', '1o'), travelTime=-1.0, cost=-1.0, length=1.79769313486e+308, depart=-0.001, departPos=-1073741824.0, arrivalPos=486.549, description=driving)
 'detour' on road :0_w2
 'detour2' on road :0_w2
 detour2 edges ('3si', '2o', '2fi', '2si', '4si')
@@ -93,17 +98,17 @@ detour2 edges after routing (':0_w2', '4si')
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index
-214 person=tripTest2 edge=2fi pos=10.0
-215 person=tripTest2 edge=2fi pos=10.0
-216 person=tripTest2 edge=2fi pos=11.2702603498
-217 person=tripTest2 edge=2fi pos=12.6330235757
-218 person=tripTest2 edge=2fi pos=13.8008502379
+214.0 person=tripTest2 edge=2fi pos=10.0
+215.0 person=tripTest2 edge=2fi pos=10.0
+216.0 person=tripTest2 edge=2fi pos=11.2702603498
+217.0 person=tripTest2 edge=2fi pos=12.6330235757
+218.0 person=tripTest2 edge=2fi pos=13.8008502379
   tripTest2 new edges edges=('2fi', '1fi')
-219 person=tripTest2 edge=2fi pos=15.1080027571
-220 person=tripTest2 edge=2fi pos=16.4488341582
-221 person=tripTest2 edge=2fi pos=17.7396310395
-222 person=tripTest2 edge=2fi pos=19.0504063853
-223 person=tripTest2 edge=2fi pos=20.2967095385
+219.0 person=tripTest2 edge=2fi pos=15.1080027571
+220.0 person=tripTest2 edge=2fi pos=16.4488341582
+221.0 person=tripTest2 edge=2fi pos=17.7396310395
+222.0 person=tripTest2 edge=2fi pos=19.0504063853
+223.0 person=tripTest2 edge=2fi pos=20.2967095385
 remaining stages for 'p3' (before replacement of current stage
   0: Stage(type=2, edges=('1fi', '1si'), travelTime=-1.0, cost=-1.0, length=27.2498275842, depart=-1073741824.0, departPos=238.5, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (after replacement
