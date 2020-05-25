@@ -1,0 +1,3 @@
+<routes>
+    <trip id="ego" fromJunction="A0" toJunction="H7" depart="0"/>
+</routes>

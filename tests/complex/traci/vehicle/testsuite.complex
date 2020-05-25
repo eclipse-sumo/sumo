@@ -54,3 +54,6 @@ moveTo_detector
 
 # retrieve stops with limits
 getNextStops
+
+# set rerouting device parameter period
+setReroutingPeriod
