@@ -1142,7 +1142,7 @@ GNENetHelper::PathCalculator::calculateReachability(const SUMOVehicleClass vClas
 }
 
 
-const bool
+bool
 GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const {
     // check conditions
     if ((from == nullptr) || (to == nullptr)) {
@@ -1178,7 +1178,7 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
 }
 
 
-const bool 
+bool 
 GNENetHelper::PathCalculator::busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const {
     if (busStop->getTagProperty().getTag() != SUMO_TAG_BUS_STOP) {
         return false;

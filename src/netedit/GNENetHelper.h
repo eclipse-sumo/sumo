@@ -420,10 +420,10 @@ struct GNENetHelper {
         void calculateReachability(const SUMOVehicleClass vClass, GNEEdge* originEdge);
 
         /// @brief check if exist a path between the two given consecutives edges for the given VClass
-        const bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
+        bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 
         /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians
-        const bool busStopConnected(const GNEAdditional *busStop, const GNEEdge* edge) const;
+        bool busStopConnected(const GNEAdditional *busStop, const GNEEdge* edge) const;
 
     private:
         /// @brief pointer to net
