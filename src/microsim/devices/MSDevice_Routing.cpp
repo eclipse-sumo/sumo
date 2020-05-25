@@ -292,6 +292,7 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
         myPeriod = TIME2STEPS(doubleValue);
         if (myPeriod <= 0) {
             myRerouteCommand->deschedule();
+            myRerouteCommand = nullptr;
         } else if (oldPeriod <= 0) {
             // re-schedule routing command
             notifyEnter(myHolder, MSMoveReminder::NOTIFICATION_DEPARTED, nullptr);
