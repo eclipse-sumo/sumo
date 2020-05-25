@@ -143,6 +143,9 @@ public:
         /// @brief refresh demand element selector
         void refreshDemandElementSelector();
 
+        /// @brief get previous edge for the current selected demand elemnt
+        GNEEdge* getPersonPlanPreviousEdge() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user select another demand elementelement in ComboBox

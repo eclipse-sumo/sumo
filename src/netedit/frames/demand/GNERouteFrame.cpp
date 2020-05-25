@@ -289,8 +289,8 @@ GNERouteFrame::createPath() {
         myViewNet->getUndoList()->p_begin("add " + route->getTagStr());
         myViewNet->getUndoList()->add(new GNEChange_DemandElement(route, true), true);
         myViewNet->getUndoList()->p_end();
-        // abort route creation (because route was already created and vector/colors has to be cleaned)
-        myPathCreator->onCmdAbortPathCreation(0, 0, 0);
+        // abort path creation
+        myPathCreator->abortPathCreation();
         // refresh route attributes
         myRouteAttributes->refreshRows();
     }

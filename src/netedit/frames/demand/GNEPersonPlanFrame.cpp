@@ -164,25 +164,40 @@ GNEPersonPlanFrame::tagSelected() {
         myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
         // show edge path creator
         myPathCreator->showPathCreatorModul();
-        // update path creator mode
-        const bool requireRoute = (personPlanTag == SUMO_TAG_WALK_ROUTE);
-        // set path creator mode
-        if ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) || (personPlanTag == SUMO_TAG_RIDE_BUSSTOP)) {
-            myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_BUSSTOP);
-        } else if ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO)) {
-            // path ends in an edge, and only one can be selected
-            myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_EDGE | GNEFrameModuls::PathCreator::ONLY_FROMTO);
-        } else if (personPlanTag == SUMO_TAG_WALK_EDGES) {
-            // path ends in an edge, and multiple edges can be selected
-            myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_EDGE);
+        // get previous person plan
+        GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
+        // set path creator mode depending if previousEdge exist
+        if (previousEdge) {
+            // set path creator mode
+            if ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) || (personPlanTag == SUMO_TAG_RIDE_BUSSTOP)) {
+                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::END_BUSSTOP);
+            } else if ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO)) {
+                // path ends in an edge, and only one can be selected
+                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::END_EDGE | GNEFrameModuls::PathCreator::ONLY_FROMTO);
+            } else if (personPlanTag == SUMO_TAG_WALK_EDGES) {
+                // path ends in an edge, and multiple edges can be selected
+                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::END_EDGE);
+            } else {
+                // hide edge path creator
+                myPathCreator->hidePathCreatorModul();
+            }
+            // add previous edge
+            myPathCreator->addEdge(previousEdge, false, false);
         } else {
-            // hide edge path creator
-            myPathCreator->hidePathCreatorModul();
+            // set path creator mode
+            if ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) || (personPlanTag == SUMO_TAG_RIDE_BUSSTOP)) {
+                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_BUSSTOP);
+            } else if ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO)) {
+                // path ends in an edge, and only one can be selected
+                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_EDGE | GNEFrameModuls::PathCreator::ONLY_FROMTO);
+            } else if (personPlanTag == SUMO_TAG_WALK_EDGES) {
+                // path ends in an edge, and multiple edges can be selected
+                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_EDGE);
+            } else {
+                // hide edge path creator
+                myPathCreator->hidePathCreatorModul();
+            }
         }
-
-        // (personPlanTag == SUMO_TAG_PERSONSTOP_BUSSTOP)
-
-
         // show person hierarchy
         myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
     } else {
@@ -202,21 +217,8 @@ GNEPersonPlanFrame::demandElementSelected() {
         myPersonPlanTagSelector->showTagSelector();
         // now check if person plan selected is valid
         if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
-            // show person plan attributes
-            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
-            // show edge path creator
-            myPathCreator->showPathCreatorModul();
-            // Show the person's children
-            myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
-            // get last person plan
-            const GNEDemandElement* personPlan = myPersonSelector->getCurrentDemandElement()->getChildDemandElements().back();
-            if (personPlan->getTagProperty().getTag() == SUMO_TAG_WALK_ROUTE) {
-                myPathCreator->addEdge(personPlan->getParentDemandElements().back()->getParentEdges().back(), false, false);
-            } else if (personPlan->getParentAdditionals().size() > 0) {
-                myPathCreator->addAdditional(personPlan->getParentAdditionals().front(), false, false);
-            } else if (personPlan->getChildEdges().size() > 0) {
-                myPathCreator->addEdge(personPlan->getChildEdges().front(), false, false);
-            }
+            // call tag selected
+            tagSelected();
         } else {
             myPersonPlanAttributes->hideAttributesCreatorModul();
             myPathCreator->hidePathCreatorModul();
@@ -251,7 +253,7 @@ GNEPersonPlanFrame::createPath() {
                 std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
                 double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // check if person trip fromto can be created
-                if (myPathCreator->getPath().size() > 1) {
+                if (myPathCreator->getSelectedEdges().size() > 1) {
                     GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos, types, modes);
                     personPlanCreated = true;
                 } else {
@@ -364,14 +366,13 @@ GNEPersonPlanFrame::createPath() {
         }
         // refresh AttributeCarrierHierarchy
         myPersonHierarchy->refreshAttributeCarrierHierarchy();
-        // refresh also Person Plan creator
-/*
-        myPathCreator->refreshPersonPlanCreator();
-*/
+        // abort path creation
+        myPathCreator->abortPathCreation();
+        // refresh using tagSelected
+        tagSelected();
         // refresh personPlan attributes
         myPersonPlanAttributes->refreshRows();
     }
 }
-
 
 /****************************************************************************/

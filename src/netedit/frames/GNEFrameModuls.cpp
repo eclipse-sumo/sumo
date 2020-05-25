@@ -495,6 +495,40 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
 }
 
 
+GNEEdge* 
+GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
+    if (myCurrentDemandElement == nullptr) {
+        return nullptr;
+    }
+    if (!myCurrentDemandElement->getTagProperty().isPerson()) {
+        return nullptr;
+    }
+    if (myCurrentDemandElement->getChildDemandElements().empty()) {
+        return false;
+    }
+    // get last person plan
+    const GNEDemandElement* lastPersonPlan = myCurrentDemandElement->getChildDemandElements().back();
+    // check tag
+    switch (lastPersonPlan->getTagProperty().getTag()) {
+        case SUMO_TAG_PERSONTRIP_FROMTO:
+        case SUMO_TAG_WALK_EDGES:
+        case SUMO_TAG_WALK_FROMTO:
+        case SUMO_TAG_RIDE_FROMTO:
+        case SUMO_TAG_PERSONSTOP_LANE:
+            return lastPersonPlan->getParentEdges().back();
+        case SUMO_TAG_PERSONTRIP_BUSSTOP:
+        case SUMO_TAG_WALK_BUSSTOP:
+        case SUMO_TAG_RIDE_BUSSTOP:
+        case SUMO_TAG_PERSONSTOP_BUSSTOP:
+            return lastPersonPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
+        case SUMO_TAG_WALK_ROUTE:
+            return lastPersonPlan->getParentDemandElements().back()->getParentEdges().back();
+        default:
+            return nullptr;
+    }
+}
+
+
 long
 GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond to a demand element
@@ -2566,16 +2600,16 @@ GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool
     if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
         return false;
     }
-    // check number of additionals
+    // check from additional
     if ((myCreationMode & START_BUSSTOP) && myFrontAdditional) {
         return false;
     }
-    // check number of additionals
+    // check to additional
     if ((myCreationMode & START_BUSSTOP) && myToAdditional) {
         return false;
     }
     // All checks ok, then add it in selected elements
-    if (myFrontAdditional == nullptr) {
+    if ((myCreationMode & START_BUSSTOP) && (myFrontAdditional == nullptr)) {
         myFrontAdditional = additional;
     } else {
         myToAdditional = additional;
@@ -2718,8 +2752,6 @@ void
 GNEFrameModuls::PathCreator::createPath() {
     // call create path implemented in frame parent
     myFrameParent->createPath();
-    // abort path creation
-    abortPathCreation();
 }
 
 
@@ -2866,19 +2898,26 @@ void
 GNEFrameModuls::PathCreator::recalculatePath() {
     // first clear path
     myPath.clear();
-    /*
-    // check if remove last route edge button has to be disabled
-    if ((mySelectedEdges.size() + mySelectedAdditionals.size()) == 1) {
-        myPath.push_back(Path(myVClass, mySelectedEdges.front()));
-    } else {
-    */
-        // add every segment
-        for (int i = 1; i < (int)mySelectedEdges.size(); i++) {
-            myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, mySelectedEdges.at(i - 1), mySelectedEdges.at(i)));
-        }
-    /*
+    // set edges
+    std::vector<GNEEdge*> edges;
+    if (myFrontAdditional) {
+        edges.push_back(myFrontAdditional->getParentLanes().front()->getParentEdge());
     }
-    */
+    for (const auto &edge : mySelectedEdges) {
+        edges.push_back(edge);
+    }
+    if (myToAdditional) {
+        edges.push_back(myToAdditional->getParentLanes().front()->getParentEdge());
+    }
+
+    if (edges.size() == 1) {
+        myPath.push_back(Path(myVClass, edges.front()));
+    } else {
+        // add every segment
+        for (int i = 1; i < (int)edges.size(); i++) {
+            myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, edges.at(i - 1), edges.at(i)));
+        }
+    }
 }
 
 
