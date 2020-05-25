@@ -2412,6 +2412,8 @@ GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent, const int creati
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myCreationMode(creationMode),
+    myFrontAdditional(nullptr),
+    myToAdditional(nullptr),
     myVClass(SVC_PASSENGER) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameThicked);
@@ -2560,18 +2562,24 @@ GNEFrameModuls::PathCreator::getSelectedEdges() const {
 
 bool
 GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool shiftKeyPressed, const bool controlKeyPressed) {
-    // first check if additionals aren allowed
-    if (((myCreationMode & START_BUSSTOP) + (myCreationMode & START_BUSSTOP)) == 0) {
+    // check if additionals aren allowed
+    if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
         return false;
     }
-    // currently only two additionals are supported
-    if (mySelectedAdditionals.size() > 2) {
+    // check number of additionals
+    if ((myCreationMode & START_BUSSTOP) && myFrontAdditional) {
         return false;
     }
-
-
+    // check number of additionals
+    if ((myCreationMode & START_BUSSTOP) && myToAdditional) {
+        return false;
+    }
     // All checks ok, then add it in selected elements
-    mySelectedAdditionals.push_back(additional);
+    if (myFrontAdditional == nullptr) {
+        myFrontAdditional = additional;
+    } else {
+        myToAdditional = additional;
+    }
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -2579,7 +2587,7 @@ GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool
     // disable undo/redo
     myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
     // enable or disable remove last additional button
-    if (mySelectedAdditionals.size() > 1) {
+    if (myFrontAdditional || myToAdditional) {
         myRemoveLastInsertedElement->enable();
     } else {
         myRemoveLastInsertedElement->disable();
@@ -2594,9 +2602,15 @@ GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool
 }
 
 
-std::vector<GNEAdditional*>
-GNEFrameModuls::PathCreator::getSelectedAdditionals() const {
-    return mySelectedAdditionals;
+GNEAdditional* 
+GNEFrameModuls::PathCreator::getFrontAdditional() const {
+    return myFrontAdditional;
+}
+
+
+GNEAdditional* 
+GNEFrameModuls::PathCreator::getToAdditional() const {
+    return myToAdditional;
 }
 
 
@@ -2712,7 +2726,7 @@ GNEFrameModuls::PathCreator::createPath() {
 void 
 GNEFrameModuls::PathCreator::abortPathCreation() {
     // first check that there is elements
-    if ((mySelectedEdges.size() > 0) || (mySelectedAdditionals.size() > 0)) {
+    if ((mySelectedEdges.size() > 0) || myFrontAdditional || myToAdditional) {
         // unblock undo/redo
         myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // clear edges
@@ -2840,7 +2854,8 @@ GNEFrameModuls::PathCreator::clearPath() {
     }
     // clear edges, additionals and paths
     mySelectedEdges.clear();
-    mySelectedAdditionals.clear();
+    myFrontAdditional = nullptr;
+    myToAdditional = nullptr;
     myPath.clear();
     // update info route label
     updateInfoRouteLabel();
@@ -2851,15 +2866,19 @@ void
 GNEFrameModuls::PathCreator::recalculatePath() {
     // first clear path
     myPath.clear();
+    /*
     // check if remove last route edge button has to be disabled
     if ((mySelectedEdges.size() + mySelectedAdditionals.size()) == 1) {
         myPath.push_back(Path(myVClass, mySelectedEdges.front()));
     } else {
+    */
         // add every segment
         for (int i = 1; i < (int)mySelectedEdges.size(); i++) {
             myPath.push_back(Path(myFrameParent->getViewNet(), myVClass, mySelectedEdges.at(i - 1), mySelectedEdges.at(i)));
         }
+    /*
     }
+    */
 }
 
 

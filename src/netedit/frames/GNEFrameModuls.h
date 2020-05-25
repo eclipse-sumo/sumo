@@ -722,8 +722,11 @@ public:
         /// @brief add additional
         bool addAdditional(GNEAdditional* additional, const bool shiftKeyPressed, const bool controlKeyPressed);
 
-        /// @brief get current selected additionals
-        std::vector<GNEAdditional*> getSelectedAdditionals() const;
+        /// @brief get front additional
+        GNEAdditional* getFrontAdditional() const;
+
+        /// @brief get to additional
+        GNEAdditional* getToAdditional() const;
 
         /// @brief get path route
         const std::vector<Path>& getPath() const;
@@ -793,7 +796,8 @@ public:
         std::vector<GNEEdge*> mySelectedEdges;
 
         /// @brief vector with selected additionals (usually busStops)
-        std::vector<GNEAdditional*> mySelectedAdditionals;
+        GNEAdditional* myFrontAdditional;
+        GNEAdditional* myToAdditional;
 
         /// @brief vector with current path
         std::vector<Path> myPath;
