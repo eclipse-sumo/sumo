@@ -125,6 +125,8 @@ XMLSubSys::runParser(GenericSAXHandler& handler,
         myReaders[myNextFreeReader - 1]->parse(file);
         handler.setFileName(prevFile);
         myNextFreeReader--;
+    } catch (AbortParsing&) {
+        return false;
     } catch (ProcessError& e) {
         WRITE_ERROR(std::string(e.what()) != std::string("") ? std::string(e.what()) : std::string("Process Error"));
         return false;

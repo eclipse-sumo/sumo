@@ -162,6 +162,16 @@ public:
         : ProcessError(message) {}
 };
 
+/**
+ * Abort parsing (intended change in control flow, not realy an error)
+ */
+class AbortParsing : public ProcessError {
+public:
+    /// @brief constructor
+    AbortParsing(const std::string& message)
+        : ProcessError(message) {}
+};
+
 /// define SOFT_ASSERT raise an assertion in debug mode everywhere except on the windows test server
 #ifdef MSVC_TEST_SERVER
 #ifdef _DEBUG
