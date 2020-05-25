@@ -1,0 +1,764 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 25 13:35:46 2020 by Eclipse SUMO Version v1_6_0+0343-bec1d793ba
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="1000"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+0343-bec1d793ba" time="1000.00">
+    <route id="!1000" state="0" edges="EC CS"/>
+    <route id="!1001" state="0" edges="EC CN"/>
+    <route id="!1002" state="0" edges="EC CW"/>
+    <route id="!1003" state="0" edges="WC CW"/>
+    <route id="!1004" state="0" edges="SC CN"/>
+    <route id="!1005" state="0" edges="NC CW"/>
+    <route id="!1006" state="0" edges="WC CS"/>
+    <route id="!727" state="0" edges="SC CW"/>
+    <route id="!737" state="0" edges="SC CW"/>
+    <route id="!750" state="0" edges="SC CW"/>
+    <route id="!751" state="0" edges="EC CS"/>
+    <route id="!755" state="0" edges="SC CS"/>
+    <route id="!756" state="0" edges="SC CW"/>
+    <route id="!758" state="0" edges="SC CS"/>
+    <route id="!760" state="0" edges="EC CE"/>
+    <route id="!772" state="0" edges="SC CW"/>
+    <route id="!776" state="0" edges="EC CE"/>
+    <route id="!777" state="0" edges="EC CW"/>
+    <route id="!778" state="0" edges="EC CS"/>
+    <route id="!780" state="0" edges="SC CS"/>
+    <route id="!781" state="0" edges="EC CN"/>
+    <route id="!783" state="0" edges="SC CW"/>
+    <route id="!789" state="0" edges="EC CW"/>
+    <route id="!791" state="0" edges="EC CE"/>
+    <route id="!792" state="0" edges="EC CE"/>
+    <route id="!799" state="0" edges="SC CE"/>
+    <route id="!801" state="0" edges="SC CS"/>
+    <route id="!802" state="0" edges="SC CW"/>
+    <route id="!803" state="0" edges="SC CW"/>
+    <route id="!804" state="0" edges="EC CE"/>
+    <route id="!805" state="0" edges="SC CS"/>
+    <route id="!806" state="0" edges="SC CW"/>
+    <route id="!811" state="0" edges="SC CN"/>
+    <route id="!812" state="0" edges="EC CE"/>
+    <route id="!814" state="0" edges="EC CS"/>
+    <route id="!816" state="0" edges="SC CW"/>
+    <route id="!821" state="0" edges="EC CN"/>
+    <route id="!823" state="0" edges="EC CW"/>
+    <route id="!824" state="0" edges="EC CN"/>
+    <route id="!825" state="0" edges="SC CN"/>
+    <route id="!827" state="0" edges="SC CN"/>
+    <route id="!832" state="0" edges="NC CW"/>
+    <route id="!833" state="0" edges="SC CN"/>
+    <route id="!834" state="0" edges="SC CW"/>
+    <route id="!835" state="0" edges="NC CW"/>
+    <route id="!836" state="0" edges="SC CW"/>
+    <route id="!838" state="0" edges="SC CE"/>
+    <route id="!839" state="0" edges="SC CE"/>
+    <route id="!840" state="0" edges="SC CW"/>
+    <route id="!841" state="0" edges="NC CW"/>
+    <route id="!842" state="0" edges="SC CE"/>
+    <route id="!846" state="0" edges="EC CS"/>
+    <route id="!847" state="0" edges="SC CE"/>
+    <route id="!848" state="0" edges="EC CN"/>
+    <route id="!849" state="0" edges="NC CN"/>
+    <route id="!850" state="0" edges="SC CS"/>
+    <route id="!851" state="0" edges="NC CS"/>
+    <route id="!852" state="0" edges="EC CW"/>
+    <route id="!853" state="0" edges="SC CN"/>
+    <route id="!854" state="0" edges="NC CW"/>
+    <route id="!855" state="0" edges="SC CS"/>
+    <route id="!856" state="0" edges="NC CW"/>
+    <route id="!857" state="0" edges="NC CS"/>
+    <route id="!860" state="0" edges="SC CE"/>
+    <route id="!861" state="0" edges="NC CW"/>
+    <route id="!863" state="0" edges="SC CS"/>
+    <route id="!864" state="0" edges="SC CE"/>
+    <route id="!865" state="0" edges="SC CS"/>
+    <route id="!867" state="0" edges="SC CE"/>
+    <route id="!869" state="0" edges="EC CN"/>
+    <route id="!870" state="0" edges="EC CS"/>
+    <route id="!871" state="0" edges="NC CW"/>
+    <route id="!873" state="0" edges="SC CE"/>
+    <route id="!874" state="0" edges="EC CE"/>
+    <route id="!875" state="0" edges="NC CS"/>
+    <route id="!876" state="0" edges="SC CN"/>
+    <route id="!877" state="0" edges="EC CW"/>
+    <route id="!878" state="0" edges="NC CN"/>
+    <route id="!880" state="0" edges="SC CS"/>
+    <route id="!881" state="0" edges="SC CE"/>
+    <route id="!882" state="0" edges="EC CS"/>
+    <route id="!883" state="0" edges="EC CW"/>
+    <route id="!884" state="0" edges="NC CN"/>
+    <route id="!885" state="0" edges="EC CS"/>
+    <route id="!886" state="0" edges="NC CN"/>
+    <route id="!888" state="0" edges="NC CE"/>
+    <route id="!889" state="0" edges="SC CN"/>
+    <route id="!892" state="0" edges="NC CN"/>
+    <route id="!893" state="0" edges="SC CN"/>
+    <route id="!894" state="0" edges="NC CN"/>
+    <route id="!895" state="0" edges="NC CE"/>
+    <route id="!896" state="0" edges="SC CW"/>
+    <route id="!897" state="0" edges="SC CE"/>
+    <route id="!898" state="0" edges="SC CS"/>
+    <route id="!899" state="0" edges="EC CS"/>
+    <route id="!900" state="0" edges="SC CS"/>
+    <route id="!901" state="0" edges="EC CN"/>
+    <route id="!902" state="0" edges="SC CE"/>
+    <route id="!904" state="0" edges="SC CW"/>
+    <route id="!905" state="0" edges="NC CW"/>
+    <route id="!907" state="0" edges="EC CW"/>
+    <route id="!908" state="0" edges="NC CS"/>
+    <route id="!910" state="0" edges="SC CS"/>
+    <route id="!911" state="0" edges="SC CW"/>
+    <route id="!915" state="0" edges="NC CN"/>
+    <route id="!918" state="0" edges="EC CS"/>
+    <route id="!919" state="0" edges="EC CW"/>
+    <route id="!920" state="0" edges="NC CW"/>
+    <route id="!921" state="0" edges="SC CN"/>
+    <route id="!923" state="0" edges="NC CE"/>
+    <route id="!924" state="0" edges="EC CE"/>
+    <route id="!925" state="0" edges="NC CN"/>
+    <route id="!926" state="0" edges="EC CS"/>
+    <route id="!931" state="0" edges="EC CS"/>
+    <route id="!932" state="0" edges="EC CE"/>
+    <route id="!933" state="0" edges="NC CE"/>
+    <route id="!934" state="0" edges="NC CE"/>
+    <route id="!936" state="0" edges="NC CS"/>
+    <route id="!937" state="0" edges="EC CS"/>
+    <route id="!938" state="0" edges="SC CE"/>
+    <route id="!939" state="0" edges="EC CN"/>
+    <route id="!940" state="0" edges="NC CS"/>
+    <route id="!942" state="0" edges="NC CE"/>
+    <route id="!944" state="0" edges="SC CE"/>
+    <route id="!945" state="0" edges="EC CE"/>
+    <route id="!946" state="0" edges="SC CS"/>
+    <route id="!947" state="0" edges="NC CS"/>
+    <route id="!948" state="0" edges="NC CS"/>
+    <route id="!949" state="0" edges="SC CE"/>
+    <route id="!950" state="0" edges="EC CW"/>
+    <route id="!952" state="0" edges="NC CS"/>
+    <route id="!953" state="0" edges="EC CS"/>
+    <route id="!954" state="0" edges="EC CS"/>
+    <route id="!955" state="0" edges="SC CS"/>
+    <route id="!956" state="0" edges="EC CN"/>
+    <route id="!957" state="0" edges="SC CE"/>
+    <route id="!958" state="0" edges="EC CS"/>
+    <route id="!959" state="0" edges="EC CS"/>
+    <route id="!961" state="0" edges="SC CN"/>
+    <route id="!962" state="0" edges="EC CN"/>
+    <route id="!964" state="0" edges="NC CW"/>
+    <route id="!965" state="0" edges="SC CS"/>
+    <route id="!966" state="0" edges="EC CN"/>
+    <route id="!967" state="0" edges="EC CW"/>
+    <route id="!969" state="0" edges="WC CE"/>
+    <route id="!970" state="0" edges="NC CW"/>
+    <route id="!971" state="0" edges="WC CW"/>
+    <route id="!972" state="0" edges="SC CN"/>
+    <route id="!973" state="0" edges="WC CN"/>
+    <route id="!974" state="0" edges="WC CW"/>
+    <route id="!975" state="0" edges="NC CS"/>
+    <route id="!976" state="0" edges="SC CS"/>
+    <route id="!977" state="0" edges="SC CN"/>
+    <route id="!978" state="0" edges="EC CS"/>
+    <route id="!979" state="0" edges="SC CS"/>
+    <route id="!980" state="0" edges="EC CE"/>
+    <route id="!981" state="0" edges="EC CN"/>
+    <route id="!982" state="0" edges="SC CS"/>
+    <route id="!983" state="0" edges="SC CW"/>
+    <route id="!984" state="0" edges="EC CN"/>
+    <route id="!985" state="0" edges="NC CW"/>
+    <route id="!986" state="0" edges="SC CE"/>
+    <route id="!987" state="0" edges="WC CN"/>
+    <route id="!988" state="0" edges="WC CW"/>
+    <route id="!989" state="0" edges="EC CE"/>
+    <route id="!990" state="0" edges="EC CE"/>
+    <route id="!991" state="0" edges="SC CS"/>
+    <route id="!992" state="0" edges="EC CS"/>
+    <route id="!993" state="0" edges="NC CE"/>
+    <route id="!994" state="0" edges="EC CW"/>
+    <route id="!995" state="0" edges="EC CS"/>
+    <route id="!996" state="0" edges="NC CW"/>
+    <route id="!997" state="0" edges="SC CN"/>
+    <route id="!998" state="0" edges="SC CS"/>
+    <route id="!999" state="0" edges="NC CN"/>
+    <delay number="59" begin="1007" end="832" depart="34521.00" time="56419.00"/>
+    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
+    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="1000" type="DEFAULT_VEHTYPE" depart="1000.00" route="!1000" speedFactor="1.03" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_1000" state="0"/>
+    </vehicle>
+    <vehicle id="1001" type="DEFAULT_VEHTYPE" depart="1001.00" route="!1001" speedFactor="0.94" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_1001" state="0"/>
+    </vehicle>
+    <vehicle id="1002" type="DEFAULT_VEHTYPE" depart="1002.00" route="!1002" speedFactor="1.04" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_1002" state="0"/>
+    </vehicle>
+    <vehicle id="1003" type="DEFAULT_VEHTYPE" depart="1003.00" route="!1003" speedFactor="0.99" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_1003" state="0"/>
+    </vehicle>
+    <vehicle id="1004" type="DEFAULT_VEHTYPE" depart="1004.00" route="!1004" speedFactor="0.96" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_1004" state="0"/>
+    </vehicle>
+    <vehicle id="1005" type="DEFAULT_VEHTYPE" depart="1005.00" route="!1005" speedFactor="0.90" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_1005" state="0"/>
+    </vehicle>
+    <vehicle id="1006" type="DEFAULT_VEHTYPE" depart="1006.00" route="!1006" speedFactor="0.90" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_1006" state="0"/>
+    </vehicle>
+    <vehicle id="727" type="DEFAULT_VEHTYPE" depart="727.00" route="!727" speedFactor="0.82" state="823000 0 5.10 6000 999000" pos="6.31" speed="0.00" posLat="0.00">
+        <device id="routing_727" state="0"/>
+    </vehicle>
+    <vehicle id="737" type="DEFAULT_VEHTYPE" depart="737.00" route="!737" speedFactor="1.12" state="828000 0 5.10 5000 999000" pos="90.76" speed="0.00" posLat="0.00">
+        <device id="routing_737" state="0"/>
+    </vehicle>
+    <vehicle id="750" type="DEFAULT_VEHTYPE" depart="750.00" route="!750" speedFactor="1.14" state="838000 0 5.10 0 999000" pos="75.68" speed="0.15" posLat="0.00">
+        <device id="routing_750" state="0"/>
+    </vehicle>
+    <vehicle id="751" type="DEFAULT_VEHTYPE" depart="751.00" route="!751" speedFactor="1.06" state="927000 0 5.10 9000 999000" pos="90.95" speed="0.00" posLat="0.00">
+        <device id="routing_751" state="0"/>
+    </vehicle>
+    <vehicle id="755" type="DEFAULT_VEHTYPE" depart="755.00" route="!755" speedFactor="0.90" state="841000 0 5.10 0 999000" pos="68.00" speed="0.32" posLat="0.00">
+        <device id="routing_755" state="0"/>
+    </vehicle>
+    <vehicle id="756" type="DEFAULT_VEHTYPE" depart="756.00" route="!756" speedFactor="0.93" state="843000 0 5.10 0 999000" pos="42.26" speed="2.20" posLat="0.00">
+        <device id="routing_756" state="0"/>
+    </vehicle>
+    <vehicle id="758" type="DEFAULT_VEHTYPE" depart="758.00" route="!758" speedFactor="1.00" state="856000 0 5.10 0 999000" pos="60.14" speed="0.77" posLat="0.00">
+        <device id="routing_758" state="0"/>
+    </vehicle>
+    <vehicle id="760" type="DEFAULT_VEHTYPE" depart="760.00" route="!760" speedFactor="1.05" state="960000 0 5.10 7000 999000" pos="83.45" speed="0.00" posLat="0.00">
+        <device id="routing_760" state="0"/>
+    </vehicle>
+    <vehicle id="772" type="DEFAULT_VEHTYPE" depart="772.00" route="!772" speedFactor="0.89" state="863000 0 5.10 0 999000" pos="23.56" speed="0.21" posLat="0.00">
+        <device id="routing_772" state="0"/>
+    </vehicle>
+    <vehicle id="776" type="DEFAULT_VEHTYPE" depart="776.00" route="!776" speedFactor="1.03" state="965000 0 5.10 5000 999000" pos="75.95" speed="0.00" posLat="0.00">
+        <device id="routing_776" state="0"/>
+    </vehicle>
+    <vehicle id="777" type="DEFAULT_VEHTYPE" depart="777.00" route="!777" speedFactor="1.03" state="967000 0 5.10 18000 999000" pos="90.95" speed="0.00" posLat="0.00">
+        <device id="routing_777" state="0"/>
+    </vehicle>
+    <vehicle id="778" type="DEFAULT_VEHTYPE" depart="778.00" route="!778" speedFactor="0.76" state="970000 0 5.10 4000 999000" pos="68.44" speed="0.00" posLat="0.00">
+        <device id="routing_778" state="0"/>
+    </vehicle>
+    <vehicle id="780" type="DEFAULT_VEHTYPE" depart="780.00" route="!780" speedFactor="1.07" state="864000 0 5.10 0 999000" pos="15.81" speed="0.30" posLat="0.00">
+        <device id="routing_780" state="0"/>
+    </vehicle>
+    <vehicle id="781" type="DEFAULT_VEHTYPE" depart="781.00" route="!781" speedFactor="1.00" state="971000 0 5.10 15000 999000" pos="83.45" speed="0.00" posLat="0.00">
+        <device id="routing_781" state="0"/>
+    </vehicle>
+    <vehicle id="783" type="DEFAULT_VEHTYPE" depart="783.00" route="!783" speedFactor="0.88" state="868000 0 5.10 2000 999000" pos="83.26" speed="0.02" posLat="0.00">
+        <device id="routing_783" state="0"/>
+    </vehicle>
+    <vehicle id="789" type="DEFAULT_VEHTYPE" depart="789.00" route="!789" speedFactor="1.00" state="974000 0 5.10 13000 999000" pos="75.95" speed="0.00" posLat="0.00">
+        <device id="routing_789" state="0"/>
+    </vehicle>
+    <vehicle id="791" type="DEFAULT_VEHTYPE" depart="791.00" route="!791" speedFactor="1.04" state="977000 0 5.10 3000 999000" pos="60.93" speed="0.02" posLat="0.00">
+        <device id="routing_791" state="0"/>
+    </vehicle>
+    <vehicle id="792" type="DEFAULT_VEHTYPE" depart="792.00" route="!792" speedFactor="0.99" state="978000 0 5.10 0 999000" pos="45.73" speed="0.22" posLat="0.00">
+        <device id="routing_792" state="0"/>
+    </vehicle>
+    <vehicle id="799" type="DEFAULT_VEHTYPE" depart="799.00" route="!799" speedFactor="0.93" state="874000 1 5.10 0 999000" pos="64.48" speed="12.76" posLat="0.00">
+        <device id="routing_799" state="0"/>
+    </vehicle>
+    <vehicle id="801" type="DEFAULT_VEHTYPE" depart="801.00" route="!801" speedFactor="1.04" state="877000 0 5.10 0 999000" pos="51.56" speed="1.26" posLat="0.00">
+        <device id="routing_801" state="0"/>
+    </vehicle>
+    <vehicle id="802" type="DEFAULT_VEHTYPE" depart="802.00" route="!802" speedFactor="0.95" state="880000 0 5.10 0 999000" pos="32.46" speed="1.32" posLat="0.00">
+        <device id="routing_802" state="0"/>
+    </vehicle>
+    <vehicle id="803" type="DEFAULT_VEHTYPE" depart="803.00" route="!803" speedFactor="0.87" state="882000 0 5.10 45000 999000" pos="23.56" speed="0.00" posLat="0.00">
+        <device id="routing_803" state="0"/>
+    </vehicle>
+    <vehicle id="804" type="DEFAULT_VEHTYPE" depart="804.00" route="!804" speedFactor="1.00" state="980000 0 5.10 0 999000" pos="37.70" speed="0.67" posLat="0.00">
+        <device id="routing_804" state="0"/>
+    </vehicle>
+    <vehicle id="805" type="DEFAULT_VEHTYPE" depart="805.00" route="!805" speedFactor="1.08" state="885000 0 5.10 109000 999000" pos="15.48" speed="0.00" posLat="0.00">
+        <device id="routing_805" state="0"/>
+    </vehicle>
+    <vehicle id="806" type="DEFAULT_VEHTYPE" depart="806.00" route="!806" speedFactor="1.01" state="888000 0 5.10 108000 999000" pos="8.01" speed="0.00" posLat="0.00">
+        <device id="routing_806" state="0"/>
+    </vehicle>
+    <vehicle id="811" type="DEFAULT_VEHTYPE" depart="811.00" route="!811" speedFactor="0.84" state="918000 0 5.10 78000 999000" pos="7.98" speed="0.00" posLat="0.00">
+        <device id="routing_811" state="0"/>
+    </vehicle>
+    <vehicle id="812" type="DEFAULT_VEHTYPE" depart="812.00" route="!812" speedFactor="1.12" state="985000 0 5.10 1000 999000" pos="53.34" speed="0.08" posLat="0.00">
+        <device id="routing_812" state="0"/>
+    </vehicle>
+    <vehicle id="814" type="DEFAULT_VEHTYPE" depart="814.00" route="!814" speedFactor="1.19" state="988000 0 5.10 0 999000" pos="29.50" speed="1.47" posLat="0.00">
+        <device id="routing_814" state="0"/>
+    </vehicle>
+    <vehicle id="816" type="DEFAULT_VEHTYPE" depart="816.00" route="!816" speedFactor="1.03" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="5.10" speed="0.00" posLat="0.00">
+        <device id="routing_816" state="0"/>
+    </vehicle>
+    <vehicle id="821" type="DEFAULT_VEHTYPE" depart="821.00" route="!821" speedFactor="0.92" state="991000 0 5.10 0 999000" pos="64.49" speed="8.29" posLat="0.00">
+        <device id="routing_821" state="0"/>
+    </vehicle>
+    <vehicle id="823" type="DEFAULT_VEHTYPE" depart="823.00" route="!823" speedFactor="0.95" state="994000 0 5.10 0 999000" pos="36.99" speed="9.95" posLat="0.00">
+        <device id="routing_823" state="0"/>
+    </vehicle>
+    <vehicle id="824" type="DEFAULT_VEHTYPE" depart="824.00" route="!824" speedFactor="1.06" state="997000 0 5.10 0 999000" pos="11.69" speed="4.37" posLat="0.00">
+        <device id="routing_824" state="0"/>
+    </vehicle>
+    <vehicle id="825" type="DEFAULT_VEHTYPE" depart="825.00" route="!825" speedFactor="1.11" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_825" state="0"/>
+    </vehicle>
+    <vehicle id="827" type="DEFAULT_VEHTYPE" depart="827.00" route="!827" speedFactor="0.88" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_827" state="0"/>
+    </vehicle>
+    <vehicle id="832" type="DEFAULT_VEHTYPE" depart="832.00" route="!832" speedFactor="0.99" state="928000 1 5.10 0 999000" pos="84.68" speed="12.65" posLat="0.00">
+        <device id="routing_832" state="0"/>
+    </vehicle>
+    <vehicle id="833" type="DEFAULT_VEHTYPE" depart="833.00" route="!833" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_833" state="0"/>
+    </vehicle>
+    <vehicle id="834" type="DEFAULT_VEHTYPE" depart="834.00" route="!834" speedFactor="1.02" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_834" state="0"/>
+    </vehicle>
+    <vehicle id="835" type="DEFAULT_VEHTYPE" depart="835.00" route="!835" speedFactor="0.76" state="931000 1 5.10 0 999000" pos="52.23" speed="10.06" posLat="0.00">
+        <device id="routing_835" state="0"/>
+    </vehicle>
+    <vehicle id="836" type="DEFAULT_VEHTYPE" depart="836.00" route="!836" speedFactor="1.04" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_836" state="0"/>
+    </vehicle>
+    <vehicle id="838" type="DEFAULT_VEHTYPE" depart="838.00" route="!838" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_838" state="0"/>
+    </vehicle>
+    <vehicle id="839" type="DEFAULT_VEHTYPE" depart="839.00" route="!839" speedFactor="1.15" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_839" state="0"/>
+    </vehicle>
+    <vehicle id="840" type="DEFAULT_VEHTYPE" depart="840.00" route="!840" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_840" state="0"/>
+    </vehicle>
+    <vehicle id="841" type="DEFAULT_VEHTYPE" depart="841.00" route="!841" speedFactor="1.01" state="936000 1 5.10 0 999000" pos="32.64" speed="9.08" posLat="0.00">
+        <device id="routing_841" state="0"/>
+    </vehicle>
+    <vehicle id="842" type="DEFAULT_VEHTYPE" depart="842.00" route="!842" speedFactor="0.79" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_842" state="0"/>
+    </vehicle>
+    <vehicle id="846" type="DEFAULT_VEHTYPE" depart="846.00" route="!846" speedFactor="0.76" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="5.10" speed="0.00" posLat="0.00">
+        <device id="routing_846" state="0"/>
+    </vehicle>
+    <vehicle id="847" type="DEFAULT_VEHTYPE" depart="847.00" route="!847" speedFactor="0.90" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_847" state="0"/>
+    </vehicle>
+    <vehicle id="848" type="DEFAULT_VEHTYPE" depart="848.00" route="!848" speedFactor="0.97" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_848" state="0"/>
+    </vehicle>
+    <vehicle id="849" type="DEFAULT_VEHTYPE" depart="849.00" route="!849" speedFactor="0.86" state="939000 1 5.10 0 999000" pos="55.97" speed="10.84" posLat="0.00">
+        <device id="routing_849" state="0"/>
+    </vehicle>
+    <vehicle id="850" type="DEFAULT_VEHTYPE" depart="850.00" route="!850" speedFactor="1.10" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_850" state="0"/>
+    </vehicle>
+    <vehicle id="851" type="DEFAULT_VEHTYPE" depart="851.00" route="!851" speedFactor="0.96" state="942000 1 5.10 0 999000" pos="23.57" speed="12.11" posLat="0.00">
+        <device id="routing_851" state="0"/>
+    </vehicle>
+    <vehicle id="852" type="DEFAULT_VEHTYPE" depart="852.00" route="!852" speedFactor="0.96" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_852" state="0"/>
+    </vehicle>
+    <vehicle id="853" type="DEFAULT_VEHTYPE" depart="853.00" route="!853" speedFactor="0.91" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_853" state="0"/>
+    </vehicle>
+    <vehicle id="854" type="DEFAULT_VEHTYPE" depart="854.00" route="!854" speedFactor="0.99" state="945000 1 5.10 0 999000" pos="12.96" speed="9.74" posLat="0.00">
+        <device id="routing_854" state="0"/>
+    </vehicle>
+    <vehicle id="855" type="DEFAULT_VEHTYPE" depart="855.00" route="!855" speedFactor="1.03" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_855" state="0"/>
+    </vehicle>
+    <vehicle id="856" type="DEFAULT_VEHTYPE" depart="856.00" route="!856" speedFactor="1.07" state="948000 0 5.10 0 999000" pos="90.62" speed="9.82" posLat="0.00">
+        <device id="routing_856" state="0"/>
+    </vehicle>
+    <vehicle id="857" type="DEFAULT_VEHTYPE" depart="857.00" route="!857" speedFactor="1.17" state="951000 1 5.10 0 999000" pos="1.50" speed="11.69" posLat="0.00">
+        <device id="routing_857" state="0"/>
+    </vehicle>
+    <vehicle id="860" type="DEFAULT_VEHTYPE" depart="860.00" route="!860" speedFactor="0.92" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_860" state="0"/>
+    </vehicle>
+    <vehicle id="861" type="DEFAULT_VEHTYPE" depart="861.00" route="!861" speedFactor="0.96" state="954000 0 5.10 0 999000" pos="69.31" speed="6.20" posLat="0.00">
+        <device id="routing_861" state="0"/>
+    </vehicle>
+    <vehicle id="863" type="DEFAULT_VEHTYPE" depart="863.00" route="!863" speedFactor="0.99" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_863" state="0"/>
+    </vehicle>
+    <vehicle id="864" type="DEFAULT_VEHTYPE" depart="864.00" route="!864" speedFactor="1.17" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_864" state="0"/>
+    </vehicle>
+    <vehicle id="865" type="DEFAULT_VEHTYPE" depart="865.00" route="!865" speedFactor="1.17" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_865" state="0"/>
+    </vehicle>
+    <vehicle id="867" type="DEFAULT_VEHTYPE" depart="867.00" route="!867" speedFactor="0.75" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_867" state="0"/>
+    </vehicle>
+    <vehicle id="869" type="DEFAULT_VEHTYPE" depart="869.00" route="!869" speedFactor="1.01" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_869" state="0"/>
+    </vehicle>
+    <vehicle id="870" type="DEFAULT_VEHTYPE" depart="870.00" route="!870" speedFactor="0.94" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_870" state="0"/>
+    </vehicle>
+    <vehicle id="871" type="DEFAULT_VEHTYPE" depart="871.00" route="!871" speedFactor="1.01" state="957000 0 5.10 0 999000" pos="53.90" speed="3.57" posLat="0.00">
+        <device id="routing_871" state="0"/>
+    </vehicle>
+    <vehicle id="873" type="DEFAULT_VEHTYPE" depart="873.00" route="!873" speedFactor="1.05" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_873" state="0"/>
+    </vehicle>
+    <vehicle id="874" type="DEFAULT_VEHTYPE" depart="874.00" route="!874" speedFactor="1.07" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_874" state="0"/>
+    </vehicle>
+    <vehicle id="875" type="DEFAULT_VEHTYPE" depart="875.00" route="!875" speedFactor="1.12" state="960000 0 5.10 0 999000" pos="88.28" speed="9.05" posLat="0.00">
+        <device id="routing_875" state="0"/>
+    </vehicle>
+    <vehicle id="876" type="DEFAULT_VEHTYPE" depart="876.00" route="!876" speedFactor="1.13" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_876" state="0"/>
+    </vehicle>
+    <vehicle id="877" type="DEFAULT_VEHTYPE" depart="877.00" route="!877" speedFactor="0.91" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_877" state="0"/>
+    </vehicle>
+    <vehicle id="878" type="DEFAULT_VEHTYPE" depart="878.00" route="!878" speedFactor="1.00" state="963000 0 5.10 0 999000" pos="69.51" speed="6.16" posLat="0.00">
+        <device id="routing_878" state="0"/>
+    </vehicle>
+    <vehicle id="880" type="DEFAULT_VEHTYPE" depart="880.00" route="!880" speedFactor="0.98" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_880" state="0"/>
+    </vehicle>
+    <vehicle id="881" type="DEFAULT_VEHTYPE" depart="881.00" route="!881" speedFactor="0.96" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_881" state="0"/>
+    </vehicle>
+    <vehicle id="882" type="DEFAULT_VEHTYPE" depart="882.00" route="!882" speedFactor="1.27" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_882" state="0"/>
+    </vehicle>
+    <vehicle id="883" type="DEFAULT_VEHTYPE" depart="883.00" route="!883" speedFactor="0.95" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_883" state="0"/>
+    </vehicle>
+    <vehicle id="884" type="DEFAULT_VEHTYPE" depart="884.00" route="!884" speedFactor="1.01" state="965000 0 5.10 0 999000" pos="54.53" speed="3.86" posLat="0.00">
+        <device id="routing_884" state="0"/>
+    </vehicle>
+    <vehicle id="885" type="DEFAULT_VEHTYPE" depart="885.00" route="!885" speedFactor="1.14" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_885" state="0"/>
+    </vehicle>
+    <vehicle id="886" type="DEFAULT_VEHTYPE" depart="886.00" route="!886" speedFactor="0.92" state="967000 0 5.10 19000 999000" pos="29.77" speed="0.00" posLat="0.00">
+        <device id="routing_886" state="0"/>
+    </vehicle>
+    <vehicle id="888" type="DEFAULT_VEHTYPE" depart="888.00" route="!888" speedFactor="0.77" state="969000 0 5.10 0 999000" pos="42.86" speed="3.30" posLat="0.00">
+        <device id="routing_888" state="0"/>
+    </vehicle>
+    <vehicle id="889" type="DEFAULT_VEHTYPE" depart="889.00" route="!889" speedFactor="1.05" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_889" state="0"/>
+    </vehicle>
+    <vehicle id="892" type="DEFAULT_VEHTYPE" depart="892.00" route="!892" speedFactor="1.02" state="972000 0 5.10 20000 999000" pos="38.42" speed="0.00" posLat="0.00">
+        <device id="routing_892" state="0"/>
+    </vehicle>
+    <vehicle id="893" type="DEFAULT_VEHTYPE" depart="893.00" route="!893" speedFactor="0.97" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_893" state="0"/>
+    </vehicle>
+    <vehicle id="894" type="DEFAULT_VEHTYPE" depart="894.00" route="!894" speedFactor="1.08" state="975000 0 5.10 17000 999000" pos="22.26" speed="0.00" posLat="0.00">
+        <device id="routing_894" state="0"/>
+    </vehicle>
+    <vehicle id="895" type="DEFAULT_VEHTYPE" depart="895.00" route="!895" speedFactor="1.02" state="977000 0 5.10 15000 999000" pos="14.76" speed="0.00" posLat="0.00">
+        <device id="routing_895" state="0"/>
+    </vehicle>
+    <vehicle id="896" type="DEFAULT_VEHTYPE" depart="896.00" route="!896" speedFactor="0.94" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_896" state="0"/>
+    </vehicle>
+    <vehicle id="897" type="DEFAULT_VEHTYPE" depart="897.00" route="!897" speedFactor="0.88" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_897" state="0"/>
+    </vehicle>
+    <vehicle id="898" type="DEFAULT_VEHTYPE" depart="898.00" route="!898" speedFactor="0.81" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_898" state="0"/>
+    </vehicle>
+    <vehicle id="899" type="DEFAULT_VEHTYPE" depart="899.00" route="!899" speedFactor="0.94" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_899" state="0"/>
+    </vehicle>
+    <vehicle id="900" type="DEFAULT_VEHTYPE" depart="900.00" route="!900" speedFactor="1.02" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_900" state="0"/>
+    </vehicle>
+    <vehicle id="901" type="DEFAULT_VEHTYPE" depart="901.00" route="!901" speedFactor="0.97" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_901" state="0"/>
+    </vehicle>
+    <vehicle id="902" type="DEFAULT_VEHTYPE" depart="902.00" route="!902" speedFactor="1.05" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_902" state="0"/>
+    </vehicle>
+    <vehicle id="904" type="DEFAULT_VEHTYPE" depart="904.00" route="!904" speedFactor="0.78" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_904" state="0"/>
+    </vehicle>
+    <vehicle id="905" type="DEFAULT_VEHTYPE" depart="905.00" route="!905" speedFactor="0.94" state="980000 0 5.10 12000 999000" pos="30.92" speed="0.00" posLat="0.00">
+        <device id="routing_905" state="0"/>
+    </vehicle>
+    <vehicle id="907" type="DEFAULT_VEHTYPE" depart="907.00" route="!907" speedFactor="1.21" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_907" state="0"/>
+    </vehicle>
+    <vehicle id="908" type="DEFAULT_VEHTYPE" depart="908.00" route="!908" speedFactor="0.91" state="983000 0 5.10 10000 999000" pos="23.42" speed="0.00" posLat="0.00">
+        <device id="routing_908" state="0"/>
+    </vehicle>
+    <vehicle id="910" type="DEFAULT_VEHTYPE" depart="910.00" route="!910" speedFactor="1.09" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_910" state="0"/>
+    </vehicle>
+    <vehicle id="911" type="DEFAULT_VEHTYPE" depart="911.00" route="!911" speedFactor="0.93" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_911" state="0"/>
+    </vehicle>
+    <vehicle id="915" type="DEFAULT_VEHTYPE" depart="915.00" route="!915" speedFactor="0.82" state="986000 0 5.10 9000 999000" pos="15.80" speed="0.00" posLat="0.00">
+        <device id="routing_915" state="0"/>
+    </vehicle>
+    <vehicle id="918" type="DEFAULT_VEHTYPE" depart="918.00" route="!918" speedFactor="1.09" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_918" state="0"/>
+    </vehicle>
+    <vehicle id="919" type="DEFAULT_VEHTYPE" depart="919.00" route="!919" speedFactor="0.97" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_919" state="0"/>
+    </vehicle>
+    <vehicle id="920" type="DEFAULT_VEHTYPE" depart="920.00" route="!920" speedFactor="0.99" state="989000 0 5.10 6000 999000" pos="8.29" speed="0.00" posLat="0.00">
+        <device id="routing_920" state="0"/>
+    </vehicle>
+    <vehicle id="921" type="DEFAULT_VEHTYPE" depart="921.00" route="!921" speedFactor="0.91" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_921" state="0"/>
+    </vehicle>
+    <vehicle id="923" type="DEFAULT_VEHTYPE" depart="923.00" route="!923" speedFactor="1.12" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="5.10" speed="0.00" posLat="0.00">
+        <device id="routing_923" state="0"/>
+    </vehicle>
+    <vehicle id="924" type="DEFAULT_VEHTYPE" depart="924.00" route="!924" speedFactor="0.97" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_924" state="0"/>
+    </vehicle>
+    <vehicle id="925" type="DEFAULT_VEHTYPE" depart="925.00" route="!925" speedFactor="0.97" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_925" state="0"/>
+    </vehicle>
+    <vehicle id="926" type="DEFAULT_VEHTYPE" depart="926.00" route="!926" speedFactor="1.05" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_926" state="0"/>
+    </vehicle>
+    <vehicle id="931" type="DEFAULT_VEHTYPE" depart="931.00" route="!931" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_931" state="0"/>
+    </vehicle>
+    <vehicle id="932" type="DEFAULT_VEHTYPE" depart="932.00" route="!932" speedFactor="0.92" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_932" state="0"/>
+    </vehicle>
+    <vehicle id="933" type="DEFAULT_VEHTYPE" depart="933.00" route="!933" speedFactor="0.90" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_933" state="0"/>
+    </vehicle>
+    <vehicle id="934" type="DEFAULT_VEHTYPE" depart="934.00" route="!934" speedFactor="1.02" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_934" state="0"/>
+    </vehicle>
+    <vehicle id="936" type="DEFAULT_VEHTYPE" depart="936.00" route="!936" speedFactor="1.11" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_936" state="0"/>
+    </vehicle>
+    <vehicle id="937" type="DEFAULT_VEHTYPE" depart="937.00" route="!937" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_937" state="0"/>
+    </vehicle>
+    <vehicle id="938" type="DEFAULT_VEHTYPE" depart="938.00" route="!938" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_938" state="0"/>
+    </vehicle>
+    <vehicle id="939" type="DEFAULT_VEHTYPE" depart="939.00" route="!939" speedFactor="1.07" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_939" state="0"/>
+    </vehicle>
+    <vehicle id="940" type="DEFAULT_VEHTYPE" depart="940.00" route="!940" speedFactor="0.89" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_940" state="0"/>
+    </vehicle>
+    <vehicle id="942" type="DEFAULT_VEHTYPE" depart="942.00" route="!942" speedFactor="0.83" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_942" state="0"/>
+    </vehicle>
+    <vehicle id="944" type="DEFAULT_VEHTYPE" depart="944.00" route="!944" speedFactor="1.11" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_944" state="0"/>
+    </vehicle>
+    <vehicle id="945" type="DEFAULT_VEHTYPE" depart="945.00" route="!945" speedFactor="1.09" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_945" state="0"/>
+    </vehicle>
+    <vehicle id="946" type="DEFAULT_VEHTYPE" depart="946.00" route="!946" speedFactor="1.08" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_946" state="0"/>
+    </vehicle>
+    <vehicle id="947" type="DEFAULT_VEHTYPE" depart="947.00" route="!947" speedFactor="1.04" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_947" state="0"/>
+    </vehicle>
+    <vehicle id="948" type="DEFAULT_VEHTYPE" depart="948.00" route="!948" speedFactor="0.79" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_948" state="0"/>
+    </vehicle>
+    <vehicle id="949" type="DEFAULT_VEHTYPE" depart="949.00" route="!949" speedFactor="1.06" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_949" state="0"/>
+    </vehicle>
+    <vehicle id="950" type="DEFAULT_VEHTYPE" depart="950.00" route="!950" speedFactor="0.91" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_950" state="0"/>
+    </vehicle>
+    <vehicle id="952" type="DEFAULT_VEHTYPE" depart="952.00" route="!952" speedFactor="1.14" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_952" state="0"/>
+    </vehicle>
+    <vehicle id="953" type="DEFAULT_VEHTYPE" depart="953.00" route="!953" speedFactor="1.03" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_953" state="0"/>
+    </vehicle>
+    <vehicle id="954" type="DEFAULT_VEHTYPE" depart="954.00" route="!954" speedFactor="0.98" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_954" state="0"/>
+    </vehicle>
+    <vehicle id="955" type="DEFAULT_VEHTYPE" depart="955.00" route="!955" speedFactor="0.91" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_955" state="0"/>
+    </vehicle>
+    <vehicle id="956" type="DEFAULT_VEHTYPE" depart="956.00" route="!956" speedFactor="0.98" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_956" state="0"/>
+    </vehicle>
+    <vehicle id="957" type="DEFAULT_VEHTYPE" depart="957.00" route="!957" speedFactor="1.03" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_957" state="0"/>
+    </vehicle>
+    <vehicle id="958" type="DEFAULT_VEHTYPE" depart="958.00" route="!958" speedFactor="1.17" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_958" state="0"/>
+    </vehicle>
+    <vehicle id="959" type="DEFAULT_VEHTYPE" depart="959.00" route="!959" speedFactor="1.11" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_959" state="0"/>
+    </vehicle>
+    <vehicle id="961" type="DEFAULT_VEHTYPE" depart="961.00" route="!961" speedFactor="1.07" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_961" state="0"/>
+    </vehicle>
+    <vehicle id="962" type="DEFAULT_VEHTYPE" depart="962.00" route="!962" speedFactor="0.85" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_962" state="0"/>
+    </vehicle>
+    <vehicle id="964" type="DEFAULT_VEHTYPE" depart="964.00" route="!964" speedFactor="1.15" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_964" state="0"/>
+    </vehicle>
+    <vehicle id="965" type="DEFAULT_VEHTYPE" depart="965.00" route="!965" speedFactor="1.05" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_965" state="0"/>
+    </vehicle>
+    <vehicle id="966" type="DEFAULT_VEHTYPE" depart="966.00" route="!966" speedFactor="1.09" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_966" state="0"/>
+    </vehicle>
+    <vehicle id="967" type="DEFAULT_VEHTYPE" depart="967.00" route="!967" speedFactor="1.11" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_967" state="0"/>
+    </vehicle>
+    <vehicle id="969" type="DEFAULT_VEHTYPE" depart="969.00" route="!969" speedFactor="1.09" state="971000 0 5.10 16000 999000" pos="90.95" speed="0.00" posLat="0.00">
+        <device id="routing_969" state="0"/>
+    </vehicle>
+    <vehicle id="970" type="DEFAULT_VEHTYPE" depart="970.00" route="!970" speedFactor="1.08" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_970" state="0"/>
+    </vehicle>
+    <vehicle id="971" type="DEFAULT_VEHTYPE" depart="971.00" route="!971" speedFactor="0.85" state="974000 0 5.10 9000 999000" pos="90.95" speed="0.00" posLat="0.00">
+        <device id="routing_971" state="0"/>
+    </vehicle>
+    <vehicle id="972" type="DEFAULT_VEHTYPE" depart="972.00" route="!972" speedFactor="0.98" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_972" state="0"/>
+    </vehicle>
+    <vehicle id="973" type="DEFAULT_VEHTYPE" depart="973.00" route="!973" speedFactor="1.15" state="975000 0 5.10 7000 999000" pos="83.45" speed="0.00" posLat="0.00">
+        <device id="routing_973" state="0"/>
+    </vehicle>
+    <vehicle id="974" type="DEFAULT_VEHTYPE" depart="974.00" route="!974" speedFactor="1.18" state="978000 0 5.10 5000 999000" pos="75.95" speed="0.00" posLat="0.00">
+        <device id="routing_974" state="0"/>
+    </vehicle>
+    <vehicle id="975" type="DEFAULT_VEHTYPE" depart="975.00" route="!975" speedFactor="0.96" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_975" state="0"/>
+    </vehicle>
+    <vehicle id="976" type="DEFAULT_VEHTYPE" depart="976.00" route="!976" speedFactor="0.85" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_976" state="0"/>
+    </vehicle>
+    <vehicle id="977" type="DEFAULT_VEHTYPE" depart="977.00" route="!977" speedFactor="1.07" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_977" state="0"/>
+    </vehicle>
+    <vehicle id="978" type="DEFAULT_VEHTYPE" depart="978.00" route="!978" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_978" state="0"/>
+    </vehicle>
+    <vehicle id="979" type="DEFAULT_VEHTYPE" depart="979.00" route="!979" speedFactor="0.97" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_979" state="0"/>
+    </vehicle>
+    <vehicle id="980" type="DEFAULT_VEHTYPE" depart="980.00" route="!980" speedFactor="0.92" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_980" state="0"/>
+    </vehicle>
+    <vehicle id="981" type="DEFAULT_VEHTYPE" depart="981.00" route="!981" speedFactor="0.93" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_981" state="0"/>
+    </vehicle>
+    <vehicle id="982" type="DEFAULT_VEHTYPE" depart="982.00" route="!982" speedFactor="1.19" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_982" state="0"/>
+    </vehicle>
+    <vehicle id="983" type="DEFAULT_VEHTYPE" depart="983.00" route="!983" speedFactor="0.90" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_983" state="0"/>
+    </vehicle>
+    <vehicle id="984" type="DEFAULT_VEHTYPE" depart="984.00" route="!984" speedFactor="1.20" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_984" state="0"/>
+    </vehicle>
+    <vehicle id="985" type="DEFAULT_VEHTYPE" depart="985.00" route="!985" speedFactor="1.03" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_985" state="0"/>
+    </vehicle>
+    <vehicle id="986" type="DEFAULT_VEHTYPE" depart="986.00" route="!986" speedFactor="1.01" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_986" state="0"/>
+    </vehicle>
+    <vehicle id="987" type="DEFAULT_VEHTYPE" depart="987.00" route="!987" speedFactor="1.11" state="987000 0 5.10 2000 999000" pos="68.45" speed="0.04" posLat="0.00">
+        <device id="routing_987" state="0"/>
+    </vehicle>
+    <vehicle id="988" type="DEFAULT_VEHTYPE" depart="988.00" route="!988" speedFactor="0.98" state="989000 0 5.10 0 999000" pos="60.75" speed="0.34" posLat="0.00">
+        <device id="routing_988" state="0"/>
+    </vehicle>
+    <vehicle id="989" type="DEFAULT_VEHTYPE" depart="989.00" route="!989" speedFactor="1.26" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_989" state="0"/>
+    </vehicle>
+    <vehicle id="990" type="DEFAULT_VEHTYPE" depart="990.00" route="!990" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_990" state="0"/>
+    </vehicle>
+    <vehicle id="991" type="DEFAULT_VEHTYPE" depart="991.00" route="!991" speedFactor="1.03" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_991" state="0"/>
+    </vehicle>
+    <vehicle id="992" type="DEFAULT_VEHTYPE" depart="992.00" route="!992" speedFactor="0.90" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_992" state="0"/>
+    </vehicle>
+    <vehicle id="993" type="DEFAULT_VEHTYPE" depart="993.00" route="!993" speedFactor="0.89" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_993" state="0"/>
+    </vehicle>
+    <vehicle id="994" type="DEFAULT_VEHTYPE" depart="994.00" route="!994" speedFactor="1.08" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_994" state="0"/>
+    </vehicle>
+    <vehicle id="995" type="DEFAULT_VEHTYPE" depart="995.00" route="!995" speedFactor="0.77" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_995" state="0"/>
+    </vehicle>
+    <vehicle id="996" type="DEFAULT_VEHTYPE" depart="996.00" route="!996" speedFactor="1.05" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_996" state="0"/>
+    </vehicle>
+    <vehicle id="997" type="DEFAULT_VEHTYPE" depart="997.00" route="!997" speedFactor="1.17" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_997" state="0"/>
+    </vehicle>
+    <vehicle id="998" type="DEFAULT_VEHTYPE" depart="998.00" route="!998" speedFactor="0.73" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_998" state="0"/>
+    </vehicle>
+    <vehicle id="999" type="DEFAULT_VEHTYPE" depart="999.00" route="!999" speedFactor="0.93" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <device id="routing_999" state="0"/>
+    </vehicle>
+    <lane id=":C_13_0">
+        <vehicles value="727"/>
+    </lane>
+    <lane id="CE_0">
+        <vehicles value="799"/>
+    </lane>
+    <lane id="CN_1">
+        <vehicles value="849"/>
+    </lane>
+    <lane id="CS_1">
+        <vehicles value="857 851"/>
+    </lane>
+    <lane id="CW_0">
+        <vehicles value="854 841 835 832"/>
+    </lane>
+    <lane id="EC_0">
+        <vehicles value="824 823 821 789 781 777"/>
+    </lane>
+    <lane id="EC_1">
+        <vehicles value="814 804 792 812 791 778 776 760 751"/>
+    </lane>
+    <lane id="NC_0">
+        <vehicles value="920 915 908 905 892 871 861 856"/>
+    </lane>
+    <lane id="NC_1">
+        <vehicles value="895 894 886 888 884 878 875"/>
+    </lane>
+    <lane id="SC_0">
+        <vehicles value="811 805 803"/>
+    </lane>
+    <lane id="SC_1">
+        <vehicles value="806 780 772 802 756 801 758 755 750 783 737"/>
+    </lane>
+    <lane id="WC_0">
+        <vehicles value="969"/>
+    </lane>
+    <lane id="WC_1">
+        <vehicles value="988 987 974 973 971"/>
+    </lane>
+</snapshot>

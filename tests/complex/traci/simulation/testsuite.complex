@@ -9,3 +9,6 @@ loadState
 
 # test that rail_signal switches correctly after loading a simulation state
 loadState_railSignal
+
+# load a bigger state and deal with rerouting events
+loadState_big
