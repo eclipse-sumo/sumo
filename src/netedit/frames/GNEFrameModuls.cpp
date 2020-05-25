@@ -504,7 +504,7 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
         return nullptr;
     }
     if (myCurrentDemandElement->getChildDemandElements().empty()) {
-        return false;
+        return nullptr;
     }
     // get last person plan
     const GNEDemandElement* lastPersonPlan = myCurrentDemandElement->getChildDemandElements().back();
