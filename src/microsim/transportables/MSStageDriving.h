@@ -145,6 +145,11 @@ public:
         return myIntendedDepart;
     }
 
+    std::string getVehicleType() const {
+        return myVehicleType;
+    }
+
+
 protected:
     /// the lines  to choose from
     const std::set<std::string> myLines;
@@ -154,6 +159,7 @@ protected:
     /// @brief cached vehicle data for output after the vehicle has been removed
     std::string myVehicleID;
     std::string myVehicleLine;
+    std::string myVehicleType;
 
     SUMOVehicleClass myVehicleVClass;
     double myVehicleDistance;

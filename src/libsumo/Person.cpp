@@ -177,7 +177,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
         throw TraCIException("The stage index must be lower than the number of remaining stages.");
     }
     if (nextStageIndex < (p->getNumRemainingStages() - p->getNumStages())) {
-        throw TraCIException("The negative stage index must refer to a valid previous stage.");
+        throw TraCIException("The negative stage index " + toString(nextStageIndex) + " must refer to a valid previous stage.");
     }
     //stageType, arrivalPos, edges, destStop, vType, and description can be retrieved directly from the base Stage class.
     MSStage* stage = p->getNextStage(nextStageIndex);
@@ -192,10 +192,6 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     if (destinationStop != nullptr) {
         result.destStop = destinationStop->getID();
     }
-    SUMOVehicle* vehicle = stage->getVehicle();
-    if (vehicle != nullptr) {
-        result.vType = vehicle->getVehicleType().getID();
-    }
     result.description = stage->getStageDescription(p->isPerson());
     result.length = stage->getDistance();
     // negative values indicate that the information is not available
@@ -205,6 +201,7 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     switch (stage->getStageType()) {
         case MSStageType::DRIVING: {
             MSStageDriving* const drivingStage = static_cast<MSStageDriving*>(stage);
+            result.vType = drivingStage->getVehicleType();
             result.intended = drivingStage->getIntendedVehicleID();
             result.depart = STEPS2TIME(drivingStage->getIntendedDepart());
             const std::set<std::string> lines = drivingStage->getLines();

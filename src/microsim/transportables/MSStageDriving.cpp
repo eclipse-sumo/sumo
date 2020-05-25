@@ -316,6 +316,7 @@ MSStageDriving::setVehicle(SUMOVehicle* v) {
     if (myVehicle != nullptr) {
         myVehicleID = v->getID();
         myVehicleLine = v->getParameter().line;
+        myVehicleType = v->getVehicleType().getID();
         myVehicleVClass = v->getVClass();
         myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
                                 myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
