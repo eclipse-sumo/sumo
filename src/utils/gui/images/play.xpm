@@ -29,7 +29,7 @@ static const char *play_xpm[]={
 "c c #9bff11",
 "b c #9fff1b",
 "a c #a3ff23",
-". c #d4d0c8",
+". c None",
 "..##...........",
 "..#a##.........",
 "..#bcd#........",

@@ -41,7 +41,7 @@ static const char *step_xpm[]={
 "h c #83ff25",
 "b c #88ff2d",
 "a c #8dff37",
-"# c #d4d0c8",
+"# c None",
 ".....#..#######",
 ".abc.#.d.######",
 ".bce.#.fg.#####",

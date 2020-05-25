@@ -3,7 +3,7 @@ static const char *reload_xpm[]={
 "15 16 5 1",
 "# c #000000",
 "c c #bf7e00",
-". c #d4d0c8",
+". c None",
 "b c #efc001",
 "a c #fff665",
 ".........##....",

@@ -2,7 +2,7 @@
 static const char * redo_xpm[] = {
 "16 16 66 1",
 " 	c None",
-".	c #D4D0C8",
+".	c None",
 "+	c #000000",
 "@	c #BADA9C",
 "#	c #79B463",
