@@ -285,6 +285,8 @@ public:
         long onCmdShowFoes(FXObject*, FXSelector, void*);
         /// @brief Called when removing the vehicle
         long onCmdRemoveObject(FXObject*, FXSelector, void*);
+        /// @brief Called when toggling stop state
+        long onCmdToggleStop(FXObject*, FXSelector, void*);
 
     protected:
         FOX_CONSTRUCTOR(GUIBaseVehiclePopupMenu)

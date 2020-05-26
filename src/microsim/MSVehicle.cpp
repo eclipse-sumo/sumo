@@ -5488,6 +5488,19 @@ MSVehicle::fixPosition() {
     }
 }
 
+std::pair<const MSLane*, double>
+MSVehicle::getLanePosAfterDist(double distance) const {
+    const std::vector<const MSLane*> lanes = getUpcomingLanesUntil(distance);
+    distance += getPositionOnLane();
+    for (const MSLane* lane : lanes) {
+        if (lane->getLength() > distance) {
+            return std::make_pair(lane, distance);
+        }
+        distance -= lane->getLength();
+    }
+    return std::make_pair(nullptr, -1);
+}
+
 
 double
 MSVehicle::getDistanceToPosition(double destPos, const MSEdge* destEdge) const {
@@ -6036,7 +6049,7 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
 }
 
 bool
-MSVehicle::addTraciStop(MSLane* const lane, const double startPos, const double endPos, const SUMOTime duration, const SUMOTime until,
+MSVehicle::addTraciStop(const MSLane* const lane, const double startPos, const double endPos, const SUMOTime duration, const SUMOTime until,
                         const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {

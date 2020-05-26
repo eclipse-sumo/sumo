@@ -441,6 +441,8 @@ enum {
     MID_SHOW_FOES,
     MID_SHOW_LFLINKITEMS,
     MID_HIDE_LFLINKITEMS,
+    /// @brief toggle stop state of a vehice or person
+    MID_TOGGLE_STOP,
     /// @brief remove a vehice or person
     MID_REMOVE_OBJECT,
     /// @brief Show persons's path on walkingarea

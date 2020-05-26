@@ -82,6 +82,7 @@ FXDEFMAP(GUIBaseVehicle::GUIBaseVehiclePopupMenu) GUIBaseVehiclePopupMenuMap[] =
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_LFLINKITEMS, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdHideLFLinkItems),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_FOES, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdShowFoes),
     FXMAPFUNC(SEL_COMMAND, MID_REMOVE_OBJECT, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject),
+    FXMAPFUNC(SEL_COMMAND, MID_TOGGLE_STOP, GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdToggleStop),
 };
 
 // Object implementation
@@ -248,6 +249,33 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector
 }
 
 
+long
+GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdToggleStop(FXObject*, FXSelector, void*) {
+    GUIBaseVehicle* baseVeh = static_cast<GUIBaseVehicle*>(myObject);
+    MSVehicle* microVeh = dynamic_cast<MSVehicle*>(&baseVeh->myVehicle);
+    if (microVeh != nullptr) {
+        if (microVeh->isStopped()) {
+            microVeh->resumeFromStopping();
+        } else {
+            std::string errorOut;
+            const double brakeGap = microVeh->getCarFollowModel().brakeGap(microVeh->getSpeed());
+            std::pair<const MSLane*, double> stopPos = microVeh->getLanePosAfterDist(brakeGap);
+            std::cout << " stopLane=" << Named::getIDSecure(stopPos.first) << " stopPos=" << stopPos.second << "\n";
+            if (stopPos.first != nullptr) {
+                microVeh->addTraciStop(stopPos.first, stopPos.second, stopPos.second + POSITION_EPS, TIME2STEPS(3600), -1, false, false, false, errorOut);
+                if (errorOut != "") {
+                    WRITE_WARNING(errorOut);
+                }
+            }
+        }
+    } else {
+        WRITE_WARNING("GUI-triggered stop not implemented for meso");
+    }
+    myParent->update();
+    return 1;
+}
+
+
 /* -------------------------------------------------------------------------
  * GUIBaseVehicle - methods
  * ----------------------------------------------------------------------- */
@@ -326,7 +354,7 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     }
     new FXMenuCommand(ret, "Select Foes", nullptr, ret, MID_SHOW_FOES);
 
-
+    new FXMenuCommand(ret, myVehicle.isStopped() ? "Abort stop" : "Stop", nullptr, ret, MID_TOGGLE_STOP);
     new FXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
 
     new FXMenuSeparator(ret);
