@@ -13,5 +13,8 @@ models_cycle
 # test all HBEFA3 and (public) PHEMlight classes
 emissionClasses
 
+# only write output for half of the vehicles
+half_equipped
+
 # Testing error cases
 errors
