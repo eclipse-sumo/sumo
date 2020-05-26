@@ -36,7 +36,7 @@ permalink: /ChangeLog/
   - Fixed memory leak when using libsumo. Issue #7012
   - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
   - Fixed crash when accessing prior riding stage with *person.getStage*. Issue #7060
-  - Fixed crash when setting vehicle parameter "device.rerouting.period" to "0". Issue #7064
+  - Fixed crash and delayed effect when setting vehicle parameter "device.rerouting.period". Issue #7064, #7075
   
 - All Applications
   - File names with a `%`-Sign can no be loaded. Issue #6574
@@ -64,6 +64,7 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
   - A color legend for vehicle colors can no be enabled via the 'Legend' tab. Issue #6930
+  - Vehicles can now be stopped and stops can be aborted via context menu.
 
 - All Applications
   - Symbolic color definition "random" can now be used (i.e. in vehicle, vType, poi, ...). Issue #7058
