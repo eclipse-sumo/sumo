@@ -117,22 +117,26 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                         of.writeAttr("accelerationLat", microVeh->getLaneChangeModel().getAccelerationLat());
                     }
                 }
-                if (writeDistance) {
-                    double distance = microVeh->getEdge()->getDistance();
+            }
+            if (writeDistance) {
+                double distance = veh->getEdge()->getDistance();
+                if (microVeh != nullptr) {
                     if (microVeh->getLane()->isInternal()) {
                         distance += microVeh->getRoute().getDistanceBetween(0, microVeh->getPositionOnLane(),
-                                    microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
+                                microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
                     } else {
                         distance += microVeh->getPositionOnLane();
                     }
-                    // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
-                    of.writeAttr("distance", fabs(distance));
+                } else {
+                    distance += veh->getPositionOnLane();
                 }
-                for (const std::string& key : params) {
-                    const std::string value = veh->getParameter().getParameter(key);
-                    if (value != "") {
-                        of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
-                    }
+                // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
+                of.writeAttr("distance", fabs(distance));
+            }
+            for (const std::string& key : params) {
+                const std::string value = veh->getParameter().getParameter(key);
+                if (value != "") {
+                    of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
                 }
             }
             of.closeTag();
