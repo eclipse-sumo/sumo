@@ -1142,6 +1142,10 @@ enum SumoXMLAttr {
     GNE_ATTR_DEFAULT_VTYPE_MODIFIED,
     /// @brief flag to center camera after element creation
     GNE_ATTR_CENTER_AFTER_CREATION,
+    /// @brief from busStop (used by personPlans)
+    GNE_ATTR_FROM_BUSSTOP,
+    /// @brief to busStop (used by personPlans)
+    GNE_ATTR_TO_BUSSTOP,
     // @}
 
     /// @name train parameters
