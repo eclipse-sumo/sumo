@@ -283,9 +283,9 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
         // use route edges
         return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
     } else if (getParentEdges().size() > 0) {
-        if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) ||
-                (myTagProperty.getTag() == SUMO_TAG_WALK_BUSSTOP) ||
-                (myTagProperty.getTag() == SUMO_TAG_RIDE_BUSSTOP)) {
+        if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP) ||
+                (myTagProperty.getTag() == SUMO_TAG_WALK_EDGE_BUSSTOP) ||
+                (myTagProperty.getTag() == SUMO_TAG_RIDE_EDGE_BUSSTOP)) {
             // return busStop lane
             return getParentAdditionals().front()->getParentLanes().front();
         } else if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {

@@ -2950,7 +2950,7 @@ GNEAttributeCarrier::fillPersonElements() {
         // add flow attributes
         fillCommonFlowAttributes(currentTag);
     }
-    currentTag = SUMO_TAG_PERSONTRIP_FROMTO;
+    currentTag = SUMO_TAG_PERSONTRIP_EDGE_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::PARENT | GNETagProperties::SORTINGCHILDREN, GUIIcon::PERSONTRIP_FROMTO);
@@ -2981,7 +2981,7 @@ GNEAttributeCarrier::fillPersonElements() {
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_PERSONTRIP_BUSSTOP;
+    currentTag = SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::PARENT | GNETagProperties::SORTINGCHILDREN, GUIIcon::PERSONTRIP_BUSSTOP);
@@ -3006,7 +3006,7 @@ GNEAttributeCarrier::fillPersonElements() {
                                               "List of possible traffic modes. Walking is always possible regardless of this value");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_RIDE_FROMTO;
+    currentTag = SUMO_TAG_RIDE_EDGE_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::PARENT | GNETagProperties::SORTINGCHILDREN, GUIIcon::RIDE_FROMTO);
@@ -3033,7 +3033,7 @@ GNEAttributeCarrier::fillPersonElements() {
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_RIDE_BUSSTOP;
+    currentTag = SUMO_TAG_RIDE_EDGE_BUSSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::PARENT | GNETagProperties::SORTINGCHILDREN, GUIIcon::RIDE_BUSSTOP);
@@ -3087,7 +3087,7 @@ GNEAttributeCarrier::fillPersonElements() {
                                               "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_WALK_FROMTO;
+    currentTag = SUMO_TAG_WALK_EDGE_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::PARENT | GNETagProperties::SORTINGCHILDREN, GUIIcon::WALK_FROMTO);
@@ -3115,7 +3115,7 @@ GNEAttributeCarrier::fillPersonElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
 
-    currentTag = SUMO_TAG_WALK_BUSSTOP;
+    currentTag = SUMO_TAG_WALK_EDGE_BUSSTOP;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag, GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK, GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::PARENT | GNETagProperties::SORTINGCHILDREN, GUIIcon::WALK_BUSSTOP);

@@ -1345,55 +1345,55 @@ GNEJunction::drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge
     }
     // draw partial person plan elements
     if (s.drawForPositionSelection) {
-        for (const auto& personTripFromTo : edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_FROMTO)) {
+        for (const auto& personTripFromTo : edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_EDGE_EDGE)) {
             edge->drawPartialPersonPlan(s, personTripFromTo, this);
         }
-        for (const auto& personTripBusStop : edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+        for (const auto& personTripBusStop : edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP)) {
             edge->drawPartialPersonPlan(s, personTripBusStop, this);
         }
         for (const auto& walkEdges : edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGES)) {
             edge->drawPartialPersonPlan(s, walkEdges, this);
         }
-        for (const auto& walkFromTo : edge->getChildDemandElementsByType(SUMO_TAG_WALK_FROMTO)) {
+        for (const auto& walkFromTo : edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGE_EDGE)) {
             edge->drawPartialPersonPlan(s, walkFromTo, this);
         }
-        for (const auto& walkBusStop : edge->getChildDemandElementsByType(SUMO_TAG_WALK_BUSSTOP)) {
+        for (const auto& walkBusStop : edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGE_BUSSTOP)) {
             edge->drawPartialPersonPlan(s, walkBusStop, this);
         }
         for (const auto& walkRoute : edge->getChildDemandElementsByType(SUMO_TAG_WALK_ROUTE)) {
             edge->drawPartialPersonPlan(s, walkRoute, this);
         }
-        for (const auto& rideFromTo : edge->getChildDemandElementsByType(SUMO_TAG_RIDE_FROMTO)) {
+        for (const auto& rideFromTo : edge->getChildDemandElementsByType(SUMO_TAG_RIDE_EDGE_EDGE)) {
             edge->drawPartialPersonPlan(s, rideFromTo, this);
         }
-        for (const auto& rideBusStop : edge->getChildDemandElementsByType(SUMO_TAG_RIDE_BUSSTOP)) {
+        for (const auto& rideBusStop : edge->getChildDemandElementsByType(SUMO_TAG_RIDE_EDGE_BUSSTOP)) {
             edge->drawPartialPersonPlan(s, rideBusStop, this);
         }
     } else {
         // if drawForPositionSelection is disabled, only draw the first element
-        if (edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_FROMTO).size() > 0) {
-            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_FROMTO).front(), nullptr);
+        if (edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_EDGE_EDGE).size() > 0) {
+            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_EDGE_EDGE).front(), nullptr);
         }
-        if (edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_BUSSTOP).size() > 0) {
-            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_BUSSTOP).front(), nullptr);
+        if (edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP).size() > 0) {
+            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP).front(), nullptr);
         }
         if (edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGES).size() > 0) {
             edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGES).front(), nullptr);
         }
-        if (edge->getChildDemandElementsByType(SUMO_TAG_WALK_FROMTO).size() > 0) {
-            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_WALK_FROMTO).front(), nullptr);
+        if (edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGE_EDGE).size() > 0) {
+            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGE_EDGE).front(), nullptr);
         }
-        if (edge->getChildDemandElementsByType(SUMO_TAG_WALK_BUSSTOP).size() > 0) {
-            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_WALK_BUSSTOP).front(), nullptr);
+        if (edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGE_BUSSTOP).size() > 0) {
+            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_WALK_EDGE_BUSSTOP).front(), nullptr);
         }
         if (edge->getChildDemandElementsByType(SUMO_TAG_WALK_ROUTE).size() > 0) {
             edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_WALK_ROUTE).front(), nullptr);
         }
-        if (edge->getChildDemandElementsByType(SUMO_TAG_RIDE_FROMTO).size() > 0) {
-            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_RIDE_FROMTO).front(), nullptr);
+        if (edge->getChildDemandElementsByType(SUMO_TAG_RIDE_EDGE_EDGE).size() > 0) {
+            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_RIDE_EDGE_EDGE).front(), nullptr);
         }
-        if (edge->getChildDemandElementsByType(SUMO_TAG_RIDE_BUSSTOP).size() > 0) {
-            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_RIDE_BUSSTOP).front(), nullptr);
+        if (edge->getChildDemandElementsByType(SUMO_TAG_RIDE_EDGE_BUSSTOP).size() > 0) {
+            edge->drawPartialPersonPlan(s, edge->getChildDemandElementsByType(SUMO_TAG_RIDE_EDGE_BUSSTOP).front(), nullptr);
         }
     }
 }

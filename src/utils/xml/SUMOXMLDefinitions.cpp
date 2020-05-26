@@ -197,15 +197,24 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "ride",                       SUMO_TAG_RIDE },
     { "walk",                       SUMO_TAG_WALK },
     { "personFlow",                 SUMO_TAG_PERSONFLOW },
-    // Person (Netedit)
-    { "personTripFromTo",           SUMO_TAG_PERSONTRIP_FROMTO },
-    { "personTripBusStop",          SUMO_TAG_PERSONTRIP_BUSSTOP },
+    // Person trips
+    { "personTripEdgeEdge",         SUMO_TAG_PERSONTRIP_EDGE_EDGE },
+    { "personTripEdgeBusStop",      SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP },
+    { "personTripBusStopEdge",      SUMO_TAG_PERSONTRIP_BUSSTOP_EDGE },
+    { "personTripBusStopBusStop",   SUMO_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
+    // Walks
+    { "walkEdgeEdge",               SUMO_TAG_WALK_EDGE_EDGE },
+    { "walkEdgeBusStop",            SUMO_TAG_WALK_EDGE_BUSSTOP },
+    { "walkBusStopEdge",            SUMO_TAG_WALK_BUSSTOP_EDGE },
+    { "walkBusStopBusStop",         SUMO_TAG_WALK_BUSSTOP_BUSSTOP },
     { "walkEdges",                  SUMO_TAG_WALK_EDGES },
-    { "walkFromTo",                 SUMO_TAG_WALK_FROMTO },
-    { "walkBusStop",                SUMO_TAG_WALK_BUSSTOP },
     { "walkRoute",                  SUMO_TAG_WALK_ROUTE },
-    { "rideFromTo",                 SUMO_TAG_RIDE_FROMTO },
-    { "rideBusStop",                SUMO_TAG_RIDE_BUSSTOP },
+    // Rides
+    { "rideEdgeEdge",               SUMO_TAG_RIDE_EDGE_EDGE },
+    { "rideEdgeBusStop",            SUMO_TAG_RIDE_EDGE_BUSSTOP },
+    { "rideBusStopEdge",            SUMO_TAG_RIDE_BUSSTOP_EDGE },
+    { "rideBusStopBusStop",         SUMO_TAG_RIDE_BUSSTOP_BUSSTOP },
+    // person stops
     { "personStopBusStop",          SUMO_TAG_PERSONSTOP_BUSSTOP },
     { "personStopLane",             SUMO_TAG_PERSONSTOP_LANE },
     // Data (Netedit)

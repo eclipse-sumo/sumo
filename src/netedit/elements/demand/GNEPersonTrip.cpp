@@ -38,7 +38,7 @@
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
         double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_PERSONTRIP_FROMTO), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_FROMTO,
+    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_PERSONTRIP_EDGE_EDGE), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_EDGE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}, // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
     Parameterised(),
@@ -54,7 +54,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
         const std::vector<std::string>& types, const std::vector<std::string>& modes) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_PERSONTRIP_BUSSTOP), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_BUSSTOP,
+    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP), net, GLO_PERSONTRIP, SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP,
         {}, {fromEdge}, {}, {busStop}, {}, {}, {personParent}, {},  // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
     Parameterised(),
@@ -313,10 +313,10 @@ GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNEPersonTrip::computePath() {
-    if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) {
+    if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_EDGE_EDGE) {
         // calculate route and update routeEdges
         replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
-    } else if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) {
+    } else if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
@@ -331,10 +331,10 @@ GNEPersonTrip::computePath() {
 
 void
 GNEPersonTrip::invalidatePath() {
-    if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) || (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_EDGE_EDGE) || (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP)) {
         // calculate route and update routeEdges
         replacePathEdges(this, getParentEdges());
-    } else if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_BUSSTOP) {
+    } else if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
@@ -530,7 +530,7 @@ GNEPersonTrip::getPopUpID() const {
 
 std::string
 GNEPersonTrip::getHierarchyName() const {
-    if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_FROMTO) {
+    if (myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_EDGE_EDGE) {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
     } else {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();

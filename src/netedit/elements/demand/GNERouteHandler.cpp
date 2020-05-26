@@ -594,7 +594,7 @@ GNERouteHandler::buildPersonTripFromTo(GNENet* net, bool undoDemandElements, GNE
     GNEDemandElement* personTripFromTo = new GNEPersonTrip(net, personParent, fromEdge, toEdge, {}, arrivalPos, types, modes);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_FROMTO) + " within person '" + personParent->getID() + "'");
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
         net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTripFromTo, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
@@ -615,7 +615,7 @@ GNERouteHandler::buildPersonTripBusStop(GNENet* net, bool undoDemandElements, GN
     GNEDemandElement* personTripBusStop = new GNEPersonTrip(net, personParent, fromEdge, busStop, {}, types, modes);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_BUSSTOP) + " within person '" + personParent->getID() + "'");
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
         net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTripBusStop, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
@@ -672,7 +672,7 @@ GNERouteHandler::buildWalkFromTo(GNENet* net, bool undoDemandElements, GNEDemand
     GNEDemandElement* walkFromTo = new GNEWalk(net, personParent, fromEdge, toEdge, {}, arrivalPos);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_FROMTO) + " within person '" + personParent->getID() + "'");
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
         net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walkFromTo, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
@@ -695,7 +695,7 @@ GNERouteHandler::buildWalkBusStop(GNENet* net, bool undoDemandElements, GNEDeman
     GNEDemandElement* walkBusStop = new GNEWalk(net, personParent, fromEdge, busStop, {});
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_BUSSTOP) + " within person '" + personParent->getID() + "'");
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_WALK_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
         net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walkBusStop, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
@@ -738,7 +738,7 @@ GNERouteHandler::buildRideFromTo(GNENet* net, bool undoDemandElements, GNEDemand
     GNEDemandElement* rideFromTo = new GNERide(net, personParent, fromEdge, toEdge, {}, arrivalPos, lines);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_RIDE_FROMTO) + " within person '" + personParent->getID() + "'");
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_RIDE_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
         net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(rideFromTo, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
@@ -761,7 +761,7 @@ GNERouteHandler::buildRideBusStop(GNENet* net, bool undoDemandElements, GNEDeman
     GNEDemandElement* rideBusStop = new GNERide(net, personParent, fromEdge, busStop, {}, lines);
     // add element using undo list or directly, depending of undoDemandElements flag
     if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_RIDE_BUSSTOP) + " within person '" + personParent->getID() + "'");
+        net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_RIDE_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
         net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(rideBusStop, true), true);
         net->getViewNet()->getUndoList()->p_end();
     } else {
@@ -1363,7 +1363,7 @@ GNERouteHandler::closePerson() {
                 // iterate over all personplan childs and add it
                 for (auto i = myPersonPlanValues.begin(); (i != myPersonPlanValues.end()) && !abortPersonPlans; i++) {
                     switch (i->tag) {
-                        case SUMO_TAG_PERSONTRIP_FROMTO:
+                        case SUMO_TAG_PERSONTRIP_EDGE_EDGE:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from && i->to) {
                                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myNet, person, i->from, i->to, {}, i->arrivalPos, i->vTypes, i->modes), true), true);
@@ -1379,7 +1379,7 @@ GNERouteHandler::closePerson() {
                                 abortPersonPlans = true;
                             }
                             break;
-                        case SUMO_TAG_PERSONTRIP_BUSSTOP:
+                        case SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
                                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(new GNEPersonTrip(myNet, person, i->from, i->busStop, {}, i->vTypes, i->modes), true), true);
@@ -1395,7 +1395,7 @@ GNERouteHandler::closePerson() {
                                 abortPersonPlans = true;
                             }
                             break;
-                        case SUMO_TAG_RIDE_FROMTO:
+                        case SUMO_TAG_RIDE_EDGE_EDGE:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from && i->to) {
                                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myNet, person, i->from, i->to, {}, i->arrivalPos, i->lines), true), true);
@@ -1411,7 +1411,7 @@ GNERouteHandler::closePerson() {
                                 abortPersonPlans = true;
                             }
                             break;
-                        case SUMO_TAG_RIDE_BUSSTOP:
+                        case SUMO_TAG_RIDE_EDGE_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
                                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(new GNERide(myNet, person, i->from, i->busStop, {}, i->lines), true), true);
@@ -1430,7 +1430,7 @@ GNERouteHandler::closePerson() {
                         case SUMO_TAG_WALK_EDGES:
                             myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myNet, person, i->edges, i->arrivalPos), true), true);
                             break;
-                        case SUMO_TAG_WALK_FROMTO:
+                        case SUMO_TAG_WALK_EDGE_EDGE:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from && i->to) {
                                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myNet, person, i->from, i->to, {}, i->arrivalPos), true), true);
@@ -1446,7 +1446,7 @@ GNERouteHandler::closePerson() {
                                 abortPersonPlans = true;
                             }
                             break;
-                        case SUMO_TAG_WALK_BUSSTOP:
+                        case SUMO_TAG_WALK_EDGE_BUSSTOP:
                             // check if "from" attribute was loaded, or it must be taked fron previous personPlan values
                             if (i->from) {
                                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(new GNEWalk(myNet, person, i->from, i->busStop, {}), true), true);
@@ -1697,7 +1697,7 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         // first set tag
         if (attrs.hasAttribute(SUMO_ATTR_TO)) {
             // set tag
-            personTripValuesLoaded.tag = SUMO_TAG_PERSONTRIP_FROMTO;
+            personTripValuesLoaded.tag = SUMO_TAG_PERSONTRIP_EDGE_EDGE;
             // declare a flag to check if values are valid
             bool validValues = true;
             // extract rest of parameters
@@ -1744,7 +1744,7 @@ GNERouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
             }
         } else if (attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
             // set tag
-            personTripValuesLoaded.tag = SUMO_TAG_PERSONTRIP_BUSSTOP;
+            personTripValuesLoaded.tag = SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP;
             // declare a flag to check if values are valid
             bool validValues = true;
             // extract rest of parameters
@@ -1824,7 +1824,7 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_TO)) {
         // set tag
-        walkValuesLoaded.tag = SUMO_TAG_WALK_FROMTO;
+        walkValuesLoaded.tag = SUMO_TAG_WALK_EDGE_EDGE;
         // extract rest of parameters
         if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
             walkValuesLoaded.from = myNet->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
@@ -1845,7 +1845,7 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
         // set tag
-        walkValuesLoaded.tag = SUMO_TAG_WALK_BUSSTOP;
+        walkValuesLoaded.tag = SUMO_TAG_WALK_EDGE_BUSSTOP;
         // extract rest of parameters
         if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
             walkValuesLoaded.from = myNet->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", walkValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
@@ -1907,7 +1907,7 @@ GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
     // first set tag
     if (attrs.hasAttribute(SUMO_ATTR_TO)) {
         // set tag
-        rideValuesLoaded.tag = SUMO_TAG_RIDE_FROMTO;
+        rideValuesLoaded.tag = SUMO_TAG_RIDE_EDGE_EDGE;
         // extract rest of parameters
         if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
             rideValuesLoaded.from = myNet->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
@@ -1933,7 +1933,7 @@ GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         }
     } else if (attrs.hasAttribute(SUMO_ATTR_BUS_STOP)) {
         // set tag
-        rideValuesLoaded.tag = SUMO_TAG_RIDE_BUSSTOP;
+        rideValuesLoaded.tag = SUMO_TAG_RIDE_EDGE_BUSSTOP;
         // extract rest of parameters
         if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
             rideValuesLoaded.from = myNet->retrieveEdge(GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", rideValuesLoaded.tag, SUMO_ATTR_FROM, myAbort), false);
