@@ -1,96 +1,98 @@
 Loading net-file from 'input_net.net.xml' ... done (1ms).
 Loading done.
 Simulation version v1_6_0+0363-ff315dd057 started with time: 0.00
-Simulation ended at time: 20101.00
+Simulation ended at time: 5561.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 26744ms
- Real time factor: 751.608
- UPS: 10015.480108
+ Duration: 1580ms
+ Real time factor: 3519.62
+ UPS: 83588.607595
 Vehicles: 
- Inserted: 7000
+ Inserted: 4000
  Running: 0
  Waiting: 0
+Teleports: 3 (Yield: 3)
 Statistics (avg):
- RouteLength: 434.31
- Speed: 15.57
- Duration: 38.26
- WaitingTime: 9.15
- TimeLoss: 19.86
- DepartDelay: 7986.20
+ RouteLength: 497.67
+ Speed: 20.05
+ Duration: 33.02
+ WaitingTime: 7.59
+ TimeLoss: 12.33
+ DepartDelay: 526.76
 
-DijkstraRouter answered 13954 queries and explored 2.54 edges on average.
-DijkstraRouter spent 9ms answering queries (0.00ms on average).
+DijkstraRouter answered 4790 queries and explored 2.33 edges on average.
+DijkstraRouter spent 3ms answering queries (0.00ms on average).
 Loading net-file from 'input_net.net.xml' ... done (1ms).
 Loading done.
 Simulation version v1_6_0+0363-ff315dd057 started with time: 0.00
-Simulation ended at time: 7784.00
+Simulation ended at time: 3622.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 3307ms
- Real time factor: 2353.79
- UPS: 54832.476565
+ Duration: 259ms
+ Real time factor: 13984.6
+ UPS: 345444.015444
 Vehicles: 
- Inserted: 7000
+ Inserted: 4000
  Running: 0
  Waiting: 0
 Statistics (avg):
- RouteLength: 427.77
- Speed: 17.00
- Duration: 25.90
- WaitingTime: 0.09
- TimeLoss: 7.74
- DepartDelay: 1072.67
+ RouteLength: 492.50
+ Speed: 22.09
+ Duration: 22.37
+ WaitingTime: 0.05
+ TimeLoss: 1.86
+ DepartDelay: 0.40
 
-DijkstraRouter answered 10696 queries and explored 2.70 edges on average.
-DijkstraRouter spent 15ms answering queries (0.00ms on average).
+DijkstraRouter answered 4000 queries and explored 2.20 edges on average.
+DijkstraRouter spent 4ms answering queries (0.00ms on average).
 Loading net-file from 'input_net2.net.xml' ... done (1ms).
 Loading done.
 Simulation version v1_6_0+0363-ff315dd057 started with time: 0.00
-Simulation ended at time: 20165.00
+Simulation ended at time: 5546.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 27485ms
- Real time factor: 733.673
- UPS: 9754.120429
+ Duration: 1490ms
+ Real time factor: 3722.15
+ UPS: 88576.510067
 Vehicles: 
- Inserted: 7000
+ Inserted: 4000
  Running: 0
  Waiting: 0
+Teleports: 2 (Yield: 2)
 Statistics (avg):
- RouteLength: 434.30
- Speed: 15.61
- Duration: 38.30
- WaitingTime: 9.33
- TimeLoss: 19.89
- DepartDelay: 8028.77
+ RouteLength: 497.67
+ Speed: 20.04
+ Duration: 32.99
+ WaitingTime: 7.51
+ TimeLoss: 12.30
+ DepartDelay: 523.95
 
-DijkstraRouter answered 13956 queries and explored 2.00 edges on average.
-DijkstraRouter spent 10ms answering queries (0.00ms on average).
+DijkstraRouter answered 4790 queries and explored 2.00 edges on average.
+DijkstraRouter spent 4ms answering queries (0.00ms on average).
 Loading net-file from 'input_net2.net.xml' ... done (1ms).
 Loading done.
 Simulation version v1_6_0+0363-ff315dd057 started with time: 0.00
-Simulation ended at time: 6071.00
+Simulation ended at time: 3622.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 2287ms
- Real time factor: 2654.57
- UPS: 108190.642763
+ Duration: 263ms
+ Real time factor: 13771.9
+ UPS: 340684.410646
 Vehicles: 
- Inserted: 7000
+ Inserted: 4000
  Running: 0
  Waiting: 0
 Statistics (avg):
- RouteLength: 429.58
- Speed: 13.95
- Duration: 35.35
- WaitingTime: 0.24
- TimeLoss: 17.09
- DepartDelay: 679.62
+ RouteLength: 493.17
+ Speed: 22.09
+ Duration: 22.40
+ WaitingTime: 0.05
+ TimeLoss: 1.86
+ DepartDelay: 0.40
 
-DijkstraRouter answered 10704 queries and explored 2.00 edges on average.
-DijkstraRouter spent 10ms answering queries (0.00ms on average).
-Deviation split vs. joined (meso): -0.267326732673
-Deviation split vs. joined (micro): -0.00104438642298
-Deviation meso vs. micro (split): 0.323052796654
-Deviation meso vs. micro (joined): 0.0770234986945
+DijkstraRouter answered 4000 queries and explored 2.00 edges on average.
+DijkstraRouter spent 1ms answering queries (0.00ms on average).
+Deviation split vs. joined (meso): -0.00133928571429
+Deviation split vs. joined (micro): 0.000909366474689
+Deviation meso vs. micro (split): 0.32253179891
+Deviation meso vs. micro (joined): 0.321006365565

@@ -27,6 +27,6 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_0" begin="0.00" from="gneE4" to="gneE2" end="3600.00" number="3800"/>
-    <flow id="flow_1" begin="0.00" from="gneE3" to="gneE2" end="3600.00" number="3200"/>
+    <flow id="flow_0" begin="0.00" from="gneE4" to="gneE2" departSpeed="max" departLane="random" end="3600.00" number="800"/>
+    <flow id="flow_1" begin="0.00" from="gneE3" to="gneE2" departSpeed="max" departLane="random" end="3600.00" number="3200"/>
 </routes>

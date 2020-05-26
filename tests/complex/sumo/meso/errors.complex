@@ -1,0 +1,10 @@
+Warning: Teleporting vehicle 'flow_0.1'; waited too long (yield), lane='gneE1_0', time=312.00.
+Warning: Vehicle 'flow_0.1' ends teleporting on edge 'gneE2', time 312.00.
+Warning: Teleporting vehicle 'flow_0.13'; waited too long (yield), lane='gneE1_0', time=1813.00.
+Warning: Vehicle 'flow_0.13' ends teleporting on edge 'gneE2', time 1813.00.
+Warning: Teleporting vehicle 'flow_0.17'; waited too long (yield), lane='gneE1_0', time=2351.00.
+Warning: Vehicle 'flow_0.17' ends teleporting on edge 'gneE2', time 2351.00.
+Warning: Teleporting vehicle 'flow_0.1'; waited too long (yield), lane='gneE4_0', time=313.00.
+Warning: Vehicle 'flow_0.1' ends teleporting on edge 'gneE2', time 313.00.
+Warning: Teleporting vehicle 'flow_0.2'; waited too long (yield), lane='gneE4_0', time=617.00.
+Warning: Vehicle 'flow_0.2' ends teleporting on edge 'gneE2', time 617.00.
