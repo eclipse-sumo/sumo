@@ -12,6 +12,9 @@ permalink: /ChangeLog/
   - Fixed invalid error when using option **--scale** and vehicles are using attribute `depart="triggered"`. Issue #6790
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
+  - Option **--fcd-output.distance** now also applies to Meso. Issue #7069
+  - Fixed invalid amount of charged energy in subsecond simulation when using battery device. Issue #7074
+  
 - NETCONVERT
   - Fixed crash when patching a network with '.tll.xml' file. Issue #7014 (Regression in 1.6.0)
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7017
@@ -32,9 +35,11 @@ permalink: /ChangeLog/
 - TraCI
   - Fixed memory leak when using libsumo. Issue #7012
   - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
+  - Fixed crash when accessing prior riding stage with *person.getStage*. Issue #7060
+  - Fixed crash when setting vehicle parameter "device.rerouting.period" to "0". Issue #7064
   
 - All Applications
-  - Fil names with a `%`-Sign can no be loaded. Issue #6574
+  - File names with a `%`-Sign can no be loaded. Issue #6574
 
 
 ### Enhancements
@@ -59,6 +64,9 @@ permalink: /ChangeLog/
 - SUMO-GUI
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
   - A color legend for vehicle colors can no be enabled via the 'Legend' tab. Issue #6930
+
+- All Applications
+  - Symbolic color definition "random" can now be used (i.e. in vehicle, vType, poi, ...). Issue #7058
 
 - TraCI
   - Added new function *simulation.loadState* for quick-loading simulation a saved state. Issue #6201
