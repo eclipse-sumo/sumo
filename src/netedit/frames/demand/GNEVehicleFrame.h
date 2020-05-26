@@ -80,8 +80,8 @@ public:
      */
     bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get EdgePathCreator modul
-    GNEFrameModuls::EdgePathCreator* getEdgePathCreator() const;
+    /// @brief get PathCreator modul
+    GNEFrameModuls::PathCreator* getPathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -104,7 +104,7 @@ private:
     GNEFrameAttributesModuls::AttributesCreator* myVehicleAttributes;
 
     /// @brief edge path creator (used for trips and flows)
-    GNEFrameModuls::EdgePathCreator* myEdgePathCreator;
+    GNEFrameModuls::PathCreator* myPathCreator;
 
     /// @brief Help creation
     HelpCreation* myHelpCreation;

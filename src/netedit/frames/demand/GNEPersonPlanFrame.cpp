@@ -169,34 +169,12 @@ GNEPersonPlanFrame::tagSelected() {
         // set path creator mode depending if previousEdge exist
         if (previousEdge) {
             // set path creator mode
-            if ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) || (personPlanTag == SUMO_TAG_RIDE_BUSSTOP)) {
-                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::END_BUSSTOP);
-            } else if ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO)) {
-                // path ends in an edge, and only one can be selected
-                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::END_EDGE | GNEFrameModuls::PathCreator::ONLY_FROMTO);
-            } else if (personPlanTag == SUMO_TAG_WALK_EDGES) {
-                // path ends in an edge, and multiple edges can be selected
-                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::END_EDGE);
-            } else {
-                // hide edge path creator
-                myPathCreator->hidePathCreatorModul();
-            }
+            myPathCreator->setPathCreatorMode(personPlanTag, true, false);
             // add previous edge
             myPathCreator->addEdge(previousEdge, false, false);
         } else {
             // set path creator mode
-            if ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) || (personPlanTag == SUMO_TAG_RIDE_BUSSTOP)) {
-                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_BUSSTOP);
-            } else if ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO)) {
-                // path ends in an edge, and only one can be selected
-                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_EDGE | GNEFrameModuls::PathCreator::ONLY_FROMTO);
-            } else if (personPlanTag == SUMO_TAG_WALK_EDGES) {
-                // path ends in an edge, and multiple edges can be selected
-                myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT | GNEFrameModuls::PathCreator::END_EDGE);
-            } else {
-                // hide edge path creator
-                myPathCreator->hidePathCreatorModul();
-            }
+            myPathCreator->setPathCreatorMode(personPlanTag, false, false);
         }
         // show person hierarchy
         myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());

@@ -41,7 +41,7 @@ bool
 GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // first check if we clicked over an edge
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
-        return myEdgePathCreator->addPathEdge(objectsUnderCursor.getEdgeFront());
+        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), false, false);
     } else {
         // invalid parent parameters
         return false;
@@ -52,10 +52,10 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
 void
 GNEEdgeRelDataFrame::edgePathCreated() {
     // first check that we have at least two edges
-    if (myEdgePathCreator->getClickedEdges().size() > 1) {
+    if (myPathCreator->getSelectedEdges().size() > 1) {
         // just create EdgeRelationData
-        GNEDataHandler::buildEdgeRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myEdgePathCreator->getClickedEdges().front(),
-                                              myEdgePathCreator->getClickedEdges().back(), myParametersEditor->getParametersMap());
+        GNEDataHandler::buildEdgeRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myPathCreator->getSelectedEdges().front(),
+                                              myPathCreator->getSelectedEdges().back(), myParametersEditor->getParametersMap());
     }
 }
 

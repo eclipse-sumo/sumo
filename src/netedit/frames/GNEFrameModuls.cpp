@@ -61,12 +61,6 @@ FXDEFMAP(GNEFrameModuls::DemandElementSelector) DemandElementSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement),
 };
 
-FXDEFMAP(GNEFrameModuls::EdgePathCreator) EdgePathCreatorMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_ABORT,      GNEFrameModuls::EdgePathCreator::onCmdAbortRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_FINISH,     GNEFrameModuls::EdgePathCreator::onCmdFinishRouteCreation),
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_EDGEPATH_REMOVELAST, GNEFrameModuls::EdgePathCreator::onCmdRemoveLastInsertedElement)
-};
-
 FXDEFMAP(GNEFrameModuls::AttributeCarrierHierarchy) AttributeCarrierHierarchyMap[] = {
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEFrameModuls::AttributeCarrierHierarchy::onCmdCenterItem),
     FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEFrameModuls::AttributeCarrierHierarchy::onCmdInspectItem),
@@ -101,7 +95,6 @@ FXDEFMAP(GNEFrameModuls::PathCreator) PathCreatorMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrameModuls::TagSelector,                FXGroupBox,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 FXIMPLEMENT(GNEFrameModuls::DemandElementSelector,      FXGroupBox,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
-FXIMPLEMENT(GNEFrameModuls::EdgePathCreator,            FXGroupBox,     EdgePathCreatorMap,             ARRAYNUMBER(EdgePathCreatorMap))
 FXIMPLEMENT(GNEFrameModuls::AttributeCarrierHierarchy,  FXGroupBox,     AttributeCarrierHierarchyMap,   ARRAYNUMBER(AttributeCarrierHierarchyMap))
 FXIMPLEMENT(GNEFrameModuls::DrawingShape,               FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrameModuls::OverlappedInspection,       FXGroupBox,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
@@ -556,330 +549,6 @@ GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSel
     // Write Warning in console if we're in testing mode
     WRITE_DEBUG("Selected invalid item in DemandElementSelector");
     return 1;
-}
-
-// ---------------------------------------------------------------------------
-// GNEFrameModuls::EdgePathCreator - methods
-// ---------------------------------------------------------------------------
-
-GNEFrameModuls::EdgePathCreator::EdgePathCreator(GNEFrame* frameParent, int edgePathCreatorModes) :
-    FXGroupBox(frameParent->myContentFrame, "Path creator", GUIDesignGroupBoxFrame),
-    myFrameParent(frameParent),
-    myVClass(SVC_PASSENGER),
-    mySelectedBusStop(nullptr),
-    myModes(edgePathCreatorModes) {
-
-    // create button for create GEO POIs
-    myFinishCreationButton = new FXButton(this, "Finish path creation", nullptr, this, MID_GNE_EDGEPATH_FINISH, GUIDesignButton);
-    myFinishCreationButton->disable();
-
-    // create button for create GEO POIs
-    myAbortCreationButton = new FXButton(this, "Abort path creation", nullptr, this, MID_GNE_EDGEPATH_ABORT, GUIDesignButton);
-    myAbortCreationButton->disable();
-
-    // create button for create GEO POIs
-    myRemoveLastInsertedEdge = new FXButton(this, "Remove last inserted edge", nullptr, this, MID_GNE_EDGEPATH_REMOVELAST, GUIDesignButton);
-    myRemoveLastInsertedEdge->disable();
-}
-
-
-GNEFrameModuls::EdgePathCreator::~EdgePathCreator() {}
-
-
-void
-GNEFrameModuls::EdgePathCreator::edgePathCreatorName(const std::string& name) {
-    // header needs the first capitalized letter
-    std::string nameWithFirstCapitalizedLetter = name;
-    nameWithFirstCapitalizedLetter[0] = (char)toupper(nameWithFirstCapitalizedLetter.at(0));
-    setText((nameWithFirstCapitalizedLetter + " creator").c_str());
-    myFinishCreationButton->setText(("Finish " + name + " creation").c_str());
-    myAbortCreationButton->setText(("Abort " + name + " creation").c_str());
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::showEdgePathCreator() {
-    // disable buttons
-    myFinishCreationButton->disable();
-    myAbortCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
-    // show modul
-    show();
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::hideEdgePathCreator() {
-    // restore colors
-    for (const auto& i : myClickedEdges) {
-        restoreEdgeColor(i);
-    }
-    // clear edges
-    myClickedEdges.clear();
-    // clear myTemporalEdgePath
-    myTemporalRoute.clear();
-    // hide modul
-    hide();
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::setVClass(SUMOVehicleClass vClass) {
-    myVClass = vClass;
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::setModes(int edgePathCreatorModes) {
-    myModes = edgePathCreatorModes;
-}
-
-
-std::vector<GNEEdge*>
-GNEFrameModuls::EdgePathCreator::getClickedEdges() const {
-    return myClickedEdges;
-}
-
-
-GNEAdditional*
-GNEFrameModuls::EdgePathCreator::getClickedBusStop() const {
-    return mySelectedBusStop;
-}
-
-
-bool
-GNEFrameModuls::EdgePathCreator::addPathEdge(GNEEdge* edge) {
-    bool addEdge = true;
-    // check if final busStop was selected
-    if (mySelectedBusStop != nullptr) {
-        addEdge = false;
-        // write status bar text
-        myFrameParent->getViewNet()->setStatusBarText("Final " + mySelectedBusStop->getTagProperty().getTagStr() + " selected");
-        // Write Warning in console if we're in testing mode
-        WRITE_DEBUG("Final " + mySelectedBusStop->getTagProperty().getTagStr() + " selected");
-    } else if ((myClickedEdges.size() > 0) && (myClickedEdges.back() == edge)) {
-        // avoid duplicated consecutive edges
-        addEdge = false;
-        // write status bar text
-        myFrameParent->getViewNet()->setStatusBarText("Duplicated consecutive edges aren't allowed");
-        // Write Warning in console if we're in testing mode
-        WRITE_DEBUG("Duplicated consecutive edges aren't allowed");
-    }
-    // check permissions
-    if (addEdge) {
-        addEdge = false;
-        for (const auto& i : edge->getNBEdge()->getLanes()) {
-            if ((i.permissions & myVClass) != 0) {
-                addEdge = true;
-            }
-        }
-        if (addEdge == false) {
-            // write status bar text
-            myFrameParent->getViewNet()->setStatusBarText("Invalid edge permissions");
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG("Invalid edge permissions");
-        }
-    }
-    // check if edge can be added
-    if (addEdge) {
-        // insert edge in myClickedEdges
-        myClickedEdges.push_back(edge);
-        // enable abort route button
-        myAbortCreationButton->enable();
-        // disable undo/redo
-        myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("trip creation");
-        // set candidate color
-        edge->setPossibleCandidate(true);
-        // enable remove last edge button
-        myRemoveLastInsertedEdge->enable();
-        // enable finish button
-        myFinishCreationButton->enable();
-        // calculate route if there is more than two edges
-        if (myClickedEdges.size() > 1) {
-            // calculate temporal route
-            myTemporalRoute = myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculatePath(myVClass, myClickedEdges);
-        } else {
-            // use single edge as temporal route
-            myTemporalRoute = myClickedEdges;
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-bool
-GNEFrameModuls::EdgePathCreator::addBusStop(GNEAdditional* busStop) {
-    // check that at least there is a selected edge
-    if (!myClickedEdges.empty() && (mySelectedBusStop == nullptr)) {
-        mySelectedBusStop = busStop;
-        mySelectedBusStop->setSpecialColor(&RGBColor::GREEN);
-    }
-    return false;
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::clearEdges() {
-    // restore colors
-    for (const auto& i : myClickedEdges) {
-        restoreEdgeColor(i);
-    }
-    // clear edges
-    myClickedEdges.clear();
-    myTemporalRoute.clear();
-    // clear busStop
-    if (mySelectedBusStop) {
-        mySelectedBusStop->setSpecialColor(nullptr);
-        mySelectedBusStop = nullptr;
-    }
-    // enable undo/redo
-    myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::drawTemporalPath() const {
-    // draw depending of number of edges
-    if (myClickedEdges.size() > 0) {
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX);
-        // set orange color
-        GLHelper::setColor(RGBColor::ORANGE);
-        // set line width
-        glLineWidth(5);
-        // we have two possibilites, depending of myTemporalRoute
-        if (myTemporalRoute.empty()) {
-            // draw first line
-            GLHelper::drawLine(myClickedEdges.at(0)->getNBEdge()->getLanes().front().shape.front(),
-                               myClickedEdges.at(0)->getNBEdge()->getLanes().front().shape.back());
-            // draw rest of lines
-            for (int i = 1; i < (int)myClickedEdges.size(); i++) {
-                GLHelper::drawLine(myClickedEdges.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                                   myClickedEdges.at(i)->getNBEdge()->getLanes().front().shape.front());
-                GLHelper::drawLine(myClickedEdges.at(i)->getNBEdge()->getLanes().front().shape.front(),
-                                   myClickedEdges.at(i)->getNBEdge()->getLanes().front().shape.back());
-            }
-            // draw a line to center of selected bus
-            if (mySelectedBusStop) {
-                GLHelper::drawLine(myClickedEdges.back()->getNBEdge()->getLanes().front().shape.back(),
-                                   mySelectedBusStop->getAdditionalGeometry().getShape().getLineCenter());
-            }
-        } else {
-            // draw first line
-            GLHelper::drawLine(myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.front(),
-                               myTemporalRoute.at(0)->getNBEdge()->getLanes().front().shape.back());
-            // draw rest of lines
-            for (int i = 1; i < (int)myTemporalRoute.size(); i++) {
-                GLHelper::drawLine(myTemporalRoute.at(i - 1)->getNBEdge()->getLanes().front().shape.back(),
-                                   myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front());
-                GLHelper::drawLine(myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.front(),
-                                   myTemporalRoute.at(i)->getNBEdge()->getLanes().front().shape.back());
-            }
-            // draw a line to center of selected bus
-            if (mySelectedBusStop) {
-                GLHelper::drawLine(myTemporalRoute.back()->getNBEdge()->getLanes().front().shape.back(),
-                                   mySelectedBusStop->getAdditionalGeometry().getShape().getLineCenter());
-            }
-        }
-        // Pop last matrix
-        glPopMatrix();
-    }
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::abortEdgePathCreation() {
-    if (myAbortCreationButton->isEnabled()) {
-        onCmdAbortRouteCreation(nullptr, 0, nullptr);
-    }
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::finishEdgePathCreation() {
-    if (myFinishCreationButton->isEnabled()) {
-        onCmdFinishRouteCreation(nullptr, 0, nullptr);
-    }
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::removeLastInsertedElement() {
-    if (myRemoveLastInsertedEdge->isEnabled()) {
-        onCmdRemoveLastInsertedElement(nullptr, 0, nullptr);
-    }
-}
-
-
-long
-GNEFrameModuls::EdgePathCreator::onCmdAbortRouteCreation(FXObject*, FXSelector, void*) {
-    // clear edges
-    clearEdges();
-    // disable buttons
-    myAbortCreationButton->disable();
-    myFinishCreationButton->disable();
-    myRemoveLastInsertedEdge->disable();
-    // update view
-    myFrameParent->myViewNet->updateViewNet();
-    return 1;
-}
-
-
-long
-GNEFrameModuls::EdgePathCreator::onCmdFinishRouteCreation(FXObject*, FXSelector, void*) {
-    // only create route if there is more than two edges
-    if (myClickedEdges.size() > 0) {
-        // depending of tag, check if last element is a busStop
-        if ((myModes == TO_BUSSTOP) && (mySelectedBusStop == nullptr)) {
-            WRITE_WARNING("Last clicked element must be a " + toString(SUMO_TAG_BUS_STOP));
-            return 1;
-        }
-        // call edgePathCreated
-        myFrameParent->edgePathCreated();
-        // update view
-        myFrameParent->myViewNet->updateViewNet();
-        // clear edges after creation
-        clearEdges();
-        // disable buttons
-        myFinishCreationButton->disable();
-        myAbortCreationButton->disable();
-        myRemoveLastInsertedEdge->disable();
-    }
-    return 1;
-}
-
-
-long
-GNEFrameModuls::EdgePathCreator::onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*) {
-    if (myClickedEdges.size() > 1) {
-        // restore color of last clicked edge
-        restoreEdgeColor(myClickedEdges.back());
-        // remove last edge
-        myClickedEdges.pop_back();
-        // calculate temporal route
-        myTemporalRoute = myFrameParent->getViewNet()->getNet()->getPathCalculator()->calculatePath(myVClass, myClickedEdges);
-        // update view (to see the new temporal route)
-        myFrameParent->myViewNet->updateViewNet();
-        // check if after pop edge, there is more than one edge
-        if (myClickedEdges.size() == 1) {
-            // disable remove last edge button
-            myRemoveLastInsertedEdge->disable();
-        }
-    }
-    return 1;
-}
-
-
-void
-GNEFrameModuls::EdgePathCreator::restoreEdgeColor(const GNEEdge* edge) {
-    // restore color of every lane
-    for (const auto& i : edge->getLanes()) {
-        i->setSpecialColor(nullptr);
-    }
 }
 
 // ---------------------------------------------------------------------------
@@ -2504,11 +2173,70 @@ GNEFrameModuls::PathCreator::hidePathCreatorModul() {
 
 
 void
-GNEFrameModuls::PathCreator::setPathCreatorMode(const int creationMode) {
+GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool firstElement, const bool consecutives) {
     // first abort creation
     abortPathCreation();
-    // set creation mode
-    myCreationMode = creationMode;
+    // reset creation mode
+    myCreationMode = 0;
+    // set first element
+    if (firstElement) {
+        myCreationMode |= GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT;
+    }
+    // set consecutive or non consecuives
+    if (consecutives) {
+        myCreationMode |= GNEFrameModuls::PathCreator::CONSECUTIVE_EDGES;
+    } else {
+        myCreationMode |= GNEFrameModuls::PathCreator::NONCONSECUTIVE_EDGES;
+    }
+    // set specific mode depending of tag
+    switch (tag) {
+        // routes
+        case SUMO_TAG_ROUTE:
+        case SUMO_TAG_EMBEDDEDROUTE:
+            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            break;
+        // vehicles
+        case SUMO_TAG_VEHICLE:
+        case SUMO_TAG_ROUTEFLOW:
+        case SUMO_TAG_WALK_ROUTE:
+            /* route, fix */
+            break;
+        case SUMO_TAG_TRIP:
+        case SUMO_TAG_FLOW:
+            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            break;
+        // person plans
+        case SUMO_TAG_PERSONTRIP_FROMTO:
+        case SUMO_TAG_WALK_FROMTO:
+        case SUMO_TAG_RIDE_FROMTO:
+            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
+            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
+            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            break;
+        case SUMO_TAG_WALK_EDGES:
+            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
+            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            break;
+        case SUMO_TAG_PERSONTRIP_BUSSTOP:
+        case SUMO_TAG_WALK_BUSSTOP:
+        case SUMO_TAG_RIDE_BUSSTOP:
+            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
+            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
+            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
+            break;
+        case SUMO_TAG_PERSONSTOP_BUSSTOP:
+        case SUMO_TAG_PERSONSTOP_LANE:
+            /* fix */
+            break;
+        default:
+            hidePathCreatorModul();
+            break;
+    }
 }
 
 

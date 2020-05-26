@@ -170,120 +170,6 @@ public:
     };
 
     // ===========================================================================
-    // class EdgePathCreator
-    // ===========================================================================
-
-    class EdgePathCreator : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::EdgePathCreator)
-
-    public:
-
-        /// @brief list of the edge path creator modes
-        enum Modes {
-            CONSECUTIVE,    // Path must be consecutive
-            FROM_TO,        // Path requires only two from-to edges
-            FROM_TO_VIA,    // Path requires a from-via-to edges
-            FROM_BUSSTOP,   // Path start in a BusStop
-            TO_BUSSTOP      // Path ends in a BusStop
-        };
-
-        /// @brief default constructor
-        EdgePathCreator(GNEFrame* frameParent, int edgePathCreatorModes);
-
-        /// @brief destructor
-        ~EdgePathCreator();
-
-        /// @brief update EdgePathCreator name
-        void edgePathCreatorName(const std::string& name);
-
-        /// @brief show EdgePathCreator
-        void showEdgePathCreator();
-
-        /// @brief show EdgePathCreator
-        void hideEdgePathCreator();
-
-        /// @brief set SUMOVehicleClass
-        void setVClass(SUMOVehicleClass vClass);
-
-        /// @brief set Modes
-        void setModes(int edgePathCreatorModes);
-
-        /// @brief get current clicked edges
-        std::vector<GNEEdge*> getClickedEdges() const;
-
-        /// @brief get current clicked edges
-        GNEAdditional* getClickedBusStop() const;
-
-        /// @brief add edge in path
-        bool addPathEdge(GNEEdge* edge);
-
-        /// @brief add busStop to path
-        bool addBusStop(GNEAdditional* busStop);
-
-        /// @brief clear path edges (and restore colors)
-        void clearEdges();
-
-        /// @brief draw temporal route
-        void drawTemporalPath() const;
-
-        /// @brief abort edge path creation
-        void abortEdgePathCreation();
-
-        /// @brief finish edge path creation
-        void finishEdgePathCreation();
-
-        /// @brief remove last added element (either a BusStop or an edge)
-        void removeLastInsertedElement();
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user click over button "Abort route creation"
-        long onCmdAbortRouteCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Finish route creation"
-        long onCmdFinishRouteCreation(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user click over button "Remove las inserted edge/busStop"
-        long onCmdRemoveLastInsertedElement(FXObject*, FXSelector, void*);
-        /// @}
-
-    protected:
-        FOX_CONSTRUCTOR(EdgePathCreator)
-
-    private:
-        /// @brief pointer to GNEFrame Parent
-        GNEFrame* myFrameParent;
-
-        /// @brief button for finish route creation
-        FXButton* myFinishCreationButton;
-
-        /// @brief button for abort route creation
-        FXButton* myAbortCreationButton;
-
-        /// @brief button for removing last inserted edge
-        FXButton* myRemoveLastInsertedEdge;
-
-        /// @brief VClass used for this trip
-        SUMOVehicleClass myVClass;
-
-        /// @brief current clicked edges
-        std::vector<GNEEdge*> myClickedEdges;
-
-        /// @brief pointer to selected busStop
-        GNEAdditional* mySelectedBusStop;
-
-        /// @brief vector with temporal route edges
-        std::vector<GNEEdge*> myTemporalRoute;
-
-        /// @brief current edge path creator modes
-        int myModes;
-
-        /// @brief restore colors of given edge
-        void restoreEdgeColor(const GNEEdge* edge);
-    };
-
-    // ===========================================================================
     // class AttributeCarrierHierarchy
     // ===========================================================================
 
@@ -707,8 +593,8 @@ public:
         /// @brief show PathCreator
         void hidePathCreatorModul();
 
-        /// @brief change route mode
-        void setPathCreatorMode(const int creationMode);
+        /// @brief set path creator mode according to given tag
+        void setPathCreatorMode(SumoXMLTag tag, const bool firstElement, const bool consecutives);
 
         /// @brief get vClass
         SUMOVehicleClass getVClass() const;

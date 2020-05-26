@@ -111,8 +111,8 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     // Create vehicle parameters
     myVehicleAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
-    // create EdgePathCreator Modul
-    myEdgePathCreator = new GNEFrameModuls::EdgePathCreator(this, GNEFrameModuls::EdgePathCreator::Modes::FROM_TO_VIA);
+    // create PathCreator Modul
+    myPathCreator = new GNEFrameModuls::PathCreator(this, GNEFrameModuls::PathCreator::START_EDGE | GNEFrameModuls::PathCreator::END_EDGE);
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -237,17 +237,17 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
             return false;
         }
     } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW)) && objectsUnderCursor.getEdgeFront()) {
-        // add clicked edge in EdgePathCreator
-        return myEdgePathCreator->addPathEdge(objectsUnderCursor.getEdgeFront());
+        // add clicked edge in PathCreator
+        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), false, false);
     } else {
         return false;
     }
 }
 
 
-GNEFrameModuls::EdgePathCreator*
-GNEVehicleFrame::getEdgePathCreator() const {
-    return myEdgePathCreator;
+GNEFrameModuls::PathCreator*
+GNEVehicleFrame::getPathCreator() const {
+    return myPathCreator;
 }
 
 // ===========================================================================
@@ -262,9 +262,9 @@ GNEVehicleFrame::tagSelected() {
         // show AutoRute creator if we're editing a trip
         if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) ||
                 (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-            myEdgePathCreator->showEdgePathCreator();
+            myPathCreator->showPathCreatorModul();
         } else {
-            myEdgePathCreator->hideEdgePathCreator();
+            myPathCreator->hidePathCreatorModul();
         }
     } else {
         // hide all moduls if vehicle isn't valid
@@ -281,7 +281,7 @@ GNEVehicleFrame::demandElementSelected() {
         // show vehicle attributes modul
         myVehicleAttributes->showAttributesCreatorModul(myVehicleTagSelector->getCurrentTagProperties(), {});
         // set current VTypeClass in TripCreator
-        myEdgePathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
+        myPathCreator->setVClass(myVTypeSelector->getCurrentDemandElement()->getVClass());
         // show help creation
         myHelpCreation->showHelpCreation();
     } else {
@@ -297,7 +297,7 @@ GNEVehicleFrame::demandElementSelected() {
 void
 GNEVehicleFrame::edgePathCreated() {
     // first check that we have at least two edges
-    if (myEdgePathCreator->getClickedEdges().size() > 1) {
+    if (myPathCreator->getSelectedEdges().size() > 1) {
         // obtain tag (only for improve code legibility)
         SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
         // Declare map to keep attributes from Frames from Frame
@@ -310,8 +310,8 @@ GNEVehicleFrame::edgePathCreated() {
         valuesMap[SUMO_ATTR_TYPE] = myVTypeSelector->getCurrentDemandElement()->getID();
         // extract via attribute
         std::vector<GNEEdge*> viaEdges;
-        for (int i = 1; i < ((int)myEdgePathCreator->getClickedEdges().size() - 1); i++) {
-            viaEdges.push_back(myEdgePathCreator->getClickedEdges().at(i));
+        for (int i = 1; i < ((int)myPathCreator->getSelectedEdges().size() - 1); i++) {
+            viaEdges.push_back(myPathCreator->getSelectedEdges().at(i));
         }
         // check if we're creating a trip or flow
         if (vehicleTag == SUMO_TAG_TRIP) {
@@ -324,7 +324,7 @@ GNEVehicleFrame::edgePathCreated() {
             // obtain trip parameters
             SUMOVehicleParameter* tripParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
             // build trip in GNERouteHandler
-            GNERouteHandler::buildTrip(myViewNet->getNet(), true, *tripParameters, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), viaEdges);
+            GNERouteHandler::buildTrip(myViewNet->getNet(), true, *tripParameters, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), viaEdges);
             // delete tripParameters
             delete tripParameters;
         } else {
@@ -337,7 +337,7 @@ GNEVehicleFrame::edgePathCreated() {
             // obtain flow parameters
             SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, false, 0, SUMOTime_MAX);
             // build flow in GNERouteHandler
-            GNERouteHandler::buildFlow(myViewNet->getNet(), true, *flowParameters, myEdgePathCreator->getClickedEdges().front(), myEdgePathCreator->getClickedEdges().back(), viaEdges);
+            GNERouteHandler::buildFlow(myViewNet->getNet(), true, *flowParameters, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), viaEdges);
             // delete flowParameters
             delete flowParameters;
         }

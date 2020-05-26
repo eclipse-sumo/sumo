@@ -49,8 +49,8 @@ public:
      */
     bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
-    /// @brief get EdgePathCreator modul
-    GNEFrameModuls::EdgePathCreator* getEdgePathCreator() const;
+    /// @brief get PathCreator modul
+    GNEFrameModuls::PathCreator* getPathCreator() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -82,7 +82,7 @@ private:
     GNEFrameAttributesModuls::NeteditAttributes* myNeteditAttributes;
 
     /// @brief edge path creator (used for Walks, rides and trips)
-    GNEFrameModuls::EdgePathCreator* myEdgePathCreator;
+    GNEFrameModuls::PathCreator* myPathCreator;
 
     /// @brief build person over route
     bool buildPersonOverRoute(GNEDemandElement* route);

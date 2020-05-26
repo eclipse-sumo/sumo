@@ -117,9 +117,9 @@ GNERouteFrame::RouteModeSelector::areParametersValid() {
         myRouteFrameParent->myRouteAttributes->showAttributesCreatorModul(GNEAttributeCarrier::getTagProperties(SUMO_TAG_ROUTE), {});
         // show modes moduls
         if (myCurrentRouteMode == RouteMode::CONSECUTIVE_EDGES) {
-            myRouteFrameParent->myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::Mode::CONSECUTIVE_EDGES);
+            myRouteFrameParent->myPathCreator->setPathCreatorMode(SUMO_TAG_ROUTE, false, true);
         } else if (myCurrentRouteMode == RouteMode::NONCONSECUTIVE_EDGES) {
-            myRouteFrameParent->myPathCreator->setPathCreatorMode(GNEFrameModuls::PathCreator::Mode::NONCONSECUTIVE_EDGES);
+            myRouteFrameParent->myPathCreator->setPathCreatorMode(SUMO_TAG_ROUTE, false, false);
         }
         // show route creator
         myRouteFrameParent->myPathCreator->showPathCreatorModul();
