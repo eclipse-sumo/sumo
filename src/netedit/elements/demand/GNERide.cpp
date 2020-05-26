@@ -37,7 +37,7 @@
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
         double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_RIDE_EDGE_EDGE), net, GLO_RIDE, SUMO_TAG_RIDE_EDGE_EDGE,
+    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_RIDE_EDGE_EDGE), net, GLO_RIDE, GNE_TAG_RIDE_EDGE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}, // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
     Parameterised(),
@@ -52,7 +52,7 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
         const std::vector<std::string>& lines) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_RIDE_EDGE_BUSSTOP), net, GLO_RIDE, SUMO_TAG_RIDE_EDGE_BUSSTOP,
+    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_RIDE_EDGE_BUSSTOP), net, GLO_RIDE, GNE_TAG_RIDE_EDGE_BUSSTOP,
         {}, {fromEdge}, {}, {busStop}, {}, {}, {personParent}, {},  // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
     Parameterised(),
@@ -301,10 +301,10 @@ GNERide::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNERide::computePath() {
-    if (myTagProperty.getTag() == SUMO_TAG_RIDE_EDGE_EDGE) {
+    if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
         // calculate route and update routeEdges
         replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
-    } else if (myTagProperty.getTag() == SUMO_TAG_RIDE_EDGE_BUSSTOP) {
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
@@ -319,10 +319,10 @@ GNERide::computePath() {
 
 void
 GNERide::invalidatePath() {
-    if (myTagProperty.getTag() == SUMO_TAG_RIDE_EDGE_EDGE) {
+    if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
         // calculate route and update routeEdges
         replacePathEdges(this, getParentEdges());
-    } else if (myTagProperty.getTag() == SUMO_TAG_RIDE_EDGE_BUSSTOP) {
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
@@ -510,7 +510,7 @@ GNERide::getPopUpID() const {
 
 std::string
 GNERide::getHierarchyName() const {
-    if (myTagProperty.getTag() == SUMO_TAG_RIDE_EDGE_EDGE) {
+    if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
         return "ride: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
     } else {
         return "ride: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();

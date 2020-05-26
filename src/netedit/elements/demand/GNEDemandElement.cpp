@@ -234,7 +234,7 @@ GNEDemandElement::isValidDemandElementID(const std::string& newID) const {
 GNELane*
 GNEDemandElement::getFirstAllowedVehicleLane() const {
     // first check if current demand element has parent edges
-    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+    if (myTagProperty.getTag() ==GNE_TAG_WALK_ROUTE) {
         // use route edges
         return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
     } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
@@ -279,13 +279,13 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
 GNELane*
 GNEDemandElement::getLastAllowedVehicleLane() const {
     // first check if current demand element has parent edges
-    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+    if (myTagProperty.getTag() ==GNE_TAG_WALK_ROUTE) {
         // use route edges
         return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
     } else if (getParentEdges().size() > 0) {
-        if ((myTagProperty.getTag() == SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP) ||
-                (myTagProperty.getTag() == SUMO_TAG_WALK_EDGE_BUSSTOP) ||
-                (myTagProperty.getTag() == SUMO_TAG_RIDE_EDGE_BUSSTOP)) {
+        if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) ||
+                (myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP) ||
+                (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP)) {
             // return busStop lane
             return getParentAdditionals().front()->getParentLanes().front();
         } else if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {

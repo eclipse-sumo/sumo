@@ -309,30 +309,6 @@ enum SumoXMLTag {
     SUMO_TAG_PERSONFLOW,
     /// @}
 
-    /// @name Persons plans (used by Netedit)
-    /// @{
-    // person trips
-    SUMO_TAG_PERSONTRIP_EDGE_EDGE,
-    SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP,
-    SUMO_TAG_PERSONTRIP_BUSSTOP_EDGE,
-    SUMO_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
-    // walks
-    SUMO_TAG_WALK_EDGE_EDGE,
-    SUMO_TAG_WALK_BUSSTOP_EDGE,
-    SUMO_TAG_WALK_BUSSTOP_BUSSTOP,
-    SUMO_TAG_WALK_EDGE_BUSSTOP,
-    SUMO_TAG_WALK_EDGES,
-    SUMO_TAG_WALK_ROUTE,
-    // rides
-    SUMO_TAG_RIDE_EDGE_EDGE,
-    SUMO_TAG_RIDE_EDGE_BUSSTOP,
-    SUMO_TAG_RIDE_BUSSTOP_EDGE,
-    SUMO_TAG_RIDE_BUSSTOP_BUSSTOP,
-    // person stops
-    SUMO_TAG_PERSONSTOP_BUSSTOP,
-    SUMO_TAG_PERSONSTOP_LANE,
-    /// @}
-
     /// @name Data elements (used by Netedit)
     /// @{
     SUMO_TAG_DATASET,
@@ -385,7 +361,31 @@ enum SumoXMLTag {
     /// @brief alternative definition for city entrances
     AGEN_TAG_ENTRANCE,
     /// @brief parameters
-    AGEN_TAG_PARAM
+    AGEN_TAG_PARAM,
+
+    /// @name Persons plans (used by Netedit)
+    /// @{
+    // person trips
+    GNE_TAG_PERSONTRIP_EDGE_EDGE,
+    GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
+    GNE_TAG_PERSONTRIP_BUSSTOP_EDGE,
+    GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
+    // walks
+    GNE_TAG_WALK_EDGE_EDGE,
+    GNE_TAG_WALK_BUSSTOP_EDGE,
+    GNE_TAG_WALK_BUSSTOP_BUSSTOP,
+    GNE_TAG_WALK_EDGE_BUSSTOP,
+    GNE_TAG_WALK_EDGES,
+    GNE_TAG_WALK_ROUTE,
+    // rides
+    GNE_TAG_RIDE_EDGE_EDGE,
+    GNE_TAG_RIDE_EDGE_BUSSTOP,
+    GNE_TAG_RIDE_BUSSTOP_EDGE,
+    GNE_TAG_RIDE_BUSSTOP_BUSSTOP,
+    // person stops
+    GNE_TAG_PERSONSTOP_BUSSTOP,
+    GNE_TAG_PERSONSTOP_LANE
+    /// @}
 };
 
 

@@ -112,7 +112,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         return false;
     }
     // check if walk routes can be created
-    if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_ROUTE)) {
+    if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_ROUTE)) {
         return buildPersonOverRoute(objectsUnderCursor.getDemandElementFront());
     } else if ((myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
         return buildPersonOverStop(objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
@@ -154,7 +154,7 @@ GNEPersonFrame::tagSelected() {
             // now check if person plan selected is valid
             if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
                 // check if person plan attributes has to be shown
-                if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_EDGE_BUSSTOP)) {
+                if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP)) {
                     // hide person plan attributes
                     myPersonPlanAttributes->hideAttributesCreatorModul();
                 } else {
@@ -162,7 +162,7 @@ GNEPersonFrame::tagSelected() {
                     myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
                 }
                 // check if myPathCreator has to be show
-                if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_ROUTE) ||
+                if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_ROUTE) ||
                         (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
                     // hide edge path creator modul
                     myPathCreator->hidePathCreatorModul();
@@ -221,7 +221,7 @@ GNEPersonFrame::demandElementSelected() {
         // now check if person plan selected is valid
         if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
             // check if person plan attributes has to be shown
-            if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_EDGE_BUSSTOP)) {
+            if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP)) {
                 // hide person plan attributes
                 myPersonPlanAttributes->hideAttributesCreatorModul();
             } else {
@@ -229,7 +229,7 @@ GNEPersonFrame::demandElementSelected() {
                 myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
             }
             // check if myPathCreator has to be show
-            if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_WALK_ROUTE) ||
+            if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_ROUTE) ||
                     (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
                 // hide edge path creator modul
                 myPathCreator->hidePathCreatorModul();
@@ -285,7 +285,7 @@ GNEPersonFrame::createPath() {
         const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0)? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
         // check what PersonPlan we're creating
         switch (myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
-            case SUMO_TAG_PERSONTRIP_EDGE_EDGE: {
+            case GNE_TAG_PERSONTRIP_EDGE_EDGE: {
                 // check that number of selected edges are correct
                 if (myPathCreator->getSelectedEdges().empty()) {
                     // abort person creation
@@ -304,7 +304,7 @@ GNEPersonFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP: {
+            case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
                 if (myPathCreator->getSelectedEdges().empty()) {
                     // abort person creation
                     myViewNet->setStatusBarText("A person trip with from-to needs at least one edge.");
@@ -323,7 +323,7 @@ GNEPersonFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_WALK_EDGES: {
+            case GNE_TAG_WALK_EDGES: {
                 // check that number of selected edges are correct
                 if (myPathCreator->getSelectedEdges().empty()) {
                     // abort person creation
@@ -338,7 +338,7 @@ GNEPersonFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_WALK_EDGE_EDGE: {
+            case GNE_TAG_WALK_EDGE_EDGE: {
                 // check that number of selected edges are correct
                 if (myPathCreator->getSelectedEdges().empty()) {
                     // abort person creation
@@ -352,7 +352,7 @@ GNEPersonFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_WALK_EDGE_BUSSTOP: {
+            case GNE_TAG_WALK_EDGE_BUSSTOP: {
                 if (myPathCreator->getSelectedEdges().empty()) {
                     // abort person creation
                     myViewNet->setStatusBarText("A person walk with from-to needs at least one edge.");
@@ -371,7 +371,7 @@ GNEPersonFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_RIDE_EDGE_EDGE: {
+            case GNE_TAG_RIDE_EDGE_EDGE: {
                 // check that number of selected edges are correct
                 if (myPathCreator->getSelectedEdges().empty()) {
                     // abort person creation
@@ -385,7 +385,7 @@ GNEPersonFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_RIDE_EDGE_BUSSTOP: {
+            case GNE_TAG_RIDE_EDGE_BUSSTOP: {
                 if (myPathCreator->getSelectedEdges().empty()) {
                     // abort person creation
                     myViewNet->setStatusBarText("A ride with from-to needs at least one edge.");

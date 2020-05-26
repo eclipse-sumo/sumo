@@ -502,18 +502,18 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
     const GNEDemandElement* lastPersonPlan = myCurrentDemandElement->getChildDemandElements().back();
     // check tag
     switch (lastPersonPlan->getTagProperty().getTag()) {
-        case SUMO_TAG_PERSONTRIP_EDGE_EDGE:
-        case SUMO_TAG_WALK_EDGES:
-        case SUMO_TAG_WALK_EDGE_EDGE:
-        case SUMO_TAG_RIDE_EDGE_EDGE:
-        case SUMO_TAG_PERSONSTOP_LANE:
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_WALK_EDGES:
+        case GNE_TAG_WALK_EDGE_EDGE:
+        case GNE_TAG_RIDE_EDGE_EDGE:
+        case GNE_TAG_PERSONSTOP_LANE:
             return lastPersonPlan->getParentEdges().back();
-        case SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP:
-        case SUMO_TAG_WALK_EDGE_BUSSTOP:
-        case SUMO_TAG_RIDE_EDGE_BUSSTOP:
-        case SUMO_TAG_PERSONSTOP_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_WALK_EDGE_BUSSTOP:
+        case GNE_TAG_RIDE_EDGE_BUSSTOP:
+        case GNE_TAG_PERSONSTOP_BUSSTOP:
             return lastPersonPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
-        case SUMO_TAG_WALK_ROUTE:
+        case GNE_TAG_WALK_ROUTE:
             return lastPersonPlan->getParentDemandElements().back()->getParentEdges().back();
         default:
             return nullptr;
@@ -2199,7 +2199,7 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
         // vehicles
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_ROUTEFLOW:
-        case SUMO_TAG_WALK_ROUTE:
+        case GNE_TAG_WALK_ROUTE:
             /* route, fix */
             break;
         case SUMO_TAG_TRIP:
@@ -2208,29 +2208,29 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
         // person plans
-        case SUMO_TAG_PERSONTRIP_EDGE_EDGE:
-        case SUMO_TAG_WALK_EDGE_EDGE:
-        case SUMO_TAG_RIDE_EDGE_EDGE:
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_WALK_EDGE_EDGE:
+        case GNE_TAG_RIDE_EDGE_EDGE:
             myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        case SUMO_TAG_WALK_EDGES:
+        case GNE_TAG_WALK_EDGES:
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        case SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP:
-        case SUMO_TAG_WALK_EDGE_BUSSTOP:
-        case SUMO_TAG_RIDE_EDGE_BUSSTOP:
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_WALK_EDGE_BUSSTOP:
+        case GNE_TAG_RIDE_EDGE_BUSSTOP:
             myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
             break;
-        case SUMO_TAG_PERSONSTOP_BUSSTOP:
-        case SUMO_TAG_PERSONSTOP_LANE:
+        case GNE_TAG_PERSONSTOP_BUSSTOP:
+        case GNE_TAG_PERSONSTOP_LANE:
             /* fix */
             break;
         default:

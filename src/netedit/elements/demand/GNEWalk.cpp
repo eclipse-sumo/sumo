@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_WALK_EDGES), net, GLO_WALK, SUMO_TAG_WALK_EDGES,
+    GNEDemandElement(net->generateDemandElementID("",GNE_TAG_WALK_EDGES), net, GLO_WALK,GNE_TAG_WALK_EDGES,
         {}, {edges}, {}, {}, {}, {}, {personParent}, {},    // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                    // Children
     Parameterised(),
@@ -46,7 +46,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, const std::vector<
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_WALK_EDGE_EDGE), net, GLO_WALK, SUMO_TAG_WALK_EDGE_EDGE,
+    GNEDemandElement(net->generateDemandElementID("",GNE_TAG_WALK_EDGE_EDGE), net, GLO_WALK,GNE_TAG_WALK_EDGE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}, // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Children
     Parameterised(),
@@ -59,7 +59,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_WALK_EDGE_BUSSTOP), net, GLO_WALK, SUMO_TAG_WALK_EDGE_BUSSTOP,
+    GNEDemandElement(net->generateDemandElementID("",GNE_TAG_WALK_EDGE_BUSSTOP), net, GLO_WALK,GNE_TAG_WALK_EDGE_BUSSTOP,
         {}, {fromEdge}, {}, {busStop}, {}, {}, {personParent}, {},  // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Children
     Parameterised(),
@@ -72,7 +72,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* routeParent, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_WALK_ROUTE), net, GLO_WALK, SUMO_TAG_WALK_ROUTE,
+    GNEDemandElement(net->generateDemandElementID("",GNE_TAG_WALK_ROUTE), net, GLO_WALK,GNE_TAG_WALK_ROUTE,
         {}, {}, {}, {}, {}, {}, {personParent, routeParent}, {},    // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Children
     Parameterised(),
@@ -113,9 +113,9 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     // open tag
     device.openTag(SUMO_TAG_WALK);
     // write attributes depending  of walk type
-    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+    if (myTagProperty.getTag() ==GNE_TAG_WALK_ROUTE) {
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
-    } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) {
+    } else if (myTagProperty.getTag() ==GNE_TAG_WALK_EDGES) {
         device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
     } else {
         // only write From attribute if this is the first Person Plan
@@ -142,7 +142,7 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
 
 bool
 GNEWalk::isDemandElementValid() const {
-    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+    if (myTagProperty.getTag() ==GNE_TAG_WALK_ROUTE) {
         // check if route parent is valid
         return getParentDemandElements().at(1)->isDemandElementValid();
     } else if (getParentEdges().size() == 2) {
@@ -164,7 +164,7 @@ GNEWalk::isDemandElementValid() const {
 
 std::string
 GNEWalk::getDemandElementProblem() const {
-    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+    if (myTagProperty.getTag() ==GNE_TAG_WALK_ROUTE) {
         return "";
     } else if (getParentEdges().size() == 0) {
         return ("A walk need at least one edge");
@@ -291,7 +291,7 @@ GNEWalk::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path depending if is a Walk over route
-    if (myTagProperty.getTag() == SUMO_TAG_WALK_ROUTE) {
+    if (myTagProperty.getTag() ==GNE_TAG_WALK_ROUTE) {
         // use edges of route parent
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
                                                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
@@ -338,10 +338,10 @@ GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNEWalk::computePath() {
-    if ((myTagProperty.getTag() == SUMO_TAG_WALK_EDGE_EDGE)) {
+    if ((myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_EDGE)) {
         // calculate route and update routeEdges
         replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
-    } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGE_BUSSTOP) {
+    } else if (myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
@@ -356,10 +356,10 @@ GNEWalk::computePath() {
 
 void
 GNEWalk::invalidatePath() {
-    if ((myTagProperty.getTag() == SUMO_TAG_WALK_EDGE_EDGE)) {
+    if ((myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_EDGE)) {
         // calculate route and update routeEdges
         replacePathEdges(this, getParentEdges());
-    } else if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGE_BUSSTOP) {
+    } else if (myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP) {
         // declare a from-via-busStop edges vector
         std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
         // add busStop edge
@@ -403,7 +403,7 @@ GNEWalk::getCenteringBoundary() const {
 void
 GNEWalk::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of WalkEdges
-    if ((myTagProperty.getTag() == SUMO_TAG_WALK_EDGES) &&
+    if ((myTagProperty.getTag() ==GNE_TAG_WALK_EDGES) &&
             (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE) &&
             (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // obtain new list of walk edges
@@ -567,9 +567,9 @@ GNEWalk::getPopUpID() const {
 
 std::string
 GNEWalk::getHierarchyName() const {
-    if ((myTagProperty.getTag() == SUMO_TAG_WALK_EDGE_EDGE) || (myTagProperty.getTag() == SUMO_TAG_WALK_EDGES)) {
+    if ((myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_EDGE) || (myTagProperty.getTag() ==GNE_TAG_WALK_EDGES)) {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
-    } else  if (myTagProperty.getTag() == SUMO_TAG_WALK_EDGE_BUSSTOP) {
+    } else  if (myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP) {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();
     } else {
         return "walk: " + getParentDemandElements().at(1)->getID();

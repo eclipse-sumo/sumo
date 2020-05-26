@@ -122,12 +122,12 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     // Obtain current person plan tag (only for improve code legibility)
     SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
     // declare flags for requierements
-    const bool requireBusStop = ((personPlanTag == SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_EDGE_BUSSTOP) ||
-        (personPlanTag == SUMO_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == SUMO_TAG_PERSONSTOP_BUSSTOP));
-    const bool requireEdge = ((personPlanTag == SUMO_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag == SUMO_TAG_WALK_EDGES) ||
-        (personPlanTag == SUMO_TAG_WALK_EDGE_EDGE) || (personPlanTag == SUMO_TAG_RIDE_EDGE_EDGE));
+    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag ==GNE_TAG_WALK_EDGE_BUSSTOP) ||
+        (personPlanTag == GNE_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_PERSONSTOP_BUSSTOP));
+    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag ==GNE_TAG_WALK_EDGES) ||
+        (personPlanTag ==GNE_TAG_WALK_EDGE_EDGE) || (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE));
     // continue depending of tag
-    if ((personPlanTag == SUMO_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+    if ((personPlanTag ==GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
@@ -228,7 +228,7 @@ GNEPersonPlanFrame::createPath() {
         const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0)? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
         // check what PersonPlan we're creating
         switch (myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
-            case SUMO_TAG_PERSONTRIP_EDGE_EDGE: {
+            case GNE_TAG_PERSONTRIP_EDGE_EDGE: {
                 // check if person trip fromto can be created
                 if (myPathCreator->getSelectedEdges().size() > 1) {
                     GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos, types, modes);
@@ -238,7 +238,7 @@ GNEPersonPlanFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_PERSONTRIP_EDGE_BUSSTOP: {
+            case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
                 // check if person trip busstop can be created
                 if (busStop == nullptr) {
                     myViewNet->setStatusBarText("A person trip with from and busStop attributes needs one edge and one busStop");
@@ -254,7 +254,7 @@ GNEPersonPlanFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_WALK_EDGES: {
+            case GNE_TAG_WALK_EDGES: {
                 // check if walk edges can be created
                 if (myPathCreator->getSelectedEdges().size() > 0) {
                     GNERouteHandler::buildWalkEdges(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges(), arrivalPos);
@@ -266,7 +266,7 @@ GNEPersonPlanFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_WALK_EDGE_EDGE: {
+            case GNE_TAG_WALK_EDGE_EDGE: {
                 // check if walk fromto can be created
                 if (myPathCreator->getSelectedEdges().size() > 1) {
                     GNERouteHandler::buildWalkFromTo(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos);
@@ -276,7 +276,7 @@ GNEPersonPlanFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_WALK_EDGE_BUSSTOP: {
+            case GNE_TAG_WALK_EDGE_BUSSTOP: {
                 // check if walk busstop can be created
                 if (busStop == nullptr) {
                     myViewNet->setStatusBarText("A walk with from and busStop attributes needs one edge and one busStop");
@@ -292,7 +292,7 @@ GNEPersonPlanFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_WALK_ROUTE: {
+            case GNE_TAG_WALK_ROUTE: {
                 // check if walk route can be created
                 if (myPathCreator->getRoute()) {
                     GNERouteHandler::buildWalkRoute(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getRoute(), arrivalPos);
@@ -302,7 +302,7 @@ GNEPersonPlanFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_RIDE_EDGE_EDGE: {
+            case GNE_TAG_RIDE_EDGE_EDGE: {
                 // check if ride fromto can be created
                 if (myPathCreator->getSelectedEdges().size() > 2) {
                     GNERouteHandler::buildRideFromTo(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), lines, arrivalPos);
@@ -312,7 +312,7 @@ GNEPersonPlanFrame::createPath() {
                 }
                 break;
             }
-            case SUMO_TAG_RIDE_EDGE_BUSSTOP: {
+            case GNE_TAG_RIDE_EDGE_BUSSTOP: {
                 // check if ride busstop can be created
                 if (busStop == nullptr) {
                     myViewNet->setStatusBarText("A ride with from and busStop attributes needs one edge and one busStop");
