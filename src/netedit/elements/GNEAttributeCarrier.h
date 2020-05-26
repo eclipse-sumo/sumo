@@ -396,6 +396,15 @@ private:
     /// @brief fill person elements
     static void fillPersonElements();
 
+    /// @brief fill person plan trips
+    static void fillPersonPlanTrips();
+
+    /// @brief fill person plan walks
+    static void fillPersonPlanWalks();
+
+    /// @brief fill person plan rides
+    static void fillPersonPlanRides();
+
     /// @brief fill personStop elements
     static void fillPersonStopElements();
 
