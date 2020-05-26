@@ -48,7 +48,8 @@ permalink: /ChangeLog/
   - **summary-output** now includes number of stopped vehicles. Issue #6966
   - Option **--scale** now also applies to persons. Issue #5564
   - Emission-output is now written only for those vehicles that have an emission device. By default all vehicles get the device when option **--emission-output** is set. This default can be changed by standard device assignment options and configurations. Issue #7079
-  - Added option **--device.emissions.period** to control the period in which emission-output is written. Isue #7079  
+  - Added option **--device.emissions.period** to control the period in which emission-output is written. Isue #7079
+  - Charging stations now work when a vehicle is parking (either with `parking="true"` or when stopped at a parkingArea and a chargingStation simultaneously). Issue #7068
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
