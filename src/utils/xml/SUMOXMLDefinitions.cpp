@@ -231,27 +231,27 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "entrance",                       AGEN_TAG_ENTRANCE },
     { "parameters",                     AGEN_TAG_PARAM },
     // GNE Person trips
-    { "personTrip:Edge->Edge",          GNE_TAG_PERSONTRIP_EDGE_EDGE },
-    { "personTrip:Edge->BusStop",       GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },
-    { "personTrip:BusStop->Edge",       GNE_TAG_PERSONTRIP_BUSSTOP_EDGE },
-    { "personTrip:BusStop->BusStop",    GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
+    { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE_EDGE },
+    { "personTrip: edge->busstop",      GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },
+    { "personTrip: busstop->edge",      GNE_TAG_PERSONTRIP_BUSSTOP_EDGE },
+    { "personTrip: busstop->busstop",   GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
     // GNE Walks
-    { "walk:Edge->Edge",                GNE_TAG_WALK_EDGE_EDGE },
-    { "walk:Edge->BusStop",             GNE_TAG_WALK_EDGE_BUSSTOP },
-    { "walk:BusSto->pEdge",             GNE_TAG_WALK_BUSSTOP_EDGE },
-    { "walk:BusStop->BusStop",          GNE_TAG_WALK_BUSSTOP_BUSSTOP },
-    { "walk:Edges",                     GNE_TAG_WALK_EDGES },
-    { "walk:Route",                     GNE_TAG_WALK_ROUTE },
+    { "walk: edge->edge",               GNE_TAG_WALK_EDGE_EDGE },
+    { "walk: edge->busStop",            GNE_TAG_WALK_EDGE_BUSSTOP },
+    { "walk: busSto->pedge",            GNE_TAG_WALK_BUSSTOP_EDGE },
+    { "walk: busStop->busStop",         GNE_TAG_WALK_BUSSTOP_BUSSTOP },
+    { "walk: edges",                    GNE_TAG_WALK_EDGES },
+    { "walk: route",                    GNE_TAG_WALK_ROUTE },
     // GNE Rides
-    { "ride:EdgeEdge",                  GNE_TAG_RIDE_EDGE_EDGE },
-    { "ride:EdgeBusStop",               GNE_TAG_RIDE_EDGE_BUSSTOP },
-    { "ride:BusStopEdge",               GNE_TAG_RIDE_BUSSTOP_EDGE },
-    { "ride:BusStopBusStop",            GNE_TAG_RIDE_BUSSTOP_BUSSTOP },
-    // GNE person stops
-    { "personStop:BusStop",             GNE_TAG_PERSONSTOP_BUSSTOP },
-    { "personStop:Lane",                GNE_TAG_PERSONSTOP_LANE },
+    { "ride: edge->edge",               GNE_TAG_RIDE_EDGE_EDGE },
+    { "ride: edge->busStop",            GNE_TAG_RIDE_EDGE_BUSSTOP },
+    { "ride: busStop->edge",            GNE_TAG_RIDE_BUSSTOP_EDGE },
+    { "ride: busStop->busStop",         GNE_TAG_RIDE_BUSSTOP_BUSSTOP },
+    // GNE person Stops
+    { "personStop: busStop",            GNE_TAG_PERSONSTOP_BUSSTOP },
+    { "personStop: lane",               GNE_TAG_PERSONSTOP_LANE },
     // Other
-    { "",                               SUMO_TAG_NOTHING } //< must be the last one
+    { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
 
 
