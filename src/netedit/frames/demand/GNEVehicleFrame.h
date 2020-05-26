@@ -90,8 +90,8 @@ protected:
     /// @brief selected vehicle type in DemandElementSelector
     void demandElementSelected();
 
-    /// @brief finish edge path creation
-    void edgePathCreated();
+    /// @brief create path
+    void createPath();
 
 private:
     /// @brief vehicle tag selector (used to select diffent kind of vehicles)

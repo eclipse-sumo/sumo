@@ -86,9 +86,6 @@ protected:
     /// @brief selected demand element in DemandElementSelector
     virtual void demandElementSelected();
 
-    /// @brief finish edge path creation
-    virtual void edgePathCreated();
-
     /// @brief build a shaped element using the drawed shape (can be reimplemented in frame children)
     virtual bool shapeDrawed();
 

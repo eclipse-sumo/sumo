@@ -295,7 +295,7 @@ GNEVehicleFrame::demandElementSelected() {
 
 
 void
-GNEVehicleFrame::edgePathCreated() {
+GNEVehicleFrame::createPath() {
     // first check that we have at least two edges
     if (myPathCreator->getSelectedEdges().size() > 1) {
         // obtain tag (only for improve code legibility)
@@ -341,6 +341,8 @@ GNEVehicleFrame::edgePathCreated() {
             // delete flowParameters
             delete flowParameters;
         }
+        // abort path creation
+        myPathCreator->abortPathCreation();
         // refresh myVehicleAttributes
         myVehicleAttributes->refreshRows();
     }

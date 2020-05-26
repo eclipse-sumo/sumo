@@ -168,12 +168,6 @@ GNEFrame::demandElementSelected() {
 }
 
 
-void
-GNEFrame::edgePathCreated() {
-    // this function has to be reimplemente in all child frames that uses a EdgePathCreator
-}
-
-
 bool
 GNEFrame::shapeDrawed() {
     // this function has to be reimplemente in all child frames that needs to draw a polygon (for example, GNEFrame or GNETAZFrame)

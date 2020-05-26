@@ -49,8 +49,8 @@ public:
     bool addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
 
 protected:
-    /// @brief finish edge path creation
-    void edgePathCreated();
+    /// @brief create path
+    void createPath();
 
 private:
     /// @brief Invalidated copy constructor.

@@ -59,8 +59,8 @@ protected:
     /// @brief selected demand element in DemandElementSelector
     void demandElementSelected();
 
-    /// @brief finish edge path creation
-    void edgePathCreated();
+    /// @brief create path
+    void createPath();
 
 private:
     /// @brief person tag selector (used to select diffent kind of persons)

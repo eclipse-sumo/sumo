@@ -584,7 +584,7 @@ GNEGenericDataFrame::intervalSelected() {
 
 
 void
-GNEGenericDataFrame::edgePathCreated() {
+GNEGenericDataFrame::createPath() {
     // this function has to be reimplemente in all child frames that uses a PathCreator
 }
 

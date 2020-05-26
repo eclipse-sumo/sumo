@@ -257,8 +257,8 @@ protected:
     /// @brief interval selected
     void intervalSelected();
 
-    /// @brief finish edge path creation
-    virtual void edgePathCreated();
+    /// @brief create path
+    virtual void createPath();
 
     /// @brief dataSet selector modul
     DataSetSelector* myDataSetSelector;

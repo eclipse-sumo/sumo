@@ -267,7 +267,7 @@ GNEPersonFrame::demandElementSelected() {
 
 
 void
-GNEPersonFrame::edgePathCreated() {
+GNEPersonFrame::createPath() {
     // first check that all attributes are valid
     if (!myPersonAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid person parameters.");
@@ -356,6 +356,8 @@ GNEPersonFrame::edgePathCreated() {
             default:
                 throw InvalidArgument("Invalid person plan tag");
         }
+        // abort path creation
+        myPathCreator->abortPathCreation();
         // refresh person and personPlan attributes
         myPersonAttributes->refreshRows();
         myPersonPlanAttributes->refreshRows();

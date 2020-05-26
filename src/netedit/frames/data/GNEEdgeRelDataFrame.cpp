@@ -50,7 +50,7 @@ GNEEdgeRelDataFrame::addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCur
 
 
 void
-GNEEdgeRelDataFrame::edgePathCreated() {
+GNEEdgeRelDataFrame::createPath() {
     // first check that we have at least two edges
     if (myPathCreator->getSelectedEdges().size() > 1) {
         // just create EdgeRelationData
