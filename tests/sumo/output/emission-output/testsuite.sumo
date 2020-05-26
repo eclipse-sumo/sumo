@@ -16,5 +16,8 @@ emissionClasses
 # only write output for half of the vehicles
 half_equipped
 
+# output in every 5th step
+period
+
 # Testing error cases
 errors
