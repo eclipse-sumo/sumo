@@ -7,6 +7,9 @@ half_equipped
 # Vehicle taking different chargingStations and busstops, every with a different configuration 
 chargingStations
 
+# leave the road while charging
+chargingStations_parked
+
 # usually loaded from vehicle parameter,
 # default taken from vType parameter
 actualBatteryCapacity
