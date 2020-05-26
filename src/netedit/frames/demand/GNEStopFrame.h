@@ -76,10 +76,10 @@ public:
 
     /**@brief add Stop element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @param shiftPressed flag to check if during clicking shift key was pressed
+     * @param keyPressed key pressed during click
      * @return true if Stop was sucesfully added
      */
-    bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool shiftPressed);
+    bool addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed);
 
     /// @brief get stop parameters
     static bool getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTag stopTag, GNEViewNet* viewNet,

@@ -93,7 +93,7 @@ GNEPersonFrame::show() {
 
 
 bool
-GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
     // obtain tag (only for improve code legibility)
     SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
     // first check that current selected person is valid
@@ -117,9 +117,9 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     } else if ((myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
         return buildPersonOverStop(objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
     } else if (objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
-        return myPathCreator->addAdditional(objectsUnderCursor.getAdditionalFront(), false, false);
+        return myPathCreator->addAdditional(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else if (objectsUnderCursor.getEdgeFront()) {
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), false, false);
+        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else {
         return false;
     }

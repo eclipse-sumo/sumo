@@ -135,7 +135,7 @@ GNEVehicleFrame::show() {
 
 
 bool
-GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
     // obtain tag (only for improve code legibility)
     SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
     // first check that current selected vehicle is valid
@@ -238,7 +238,7 @@ GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsU
         }
     } else if (((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == SUMO_TAG_FLOW)) && objectsUnderCursor.getEdgeFront()) {
         // add clicked edge in PathCreator
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), false, false);
+        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else {
         return false;
     }

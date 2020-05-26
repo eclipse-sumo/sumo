@@ -44,9 +44,10 @@ public:
 
     /**@brief add additional element
      * @param objectsUnderCursor collection of objects under cursor after click over view
+     * @param keyPressed key pressed during click
      * @return true if additional was sucesfully added
      */
-    bool addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed);
 
 private:
     /// @brief Invalidated copy constructor.

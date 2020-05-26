@@ -108,8 +108,7 @@ GNEPersonPlanFrame::hide() {
 
 
 bool
-GNEPersonPlanFrame::handlePersonPlanClick(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
-        const bool shiftKeyPressed, const bool controlKeyPressed) {
+GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
     // first check if person selected is valid
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
         myViewNet->setStatusBarText("Current selected person isn't valid.");
@@ -132,13 +131,13 @@ GNEPersonPlanFrame::handlePersonPlanClick(const GNEViewNetHelper::ObjectsUnderCu
                         (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO));
     // process personPlanCreated(...) depending of required element
     if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
-        return myPathCreator->addAdditional(objectsUnderCursor.getAdditionalFront(), true, true);
+        return myPathCreator->addAdditional(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
 /*
     } else if (requireRoute && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return personPlanCreated(nullptr, objectsUnderCursor.getDemandElementFront());
 */
     } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
-        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), true, true);
+        return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else {
         return false;
     }

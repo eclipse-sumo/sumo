@@ -236,14 +236,17 @@ GNERouteFrame::hide() {
 }
 
 
-void
-GNERouteFrame::handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed, const bool controlKeyPressed) {
+bool
+GNERouteFrame::addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::KeyPressed &keyPressed) {
     // first check if current vClass and mode are valid and edge exist
     if (clickedEdge && myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
         // add edge in path
-        myPathCreator->addEdge(clickedEdge, shiftKeyPressed, controlKeyPressed);
+        myPathCreator->addEdge(clickedEdge, keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
         // update view
         myViewNet->updateViewNet();
+        return true;
+    } else {
+        return false;
     }
 }
 

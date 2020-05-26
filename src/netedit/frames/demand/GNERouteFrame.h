@@ -113,8 +113,12 @@ public:
     /// @brief hide delete frame
     void hide();
 
-    /// @brief handle edge click
-    void handleEdgeClick(GNEEdge* clickedEdge, const bool shiftKeyPressed, const bool controlKeyPressed);
+    /**@brief add route edge
+    * @param edge edge to be added
+    * @param keyPressed key pressed during click
+    * @return true if element was sucesfully added
+    */
+    bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::KeyPressed &keyPressed);
 
     /// @brief get path creator modul
     GNEFrameModuls::PathCreator* getPathCreator() const;

@@ -52,8 +52,7 @@ public:
         long onCmdTransform(FXObject* obj, FXSelector, void*);
 
     protected:
-        /// @brief default constructor needed by FOX
-        GNEPersonPopupMenu() { }
+        FOX_CONSTRUCTOR(GNEPersonPopupMenu)
 
     private:
         /// @brief current person
@@ -86,8 +85,7 @@ public:
         long onCmdTransform(FXObject* obj, FXSelector, void*);
 
     protected:
-        /// @brief default constructor needed by FOX
-        GNESelectedPersonsPopupMenu() { }
+        FOX_CONSTRUCTOR(GNESelectedPersonsPopupMenu)
 
     private:
         /// @brief tag of clicked person

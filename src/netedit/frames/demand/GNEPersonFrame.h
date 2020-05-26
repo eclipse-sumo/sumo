@@ -47,7 +47,7 @@ public:
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if vehicle was sucesfully added
      */
-    bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);
+    bool addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed);
 
     /// @brief get PathCreator modul
     GNEFrameModuls::PathCreator* getPathCreator() const;

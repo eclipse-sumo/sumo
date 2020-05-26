@@ -41,7 +41,7 @@ GNEEdgeDataFrame::~GNEEdgeDataFrame() {}
 
 
 bool
-GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &/*keyPressed*/) {
     // first check if we clicked over an edge
     if (objectsUnderCursor.getEdgeFront() && myDataSetSelector->getDataSet() && myIntervalSelector->getDataInterval()) {
         // first check if the given interval there is already a EdgeData for the given ID

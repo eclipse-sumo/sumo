@@ -3904,8 +3904,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // check if we clicked over a lane
             if (myObjectsUnderCursor.getLaneFront()) {
                 // Handle edge click
-                myViewParent->getRouteFrame()->handleEdgeClick(myObjectsUnderCursor.getLaneFront()->getParentEdge(), 
-                    myKeyPressed.shiftKeyPressed(), myKeyPressed.controlKeyPressed());
+                myViewParent->getRouteFrame()->addEdgeRoute(myObjectsUnderCursor.getLaneFront()->getParentEdge(), myKeyPressed);
             }
             // process click
             processClick(eventData);
@@ -3915,7 +3914,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
-                myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor);
+                myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor, myKeyPressed);
             }
             // process click
             processClick(eventData);
@@ -3925,7 +3924,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
-                myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed.shiftKeyPressed());
+                myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed);
             }
             // process click
             processClick(eventData);
@@ -3935,7 +3934,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // Handle click
-                myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor);
+                myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor, myKeyPressed);
             }
             // process click
             processClick(eventData);
@@ -3943,7 +3942,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_PERSONPLAN: {
             // Handle person plan click
-            myViewParent->getPersonPlanFrame()->handlePersonPlanClick(myObjectsUnderCursor, myKeyPressed.shiftKeyPressed(), myKeyPressed.controlKeyPressed());
+            myViewParent->getPersonPlanFrame()->addPersonPlanElement(myObjectsUnderCursor, myKeyPressed);
             // process click
             processClick(eventData);
             break;
@@ -4044,7 +4043,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         case DataEditMode::DATA_EDGEDATA:
             // avoid create edgeData if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor)) {
+                if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor, myKeyPressed)) {
                     // update view to show the new edge data
                     updateViewNet();
                 }
@@ -4055,7 +4054,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         case DataEditMode::DATA_EDGERELDATA:
             // avoid create edgeData if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myObjectsUnderCursor)) {
+                if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myObjectsUnderCursor, myKeyPressed)) {
                     // update view to show the new edge data
                     updateViewNet();
                 }
@@ -4066,7 +4065,7 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         case DataEditMode::DATA_TAZRELDATA:
             // avoid create TAZData if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getTAZRelDataFrame()->addTAZRelationData(myObjectsUnderCursor)) {
+                if (myViewParent->getTAZRelDataFrame()->addTAZRelationData(myObjectsUnderCursor, myKeyPressed)) {
                     // update view to show the new TAZ data
                     updateViewNet();
                 }

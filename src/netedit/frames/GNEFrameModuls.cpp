@@ -2323,7 +2323,7 @@ GNEFrameModuls::PathCreator::getSelectedEdges() const {
 
 
 bool
-GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool shiftKeyPressed, const bool controlKeyPressed) {
+GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if additionals aren allowed
     if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
         return false;
