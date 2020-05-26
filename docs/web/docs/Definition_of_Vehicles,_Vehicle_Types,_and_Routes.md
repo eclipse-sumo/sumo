@@ -889,6 +889,29 @@ following:
 </routes>
 ```
 
+### Adding multiple vTypes by hand
+
+Another way to implement Vehicle Type Distributions is adding multiple vTypes by hand by running [randomTrips.py](Tools/Trip.md) multiple times to generate corresponding trips and routes files. Remember to set **--prefix** option to ensure all vehicles have distinct IDs. Setting **--period** option to adjust the distribution among different vTypes. In the following example the distributions of passenger vType and bus vType are (1/0.2)/(1/0.2+1)=83.3% and 1/(1/0.2+1)=16.7% respectively.  
+
+```
+<SUMO_HOME>/tools/randomTrips.py -n *.net.xml -o *.trips1.xml -r *.rou1.xml --vehicle-class passenger --prefix=car --period 0.2 
+
+
+<SUMO_HOME>/tools/randomTrips.py -n *.net.xml -o *.trips2.xml -r *.rou2.xml --vehicle-class bus --prefix=bus --period 1 
+```
+
+Then add route fiels into your *.sumocfg \<route-files values=""> with "," between them. For example:
+
+```
+<configuration ...>
+  <input>
+      <net-file value="*.net.xml"/>
+      <route-files value="*.rou1.xml, *.rou2.xml"/>
+  </input>
+</configuration>   
+```
+
+
 ## Route Distributions
 
 ```
