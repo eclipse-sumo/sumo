@@ -5,3 +5,6 @@ walk_probability
 
 # test whether a chain of walks rides and stops works
 trip_chain
+
+# persons riding the ferry
+ferry_trip
