@@ -47,7 +47,6 @@
 #include "GNEFrameModuls.h"
 
 
-
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
@@ -2115,8 +2114,9 @@ GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent, const int creati
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
     myCreationMode(creationMode),
-    myFrontAdditional(nullptr),
-    myToAdditional(nullptr),
+    myFromStoppingPlace(nullptr),
+    myToStoppingPlace(nullptr),
+    myRoute(nullptr),
     myVClass(SVC_PASSENGER) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameThicked);
@@ -2323,24 +2323,24 @@ GNEFrameModuls::PathCreator::getSelectedEdges() const {
 
 
 bool
-GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
-    // check if additionals aren allowed
+GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional *stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+    // check if stoppingPlaces aren allowed
     if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
         return false;
     }
-    // check from additional
-    if ((myCreationMode & START_BUSSTOP) && myFrontAdditional) {
+    // check from stoppingPlace
+    if ((myCreationMode & START_BUSSTOP) && myFromStoppingPlace) {
         return false;
     }
-    // check to additional
-    if ((myCreationMode & START_BUSSTOP) && myToAdditional) {
+    // check to stoppingPlace
+    if ((myCreationMode & START_BUSSTOP) && myToStoppingPlace) {
         return false;
     }
     // All checks ok, then add it in selected elements
-    if ((myCreationMode & START_BUSSTOP) && (myFrontAdditional == nullptr)) {
-        myFrontAdditional = additional;
+    if ((myCreationMode & START_BUSSTOP) && (myFromStoppingPlace == nullptr)) {
+        myFromStoppingPlace = stoppingPlace;
     } else {
-        myToAdditional = additional;
+        myToStoppingPlace = stoppingPlace;
     }
     // enable abort route button
     myAbortCreationButton->enable();
@@ -2348,8 +2348,8 @@ GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool
     myFinishCreationButton->enable();
     // disable undo/redo
     myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
-    // enable or disable remove last additional button
-    if (myFrontAdditional || myToAdditional) {
+    // enable or disable remove last stoppingPlace button
+    if (myFromStoppingPlace || myToStoppingPlace) {
         myRemoveLastInsertedElement->enable();
     } else {
         myRemoveLastInsertedElement->disable();
@@ -2358,21 +2358,42 @@ GNEFrameModuls::PathCreator::addAdditional(GNEAdditional *additional, const bool
     recalculatePath();
     // update info route label
     updateInfoRouteLabel();
-    // update additional colors
+    // update stoppingPlace colors
     updateEdgeColors();
     return true;
 }
 
 
 GNEAdditional* 
-GNEFrameModuls::PathCreator::getFrontAdditional() const {
-    return myFrontAdditional;
+GNEFrameModuls::PathCreator::getFromStoppingPlace() const {
+    return myFromStoppingPlace;
 }
 
 
 GNEAdditional* 
-GNEFrameModuls::PathCreator::getToAdditional() const {
-    return myToAdditional;
+GNEFrameModuls::PathCreator::getToStoppingPlace() const {
+    return myToStoppingPlace;
+}
+
+
+bool
+GNEFrameModuls::PathCreator::addRoute(GNEDemandElement *route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+
+    /*************/
+
+    // recalculate path
+    recalculatePath();
+    // update info route label
+    updateInfoRouteLabel();
+    // update route colors
+    updateEdgeColors();
+    return true;
+}
+
+
+GNEDemandElement* 
+GNEFrameModuls::PathCreator::getRoute() const {
+    return myRoute;
 }
 
 
@@ -2437,11 +2458,37 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
 void
 GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s) const {
     if (myPath.size() > 0) {
+        const double lineWidth = 0.32;
+        const double lineWidthin = 0.30;
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX);
+        glTranslated(0, 0, GLO_MAX - 0.1);
+        // set first color
+        GLHelper::setColor(RGBColor::GREY);
         // iterate over path
+        for (int i = 0; i < (int)myPath.size(); i++) {
+            // get path
+            const GNEFrameModuls::PathCreator::Path& path = myPath.at(i);
+            // draw line over 
+            for (int j = 0; j < (int)path.getSubPath().size(); j++) {
+                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
+                if (((i == 0) && (j == 0)) || (j > 0)) {
+                    GLHelper::drawBoxLines(lane->getLaneShape(), lineWidth);
+                }
+                // draw connection between lanes
+                if ((j + 1) < (int)path.getSubPath().size()) {
+                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
+                    if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
+                        GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), lineWidth);
+                    } else {
+                        GLHelper::drawBoxLines({ lane->getLaneShape().back(), nextLane->getLaneShape().front() }, lineWidth);
+                    }
+                }
+            }
+        }
+        glTranslated(0, 0, 0.1);
+        // iterate over path again
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
             const GNEFrameModuls::PathCreator::Path& path = myPath.at(i);
@@ -2457,15 +2504,15 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
                 const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
-                    GLHelper::drawBoxLines(lane->getLaneShape(), 0.3);
+                    GLHelper::drawBoxLines(lane->getLaneShape(), lineWidthin);
                 }
                 // draw connection between lanes
                 if ((j + 1) < (int)path.getSubPath().size()) {
                     const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
                     if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
-                        GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), 0.3);
+                        GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), lineWidthin);
                     } else {
-                        GLHelper::drawBoxLines({ lane->getLaneShape().back(), nextLane->getLaneShape().front() }, 0.3);
+                        GLHelper::drawBoxLines({ lane->getLaneShape().back(), nextLane->getLaneShape().front() }, lineWidthin);
                     }
                 }
             }
@@ -2486,7 +2533,7 @@ GNEFrameModuls::PathCreator::createPath() {
 void 
 GNEFrameModuls::PathCreator::abortPathCreation() {
     // first check that there is elements
-    if ((mySelectedEdges.size() > 0) || myFrontAdditional || myToAdditional) {
+    if ((mySelectedEdges.size() > 0) || myFromStoppingPlace || myToStoppingPlace || myRoute) {
         // unblock undo/redo
         myFrameParent->myViewNet->getViewParent()->getGNEAppWindows()->enableUndoRedo();
         // clear edges
@@ -2612,10 +2659,12 @@ GNEFrameModuls::PathCreator::clearPath() {
     for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
     }
-    // clear edges, additionals and paths
+    // clear edges, additionals and route
     mySelectedEdges.clear();
-    myFrontAdditional = nullptr;
-    myToAdditional = nullptr;
+    myFromStoppingPlace = nullptr;
+    myToStoppingPlace = nullptr;
+    myRoute = nullptr;
+    // clear path
     myPath.clear();
     // update info route label
     updateInfoRouteLabel();
@@ -2628,16 +2677,24 @@ GNEFrameModuls::PathCreator::recalculatePath() {
     myPath.clear();
     // set edges
     std::vector<GNEEdge*> edges;
-    if (myFrontAdditional) {
-        edges.push_back(myFrontAdditional->getParentLanes().front()->getParentEdge());
+    // add route edges
+    if (myRoute) {
+        edges = myRoute->getParentEdges();
+    } else {
+        // add from stopping place edge
+        if (myFromStoppingPlace) {
+            edges.push_back(myFromStoppingPlace->getParentLanes().front()->getParentEdge());
+        }
+        // add selected edges
+        for (const auto &edge : mySelectedEdges) {
+            edges.push_back(edge);
+        }
+        // add to stopping place edge
+        if (myToStoppingPlace) {
+            edges.push_back(myToStoppingPlace->getParentLanes().front()->getParentEdge());
+        }
     }
-    for (const auto &edge : mySelectedEdges) {
-        edges.push_back(edge);
-    }
-    if (myToAdditional) {
-        edges.push_back(myToAdditional->getParentLanes().front()->getParentEdge());
-    }
-
+    // fill paths
     if (edges.size() == 1) {
         myPath.push_back(Path(myVClass, edges.front()));
     } else {

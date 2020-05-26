@@ -608,14 +608,20 @@ public:
         /// @brief get current selected additionals
         std::vector<GNEEdge*> getSelectedEdges() const;
 
-        /// @brief add additional
-        bool addAdditional(GNEAdditional* additional, const bool shiftKeyPressed, const bool controlKeyPressed);
+        /// @brief add stoppingPlace
+        bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);
 
-        /// @brief get front additional
-        GNEAdditional* getFrontAdditional() const;
+        /// @brief get from stoppingPlace
+        GNEAdditional* getFromStoppingPlace() const;
 
-        /// @brief get to additional
-        GNEAdditional* getToAdditional() const;
+        /// @brief get to stoppingPlace
+        GNEAdditional* getToStoppingPlace() const;
+
+        /// @brief add route
+        bool addRoute(GNEDemandElement* route, const bool shiftKeyPressed, const bool controlKeyPressed);
+
+        /// @brief get route
+        GNEDemandElement* getRoute() const;
 
         /// @brief get path route
         const std::vector<Path>& getPath() const;
@@ -684,9 +690,14 @@ public:
         /// @brief vector with selected edges
         std::vector<GNEEdge*> mySelectedEdges;
 
-        /// @brief vector with selected additionals (usually busStops)
-        GNEAdditional* myFrontAdditional;
-        GNEAdditional* myToAdditional;
+        /// @brief from additional (usually a busStop)
+        GNEAdditional* myFromStoppingPlace;
+
+        /// @brief to additional (usually a busStop)
+        GNEAdditional* myToStoppingPlace;
+
+        /// @brief route (usually a busStop)
+        GNEDemandElement* myRoute;
 
         /// @brief vector with current path
         std::vector<Path> myPath;

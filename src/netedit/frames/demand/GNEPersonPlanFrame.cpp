@@ -121,21 +121,16 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     }
     // Obtain current person plan tag (only for improve code legibility)
     SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
-    // declare flags to check required elements
-    /*SUMO_TAG_PERSONSTOP_LANE;*/
-
-    bool requireRoute = (personPlanTag == SUMO_TAG_WALK_ROUTE);
-    bool requireBusStop = ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) ||
-                           (personPlanTag == SUMO_TAG_RIDE_BUSSTOP) || (personPlanTag == SUMO_TAG_PERSONSTOP_BUSSTOP));
-    bool requireEdge = ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_EDGES) ||
-                        (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO));
-    // process personPlanCreated(...) depending of required element
-    if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
-        return myPathCreator->addAdditional(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
-/*
-    } else if (requireRoute && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
-        return personPlanCreated(nullptr, objectsUnderCursor.getDemandElementFront());
-*/
+    // declare flags for requierements
+    const bool requireBusStop = ((personPlanTag == SUMO_TAG_PERSONTRIP_BUSSTOP) || (personPlanTag == SUMO_TAG_WALK_BUSSTOP) ||
+        (personPlanTag == SUMO_TAG_RIDE_BUSSTOP) || (personPlanTag == SUMO_TAG_PERSONSTOP_BUSSTOP));
+    const bool requireEdge = ((personPlanTag == SUMO_TAG_PERSONTRIP_FROMTO) || (personPlanTag == SUMO_TAG_WALK_EDGES) ||
+        (personPlanTag == SUMO_TAG_WALK_FROMTO) || (personPlanTag == SUMO_TAG_RIDE_FROMTO));
+    // continue depending of tag
+    if ((personPlanTag == SUMO_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
+    } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
+        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else {
@@ -220,15 +215,20 @@ GNEPersonPlanFrame::createPath() {
         // declare flag
         bool personPlanCreated = false;
         // get busStop
-        GNEAdditional *busStop = myPathCreator->getToAdditional();
+        GNEAdditional *busStop = myPathCreator->getToStoppingPlace();
+        if (busStop && (busStop->getTagProperty().getTag() != SUMO_TAG_BUS_STOP)) {
+            busStop = nullptr;
+        }
         // Declare map to keep attributes from myPersonPlanAttributes
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanAttributes->getAttributesAndValues(true);
+        // get attributes
+        const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+        const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+        const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+        const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0)? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
         // check what PersonPlan we're creating
         switch (myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
             case SUMO_TAG_PERSONTRIP_FROMTO: {
-                std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
-                std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // check if person trip fromto can be created
                 if (myPathCreator->getSelectedEdges().size() > 1) {
                     GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos, types, modes);
@@ -239,8 +239,6 @@ GNEPersonPlanFrame::createPath() {
                 break;
             }
             case SUMO_TAG_PERSONTRIP_BUSSTOP: {
-                std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
-                std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
                 // check if person trip busstop can be created
                 if (busStop == nullptr) {
                     myViewNet->setStatusBarText("A person trip with from and busStop attributes needs one edge and one busStop");
@@ -257,7 +255,6 @@ GNEPersonPlanFrame::createPath() {
                 break;
             }
             case SUMO_TAG_WALK_EDGES: {
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // check if walk edges can be created
                 if (myPathCreator->getSelectedEdges().size() > 0) {
                     GNERouteHandler::buildWalkEdges(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges(), arrivalPos);
@@ -270,7 +267,6 @@ GNEPersonPlanFrame::createPath() {
                 break;
             }
             case SUMO_TAG_WALK_FROMTO: {
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // check if walk fromto can be created
                 if (myPathCreator->getSelectedEdges().size() > 1) {
                     GNERouteHandler::buildWalkFromTo(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos);
@@ -297,21 +293,16 @@ GNEPersonPlanFrame::createPath() {
                 break;
             }
             case SUMO_TAG_WALK_ROUTE: {
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-/*
                 // check if walk route can be created
-                if (route != nullptr) {
-                    GNERouteHandler::buildWalkRoute(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), route, arrivalPos);
+                if (myPathCreator->getRoute()) {
+                    GNERouteHandler::buildWalkRoute(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getRoute(), arrivalPos);
                     personPlanCreated = true;
                 } else {
                     myViewNet->setStatusBarText("A ride with route attributes needs one route");
                 }
-*/
                 break;
             }
             case SUMO_TAG_RIDE_FROMTO: {
-                std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
                 // check if ride fromto can be created
                 if (myPathCreator->getSelectedEdges().size() > 2) {
                     GNERouteHandler::buildRideFromTo(myViewNet->getNet(), true, myPersonSelector->getCurrentDemandElement(), myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), lines, arrivalPos);
@@ -322,7 +313,6 @@ GNEPersonPlanFrame::createPath() {
                 break;
             }
             case SUMO_TAG_RIDE_BUSSTOP: {
-                std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
                 // check if ride busstop can be created
                 if (busStop == nullptr) {
                     myViewNet->setStatusBarText("A ride with from and busStop attributes needs one edge and one busStop");
@@ -341,14 +331,17 @@ GNEPersonPlanFrame::createPath() {
             default:
                 throw InvalidArgument("Invalid person plan tag");
         }
-        // refresh AttributeCarrierHierarchy
-        myPersonHierarchy->refreshAttributeCarrierHierarchy();
-        // abort path creation
-        myPathCreator->abortPathCreation();
-        // refresh using tagSelected
-        tagSelected();
-        // refresh personPlan attributes
-        myPersonPlanAttributes->refreshRows();
+        // continue if person plan was sucesfully created
+        if (personPlanCreated) {
+            // refresh AttributeCarrierHierarchy
+            myPersonHierarchy->refreshAttributeCarrierHierarchy();
+            // abort path creation
+            myPathCreator->abortPathCreation();
+            // refresh using tagSelected
+            tagSelected();
+            // refresh personPlan attributes
+            myPersonPlanAttributes->refreshRows();
+        }
     }
 }
 

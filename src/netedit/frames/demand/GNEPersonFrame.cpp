@@ -117,7 +117,7 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
     } else if ((myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
         return buildPersonOverStop(objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
     } else if (objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
-        return myPathCreator->addAdditional(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
+        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else if (objectsUnderCursor.getEdgeFront()) {
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else {
@@ -278,79 +278,129 @@ GNEPersonFrame::createPath() {
         GNEDemandElement* createdPerson = buildPerson();
         // Declare map to keep attributes from myPersonPlanAttributes
         std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanAttributes->getAttributesAndValues(true);
+        // get attributes
+        const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+        const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+        const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+        const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0)? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
         // check what PersonPlan we're creating
         switch (myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
             case SUMO_TAG_PERSONTRIP_FROMTO: {
-                // obtain attributes
-                std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
-                std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                // now check that number of selected edges are correct
-                if (myPathCreator->getSelectedEdges().size() > 1) {
-                    GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos, types, modes);
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                } else {
+                // check that number of selected edges are correct
+                if (myPathCreator->getSelectedEdges().empty()) {
+                    // abort person creation
                     myViewNet->setStatusBarText("A person trip with from-to attributes needs at least one edge.");
                     // abort person creation
                     myViewNet->getUndoList()->p_abort();
+                } else {
+                    if (myPathCreator->getSelectedEdges().size() == 1) {
+                        // use edge as from-to
+                        GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().front(), arrivalPos, types, modes);
+                    } else {
+                        GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos, types, modes);
+                    }
+                    // end undo-redo operation
+                    myViewNet->getUndoList()->p_end();
                 }
                 break;
             }
             case SUMO_TAG_PERSONTRIP_BUSSTOP: {
-                // obtain attributes
-                std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
-                std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
-                // now check that number of selected edges are correct
-                if ((myPathCreator->getSelectedEdges().size() > 0) && myPathCreator->getToAdditional()) {
-                    GNERouteHandler::buildPersonTripBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToAdditional(), types, modes);
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                } else {
-                    myViewNet->setStatusBarText("A person trip with from-to attributes needs at least one edge.");
+                if (myPathCreator->getSelectedEdges().empty()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A person trip with from-to needs at least one edge.");
                     // abort person creation
                     myViewNet->getUndoList()->p_abort();
+                } else if (!myPathCreator->getToStoppingPlace()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A person trip with from-to needs a busStop");
+                    // abort person creation
+                    myViewNet->getUndoList()->p_abort();
+                } else {
+                    // build person trip
+                    GNERouteHandler::buildPersonTripBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToStoppingPlace(), types, modes);
+                    // end undo-redo operation
+                    myViewNet->getUndoList()->p_end();
                 }
                 break;
             }
             case SUMO_TAG_WALK_EDGES: {
-                // obtain attributes
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkEdges(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges(), arrivalPos);
-                // end undo-redo operation
-                myViewNet->getUndoList()->p_end();
+                // check that number of selected edges are correct
+                if (myPathCreator->getSelectedEdges().empty()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A person walk needs at least one edge.");
+                    // abort person creation
+                    myViewNet->getUndoList()->p_abort();
+                } else {
+                    // create walk edges
+                    GNERouteHandler::buildWalkEdges(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges(), arrivalPos);
+                    // end undo-redo operation
+                    myViewNet->getUndoList()->p_end();
+                }
                 break;
             }
             case SUMO_TAG_WALK_FROMTO: {
-                // obtain attributes
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildWalkFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos);
-                // end undo-redo operation
-                myViewNet->getUndoList()->p_end();
+                // check that number of selected edges are correct
+                if (myPathCreator->getSelectedEdges().empty()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A person walk with from-to needs at least one edge.");
+                    // abort person creation
+                    myViewNet->getUndoList()->p_abort();
+                } else {
+                    GNERouteHandler::buildWalkFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos);
+                    // end undo-redo operation
+                    myViewNet->getUndoList()->p_end();
+                }
                 break;
             }
             case SUMO_TAG_WALK_BUSSTOP: {
-                // obtain attributes
-                GNERouteHandler::buildWalkBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToAdditional());
-                // end undo-redo operation
-                myViewNet->getUndoList()->p_end();
+                if (myPathCreator->getSelectedEdges().empty()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A person walk with from-to needs at least one edge.");
+                    // abort person creation
+                    myViewNet->getUndoList()->p_abort();
+                } else if (!myPathCreator->getToStoppingPlace()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A person walk with from-to needs a busStop");
+                    // abort person creation
+                    myViewNet->getUndoList()->p_abort();
+                } else {
+                    // build walk busStops
+                    GNERouteHandler::buildWalkBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToStoppingPlace());
+                    // end undo-redo operation
+                    myViewNet->getUndoList()->p_end();
+                }
                 break;
             }
             case SUMO_TAG_RIDE_FROMTO: {
-                // obtain attributes
-                std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-                double arrivalPos = GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]);
-                GNERouteHandler::buildRideFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), lines, arrivalPos);
-                // end undo-redo operation
-                myViewNet->getUndoList()->p_end();
+                // check that number of selected edges are correct
+                if (myPathCreator->getSelectedEdges().empty()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A ride with from-to needs at least one edge.");
+                    // abort person creation
+                    myViewNet->getUndoList()->p_abort();
+                } else {
+                    GNERouteHandler::buildRideFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), lines, arrivalPos);
+                    // end undo-redo operation
+                    myViewNet->getUndoList()->p_end();
+                }
                 break;
             }
             case SUMO_TAG_RIDE_BUSSTOP: {
-                // obtain attributes
-                std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-                GNERouteHandler::buildRideBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToAdditional(), lines);
-                // end undo-redo operation
-                myViewNet->getUndoList()->p_end();
+                if (myPathCreator->getSelectedEdges().empty()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A ride with from-to needs at least one edge.");
+                    // abort person creation
+                    myViewNet->getUndoList()->p_abort();
+                } else if (!myPathCreator->getToStoppingPlace()) {
+                    // abort person creation
+                    myViewNet->setStatusBarText("A ride with from-to needs a busStop");
+                    // abort person creation
+                    myViewNet->getUndoList()->p_abort();
+                } else {
+                    GNERouteHandler::buildRideBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToStoppingPlace(), lines);
+                    // end undo-redo operation
+                    myViewNet->getUndoList()->p_end();
+                }
                 break;
             }
             default:
