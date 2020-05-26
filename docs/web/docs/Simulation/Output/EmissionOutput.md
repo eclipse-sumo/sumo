@@ -17,6 +17,13 @@ your command line (or configuration) parameter by **--emission-output** {{DT_FIL
 file the output will be written to. Any other file with this name will
 be overwritten, the destination folder must exist.
 
+By default, emission-output is enabled for all vehicles in the
+simulation with output in each simulation step. Using [device assignment
+options or
+parameters](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices)
+(i.e. **--device.emissions.probability 0.25**) the set of vehicles which generate emission output can be reduced.
+The output period can be set by using option **--device.emissions.period** {{DT_TIME}}.
+
 ## Generated Output
 
 The emission output is a xml-file containing the emission values for
