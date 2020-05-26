@@ -32,14 +32,17 @@ traci.start([sumoBinary,
     '-n', 'input_net.net.xml',
     '-r', 'input_routes.rou.xml',
     '--junction-taz',
-    '--device.rerouting.period', '10',
+    '--device.rerouting.period', '300',
     '--weights.random-factor', '10', # cause frequent rerouting
     '--vehroute-output', 'vehroutes.xml',
     '--no-step-log',
     ])
 
 vehID = "ego"
+traci.vehicle.setMaxSpeed(vehID, 5)
 while traci.simulation.getMinExpectedNumber() > 0:
+    if traci.simulation.getTime() == 10:
+        traci.vehicle.setParameter(vehID, "device.rerouting.period", "10")
     traci.simulationStep()
     if traci.simulation.getTime() == 30:
         traci.vehicle.setParameter(vehID, "device.rerouting.period", "0")
