@@ -3911,31 +3911,22 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_VEHICLE: {
-            // make sure that Control key isn't pressed
-            if (!myKeyPressed.controlKeyPressed()) {
-                // Handle click
-                myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor, myKeyPressed);
-            }
+            // Handle click
+            myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor, myKeyPressed);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_STOP: {
-            // make sure that Control key isn't pressed
-            if (!myKeyPressed.controlKeyPressed()) {
-                // Handle click
-                myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed);
-            }
+            // Handle click
+            myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_PERSON: {
-            // make sure that Control key isn't pressed
-            if (!myKeyPressed.controlKeyPressed()) {
-                // Handle click
-                myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor, myKeyPressed);
-            }
+            // Handle click
+            myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor, myKeyPressed);
             // process click
             processClick(eventData);
             break;
