@@ -110,8 +110,9 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
     myTypeEntries[GLO_EDGE] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Edges");
     myTypeEntries[GLO_LANE] =               new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Lanes");
     myTypeEntries[GLO_CONNECTION] =         new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Connections");
-    myTypeEntries[GLO_ADDITIONALELEMENT] =  new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Additionals");
     myTypeEntries[GLO_CROSSING] =           new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Crossings");
+    myTypeEntries[GLO_ADDITIONALELEMENT] =  new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Additionals");
+    myTypeEntries[GLO_TAZ] =                new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "TAZs");
     myTypeEntries[GLO_POLYGON] =            new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "Polygons");
     myTypeEntries[GLO_POI] =                new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::NETWORK, "POIs");
     // create typeEntries for Demand elements
@@ -131,6 +132,7 @@ GNESelectorFrame::LockGLObjectTypes::LockGLObjectTypes(GNESelectorFrame* selecto
     // create typeEntries for Data elements
     myTypeEntries[GLO_EDGEDATA] =           new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DATA, "EdgeDatas");
     myTypeEntries[GLO_EDGERELDATA] =        new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DATA, "EdgeRelDatas");
+    myTypeEntries[GLO_TAZRELDATA] =        new ObjectTypeEntry(matrixLockGLObjectTypes, Supermode::DATA, "EdgeRelDatas");
 }
 
 
@@ -144,7 +146,7 @@ GNESelectorFrame::LockGLObjectTypes::~LockGLObjectTypes() {
 
 void
 GNESelectorFrame::LockGLObjectTypes::addedLockedObject(const GUIGlObjectType type) {
-    if (((type >= 100) && (type < 199)) || (type == GLO_TAZ)) {
+    if ((type >= 100) && (type < 199)) {
         myTypeEntries.at(GLO_ADDITIONALELEMENT)->counterUp();
     } else {
         myTypeEntries.at(type)->counterUp();
@@ -154,7 +156,7 @@ GNESelectorFrame::LockGLObjectTypes::addedLockedObject(const GUIGlObjectType typ
 
 void
 GNESelectorFrame::LockGLObjectTypes::removeLockedObject(const GUIGlObjectType type) {
-    if (((type >= 100) && (type < 199)) || (type == GLO_TAZ)) {
+    if ((type >= 100) && (type < 199)) {
         myTypeEntries.at(GLO_ADDITIONALELEMENT)->counterDown();
     } else {
         myTypeEntries.at(type)->counterDown();
@@ -164,7 +166,7 @@ GNESelectorFrame::LockGLObjectTypes::removeLockedObject(const GUIGlObjectType ty
 
 bool
 GNESelectorFrame::LockGLObjectTypes::IsObjectTypeLocked(const GUIGlObjectType type) const {
-    if (((type >= 100) && (type < 199)) || (type == GLO_TAZ)) {
+    if ((type >= 100) && (type < 199)) {
         return myTypeEntries.at(GLO_ADDITIONALELEMENT)->isGLTypeLocked();
     } else {
         return myTypeEntries.at(type)->isGLTypeLocked();
