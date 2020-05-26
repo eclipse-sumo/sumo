@@ -1852,6 +1852,12 @@ MSVehicle::processNextStop(double currentVelocity) {
 #endif
             resumeFromStopping();
         } else {
+            if (isParking()) {
+                // called via MSVehicleTransfer
+                for (MSVehicleDevice* const dev : myDevices) {
+                    dev->notifyParking();
+                }
+            }
             boardTransportables(stop);
 
             if (stop.triggered && !myAmRegisteredAsWaitingForPerson) {

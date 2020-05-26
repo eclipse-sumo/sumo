@@ -111,6 +111,10 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     if (getMaximumBatteryCapacity() != 0) {
         myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
         myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam);
+        if (veh.isParking()) {
+            // recupration from last braking step is ok but further consumption should cease
+            myConsum = MIN2(myConsum, 0.0);
+        }
 
         // Energy lost/gained from vehicle movement (via vehicle energy model) [Wh]
         setActualBatteryCapacity(getActualBatteryCapacity() - myConsum);
@@ -463,4 +467,10 @@ MSDevice_Battery::setParameter(const std::string& key, const std::string& value)
 }
 
 
+void
+MSDevice_Battery::notifyParking() {
+    // @note: only charing is performed but no energy is consumed
+    notifyMove(myHolder, myHolder.getPositionOnLane(), myHolder.getPositionOnLane(), myHolder.getSpeed());
+    myConsum = 0;
+}
 /****************************************************************************/

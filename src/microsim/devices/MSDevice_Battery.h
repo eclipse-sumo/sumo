@@ -88,6 +88,9 @@ public:
     /// @brief try to set the given parameter for this device. Throw exception for unsupported key
     void setParameter(const std::string& key, const std::string& value);
 
+    /// @brief called to update state for parking vehicles
+    void notifyParking();
+
 private:
     /** @brief Constructor
     *

@@ -47,7 +47,7 @@ MSBatteryExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
     for (; it != end; ++it) {
         const MSVehicle* veh = static_cast<const MSVehicle*>((*it).second);
 
-        if (!veh->isOnRoad()) {
+        if (!(veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())) {
             continue;
         }
 
