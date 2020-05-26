@@ -6,6 +6,9 @@
 	
 	<!-- In this chargingStation vehicle don't need to stop to start charging -->
 	<chargingStation id="CS2" lane="D2_1" startPos="100" endPos="120" power="11000"  efficiency="0.9" chargeInTransit="true" chargeDelay="0"/>
+	<parkingArea id="PA2" lane="D2_1" startPos="100" endPos="120">
+        <space x="-890" y="976" length="12" angle="90"/>
+    </parkingArea>
 	
 	<!-- In this chargingStation vehicle need to stop for charging but charging start with a delay of 3 timeSteps -->
 	<chargingStation id="CS3" lane="D2_0" startPos="150" endPos="170" power="12000"  efficiency="0.85" chargeInTransit="false" chargeDelay="3"/>
