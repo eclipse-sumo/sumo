@@ -176,12 +176,12 @@ MSDevice_Routing::~MSDevice_Routing() {
 
 
 bool
-MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Routing::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
         // clean up pre depart rerouting
         if (myRerouteCommand != nullptr) {
             myRerouteCommand->deschedule();
-        } else if (myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod) {
+        } else if (myPreInsertionPeriod > 0 && myHolder.getDepartDelay() > myPreInsertionPeriod && enteredLane != nullptr) {
             // pre-insertion rerouting was disabled. Reroute once if insertion was delayed
             // this is happening in the run thread (not inbeginOfTimestepEvents) so we cannot safely use the threadPool
             myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "device.rerouting",
@@ -288,15 +288,9 @@ MSDevice_Routing::setParameter(const std::string& key, const std::string& value)
         }
         MSRoutingEngine::setEdgeTravelTime(edge, doubleValue);
     } else if (key == "period") {
-        const SUMOTime oldPeriod = myPeriod;
         myPeriod = TIME2STEPS(doubleValue);
-        if (myPeriod <= 0) {
-            myRerouteCommand->deschedule();
-            myRerouteCommand = nullptr;
-        } else if (oldPeriod <= 0) {
-            // re-schedule routing command
-            notifyEnter(myHolder, MSMoveReminder::NOTIFICATION_DEPARTED, nullptr);
-        }
+        // re-schedule routing command
+        notifyEnter(myHolder, MSMoveReminder::NOTIFICATION_DEPARTED, nullptr);
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
