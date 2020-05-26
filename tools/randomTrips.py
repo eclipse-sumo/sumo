@@ -201,14 +201,15 @@ class RandomEdgeGenerator:
         index = bisect.bisect(self.cumulative_weights, r)
         return self.net._edges[index]
 
-    def write_weights(self, fname):
+    def write_weights(self, fname, interval_id, begin, end):
         # normalize to [0,100]
         normalizer = 100.0 / max(1, max(map(self.weight_fun, self.net._edges)))
         weights = [(self.weight_fun(e) * normalizer, e.getID()) for e in self.net.getEdges()]
         weights.sort(reverse=True)
         with open(fname, 'w+') as f:
             f.write('<edgedata>\n')
-            f.write('    <interval begin="0" end="10">\n')
+            f.write('    <interval id="%s" begin="%s" end="%s">\n' % (
+                interval_id, begin, end))
             for weight, edgeID in weights:
                 f.write('        <edge id="%s" value="%0.2f"/>\n' %
                         (edgeID, weight))
@@ -578,13 +579,19 @@ def main(options):
         os.rename(tmpTrips, options.tripfile)
 
     if options.weights_outprefix:
+        idPrefix = ""
+        if options.tripprefix:
+            idPrefix = options.tripprefix + "."
         trip_generator.source_generator.write_weights(
-            options.weights_outprefix + SOURCE_SUFFIX)
+            options.weights_outprefix + SOURCE_SUFFIX,
+            idPrefix + "src", options.begin, options.end)
         trip_generator.sink_generator.write_weights(
-            options.weights_outprefix + SINK_SUFFIX)
+            options.weights_outprefix + SINK_SUFFIX,
+            idPrefix + "dst", options.begin, options.end)
         if trip_generator.via_generator:
             trip_generator.via_generator.write_weights(
-                options.weights_outprefix + VIA_SUFFIX)
+                options.weights_outprefix + VIA_SUFFIX,
+                idPrefix + "via", options.begin, options.end)
 
     # return wether trips could be generated as requested
     return trip_generator is not None
