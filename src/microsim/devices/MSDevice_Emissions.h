@@ -56,7 +56,7 @@ class MSDevice_Emissions : public MSVehicleDevice {
 public:
     /** @brief Inserts MSDevice_Emissions-options
      */
-    static void insertOptions();
+    static void insertOptions(OptionsCont& oc);
 
 
     /** @brief Build devices for the given vehicle, if needed

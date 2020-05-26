@@ -37,8 +37,11 @@
 // static initialisation methods
 // ---------------------------------------------------------------------------
 void
-MSDevice_Emissions::insertOptions() {
-    insertDefaultAssignmentOptions("emissions", "Emissions", OptionsCont::getOptions());
+MSDevice_Emissions::insertOptions(OptionsCont& oc) {
+    insertDefaultAssignmentOptions("emissions", "Emissions", oc);
+
+    oc.doRegister("device.emissions.period", new Option_String("0"));
+    oc.addDescription("device.emissions.period", "Emissions", "Recording period for emission-output");
 }
 
 

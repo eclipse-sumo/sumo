@@ -67,7 +67,7 @@ std::mt19937 MSDevice::myEquipmentRNG;
 void
 MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_Routing::insertOptions(oc);
-    MSDevice_Emissions::insertOptions();
+    MSDevice_Emissions::insertOptions(oc);
     MSDevice_BTreceiver::insertOptions(oc);
     MSDevice_BTsender::insertOptions(oc);
     MSDevice_Example::insertOptions(oc);

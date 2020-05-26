@@ -39,6 +39,11 @@
 // ===========================================================================
 void
 MSEmissionExport::write(OutputDevice& of, SUMOTime timestep, int precision) {
+    const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.emissions.period"));
+    const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
+    if (period > 0 && (timestep - begin) % period != 0) {
+        return;
+    }
     of.openTag("timestep").writeAttr("time", time2string(timestep));
     of.setPrecision(precision);
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
