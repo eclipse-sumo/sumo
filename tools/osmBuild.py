@@ -28,6 +28,7 @@ import sumolib  # noqa
 
 
 vclassRemove = {"passenger": ["--keep-edges.by-vclass", "passenger"],
+                "publicTransport": ["--keep-edges.by-vclass", "passenger,bus,tram,rail_urban,rail"],
                 "road": ["--remove-edges.by-vclass", "tram,rail_urban,rail_electric,bicycle,pedestrian"],
                 "all": []}
 possibleVClassOptions = '|'.join(vclassRemove.keys())

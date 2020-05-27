@@ -230,7 +230,10 @@ class Builder(object):
         if self.data["leftHand"]:
             netconvertOptions += ",--lefthand"
         if self.data["carOnlyNetwork"]:
-            netconvertOptions += ",--keep-edges.by-vclass,passenger"
+            if self.data["publicTransport"]:
+                options += ["--vehicle-classes", "publicTransport"]
+            else:
+                options += ["--vehicle-classes", "passenger"]
 
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
