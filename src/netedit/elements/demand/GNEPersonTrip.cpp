@@ -36,33 +36,52 @@
 // method definitions
 // ===========================================================================
 
-GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
+GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
         double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(net->generateDemandElementID("", GNE_TAG_PERSONTRIP_EDGE_EDGE), net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}, // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
-    Parameterised(),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
-    // set via parameter without updating references
-    replaceMiddleParentEdges(this, via, false);
     // compute person trip
     computePath();
 }
 
 
-GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
-        const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
+    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(net->generateDemandElementID("", GNE_TAG_PERSONTRIP_EDGE_BUSSTOP), net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
-        {}, {fromEdge}, {}, {busStop}, {}, {}, {personParent}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
-    Parameterised(),
-    myArrivalPosition(-1),
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {},    // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
+    myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
-    // set via parameter without updating references
-    replaceMiddleParentEdges(this, via, false);
+    // compute person trip
+    computePath();
+}
+
+GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
+    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_PERSONTRIP_BUSSTOP_EDGE), net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP_EDGE,
+        {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {},    // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
+    // compute person trip
+    computePath();
+}
+
+
+GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
+    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP), net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
+        {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {},   // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                                    // Childrens
+    myArrivalPosition(arrivalPosition),
+    myVTypes(types),
+    myModes(modes) {
     // compute person trip
     computePath();
 }
@@ -313,17 +332,22 @@ GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNEPersonTrip::computePath() {
+    std::vector<GNEEdge*> edges;
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
-        // calculate route and update routeEdges
-        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
+        edges.push_back(getParentEdges().front());
+        edges.push_back(getParentEdges().back());
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
-        // declare a from-via-busStop edges vector
-        std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
-        // add busStop edge
-        fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        // calculate route and update routeEdges
-        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
+        edges.push_back(getParentEdges().front());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentEdges().back());
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
     }
+    // calculate path and update path edges
+    replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), edges));
     // update geometry
     updateGeometry();
 }
