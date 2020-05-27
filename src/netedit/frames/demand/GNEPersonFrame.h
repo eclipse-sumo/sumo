@@ -84,12 +84,6 @@ private:
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEFrameModuls::PathCreator* myPathCreator;
 
-    /// @brief build person over route
-    bool buildPersonOverRoute(GNEDemandElement* route);
-
-    /// @brief build person over stop
-    bool buildPersonOverStop(GNELane* lane, GNEAdditional* busStop);
-
     /// @brief build person and return it (note: function includes a call to p_begin(...), but NOT a call to p_end(...))
     GNEDemandElement* buildPerson();
 };

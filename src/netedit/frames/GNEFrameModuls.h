@@ -612,10 +612,10 @@ public:
         bool addStoppingPlace(GNEAdditional* stoppingPlace, const bool shiftKeyPressed, const bool controlKeyPressed);
 
         /// @brief get from stoppingPlace
-        GNEAdditional* getFromStoppingPlace() const;
+        GNEAdditional* getFromStoppingPlace(SumoXMLTag expectedTag) const;
 
         /// @brief get to stoppingPlace
-        GNEAdditional* getToStoppingPlace() const;
+        GNEAdditional* getToStoppingPlace(SumoXMLTag expectedTag) const;
 
         /// @brief add route
         bool addRoute(GNEDemandElement* route, const bool shiftKeyPressed, const bool controlKeyPressed);

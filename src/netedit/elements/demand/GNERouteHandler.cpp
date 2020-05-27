@@ -587,191 +587,269 @@ GNERouteHandler::buildPersonFlow(GNENet* net, bool undoDemandElements, const SUM
 }
 
 
-void
-GNERouteHandler::buildPersonTripFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos,
-                                       const std::vector<std::string>& types, const std::vector<std::string>& modes) {
-    // create personTripFromTo
-    GNEDemandElement* personTripFromTo = new GNEPersonTrip(net, personParent, fromEdge, toEdge, {}, arrivalPos, types, modes);
-    // add element using undo list or directly, depending of undoDemandElements flag
-    if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_PERSONTRIP_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
-        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTripFromTo, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        // add vehicleOrPersonTripFlow in net and in their vehicle type parent
-        net->getAttributeCarriers()->insertDemandElement(personTripFromTo);
-        personParent->addChildElement(personTripFromTo);
-        personTripFromTo->incRef("buildPersonTripFromTo");
-    }
-    // update geometry
-    personParent->updateGeometry();
-}
-
-
-void
-GNERouteHandler::buildPersonTripBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
-                                        const std::vector<std::string>& types, const std::vector<std::string>& modes) {
-    // create personTripBusStop
-    GNEDemandElement* personTripBusStop = new GNEPersonTrip(net, personParent, fromEdge, busStop, {}, types, modes);
-    // add element using undo list or directly, depending of undoDemandElements flag
-    if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
-        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTripBusStop, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        // add vehicleOrPersonTripFlow in net and in their vehicle type parent
-        net->getAttributeCarriers()->insertDemandElement(personTripBusStop);
-        personParent->addChildElement(personTripBusStop);
-        busStop->addChildElement(personTripBusStop);
-        fromEdge->addChildElement(personTripBusStop);
-        personTripBusStop->incRef("buildPersonTripBusStop");
-    }
-    // update geometry
-    personParent->updateGeometry();
-}
-
-
-void
-GNERouteHandler::buildWalkEdges(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, const std::vector<GNEEdge*>& edges, double arrivalPos) {
-    // check that at least there is an edge
-    if (edges.size() == 0) {
-        WRITE_ERROR("A walk needs at least one edge. " + toString(GNE_TAG_WALK_EDGES) + " within person with ID='" + personParent->getID() + "' cannot be created");
-    } else {
-        // obtain path between edges
-        std::vector<GNEEdge*> pathEdges = net->getPathCalculator()->calculatePath(personParent->getVClass(), edges);
-        // check if obtained path is valid
-        if (pathEdges.size() == 0) {
-            pathEdges = edges;
+bool 
+GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, GNEFrameModuls::PathCreator* pathCreator) {
+    // get view net
+    GNEViewNet* viewNet = personParent->getNet()->getViewNet();
+    // Declare map to keep attributes from myPersonPlanAttributes
+    std::map<SumoXMLAttr, std::string> valuesMap = personPlanAttributes->getAttributesAndValues(true);
+    // get attributes
+    const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
+    const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
+    const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
+    const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0)? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
+    // get edges
+    GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().front() : nullptr;
+    GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().back() : nullptr;
+    // get busStops
+    GNEAdditional *fromBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
+    GNEAdditional *toBuStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
+    // get path edges
+    std::vector<GNEEdge*> edges;
+    for (const auto &path : pathCreator->getPath()) {
+        for (const auto &edge : path.getSubPath()) {
+            edges.push_back(edge);
         }
-        // create walkEdges
-        GNEDemandElement* walkEdges = new GNEWalk(net, personParent, pathEdges, arrivalPos);
+    }
+    // get route
+    GNEDemandElement *route = pathCreator->getRoute();
+    // check what PersonPlan we're creating
+    switch (tag) {
+        // Person Trips
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE: {
+            // check if person trip edge->edge can be created
+            if (fromEdge && toEdge) {
+                buildPersonTrip(viewNet->getNet(), true, personParent, fromEdge, toEdge, nullptr, nullptr, arrivalPos, types, modes);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A person trip from edge to edge needs two edges");
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
+            // check if person trip edge->busStop can be created
+            if (fromEdge && fromBusStop) {
+                buildPersonTrip(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, fromBusStop, arrivalPos, types, modes);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from edge to bussTop needs an edge and a busSTop");
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE: {
+            // check if person trip busStop->edge can be created
+            if (fromBusStop && toEdge) {
+                buildPersonTrip(viewNet->getNet(), true, personParent, nullptr, toEdge, fromBusStop, nullptr, arrivalPos, types, modes);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+            }
+            break;
+        }
+        case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP: {
+            // check if person trip busStop->busStop can be created
+            if (fromEdge && toEdge) {
+                buildPersonTrip(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBuStop, arrivalPos, types, modes);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A person trip from busStop to busStop needs two busStops");
+            }
+            break;
+        }
+        // Walks
+        case GNE_TAG_WALK_EDGE_EDGE: {
+            // check if walk edge->edge can be created
+            if (fromEdge && toEdge) {
+                buildWalk(viewNet->getNet(), true, personParent, fromEdge, toEdge, nullptr, nullptr, {}, nullptr, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A walk from edge to edge needs two edges");
+            }
+            break;
+        }
+        case GNE_TAG_WALK_EDGE_BUSSTOP: {
+            // check if walk edge->busStop can be created
+            if (fromEdge && fromBusStop) {
+                buildWalk(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, fromBusStop, {}, nullptr, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from edge to bussTop needs an edge and a busSTop");
+            }
+            break;
+        }
+        case GNE_TAG_WALK_BUSSTOP_EDGE: {
+            // check if walk busStop->edge can be created
+            if (fromBusStop && toEdge) {
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, toEdge, fromBusStop, nullptr, {}, nullptr, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+            }
+            break;
+        }
+        case GNE_TAG_WALK_BUSSTOP_BUSSTOP: {
+            // check if walk busStop->busStop can be created
+            if (fromEdge && toEdge) {
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBuStop, {}, nullptr, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A walk from busStop to busStop needs two busStops");
+            }
+            break;
+        }
+        case GNE_TAG_WALK_EDGES: {
+            // check if walk edges can be created
+            if (edges.size() > 0) {
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, nullptr, nullptr, edges, nullptr, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A walk with edges attribute needs a list of edges");
+            }
+            break;
+        }
+        case GNE_TAG_WALK_ROUTE: {
+            // check if walk edges can be created
+            if (route) {
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, nullptr, nullptr, {}, route, arrivalPos);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A route walk needs a route");
+            }
+            break;
+        }
+        // Rides
+        case GNE_TAG_RIDE_EDGE_EDGE: {
+            // check if ride edge->edge can be created
+            if (fromEdge && toEdge) {
+                buildRide(viewNet->getNet(), true, personParent, fromEdge, toEdge, nullptr, nullptr, arrivalPos, lines);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from edge to edge needs two edges");
+            }
+            break;
+        }
+        case GNE_TAG_RIDE_EDGE_BUSSTOP: {
+            // check if ride edge->busStop can be created
+            if (fromEdge && toBuStop) {
+                buildRide(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, toBuStop, arrivalPos, lines);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from edge to busStop needs an edge and a busStop");
+            }
+            break;
+        }
+        case GNE_TAG_RIDE_BUSSTOP_EDGE: {
+            // check if ride busStop->edge can be created
+            if (fromBusStop && toEdge) {
+                buildRide(viewNet->getNet(), true, personParent, nullptr, toEdge, fromBusStop, nullptr, arrivalPos, lines);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from busStop to edge needs a busStop and an edge");
+            }
+            break;
+        }
+        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP: {
+            // check if ride busStop->busStop can be created
+            if (fromBusStop && toBuStop) {
+                buildRide(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBuStop, arrivalPos, lines);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A ride from busStop to busStop needs two busStops");
+            }
+            break;
+        }
+        default:
+            throw InvalidArgument("Invalid person plan tag");
+    }
+    // person plan wasn't created, then return false
+    return false;
+}
+
+
+void 
+GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+    GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
+    // declare person trip
+    GNEDemandElement* personTrip = nullptr;
+    // create person trip depending of parameters
+    if (fromEdge && toEdge) {
+        // remove VIA
+        personTrip = new GNEPersonTrip(net, personParent, fromEdge, toEdge, {}, arrivalPos, types, modes);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
-            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGES) + " within person '" + personParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walkEdges, true), true);
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_PERSONTRIP_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // add vehicleOrWalkEdgesFlow in net and in their vehicle type parent
-            net->getAttributeCarriers()->insertDemandElement(walkEdges);
-            personParent->addChildElement(walkEdges);
-            // add reference in all edges
-            for (const auto& i : edges) {
-                i->addChildElement(walkEdges);
-            }
-            walkEdges->incRef("buildWalkEdges");
+            // insert person trip 
+            net->getAttributeCarriers()->insertDemandElement(personTrip);
+            // set references in childs
+            personParent->addChildElement(personTrip);
+            fromEdge->addChildElement(personTrip);
+            toEdge->addChildElement(personTrip);
+            // include reference
+            personTrip->incRef("buildPersonTrip");
         }
-        // update geometry
-        personParent->updateGeometry();
-    }
-}
-
-
-void
-GNERouteHandler::buildWalkFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPos) {
-    // create walkFromTo
-    GNEDemandElement* walkFromTo = new GNEWalk(net, personParent, fromEdge, toEdge, {}, arrivalPos);
-    // add element using undo list or directly, depending of undoDemandElements flag
-    if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
-        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walkFromTo, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        // add vehicleOrWalkFromToFlow in net and in their vehicle type parent
-        net->getAttributeCarriers()->insertDemandElement(walkFromTo);
-        personParent->addChildElement(walkFromTo);
-        // add reference in all edges
-        fromEdge->addChildElement(walkFromTo);
-        toEdge->addChildElement(walkFromTo);
-        walkFromTo->incRef("buildWalkFromTo");
     }
     // update geometry
     personParent->updateGeometry();
 }
 
 
-void
-GNERouteHandler::buildWalkBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop) {
-    // create walkBusStop
-    GNEDemandElement* walkBusStop = new GNEWalk(net, personParent, fromEdge, busStop, {});
-    // add element using undo list or directly, depending of undoDemandElements flag
-    if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
-        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walkBusStop, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        // add vehicleOrWalkBusStopFlow in net and in their vehicle type parent
-        net->getAttributeCarriers()->insertDemandElement(walkBusStop);
-        personParent->addChildElement(walkBusStop);
-        busStop->addChildElement(walkBusStop);
-        fromEdge->addChildElement(walkBusStop);
-        walkBusStop->incRef("buildWalkBusStop");
+void 
+GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+    GNEAdditional* busStopFrom, GNEAdditional* busStopTo, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos) {
+    // declare walk
+    GNEDemandElement* personTrip = nullptr;
+    // create walk depending of parameters
+    if (fromEdge && toEdge) {
+        // remove VIA
+        personTrip = new GNEWalk(net, personParent, fromEdge, toEdge, {}, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert walk 
+            net->getAttributeCarriers()->insertDemandElement(personTrip);
+            // set references in childs
+            personParent->addChildElement(personTrip);
+            fromEdge->addChildElement(personTrip);
+            toEdge->addChildElement(personTrip);
+            // include reference
+            personTrip->incRef("buildWalk");
+        }
     }
     // update geometry
     personParent->updateGeometry();
 }
 
 
-void
-GNERouteHandler::buildWalkRoute(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPos) {
-    // create walkRoute
-    GNEDemandElement* walkRoute = new GNEWalk(net, personParent, route, arrivalPos);
-    // add element using undo list or directly, depending of undoDemandElements flag
-    if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_ROUTE) + " within person '" + personParent->getID() + "'");
-        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walkRoute, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        // add vehicleOrWalkBusStopFlow in net and in their vehicle type parent
-        net->getAttributeCarriers()->insertDemandElement(walkRoute);
-        personParent->addChildElement(walkRoute);
-        route->addChildElement(walkRoute);
-        walkRoute->incRef("buildWalkRoute");
-    }
-    // update geometry
-    personParent->updateGeometry();
-}
-
-
-void
-GNERouteHandler::buildRideFromTo(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<std::string>& lines, double arrivalPos) {
-    // create rideFromTo
-    GNEDemandElement* rideFromTo = new GNERide(net, personParent, fromEdge, toEdge, {}, arrivalPos, lines);
-    // add element using undo list or directly, depending of undoDemandElements flag
-    if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
-        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(rideFromTo, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        // add vehicleOrRideFromToFlow in net and in their vehicle type parent
-        net->getAttributeCarriers()->insertDemandElement(rideFromTo);
-        personParent->addChildElement(rideFromTo);
-        // add reference in all edges
-        fromEdge->addChildElement(rideFromTo);
-        toEdge->addChildElement(rideFromTo);
-        rideFromTo->incRef("buildRideFromTo");
-    }
-    // update geometry
-    personParent->updateGeometry();
-}
-
-
-void
-GNERouteHandler::buildRideBusStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<std::string>& lines) {
-    // create rideBusStop
-    GNEDemandElement* rideBusStop = new GNERide(net, personParent, fromEdge, busStop, {}, lines);
-    // add element using undo list or directly, depending of undoDemandElements flag
-    if (undoDemandElements) {
-        net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
-        net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(rideBusStop, true), true);
-        net->getViewNet()->getUndoList()->p_end();
-    } else {
-        // add vehicleOrRideBusStopFlow in net and in their vehicle type parent
-        net->getAttributeCarriers()->insertDemandElement(rideBusStop);
-        personParent->addChildElement(rideBusStop);
-        busStop->addChildElement(rideBusStop);
-        // add reference in first edge
-        fromEdge->addChildElement(rideBusStop);
-        rideBusStop->incRef("buildRideBusStop");
+void 
+GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+    GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& lines) {
+    // declare ride
+    GNEDemandElement* personTrip = nullptr;
+    // create ride depending of parameters
+    if (fromEdge && toEdge) {
+        // remove VIA
+        personTrip = new GNERide(net, personParent, fromEdge, toEdge, {}, arrivalPos, lines);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert ride 
+            net->getAttributeCarriers()->insertDemandElement(personTrip);
+            // set references in childs
+            personParent->addChildElement(personTrip);
+            fromEdge->addChildElement(personTrip);
+            toEdge->addChildElement(personTrip);
+            // include reference
+            personTrip->incRef("buildRide");
+        }
     }
     // update geometry
     personParent->updateGeometry();

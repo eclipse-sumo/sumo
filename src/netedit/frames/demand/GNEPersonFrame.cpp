@@ -111,14 +111,19 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         myViewNet->setStatusBarText("Current selected person plan isn't valid.");
         return false;
     }
-    // check if walk routes can be created
-    if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_ROUTE)) {
-        return buildPersonOverRoute(objectsUnderCursor.getDemandElementFront());
-    } else if ((myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
-        return buildPersonOverStop(objectsUnderCursor.getLaneFront(), objectsUnderCursor.getAdditionalFront());
-    } else if (objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
+    // Obtain current person plan tag (only for improve code legibility)
+    SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
+    // declare flags for requierements
+    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag ==GNE_TAG_WALK_EDGE_BUSSTOP) ||
+        (personPlanTag == GNE_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_PERSONSTOP_BUSSTOP));
+    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag ==GNE_TAG_WALK_EDGES) ||
+        (personPlanTag ==GNE_TAG_WALK_EDGE_EDGE) || (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE));
+    // continue depending of tag
+    if ((personPlanTag ==GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
+    } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
-    } else if (objectsUnderCursor.getEdgeFront()) {
+    } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else {
         return false;
@@ -274,143 +279,24 @@ GNEPersonFrame::createPath() {
     } else if (!myPersonPlanAttributes->areValuesValid()) {
         myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
     } else {
-        // build person
-        GNEDemandElement* createdPerson = buildPerson();
-        // Declare map to keep attributes from myPersonPlanAttributes
-        std::map<SumoXMLAttr, std::string> valuesMap = myPersonPlanAttributes->getAttributesAndValues(true);
-        // get attributes
-        const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
-        const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
-        const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-        const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0)? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
-        // check what PersonPlan we're creating
-        switch (myPersonPlanTagSelector->getCurrentTagProperties().getTag()) {
-            case GNE_TAG_PERSONTRIP_EDGE_EDGE: {
-                // check that number of selected edges are correct
-                if (myPathCreator->getSelectedEdges().empty()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A person trip with from-to attributes needs at least one edge.");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else {
-                    if (myPathCreator->getSelectedEdges().size() == 1) {
-                        // use edge as from-to
-                        GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().front(), arrivalPos, types, modes);
-                    } else {
-                        GNERouteHandler::buildPersonTripFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos, types, modes);
-                    }
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                }
-                break;
-            }
-            case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
-                if (myPathCreator->getSelectedEdges().empty()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A person trip with from-to needs at least one edge.");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else if (!myPathCreator->getToStoppingPlace()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A person trip with from-to needs a busStop");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else {
-                    // build person trip
-                    GNERouteHandler::buildPersonTripBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToStoppingPlace(), types, modes);
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                }
-                break;
-            }
-            case GNE_TAG_WALK_EDGES: {
-                // check that number of selected edges are correct
-                if (myPathCreator->getSelectedEdges().empty()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A person walk needs at least one edge.");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else {
-                    // create walk edges
-                    GNERouteHandler::buildWalkEdges(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges(), arrivalPos);
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                }
-                break;
-            }
-            case GNE_TAG_WALK_EDGE_EDGE: {
-                // check that number of selected edges are correct
-                if (myPathCreator->getSelectedEdges().empty()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A person walk with from-to needs at least one edge.");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else {
-                    GNERouteHandler::buildWalkFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), arrivalPos);
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                }
-                break;
-            }
-            case GNE_TAG_WALK_EDGE_BUSSTOP: {
-                if (myPathCreator->getSelectedEdges().empty()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A person walk with from-to needs at least one edge.");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else if (!myPathCreator->getToStoppingPlace()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A person walk with from-to needs a busStop");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else {
-                    // build walk busStops
-                    GNERouteHandler::buildWalkBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToStoppingPlace());
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                }
-                break;
-            }
-            case GNE_TAG_RIDE_EDGE_EDGE: {
-                // check that number of selected edges are correct
-                if (myPathCreator->getSelectedEdges().empty()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A ride with from-to needs at least one edge.");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else {
-                    GNERouteHandler::buildRideFromTo(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), lines, arrivalPos);
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                }
-                break;
-            }
-            case GNE_TAG_RIDE_EDGE_BUSSTOP: {
-                if (myPathCreator->getSelectedEdges().empty()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A ride with from-to needs at least one edge.");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else if (!myPathCreator->getToStoppingPlace()) {
-                    // abort person creation
-                    myViewNet->setStatusBarText("A ride with from-to needs a busStop");
-                    // abort person creation
-                    myViewNet->getUndoList()->p_abort();
-                } else {
-                    GNERouteHandler::buildRideBusStop(myViewNet->getNet(), true, createdPerson, myPathCreator->getSelectedEdges().front(), myPathCreator->getToStoppingPlace(), lines);
-                    // end undo-redo operation
-                    myViewNet->getUndoList()->p_end();
-                }
-                break;
-            }
-            default:
-                throw InvalidArgument("Invalid person plan tag");
+        // begin undo-redo operation
+        myViewNet->getUndoList()->p_begin("create " + myPersonTagSelector->getCurrentTagProperties().getTagStr() + " and " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr());
+        // check if person and person plan can be created
+        if (GNERouteHandler::buildPersonPlan(
+            myPersonPlanTagSelector->getCurrentTagProperties().getTag(), 
+            buildPerson(), myPersonPlanAttributes,
+            myPathCreator)) {
+            // end undo-redo operation
+            myViewNet->getUndoList()->p_end();
+            // abort path creation
+            myPathCreator->abortPathCreation();
+            // refresh person and personPlan attributes
+            myPersonAttributes->refreshRows();
+            myPersonPlanAttributes->refreshRows();
+        } else {
+            // abort person creation
+            myViewNet->getUndoList()->p_abort();
         }
-        // abort path creation
-        myPathCreator->abortPathCreation();
-        // refresh person and personPlan attributes
-        myPersonAttributes->refreshRows();
-        myPersonPlanAttributes->refreshRows();
     }
 }
 
@@ -418,65 +304,10 @@ GNEPersonFrame::createPath() {
 // GNEPersonFrame - private methods
 // ---------------------------------------------------------------------------
 
-
-bool
-GNEPersonFrame::buildPersonOverRoute(GNEDemandElement* route) {
-    if (route && (route->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
-        // first check that all attributes are valid
-        if (!myPersonAttributes->areValuesValid()) {
-            myViewNet->setStatusBarText("Invalid person parameters.");
-        } else if (!myPersonPlanAttributes->areValuesValid()) {
-            myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
-        } else {
-            // build person and walk over route
-            GNERouteHandler::buildWalkRoute(myViewNet->getNet(), true, buildPerson(), route, 0);
-            // end undo-redo operation
-            myViewNet->getUndoList()->p_end();
-            return true;
-        }
-        return false;
-    } else {
-        myViewNet->setStatusBarText("Click over a " + toString(SUMO_TAG_ROUTE) + " to create a " + myPersonTagSelector->getCurrentTagProperties().getTagStr());
-        return false;
-    }
-}
-
-
-bool
-GNEPersonFrame::buildPersonOverStop(GNELane* lane, GNEAdditional* busStop) {
-    // first check that all attributes are valid
-    if (!myPersonAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid person parameters.");
-        return false;
-    } else if (!myPersonPlanAttributes->areValuesValid()) {
-        myViewNet->setStatusBarText("Invalid " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr() + " parameters.");
-        return false;
-    } else {
-        // declare stop parameters and friendly position
-        SUMOVehicleParameter::Stop stopParameter;
-        if (GNEStopFrame::getStopParameter(stopParameter, myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
-                                           myViewNet, myPersonPlanAttributes, myNeteditAttributes, lane, busStop)) {
-            // create it in RouteFrame
-            GNERouteHandler::buildStop(myViewNet->getNet(), true, stopParameter, buildPerson());
-            // end undo-redo operation
-            myViewNet->getUndoList()->p_end();
-            // stop sucesfully created, then return true
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
-
-
 GNEDemandElement*
 GNEPersonFrame::buildPerson() {
     // obtain person tag (only for improve code legibility)
     SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
-    // obtain person plan tag (only for improve code legibility)
-    SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
-    // begin undo-redo operation
-    myViewNet->getUndoList()->p_begin("create " + toString(personTag) + " and " + toString(personPlanTag));
     // Declare map to keep attributes from myPersonAttributes
     std::map<SumoXMLAttr, std::string> valuesMap = myPersonAttributes->getAttributesAndValues(false);
     // Check if ID has to be generated

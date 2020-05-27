@@ -232,9 +232,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "parameters",                     AGEN_TAG_PARAM },
     // GNE Person trips
     { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE_EDGE },
-    { "personTrip: edge->busstop",      GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },
-    { "personTrip: busstop->edge",      GNE_TAG_PERSONTRIP_BUSSTOP_EDGE },
-    { "personTrip: busstop->busstop",   GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
+    { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },
+    { "personTrip: busStop->edge",      GNE_TAG_PERSONTRIP_BUSSTOP_EDGE },
+    { "personTrip: busStop->busStop",   GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP },
     // GNE Walks
     { "walk: edge->edge",               GNE_TAG_WALK_EDGE_EDGE },
     { "walk: edge->busStop",            GNE_TAG_WALK_EDGE_BUSSTOP },

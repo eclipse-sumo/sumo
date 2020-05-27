@@ -2365,14 +2365,22 @@ GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional *stoppingPlace, cons
 
 
 GNEAdditional* 
-GNEFrameModuls::PathCreator::getFromStoppingPlace() const {
-    return myFromStoppingPlace;
+GNEFrameModuls::PathCreator::getFromStoppingPlace(SumoXMLTag expectedTag) const {
+    if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == expectedTag)) {
+        return myFromStoppingPlace;
+    } else {
+        return nullptr;
+    }
 }
 
 
 GNEAdditional* 
-GNEFrameModuls::PathCreator::getToStoppingPlace() const {
-    return myToStoppingPlace;
+GNEFrameModuls::PathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
+    if (myToStoppingPlace && (myToStoppingPlace->getTagProperty().getTag() == expectedTag)) {
+        return myToStoppingPlace;
+    } else {
+        return nullptr;
+    }
 }
 
 
