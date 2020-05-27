@@ -3,7 +3,7 @@ title: Tools/Misc
 permalink: /Tools/Misc/
 ---
 
-# createVehTypeDistributions.py
+# createVehTypeDistribution.py
 
 Creates a vehicle type distribution by sampling from configurable value
 distributions for the [desired `vType`-parameters](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types).
@@ -11,7 +11,7 @@ distributions for the [desired `vType`-parameters](../Definition_of_Vehicles,_Ve
 Example use
 
 ```
-<SUMO_HOME>/tools/createVehTypeDistributions.py config.txt
+<SUMO_HOME>/tools/createVehTypeDistribution.py config.txt
 ```
 
 The only required parameter is the configuration file in the format
