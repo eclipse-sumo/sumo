@@ -60,7 +60,7 @@ def main(options):
             if vehicle.stop is None:
                 continue
             for stop in vehicle.stop:
-                if stop.parking == "true" and options.ignoreParking:
+                if stop.parking in ["true", "True", "1"] and options.ignoreParking:
                     continue
                 until = parseTime(stop.until)
                 arrival = parseTime(stop.arrival) if stop.arrival else until - parseTime(stop.duration)
