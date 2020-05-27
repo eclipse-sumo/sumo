@@ -52,10 +52,11 @@ def main(options):
         for interval in sumolib.xml.parse(options.turnFile, 'interval'):
             outf.write('    <interval begin="%s" end="%s">\n' % (
                 interval.begin, interval.end))
-            for fromEdge in interval.fromEdge:
-                for toEdge in fromEdge.toEdge:
-                    outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s="%s"/>\n' % (
-                        fromEdge.id, toEdge.id, options.turnAttr, toEdge.probability))
+            if interval.fromEdge:
+                for fromEdge in interval.fromEdge:
+                    for toEdge in fromEdge.toEdge:
+                        outf.write(' ' * 8 + '<edgeRelation from="%s" to="%s" %s="%s"/>\n' % (
+                            fromEdge.id, toEdge.id, options.turnAttr, toEdge.probability))
             outf.write('    </interval>\n')
         outf.write('</edgeRelations>\n')
 
