@@ -342,7 +342,7 @@ RORouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
         myErrorOutput->inform("Invalid reference to route '" + myActiveRouteRefID + "' in route " + rid + ".");
     }
     if (myCurrentAlternatives != nullptr && !attrs.hasAttribute(SUMO_ATTR_PROB)) {
-        WRITE_WARNING("No probability for a route in '" + rid + "', using default.");
+        WRITE_WARNINGF("No probability for route %, using default.", rid);
     }
     myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     if (ok && myActiveRouteProbability < 0) {
