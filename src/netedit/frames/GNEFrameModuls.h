@@ -523,18 +523,6 @@ public:
         FXDECLARE(GNEFrameModuls::PathCreator)
 
     public:
-        // @brief creation mode
-        enum Mode {
-            CONSECUTIVE_EDGES       = 1 << 0,   // Path's edges are consecutives
-            NONCONSECUTIVE_EDGES    = 1 << 1,   // Path's edges aren't consecutives
-            START_EDGE              = 1 << 2,   // Path begins in an edge
-            END_EDGE                = 1 << 3,   // Path ends in an edge
-            ONLY_FROMTO             = 1 << 4,   // Path only had two elements (first and last)
-            START_BUSSTOP           = 1 << 5,   // Path begins in a busStop
-            END_BUSSTOP             = 1 << 6,   // Path ends in a busStop
-            REQUIERE_FIRSTELEMENT   = 1 << 7,   // Path start always in a previous element
-        };
-
         /// @brief class for path
         class Path {
 
@@ -579,22 +567,25 @@ public:
         private:
             /// @brief default constructor
             Path();
+
+            /// @brief Invalidated copy constructor.
+            Path(Path*) = delete;
+
+            /// @brief Invalidated assignment operator.
+            Path& operator=(Path*) = delete;
         };
 
         /// @brief default constructor
-        PathCreator(GNEFrame* frameParent, const int creationMode);
+        PathCreator(GNEFrame* frameParent);
 
         /// @brief destructor
         ~PathCreator();
 
-        /// @brief show PathCreator
-        void showPathCreatorModul();
+        /// @brief show PathCreator for the given tag
+        void showPathCreatorModul(SumoXMLTag tag, const bool firstElement, const bool consecutives);
 
         /// @brief show PathCreator
         void hidePathCreatorModul();
-
-        /// @brief set path creator mode according to given tag
-        void setPathCreatorMode(SumoXMLTag tag, const bool firstElement, const bool consecutives);
 
         /// @brief get vClass
         SUMOVehicleClass getVClass() const;
@@ -662,6 +653,19 @@ public:
     protected:
         FOX_CONSTRUCTOR(PathCreator)
 
+        // @brief creation mode
+        enum Mode {
+            CONSECUTIVE_EDGES       = 1 << 0,   // Path's edges are consecutives
+            NONCONSECUTIVE_EDGES    = 1 << 1,   // Path's edges aren't consecutives
+            START_EDGE              = 1 << 2,   // Path begins in an edge
+            END_EDGE                = 1 << 3,   // Path ends in an edge
+            ONLY_FROMTO             = 1 << 4,   // Path only had two elements (first and last)
+            START_BUSSTOP           = 1 << 5,   // Path begins in a busStop
+            END_BUSSTOP             = 1 << 6,   // Path ends in a busStop
+            ROUTE                   = 1 << 7,   // Path uses a route
+            REQUIERE_FIRSTELEMENT   = 1 << 8,   // Path start always in a previous element
+        };
+
         /// @brief update InfoRouteLabel
         void updateInfoRouteLabel();
 
@@ -677,7 +681,6 @@ public:
         /// @brief set edgereachability (This function will be called recursively)
         void setPossibleCandidates(GNEEdge* originEdge, const SUMOVehicleClass vClass);
 
-    private:
         /// @brief current frame parent
         GNEFrame* myFrameParent;
 
@@ -722,6 +725,13 @@ public:
 
         /// @brief label for control information
         FXLabel* myControlLabel;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        PathCreator(PathCreator*) = delete;
+
+        /// @brief Invalidated assignment operator.
+        PathCreator& operator=(PathCreator*) = delete;
     };
 
     // ===========================================================================

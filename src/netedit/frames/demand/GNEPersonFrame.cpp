@@ -62,7 +62,7 @@ GNEPersonFrame::GNEPersonFrame(FXHorizontalFrame* horizontalFrameParent, GNEView
     myNeteditAttributes = new GNEFrameAttributesModuls::NeteditAttributes(this);
 
     // create PathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this, 0);
+    myPathCreator = new GNEFrameModuls::PathCreator(this);
 
     // limit path creator to pedestrians
     myPathCreator->setVClass(SVC_PEDESTRIAN);
@@ -172,8 +172,6 @@ GNEPersonFrame::tagSelected() {
                     // show Netedit attributes modul
                     myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTagProperties());
                 } else {
-                    // set edge path creator mode
-                    myPathCreator->setPathCreatorMode(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
                     // update VClass of myPathCreator
                     if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
                         myPathCreator->setVClass(SVC_PASSENGER);
@@ -181,7 +179,7 @@ GNEPersonFrame::tagSelected() {
                         myPathCreator->setVClass(SVC_PEDESTRIAN);
                     }
                     // show edge path creator modul
-                    myPathCreator->showPathCreatorModul();
+                    myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
                     // hide Netedit attributes modul
                     myNeteditAttributes->hideNeteditAttributesModul();
                 }
@@ -239,8 +237,6 @@ GNEPersonFrame::demandElementSelected() {
                 // show Netedit attributes modul
                 myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTagProperties());
             } else {
-                // set edge path creator mode
-                myPathCreator->setPathCreatorMode(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
                 // update VClass of myPathCreator
                 if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
                     myPathCreator->setVClass(SVC_PASSENGER);
@@ -248,7 +244,7 @@ GNEPersonFrame::demandElementSelected() {
                     myPathCreator->setVClass(SVC_PEDESTRIAN);
                 }
                 // show edge path creator modul
-                myPathCreator->showPathCreatorModul();
+                myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
                 // hide Netedit attributes modul
                 myNeteditAttributes->hideNeteditAttributesModul();
             }
@@ -282,8 +278,7 @@ GNEPersonFrame::createPath() {
         // check if person and person plan can be created
         if (GNERouteHandler::buildPersonPlan(
             myPersonPlanTagSelector->getCurrentTagProperties().getTag(), 
-            buildPerson(), myPersonPlanAttributes,
-            myPathCreator)) {
+            buildPerson(), myPersonPlanAttributes, myPathCreator)) {
             // end undo-redo operation
             myViewNet->getUndoList()->p_end();
             // abort path creation

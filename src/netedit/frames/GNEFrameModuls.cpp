@@ -2110,10 +2110,10 @@ GNEFrameModuls::PathCreator::Path::Path() :
 }
 
 
-GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent, const int creationMode) :
+GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myCreationMode(creationMode),
+    myCreationMode(0),
     myFromStoppingPlace(nullptr),
     myToStoppingPlace(nullptr),
     myRoute(nullptr),
@@ -2151,31 +2151,15 @@ GNEFrameModuls::PathCreator::~PathCreator() {}
 
 
 void
-GNEFrameModuls::PathCreator::showPathCreatorModul() {
+GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool firstElement, const bool consecutives) {
+    // declare flag
+    bool showPathCreator = true;
+    // first abort creation
+    abortPathCreation();
     // disable buttons
     myFinishCreationButton->disable();
     myAbortCreationButton->disable();
     myRemoveLastInsertedElement->disable();
-    // recalc before show (to avoid graphic problems)
-    recalc();
-    // show modul
-    show();
-}
-
-
-void
-GNEFrameModuls::PathCreator::hidePathCreatorModul() {
-    // clear path
-    clearPath();
-    // hide modul
-    hide();
-}
-
-
-void
-GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool firstElement, const bool consecutives) {
-    // first abort creation
-    abortPathCreation();
     // reset creation mode
     myCreationMode = 0;
     // set first element
@@ -2196,7 +2180,7 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        // vehicles
+            // vehicles
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_ROUTEFLOW:
         case GNE_TAG_WALK_ROUTE:
@@ -2207,12 +2191,12 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        // edges
+            // edges
         case GNE_TAG_WALK_EDGES:
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        // edge->edge
+            // edge->edge
         case GNE_TAG_PERSONTRIP_EDGE_EDGE:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
@@ -2220,7 +2204,7 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        // edge->busStop
+            // edge->busStop
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
@@ -2228,7 +2212,7 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
             break;
-        // busStop->edge
+            // busStop->edge
         case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
         case GNE_TAG_WALK_BUSSTOP_EDGE:
         case GNE_TAG_RIDE_BUSSTOP_EDGE:
@@ -2236,7 +2220,7 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        // busStop->busStop
+            // busStop->busStop
         case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
@@ -2244,15 +2228,40 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
             break;
-        // stops
+            // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
         case GNE_TAG_PERSONSTOP_LANE:
             /* fix */
             break;
+            // generic datas
+        case SUMO_TAG_EDGEREL:
+            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
+            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            break;
         default:
-            hidePathCreatorModul();
+            showPathCreator = false;
             break;
     }
+    // check if show path creator
+    if (showPathCreator) {
+        // recalc before show (to avoid graphic problems)
+        recalc();
+        // show modul
+        show();
+    } else {
+        // hide modul
+        hide();
+    }
+}
+
+
+void
+GNEFrameModuls::PathCreator::hidePathCreatorModul() {
+    // clear path
+    clearPath();
+    // hide modul
+    hide();
 }
 
 

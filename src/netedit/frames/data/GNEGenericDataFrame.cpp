@@ -544,7 +544,7 @@ GNEGenericDataFrame::show() {
     myDataSetSelector->refreshDataSetSelector(nullptr);
     // check if there is an edge path creator
     if (myPathCreator) {
-        myPathCreator->showPathCreatorModul();
+        myPathCreator->showPathCreatorModul(myGenericDataTag, false, false);
     }
     // show frame
     GNEFrame::show();
@@ -569,7 +569,7 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this, "Attributes");
     // create PathCreator modul
     if (pathCreator) {
-        myPathCreator = new GNEFrameModuls::PathCreator(this, GNEFrameModuls::PathCreator::START_EDGE | GNEFrameModuls::PathCreator::END_EDGE | GNEFrameModuls::PathCreator::ONLY_FROMTO);
+        myPathCreator = new GNEFrameModuls::PathCreator(this);
     }
 }
 

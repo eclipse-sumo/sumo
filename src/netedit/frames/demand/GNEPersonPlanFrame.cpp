@@ -57,7 +57,7 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     myPersonPlanAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create myPathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this, GNEFrameModuls::PathCreator::Mode::NONCONSECUTIVE_EDGES);
+    myPathCreator = new GNEFrameModuls::PathCreator(this);
 
     // Create AttributeCarrierHierarchy modul
     myPersonHierarchy = new GNEFrameModuls::AttributeCarrierHierarchy(this);
@@ -156,19 +156,17 @@ GNEPersonPlanFrame::tagSelected() {
         SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
         // show person attributes
         myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
-        // show edge path creator
-        myPathCreator->showPathCreatorModul();
         // get previous person plan
         GNEEdge* previousEdge = myPersonSelector->getPersonPlanPreviousEdge();
         // set path creator mode depending if previousEdge exist
         if (previousEdge) {
             // set path creator mode
-            myPathCreator->setPathCreatorMode(personPlanTag, true, false);
+            myPathCreator->showPathCreatorModul(personPlanTag, true, false);
             // add previous edge
             myPathCreator->addEdge(previousEdge, false, false);
         } else {
             // set path creator mode
-            myPathCreator->setPathCreatorMode(personPlanTag, false, false);
+            myPathCreator->showPathCreatorModul(personPlanTag, false, false);
         }
         // show person hierarchy
         myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());

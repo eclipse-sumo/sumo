@@ -112,7 +112,7 @@ GNEVehicleFrame::GNEVehicleFrame(FXHorizontalFrame* horizontalFrameParent, GNEVi
     myVehicleAttributes = new GNEFrameAttributesModuls::AttributesCreator(this);
 
     // create PathCreator Modul
-    myPathCreator = new GNEFrameModuls::PathCreator(this, GNEFrameModuls::PathCreator::START_EDGE | GNEFrameModuls::PathCreator::END_EDGE);
+    myPathCreator = new GNEFrameModuls::PathCreator(this);
 
     // Create Help Creation Modul
     myHelpCreation = new HelpCreation(this);
@@ -259,13 +259,8 @@ GNEVehicleFrame::tagSelected() {
     if (myVehicleTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
         // show vehicle type selector modul
         myVTypeSelector->showDemandElementSelector();
-        // show AutoRute creator if we're editing a trip
-        if ((myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_TRIP) ||
-                (myVehicleTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_FLOW)) {
-            myPathCreator->showPathCreatorModul();
-        } else {
-            myPathCreator->hidePathCreatorModul();
-        }
+        // show path creator modul
+        myPathCreator->showPathCreatorModul(myVehicleTagSelector->getCurrentTagProperties().getTag(), false, false);
     } else {
         // hide all moduls if vehicle isn't valid
         myVTypeSelector->hideDemandElementSelector();
