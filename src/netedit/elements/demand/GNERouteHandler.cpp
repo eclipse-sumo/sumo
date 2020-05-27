@@ -854,25 +854,115 @@ void
 GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
     GNEAdditional* busStopFrom, GNEAdditional* busStopTo, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos) {
     // declare walk
-    GNEDemandElement* personTrip = nullptr;
+    GNEDemandElement* walk = nullptr;
     // create walk depending of parameters
     if (fromEdge && toEdge) {
-        // remove VIA
-        personTrip = new GNEWalk(net, personParent, fromEdge, toEdge, arrivalPos);
+        // create walk edge->edge
+        walk = new GNEWalk(net, personParent, fromEdge, toEdge, arrivalPos);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             // insert walk 
-            net->getAttributeCarriers()->insertDemandElement(personTrip);
+            net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
-            personParent->addChildElement(personTrip);
-            fromEdge->addChildElement(personTrip);
-            toEdge->addChildElement(personTrip);
+            personParent->addChildElement(walk);
+            fromEdge->addChildElement(walk);
+            toEdge->addChildElement(walk);
             // include reference
-            personTrip->incRef("buildWalk");
+            walk->incRef("buildWalk");
+        }
+    } else if (fromEdge && busStopTo) {
+        // create walk edge->busStop
+        walk = new GNEWalk(net, personParent, fromEdge, busStopTo, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert walk 
+            net->getAttributeCarriers()->insertDemandElement(walk);
+            // set references in children
+            personParent->addChildElement(walk);
+            fromEdge->addChildElement(walk);
+            busStopTo->addChildElement(walk);
+            // include reference
+            walk->incRef("buildWalk");
+        }
+    } else if (busStopFrom && toEdge) {
+        // create walk busStop->edge
+        walk = new GNEWalk(net, personParent, busStopFrom, toEdge, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_BUSSTOP_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert walk 
+            net->getAttributeCarriers()->insertDemandElement(walk);
+            // set references in children
+            personParent->addChildElement(walk);
+            busStopFrom->addChildElement(walk);
+            toEdge->addChildElement(walk);
+            // include reference
+            walk->incRef("buildWalk");
+        }
+    } else if (busStopFrom && busStopTo) {
+        // create walk busStop->busStop
+        walk = new GNEWalk(net, personParent, busStopFrom, busStopTo, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_BUSSTOP_BUSSTOP) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert walk 
+            net->getAttributeCarriers()->insertDemandElement(walk);
+            // set references in children
+            personParent->addChildElement(walk);
+            busStopFrom->addChildElement(walk);
+            busStopTo->addChildElement(walk);
+            // include reference
+            walk->incRef("buildWalk");
+        }
+    } else if (edges.size() > 0) {
+        // create walk edges
+        walk = new GNEWalk(net, personParent, edges, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_EDGES) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert walk 
+            net->getAttributeCarriers()->insertDemandElement(walk);
+            // set references in children
+            personParent->addChildElement(walk);
+            for (const auto &edge : edges) {
+                edge->addChildElement(walk);
+            }
+            // include reference
+            walk->incRef("buildWalk");
+        }
+    } else if (route) {
+        // create walk edges
+        walk = new GNEWalk(net, personParent, route, arrivalPos);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_WALK_ROUTE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert walk 
+            net->getAttributeCarriers()->insertDemandElement(walk);
+            // set references in children
+            personParent->addChildElement(walk);
+            route->addChildElement(walk);
+            // include reference
+            walk->incRef("buildWalk");
         }
     }
     // update geometry
@@ -884,79 +974,79 @@ void
 GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
     GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& lines) {
     // declare ride
-    GNEDemandElement* personTrip = nullptr;
+    GNEDemandElement* ride = nullptr;
     // create ride depending of parameters
     if (fromEdge && toEdge) {
         // create ride edge->edge
-        personTrip = new GNERide(net, personParent, fromEdge, toEdge, arrivalPos, lines);
+        ride = new GNERide(net, personParent, fromEdge, toEdge, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_EDGE_EDGE) + " within person '" + personParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             // insert ride 
-            net->getAttributeCarriers()->insertDemandElement(personTrip);
+            net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
-            personParent->addChildElement(personTrip);
-            fromEdge->addChildElement(personTrip);
-            toEdge->addChildElement(personTrip);
+            personParent->addChildElement(ride);
+            fromEdge->addChildElement(ride);
+            toEdge->addChildElement(ride);
             // include reference
-            personTrip->incRef("buildRide");
+            ride->incRef("buildRide");
         }
     } else if (fromEdge && busStopTo) {
         // create ride edge->busStop
-        personTrip = new GNERide(net, personParent, fromEdge, busStopTo, arrivalPos, lines);
+        ride = new GNERide(net, personParent, fromEdge, busStopTo, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_EDGE_BUSSTOP) + " within person '" + personParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             // insert ride 
-            net->getAttributeCarriers()->insertDemandElement(personTrip);
+            net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
-            personParent->addChildElement(personTrip);
-            fromEdge->addChildElement(personTrip);
-            busStopTo->addChildElement(personTrip);
+            personParent->addChildElement(ride);
+            fromEdge->addChildElement(ride);
+            busStopTo->addChildElement(ride);
             // include reference
-            personTrip->incRef("buildRide");
+            ride->incRef("buildRide");
         }
     } else if (busStopFrom && toEdge) {
         // create ride busStop->edge
-        personTrip = new GNERide(net, personParent, busStopFrom, toEdge, arrivalPos, lines);
+        ride = new GNERide(net, personParent, busStopFrom, toEdge, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_BUSSTOP_EDGE) + " within person '" + personParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             // insert ride 
-            net->getAttributeCarriers()->insertDemandElement(personTrip);
+            net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
-            personParent->addChildElement(personTrip);
-            busStopFrom->addChildElement(personTrip);
-            toEdge->addChildElement(personTrip);
+            personParent->addChildElement(ride);
+            busStopFrom->addChildElement(ride);
+            toEdge->addChildElement(ride);
             // include reference
-            personTrip->incRef("buildRide");
+            ride->incRef("buildRide");
         }
     } else if (busStopFrom && busStopTo) {
         // create ride busStop->busStop
-        personTrip = new GNERide(net, personParent, busStopFrom, busStopTo, arrivalPos, lines);
+        ride = new GNERide(net, personParent, busStopFrom, busStopTo, arrivalPos, lines);
         // add element using undo list or directly, depending of undoDemandElements flag
         if (undoDemandElements) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_RIDE_BUSSTOP_BUSSTOP) + " within person '" + personParent->getID() + "'");
-            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
             // insert ride 
-            net->getAttributeCarriers()->insertDemandElement(personTrip);
+            net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
-            personParent->addChildElement(personTrip);
-            busStopFrom->addChildElement(personTrip);
-            busStopTo->addChildElement(personTrip);
+            personParent->addChildElement(ride);
+            busStopFrom->addChildElement(ride);
+            busStopTo->addChildElement(ride);
             // include reference
-            personTrip->incRef("buildRide");
+            ride->incRef("buildRide");
         }
     }
     // update geometry
