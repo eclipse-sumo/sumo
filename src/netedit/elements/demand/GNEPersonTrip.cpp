@@ -332,7 +332,9 @@ GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNEPersonTrip::computePath() {
+    // declare edges
     std::vector<GNEEdge*> edges;
+    // fill edges depending of person trip tag
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
         edges.push_back(getParentEdges().front());
         edges.push_back(getParentEdges().back());
@@ -355,17 +357,24 @@ GNEPersonTrip::computePath() {
 
 void
 GNEPersonTrip::invalidatePath() {
-    if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP)) {
-        // calculate route and update routeEdges
-        replacePathEdges(this, getParentEdges());
+    // declare edges
+    std::vector<GNEEdge*> edges;
+    // fill edges depending of person trip tag
+    if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
+        edges.push_back(getParentEdges().front());
+        edges.push_back(getParentEdges().back());
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
-        // declare a from-via-busStop edges vector
-        std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
-        // add busStop edge
-        fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        // calculate route and update routeEdges
-        replacePathEdges(this, fromViaBusStopEdges);
+        edges.push_back(getParentEdges().front());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentEdges().back());
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
     }
+    // set edges
+    replacePathEdges(this, edges);
     // update geometry
     updateGeometry();
 }
