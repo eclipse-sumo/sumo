@@ -243,7 +243,6 @@ GNERide::moveGeometry(const Position& offset) {
         const PositionVector& laneShape = getParentEdges().back()->getLanes().front()->getLaneShape();
         // calculate offset lane
         double offsetLane = laneShape.nearest_offset_to_point2D(newPosition, false) - laneShape.nearest_offset_to_point2D(myRideMove.originalViewPosition, false);
-        std::cout << offsetLane << std::endl;
         // Update arrival Position
         myArrivalPosition = parse<double>(myRideMove.firstOriginalLanePosition) + offsetLane;
         // Update geometry

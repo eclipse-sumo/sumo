@@ -602,7 +602,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
     GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().front() : nullptr;
     GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().back() : nullptr;
     // get busStops
-    GNEAdditional *fromBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
+    GNEAdditional *fromBusStop = pathCreator->getFromStoppingPlace(SUMO_TAG_BUS_STOP);
     GNEAdditional *toBuStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
     // get path edges
     std::vector<GNEEdge*> edges;
@@ -648,7 +648,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
         }
         case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP: {
             // check if person trip busStop->busStop can be created
-            if (fromEdge && toEdge) {
+            if (fromBusStop && toBuStop) {
                 buildPersonTrip(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBuStop, arrivalPos, types, modes);
                 return true;
             } else {
@@ -689,7 +689,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
         }
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP: {
             // check if walk busStop->busStop can be created
-            if (fromEdge && toEdge) {
+            if (fromBusStop && toBuStop) {
                 buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBuStop, {}, nullptr, arrivalPos);
                 return true;
             } else {
@@ -1051,6 +1051,45 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
     }
     // update geometry
     personParent->updateGeometry();
+}
+
+
+GNEEdge*
+GNERouteHandler::getFirstPersonPlanEdge(const GNEDemandElement *personPlan) {
+    // set specific mode depending of tag
+    switch (personPlan->getTagProperty().getTag()) {
+        // route
+        case GNE_TAG_WALK_ROUTE:
+            return personPlan->getParentDemandElements().at(1)->getParentEdges().front();
+        // edges
+        case GNE_TAG_WALK_EDGES:
+        // edge->edge
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_WALK_EDGE_EDGE:
+        case GNE_TAG_RIDE_EDGE_EDGE:
+        // edge->busStop
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_WALK_EDGE_BUSSTOP:
+        case GNE_TAG_RIDE_EDGE_BUSSTOP:
+            return personPlan->getParentEdges().front();
+            break;
+        // busStop->edge
+        case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
+        case GNE_TAG_WALK_BUSSTOP_EDGE:
+        case GNE_TAG_RIDE_BUSSTOP_EDGE:
+        // busStop->busStop
+        case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
+        case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
+        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
+            return personPlan->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        // stops
+        case GNE_TAG_PERSONSTOP_BUSSTOP:
+            return personPlan->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        case GNE_TAG_PERSONSTOP_LANE:
+            return personPlan->getParentLanes().front()->getParentEdge();
+        default:
+            return nullptr;
+    }
 }
 
 

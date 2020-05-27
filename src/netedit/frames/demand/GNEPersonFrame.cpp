@@ -94,8 +94,13 @@ GNEPersonFrame::show() {
 
 bool
 GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
-    // obtain tag (only for improve code legibility)
+    // first check that we clicked over an AC
+    if (objectsUnderCursor.getAttributeCarrierFront() == nullptr) {
+        return false;
+    }
+    // obtain tags (only for improve code legibility)
     SumoXMLTag personTag = myPersonTagSelector->getCurrentTagProperties().getTag();
+    SumoXMLTag clickedACTag = objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag();
     // first check that current selected person is valid
     if (personTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected person isn't valid.");
@@ -111,20 +116,13 @@ GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnd
         myViewNet->setStatusBarText("Current selected person plan isn't valid.");
         return false;
     }
-    // Obtain current person plan tag (only for improve code legibility)
-    SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
-    // declare flags for requierements
-    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag ==GNE_TAG_WALK_EDGE_BUSSTOP) ||
-        (personPlanTag == GNE_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_PERSONSTOP_BUSSTOP));
-    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag ==GNE_TAG_WALK_EDGES) ||
-        (personPlanTag ==GNE_TAG_WALK_EDGE_EDGE) || (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE));
-    // continue depending of tag
-    if ((personPlanTag ==GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
-        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
-    } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
-        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
-    } else if (requireEdge && objectsUnderCursor.getEdgeFront()) {
+    // add elements to path creator
+    if (clickedACTag == SUMO_TAG_LANE) {
         return myPathCreator->addEdge(objectsUnderCursor.getEdgeFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
+    } else if (clickedACTag == SUMO_TAG_BUS_STOP) {
+        return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
+    } else if (clickedACTag == SUMO_TAG_ROUTE) {
+        return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else {
         return false;
     }

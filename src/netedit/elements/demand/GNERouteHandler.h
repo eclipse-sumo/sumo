@@ -140,23 +140,19 @@ public:
     static bool buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent, GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, GNEFrameModuls::PathCreator* pathCreator);
 
     /// @brief build person trip
-    static void buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, 
-            GNEEdge* fromEdge, GNEEdge* toEdge, 
-            GNEAdditional* busStopFrom, GNEAdditional* busStopTo, 
-        double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+    static void buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+        GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief build walk
-    static void buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, 
-            GNEEdge* fromEdge, GNEEdge* toEdge, 
-            GNEAdditional* busStopFrom, GNEAdditional* busStopTo, 
-            const std::vector<GNEEdge*>& edges, GNEDemandElement* route,
-        double arrivalPos);
+    static void buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+        GNEAdditional* busStopFrom, GNEAdditional* busStopTo, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos);
 
     /// @brief build ride
-    static void buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, 
-            GNEEdge* fromEdge, GNEEdge* toEdge, 
-            GNEAdditional* busStopFrom, GNEAdditional* busStopTo, 
-        double arrivalPos, const std::vector<std::string>& lines);
+    static void buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
+        GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& lines);
+
+    /// @brief for the given Person plan, get first edge
+    static GNEEdge *getFirstPersonPlanEdge(const GNEDemandElement *personPlan);
 
     /// @}
 

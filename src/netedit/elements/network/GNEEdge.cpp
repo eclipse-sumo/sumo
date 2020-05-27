@@ -1424,23 +1424,8 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
         }
     }
     // draw person if this edge correspond to the first edge of first Person's person plan
-    GNEEdge* firstEdge = nullptr;
     const GNEDemandElement* firstPersonPlan = personPlan->getParentDemandElements().front()->getChildDemandElements().front();
-    if (firstPersonPlan->getTagProperty().isPersonStop()) {
-        if (firstPersonPlan->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_LANE) {
-            // obtain edge of parent lane
-            firstEdge = firstPersonPlan->getParentLanes().front()->getParentEdge();
-        } else  {
-            // obtain edge of busstop's parent lane
-            firstEdge = firstPersonPlan->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
-        }
-    } else if (firstPersonPlan->getTagProperty().getTag() ==GNE_TAG_WALK_ROUTE) {
-        // obtain first rute edge
-        firstEdge = firstPersonPlan->getParentDemandElements().at(1)->getParentEdges().front();
-    } else {
-        // obtain first parent edge
-        firstEdge = firstPersonPlan->getParentEdges().front();
-    }
+    const GNEEdge* firstEdge = GNERouteHandler::getFirstPersonPlanEdge(firstPersonPlan);
     // draw person parent if this is the edge first edge and this is the first plan
     if ((firstEdge == this) && (firstPersonPlan == personPlan)) {
         personPlan->getParentDemandElements().front()->drawGL(s);

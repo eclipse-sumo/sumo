@@ -2207,28 +2207,44 @@ GNEFrameModuls::PathCreator::setPathCreatorMode(SumoXMLTag tag, const bool first
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        // person plans
+        // edges
+        case GNE_TAG_WALK_EDGES:
+            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            break;
+        // edge->edge
         case GNE_TAG_PERSONTRIP_EDGE_EDGE:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
             myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
-        case GNE_TAG_WALK_EDGES:
-            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
-            break;
+        // edge->busStop
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
             myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
             break;
+        // busStop->edge
+        case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
+        case GNE_TAG_WALK_BUSSTOP_EDGE:
+        case GNE_TAG_RIDE_BUSSTOP_EDGE:
+            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
+            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            break;
+        // busStop->busStop
+        case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
+        case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
+        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
+            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
+            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
+            myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
+            break;
+        // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
         case GNE_TAG_PERSONSTOP_LANE:
             /* fix */
@@ -2328,19 +2344,26 @@ GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional *stoppingPlace, cons
     if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
         return false;
     }
-    // check from stoppingPlace
-    if ((myCreationMode & START_BUSSTOP) && myFromStoppingPlace) {
-        return false;
-    }
-    // check to stoppingPlace
-    if ((myCreationMode & START_BUSSTOP) && myToStoppingPlace) {
-        return false;
-    }
-    // All checks ok, then add it in selected elements
-    if ((myCreationMode & START_BUSSTOP) && (myFromStoppingPlace == nullptr)) {
-        myFromStoppingPlace = stoppingPlace;
-    } else {
-        myToStoppingPlace = stoppingPlace;
+    // first add startBusStop
+    if (myCreationMode & START_BUSSTOP) {
+        // check if previously stopping place from was set
+        if (myFromStoppingPlace) {
+            // check if previously stopping place to was set
+            if ((myCreationMode & END_BUSSTOP) && myToStoppingPlace) {
+                return false;
+            } else {
+                myToStoppingPlace = stoppingPlace;
+            }
+        } else {
+            myFromStoppingPlace = stoppingPlace;
+        }
+    } else if (myCreationMode & END_BUSSTOP) {
+        // check if previously stopping place from was set
+        if (myToStoppingPlace) {
+            return false;
+        } else {
+            myToStoppingPlace = stoppingPlace;
+        }
     }
     // enable abort route button
     myAbortCreationButton->enable();
