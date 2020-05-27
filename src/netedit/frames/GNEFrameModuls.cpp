@@ -2113,11 +2113,11 @@ GNEFrameModuls::PathCreator::Path::Path() :
 GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Route creator", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
+    myVClass(SVC_PASSENGER),
     myCreationMode(0),
     myFromStoppingPlace(nullptr),
     myToStoppingPlace(nullptr),
-    myRoute(nullptr),
-    myVClass(SVC_PASSENGER) {
+    myRoute(nullptr) {
     // create label for route info
     myInfoRouteLabel = new FXLabel(this, "No edges selected", 0, GUIDesignLabelFrameThicked);
     // create button for finish route creation
