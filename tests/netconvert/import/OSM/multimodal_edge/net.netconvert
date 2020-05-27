@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:59 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Wed May 27 15:25:52 2020 by Eclipse SUMO netconvert Version v1_6_0+0408-b7bed894f1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -59,7 +59,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.tertiary" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
-    <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" allow="pedestrian motorcycle moped bicycle" oneway="0"/>
     <type id="highway.trunk" priority="13" numLanes="2" speed="27.78" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.trunk_link" priority="8" numLanes="1" speed="22.22" disallow="pedestrian bicycle tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
     <type id="highway.unclassified" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric rail_fast ship" oneway="0"/>
@@ -75,34 +75,34 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1_0_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="-0.76,1.41 -1.44,0.13 -1.41,-0.76 -0.67,-1.28 0.76,-1.41"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" allow="tram" speed="10.48" length="4.85" shape="651.94,351.47 653.19,351.81 654.12,351.46 655.10,350.91 656.50,350.59"/>
+        <lane id=":2_0_0" index="0" allow="tram" speed="10.48" length="4.85" shape="651.95,351.48 653.20,351.81 654.13,351.47 655.11,350.91 656.51,350.59"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" allow="tram" speed="10.49" length="4.85" shape="651.94,351.47 653.19,351.81 654.12,351.47 655.10,350.91 656.50,350.60"/>
+        <lane id=":2_1_0" index="0" allow="tram" speed="10.49" length="4.85" shape="651.95,351.48 653.20,351.81 654.13,351.47 655.11,350.91 656.51,350.60"/>
     </edge>
     <edge id=":2_2" function="internal">
-        <lane id=":2_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="651.94,351.47 652.61,352.75 652.58,353.64 651.85,354.15 650.41,354.29"/>
+        <lane id=":2_2_0" index="0" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="3.65" length="4.67" shape="651.95,351.48 652.62,352.75 652.59,353.65 651.86,354.16 650.42,354.29"/>
     </edge>
 
     <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="17" type="highway.secondary|railway.tram">
-        <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" length="740.65" width="2.00" shape="649.18,356.57 -2.00,3.69"/>
-        <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.65" shape="650.41,354.29 -0.76,1.41"/>
+        <lane id="-10860201_0" index="0" allow="pedestrian" speed="27.78" length="740.66" width="2.00" shape="649.19,356.58 -2.00,3.69"/>
+        <lane id="-10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.66" shape="650.42,354.29 -0.76,1.41"/>
     </edge>
     <edge id="10860201" from="1" to="2" name="Sterndamm" priority="17" type="highway.secondary|railway.tram">
-        <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" length="740.65" width="2.00" shape="2.00,-3.69 653.18,349.19"/>
-        <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.65" shape="0.76,-1.41 651.94,351.47"/>
+        <lane id="10860201_0" index="0" allow="pedestrian" speed="27.78" length="740.66" width="2.00" shape="2.00,-3.69 653.19,349.19"/>
+        <lane id="10860201_1" index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship" speed="27.78" length="740.66" shape="0.76,-1.41 651.95,351.48"/>
     </edge>
     <edge id="10860202" from="2" to="3" name="Sterndamm" priority="17" type="railway.tram" spreadType="center">
-        <lane id="10860202_0" index="0" allow="tram" speed="13.89" length="6798.66" shape="656.50,350.59 7454.01,225.32"/>
+        <lane id="10860202_0" index="0" allow="tram" speed="13.89" length="6798.65" shape="656.51,350.59 7454.01,225.32"/>
     </edge>
     <edge id="10860203" from="2" to="4" name="Sterndamm" priority="17" type="railway.tram" spreadType="center">
-        <lane id="10860203_0" index="0" allow="tram" speed="13.89" length="13606.44" shape="656.50,350.60 14260.81,109.28"/>
+        <lane id="10860203_0" index="0" allow="tram" speed="13.89" length="13606.43" shape="656.51,350.60 14260.81,109.28"/>
     </edge>
 
     <junction id="1" type="priority" x="0.00" y="0.00" incLanes="-10860201_0 -10860201_1" intLanes=":1_0_0" shape="-0.00,0.00 -2.48,4.57 -0.00,-0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="2" type="priority" x="647.27" y="350.76" incLanes="10860201_0 10860201_1" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="656.53,352.20 656.47,348.99 655.38,348.98 655.00,348.92 654.63,348.80 654.21,348.60 653.65,348.31 648.70,357.45 651.53,357.11 652.40,355.70 653.33,354.10 654.60,352.77">
+    <junction id="2" type="priority" x="647.27" y="350.76" incLanes="10860201_0 10860201_1" intLanes=":2_0_0 :2_1_0 :2_2_0" shape="656.54,352.19 656.48,349.00 655.39,348.99 655.01,348.93 654.64,348.80 654.22,348.61 653.66,348.31 648.71,357.46 651.53,357.11 652.41,355.70 653.33,354.10 654.61,352.77">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
