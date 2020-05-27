@@ -287,5 +287,11 @@ MSStoppingPlace::addAccess(MSLane* lane, const double pos, const double length) 
     return true;
 }
 
+void
+MSStoppingPlace::clearState() {
+    myEndPositions.clear();
+    myWaitingTransportables.clear();
+    myLastFreePos = myEndPos;
+}
 
 /****************************************************************************/

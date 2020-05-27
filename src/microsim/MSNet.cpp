@@ -735,6 +735,11 @@ MSNet::clearAll() {
 
 void
 MSNet::clearState(const SUMOTime step) {
+    for (auto& item : myStoppingPlaces) {
+        for (auto& item2 : item.second) {
+            item2.second->clearState();
+        }
+    }
     myBeginOfTimestepEvents->clearState(myStep, step);
     myEndOfTimestepEvents->clearState(myStep, step);
     myInsertionEvents->clearState(myStep, step);

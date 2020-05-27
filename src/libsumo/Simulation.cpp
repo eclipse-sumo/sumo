@@ -695,6 +695,7 @@ Simulation::loadState(const std::string& fileName) {
             }
         }
     }
+    // XXX reset transportable state
     // load time only
     MSStateHandler hTime(fileName, 0, true);
     XMLSubSys::runParser(hTime, fileName);

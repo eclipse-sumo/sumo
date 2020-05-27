@@ -199,6 +199,9 @@ public:
 
     static int getPersonsAbreast(double length);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
+
 protected:
     /** @brief Computes the last free position on this stop
      *
