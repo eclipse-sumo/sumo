@@ -35,31 +35,48 @@
 // method definitions
 // ===========================================================================
 
-GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
-        double arrivalPosition, const std::vector<std::string>& lines) :
+GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+    double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(net->generateDemandElementID("", GNE_TAG_RIDE_EDGE_EDGE), net, GLO_RIDE, GNE_TAG_RIDE_EDGE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}, // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
-    Parameterised(),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
-    // set via parameter without updating references
-    replaceMiddleParentEdges(this, via, false);
     // compute ride
     computePath();
 }
 
 
-GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop, const std::vector<GNEEdge*>& via,
-        const std::vector<std::string>& lines) :
+GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
+    double arrivalPosition, const std::vector<std::string>& lines) :
     GNEDemandElement(net->generateDemandElementID("", GNE_TAG_RIDE_EDGE_BUSSTOP), net, GLO_RIDE, GNE_TAG_RIDE_EDGE_BUSSTOP,
-        {}, {fromEdge}, {}, {busStop}, {}, {}, {personParent}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
-    Parameterised(),
-    myArrivalPosition(-1),
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {},    // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
+    myArrivalPosition(arrivalPosition),
     myLines(lines) {
-    // set via parameter without updating references
-    replaceMiddleParentEdges(this, via, false);
+    // compute ride
+    computePath();
+}
+
+GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
+    double arrivalPosition, const std::vector<std::string>& lines) :
+    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_RIDE_BUSSTOP_EDGE), net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP_EDGE,
+        {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {},    // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
+    // compute ride
+    computePath();
+}
+
+
+GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
+    double arrivalPosition, const std::vector<std::string>& lines) :
+    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_RIDE_BUSSTOP_BUSSTOP), net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP_BUSSTOP,
+        {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {},   // Parents
+        {}, {}, {}, {}, {}, {}, {}, {}),                                    // Childrens
+    myArrivalPosition(arrivalPosition),
+    myLines(lines) {
     // compute ride
     computePath();
 }
@@ -301,17 +318,24 @@ GNERide::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNERide::computePath() {
+    // declare edges
+    std::vector<GNEEdge*> edges;
+    // fill edges depending of ride tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        // calculate route and update routeEdges
-        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
+        edges.push_back(getParentEdges().front());
+        edges.push_back(getParentEdges().back());
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        // declare a from-via-busStop edges vector
-        std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
-        // add busStop edge
-        fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        // calculate route and update routeEdges
-        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), fromViaBusStopEdges));
+        edges.push_back(getParentEdges().front());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentEdges().back());
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
     }
+    // calculate path and update path edges
+    replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), edges));
     // update geometry
     updateGeometry();
 }
@@ -319,17 +343,24 @@ GNERide::computePath() {
 
 void
 GNERide::invalidatePath() {
+    // declare edges
+    std::vector<GNEEdge*> edges;
+    // fill edges depending of ride tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        // calculate route and update routeEdges
-        replacePathEdges(this, getParentEdges());
+        edges.push_back(getParentEdges().front());
+        edges.push_back(getParentEdges().back());
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        // declare a from-via-busStop edges vector
-        std::vector<GNEEdge*> fromViaBusStopEdges = getParentEdges();
-        // add busStop edge
-        fromViaBusStopEdges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        // calculate route and update routeEdges
-        replacePathEdges(this, fromViaBusStopEdges);
+        edges.push_back(getParentEdges().front());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentEdges().back());
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
     }
+    // set edges
+    replacePathEdges(this, edges);
     // update geometry
     updateGeometry();
 }

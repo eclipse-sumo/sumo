@@ -35,23 +35,53 @@ class GNEVehicle;
 class GNERide : public GNEDemandElement, public Parameterised {
 
 public:
-    /**@brief parameter constructor for rideEdges
-     * @param[in] viewNet view in which this Ride is placed
-     * @param[in] personParent person parent
-     * @param[in] edges list of consecutive edges of this ride
-     * @param[in] arrivalPosition arrival position on the destination edge
-     */
+    /**@brief parameter constructor for person edge->edge
+    * @param[in] viewNet view in which this Ride is placed
+    * @param[in] personParent person parent
+    * @param[in] fromEdge from edge
+    * @param[in] toEdge to edge
+    * @param[in] arrivalPosition arrival position on the destination edge
+    * @param[in] types list of possible vehicle types to take
+    * @param[in] modes list of possible traffic modes
+    */
     GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-            const std::vector<GNEEdge*>& via, double arrivalPosition, const std::vector<std::string>& lines);
+        double arrivalPosition, const std::vector<std::string>& lines);
 
-    /**@brief parameter constructor for rideBusStop
-     * @param[in] viewNet view in which this Ride is placed
-     * @param[in] personParent person parent
-     * @param[in] edges list of consecutive edges of this ride
-     * @param[in] busStop destination busStop
-     */
-    GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* busStop,
-            const std::vector<GNEEdge*>& via, const std::vector<std::string>& lines);
+    /**@brief parameter constructor for person edge->busStop
+    * @param[in] viewNet view in which this Ride is placed
+    * @param[in] personParent person parent
+    * @param[in] fromEdge from edge
+    * @param[in] toBusStop to busStop
+    * @param[in] arrivalPosition arrival position on the destination edge
+    * @param[in] types list of possible vehicle types to take
+    * @param[in] modes list of possible traffic modes
+    */
+    GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
+        double arrivalPosition, const std::vector<std::string>& lines);
+
+    /**@brief parameter constructor for person edge->edge
+    * @param[in] viewNet view in which this Ride is placed
+    * @param[in] personParent person parent
+    * @param[in] fromBusStop from busStop
+    * @param[in] toEdge to edge
+    * @param[in] arrivalPosition arrival position on the destination edge
+    * @param[in] types list of possible vehicle types to take
+    * @param[in] modes list of possible traffic modes
+    */
+    GNERide(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
+        double arrivalPosition, const std::vector<std::string>& lines);
+
+    /**@brief parameter constructor for person edge->edge
+    * @param[in] viewNet view in which this Ride is placed
+    * @param[in] personParent person parent
+    * @param[in] fromBusStop from busStop
+    * @param[in] toBusStop to busStop
+    * @param[in] arrivalPosition arrival position on the destination edge
+    * @param[in] types list of possible vehicle types to take
+    * @param[in] modes list of possible traffic modes
+    */
+    GNERide(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
+        double arrivalPosition, const std::vector<std::string>& lines);
 
     /// @brief destructor
     ~GNERide();
