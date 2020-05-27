@@ -12,3 +12,6 @@ loadState_railSignal
 
 # load a bigger state and deal with rerouting events
 loadState_big
+
+# test that busStop state is reset when loading a simulation state
+loadState_busStop

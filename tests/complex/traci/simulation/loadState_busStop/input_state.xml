@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed May 27 21:32:29 2020 by Eclipse SUMO Version v1_6_0+0408-b7bed894f1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <save-state.times value="51"/>
+        <save-state.files value="input_state.xml"/>
+    </output>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+0408-b7bed894f1" time="51.00">
+    <route id="!0!var#1" state="0" edges="WC CE"/>
+    <route id="!1" state="0" edges="WC CE CE"/>
+    <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
+    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="40.00" route="!0!var#1" speedFactor="1.06" state="40000 0 5.10 0 50000" pos="6.30" speed="14.61" posLat="0.00">
+        <stop busStop="Stop" duration="300.00"/>
+        <device id="routing_0" state="0"/>
+    </vehicle>
+    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="60.00" route="!1" speedFactor="0.94" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+        <stop busStop="Stop" duration="10.00"/>
+        <device id="routing_1" state="0"/>
+    </vehicle>
+    <lane id=":C_16_0">
+        <vehicles value="0"/>
+    </lane>
+</snapshot>
