@@ -664,6 +664,7 @@ public:
             END_BUSSTOP             = 1 << 6,   // Path ends in a busStop
             ROUTE                   = 1 << 7,   // Path uses a route
             REQUIERE_FIRSTELEMENT   = 1 << 8,   // Path start always in a previous element
+            SHOW_CANDIDATE_EDGES    = 1 << 9,   // disable candidate edges
         };
 
         /// @brief update InfoRouteLabel

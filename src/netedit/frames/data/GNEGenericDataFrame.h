@@ -242,6 +242,9 @@ public:
     /// @brief show Frame
     void show();
 
+    /// @brief hide Frame
+    void hide();
+
 protected:
     /**@brief Constructor (protected due GNEGenericDataFrame is abtract)
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed

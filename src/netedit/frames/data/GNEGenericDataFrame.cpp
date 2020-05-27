@@ -551,6 +551,19 @@ GNEGenericDataFrame::show() {
 }
 
 
+void
+GNEGenericDataFrame::hide() {
+    if (myPathCreator) {
+        // reset candidate edges
+        for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+            edge.second->resetCandidateFlags();
+        }
+    }
+    // hide frame
+    GNEFrame::hide();
+}
+
+
 GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet, SumoXMLTag tag, const bool pathCreator) :
     GNEFrame(horizontalFrameParent, viewNet, toString(tag)),
     myDataSetSelector(nullptr),

@@ -134,6 +134,17 @@ GNEVehicleFrame::show() {
 }
 
 
+void
+GNEVehicleFrame::hide() {
+    // reset candidate edges
+    for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->resetCandidateFlags();
+    }
+    // hide frame
+    GNEFrame::hide();
+}
+
+
 bool
 GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
     // obtain tag (only for improve code legibility)

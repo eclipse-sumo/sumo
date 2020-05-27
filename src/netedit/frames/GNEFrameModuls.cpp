@@ -2177,6 +2177,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
         // routes
         case SUMO_TAG_ROUTE:
         case SUMO_TAG_EMBEDDEDROUTE:
+            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
@@ -2188,11 +2189,13 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             break;
         case SUMO_TAG_TRIP:
         case SUMO_TAG_FLOW:
+            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
             // edges
         case GNE_TAG_WALK_EDGES:
+            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
             break;
@@ -2200,6 +2203,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
         case GNE_TAG_PERSONTRIP_EDGE_EDGE:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
+            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
             myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
             myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
@@ -2208,6 +2212,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
+            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
             myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
@@ -2216,6 +2221,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
         case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
         case GNE_TAG_WALK_BUSSTOP_EDGE:
         case GNE_TAG_RIDE_BUSSTOP_EDGE:
+            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
             myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
             myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
             myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
@@ -2245,6 +2251,8 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
     }
     // check if show path creator
     if (showPathCreator) {
+        // update edge colors
+        updateEdgeColors();
         // recalc before show (to avoid graphic problems)
         recalc();
         // show modul
@@ -2288,7 +2296,7 @@ GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, 
             return false;
         }
         // check consecutive edges
-        if ((myCreationMode == Mode::CONSECUTIVE_EDGES) != 0) {
+        if (myCreationMode & Mode::CONSECUTIVE_EDGES) {
             // check that new edge is consecutive
             const auto& outgoingEdges = mySelectedEdges.back()->getSecondParentJunction()->getGNEOutgoingEdges();
             if (std::find(outgoingEdges.begin(), outgoingEdges.end(), edge) == outgoingEdges.end()) {
@@ -2298,6 +2306,13 @@ GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, 
                 return false;
             }
         }
+    }
+    // check number of edges
+    if (mySelectedEdges.size() == 2 && (myCreationMode & Mode::ONLY_FROMTO)) {
+        // Write warning
+        WRITE_WARNING("Only two edges are allowed");
+        // abort add edge
+        return false;
     }
     // check candidate edge
     if ((myShowCandidateEdges->getCheck() == TRUE) && !edge->isPossibleCandidate()) {
@@ -2455,38 +2470,41 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
     for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
     }
-    // set reachability
-    if (mySelectedEdges.size() > 0) {
-        // only coloring edges if checkbox "show candidate edges" is enabled
-        if (myShowCandidateEdges->getCheck() == TRUE) {
-            // mark all edges as conflicted (to mark special candidates) 
-            for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second->setConflictedCandidate(true);
+    // first check if current mode allow candidate edges
+    if (myCreationMode & GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES) {
+        // set reachability
+        if (mySelectedEdges.size() > 0) {
+            // only coloring edges if checkbox "show candidate edges" is enabled
+            if (myShowCandidateEdges->getCheck() == TRUE) {
+                // mark all edges as conflicted (to mark special candidates) 
+                for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                    edge.second->setConflictedCandidate(true);
+                }
+                // set special candidates (Edges that are connected but aren't compatibles with current vClass
+                setSpecialCandidates(mySelectedEdges.back());
+                // mark again all edges as conflicted (to mark possible candidates)
+                for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                    edge.second->setConflictedCandidate(true);
+                }
+                // set possible candidates (Edges that are connected AND are compatibles with current vClass
+                setPossibleCandidates(mySelectedEdges.back(), myVClass);
             }
-            // set special candidates (Edges that are connected but aren't compatibles with current vClass
-            setSpecialCandidates(mySelectedEdges.back());
-            // mark again all edges as conflicted (to mark possible candidates)
-            for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                edge.second->setConflictedCandidate(true);
+            // now mark selected eges
+            for (const auto& edge : mySelectedEdges) {
+                edge->resetCandidateFlags();
+                edge->setSourceCandidate(true);
             }
-            // set possible candidates (Edges that are connected AND are compatibles with current vClass
-            setPossibleCandidates(mySelectedEdges.back(), myVClass);
-        }
-        // now mark selected eges
-        for (const auto& edge : mySelectedEdges) {
-            edge->resetCandidateFlags();
-            edge->setSourceCandidate(true);
-        }
-        // finally mark last selected element as target
-        mySelectedEdges.back()->resetCandidateFlags();
-        mySelectedEdges.back()->setTargetCandidate(true);
-    } else if (myShowCandidateEdges->getCheck() == TRUE) {
-        // mark all edges that have at least one lane that allow given vClass
-        for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-            if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
-                edge.second->setPossibleCandidate(true);
-            } else {
-                edge.second->setSpecialCandidate(true);
+            // finally mark last selected element as target
+            mySelectedEdges.back()->resetCandidateFlags();
+            mySelectedEdges.back()->setTargetCandidate(true);
+        } else if (myShowCandidateEdges->getCheck() == TRUE) {
+            // mark all edges that have at least one lane that allow given vClass
+            for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
+                    edge.second->setPossibleCandidate(true);
+                } else {
+                    edge.second->setSpecialCandidate(true);
+                }
             }
         }
     }
@@ -2498,8 +2516,8 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
 void
 GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s) const {
     if (myPath.size() > 0) {
-        const double lineWidth = 0.32;
-        const double lineWidthin = 0.30;
+        const double lineWidth = 0.35;
+        const double lineWidthin = 0.25;
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -2533,7 +2551,9 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
             // get path
             const GNEFrameModuls::PathCreator::Path& path = myPath.at(i);
             // set path color color
-            if (path.isConflictDisconnected()) {
+            if ((myCreationMode & GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES) == 0) {
+                GLHelper::setColor(RGBColor::ORANGE);
+            } else if (path.isConflictDisconnected()) {
                 GLHelper::setColor(s->candidateColorSettings.conflict);
             } else if (path.isConflictVClass()) {
                 GLHelper::setColor(s->candidateColorSettings.special);

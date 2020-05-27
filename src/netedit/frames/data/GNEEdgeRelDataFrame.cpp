@@ -56,6 +56,8 @@ GNEEdgeRelDataFrame::createPath() {
         // just create EdgeRelationData
         GNEDataHandler::buildEdgeRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myPathCreator->getSelectedEdges().front(),
                                               myPathCreator->getSelectedEdges().back(), myParametersEditor->getParametersMap());
+        // abort path creation
+        myPathCreator->abortPathCreation();
     }
 }
 

@@ -92,6 +92,17 @@ GNEPersonFrame::show() {
 }
 
 
+void
+GNEPersonFrame::hide() {
+    // reset candidate edges
+    for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+        edge.second->resetCandidateFlags();
+    }
+    // hide frame
+    GNEFrame::hide();
+}
+
+
 bool
 GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
     // first check that we clicked over an AC

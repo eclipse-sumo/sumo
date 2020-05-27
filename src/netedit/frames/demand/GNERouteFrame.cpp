@@ -224,7 +224,7 @@ void
 GNERouteFrame::hide() {
     // reset candidate edges
     for (const auto& edge : myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-        edge.second->setPossibleCandidate(false);
+        edge.second->resetCandidateFlags();
     }
     GNEFrame::hide();
 }
