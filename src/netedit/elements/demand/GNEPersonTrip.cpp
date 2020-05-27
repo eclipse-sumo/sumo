@@ -564,8 +564,14 @@ std::string
 GNEPersonTrip::getHierarchyName() const {
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
         return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
+        return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) {
+        return "personTrip: " + getParentAdditionals().front()->getID() + " -> " + getParentEdges().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP) {
+        return "personTrip: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else {
-        return "personTrip: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();
+        throw ("Invalid personTrip tag");
     }
 }
 

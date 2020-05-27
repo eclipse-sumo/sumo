@@ -600,12 +600,20 @@ GNEWalk::getPopUpID() const {
 
 std::string
 GNEWalk::getHierarchyName() const {
-    if ((myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_EDGE) || (myTagProperty.getTag() ==GNE_TAG_WALK_EDGES)) {
+    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
         return "walk: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
-    } else  if (myTagProperty.getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP) {
-        return "walk: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();
-    } else {
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
+        return "walk: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
+        return "walk: " + getParentAdditionals().front()->getID() + " -> " + getParentEdges().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
+        return "walk: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
+        return "walk: " + getParentEdges().front()->getID() + " ... " + getParentEdges().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         return "walk: " + getParentDemandElements().at(1)->getID();
+    } else {
+        throw ("Invalid walk tag");
     }
 }
 

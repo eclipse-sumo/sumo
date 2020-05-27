@@ -542,8 +542,14 @@ std::string
 GNERide::getHierarchyName() const {
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
         return "ride: " + getParentEdges().front()->getID() + " -> " + getParentEdges().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
+        return "ride: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
+        return "ride: " + getParentAdditionals().front()->getID() + " -> " + getParentEdges().back()->getID();
+    } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
+        return "ride: " + getParentAdditionals().front()->getID() + " -> " + getParentAdditionals().back()->getID();
     } else {
-        return "ride: " + getParentEdges().front()->getID() + " -> " + getParentAdditionals().front()->getID();
+        throw ("Invalid ride tag");
     }
 }
 
