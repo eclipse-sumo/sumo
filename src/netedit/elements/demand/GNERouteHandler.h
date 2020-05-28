@@ -259,11 +259,11 @@ protected:
     /// @brief Processing of a person
     void addPerson(const SUMOSAXAttributes& attrs);
 
-    /// @brief Processing of a container
-    void addContainer(const SUMOSAXAttributes& attrs);
-
     /// @brief Processing of a ride
     void addRide(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a container
+    void addContainer(const SUMOSAXAttributes& attrs);
 
     /// @brief Processing of a transport
     void addTransport(const SUMOSAXAttributes& attrs);
@@ -277,6 +277,15 @@ private:
         /// @brief default constructor
         PersonPlansValues();
 
+        /// @brief update tag
+        void updateGNETag();
+
+        /// @brief check integrity
+        bool checkIntegrity() const;
+
+        /// @brief is first person plan
+        bool isFirstPersonPlan() const;
+
         /// @brief return last valid edge (used to create consecutive person plans)
         GNEEdge* getLastEdge() const;
 
@@ -284,28 +293,19 @@ private:
         SumoXMLTag tag;
 
         /// @brief from edge
-        GNEEdge* from;
+        GNEEdge* fromEdge;
 
         /// @brief to edge
-        GNEEdge* to;
-
-        /// @brief via edges
-        std::vector<GNEEdge*> via;
+        GNEEdge* toEdge;
 
         /// @brief list of edges
         std::vector<GNEEdge*> edges;
 
         /// @brief busStop
-        GNEAdditional* busStop;
+        GNEAdditional* fromBusStop;
 
-        /// @brief containerStop
-        GNEAdditional* containerStop;
-
-        /// @brief chargingStation
-        GNEAdditional* chargingStation;
-
-        /// @brief parkingArea
-        GNEAdditional* parkingArea;
+        /// @brief busStop
+        GNEAdditional* toBusStop;
 
         /// @brief arrival route
         GNEDemandElement* route;
@@ -327,13 +327,32 @@ private:
 
         /// @brief stop parameters
         SUMOVehicleParameter::Stop stopParameters;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        PersonPlansValues(PersonPlansValues*) = delete;
+
+        /// @brief Invalidated assignment operator.
+        PersonPlansValues& operator=(PersonPlansValues*) = delete;
+    };
+
+    /// @brief person value
+    struct PersonValue {
+        /// @brief add person plan value (
+        bool addPersonValue(GNENet *net, SumoXMLTag tag, const SUMOSAXAttributes& attrs);
+
+        /// @brief check person plan loaded (this will change tags, set begin and end elements, etc.)
+        bool checkPersonPlanValues();
+
+        /// @brief container for person trips loaded values
+        std::vector<PersonPlansValues> myPersonPlanValues;
     };
 
     /// @brief pointer to GNENet
     GNENet* myNet;
 
-    /// @brief container for person trips loaded values
-    std::vector<PersonPlansValues> myPersonPlanValues;
+    /// @brief NETEDIT person values
+    PersonValue myPersonValues;
 
     /// @brief NETEDIT Route Parameters
     RouteParameter myRouteParameter;
