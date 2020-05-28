@@ -135,51 +135,49 @@ def calcDistAndLoops(rInfo, net, options):
             seen.add(t)
 
 
+def addOrSkip(routeInfos, skipped, rid, route, min_edges):
+    ri = RouteInfo(route)
+    if len(ri.edges) >= min_edges:
+        routeInfos[rid] = ri
+    else:
+        skipped.add(rid)
+
+
 def main():
     options = get_options()
     if options.verbose:
         print("parsing network from", options.network)
     net = readNet(options.network)
     read = 0
+    routeInfos = {}  # id-> RouteInfo
     skipped = set()
     for routeFile in options.routeFiles:
         if options.verbose:
             print("parsing routes from", routeFile)
-        routeInfos = {}  # id-> RouteInfo
         idx = 0
         if options.standalone:
             for idx, route in enumerate(parse(routeFile, 'route')):
                 if options.verbose and idx > 0 and idx % 100000 == 0:
                     print(idx, "routes read")
-                ri = RouteInfo(route)
-                if len(ri.edges) >= options.min_edges:
-                    routeInfos[route.id] = ri
-                else:
-                    skipped.add(route.id)
+                addOrSkip(routeInfos, skipped, route.id, route, options.min_edges)
         else:
             if options.heterogeneous:
                 for idx, vehicle in enumerate(parse(routeFile, 'vehicle')):
                     if options.verbose and idx > 0 and idx % 100000 == 0:
                         print(idx, "vehicles read")
-                    ri = RouteInfo(vehicle.route[-1])
-                    if len(ri.edges) >= options.min_edges:
-                        routeInfos[vehicle.id] = ri
-                    else:
-                        skipped.add(vehicle.id)
+                    addOrSkip(routeInfos, skipped, vehicle.id, vehicle.route[0], options.min_edges)
             else:
-                prev = None
+                prev = (None, None)
                 for vehicle, route in parse_fast_nested(routeFile, 'vehicle', 'id', 'route', 'edges'):
-                    if prev is None or prev[0] != vehicle.id:
+                    if prev[0] != vehicle.id:
                         if options.verbose and idx > 0 and idx % 500000 == 0:
                             print(idx, "vehicles read")
-                        if prev is not None:
-                            ri = RouteInfo(prev[1])
-                            if len(ri.edges) >= options.min_edges:
-                                routeInfos[prev[0]] = ri
-                            else:
-                                skipped.add(prev[0])
+                        if prev[0] is not None:
+                            addOrSkip(routeInfos, skipped, prev[0], prev[1], options.min_edges)
                         prev = (vehicle.id, route)
                         idx += 1
+                if prev[0] is not None:
+                    addOrSkip(routeInfos, skipped, prev[0], prev[1], options.min_edges)
         read += idx
     if options.verbose:
         print(read, "routes read", len(skipped), "short routes skipped")
