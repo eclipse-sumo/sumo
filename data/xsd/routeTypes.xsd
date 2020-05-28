@@ -779,6 +779,8 @@
                 <xsd:complexType>
                     <xsd:attribute name="from" type="xsd:string"/>
                     <xsd:attribute name="to" type="xsd:string"/>
+					<xsd:attribute name="fromTaz" type="xsd:string"/>
+					<xsd:attribute name="toTaz" type="xsd:string"/>
                     <xsd:attribute name="fromXY" type="positionType"/>
                     <xsd:attribute name="toXY" type="positionType"/>
                     <xsd:attribute name="fromLonLat" type="positionType"/>
