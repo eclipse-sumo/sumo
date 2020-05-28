@@ -278,13 +278,11 @@ GNEPersonTrip::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEPersonTrip::updateGeometry() {
     // declare depart and arrival pos lane
-    double departPosLane = -1;
-    double arrivalPosLane = -1;
+    const double departPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_FIRSTPOSITION);
+    const double arrivalPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_LASTPOSITION);
     // declare start and end positions
     Position startPos = Position::INVALID;
     Position endPos = Position::INVALID;
-    // calculate person plan start and end lanepositions
-    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane);
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
@@ -311,13 +309,11 @@ GNEPersonTrip::updateDottedContour() {
 void
 GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
     // declare depart and arrival pos lane
-    double departPosLane = -1;
-    double arrivalPosLane = -1;
+    const double departPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_FIRSTPOSITION);
+    const double arrivalPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_LASTPOSITION);
     // declare start and end positions
     Position startPos = Position::INVALID;
     Position endPos = Position::INVALID;
-    // calculate person plan start and end lanepositions
-    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane);
     // calculate person plan start and end positions
     calculatePersonPlanPositionStartEndPos(startPos, endPos);
     // calculate geometry path
@@ -422,16 +418,18 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
 std::string
 GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
     switch (key) {
+        // Common person plan attributes
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_TO:
             return getParentEdges().back()->getID();
-        case SUMO_ATTR_VIA:
-            return toString(getMiddleParentEdges());
-        case SUMO_ATTR_BUS_STOP:
+        case GNE_ATTR_FROM_BUSSTOP:
             return getParentAdditionals().front()->getID();
+        case GNE_ATTR_TO_BUSSTOP:
+            return getParentAdditionals().back()->getID();
+        // specific person plan attributes
         case SUMO_ATTR_MODES:
             return joinToString(myModes, " ");
         case SUMO_ATTR_VTYPES:
@@ -463,6 +461,38 @@ GNEPersonTrip::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return (getLastAllowedVehicleLane()->getLaneShape().length() - POSITION_EPS);
             }
+        // Person plan positions
+        case GNE_ATTR_PERSONPLAN_FIRSTPOSITION: {
+            // get previous person Plan
+            const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
+            // return depending of tag
+            if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE)) {
+                if (previousPersonPlan) {
+                    // return arrival pos
+                    return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+                } else {
+                    // return pedestrian departPos
+                    return getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+                }
+            } else if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP)) {
+                // return end position of first busStop
+                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+            } else {
+                return -1;
+            }
+        }
+        case GNE_ATTR_PERSONPLAN_LASTPOSITION: {
+            // return depending of tag
+            if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE)) {
+                // return arrival pos
+                return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+            } else if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP)) {
+                // return end position of last busStop
+                return getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+            } else {
+                return -1;
+            }
+        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -475,10 +505,12 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
+        // Common person plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
-        case SUMO_ATTR_VIA:
-        case SUMO_ATTR_BUS_STOP:
+        case GNE_ATTR_FROM_BUSSTOP:
+        case GNE_ATTR_TO_BUSSTOP:
+        // specific person plan attributes
         case SUMO_ATTR_MODES:
         case SUMO_ATTR_VTYPES:
         case SUMO_ATTR_ARRIVALPOS:
@@ -495,17 +527,14 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
 bool
 GNEPersonTrip::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        // Common person plan attributes
         case SUMO_ATTR_FROM:
         case SUMO_ATTR_TO:
             return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) != nullptr);
-        case SUMO_ATTR_VIA:
-            if (value.empty()) {
-                return true;
-            } else {
-                return canParse<std::vector<GNEEdge*> >(myNet, value, false);
-            }
-        case SUMO_ATTR_BUS_STOP:
+        case GNE_ATTR_FROM_BUSSTOP:
+        case GNE_ATTR_TO_BUSSTOP:
             return (myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, value, false) != nullptr);
+        // specific person plan attributes
         case SUMO_ATTR_MODES: {
             SVCPermissions dummyModeSet;
             std::string dummyError;
@@ -582,33 +611,35 @@ GNEPersonTrip::getHierarchyName() const {
 void
 GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        // Specific of Trips and flow
-        case SUMO_ATTR_FROM: {
+        // Common person plan attributes
+        case SUMO_ATTR_FROM:
             // change first edge
             replaceFirstParentEdge(this, myNet->retrieveEdge(value));
             // compute person trip
             computePath();
             break;
-        }
-        case SUMO_ATTR_TO: {
+        case SUMO_ATTR_TO:
             // change last edge
             replaceLastParentEdge(this, myNet->retrieveEdge(value));
             // compute person trip
             computePath();
             break;
-        }
-        case SUMO_ATTR_VIA: {
-            // update via
-            replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myNet, value), true);
-            // compute person trip
-            computePath();
-            break;
-        }
-        case SUMO_ATTR_BUS_STOP:
+        case GNE_ATTR_FROM_BUSSTOP:
             replaceParentAdditional(this, value, 0);
             // compute person trip
             computePath();
             break;
+        case GNE_ATTR_TO_BUSSTOP:
+            // -> check this
+            if (getParentAdditionals().size() > 1) {
+                replaceParentAdditional(this, value, 1);
+            } else {
+                replaceParentAdditional(this, value, 0);
+            }
+            // compute person trip
+            computePath();
+            break;
+        // specific person plan attributes
         case SUMO_ATTR_MODES:
             myModes = GNEAttributeCarrier::parse<std::vector<std::string> >(value);
             break;
