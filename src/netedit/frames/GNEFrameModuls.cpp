@@ -2432,15 +2432,9 @@ GNEFrameModuls::PathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
 
 
 bool
-GNEFrameModuls::PathCreator::addRoute(GNEDemandElement *route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
-
-    /*************/
-
-    // recalculate path
+GNEFrameModuls::PathCreator::addRoute(GNEDemandElement* /* route */, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     recalculatePath();
-    // update info route label
     updateInfoRouteLabel();
-    // update route colors
     updateEdgeColors();
     return true;
 }
