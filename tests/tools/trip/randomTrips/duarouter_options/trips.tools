@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2019-05-10 13:15:33.549109 by $Id$
+<!-- generated on 2020-05-28 08:37:45.354336 by randomTrips.py v1_6_0+0424-80098c3c20
   options: -n net2.net.xml -s 42 -e 20 -r out.rou.xml <doubleminus>remove-loops <doubleminus>vtype-output out.add.xml <doubleminus>vehicle-class passenger <doubleminus>allow-fringe
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="passenger" vClass="passenger"/>
     <trip id="0" depart="0.00" from="left2end" to="beg" type="passenger"/>
     <trip id="1" depart="1.00" from="beg2left" to="beg2left" type="passenger"/>
     <trip id="2" depart="2.00" from="middle" to="left2end" type="passenger"/>
