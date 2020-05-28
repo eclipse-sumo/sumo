@@ -304,6 +304,8 @@ def average(elements, attrname):
 
 
 def _createRecordAndPattern(element_name, attrnames, warn, optional):
+    if isinstance(attrnames, str):
+        attrnames = [attrnames]
     prefixedAttrnames = [_prefix_keyword(a, warn) for a in attrnames]
     if optional:
         pattern = ''.join(['<%s' % element_name] +
