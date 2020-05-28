@@ -282,6 +282,8 @@ bool
 SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string& element, const std::string& id,
                                       int& lane, DepartLaneDefinition& dld, std::string& error) {
     bool ok = true;
+    lane = 0;
+    dld = DEPART_LANE_GIVEN;
     if (val == "random") {
         dld = DEPART_LANE_RANDOM;
     } else if (val == "free") {
@@ -295,13 +297,11 @@ SUMOVehicleParameter::parseDepartLane(const std::string& val, const std::string&
     } else {
         try {
             lane = StringUtils::toInt(val);
-            dld = DEPART_LANE_GIVEN;
             if (lane < 0) {
                 ok = false;
             }
         } catch (...) {
             ok = false;
-            lane = 0;
         }
     }
     if (!ok) {
@@ -319,6 +319,8 @@ bool
 SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& element, const std::string& id,
                                      double& pos, DepartPosDefinition& dpd, std::string& error) {
     bool ok = true;
+    pos = 0.;
+    dpd = DEPART_POS_GIVEN;
     if (val == "random") {
         dpd = DEPART_POS_RANDOM;
     } else if (val == "random_free") {
@@ -334,10 +336,8 @@ SUMOVehicleParameter::parseDepartPos(const std::string& val, const std::string& 
     } else {
         try {
             pos = StringUtils::toDouble(val);
-            dpd = DEPART_POS_GIVEN;
         } catch (...) {
             ok = false;
-            pos = 0;
         }
     }
     if (!ok) {
@@ -355,6 +355,8 @@ bool
 SUMOVehicleParameter::parseDepartPosLat(const std::string& val, const std::string& element, const std::string& id,
                                         double& pos, DepartPosLatDefinition& dpd, std::string& error) {
     bool ok = true;
+    pos = 0.;
+    dpd = DEPART_POSLAT_GIVEN;
     if (val == "random") {
         dpd = DEPART_POSLAT_RANDOM;
     } else if (val == "random_free") {
@@ -370,10 +372,8 @@ SUMOVehicleParameter::parseDepartPosLat(const std::string& val, const std::strin
     } else {
         try {
             pos = StringUtils::toDouble(val);
-            dpd = DEPART_POSLAT_GIVEN;
         } catch (...) {
             ok = false;
-            pos = 0;
         }
     }
     if (!ok) {
@@ -391,6 +391,8 @@ bool
 SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string& element, const std::string& id,
                                        double& speed, DepartSpeedDefinition& dsd, std::string& error) {
     bool ok = true;
+    speed = -1.;
+    dsd = DEPART_SPEED_GIVEN;
     if (val == "random") {
         dsd = DEPART_SPEED_RANDOM;
     } else if (val == "max") {
@@ -402,13 +404,11 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
     } else {
         try {
             speed = StringUtils::toDouble(val);
-            dsd = DEPART_SPEED_GIVEN;
             if (speed < 0) {
                 ok = false;
             }
         } catch (...) {
             ok = false;
-            speed = -1;
         }
     }
     if (!ok) {
@@ -426,18 +426,18 @@ bool
 SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string& element, const std::string& id,
                                        int& lane, ArrivalLaneDefinition& ald, std::string& error) {
     bool ok = true;
+    lane = 0;
+    ald = ARRIVAL_LANE_GIVEN;
     if (val == "current") {
         ald = ARRIVAL_LANE_CURRENT;
     } else {
         try {
             lane = StringUtils::toInt(val);
-            ald = ARRIVAL_LANE_GIVEN;
             if (lane < 0) {
                 ok = false;
             }
         } catch (...) {
             ok = false;
-            lane = 0;
         }
     }
     if (!ok) {
@@ -455,6 +455,8 @@ bool
 SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string& element, const std::string& id,
                                       double& pos, ArrivalPosDefinition& apd, std::string& error) {
     bool ok = true;
+    pos = 0.;
+    apd = ARRIVAL_POS_GIVEN;
     if (val == "random") {
         apd = ARRIVAL_POS_RANDOM;
     } else if (val == "center") {
@@ -464,10 +466,8 @@ SUMOVehicleParameter::parseArrivalPos(const std::string& val, const std::string&
     } else {
         try {
             pos = StringUtils::toDouble(val);
-            apd = ARRIVAL_POS_GIVEN;
         } catch (...) {
             ok = false;
-            pos = 0;
         }
     }
     if (!ok) {
@@ -485,6 +485,8 @@ bool
 SUMOVehicleParameter::parseArrivalPosLat(const std::string& val, const std::string& element, const std::string& id,
         double& pos, ArrivalPosLatDefinition& apd, std::string& error) {
     bool ok = true;
+    pos = 0.;
+    apd = ARRIVAL_POSLAT_GIVEN;
     if (val == "right") {
         apd = ARRIVAL_POSLAT_RIGHT;
     } else if (val == "center") {
@@ -494,10 +496,8 @@ SUMOVehicleParameter::parseArrivalPosLat(const std::string& val, const std::stri
     } else {
         try {
             pos = StringUtils::toDouble(val);
-            apd = ARRIVAL_POSLAT_GIVEN;
         } catch (...) {
             ok = false;
-            pos = 0;
         }
     }
     if (!ok) {
@@ -515,6 +515,8 @@ bool
 SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::string& element, const std::string& id,
                                         double& speed, ArrivalSpeedDefinition& asd, std::string& error) {
     bool ok = true;
+    speed = -1.;
+    asd = ARRIVAL_SPEED_GIVEN;
     if (val == "current") {
         asd = ARRIVAL_SPEED_CURRENT;
     } else {
@@ -523,10 +525,8 @@ SUMOVehicleParameter::parseArrivalSpeed(const std::string& val, const std::strin
             if (speed < 0) {
                 ok = false;
             }
-            asd = ARRIVAL_SPEED_GIVEN;
         } catch (...) {
             ok = false;
-            speed = -1;
         }
     }
     if (!ok) {
