@@ -65,6 +65,7 @@
 #include <traci-server/TraCIServer.h>
 #include <libsumo/Simulation.h>
 #include <mesosim/MELoop.h>
+#include <mesosim/MESegment.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/devices/MSRoutingEngine.h>
@@ -735,6 +736,28 @@ MSNet::clearAll() {
 
 void
 MSNet::clearState(const SUMOTime step) {
+    myInserter->clearState();
+    myVehicleControl->clearState();
+    MSVehicleTransfer::getInstance()->clearState();
+    MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
+    if (MSGlobals::gUseMesoSim) {
+        MSGlobals::gMesoNet->clearState();
+        for (int i = 0; i < MSEdge::dictSize(); i++) {
+            for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*MSEdge::getAllEdges()[i]); s != nullptr; s = s->getNextSegment()) {
+                s->clearState();
+            }
+        }
+    } else {
+        for (int i = 0; i < MSEdge::dictSize(); i++) {
+            const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
+            for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
+                (*it)->clearState();
+            }
+        }
+    }
+    myDetectorControl->updateDetectors(myStep);
+    myDetectorControl->writeOutput(myStep, true);
+    myDetectorControl->clearState();
     for (auto& item : myStoppingPlaces) {
         for (auto& item2 : item.second) {
             item2.second->clearState();

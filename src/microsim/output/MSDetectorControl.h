@@ -174,6 +174,8 @@ public:
      */
     void writeOutput(SUMOTime step, bool closing);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
 
 protected:
     /// @name Structures needed for assigning detectors to intervals

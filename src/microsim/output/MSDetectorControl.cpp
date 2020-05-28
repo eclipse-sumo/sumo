@@ -167,5 +167,13 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
     det->writeXMLDetectorProlog(*device);
 }
 
+void
+MSDetectorControl::clearState() {
+    for (const auto& i : myDetectors) {
+        for (const auto& j : getTypedDetectors(i.first)) {
+            j.second->clearState();
+        }
+    }
+}
 
 /****************************************************************************/

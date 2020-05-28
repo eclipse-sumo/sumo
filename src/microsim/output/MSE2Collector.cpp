@@ -298,16 +298,7 @@ MSE2Collector::recalculateDetectorLength() {
 
 MSE2Collector::~MSE2Collector() {
     // clear move notifications
-    for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
-        delete *j;
-    }
-    myMoveNotifications.clear();
-
-    // clear vehicle infos
-    for (VehicleInfoMap::iterator j = myVehicleInfos.begin(); j != myVehicleInfos.end(); ++j) {
-        delete j->second;
-    }
-    myVehicleInfos.clear();
+    clearState();
 }
 
 
@@ -1500,5 +1491,19 @@ MSE2Collector::getEstimateQueueLength() const {
     }
 }
 
+
+void
+MSE2Collector::clearState() {
+    for (std::vector<MoveNotificationInfo*>::iterator j = myMoveNotifications.begin(); j != myMoveNotifications.end(); ++j) {
+        delete *j;
+    }
+    myMoveNotifications.clear();
+
+    // clear vehicle infos
+    for (VehicleInfoMap::iterator j = myVehicleInfos.begin(); j != myVehicleInfos.end(); ++j) {
+        delete j->second;
+    }
+    myVehicleInfos.clear();
+}
 
 /****************************************************************************/

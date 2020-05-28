@@ -514,6 +514,9 @@ public:
 
     virtual void setVisible(bool /*show*/) {};
 
+    /** @brief Remove all vehicles before quick-loading state */
+    virtual void clearState();
+
 private:
 
     /** @brief checks whether the vehicle stands in a jam

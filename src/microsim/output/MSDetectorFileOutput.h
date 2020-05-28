@@ -169,6 +169,9 @@ public:
         return myDetectPersons != 0;
     }
 
+    /** @brief Remove all vehicles before quick-loading state */
+    virtual void clearState() {};
+
 protected:
     /// @brief The vehicle types to look for (empty means all)
     std::set<std::string> myVehicleTypes;

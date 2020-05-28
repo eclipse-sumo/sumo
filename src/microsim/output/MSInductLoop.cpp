@@ -306,4 +306,12 @@ MSInductLoop::VehicleData::VehicleData(const SUMOTrafficObject& v, double entryT
       leftEarlyM(leftEarly) {}
 
 
+void
+MSInductLoop::clearState() {
+    myEnteredVehicleNumber = 0;
+    myLastVehicleDataCont.clear();
+    myVehicleDataCont.clear();
+    myVehiclesOnDet.clear();
+}
+
 /****************************************************************************/

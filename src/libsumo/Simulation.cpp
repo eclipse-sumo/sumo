@@ -675,31 +675,12 @@ Simulation::saveState(const std::string& fileName) {
 double
 Simulation::loadState(const std::string& fileName) {
     long before = PROGRESS_BEGIN_TIME_MESSAGE("Loading state from '" + fileName + "'");
-    // clean up state
-    MSNet::getInstance()->getInsertionControl().clearState();
-    MSNet::getInstance()->getVehicleControl().clearState();
-    MSVehicleTransfer::getInstance()->clearState();
-    MSRoute::dict_clearState(); // delete all routes after vehicles are deleted
-    if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->clearState();
-        for (int i = 0; i < MSEdge::dictSize(); i++) {
-            for (MESegment* s = MSGlobals::gMesoNet->getSegmentForEdge(*MSEdge::getAllEdges()[i]); s != nullptr; s = s->getNextSegment()) {
-                s->clearState();
-            }
-        }
-    } else {
-        for (int i = 0; i < MSEdge::dictSize(); i++) {
-            const std::vector<MSLane*>& lanes = MSEdge::getAllEdges()[i]->getLanes();
-            for (std::vector<MSLane*>::const_iterator it = lanes.begin(); it != lanes.end(); ++it) {
-                (*it)->clearState();
-            }
-        }
-    }
     // XXX reset transportable state
     // load time only
     MSStateHandler hTime(fileName, 0, true);
     XMLSubSys::runParser(hTime, fileName);
     const SUMOTime newTime = hTime.getTime();
+    // clean up state
     MSNet::getInstance()->clearState(newTime);
     // load state
     MSStateHandler h(fileName, 0);

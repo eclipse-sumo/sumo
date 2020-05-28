@@ -569,5 +569,9 @@ MSE3Collector::getCurrentVehicleIDs() const {
     return ret;
 }
 
+void
+MSE3Collector::clearState() {
+    myEnteredContainer.clear();
+}
 
 /****************************************************************************/

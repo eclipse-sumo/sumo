@@ -338,6 +338,8 @@ public:
      */
     void detectorUpdate(const SUMOTime step);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    virtual void clearState();
 
 protected:
     /// @brief The detector's entries
