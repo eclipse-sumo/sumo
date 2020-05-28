@@ -9,3 +9,6 @@ rerouting
 
 # test that busStop state is reset when loading a simulation state
 busStop
+
+# test that detector state is reset when loading a simulation state	
+detectors
