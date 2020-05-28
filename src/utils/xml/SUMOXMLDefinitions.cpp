@@ -238,7 +238,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE Walks
     { "walk: edge->edge",               GNE_TAG_WALK_EDGE_EDGE },
     { "walk: edge->busStop",            GNE_TAG_WALK_EDGE_BUSSTOP },
-    { "walk: busSto->pedge",            GNE_TAG_WALK_BUSSTOP_EDGE },
+    { "walk: busStop->edge",            GNE_TAG_WALK_BUSSTOP_EDGE },
     { "walk: busStop->busStop",         GNE_TAG_WALK_BUSSTOP_BUSSTOP },
     { "walk: edges",                    GNE_TAG_WALK_EDGES },
     { "walk: route",                    GNE_TAG_WALK_ROUTE },
@@ -782,7 +782,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "defaultVTypeModified",               GNE_ATTR_DEFAULT_VTYPE_MODIFIED },
     { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
     { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
-    { "tobusStop",                          GNE_ATTR_TO_BUSSTOP },
+    { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },
+    { "personPlanFirstPosition",            GNE_ATTR_PERSONPLAN_FIRSTPOSITION },
+    { "personPlanLastPosition",             GNE_ATTR_PERSONPLAN_LASTPOSITION },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },

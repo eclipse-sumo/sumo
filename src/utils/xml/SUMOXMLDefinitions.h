@@ -1146,6 +1146,11 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_BUSSTOP,
     /// @brief to busStop (used by personPlans)
     GNE_ATTR_TO_BUSSTOP,
+    /// @brief first person plan position (used for person plan geometry)
+    GNE_ATTR_PERSONPLAN_FIRSTPOSITION,
+    /// @brief last person plan position (used for person plan geometry)
+    GNE_ATTR_PERSONPLAN_LASTPOSITION,
+
     // @}
 
     /// @name train parameters
