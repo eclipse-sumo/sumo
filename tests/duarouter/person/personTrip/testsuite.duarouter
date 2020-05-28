@@ -158,6 +158,9 @@ ride_trip_access
 trip_output
 trip_output_geo
 
+# trip with fromTaz and toTaz
+taz
+
 # test routing taxi trips
 taxi
 errors
