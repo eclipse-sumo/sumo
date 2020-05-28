@@ -224,6 +224,7 @@ osmtrips:0.0101
 ptroutes:0.0101
 summary:0.0001
 routes:0.0001
+output:0.0001
 
 [unordered_text]
 errors:ERROR:SCHEMA
