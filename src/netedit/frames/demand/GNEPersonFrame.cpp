@@ -167,36 +167,22 @@ GNEPersonFrame::tagSelected() {
             myPersonPlanTagSelector->showTagSelector();
             // now check if person plan selected is valid
             if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
-                // check if person plan attributes has to be shown
-                if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP)) {
-                    // hide person plan attributes
-                    myPersonPlanAttributes->hideAttributesCreatorModul();
+                // update VClass of myPathCreator depending if person is a ride
+                if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+                    myPathCreator->setVClass(SVC_PASSENGER);
                 } else {
-                    // show person plan attributes
-                    myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
+                    myPathCreator->setVClass(SVC_PEDESTRIAN);
                 }
-                // check if myPathCreator has to be show
-                if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_ROUTE) ||
-                        (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
-                    // hide edge path creator modul
-                    myPathCreator->hidePathCreatorModul();
-                    // show Netedit attributes modul
-                    myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTagProperties());
-                } else {
-                    // update VClass of myPathCreator
-                    if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
-                        myPathCreator->setVClass(SVC_PASSENGER);
-                    } else {
-                        myPathCreator->setVClass(SVC_PEDESTRIAN);
-                    }
-                    // show edge path creator modul
-                    myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
-                    // hide Netedit attributes modul
-                    myNeteditAttributes->hideNeteditAttributesModul();
-                }
+                // show person plan attributes
+                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
+                // show Netedit attributes modul
+                myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTagProperties());
+                // show edge path creator modul
+                myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
             } else {
                 // hide modules
                 myPersonPlanAttributes->hideAttributesCreatorModul();
+                myNeteditAttributes->hideNeteditAttributesModul();
                 myPathCreator->hidePathCreatorModul();
             }
         } else {
@@ -232,33 +218,18 @@ GNEPersonFrame::demandElementSelected() {
         myPersonPlanTagSelector->showTagSelector();
         // now check if person plan selected is valid
         if (myPersonPlanTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_NOTHING) {
-            // check if person plan attributes has to be shown
-            if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_EDGE_BUSSTOP)) {
-                // hide person plan attributes
-                myPersonPlanAttributes->hideAttributesCreatorModul();
+            // update VClass of myPathCreator depending if person is a ride
+            if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
+                myPathCreator->setVClass(SVC_PASSENGER);
             } else {
-                // show person plan attributes
-                myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
+                myPathCreator->setVClass(SVC_PEDESTRIAN);
             }
-            // check if myPathCreator has to be show
-            if ((myPersonPlanTagSelector->getCurrentTagProperties().getTag() ==GNE_TAG_WALK_ROUTE) ||
-                    (myPersonPlanTagSelector->getCurrentTagProperties().isPersonStop())) {
-                // hide edge path creator modul
-                myPathCreator->hidePathCreatorModul();
-                // show Netedit attributes modul
-                myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTagProperties());
-            } else {
-                // update VClass of myPathCreator
-                if (myPersonPlanTagSelector->getCurrentTagProperties().isRide()) {
-                    myPathCreator->setVClass(SVC_PASSENGER);
-                } else {
-                    myPathCreator->setVClass(SVC_PEDESTRIAN);
-                }
-                // show edge path creator modul
-                myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
-                // hide Netedit attributes modul
-                myNeteditAttributes->hideNeteditAttributesModul();
-            }
+            // show person plan attributes
+            myPersonPlanAttributes->showAttributesCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties(), {});
+            // show Netedit attributes modul
+            myNeteditAttributes->showNeteditAttributesModul(myPersonPlanTagSelector->getCurrentTagProperties());
+            // show edge path creator modul
+            myPathCreator->showPathCreatorModul(myPersonPlanTagSelector->getCurrentTagProperties().getTag(), false, false);
         } else {
             // hide modules
             myPersonPlanAttributes->hideAttributesCreatorModul();

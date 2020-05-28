@@ -2164,75 +2164,75 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
     myCreationMode = 0;
     // set first element
     if (firstElement) {
-        myCreationMode |= GNEFrameModuls::PathCreator::REQUIERE_FIRSTELEMENT;
+        myCreationMode |= REQUIERE_FIRSTELEMENT;
     }
     // set consecutive or non consecuives
     if (consecutives) {
-        myCreationMode |= GNEFrameModuls::PathCreator::CONSECUTIVE_EDGES;
+        myCreationMode |= CONSECUTIVE_EDGES;
     } else {
-        myCreationMode |= GNEFrameModuls::PathCreator::NONCONSECUTIVE_EDGES;
+        myCreationMode |= NONCONSECUTIVE_EDGES;
     }
     // set specific mode depending of tag
     switch (tag) {
         // routes
         case SUMO_TAG_ROUTE:
         case SUMO_TAG_EMBEDDEDROUTE:
-            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= START_EDGE;
+            myCreationMode |= END_EDGE;
             break;
             // vehicles
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_ROUTEFLOW:
         case GNE_TAG_WALK_ROUTE:
-            /* route, fix */
+            myCreationMode |= ROUTE;
             break;
         case SUMO_TAG_TRIP:
         case SUMO_TAG_FLOW:
-            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= START_EDGE;
+            myCreationMode |= END_EDGE;
             break;
             // edges
         case GNE_TAG_WALK_EDGES:
-            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= START_EDGE;
+            myCreationMode |= END_EDGE;
             break;
             // edge->edge
         case GNE_TAG_PERSONTRIP_EDGE_EDGE:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
-            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
-            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_EDGE;
+            myCreationMode |= END_EDGE;
             break;
             // edge->busStop
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
-            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
-            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_BUSSTOP;
+            myCreationMode |= END_BUSSTOP;
             break;
             // busStop->edge
         case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
         case GNE_TAG_WALK_BUSSTOP_EDGE:
         case GNE_TAG_RIDE_BUSSTOP_EDGE:
-            myCreationMode |= GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES;
-            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            myCreationMode |= SHOW_CANDIDATE_EDGES;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_BUSSTOP;
+            myCreationMode |= END_EDGE;
             break;
             // busStop->busStop
         case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
-            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_BUSSTOP;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_BUSSTOP;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_BUSSTOP;
+            myCreationMode |= END_BUSSTOP;
             break;
             // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
@@ -2241,9 +2241,9 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             break;
             // generic datas
         case SUMO_TAG_EDGEREL:
-            myCreationMode |= GNEFrameModuls::PathCreator::ONLY_FROMTO;
-            myCreationMode |= GNEFrameModuls::PathCreator::START_EDGE;
-            myCreationMode |= GNEFrameModuls::PathCreator::END_EDGE;
+            myCreationMode |= ONLY_FROMTO;
+            myCreationMode |= START_EDGE;
+            myCreationMode |= END_EDGE;
             break;
         default:
             showPathCreator = false;
@@ -2432,7 +2432,18 @@ GNEFrameModuls::PathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
 
 
 bool
-GNEFrameModuls::PathCreator::addRoute(GNEDemandElement* /* route */, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEFrameModuls::PathCreator::addRoute(GNEDemandElement *route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+    // check if routes aren allowed
+    if ((myCreationMode & ROUTE) == 0) {
+        return false;
+    }
+    // check if previously a route was added
+    if (myRoute) {
+        return false;
+    }
+    // set route
+    myRoute = route;
+    // recalculate path
     recalculatePath();
     updateInfoRouteLabel();
     updateEdgeColors();
@@ -2465,7 +2476,7 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
         edge.second->resetCandidateFlags();
     }
     // first check if current mode allow candidate edges
-    if (myCreationMode & GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES) {
+    if (myCreationMode & SHOW_CANDIDATE_EDGES) {
         // set reachability
         if (mySelectedEdges.size() > 0) {
             // only coloring edges if checkbox "show candidate edges" is enabled
@@ -2545,7 +2556,7 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
             // get path
             const GNEFrameModuls::PathCreator::Path& path = myPath.at(i);
             // set path color color
-            if ((myCreationMode & GNEFrameModuls::PathCreator::SHOW_CANDIDATE_EDGES) == 0) {
+            if ((myCreationMode & SHOW_CANDIDATE_EDGES) == 0) {
                 GLHelper::setColor(RGBColor::ORANGE);
             } else if (path.isConflictDisconnected()) {
                 GLHelper::setColor(s->candidateColorSettings.conflict);
