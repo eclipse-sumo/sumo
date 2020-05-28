@@ -29,14 +29,14 @@ import traci.constants as tc  # noqa
 
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
-    '-n', 'input_net.net.xml',
-    '-r', 'input_routes.rou.xml',
-    '--junction-taz',
-    '--device.rerouting.period', '300',
-    '--weights.random-factor', '10', # cause frequent rerouting
-    '--vehroute-output', 'vehroutes.xml',
-    '--no-step-log',
-    ])
+             '-n', 'input_net.net.xml',
+             '-r', 'input_routes.rou.xml',
+             '--junction-taz',
+             '--device.rerouting.period', '300',
+             '--weights.random-factor', '10',  # cause frequent rerouting
+             '--vehroute-output', 'vehroutes.xml',
+             '--no-step-log',
+             ])
 
 vehID = "ego"
 traci.vehicle.setMaxSpeed(vehID, 5)
@@ -50,5 +50,3 @@ while traci.simulation.getMinExpectedNumber() > 0:
         traci.vehicle.setParameter(vehID, "device.rerouting.period", "20")
 
 traci.close()
-
-

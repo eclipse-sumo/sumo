@@ -515,8 +515,8 @@ def main(options):
     with open(options.tripfile, 'w') as fouttrips:
         sumolib.writeXMLHeader(fouttrips, "$Id$", "routes")  # noqa
         if options.vehicle_class:
-            vTypeDef =  '    <vType id="%s" vClass="%s"%s/>\n' % (
-                    options.vtypeID, options.vehicle_class, vtypeattrs)
+            vTypeDef = '    <vType id="%s" vClass="%s"%s/>\n' % (
+                options.vtypeID, options.vehicle_class, vtypeattrs)
             if options.vtypeout:
                 # ensure that trip output does not contain types, file may be
                 # overwritten by later call to duarouter

@@ -44,4 +44,3 @@ for i in range(100):
     traci.simulationStep()
     print(traci.simulation.getTime())
 traci.close()
-

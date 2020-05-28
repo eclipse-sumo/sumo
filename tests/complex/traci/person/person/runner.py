@@ -39,6 +39,7 @@ def print_remaining_plan(personID, comment=""):
     for i in range(traci.person.getRemainingStages(personID)):
         print("  %s: %s" % (i, traci.person.getStage(personID, i)))
 
+
 def print_prior_plan(personID, comment=""):
     print("prio stages for '%s' %s" % (personID, comment))
     stages = []

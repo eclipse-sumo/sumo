@@ -803,8 +803,8 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
-    def getNextStops(self, vehID, limit = 0):
-        """getNextStop(string, int) -> [(string, double, string, int, int, int)], ...
+    def getNextStops(self, vehID, limit=0):
+        """getNextStop(string, int) -> [(string, double, string, int, double, double)], ...
 
         Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
         where integer stopFlag is defined as:
@@ -825,7 +825,7 @@ class VehicleDomain(Domain):
             return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
         else:
             self._connection._beginMessage(
-                    tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEXT_STOPS2, vehID, 1 + 4)
+                tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEXT_STOPS2, vehID, 1 + 4)
             self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, limit)
             return _readNextStops(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEXT_STOPS2, vehID))
 
