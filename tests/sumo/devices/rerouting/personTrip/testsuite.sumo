@@ -152,4 +152,7 @@ randomized_weights
 
 # missing the bus and rerouting
 missed_bus_reroute
+
+# trip with fromTaz and toTaz
+taz
 errors
