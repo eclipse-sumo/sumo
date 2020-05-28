@@ -126,12 +126,12 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     // Obtain current person plan tag (only for improve code legibility)
     SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
     // declare flags for requierements
-    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag ==GNE_TAG_WALK_EDGE_BUSSTOP) ||
+    const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_EDGE_BUSSTOP) ||
         (personPlanTag == GNE_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_PERSONSTOP_BUSSTOP));
-    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag ==GNE_TAG_WALK_EDGES) ||
-        (personPlanTag ==GNE_TAG_WALK_EDGE_EDGE) || (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE));
+    const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES) ||
+        (personPlanTag == GNE_TAG_WALK_EDGE_EDGE) || (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE));
     // continue depending of tag
-    if ((personPlanTag ==GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
+    if ((personPlanTag == GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
     } else if (requireBusStop && objectsUnderCursor.getAdditionalFront() && (objectsUnderCursor.getAdditionalFront()->getTagProperty().getTag() == SUMO_TAG_BUS_STOP)) {
         return myPathCreator->addStoppingPlace(objectsUnderCursor.getAdditionalFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());

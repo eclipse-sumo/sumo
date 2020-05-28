@@ -1239,7 +1239,7 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     glPopName();
     // draw route children
     for (const auto& i : route->getChildDemandElements()) {
-        if (i->getTagProperty().getTag() ==GNE_TAG_WALK_ROUTE) {
+        if (i->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
             drawPartialPersonPlan(s, i, junction);
         }
     }
