@@ -1674,9 +1674,87 @@ GNERouteHandler::closePerson() {
                 // add person
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
                 // iterate over all personplan children and add it
-
-                /** create here person plans **/
-
+                for (const auto &personPlanValue : myPersonValues.myPersonPlanValues) {
+                    switch (personPlanValue.tag) {
+                        // Person Trips
+                        case GNE_TAG_PERSONTRIP_EDGE_EDGE: {
+                            buildPersonTrip(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, 
+                                personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
+                            break;
+                        }
+                        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
+                            buildPersonTrip(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.fromBusStop, 
+                                personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
+                            break;
+                        }
+                        case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE: {
+                            buildPersonTrip(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, 
+                                personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
+                            break;
+                        }
+                        case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP: {
+                            buildPersonTrip(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, 
+                                personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
+                            break;
+                        }
+                        // Walks
+                        case GNE_TAG_WALK_EDGE_EDGE: {
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, {}, nullptr, 
+                                personPlanValue.arrivalPos);
+                            break;
+                        }
+                        case GNE_TAG_WALK_EDGE_BUSSTOP: {
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.fromBusStop, {}, nullptr, 
+                                personPlanValue.arrivalPos);
+                            break;
+                        }
+                        case GNE_TAG_WALK_BUSSTOP_EDGE: {
+                            buildWalk(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, {}, nullptr, 
+                                personPlanValue.arrivalPos);
+                            break;
+                        }
+                        case GNE_TAG_WALK_BUSSTOP_BUSSTOP: {
+                            buildWalk(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, {}, nullptr, 
+                                personPlanValue.arrivalPos);
+                            break;
+                        }
+                        case GNE_TAG_WALK_EDGES: {
+                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, personPlanValue.edges, nullptr, 
+                                personPlanValue.arrivalPos);
+                            break;
+                        }
+                        case GNE_TAG_WALK_ROUTE: {
+                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, {}, personPlanValue.route, 
+                                personPlanValue.arrivalPos);
+                            break;
+                        }
+                        // Rides
+                        case GNE_TAG_RIDE_EDGE_EDGE: {
+                            buildRide(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, 
+                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            break;
+                        }
+                        case GNE_TAG_RIDE_EDGE_BUSSTOP: {
+                            buildRide(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, 
+                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            break;
+                        }
+                        case GNE_TAG_RIDE_BUSSTOP_EDGE: {
+                            buildRide(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, 
+                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            break;
+                        }
+                        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP: {
+                            buildRide(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, 
+                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            break;
+                        }
+                        // stops
+                        /* */
+                        default:
+                            throw InvalidArgument("Invalid person plan tag");
+                    }
+                }
                 // finish creation
                 myNet->getViewNet()->getUndoList()->p_end();
             }
