@@ -999,21 +999,11 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myJunctionEntryTime(SUMOTime_MAX),
     myJunctionEntryTimeNeverYield(SUMOTime_MAX),
     myJunctionConflictEntryTime(SUMOTime_MAX),
-    myInfluencer(nullptr) {
-    if (!(*myCurrEdge)->isTazConnector()) {
-        if (pars->departLaneProcedure == DEPART_LANE_GIVEN) {
-            if ((*myCurrEdge)->getDepartLane(*this) == nullptr) {
-                throw ProcessError("Invalid departlane definition for vehicle '" + pars->id + "'.");
-            }
-        } else {
-            if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == nullptr) {
-                throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of its first edge.");
-            }
-        }
-        if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > type->getMaxSpeed()) {
-            throw ProcessError("Departure speed for vehicle '" + pars->id +
-                               "' is too high for the vehicle type '" + type->getID() + "'.");
-        }
+    myInfluencer(nullptr)
+{
+    std::string errorMsg;
+    if (!hasValidRouteStart(errorMsg)) {
+        throw ProcessError(errorMsg);
     }
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
     myNextDriveItem = myLFLinkLanes.begin();
@@ -1064,6 +1054,30 @@ MSVehicle::initDevices() {
 
 
 // ------------ interaction with the route
+bool
+MSVehicle::hasValidRouteStart(std::string& errorMsg) {
+    // note: not a const method because getDepartLane may call updateBestLanes
+    if (!(*myCurrEdge)->isTazConnector()) {
+        if (myParameter->departLaneProcedure == DEPART_LANE_GIVEN) {
+            if ((*myCurrEdge)->getDepartLane(*this) == nullptr) {
+                errorMsg = "Invalid departlane definition for vehicle '" + getID() + "'.";
+                return false;
+            }
+        } else {
+            if ((*myCurrEdge)->allowedLanes(getVClass()) == nullptr) {
+                errorMsg = "Vehicle '" + getID() + "' is not allowed to depart on any lane of its first edge.";
+                return false;
+            }
+        }
+        if (myParameter->departSpeedProcedure == DEPART_SPEED_GIVEN && myParameter->departSpeed > myType->getMaxSpeed()) {
+            errorMsg = "Departure speed for vehicle '" + getID() + "' is too high for the vehicle type '" + myType->getID() + "'.";
+            return false;
+        }
+    }
+    return true;
+}
+
+
 bool
 MSVehicle::hasArrived() const {
     return (myCurrEdge == myRoute->end() - 1

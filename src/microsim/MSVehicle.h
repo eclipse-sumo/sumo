@@ -238,6 +238,9 @@ public:
 
     void initDevices();
 
+    /// @brief additioanal microsim checks to complement hasValidRoute()
+    bool hasValidRouteStart(std::string& errorMsg);
+
     /// @name insertion/removal
     //@{
 
