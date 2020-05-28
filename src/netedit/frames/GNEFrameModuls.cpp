@@ -2475,41 +2475,38 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
     for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
         edge.second->resetCandidateFlags();
     }
-    // first check if current mode allow candidate edges
-    if (myCreationMode & SHOW_CANDIDATE_EDGES) {
-        // set reachability
-        if (mySelectedEdges.size() > 0) {
-            // only coloring edges if checkbox "show candidate edges" is enabled
-            if (myShowCandidateEdges->getCheck() == TRUE) {
-                // mark all edges as conflicted (to mark special candidates) 
-                for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                    edge.second->setConflictedCandidate(true);
-                }
-                // set special candidates (Edges that are connected but aren't compatibles with current vClass
-                setSpecialCandidates(mySelectedEdges.back());
-                // mark again all edges as conflicted (to mark possible candidates)
-                for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                    edge.second->setConflictedCandidate(true);
-                }
-                // set possible candidates (Edges that are connected AND are compatibles with current vClass
-                setPossibleCandidates(mySelectedEdges.back(), myVClass);
-            }
-            // now mark selected eges
-            for (const auto& edge : mySelectedEdges) {
-                edge->resetCandidateFlags();
-                edge->setSourceCandidate(true);
-            }
-            // finally mark last selected element as target
-            mySelectedEdges.back()->resetCandidateFlags();
-            mySelectedEdges.back()->setTargetCandidate(true);
-        } else if (myShowCandidateEdges->getCheck() == TRUE) {
-            // mark all edges that have at least one lane that allow given vClass
+    // set reachability
+    if (mySelectedEdges.size() > 0) {
+        // only coloring edges if checkbox "show candidate edges" is enabled
+        if ((myShowCandidateEdges->getCheck() == TRUE) && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
+            // mark all edges as conflicted (to mark special candidates) 
             for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
-                if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
-                    edge.second->setPossibleCandidate(true);
-                } else {
-                    edge.second->setSpecialCandidate(true);
-                }
+                edge.second->setConflictedCandidate(true);
+            }
+            // set special candidates (Edges that are connected but aren't compatibles with current vClass
+            setSpecialCandidates(mySelectedEdges.back());
+            // mark again all edges as conflicted (to mark possible candidates)
+            for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+                edge.second->setConflictedCandidate(true);
+            }
+            // set possible candidates (Edges that are connected AND are compatibles with current vClass
+            setPossibleCandidates(mySelectedEdges.back(), myVClass);
+        }
+        // now mark selected eges
+        for (const auto& edge : mySelectedEdges) {
+            edge->resetCandidateFlags();
+            edge->setSourceCandidate(true);
+        }
+        // finally mark last selected element as target
+        mySelectedEdges.back()->resetCandidateFlags();
+        mySelectedEdges.back()->setTargetCandidate(true);
+    } else if (myShowCandidateEdges->getCheck() == TRUE && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
+        // mark all edges that have at least one lane that allow given vClass
+        for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
+            if (edge.second->getNBEdge()->getNumLanesThatAllow(myVClass) > 0) {
+                edge.second->setPossibleCandidate(true);
+            } else {
+                edge.second->setSpecialCandidate(true);
             }
         }
     }

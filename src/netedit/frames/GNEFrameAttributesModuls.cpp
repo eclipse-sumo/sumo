@@ -661,6 +661,9 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
 
 void
 GNEFrameAttributesModuls::AttributesCreator::hideAttributesCreatorModul() {
+    // hide attributes creator flow
+    myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
+    // hide modul
     hide();
 }
 

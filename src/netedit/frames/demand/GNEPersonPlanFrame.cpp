@@ -77,9 +77,9 @@ GNEPersonPlanFrame::show() {
     const std::map<std::string, GNEDemandElement*>& personFlows = myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW);
     // Only show moduls if there is at least one person
     if ((persons.size() > 0) || (personFlows.size() > 0)) {
-        // refresh demand element selector
-        myPersonSelector->refreshDemandElementSelector();
-        // refresh item selector
+        // show person selector
+        myPersonSelector->showDemandElementSelector();
+        // refresh person plan tag selector
         myPersonPlanTagSelector->refreshTagProperties();
         // set first person as demand element (this will call demandElementSelected() function)
         if (persons.size() > 0) {
