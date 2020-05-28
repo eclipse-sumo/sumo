@@ -1,17 +1,7 @@
+loadState
+
 # Tests the simulation API
 simulation
 
 # test loading a simulation
 load
-
-# test loading a simulation state
-loadState
-
-# test that rail_signal switches correctly after loading a simulation state
-loadState_railSignal
-
-# load a bigger state and deal with rerouting events
-loadState_big
-
-# test that busStop state is reset when loading a simulation state
-loadState_busStop
