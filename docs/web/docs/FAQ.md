@@ -860,7 +860,7 @@ develops.
 
 ### How do I get high flows/vehicle densities?
 
-By default, insertion flow is [limited by the time resolution of the simulation](Simulation/VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) (vehicles are only inserted every full second) and by the defaulti insertion speed of 0.
+By default, insertion flow is [limited by the time resolution of the simulation](Simulation/VehicleInsertion.md#forcing_insertion_avoiding_depart_delay) (vehicles are only inserted every full second) and by the default insertion speed of 0.
 
 The following definition will allow flows in the range of 2500 vehicles/hour/lane:
 
@@ -885,7 +885,7 @@ of a 1km highway, do the following:
 - create an edge that is 1km long
 - compute the space for each vehicle: 1000m / 65 = 15.385m
 - subtract the minimum space requirement (5m vehicle length + 2.5m
-  minimumg gap by default)
+  minimum gap by default)
 - this gives you 7.885m as remaining space between vehicles.
 - at a default value of tau=1 (desired time headway excluding minGap)
   this means vehicles will be in a stationary state at 7.885m/s
@@ -901,7 +901,7 @@ density:
 
 - compute the time period between successive vehicles using the
   equilibrium speed from above: 15.385m / 7.885m/s = 1.951s
-- uese the equilibrium speed as departSpeed
+- use the equilibrium speed as departSpeed
 
 ```
 <flow id="lane0" from="startEdge" to="destEdge" begin="0" end="3600" period="1.951" departPos="base" departSpeed="7.885" departLane="0"/>
