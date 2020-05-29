@@ -246,10 +246,7 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
         } else {
             return nullptr;
         }
-    } else if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) ||
-        (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) ||
-        (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE)) {
-        // return busStop lane
+    } else if (myTagProperty.personPlanStartBusStop()) {
         return getParentAdditionals().front()->getParentLanes().front();
     } else if (getParentEdges().size() > 0) {
         if (myTagProperty.hasAttribute(SUMO_ATTR_DEPARTLANE)) {
@@ -286,9 +283,7 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // use route edges
         return getParentDemandElements().at(1)->getParentEdges().back()->getLaneByAllowedVClass(getVClass());
-    } else if ((myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) ||
-        (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) ||
-        (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP)) {
+    } else if (myTagProperty.personPlanEndBusStop()) {
         // return busStop lane
         return getParentAdditionals().back()->getParentLanes().front();
     } else if (getParentEdges().size() > 0) {
