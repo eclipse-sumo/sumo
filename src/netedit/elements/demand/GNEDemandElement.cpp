@@ -349,7 +349,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double& startLanePos, doubl
             // obtain last allowed vehicle lane of previous person plan
             const GNELane *lastAllowedLanePrevious = previousPersonPlan->getLastAllowedVehicleLane();
             // check if both plans start in the same lane
-            if (getFirstAllowedVehicleLane() != lastAllowedLanePrevious) {
+            if (lastAllowedLanePrevious && (getFirstAllowedVehicleLane() != lastAllowedLanePrevious)) {
                 extraStartPosition = lastAllowedLanePrevious->getLaneShape().positionAtOffset(startLanePos);
             }
         } else {

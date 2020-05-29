@@ -360,6 +360,9 @@ GNEWalk::computePath() {
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
         edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
         edges.push_back(getParentEdges().back());
+    } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
+        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
+        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
         edges = getParentEdges();
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {

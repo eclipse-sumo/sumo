@@ -1054,7 +1054,10 @@ GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const
     // declare a solution vector
     std::vector<GNEEdge*> solution;
     // calculate route depending of number of partial myEdges
-    if (partialEdges.size() == 1) {
+    if (partialEdges.size() == 0) {
+        // partial edges empty, then return a empty vector
+        return solution;
+    } if (partialEdges.size() == 1) {
         // if there is only one partialEdges, route has only one edge
         solution.push_back(partialEdges.front());
     } else {
