@@ -1001,10 +1001,6 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myJunctionConflictEntryTime(SUMOTime_MAX),
     myInfluencer(nullptr)
 {
-    std::string errorMsg;
-    if (!hasValidRouteStart(errorMsg)) {
-        throw ProcessError(errorMsg);
-    }
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
     myNextDriveItem = myLFLinkLanes.begin();
 }
@@ -1055,28 +1051,35 @@ MSVehicle::initDevices() {
 
 // ------------ interaction with the route
 bool
-MSVehicle::hasValidRouteStart(std::string& errorMsg) {
+MSVehicle::hasValidRouteStart(std::string& msg) {
     // note: not a const method because getDepartLane may call updateBestLanes
     if (!(*myCurrEdge)->isTazConnector()) {
         if (myParameter->departLaneProcedure == DEPART_LANE_GIVEN) {
             if ((*myCurrEdge)->getDepartLane(*this) == nullptr) {
-                errorMsg = "Invalid departlane definition for vehicle '" + getID() + "'.";
+                msg = "Invalid departlane definition for vehicle '" + getID() + "'.";
+                if (myParameter->departLane >= (int)(*myCurrEdge)->getLanes().size()) {
+                    myRouteValidity |= ROUTE_START_INVALID_LANE;
+                } else {
+                    myRouteValidity |= ROUTE_START_INVALID_PERMISSIONS;
+                }
                 return false;
             }
         } else {
             if ((*myCurrEdge)->allowedLanes(getVClass()) == nullptr) {
-                errorMsg = "Vehicle '" + getID() + "' is not allowed to depart on any lane of its first edge.";
+                msg = "Vehicle '" + getID() + "' is not allowed to depart on any lane of its first edge.";
+                myRouteValidity |= ROUTE_START_INVALID_PERMISSIONS;
                 return false;
             }
         }
         if (myParameter->departSpeedProcedure == DEPART_SPEED_GIVEN && myParameter->departSpeed > myType->getMaxSpeed()) {
-            errorMsg = "Departure speed for vehicle '" + getID() + "' is too high for the vehicle type '" + myType->getID() + "'.";
+            msg = "Departure speed for vehicle '" + getID() + "' is too high for the vehicle type '" + myType->getID() + "'.";
+            myRouteValidity |= ROUTE_START_INVALID_LANE;
             return false;
         }
     }
+    myRouteValidity &= ~(ROUTE_START_INVALID_LANE | ROUTE_START_INVALID_PERMISSIONS);
     return true;
 }
-
 
 bool
 MSVehicle::hasArrived() const {

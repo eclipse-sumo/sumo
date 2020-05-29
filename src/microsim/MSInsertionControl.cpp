@@ -156,6 +156,10 @@ MSInsertionControl::tryInsert(SUMOTime time, SUMOVehicle* veh,
         // remove vehicles which shall not be inserted for some reason
         myAbortedEmits.erase(veh);
         myVehicleControl.deleteVehicle(veh, true);
+    } else if ((veh->getRouteValidity(false) & (
+                    MSBaseVehicle::ROUTE_START_INVALID_LANE
+                    | MSBaseVehicle::ROUTE_START_INVALID_PERMISSIONS)) != 0) {
+        myVehicleControl.deleteVehicle(veh, true);
     } else {
         // let the vehicle wait one step, we'll retry then
         refusedEmits.push_back(veh);

@@ -562,7 +562,8 @@ MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
 bool
 MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const bool forceCheck) const {
     // when vaporizing, no vehicles are inserted, but checking needs to be successful to trigger removal
-    if (isVaporizing() || isTazConnector()) {
+    if (isVaporizing() || isTazConnector()
+            || v.getRouteValidity(true, checkOnly) != MSBaseVehicle::ROUTE_VALID) {
         return checkOnly;
     }
     const SUMOVehicleParameter& pars = v.getParameter();

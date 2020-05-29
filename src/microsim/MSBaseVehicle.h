@@ -60,6 +60,19 @@ public:
 
     friend class GUIBaseVehicle;
 
+    /** @enum RouteValidity
+     */
+    enum RouteValidity {
+        ROUTE_VALID = 0,
+        ROUTE_UNCHECKED = 1 << 0,
+        /// route was checked and is valid
+        ROUTE_INVALID = 1 << 1,
+        // starting edge permissions invalid (could change)
+        ROUTE_START_INVALID_PERMISSIONS = 1 << 2,
+        // insertion lane does not exist
+        ROUTE_START_INVALID_LANE = 1 << 3
+    };
+
     /** @brief Constructor
      * @param[in] pars The vehicle description
      * @param[in] route The vehicle's route
@@ -385,6 +398,12 @@ public:
      * @return Whether the vehicle's current route is valid
      */
     bool hasValidRoute(std::string& msg, const MSRoute* route = 0) const;
+
+    /// @brief checks wether the vehicle can depart on the first edge
+    virtual bool hasValidRouteStart(std::string& msg);
+
+    /// @brief check for route validity at first insertion attempt
+    int getRouteValidity(bool update = true, bool silent = false);
 
     /** @brief Adds a MoveReminder dynamically
      *
@@ -722,6 +741,9 @@ protected:
 
     /// @brief A simple odometer to keep track of the length of the route already driven
     double myOdometer;
+
+    /// @brief status of the current vehicle route
+    int myRouteValidity;
 
     /* @brief magic value for undeparted vehicles
      * @note: in previous versions this was -1

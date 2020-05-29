@@ -238,8 +238,8 @@ public:
 
     void initDevices();
 
-    /// @brief additioanal microsim checks to complement hasValidRoute()
-    bool hasValidRouteStart(std::string& errorMsg);
+    /// @brief checks wether the vehicle can depart on the first edge
+    bool hasValidRouteStart(std::string& msg);
 
     /// @name insertion/removal
     //@{

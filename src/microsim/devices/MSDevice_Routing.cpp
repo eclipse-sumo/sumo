@@ -222,7 +222,10 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
         }
     }
     try {
-        reroute(currentTime, true);
+        std::string msg;
+        if (myHolder.hasValidRouteStart(msg)) {
+            reroute(currentTime, true);
+        }
     } catch (ProcessError&) {
         myRerouteCommand = nullptr;
         throw;

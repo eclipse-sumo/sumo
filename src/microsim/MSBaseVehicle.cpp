@@ -111,6 +111,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myNumberReroutes(0),
     myStopUntilOffset(0),
     myOdometer(0.),
+    myRouteValidity(ROUTE_UNCHECKED),
     myNumericalID(myCurrentNumericalIndex++),
     myEdgeWeights(nullptr)
 #ifdef _DEBUG
@@ -122,14 +123,6 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     }
     if (!pars->wasSet(VEHPARS_FORCE_REROUTE)) {
         calculateArrivalParams();
-        if (MSGlobals::gCheckRoutes) {
-            std::string msg;
-            if (!hasValidRoute(msg)) {
-                msg = "Vehicle '" + pars->id + "' has no valid route. " + msg;
-                delete myParameter;
-                throw ProcessError(msg);
-            }
-        }
     }
     myRoute->addReference();
 }
@@ -493,6 +486,47 @@ MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {
     return true;
 }
 
+
+bool
+MSBaseVehicle::hasValidRouteStart(std::string& msg) {
+    if (myRoute->getEdges().size() > 0 && !myRoute->getEdges().front()->prohibits(this)) {
+        myRouteValidity &= ~ROUTE_START_INVALID_PERMISSIONS;
+        return true;
+    } else {
+        msg = "Vehicle '" + getID() + "' is not allowed to depart on its first edge.";
+        myRouteValidity |= ROUTE_START_INVALID_PERMISSIONS;
+        return false;
+    }
+}
+
+
+int
+MSBaseVehicle::getRouteValidity(bool update, bool silent) {
+    if (!update) {
+        return myRouteValidity;
+    }
+    // insertion check must be done in any case
+    std::string msg;
+    if (!hasValidRouteStart(msg)) {
+        if (MSGlobals::gCheckRoutes) {
+            throw ProcessError(msg);
+        } else if (!silent) {
+            // vehicle will be discarded
+            WRITE_WARNING(msg);
+        }
+    }
+    if (MSGlobals::gCheckRoutes
+            && (myRouteValidity & ROUTE_UNCHECKED) != 0
+            // we could check after the first rerouting
+            && (!myParameter->wasSet(VEHPARS_FORCE_REROUTE))) {
+        if (!hasValidRoute(msg, myRoute)) {
+            myRouteValidity |= ROUTE_INVALID;
+            throw ProcessError("Vehicle '" + getID() + "' has no valid route. " + msg);
+        }
+    }
+    myRouteValidity &= ~ROUTE_UNCHECKED;
+    return myRouteValidity;
+}
 
 void
 MSBaseVehicle::addReminder(MSMoveReminder* rem) {
