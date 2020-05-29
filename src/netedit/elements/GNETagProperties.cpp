@@ -468,6 +468,30 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 }
 
 
+bool 
+GNETagProperties::personPlanStartEdge() const {
+    return (myTagProperty & PERSONPLAN_START_EDGE) != 0;
+}
+
+
+bool 
+GNETagProperties::personPlanEndEdge() const {
+    return (myTagProperty & PERSONPLAN_END_EDGE) != 0;
+}
+
+
+bool
+GNETagProperties::personPlanStartBusStop() const {
+    return (myTagProperty & PERSONPLAN_START_BUSSTOP) != 0;
+}
+
+
+bool 
+GNETagProperties::personPlanEndBusStop() const {
+    return (myTagProperty & PERSONPLAN_END_BUSSTOP) != 0;
+}
+
+
 bool
 GNETagProperties::isAttributeDeprecated(SumoXMLAttr attr) const {
     return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
