@@ -550,7 +550,7 @@ add_test(exampletest ${PYTHON_EXECUTABLE} ${CMAKE_SOURCE_DIR}/docs/examples/runA
 find_package(Git)
 if (GIT_FOUND)
     add_custom_target(dist
-        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip
+        COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip sumo-src-${PACKAGE_VERSION}.tar.gz sumo-src-${PACKAGE_VERSION}.zip sumo-all-${PACKAGE_VERSION}.tar.gz sumo-all-${PACKAGE_VERSION}.zip sumo-gui-macos-${PACKAGE_VERSION}.zip
         COMMAND ${GIT_EXECUTABLE} archive --prefix sumo-${PACKAGE_VERSION}/ -o sumo-${PACKAGE_VERSION}.zip HEAD
         COMMAND unzip -q sumo-${PACKAGE_VERSION}.zip
         COMMAND cp -a docs/tutorial docs/examples sumo-${PACKAGE_VERSION}/docs
@@ -565,6 +565,9 @@ if (GIT_FOUND)
         COMMAND cp -a tests sumo-${PACKAGE_VERSION}
         COMMAND zip -rq sumo-all-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}
         COMMAND tar -czf sumo-all-${PACKAGE_VERSION}.tar.gz sumo-${PACKAGE_VERSION}
+        COMMAND mkdir sumo-${PACKAGE_VERSION}/sumo-gui-macos
+        COMMAND cp -a build/osx/sumo-gui/*.app build/osx/netedit/*.app build/osx/osm-web-wizard/*.app sumo-${PACKAGE_VERSION}/sumo-gui-macos
+        COMMAND zip -rq sumo-gui-macos-${PACKAGE_VERSION}.zip sumo-${PACKAGE_VERSION}/sumo-gui-macos/*.app
         COMMAND rm -rf sumo-${PACKAGE_VERSION} sumo-${PACKAGE_VERSION}.zip
         WORKING_DIRECTORY ${CMAKE_SOURCE_DIR})
     add_dependencies(dist examples doc ${JAVA_TARGETS})
