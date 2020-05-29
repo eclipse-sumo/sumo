@@ -914,7 +914,7 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
             return STEPS2TIME(depart);
         case SUMO_ATTR_DEPARTPOS:
             // check if depart and arrival pos lanes are defined
-            if (departPosProcedure == DEPART_POS_GIVEN) {
+            if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
             } else {
                 return 0;
@@ -1002,7 +1002,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartLane, dummyDepartLaneProcedure, error);
             // if error is empty, check if depart lane is correct
             if (error.empty()) {
-                if (dummyDepartLaneProcedure != DEPART_LANE_GIVEN) {
+                if (dummyDepartLaneProcedure != DepartLaneDefinition::GIVEN) {
                     return true;
                 } else {
                     return dummyDepartLane < (int)getFromEdge()->getLanes().size();
@@ -1024,7 +1024,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             parseDepartSpeed(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartSpeed, dummyDepartSpeedProcedure, error);
             // if error is empty, check if depart speed is correct
             if (error.empty()) {
-                if (dummyDepartSpeedProcedure != DEPART_SPEED_GIVEN) {
+                if (dummyDepartSpeedProcedure != DepartSpeedDefinition::GIVEN) {
                     return true;
                 } else {
                     return (dummyDepartSpeed <= getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_MAXSPEED));
@@ -1636,7 +1636,7 @@ GNEVehicle::updateSpreadGeometry() {
         departPosLane = vehicleLane->getLaneShape().nearest_offset_to_point2D(mySpreadGeometry.getPosition());
     }
     // check if arrival pos lane is defined
-    if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
+    if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
         arrivalPosLane = arrivalPos;
     }
     // calculate depart pos geometry path starting at the lane begin
@@ -1675,7 +1675,7 @@ GNEVehicle::updatePartialSpreadGeometry(const GNEEdge* edge) {
         departPosLane = vehicleLane->getLaneShape().nearest_offset_to_point2D(mySpreadGeometry.getPosition());
     }
     // check if arrival pos lane is defined
-    if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
+    if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
         arrivalPosLane = arrivalPos;
     }
     // update geometry path for the given edge
@@ -1689,10 +1689,10 @@ GNEVehicle::updateStackedGeometry() {
     double departPosLane = -1;
     double arrivalPosLane = -1;
     // check if depart and arrival pos lanes are defined
-    if (departPosProcedure == DEPART_POS_GIVEN) {
+    if (departPosProcedure == DepartPosDefinition::GIVEN) {
         departPosLane = departPos;
     }
-    if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
+    if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
         arrivalPosLane = arrivalPos;
     }
     // get first allowed lane
@@ -1715,7 +1715,7 @@ GNEVehicle::updateStackedGeometry() {
     // continue only if lane was sucesfully found
     if (firstLane) {
         // check if depart pos has to be adjusted
-        if ((departPosProcedure == DEPART_POS_GIVEN) && (departPosLane < 0)) {
+        if ((departPosProcedure == DepartPosDefinition::GIVEN) && (departPosLane < 0)) {
             departPosLane += firstLane->getLaneShape().length();
         }
         // calculate spread geometry path
@@ -1751,10 +1751,10 @@ GNEVehicle::updatePartialStackedGeometry(const GNEEdge* edge) {
     double departPosLane = -1;
     double arrivalPosLane = -1;
     // check if depart and arrival pos lanes are defined
-    if (departPosProcedure == DEPART_POS_GIVEN) {
+    if (departPosProcedure == DepartPosDefinition::GIVEN) {
         departPosLane = departPos;
     }
-    if (arrivalPosProcedure == ARRIVAL_POS_GIVEN) {
+    if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
         arrivalPosLane = arrivalPos;
     }
     // update geometry path for the given edge

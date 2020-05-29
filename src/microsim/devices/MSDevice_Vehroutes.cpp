@@ -283,20 +283,20 @@ MSDevice_Vehroutes::writeOutput(const bool hasArrived) const {
     tmp.depart = myIntendedDepart ? myHolder.getParameter().depart : myHolder.getDeparture();
     if (!MSGlobals::gUseMesoSim) {
         if (tmp.wasSet(VEHPARS_DEPARTLANE_SET)) {
-            tmp.departLaneProcedure = DEPART_LANE_GIVEN;
+            tmp.departLaneProcedure = DepartLaneDefinition::GIVEN;
             tmp.departLane = myDepartLane;
         }
         if (tmp.wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
-            tmp.departPosLatProcedure = DEPART_POSLAT_GIVEN;
+            tmp.departPosLatProcedure = DepartPosLatDefinition::GIVEN;
             tmp.departPosLat = myDepartPosLat;
         }
     }
     if (tmp.wasSet(VEHPARS_DEPARTPOS_SET)) {
-        tmp.departPosProcedure = DEPART_POS_GIVEN;
+        tmp.departPosProcedure = DepartPosDefinition::GIVEN;
         tmp.departPos = myDepartPos;
     }
     if (tmp.wasSet(VEHPARS_DEPARTSPEED_SET)) {
-        tmp.departSpeedProcedure = DEPART_SPEED_GIVEN;
+        tmp.departSpeedProcedure = DepartSpeedDefinition::GIVEN;
         tmp.departSpeed = myDepartSpeed;
     }
     const std::string typeID = myHolder.getVehicleType().getID() != DEFAULT_VTYPE_ID ? myHolder.getVehicleType().getID() : "";

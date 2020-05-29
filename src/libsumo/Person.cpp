@@ -432,7 +432,7 @@ Person::add(const std::string& personID, const std::string& edgeID, double pos, 
         vehicleParams.depart = depart;
     }
 
-    vehicleParams.departPosProcedure = DEPART_POS_GIVEN;
+    vehicleParams.departPosProcedure = DepartPosDefinition::GIVEN;
     if (fabs(pos) > edge->getLength()) {
         throw TraCIException("Invalid departure position.");
     }

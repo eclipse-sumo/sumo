@@ -418,7 +418,7 @@ MSTriggeredRerouter::notifyEnter(SUMOTrafficObject& tObject, MSMoveReminder::Not
                 // update arrival parameters
                 SUMOVehicleParameter* newParameter = new SUMOVehicleParameter();
                 *newParameter = veh.getParameter();
-                newParameter->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
+                newParameter->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
                 newParameter->arrivalPos = newParkingArea->getEndLanePosition();
                 veh.replaceParameter(newParameter);
             }

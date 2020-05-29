@@ -1689,23 +1689,23 @@ MSLCM_SL2015::_wantsChangeSublane(
         double latDistSublane = 0.;
         const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
         const double halfVehWidth = getWidth() * 0.5;
-        if (myVehicle.getParameter().arrivalPosLatProcedure != ARRIVAL_POSLAT_DEFAULT
+        if (myVehicle.getParameter().arrivalPosLatProcedure != ArrivalPosLatDefinition::DEFAULT
                 && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
                 && bestLaneOffset == 0
                 && (myVehicle.getArrivalPos() - myVehicle.getPositionOnLane()) < ARRIVALPOS_LAT_THRESHOLD) {
             // vehicle is on its final edge, on the correct lane and close to
             // its arrival position. Change to the desired lateral position
             switch (myVehicle.getParameter().arrivalPosLatProcedure) {
-                case ARRIVAL_POSLAT_GIVEN:
+                case ArrivalPosLatDefinition::GIVEN:
                     latDistSublane = myVehicle.getParameter().arrivalPosLat - myVehicle.getLateralPositionOnLane();
                     break;
-                case ARRIVAL_POSLAT_RIGHT:
+                case ArrivalPosLatDefinition::RIGHT:
                     latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
                     break;
-                case ARRIVAL_POSLAT_CENTER:
+                case ArrivalPosLatDefinition::CENTER:
                     latDistSublane = -myVehicle.getLateralPositionOnLane();
                     break;
-                case ARRIVAL_POSLAT_LEFT:
+                case ArrivalPosLatDefinition::LEFT:
                     latDistSublane = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
                     break;
                 default:

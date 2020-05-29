@@ -171,19 +171,19 @@ MSCalibrator::myStartElement(int element,
             state.vehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(element, attrs, true, true, true);
             LeftoverVehicleParameters.push_back(state.vehicleParameter);
             // vehicles should be inserted with max speed unless stated otherwise
-            if (state.vehicleParameter->departSpeedProcedure == DEPART_SPEED_DEFAULT) {
-                state.vehicleParameter->departSpeedProcedure = DEPART_SPEED_MAX;
+            if (state.vehicleParameter->departSpeedProcedure == DepartSpeedDefinition::DEFAULT) {
+                state.vehicleParameter->departSpeedProcedure = DepartSpeedDefinition::MAX;
             }
             // vehicles should be inserted on any lane unless stated otherwise
-            if (state.vehicleParameter->departLaneProcedure == DEPART_LANE_DEFAULT) {
+            if (state.vehicleParameter->departLaneProcedure == DepartLaneDefinition::DEFAULT) {
                 if (myLane == nullptr) {
-                    state.vehicleParameter->departLaneProcedure = DEPART_LANE_ALLOWED_FREE;
+                    state.vehicleParameter->departLaneProcedure = DepartLaneDefinition::ALLOWED_FREE;
                 } else {
-                    state.vehicleParameter->departLaneProcedure = DEPART_LANE_GIVEN;
+                    state.vehicleParameter->departLaneProcedure = DepartLaneDefinition::GIVEN;
                     state.vehicleParameter->departLane = myLane->getIndex();
                 }
             } else if (myLane != nullptr && (
-                           state.vehicleParameter->departLaneProcedure != DEPART_LANE_GIVEN
+                           state.vehicleParameter->departLaneProcedure != DepartLaneDefinition::GIVEN
                            || state.vehicleParameter->departLane != myLane->getIndex())) {
                 WRITE_WARNING("Insertion lane may differ from calibrator lane for calibrator '" + getID() + "'.");
             }
@@ -400,7 +400,7 @@ MSCalibrator::execute(SUMOTime currentTime) {
             newPars->id = getNewVehicleID();
             newPars->depart = currentTime;
             newPars->routeid = route->getID();
-            newPars->departLaneProcedure = DEPART_LANE_FIRST_ALLOWED; // ensure successful vehicle creation
+            newPars->departLaneProcedure = DepartLaneDefinition::FIRST_ALLOWED; // ensure successful vehicle creation
             MSVehicle* vehicle;
             try {
                 vehicle = dynamic_cast<MSVehicle*>(MSNet::getInstance()->getVehicleControl().buildVehicle(

@@ -65,7 +65,7 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
     SUMOVehicleParameter pars;
     pars.departProcedure = DEPART_TRIGGERED;
     if (departPos != 0) {
-        pars.departPosProcedure = DEPART_POS_GIVEN;
+        pars.departPosProcedure = DepartPosDefinition::GIVEN;
         pars.departPos = departPos;
         pars.parametersSet |= VEHPARS_DEPARTPOS_SET;
     }

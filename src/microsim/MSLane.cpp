@@ -481,27 +481,27 @@ MSLane::getDepartSpeed(const MSVehicle& veh, bool& patchSpeed) {
     double speed = 0;
     const SUMOVehicleParameter& pars = veh.getParameter();
     switch (pars.departSpeedProcedure) {
-        case DEPART_SPEED_GIVEN:
+        case DepartSpeedDefinition::GIVEN:
             speed = pars.departSpeed;
             patchSpeed = false;
             break;
-        case DEPART_SPEED_RANDOM:
+        case DepartSpeedDefinition::RANDOM:
             speed = RandHelper::rand(getVehicleMaxSpeed(&veh));
             patchSpeed = true;
             break;
-        case DEPART_SPEED_MAX:
+        case DepartSpeedDefinition::MAX:
             speed = getVehicleMaxSpeed(&veh);
             patchSpeed = true;
             break;
-        case DEPART_SPEED_DESIRED:
+        case DepartSpeedDefinition::DESIRED:
             speed = getVehicleMaxSpeed(&veh);
             patchSpeed = false;
             break;
-        case DEPART_SPEED_LIMIT:
+        case DepartSpeedDefinition::LIMIT:
             speed = getVehicleMaxSpeed(&veh) / veh.getChosenSpeedFactor();
             patchSpeed = false;
             break;
-        case DEPART_SPEED_DEFAULT:
+        case DepartSpeedDefinition::DEFAULT:
         default:
             // speed = 0 was set before
             patchSpeed = false; // @todo check
@@ -515,19 +515,19 @@ double
 MSLane::getDepartPosLat(const MSVehicle& veh) {
     const SUMOVehicleParameter& pars = veh.getParameter();
     switch (pars.departPosLatProcedure) {
-        case DEPART_POSLAT_GIVEN:
+        case DepartPosLatDefinition::GIVEN:
             return pars.departPosLat;
-        case DEPART_POSLAT_RIGHT:
+        case DepartPosLatDefinition::RIGHT:
             return -getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;
-        case DEPART_POSLAT_LEFT:
+        case DepartPosLatDefinition::LEFT:
             return getWidth() * 0.5 - veh.getVehicleType().getWidth() * 0.5;
-        case DEPART_POSLAT_RANDOM:
+        case DepartPosLatDefinition::RANDOM:
             return RandHelper::rand(getWidth() - veh.getVehicleType().getWidth()) - getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;
-        case DEPART_POSLAT_CENTER:
-        case DEPART_POSLAT_DEFAULT:
+        case DepartPosLatDefinition::CENTER:
+        case DepartPosLatDefinition::DEFAULT:
         // @note:
-        // case DEPART_POSLAT_FREE
-        // case DEPART_POSLAT_RANDOM_FREE
+        // case DepartPosLatDefinition::FREE
+        // case DepartPosLatDefinition::RANDOM_FREE
         // are not handled here because they involve multiple insertion attempts
         default:
             return 0;
@@ -545,16 +545,16 @@ MSLane::insertVehicle(MSVehicle& veh) {
 
     // determine the position
     switch (pars.departPosProcedure) {
-        case DEPART_POS_GIVEN:
+        case DepartPosDefinition::GIVEN:
             pos = pars.departPos;
             if (pos < 0.) {
                 pos += myLength;
             }
             break;
-        case DEPART_POS_RANDOM:
+        case DepartPosDefinition::RANDOM:
             pos = RandHelper::rand(getLength());
             break;
-        case DEPART_POS_RANDOM_FREE: {
+        case DepartPosDefinition::RANDOM_FREE: {
             for (int i = 0; i < 10; i++) {
                 // we will try some random positions ...
                 pos = RandHelper::rand(getLength());
@@ -567,18 +567,18 @@ MSLane::insertVehicle(MSVehicle& veh) {
             return freeInsertion(veh, speed, posLat);
         }
         break;
-        case DEPART_POS_FREE:
+        case DepartPosDefinition::FREE:
             return freeInsertion(veh, speed, posLat);
-        case DEPART_POS_LAST:
+        case DepartPosDefinition::LAST:
             return lastInsertion(veh, speed, posLat, patchSpeed);
-        case DEPART_POS_STOP:
+        case DepartPosDefinition::STOP:
             if (veh.hasStops() && veh.getNextStop().lane == this) {
                 pos = veh.getNextStop().getEndPos(veh);
                 break;
             }
             FALLTHROUGH;
-        case DEPART_POS_BASE:
-        case DEPART_POS_DEFAULT:
+        case DepartPosDefinition::BASE:
+        case DepartPosDefinition::DEFAULT:
         default:
             pos = veh.basePos(myEdge);
             break;
@@ -586,7 +586,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
     // determine the lateral position for special cases
     if (MSGlobals::gLateralResolution > 0) {
         switch (pars.departPosLatProcedure) {
-            case DEPART_POSLAT_RANDOM_FREE: {
+            case DepartPosLatDefinition::RANDOM_FREE: {
                 for (int i = 0; i < 10; i++) {
                     // we will try some random positions ...
                     posLat = RandHelper::rand(getWidth()) - getWidth() * 0.5;
@@ -596,8 +596,8 @@ MSLane::insertVehicle(MSVehicle& veh) {
                 }
                 FALLTHROUGH;
             }
-            // no break! continue with DEPART_POSLAT_FREE
-            case DEPART_POSLAT_FREE: {
+            // no break! continue with DepartPosLatDefinition::FREE
+            case DepartPosLatDefinition::FREE: {
                 // systematically test all positions until a free lateral position is found
                 double posLatMin = -getWidth() * 0.5 + veh.getVehicleType().getWidth() * 0.5;
                 double posLatMax = getWidth() * 0.5 - veh.getVehicleType().getWidth() * 0.5;
@@ -721,7 +721,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         if (currentLane->isLinkEnd(link)) {
             if (&currentLane->getEdge() == r.getLastEdge()) {
                 // reached the end of the route
-                if (aVehicle->getParameter().arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
+                if (aVehicle->getParameter().arrivalSpeedProcedure == ArrivalSpeedDefinition::GIVEN) {
                     const double remaining = seen + aVehicle->getArrivalPos() - currentLane->getLength();
                     const double nspeed = cfModel.freeSpeed(aVehicle, speed, remaining, aVehicle->getParameter().arrivalSpeed, true);
                     if (checkFailure(aVehicle, speed, dist, nspeed,

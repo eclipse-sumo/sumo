@@ -439,23 +439,23 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
     double pos = getLength();
     // determine the position
     switch (pars.departPosProcedure) {
-        case DEPART_POS_GIVEN:
+        case DepartPosDefinition::GIVEN:
             pos = pars.departPos;
             if (pos < 0.) {
                 pos += myLength;
             }
             break;
-        case DEPART_POS_RANDOM:
+        case DepartPosDefinition::RANDOM:
             // could be any position on the edge
             break;
-        case DEPART_POS_RANDOM_FREE:
+        case DepartPosDefinition::RANDOM_FREE:
             // could be any position on the edge due to multiple random attempts
             break;
-        case DEPART_POS_FREE:
+        case DepartPosDefinition::FREE:
             // many candidate positions, upper bound could be computed exactly
             // with much effort
             break;
-        case DEPART_POS_LAST:
+        case DepartPosDefinition::LAST:
             if (upper) {
                 for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
                     MSVehicle* last = (*i)->getLastFullVehicle();
@@ -466,8 +466,8 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
             } else {
                 pos = 0;
             }
-        case DEPART_POS_BASE:
-        case DEPART_POS_DEFAULT:
+        case DepartPosDefinition::BASE:
+        case DepartPosDefinition::DEFAULT:
             break;
         default:
             pos = MIN2(pos, veh.getVehicleType().getLength());
@@ -480,22 +480,22 @@ MSEdge::getDepartPosBound(const MSVehicle& veh, bool upper) const {
 MSLane*
 MSEdge::getDepartLane(MSVehicle& veh) const {
     switch (veh.getParameter().departLaneProcedure) {
-        case DEPART_LANE_GIVEN:
+        case DepartLaneDefinition::GIVEN:
             if ((int) myLanes->size() <= veh.getParameter().departLane || !(*myLanes)[veh.getParameter().departLane]->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
                 return nullptr;
             }
             return (*myLanes)[veh.getParameter().departLane];
-        case DEPART_LANE_RANDOM:
+        case DepartLaneDefinition::RANDOM:
             return RandHelper::getRandomFrom(*allowedLanes(veh.getVehicleType().getVehicleClass()));
-        case DEPART_LANE_FREE:
+        case DepartLaneDefinition::FREE:
             return getFreeLane(nullptr, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
-        case DEPART_LANE_ALLOWED_FREE:
+        case DepartLaneDefinition::ALLOWED_FREE:
             if (veh.getRoute().size() == 1) {
                 return getFreeLane(nullptr, veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
             } else {
                 return getFreeLane(allowedLanes(**(veh.getRoute().begin() + 1), veh.getVehicleType().getVehicleClass()), veh.getVehicleType().getVehicleClass(), getDepartPosBound(veh, false));
             }
-        case DEPART_LANE_BEST_FREE: {
+        case DepartLaneDefinition::BEST_FREE: {
             veh.updateBestLanes(false, myLanes->front());
             const std::vector<MSVehicle::LaneQ>& bl = veh.getBestLanes();
             double bestLength = -1;
@@ -522,8 +522,8 @@ MSEdge::getDepartLane(MSVehicle& veh) const {
             delete bestLanes;
             return ret;
         }
-        case DEPART_LANE_DEFAULT:
-        case DEPART_LANE_FIRST_ALLOWED:
+        case DepartLaneDefinition::DEFAULT:
+        case DepartLaneDefinition::FIRST_ALLOWED:
             for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
                 if ((*i)->allowsVehicleClass(veh.getVehicleType().getVehicleClass())) {
                     return *i;
@@ -543,7 +543,7 @@ bool
 MSEdge::validateDepartSpeed(SUMOVehicle& v) const {
     const SUMOVehicleParameter& pars = v.getParameter();
     const MSVehicleType& type = v.getVehicleType();
-    if (pars.departSpeedProcedure == DEPART_SPEED_GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v) + NUMERICAL_EPS) {
+    if (pars.departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars.departSpeed > getVehicleMaxSpeed(&v) + NUMERICAL_EPS) {
         const std::vector<double>& speedFactorParams = type.getSpeedFactor().getParameter();
         if (speedFactorParams[1] > 0.) {
             v.setChosenSpeedFactor(type.computeChosenSpeedDeviation(nullptr, pars.departSpeed / getSpeedLimit()));
@@ -581,7 +581,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
         }
         double pos = 0.0;
         switch (pars.departPosProcedure) {
-            case DEPART_POS_GIVEN:
+            case DepartPosDefinition::GIVEN:
                 if (pars.departPos >= 0.) {
                     pos = pars.departPos;
                 } else {
@@ -593,8 +593,8 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
                     pos = getLength();
                 }
                 break;
-            case DEPART_POS_RANDOM:
-            case DEPART_POS_RANDOM_FREE:
+            case DepartPosDefinition::RANDOM:
+            case DepartPosDefinition::RANDOM_FREE:
                 pos = RandHelper::rand(getLength());
                 break;
             default:
@@ -603,7 +603,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
         bool result = false;
         MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this, pos);
         MEVehicle* veh = static_cast<MEVehicle*>(&v);
-        if (pars.departPosProcedure == DEPART_POS_FREE) {
+        if (pars.departPosProcedure == DepartPosDefinition::FREE) {
             while (segment != nullptr && !result) {
                 if (checkOnly) {
                     result = segment->hasSpaceFor(veh, time, true);
@@ -623,9 +623,9 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
     }
     if (checkOnly) {
         switch (v.getParameter().departLaneProcedure) {
-            case DEPART_LANE_GIVEN:
-            case DEPART_LANE_DEFAULT:
-            case DEPART_LANE_FIRST_ALLOWED: {
+            case DepartLaneDefinition::GIVEN:
+            case DepartLaneDefinition::DEFAULT:
+            case DepartLaneDefinition::FIRST_ALLOWED: {
                 MSLane* insertionLane = getDepartLane(static_cast<MSVehicle&>(v));
                 if (insertionLane == nullptr) {
                     WRITE_WARNING("could not insert vehicle '" + v.getID() + "' on any lane of edge '" + getID() + "', time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()));

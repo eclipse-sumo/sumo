@@ -58,7 +58,7 @@ MEVehicle::MEVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
         if ((*myCurrEdge)->allowedLanes(type->getVehicleClass()) == nullptr) {
             throw ProcessError("Vehicle '" + pars->id + "' is not allowed to depart on any lane of its first edge.");
         }
-        if (pars->departSpeedProcedure == DEPART_SPEED_GIVEN && pars->departSpeed > type->getMaxSpeed()) {
+        if (pars->departSpeedProcedure == DepartSpeedDefinition::GIVEN && pars->departSpeed > type->getMaxSpeed()) {
             throw ProcessError("Departure speed for vehicle '" + pars->id +
                                "' is too high for the vehicle type '" + type->getID() + "'.");
         }

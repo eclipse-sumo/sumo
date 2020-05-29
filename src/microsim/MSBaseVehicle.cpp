@@ -585,7 +585,7 @@ MSBaseVehicle::calculateArrivalParams() {
     const std::vector<MSLane*>& lanes = myRoute->getLastEdge()->getLanes();
     const double lastLaneLength = lanes[0]->getLength();
     switch (myParameter->arrivalPosProcedure) {
-        case ARRIVAL_POS_GIVEN:
+        case ArrivalPosDefinition::GIVEN:
             if (fabs(myParameter->arrivalPos) > lastLaneLength) {
                 WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given position!");
             }
@@ -595,23 +595,23 @@ MSBaseVehicle::calculateArrivalParams() {
                 myArrivalPos = MAX2(myArrivalPos + lastLaneLength, 0.);
             }
             break;
-        case ARRIVAL_POS_RANDOM:
+        case ArrivalPosDefinition::RANDOM:
             myArrivalPos = RandHelper::rand(lastLaneLength);
             break;
-        case ARRIVAL_POS_CENTER:
+        case ArrivalPosDefinition::CENTER:
             myArrivalPos = lastLaneLength / 2.;
             break;
         default:
             myArrivalPos = lastLaneLength;
             break;
     }
-    if (myParameter->arrivalLaneProcedure == ARRIVAL_LANE_GIVEN) {
+    if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN) {
         if (myParameter->arrivalLane >= (int)lanes.size() || !lanes[myParameter->arrivalLane]->allowsVehicleClass(myType->getVehicleClass())) {
             WRITE_WARNING("Vehicle '" + getID() + "' will not be able to arrive at the given lane '" + myRoute->getLastEdge()->getID() + "_" + toString(myParameter->arrivalLane) + "'!");
         }
         myArrivalLane = MIN2(myParameter->arrivalLane, (int)(lanes.size() - 1));
     }
-    if (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN) {
+    if (myParameter->arrivalSpeedProcedure == ArrivalSpeedDefinition::GIVEN) {
         for (std::vector<MSLane*>::const_iterator l = lanes.begin(); l != lanes.end(); ++l) {
             if (myParameter->arrivalSpeed <= (*l)->getVehicleMaxSpeed(this)) {
                 return;

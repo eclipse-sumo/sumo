@@ -532,7 +532,7 @@ double
 GNEPerson::getAttributeDouble(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_DEPARTPOS:
-            if (departPosProcedure == DEPART_POS_GIVEN) {
+            if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
             } else {
                 return 0;

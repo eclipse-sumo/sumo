@@ -67,7 +67,7 @@ protected :
         tau = 1;
         MSGlobals::gUnitTests = true;
         defs = new SUMOVehicleParameter();
-        defs->departLaneProcedure = DEPART_LANE_GIVEN;
+        defs->departLaneProcedure = DepartLaneDefinition::GIVEN;
         SUMOVTypeParameter typeDefs("t0");
         typeDefs.cfModel = SUMO_TAG_CF_IDM;
         //typeDefs.cfParameter[SUMO_ATTR_CF_IDM_STEPPING] = "1";

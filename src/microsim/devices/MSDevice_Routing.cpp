@@ -232,7 +232,7 @@ MSDevice_Routing::preInsertionReroute(const SUMOTime currentTime) {
     }
     // avoid repeated pre-insertion rerouting when the departure edge is fix and
     // the departure lane does not depend on the route
-    if (myPreInsertionPeriod > 0 && !source->isTazConnector() && myHolder.getParameter().departLaneProcedure != DEPART_LANE_BEST_FREE) {
+    if (myPreInsertionPeriod > 0 && !source->isTazConnector() && myHolder.getParameter().departLaneProcedure != DepartLaneDefinition::BEST_FREE) {
         myRerouteCommand = nullptr;
         return 0;
     }

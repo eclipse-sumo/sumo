@@ -254,7 +254,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
     SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
     if (transportable->getNumStages() == transportable->getNumRemainingStages()) { // this is a difficult way to check that we are the first stage
         myDepartPos = transportable->getParameter().departPos;
-        if (transportable->getParameter().departPosProcedure == DEPART_POS_RANDOM) {
+        if (transportable->getParameter().departPosProcedure == DepartPosDefinition::RANDOM) {
             myDepartPos = RandHelper::rand(myOrigin->getLength());
         }
         previous = new MSStageWaiting(myOrigin, nullptr, -1, transportable->getParameter().depart, myDepartPos, "start", true);
@@ -271,7 +271,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
         if (vehPar != nullptr) {
             isTaxi = vehPar->vtypeid == DEFAULT_TAXITYPE_ID && vehPar->line == "taxi";
             if (myDepartPos != 0) {
-                vehPar->departPosProcedure = DEPART_POS_GIVEN;
+                vehPar->departPosProcedure = DepartPosDefinition::GIVEN;
                 vehPar->departPos = myDepartPos;
                 vehPar->parametersSet |= VEHPARS_DEPARTPOS_SET;
             }

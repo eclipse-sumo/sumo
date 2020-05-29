@@ -1436,11 +1436,11 @@ SUMOVehicleParserHelper::parseWalkPos(SumoXMLAttr attr, const bool hardFail, con
             WRITE_ERROR(error);
         }
     }
-    if (proc == ARRIVAL_POS_RANDOM) {
+    if (proc == ArrivalPosDefinition::RANDOM) {
         result = RandHelper::rand(maxPos, rng);
-    } else if (proc == ARRIVAL_POS_CENTER) {
+    } else if (proc == ArrivalPosDefinition::CENTER) {
         result = maxPos / 2.;
-    } else if (proc == ARRIVAL_POS_MAX) {
+    } else if (proc == ArrivalPosDefinition::MAX) {
         result = maxPos;
     }
     return SUMOVehicleParameter::interpretEdgePos(result, maxPos, attr, id);

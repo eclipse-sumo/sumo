@@ -1282,7 +1282,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     if (ok) {
         if (myActivePlan->empty()) {
             double initialDepartPos = myVehicleParameter->departPos;
-            if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
+            if (myVehicleParameter->departPosProcedure == DepartPosDefinition::RANDOM) {
                 initialDepartPos = RandHelper::rand(from->getLength(), &myParsingRNG);
             }
             myActivePlan->push_back(new MSStageWaiting(from, nullptr, -1, myVehicleParameter->depart, initialDepartPos, "start", true));
@@ -1328,7 +1328,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             }
             if (myActivePlan->empty()) {
                 double initialDepartPos = myVehicleParameter->departPos;
-                if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
+                if (myVehicleParameter->departPosProcedure == DepartPosDefinition::RANDOM) {
                     initialDepartPos = RandHelper::rand(myActiveRoute.front()->getLength(), &myParsingRNG);
                 }
                 myActivePlan->push_back(new MSStageWaiting(myActiveRoute.front(), nullptr, -1, myVehicleParameter->depart, initialDepartPos, "start", true));

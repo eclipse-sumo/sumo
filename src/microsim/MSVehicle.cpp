@@ -1054,7 +1054,7 @@ bool
 MSVehicle::hasValidRouteStart(std::string& msg) {
     // note: not a const method because getDepartLane may call updateBestLanes
     if (!(*myCurrEdge)->isTazConnector()) {
-        if (myParameter->departLaneProcedure == DEPART_LANE_GIVEN) {
+        if (myParameter->departLaneProcedure == DepartLaneDefinition::GIVEN) {
             if ((*myCurrEdge)->getDepartLane(*this) == nullptr) {
                 msg = "Invalid departlane definition for vehicle '" + getID() + "'.";
                 if (myParameter->departLane >= (int)(*myCurrEdge)->getLanes().size()) {
@@ -1071,7 +1071,7 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
                 return false;
             }
         }
-        if (myParameter->departSpeedProcedure == DEPART_SPEED_GIVEN && myParameter->departSpeed > myType->getMaxSpeed()) {
+        if (myParameter->departSpeedProcedure == DepartSpeedDefinition::GIVEN && myParameter->departSpeed > myType->getMaxSpeed()) {
             msg = "Departure speed for vehicle '" + getID() + "' is too high for the vehicle type '" + myType->getID() + "'.";
             myRouteValidity |= ROUTE_START_INVALID_LANE;
             return false;
@@ -1657,13 +1657,13 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     }
     if (!hasDeparted() && myCurrEdge == stop.edge) {
         double pos = -1;
-        if (myParameter->departPosProcedure == DEPART_POS_GIVEN) {
+        if (myParameter->departPosProcedure == DepartPosDefinition::GIVEN) {
             pos = myParameter->departPos;
             if (pos < 0.) {
                 pos += (*myCurrEdge)->getLength();
             }
         }
-        if (myParameter->departPosProcedure == DEPART_POS_BASE || myParameter->departPosProcedure == DEPART_POS_DEFAULT) {
+        if (myParameter->departPosProcedure == DepartPosDefinition::BASE || myParameter->departPosProcedure == DepartPosDefinition::DEFAULT) {
             pos = MIN2(stop.pars.endPos + endPosOffset, basePos(*myCurrEdge));
         }
         if (pos > stop.pars.endPos + endPosOffset) {
@@ -2556,7 +2556,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
         //  check whether the vehicle is on its final edge
         if (myCurrEdge + view + 1 == myRoute->end()) {
-            const double arrivalSpeed = (myParameter->arrivalSpeedProcedure == ARRIVAL_SPEED_GIVEN ?
+            const double arrivalSpeed = (myParameter->arrivalSpeedProcedure == ArrivalSpeedDefinition::GIVEN ?
                                          myParameter->arrivalSpeed : laneMaxV);
             // subtract the arrival speed from the remaining distance so we get one additional driving step with arrival speed
             // XXX: This does not work for ballistic update refs #2579
@@ -5072,7 +5072,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.pars.startPos;
     }
-    if (myParameter->arrivalLaneProcedure == ARRIVAL_LANE_GIVEN && nextStopEdge == myRoute->end()) {
+    if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN && nextStopEdge == myRoute->end()) {
         nextStopEdge = (myRoute->end() - 1);
         nextStopLane = (*nextStopEdge)->getLanes()[myArrivalLane];
         nextStopPos = myArrivalPos;
@@ -6054,7 +6054,7 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
     if (newDestination) {
         SUMOVehicleParameter* newParameter = new SUMOVehicleParameter();
         *newParameter = getParameter();
-        newParameter->arrivalPosProcedure = ARRIVAL_POS_GIVEN;
+        newParameter->arrivalPosProcedure = ArrivalPosDefinition::GIVEN;
         newParameter->arrivalPos = newParkingArea->getEndLanePosition();
         replaceParameter(newParameter);
     }
