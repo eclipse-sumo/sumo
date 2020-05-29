@@ -1187,6 +1187,11 @@ Vehicle::add(const std::string& vehicleID,
             MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
             throw TraCIException("Departure speed for vehicle '" + vehicleID + "' is too high for the departure edge '" + route->getEdges().front()->getID() + "'.");
         }
+        std::string msg;
+        if (vehicle->getRouteValidity(true, true) != MSBaseVehicle::ROUTE_VALID) {
+            MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+            throw TraCIException("Vehicle '" + vehicleID + "' has no valid route. ");
+        }
         MSNet::getInstance()->getVehicleControl().addVehicle(vehicleParams.id, vehicle);
         if (vehicleParams.departProcedure != DEPART_TRIGGERED && vehicleParams.departProcedure != DEPART_CONTAINER_TRIGGERED) {
             MSNet::getInstance()->getInsertionControl().add(vehicle);
