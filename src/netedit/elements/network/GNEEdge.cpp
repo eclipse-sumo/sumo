@@ -140,10 +140,12 @@ GNEEdge::updateGeometry() {
         for (const auto& childDemandElements : getChildDemandElements()) {
             childDemandElements->updatePartialGeometry(this);
         }
+/*
         // Update partial geometry of routes vinculated to this edge
         for (const auto& pathElementChild : myPathDemandElementsElementChilds) {
             pathElementChild->updatePartialGeometry(this);
         }
+*/
         // mark dotted geometry deprecated
         myDottedGeometry.markDottedGeometryDeprecated();
     }

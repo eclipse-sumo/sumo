@@ -385,10 +385,7 @@ protected:
     /// @}
 
     /// @brief calculate personPlan start and end positions over lanes
-    void calculatePersonPlanLaneStartEndPos(double& startPos, double& endPos) const;
-
-    /// @brief calculate personPlan start and end positions
-    void calculatePersonPlanPositionStartEndPos(Position& startPos, Position& endPos) const;
+    void calculatePersonPlanLaneStartEndPos(double& startLanePos, double& endLanePos, Position &extraStartPosition, Position &extraEndPosition) const;
 
 private:
     /**@brief check restriction with the number of children

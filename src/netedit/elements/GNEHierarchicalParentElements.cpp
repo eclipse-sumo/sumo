@@ -479,7 +479,7 @@ GNEHierarchicalParentElements::replaceParentEdges(GNEGenericData* elementChild, 
 void
 GNEHierarchicalParentElements::replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge) {
     // first check that at least there is two edges
-    if (myParentEdges.size() < 2) {
+    if (myParentEdges.size() < 1) {
         throw InvalidArgument("Invalid minimum number of edges");
     } else {
         // remove demandElement of parent edges
@@ -495,7 +495,7 @@ GNEHierarchicalParentElements::replaceFirstParentEdge(GNEDemandElement* elementC
 void
 GNEHierarchicalParentElements::replaceFirstParentEdge(GNEGenericData* elementChild, GNEEdge* newFirstEdge) {
     // first check that at least there is two edges
-    if (myParentEdges.size() < 2) {
+    if (myParentEdges.size() < 1) {
         throw InvalidArgument("Invalid minimum number of edges");
     } else {
         // remove generic data of parent edges

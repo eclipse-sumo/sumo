@@ -603,7 +603,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
     GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().back() : nullptr;
     // get busStops
     GNEAdditional *fromBusStop = pathCreator->getFromStoppingPlace(SUMO_TAG_BUS_STOP);
-    GNEAdditional *toBuStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
+    GNEAdditional *toBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
     // get path edges
     std::vector<GNEEdge*> edges;
     for (const auto &path : pathCreator->getPath()) {
@@ -628,8 +628,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
         }
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
             // check if person trip edge->busStop can be created
-            if (fromEdge && fromBusStop) {
-                buildPersonTrip(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, fromBusStop, arrivalPos, types, modes);
+            if (fromEdge && toBusStop) {
+                buildPersonTrip(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, toBusStop, arrivalPos, types, modes);
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from edge to bussTop needs an edge and a busSTop");
@@ -648,8 +648,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
         }
         case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP: {
             // check if person trip busStop->busStop can be created
-            if (fromBusStop && toBuStop) {
-                buildPersonTrip(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBuStop, arrivalPos, types, modes);
+            if (fromBusStop && toBusStop) {
+                buildPersonTrip(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBusStop, arrivalPos, types, modes);
                 return true;
             } else {
                 viewNet->setStatusBarText("A person trip from busStop to busStop needs two busStops");
@@ -669,8 +669,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
         }
         case GNE_TAG_WALK_EDGE_BUSSTOP: {
             // check if walk edge->busStop can be created
-            if (fromEdge && fromBusStop) {
-                buildWalk(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, fromBusStop, {}, nullptr, arrivalPos);
+            if (fromEdge && toBusStop) {
+                buildWalk(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, toBusStop, {}, nullptr, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from edge to bussTop needs an edge and a busSTop");
@@ -689,8 +689,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
         }
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP: {
             // check if walk busStop->busStop can be created
-            if (fromBusStop && toBuStop) {
-                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBuStop, {}, nullptr, arrivalPos);
+            if (fromBusStop && toBusStop) {
+                buildWalk(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBusStop, {}, nullptr, arrivalPos);
                 return true;
             } else {
                 viewNet->setStatusBarText("A walk from busStop to busStop needs two busStops");
@@ -730,8 +730,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
         }
         case GNE_TAG_RIDE_EDGE_BUSSTOP: {
             // check if ride edge->busStop can be created
-            if (fromEdge && toBuStop) {
-                buildRide(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, toBuStop, arrivalPos, lines);
+            if (fromEdge && toBusStop) {
+                buildRide(viewNet->getNet(), true, personParent, fromEdge, nullptr, nullptr, toBusStop, arrivalPos, lines);
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from edge to busStop needs an edge and a busStop");
@@ -750,8 +750,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
         }
         case GNE_TAG_RIDE_BUSSTOP_BUSSTOP: {
             // check if ride busStop->busStop can be created
-            if (fromBusStop && toBuStop) {
-                buildRide(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBuStop, arrivalPos, lines);
+            if (fromBusStop && toBusStop) {
+                buildRide(viewNet->getNet(), true, personParent, nullptr, nullptr, fromBusStop, toBusStop, arrivalPos, lines);
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from busStop to busStop needs two busStops");
@@ -1683,7 +1683,7 @@ GNERouteHandler::closePerson() {
                             break;
                         }
                         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
-                            buildPersonTrip(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.fromBusStop, 
+                            buildPersonTrip(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, 
                                 personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
                             break;
                         }
@@ -1704,7 +1704,7 @@ GNERouteHandler::closePerson() {
                             break;
                         }
                         case GNE_TAG_WALK_EDGE_BUSSTOP: {
-                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.fromBusStop, {}, nullptr, 
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, {}, nullptr, 
                                 personPlanValue.arrivalPos);
                             break;
                         }
@@ -2030,36 +2030,36 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
         // edge->edge
         if (tag == SUMO_TAG_PERSONTRIP) {
             tag = GNE_TAG_PERSONTRIP_EDGE_EDGE;
-        } else if(tag == SUMO_TAG_WALK) {
+        } else if (tag == SUMO_TAG_WALK) {
             tag = GNE_TAG_WALK_EDGE_EDGE;
-        } else if(tag == SUMO_TAG_RIDE) {
+        } else if (tag == SUMO_TAG_RIDE) {
             tag = GNE_TAG_RIDE_EDGE_EDGE;
         }
     } else if (fromEdge && toBusStop) {
         // edge->busStop
         if (tag == SUMO_TAG_PERSONTRIP) {
             tag = GNE_TAG_PERSONTRIP_EDGE_BUSSTOP;
-        } else if(tag == SUMO_TAG_WALK) {
+        } else if (tag == SUMO_TAG_WALK) {
             tag = GNE_TAG_WALK_EDGE_BUSSTOP;
-        } else if(tag == SUMO_TAG_RIDE) {
+        } else if (tag == SUMO_TAG_RIDE) {
             tag = GNE_TAG_RIDE_EDGE_BUSSTOP;
         }
     } else if (fromBusStop && toEdge) {
         // busStop->edge
         if (tag == SUMO_TAG_PERSONTRIP) {
             tag = GNE_TAG_PERSONTRIP_BUSSTOP_EDGE;
-        } else if(tag == SUMO_TAG_WALK) {
+        } else if (tag == SUMO_TAG_WALK) {
             tag = GNE_TAG_WALK_BUSSTOP_EDGE;
-        } else if(tag == SUMO_TAG_RIDE) {
+        } else if (tag == SUMO_TAG_RIDE) {
             tag = GNE_TAG_RIDE_BUSSTOP_EDGE;
         }
     } else if (fromBusStop && toBusStop) {
         // busStop->busStop
         if (tag == SUMO_TAG_PERSONTRIP) {
             tag = GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP;
-        } else if(tag == SUMO_TAG_WALK) {
+        } else if (tag == SUMO_TAG_WALK) {
             tag = GNE_TAG_WALK_BUSSTOP_BUSSTOP;
-        } else if(tag == SUMO_TAG_RIDE) {
+        } else if (tag == SUMO_TAG_RIDE) {
             tag = GNE_TAG_RIDE_BUSSTOP_BUSSTOP;
         }
     } else if (edges.size() > 0) {
@@ -2068,7 +2068,7 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
     } else if (route) {
         // walk route
         tag = GNE_TAG_WALK_EDGES;
-    } if (laneStop) {
+    } else if (laneStop) {
         // person stop lane
         tag = GNE_TAG_PERSONSTOP_LANE;
     }

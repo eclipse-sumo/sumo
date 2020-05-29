@@ -295,13 +295,13 @@ GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEWalk::updateGeometry() {
     // declare depart and arrival pos lane
-    const double departPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_FIRSTPOSITION);
-    const double arrivalPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_LASTPOSITION);
+    double departPosLane = -1;
+    double arrivalPosLane = -1;
     // declare start and end positions
     Position startPos = Position::INVALID;
     Position endPos = Position::INVALID;
     // calculate person plan start and end positions
-    calculatePersonPlanPositionStartEndPos(startPos, endPos);
+    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // use edges of route parent
@@ -330,13 +330,13 @@ GNEWalk::updateDottedContour() {
 void
 GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
     // declare depart and arrival pos lane
-    const double departPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_FIRSTPOSITION);
-    const double arrivalPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_LASTPOSITION);
+    double departPosLane = -1;
+    double arrivalPosLane = -1;
     // declare start and end positions
     Position startPos = Position::INVALID;
     Position endPos = Position::INVALID;
     // calculate person plan start and end positions
-    calculatePersonPlanPositionStartEndPos(startPos, endPos);
+    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // udpate geometry path
     GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
@@ -497,40 +497,6 @@ GNEWalk::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return (getLastAllowedVehicleLane()->getLaneShape().length() - POSITION_EPS);
             }
-        // Person plan positions
-        case GNE_ATTR_PERSONPLAN_FIRSTPOSITION: {
-            // get previous person Plan
-            const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-            // return depending of tag
-            if ((myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) ||
-                (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) || (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE)) {
-                if (previousPersonPlan) {
-                    // return arrival pos
-                    return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-                } else {
-                    // return pedestrian departPos
-                    return getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-                }
-            } else if ((myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP)) {
-                // return end position of first busStop
-                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            } else {
-                return -1;
-            }
-        }
-        case GNE_ATTR_PERSONPLAN_LASTPOSITION: {
-            // return depending of tag
-            if ((myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) ||
-                (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE)) {
-                // return arrival pos
-                return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-            } else if ((myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP)) {
-                // return end position of last busStop
-                return getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
-            } else {
-                return -1;
-            }
-        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }

@@ -265,13 +265,13 @@ GNERide::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNERide::updateGeometry() {
     // declare depart and arrival pos lane
-    const double departPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_FIRSTPOSITION);
-    const double arrivalPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_LASTPOSITION);
+    double departPosLane = -1;
+    double arrivalPosLane = -1;
     // declare start and end positions
     Position startPos = Position::INVALID;
     Position endPos = Position::INVALID;
     // calculate person plan start and end positions
-    calculatePersonPlanPositionStartEndPos(startPos, endPos);
+    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate geometry path
     if (getPathEdges().size() > 0) {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
@@ -295,13 +295,13 @@ GNERide::updateDottedContour() {
 void
 GNERide::updatePartialGeometry(const GNEEdge* edge) {
     // declare depart and arrival pos lane
-    const double departPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_FIRSTPOSITION);
-    const double arrivalPosLane = getAttributeDouble(GNE_ATTR_PERSONPLAN_LASTPOSITION);
+    double departPosLane = -1;
+    double arrivalPosLane = -1;
     // declare start and end positions
     Position startPos = Position::INVALID;
     Position endPos = Position::INVALID;
     // calculate person plan start and end positions
-    calculatePersonPlanPositionStartEndPos(startPos, endPos);
+    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate geometry path
     GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
@@ -445,38 +445,6 @@ GNERide::getAttributeDouble(SumoXMLAttr key) const {
             } else {
                 return (getLastAllowedVehicleLane()->getLaneShape().length() - POSITION_EPS);
             }
-        // Person plan positions
-        case GNE_ATTR_PERSONPLAN_FIRSTPOSITION: {
-            // get previous person Plan
-            const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
-            // return depending of tag
-            if ((myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE)) {
-                if (previousPersonPlan) {
-                    // return arrival pos
-                    return previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-                } else {
-                    // return pedestrian departPos
-                    return getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
-                }
-            } else if ((myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP)) {
-                // return end position of first busStop
-                return getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            } else {
-                return -1;
-            }
-        }
-        case GNE_ATTR_PERSONPLAN_LASTPOSITION: {
-            // return depending of tag
-            if ((myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) || (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE)) {
-                // return arrival pos
-                return getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-            } else if ((myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) || (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP)) {
-                // return end position of last busStop
-                return getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
-            } else {
-                return -1;
-            }
-        }
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
