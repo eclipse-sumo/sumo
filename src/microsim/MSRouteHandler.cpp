@@ -1297,57 +1297,62 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
 void
 MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
-    try {
-        myActiveRoute.clear();
-        bool ok = true;
-        const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
-        if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
-            throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
-        }
-        double speed = -1; // default to vType speed
-        if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-            speed = attrs.get<double>(SUMO_ATTR_SPEED, nullptr, ok);
-            if (speed <= 0) {
-                throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+    // parse walks from->to as person trips
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+        try {
+            myActiveRoute.clear();
+            bool ok = true;
+            const SUMOTime duration = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DURATION, nullptr, ok, -1);
+            if (attrs.hasAttribute(SUMO_ATTR_DURATION) && duration <= 0) {
+                throw ProcessError("Non-positive walking duration for  '" + myVehicleParameter->id + "'.");
             }
-        }
-        double departPos = 0;
-        double arrivalPos = 0;
-        MSStoppingPlace* bs = nullptr;
-        if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
-            const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
-            const MSRoute* route = MSRoute::dictionary(routeID, &myParsingRNG);
-            if (route == nullptr) {
-                throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
+            double speed = -1; // default to vType speed
+            if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
+                speed = attrs.get<double>(SUMO_ATTR_SPEED, nullptr, ok);
+                if (speed <= 0) {
+                    throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
+                }
             }
-            myActiveRoute = route->getEdges();
-        } else {
-            MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
-        }
-        if (myActivePlan->empty()) {
-            double initialDepartPos = myVehicleParameter->departPos;
-            if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
-                initialDepartPos = RandHelper::rand(myActiveRoute.front()->getLength(), &myParsingRNG);
+            double departPos = 0;
+            double arrivalPos = 0;
+            MSStoppingPlace* bs = nullptr;
+            if (attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
+                const std::string routeID = attrs.get<std::string>(SUMO_ATTR_ROUTE, myVehicleParameter->id.c_str(), ok);
+                const MSRoute* route = MSRoute::dictionary(routeID, &myParsingRNG);
+                if (route == nullptr) {
+                    throw ProcessError("The route '" + routeID + "' for walk of person '" + myVehicleParameter->id + "' is not known.");
+                }
+                myActiveRoute = route->getEdges();
+            } else {
+                MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, myVehicleParameter->id.c_str(), ok), myActiveRoute, myActiveRouteID);
             }
-            myActivePlan->push_back(new MSStageWaiting(myActiveRoute.front(), nullptr, -1, myVehicleParameter->depart, initialDepartPos, "start", true));
-        }
-        parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, myActivePlan->back(), ok);
-        if (myActiveRoute.empty()) {
-            throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
-        }
-        if (myActivePlan->back()->getDestination() != myActiveRoute.front() &&
-                myActivePlan->back()->getDestination()->getToJunction() != myActiveRoute.front()->getFromJunction() &&
-                myActivePlan->back()->getDestination()->getToJunction() != myActiveRoute.front()->getToJunction()) {
-            if (myActivePlan->back()->getDestinationStop() == nullptr || myActivePlan->back()->getDestinationStop()->getAccessPos(myActiveRoute.front()) < 0.) {
-                throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + " not connected to " + myActivePlan->back()->getDestination()->getID() + ").");
+            if (myActivePlan->empty()) {
+                double initialDepartPos = myVehicleParameter->departPos;
+                if (myVehicleParameter->departPosProcedure == DEPART_POS_RANDOM) {
+                    initialDepartPos = RandHelper::rand(myActiveRoute.front()->getLength(), &myParsingRNG);
+                }
+                myActivePlan->push_back(new MSStageWaiting(myActiveRoute.front(), nullptr, -1, myVehicleParameter->depart, initialDepartPos, "start", true));
             }
+            parseWalkPositions(attrs, myVehicleParameter->id, myActiveRoute.front(), myActiveRoute.back(), departPos, arrivalPos, bs, myActivePlan->back(), ok);
+            if (myActiveRoute.empty()) {
+                throw ProcessError("No edges to walk for person '" + myVehicleParameter->id + "'.");
+            }
+            if (myActivePlan->back()->getDestination() != myActiveRoute.front() &&
+                    myActivePlan->back()->getDestination()->getToJunction() != myActiveRoute.front()->getFromJunction() &&
+                    myActivePlan->back()->getDestination()->getToJunction() != myActiveRoute.front()->getToJunction()) {
+                if (myActivePlan->back()->getDestinationStop() == nullptr || myActivePlan->back()->getDestinationStop()->getAccessPos(myActiveRoute.front()) < 0.) {
+                    throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + myActiveRoute.front()->getID() + " not connected to " + myActivePlan->back()->getDestination()->getID() + ").");
+                }
+            }
+            const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, 0);
+            myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
+            myActiveRoute.clear();
+        } catch (ProcessError&) {
+            deleteActivePlans();
+            throw;
         }
-        const double departPosLat = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS_LAT, nullptr, ok, 0);
-        myActivePlan->push_back(new MSPerson::MSPersonStage_Walking(myVehicleParameter->id, myActiveRoute, bs, duration, speed, departPos, arrivalPos, departPosLat));
-        myActiveRoute.clear();
-    } catch (ProcessError&) {
-        deleteActivePlans();
-        throw;
+    } else {
+        addPersonTrip(attrs);
     }
 }
 

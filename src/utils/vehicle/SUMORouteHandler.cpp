@@ -174,12 +174,10 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_PERSONTRIP:
+            addPersonTrip(attrs);
+            break;
         case SUMO_TAG_WALK:
-            if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
-                addWalk(attrs);
-            } else {
-                addPersonTrip(attrs);
-            }
+            addWalk(attrs);
             break;
         case SUMO_TAG_INTERVAL: {
             bool ok;
