@@ -1,4 +1,2 @@
-Warning: Vehicle 'tripClosedAlready' is not allowed on source edge 'beg'.
-Warning: No route for vehicle 'tripClosedAlready' found.
-Error: Vehicle 'tripClosedAlready' has no valid route.
+Error: Vehicle 'tripClosedAlready' is not allowed to depart on any lane of its first edge.
 Quitting (on error).
