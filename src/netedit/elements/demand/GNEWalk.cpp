@@ -133,15 +133,20 @@ GNEWalk::writeDemandElement(OutputDevice& device) const {
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
         device.writeAttr(SUMO_ATTR_EDGES, parseIDs(getParentEdges()));
     } else {
-        // only write From attribute if this is the first Person Plan
-        if (getParentDemandElements().front()->getChildDemandElements().front() == this) {
-            device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
+        // check if we have to write "from" attributes
+        if (getParentDemandElements().at(0)->getPreviousChildDemandElement(this) == nullptr) {
+            // write "to" attributes depending of start and end
+            if (myTagProperty.personPlanStartEdge()) {
+                device.writeAttr(SUMO_ATTR_FROM, getParentEdges().front()->getID());
+            } else if (myTagProperty.personPlanStartBusStop()) {
+                device.writeAttr(SUMO_ATTR_FROM, getParentAdditionals().front()->getID());
+            }
         }
-        // check if write busStop or edge to
-        if (getParentAdditionals().size() > 0) {
-            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().front()->getID());
-        } else {
+        // write "to" attributes depending of start and end
+        if (myTagProperty.personPlanStartEdge()) {
             device.writeAttr(SUMO_ATTR_TO, getParentEdges().back()->getID());
+        } else if (myTagProperty.personPlanStartBusStop()) {
+            device.writeAttr(SUMO_ATTR_BUS_STOP, getParentAdditionals().back()->getID());
         }
     }
     // only write arrivalPos if is different of -1
