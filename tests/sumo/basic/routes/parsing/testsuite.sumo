@@ -42,6 +42,9 @@ trip_via_invalid
 # test repeating route definition
 repeat
 
+# test repeating route definition within a vehicle
+repeat_embedded
+
 # test repeating route definition with stops
 repeat_stops
 
