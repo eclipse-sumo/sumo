@@ -280,6 +280,12 @@ This slider allows setting the speedFactor to values between 0 and 2.
 
 When loading [Rerouters with routeProbReroute definitions](Simulation/Rerouter.md#assigning_a_new_route), directional arrows will be shown where the available routes diverge. Shift-Clicking on the rerouter icon or the directional arrows will set 100% probability to one of the available routes. Clicking repeatedly will cycle through the routes and again set 100% to a route.
 
+## Starting and Stopping Vehicles
+From the vehicle context menu, the current vehicle can be made to stop (at the earliest possible location with maximum deceleration). If the vehicle is currently stopped it can also be made to abort the current stop.
+
+## Removing Vehicles
+From the vehicle context menu, the current vehicle can be removed from the simulation.
+
 ## Planned Interactions
 
 In the future more interactions are planned for exploratory simulation:
