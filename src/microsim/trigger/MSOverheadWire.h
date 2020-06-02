@@ -96,6 +96,10 @@ public:
         return (int)myChargingVehicles.size();
     }
 
+    const std::vector<SUMOVehicle*>& getChargingVehicles() const {
+        return myChargingVehicles;
+    }
+
     double getTotalCharged() const {
         return myTotalCharge;
     }

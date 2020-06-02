@@ -22,6 +22,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/trigger/MSOverheadWire.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "OverheadWire.h"
@@ -77,13 +78,15 @@ OverheadWire::getName(const std::string& stopID) {
 
 int
 OverheadWire::getVehicleCount(const std::string& stopID) {
-    return (int)getOverheadWire(stopID)->getStoppedVehicles().size();
+    MSOverheadWire* wire = dynamic_cast<MSOverheadWire*>(getOverheadWire(stopID));
+    return (int)wire->getChargingVehicles().size();
 }
 
 std::vector<std::string>
 OverheadWire::getVehicleIDs(const std::string& stopID) {
+    MSOverheadWire* wire = dynamic_cast<MSOverheadWire*>(getOverheadWire(stopID));
     std::vector<std::string> result;
-    for (const SUMOVehicle* veh : getOverheadWire(stopID)->getStoppedVehicles()) {
+    for (const SUMOVehicle* veh : wire->getChargingVehicles()) {
         result.push_back(veh->getID());
     }
     return result;
