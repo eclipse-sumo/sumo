@@ -435,13 +435,19 @@ Simulation::findRoute(const std::string& from, const std::string& to, const std:
         throw TraCIException("The vehicle type '" + typeID + "' is not known.");
     }
     SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+    pars->id = "simulation.findRoute";
     try {
         const MSRoute* const routeDummy = new MSRoute("", ConstMSEdgeVector({ fromEdge }), false, nullptr, std::vector<SUMOVehicleParameter::Stop>());
         vehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(pars, routeDummy, type, false);
+        std::string msg;
+        if (!vehicle->hasValidRouteStart(msg)) {
+            MSNet::getInstance()->getVehicleControl().deleteVehicle(vehicle, true);
+            throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + msg + ")");
+        }
         // we need to fix the speed factor here for deterministic results
         vehicle->setChosenSpeedFactor(type->getSpeedFactor().getParameter()[0]);
     } catch (ProcessError& e) {
-        throw TraCIException("Invalid departure edge for vehicle type '" + typeID + "' (" + e.what() + ")");
+        throw TraCIException("Invalid departure edge for vehicle type '" + type->getID() + "' (" + e.what() + ")");
     }
     ConstMSEdgeVector edges;
     const SUMOTime dep = depart < 0 ? MSNet::getInstance()->getCurrentTimeStep() : TIME2STEPS(depart);
