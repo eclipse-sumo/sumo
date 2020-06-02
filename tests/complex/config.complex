@@ -118,6 +118,7 @@ errors:Traceback (most recent call last):{->}FatalTraCIError
 errors:data\\{REPLACE data/}
 errors:javax.xml.soap.FactoryFinder find
 errors:Warning: State was written with sumo version
+errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation
 ps:%%CreationDate
 
 [unordered_text]

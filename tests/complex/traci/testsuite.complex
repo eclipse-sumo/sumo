@@ -24,3 +24,8 @@ polygon
 simulation
 calibrator
 busstop
+parkingarea
+
+# Copy of parkingarea
+chargingstation
+overheadwire
