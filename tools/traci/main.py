@@ -29,6 +29,7 @@ import subprocess
 import warnings
 import sys
 import os
+from functools import wraps
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -77,6 +78,7 @@ chargingstation = _chargingstation.ChargingStationDomain()
 overheadwire = _overheadwire.OverheadWireDomain()
 
 _connections = {}
+_traceFile = {}
 # cannot use immutable type as global variable
 _currentLabel = [""]
 _legacyGetLeader = [True]
@@ -92,6 +94,14 @@ def setConnectHook(hookFunc):
     global _connectHook
     _connectHook = hookFunc
 
+def _addTracing(method):
+    @wraps(method)
+    def tracingWrapper(*args, **kwargs):
+        _traceFile[_currentLabel[0]].write("traci.%s(%s)\n" % (
+            method.__name__,
+            ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n,v in kwargs.items()])))
+        return method(*args, **kwargs)
+    return tracingWrapper
 
 def connect(port=8813, numRetries=10, host="localhost", proc=None, waitBetweenRetries=1):
     """
@@ -128,7 +138,7 @@ def init(port=8813, numRetries=10, host="localhost", label="default", proc=None)
     return getVersion()
 
 
-def start(cmd, port=None, numRetries=10, label="default", verbose=False):
+def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFile=None):
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
@@ -137,6 +147,8 @@ def start(cmd, port=None, numRetries=10, label="default", verbose=False):
         setLegacyGetLeader()
     if label in _connections:
         raise TraCIException("Connection '%s' is already active." % label)
+    if traceFile is not None:
+        _startTracing(traceFile, cmd, port, label)
     while numRetries >= 0 and label not in _connections:
         sumoPort = sumolib.miscutils.getFreeSocketPort() if port is None else port
         cmd2 = cmd + ["--remote-port", str(sumoPort)]
@@ -152,6 +164,18 @@ def start(cmd, port=None, numRetries=10, label="default", verbose=False):
             numRetries -= 1
     raise FatalTraCIError("Could not connect.")
 
+def _startTracing(traceFile, cmd, port, label):
+    _traceFile[label] = open(traceFile, 'w')
+    _traceFile[label].write("traci.start(%s, port=%s, label=%s)\n" % (
+        repr(cmd), repr(port), repr(label)))
+    # decorate all methods
+    self = sys.modules[__name__]
+    for attrName in dir(self):
+        if (not attrName.startswith("_")
+                and attrName not in ['switch', 'init', 'connect', 'Connection', 'getConnection', 'getVersion']):
+            attr = getattr(self, attrName)
+            if callable(attr):
+                setattr(self, attrName, self._addTracing(attr))
 
 def isLibsumo():
     return False
@@ -228,6 +252,8 @@ def close(wait=True):
         raise FatalTraCIError("Not connected.")
     _connections[""].close(wait)
     del _connections[_currentLabel[0]]
+    for label, traceFile in _traceFile.items():
+        traceFile.close()
 
 
 def switch(label):
@@ -235,6 +261,8 @@ def switch(label):
     _currentLabel[0] = label
     for domain in _defaultDomains:
         domain._setConnection(_connections[""])
+        if _traceFile:
+            domain._setTraceFile(_traceFile[label])
 
 
 def getLabel():

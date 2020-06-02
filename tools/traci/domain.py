@@ -24,6 +24,7 @@ from __future__ import absolute_import
 import copy
 import struct
 import warnings
+from functools import wraps
 
 from . import constants as tc
 from .storage import Storage
@@ -103,6 +104,7 @@ class Domain:
         self._retValFunc.update(retValFunc)
         self._deprecatedFor = deprecatedFor
         self._connection = None
+        self._traceFile = None
         _defaultDomains.append(self)
 
     def _register(self, connection, mapping):
@@ -116,6 +118,27 @@ class Domain:
 
     def _setConnection(self, connection):
         self._connection = connection
+
+    def _setTraceFile(self, traceFile):
+        if self._traceFile is None:
+            # decorate all methods
+            for attrName in dir(self):
+                if not attrName.startswith("_"):
+                    attr = getattr(self, attrName)
+                    if callable(attr):
+                        setattr(self, attrName, self._addTracing(attr))
+        self._traceFile = traceFile
+
+    def _addTracing(self, method):
+        @wraps(method)
+        def tracingWrapper(*args, **kwargs):
+            self._traceFile.write("traci.%s.%s(%s)\n" % (
+                self._name,
+                method.__name__,
+                ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n,v in kwargs.items()])))
+            return method(*args, **kwargs)
+        return tracingWrapper
+
 
     def _getUniversal(self, varID, objectID=""):
         if self._deprecatedFor:
