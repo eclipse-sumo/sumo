@@ -30,7 +30,14 @@ DLR electronic library
 
 All models implement different vehicle emission classes. These classes
 can be assigned to vehicles by using the vehicle type attribute
-"`emissionClass`". Available emission classes
+`emissionClass`. If the model has different classes, the definition 
+has the form `emissionClass="<model>/<class>"` e.g. `HBEFA3/PC_G_EU4`.
+If the model has only one class (for instance the Electric Vehicle Model),
+the `<class>` can be omitted in the input and will show up as `default` 
+in the output. There is one special model `Zero` which does not 
+generate emissions or energy consumption at all.
+
+Available emission classes
 can be found within the emission model descriptions ([HBEFA
 v2.1-based](../Models/Emissions/HBEFA-based.md), [HBEFA
 v3.1-based](../Models/Emissions/HBEFA3-based.md),
@@ -43,7 +50,7 @@ modeled using the HBEFA3 based model).
 <table class="tg">
   <tr>
     <th class="tg-uzvj" rowspan="2">model</th>
-    <th class="tg-7btt" colspan="6">pollutant / measurement</th>
+    <th class="tg-7btt" colspan="7">pollutant / measurement</th>
   </tr>
   <tr>
     <td class="tg-7btt">CO<sub>2</sub></td>
@@ -55,7 +62,7 @@ modeled using the HBEFA3 based model).
     <td class="tg-uzvj">electricity consumption</td>
   </tr>
   <tr>
-    <td class="tg-0pky">HBEFA v2.1-based</td>
+    <td class="tg-0pky">HBEFA v2.1-based<br><code>emissionClass="HBEFA/..."</code></td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
@@ -65,7 +72,7 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td class="tg-0pky">HBEFA v3.1-based</td>
+    <td class="tg-0pky">HBEFA v3.1-based<br><code>emissionClass="HBEFA3/..."</code></td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
@@ -75,7 +82,7 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td class="tg-0pky">PHEMlight</td>
+    <td class="tg-0pky">PHEMlight<br><code>emissionClass="PHEMlight/..."</code></td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
@@ -85,14 +92,24 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td class="tg-lboi">Electric Vehicle Model</td>
+    <td class="tg-0pky">Electric Vehicle Model<br><code>emissionClass="Energy"</code></td>
     <td class="tg-c3ow">-</td>
     <td class="tg-c3ow">-</td>
     <td class="tg-c3ow">-</td>
     <td class="tg-c3ow">-</td>
     <td class="tg-c3ow">-</td>
     <td class="tg-c3ow">-</td>
-    <td class="tg-9wq8">x</td>
+    <td class="tg-c3ow">x</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">No Emissions<br><code>emissionClass="Zero"</code></td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-9wq8">-</td>
   </tr>
 </table>
 
