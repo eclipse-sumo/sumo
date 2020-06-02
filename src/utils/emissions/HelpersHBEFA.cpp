@@ -132,10 +132,9 @@ HelpersHBEFA::myFunctionParameter[42][36] = {
 // method definitions
 // ===========================================================================
 HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2") {
-    myEmissionClassStrings.insert("zero", PollutantsInterface::ZERO_EMISSIONS);
     int clusterSizesH[] = {3, 6, 12};
     int clusterSizesP[] = {7, 14};
-    int index = 1;
+    int index = HBEFA_BASE;
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < clusterSizesH[i]; j++) {
             myEmissionClassStrings.insert("HDV_" + toString(clusterSizesH[i]) + "_" + toString(j + 1), index | PollutantsInterface::HEAVY_BIT);
@@ -165,6 +164,7 @@ HelpersHBEFA::HelpersHBEFA() : PollutantsInterface::Helper("HBEFA2") {
         }
     }
     myEmissionClassStrings.addAlias("unknown", myEmissionClassStrings.get("P_7_7"));
+    myEmissionClassStrings.addAlias("default", myEmissionClassStrings.get("P_7_7"));
 }
 
 

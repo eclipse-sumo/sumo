@@ -44,21 +44,19 @@
  * @brief Helper methods for PHEMlight-based emission computation
  */
 class HelpersPHEMlight : public PollutantsInterface::Helper {
+private:
+    static const int PHEMLIGHT_BASE = 3 << 16;
+
 public:
-    static const int PHEMLIGHT_BASE = 2 << 16;
-
-
     /** @brief Constructor
      */
     HelpersPHEMlight();
-
 
     /** @brief Checks whether the string describes a known vehicle class
      * @param[in] eClass The string describing the vehicle emission class
      * @return whether it describes a valid emission class
      */
     SUMOEmissionClass getClassByName(const std::string& eClass, const SUMOVehicleClass vc);
-
 
     /** @brief Returns the emission class described by the given parameters.
      * @param[in] base the base class giving the default

@@ -38,9 +38,10 @@
  * @brief Helper methods for energy-based electricity consumption computation based on the battery device
  */
 class HelpersEnergy : public PollutantsInterface::Helper {
-public:
-    static const int ENERGY_BASE = 3 << 16;
+private:
+    static const int ENERGY_BASE = 4 << 16;
 
+public:
     /** @brief Constructor (initializes myEmissionClassStrings)
      */
     HelpersEnergy();

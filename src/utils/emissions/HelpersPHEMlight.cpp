@@ -38,7 +38,6 @@
 // method definitions
 // ===========================================================================
 HelpersPHEMlight::HelpersPHEMlight() : PollutantsInterface::Helper("PHEMlight"), myIndex(PHEMLIGHT_BASE) {
-    myEmissionClassStrings.insert("zero", myIndex++);
 }
 
 
@@ -46,6 +45,9 @@ SUMOEmissionClass
 HelpersPHEMlight::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     if (eClass == "unknown" && !myEmissionClassStrings.hasString("unknown")) {
         myEmissionClassStrings.addAlias("unknown", getClassByName("PC_G_EU4", vc));
+    }
+    if (eClass == "default" && !myEmissionClassStrings.hasString("default")) {
+        myEmissionClassStrings.addAlias("default", getClassByName("PC_G_EU4", vc));
     }
     if (myEmissionClassStrings.hasString(eClass)) {
         return myEmissionClassStrings.get(eClass);
@@ -252,10 +254,7 @@ HelpersPHEMlight::getModifiedAccel(const SUMOEmissionClass c, const double v, co
 
 double
 HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* /* param */) const {
-    if (c == PHEMLIGHT_BASE) { // zero emission class
-        return 0.;
-    }
-    const double corrSpeed = MAX2((double) 0.0, v);
+    const double corrSpeed = MAX2(0.0, v);
     double power = 0.;
 #ifdef INTERNAL_PHEM
     const PHEMCEP* const oldCep = PHEMCEPHandler::getHandlerInstance().GetCep(c);

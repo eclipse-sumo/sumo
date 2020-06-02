@@ -96,14 +96,19 @@ public:
 
     /**
     * @class Helper
-    * @brief abstract superclass for the model helpers
+    * @brief zero emission model, used as superclass for the other model helpers
     */
     class Helper {
     public:
         /** @brief Constructor, intializes the name
          * @param[in] name the name of the model (string before the '/' in the emission class attribute)
          */
-        Helper(std::string name) : myName(name) {}
+        Helper(std::string name, const int defaultClass=-1) : myName(name) {
+            if (defaultClass != -1) {
+                myEmissionClassStrings.insert("default", defaultClass);
+                myEmissionClassStrings.addAlias("unknown", defaultClass);
+            }
+        }
 
         /** @brief Returns the name of the model
          * @return the name of the model (string before the '/' in the emission class attribute)
@@ -237,7 +242,15 @@ public:
          * @param[in] slope The road's slope at vehicle's position [deg]
          * @return The amount emitted by the given emission class when moving with the given velocity and acceleration [mg/s or ml/s]
          */
-        virtual double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const = 0;
+        virtual double compute(const SUMOEmissionClass c, const EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const {
+            UNUSED_PARAMETER(c);
+            UNUSED_PARAMETER(e);
+            UNUSED_PARAMETER(v);
+            UNUSED_PARAMETER(a);
+            UNUSED_PARAMETER(slope);
+            UNUSED_PARAMETER(param);
+            return 0.;
+        }
 
         /** @brief Returns the adapted acceleration value, useful for comparing with external PHEMlight references.
          * Default implementation returns always the input accel.
@@ -395,6 +408,9 @@ public:
     }
 
 private:
+    /// @brief Instance of Helper which gets cleaned up automatically
+    static Helper myZeroHelper;
+
     /// @brief Instance of HBEFA2Helper which gets cleaned up automatically
     static HelpersHBEFA myHBEFA2Helper;
 
@@ -410,6 +426,6 @@ private:
     /// @brief the known model helpers
     static Helper* myHelpers[];
 
-    /// @brief get all emission classes in strin format
+    /// @brief get all emission classes in string format
     static std::vector<std::string> myAllClassesStr;
 };

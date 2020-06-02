@@ -42,16 +42,13 @@
  *  (c0, cav1, cav2, c1, c2, c3).
  */
 class HelpersHBEFA3 : public PollutantsInterface::Helper {
+private:
+    static const int HBEFA3_BASE = 2 << 16;
+
 public:
-
-
-    static const int HBEFA3_BASE = 1 << 16;
-
-
     /** @brief Constructor (initializes myEmissionClassStrings)
      */
     HelpersHBEFA3();
-
 
     /** @brief Returns the emission class described by the given parameters.
      * @param[in] base the base class giving the default
@@ -98,10 +95,10 @@ public:
     inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const {
         UNUSED_PARAMETER(slope);
         UNUSED_PARAMETER(param);
-        if (c == HBEFA3_BASE || a < 0. || e == PollutantsInterface::ELEC) {
+        if (a < 0. || e == PollutantsInterface::ELEC) {
             return 0.;
         }
-        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE - 1;
+        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE;
         double scale = 3.6;
         if (e == PollutantsInterface::FUEL) {
             if (getFuel(c) == "Diesel") {

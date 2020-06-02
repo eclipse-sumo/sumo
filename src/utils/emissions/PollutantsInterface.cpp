@@ -35,11 +35,13 @@
 // static definitions
 // ===========================================================================
 
+PollutantsInterface::Helper PollutantsInterface::myZeroHelper("Zero", PollutantsInterface::ZERO_EMISSIONS);
 HelpersHBEFA PollutantsInterface::myHBEFA2Helper;
 HelpersHBEFA3 PollutantsInterface::myHBEFA3Helper;
 HelpersPHEMlight PollutantsInterface::myPHEMlightHelper;
 HelpersEnergy PollutantsInterface::myEnergyHelper;
 PollutantsInterface::Helper* PollutantsInterface::myHelpers[] = {
+    &PollutantsInterface::myZeroHelper,
     &PollutantsInterface::myHBEFA2Helper, &PollutantsInterface::myHBEFA3Helper,
     &PollutantsInterface::myPHEMlightHelper, &PollutantsInterface::myEnergyHelper
 };
@@ -52,17 +54,25 @@ std::vector<std::string> PollutantsInterface::myAllClassesStr;
 SUMOEmissionClass
 PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicleClass vc) {
     const std::string::size_type sep = eClass.find("/");
-    if (sep != std::string::npos) {
-        const std::string model = eClass.substr(0, sep);
-        const std::string subClass = eClass.substr(sep + 1);
-        for (int i = 0; i < 4; i++) {
-            if (myHelpers[i]->getName() == model) {
+    const std::string model = eClass.substr(0, sep); // this includes the case of no separator
+    for (int i = 0; i < 5; i++) {
+        if (myHelpers[i]->getName() == model) {
+            if (sep != std::string::npos) {
+                const std::string subClass = eClass.substr(sep + 1);
+                if (subClass == "zero") {
+                    return myZeroHelper.getClassByName("default", vc);
+                }
                 return myHelpers[i]->getClassByName(subClass, vc);
             }
+            return myHelpers[i]->getClassByName("default", vc);
         }
-    } else {
+    }
+    if (sep == std::string::npos) {
+        if (eClass == "zero") {
+            return myZeroHelper.getClassByName("default", vc);
+        }
         // default HBEFA2
-        return myHelpers[0]->getClassByName(eClass, vc);
+        return myHBEFA2Helper.getClassByName(eClass, vc);
     }
     throw InvalidArgument("Unknown emission class '" + eClass + "'.");
 }
@@ -71,7 +81,7 @@ PollutantsInterface::getClassByName(const std::string& eClass, const SUMOVehicle
 const std::vector<SUMOEmissionClass>
 PollutantsInterface::getAllClasses() {
     std::vector<SUMOEmissionClass> result;
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 5; i++) {
         myHelpers[i]->addAllClassesInto(result);
     }
     return result;
@@ -84,7 +94,7 @@ PollutantsInterface::getAllClassesStr() {
     if (myAllClassesStr.empty()) {
         // first obtain all emissionClasses
         std::vector<SUMOEmissionClass> emissionClasses;
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {
             myHelpers[i]->addAllClassesInto(emissionClasses);
         }
         // now write all emissionClasses in myAllClassesStr

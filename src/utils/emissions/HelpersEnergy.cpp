@@ -36,9 +36,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-HelpersEnergy::HelpersEnergy() : PollutantsInterface::Helper("Energy") {
-    myEmissionClassStrings.insert("zero", PollutantsInterface::ZERO_EMISSIONS);
-    myEmissionClassStrings.insert("unknown", ENERGY_BASE);
+HelpersEnergy::HelpersEnergy() : PollutantsInterface::Helper("Energy", ENERGY_BASE) {
     // default values from
     // Kurczveil, T., López, P.Á., & Schnieder, E. (2014). Implementation of an Energy Model and a Charging Infrastructure in SUMO.
     myDefaultParameter[SUMO_ATTR_VEHICLEMASS] = 1000.;
