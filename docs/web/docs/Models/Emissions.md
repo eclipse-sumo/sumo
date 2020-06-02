@@ -38,7 +38,7 @@ v3.1-based](../Models/Emissions/HBEFA3-based.md),
 model is `HBEFA3/PC_G_EU4` (a gasoline powered Euro norm 4 passenger car
 modeled using the HBEFA3 based model).
 
-# Pollutants covered by models
+# Pollutants / Measurements covered by models
 
 <table class="tg">
   <tr>
@@ -51,7 +51,8 @@ modeled using the HBEFA3 based model).
     <td class="tg-7btt">HC</td>
     <td class="tg-7btt">NO<sub>x</sub></td>
     <td class="tg-7btt">PM<sub>x</sub></td>
-    <td class="tg-uzvj">fuel consumption</td>
+    <td class="tg-7btt">fuel consumption</td>
+    <td class="tg-uzvj">electricity consumption</td>
   </tr>
   <tr>
     <td class="tg-0pky">HBEFA v2.1-based</td>
@@ -61,6 +62,7 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">-</td>
   </tr>
   <tr>
     <td class="tg-0pky">HBEFA v3.1-based</td>
@@ -70,14 +72,26 @@ modeled using the HBEFA3 based model).
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">-</td>
   </tr>
   <tr>
-    <td class="tg-lboi">PHEMlight</td>
+    <td class="tg-0pky">PHEMlight</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
     <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">x</td>
+    <td class="tg-c3ow">-</td>
+  </tr>
+  <tr>
+    <td class="tg-lboi">Electric Vehicle Model</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
+    <td class="tg-c3ow">-</td>
     <td class="tg-9wq8">x</td>
   </tr>
 </table>
