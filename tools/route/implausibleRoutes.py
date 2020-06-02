@@ -100,20 +100,21 @@ def get_options():
     return options
 
 
-def getRouteLength(net, edges):
-    return sum([net.getEdge(e).getLength() for e in edges])
-
-
 class RouteInfo:
     def __init__(self, route):
         self.edges = route.edges.split()
 
 
 def calcDistAndLoops(rInfo, net, options):
-    rInfo.airDist = euclidean(
-        net.getEdge(rInfo.edges[0]).getShape()[0],
-        net.getEdge(rInfo.edges[-1]).getShape()[-1])
-    rInfo.length = getRouteLength(net, rInfo.edges)
+    if net.hasInternal:
+        rInfo.airDist = euclidean(
+            net.getEdge(rInfo.edges[0]).getShape()[0],
+            net.getEdge(rInfo.edges[-1]).getShape()[-1])
+    else:
+        rInfo.airDist = euclidean(
+            net.getEdge(rInfo.edges[0]).getFromNode().getCoord(),
+            net.getEdge(rInfo.edges[-1]).getToNode().getCoord())
+    rInfo.length = sumolib.route.getLength(net, rInfo.edges)
     rInfo.airDistRatio = rInfo.length / rInfo.airDist
     rInfo.edgeLoop = False
     rInfo.nodeLoop = False
@@ -147,7 +148,7 @@ def main():
     options = get_options()
     if options.verbose:
         print("parsing network from", options.network)
-    net = readNet(options.network)
+    net = readNet(options.network, withInternal=True)
     read = 0
     routeInfos = {}  # id-> RouteInfo
     skipped = set()
@@ -232,7 +233,7 @@ def main():
             oldCosts = float(routeAlts[0].cost)
             newCosts = float(routeAlts[1].cost)
             assert(routeAlts[0].edges.split() == routeInfos[vehicle.id].edges)
-            routeInfos[vehicle.id].shortest_path_distance = getRouteLength(net, routeAlts[1].edges.split())
+            routeInfos[vehicle.id].shortest_path_distance = sumolib.route.getLength(net, routeAlts[1].edges.split())
             if oldCosts <= newCosts:
                 routeInfos[vehicle.id].detour = 0
                 routeInfos[vehicle.id].detourRatio = 1

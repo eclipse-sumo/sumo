@@ -24,6 +24,33 @@ from sumolib.miscutils import euclidean  # noqa
 from sumolib.geomhelper import polygonOffsetWithMinimumDistanceToPoint  # noqa
 
 
+def getLength(net, edges):
+    """
+    Calculates the length of a route including internal edges.
+    The input network has to contain internal edges (withInternal needs to be set when parsing).
+    The list of edges can either contain edge objects or edge ids as strings.
+    If there is no connection between two consecutive edges, length 0 is assumed (no error is thrown).
+    If there are multiple connections of different length, the shortest is used.
+    """
+    if len(edges) == 0:
+        return 0
+    if isinstance(edges[0], str):
+        edges = [net.getEdge(e) for e in edges]
+    last = edges[0]
+    length = last.getLength()
+    for e in edges[1:]:
+        if net.hasInternal:
+            minInternalCost = 1e400
+            for c in last.getConnections(e):
+                if c.getViaLaneID() != "":
+                    minInternalCost = min(minInternalCost, net.getLane(c.getViaLaneID()).getLength())
+            if minInternalCost < 1e400:
+                length += minInternalCost
+        length += e.getLength()
+        last = e
+    return length
+
+
 def _getMinPath(paths):
     minDist = 1e400
     minPath = None
