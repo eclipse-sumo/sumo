@@ -1824,7 +1824,7 @@ GNERouteHandler::closeTrip() {
 
 
 void
-GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
+GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
 /*
     // declare a personStop
     PersonPlansValues stop;
