@@ -2000,6 +2000,10 @@ MSVehicle::processNextStop(double currentVelocity) {
                     // let the parking area know the vehicle
                     stop.parkingarea->enter(this);
                 }
+                if (stop.chargingStation != nullptr) {
+                    // let the container stop know the vehicle
+                    stop.chargingStation->enter(this, stop.pars.parking);
+                }
 
                 if (stop.pars.tripId != "") {
                     ((SUMOVehicleParameter&)getParameter()).setParameter("tripId", stop.pars.tripId);
@@ -6240,6 +6244,10 @@ MSVehicle::resumeFromStopping() {
         if (myStops.front().parkingarea != nullptr) {
             // inform parking area about leaving it
             myStops.front().parkingarea->leaveFrom(this);
+        }
+        if (myStops.front().chargingStation != nullptr) {
+            // inform charging station about leaving it
+            myStops.front().chargingStation->leaveFrom(this);
         }
         // the current stop is no longer valid
         myLane->getEdge().removeWaiting(this);
