@@ -41,7 +41,7 @@ ContextSubscriptionResults ChargingStation::myContextSubscriptionResults;
 std::vector<std::string>
 ChargingStation::getIDList() {
     std::vector<std::string> ids;
-    for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
+    for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_CHARGING_STATION)) {
         ids.push_back(item.first);
     }
     std::sort(ids.begin(), ids.end());
@@ -58,6 +58,36 @@ std::string
 ChargingStation::getLaneID(const std::string& stopID) {
     return getChargingStation(stopID)->getLane().getID();
 }
+
+double
+ChargingStation::getStartPos(const std::string& stopID) {
+    return getChargingStation(stopID)->getBeginLanePosition();
+}
+
+double
+ChargingStation::getEndPos(const std::string& stopID) {
+    return getChargingStation(stopID)->getEndLanePosition();
+}
+
+std::string
+ChargingStation::getName(const std::string& stopID) {
+    return getChargingStation(stopID)->getMyName();
+}
+
+int
+ChargingStation::getVehicleCount(const std::string& stopID) {
+    return (int)getChargingStation(stopID)->getStoppedVehicles().size();
+}
+
+std::vector<std::string>
+ChargingStation::getVehicleIDs(const std::string& stopID) {
+    std::vector<std::string> result;
+    for (const SUMOVehicle* veh : getChargingStation(stopID)->getStoppedVehicles()) {
+        result.push_back(veh->getID());
+    }
+    return result;
+}
+
 
 
 std::string
@@ -80,7 +110,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(ChargingStation, CHARGINGSTATION)
 
 MSStoppingPlace*
 ChargingStation::getChargingStation(const std::string& id) {
-    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_BUS_STOP);
+    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_CHARGING_STATION);
     if (s == nullptr) {
         throw TraCIException("ChargingStation '" + id + "' is not known");
     }
@@ -103,6 +133,16 @@ ChargingStation::handleVariable(const std::string& objID, const int variable, Va
             return wrapper->wrapInt(objID, variable, getIDCount());
         case VAR_LANE_ID:
             return wrapper->wrapString(objID, variable, getLaneID(objID));
+        case VAR_POSITION:
+            return wrapper->wrapDouble(objID, variable, getStartPos(objID));
+        case VAR_LANEPOSITION:
+            return wrapper->wrapDouble(objID, variable, getEndPos(objID));
+        case VAR_NAME:
+            return wrapper->wrapString(objID, variable, getName(objID));
+        case VAR_STOP_STARTING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getVehicleCount(objID));
+        case VAR_STOP_STARTING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getVehicleIDs(objID));
         default:
             return false;
     }

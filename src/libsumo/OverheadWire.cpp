@@ -41,7 +41,7 @@ ContextSubscriptionResults OverheadWire::myContextSubscriptionResults;
 std::vector<std::string>
 OverheadWire::getIDList() {
     std::vector<std::string> ids;
-    for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
+    for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_OVERHEAD_WIRE_SEGMENT)) {
         ids.push_back(item.first);
     }
     std::sort(ids.begin(), ids.end());
@@ -58,6 +58,37 @@ std::string
 OverheadWire::getLaneID(const std::string& stopID) {
     return getOverheadWire(stopID)->getLane().getID();
 }
+
+
+double
+OverheadWire::getStartPos(const std::string& stopID) {
+    return getOverheadWire(stopID)->getBeginLanePosition();
+}
+
+double
+OverheadWire::getEndPos(const std::string& stopID) {
+    return getOverheadWire(stopID)->getEndLanePosition();
+}
+
+std::string
+OverheadWire::getName(const std::string& stopID) {
+    return getOverheadWire(stopID)->getMyName();
+}
+
+int
+OverheadWire::getVehicleCount(const std::string& stopID) {
+    return (int)getOverheadWire(stopID)->getStoppedVehicles().size();
+}
+
+std::vector<std::string>
+OverheadWire::getVehicleIDs(const std::string& stopID) {
+    std::vector<std::string> result;
+    for (const SUMOVehicle* veh : getOverheadWire(stopID)->getStoppedVehicles()) {
+        result.push_back(veh->getID());
+    }
+    return result;
+}
+
 
 
 std::string
@@ -80,7 +111,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(OverheadWire, OVERHEADWIRE)
 
 MSStoppingPlace*
 OverheadWire::getOverheadWire(const std::string& id) {
-    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_BUS_STOP);
+    MSStoppingPlace* s = MSNet::getInstance()->getStoppingPlace(id, SUMO_TAG_OVERHEAD_WIRE_SEGMENT);
     if (s == nullptr) {
         throw TraCIException("OverheadWire '" + id + "' is not known");
     }
@@ -103,6 +134,16 @@ OverheadWire::handleVariable(const std::string& objID, const int variable, Varia
             return wrapper->wrapInt(objID, variable, getIDCount());
         case VAR_LANE_ID:
             return wrapper->wrapString(objID, variable, getLaneID(objID));
+        case VAR_POSITION:
+            return wrapper->wrapDouble(objID, variable, getStartPos(objID));
+        case VAR_LANEPOSITION:
+            return wrapper->wrapDouble(objID, variable, getEndPos(objID));
+        case VAR_NAME:
+            return wrapper->wrapString(objID, variable, getName(objID));
+        case VAR_STOP_STARTING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getVehicleCount(objID));
+        case VAR_STOP_STARTING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getVehicleIDs(objID));
         default:
             return false;
     }

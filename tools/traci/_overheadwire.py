@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    _busstop.py
+# @file    _overheadwire.py
 # @author  Jakob Erdmann
 # @date    2020-06-02
 
@@ -28,17 +28,15 @@ _RETURN_VALUE_FUNC = {
     tc.VAR_NAME: Storage.readString,
     tc.VAR_STOP_STARTING_VEHICLES_NUMBER: Storage.readInt,
     tc.VAR_STOP_STARTING_VEHICLES_IDS: Storage.readStringList,
-    tc.VAR_BUS_STOP_WAITING: Storage.readInt,
-    tc.VAR_BUS_STOP_WAITING_IDS: Storage.readStringList,
 }
 
 
-class BusStopDomain(Domain):
+class OverheadWireDomain(Domain):
 
     def __init__(self):
-        Domain.__init__(self, "busstop", tc.CMD_GET_BUSSTOP_VARIABLE, tc.CMD_SET_BUSSTOP_VARIABLE,
-                        tc.CMD_SUBSCRIBE_BUSSTOP_VARIABLE, tc.RESPONSE_SUBSCRIBE_BUSSTOP_VARIABLE,
-                        tc.CMD_SUBSCRIBE_BUSSTOP_CONTEXT, tc.RESPONSE_SUBSCRIBE_BUSSTOP_CONTEXT,
+        Domain.__init__(self, "overheadwire", tc.CMD_GET_OVERHEADWIRE_VARIABLE, tc.CMD_SET_OVERHEADWIRE_VARIABLE,
+                        tc.CMD_SUBSCRIBE_OVERHEADWIRE_VARIABLE, tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE,
+                        tc.CMD_SUBSCRIBE_OVERHEADWIRE_CONTEXT, tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_CONTEXT,
                         _RETURN_VALUE_FUNC)
 
     def getLaneID(self, stopID):
@@ -69,26 +67,14 @@ class BusStopDomain(Domain):
         return self._getUniversal(tc.VAR_NAME, stopID)
 
     def getVehicleCount(self, stopID):
-        """getBusStopWaiting() -> integer
-        Get the total number of vehicles stopped at the named bus stop.
+        """getOverheadWireWaiting() -> integer
+        Get the total number of vehicles stopped at the named overhead wire.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_NUMBER, stopID)
 
     def getVehicleIDs(self, stopID):
-        """getBusStopWaiting() -> list(string)
-        Get the IDs of vehicles stopped at the named bus stop.
+        """getOverheadWireWaiting() -> list(string)
+        Get the IDs of vehicles stopped at the named overhead wire.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS, stopID)
-
-    def getPersonCount(self, stopID):
-        """getBusStopWaiting() -> integer
-        Get the total number of waiting persons at the named bus stop.
-        """
-        return self._getUniversal(tc.VAR_BUS_STOP_WAITING, stopID)
-
-    def getPersonIDs(self, stopID):
-        """getBusStopWaiting() -> list(string)
-        Get the IDs of waiting persons at the named bus stop.
-        """
-        return self._getUniversal(tc.VAR_BUS_STOP_WAITING_IDS, stopID)
 
