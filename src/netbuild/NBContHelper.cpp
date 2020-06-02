@@ -139,8 +139,8 @@ NBContHelper::relative_outgoing_edge_sorter::operator()(const NBEdge* e1, const 
     assert(e1 != nullptr && e2 != nullptr);
     double relAngle1 = NBHelpers::normRelAngle(myAngle, e1->getStartAngle());
     double relAngle2 = NBHelpers::normRelAngle(myAngle, e2->getStartAngle());
-    const double length1 = e1->getGeometry().length();
-    const double length2 = e2->getGeometry().length();
+    const double length1 = e1->getGeometry().length2D();
+    const double length2 = e2->getGeometry().length2D();
 
     double lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
     while (fabs(relAngle1 - relAngle2) < 3.0) {
@@ -174,8 +174,8 @@ NBContHelper::relative_incoming_edge_sorter::operator()(const NBEdge* e1, const 
     assert(e1 != nullptr && e2 != nullptr);
     double relAngle1 = NBHelpers::normRelAngle(myAngle, e1->getEndAngle());
     double relAngle2 = NBHelpers::normRelAngle(myAngle, e2->getEndAngle());
-    const double length1 = e1->getGeometry().length();
-    const double length2 = e2->getGeometry().length();
+    const double length1 = e1->getGeometry().length2D();
+    const double length2 = e2->getGeometry().length2D();
 
     double lookAhead = 2 * NBEdge::ANGLE_LOOKAHEAD;
     while (fabs(relAngle1 - relAngle2) < 3.0) {
