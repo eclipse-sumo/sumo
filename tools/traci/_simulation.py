@@ -343,7 +343,7 @@ class SimulationDomain(Domain):
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING, stopID)
 
     def getBusStopWaitingIDList(self, stopID):
-        """getBusStopWaiting() -> integer
+        """getBusStopWaiting() -> list(string)
         Get the IDs of waiting persons at the named bus stop.
         """
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING_IDS, stopID)
