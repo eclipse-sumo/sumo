@@ -1,5 +1,4 @@
 Loading configuration ... done.
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -7,7 +6,7 @@ vehicletypes ('DEFAULT_BIKETYPE', 'DEFAULT_CONTAINERTYPE', 'DEFAULT_PEDTYPE', 'D
 vehicletype count 4
 examining DEFAULT_VEHTYPE
 length 5.0
-maxSpeed 55.5555555556
+maxSpeed 55.55555555555556
 speedFactor 1.0
 speedDev 0.0
 accel 2.6
@@ -43,7 +42,7 @@ actionStepLength 2.0
 imperfection 0.1
 tau 1.1
 vClass bicycle
-emissionclass HBEFA2/zero
+emissionclass Zero/default
 shape bicycle
 MinGap 1.1
 width 1.1
