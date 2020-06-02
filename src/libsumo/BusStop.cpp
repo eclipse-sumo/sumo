@@ -22,6 +22,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSStoppingPlace.h>
+#include <microsim/transportables/MSTransportable.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "BusStop.h"
@@ -57,6 +58,49 @@ BusStop::getIDCount() {
 std::string
 BusStop::getLaneID(const std::string& stopID) {
     return getBusStop(stopID)->getLane().getID();
+}
+
+double
+BusStop::getStartPos(const std::string& stopID) {
+    return getBusStop(stopID)->getBeginLanePosition();
+}
+
+double
+BusStop::getEndPos(const std::string& stopID) {
+    return getBusStop(stopID)->getEndLanePosition();
+}
+
+std::string
+BusStop::getName(const std::string& stopID) {
+    return getBusStop(stopID)->getMyName();
+}
+
+int
+BusStop::getVehicleCount(const std::string& stopID) {
+    return (int)getBusStop(stopID)->getStoppedVehicles().size();
+}
+
+std::vector<std::string>
+BusStop::getVehicleIDs(const std::string& stopID) {
+    std::vector<std::string> result;
+    for (const SUMOVehicle* veh : getBusStop(stopID)->getStoppedVehicles()) {
+        result.push_back(veh->getID());
+    }
+    return result;
+}
+
+int
+BusStop::getPersonCount(const std::string& stopID) {
+    return (int)getBusStop(stopID)->getWaitingPersons().size();
+}
+
+std::vector<std::string>
+BusStop::getPersonIDs(const std::string& stopID) {
+    std::vector<std::string> result;
+    for (MSTransportable* t : getBusStop(stopID)->getWaitingPersons()) {
+        result.push_back(t->getID());
+    }
+    return result;
 }
 
 
@@ -103,6 +147,20 @@ BusStop::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapInt(objID, variable, getIDCount());
         case VAR_LANE_ID:
             return wrapper->wrapString(objID, variable, getLaneID(objID));
+        case VAR_POSITION:
+            return wrapper->wrapDouble(objID, variable, getStartPos(objID));
+        case VAR_LANEPOSITION:
+            return wrapper->wrapDouble(objID, variable, getEndPos(objID));
+        case VAR_NAME:
+            return wrapper->wrapString(objID, variable, getName(objID));
+        case VAR_STOP_STARTING_VEHICLES_NUMBER:
+            return wrapper->wrapInt(objID, variable, getVehicleCount(objID));
+        case VAR_STOP_STARTING_VEHICLES_IDS:
+            return wrapper->wrapStringList(objID, variable, getVehicleIDs(objID));
+        case VAR_BUS_STOP_WAITING:
+            return wrapper->wrapInt(objID, variable, getPersonCount(objID));
+        case VAR_BUS_STOP_WAITING_IDS:
+            return wrapper->wrapStringList(objID, variable, getPersonIDs(objID));
         default:
             return false;
     }

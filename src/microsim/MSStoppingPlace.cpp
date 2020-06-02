@@ -287,6 +287,26 @@ MSStoppingPlace::addAccess(MSLane* lane, const double pos, const double length) 
     return true;
 }
 
+std::vector<const SUMOVehicle*>
+MSStoppingPlace::getStoppedVehicles() const {
+    std::vector<const SUMOVehicle*> result;
+    for (auto item : myEndPositions) {
+        result.push_back(item.first);
+    }
+    return result;
+}
+
+
+std::vector<MSTransportable*>
+MSStoppingPlace::getWaitingPersons() const {
+    std::vector<MSTransportable*> result;
+    for (auto item : myWaitingTransportables) {
+        result.push_back(item.first);
+    }
+    return result;
+}
+
+
 void
 MSStoppingPlace::clearState() {
     myEndPositions.clear();

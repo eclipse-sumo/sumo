@@ -199,6 +199,12 @@ public:
 
     static int getPersonsAbreast(double length);
 
+    /// @brief get list of vehicles waiting at this stop
+    std::vector<const SUMOVehicle*> getStoppedVehicles() const;
+
+    /// @brief get list of persons waiting at this stop
+    std::vector<MSTransportable*> getWaitingPersons() const;
+
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();
 
