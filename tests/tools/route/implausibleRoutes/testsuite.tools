@@ -15,3 +15,6 @@ node_loop
 
 # Checking for a route which visits an edge twice
 edge_loop
+
+# network with internal links
+internal
