@@ -295,6 +295,3 @@ The implausibility score is a weighted sum of individual measures of implausibil
 
 The tool reports routes with an implausibility score above a given threshold.
 It can also be used to generated restrictions for [flowrouter](Detector.md#flowrouterpy).
-
-
-

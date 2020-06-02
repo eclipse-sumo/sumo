@@ -263,6 +263,4 @@ The [routeSampler.py](../Tools/Turns.md#routesamplerpy) tool (available since ve
 
 A suitable route file for a given network can be generated with [randomTrips.py](../Tools/Trip.md#randomtripspy). Such a route file covers the network with shortest-path routes. Routes that deviate from the shortest path can also be generated with the help of [DUAROUTER](../DUAROUTER.md) option **--weights.random-factor**.
 
-By changing the route file used as input, the generated traffic can be calibrated. 
-
-
+By changing the route file used as input, the generated traffic can be calibrated.

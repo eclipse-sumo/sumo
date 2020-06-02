@@ -267,7 +267,7 @@ with multiple elements of the same type this mode behaves differently:
 (gaps will disappear upon triggering recomputation with **F5**)
 
 #### Generic Parameters
-Most simulation objects support [Generic Parameters](Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog wich is accessible with the 'Edit parameters' button. 
+Most simulation objects support [Generic Parameters](Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
 
 In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by NETEDIT (though peritted by SUMO). 
 The serialized form is useful in select mode when selecting objects with a particular parameter.
@@ -1105,7 +1105,7 @@ and a charge delay.
 
 #### Detectors
 
-Detectors are additionals wich save information about vehicles that
+Detectors are additionals which save information about vehicles that
 passed over a certain position on the lane.
 
 ##### Induction Loops Detectors (E1)
@@ -1279,7 +1279,7 @@ to left will be created ![](images/NetEditReversedirection2.png)New edge is
 parallel to their reverse edge
 
 - *Set geometry endpoint here*: Create an geometry end point. It's
-  usefull to mark the start and the end of an road
+  useful to mark the start and the end of an road
 
 ![](images/NetEditEndpoint1.png)Geometry endpoint will be created in the
 mouse cursor position ![](images/NetEditEndpoint2.png)There isn't an visual
@@ -1426,7 +1426,7 @@ alternative methods of accomplishing this.
 1.  switch to [move mode](#move)
 2.  shift-click near the start or the end of the edge to create/remove a
     custom geometry endpoint (marked with 'S' at the start and 'E' and
-    the end.
+    the end).
 3.  once create these special geometry points can be moved around like
     normal geometry points
 
@@ -1537,7 +1537,7 @@ access**.
 ## Adapting Visualization Settings to help editing complicated intersections
 
 Editing complex intersection clusters with many short edges can be
-difficult with the default visualisation settings. The following
+difficult with the default visualization settings. The following
 settings may help
 
 - Junction settings

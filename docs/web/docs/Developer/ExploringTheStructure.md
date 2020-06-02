@@ -35,4 +35,3 @@ You can navigate to the references items and explore the structure of one or mor
 ![DevDoxygenFunctionInfo](../images/DevDoxygenFunctionInfo.png)
 
 ## List of variables
-

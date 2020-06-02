@@ -103,9 +103,8 @@ input counts with the outputs of flowrouter.py and
 
 # edgeDataFromFlow.py
 
-This script converts detector flow files to into edgeData format (i.e. to be used by [routeSampler.py](../Turns.md#routesamplerpy))
+This script converts detector flow files to into edgeData format (i.e. to be used by [routeSampler.py](Turns.md#routesamplerpy))
 Example:
 ```
 <SUMO_HOME>/tools/detector/edgeDataFromFlow.py -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml 
 ```
-

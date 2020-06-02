@@ -390,13 +390,3 @@ To following effects occur:
 When the departure edge for a vehicle is closed, vehicles will ignore this for
 'soft' closing. For a 'hard' closing they delay their departure until the 
 closing has ended.
-
-
-
-
-
-
-
-
-
-

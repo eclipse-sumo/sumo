@@ -14,13 +14,13 @@ nav:
   - Home: index.md
   - Documentation: SUMO_User_Documentation.md
   - Tutorials: Tutorials.md
-  - Downloads: Downloads.md
   - FAQ: FAQ.md
-  - Contact: Contact.md
+  - Downloads: Downloads.md
   - Publications: Publications.md
-  - ChangeLog: ChangeLog.md
   - Developer: Developer/Main.md
+  - ChangeLog: ChangeLog.md
   - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs/web
+  - Contact: Contact.md
 
 theme:
   name: mkdocs

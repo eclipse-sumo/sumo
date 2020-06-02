@@ -44,6 +44,4 @@ length-geometry-mismatch. For example, railway networks with switches and parall
 geometrical lengths are reduced. To keep the driving-lengths at their realistic values, each edge is given a custom length value the mismatch.
 
 # Vehicle lengths in SUMO-GUI
-By default, vehicle lengths are not affected by length-geometry-mismatch. This means, vehicles may seem to violate minimum gaps or even collide if they are driving on an edge where the (driving) length is longer than the geometrical (euclidean) length. 
-
-
+By default, vehicle lengths are not affected by length-geometry-mismatch. This means, vehicles may seem to violate minimum gaps or even collide if they are driving on an edge where the (driving) length is longer than the geometrical (euclidean) length.

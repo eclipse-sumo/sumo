@@ -161,7 +161,7 @@ permalink: /ChangeLog/
   - Option **--departpos** is now working for pedestrians and personTrips. Issue #6720
 - TraCI
   - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
-  - Fixed crash when trying add subscription filter for context subscrition of persons around an ego vehicle. Issue #6735
+  - Fixed crash when trying add subscription filter for context subscription of persons around an ego vehicle. Issue #6735
   - Fixed crash and invalid results when using 'vehicle.addSubscriptionFilterLateralDistance'. Issue #6770, #6941
   - Fixed crash when adding vehicle with `depart="triggered"`. Issue #6793
   - Fixed invalid routing results when calling 'traci.simulation.findIntermodalRoute(..., routingMode=ROUTING_MODE_AGGREGATED)'. Issue #6827
@@ -172,7 +172,7 @@ permalink: /ChangeLog/
 ### Enhancements
 - Simulation
   - Taxi device now supports ride sharing. Issue #6544
-  - Added option **--extrapolate-departpos**. When this option is set, vehicles with a departure time that lies between simulation steps have their depart position shifted forward to better reflect their position at the actual insertion time. This can greatly reduce depart delay and incrase and insertion flow in high-flow situations. Issue #4277
+  - Added option **--extrapolate-departpos**. When this option is set, vehicles with a departure time that lies between simulation steps have their depart position shifted forward to better reflect their position at the actual insertion time. This can greatly reduce depart delay and increase and insertion flow in high-flow situations. Issue #4277
   - Traffic lights of type 'actuated' and 'delay_based' now support the use of [custom detectors](Simulation/Traffic_Lights.md#custom_detectors). Issue #5125, Issue #6773
   - The new route attribute `period` is now applied repeatedly when rerouting the vehicle and the new route contains stops with attribute `until` to shift those times forward (e.g. on cyclical rerouters for public transport vehicles). Issue #6550
   - The new route attribute `repeat` can now be used to define repeating routes. When the route contains stop definitions with the `until`-attribute, the new route attribute `period` must be used to shift the repeated stop times. Issue #6554  
@@ -236,7 +236,7 @@ permalink: /ChangeLog/
   - [routeSampler.py](Tools/Turns.md#routesampler.py) improvements
     - supports loading multiple data intervals. Data aggregation can be customized using options **--begin**, **--end**, **--interval**
     - supports loading multiple files (routes, edgedata, turns). The corresponding options were renamed accordingly (**--route-files, --edgedata-files, --turn-files**)
-    - supports optimization by linear programming using option **--optimize INT|full** (requires scipy). The interger argument can be used to configure the maximum deviation from the input route distribution.
+    - supports optimization by linear programming using option **--optimize INT|full** (requires scipy). The integer argument can be used to configure the maximum deviation from the input route distribution.
     - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRelation` files using option **--mismatch-output**
     - supports direct optimization of route input (without resampling) by setting option **--optimize-input**
     - supports multi-edge counting data using `<edgeRelation from="A" to="D" via="B C" count="INT"/>`. Issue #6729
@@ -299,7 +299,7 @@ permalink: /ChangeLog/
 - TraCI
   - Context subscriptions can now be removed individually from the python client (before every unsubscribeContext removed all)
   - Fixed invalid changing to the opposite side when using changeLaneRelative(vehID, -1) on lane 0. Issue #6576
-  - Fixed premature changing from the opposide side when a duration was set for changeLaneRelative. Issue #6577
+  - Fixed premature changing from the opposite side when a duration was set for changeLaneRelative. Issue #6577
   - Fixed invalid result when calling traci.lanearea.getLastStepMeanSpeed in subsecond simulation. Issue #6605
   - Fixed invalid stage depart values when calling traci.simulation.findIntermodalRoute. Issue #6600
 
@@ -310,12 +310,12 @@ permalink: /ChangeLog/
   - Added option **--device.fcd.radius** which allows fcd output for persons and vehicles that are within the given range around equipped vehicles. Issue #6410
   - Added new ['taxi' device](Simulation/Taxi.md) to allow simulation of demand-responsive transport. Issue #6418
   - Added option **--step-log.period INT** to set the number of simulation steps between outputs. The new default is 100 which brings a major execution speedup when running sumo on windows with step-log (where command-line output is slow). Issue #6377
-  - Added option **--fcd-output.acceleration** to inlcude acceleration values in fcd-output. When sublane simulation is enabled, attribute 'accelerationLat' is added as well. Issue #6448
-  - Added option **--lanechange-output.xy** to inlcude coordinates in lanechange-output. Issue #6588
+  - Added option **--fcd-output.acceleration** to include acceleration values in fcd-output. When sublane simulation is enabled, attribute 'accelerationLat' is added as well. Issue #6448
+  - Added option **--lanechange-output.xy** to include coordinates in lanechange-output. Issue #6588
   - [Aggregated tripinfo output](Simulation/Output.md#aggregated_traffic_measures) now includes average speed. Issue #6480
   - Trips, flows, personTrips and walks with attributes `fromJunction`, `toJunction` and `viaJunctions` are now supported when setting option **--junction-taz**. Issue #6474
   - Calibrators can now be used to update vehicle types by defining flows with the 'type' attribute and without the 'vehsPerHour' attribute. Issue #6219
-  - When definining [automated switching between traffic light programs](Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure), the new attribute 'period' can now be used to define repeating switch times. Issue #6540
+  - When defining [automated switching between traffic light programs](Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure), the new attribute 'period' can now be used to define repeating switch times. Issue #6540
   - Cooperative lane changing at roundabouts can now be configured independently from other cooperation by setting the new vType attribute 'lcCooperativeRoundabout'. Issue #6565
   - Cooperative speed adjustment can now be configured independently from other cooperation by setting the new vType attribute 'lcCooperativeSpeed'. Issue #6534
   - Vehicles can now foresee speed reductions on their lane and change before being slowed down (configurable by new vType attribute 'lcSpeedGainLookahead'. Issue #6547
@@ -326,7 +326,7 @@ permalink: /ChangeLog/
 
 - NETEDIT
   - Stacked vehicles (overlapping due to similar departPos) are now indicated by a number. Issue #6485
-  - Stacked vechicles can now be "unstacked" by setting the option 'spread vehicles'. This spreads them alonger the lane sorted by depart time. Issue #5602
+  - Stacked vehicles can now be "unstacked" by setting the option 'spread vehicles'. This spreads them alonger the lane sorted by depart time. Issue #5602
   - Flows are now distinguished from individual vehicles with a text caption. Issue #6486
   - Junctions with missing connections are now highlighted in magenta. Issue #6391
   - Geometry points are now clearly distinguished from junctions by color and size. Issue #6514
@@ -386,7 +386,7 @@ permalink: /ChangeLog/
   - Default settings values 'show link junction index' and 'show link tls index' changed because their interpretation varies after #6376. Old GUI-setting files must be updated to achieve the default look.
   
 - Simulation
-  - When definining [automated switching between traffic light programs](Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure), switch times are no longer wrapped to fit into a single day (modulo). The replace the old behavior, set the new waut attribute `period="86400"`. Issue #6522
+  - When defining [automated switching between traffic light programs](Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure), switch times are no longer wrapped to fit into a single day (modulo). The replace the old behavior, set the new waut attribute `period="86400"`. Issue #6522
   
 - TraCI
   - traci.lane.getLinks (python) now returns the extended descriptions by default, the older behavior should not be used anymore (but is still available using a second parameter)
@@ -1236,7 +1236,7 @@ permalink: /ChangeLog/
     carFollowModel *IDM*. Issue #4527
   - Fixed crash when using *device.ssm*. Issue #4556
   - Fixed invalid cooperative lane-changing attempts. Issue #4566
-  - Fixed invald speed adaptation for lane changing. Issue #4563
+  - Fixed invalid speed adaptation for lane changing. Issue #4563
   - Public transport routing now properly uses stops that are
     defined as child elements of a vehicle. Issue #4575
 
@@ -1324,7 +1324,7 @@ permalink: /ChangeLog/
   - Fixed bug that was causing pedestrians on looped routes to block
     themselves. Issue #3888
   - Vehicle speedFactor is now included in saved state. Issue #3881
-  - Fixed invalid collision events when lanes are to narrow for the
+  - Fixed invalid collision events when lanes are too narrow for the
     vehicles. Issue #3056
   - Fixed collision between pedestrians and vehicles. Issue #3964
   - Fixed bug where option **--random-depart-offset** would trigger invalid warnings regarding
@@ -1490,7 +1490,7 @@ permalink: /ChangeLog/
 - Simulation
   - Tripinfo-output now includes the attribute *stopTime* which
     records the time spent with intentional stopping. Issue #3693
-  - A pedestrian crossings can now have different signal states for
+  - A pedestrian crossing can now have different signal states for
     both directions. Issue #3820
   - FCD-output can now be switched on selectively for a subset of
     vehicles and the reporting period can be configured. Issue #1910

@@ -162,4 +162,3 @@ converts '.net.xml' road geometries to [KML](https://en.wikipedia.org/wiki/Keyho
 By default, normal edge geometries will be exported. This can be changed with options
 - **--lanes**: write lane geometries
 - **--internal**: write junction-internal edges or lanes
-

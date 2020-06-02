@@ -98,4 +98,3 @@ form:
         <taxi customers="5" occupiedDistance="6748.77" occupiedTime="595.00"/>
     </tripinfo>
 ```
-

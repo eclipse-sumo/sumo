@@ -74,7 +74,7 @@ The package includes:
 | [NETCONVERT](NETCONVERT.md)                 | Network importer and generator; reads road networks from different formats and converts them into the SUMO-format   |
 | [NETEDIT](NETEDIT.md)                       | A graphical network editor.                                                                                  |
 | [NETGENERATE](NETGENERATE.md)               | Generates abstract networks for the SUMO-simulation                    |
-| [DUAROUTER](DUAROUTER.md)                   | Computes fastest routes through the network, importing different types of demand description. Performs the DUA      |
+| [DUAROUTER](DUAROUTER.md)                   | Computes the fastest routes through the network, importing different types of demand description. Performs the DUA      |
 | [JTRROUTER](JTRROUTER.md)                   | Computes routes using junction turning percentages                                                               |
 | [DFROUTER](DFROUTER.md)                     | Computes routes from induction loop measurements                                                     |
 | [MAROUTER](MAROUTER.md)                     | Performs macroscopic assignment                                                            |

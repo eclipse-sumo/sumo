@@ -53,5 +53,3 @@ importing the network. For this purpose [NETCONVERT](../NETCONVERT.md) provides 
 - **--no-turnarounds.except-deadend** : Disables building turnarounds except at dead end junctions. This option ensures that vehicles can exit from a cul-de-sac
 - **--no-turnarounds.except-turnlane** : Disables building turnarounds except at at junctions with a dedicated turning lane. This option offers a good compromise between preventing turnarounds related jams and avoiding long detoures. In the presence of a dedicated turning lane, a vehicle that has to wait for turning around is less disruptive to the rest of the traffic.
 - **--no-turnarounds.fringe** : Disables building turnarounds at fringe junctions. The purpose for this option is to prevent turn-arounds at the boundary of the network where edges are cut of (like a cul-de-sac) but in reality they would actually continue beyond the boundaries of the scenario. In these locations turn-arounds typically should not happen. In order to take effect, this option requires that boundary junctions have the attribut `fringe="outer"` set. This can be accomplished by setting the option **--fringe.guess**.
-
-

@@ -360,7 +360,7 @@ support coloring according to permissions.
 The default coloring scheme (*uniform*) aims to color roads in a
 realistic way and also show some basic [access
 permissions](Simulation/VehiclePermissions.md). The road colors
-have to following meaning:
+have the following meanings:
 
 - <span style="color:#808080; background:#808080">FOO</span> sidewalk (`allow="pedestrian"`)
 - <span style="color:#C0422C; background:#C0422C">FOO</span> bike lane (`allow="bicycle"`)
@@ -423,7 +423,7 @@ connections exist.
   junction visualization option *Show link tls index*.
   
 ### Check connected components
-Since version 1.4 you can show all network components that are reachable from a particular lane by right-clicking on a lane and then using the 'select reachable' menu option. A new menu opens where you have to select the vehicle class to check. After chosing a vehicle class, all reachable lanes will be added to the lane selection and the edge coloring mode will be set to 'color by selection'. 
+Since version 1.4 you can show all network components that are reachable from a particular lane by right-clicking on a lane and then using the 'select reachable' menu option. A new menu opens where you have to select the vehicle class to check. After choosing a vehicle class, all reachable lanes will be added to the lane selection and the edge coloring mode will be set to 'color by selection'. 
 Consequently, all reachable lanes will be colored blue and all unreachable lanes will be gray.
 
 # Changing the appearance/visualisation of the simulation
@@ -509,7 +509,7 @@ value/range
 | by reroute number              | count   | The number of times this vehicle has bee rerouted                                                                                                                                                             |
 | by selection                   | \-      | Colors selected and unselected vehicles differently                                                                                                                                                           |
 | by offset from best lane       | count   | By the number of immediate lane changes the vehicle must perform in order to follow its route                                                                                                                 |
-| by accleration                 | m/s^2   |                                                                                                                                                                                                               |
+| by acceleration                 | m/s^2   |                                                                                                                                                                                                               |
 | by time gap                    | s       | By the time to collide with the leader vehicle assuming constant speeds                                                                                                                                       |
 
 In addition to the vehicle shape and coloring one can display blinker
