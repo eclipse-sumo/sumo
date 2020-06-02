@@ -720,7 +720,12 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(int element, const SUMOSA
                 myToFill[myLastNodeID]->name = value;
             } else if (myImportElevation && key == "ele") {
                 try {
-                    myToFill[myLastNodeID]->ele = StringUtils::toDouble(value);
+                    const double elevation = StringUtils::toDouble(value);
+                    if (ISNAN(elevation)) {
+                        WRITE_WARNINGF("Value of key '%' is invalid ('%') in node '%'.", key, value, toString(myLastNodeID));
+                    } else {
+                        myToFill[myLastNodeID]->ele = elevation;
+                    }
                 } catch (...) {
                     WRITE_WARNINGF("Value of key '%' is not numeric ('%') in node '%'.", key, value, toString(myLastNodeID));
                 }
