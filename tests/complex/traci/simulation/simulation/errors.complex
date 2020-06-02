@@ -4,7 +4,7 @@ Error: Answered with error to command 0xab: Invalid chargingStation parameter 'b
 Error: Answered with error to command 0xab: Invalid chargingStation 'foo'
 Error: Answered with error to command 0xab: Unknown bus stop 'foo'.
 Error: Answered with error to command 0xab: Unknown from edge 'foo'.
-Error: Answered with error to command 0xab: Invalid departure edge for vehicle type 'DEFAULT_VEHTYPE' (Vehicle '' is not allowed to depart on any lane of its first edge.)
+Error: Answered with error to command 0xab: Invalid departure edge for vehicle type 'DEFAULT_VEHTYPE' (Vehicle 'simulation.findRoute' is not allowed to depart on any lane of its first edge.)
 Error: Answered with error to command 0xab: Unknown from edge 'foo'.
 Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
 Warning: Ignoring vehicle type 'DEFAULT_BIKETYPE' when performing intermodal routing because it is not allowed on the start edge 'footpath'.
