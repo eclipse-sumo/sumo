@@ -32,10 +32,10 @@ class GNEPersonStop : public GNEDemandElement, public SUMOVehicleParameter::Stop
 
 public:
     /// @brief constructor used for stops over busStops
-    GNEPersonStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* personParent);
+    GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief constructor used for stops over lanes
-    GNEPersonStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEEdge *edge, GNEDemandElement* personParent);
+    GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdge *edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
     ~GNEPersonStop();
