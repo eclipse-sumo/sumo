@@ -332,7 +332,7 @@ NLBuilder::buildNet() {
         if (myOptions.isSet("save-state.files")) {
             stateDumpFiles = myOptions.getStringVector("save-state.files");
             if (stateDumpFiles.size() != stateDumpTimes.size()) {
-                WRITE_ERROR("Wrong number of state file names!");
+                throw ProcessError("Wrong number of state file names!");
             }
         } else {
             const std::string prefix = myOptions.getString("save-state.prefix");
