@@ -18,6 +18,10 @@
 %rename(vehicle) Vehicle;
 %rename(vehicletype) VehicleType;
 %rename(calibrator) Calibrator;
+%rename(busstop) BusStop;
+%rename(parkingarea) ParkingArea;
+%rename(chargingstation) ChargingStation;
+%rename(overheadwire) OverheadWire;
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
@@ -423,6 +427,11 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 #include <libsumo/VehicleType.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/Person.h>
+#include <libsumo/Calibrator.h>
+#include <libsumo/BusStop.h>
+#include <libsumo/ParkingArea.h>
+#include <libsumo/ChargingStation.h>
+#include <libsumo/OverheadWire.h>
 %}
 
 // Process symbols in header
@@ -444,6 +453,11 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %include "VehicleType.h"
 %include "Vehicle.h"
 %include "Person.h"
+%include "Calibrator.h"
+%include "BusStop.h"
+%include "ParkingArea.h"
+%include "ChargingStation.h"
+%include "OverheadWire.h"
 
 #ifdef SWIGPYTHON
 %pythoncode %{

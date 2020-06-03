@@ -22,12 +22,12 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
+#include <microsim/trigger/MSCalibrator.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSCalibrator;
 namespace libsumo {
 class VariableWrapper;
 }
