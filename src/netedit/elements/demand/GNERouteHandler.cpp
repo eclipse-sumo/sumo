@@ -36,6 +36,7 @@
 #include "GNERoute.h"
 #include "GNERouteHandler.h"
 #include "GNEStop.h"
+#include "GNEPersonStop.h"
 #include "GNEVehicle.h"
 #include "GNEVehicleType.h"
 #include "GNEWalk.h"
@@ -597,6 +598,8 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
     const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
     const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
     const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0)? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
+    // get stop parameters
+    SUMOVehicleParameter::Stop stopParameters;
     // get edges
     GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().front() : nullptr;
     GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().back() : nullptr;
@@ -754,6 +757,27 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
                 return true;
             } else {
                 viewNet->setStatusBarText("A ride from busStop to busStop needs two busStops");
+            }
+            break;
+        }
+        // stops
+        case GNE_TAG_PERSONSTOP_EDGE: {
+            // check if ride busStop->busStop can be created
+            if (fromEdge) {
+                buildPersonStop(viewNet->getNet(), true, personParent, fromEdge, nullptr, stopParameters);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A stop has to be placed over an edge");
+            }
+            break;
+        }
+        case GNE_TAG_PERSONSTOP_BUSSTOP: {
+            // check if ride busStop->busStop can be created
+            if (fromBusStop) {
+                buildPersonStop(viewNet->getNet(), true, personParent, nullptr, fromBusStop, stopParameters);
+                return true;
+            } else {
+                viewNet->setStatusBarText("A stop has to be placed over a busStop");
             }
             break;
         }
@@ -1046,6 +1070,51 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
             busStopTo->addChildElement(ride);
             // include reference
             ride->incRef("buildRide");
+        }
+    }
+    // update geometry
+    personParent->updateGeometry();
+}
+
+
+void 
+GNERouteHandler::buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters) {
+    // declare personStop
+    GNEDemandElement* personStop = nullptr;
+    // create personStop depending of parameters
+    if (edge) {
+        // create personStop over edge
+        personStop = new GNEPersonStop(net, personParent, edge, stopParameters);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_PERSONSTOP_EDGE) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personStop, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert personStop 
+            net->getAttributeCarriers()->insertDemandElement(personStop);
+            // set references in children
+            personParent->addChildElement(personStop);
+            edge->addChildElement(personStop);
+            // include reference
+            personStop->incRef("buildPersonStop");
+        }
+    } else if (busStop) {
+        // create personStop over busStop
+        personStop = new GNEPersonStop(net, personParent, busStop, stopParameters);
+        // add element using undo list or directly, depending of undoDemandElements flag
+        if (undoDemandElements) {
+            net->getViewNet()->getUndoList()->p_begin("add " + toString(GNE_TAG_PERSONSTOP_BUSSTOP) + " within person '" + personParent->getID() + "'");
+            net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personStop, true), true);
+            net->getViewNet()->getUndoList()->p_end();
+        } else {
+            // insert personStop 
+            net->getAttributeCarriers()->insertDemandElement(personStop);
+            // set references in children
+            personParent->addChildElement(personStop);
+            busStop->addChildElement(personStop);
+            // include reference
+            personStop->incRef("buildPersonStop");
         }
     }
     // update geometry

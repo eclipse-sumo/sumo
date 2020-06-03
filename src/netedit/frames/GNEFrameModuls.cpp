@@ -2181,10 +2181,11 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
-            // vehicles
+        // vehicles
         case SUMO_TAG_VEHICLE:
         case SUMO_TAG_ROUTEFLOW:
         case GNE_TAG_WALK_ROUTE:
+            myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= ROUTE;
             break;
         case SUMO_TAG_TRIP:
@@ -2193,13 +2194,13 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
-            // edges
+        // edges
         case GNE_TAG_WALK_EDGES:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
-            // edge->edge
+        // edge->edge
         case GNE_TAG_PERSONTRIP_EDGE_EDGE:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
@@ -2208,7 +2209,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
-            // edge->busStop
+        // edge->busStop
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
@@ -2217,7 +2218,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             myCreationMode |= START_BUSSTOP;
             myCreationMode |= END_BUSSTOP;
             break;
-            // busStop->edge
+        // busStop->edge
         case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
         case GNE_TAG_WALK_BUSSTOP_EDGE:
         case GNE_TAG_RIDE_BUSSTOP_EDGE:
@@ -2226,7 +2227,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             myCreationMode |= START_BUSSTOP;
             myCreationMode |= END_EDGE;
             break;
-            // busStop->busStop
+        // busStop->busStop
         case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
@@ -2234,12 +2235,16 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             myCreationMode |= START_BUSSTOP;
             myCreationMode |= END_BUSSTOP;
             break;
-            // stops
+        // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
-        case GNE_TAG_PERSONSTOP_EDGE:
-            /* fix */
+            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= START_BUSSTOP;
             break;
-            // generic datas
+        case GNE_TAG_PERSONSTOP_EDGE:
+            myCreationMode |= SINGLE_ELEMENT;
+            myCreationMode |= START_EDGE;
+            break;
+        // generic datas
         case SUMO_TAG_EDGEREL:
             myCreationMode |= ONLY_FROMTO;
             myCreationMode |= START_EDGE;
@@ -2287,6 +2292,16 @@ GNEFrameModuls::PathCreator::setVClass(SUMOVehicleClass vClass) {
 
 bool
 GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
+    // check if edges are allowed
+    if (((myCreationMode & CONSECUTIVE_EDGES) + (myCreationMode & NONCONSECUTIVE_EDGES) +
+        (myCreationMode & START_EDGE) + (myCreationMode & END_EDGE)) == 0) {
+        return false;
+    }
+    // check if only an edge is allowed
+    if ((myCreationMode & SINGLE_ELEMENT) && (mySelectedEdges.size() == 1)) {
+        return false;
+    }
+    // continue depending of number of selected eges
     if (mySelectedEdges.size() > 0) {
         // check double edges
         if ((mySelectedEdges.back() == edge)) {
@@ -2366,6 +2381,10 @@ bool
 GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional *stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if stoppingPlaces aren allowed
     if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
+        return false;
+    }
+    // check if only a busStop is allowed
+    if ((myCreationMode & SINGLE_ELEMENT) && myFromStoppingPlace) {
         return false;
     }
     // first add startBusStop

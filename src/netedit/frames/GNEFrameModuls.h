@@ -659,12 +659,13 @@ public:
             NONCONSECUTIVE_EDGES    = 1 << 1,   // Path's edges aren't consecutives
             START_EDGE              = 1 << 2,   // Path begins in an edge
             END_EDGE                = 1 << 3,   // Path ends in an edge
-            ONLY_FROMTO             = 1 << 4,   // Path only had two elements (first and last)
-            START_BUSSTOP           = 1 << 5,   // Path begins in a busStop
-            END_BUSSTOP             = 1 << 6,   // Path ends in a busStop
-            ROUTE                   = 1 << 7,   // Path uses a route
-            REQUIERE_FIRSTELEMENT   = 1 << 8,   // Path start always in a previous element
-            SHOW_CANDIDATE_EDGES    = 1 << 9,   // disable candidate edges
+            SINGLE_ELEMENT          = 1 << 4,   // Path only had one element
+            ONLY_FROMTO             = 1 << 5,   // Path only had two elements (first and last)
+            START_BUSSTOP           = 1 << 6,   // Path begins in a busStop
+            END_BUSSTOP             = 1 << 7,   // Path ends in a busStop
+            ROUTE                   = 1 << 8,   // Path uses a route
+            REQUIERE_FIRSTELEMENT   = 1 << 9,   // Path start always in a previous element
+            SHOW_CANDIDATE_EDGES    = 1 << 10,  // disable candidate edges
         };
 
         /// @brief update InfoRouteLabel

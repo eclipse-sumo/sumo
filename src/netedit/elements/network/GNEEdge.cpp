@@ -2521,6 +2521,12 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
             drawPartialPersonPlan(s, getChildDemandElementsByType(GNE_TAG_RIDE_EDGE_BUSSTOP).front(), nullptr);
         }
     }
+    // draw person stops
+    for (const auto &personStopEdge : getChildDemandElements()) {
+        if (personStopEdge->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
+            personStopEdge->drawGL(s);
+        }
+    }
     // draw path element childs
     for (const auto& elementChild : myPathDemandElementsElementChilds) {
         if (elementChild->getTagProperty().isVehicle()) {

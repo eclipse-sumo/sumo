@@ -3469,9 +3469,6 @@ GNEAttributeCarrier::fillPersonPlanRides() {
             "ANY");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-
-
-
     currentTag = GNE_TAG_RIDE_BUSSTOP_BUSSTOP;
     {
         // set values of tag
@@ -3509,7 +3506,8 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONSTOP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS,
+            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS | 
+            GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::STOPELEMENT);
 
         // set values of attributes
@@ -3526,7 +3524,8 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONSTOP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS,
+            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS | 
+            GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
             GUIIcon::STOPELEMENT);
 
         // set values of attributes
