@@ -42,5 +42,9 @@ while traci.simulation.getMinExpectedNumber() > 0:
                                            traci.trafficlight.getBlockingVehicles(signal, index),
                                            traci.trafficlight.getRivalVehicles(signal, index),
                                            traci.trafficlight.getPriorityVehicles(signal, index)))
+    if t == 100:
+        traci.trafficlight.setRedYellowGreenState("N1", "r")
+    if t == 105:
+        traci.trafficlight.setProgram("N1", "0")
 
 traci.close()
