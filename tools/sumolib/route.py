@@ -23,6 +23,12 @@ sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 from sumolib.miscutils import euclidean  # noqa
 from sumolib.geomhelper import polygonOffsetWithMinimumDistanceToPoint  # noqa
 
+try:
+    basestring
+    # Allows isinstance(foo, basestring) to work in Python 3
+except NameError:
+    basestring = str
+
 
 def getLength(net, edges):
     """
@@ -34,7 +40,7 @@ def getLength(net, edges):
     """
     if len(edges) == 0:
         return 0
-    if isinstance(edges[0], str):
+    if isinstance(edges[0], basestring):
         edges = [net.getEdge(e) for e in edges]
     last = edges[0]
     length = last.getLength()
