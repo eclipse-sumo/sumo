@@ -255,6 +255,9 @@ MSStateHandler::closeVehicle() {
         // reset depart
         vc.discountStateLoaded();
         SUMOVehicle* v = vc.getVehicle(vehID);
+        if (v == nullptr) {
+            throw ProcessError("Could not load vehicle '" + vehID + "' from state");
+        }
         v->setChosenSpeedFactor(myAttrs->getFloat(SUMO_ATTR_SPEEDFACTOR));
         v->loadState(*myAttrs, myOffset);
         if (v->hasDeparted()) {
