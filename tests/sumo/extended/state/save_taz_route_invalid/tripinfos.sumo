@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Jun  3 21:22:15 2020 by Eclipse SUMO Version v1_6_0+0516-7866de11c0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_districts.taz.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <save-state.times value="10,600"/>
+        <save-state.files value="state.xml,state2.xml"/>
+    </output>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="tripFromTo" depart="9.00" departLane="middle_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="26.00" arrivalLane="middle_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="17.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="1" devices="tripinfo_tripFromTo routing_tripFromTo" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tripFromTo2" depart="11.00" departLane="middle_0" departPos="5.10" departSpeed="0.00" departDelay="1.00" arrival="28.00" arrivalLane="middle_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="17.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.77" rerouteNo="1" devices="tripinfo_tripFromTo2 routing_tripFromTo2" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tripFromTo3" depart="199.00" departLane="middle_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="216.00" arrivalLane="middle_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="17.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="1" devices="tripinfo_tripFromTo3 routing_tripFromTo3" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="tripFromTo4" depart="399.00" departLane="middle_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="416.00" arrivalLane="middle_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="17.00" routeLength="194.90" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="1" devices="tripinfo_tripFromTo4 routing_tripFromTo4" vType="t0" speedFactor="1.00" vaporized=""/>
+</tripinfos>

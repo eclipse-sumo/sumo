@@ -51,7 +51,7 @@ save_flow
 save_taz
 
 # save in a network with taz which has an invalid route
-save_taz_route_error
+save_taz_route_invalid
 
 # the input is taken from test save_flow/state.sumo
 load_flow
