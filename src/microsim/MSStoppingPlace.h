@@ -224,7 +224,7 @@ protected:
     std::vector<std::string> myLines;
 
     /// @brief A map from objects (vehicles) to the areas they acquire after entering the stop
-    std::map<const SUMOVehicle*, std::pair<double, double> > myEndPositions;
+    std::map<const SUMOVehicle*, std::pair<double, double>, ComparatorNumericalIdLess> myEndPositions;
 
     /// @brief The lane this bus stop is located at
     const MSLane& myLane;
