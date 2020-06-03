@@ -14,6 +14,7 @@ permalink: /ChangeLog/
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
   - Option **--fcd-output.distance** now also applies to Meso. Issue #7069
   - Fixed invalid amount of charged energy in subsecond simulation when using battery device. Issue #7074
+  - personTrips now support attribute fromTaz. Issue #7092
   
 - NETCONVERT
   - Fixed crash when patching a network with '.tll.xml' file. Issue #7014 (Regression in 1.6.0)
@@ -23,15 +24,22 @@ permalink: /ChangeLog/
   - Fixed invalid error when patching network with netdiff patches. Issue #6981
   - Fixed invalid offset when using option **--tls.quarter-offset**. Issue #6988
   - Option **--geometry.avoid-overlap** is no longer lost on reloading a network. Issue #7033
+  - Closed roads with changed permissions are no longer ignored by the first loaded vehicles. Issue #6999  
+  - Fixed infinite loop when loading OSM data with 'NaN' values. Issue #7101
+  
 - SUMO-GUI
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
 - NETEDIT
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
+  
 - Tools
   - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
   - [randomTrips.py](Tools/Trip.md) options **--junction-taz** and **--validate** no work as expected when combined. Issue #7002
   - [randomTrips.py](Tools/Trip.md) no longer generates trips were *fromJunction* equals *toJunctoin* when setting option  **--junction-taz**. Issue #7005
+  - [randomTrips.py](Tools/Trip.md) option **--vtype-output** now also applies to trip output. Issue #7089
+  - turnFile2EdgeRelations.py can now handle empty intervals. Issue #7084
+  
 - TraCI
   - Fixed memory leak when using libsumo. Issue #7012
   - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
@@ -77,14 +85,18 @@ permalink: /ChangeLog/
   - Added new function *simulation.loadState* for quick-loading simulation a saved state. Issue #6201
   - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318. 
   - Added new optional 'limit' argument to *vehicle.getNextStops* to limit the numer of returned stops. Issue #7015
+  - Added functionality for retrieving lane, position and stopped vehicles for traci domains 'busstop', 'parkingarea', 'chargingstation' and 'overheadwire'. Issue #5952, #7099
   
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now visualize person trajectories using option **--persons**. Issue #6978
   - Added new tool [computeCoordination.py](Tools/Output/computecoordinationpy) to compute the fraction of delayed vehicles along a defined corridor. Issue #6987
   - implausibleRoutes.py now works better with routes consisting of a single edge only and respects internal edge lengths. It can also detect routes containing edge loops or node loops. Issue #7071
+  - osmWebWizard now exports public transport edges for rail vehicles when setting both of the options 'Car-only Network' and 'Import public transport'. Issue #7081
     
 ### Other
+- Netconvert
+  - Roads of type 'highway.track' (aggricultural roads) are no longer accessible by cars when importing OSM data. Issue #7082
 
 - TraCI
   - In the python client, function vehicle.getLeader can now optionally return the pair ("", -1) instead of 'None' if no leader is found. The new behavior can be enabled by calling function traci.setLegacyGetLeader(False). In later versions this will be the default behavior. The return value 'None' is deprecated. Issue #7013
