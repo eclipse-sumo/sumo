@@ -168,14 +168,6 @@ def _startTracing(traceFile, cmd, port, label):
     _traceFile[label] = open(traceFile, 'w')
     _traceFile[label].write("traci.start(%s, port=%s, label=%s)\n" % (
         repr(cmd), repr(port), repr(label)))
-    # decorate all methods
-    self = sys.modules[__name__]
-    for attrName in dir(self):
-        if (not attrName.startswith("_")
-                and attrName not in ['switch', 'init', 'connect', 'Connection', 'getConnection', 'getVersion']):
-            attr = getattr(self, attrName)
-            if callable(attr):
-                setattr(self, attrName, self._addTracing(attr))
 
 def isLibsumo():
     return False
@@ -198,6 +190,9 @@ def load(args):
     """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
+    if _traceFile:
+        # cannot wrap because the method is import from __init__
+        _traceFile[_currentLabel[0]].write("traci.load(%s)\n" % repr(args))
     return _connections[""].load(args)
 
 
@@ -209,6 +204,10 @@ def simulationStep(step=0):
     """
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
+    if _traceFile:
+        # cannot wrap because the method is import from __init__
+        args = "" if step == 0 else str(step)
+        _traceFile[_currentLabel[0]].write("traci.simulationStep(%s)\n" % args)
     return _connections[""].simulationStep(step)
 
 
@@ -252,9 +251,10 @@ def close(wait=True):
         raise FatalTraCIError("Not connected.")
     _connections[""].close(wait)
     del _connections[_currentLabel[0]]
-    for label, traceFile in _traceFile.items():
-        traceFile.close()
-
+    if _traceFile:
+        # cannot wrap because the method is import from __init__
+        _traceFile[_currentLabel[0]].write("traci.close()\n")
+        _traceFile[_currentLabel[0]].close()
 
 def switch(label):
     _connections[""] = getConnection(label)

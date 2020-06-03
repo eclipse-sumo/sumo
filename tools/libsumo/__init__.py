@@ -15,4 +15,75 @@
 # @author  Michael Behrisch
 # @date    2018-06-05
 
+from functools import wraps
+import sys
 from .libsumo import *  # noqa
+
+_traceFile = [None]
+def close():
+    simulation.close()
+    if _traceFile[0]:
+        _traceFile[0].close()
+
+def start(args, traceFile=None):
+    if traceFile is not None:
+        _startTracing(traceFile, args)
+    simulation.load(args[1:])
+
+def _startTracing(traceFile, cmd):
+    _traceFile[0] = open(traceFile, 'w')
+    _traceFile[0].write("traci.start(%s)\n" % repr(cmd))
+    self = sys.modules[__name__]
+    # simulationStep shows up as simulation.step
+    for m in ["close", "load"]:
+        setattr(self, m, self._addTracing(getattr(self, m)))
+    for domain in [
+            busstop,
+            calibrator,
+            chargingstation,
+            edge,
+            #gui,
+            inductionloop,
+            junction,
+            lanearea,
+            lane,
+            multientryexit,
+            overheadwire,
+            parkingarea,
+            person,
+            poi,
+            polygon,
+            route,
+            simulation,
+            trafficlight,
+            vehicle,
+            vehicletype,
+            ]:
+        for attrName in dir(domain):
+            if not attrName.startswith("_"):
+                attr = getattr(domain, attrName)
+                if (callable(attr)
+                        and attrName not in [
+                            "wrapper",
+                            "getAllSubscriptionResults",
+                            "getAllContextSubscriptionResults",
+                            "close",
+                            "load"
+                            ]
+                        and not attrName.endswith('makeWrapper')):
+                    setattr(domain, attrName, _addTracing(attr, domain.__name__))
+
+def _addTracing(method, domain=None):
+    if domain:
+        # replace first underscore with '.' because the methods name includes
+        # the domain as prefix
+        name = method.__name__.replace('_', '.', 1)
+    else:
+        name = method.__name__
+    @wraps(method)
+    def tracingWrapper(*args, **kwargs):
+        _traceFile[0].write("traci.%s(%s)\n" % (
+            name,
+            ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n,v in kwargs.items()])))
+        return method(*args, **kwargs)
+    return tracingWrapper

@@ -36,12 +36,6 @@ def hasGUI():
 def init(port):
     print("Warning! To make your code usable with traci and libsumo, please use traci.start instead of traci.init.")
 
-def close():
-    simulation.close()
-
-def start(args):
-    simulation.load(args[1:])
-
 def load(args):
     simulation.load(args)
 
