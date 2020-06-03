@@ -10,6 +10,9 @@ paramsWithKey_subscription
 # Test for the StepListener functions
 steplistener
 
+# test client-side command tracing
+tracing
+
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
 

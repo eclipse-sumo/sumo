@@ -9,3 +9,5 @@ moveToXY
 
 # Tests for lateral collisions
 lateralCollision
+
+tracing
