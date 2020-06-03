@@ -446,9 +446,10 @@ GNERouteHandler::buildFlow(GNENet* net, bool undoDemandElements, const SUMOVehic
 
 void
 GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent) {
-    // declare pointers to stopping place  and lane and obtain it
+    // declare pointers to parent elements
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;
+    GNEEdge* edge = nullptr;
     SumoXMLTag stopTagType = SUMO_TAG_NOTHING;
     bool validParentDemandElement = true;
     if (stopParameters.busstop.size() > 0) {
@@ -488,12 +489,10 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
         }
     } else if (stopParameters.lane.size() > 0) {
         lane = net->retrieveLane(stopParameters.lane, false);
-        // distinguish between stop for vehicles and stops for persons
-        if (stopParent->getTagProperty().isPerson()) {
-            stopTagType = GNE_TAG_PERSONSTOP_LANE;
-        } else {
-            stopTagType = SUMO_TAG_STOP_LANE;
-        }
+        stopTagType = SUMO_TAG_STOP_LANE;
+    } else if (stopParameters.edge.size() > 0) {
+        edge = net->retrieveEdge(stopParameters.lane, false);
+        stopTagType = GNE_TAG_PERSONSTOP_EDGE;
     }
     // first check that parent is valid
     if (validParentDemandElement) {
@@ -1085,7 +1084,7 @@ GNERouteHandler::getFirstPersonPlanEdge(const GNEDemandElement *personPlan) {
         // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
             return personPlan->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
-        case GNE_TAG_PERSONSTOP_LANE:
+        case GNE_TAG_PERSONSTOP_EDGE:
             return personPlan->getParentLanes().front()->getParentEdge();
         default:
             return nullptr;
@@ -2019,7 +2018,7 @@ GNERouteHandler::PersonPlansValues::PersonPlansValues() :
     toBusStop(nullptr),
     route(nullptr),
     arrivalPos(-1),
-    laneStop(nullptr) {
+    edgeStop(nullptr) {
 }
 
 
@@ -2068,9 +2067,9 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
     } else if (route) {
         // walk route
         tag = GNE_TAG_WALK_EDGES;
-    } else if (laneStop) {
+    } else if (edgeStop) {
         // person stop lane
-        tag = GNE_TAG_PERSONSTOP_LANE;
+        tag = GNE_TAG_PERSONSTOP_EDGE;
     }
 }
 
@@ -2122,8 +2121,8 @@ GNERouteHandler::PersonPlansValues::checkIntegrity() const {
             correct = true;
         }
     }
-    // lane
-    if (laneStop) {
+    // edge
+    if (edgeStop) {
         if (correct) {
             return false;
         } else {
@@ -2160,8 +2159,8 @@ GNERouteHandler::PersonPlansValues::isFirstPersonPlan() const {
     if (route) {
         return true;
     }
-    // lane
-    if (laneStop) {
+    // edge
+    if (edgeStop) {
         return true;
     }
     return false;
@@ -2182,8 +2181,8 @@ GNERouteHandler::PersonPlansValues::getLastEdge() const {
         return route->getParentEdges().back();
     } else if (edges.size() > 0) {
         return edges.back();
-    } else if (laneStop) {
-        return laneStop->getParentEdge();
+    } else if (edgeStop) {
+        return edgeStop;
     } else {
         return nullptr;
     }
@@ -2317,9 +2316,11 @@ GNERouteHandler::PersonValue::addPersonValue(GNENet *net, SumoXMLTag tag, const 
             return false;
         } else {
             // retrieve lane
-            personPlansValuesLoaded.laneStop = net->retrieveLane(laneStr, false);
-            // check if lane is valid
-            if (personPlansValuesLoaded.laneStop == nullptr) {
+            const GNELane *lane = net->retrieveLane(laneStr, false);
+            if (lane) {
+                // get parent edge
+                personPlansValuesLoaded.edgeStop = lane->getParentEdge();
+            } else {
                 return false;
             }
         }

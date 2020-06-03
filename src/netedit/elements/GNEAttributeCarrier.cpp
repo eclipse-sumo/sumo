@@ -3504,33 +3504,18 @@ GNEAttributeCarrier::fillPersonStopElements() {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
     // fill vehicle ACs
-    SumoXMLTag currentTag = GNE_TAG_PERSONSTOP_LANE;
+    SumoXMLTag currentTag = GNE_TAG_PERSONSTOP_EDGE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONSTOP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::MASKSTARTENDPOS | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS,
+            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS,
             GUIIcon::STOPELEMENT);
+
         // set values of attributes
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_LANE,
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
-            "The name of the lane the stop shall be located at");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_STARTPOS,
-            GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
-            "The begin position on the lane (the lower position on the lane) in meters");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_ENDPOS,
-            GNEAttributeProperties::FLOAT | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::UPDATEGEOMETRY,
-            "The end position on the lane (the higher position on the lane) in meters, must be larger than startPos by more than 0.1m");
-        myTagProperties[currentTag].addAttribute(attrProperty);
-
-        attrProperty = GNEAttributeProperties(SUMO_ATTR_FRIENDLY_POS,
-            GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
-            "If set, no error will be reported if element is placed behind the lane. Instead,it will be placed 0.1 meters from the lanes end or at position 0.1, if the position was negative and larger than the lanes length after multiplication with - 1",
-            "0");
+            "The name of the edge the stop shall be located at");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
@@ -3543,6 +3528,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONSTOP,
             GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS,
             GUIIcon::STOPELEMENT);
+
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BUS_STOP,
             GNEAttributeProperties::STRING | GNEAttributeProperties::LIST | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,

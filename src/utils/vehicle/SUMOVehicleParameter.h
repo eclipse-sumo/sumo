@@ -311,6 +311,9 @@ public:
         /// @brief write trigger attribute
         void writeTriggers(OutputDevice& dev) const;
 
+        /// @brief The edge to stop at (used only in NETEDIT)
+        std::string edge;
+
         /// @brief The lane to stop at
         std::string lane;
 

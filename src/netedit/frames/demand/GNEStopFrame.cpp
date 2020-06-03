@@ -210,11 +210,18 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
     if (stopTag == SUMO_TAG_NOTHING) {
         WRITE_WARNING("Current selected Stop type isn't valid.");
         return false;
-    } else if ((stopTag == SUMO_TAG_STOP_LANE) || (stopTag == GNE_TAG_PERSONSTOP_LANE)) {
+    } else if (stopTag == SUMO_TAG_STOP_LANE) {
         if (lane) {
             stop.lane = lane->getID();
         } else {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_LANE) + " to create a stop placed in a " + toString(SUMO_TAG_LANE));
+            return false;
+        }
+    } else if (stopTag == GNE_TAG_PERSONSTOP_EDGE) {
+        if (lane) {
+            stop.edge = lane->getParentEdge()->getID();
+        } else {
+            WRITE_WARNING("Click over a " + toString(SUMO_TAG_EDGE) + " to create a stop placed in a " + toString(SUMO_TAG_EDGE));
             return false;
         }
     } else if (stoppingPlace) {

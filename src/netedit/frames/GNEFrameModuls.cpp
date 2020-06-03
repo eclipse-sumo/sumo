@@ -506,7 +506,7 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
         case GNE_TAG_WALK_EDGES:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
-        case GNE_TAG_PERSONSTOP_LANE:
+        case GNE_TAG_PERSONSTOP_EDGE:
             return lastPersonPlan->getParentEdges().back();
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
@@ -2236,7 +2236,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             break;
             // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
-        case GNE_TAG_PERSONSTOP_LANE:
+        case GNE_TAG_PERSONSTOP_EDGE:
             /* fix */
             break;
             // generic datas

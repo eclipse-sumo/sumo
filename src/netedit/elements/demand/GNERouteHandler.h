@@ -322,8 +322,8 @@ private:
         /// @brief arrival pos
         double arrivalPos;
 
-        /// @brief laneStop
-        GNELane* laneStop;
+        /// @brief edge stop
+        GNEEdge* edgeStop;
 
         /// @brief stop parameters
         SUMOVehicleParameter::Stop stopParameters;
