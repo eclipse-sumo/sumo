@@ -14,7 +14,7 @@ time: 10.0
   stop=stop1 vC=1 vIDs=('f.0',)
   stop=stop2 vC=0 vIDs=()
 time: 15.0
-  stop=stop1 vC=2 vIDs=('f.1', 'f.0')
+  stop=stop1 vC=2 vIDs=('f.0', 'f.1')
   stop=stop2 vC=0 vIDs=()
 time: 20.0
   stop=stop1 vC=2 vIDs=('f.1', 'f.2')
