@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, net, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP, tag,
+    GNEDemandElement(stopParent, net, GLO_STOP, tag,
         {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {},  // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                        // Childrens
     SUMOVehicleParameter::Stop(stopParameter) {
@@ -45,8 +45,7 @@ GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& 
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
-    GNEDemandElement(stopParent, net, stopParent->getTagProperty().isPerson() ? GLO_PERSONSTOP : GLO_STOP,
-            stopParent->getTagProperty().isPerson() ? GNE_TAG_PERSONSTOP_LANE : SUMO_TAG_STOP_LANE,
+    GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE,
         {}, {}, {lane}, {}, {}, {}, {stopParent}, {},   // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                // Childrens
     SUMOVehicleParameter::Stop(stopParameter) {
@@ -172,11 +171,7 @@ GNEStop::getVClass() const {
 
 const RGBColor&
 GNEStop::getColor() const {
-    if (myTagProperty.isPersonStop()) {
-        return myNet->getViewNet()->getVisualisationSettings().colorSettings.personStops;
-    } else {
-        return myNet->getViewNet()->getVisualisationSettings().colorSettings.stops;
-    }
+    return myNet->getViewNet()->getVisualisationSettings().colorSettings.stops;
 }
 
 
@@ -276,16 +271,6 @@ GNEStop::updateGeometry() {
     // recompute geometry of all Demand elements related with this this stop
     if (getParentDemandElements().front()->getTagProperty().isRoute()) {
         getParentDemandElements().front()->updateGeometry();
-    } else if (getParentDemandElements().front()->getTagProperty().isPerson()) {
-        // compute previous and next person plan
-        GNEDemandElement* previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
-        if (previousDemandElement) {
-            previousDemandElement->updateGeometry();
-        }
-        GNEDemandElement* nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
-        if (nextDemandElement) {
-            nextDemandElement->updateGeometry();
-        }
     }
 }
 
@@ -309,16 +294,6 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
     // recompute geometry of all Demand elements related with this this stop
     if (getParentDemandElements().front()->getTagProperty().isRoute()) {
         getParentDemandElements().front()->updatePartialGeometry(edge);
-    } else if (getParentDemandElements().front()->getTagProperty().isPerson()) {
-        // compute previous and next person plan
-        GNEDemandElement* previousDemandElement = getParentDemandElements().front()->getPreviousChildDemandElement(this);
-        if (previousDemandElement) {
-            previousDemandElement->updatePartialGeometry(edge);
-        }
-        GNEDemandElement* nextDemandElement = getParentDemandElements().front()->getNextChildDemandElement(this);
-        if (nextDemandElement) {
-            nextDemandElement->updatePartialGeometry(edge);
-        }
     }
 }
 
@@ -400,7 +375,7 @@ void
 GNEStop::drawGL(const GUIVisualizationSettings& s) const {
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;
-    if (myTagProperty.isStop() || myTagProperty.isPersonStop()) {
+    if (myTagProperty.isStop()) {
         if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
                 myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
             drawPersonPlan = true;
@@ -411,7 +386,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         drawPersonPlan = true;
     } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
         drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getDottedAC() && myNet->getViewNet()->getDottedAC()->getTagProperty().isPersonPlan() &&
+    } else if (myNet->getViewNet()->getDottedAC() &&
                (myNet->getViewNet()->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
         drawPersonPlan = true;
     }
@@ -423,13 +398,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         RGBColor stopColor;
         // Set color
         if (drawUsingSelectColor()) {
-            if (myTagProperty.isPersonStop()) {
-                stopColor = s.colorSettings.selectedPersonPlanColor;
-            } else {
-                stopColor = s.colorSettings.selectedRouteColor;
-            }
-        } else if (myTagProperty.isPersonStop()) {
-            stopColor = s.colorSettings.personStops;
+            stopColor = s.colorSettings.selectedRouteColor;
         } else {
             stopColor = s.colorSettings.stops;
         }
@@ -894,17 +863,10 @@ GNEStop::getPopUpID() const {
 
 std::string
 GNEStop::getHierarchyName() const {
-    std::string stopType;
-    // first distinguish between person stops and vehicles stops
-    if (getParentDemandElements().front()->getTagProperty().isPerson()) {
-        stopType = "person stop";
-    } else {
-        stopType = "vehicle stop";
-    }
     if (getParentAdditionals().size() > 0) {
-        return stopType + ": " + getParentAdditionals().front()->getTagStr();
+        return "vehicle stop: " + getParentAdditionals().front()->getTagStr();
     } else {
-        return stopType + ": lane";
+        return "vehicle stop: lane";
     }
 }
 
