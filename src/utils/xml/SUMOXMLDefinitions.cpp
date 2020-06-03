@@ -249,7 +249,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "ride: busStop->busStop",         GNE_TAG_RIDE_BUSSTOP_BUSSTOP },
     // GNE person Stops
     { "personStop: busStop",            GNE_TAG_PERSONSTOP_BUSSTOP },
-    { "personStop: lane",               GNE_TAG_PERSONSTOP_LANE },
+    { "personStop: edge",               GNE_TAG_PERSONSTOP_EDGE },
     // Other
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };

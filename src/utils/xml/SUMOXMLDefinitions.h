@@ -384,7 +384,7 @@ enum SumoXMLTag {
     GNE_TAG_RIDE_BUSSTOP_BUSSTOP,
     // person stops
     GNE_TAG_PERSONSTOP_BUSSTOP,
-    GNE_TAG_PERSONSTOP_LANE
+    GNE_TAG_PERSONSTOP_EDGE
     /// @}
 };
 
