@@ -44,7 +44,7 @@ permalink: /ChangeLog/
 
 ### Enhancements
 - Simulation
-  - Added option **--person-summary-output** which causes statistics on person numers and their travel modes to be written in every simulation step. Issue #6964
+  - Added option **--person-summary-output** which causes statistics on person numbers and their travel modes to be written in every simulation step. Issue #6964
   - **summary-output** now includes number of stopped vehicles. Issue #6966
   - Option **--scale** now also applies to persons. Issue #5564
   - Emission-output is now written only for those vehicles that have an emission device. By default all vehicles get the device when option **--emission-output** is set. This default can be changed by standard device assignment options and configurations. Issue #7079
@@ -71,6 +71,7 @@ permalink: /ChangeLog/
 
 - All Applications
   - Symbolic color definition "random" can now be used (i.e. in vehicle, vType, poi, ...). Issue #7058
+  - There is a new emission model "Zero" replacing "HBEFA*/zero" etc. Furthermore the default emission class for a model can now be chosen using something like "HBEFA3/default". Issue #7098
 
 - TraCI
   - Added new function *simulation.loadState* for quick-loading simulation a saved state. Issue #6201
@@ -81,6 +82,7 @@ permalink: /ChangeLog/
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now visualize person trajectories using option **--persons**. Issue #6978
   - Added new tool [computeCoordination.py](Tools/Output/computecoordinationpy) to compute the fraction of delayed vehicles along a defined corridor. Issue #6987
+  - implausibleRoutes.py now works better with routes consisting of a single edge only and respects internal edge lengths. It can also filter edges containing edge loops or node loops. Issue #7071
     
 ### Other
 
