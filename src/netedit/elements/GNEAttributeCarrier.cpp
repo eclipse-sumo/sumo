@@ -2840,6 +2840,34 @@ GNEAttributeCarrier::fillVehicleElements() {
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_VEHICLE_EMBEDDED;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+            GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE,
+            GUIIcon::VEHICLE);
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+            "The name of the " + toString(SUMO_TAG_VEHICLE));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
+            "The id of the vehicle type to use for this " + toString(SUMO_TAG_VEHICLE),
+            DEFAULT_VTYPE_ID);
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DEPART,
+            GNEAttributeProperties::COMPLEX | GNEAttributeProperties::DEFAULTVALUESTATIC,
+            "The time step at which the " + toString(SUMO_TAG_VEHICLE) + " shall enter the network",
+            "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
     currentTag = SUMO_TAG_ROUTEFLOW;
     {
         // set values of tag
@@ -2862,6 +2890,31 @@ GNEAttributeCarrier::fillVehicleElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ROUTE,
             GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
             "The id of the route the " + toString(currentTag) + " shall drive along");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        // add common attributes
+        fillCommonVehicleAttributes(currentTag);
+
+        // add flow attributes
+        fillCommonFlowAttributes(currentTag);
+    }
+    currentTag = GNE_TAG_FLOW_EMBEDDED;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+            GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SYNONYM,
+            GUIIcon::ROUTEFLOW, SUMO_TAG_NOTHING, SUMO_TAG_FLOW);
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
+            "The name of the " + toString(SUMO_TAG_FLOW));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TYPE,
+            GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
+            "The id of the " + toString(currentTag) + " type to use for this " + toString(SUMO_TAG_FLOW),
+            DEFAULT_VTYPE_ID);
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // add common attributes

@@ -123,12 +123,16 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTES,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
+    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    GNE_TAG_VEHICLE_EMBEDDED,
     /// @brief description of a vehicle type
     SUMO_TAG_VTYPE,
     /// @brief description of a person type (used in NETEDIT)
     SUMO_TAG_PTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
+    /// @brief embedded route (used in NETEDIT)
+    GNE_TAG_EMBEDDEDROUTE,
     /// @brief description of a logic request within the junction
     SUMO_TAG_REQUEST,
     /// @brief a source
@@ -153,6 +157,8 @@ enum SumoXMLTag {
     SUMO_TAG_FLOW,
     /// @brief a flow definition nusing a route instead of a from-to edges route (used in NETEDIT)
     SUMO_TAG_ROUTEFLOW,
+    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    GNE_TAG_FLOW_EMBEDDED,
     /// @brief a flow definition within in Calibrator (used in NETEDIT)
     SUMO_TAG_FLOW_CALIBRATOR,
     /// @brief a flow state definition (used when saving and loading simulatino state)
@@ -301,6 +307,8 @@ enum SumoXMLTag {
     /// @name Persons
     /// @{
     SUMO_TAG_PERSON,
+    /// @brief description of a person with an embedded route (used in NETEDIT)
+    GNE_TAG_PERSON_EMBEDDED,
     SUMO_TAG_PERSONTRIP,
     SUMO_TAG_RIDE,
     SUMO_TAG_WALK,
@@ -363,11 +371,6 @@ enum SumoXMLTag {
 
     /// @name Persons plans (used by Netedit)
     /// @{
-    /// Elements with embedded routes
-    GNE_TAG_EMBEDDEDROUTE,
-    GNE_TAG_VEHICLE_EMBEDDED,
-    GNE_TAG_FLOW_EMBEDDED,
-    GNE_TAG_PERSON_EMBEDDED,
     // person trips
     GNE_TAG_PERSONTRIP_EDGE_EDGE,
     GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
