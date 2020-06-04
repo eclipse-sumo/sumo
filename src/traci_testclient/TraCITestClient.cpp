@@ -25,8 +25,6 @@
 /* =========================================================================
  * included modules
  * ======================================================================= */
-#include <config.h>
-
 #include <vector>
 #include <iostream>
 #include <iomanip>
@@ -41,8 +39,6 @@
 
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/TraCIDefs.h>
-#include <utils/common/SUMOTime.h>
-#include <utils/common/ToString.h>
 #include "TraCITestClient.h"
 
 
@@ -1031,7 +1027,7 @@ TraCITestClient::testAPI() {
     answerLog << "    completeDefinition:\n";
     for (int i = 0; i < (int)logics.size(); ++i) {
         answerLog << "      subID=" << logics[i].programID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";
-        answerLog << "      params=" << joinToString(logics[i].subParameter, " ", ":") << "\n";
+        answerLog << "      params=" << joinToString(logics[i].subParameter) << "\n";
         for (int j = 0; j < (int)logics[i].phases.size(); ++j) {
             answerLog << "         phase=" << logics[i].phases[j]->state
                       << " dur=" << logics[i].phases[j]->duration
@@ -1058,8 +1054,8 @@ TraCITestClient::testAPI() {
     load(args);
     simulationStep();
     answerLog << "    getCurrentTime: " << simulation.getCurrentTime() << "\n";
-    vehicle.subscribe("0", vars, 0, TIME2STEPS(100));
-    edge.subscribeContext("e_u1", libsumo::CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, TIME2STEPS(100));
+    vehicle.subscribe("0", vars, 0, 100);
+    edge.subscribeContext("e_u1", libsumo::CMD_GET_VEHICLE_VARIABLE, 100, vars2, 0, 100);
 
     answerLog << "  gui:\n";
     try {
