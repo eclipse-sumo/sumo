@@ -60,6 +60,9 @@ def get_options(args=None):
                            type=int, help="minimum time to wait on a stop")
     argParser.add_argument("--skip-fcd", action="store_true", default=False, help="skip generating fcd data")
     argParser.add_argument("--skip-map", action="store_true", default=False, help="skip network mapping")
+    argParser.add_argument("--bus-stop-length", default=13, type=float, help="length for a bus stop")
+    argParser.add_argument("--train-stop-length", default=110, type=float, help="length for a train stop")
+    argParser.add_argument("--tram-stop-length", default=60, type=float, help="length for a tram stop")
 
     options = gtfs2fcd.check_options(argParser.parse_args(args=args))
     if options.map_output is None:
@@ -205,31 +208,40 @@ def map_stops(options, net, routes, rout):
                 route = routes[rid] = routeFixed
                 fixed.add(rid)
             p = typedNet.convertLonLat2XY(float(veh.x), float(veh.y))
-            found = False
-            for edge, dist in sorted(typedNet.getNeighboringEdges(*p, r=200), key=lambda i: i[1]):
+            if railType == "bus":
+                stopLength = options.bus_stop_length
+            elif railType == "tram":
+                stopLength = options.tram_stop_length
+            else:
+                stopLength = options.train_stop_length
+            candidates = []
+            for edge, dist in typedNet.getNeighboringEdges(*p, r=200):
                 if edge.getID() in route[lastIndex:]:
-                    pos = edge.getClosestLanePosDist(p)[1]
-                    if edge.getID() == route[lastIndex] and pos < lastPos:
-                        continue
+                    if edge.getLength() < stopLength:
+                        dist += stopLength - edge.getLength()  # penalty for short edges
+                    candidates.append((edge, dist))
+            found = False
+            for edge, dist in sorted(candidates, key=lambda i: i[1]):
+                pos = edge.getClosestLanePosDist(p)[1]
+                if edge.getID() != route[lastIndex] or pos > lastPos:
                     lastIndex = route.index(edge.getID(), lastIndex)
                     lastPos = pos
                     stop = "%s:%.2f" % (edge.getID(), pos)
                     if stop not in stopDef:
                         stopDef.add(stop)
+                        startPos = max(0, pos - stopLength)
                         if railType == "bus":
                             for l in edge.getLanes():
                                 if l.allows(railType):
                                     break
-                            startPos = max(0, pos - 10)
                             rout.write('    <busStop id="%s" lane="%s_%s" startPos="%s" endPos="%s"%s>\n%s' %
-                                       (stop, l.getParam("origId", edge.getID()), l.getIndex(), startPos, pos + 10,
-                                        addAttrs, params))
+                                       (stop, l.getParam("origId", edge.getID()), l.getIndex(),
+                                        startPos, pos + stopLength, addAttrs, params))
                             rout.write('    </busStop>\n')
                         else:
-                            startPos = max(0, pos - 60)
                             rout.write('    <trainStop id="%s" lane="%s_0" startPos="%s" endPos="%s"%s>\n%s' %
-                                       (stop, edge.getLanes()[0].getParam("origId", edge.getID()), startPos, pos + 60,
-                                        addAttrs, params))
+                                       (stop, edge.getLanes()[0].getParam("origId", edge.getID()),
+                                        startPos, pos + stopLength, addAttrs, params))
                             ap = net.convertLonLat2XY(float(veh.x), float(veh.y))
                             numAccess = 0
                             for accessEdge, _ in sorted(net.getNeighboringEdges(*ap, r=100), key=lambda i: i[1]):
