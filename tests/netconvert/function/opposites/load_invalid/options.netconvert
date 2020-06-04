@@ -1,0 +1,1 @@
+-s input_net.net.xml --opposites.guess --output net.net.xml
