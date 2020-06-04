@@ -158,18 +158,33 @@ POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
 bool
 POI::add(const std::string& poiID, double x, double y, const TraCIColor& color, const std::string& poiType, int layer, const std::string& imgFile, double width, double height, double angle) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    return shapeCont.addPOI(poiID, poiType, Helper::makeRGBColor(color), Position(x, y), false, "", 0, 0, (double)layer,
-                            angle,
-                            imgFile,
-                            Shape::DEFAULT_RELATIVEPATH,
-                            width,
-                            height);
+    bool ok = shapeCont.addPOI(poiID, poiType, 
+            Helper::makeRGBColor(color), 
+            Position(x, y), false, "", 0, 0, (double)layer,
+            angle,
+            imgFile,
+            Shape::DEFAULT_RELATIVEPATH,
+            width,
+            height);
+    if (ok && myTree != nullptr) {
+        PointOfInterest* p = shapeCont.getPOIs().get(poiID);
+        const float cmin[2] = {(float)p->x(), (float)p->y()};
+        const float cmax[2] = {(float)p->x(), (float)p->y()};
+        myTree->Insert(cmin, cmax, p);
+    }
+    return ok;
 }
 
 
 bool
 POI::remove(const std::string& poiID, int /* layer */) {
     ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+    PointOfInterest* p = shapeCont.getPOIs().get(poiID);
+    if (p != nullptr && myTree != nullptr) {
+        const float cmin[2] = {(float)p->x(), (float)p->y()};
+        const float cmax[2] = {(float)p->x(), (float)p->y()};
+        myTree->Remove(cmin, cmax, p);
+    }
     return shapeCont.removePOI(poiID);
 }
 
