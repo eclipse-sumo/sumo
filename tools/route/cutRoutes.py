@@ -92,6 +92,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
                          help="enable, if you use mixed style (external and internal routes) in the same file")
     optParser.add_option("--missing-edges", type='int', metavar="N",
                          default=0, help="print N most missing edges")
+    optParser.add_option("--discard-exit-times", action="store_true",
+                         default=False, help="do not use exit times")
     # optParser.add_option("--orig-weights",
     # help="weight file for the original network for extrapolating new departure times")
     options, args = optParser.parse_args(args=args)
@@ -242,7 +244,11 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, startEndEdgeMap=Non
                 else:
                     stats.num_flows += 1
                     oldDepart = moving.begin
-                if isinstance(moving.route, list):
+                if moving.routeDistribution is not None:
+                    old_route = moving.addChild("route", {"edges": moving.routeDistribution[0].route[-1].edges})
+                    moving.removeChild(moving.routeDistribution[0])
+                    routeRef = None
+                elif isinstance(moving.route, list):
                     old_route = moving.route[0]
                     routeRef = None
                 else:
@@ -263,6 +269,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, startEndEdgeMap=Non
                         continue
                     else:
                         old_route = routeRef = standaloneRoutes[moving.route]
+                if options.discard_exit_times:
+                    old_route.exitTimes = None
                 routeParts = _cutEdgeList(areaEdges, oldDepart, old_route.exitTimes,
                                           old_route.edges.split(), orig_net, options,
                                           stats, options.disconnected_action)
