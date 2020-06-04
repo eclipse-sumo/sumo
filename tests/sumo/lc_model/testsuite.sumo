@@ -7,11 +7,12 @@ lcSigma
 # change towards the best continuation lane if the current lane does not continue
 change_towards_best
 
-# vehicles should keep right if there is no reason against it (assuming right-hand driving)
-keep_right
-
 # overtaking a slower vehicle
 overtaking
+overtake_stopped
+
+# vehicles should keep right if there is no reason against it (assuming right-hand driving)
+keep_right
 
 # tests for changing to gain speed
 speedGain
@@ -28,7 +29,6 @@ onRamp
 
 # test continuous lane change maneuvers
 continuous_lanechange
-overtake_stopped
 
 # tests for behavior at a 2-lane roundabout
 roundabout
