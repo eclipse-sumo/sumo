@@ -49,9 +49,8 @@ MSDevice_Bluelight::insertOptions(OptionsCont& oc) {
     oc.addOptionSubTopic("Bluelight Device");
     insertDefaultAssignmentOptions("bluelight", "Bluelight Device", oc);
 
-    oc.doRegister("device.bluelight.parameter", new Option_Float(0.0));
-    oc.addDescription("device.bluelight.parameter", "Bluelight Device", "An exemplary parameter which can be used by all instances of the example device");
-
+    oc.doRegister("device.bluelight.reactiondist", new Option_Float(25.0));
+    oc.addDescription("device.bluelight.reactiondist", "Bluelight Device", "Set the distance at which other drivers react to the blue light and siren sound");
 }
 
 
@@ -59,39 +58,8 @@ void
 MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "bluelight", v, false)) {
-        // build the device
-        // get custom vehicle parameter
-        double customParameter2 = -1;
-        if (v.getParameter().knowsParameter("bluelight")) {
-            try {
-                customParameter2 = StringUtils::toDouble(v.getParameter().getParameter("bluelight", "-1"));
-            } catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getParameter().getParameter("bluelight", "-1") + "'for vehicle parameter 'example'");
-            }
-
-        } else {
-#ifdef DEBUG_BLUELIGHT
-            std::cout << "vehicle '" << v.getID() << "' does not supply vehicle parameter 'bluelight'. Using default of " << customParameter2 << "\n";
-#endif
-        }
-        // get custom vType parameter
-        double customParameter3 = -1;
-        if (v.getVehicleType().getParameter().knowsParameter("bluelight")) {
-            try {
-                customParameter3 = StringUtils::toDouble(v.getVehicleType().getParameter().getParameter("bluelight", "-1"));
-            } catch (...) {
-                WRITE_WARNING("Invalid value '" + v.getVehicleType().getParameter().getParameter("bluelight", "-1") + "'for vType parameter 'bluelight'");
-            }
-
-        } else {
-#ifdef DEBUG_BLUELIGHT
-            std::cout << "vehicle '" << v.getID() << "' does not supply vType parameter 'bluelight'. Using default of " << customParameter3 << "\n";
-#endif
-        }
         MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
-                oc.getFloat("device.bluelight.parameter"),
-                customParameter2,
-                customParameter3);
+            getFloatParam(v, oc, "bluelight.reactiondist", oc.getFloat("device.bluelight.reactiondist"), false));
         into.push_back(device);
     }
 }
@@ -101,13 +69,11 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
 // MSDevice_Bluelight-methods
 // ---------------------------------------------------------------------------
 MSDevice_Bluelight::MSDevice_Bluelight(SUMOVehicle& holder, const std::string& id,
-                                       double customValue1, double customValue2, double customValue3) :
+                                       double reactionDist) :
     MSVehicleDevice(holder, id),
-    myCustomValue1(customValue1),
-    myCustomValue2(customValue2),
-    myCustomValue3(customValue3) {
+    myReactionDist(reactionDist) {
 #ifdef DEBUG_BLUELIGHT
-    std::cout << "initialized device '" << id << "' with myCustomValue1=" << myCustomValue1 << ", myCustomValue2=" << myCustomValue2 << ", myCustomValue3=" << myCustomValue3 << "\n";
+    std::cout << "initialized device '" << id << "' with myReactionDist=" << myReactionDist << "\n";
 #endif
 }
 
@@ -139,7 +105,6 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     std::string currentEdgeID = veh.getEdge()->getID();
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         SUMOVehicle* veh2 = it->second;
-        int maxdist = 25;
         //Vehicle only from edge should react
         if (currentEdgeID == veh2->getEdge()->getID()) {
             if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
@@ -173,7 +138,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
 
             // the perception of the sound of the siren should be around 25 meters
             // todo only vehicles in front of the emergency vehicle should react
-            if (distanceDelta <= maxdist && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
+            if (distanceDelta <= myReactionDist && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
                 //online a percentage of vehicles should react to the emergency vehicle to make the behaviour more realistic
                 double reaction = RandHelper::rand();
                 MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
@@ -206,7 +171,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         } else { //if vehicle is passed all vehicles which had to react should get their state back after they leave the communication range
             if (influencedVehicles.count(veh2->getID()) > 0) {
                 double distanceDelta = veh.getPosition().distanceTo(veh2->getPosition());
-                if (distanceDelta > maxdist && veh.getID() != veh2->getID()) {
+                if (distanceDelta > myReactionDist && veh.getID() != veh2->getID()) {
                     influencedVehicles.erase(veh2->getID());
                     std::map<std::string, std::string>::iterator it = influencedTypes.find(veh2->getID());
                     if (it != influencedTypes.end()) {
@@ -252,21 +217,15 @@ MSDevice_Bluelight::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMo
 void
 MSDevice_Bluelight::generateOutput(OutputDevice* tripinfoOut) const {
     if (tripinfoOut != nullptr) {
-        tripinfoOut->openTag("example_device");
-        tripinfoOut->writeAttr("customValue1", toString(myCustomValue1));
-        tripinfoOut->writeAttr("customValue2", toString(myCustomValue2));
+        tripinfoOut->openTag("bluelight");
         tripinfoOut->closeTag();
     }
 }
 
 std::string
 MSDevice_Bluelight::getParameter(const std::string& key) const {
-    if (key == "customValue1") {
-        return toString(myCustomValue1);
-    } else if (key == "customValue2") {
-        return toString(myCustomValue2);
-    } else if (key == "meaningOfLife") {
-        return "42";
+    if (key == "reactiondist") {
+        return toString(myReactionDist);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }
@@ -280,8 +239,8 @@ MSDevice_Bluelight::setParameter(const std::string& key, const std::string& valu
     } catch (NumberFormatException&) {
         throw InvalidArgument("Setting parameter '" + key + "' requires a number for device of type '" + deviceName() + "'");
     }
-    if (key == "customValue1") {
-        myCustomValue1 = doubleValue;
+    if (key == "reactiondist") {
+        myReactionDist = doubleValue;
     } else {
         throw InvalidArgument("Setting parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
     }
