@@ -3,75 +3,78 @@ title: Installing/MacOS Build
 permalink: /Installing/MacOS_Build/
 ---
 
-# Using Homebrew
+This document describes how to install and build SUMO on MacOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for MacOS](../Installing.md#macos) instead.
 
-If you come from a previous macports installation you need to uninstall
-sumo and fox toolkit first:
+You may use one of two ways to build and install SUMO on MacOS: Homebrew (recommended) and MacPorts.
 
-```
-sudo port uninstall sumo
-sudo port uninstall fox
-```
+# The Homebrew Approach
 
-If you did not already install [homebrew](http://brew.sh), do so by
+## Prerequisites
+
+### Homebrew
+The installation requires [Homebrew](http://brew.sh). If you did not already install [homebrew](http://brew.sh), do so by
 invoking
 
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-make sure your homebrew db is up-to-date
+and make sure your homebrew db is up-to-date
 
 ```
 brew update
 ```
 
-Install SUMO stable via the SUMO Brew Formula:
-
+### C++ Compiler
+In order to compile the C++ source code files of SUMO, a C++ compiler is needed. On MacOS the default C/C++ compiler is Clang. If you want to install the Clang compilers, please use the following command:
 ```
-brew tap dlr-ts/sumo
-brew install sumo
+xcode-select --install
 ```
-
-Set the **SUMO_HOME** environment variable. To do so, open .bash_profile in TextEdit: 
-
+After the successful installation, you can test `clang` with the following command:
 ```
-touch ~/.bash_profile; open ~/.bash_profile
-```
-Just insert the following new line at the end: `export SUMO_HOME=/your/path/to/sumo`, where `/your/path/to/sumo` is the path stated in the caveats section of the `brew install sumo` command.
-
-Restart the Terminal and test the newly added variable:
-```
-echo $SUMO_HOME
+clang --version
 ```
 
-After the installation you need to log out/in in order to let X11 start
-automatically, when calling a gui-based application like "sumo-gui".
-(Alternatively, you may start X11 manually by pressing *cmd-space* and
-entering "XQuartz").
+## Dependencies
 
-SUMO provides native OSX application bundles for its graphical applications, so they can be added to the OSX dock or moved to the `Applications` folder. The brew installation will try to copy these bundles to `Applications` as part of the installation process. This can also be manually achieved by copying these application bundles from `$SUMO_HOME/build/osx/sumo-gui`, `$SUMO_HOME/build/osx/netedit` and `$SUMO_HOME/build/osx/osm-web-wizard` to the `Applications` folder. 
+* `brew install cmake`
+* `brew cask install xquartz`
+* `brew install xerces-c fox proj gdal gl2ps`
 
-These application bundles will try to determine the location of your SUMO installation by evaluating your `$SUMO_HOME` variable setting and start the binaries accordingly. Multiple SUMO installations may be used by changing the `$SUMO_HOME` variable.
 
-# Using Macports (legacy)
+## Build SUMO
+* ...
+
+## Optional Steps
+
+### TraaS 
+* ...
+
+### Examples and Tests
+* Google Test 
+* ...
+
+## Install TextTest
+* Link to TextTest installation
+
+## Install Editor
+* Link to VSCode documentation
+
+
+# The Macports Approach (legacy)
 
 !!! note
-    This uses a packaged version of sumo which is convenient but may lag behind the latest official release of SUMO.
+    This uses a pre-packaged version of sumo which is convenient but may lag behind the latest official release of SUMO.
 
-You should start by [installing
-Macports](https://www.macports.org/install.php). Afterwards start a
-terminal session and run
+You should start by [installing Macports](https://www.macports.org/install.php). Afterwards start a terminal session and run
 
 ```
 sudo port install sumo
 ```
 
-While this will install a SUMO version you maybe do not want to use, it
-will pull in all dependencies you need.
+While this will install a SUMO version you maybe do not want to use, it will pull in all dependencies you need.
 
-If you want to build from a repository checkout you should additionally
-do
+If you want to build from a repository checkout you should additionally do
 
 ```
 sudo port install automake autoconf
@@ -86,5 +89,3 @@ If you wish to use clang rather than gcc for compilation do:
 ```
 ./configure CXX=clang++ CXXFLAGS="-stdlib=libstdc++"
 ```
-
-Thanks to all MacOS builders for sharing their insights.
