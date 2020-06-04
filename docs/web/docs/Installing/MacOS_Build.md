@@ -5,61 +5,99 @@ permalink: /Installing/MacOS_Build/
 
 This document describes how to install and build SUMO on MacOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for MacOS](../Installing.md#macos) instead.
 
-You may use one of two ways to build and install SUMO on MacOS: Homebrew (recommended) and MacPorts.
+You may use one of two ways to build and install SUMO on MacOS: **Homebrew** (recommended) and **MacPorts**.
 
 # The Homebrew Approach
 
 ## Prerequisites
 
-### Homebrew
-The installation requires [Homebrew](http://brew.sh). If you did not already install [homebrew](http://brew.sh), do so by
-invoking
-
+The installation requires [Homebrew](http://brew.sh). If you did not already install homebrew, do so by invoking
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
-
-and make sure your homebrew db is up-to-date
-
+and make sure your homebrew db is up-to-date.
 ```
 brew update
 ```
 
-### C++ Compiler
 In order to compile the C++ source code files of SUMO, a C++ compiler is needed. On MacOS the default C/C++ compiler is Clang. If you want to install the Clang compilers, please use the following command:
 ```
 xcode-select --install
 ```
-After the successful installation, you can test `clang` with the following command:
+After the successful installation, you can test Clang with the following command:
 ```
 clang --version
 ```
 
+SUMO uses [CMake](https://cmake.org/) to manage the software compilation process. You can install CMake with homebrew easily.
+```
+brew install cmake
+```
+
 ## Dependencies
+In order to compile and execute SUMO, there are several libraries that need to be installed. You can install these dependencies with homebrew with the following commands:
+```
+brew cask install xquartz
+brew install xerces-c fox proj gdal gl2ps
+```
+Depending on the SUMO features you want to enable during compilation, you may want to additional libraries. Most libraries are available in homebrew and should be recognized with CMake.
 
-* `brew install cmake`
-* `brew cask install xquartz`
-* `brew install xerces-c fox proj gdal gl2ps`
-
-
-## Build SUMO
-* ...
-
+## Git Cloning and Building
+The source code of SUMO can be cloned with the following command to the directory `./sumo`. The environment variable `SUMO_HOME` should also be set to this directory.
+```
+git clone --recursive https://github.com/eclipse/sumo
+export SUMO_HOME="$PWD/sumo"
+```
+SUMO is usually build as an out-of-source build. You need to create a directory for your build and invoke CMake to trigger the configuration from there. 
+```
+cd $SUMO_HOME
+mkdir build/cmake-build
+cd build/cmake-build
+cmake ../..
+```
+The output of the CMake configuration process will show you which libraries have been found on your system and which SUMO features have been enabled accordingly.
+The build process can now be triggered with the following command
+```
+cd $SUMO_HOME/build/cmake-build
+cmake --build . --parallel
+```
 ## Optional Steps
 
-### TraaS 
-* ...
+### TraCI as a Service (TraaS) 
+TraaS is a java library for working with TraCI. Building TraaS can be triggered with the following commands.
+```
+cd $SUMO_HOME/build/cmake-build
+cmake --build . --target traas --parallel
+```
 
-### Examples and Tests
-* Google Test 
-* ...
+### Examples and Unit Tests
+SUMO provides unit tests to be used with Google's Testing and Mocking Framework - Googletest. In order to execute these tests you need to install Googletest first.
+```
+git clone https://github.com/google/googletest
+cd googletest
+git checkout release-1.10.0
+mkdir build
+cd build
+cmake ..
+make
+make install
+```
 
-## Install TextTest
-* Link to TextTest installation
+The creation of the examples and the execution of the tests can be triggered as follows
+```
+cd $SUMO_HOME/build/cmake-build
+make CTEST_OUTPUT_ON_FAILURE=1 examples test
+```
 
-## Install Editor
-* Link to VSCode documentation
+More information is provided [here](../Developer/Unit_Tests.md).
 
+### Integration Tests with TextTest
+SUMO uses an application called TextTest to manage and execute and extensive set of integration tests. If you plan to extend SUMO with new features, we would like to encourage you to also add tests for your code to the SUMO testsuite and to make sure that existing functionality is not affected. 
+
+The installation of TextTest on MacOS is documented [here](../Developer/Tests.md).
+
+### Code Editor
+Finally, you may also want to use a code editor or integrated development environment. There is a great variety of suitable tools available. If you are unsure which tool to pick, we would suggest to have a look at [Visual Studio Code](https://code.visualstudio.com/) for MacOS. The configuration of Visual Studio Code for the CMake setup is documented [here]().
 
 # The Macports Approach (legacy)
 
