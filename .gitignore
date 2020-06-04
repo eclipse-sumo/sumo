@@ -30,6 +30,7 @@
 /build/cmake_build*
 /build/cmake-codeblocks*
 /build/cmake-clang*
+/build/cmake-mingw*
 /out
 # bin dir
 /bin/TraCITestClient*
