@@ -363,17 +363,18 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValue(TrackerValueDesc& desc,
     GLHelper::drawText(toString(desc.getMax()), Position(0, 0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, -0.78, 0);
 
-    // draw current value
-    double p = (double) 0.8 -
-               ((double) 1.6 / (desc.getMax() - desc.getMin()) * (latest - desc.getMin()));
-    glTranslated(-0.98, -(p + .02), 0);
-    GLHelper::drawText(toString(latest), Position(0, 0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
-    glTranslated(0.98, p + .02, 0);
-
     // draw name
     glTranslated(-0.98, .92, 0);
     GLHelper::drawText(desc.getName(), Position(0, 0), 1, fontHeight, RGBColor::BLACK, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
     glTranslated(0.98, -.92, 0);
+
+    // draw current value (with contrasting color)
+    double p = (double) 0.8 -
+               ((double) 1.6 / (desc.getMax() - desc.getMin()) * (latest - desc.getMin()));
+    glTranslated(-0.98, -(p + .02), 0);
+    GLHelper::drawText(toString(latest), Position(0, 0), 1, fontHeight, RGBColor::RED, 0, FONS_ALIGN_LEFT | FONS_ALIGN_MIDDLE, fontWidth);
+    glTranslated(0.98, p + .02, 0);
+
 }
 
 
