@@ -858,6 +858,14 @@ NBEdgeCont::recheckLanes() {
                     edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
                 }
             }
+            // check oppositeID stored in other lanes
+            for (int i = 0; i < (int)edge->getNumLanes() - 1; i++) {
+              const std::string& oppositeID = edge->getLanes()[i].oppositeID;
+              if (oppositeID != "" && oppositeID != "-") {
+                WRITE_WARNING("Removing unknown opposite lane '" + oppositeID + "' for lane '" + edge->getLaneID(i) + "'.");
+                edge->getLaneStruct(i).oppositeID = "";
+              }
+            }
         }
     }
 }
