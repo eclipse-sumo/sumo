@@ -1089,7 +1089,7 @@ MSLCM_LC2013::_wantsChange(
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();
     }
-    // XXX: What does the following code do? Please comment. (Leo) Refs. #2578
+    // special case: vehicle considers changing to the opposite direction edge
     const bool checkOpposite = &neighLane.getEdge() != &myVehicle.getLane()->getEdge();
     const int prebOffset = (checkOpposite ? 0 : laneOffset);
     for (int p = 0; p < (int) preb.size(); ++p) {
