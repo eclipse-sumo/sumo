@@ -453,7 +453,7 @@ Vehicle::getNextStops(const std::string& vehicleID, int limit) {
         if (!stop.collision) {
             TraCINextStopData nsd;
             nsd.lane = stop.lane->getID();
-            nsd.endPos = stop.getEndPos(*veh);
+            nsd.endPos = stop.pars.endPos;
             // all optionals, only one can be set
             if (stop.busstop != nullptr) {
                 nsd.stoppingPlaceID = stop.busstop->getID();
