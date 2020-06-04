@@ -22,7 +22,7 @@
 #pragma once
 #include <config.h>
 
-#ifdef _MSC_VER
+#ifdef WIN32
 typedef __int16 int16_t;
 #else
 #include <stdint.h>

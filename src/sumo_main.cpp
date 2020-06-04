@@ -60,7 +60,7 @@ signalHandler(int signum) {
                 std::cout << "Interrupt signal received, trying to exit gracefully." << std::endl;
                 MSNet::getInstance()->interrupt();
                 break;
-#ifndef _WIN32
+#ifndef WIN32
             case SIGUSR1:
                 std::cout << "Step #" << SIMSTEP << std::endl;
                 std::cout << MSNet::getInstance()->generateStatistics(string2time(OptionsCont::getOptions().getString("begin"))) << std::endl;
@@ -83,7 +83,7 @@ int
 main(int argc, char** argv) {
     signal(SIGINT, signalHandler);
     signal(SIGTERM, signalHandler);
-#ifndef _WIN32
+#ifndef WIN32
     signal(SIGUSR1, signalHandler);
     signal(SIGUSR2, signalHandler);
 #endif

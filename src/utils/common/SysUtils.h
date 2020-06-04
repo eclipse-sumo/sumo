@@ -34,7 +34,7 @@ public:
     static long getCurrentMillis();
 
 
-#ifdef _MSC_VER
+#ifdef WIN32
     /** @brief Returns the CPU ticks (windows only)
      *
      * Used for random number initialisation, linux version

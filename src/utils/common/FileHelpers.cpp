@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <string>
-#ifdef _MSC_VER
+#ifdef WIN32
 // this is how fox does it in xincs.h
 #include <io.h>
 #define access _access

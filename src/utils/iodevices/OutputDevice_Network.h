@@ -20,7 +20,7 @@
 // An output device for TCP/IP Network connections
 /****************************************************************************/
 #pragma once
-#include <config.h> // #ifdef _MSC_VER
+#include <config.h>
 
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"

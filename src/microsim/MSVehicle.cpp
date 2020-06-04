@@ -4388,12 +4388,12 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
         }
         WRITE_WARNING("Request backPos of vehicle '" + getID() + "' for invalid lane '" + Named::getIDSecure(lane)
                       + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
-#ifdef _MSC_VER
+#ifdef WIN32
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
 #endif
         SOFT_ASSERT(false);
-#ifdef _MSC_VER
+#ifdef WIN32
 #pragma warning(pop)
 #endif
         return  myState.myBackPos;

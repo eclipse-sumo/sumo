@@ -52,7 +52,7 @@ SysUtils::getCurrentMillis() {
 }
 
 
-#ifdef _MSC_VER
+#ifdef WIN32
 long
 SysUtils::getWindowsTicks() {
     return (long) GetTickCount();
@@ -62,7 +62,7 @@ SysUtils::getWindowsTicks() {
 
 unsigned long
 SysUtils::runHiddenCommand(const std::string& cmd) {
-#ifdef _MSC_VER
+#ifdef WIN32
     // code inspired by http://www.codeproject.com/Articles/2537/Running-console-applications-silently
     STARTUPINFO StartupInfo;
     PROCESS_INFORMATION ProcessInfo;

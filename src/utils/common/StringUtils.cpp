@@ -296,7 +296,7 @@ StringUtils::toLong(const std::string& sData) {
     }
     char* end;
     errno = 0;
-#ifdef _MSC_VER
+#ifdef WIN32
     long long int ret = _strtoi64(data, &end, 10);
 #else
     long long int ret = strtoll(data, &end, 10);
