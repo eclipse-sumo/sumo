@@ -671,11 +671,10 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
 
 
 void
-MSEdge::changeLanes(SUMOTime t) {
-    if (myLaneChanger == nullptr) {
-        return;
+MSEdge::changeLanes(SUMOTime t) const {
+    if (myLaneChanger != nullptr) {
+        myLaneChanger->laneChange(t);
     }
-    myLaneChanger->laneChange(t);
 }
 
 

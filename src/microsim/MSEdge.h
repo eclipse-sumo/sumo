@@ -556,7 +556,7 @@ public:
 
 
     /** @brief Performs lane changing on this edge */
-    virtual void changeLanes(SUMOTime t);
+    void changeLanes(SUMOTime t) const;
 
 
     /// @todo extension: inner junctions are not filled

@@ -225,13 +225,12 @@ void
 MSEdgeControl::changeLanes(const SUMOTime t) {
     std::vector<MSLane*> toAdd;
 #ifdef PARALLEL_CHANGE_LANES
-    std::vector<MSEdge*> recheckLaneUsage;
+    std::vector<const MSEdge*> recheckLaneUsage;
 #endif
     MSGlobals::gComputeLC = true;
-    for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
-        LaneUsage& lu = myLanes[(*i)->getNumericalID()];
-        if (lu.haveNeighbors) {
-            MSEdge& edge = (*i)->getEdge();
+    for (const MSLane* const l : myActiveLanes) {
+        if (myLanes[l->getNumericalID()].haveNeighbors) {
+            const MSEdge& edge = l->getEdge();
             if (myLastLaneChange[edge.getNumericalID()] != t) {
                 myLastLaneChange[edge.getNumericalID()] = t;
 #ifdef PARALLEL_CHANGE_LANES
@@ -257,21 +256,19 @@ MSEdgeControl::changeLanes(const SUMOTime t) {
                 }
 #endif
             }
-            ++i;
         } else {
-            i = myActiveLanes.end();
+            break;
         }
     }
 
 #ifdef PARALLEL_CHANGE_LANES
     if (MSGlobals::gNumSimThreads > 1) {
         myThreadPool.waitAll(false);
-        for (MSEdge* e : recheckLaneUsage) {
-            const std::vector<MSLane*>& lanes = e->getLanes();
-            for (std::vector<MSLane*>::const_iterator i = lanes.begin(); i != lanes.end(); ++i) {
-                LaneUsage& lu = myLanes[(*i)->getNumericalID()];
-                if ((*i)->getVehicleNumber() > 0 && !lu.amActive) {
-                    toAdd.push_back(*i);
+        for (const MSEdge* e : recheckLaneUsage) {
+            for (MSLane* const l : e->getLanes()) {
+                LaneUsage& lu = myLanes[l->getNumericalID()];
+                if (l->getVehicleNumber() > 0 && !lu.amActive) {
+                    toAdd.push_back(l);
                     lu.amActive = true;
                 }
             }
