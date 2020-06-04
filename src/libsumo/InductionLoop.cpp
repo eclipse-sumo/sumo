@@ -36,6 +36,7 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults InductionLoop::mySubscriptionResults;
 ContextSubscriptionResults InductionLoop::myContextSubscriptionResults;
+NamedRTree* InductionLoop::myTree(nullptr);
 
 
 // ===========================================================================
@@ -135,17 +136,24 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(InductionLoop, INDUCTIONLOOP)
 
 NamedRTree*
 InductionLoop::getTree() {
-    NamedRTree* t = new NamedRTree();
-    for (const auto& i : MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP)) {
-        MSInductLoop* il = static_cast<MSInductLoop*>(i.second);
-        Position p = il->getLane()->getShape().positionAtOffset(il->getPosition());
-        const float cmin[2] = {(float) p.x(), (float) p.y()};
-        const float cmax[2] = {(float) p.x(), (float) p.y()};
-        t->Insert(cmin, cmax, il);
+    if (myTree == nullptr) {
+        myTree = new NamedRTree();
+        for (const auto& i : MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP)) {
+            MSInductLoop* il = static_cast<MSInductLoop*>(i.second);
+            Position p = il->getLane()->getShape().positionAtOffset(il->getPosition());
+            const float cmin[2] = {(float) p.x(), (float) p.y()};
+            const float cmax[2] = {(float) p.x(), (float) p.y()};
+            myTree->Insert(cmin, cmax, il);
+        }
     }
-    return t;
+    return myTree;
 }
 
+void
+InductionLoop::cleanup() {
+    delete myTree;
+    myTree = nullptr;
+}
 
 void
 InductionLoop::storeShape(const std::string& id, PositionVector& shape) {

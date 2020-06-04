@@ -38,6 +38,7 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults Polygon::mySubscriptionResults;
 ContextSubscriptionResults Polygon::myContextSubscriptionResults;
+NamedRTree* Polygon::myTree(nullptr);
 
 
 // ===========================================================================
@@ -247,17 +248,24 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Polygon, POLYGON)
 
 NamedRTree*
 Polygon::getTree() {
-    NamedRTree* t = new NamedRTree();
-    ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-    for (const auto& i : shapeCont.getPolygons()) {
-        Boundary b = i.second->getShape().getBoxBoundary();
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        t->Insert(cmin, cmax, i.second);
+    if (myTree == nullptr) {
+        myTree = new NamedRTree();
+        ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+        for (const auto& i : shapeCont.getPolygons()) {
+            Boundary b = i.second->getShape().getBoxBoundary();
+            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+            myTree->Insert(cmin, cmax, i.second);
+        }
     }
-    return t;
+    return myTree;
 }
 
+void
+Polygon::cleanup() {
+    delete myTree;
+    myTree = nullptr;
+}
 
 void
 Polygon::storeShape(const std::string& id, PositionVector& shape) {

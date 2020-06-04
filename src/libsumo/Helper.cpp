@@ -112,7 +112,6 @@ std::vector<Subscription> Helper::mySubscriptions;
 Subscription* Helper::myLastContextSubscription = nullptr;
 std::map<int, std::shared_ptr<VariableWrapper> > Helper::myWrapper;
 Helper::VehicleStateListener Helper::myVehicleStateListener;
-std::map<int, NamedRTree*> Helper::myObjects;
 LANE_RTREE_QUAL* Helper::myLaneTree;
 std::map<std::string, MSVehicle*> Helper::myRemoteControlledVehicles;
 std::map<std::string, MSPerson*> Helper::myRemoteControlledPersons;
@@ -515,10 +514,11 @@ Helper::getVehicleType(const std::string& vehicleID) {
 
 void
 Helper::cleanup() {
-    for (const auto i : myObjects) {
-        delete i.second;
-    }
-    myObjects.clear();
+    // clean up NamedRTrees
+    Polygon::cleanup();
+    POI::cleanup();
+    InductionLoop::cleanup();
+    Junction::cleanup();
     delete myLaneTree;
     myLaneTree = nullptr;
 }
@@ -589,52 +589,31 @@ Helper::collectObjectIDsInRange(int domain, const PositionVector& shape, double 
 
 void
 Helper::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<const Named*>& into) {
-    // build the look-up tree if not yet existing
-    if (myObjects.find(domain) == myObjects.end()) {
-        switch (domain) {
-            case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
-                myObjects[libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE] = InductionLoop::getTree();
-                break;
-            case libsumo::CMD_GET_EDGE_VARIABLE:
-            case libsumo::CMD_GET_LANE_VARIABLE:
-            case libsumo::CMD_GET_PERSON_VARIABLE:
-            case libsumo::CMD_GET_VEHICLE_VARIABLE:
-                myObjects[libsumo::CMD_GET_EDGE_VARIABLE] = nullptr;
-                myObjects[libsumo::CMD_GET_LANE_VARIABLE] = nullptr;
-                myObjects[libsumo::CMD_GET_PERSON_VARIABLE] = nullptr;
-                myObjects[libsumo::CMD_GET_VEHICLE_VARIABLE] = nullptr;
-                myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
-                MSLane::fill(*myLaneTree);
-                break;
-            case libsumo::CMD_GET_POI_VARIABLE:
-                myObjects[libsumo::CMD_GET_POI_VARIABLE] = POI::getTree();
-                break;
-            case libsumo::CMD_GET_POLYGON_VARIABLE:
-                myObjects[libsumo::CMD_GET_POLYGON_VARIABLE] = Polygon::getTree();
-                break;
-            case libsumo::CMD_GET_JUNCTION_VARIABLE:
-                myObjects[libsumo::CMD_GET_JUNCTION_VARIABLE] = Junction::getTree();
-                break;
-            default:
-                break;
-        }
-    }
     const Boundary b = shape.getBoxBoundary().grow(range);
     const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
     const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+    Named::StoringVisitor sv(into);
     switch (domain) {
         case libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE:
+            InductionLoop::getTree()->Search(cmin, cmax, sv);
+            break;
         case libsumo::CMD_GET_POI_VARIABLE:
+            POI::getTree()->Search(cmin, cmax, sv);
+            break;
         case libsumo::CMD_GET_POLYGON_VARIABLE:
-        case libsumo::CMD_GET_JUNCTION_VARIABLE: {
-            Named::StoringVisitor sv(into);
-            myObjects[domain]->Search(cmin, cmax, sv);
-        }
-        break;
+            Polygon::getTree()->Search(cmin, cmax, sv);
+            break;
+        case libsumo::CMD_GET_JUNCTION_VARIABLE:
+            Junction::getTree()->Search(cmin, cmax, sv);
+            break;
         case libsumo::CMD_GET_EDGE_VARIABLE:
         case libsumo::CMD_GET_LANE_VARIABLE:
         case libsumo::CMD_GET_PERSON_VARIABLE:
         case libsumo::CMD_GET_VEHICLE_VARIABLE: {
+            if (myLaneTree == nullptr) {
+                myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
+                MSLane::fill(*myLaneTree);
+            }
             LaneStoringVisitor sv(into, shape, range, domain);
             myLaneTree->Search(cmin, cmax, sv);
         }

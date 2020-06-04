@@ -38,6 +38,7 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults Junction::mySubscriptionResults;
 ContextSubscriptionResults Junction::myContextSubscriptionResults;
+NamedRTree* Junction::myTree(nullptr);
 
 
 // ===========================================================================
@@ -84,16 +85,23 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Junction, JUNCTION)
 
 NamedRTree*
 Junction::getTree() {
-    NamedRTree* t = new NamedRTree();
-    for (const auto& i : MSNet::getInstance()->getJunctionControl()) {
-        Boundary b = i.second->getShape().getBoxBoundary();
-        const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
-        const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
-        t->Insert(cmin, cmax, i.second);
+    if (myTree == nullptr) {
+        myTree= new NamedRTree();
+        for (const auto& i : MSNet::getInstance()->getJunctionControl()) {
+            Boundary b = i.second->getShape().getBoxBoundary();
+            const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};
+            const float cmax[2] = {(float) b.xmax(), (float) b.ymax()};
+            myTree->Insert(cmin, cmax, i.second);
+        }
     }
-    return t;
+    return myTree;
 }
 
+void
+Junction::cleanup() {
+    delete myTree;
+    myTree = nullptr;
+}
 
 void
 Junction::storeShape(const std::string& id, PositionVector& shape) {

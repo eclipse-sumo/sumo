@@ -32,6 +32,7 @@
 class NamedRTree;
 class SUMOPolygon;
 class SUMOTrafficObject;
+class NamedRTree;
 namespace libsumo {
 class VariableWrapper;
 }
@@ -73,6 +74,7 @@ public:
      * @return The rtree of polygons
      */
     static NamedRTree* getTree();
+    static void cleanup();
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
@@ -93,9 +95,11 @@ private:
     /// @return Searches the domains Vehicle and Person for the given id (priorizes vehicles)
     static SUMOTrafficObject* getTrafficObject(const std::string& id);
 
+
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+    static NamedRTree* myTree;
 
     /// @brief invalidated standard constructor
     Polygon() = delete;

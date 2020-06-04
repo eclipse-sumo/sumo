@@ -80,6 +80,7 @@ public:
      *  @return The rtree of PoIs
      */
     static NamedRTree* getTree();
+    static void cleanup();
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
@@ -94,9 +95,11 @@ public:
 private:
     static PointOfInterest* getPoI(const std::string& id);
 
+
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+    static NamedRTree* myTree;
 
     /// @brief invalidated standard constructor
     POI() = delete;

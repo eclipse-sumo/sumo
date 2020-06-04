@@ -268,9 +268,6 @@ private:
     /// @brief Changes in the states of simulated vehicles
     static VehicleStateListener myVehicleStateListener;
 
-    /// @brief A storage of objects
-    static std::map<int, NamedRTree*> myObjects;
-
     /// @brief A storage of lanes
     static LANE_RTREE_QUAL* myLaneTree;
 
