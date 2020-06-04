@@ -32,6 +32,8 @@ the future.
   [*speedFactor*](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
   (a value of 1.5 allows driving with 150% of the road speed limit).
 - Overtaking on the right: This is always permitted for vehicles with `vClass="emergency"`
+- [Overtaking on the opposite side](OppositeDirectionDriving.md) on a mult-lane road is the exlusive privilege of vehicles with `vClass="emergency"`
+
 
 # Visualization
 
