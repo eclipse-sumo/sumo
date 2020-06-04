@@ -105,3 +105,6 @@ ticket5990
 
 # handle invalid departSpeed without crashing
 ticket6626
+
+# update rtree when adding/removing polygons and POIs
+ticket7057

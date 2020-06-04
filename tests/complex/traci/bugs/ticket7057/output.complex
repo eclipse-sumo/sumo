@@ -1,0 +1,6 @@
+ Retrying in 1 seconds
+pois in range {'poi0': {}}
+added poi1
+pois in range {'poi0': {}, 'poi1': {}}
+removed poi0
+pois in range {'poi1': {}}
