@@ -1,4 +1,4 @@
-/* Check if we're using Microsoft Visual Studio */
+/* Macros for Microsoft Visual Studio */
 #ifdef _MSC_VER
 
     /* Disable "decorated name length exceeded, name was truncated" warnings. */
@@ -29,11 +29,14 @@
     #define FOX_CONSTRUCTOR(classname) __pragma(warning(suppress: 26495)) \
     classname() {}
 
-/* GNU Compiler */
+/* Macros for GNU Compiler */
 #else
 
+    /* defined if we're using MINGW32 */
+    #cmakedefine MINGW32
+
     /* Windows (MinGW32) */
-    #ifdef __MINGW32__
+    #ifdef MINGW32
 
         /* Define WIN32 */
         #ifndef WIN32
@@ -42,8 +45,8 @@
 
         /* Define for dynamic Fox linkage */
         #define FOXDLL 1
-		
-		/* Define default constructor for FOX moduls (MinGW32) */
+
+        /* Define default constructor for FOX moduls (MinGW32) */
         #define FOX_CONSTRUCTOR(classname) classname() {}
 
     /* Linux and OS */

@@ -66,7 +66,7 @@ elseif (MSVC)
     endif ()
     if (MSVC_VERSION GREATER 1914)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /experimental:external /external:W2")
-		set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "/external:I ")
+        set(CMAKE_INCLUDE_SYSTEM_FLAG_CXX "/external:I ")
     endif ()
     # exporting symbols for shared libraries needs to enabled explicitly
     set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -142,6 +142,7 @@ endif (APPLE)
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" AND WIN32)
     option(USE_MINGW_64BITS "Use 64 bits libraries for the compilation with MinGW" true)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DWIN32 -D_WIN32_WINNT=0x0501")
+    set(MINGW32 1)
 endif ()
 
 # Check if libraries have to be found, depending on SUMO_LIBRARIES
