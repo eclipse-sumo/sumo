@@ -2543,7 +2543,7 @@ GNEAttributeCarrier::fillDemandElements() {
             "yellow");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_EMBEDDEDROUTE;
+    currentTag = GNE_TAG_EMBEDDEDROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

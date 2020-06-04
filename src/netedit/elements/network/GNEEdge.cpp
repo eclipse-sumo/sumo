@@ -2211,7 +2211,7 @@ GNEEdge::getVehiclesOverEdgeMap() const {
                     vehicles.insert(std::make_pair(routeChild->getAttributeDouble(SUMO_ATTR_DEPART), routeChild));
                 }
             }
-        } else if ((edgeChild->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE) && (edgeChild->getParentEdges().front() == this)) {
+        } else if ((edgeChild->getTagProperty().getTag() == GNE_TAG_EMBEDDEDROUTE) && (edgeChild->getParentEdges().front() == this)) {
             vehicles.insert(std::make_pair(edgeChild->getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPART), edgeChild->getParentDemandElements().front()));
         }
     }
@@ -2446,7 +2446,7 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
             }
         }
         // draw embedded routes
-        for (const auto& embeddedRoute : getChildDemandElementsByType(SUMO_TAG_EMBEDDEDROUTE)) {
+        for (const auto& embeddedRoute : getChildDemandElementsByType(GNE_TAG_EMBEDDEDROUTE)) {
             // first check if embedded route can be drawn
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
                 // draw partial route
@@ -2461,8 +2461,8 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
                 drawPartialRoute(s, route, nullptr);
             }
         }
-        if (getChildDemandElementsByType(SUMO_TAG_EMBEDDEDROUTE).size() > 0) {
-            const auto& embeddedRoute = getChildDemandElementsByType(SUMO_TAG_EMBEDDEDROUTE).front();
+        if (getChildDemandElementsByType(GNE_TAG_EMBEDDEDROUTE).size() > 0) {
+            const auto& embeddedRoute = getChildDemandElementsByType(GNE_TAG_EMBEDDEDROUTE).front();
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
                 drawPartialRoute(s, embeddedRoute, nullptr);
             }

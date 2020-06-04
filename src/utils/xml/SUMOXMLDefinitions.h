@@ -129,8 +129,6 @@ enum SumoXMLTag {
     SUMO_TAG_PTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
-    /// @brief begin/end of the description of a embedded route (used in NETEDIT)
-    SUMO_TAG_EMBEDDEDROUTE,
     /// @brief description of a logic request within the junction
     SUMO_TAG_REQUEST,
     /// @brief a source
@@ -365,6 +363,11 @@ enum SumoXMLTag {
 
     /// @name Persons plans (used by Netedit)
     /// @{
+    /// Elements with embedded routes
+    GNE_TAG_EMBEDDEDROUTE,
+    GNE_TAG_VEHICLE_EMBEDDED,
+    GNE_TAG_FLOW_EMBEDDED,
+    GNE_TAG_PERSON_EMBEDDED,
     // person trips
     GNE_TAG_PERSONTRIP_EDGE_EDGE,
     GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,

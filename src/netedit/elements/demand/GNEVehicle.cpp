@@ -418,7 +418,7 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return false;
         }
-    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE)) {
+    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_EMBEDDEDROUTE)) {
         // check if exist a valid path using embebbed route edges
         if (myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().front()->getParentEdges()).size() > 0) {
             return true;
@@ -454,7 +454,7 @@ GNEVehicle::getDemandElementProblem() const {
         }
         // there is connections bewteen all edges, then all ok
         return "";
-    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == SUMO_TAG_EMBEDDEDROUTE)) {
+    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_EMBEDDEDROUTE)) {
         // get embebbed route edges
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().front()->getParentEdges();
         // check if exist at least a connection between every edge

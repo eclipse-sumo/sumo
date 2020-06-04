@@ -81,7 +81,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "vType",                          SUMO_TAG_VTYPE },
     { "pType",                          SUMO_TAG_PTYPE },
     { "route",                          SUMO_TAG_ROUTE },
-    { "embeddedRoute",                  SUMO_TAG_EMBEDDEDROUTE },
     { "request",                        SUMO_TAG_REQUEST },
     { "source",                         SUMO_TAG_SOURCE },
     { "taz",                            SUMO_TAG_TAZ },
@@ -230,6 +229,11 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "cityGates",                      AGEN_TAG_CITYGATES },
     { "entrance",                       AGEN_TAG_ENTRANCE },
     { "parameters",                     AGEN_TAG_PARAM },
+    // Elements with embedded routes
+    { "route (embedded)",               GNE_TAG_EMBEDDEDROUTE },
+    { "vehicle (embedded)",             GNE_TAG_VEHICLE_EMBEDDED },
+    { "flow (embedded)",                GNE_TAG_FLOW_EMBEDDED },
+    { "Person (embedded)",              GNE_TAG_PERSON_EMBEDDED },
     // GNE Person trips
     { "personTrip: edge->edge",         GNE_TAG_PERSONTRIP_EDGE_EDGE },
     { "personTrip: edge->busStop",      GNE_TAG_PERSONTRIP_EDGE_BUSSTOP },

@@ -2176,7 +2176,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
     switch (tag) {
         // routes
         case SUMO_TAG_ROUTE:
-        case SUMO_TAG_EMBEDDEDROUTE:
+        case GNE_TAG_EMBEDDEDROUTE:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;

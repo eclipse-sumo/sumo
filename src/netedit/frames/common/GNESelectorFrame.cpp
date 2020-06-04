@@ -1428,7 +1428,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
             }
             // select embedded routes
             if (!locks->IsObjectTypeLocked(GLO_EMBEDDEDROUTE)) {
-                for (const auto& embeddedRoute : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_EMBEDDEDROUTE)) {
+                for (const auto& embeddedRoute : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_EMBEDDEDROUTE)) {
                     if (embeddedRoute.second->isAttributeCarrierSelected()) {
                         embeddedRoute.second->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                     } else {
@@ -1776,7 +1776,7 @@ GNESelectorFrame::clearCurrentSelection() const {
             }
             // select embedded route
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EMBEDDEDROUTE)) {
-                for (const auto& embeddedRoute : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_EMBEDDEDROUTE)) {
+                for (const auto& embeddedRoute : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_EMBEDDEDROUTE)) {
                     if (embeddedRoute.second->isAttributeCarrierSelected()) {
                         embeddedRoute.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
@@ -2065,7 +2065,7 @@ GNESelectorFrame::ACsToSelected() const {
             return true;
         }
         // check embedded routes
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EMBEDDEDROUTE) && (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_EMBEDDEDROUTE).size() > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EMBEDDEDROUTE) && (myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_EMBEDDEDROUTE).size() > 0)) {
             return true;
         }
         // check vehicles
