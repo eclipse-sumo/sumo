@@ -19,6 +19,7 @@
                 <xsd:element minOccurs="0" ref="example_device"/>
                 <xsd:element minOccurs="0" ref="emissions"/>
                 <xsd:element minOccurs="0" ref="taxi"/>
+                <xsd:element minOccurs="0" ref="bluelight"/>
             </xsd:choice>
             <xsd:attribute name="id" use="required" type="xsd:string"/>
             <xsd:attribute name="depart" use="required" type="timeType"/>
@@ -83,6 +84,11 @@
             <xsd:attribute name="customers" use="required" type="xsd:nonNegativeInteger"/>
             <xsd:attribute name="occupiedDistance" use="required" type="nonNegativeFloatType"/>
             <xsd:attribute name="occupiedTime" use="required" type="nonNegativeFloatType"/>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:element name="bluelight">
+        <xsd:complexType>
         </xsd:complexType>
     </xsd:element>
 
