@@ -738,6 +738,8 @@ public:
      */
     bool hasDefaultGeometryEndpointAtNode(const NBNode* node) const;
 
+    Position getEndpointAtNode(const NBNode* node) const;
+
     /** @brief (Re)sets the edge's geometry
      *
      * Replaces the edge's prior geometry by the given. Then, computes
