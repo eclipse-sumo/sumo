@@ -492,6 +492,12 @@ GNETagProperties::personPlanEndBusStop() const {
 }
 
 
+bool 
+GNETagProperties::embebbedRoute() const {
+    return (myTagProperty & EMBEDDED_ROUTE) != 0;
+}
+
+
 bool
 GNETagProperties::isAttributeDeprecated(SumoXMLAttr attr) const {
     return (std::find(myDeprecatedAttributes.begin(), myDeprecatedAttributes.end(), attr) != myDeprecatedAttributes.end());
