@@ -1,4 +1,4 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing types from '/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
 Parsing types from 'input_types.typ.xml' ... done.
 Parsing nodes from osm-file 'osm.xml' ... done.
 Parsing edges from osm-file 'osm.xml' ... done.
@@ -13,29 +13,29 @@ done.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
 Removing self-loops ... done (0ms).
 Joining junction clusters ... 
-done (3ms).
+done (4ms).
  Joined 20 junction cluster(s).
 Removing empty nodes and geometry nodes ... done (3ms).
    79 nodes removed.
-Moving network to origin ... done (16ms).
-Computing turning directions ... done (1ms).
+Moving network to origin ... done (26ms).
+Computing turning directions ... done (2ms).
 Assigning nodes to traffic lights ... done (1ms).
 Sorting nodes' edges ... done (1ms).
-Computing node shapes ... done (16ms).
-Computing edge shapes ... done (12ms).
+Computing node shapes ... done (21ms).
+Computing edge shapes ... done (16ms).
 Computing node types ... done (1ms).
-Computing priorities ... done (0ms).
+Computing priorities ... done (1ms).
 Computing approached edges ... done (1ms).
 Guessing and setting roundabouts ... 
  Guessed 1 roundabout(s).
 done (0ms).
-Computing approaching lanes ... done (3ms).
-Dividing of lanes on approached lanes ... done (2ms).
+Computing approaching lanes ... done (6ms).
+Dividing of lanes on approached lanes ... done (3ms).
 Processing turnarounds ... done (1ms).
 Rechecking of lane endings ... done (0ms).
-Computing traffic light control information ... done (1ms).
-Computing node logics ... done (9ms).
-Computing traffic light logics ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (10ms).
+Computing traffic light logics ... done (1ms).
  3 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -51,26 +51,6 @@ Summary:
   Applied offset     : -395408.93,-5809112.45
   Converted boundary : 0.00,0.00,5580.65,3531.77
 -----------------------------------------------------
-Writing network ... could not find edge for parkingArea '46039050#2'
-could not find edge for parkingArea '46039050#3'
-could not find edge for parkingArea '46039050#5'
-could not find edge for parkingArea '46039050#6'
-could not find edge for parkingArea '71028777#1'
-could not find edge for parkingArea '-71028777#1'
-could not find edge for parkingArea '142575690#3'
-could not find edge for parkingArea '142575692#2'
-
-could not find edge for parkingArea '142575699#4'
-could not find edge for parkingArea '-142575699#4'
-could not find edge for parkingArea '143308521#9'
-could not find edge for parkingArea '-143308521#9'
-could not find edge for parkingArea '143308532#3'
-could not find edge for parkingArea '143308532#4'
-could not find edge for parkingArea '143308532#6'
-could not find edge for parkingArea '143308532#7'
-could not find edge for parkingArea '143308542#2'
-could not find edge for parkingArea '143308546#7'
-could not find edge for parkingArea '143308562#4'
-could not find edge for parkingArea '-143308562#4'
-done (80ms).
+Writing network ... 
+done (105ms).
 Success.
