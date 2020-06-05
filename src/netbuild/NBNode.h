@@ -69,7 +69,6 @@ class NBNode : public Named, public Parameterised {
     friend class NBNodesEdgesSorter;     // < sorts the edges
     friend class NBNodeTypeComputer;     // < computes type
     friend class NBEdgePriorityComputer; // < computes priorities of edges per intersection
-    friend class NBNodeShapeComputer;    // < computes node's shape
 
 public:
     /**

@@ -61,10 +61,10 @@ NBNodeShapeComputer::compute() {
     // check whether the node is a dead end node or a node where only turning is possible
     //  in this case, we will use "computeNodeShapeSmall"
     bool singleDirection = false;
-    if (myNode.myAllEdges.size() == 1) {
+    if (myNode.getEdges().size() == 1) {
         singleDirection = true;
     }
-    if (myNode.myAllEdges.size() == 2 && myNode.getIncomingEdges().size() == 1) {
+    if (myNode.getEdges().size() == 2 && myNode.getIncomingEdges().size() == 1) {
         if (myNode.getIncomingEdges()[0]->isTurningDirectionAt(myNode.getOutgoingEdges()[0])) {
             singleDirection = true;
         }
@@ -73,7 +73,7 @@ NBNodeShapeComputer::compute() {
     if (DEBUGCOND) {
         // annotate edges edges to make their ordering visible
         int i = 0;
-        for (NBEdge* e : myNode.myAllEdges) {
+        for (NBEdge* e : myNode.getEdges()) {
             e->setStreetName(toString(i));
             i++;
         }
@@ -143,7 +143,7 @@ computeSameEnd(PositionVector& l1, PositionVector& l2) {
 PositionVector
 NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // if we have less than two edges, we can not compute the node's shape this way
-    if (myNode.myAllEdges.size() < 2) {
+    if (myNode.getEdges().size() < 2) {
         return PositionVector();
     }
     // magic values
@@ -179,9 +179,9 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     // the clockwise boundary of the edge regarding possible same-direction edges
     GeomsMap geomsCW;
     // check which edges are parallel
-    joinSameDirectionEdges(same, geomsCCW, geomsCW);
+    joinSameDirectionEdges(myNode.getEdges(), same, geomsCCW, geomsCW);
     // compute unique direction list
-    EdgeVector newAll = computeUniqueDirectionList(same, geomsCCW, geomsCW);
+    EdgeVector newAll = computeUniqueDirectionList(myNode.getEdges(), same, geomsCCW, geomsCW);
     // if we have only two "directions", let's not compute the geometry using this method
     if (newAll.size() < 2) {
         return PositionVector();
@@ -566,11 +566,11 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
 }
 
 void
-NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> >& same,
+NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW) {
     // compute boundary lines and extend it by EXT m
-    for (NBEdge* const edge : myNode.myAllEdges) {
+    for (NBEdge* edge : edges) {
         // store current edge's boundary as current ccw/cw boundary
         try {
             geomsCCW[edge] = edge->getCCWBoundaryLine(myNode);
@@ -602,10 +602,10 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> 
     // distance to look ahead for a misleading angle
     const double angleChangeLookahead = 35;
     EdgeSet foundOpposite;
-    for (EdgeVector::const_iterator i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
+    for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); i++) {
         EdgeVector::const_iterator j;
-        if (i == myNode.myAllEdges.end() - 1) {
-            j = myNode.myAllEdges.begin();
+        if (i == edges.end() - 1) {
+            j = edges.begin();
         } else {
             j = i + 1;
         }
@@ -727,12 +727,12 @@ NBNodeShapeComputer::badIntersection(const NBEdge* e1, const NBEdge* e2, double 
 
 EdgeVector
 NBNodeShapeComputer::computeUniqueDirectionList(
+    const EdgeVector& all,
     std::map<NBEdge*, std::set<NBEdge*> >& same,
     GeomsMap& geomsCCW,
     GeomsMap& geomsCW) {
     // store relationships
-    const EdgeVector& all = myNode.myAllEdges;
-    EdgeVector newAll = myNode.myAllEdges;
+    EdgeVector newAll = all;
     for (NBEdge* e1 : all) {
         // determine which of the edges marks the outer boundary
         auto e2NewAll = std::find(newAll.begin(), newAll.end(), e1);
@@ -850,10 +850,10 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
 #endif
     PositionVector ret;
     EdgeVector::const_iterator i;
-    for (i = myNode.myAllEdges.begin(); i != myNode.myAllEdges.end(); i++) {
+    for (NBEdge* e : myNode.getEdges()) {
         // compute crossing with normal
-        PositionVector edgebound1 = (*i)->getCCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
-        PositionVector edgebound2 = (*i)->getCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
+        PositionVector edgebound1 = e->getCCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
+        PositionVector edgebound2 = e->getCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
         Position delta = edgebound1[1] - edgebound1[0];
         delta.set(-delta.y(), delta.x()); // rotate 90 degrees
         PositionVector cross(myNode.getPosition(), myNode.getPosition() + delta);
@@ -870,7 +870,7 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
             np.set(np.x(), np.y(), myNode.getPosition().z());
             ret.push_back_noDoublePos(np);
         }
-        (*i)->resetNodeBorder(&myNode);
+        e->resetNodeBorder(&myNode);
     }
     return ret;
 }

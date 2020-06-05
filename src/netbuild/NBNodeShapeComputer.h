@@ -88,7 +88,8 @@ private:
      *  all edges within the value-vector which direction at the node differs
      *  less than 1 from the key-edge's direction.
      */
-    void joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> >& same,
+    void joinSameDirectionEdges(const EdgeVector& edges,
+                                std::map<NBEdge*, std::set<NBEdge*> >& same,
                                 GeomsMap& geomsCCW,
                                 GeomsMap& geomsCW);
 
@@ -100,9 +101,10 @@ private:
      *  ccwBoundary/cwBoundary.
      */
     EdgeVector computeUniqueDirectionList(
-        std::map<NBEdge*, std::set<NBEdge*> >& same,
-        GeomsMap& geomsCCW,
-        GeomsMap& geomsCW);
+            const EdgeVector& all,
+            std::map<NBEdge*, std::set<NBEdge*> >& same,
+            GeomsMap& geomsCCW,
+            GeomsMap& geomsCW);
 
     /** @brief Compute smoothed corner shape
      * @param[in] begShape
