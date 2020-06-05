@@ -283,10 +283,4 @@ GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // currently unused
 }
 
-
-std::string
-GNEGenericData::generateChildID(SumoXMLTag /*childTag*/) {
-    return "";
-}
-
 /****************************************************************************/

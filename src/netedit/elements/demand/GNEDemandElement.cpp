@@ -78,7 +78,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
         const std::vector<GNETAZElement*>& TAZElementChildren,
         const std::vector<GNEDemandElement*>& demandElementChildren,
         const std::vector<GNEGenericData*>& genericDataChildren) :
-    GUIGlObject(type, demandElementParent->generateChildID(tag)),
+    GUIGlObject(type, demandElementParent->getID() + "_" + toString(tag)),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
@@ -98,16 +98,6 @@ GNEDemandElement::getID() const {
 GUIGlObject*
 GNEDemandElement::getGUIGlObject() {
     return this;
-}
-
-
-std::string
-GNEDemandElement::generateChildID(SumoXMLTag childTag) {
-    int counter = (int)getChildDemandElements().size();
-    while (myNet->retrieveDemandElement(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
 }
 
 

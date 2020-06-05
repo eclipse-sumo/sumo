@@ -102,13 +102,6 @@ GNEEdge::~GNEEdge() {
 }
 
 
-std::string
-GNEEdge::generateChildID(SumoXMLTag /*childTag*/) {
-    // currently unused
-    return "";
-}
-
-
 void
 GNEEdge::updateGeometry() {
     // first check if myUpdateGeometry flag is enabled

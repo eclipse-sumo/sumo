@@ -156,9 +156,6 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
-    /// @brief gererate a new ID for an element child
-    std::string generateChildID(SumoXMLTag childTag);
-
     /// @name members and functions relative to demand element (stacked) geometries
     /// @{
     /// @brief get demand element geometry (stacked)

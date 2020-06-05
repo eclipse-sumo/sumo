@@ -76,12 +76,6 @@ GNENetworkElement::updateDottedGeometry(const PositionVector& shape) {
 }
 
 
-std::string
-GNENetworkElement::generateChildID(SumoXMLTag /*childTag*/) {
-    return "";
-}
-
-
 GUIParameterTableWindow*
 GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table

@@ -44,9 +44,6 @@ public:
     /// @brief Destructor
     ~GNEConnection();
 
-    /// @brief gererate a new ID for an element child
-    std::string generateChildID(SumoXMLTag childTag);
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief get connection shape

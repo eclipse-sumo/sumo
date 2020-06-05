@@ -91,16 +91,6 @@ GNEJunction::~GNEJunction() {
 }
 
 
-std::string
-GNEJunction::generateChildID(SumoXMLTag childTag) {
-    int counter = 0;
-    while (myNet->retrieveJunction(getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
-}
-
-
 const PositionVector&
 GNEJunction::getJunctionShape() const {
     return myNBNode->getShape();

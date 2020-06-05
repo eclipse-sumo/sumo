@@ -242,9 +242,6 @@ private:
     /// @brief get specific generic data color
     virtual const RGBColor& getSpecificColor() const = 0;
 
-    /// @brief gererate a new ID for an element child (currently unused)
-    std::string generateChildID(SumoXMLTag childTag);
-
     /// @brief Invalidated copy constructor.
     GNEGenericData(const GNEGenericData&) = delete;
 

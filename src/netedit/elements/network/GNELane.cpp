@@ -78,12 +78,6 @@ GNELane::GNELane() :
 
 GNELane::~GNELane() {}
 
-std::string
-GNELane::generateChildID(SumoXMLTag /*childTag*/) {
-    // currently unused
-    return "";
-}
-
 
 const PositionVector&
 GNELane::getLaneShape() const {

@@ -85,9 +85,6 @@ public:
     // Draw connections between parent and children
     void drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const;
 
-    /// @brief gererate a new ID for an element child
-    virtual std::string generateChildID(SumoXMLTag childTag) = 0;
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

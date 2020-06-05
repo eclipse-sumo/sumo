@@ -49,13 +49,6 @@ GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> cross
 GNECrossing::~GNECrossing() {}
 
 
-std::string
-GNECrossing::generateChildID(SumoXMLTag /*childTag*/) {
-    // currently unused
-    return "";
-}
-
-
 const PositionVector&
 GNECrossing::getCrossingShape() const {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);

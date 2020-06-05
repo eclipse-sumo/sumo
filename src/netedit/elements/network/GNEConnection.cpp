@@ -64,13 +64,6 @@ GNEConnection::~GNEConnection() {
 }
 
 
-std::string
-GNEConnection::generateChildID(SumoXMLTag /*childTag*/) {
-    // currently unused
-    return "";
-}
-
-
 const PositionVector&
 GNEConnection::getConnectionShape() const {
     if (myConnectionGeometry.getShape().size() > 0) {
