@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 26 21:29:45 2020 by Eclipse SUMO Version v1_6_0+0391-d890cd7141
+<!-- generated on Fri Jun  5 07:00:47 2020 by Eclipse SUMO Version v1_6_0+0550-a6383f6a64
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -280,7 +280,7 @@
         <device.bluelight.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;bluelight&apos; device"/>
         <device.bluelight.explicit value="" synonymes="device.bluelight.knownveh" type="STR[]" help="Assign a &apos;bluelight&apos; device to named vehicles"/>
         <device.bluelight.deterministic value="false" type="BOOL" help="The &apos;bluelight&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.bluelight.parameter value="0" type="FLOAT" help="An exemplary parameter which can be used by all instances of the example device"/>
+        <device.bluelight.reactiondist value="25" type="FLOAT" help="Set the distance at which other drivers react to the blue light and siren sound"/>
     </bluelight_device>
 
     <fcd_device>

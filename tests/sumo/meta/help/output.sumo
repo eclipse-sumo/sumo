@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_6_0+0391-d890cd7141
+Eclipse SUMO Version v1_6_0+0550-a6383f6a64
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -533,8 +533,9 @@ Bluelight Device Options:
                                          vehicles
   --device.bluelight.deterministic     The 'bluelight' devices are set
                                          deterministic using a fraction of 1000
-  --device.bluelight.parameter FLOAT   An exemplary parameter which can be used
-                                         by all instances of the example device
+  --device.bluelight.reactiondist FLOAT  Set the distance at which other
+                                         drivers react to the blue light and
+                                         siren sound
 
 FCD Device Options:
   --device.fcd.probability FLOAT       The probability for a vehicle to have a

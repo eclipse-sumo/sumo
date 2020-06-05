@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 26 21:29:45 2020 by Eclipse SUMO Version v1_6_0+0391-d890cd7141
+<!-- generated on Fri Jun  5 07:00:47 2020 by Eclipse SUMO Version v1_6_0+0550-a6383f6a64
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -744,8 +744,8 @@
         <!-- The &apos;bluelight&apos; devices are set deterministic using a fraction of 1000 -->
         <device.bluelight.deterministic value="false" type="BOOL"/>
 
-        <!-- An exemplary parameter which can be used by all instances of the example device -->
-        <device.bluelight.parameter value="0" type="FLOAT"/>
+        <!-- Set the distance at which other drivers react to the blue light and siren sound -->
+        <device.bluelight.reactiondist value="25" type="FLOAT"/>
 
     </bluelight_device>
 
