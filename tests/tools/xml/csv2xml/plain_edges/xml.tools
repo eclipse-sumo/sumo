@@ -1,10 +1,10 @@
 <edges>
-    <edge to="E" speed="13.89" id="CE" from="C" numLanes="2" priority="2"/>
-    <edge to="N" speed="13.89" id="CN" from="C" numLanes="2" priority="2"/>
-    <edge to="S" speed="13.89" id="CS" from="C" numLanes="2" priority="2"/>
-    <edge to="W" speed="13.89" id="CW" from="C" numLanes="2" priority="2"/>
-    <edge to="C" speed="13.89" id="EC" from="E" numLanes="2" priority="2"/>
-    <edge to="C" speed="13.89" id="NC" from="N" numLanes="2" priority="2"/>
-    <edge to="C" speed="13.89" id="SC" from="S" numLanes="2" priority="2"/>
-    <edge to="C" speed="13.89" id="WC" from="W" numLanes="2" priority="2"/>
+    <edge from="C" id="CE" numLanes="2" priority="2" speed="13.89" to="E"/>
+    <edge from="C" id="CN" numLanes="2" priority="2" speed="13.89" to="N"/>
+    <edge from="C" id="CS" numLanes="2" priority="2" speed="13.89" to="S"/>
+    <edge from="C" id="CW" numLanes="2" priority="2" speed="13.89" to="W"/>
+    <edge from="E" id="EC" numLanes="2" priority="2" speed="13.89" to="C"/>
+    <edge from="N" id="NC" numLanes="2" priority="2" speed="13.89" to="C"/>
+    <edge from="S" id="SC" numLanes="2" priority="2" speed="13.89" to="C"/>
+    <edge from="W" id="WC" numLanes="2" priority="2" speed="13.89" to="C"/>
 </edges>
