@@ -83,8 +83,10 @@ def write_xml(toptag, tag, options, printer=row2xml):
             inputf = xml2csv.getSocketStream(int(options.source))
         else:
             inputf = io.open(options.source, encoding="utf8")
-        for row in csv.DictReader(inputf, delimiter=options.delimiter):
-            outputf.write(printer(row, tag))
+        reader = csv.DictReader(inputf, delimiter=options.delimiter)
+        for row in reader:
+            orderedRow = OrderedDict([(key, row[key]) for key in reader.fieldnames])
+            outputf.write(printer(orderedRow, tag))
         outputf.write(u'</%s>\n' % toptag)
 
 
