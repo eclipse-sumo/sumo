@@ -1,0 +1,31 @@
+Valid area contains 64 edges
+Parsing routes from input_routes.rou.xml
+Could not reconstruct new departure time for vehicle '19'. Using old departure time.
+Could not reconstruct new departure time for vehicle '27'. Using old departure time.
+Could not reconstruct new departure time for vehicle '43'. Using old departure time.
+Could not reconstruct new departure time for vehicle '14'. Using old departure time.
+Could not reconstruct new departure time for vehicle '34'. Using old departure time.
+Could not reconstruct new departure time for vehicle '60'. Using old departure time.
+Could not reconstruct new departure time for vehicle '57'. Using old departure time.
+Could not reconstruct new departure time for vehicle '46'. Using old departure time.
+Could not reconstruct new departure time for vehicle '70'. Using old departure time.
+Could not reconstruct new departure time for vehicle '96'. Using old departure time.
+Could not reconstruct new departure time for vehicle '7'. Using old departure time.
+Could not reconstruct new departure time for vehicle '20'. Using old departure time.
+Could not reconstruct new departure time for vehicle '58'. Using old departure time.
+Could not reconstruct new departure time for vehicle '59'. Using old departure time.
+Could not reconstruct new departure time for vehicle '84'. Using old departure time.
+Could not reconstruct new departure time for vehicle '48'. Using old departure time.
+Could not reconstruct new departure time for vehicle '54'. Using old departure time.
+Could not reconstruct new departure time for vehicle '63'. Using old departure time.
+Could not reconstruct new departure time for vehicle '94'. Using old departure time.
+Could not reconstruct new departure time for vehicle '38'. Using old departure time.
+Could not reconstruct new departure time for vehicle '89'. Using old departure time.
+Could not reconstruct new departure time for vehicle '75'. Using old departure time.
+Could not reconstruct new departure time for vehicle '125'. Using old departure time.
+Could not reconstruct new departure time for vehicle '117'. Using old departure time.
+Could not reconstruct new departure time for vehicle '79'. Using old departure time.
+Could not reconstruct new departure time for vehicle '85'. Using old departure time.
+Parsed 119 vehicles, 0 persons, 0 flows and kept 112 routes (avg teleportFactor 0.2321428571428571)
+Number of disconnected routes: 0.
+Wrote 112 vehicles
