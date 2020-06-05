@@ -68,7 +68,7 @@ NBParking::write(OutputDevice& device, NBEdgeCont& ec) const {
         }
         device.closeTag();
     } else {
-        std::cout << "could not find edge for parkingArea '" << getID() << "'\n";
+        WRITE_WARNINGF("could not find edge for parkingArea '%s'", getID());
     }
     // XXX else: prevent edge merging via --geometry.remove
 }
