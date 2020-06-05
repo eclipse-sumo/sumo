@@ -78,6 +78,10 @@ private:
      */
     PositionVector computeNodeShapeSmall();
 
+    /// @brief compute clockwise/counter-clockwise edge boundaries
+    void computeEdgeBoundaries(const EdgeVector& edges,
+                                GeomsMap& geomsCCW,
+                                GeomsMap& geomsCW);
 
     /** @brief Joins edges and computes ccw/cw boundaries
      *
@@ -88,17 +92,13 @@ private:
      *  all edges within the value-vector which direction at the node differs
      *  less than 1 from the key-edge's direction.
      */
-    void joinSameDirectionEdges(const EdgeVector& edges,
-                                std::map<NBEdge*, std::set<NBEdge*> >& same,
-                                GeomsMap& geomsCCW,
-                                GeomsMap& geomsCW);
+    void joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same);
 
-    /** @brief Joins edges and computes ccw/cw boundaries
+    /** @brief Joins edges
      *
      * This methods joins edges which are in marked as being "same" in the means
      *  as given by joinSameDirectionEdges. The result (list of so-to-say "directions"
-     *  is returned; additionally, the boundaries of these directions are stored in
-     *  ccwBoundary/cwBoundary.
+     *  is returned;
      */
     EdgeVector computeUniqueDirectionList(
             const EdgeVector& all,

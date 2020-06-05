@@ -178,10 +178,13 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     GeomsMap geomsCCW;
     // the clockwise boundary of the edge regarding possible same-direction edges
     GeomsMap geomsCW;
+    EdgeVector usedEdges = myNode.getEdges();
+    computeEdgeBoundaries(usedEdges, geomsCCW, geomsCW);
+
     // check which edges are parallel
-    joinSameDirectionEdges(myNode.getEdges(), same, geomsCCW, geomsCW);
+    joinSameDirectionEdges(usedEdges, same);
     // compute unique direction list
-    EdgeVector newAll = computeUniqueDirectionList(myNode.getEdges(), same, geomsCCW, geomsCW);
+    EdgeVector newAll = computeUniqueDirectionList(usedEdges, same, geomsCCW, geomsCW);
     // if we have only two "directions", let's not compute the geometry using this method
     if (newAll.size() < 2) {
         return PositionVector();
@@ -566,7 +569,7 @@ NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector end
 }
 
 void
-NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same,
+NBNodeShapeComputer::computeEdgeBoundaries(const EdgeVector& edges,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW) {
     // compute boundary lines and extend it by EXT m
@@ -597,6 +600,10 @@ NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NB
         geomsCCW[edge].extrapolate(EXT2, false, true);
         geomsCW[edge].extrapolate(EXT2, false, true);
     }
+}
+
+void
+NBNodeShapeComputer::joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same) {
     // compute same (edges where an intersection doesn't work well
     // (always check an edge and its cw neightbor)
     // distance to look ahead for a misleading angle
