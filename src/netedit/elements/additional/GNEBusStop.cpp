@@ -284,9 +284,9 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList*
         case SUMO_ATTR_ID: {
             // change ID of BusStop
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change Ids of all Acces children
-            for (auto i : getChildAdditionals()) {
-                i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_ACCESS), undoList);
+            // Change IDs of all access children
+            for (const auto &access : getChildAdditionals()) {
+                access->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_ACCESS), undoList);
             }
             break;
         }

@@ -271,9 +271,9 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         case SUMO_ATTR_ID: {
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change Ids of all Parking Spaces
-            for (auto i : getChildAdditionals()) {
-                i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_PARKING_SPACE), undoList);
+            // Change IDs of all parking Spaces
+            for (const auto &parkingSpace : getChildAdditionals()) {
+                parkingSpace->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_PARKING_SPACE), undoList);
             }
             break;
         }

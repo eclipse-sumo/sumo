@@ -139,8 +139,8 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
-    /// @brief gererate a new ID for an element child
-    std::string generateChildID(SumoXMLTag childTag);
+    /// @brief generate a new ID for an element child
+    std::string generateAdditionalChildID(SumoXMLTag childTag);
 
     /// @brief obtain additional geometry
     const GNEGeometry::Geometry& getAdditionalGeometry() const;

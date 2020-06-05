@@ -226,9 +226,9 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         case SUMO_ATTR_ID: {
             // change ID of Rerouter Interval
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change Ids of all Variable Speed Sign
-            for (auto i : getChildAdditionals()) {
-                i->setAttribute(SUMO_ATTR_ID, generateChildID(SUMO_TAG_STEP), undoList);
+            // Change IDs of all steps
+            for (const auto &step : getChildAdditionals()) {
+                step->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_STEP), undoList);
             }
             break;
         }

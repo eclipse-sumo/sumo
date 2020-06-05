@@ -229,9 +229,9 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_ID: {
             // change ID of Entry
             undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change Ids of all Entry/Exits children
-            for (auto i : getChildAdditionals()) {
-                i->setAttribute(SUMO_ATTR_ID, generateChildID(i->getTagProperty().getTag()), undoList);
+            // Change IDs of all Entry/Exits children
+            for (const auto &entryExit : getChildAdditionals()) {
+                entryExit->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(entryExit->getTagProperty().getTag()), undoList);
             }
             break;
         }
