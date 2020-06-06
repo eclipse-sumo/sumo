@@ -346,6 +346,7 @@ for repoRoot in repoRoots:
                     procs.append(proc)
                     if len(procs) == multiprocessing.cpu_count():
                         [p.wait() for p in procs]
+                        procs = []
         os.chdir(oldDir)
         continue
     except (OSError, subprocess.CalledProcessError) as e:
