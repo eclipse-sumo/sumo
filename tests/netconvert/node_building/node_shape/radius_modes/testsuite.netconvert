@@ -5,3 +5,6 @@ paths4
 bikepaths4
 paths_side
 paths_corner
+
+# one way-roads with sidewalks in the opposite direction
+one_way_with_sidewalks

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jun  7 11:11:33 2020 by Eclipse SUMO netconvert Version v1_6_0+0579-3f3e02ebd1
+<!-- generated on Sun Jun  7 12:21:50 2020 by Eclipse SUMO netconvert Version v1_6_0+0581-b6471a9afd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -252,10 +252,10 @@
         <access lane="377634145_0" pos="0.00" length="10.39" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266781" name="U Klosterstraße" lane="384294420_0" startPos="428.64" endPos="628.64" friendlyPos="true" lines="U2">
-        <access lane="-4612970#0_0" pos="0.00" length="12.31" friendlyPos="1"/>
-        <access lane="313323170#3_0" pos="22.00" length="14.04" friendlyPos="1"/>
-        <access lane="4612970#0_0" pos="116.33" length="7.86" friendlyPos="1"/>
-        <access lane="82658674#1_0" pos="23.07" length="14.02" friendlyPos="1"/>
+        <access lane="-4612970#0_0" pos="0.00" length="12.77" friendlyPos="1"/>
+        <access lane="313323170#3_0" pos="21.50" length="14.76" friendlyPos="1"/>
+        <access lane="4612970#0_0" pos="115.83" length="8.56" friendlyPos="1"/>
+        <access lane="82658674#1_0" pos="22.57" length="14.74" friendlyPos="1"/>
         <access lane="82658674#2_0" pos="0.00" length="7.83" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266782" name="U Rosa-Luxemburg-Platz" lane="200422335#0_0" startPos="462.07" endPos="662.07" friendlyPos="true" lines="U2">
@@ -373,7 +373,7 @@
     <busStop id="29190909" name="U Bernauer Straße" lane="381187763_0" startPos="1272.75" endPos="1472.75" friendlyPos="true" lines="U8"/>
     <busStop id="29495029" name="U Klosterstraße" lane="177195505#0_0" startPos="162.20" endPos="349.92" friendlyPos="true" lines="U2">
         <access lane="-4612973#1_0" pos="0.39" length="0.36" friendlyPos="1"/>
-        <access lane="-82658674#1_0" pos="0.00" length="17.80" friendlyPos="1"/>
+        <access lane="-82658674#1_0" pos="0.00" length="18.53" friendlyPos="1"/>
         <access lane="-82658674#2_0" pos="27.38" length="8.44" friendlyPos="1"/>
         <access lane="4612973#1_0" pos="40.34" length="8.20" friendlyPos="1"/>
         <access lane="82658674#2_0" pos="0.00" length="19.00" friendlyPos="1"/>
