@@ -1,3 +1,6 @@
+# all options at their default values
+defaults
+
 # do not compute node shapes
 default-1
 
