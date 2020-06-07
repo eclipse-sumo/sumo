@@ -43,6 +43,11 @@
 #define EXT 100.0
 #define EXT2 10.0
 
+// foot- and bicycle paths as well as pure service roads should not get larget junctions
+// railways also do have have junctions with sharp turns so can be excluded
+const SVCPermissions NBNodeShapeComputer::SVC_LARGE_TURN(
+        SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES));
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -156,7 +161,6 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     const double sCurveStretch = oc.getFloat("junctions.scurve-stretch");
     const bool rectangularCut = oc.getBool("rectangular-lane-cut");
     const bool openDriveOutput = oc.isSet("opendrive-output");
-    SVCPermissions large = SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES);
 
     // Extend geometries to move the stop line forward.
     // In OpenDrive the junction starts whenever the geometry changes. Stop
@@ -294,8 +298,10 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             // the angles are different enough to compute the intersection of
             // the outer boundaries directly (or there are more than 2 directions). The "nearer" neighbar causes the furthest distance
             const bool ccwCloser = ccad < cad;
-            const bool neighLargeTurn = ((*i)->getPermissions() & (ccwCloser ? (*ccwi)->getPermissions() : (*cwi)->getPermissions()) & large) != 0;
-            const bool neigh2LargeTurn = ((*i)->getPermissions() & (ccwCloser ? (*cwi)->getPermissions() : (*ccwi)->getPermissions()) & large) != 0;
+            const bool cwLargeTurn = needsLargeTurn(*i, *cwi, same);
+            const bool ccwLargeTurn = needsLargeTurn(*i, *ccwi, same);
+            const bool neighLargeTurn = ccwCloser ? ccwLargeTurn : cwLargeTurn;
+            const bool neigh2LargeTurn =  ccwCloser ? cwLargeTurn : ccwLargeTurn;
             // the border facing the closer neighbor
             const PositionVector& currGeom = ccwCloser ? geomsCCW[*i] : geomsCW[*i];
             // the border facing the far neighbor
@@ -495,6 +501,38 @@ NBNodeShapeComputer::closestIntersection(const PositionVector& geom1, const Posi
     return result;
 }
 
+bool
+NBNodeShapeComputer::needsLargeTurn(NBEdge* e1, NBEdge* e2,
+        std::map<NBEdge*, std::set<NBEdge*> >& same) const {
+    const SVCPermissions p1 = e1->getPermissions();
+    const SVCPermissions p2 = e2->getPermissions();
+    if ((p1 & p2 & SVC_LARGE_TURN) != 0) {
+        // note: would could also check whether there is actually a connection
+        // between those edges
+        return true;
+    }
+    // maybe edges in the same direction need a large turn
+    for (NBEdge* e2s : same[e2]) {
+        if ((p1 & e2s->getPermissions() & SVC_LARGE_TURN) != 0
+                && (e1->getToNode() == e2s->getFromNode() || e2s->getToNode() == e1->getFromNode())) {
+            return true;
+        }
+        for (NBEdge* e1s : same[e1]) {
+            if ((e2s->getPermissions() & e1s->getPermissions() & SVC_LARGE_TURN) != 0
+                    && (e2s->getToNode() == e1s->getFromNode() || e1s->getToNode() == e2s->getFromNode())) {
+                return true;
+            }
+        }
+    }
+    for (NBEdge* e1s : same[e1]) {
+        if ((p2 & e1s->getPermissions() & SVC_LARGE_TURN) != 0
+                && (e2->getToNode() == e1s->getFromNode() || e1s->getToNode() == e2->getFromNode())) {
+            return true;
+        }
+    }
+    //std::cout << " e1=" << e1->getID() << " e2=" << e2->getID() << " sameE1=" << toString(same[e1]) << " sameE2=" << toString(same[e2]) << "\n";
+    return false;
+}
 
 PositionVector
 NBNodeShapeComputer::getSmoothCorner(PositionVector begShape, PositionVector endShape,
@@ -894,9 +932,6 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
     // @TODO compute the radius for each pair of neighboring edge intersections in computeNodeShapeDefault rather than use the maximum
     const double radius = oc.getFloat("default.junctions.radius");
     const double smallRadius = oc.getFloat("junctions.small-radius");
-    // foot- and bicycle paths as well as pure service roads should not get larget junctions
-    // railways also do have have junctions with sharp turns so can be excluded
-    SVCPermissions large = SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES);
     double maxRightAngle = 0; // rad
     double extraWidthRight = 0; // m
     double maxLeftAngle = 0; // rad
@@ -905,12 +940,12 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
     for (NBEdge* in : myNode.getIncomingEdges()) {
         int wideLanesIn = 0;
         for (int i = 0; i < in->getNumLanes(); i++) {
-            if ((in->getPermissions(i) & large) != 0) {
+            if ((in->getPermissions(i) & SVC_LARGE_TURN) != 0) {
                 wideLanesIn++;
             }
         }
         for (NBEdge* out : myNode.getOutgoingEdges()) {
-            if ((in->getPermissions() & out->getPermissions() & large) != 0) {
+            if ((in->getPermissions() & out->getPermissions() & SVC_LARGE_TURN) != 0) {
                 if (myNode.getDirection(in, out) == LinkDirection::TURN) {
                     continue;
                 };
@@ -920,7 +955,7 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
                 if (angle < 0) {
                     if (maxRightAngle < -angle) {
                         maxRightAngle = -angle;
-                        extraWidthRight = MAX2(getExtraWidth(in, large), getExtraWidth(out, large));
+                        extraWidthRight = MAX2(getExtraWidth(in, SVC_LARGE_TURN), getExtraWidth(out, SVC_LARGE_TURN));
                     }
                 } else {
                     if (maxLeftAngle < angle) {
@@ -942,7 +977,7 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
                 }
                 int wideLanesOut = 0;
                 for (int i = 0; i < out->getNumLanes(); i++) {
-                    if ((out->getPermissions(i) & large) != 0) {
+                    if ((out->getPermissions(i) & SVC_LARGE_TURN) != 0) {
                         wideLanesOut++;
                     }
                 }

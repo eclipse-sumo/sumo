@@ -141,6 +141,10 @@ private:
     /// @brief return the intersection point closest to the given offset
     double closestIntersection(const PositionVector& geom1, const PositionVector& geom2, double offset);
 
+    /// @brief whether the given edges (along with those in the same direction) requires a large turning radius
+    bool needsLargeTurn(NBEdge* e1, NBEdge* e2,
+            std::map<NBEdge*, std::set<NBEdge*> >& same) const;
+
     /// @brief determine the default radius appropriate for the current junction
     double getDefaultRadius(const OptionsCont& oc);
 
@@ -153,6 +157,8 @@ private:
 
     /// @brief the computed node radius
     double myRadius;
+
+    static const SVCPermissions SVC_LARGE_TURN;
 
 private:
     /// @brief Invalidated assignment operator
