@@ -15,6 +15,7 @@ permalink: /ChangeLog/
   - Option **--fcd-output.distance** now also applies to Meso. Issue #7069
   - Fixed invalid amount of charged energy in subsecond simulation when using battery device. Issue #7074
   - personTrips now support attribute fromTaz. Issue #7092
+  - Fixed invalid exit times in vehroute-output
   
 - NETCONVERT
   - Fixed crash when patching a network with '.tll.xml' file. Issue #7014 (Regression in 1.6.0)
@@ -26,6 +27,8 @@ permalink: /ChangeLog/
   - Option **--geometry.avoid-overlap** is no longer lost on reloading a network. Issue #7033
   - Closed roads with changed permissions are no longer ignored by the first loaded vehicles. Issue #6999  
   - Fixed infinite loop when loading OSM data with 'NaN' values. Issue #7101
+  - Fixed invalid 'neigh' lanes when editing network. Issue #7108
+  - Fixed bad node shapes at complex intersections with roads and footpaths. Issue #7042
   
 - SUMO-GUI
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
@@ -45,6 +48,7 @@ permalink: /ChangeLog/
   - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
   - Fixed crash when accessing prior riding stage with *person.getStage*. Issue #7060
   - Fixed crash and delayed effect when setting vehicle parameter "device.rerouting.period". Issue #7064, #7075
+  - Polygons and POIs added at runtime now show up in contextSubscriptions. Issue #7057
   
 - All Applications
   - File names with a `%`-Sign can no be loaded. Issue #6574
@@ -58,6 +62,7 @@ permalink: /ChangeLog/
   - Emission-output is now written only for those vehicles that have an emission device. By default all vehicles get the device when option **--emission-output** is set. This default can be changed by standard device assignment options and configurations. Issue #7079
   - Added option **--device.emissions.period** to control the period in which emission-output is written. Isue #7079
   - Charging stations now work when a vehicle is parking (either with `parking="true"` or when stopped at a parkingArea and a chargingStation simultaneously). Issue #7068
+  - The distance at which vehicles react to device.bluelight can now be configured with option **--device.bluelight.reactiondist**. Issue #7112
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
