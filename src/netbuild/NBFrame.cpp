@@ -670,8 +670,12 @@ NBFrame::checkOptions() {
         oc.set("no-internal-links", "false");
     }
     if (oc.getFloat("junctions.small-radius") > oc.getFloat("default.junctions.radius") && oc.getFloat("default.junctions.radius") >= 0) {
-        WRITE_ERROR("option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'");
-        ok = false;
+        if (!oc.isDefault("junctions.small-radius")) {
+            WRITE_ERROR("option 'default.junctions.radius' cannot be smaller than option 'junctions.small-radius'");
+            ok = false;
+        } else {
+            oc.set("junctions.small-radius", oc.getValueString("default.junctions.radius"));
+        }
     }
     if (oc.getString("tls.layout") != "opposites" && oc.getString("tls.layout") != "incoming") {
         WRITE_ERROR("tls.layout must be 'opposites' or 'incoming'");
