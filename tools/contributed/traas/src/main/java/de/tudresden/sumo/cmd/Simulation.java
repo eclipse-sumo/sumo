@@ -268,7 +268,7 @@ public class Simulation {
      */
 
     public static SumoCommand getDeltaT() {
-        return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_DELTA_T, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_INTEGER);
+        return new SumoCommand(Constants.CMD_GET_SIM_VARIABLE, Constants.VAR_DELTA_T, "", Constants.RESPONSE_GET_SIM_VARIABLE, Constants.TYPE_DOUBLE);
     }
 
     /**
