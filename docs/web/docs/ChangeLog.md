@@ -67,7 +67,7 @@ permalink: /ChangeLog/
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
   - Added option **edges.join-tram-dist {{DT_FLOAT}}** which can be used to join overlying road and tram edges into a single lane with combined permissions. This is needed for the correct dynamics in OSM-derived networks. Issue #6980
-  - When loading **pstop-files** and filtering the network extend, the loaded stops will be filtered automatically. Issue #7024
+  - When loading **ptstop-files** and filtering the network extend, the loaded stops will be filtered automatically. Issue #7024
   - When specifying a polygon boundary for option **--keep-edges.in-boundary**, the argument may now contain spaces to separate positions. This allows copying a polygon shape attribute. Issue #7025
   
 - NETEDIT
