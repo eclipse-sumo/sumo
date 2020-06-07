@@ -63,6 +63,8 @@ public class APITest {
             conn.runServer();
             conn.setOrder(1);
 
+            double deltaT = (double)conn.do_job_get(Simulation.getDeltaT());
+            System.out.println("deltaT:" + deltaT);
             SumoStage stage = (SumoStage)conn.do_job_get(Simulation.findRoute("gneE0", "gneE2", "car", 0, 0));
             System.out.println("findRoute result stage:");
             for (String s : stage.edges) {
