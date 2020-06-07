@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May  7 16:51:30 2020 by Eclipse SUMO netconvert Version v1_6_0+0132-aeb9130a20
+<!-- generated on Sun Jun  7 11:11:50 2020 by Eclipse SUMO netconvert Version v1_6_0+0579-3f3e02ebd1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="-4589475948" name="Brixton Academy" lane="-572772256#3_0" startPos="13.94" endPos="28.94" friendlyPos="true" lines="333 345 2 N2 196 322">
         <access lane="-210812678_0" pos="15.87" length="80.55" friendlyPos="1"/>
         <access lane="-529616561_0" pos="67.69" length="34.88" friendlyPos="1"/>
-        <access lane="12163239_0" pos="50.28" length="25.34" friendlyPos="1"/>
+        <access lane="12163239_0" pos="51.41" length="25.34" friendlyPos="1"/>
         <access lane="26627464_0" pos="107.10" length="54.28" friendlyPos="1"/>
         <access lane="529616561_0" pos="0.00" length="38.77" friendlyPos="1"/>
     </busStop>
@@ -86,7 +86,7 @@ SPDX-License-Identifier: EPL-2.0
     <busStop id="4589475949" name="Brixton Academy" lane="572772256#2_0" startPos="1.72" endPos="16.72" friendlyPos="true" lines="322 2 345 333 N2 196">
         <access lane="-210812678_0" pos="15.87" length="39.75" friendlyPos="1"/>
         <access lane="-210812681_0" pos="51.31" length="53.71" friendlyPos="1"/>
-        <access lane="12163239_0" pos="50.28" length="26.57" friendlyPos="1"/>
+        <access lane="12163239_0" pos="51.41" length="26.57" friendlyPos="1"/>
         <access lane="210812678_0" pos="0.00" length="44.39" friendlyPos="1"/>
         <access lane="26627464_0" pos="115.76" length="14.66" friendlyPos="1"/>
     </busStop>

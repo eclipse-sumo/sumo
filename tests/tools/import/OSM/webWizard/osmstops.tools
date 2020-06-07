@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Feb  6 12:51:09 2020 by Eclipse SUMO netconvert Version v1_4_0+0940-7211233
+<!-- generated on Sun Jun  7 11:11:33 2020 by Eclipse SUMO netconvert Version v1_6_0+0579-3f3e02ebd1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <type-files value="/scr1/sumo/data/typemap/osmNetconvert.typ.xml,/scr1/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/scr1/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/scr1/sumo/data/typemap/osmNetconvertShips.typ.xml,/scr1/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
+        <type-files value="/home/kobo/dlr/sumo/data/typemap/osmNetconvert.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertUrbanDe.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertPedestrians.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertShips.typ.xml,/home/kobo/dlr/sumo/data/typemap/osmNetconvertBicycle.typ.xml"/>
         <osm-files value="osm_bbox.osm.xml"/>
     </input>
 
@@ -47,6 +47,7 @@
 
     <railway>
         <railway.topology.repair value="true"/>
+        <railway.topology.repair.stop-turn value="true"/>
     </railway>
 
     <report>
@@ -116,7 +117,7 @@
     </busStop>
     <busStop id="1668497956" name="S Hackescher Markt" lane="153537614#2_0" startPos="20.51" endPos="41.22" friendlyPos="true" lines="M1">
         <access lane="46140376#1_0" pos="6.70" length="8.82" friendlyPos="1"/>
-        <access lane="59286500#0_0" pos="2.61" length="13.50" friendlyPos="1"/>
+        <access lane="59286500#0_0" pos="2.60" length="13.51" friendlyPos="1"/>
         <access lane="59286500#2_0" pos="0.00" length="14.21" friendlyPos="1"/>
         <access lane="83517332#1_0" pos="2.74" length="25.28" friendlyPos="1"/>
         <access lane="83517332#2_0" pos="8.25" length="15.57" friendlyPos="1"/>
@@ -154,7 +155,7 @@
         <access lane="165415454#0_0" pos="0.62" length="2.39" friendlyPos="1"/>
         <access lane="398956072_0" pos="2.05" length="7.28" friendlyPos="1"/>
         <access lane="398956073_0" pos="6.16" length="8.07" friendlyPos="1"/>
-        <access lane="398956074#1_0" pos="0.49" length="14.89" friendlyPos="1"/>
+        <access lane="398956074#1_0" pos="1.34" length="14.89" friendlyPos="1"/>
         <access lane="523633033_0" pos="0.00" length="16.80" friendlyPos="1"/>
     </busStop>
     <busStop id="1789092673" name="U Alexanderplatz" lane="317013528#1_0" startPos="72.77" endPos="97.77" friendlyPos="true" lines="M4 M5 M6">
@@ -251,10 +252,10 @@
         <access lane="377634145_0" pos="0.00" length="10.39" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266781" name="U Klosterstraße" lane="384294420_0" startPos="428.64" endPos="628.64" friendlyPos="true" lines="U2">
-        <access lane="-4612970#0_0" pos="0.00" length="12.77" friendlyPos="1"/>
-        <access lane="313323170#3_0" pos="21.50" length="14.76" friendlyPos="1"/>
-        <access lane="4612970#0_0" pos="115.83" length="8.56" friendlyPos="1"/>
-        <access lane="82658674#1_0" pos="22.57" length="14.74" friendlyPos="1"/>
+        <access lane="-4612970#0_0" pos="0.00" length="12.31" friendlyPos="1"/>
+        <access lane="313323170#3_0" pos="22.00" length="14.04" friendlyPos="1"/>
+        <access lane="4612970#0_0" pos="116.33" length="7.86" friendlyPos="1"/>
+        <access lane="82658674#1_0" pos="23.07" length="14.02" friendlyPos="1"/>
         <access lane="82658674#2_0" pos="0.00" length="7.83" friendlyPos="1"/>
     </busStop>
     <busStop id="2094266782" name="U Rosa-Luxemburg-Platz" lane="200422335#0_0" startPos="462.07" endPos="662.07" friendlyPos="true" lines="U2">
@@ -372,7 +373,7 @@
     <busStop id="29190909" name="U Bernauer Straße" lane="381187763_0" startPos="1272.75" endPos="1472.75" friendlyPos="true" lines="U8"/>
     <busStop id="29495029" name="U Klosterstraße" lane="177195505#0_0" startPos="162.20" endPos="349.92" friendlyPos="true" lines="U2">
         <access lane="-4612973#1_0" pos="0.39" length="0.36" friendlyPos="1"/>
-        <access lane="-82658674#1_0" pos="0.00" length="18.53" friendlyPos="1"/>
+        <access lane="-82658674#1_0" pos="0.00" length="17.80" friendlyPos="1"/>
         <access lane="-82658674#2_0" pos="27.38" length="8.44" friendlyPos="1"/>
         <access lane="4612973#1_0" pos="40.34" length="8.20" friendlyPos="1"/>
         <access lane="82658674#2_0" pos="0.00" length="19.00" friendlyPos="1"/>
@@ -387,8 +388,8 @@
         <access lane="274524379#1_0" pos="0.00" length="16.02" friendlyPos="1"/>
     </busStop>
     <busStop id="30353449" name="S Oranienburger Straße" lane="230976793_0" startPos="0.00" endPos="117.67" friendlyPos="true" lines="S1 S2 S25 S26">
-        <access lane="165415464#0_0" pos="0.00" length="8.33" friendlyPos="1"/>
-        <access lane="225400588#0_0" pos="0.14" length="8.70" friendlyPos="1"/>
+        <access lane="165415464#0_0" pos="0.00" length="5.83" friendlyPos="1"/>
+        <access lane="225400588#0_0" pos="2.64" length="5.01" friendlyPos="1"/>
         <access lane="225400596_0" pos="7.53" length="10.98" friendlyPos="1"/>
         <access lane="541864432_0" pos="0.00" length="9.26" friendlyPos="1"/>
         <access lane="541864434#0_0" pos="0.00" length="2.11" friendlyPos="1"/>
