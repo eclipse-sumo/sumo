@@ -151,10 +151,12 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
     const double defaultRadius = getDefaultRadius(oc);
     const bool useDefaultRadius = myNode.getRadius() == NBNode::UNSPECIFIED_RADIUS || myNode.getRadius() == defaultRadius;
     myRadius = (useDefaultRadius ? defaultRadius : myNode.getRadius());
+    const double smallRadius = oc.getFloat("junctions.small-radius");
     const int cornerDetail = oc.getInt("junctions.corner-detail");
     const double sCurveStretch = oc.getFloat("junctions.scurve-stretch");
     const bool rectangularCut = oc.getBool("rectangular-lane-cut");
     const bool openDriveOutput = oc.isSet("opendrive-output");
+    SVCPermissions large = SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES);
 
     // Extend geometries to move the stop line forward.
     // In OpenDrive the junction starts whenever the geometry changes. Stop
@@ -292,6 +294,8 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
             // the angles are different enough to compute the intersection of
             // the outer boundaries directly (or there are more than 2 directions). The "nearer" neighbar causes the furthest distance
             const bool ccwCloser = ccad < cad;
+            const bool neighLargeTurn = ((*i)->getPermissions() & (ccwCloser ? (*ccwi)->getPermissions() : (*cwi)->getPermissions()) & large) != 0;
+            const bool neigh2LargeTurn = ((*i)->getPermissions() & (ccwCloser ? (*cwi)->getPermissions() : (*ccwi)->getPermissions()) & large) != 0;
             // the border facing the closer neighbor
             const PositionVector& currGeom = ccwCloser ? geomsCCW[*i] : geomsCW[*i];
             // the border facing the far neighbor
@@ -311,7 +315,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
 #endif
             if (!simpleContinuation) {
                 if (currGeom.intersects(neighGeom)) {
-                    distances[*i] = myRadius + closestIntersection(currGeom, neighGeom, EXT);
+                    distances[*i] = (neighLargeTurn ? myRadius : smallRadius) + closestIntersection(currGeom, neighGeom, EXT);
 #ifdef DEBUG_NODE_SHAPE
                     if (DEBUGCOND) {
                         std::cout << "   neigh intersects dist=" << distances[*i] << " currGeom=" << currGeom << " neighGeom=" << neighGeom << "\n";
@@ -322,7 +326,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                         // but prevent very large node shapes
                         const double farAngleDist = ccwCloser ? cad : ccad;
                         double a1 = distances[*i];
-                        double a2 = myRadius + closestIntersection(currGeom2, neighGeom2, EXT);
+                        double a2 = (neigh2LargeTurn ? myRadius : smallRadius) + closestIntersection(currGeom2, neighGeom2, EXT);
 #ifdef DEBUG_NODE_SHAPE
                         if (DEBUGCOND) {
                             std::cout << "      neigh2 also intersects a1=" << a1 << " a2=" << a2 << " ccad=" << RAD2DEG(ccad) << " cad=" << RAD2DEG(cad) << " dist[cwi]=" << distances[*cwi] << " dist[ccwi]=" << distances[*ccwi] << " farAngleDist=" << RAD2DEG(farAngleDist) << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
@@ -346,7 +350,7 @@ NBNodeShapeComputer::computeNodeShapeDefault(bool simpleContinuation) {
                     }
                 } else {
                     if (*cwi != *ccwi && currGeom2.intersects(neighGeom2)) {
-                        distances[*i] = myRadius + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
+                        distances[*i] = (neigh2LargeTurn ? myRadius : smallRadius) + currGeom2.intersectsAtLengths2D(neighGeom2)[0];
 #ifdef DEBUG_NODE_SHAPE
                         if (DEBUGCOND) {
                             std::cout << "   neigh2 intersects dist=" << distances[*i] << " currGeom2=" << currGeom2 << " neighGeom2=" << neighGeom2 << "\n";
@@ -892,8 +896,7 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
     const double smallRadius = oc.getFloat("junctions.small-radius");
     // foot- and bicycle paths as well as pure service roads should not get larget junctions
     // railways also do have have junctions with sharp turns so can be excluded
-    SVCPermissions small = (SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES);
-    SVCPermissions large = SVCAll & ~small;
+    SVCPermissions large = SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES);
     double maxRightAngle = 0; // rad
     double extraWidthRight = 0; // m
     double maxLeftAngle = 0; // rad
