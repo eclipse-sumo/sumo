@@ -619,7 +619,9 @@ public:
                 validStops.push_back(stop);
                 lastUntil = stop.until;
             } else {
-                WRITE_WARNING("Ignoring stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                if (stop.busstop != "" && stop.until >= 0) {
+                    WRITE_WARNING("Ignoring stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                }
             }
         }
         if (validStops.size() < 2) {
