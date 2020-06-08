@@ -1583,7 +1583,7 @@ MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& error
     }
     stop.edge = std::find(*searchStart, myRoute->end(), stopEdge);
     MSRouteIterator prevStopEdge = myCurrEdge;
-    MSEdge* prevEdge = nullptr;
+    const MSEdge* prevEdge = (myLane == nullptr ? getEdge() : &myLane->getEdge());
     double prevStopPos = myState.myPos;
     // where to insert the stop
     std::list<Stop>::iterator iter = myStops.begin();
