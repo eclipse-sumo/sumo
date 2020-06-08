@@ -2436,16 +2436,16 @@ GNENet::generateDemandElementID(SumoXMLTag tag) const {
     // get references to vehicle maps
     const std::map<std::string, GNEDemandElement*> &vehicles = myAttributeCarriers->getDemandElements().at(SUMO_TAG_VEHICLE);
     const std::map<std::string, GNEDemandElement*> &trips = myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP);
-    const std::map<std::string, GNEDemandElement*> &vehiclesEmbebbed = myAttributeCarriers->getDemandElements().at(GNE_TAG_VEHICLE_EMBEDDED);
-    const std::map<std::string, GNEDemandElement*> &routeFlows = myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTEFLOW);
+    const std::map<std::string, GNEDemandElement*> &vehiclesEmbebbed = myAttributeCarriers->getDemandElements().at(GNE_TAG_VEHICLEWITHROUTE);
+    const std::map<std::string, GNEDemandElement*> &routeFlows = myAttributeCarriers->getDemandElements().at(GNE_TAG_FLOW_ROUTE);
     const std::map<std::string, GNEDemandElement*> &flows = myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW);
-    const std::map<std::string, GNEDemandElement*> &flowsEmbebbed = myAttributeCarriers->getDemandElements().at(GNE_TAG_FLOW_EMBEDDED);
+    const std::map<std::string, GNEDemandElement*> &flowsEmbebbed = myAttributeCarriers->getDemandElements().at(GNE_TAG_FLOW_WITHROUTE);
     // get references to persons maps
     const std::map<std::string, GNEDemandElement*> &persons = myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSON);
     const std::map<std::string, GNEDemandElement*> &personFlows = myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSONFLOW);
     // declare flags
-    const bool isVehicle = ((tag == SUMO_TAG_VEHICLE) || (tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_VEHICLE_EMBEDDED));
-    const bool isFlow = ((tag == SUMO_TAG_ROUTEFLOW) || (tag == SUMO_TAG_FLOW) || (tag == GNE_TAG_FLOW_EMBEDDED));
+    const bool isVehicle = ((tag == SUMO_TAG_VEHICLE) || (tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_VEHICLEWITHROUTE));
+    const bool isFlow = ((tag == GNE_TAG_FLOW_ROUTE) || (tag == SUMO_TAG_FLOW) || (tag == GNE_TAG_FLOW_WITHROUTE));
     const bool isPerson = ((tag == SUMO_TAG_PERSON) || (tag == SUMO_TAG_PERSONFLOW));
     // declare counter
     int counter = 0;

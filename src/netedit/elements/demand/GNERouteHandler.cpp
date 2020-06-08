@@ -136,7 +136,7 @@ GNERouteHandler::~GNERouteHandler() {}
 bool
 GNERouteHandler::isVehicleIdDuplicated(GNENet* net, const std::string& id) {
     // declare vehicle tags vector
-    std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_EMBEDDED, SUMO_TAG_TRIP, SUMO_TAG_ROUTEFLOW, GNE_TAG_FLOW_EMBEDDED, SUMO_TAG_FLOW};
+    std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLEWITHROUTE, SUMO_TAG_TRIP, GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW};
     for (const auto &vehicleTag : vehicleTags) {
         if (net->retrieveDemandElement(vehicleTag, id, false) != nullptr) {
             WRITE_ERROR("There is another " + toString(vehicleTag) + " with the same ID='" + id + "'.");
@@ -265,7 +265,7 @@ GNERouteHandler::buildVehicleEmbeddedRoute(GNENet* net, bool undoDemandElements,
             // set color
             embeddedRouteParameters.color = RGBColor::CYAN;
             // due vehicle was loaded without a route, change tag
-            vehicleParameters.tag = GNE_TAG_VEHICLE_EMBEDDED;
+            vehicleParameters.tag = GNE_TAG_VEHICLEWITHROUTE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEDemandElement* vehicle = new GNEVehicle(net, vType, vehicleParameters);
             // creaste embedded route
@@ -319,7 +319,7 @@ GNERouteHandler::buildFlowEmbeddedRoute(GNENet* net, bool undoDemandElements, SU
             // set color
             embeddedRouteParameters.color = RGBColor::CYAN;
             // due vehicle was loaded without a route, change tag
-            vehicleParameters.tag = GNE_TAG_FLOW_EMBEDDED;
+            vehicleParameters.tag = GNE_TAG_FLOW_WITHROUTE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEDemandElement* flow = new GNEVehicle(net, vType, vehicleParameters);
             // creaste embedded route
@@ -1176,7 +1176,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         // declare flag to save if vehicle is selected
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
-        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
+        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) &&
                 (originalVehicle->getParentDemandElements().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
         }
@@ -1187,7 +1187,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         // change tag in newVehicleParameters (needed for GNEVehicle constructor)
         newVehicleParameters.tag = SUMO_TAG_VEHICLE;
         // make transformation depending of vehicle tag
-        if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+        if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) {
             // obtain vehicle's route (it always exist due call to function separateEmbeddedRoute(...)
             GNEDemandElement* route = originalVehicle->getParentDemandElements().at(1);
             // create Vehicle using values of original vehicle
@@ -1228,15 +1228,15 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
 void
 GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
     // first check that given vehicle isn't already a routeflow
-    if (originalVehicle->getTagProperty().getTag() != SUMO_TAG_ROUTEFLOW) {
+    if (originalVehicle->getTagProperty().getTag() != GNE_TAG_FLOW_ROUTE) {
         // get pointer to undo list (due originalVehicle will be deleted)
         GNEUndoList* undoList = originalVehicle->getNet()->getViewNet()->getUndoList();
         // begin undo-redo operation
-        undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(SUMO_TAG_ROUTEFLOW));
+        undoList->p_begin("transform " + originalVehicle->getTagStr() + " to " + toString(GNE_TAG_FLOW_ROUTE));
         // declare flag to save if vehicle is selected
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
-        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
+        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) &&
                 (originalVehicle->getParentDemandElements().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
         }
@@ -1245,9 +1245,9 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         // extract vehicleParameters of originalVehicle
         SUMOVehicleParameter newVehicleParameters = *originalVehicle;
         // change tag in newVehicleParameters (needed for GNEVehicle constructor)
-        newVehicleParameters.tag = SUMO_TAG_ROUTEFLOW;
+        newVehicleParameters.tag = GNE_TAG_FLOW_ROUTE;
         // make transformation depending of vehicle tag
-        if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+        if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) {
             // obtain vehicle's route (it always exist due call to function separateEmbeddedRoute(...)
             GNEDemandElement* route = originalVehicle->getParentDemandElements().at(1);
             // create flow using newVehicleParameters
@@ -1298,7 +1298,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         // declare flag to save if vehicle is selected
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
-        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
+        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) &&
                 (originalVehicle->getParentDemandElements().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
         }
@@ -1309,7 +1309,7 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
         // change tag in newVehicleParameters (needed for GNEVehicle constructor)
         newVehicleParameters.tag = SUMO_TAG_TRIP;
         // make transformation depending of vehicle tag
-        if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+        if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) {
             // create trip using values of original vehicle (including ID) and route's edges
             GNEVehicle* trip = new GNEVehicle(originalVehicle->getNet(), vType,
                                               originalVehicle->getParentDemandElements().at(1)->getParentEdges().front(),
@@ -1363,7 +1363,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // declare flag to save if vehicle is selected
         bool selected = originalVehicle->isAttributeCarrierSelected();
         // first check if originalVehicle has an embedded route, and if true, separate it
-        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) &&
+        if (((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) &&
                 (originalVehicle->getParentDemandElements().size() == 1)) {
             originalVehicle = separateEmbeddedRoute(originalVehicle, undoList);
             separatedEmbeddedRoute = originalVehicle->getParentDemandElements().at(1);
@@ -1375,7 +1375,7 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
         // change tag in newVehicleParameters (needed for GNEVehicle constructor)
         newVehicleParameters.tag = SUMO_TAG_FLOW;
         // make transformation depending of vehicle tag
-        if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW)) {
+        if ((originalVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) || (originalVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE)) {
             // create Vehicle using values of original vehicle (including ID) and route's edges
             GNEVehicle* flow = new GNEVehicle(originalVehicle->getNet(), vType,
                                               originalVehicle->getParentDemandElements().at(1)->getParentEdges().front(),
@@ -1599,7 +1599,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 WRITE_ERROR("Invalid vehicle type '" + myVehicleParameter->vtypeid + "' used in " + toString(myVehicleParameter->tag) + " '" + myVehicleParameter->id + "'.");
             } else {
                 // due vehicle was loaded without a route, change tag
-                myVehicleParameter->tag = (myVehicleParameter->tag == SUMO_TAG_VEHICLE) ? GNE_TAG_VEHICLE_EMBEDDED : GNE_TAG_FLOW_EMBEDDED;
+                myVehicleParameter->tag = (myVehicleParameter->tag == SUMO_TAG_VEHICLE) ? GNE_TAG_VEHICLEWITHROUTE : GNE_TAG_FLOW_WITHROUTE;
                 // create vehicle or trips using myTemporalVehicleParameter without a route
                 myLoadedVehicleWithEmbebbedRoute = new GNEVehicle(myNet, vType, *myVehicleParameter);
                 // creaste embedded route
@@ -1860,7 +1860,7 @@ GNERouteHandler::closeFlow() {
         }
     } else if (myVehicleParameter) {
         // check if we're creating a flow or a routeFlow over route
-        if (myVehicleParameter->tag == SUMO_TAG_ROUTEFLOW) {
+        if (myVehicleParameter->tag == GNE_TAG_FLOW_ROUTE) {
             // build flow over route
             buildFlowOverRoute(myNet, myUndoDemandElements, *myVehicleParameter);
         } else if (myVehicleParameter->routeid.empty() && (myRouteParameter.edges.size() > 1)) {

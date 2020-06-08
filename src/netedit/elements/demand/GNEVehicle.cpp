@@ -100,7 +100,7 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
             } else {
                 myTransformToVehicleWithEmbeddedRoute->disable();
             }
-        } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_ROUTEFLOW) {
+        } else if (myVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE) {
             if (myVehicle->getParentDemandElements().size() > 1) {
                 myTransformToRouteFlow->disable();
             } else {
@@ -252,7 +252,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 // ===========================================================================
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
-    GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
+    GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
         {}, {}, {}, {}, {}, {}, {vehicleType, route}, {},   // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                    // Children
     SUMOVehicleParameter() {
@@ -264,7 +264,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 
 
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
+    GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
         {}, {}, {}, {}, {}, {}, {vehicleType, route}, {},   // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                    // Children
     SUMOVehicleParameter(vehicleParameters) {
@@ -276,7 +276,7 @@ GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElem
 
 
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_VEHICLE_EMBEDDED) ? GLO_VEHICLE : GLO_ROUTEFLOW, vehicleParameters.tag,
+    GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_VEHICLEWITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, vehicleParameters.tag,
         {}, {}, {}, {}, {}, {}, {vehicleType}, {},  // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),            // Children
     SUMOVehicleParameter(vehicleParameters) {
@@ -322,7 +322,7 @@ std::string
 GNEVehicle::getBegin() const {
     // obtain depart depending if is a Vehicle, trip or routeFlow
     std::string departStr;
-    if ((myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if ((myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         departStr = toString(depart);
     } else {
         departStr = getDepart();
@@ -354,7 +354,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         write(device, OptionsCont::getOptions(), synonymTag, getParentDemandElements().at(0)->getID());
     }
     // write specific attribute depeding of tag property
-    if ((getParentDemandElements().size() == 2) && (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+    if ((getParentDemandElements().size() == 2) && (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
         // write manually route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
     }
@@ -369,7 +369,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         }
     }
     // write specific routeFlow/flow attributes
-    if ((myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if ((myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // write routeFlow values depending if it was set
         if (isAttributeEnabled(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));
@@ -418,7 +418,7 @@ GNEVehicle::isDemandElementValid() const {
         } else {
             return false;
         }
-    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_EMBEDDEDROUTE)) {
+    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
         // check if exist a valid path using embebbed route edges
         if (myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getChildDemandElements().front()->getParentEdges()).size() > 0) {
             return true;
@@ -454,7 +454,7 @@ GNEVehicle::getDemandElementProblem() const {
         }
         // there is connections bewteen all edges, then all ok
         return "";
-    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_EMBEDDEDROUTE)) {
+    } else if (getChildDemandElements().size() > 0 && (getChildDemandElements().front()->getTagProperty().getTag() == GNE_TAG_ROUTE_EMBEDDED)) {
         // get embebbed route edges
         const std::vector<GNEEdge*>& routeEdges = getChildDemandElements().front()->getParentEdges();
         // check if exist at least a connection between every edge
@@ -638,7 +638,7 @@ GNEVehicle::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 std::string
 GNEVehicle::getParentName() const {
-    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+    if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
         return getParentDemandElements().at(1)->getID();
     } else if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         return getParentEdges().front()->getID();
@@ -766,7 +766,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     drawStackLabel(vehiclePosition, vehicleRotation, width, length);
                 }
                 // draw flow label
-                if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+                if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length);
                 }
                 // check if dotted contour has to be drawn
@@ -986,7 +986,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             if (SUMOXMLDefinitions::isValidVehicleID(value) &&
                     (myNet->retrieveDemandElement(SUMO_TAG_VEHICLE, value, false) == nullptr) &&
                     (myNet->retrieveDemandElement(SUMO_TAG_TRIP, value, false) == nullptr) &&
-                    (myNet->retrieveDemandElement(SUMO_TAG_ROUTEFLOW, value, false) == nullptr) &&
+                    (myNet->retrieveDemandElement(GNE_TAG_FLOW_ROUTE, value, false) == nullptr) &&
                     (myNet->retrieveDemandElement(SUMO_TAG_FLOW, value, false) == nullptr)) {
                 return true;
             } else {
@@ -1699,10 +1699,10 @@ GNEVehicle::updateStackedGeometry() {
     GNELane* firstLane = getFirstAllowedVehicleLane();
     // check if first lane wasn't sucesfully obtained
     if (!firstLane) {
-        if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+        if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
             // use route edges
             firstLane = getParentDemandElements().at(1)->getParentEdges().front()->getLanes().front();
-        } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_EMBEDDED) || (myTagProperty.getTag() == GNE_TAG_FLOW_EMBEDDED)) {
+        } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLEWITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
             // use embebbed route
             if (getChildDemandElements().size() > 0) {
                 firstLane = getChildDemandElements().front()->getParentEdges().front()->getLanes().front();
@@ -1729,7 +1729,7 @@ GNEVehicle::updateStackedGeometry() {
         if (getPathEdges().size() > 0) {
             GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
                                                     firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
             // use route edges
             if (getParentDemandElements().size() == 2) {
                 // calculate edge geometry path

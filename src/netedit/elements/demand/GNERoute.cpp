@@ -90,7 +90,7 @@ GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routePara
 
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_EMBEDDEDROUTE), net, GLO_ROUTE, GNE_TAG_EMBEDDEDROUTE,
+    GNEDemandElement(net->generateDemandElementID(GNE_TAG_ROUTE_EMBEDDED), net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
         {}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}, // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
     Parameterised(routeParameters.parameters),

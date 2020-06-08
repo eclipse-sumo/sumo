@@ -2176,22 +2176,22 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
     switch (tag) {
         // routes
         case SUMO_TAG_ROUTE:
-        case GNE_TAG_EMBEDDEDROUTE:
+        case GNE_TAG_ROUTE_EMBEDDED:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;
             break;
         // vehicles
         case SUMO_TAG_VEHICLE:
-        case SUMO_TAG_ROUTEFLOW:
+        case GNE_TAG_FLOW_ROUTE:
         case GNE_TAG_WALK_ROUTE:
             myCreationMode |= SINGLE_ELEMENT;
             myCreationMode |= ROUTE;
             break;
         case SUMO_TAG_TRIP:
         case SUMO_TAG_FLOW:
-        case GNE_TAG_VEHICLE_EMBEDDED:
-        case GNE_TAG_FLOW_EMBEDDED:
+        case GNE_TAG_VEHICLEWITHROUTE:
+        case GNE_TAG_FLOW_WITHROUTE:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;
             myCreationMode |= END_EDGE;

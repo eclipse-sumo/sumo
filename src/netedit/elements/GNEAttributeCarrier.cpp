@@ -2543,7 +2543,7 @@ GNEAttributeCarrier::fillDemandElements() {
             "yellow");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_EMBEDDEDROUTE;
+    currentTag = GNE_TAG_ROUTE_EMBEDDED;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -2840,7 +2840,7 @@ GNEAttributeCarrier::fillVehicleElements() {
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_VEHICLE_EMBEDDED;
+    currentTag = GNE_TAG_VEHICLEWITHROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -2868,7 +2868,7 @@ GNEAttributeCarrier::fillVehicleElements() {
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = SUMO_TAG_ROUTEFLOW;
+    currentTag = GNE_TAG_FLOW_ROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
@@ -2898,7 +2898,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         // add flow attributes
         fillCommonFlowAttributes(currentTag);
     }
-    currentTag = GNE_TAG_FLOW_EMBEDDED;
+    currentTag = GNE_TAG_FLOW_WITHROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

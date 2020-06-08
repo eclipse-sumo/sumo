@@ -119,7 +119,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // check if myVehicleParameter was sucesfully created
             if (myVehicleParameter) {
                 // check tag
-                if ((myVehicleParameter->routeid.empty()) || (myVehicleParameter->tag == SUMO_TAG_ROUTEFLOW)) {
+                if ((myVehicleParameter->routeid.empty()) || (myVehicleParameter->tag == GNE_TAG_FLOW_ROUTE)) {
                     // open a route flow
                     openRouteFlow(attrs);
                 } else {

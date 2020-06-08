@@ -933,7 +933,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
         myDemandElements.at(demandElement->getTagProperty().getTag()).erase(demandElement->getID());
         // remove embebbed route from container
         if (embebbedRoute) {
-            myDemandElements.at(GNE_TAG_EMBEDDEDROUTE).erase(embebbedRoute->getID());
+            myDemandElements.at(GNE_TAG_ROUTE_EMBEDDED).erase(embebbedRoute->getID());
         }
         // if is vehicle, remove it from vehicleDepartures
         if (demandElement->getTagProperty().isVehicle()) {
@@ -951,7 +951,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
         if (embebbedRoute) {
             // set new microsim ID
             embebbedRoute->setMicrosimID(embebbedRoute->getID());
-            myDemandElements.at(GNE_TAG_EMBEDDEDROUTE).insert(std::make_pair(embebbedRoute->getID(), embebbedRoute));
+            myDemandElements.at(GNE_TAG_ROUTE_EMBEDDED).insert(std::make_pair(embebbedRoute->getID(), embebbedRoute));
         }
         // if is vehicle, add it into vehicleDepartures
         if (demandElement->getTagProperty().isVehicle()) {

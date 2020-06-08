@@ -2473,7 +2473,7 @@ GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     for (const auto& vehicle : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
         vehicle.second->updateGeometry();
     }
-    for (const auto& routeFlow : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTEFLOW)) {
+    for (const auto& routeFlow : myNet->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
         routeFlow.second->updateGeometry();
     }
     for (const auto& trip : myNet->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {

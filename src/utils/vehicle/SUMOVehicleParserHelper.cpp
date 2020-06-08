@@ -116,7 +116,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         if (ret->routeid.empty()) {
             ret->tag = SUMO_TAG_FLOW;
         } else {
-            ret->tag = SUMO_TAG_ROUTEFLOW;
+            ret->tag = GNE_TAG_FLOW_ROUTE;
         }
         // parse repetition information
         if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {

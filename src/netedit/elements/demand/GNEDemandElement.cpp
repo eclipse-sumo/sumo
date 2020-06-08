@@ -227,14 +227,14 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // use route edges
         return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-    } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+    } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
         // check if vehicle use a embedded route
         if (getParentDemandElements().size() == 2) {
             return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         } else {
             return nullptr;
         }
-    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_EMBEDDED) || (myTagProperty.getTag() == GNE_TAG_FLOW_EMBEDDED)) {
+    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLEWITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
         if (getChildDemandElements().size() > 0) {
             return getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         } else {

@@ -1283,7 +1283,7 @@ GNEJunction::drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge
                 edge->drawPartialRoute(s, route, this);
             }
         }
-        for (const auto& embeddedRoute : edge->getChildDemandElementsByType(GNE_TAG_EMBEDDEDROUTE)) {
+        for (const auto& embeddedRoute : edge->getChildDemandElementsByType(GNE_TAG_ROUTE_EMBEDDED)) {
             // first check if embedded route can be drawn
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
                 // draw partial route
@@ -1298,8 +1298,8 @@ GNEJunction::drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge
                 edge->drawPartialRoute(s, route, this);
             }
         }
-        if (edge->getChildDemandElementsByType(GNE_TAG_EMBEDDEDROUTE).size() > 0) {
-            const auto& embeddedRoute = edge->getChildDemandElementsByType(GNE_TAG_EMBEDDEDROUTE).front();
+        if (edge->getChildDemandElementsByType(GNE_TAG_ROUTE_EMBEDDED).size() > 0) {
+            const auto& embeddedRoute = edge->getChildDemandElementsByType(GNE_TAG_ROUTE_EMBEDDED).front();
             if (myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(embeddedRoute)) {
                 edge->drawPartialRoute(s, embeddedRoute, this);
             }

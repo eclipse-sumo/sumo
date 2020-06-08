@@ -483,7 +483,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // reserve memory
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE).size() +
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP).size() +
-                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTEFLOW).size() +
+                                        viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE).size() +
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW).size());
                     // fill ACsToLocate with vehicles
                     for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
@@ -494,7 +494,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with routeFlows
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTEFLOW)) {
+                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
                         ACsToLocate.push_back(i.second);
                     }
                     // fill ACsToLocate with routeFlowsFromTo
