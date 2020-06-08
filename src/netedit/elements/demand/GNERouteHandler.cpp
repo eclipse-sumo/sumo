@@ -454,7 +454,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
     // declare pointers to parent elements
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;
-    GNEEdge* edge = nullptr;
+    // GNEEdge* edge = nullptr;
     SumoXMLTag stopTagType = SUMO_TAG_NOTHING;
     bool validParentDemandElement = true;
     if (stopParameters.busstop.size() > 0) {
@@ -469,7 +469,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
         stoppingPlace = net->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stopParameters.containerstop, false);
         // distinguish between stop for vehicles and stops for persons
         if (stopParent->getTagProperty().isPerson()) {
-            WRITE_ERROR("Persons doesn't support stops over container stops");
+            WRITE_ERROR("Persons don't support stops at container stops");
             validParentDemandElement = false;
         } else {
             stopTagType = SUMO_TAG_STOP_CONTAINERSTOP;
@@ -478,7 +478,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
         stoppingPlace = net->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stopParameters.chargingStation, false);
         // distinguish between stop for vehicles and stops for persons
         if (stopParent->getTagProperty().isPerson()) {
-            WRITE_ERROR("Persons doesn't support stops over charging stations");
+            WRITE_ERROR("Persons don't support stops at charging stations");
             validParentDemandElement = false;
         } else {
             stopTagType = SUMO_TAG_STOP_CHARGINGSTATION;
@@ -487,7 +487,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
         stoppingPlace = net->retrieveAdditional(SUMO_TAG_PARKING_AREA, stopParameters.parkingarea, false);
         // distinguish between stop for vehicles and stops for persons
         if (stopParent->getTagProperty().isPerson()) {
-            WRITE_ERROR("Persons doesn't support stops over parking areas");
+            WRITE_ERROR("Persons don't support stops at parking areas");
             validParentDemandElement = false;
         } else {
             stopTagType = SUMO_TAG_STOP_PARKINGAREA;
@@ -496,7 +496,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
         lane = net->retrieveLane(stopParameters.lane, false);
         stopTagType = SUMO_TAG_STOP_LANE;
     } else if (stopParameters.edge.size() > 0) {
-        edge = net->retrieveEdge(stopParameters.lane, false);
+        // edge = net->retrieveEdge(stopParameters.lane, false);
         stopTagType = GNE_TAG_PERSONSTOP_EDGE;
     }
     // first check that parent is valid
