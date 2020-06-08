@@ -801,9 +801,6 @@ The parameters are set within the `<vType>`:
 The behavior at intersections may be configured with the parameters
 listed below.
 
-!!! note
-    These parameters are not available in version 0.30.0 and older
-
 | Attribute              | Value Type                           | Default    | Description                               |
 | ---------------------- | ------------------------------------ | ---------- | ----------------------------------------- |
 | jmCrossingGap          | float \>= 0 (m)                      | 10         | Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle. If the pedestrians are further away the vehicle may drive across the pedestrian crossing.                                                                                                                                                                                                                                                 |
