@@ -59,6 +59,7 @@
 /bin/*.pyd
 /bin/osgPlugins*
 /bin/libsumoc*
+/bin/liblibsumojni.jnilib
 # data dir
 /data/proj
 # docs dir, make artifacts
@@ -117,6 +118,7 @@
 /tools/libsumo/libsumoPYTHON_wrap.cxx
 /tools/libsumo/libsumoc.so
 /tools/libsumo/libsumocpp.so
+/tools/libsumo/libsumocpp.dylib
 # extracted tests
 /tests/_*
 # global patterns
