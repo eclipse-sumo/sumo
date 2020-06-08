@@ -78,11 +78,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "routeProbe",                     SUMO_TAG_ROUTEPROBE },
     { "routes",                         SUMO_TAG_ROUTES },
     { "vehicle",                        SUMO_TAG_VEHICLE },
-    { "vehicle (embedded)",             GNE_TAG_VEHICLE_EMBEDDED },
     { "vType",                          SUMO_TAG_VTYPE },
     { "pType",                          SUMO_TAG_PTYPE },
     { "route",                          SUMO_TAG_ROUTE },
-    { "route (embedded)",               GNE_TAG_EMBEDDEDROUTE },
     { "request",                        SUMO_TAG_REQUEST },
     { "source",                         SUMO_TAG_SOURCE },
     { "taz",                            SUMO_TAG_TAZ },
@@ -95,7 +93,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "tripTAZ",                        SUMO_TAG_TRIP_TAZ },
     { "flow",                           SUMO_TAG_FLOW },
     { "routeFlow",                      SUMO_TAG_ROUTEFLOW },
-    { "flow (embedded)",                GNE_TAG_FLOW_EMBEDDED },
     { "flowCalibrator",                 SUMO_TAG_FLOW_CALIBRATOR },
     { "flowState",                      SUMO_TAG_FLOWSTATE },
     { "step",                           SUMO_TAG_STEP },
@@ -195,7 +192,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "carFollowing-CC",                SUMO_TAG_CF_CC },
     // Person
     { "person",                         SUMO_TAG_PERSON },
-    { "Person (embedded)",              GNE_TAG_PERSON_EMBEDDED },
     { "personTrip",                     SUMO_TAG_PERSONTRIP },
     { "ride",                           SUMO_TAG_RIDE },
     { "walk",                           SUMO_TAG_WALK },
@@ -253,6 +249,11 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE person Stops
     { "personStop: busStop",            GNE_TAG_PERSONSTOP_BUSSTOP },
     { "personStop: edge",               GNE_TAG_PERSONSTOP_EDGE },
+    // special tags to represent different input styles with the same tag internally
+    { "vehicle (embedded)",             GNE_TAG_VEHICLE_EMBEDDED },
+    { "route (embedded)",               GNE_TAG_EMBEDDEDROUTE },
+    { "flow (embedded)",                GNE_TAG_FLOW_EMBEDDED },
+    { "Person (embedded)",              GNE_TAG_PERSON_EMBEDDED },
     // Other
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };
