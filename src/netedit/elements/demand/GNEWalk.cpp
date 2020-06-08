@@ -37,7 +37,7 @@
 // ===========================================================================
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_WALK_EDGE_EDGE), net, GLO_WALK, GNE_TAG_WALK_EDGE_EDGE,
+    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_EDGE_EDGE), net, GLO_WALK, GNE_TAG_WALK_EDGE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}, // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
     myArrivalPosition(arrivalPosition) {
@@ -47,7 +47,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_WALK_EDGE_BUSSTOP), net, GLO_WALK, GNE_TAG_WALK_EDGE_BUSSTOP,
+    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_EDGE_BUSSTOP), net, GLO_WALK, GNE_TAG_WALK_EDGE_BUSSTOP,
         {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {},    // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
     myArrivalPosition(arrivalPosition) {
@@ -56,7 +56,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 }
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_WALK_BUSSTOP_EDGE), net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_EDGE,
+    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_BUSSTOP_EDGE), net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_EDGE,
         {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {},    // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
     myArrivalPosition(arrivalPosition) {
@@ -66,7 +66,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fro
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_WALK_BUSSTOP_BUSSTOP), net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_BUSSTOP,
+    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_BUSSTOP_BUSSTOP), net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_BUSSTOP,
         {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {},   // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                                    // Childrens
     myArrivalPosition(arrivalPosition) {
@@ -76,7 +76,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fro
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_WALK_EDGES), net, GLO_WALK, GNE_TAG_WALK_EDGES,
+    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_EDGES), net, GLO_WALK, GNE_TAG_WALK_EDGES,
         {}, {edges}, {}, {}, {}, {}, {personParent}, {},    // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                    // Childrens
     myArrivalPosition(arrivalPosition) {
@@ -86,7 +86,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdg
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_WALK_ROUTE), net, GLO_WALK, GNE_TAG_WALK_ROUTE,
+    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_ROUTE), net, GLO_WALK, GNE_TAG_WALK_ROUTE,
         {}, {}, {}, {}, {}, {}, {personParent, route}, {},  // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                    // Childrens
     myArrivalPosition(arrivalPosition) {

@@ -2432,28 +2432,53 @@ GNENet::isDemandElementsSaved() const {
 
 
 std::string
-GNENet::generateDemandElementID(const std::string& prefix, SumoXMLTag type) const {
+GNENet::generateDemandElementID(SumoXMLTag tag) const {
+    // get references to vehicle maps
+    const std::map<std::string, GNEDemandElement*> &vehicles = myAttributeCarriers->getDemandElements().at(SUMO_TAG_VEHICLE);
+    const std::map<std::string, GNEDemandElement*> &trips = myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP);
+    const std::map<std::string, GNEDemandElement*> &vehiclesEmbebbed = myAttributeCarriers->getDemandElements().at(GNE_TAG_VEHICLE_EMBEDDED);
+    const std::map<std::string, GNEDemandElement*> &routeFlows = myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTEFLOW);
+    const std::map<std::string, GNEDemandElement*> &flows = myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW);
+    const std::map<std::string, GNEDemandElement*> &flowsEmbebbed = myAttributeCarriers->getDemandElements().at(GNE_TAG_FLOW_EMBEDDED);
+    // get references to persons maps
+    const std::map<std::string, GNEDemandElement*> &persons = myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSON);
+    const std::map<std::string, GNEDemandElement*> &personFlows = myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSONFLOW);
+    // declare flags
+    const bool isVehicle = ((tag == SUMO_TAG_VEHICLE) || (tag == SUMO_TAG_TRIP) || (tag == GNE_TAG_VEHICLE_EMBEDDED));
+    const bool isFlow = ((tag == SUMO_TAG_ROUTEFLOW) || (tag == SUMO_TAG_FLOW) || (tag == GNE_TAG_FLOW_EMBEDDED));
+    const bool isPerson = ((tag == SUMO_TAG_PERSON) || (tag == SUMO_TAG_PERSONFLOW));
+    // declare counter
     int counter = 0;
-    if ((type == SUMO_TAG_VEHICLE) || (type == SUMO_TAG_TRIP) || (type == SUMO_TAG_ROUTEFLOW) || (type == SUMO_TAG_FLOW)) {
+    if (isVehicle || isFlow) {
+        // declare tag
+        const std::string tagStr = isVehicle? toString(SUMO_TAG_VEHICLE) : toString(SUMO_TAG_FLOW);
         // special case for vehicles (Vehicles, Flows, Trips and routeFlows share nameSpaces)
-        while ((myAttributeCarriers->getDemandElements().at(SUMO_TAG_VEHICLE).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
-                (myAttributeCarriers->getDemandElements().at(SUMO_TAG_TRIP).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
-                (myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTEFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
-                (myAttributeCarriers->getDemandElements().at(SUMO_TAG_FLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
+        while ((vehicles.count(tagStr + "_" + toString(counter)) != 0) ||
+               (trips.count(tagStr + "_" + toString(counter)) != 0) ||
+               (vehiclesEmbebbed.count(tagStr + "_" + toString(counter)) != 0) ||
+               (routeFlows.count(tagStr + "_" + toString(counter)) != 0) ||
+               (flows.count(tagStr + "_" + toString(counter)) != 0) ||
+               (flowsEmbebbed.count(tagStr + "_" + toString(counter)) != 0) ||
+               (vehicles.count(tagStr + "_" + toString(counter)) != 0)) {
             counter++;
         }
-    } else if ((type == SUMO_TAG_PERSON) || (type == SUMO_TAG_PERSONFLOW)) {
+        // return new vehicle ID
+        return (tagStr + "_" + toString(counter));
+    } else if (isPerson) {
         // special case for persons (person and personFlows share nameSpaces)
-        while ((myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSON).count(prefix + toString(type) + "_" + toString(counter)) != 0) ||
-                (myAttributeCarriers->getDemandElements().at(SUMO_TAG_PERSONFLOW).count(prefix + toString(type) + "_" + toString(counter)) != 0)) {
+        while ((persons.count(toString(tag) + "_" + toString(counter)) != 0) || 
+               (personFlows.count(toString(tag) + "_" + toString(counter)) != 0)) {
             counter++;
         }
+        // return new person ID
+        return (toString(tag) + "_" + toString(counter));
     } else {
-        while (myAttributeCarriers->getDemandElements().at(type).count(prefix + toString(type) + "_" + toString(counter)) != 0) {
+        while (myAttributeCarriers->getDemandElements().at(tag).count(toString(tag) + "_" + toString(counter)) != 0) {
             counter++;
         }
+        // return new element ID
+        return (toString(tag) + "_" + toString(counter));
     }
-    return (prefix + toString(type) + "_" + toString(counter));
 }
 
 

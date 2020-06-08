@@ -273,7 +273,7 @@ GNERouteFrame::createPath() {
         }
         // Check if ID has to be generated
         if (valuesMap.count(SUMO_ATTR_ID) == 0) {
-            routeParameters.routeID = myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE);
+            routeParameters.routeID = myViewNet->getNet()->generateDemandElementID(SUMO_TAG_ROUTE);
         } else {
             routeParameters.routeID = valuesMap[SUMO_ATTR_ID];
         }

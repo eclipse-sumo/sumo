@@ -276,7 +276,7 @@ GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElem
 
 
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == SUMO_TAG_ROUTEFLOW) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
+    GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_VEHICLE_EMBEDDED) ? GLO_VEHICLE : GLO_ROUTEFLOW, vehicleParameters.tag,
         {}, {}, {}, {}, {}, {}, {vehicleType}, {},  // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),            // Children
     SUMOVehicleParameter(vehicleParameters) {
@@ -1699,17 +1699,24 @@ GNEVehicle::updateStackedGeometry() {
     GNELane* firstLane = getFirstAllowedVehicleLane();
     // check if first lane wasn't sucesfully obtained
     if (!firstLane) {
-        if (getPathEdges().size() > 0) {
-            firstLane = getPathEdges().front()->getLanes().front();
-        } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
+        if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_ROUTEFLOW)) {
             // use route edges
-            if (getParentDemandElements().size() == 2) {
-                firstLane = getParentDemandElements().at(1)->getParentEdges().front()->getLanes().front();
-            } else if (getChildDemandElements().size() > 0) {
+            firstLane = getParentDemandElements().at(1)->getParentEdges().front()->getLanes().front();
+        } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_EMBEDDED) || (myTagProperty.getTag() == GNE_TAG_FLOW_EMBEDDED)) {
+            // use embebbed route
+            if (getChildDemandElements().size() > 0) {
                 firstLane = getChildDemandElements().front()->getParentEdges().front()->getLanes().front();
+             } else {
+                firstLane = nullptr;
             }
-        } else {
+        } else if (getPathEdges().size() > 0) {
+            // use path edges
+            firstLane = getPathEdges().front()->getLanes().front();
+        } else if (getParentEdges().size() > 0) {
+            // use first 
             firstLane = getParentEdges().front()->getLanes().front();
+        } else {
+            firstLane = nullptr;
         }
     }
     // continue only if lane was sucesfully found

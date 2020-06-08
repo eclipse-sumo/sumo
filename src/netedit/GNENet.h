@@ -568,7 +568,7 @@ public:
     bool isDemandElementsSaved() const;
 
     /// @brief generate demand element id
-    std::string generateDemandElementID(const std::string& prefix, SumoXMLTag type) const;
+    std::string generateDemandElementID(SumoXMLTag tag) const;
 
     /// @}
 

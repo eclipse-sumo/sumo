@@ -231,7 +231,11 @@ GNEDemandElement::getFirstAllowedVehicleLane() const {
         // check if vehicle use a embedded route
         if (getParentDemandElements().size() == 2) {
             return getParentDemandElements().at(1)->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
-        } else if (getChildDemandElements().size() > 0) {
+        } else {
+            return nullptr;
+        }
+    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_EMBEDDED) || (myTagProperty.getTag() == GNE_TAG_FLOW_EMBEDDED)) {
+        if (getChildDemandElements().size() > 0) {
             return getChildDemandElements().front()->getParentEdges().front()->getLaneByAllowedVClass(getVClass());
         } else {
             return nullptr;

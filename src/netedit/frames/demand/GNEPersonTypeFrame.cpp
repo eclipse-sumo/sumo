@@ -235,7 +235,7 @@ GNEPersonTypeFrame::PersonTypeEditor::refreshPersonTypeEditorModul() {
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdCreatePersonType(FXObject*, FXSelector, void*) {
     // obtain a new valid Vehicle Type ID
-    std::string personTypeID = myPersonTypeFrameParent->myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_PTYPE);
+    std::string personTypeID = myPersonTypeFrameParent->myViewNet->getNet()->generateDemandElementID(SUMO_TAG_PTYPE);
     // create new person type
     GNEDemandElement* personType = new GNEVehicleType(myPersonTypeFrameParent->myViewNet->getNet(), personTypeID, SUMO_TAG_PTYPE);
     // add it using undoList (to allow undo-redo)
@@ -320,7 +320,7 @@ GNEPersonTypeFrame::PersonTypeEditor::onCmdResetPersonType(FXObject*, FXSelector
 long
 GNEPersonTypeFrame::PersonTypeEditor::onCmdCopyPersonType(FXObject*, FXSelector, void*) {
     // obtain a new valid person Type ID
-    std::string personTypeID = myPersonTypeFrameParent->myViewNet->getNet()->generateDemandElementID("", SUMO_TAG_PTYPE);
+    std::string personTypeID = myPersonTypeFrameParent->myViewNet->getNet()->generateDemandElementID(SUMO_TAG_PTYPE);
     // obtain person type in which new person Type will be based
     GNEVehicleType* vType = dynamic_cast<GNEVehicleType*>(myPersonTypeFrameParent->myPersonTypeSelector->getCurrentPersonType());
     // check that vType exist

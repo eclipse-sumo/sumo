@@ -70,7 +70,7 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 // ===========================================================================
 
 GNERoute::GNERoute(GNENet* net) :
-    GNEDemandElement(net->generateDemandElementID("", SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
+    GNEDemandElement(net->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
         {}, {}, {}, {}, {}, {}, {}, {},     // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),    // Childrens
     Parameterised(),
@@ -90,7 +90,7 @@ GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routePara
 
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
-    GNEDemandElement(net->generateDemandElementID("", GNE_TAG_EMBEDDEDROUTE), net, GLO_ROUTE, GNE_TAG_EMBEDDEDROUTE,
+    GNEDemandElement(net->generateDemandElementID(GNE_TAG_EMBEDDEDROUTE), net, GLO_ROUTE, GNE_TAG_EMBEDDEDROUTE,
         {}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}, // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
     Parameterised(routeParameters.parameters),
@@ -100,7 +100,7 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteH
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
-    GNEDemandElement(route->getNet()->generateDemandElementID("", SUMO_TAG_ROUTE), route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
+    GNEDemandElement(route->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
         {}, route->getParentEdges(), {}, {}, {}, {}, {}, {},    // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),                        // Childrens
     Parameterised(),

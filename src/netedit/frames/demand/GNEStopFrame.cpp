@@ -284,7 +284,7 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
     // declare map to keep attributes from Frames from Frame
     std::map<SumoXMLAttr, std::string> valuesMap = stopAttributes->getAttributesAndValues(false);
     // generate ID
-    valuesMap[SUMO_ATTR_ID] = viewNet->getNet()->generateDemandElementID("", stopTag);
+    valuesMap[SUMO_ATTR_ID] = viewNet->getNet()->generateDemandElementID(stopTag);
     // add netedit values
     if (!stop.lane.empty()) {
         myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, lane);

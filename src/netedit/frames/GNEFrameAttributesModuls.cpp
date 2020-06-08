@@ -565,7 +565,7 @@ GNEFrameAttributesModuls::AttributesCreatorRow::generateID() const {
     } else if (myAttrProperties.getTagPropertyParent().isAdditionalElement()) {
         return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateAdditionalID(myAttrProperties.getTagPropertyParent().getTag());
     } else if (myAttrProperties.getTagPropertyParent().isDemandElement()) {
-        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateDemandElementID("", myAttrProperties.getTagPropertyParent().getTag());
+        return myAttributesCreatorParent->getFrameParent()->getViewNet()->getNet()->generateDemandElementID(myAttrProperties.getTagPropertyParent().getTag());
     } else {
         return "";
     }
