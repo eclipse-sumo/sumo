@@ -97,7 +97,7 @@ SUMO uses an application called TextTest to manage and execute and extensive set
 The installation of TextTest on MacOS is documented [here](../Developer/Tests.md).
 
 ### Code Editor
-Finally, you may also want to use a code editor or integrated development environment. There is a great variety of suitable tools available. If you are unsure which tool to pick, we would suggest to have a look at [Visual Studio Code](https://code.visualstudio.com/) for MacOS. The configuration of Visual Studio Code for the CMake setup is documented [here]().
+Finally, you may also want to use a code editor or integrated development environment. There is a great variety of suitable tools available. If you are unsure which tool to pick, we would suggest to have a look at [Visual Studio Code](https://code.visualstudio.com/) for MacOS. The configuration of Visual Studio Code for the CMake setup is documented [here](../Developer/VisualStudioCode.md).
 
 # The Macports Approach (legacy)
 

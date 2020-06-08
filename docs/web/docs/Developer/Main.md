@@ -53,6 +53,7 @@ permalink: /Developer/Main/
 - [Developer/Docker](Docker.md) - projects using Dockerised SUMO
 - [Eclipse Migration](../Eclipse_Migration.md)
 - [Git](../GitStuff.md)
+- [Visual Studio Code](VisualStudioCode.md) - how to use Visual Studio Code with the SUMO code base
 
 ## Continuous integration, code analysis and other external references
 
