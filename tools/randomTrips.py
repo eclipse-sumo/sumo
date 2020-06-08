@@ -577,8 +577,10 @@ def main(options):
 
     if options.routefile:
         args2 = args + ['-o', options.routefile]
-        print("calling ", " ".join(args2))
+        print("calling", " ".join(args2))
+        sys.stdout.flush()
         subprocess.call(args2)
+        sys.stdout.flush()
 
     if options.validate:
         # write to temporary file because the input is read incrementally
@@ -586,8 +588,10 @@ def main(options):
         args2 = args + ['-o', tmpTrips, '--write-trips']
         if options.junctionTaz:
             args2 += ['--write-trips.junctions']
-        print("calling ", " ".join(args2))
+        print("calling", " ".join(args2))
+        sys.stdout.flush()
         subprocess.call(args2)
+        sys.stdout.flush()
         os.remove(options.tripfile)  # on windows, rename does not overwrite
         os.rename(tmpTrips, options.tripfile)
 

@@ -268,6 +268,7 @@ def runSimulation(options):
                      "--vehroute-output", options.routes,
                      "--stop-output", options.stopinfos, ])
     print("done.")
+    sys.stdout.flush()
 
 
 def formatTime(seconds):
