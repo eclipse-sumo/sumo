@@ -28,12 +28,12 @@ import traci.constants as tc  # noqa
 
 
 traci.start([sumolib.checkBinary("sumo"),
-    '-n', 'input_net2.net.xml',
-    '--no-step-log', '-S', '-Q'])
+             '-n', 'input_net2.net.xml',
+             '--no-step-log', '-S', '-Q'])
 
-red = (255,0,0)
+red = (255, 0, 0)
 traci.poi.add("poi0", 0, 0, red)
-traci.polygon.add("poly0", ((0,0), (1,1)), red)
+traci.polygon.add("poly0", ((0, 0), (1, 1)), red)
 
 traci.polygon.subscribeContext("poly0", tc.CMD_GET_POI_VARIABLE, dist=20)
 

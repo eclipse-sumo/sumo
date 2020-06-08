@@ -17,18 +17,23 @@
 
 from functools import wraps
 import sys
+from .libsumo import simulation
 from .libsumo import *  # noqa
 
 _traceFile = [None]
+
+
 def close():
     simulation.close()
     if _traceFile[0]:
         _traceFile[0].close()
 
+
 def start(args, traceFile=None):
     if traceFile is not None:
         _startTracing(traceFile, args)
     simulation.load(args[1:])
+
 
 def _startTracing(traceFile, cmd):
     _traceFile[0] = open(traceFile, 'w')
@@ -38,27 +43,27 @@ def _startTracing(traceFile, cmd):
     for m in ["close", "load"]:
         setattr(self, m, self._addTracing(getattr(self, m)))
     for domain in [
-            busstop,
-            calibrator,
-            chargingstation,
-            edge,
-            #gui,
-            inductionloop,
-            junction,
-            lanearea,
-            lane,
-            multientryexit,
-            overheadwire,
-            parkingarea,
-            person,
-            poi,
-            polygon,
-            route,
-            simulation,
-            trafficlight,
-            vehicle,
-            vehicletype,
-            ]:
+            busstop,  # noqa
+            calibrator,  # noqa
+            chargingstation,  # noqa
+            edge,  # noqa
+            # gui,  # noqa
+            inductionloop,  # noqa
+            junction,  # noqa
+            lanearea,  # noqa
+            lane,  # noqa
+            multientryexit,  # noqa
+            overheadwire,  # noqa
+            parkingarea,  # noqa
+            person,  # noqa
+            poi,  # noqa
+            polygon,  # noqa
+            route,  # noqa
+            simulation,  # noqa
+            trafficlight,  # noqa
+            vehicle,  # noqa
+            vehicletype,  # noqa
+    ]:
         for attrName in dir(domain):
             if not attrName.startswith("_"):
                 attr = getattr(domain, attrName)
@@ -69,9 +74,10 @@ def _startTracing(traceFile, cmd):
                             "getAllContextSubscriptionResults",
                             "close",
                             "load"
-                            ]
+                ]
                         and not attrName.endswith('makeWrapper')):
                     setattr(domain, attrName, _addTracing(attr, domain.__name__))
+
 
 def _addTracing(method, domain=None):
     if domain:
@@ -80,10 +86,11 @@ def _addTracing(method, domain=None):
         name = method.__name__.replace('_', '.', 1)
     else:
         name = method.__name__
+
     @wraps(method)
     def tracingWrapper(*args, **kwargs):
         _traceFile[0].write("traci.%s(%s)\n" % (
             name,
-            ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n,v in kwargs.items()])))
+            ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
         return method(*args, **kwargs)
     return tracingWrapper

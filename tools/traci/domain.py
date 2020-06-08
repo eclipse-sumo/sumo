@@ -135,10 +135,9 @@ class Domain:
             self._traceFile.write("traci.%s.%s(%s)\n" % (
                 self._name,
                 method.__name__,
-                ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n,v in kwargs.items()])))
+                ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
             return method(*args, **kwargs)
         return tracingWrapper
-
 
     def _getUniversal(self, varID, objectID=""):
         if self._deprecatedFor:

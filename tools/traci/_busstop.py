@@ -16,7 +16,6 @@
 # @date    2020-06-02
 
 from __future__ import absolute_import
-import struct
 from . import constants as tc
 from .domain import Domain
 from .storage import Storage
@@ -91,4 +90,3 @@ class BusStopDomain(Domain):
         Get the IDs of waiting persons at the named bus stop.
         """
         return self._getUniversal(tc.VAR_BUS_STOP_WAITING_IDS, stopID)
-

@@ -94,14 +94,16 @@ def setConnectHook(hookFunc):
     global _connectHook
     _connectHook = hookFunc
 
+
 def _addTracing(method):
     @wraps(method)
     def tracingWrapper(*args, **kwargs):
         _traceFile[_currentLabel[0]].write("traci.%s(%s)\n" % (
             method.__name__,
-            ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n,v in kwargs.items()])))
+            ', '.join(list(map(repr, args)) + ["%s=%s" % (n, repr(v)) for n, v in kwargs.items()])))
         return method(*args, **kwargs)
     return tracingWrapper
+
 
 def connect(port=8813, numRetries=10, host="localhost", proc=None, waitBetweenRetries=1):
     """
@@ -164,10 +166,12 @@ def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFi
             numRetries -= 1
     raise FatalTraCIError("Could not connect.")
 
+
 def _startTracing(traceFile, cmd, port, label):
     _traceFile[label] = open(traceFile, 'w')
     _traceFile[label].write("traci.start(%s, port=%s, label=%s)\n" % (
         repr(cmd), repr(port), repr(label)))
+
 
 def isLibsumo():
     return False
@@ -255,6 +259,7 @@ def close(wait=True):
         # cannot wrap because the method is import from __init__
         _traceFile[_currentLabel[0]].write("traci.close()\n")
         _traceFile[_currentLabel[0]].close()
+
 
 def switch(label):
     _connections[""] = getConnection(label)

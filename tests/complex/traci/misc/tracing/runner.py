@@ -41,7 +41,7 @@ def setGetParam(objectType, object, objectID):
 
 
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:],
-        traceFile="log.txt")
+            traceFile="log.txt")
 print("step", step())
 
 # XXX test PoI, Polygon

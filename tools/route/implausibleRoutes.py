@@ -214,7 +214,7 @@ def main():
         command = [sumolib.checkBinary('duarouter'), '-n', options.network,
                    '-r', duarouterInput, '-o', duarouterOutput,
                    '--no-step-log', '--routing-threads', str(options.threads),
-                   '--routing-algorithm' , 'astar', '--aggregate-warnings',  '1']
+                   '--routing-algorithm', 'astar', '--aggregate-warnings',  '1']
         if options.verbose:
             command += ["-v"]
         if options.verbose:

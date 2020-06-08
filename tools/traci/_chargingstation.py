@@ -16,7 +16,6 @@
 # @date    2020-06-02
 
 from __future__ import absolute_import
-import struct
 from . import constants as tc
 from .domain import Domain
 from .storage import Storage
@@ -34,7 +33,8 @@ _RETURN_VALUE_FUNC = {
 class ChargingStationDomain(Domain):
 
     def __init__(self):
-        Domain.__init__(self, "chargingstation", tc.CMD_GET_CHARGINGSTATION_VARIABLE, tc.CMD_SET_CHARGINGSTATION_VARIABLE,
+        Domain.__init__(self, "chargingstation",
+                        tc.CMD_GET_CHARGINGSTATION_VARIABLE, tc.CMD_SET_CHARGINGSTATION_VARIABLE,
                         tc.CMD_SUBSCRIBE_CHARGINGSTATION_VARIABLE, tc.RESPONSE_SUBSCRIBE_CHARGINGSTATION_VARIABLE,
                         tc.CMD_SUBSCRIBE_CHARGINGSTATION_CONTEXT, tc.RESPONSE_SUBSCRIBE_CHARGINGSTATION_CONTEXT,
                         _RETURN_VALUE_FUNC)
@@ -77,4 +77,3 @@ class ChargingStationDomain(Domain):
         Get the IDs of vehicles stopped at the named charging station.
         """
         return self._getUniversal(tc.VAR_STOP_STARTING_VEHICLES_IDS, stopID)
-

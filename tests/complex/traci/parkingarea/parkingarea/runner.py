@@ -27,12 +27,12 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
-traci.start([sumolib.checkBinary('sumo'), 
-    '-n', 'input_net2.net.xml',
-    '-a', 'input_additional2.add.xml',
-    '-r', 'input_routes.rou.xml',
-    '--no-step-log',
-    ])
+traci.start([sumolib.checkBinary('sumo'),
+             '-n', 'input_net2.net.xml',
+             '-a', 'input_additional2.add.xml',
+             '-r', 'input_routes.rou.xml',
+             '--no-step-log',
+             ])
 
 print("parkingareas", traci.parkingarea.getIDList())
 print("parkingarea count", traci.parkingarea.getIDCount())

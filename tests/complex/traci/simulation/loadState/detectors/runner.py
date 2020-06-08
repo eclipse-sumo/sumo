@@ -30,11 +30,11 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo'),
-    '-n', 'input_net2.net.xml',
-    '-a', 'input_additional.add.xml',
-    '--tripinfo-output', 'tripinfos.xml',
-    '--no-step-log',
-    ])
+             '-n', 'input_net2.net.xml',
+             '-a', 'input_additional.add.xml',
+             '--tripinfo-output', 'tripinfos.xml',
+             '--no-step-log',
+             ])
 
 for i in range(4):
     traci.simulation.loadState("input_state.xml")
@@ -46,6 +46,5 @@ for i in range(4):
                     i, traci.simulation.getTime(), det,
                     detType.getLastStepVehicleNumber(det),
                     detType.getLastStepVehicleIDs(det),
-                    ))
+                ))
 traci.close()
-
