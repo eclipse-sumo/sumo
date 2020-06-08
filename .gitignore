@@ -60,6 +60,7 @@
 /bin/osgPlugins*
 /bin/libsumoc*
 /bin/liblibsumojni.jnilib
+/bin/libsumofmi2.dylib
 # data dir
 /data/proj
 # docs dir, make artifacts
