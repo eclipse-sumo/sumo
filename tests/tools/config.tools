@@ -177,6 +177,7 @@ osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->
 pois:<!--
 routes:<!-- generated on{[->]}-->
+xml:<!-- generated on{[->]}-->
 errors:Execution of .*duarouter.*'{REPLACE Execution of <path-to>duarouter'}
 errors:Leaked object at 
 errors:*** 9 leaks found
