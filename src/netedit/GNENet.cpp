@@ -686,7 +686,7 @@ GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoLi
                 addRestriction = false;
             } else {
                 // ensure that the sidewalk is used exclusively
-                const SVCPermissions allOldWithoutPeds = edge->getNBEdge()->getPermissions(lane->getIndex()) & ~SVC_PEDESTRIAN;
+                const SVCPermissions allOldWithoutPeds = edge->getNBEdge()->getPermissions(edgeLane->getIndex()) & ~SVC_PEDESTRIAN;
                 edgeLane->setAttribute(SUMO_ATTR_ALLOW, getVehicleClassNames(allOldWithoutPeds), undoList);
             }
         }
