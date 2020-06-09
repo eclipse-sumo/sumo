@@ -567,6 +567,10 @@ private:
     /// @brief check if the lane intersects with a foe cont-lane
     bool contIntersect(const MSLane* lane, const MSLane* foe);
 
+    /// @brief compute point of divergence for geomatries with a common start or end
+    double computeDistToDivergence(const MSLane* lane, const MSLane* sibling, double minDist, bool sameSource) const;
+
+
 private:
     /// @brief The lane behind the junction approached by this link
     MSLane* myLane;
