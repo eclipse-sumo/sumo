@@ -166,6 +166,7 @@ output:Warning: Module 'rtree' not available. Using brute-force fallback
 output:2147483647{REPLACE 9223372036854775807}
 output:Simulation.*started with{REPLACE Simulation started with}
 output:Retrying in
+output:00000 *${REPLACE 00000}
 dualog:uration:.*ms
 dualog:Real time factor
 dualog:UPS
