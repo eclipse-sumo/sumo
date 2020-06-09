@@ -357,9 +357,9 @@ def humanReadableTime(seconds):
     return result
 
 
-def parseTime(t):
+def parseTime(t, factor=1):
     try:
-        return float(t)
+        return float(t) * factor
     except ValueError:
         pass
     # prepended zero is ignored if the date value already contains days

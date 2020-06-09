@@ -38,18 +38,24 @@ DEBUG = False
 
 
 def get_options(args=None):
-    optParser = OptionParser()
-    optParser.add_option("-d", "--detector-file", dest="detfile",
+    parser = sumolib.options.ArgumentParser(description="Convert detector flow file to edgeData format")
+    parser.add_argument("-d", "--detector-file", dest="detfile",
                          help="read detectors from FILE (mandatory)", metavar="FILE")
-    optParser.add_option("-f", "--detector-flow-file", dest="flowfile",
+    parser.add_argument("-f", "--detector-flow-file", dest="flowfile",
                          help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
-    optParser.add_option("-o", "--output-file", dest="output",
+    parser.add_argument("-o", "--output-file", dest="output",
                          help="output edgeData FILE (mandatory)", metavar="FILE")
-    optParser.add_option("-c", "--flow-columns", dest="flowcols", default="qPKW,qLKW",
+    parser.add_argument("-q", "--flow-columns", dest="flowcols", default="qPKW,qLKW",
                          help="which columns contains flows", metavar="STRING")
-    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+    parser.add_argument("-b", "--begin", default=0,
+                        help="custom begin time (minutes or H:M:S)")
+    parser.add_argument("-e", "--end", default=1440,
+                        help="custom end time (minutes or H:M:S)")
+    parser.add_argument("-i", "--interval", default=1440,
+                        help="custom aggregation interval (minutes or H:M:S)")
+    parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
                          default=False, help="tell me what you are doing")
-    (options, args) = optParser.parse_args(args=args)
+    options = parser.parse_args(args=args)
     if not options.detfile or not options.flowfile or not options.output:
         optParser.print_help()
         sys.exit()
@@ -64,38 +70,54 @@ class LaneMap:
 
 def main(options):
     readers = {}
-    for flowcol in options.flowcols.split(','):
+    flowcols = options.flowcols.split(',')
+    tMin = None
+    tMax = None
+    for flowcol in flowcols:
         detReader = detector.DetectorReader(options.detfile, LaneMap())
+        tMin, tMax = detReader.findTimes(options.flowfile, tMin, tMax)
         hasData = detReader.readFlows(options.flowfile, flow=flowcol, time="Time", timeVal=0, timeMax=1440)
         if options.verbose:
             print("flowColumn: %s hasData: %s" % (flowcol, hasData))
         readers[flowcol] = detReader
 
+    if options.verbose:
+        print("found data from minute %s to %s" % (int(tMin), int(tMax)))
+
+    beginM = int(sumolib.miscutils.parseTime(options.begin, 60) / 60)
+    intervalM = int(sumolib.miscutils.parseTime(options.interval, 60) / 60)
+    endM = min(int(sumolib.miscutils.parseTime(options.end, 60) / 60), tMax)
+
     with open(options.output, "w") as outf:
-        edges = defaultdict(dict)  # edge : {attr:val}
-        maxGroups = defaultdict(lambda: 0)  # edge : nGroups
-
-        for flowcol, detReader in readers.items():
-            for edge, detData in detReader._edge2DetData.items():
-                maxFlow = 0
-                nGroups = 0
-                for group in detData:
-                    if group.isValid:
-                        maxFlow = max(maxFlow, group.totalFlow)
-                        nGroups += 1
-                # if options.verbose:
-                #    print("flowColumn: %s edge: %s flow: %s groups: %s" % (
-                #        flowcol, edge, maxFlow, nGroups))
-                edges[edge][flowcol] = maxFlow
-                maxGroups[edge] = max(maxGroups[edge], nGroups)
-
         sumolib.writeXMLHeader(outf, "$Id$")  # noqa
         outf.write('<data>\n')
-        outf.write('    <interval id="flowdata" begin="0" end="3600">\n')
-        for edge in sorted(edges.keys()):
-            attrs = ' '.join(['%s="%s"' % (k, v) for k, v in edges[edge].items()])
-            outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))
-        outf.write('    </interval>\n')
+        while beginM <= endM:
+            iEndM = beginM + intervalM
+            edges = defaultdict(dict)  # edge : {attr:val}
+            maxGroups = defaultdict(lambda: 0)  # edge : nGroups
+
+            for flowcol in flowcols:
+                detReader = detector.DetectorReader(options.detfile, LaneMap())
+                detReader.readFlows(options.flowfile, flow=flowcol, time="Time", timeVal=beginM, timeMax=iEndM)
+                for edge, detData in detReader._edge2DetData.items():
+                    maxFlow = 0
+                    nGroups = 0
+                    for group in detData:
+                        if group.isValid:
+                            maxFlow = max(maxFlow, group.totalFlow)
+                            nGroups += 1
+                    # if options.verbose:
+                    #    print("flowColumn: %s edge: %s flow: %s groups: %s" % (
+                    #        flowcol, edge, maxFlow, nGroups))
+                    edges[edge][flowcol] = maxFlow
+                    maxGroups[edge] = max(maxGroups[edge], nGroups)
+
+            outf.write('    <interval id="flowdata" begin="%s" end="%s">\n' % (beginM * 60, iEndM * 60))
+            for edge in sorted(edges.keys()):
+                attrs = ' '.join(['%s="%s"' % (k, v) for k, v in edges[edge].items()])
+                outf.write('        <edge id="%s" %s groups="%s"/>\n' % (edge, attrs, nGroups))
+            outf.write('    </interval>\n')
+            beginM += intervalM
         outf.write('</data>\n')
 
 
