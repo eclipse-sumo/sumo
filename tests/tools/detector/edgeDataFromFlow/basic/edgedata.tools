@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-02-28 07:45:33.394797 by edgeDataFromFlow.py v1_5_0+0285-9cca322
+<!-- generated on 2020-06-09 12:06:05.634276 by edgeDataFromFlow.py v1_6_0+0609-41146a8601
   options: -d input_detectors.det.xml -f input_flows.txt -o edgedata.xml <doubleminus>verbose
 -->
 <data>
-    <interval id="flowdata" begin="0" end="3600">
+    <interval id="flowdata" begin="0" end="86400">
         <edge id="1" qLKW="0" qPKW="900.0" groups="1"/>
         <edge id="2" qLKW="0" qPKW="900.0" groups="1"/>
         <edge id="3" qLKW="0" qPKW="0" groups="1"/>

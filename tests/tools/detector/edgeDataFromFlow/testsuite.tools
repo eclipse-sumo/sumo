@@ -1,2 +1,5 @@
 # only flow on the main motorway, aggregate by hour
 basic
+
+# aggregate by hour
+interval
