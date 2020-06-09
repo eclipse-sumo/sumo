@@ -2840,7 +2840,7 @@ GNEAttributeCarrier::fillVehicleElements() {
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_VEHICLEWITHROUTE;
+    currentTag = GNE_TAG_VEHICLE_WITHROUTE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

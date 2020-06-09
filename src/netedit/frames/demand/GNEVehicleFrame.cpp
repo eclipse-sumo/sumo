@@ -149,7 +149,7 @@ bool
 GNEVehicleFrame::addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
     // obtain tag (only for improve code legibility)
     SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
-    const bool addEdge = ((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == GNE_TAG_VEHICLEWITHROUTE) || (vehicleTag == SUMO_TAG_FLOW) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
+    const bool addEdge = ((vehicleTag == SUMO_TAG_TRIP) || (vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) || (vehicleTag == SUMO_TAG_FLOW) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
     // first check that current selected vehicle is valid
     if (vehicleTag == SUMO_TAG_NOTHING) {
         myViewNet->setStatusBarText("Current selected vehicle isn't valid.");
@@ -301,7 +301,7 @@ void
 GNEVehicleFrame::createPath() {
     // obtain tag (only for improve code legibility)
     SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
-    const bool embebbedRoute = ((vehicleTag == GNE_TAG_VEHICLEWITHROUTE) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
+    const bool embebbedRoute = ((vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
     // check number of edges
     if ((myPathCreator->getSelectedEdges().size() > 1) || (myPathCreator->getSelectedEdges().size() > 0 && embebbedRoute)) {
         // Declare map to keep attributes from Frames from Frame
@@ -331,7 +331,7 @@ GNEVehicleFrame::createPath() {
             GNERouteHandler::buildTrip(myViewNet->getNet(), true, *tripParameters, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), viaEdges);
             // delete tripParameters
             delete tripParameters;
-        } else if (vehicleTag == GNE_TAG_VEHICLEWITHROUTE) {
+        } else if (vehicleTag == GNE_TAG_VEHICLE_WITHROUTE) {
             // Add parameter departure
             if (valuesMap[SUMO_ATTR_DEPART].empty()) {
                 valuesMap[SUMO_ATTR_DEPART] = "0";

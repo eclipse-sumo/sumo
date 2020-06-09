@@ -1441,7 +1441,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                         vehicle.second->setAttribute(GNE_ATTR_SELECTED, "true", mySelectorFrameParent->myViewNet->getUndoList());
                     }
                 }
-                for (const auto& vehicle : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_VEHICLEWITHROUTE)) {
+                for (const auto& vehicle : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_VEHICLE_WITHROUTE)) {
                     if (vehicle.second->isAttributeCarrierSelected()) {
                         vehicle.second->setAttribute(GNE_ATTR_SELECTED, "false", mySelectorFrameParent->myViewNet->getUndoList());
                     } else {
@@ -1796,7 +1796,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                         vehicle.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
-                for (const auto& vehicle : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_VEHICLEWITHROUTE)) {
+                for (const auto& vehicle : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_VEHICLE_WITHROUTE)) {
                     if (vehicle.second->isAttributeCarrierSelected()) {
                         vehicle.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
@@ -2084,7 +2084,7 @@ GNESelectorFrame::ACsToSelected() const {
             return true;
         }
         // check vehicles
-        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_VEHICLE) && ((demandElementsMap.at(SUMO_TAG_VEHICLE).size() + demandElementsMap.at(GNE_TAG_VEHICLEWITHROUTE).size()) > 0)) {
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_VEHICLE) && ((demandElementsMap.at(SUMO_TAG_VEHICLE).size() + demandElementsMap.at(GNE_TAG_VEHICLE_WITHROUTE).size()) > 0)) {
             return true;
         }
         // check trips

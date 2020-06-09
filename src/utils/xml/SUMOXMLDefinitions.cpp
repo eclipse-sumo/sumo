@@ -78,9 +78,11 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "routeProbe",                     SUMO_TAG_ROUTEPROBE },
     { "routes",                         SUMO_TAG_ROUTES },
     { "vehicle",                        SUMO_TAG_VEHICLE },
+    { "vehicleWithRoute",               GNE_TAG_VEHICLE_WITHROUTE },
     { "vType",                          SUMO_TAG_VTYPE },
     { "pType",                          SUMO_TAG_PTYPE },
     { "route",                          SUMO_TAG_ROUTE },
+    { "routeEmbedded",                  GNE_TAG_ROUTE_EMBEDDED },
     { "request",                        SUMO_TAG_REQUEST },
     { "source",                         SUMO_TAG_SOURCE },
     { "taz",                            SUMO_TAG_TAZ },
@@ -91,6 +93,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "phase",                          SUMO_TAG_PHASE },
     { "trip",                           SUMO_TAG_TRIP },
     { "tripTAZ",                        SUMO_TAG_TRIP_TAZ },
+    { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
+    { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
     { "flow",                           SUMO_TAG_FLOW },
     { "flowCalibrator",                 SUMO_TAG_FLOW_CALIBRATOR },
     { "flowState",                      SUMO_TAG_FLOWSTATE },
@@ -248,12 +252,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     // GNE person Stops
     { "personStop: busStop",            GNE_TAG_PERSONSTOP_BUSSTOP },
     { "personStop: edge",               GNE_TAG_PERSONSTOP_EDGE },
-    // special tags to represent different input styles with the same tag internally
-    { "vehicleWithRoute",               GNE_TAG_VEHICLEWITHROUTE },
-    { "routeEmbedded",                  GNE_TAG_ROUTE_EMBEDDED },
-    { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
-    { "flowWithRoute",                  GNE_TAG_FLOW_WITHROUTE },
-    { "Person (embedded)",              GNE_TAG_PERSON_EMBEDDED },
     // Other
     { "",                               SUMO_TAG_NOTHING }  // -> must be the last one
 };

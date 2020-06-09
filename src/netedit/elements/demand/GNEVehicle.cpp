@@ -276,7 +276,7 @@ GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElem
 
 
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
-    GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_VEHICLEWITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, vehicleParameters.tag,
+    GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, vehicleParameters.tag,
         {}, {}, {}, {}, {}, {}, {vehicleType}, {},  // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),            // Children
     SUMOVehicleParameter(vehicleParameters) {
@@ -1702,7 +1702,7 @@ GNEVehicle::updateStackedGeometry() {
         if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
             // use route edges
             firstLane = getParentDemandElements().at(1)->getParentEdges().front()->getLanes().front();
-        } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLEWITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+        } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
             // use embebbed route
             if (getChildDemandElements().size() > 0) {
                 firstLane = getChildDemandElements().front()->getParentEdges().front()->getLanes().front();

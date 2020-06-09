@@ -2190,7 +2190,7 @@ GNEFrameModuls::PathCreator::showPathCreatorModul(SumoXMLTag tag, const bool fir
             break;
         case SUMO_TAG_TRIP:
         case SUMO_TAG_FLOW:
-        case GNE_TAG_VEHICLEWITHROUTE:
+        case GNE_TAG_VEHICLE_WITHROUTE:
         case GNE_TAG_FLOW_WITHROUTE:
             myCreationMode |= SHOW_CANDIDATE_EDGES;
             myCreationMode |= START_EDGE;

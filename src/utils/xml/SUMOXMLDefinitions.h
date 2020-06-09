@@ -123,12 +123,16 @@ enum SumoXMLTag {
     SUMO_TAG_ROUTES,
     /// @brief description of a vehicle
     SUMO_TAG_VEHICLE,
+    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    GNE_TAG_VEHICLE_WITHROUTE,
     /// @brief description of a vehicle type
     SUMO_TAG_VTYPE,
     /// @brief description of a person type (used in NETEDIT)
     SUMO_TAG_PTYPE,
     /// @brief begin/end of the description of a route
     SUMO_TAG_ROUTE,
+    /// @brief embedded route (used in NETEDIT)
+    GNE_TAG_ROUTE_EMBEDDED,
     /// @brief description of a logic request within the junction
     SUMO_TAG_REQUEST,
     /// @brief a source
@@ -149,6 +153,10 @@ enum SumoXMLTag {
     SUMO_TAG_TRIP,
     /// @brief a single trip definition that uses TAZs (used in NETEDIT)
     SUMO_TAG_TRIP_TAZ,
+    /// @brief a flow definition using a route instead of a from-to edges route (used in NETEDIT)
+    GNE_TAG_FLOW_ROUTE,
+    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
+    GNE_TAG_FLOW_WITHROUTE,
     /// @brief a flow definitio nusing a from-to edges instead of a route (used by router)
     SUMO_TAG_FLOW,
     /// @brief a flow definition within in Calibrator (used in NETEDIT)
@@ -381,14 +389,6 @@ enum SumoXMLTag {
     // person stops
     GNE_TAG_PERSONSTOP_BUSSTOP,
     GNE_TAG_PERSONSTOP_EDGE,
-    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
-    GNE_TAG_VEHICLEWITHROUTE,
-    /// @brief embedded route (used in NETEDIT)
-    GNE_TAG_ROUTE_EMBEDDED,
-    /// @brief a flow definition nusing a route instead of a from-to edges route (used in NETEDIT)
-    GNE_TAG_FLOW_ROUTE,
-    /// @brief description of a vehicle with an embedded route (used in NETEDIT)
-    GNE_TAG_FLOW_WITHROUTE,
     /// @brief description of a person with an embedded route (used in NETEDIT)
     GNE_TAG_PERSON_EMBEDDED
     /// @}

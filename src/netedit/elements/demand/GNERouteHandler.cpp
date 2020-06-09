@@ -136,7 +136,7 @@ GNERouteHandler::~GNERouteHandler() {}
 bool
 GNERouteHandler::isVehicleIdDuplicated(GNENet* net, const std::string& id) {
     // declare vehicle tags vector
-    std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLEWITHROUTE, SUMO_TAG_TRIP, GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW};
+    std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_WITHROUTE, SUMO_TAG_TRIP, GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW};
     for (const auto &vehicleTag : vehicleTags) {
         if (net->retrieveDemandElement(vehicleTag, id, false) != nullptr) {
             WRITE_ERROR("There is another " + toString(vehicleTag) + " with the same ID='" + id + "'.");
@@ -265,7 +265,7 @@ GNERouteHandler::buildVehicleEmbeddedRoute(GNENet* net, bool undoDemandElements,
             // set color
             embeddedRouteParameters.color = RGBColor::CYAN;
             // due vehicle was loaded without a route, change tag
-            vehicleParameters.tag = GNE_TAG_VEHICLEWITHROUTE;
+            vehicleParameters.tag = GNE_TAG_VEHICLE_WITHROUTE;
             // create vehicle or trips using myTemporalVehicleParameter without a route
             GNEDemandElement* vehicle = new GNEVehicle(net, vType, vehicleParameters);
             // creaste embedded route
@@ -1599,7 +1599,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
                 WRITE_ERROR("Invalid vehicle type '" + myVehicleParameter->vtypeid + "' used in " + toString(myVehicleParameter->tag) + " '" + myVehicleParameter->id + "'.");
             } else {
                 // due vehicle was loaded without a route, change tag
-                myVehicleParameter->tag = (myVehicleParameter->tag == SUMO_TAG_VEHICLE) ? GNE_TAG_VEHICLEWITHROUTE : GNE_TAG_FLOW_WITHROUTE;
+                myVehicleParameter->tag = (myVehicleParameter->tag == SUMO_TAG_VEHICLE) ? GNE_TAG_VEHICLE_WITHROUTE : GNE_TAG_FLOW_WITHROUTE;
                 // create vehicle or trips using myTemporalVehicleParameter without a route
                 myLoadedVehicleWithEmbebbedRoute = new GNEVehicle(myNet, vType, *myVehicleParameter);
                 // creaste embedded route
