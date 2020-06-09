@@ -516,11 +516,6 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
     }
 #endif
 
-    //if (veh(myCandi)->getID() == "disabled") std::cout << SIMTIME
-    //    << " target=" << target->lane->getID()
-    //    << " neighLead=" << Named::getIDSecure(neighLead)
-    //    << " hopped=" << Named::getIDSecure(target->hoppedVeh)
-    //        << " (416)\n";
     // check whether the hopped vehicle became the leader
     if (target->hoppedVeh != nullptr) {
         double hoppedPos = target->hoppedVeh->getPositionOnLane();
@@ -529,9 +524,9 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
             std::cout << "Considering hopped vehicle '" << target->hoppedVeh->getID() << "' at position " << hoppedPos << std::endl;
         }
 #endif
-        if (hoppedPos > veh(myCandi)->getPositionOnLane() && (neighLead == nullptr || neighLead->getPositionOnLane() > hoppedPos)) {
+        if (hoppedPos > vehicle->getPositionOnLane() && (neighLead == nullptr || neighLead->getPositionOnLane() > hoppedPos)) {
             neighLead = target->hoppedVeh;
-            //if (veh(myCandi)->getID() == "flow.21") std::cout << SIMTIME << " neighLead=" << Named::getIDSecure(neighLead) << " (422)\n";
+            //if (vehicle->getID() == "flow.21") std::cout << SIMTIME << " neighLead=" << Named::getIDSecure(neighLead) << " (422)\n";
         }
     }
     if (neighLead == nullptr) {
@@ -561,9 +556,9 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
 #endif
             return std::pair<MSVehicle*, double>(neighLead, leaderBack - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap());
         }
-        double seen = myCandi->lane->getLength() - veh(myCandi)->getPositionOnLane();
-        double speed = veh(myCandi)->getSpeed();
-        double dist = veh(myCandi)->getCarFollowModel().brakeGap(speed) + veh(myCandi)->getVehicleType().getMinGap();
+        double seen = myCandi->lane->getLength() - vehicle->getPositionOnLane();
+        double speed = vehicle->getSpeed();
+        double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
         // always check for link leaders while on an internal lane
         if (seen > dist && !myCandi->lane->isInternal()) {
 #ifdef DEBUG_SURROUNDING_VEHICLES
@@ -573,9 +568,9 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
 #endif
             return std::pair<MSVehicle* const, double>(static_cast<MSVehicle*>(nullptr), -1);
         }
-        const std::vector<MSLane*>& bestLaneConts = veh(myCandi)->getBestLanesContinuation(targetLane);
+        const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation(targetLane);
 
-        std::pair<MSVehicle* const, double> result = target->lane->getLeaderOnConsecutive(dist, seen, speed, *veh(myCandi), bestLaneConts);
+        std::pair<MSVehicle* const, double> result = target->lane->getLeaderOnConsecutive(dist, seen, speed, *vehicle, bestLaneConts);
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
             std::cout << "  found consecutiveLeader=" << Named::getIDSecure(result.first) << "\n";
@@ -583,13 +578,12 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
 #endif
         return result;
     } else {
-        MSVehicle* candi = veh(myCandi);
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
             std::cout << "  found leader=" << neighLead->getID() << "\n";
         }
 #endif
-        return std::pair<MSVehicle* const, double>(neighLead, neighLead->getBackPositionOnLane(target->lane) - candi->getPositionOnLane() - candi->getVehicleType().getMinGap());
+        return std::pair<MSVehicle* const, double>(neighLead, neighLead->getBackPositionOnLane(target->lane) - vehicle->getPositionOnLane() - vehicle->getVehicleType().getMinGap());
     }
 }
 
@@ -597,15 +591,13 @@ MSLaneChanger::getRealLeader(const ChangerIt& target) const {
 std::pair<MSVehicle* const, double>
 MSLaneChanger::getRealFollower(const ChangerIt& target) const {
     assert(veh(myCandi) != 0);
-
-#ifdef DEBUG_SURROUNDING_VEHICLES
     MSVehicle* vehicle = veh(myCandi);
+#ifdef DEBUG_SURROUNDING_VEHICLES
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh '" << vehicle->getID() << "' looks for follower on lc-target lane '" << target->lane->getID() << "'." << std::endl;
     }
 #endif
-    MSVehicle* candi = veh(myCandi);
-    const double candiPos = candi->getPositionOnLane();
+    const double candiPos = vehicle->getPositionOnLane();
     MSVehicle* neighFollow = veh(target);
 
 #ifdef DEBUG_SURROUNDING_VEHICLES
@@ -633,17 +625,17 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
 
 #ifdef DEBUG_SURROUNDING_VEHICLES
     if (DEBUG_COND) {
-        MSVehicle* partialBehind = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(candi));
+        MSVehicle* partialBehind = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(vehicle));
         if (partialBehind != 0 && partialBehind != neighFollow) {
-            std::cout << "'Partial behind'-vehicle '" << target->lane->getPartialBehind(candi)->getID() << "' at position " << partialBehind->getPositionOnLane() << " is closer." <<  std::endl;
+            std::cout << "'Partial behind'-vehicle '" << target->lane->getPartialBehind(vehicle)->getID() << "' at position " << partialBehind->getPositionOnLane() << " is closer." <<  std::endl;
         }
     }
 #endif
     // or a follower which is partially lapping into the target lane
-    neighFollow = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(candi));
+    neighFollow = getCloserFollower(candiPos, neighFollow, target->lane->getPartialBehind(vehicle));
 
     if (neighFollow == nullptr) {
-        CLeaderDist consecutiveFollower = target->lane->getFollowersOnConsecutive(candi, candi->getBackPositionOnLane(), true)[0];
+        CLeaderDist consecutiveFollower = target->lane->getFollowersOnConsecutive(vehicle, vehicle->getBackPositionOnLane(), true)[0];
 #ifdef DEBUG_SURROUNDING_VEHICLES
         if (DEBUG_COND) {
             if (consecutiveFollower.first == 0) {
@@ -660,9 +652,8 @@ MSLaneChanger::getRealFollower(const ChangerIt& target) const {
             std::cout << "found follower '" << neighFollow->getID() << "'." <<  std::endl;
         }
 #endif
-        MSVehicle* candi = veh(myCandi);
         return std::pair<MSVehicle* const, double>(neighFollow,
-                candi->getPositionOnLane() - candi->getVehicleType().getLength() - neighFollow->getPositionOnLane() - neighFollow->getVehicleType().getMinGap());
+                vehicle->getPositionOnLane() - vehicle->getVehicleType().getLength() - neighFollow->getPositionOnLane() - neighFollow->getVehicleType().getMinGap());
     }
 }
 
