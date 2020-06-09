@@ -100,15 +100,21 @@ public:
 
     /// @name build routes
     /// @{
+
+    /// @brief build route
+    static void buildRoute(GNENet* net, bool undoDemandElements, const RouteParameter &routeParameters, const std::vector<SUMOVehicleParameter::Stop> &activeStops);
+
+    /// @}
+
+    /// @name build vehicles
+    /// @{
+
     /// @brief build a vehicle over an existent route
     static void buildVehicleOverRoute(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters);
 
     /// @brief build a flow over an existent route
     static void buildFlowOverRoute(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& vehicleParameters);
-    /// @}
 
-    /// @name build vehicles
-    /// @{
     /// @brief build vehicle with a embedded route
     static void buildVehicleEmbeddedRoute(GNENet* net, bool undoDemandElements, SUMOVehicleParameter vehicleParameters, const std::vector<GNEEdge*>& edges);
 
@@ -191,12 +197,6 @@ public:
     static void setFlowParameters(const SumoXMLAttr attribute, int& parameters);
 
 protected:
-    /// @brief embebbe route within a vehicle
-    static void embebbeRoute(GNEVehicle* vehicle, GNEUndoList* undoList);
-
-    /// @brief separate vehicle and embedded route
-    static GNEVehicle* separateEmbeddedRoute(GNEVehicle* vehicle, GNEUndoList* undoList);
-
     /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
 
