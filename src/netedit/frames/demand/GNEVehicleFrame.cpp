@@ -299,10 +299,11 @@ GNEVehicleFrame::demandElementSelected() {
 
 void
 GNEVehicleFrame::createPath() {
-    // first check that we have at least two edges
-    if (myPathCreator->getSelectedEdges().size() > 1) {
-        // obtain tag (only for improve code legibility)
-        SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
+    // obtain tag (only for improve code legibility)
+    SumoXMLTag vehicleTag = myVehicleTagSelector->getCurrentTagProperties().getTag();
+    const bool embebbedRoute = ((vehicleTag == GNE_TAG_VEHICLEWITHROUTE) || (vehicleTag == GNE_TAG_FLOW_WITHROUTE));
+    // check number of edges
+    if ((myPathCreator->getSelectedEdges().size() > 1) || (myPathCreator->getSelectedEdges().size() > 0 && embebbedRoute)) {
         // Declare map to keep attributes from Frames from Frame
         std::map<SumoXMLAttr, std::string> valuesMap = myVehicleAttributes->getAttributesAndValues(false);
         // Check if ID has to be generated
