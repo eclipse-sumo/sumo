@@ -123,6 +123,8 @@
         <xsd:attribute name="vTypes" type="xsd:string" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
         <xsd:attribute name="friendlyPos" use="optional" type="boolType"/>
+        <!-- allow reading typed detectors (dfrouter/flowrouter) -->
+        <xsd:attribute name="type" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeProbeType">
