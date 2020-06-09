@@ -37,23 +37,23 @@ else:
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <tripinfos.xml>"""
+    USAGE = """Usage %prog [options] <data.xml>"""
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
-    optParser.add_option("--element", type="string",
+    optParser.add_option("-e", "--element", type="string",
                          default="tripinfo", help="element to analyze")
-    optParser.add_option("--attribute", type="string",
+    optParser.add_option("-a", "--attribute", type="string",
                          default="timeLoss", help="attribute to analyze")
-    optParser.add_option("--id-attribute", type="string", dest="idAttr",
+    optParser.add_option("-i", "--id-attribute", type="string", dest="idAttr",
                          default="id", help="attribute to identify data elements")
-    optParser.add_option("--binwidth", type="float",
+    optParser.add_option("-b", "--binwidth", type="float",
                          default=50, help="binning width of result histogram")
     optParser.add_option("--hist-output", type="string",
                          default=None, help="output file for histogram (gnuplot compatible)")
-    optParser.add_option("--full-output", type="string",
+    optParser.add_option("-o", "--full-output", type="string",
                          default=None, help="output file for full data dump")
-    optParser.add_option("--fast", action="store_true",
+    optParser.add_option("-q", "--fast", action="store_true",
                          default=False, help="use fast parser (does not track missing data)")
     options, args = optParser.parse_args()
 
