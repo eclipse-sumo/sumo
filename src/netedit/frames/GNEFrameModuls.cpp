@@ -2134,15 +2134,15 @@ GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
     myShowCandidateEdges->setCheck(TRUE);
     // create shift label
     myShiftLabel = new FXLabel(this,
-        "- Hold SHIFT while clicking\n  to add an invalid vclass edge.",
+        "SHIFT-click: ignore vClass",
         0, GUIDesignLabelFrameInformation);
     // create control label
     myControlLabel = new FXLabel(this,
-        "- Hold CONTROL while clicking\n  to add a disconnected edge.",
+        "CTRL-click: add disconnected",
         0, GUIDesignLabelFrameInformation);
     // create backspace label (always shown)
     new FXLabel(this,
-        "- Press BACKSPACE to remove\n  last inserted edge.",
+        "BACKSPACE: undo click",
         0, GUIDesignLabelFrameInformation);
 }
 
