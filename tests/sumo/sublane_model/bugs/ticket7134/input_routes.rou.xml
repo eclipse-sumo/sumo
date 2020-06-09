@@ -1,0 +1,13 @@
+<routes>
+    <vTypeDistribution id="mixed">
+      <vType id="car" vClass="passenger" guishape="passenger" color="yellow" speedDev="0.2" probability="0.95">
+        <param key="has.tripinfo.device" value="false"/>
+      </vType>
+      <vType id="emg" vClass="emergency" guishape="emergency" color="red" speedDev="0.2" probability="0.05" minGapLat="0">
+        <param key="has.bluelight.device" value="true"/>
+      </vType>
+    </vTypeDistribution>
+
+    <route id="r0" edges="beg end"/>
+    <flow id="f0" begin="0" end="100" number="20" route="r0" type="mixed" departLane="random" departPosLat="center"/>
+</routes>
