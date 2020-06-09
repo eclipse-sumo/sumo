@@ -84,7 +84,7 @@ def getOptions(args=None):
 
 def write_csv(data, fname):
     with open(fname, 'w') as f:
-        for veh, vals in data.items():
+        for veh, vals in sorted(data.items()):
             f.write('"%s"\n' % veh)
             for x in zip(*vals):
                 f.write(" ".join(map(str, x)) + "\n")
