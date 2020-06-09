@@ -32,6 +32,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse  # noqa
+from sumolib.miscutils import parseTime
 DEBUG = False
 
 
@@ -71,7 +72,7 @@ def get_options(args=None):
 
 def readEdgeData(edgeDataFile, begin, end, detReader, flowout):
     edgeFlow = defaultdict(lambda: 0)
-    for interval in parse(edgeDataFile, "interval", attr_conversions={"begin": float, "end": float}):
+    for interval in parse(edgeDataFile, "interval", attr_conversions={"begin": parseTime, "end": parseTime}):
         if DEBUG:
             print("reading intervals for begin=%s end=%s (current interval begin=%s end=%s)" %
                   (begin, end, interval.begin, interval.end))
@@ -86,6 +87,8 @@ def readEdgeData(edgeDataFile, begin, end, detReader, flowout):
             # store data
             if flowout:
                 f = open(flowout, 'a')
+            if interval.edge is None:
+                continue
             for edge in interval.edge:
                 flow = (int(edge.departed) + int(edge.entered)) * scale
                 edgeFlow[edge.id] += flow
