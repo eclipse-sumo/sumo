@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 21 08:43:42 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
+<!-- generated on Wed Jun 10 01:49:27 2020 by Eclipse SUMO Version v1_6_0+0626-59842b4b1e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -114,8 +114,8 @@ SPDX-License-Identifier: EPL-2.0
         </link>
     </timeSlice>
     <timeSlice startTime="600000" duration="300000">
-        <link id="32" amount="107" averageSpeed="989">
-            <actorConfig id="0" amount="107" averageSpeed="982"/>
+        <link id="32" amount="107" averageSpeed="987">
+            <actorConfig id="0" amount="107" averageSpeed="979"/>
         </link>
         <link id="33" amount="72" averageSpeed="1037">
             <actorConfig id="0" amount="72" averageSpeed="1034"/>
@@ -124,7 +124,7 @@ SPDX-License-Identifier: EPL-2.0
             <actorConfig id="0" amount="84" averageSpeed="200"/>
         </link>
         <link id="35" amount="106" averageSpeed="1008">
-            <actorConfig id="0" amount="106" averageSpeed="1013"/>
+            <actorConfig id="0" amount="106" averageSpeed="1012"/>
         </link>
         <link id="36" amount="69" averageSpeed="1036">
             <actorConfig id="0" amount="69" averageSpeed="1038"/>
@@ -152,29 +152,29 @@ SPDX-License-Identifier: EPL-2.0
         </link>
     </timeSlice>
     <timeSlice startTime="900000" duration="100000">
-        <link id="32" amount="37" averageSpeed="907">
-            <actorConfig id="0" amount="37" averageSpeed="600"/>
+        <link id="32" amount="37" averageSpeed="918">
+            <actorConfig id="0" amount="37" averageSpeed="649"/>
         </link>
-        <link id="33" amount="28" averageSpeed="1036">
-            <actorConfig id="0" amount="28" averageSpeed="1034"/>
+        <link id="33" amount="28" averageSpeed="1037">
+            <actorConfig id="0" amount="28" averageSpeed="1037"/>
         </link>
-        <link id="34" amount="24" averageSpeed="255">
-            <actorConfig id="0" amount="24" averageSpeed="177"/>
+        <link id="34" amount="24" averageSpeed="256">
+            <actorConfig id="0" amount="24" averageSpeed="186"/>
         </link>
         <link id="35" amount="32" averageSpeed="1009">
-            <actorConfig id="0" amount="32" averageSpeed="1013"/>
+            <actorConfig id="0" amount="32" averageSpeed="1014"/>
         </link>
-        <link id="36" amount="23" averageSpeed="1037">
-            <actorConfig id="0" amount="23" averageSpeed="1038"/>
+        <link id="36" amount="25" averageSpeed="1037">
+            <actorConfig id="0" amount="25" averageSpeed="1040"/>
         </link>
-        <link id="37" amount="25" averageSpeed="482">
-            <actorConfig id="0" amount="25" averageSpeed="484"/>
+        <link id="37" amount="25" averageSpeed="480">
+            <actorConfig id="0" amount="25" averageSpeed="469"/>
         </link>
         <link id="38" amount="39" averageSpeed="988">
-            <actorConfig id="0" amount="39" averageSpeed="998"/>
+            <actorConfig id="0" amount="39" averageSpeed="997"/>
         </link>
         <link id="39" amount="24" averageSpeed="1034">
-            <actorConfig id="0" amount="24" averageSpeed="1028"/>
+            <actorConfig id="0" amount="24" averageSpeed="1030"/>
         </link>
         <link id="40" amount="23" averageSpeed="520">
             <actorConfig id="0" amount="23" averageSpeed="503"/>
@@ -182,8 +182,8 @@ SPDX-License-Identifier: EPL-2.0
         <link id="41" amount="23" averageSpeed="1043">
             <actorConfig id="0" amount="23" averageSpeed="1044"/>
         </link>
-        <link id="42" amount="26" averageSpeed="1038">
-            <actorConfig id="0" amount="26" averageSpeed="1036"/>
+        <link id="42" amount="25" averageSpeed="1038">
+            <actorConfig id="0" amount="25" averageSpeed="1037"/>
         </link>
         <link id="43" amount="21" averageSpeed="516">
             <actorConfig id="0" amount="21" averageSpeed="528"/>

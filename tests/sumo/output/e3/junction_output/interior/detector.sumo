@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  9 15:20:36 2020 by Eclipse SUMO Version v1_5_0+0581-a2889fd
+<!-- generated on Wed Jun 10 01:49:10 2020 by Eclipse SUMO Version v1_6_0+0626-59842b4b1e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,8 +32,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
-   <interval begin="0.00" end="1135.00" id="e3_C_E1C" meanTravelTime="74.95" meanOverlapTravelTime="75.48" meanSpeed="5.88" meanHaltsPerVehicle="1.48" meanTimeLoss="56.91" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1135.00" id="e3_C_N1C" meanTravelTime="79.15" meanOverlapTravelTime="79.69" meanSpeed="5.32" meanHaltsPerVehicle="2.13" meanTimeLoss="58.95" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1135.00" id="e3_C_S1C" meanTravelTime="76.36" meanOverlapTravelTime="76.89" meanSpeed="5.68" meanHaltsPerVehicle="1.78" meanTimeLoss="56.39" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
-   <interval begin="0.00" end="1135.00" id="e3_C_W1C" meanTravelTime="108.33" meanOverlapTravelTime="108.87" meanSpeed="3.72" meanHaltsPerVehicle="2.30" meanTimeLoss="89.75" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1139.00" id="e3_C_E1C" meanTravelTime="75.64" meanOverlapTravelTime="76.17" meanSpeed="5.66" meanHaltsPerVehicle="1.49" meanTimeLoss="57.59" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1139.00" id="e3_C_N1C" meanTravelTime="77.55" meanOverlapTravelTime="78.08" meanSpeed="5.25" meanHaltsPerVehicle="1.87" meanTimeLoss="57.34" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1139.00" id="e3_C_S1C" meanTravelTime="81.06" meanOverlapTravelTime="81.59" meanSpeed="5.58" meanHaltsPerVehicle="1.70" meanTimeLoss="61.08" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
+   <interval begin="0.00" end="1139.00" id="e3_C_W1C" meanTravelTime="112.04" meanOverlapTravelTime="112.57" meanSpeed="3.68" meanHaltsPerVehicle="2.42" meanTimeLoss="93.46" vehicleSum="250" meanSpeedWithin="-1.00" meanHaltsPerVehicleWithin="-1.00" meanDurationWithin="-1.00" vehicleSumWithin="0" meanIntervalSpeedWithin="-1.00" meanIntervalHaltsPerVehicleWithin="-1.00" meanIntervalDurationWithin="-1.00" meanTimeLossWithin="-1.00"/>
 </e3Detector>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 21 08:43:42 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
+<!-- generated on Wed Jun 10 01:49:27 2020 by Eclipse SUMO Version v1_6_0+0626-59842b4b1e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -95,7 +95,7 @@ SPDX-License-Identifier: EPL-2.0
         <link id="43" amount="14" averageSpeed="785"/>
     </timeSlice>
     <timeSlice startTime="360000" duration="60000">
-        <link id="32" amount="15" averageSpeed="986"/>
+        <link id="32" amount="15" averageSpeed="985"/>
         <link id="33" amount="5" averageSpeed="1041"/>
         <link id="34" amount="15" averageSpeed="585"/>
         <link id="35" amount="19" averageSpeed="995"/>
@@ -207,7 +207,7 @@ SPDX-License-Identifier: EPL-2.0
         <link id="43" amount="12" averageSpeed="514"/>
     </timeSlice>
     <timeSlice startTime="840000" duration="60000">
-        <link id="32" amount="20" averageSpeed="989"/>
+        <link id="32" amount="20" averageSpeed="987"/>
         <link id="33" amount="13" averageSpeed="1037"/>
         <link id="34" amount="16" averageSpeed="273"/>
         <link id="35" amount="18" averageSpeed="1008"/>
@@ -221,11 +221,11 @@ SPDX-License-Identifier: EPL-2.0
         <link id="43" amount="18" averageSpeed="514"/>
     </timeSlice>
     <timeSlice startTime="900000" duration="60000">
-        <link id="32" amount="20" averageSpeed="972"/>
-        <link id="33" amount="22" averageSpeed="1036"/>
-        <link id="34" amount="20" averageSpeed="263"/>
+        <link id="32" amount="20" averageSpeed="968"/>
+        <link id="33" amount="22" averageSpeed="1037"/>
+        <link id="34" amount="22" averageSpeed="264"/>
         <link id="35" amount="19" averageSpeed="1009"/>
-        <link id="36" amount="16" averageSpeed="1036"/>
+        <link id="36" amount="15" averageSpeed="1036"/>
         <link id="37" amount="12" averageSpeed="471"/>
         <link id="38" amount="25" averageSpeed="988"/>
         <link id="39" amount="13" averageSpeed="1034"/>
@@ -235,17 +235,17 @@ SPDX-License-Identifier: EPL-2.0
         <link id="43" amount="9" averageSpeed="519"/>
     </timeSlice>
     <timeSlice startTime="960000" duration="40000">
-        <link id="32" amount="17" averageSpeed="907"/>
-        <link id="33" amount="6" averageSpeed="1036"/>
-        <link id="34" amount="4" averageSpeed="255"/>
+        <link id="32" amount="17" averageSpeed="918"/>
+        <link id="33" amount="6" averageSpeed="1037"/>
+        <link id="34" amount="2" averageSpeed="256"/>
         <link id="35" amount="13" averageSpeed="1009"/>
-        <link id="36" amount="7" averageSpeed="1037"/>
-        <link id="37" amount="13" averageSpeed="482"/>
+        <link id="36" amount="10" averageSpeed="1037"/>
+        <link id="37" amount="13" averageSpeed="480"/>
         <link id="38" amount="14" averageSpeed="988"/>
         <link id="39" amount="11" averageSpeed="1034"/>
         <link id="40" amount="11" averageSpeed="520"/>
         <link id="41" amount="6" averageSpeed="1043"/>
-        <link id="42" amount="12" averageSpeed="1038"/>
+        <link id="42" amount="11" averageSpeed="1038"/>
         <link id="43" amount="12" averageSpeed="516"/>
     </timeSlice>
 </linkData>
