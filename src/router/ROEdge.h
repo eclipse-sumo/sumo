@@ -276,9 +276,9 @@ public:
     }
 
     /** @brief Returns whether this edge has restriction parameters forbidding the given vehicle to pass it
-    * @param[in] vehicle The vehicle for which the information has to be returned
-    * @return Whether the vehicle must not enter this edge
-    */
+     * @param[in] vehicle The vehicle for which the information has to be returned
+     * @return Whether the vehicle must not enter this edge
+     */
     inline bool restricts(const ROVehicle* const vehicle) const {
         const std::vector<double>& vTypeRestrictions = vehicle->getType()->paramRestrictions;
         assert(vTypeRestrictions.size() == myParamRestrictions.size());

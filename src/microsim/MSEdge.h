@@ -571,18 +571,23 @@ public:
 
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
     inline bool prohibits(const SUMOVehicle* const vehicle) const {
-        if (vehicle == 0) {
+        if (vehicle == nullptr) {
             return false;
         }
         const SUMOVehicleClass svc = vehicle->getVClass();
         return (myCombinedPermissions & svc) != svc;
     }
 
-    /// @brief Returns whether the vehicle (class) is not allowed on the edge
+    /** @brief Returns whether this edge has restriction parameters forbidding the given vehicle to pass it
+     * The restriction mechanism is not implemented yet for the microsim, so it always returns false.
+     * @param[in] vehicle The vehicle for which the information has to be returned
+     * @return Whether the vehicle must not enter this edge
+     */
     inline bool restricts(const SUMOVehicle* const /* vehicle */) const {
         return false;
     }
 
+    /// @brief Returns the combined permissions of all lanes of this edge
     inline SVCPermissions getPermissions() const {
         return myCombinedPermissions;
     }
