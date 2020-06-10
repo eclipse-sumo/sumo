@@ -34,6 +34,7 @@
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
@@ -2851,6 +2852,10 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_MOVE:
+            myViewParent->getMoveFrame()->show();
+            myViewParent->getMoveFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getMoveFrame();
+            myNetworkCheckableButtons.moveNetworkElementsButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckWarnAboutMerge->show();
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
@@ -2998,6 +3003,9 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_MOVE:
+            myViewParent->getMoveFrame()->show();
+            myViewParent->getMoveFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getMoveFrame();
             // set checkable button
             myDemandCheckableButtons.moveDemandElementsButton->setChecked(true);
             // show view options

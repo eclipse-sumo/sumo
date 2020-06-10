@@ -28,6 +28,7 @@
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
+#include <netedit/frames/common/GNEMoveFrame.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 #include <netedit/frames/data/GNEEdgeRelDataFrame.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
@@ -127,6 +128,7 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Create Network frames
     myFrames.inspectorFrame = new GNEInspectorFrame(myFramesArea, viewNet);
     myFrames.selectorFrame = new GNESelectorFrame(myFramesArea, viewNet);
+    myFrames.moveFrame = new GNEMoveFrame(myFramesArea, viewNet);
     myFrames.connectorFrame = new GNEConnectorFrame(myFramesArea, viewNet);
     myFrames.prohibitionFrame = new GNEProhibitionFrame(myFramesArea, viewNet);
     myFrames.TLSEditorFrame = new GNETLSEditorFrame(myFramesArea, viewNet);
@@ -194,6 +196,12 @@ GNEViewParent::getInspectorFrame() const {
 GNESelectorFrame*
 GNEViewParent::getSelectorFrame() const {
     return myFrames.selectorFrame;
+}
+
+
+GNEMoveFrame*
+GNEViewParent::getMoveFrame() const {
+    return myFrames.moveFrame;
 }
 
 
@@ -676,6 +684,7 @@ GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {
 GNEViewParent::Frames::Frames() :
     inspectorFrame(nullptr),
     selectorFrame(nullptr),
+    moveFrame(nullptr),
     connectorFrame(nullptr),
     TLSEditorFrame(nullptr),
     additionalFrame(nullptr),
@@ -702,6 +711,7 @@ void
 GNEViewParent::Frames::hideFrames() {
     inspectorFrame->hide();
     selectorFrame->hide();
+    moveFrame->hide();
     connectorFrame->hide();
     TLSEditorFrame->hide();
     additionalFrame->hide();
@@ -729,6 +739,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     // set width in all frames
     inspectorFrame->setFrameWidth(frameWidth);
     selectorFrame->setFrameWidth(frameWidth);
+    moveFrame->setFrameWidth(frameWidth);
     connectorFrame->setFrameWidth(frameWidth);
     TLSEditorFrame->setFrameWidth(frameWidth);
     additionalFrame->setFrameWidth(frameWidth);
@@ -757,6 +768,8 @@ GNEViewParent::Frames::isFrameShown() const {
     if (inspectorFrame->shown()) {
         return true;
     } else if (selectorFrame->shown()) {
+        return true;
+    } else if (moveFrame->shown()) {
         return true;
     } else if (connectorFrame->shown()) {
         return true;
@@ -809,6 +822,8 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return inspectorFrame;
     } else if (selectorFrame->shown()) {
         return selectorFrame;
+    } else if (moveFrame->shown()) {
+        return moveFrame;
     } else if (connectorFrame->shown()) {
         return connectorFrame;
     } else if (TLSEditorFrame->shown()) {

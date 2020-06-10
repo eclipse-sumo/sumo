@@ -39,6 +39,7 @@ class GNEUndoList;
 class GNEDeleteFrame;
 class GNEInspectorFrame;
 class GNESelectorFrame;
+class GNEMoveFrame;
 // network frames
 class GNEAdditionalFrame;
 class GNEConnectorFrame;
@@ -116,6 +117,9 @@ public:
 
     /// @brief get frame for NETWORK_SELECT
     GNESelectorFrame* getSelectorFrame() const;
+
+    /// @brief get frame for NETWORK_MOVE
+    GNEMoveFrame* getMoveFrame() const;
 
     /// @brief get frame for NETWORK_CONNECT
     GNEConnectorFrame* getConnectorFrame() const;
@@ -244,6 +248,9 @@ private:
 
         /// @brief frame for NETWORK_SELECT
         GNESelectorFrame* selectorFrame;
+
+        /// @brief frame for NETWORK_MOVE
+        GNEMoveFrame* moveFrame;
 
         /// @brief frame for NETWORK_CONNECT
         GNEConnectorFrame* connectorFrame;

@@ -27,7 +27,7 @@
 // ===========================================================================
 
 GNEMoveFrame::GNEMoveFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Create Edge") {
+    GNEFrame(horizontalFrameParent, viewNet, "Move") {
 }
 
 
