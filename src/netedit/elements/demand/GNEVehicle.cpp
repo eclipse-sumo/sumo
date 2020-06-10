@@ -95,17 +95,13 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
         myTransformToFlow = new FXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // check what menu command has to be disabled
         if (myVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
-            if (myVehicle->getParentDemandElements().size() > 1) {
-                myTransformToVehicle->disable();
-            } else {
-                myTransformToVehicleWithEmbeddedRoute->disable();
-            }
+            myTransformToVehicle->disable();
+        } else if (myVehicle->getTagProperty().getTag() == GNE_TAG_VEHICLE_WITHROUTE) {
+            myTransformToVehicleWithEmbeddedRoute->disable();
         } else if (myVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_ROUTE) {
-            if (myVehicle->getParentDemandElements().size() > 1) {
-                myTransformToRouteFlow->disable();
-            } else {
-                myTransformToRouteFlowWithEmbeddedRoute->disable();
-            }
+            myTransformToRouteFlow->disable();
+        } else if (myVehicle->getTagProperty().getTag() == GNE_TAG_FLOW_WITHROUTE) {
+            myTransformToRouteFlowWithEmbeddedRoute->disable();
         } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_TRIP) {
             myTransformToTrip->disable();
         } else if (myVehicle->getTagProperty().getTag() == SUMO_TAG_FLOW) {
@@ -766,7 +762,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     drawStackLabel(vehiclePosition, vehicleRotation, width, length);
                 }
                 // draw flow label
-                if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
+                if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length);
                 }
                 // check if dotted contour has to be drawn
