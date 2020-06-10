@@ -125,35 +125,11 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Set pointer myView with the created view net
     myView = viewNet;
 
-    // Create Common frames
-    myCommonFrames.inspectorFrame = new GNEInspectorFrame(myFramesArea, viewNet);
-    myCommonFrames.selectorFrame = new GNESelectorFrame(myFramesArea, viewNet);
-    myCommonFrames.moveFrame = new GNEMoveFrame(myFramesArea, viewNet);
-    myCommonFrames.deleteFrame = new GNEDeleteFrame(myFramesArea, viewNet);
-
-    // Create Network frames
-    myNetworkFrames.connectorFrame = new GNEConnectorFrame(myFramesArea, viewNet);
-    myNetworkFrames.prohibitionFrame = new GNEProhibitionFrame(myFramesArea, viewNet);
-    myNetworkFrames.TLSEditorFrame = new GNETLSEditorFrame(myFramesArea, viewNet);
-    myNetworkFrames.additionalFrame = new GNEAdditionalFrame(myFramesArea, viewNet);
-    myNetworkFrames.crossingFrame = new GNECrossingFrame(myFramesArea, viewNet);
-    myNetworkFrames.TAZFrame = new GNETAZFrame(myFramesArea, viewNet);
-    myNetworkFrames.polygonFrame = new GNEPolygonFrame(myFramesArea, viewNet);
-    myNetworkFrames.createEdgeFrame = new GNECreateEdgeFrame(myFramesArea, viewNet);
-
-    // Create Demand frames
-    myDemandFrames.routeFrame = new GNERouteFrame(myFramesArea, viewNet);
-    myDemandFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
-    myDemandFrames.vehicleTypeFrame = new GNEVehicleTypeFrame(myFramesArea, viewNet);
-    myDemandFrames.stopFrame = new GNEStopFrame(myFramesArea, viewNet);
-    myDemandFrames.personTypeFrame = new GNEPersonTypeFrame(myFramesArea, viewNet);
-    myDemandFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
-    myDemandFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
-
-    // create Data frames
-    myDataFrames.edgeDataFrame = new GNEEdgeDataFrame(myFramesArea, viewNet);
-    myDataFrames.edgeRelDataFrame = new GNEEdgeRelDataFrame(myFramesArea, viewNet);
-    myDataFrames.TAZRelDataFrame = new GNETAZRelDataFrame(myFramesArea, viewNet);
+    // build frames
+    myCommonFrames.buildCommonFrames(this, viewNet);
+    myNetworkFrames.buildNetworkFrames(this, viewNet);
+    myDemandFrames.buildDemandFrames(this, viewNet);
+    myDataFrames.buildDataFrames(this, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -716,6 +692,15 @@ GNEViewParent::CommonFrames::CommonFrames() :
 }
 
 
+void 
+GNEViewParent::CommonFrames::buildCommonFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
+    inspectorFrame = new GNEInspectorFrame(viewParent->myFramesArea, viewNet);
+    selectorFrame = new GNESelectorFrame(viewParent->myFramesArea, viewNet);
+    moveFrame = new GNEMoveFrame(viewParent->myFramesArea, viewNet);
+    deleteFrame = new GNEDeleteFrame(viewParent->myFramesArea, viewNet);
+}
+
+
 void
 GNEViewParent::CommonFrames::hideCommonFrames() {
     inspectorFrame->hide();
@@ -781,6 +766,19 @@ GNEViewParent::NetworkFrames::NetworkFrames() :
     polygonFrame(nullptr),
     prohibitionFrame(nullptr),
     createEdgeFrame(nullptr) {
+}
+
+
+void 
+GNEViewParent::NetworkFrames::buildNetworkFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
+    connectorFrame = new GNEConnectorFrame(viewParent->myFramesArea, viewNet);
+    prohibitionFrame = new GNEProhibitionFrame(viewParent->myFramesArea, viewNet);
+    TLSEditorFrame = new GNETLSEditorFrame(viewParent->myFramesArea, viewNet);
+    additionalFrame = new GNEAdditionalFrame(viewParent->myFramesArea, viewNet);
+    crossingFrame = new GNECrossingFrame(viewParent->myFramesArea, viewNet);
+    TAZFrame = new GNETAZFrame(viewParent->myFramesArea, viewNet);
+    polygonFrame = new GNEPolygonFrame(viewParent->myFramesArea, viewNet);
+    createEdgeFrame = new GNECreateEdgeFrame(viewParent->myFramesArea, viewNet);
 }
 
 
@@ -875,6 +873,18 @@ GNEViewParent::DemandFrames::DemandFrames() :
 }
 
 
+void 
+GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
+    routeFrame = new GNERouteFrame(viewParent->myFramesArea, viewNet);
+    vehicleFrame = new GNEVehicleFrame(viewParent->myFramesArea, viewNet);
+    vehicleTypeFrame = new GNEVehicleTypeFrame(viewParent->myFramesArea, viewNet);
+    stopFrame = new GNEStopFrame(viewParent->myFramesArea, viewNet);
+    personTypeFrame = new GNEPersonTypeFrame(viewParent->myFramesArea, viewNet);
+    personFrame = new GNEPersonFrame(viewParent->myFramesArea, viewNet);
+    personPlanFrame = new GNEPersonPlanFrame(viewParent->myFramesArea, viewNet);
+}
+
+
 void
 GNEViewParent::DemandFrames::hideDemandFrames() {
     routeFrame->hide();
@@ -953,6 +963,14 @@ GNEViewParent::DataFrames::DataFrames() :
     edgeDataFrame(nullptr),
     edgeRelDataFrame(nullptr),
     TAZRelDataFrame(nullptr) {
+}
+
+
+void 
+GNEViewParent::DataFrames::buildDataFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
+    edgeDataFrame = new GNEEdgeDataFrame(viewParent->myFramesArea, viewNet);
+    edgeRelDataFrame = new GNEEdgeRelDataFrame(viewParent->myFramesArea, viewNet);
+    TAZRelDataFrame = new GNETAZRelDataFrame(viewParent->myFramesArea, viewNet);
 }
 
 

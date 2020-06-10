@@ -33,6 +33,7 @@
 class GNEApplicationWindow;
 class GNEDialogACChooser;
 class GNEFrame;
+class GNEViewNet;
 class GNENet;
 class GNEUndoList;
 // common frames
@@ -225,11 +226,15 @@ public:
 protected:
     FOX_CONSTRUCTOR(GNEViewParent)
 
-private:
-    /// @brief struct for common frames
-    struct CommonFrames {
+    /// @brief class for common frames
+    class CommonFrames {
+
+    public:
         /// @brief constructor
         CommonFrames();
+
+        /// @brief build common frames
+        void buildCommonFrames(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
         /// @brief hide common frames
         void hideCommonFrames();
@@ -243,23 +248,28 @@ private:
         /// @brief get current common frame show
         GNEFrame* getCurrentShownFrame() const;
 
-        /// @brief frame for NETWORK_INSPECT
+        /// @brief frame for inspect elements
         GNEInspectorFrame* inspectorFrame;
 
-        /// @brief frame for NETWORK_DELETE
+        /// @brief frame for delete elemetns
         GNEDeleteFrame* deleteFrame;
 
-        /// @brief frame for NETWORK_SELECT
+        /// @brief frame for select elements
         GNESelectorFrame* selectorFrame;
 
-        /// @brief frame for NETWORK_MOVE
+        /// @brief frame for move elements
         GNEMoveFrame* moveFrame;
     };
 
-    /// @brief struct for network frames
-    struct NetworkFrames {
+    /// @brief class for network frames
+    class NetworkFrames {
+
+    public:
         /// @brief constructor
         NetworkFrames();
+
+        /// @brief build network frames
+        void buildNetworkFrames(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
         /// @brief hide network frames
         void hideNetworkFrames();
@@ -298,10 +308,15 @@ private:
         GNECreateEdgeFrame* createEdgeFrame;
     };
 
-    /// @brief struct for demand frames
-    struct DemandFrames {
+    /// @brief class for demand frames
+    class DemandFrames {
+
+    public:
         /// @brief constructor
         DemandFrames();
+
+        /// @brief build demand frames
+        void buildDemandFrames(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
         /// @brief hide demand frames
         void hideDemandFrames();
@@ -337,10 +352,15 @@ private:
         GNEPersonPlanFrame* personPlanFrame;
     };
 
-    /// @brief struct for data frames
-    struct DataFrames {
+    /// @brief class for data frames
+    class DataFrames {
+
+    public:
         /// @brief constructor
         DataFrames();
+
+        /// @brief build data frames
+        void buildDataFrames(GNEViewParent* viewParent, GNEViewNet* viewNet);
 
         /// @brief hide data frames
         void hideDataFrames();
@@ -365,7 +385,9 @@ private:
     };
 
     /// @brief struct for ACChoosers dialog
-    struct ACChoosers {
+    class ACChoosers {
+
+    public:
         /// @brief constructor
         ACChoosers();
 
@@ -406,6 +428,7 @@ private:
         GNEDialogACChooser* ACChooserProhibition;
     };
 
+private:
     /// @brief pointer to GNEApplicationWindow
     GNEApplicationWindow* myGNEAppWindows;
 
