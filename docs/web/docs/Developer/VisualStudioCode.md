@@ -3,7 +3,7 @@ title: Developer/Visual Studio Code
 permalink: /Developer/VisualStudioCode/
 ---
 
-Visual Studio Code is a lightweight integrated development environment. It can be used to develop in C/C++ on Windows, Linux and MacOS. 
+Visual Studio Code is a lightweight integrated development environment. It can be used to develop in C/C++ (among other programming languages) on Windows, Linux and MacOS. 
 
 In this document, we describe how Visual Studio Code can be installed and which plugins should be used to work with the SUMO code base.
 
