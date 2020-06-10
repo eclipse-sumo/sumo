@@ -3020,7 +3020,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
             }
 #endif
             adaptToLeader(std::make_pair(this, -1), seen, lastLink, lane, v, vLinkPass, it->distToCrossing);
-        } else if (isLeader(link, leader)) {
+        } else if (isLeader(link, leader) || (*it).inTheWay) {
             if (MSGlobals::gLateralResolution > 0 &&
                     // sibling link (XXX: could also be partial occupator where this check fails)
                     &leader->getLane()->getEdge() == &lane->getEdge()) {

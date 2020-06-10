@@ -71,15 +71,17 @@ public:
     static const double ZIPPER_ADAPT_DIST;
 
     struct LinkLeader {
-        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, bool _fromLeft = true) :
+        LinkLeader(MSVehicle* _veh, double _gap, double _distToCrossing, bool _fromLeft = true, bool _inTheWay=false) :
             vehAndGap(std::make_pair(_veh, _gap)),
             distToCrossing(_distToCrossing),
-            fromLeft(_fromLeft) {
+            fromLeft(_fromLeft),
+            inTheWay(_inTheWay) {
         }
 
         std::pair<MSVehicle*, double> vehAndGap;
         double distToCrossing;
         bool fromLeft;
+        bool inTheWay;
     };
 
     typedef std::vector<LinkLeader> LinkLeaders;
