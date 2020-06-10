@@ -57,7 +57,7 @@ SUMO provides certain features that may be enabled or disabled during compilatio
 
 ### CMake Build
 
-A build can be triggered either by using the command palette (`CMake: Build`) or by clicking on `F7`. The build process for a specific target can be triggered with the command palette (`CMake: Build Target`) or by clicking on `Shift+F7`. You can follow the build results in the output window in the lower half. 
+A build can be triggered either by using the command palette (`CMake: Build`) or by pressing `F7`. The build process for a specific target can be triggered with the command palette (`CMake: Build Target`) or by pressing `Shift+F7`. You can follow the build results in the output window in the lower half. 
 
 ### Running and Debugging
 
