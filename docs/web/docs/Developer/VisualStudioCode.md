@@ -26,7 +26,7 @@ The standard installation of Visual Studio Code does provide only basic support 
 
 ![Visual Studio Code Recommended Plugins](../images/VSCodePlugins.png)
 
-After you successfully installed these plugins into your Visual Studio Code installation, you will probably to a restart of your application before they can be used.
+After you successfully installed these plugins, you will probably have to restart Visual Studio Code before they can be used.
 
 ## Configuration
 
