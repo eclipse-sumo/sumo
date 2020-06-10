@@ -226,31 +226,52 @@ protected:
     FOX_CONSTRUCTOR(GNEViewParent)
 
 private:
-    /// @brief struct for Frames
-    struct Frames {
+    /// @brief struct for common frames
+    struct CommonFrames {
         /// @brief constructor
-        Frames();
+        CommonFrames();
 
-        /// @brief hide frames
-        void hideFrames();
+        /// @brief hide common frames
+        void hideCommonFrames();
 
-        /// @brief set new width in all frames
-        void setWidth(int frameWidth);
+        /// @brief set new width in all common frames
+        void setCommonFramesWidth(int frameWidth);
 
-        /// @brief return true if at least there is a frame shown
-        bool isFrameShown() const;
+        /// @brief return true if at least there is a common frame shown
+        bool isCommonFrameShown() const;
 
-        /// @brief get current frame show
+        /// @brief get current common frame show
         GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for NETWORK_INSPECT
         GNEInspectorFrame* inspectorFrame;
+
+        /// @brief frame for NETWORK_DELETE
+        GNEDeleteFrame* deleteFrame;
 
         /// @brief frame for NETWORK_SELECT
         GNESelectorFrame* selectorFrame;
 
         /// @brief frame for NETWORK_MOVE
         GNEMoveFrame* moveFrame;
+    };
+
+    /// @brief struct for network frames
+    struct NetworkFrames {
+        /// @brief constructor
+        NetworkFrames();
+
+        /// @brief hide network frames
+        void hideNetworkFrames();
+
+        /// @brief set new width in all network frames
+        void setNetworkFramesWidth(int frameWidth);
+
+        /// @brief return true if at least there is a network frame shown
+        bool isNetworkFrameShown() const;
+
+        /// @brief get current network frame show
+        GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for NETWORK_CONNECT
         GNEConnectorFrame* connectorFrame;
@@ -267,9 +288,6 @@ private:
         /// @brief frame for NETWORK_TAZ
         GNETAZFrame* TAZFrame;
 
-        /// @brief frame for NETWORK_DELETE
-        GNEDeleteFrame* deleteFrame;
-
         /// @brief frame for NETWORK_POLYGON
         GNEPolygonFrame* polygonFrame;
 
@@ -278,6 +296,24 @@ private:
 
         /// @brief frame for NETWORK_CREATEDGE
         GNECreateEdgeFrame* createEdgeFrame;
+    };
+
+    /// @brief struct for demand frames
+    struct DemandFrames {
+        /// @brief constructor
+        DemandFrames();
+
+        /// @brief hide demand frames
+        void hideDemandFrames();
+
+        /// @brief set new width in all demand frames
+        void setDemandFramesWidth(int frameWidth);
+
+        /// @brief return true if at least there is a demand frame shown
+        bool isDemandFrameShown() const;
+
+        /// @brief get current demand frame show
+        GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for DEMAND_ROUTE
         GNERouteFrame* routeFrame;
@@ -299,6 +335,24 @@ private:
 
         /// @brief frame for DEMAND_PERSONPLAN
         GNEPersonPlanFrame* personPlanFrame;
+    };
+
+    /// @brief struct for data frames
+    struct DataFrames {
+        /// @brief constructor
+        DataFrames();
+
+        /// @brief hide data frames
+        void hideDataFrames();
+
+        /// @brief set new width in all data frames
+        void setDataFramesWidth(int frameWidth);
+
+        /// @brief return true if at least there is a data frame shown
+        bool isDataFrameShown() const;
+
+        /// @brief get current data frame show
+        GNEFrame* getCurrentShownFrame() const;
 
         /// @brief frame for DATA_EDGEDATA
         GNEEdgeDataFrame* edgeDataFrame;
@@ -370,8 +424,17 @@ private:
     /// @brief Splitter to divide ViewNet und GNEFrames
     FXSplitter* myFramesSplitter;
 
-    /// @brief struct for frames
-    Frames myFrames;
+    /// @brief struct for common frames
+    CommonFrames myCommonFrames;
+
+    /// @brief struct for network frames
+    NetworkFrames myNetworkFrames;
+
+    /// @brief struct for demand frames
+    DemandFrames myDemandFrames;
+
+    /// @brief struct for data frames
+    DataFrames myDataFrames;
 
     /// @brief struct for ACChoosers
     ACChoosers myACChoosers;

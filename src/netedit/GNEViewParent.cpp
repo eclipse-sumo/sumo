@@ -125,33 +125,35 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Set pointer myView with the created view net
     myView = viewNet;
 
+    // Create Common frames
+    myCommonFrames.inspectorFrame = new GNEInspectorFrame(myFramesArea, viewNet);
+    myCommonFrames.selectorFrame = new GNESelectorFrame(myFramesArea, viewNet);
+    myCommonFrames.moveFrame = new GNEMoveFrame(myFramesArea, viewNet);
+    myCommonFrames.deleteFrame = new GNEDeleteFrame(myFramesArea, viewNet);
+
     // Create Network frames
-    myFrames.inspectorFrame = new GNEInspectorFrame(myFramesArea, viewNet);
-    myFrames.selectorFrame = new GNESelectorFrame(myFramesArea, viewNet);
-    myFrames.moveFrame = new GNEMoveFrame(myFramesArea, viewNet);
-    myFrames.connectorFrame = new GNEConnectorFrame(myFramesArea, viewNet);
-    myFrames.prohibitionFrame = new GNEProhibitionFrame(myFramesArea, viewNet);
-    myFrames.TLSEditorFrame = new GNETLSEditorFrame(myFramesArea, viewNet);
-    myFrames.additionalFrame = new GNEAdditionalFrame(myFramesArea, viewNet);
-    myFrames.crossingFrame = new GNECrossingFrame(myFramesArea, viewNet);
-    myFrames.TAZFrame = new GNETAZFrame(myFramesArea, viewNet);
-    myFrames.deleteFrame = new GNEDeleteFrame(myFramesArea, viewNet);
-    myFrames.polygonFrame = new GNEPolygonFrame(myFramesArea, viewNet);
-    myFrames.createEdgeFrame = new GNECreateEdgeFrame(myFramesArea, viewNet);
+    myNetworkFrames.connectorFrame = new GNEConnectorFrame(myFramesArea, viewNet);
+    myNetworkFrames.prohibitionFrame = new GNEProhibitionFrame(myFramesArea, viewNet);
+    myNetworkFrames.TLSEditorFrame = new GNETLSEditorFrame(myFramesArea, viewNet);
+    myNetworkFrames.additionalFrame = new GNEAdditionalFrame(myFramesArea, viewNet);
+    myNetworkFrames.crossingFrame = new GNECrossingFrame(myFramesArea, viewNet);
+    myNetworkFrames.TAZFrame = new GNETAZFrame(myFramesArea, viewNet);
+    myNetworkFrames.polygonFrame = new GNEPolygonFrame(myFramesArea, viewNet);
+    myNetworkFrames.createEdgeFrame = new GNECreateEdgeFrame(myFramesArea, viewNet);
 
     // Create Demand frames
-    myFrames.routeFrame = new GNERouteFrame(myFramesArea, viewNet);
-    myFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
-    myFrames.vehicleTypeFrame = new GNEVehicleTypeFrame(myFramesArea, viewNet);
-    myFrames.stopFrame = new GNEStopFrame(myFramesArea, viewNet);
-    myFrames.personTypeFrame = new GNEPersonTypeFrame(myFramesArea, viewNet);
-    myFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
-    myFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
+    myDemandFrames.routeFrame = new GNERouteFrame(myFramesArea, viewNet);
+    myDemandFrames.vehicleFrame = new GNEVehicleFrame(myFramesArea, viewNet);
+    myDemandFrames.vehicleTypeFrame = new GNEVehicleTypeFrame(myFramesArea, viewNet);
+    myDemandFrames.stopFrame = new GNEStopFrame(myFramesArea, viewNet);
+    myDemandFrames.personTypeFrame = new GNEPersonTypeFrame(myFramesArea, viewNet);
+    myDemandFrames.personFrame = new GNEPersonFrame(myFramesArea, viewNet);
+    myDemandFrames.personPlanFrame = new GNEPersonPlanFrame(myFramesArea, viewNet);
 
     // create Data frames
-    myFrames.edgeDataFrame = new GNEEdgeDataFrame(myFramesArea, viewNet);
-    myFrames.edgeRelDataFrame = new GNEEdgeRelDataFrame(myFramesArea, viewNet);
-    myFrames.TAZRelDataFrame = new GNETAZRelDataFrame(myFramesArea, viewNet);
+    myDataFrames.edgeDataFrame = new GNEEdgeDataFrame(myFramesArea, viewNet);
+    myDataFrames.edgeRelDataFrame = new GNEEdgeRelDataFrame(myFramesArea, viewNet);
+    myDataFrames.TAZRelDataFrame = new GNETAZRelDataFrame(myFramesArea, viewNet);
 
     // Update frame areas after creation
     onCmdUpdateFrameAreaWidth(nullptr, 0, nullptr);
@@ -177,156 +179,169 @@ GNEViewParent::~GNEViewParent() {
 
 void
 GNEViewParent::hideAllFrames() {
-    myFrames.hideFrames();
+    myCommonFrames.hideCommonFrames();
+    myNetworkFrames.hideNetworkFrames();
+    myDemandFrames.hideDemandFrames();
+    myDataFrames.hideDataFrames();
 }
 
 
 GNEFrame*
 GNEViewParent::getCurrentShownFrame() const {
-    return myFrames.getCurrentShownFrame();
+    if (myCommonFrames.isCommonFrameShown()) {
+        return myCommonFrames.getCurrentShownFrame();
+    } else if (myNetworkFrames.isNetworkFrameShown()) {
+        return myNetworkFrames.getCurrentShownFrame();
+    } else if (myDemandFrames.isDemandFrameShown()) {
+        return myDemandFrames.getCurrentShownFrame();
+    } else if (myDataFrames.isDataFrameShown()) {
+        return myDataFrames.getCurrentShownFrame();
+    } else {
+        return nullptr;
+    }
 }
 
 
 GNEInspectorFrame*
 GNEViewParent::getInspectorFrame() const {
-    return myFrames.inspectorFrame;
+    return myCommonFrames.inspectorFrame;
 }
 
 
 GNESelectorFrame*
 GNEViewParent::getSelectorFrame() const {
-    return myFrames.selectorFrame;
+    return myCommonFrames.selectorFrame;
 }
 
 
 GNEMoveFrame*
 GNEViewParent::getMoveFrame() const {
-    return myFrames.moveFrame;
+    return myCommonFrames.moveFrame;
 }
 
 
 GNEConnectorFrame*
 GNEViewParent::getConnectorFrame() const {
-    return myFrames.connectorFrame;
+    return myNetworkFrames.connectorFrame;
 }
 
 
 GNETLSEditorFrame*
 GNEViewParent::getTLSEditorFrame() const {
-    return myFrames.TLSEditorFrame;
+    return myNetworkFrames.TLSEditorFrame;
 }
 
 
 GNEAdditionalFrame*
 GNEViewParent::getAdditionalFrame() const {
-    return myFrames.additionalFrame;
+    return myNetworkFrames.additionalFrame;
 }
 
 
 GNECrossingFrame*
 GNEViewParent::getCrossingFrame() const {
-    return myFrames.crossingFrame;
+    return myNetworkFrames.crossingFrame;
 }
 
 
 GNETAZFrame*
 GNEViewParent::getTAZFrame() const {
-    return myFrames.TAZFrame;
+    return myNetworkFrames.TAZFrame;
 }
 
 
 GNEDeleteFrame*
 GNEViewParent::getDeleteFrame() const {
-    return myFrames.deleteFrame;
+    return myCommonFrames.deleteFrame;
 }
 
 
 GNEPolygonFrame*
 GNEViewParent::getPolygonFrame() const {
-    return myFrames.polygonFrame;
+    return myNetworkFrames.polygonFrame;
 }
 
 
 GNEProhibitionFrame*
 GNEViewParent::getProhibitionFrame() const {
-    return myFrames.prohibitionFrame;
+    return myNetworkFrames.prohibitionFrame;
 }
 
 
 GNECreateEdgeFrame*
 GNEViewParent::getCreateEdgeFrame() const {
-    return myFrames.createEdgeFrame;
+    return myNetworkFrames.createEdgeFrame;
 }
 
 
 GNERouteFrame*
 GNEViewParent::getRouteFrame() const {
-    return myFrames.routeFrame;
+    return myDemandFrames.routeFrame;
 }
 
 
 GNEVehicleFrame*
 GNEViewParent::getVehicleFrame() const {
-    return myFrames.vehicleFrame;
+    return myDemandFrames.vehicleFrame;
 }
 
 
 GNEVehicleTypeFrame*
 GNEViewParent::getVehicleTypeFrame() const {
-    return myFrames.vehicleTypeFrame;
+    return myDemandFrames.vehicleTypeFrame;
 }
 
 
 GNEStopFrame*
 GNEViewParent::getStopFrame() const {
-    return myFrames.stopFrame;
+    return myDemandFrames.stopFrame;
 }
 
 
 GNEPersonTypeFrame*
 GNEViewParent::getPersonTypeFrame() const {
-    return myFrames.personTypeFrame;
+    return myDemandFrames.personTypeFrame;
 }
 
 
 GNEPersonFrame*
 GNEViewParent::getPersonFrame() const {
-    return myFrames.personFrame;
+    return myDemandFrames.personFrame;
 }
 
 
 GNEPersonPlanFrame*
 GNEViewParent::getPersonPlanFrame() const {
-    return myFrames.personPlanFrame;
+    return myDemandFrames.personPlanFrame;
 }
 
 
 GNEEdgeDataFrame*
 GNEViewParent::getEdgeDataFrame() const {
-    return myFrames.edgeDataFrame;
+    return myDataFrames.edgeDataFrame;
 }
 
 
 GNEEdgeRelDataFrame*
 GNEViewParent::getEdgeRelDataFrame() const {
-    return myFrames.edgeRelDataFrame;
+    return myDataFrames.edgeRelDataFrame;
 }
 
 
 GNETAZRelDataFrame*
 GNEViewParent::getTAZRelDataFrame() const {
-    return myFrames.TAZRelDataFrame;
+    return myDataFrames.TAZRelDataFrame;
 }
 
 
 GNEGenericDataFrame*
 GNEViewParent::getDataFrame() const {
-    if (myFrames.edgeDataFrame->shown()) {
-        return myFrames.edgeDataFrame;
-    } else if (myFrames.edgeRelDataFrame->shown()) {
-        return myFrames.edgeRelDataFrame;
-    } else if (myFrames.TAZRelDataFrame->shown()) {
-        return myFrames.TAZRelDataFrame;
+    if (myDataFrames.edgeDataFrame->shown()) {
+        return myDataFrames.edgeDataFrame;
+    } else if (myDataFrames.edgeRelDataFrame->shown()) {
+        return myDataFrames.edgeRelDataFrame;
+    } else if (myDataFrames.TAZRelDataFrame->shown()) {
+        return myDataFrames.TAZRelDataFrame;
     } else {
         return nullptr;
     }
@@ -335,8 +350,12 @@ GNEViewParent::getDataFrame() const {
 
 void
 GNEViewParent::showFramesArea() {
+    const bool frameShown = myCommonFrames.isCommonFrameShown() || 
+        myNetworkFrames.isNetworkFrameShown() || 
+        myDemandFrames.isDemandFrameShown() || 
+        myDataFrames.isDataFrameShown();
     // show and recalc framesArea if at least there is a frame shown
-    if (myFrames.isFrameShown()) {
+    if (frameShown) {
         myFramesArea->recalc();
         myFramesArea->show();
     }
@@ -345,8 +364,12 @@ GNEViewParent::showFramesArea() {
 
 void
 GNEViewParent::hideFramesArea() {
+    const bool frameShown = myCommonFrames.isCommonFrameShown() || 
+        myNetworkFrames.isNetworkFrameShown() || 
+        myDemandFrames.isDemandFrameShown() || 
+        myDataFrames.isDataFrameShown();
     // hide and recalc frames Area if all frames are hidden is enabled
-    if (!myFrames.isFrameShown()) {
+    if (!frameShown) {
         myFramesArea->hide();
         myFramesArea->recalc();
     }
@@ -672,106 +695,126 @@ GNEViewParent::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
 
 long
 GNEViewParent::onCmdUpdateFrameAreaWidth(FXObject*, FXSelector, void*) {
+    const int framesAreaWidth = myFramesArea->getWidth();
     // set width of FramesArea in all frames
-    myFrames.setWidth(myFramesArea->getWidth());
+    myCommonFrames.setCommonFramesWidth(framesAreaWidth);
+    myNetworkFrames.setNetworkFramesWidth(framesAreaWidth);
+    myDemandFrames.setDemandFramesWidth(framesAreaWidth);
+    myDataFrames.setDataFramesWidth(framesAreaWidth);
     return 0;
 }
 
 // ---------------------------------------------------------------------------
-// GNEViewParent::Frames - methods
+// GNEViewParent::CommonFrames - methods
 // ---------------------------------------------------------------------------
 
-GNEViewParent::Frames::Frames() :
+GNEViewParent::CommonFrames::CommonFrames() :
     inspectorFrame(nullptr),
-    selectorFrame(nullptr),
-    moveFrame(nullptr),
-    connectorFrame(nullptr),
-    TLSEditorFrame(nullptr),
-    additionalFrame(nullptr),
-    crossingFrame(nullptr),
-    TAZFrame(nullptr),
     deleteFrame(nullptr),
-    polygonFrame(nullptr),
-    prohibitionFrame(nullptr),
-    createEdgeFrame(nullptr),
-    routeFrame(nullptr),
-    vehicleFrame(nullptr),
-    vehicleTypeFrame(nullptr),
-    stopFrame(nullptr),
-    personFrame(nullptr),
-    personTypeFrame(nullptr),
-    personPlanFrame(nullptr),
-    edgeDataFrame(nullptr),
-    edgeRelDataFrame(nullptr),
-    TAZRelDataFrame(nullptr) {
+    selectorFrame(nullptr),
+    moveFrame(nullptr) {
 }
 
 
 void
-GNEViewParent::Frames::hideFrames() {
+GNEViewParent::CommonFrames::hideCommonFrames() {
     inspectorFrame->hide();
+    deleteFrame->hide();
     selectorFrame->hide();
     moveFrame->hide();
-    connectorFrame->hide();
-    TLSEditorFrame->hide();
-    additionalFrame->hide();
-    crossingFrame->hide();
-    TAZFrame->hide();
-    deleteFrame->hide();
-    polygonFrame->hide();
-    prohibitionFrame->hide();
-    createEdgeFrame->hide();
-    routeFrame->hide();
-    vehicleFrame->hide();
-    vehicleTypeFrame->hide();
-    stopFrame->hide();
-    personTypeFrame->hide();
-    personFrame->hide();
-    personPlanFrame->hide();
-    edgeDataFrame->hide();
-    edgeRelDataFrame->hide();
-    TAZRelDataFrame->hide();
 }
 
 
 void
-GNEViewParent::Frames::setWidth(int frameWidth) {
+GNEViewParent::CommonFrames::setCommonFramesWidth(int frameWidth) {
     // set width in all frames
     inspectorFrame->setFrameWidth(frameWidth);
+    deleteFrame->setFrameWidth(frameWidth);
     selectorFrame->setFrameWidth(frameWidth);
     moveFrame->setFrameWidth(frameWidth);
-    connectorFrame->setFrameWidth(frameWidth);
-    TLSEditorFrame->setFrameWidth(frameWidth);
-    additionalFrame->setFrameWidth(frameWidth);
-    crossingFrame->setFrameWidth(frameWidth);
-    TAZFrame->setFrameWidth(frameWidth);
-    deleteFrame->setFrameWidth(frameWidth);
-    polygonFrame->setFrameWidth(frameWidth);
-    prohibitionFrame->setFrameWidth(frameWidth);
-    createEdgeFrame->setFrameWidth(frameWidth);
-    routeFrame->setFrameWidth(frameWidth);
-    vehicleFrame->setFrameWidth(frameWidth);
-    vehicleTypeFrame->setFrameWidth(frameWidth);
-    stopFrame->setFrameWidth(frameWidth);
-    personTypeFrame->setFrameWidth(frameWidth);
-    personFrame->setFrameWidth(frameWidth);
-    personPlanFrame->setFrameWidth(frameWidth);
-    edgeDataFrame->setFrameWidth(frameWidth);
-    edgeRelDataFrame->setFrameWidth(frameWidth);
-    TAZRelDataFrame->setFrameWidth(frameWidth);
 }
 
 
 bool
-GNEViewParent::Frames::isFrameShown() const {
+GNEViewParent::CommonFrames::isCommonFrameShown() const {
     // check all frames
     if (inspectorFrame->shown()) {
+        return true;
+    } else if (deleteFrame->shown()) {
         return true;
     } else if (selectorFrame->shown()) {
         return true;
     } else if (moveFrame->shown()) {
         return true;
-    } else if (connectorFrame->shown()) {
+    } else {
+        return false;
+    }
+}
+
+
+GNEFrame*
+GNEViewParent::CommonFrames::getCurrentShownFrame() const {
+    // check all frames
+    if (inspectorFrame->shown()) {
+        return inspectorFrame;
+    } else if (deleteFrame->shown()) {
+        return deleteFrame;
+    } else if (selectorFrame->shown()) {
+        return selectorFrame;
+    } else if (moveFrame->shown()) {
+        return moveFrame;
+    } else {
+        return nullptr;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewParent::NetworkFrames - methods
+// ---------------------------------------------------------------------------
+
+GNEViewParent::NetworkFrames::NetworkFrames() :
+    connectorFrame(nullptr),
+    TLSEditorFrame(nullptr),
+    additionalFrame(nullptr),
+    crossingFrame(nullptr),
+    TAZFrame(nullptr),
+    polygonFrame(nullptr),
+    prohibitionFrame(nullptr),
+    createEdgeFrame(nullptr) {
+}
+
+
+void
+GNEViewParent::NetworkFrames::hideNetworkFrames() {
+    connectorFrame->hide();
+    TLSEditorFrame->hide();
+    additionalFrame->hide();
+    crossingFrame->hide();
+    TAZFrame->hide();
+    polygonFrame->hide();
+    prohibitionFrame->hide();
+    createEdgeFrame->hide();
+}
+
+
+void
+GNEViewParent::NetworkFrames::setNetworkFramesWidth(int frameWidth) {
+    // set width in all frames
+    connectorFrame->setFrameWidth(frameWidth);
+    TLSEditorFrame->setFrameWidth(frameWidth);
+    additionalFrame->setFrameWidth(frameWidth);
+    crossingFrame->setFrameWidth(frameWidth);
+    TAZFrame->setFrameWidth(frameWidth);
+    polygonFrame->setFrameWidth(frameWidth);
+    prohibitionFrame->setFrameWidth(frameWidth);
+    createEdgeFrame->setFrameWidth(frameWidth);
+}
+
+
+bool
+GNEViewParent::NetworkFrames::isNetworkFrameShown() const {
+    // check all frames
+    if (connectorFrame->shown()) {
         return true;
     } else if (TLSEditorFrame->shown()) {
         return true;
@@ -781,15 +824,86 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (TAZFrame->shown()) {
         return true;
-    } else if (deleteFrame->shown()) {
-        return true;
     } else if (polygonFrame->shown()) {
         return true;
     } else if (prohibitionFrame->shown()) {
         return true;
     } else if (createEdgeFrame->shown()) {
         return true;
-    } else if (routeFrame->shown()) {
+    } else {
+        return false;
+    }
+}
+
+
+GNEFrame*
+GNEViewParent::NetworkFrames::getCurrentShownFrame() const {
+    // check all frames
+    if (connectorFrame->shown()) {
+        return connectorFrame;
+    } else if (TLSEditorFrame->shown()) {
+        return TLSEditorFrame;
+    } else if (additionalFrame->shown()) {
+        return additionalFrame;
+    } else if (crossingFrame->shown()) {
+        return crossingFrame;
+    } else if (TAZFrame->shown()) {
+        return TAZFrame;
+    } else if (polygonFrame->shown()) {
+        return polygonFrame;
+    } else if (prohibitionFrame->shown()) {
+        return prohibitionFrame;
+    } else if (createEdgeFrame->shown()) {
+        return createEdgeFrame;
+    } else {
+        return nullptr;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewParent::DemandFrames - methods
+// ---------------------------------------------------------------------------
+
+GNEViewParent::DemandFrames::DemandFrames() :
+    routeFrame(nullptr),
+    vehicleFrame(nullptr),
+    vehicleTypeFrame(nullptr),
+    stopFrame(nullptr),
+    personFrame(nullptr),
+    personTypeFrame(nullptr),
+    personPlanFrame(nullptr) {
+}
+
+
+void
+GNEViewParent::DemandFrames::hideDemandFrames() {
+    routeFrame->hide();
+    vehicleFrame->hide();
+    vehicleTypeFrame->hide();
+    stopFrame->hide();
+    personTypeFrame->hide();
+    personFrame->hide();
+    personPlanFrame->hide();
+}
+
+
+void
+GNEViewParent::DemandFrames::setDemandFramesWidth(int frameWidth) {
+    // set width in all frames
+    routeFrame->setFrameWidth(frameWidth);
+    vehicleFrame->setFrameWidth(frameWidth);
+    vehicleTypeFrame->setFrameWidth(frameWidth);
+    stopFrame->setFrameWidth(frameWidth);
+    personTypeFrame->setFrameWidth(frameWidth);
+    personFrame->setFrameWidth(frameWidth);
+    personPlanFrame->setFrameWidth(frameWidth);
+}
+
+
+bool
+GNEViewParent::DemandFrames::isDemandFrameShown() const {
+    // check all frames
+    if (routeFrame->shown()) {
         return true;
     } else if (vehicleFrame->shown()) {
         return true;
@@ -803,12 +917,6 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (personPlanFrame->shown()) {
         return true;
-    } else if (edgeDataFrame->shown()) {
-        return true;
-    } else if (edgeRelDataFrame->shown()) {
-        return true;
-    } else if (TAZRelDataFrame->shown()) {
-        return true;
     } else {
         return false;
     }
@@ -816,33 +924,9 @@ GNEViewParent::Frames::isFrameShown() const {
 
 
 GNEFrame*
-GNEViewParent::Frames::getCurrentShownFrame() const {
+GNEViewParent::DemandFrames::getCurrentShownFrame() const {
     // check all frames
-    if (inspectorFrame->shown()) {
-        return inspectorFrame;
-    } else if (selectorFrame->shown()) {
-        return selectorFrame;
-    } else if (moveFrame->shown()) {
-        return moveFrame;
-    } else if (connectorFrame->shown()) {
-        return connectorFrame;
-    } else if (TLSEditorFrame->shown()) {
-        return TLSEditorFrame;
-    } else if (additionalFrame->shown()) {
-        return additionalFrame;
-    } else if (crossingFrame->shown()) {
-        return crossingFrame;
-    } else if (TAZFrame->shown()) {
-        return TAZFrame;
-    } else if (deleteFrame->shown()) {
-        return deleteFrame;
-    } else if (polygonFrame->shown()) {
-        return polygonFrame;
-    } else if (prohibitionFrame->shown()) {
-        return prohibitionFrame;
-    } else if (createEdgeFrame->shown()) {
-        return createEdgeFrame;
-    } else if (routeFrame->shown()) {
+    if (routeFrame->shown()) {
         return routeFrame;
     } else if (vehicleFrame->shown()) {
         return vehicleFrame;
@@ -856,7 +940,58 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return personFrame;
     } else if (personPlanFrame->shown()) {
         return personPlanFrame;
-    } else if (edgeDataFrame->shown()) {
+    } else {
+        return nullptr;
+    }
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewParent::DataFrames - methods
+// ---------------------------------------------------------------------------
+
+GNEViewParent::DataFrames::DataFrames() :
+    edgeDataFrame(nullptr),
+    edgeRelDataFrame(nullptr),
+    TAZRelDataFrame(nullptr) {
+}
+
+
+void
+GNEViewParent::DataFrames::hideDataFrames() {
+    edgeDataFrame->hide();
+    edgeRelDataFrame->hide();
+    TAZRelDataFrame->hide();
+}
+
+
+void
+GNEViewParent::DataFrames::setDataFramesWidth(int frameWidth) {
+    // set width in all frames
+    edgeDataFrame->setFrameWidth(frameWidth);
+    edgeRelDataFrame->setFrameWidth(frameWidth);
+    TAZRelDataFrame->setFrameWidth(frameWidth);
+}
+
+
+bool
+GNEViewParent::DataFrames::isDataFrameShown() const {
+    // check all frames
+    if (edgeDataFrame->shown()) {
+        return true;
+    } else if (edgeRelDataFrame->shown()) {
+        return true;
+    } else if (TAZRelDataFrame->shown()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+GNEFrame*
+GNEViewParent::DataFrames::getCurrentShownFrame() const {
+    // check all frames
+    if (edgeDataFrame->shown()) {
         return edgeDataFrame;
     } else if (edgeRelDataFrame->shown()) {
         return edgeRelDataFrame;
