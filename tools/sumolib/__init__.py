@@ -24,7 +24,7 @@ import subprocess
 from xml.sax import parseString, handler
 from optparse import OptionParser, OptionGroup, Option
 
-from . import files, net, output, sensors, shapes  # noqa
+from . import files, net, output, sensors, shapes, statistics  # noqa
 from . import color, geomhelper, miscutils, options, route, version  # noqa
 from .xml import writeHeader as writeXMLHeader  # noqa
 # the visualization submodule is not imported to avoid an explicit matplotlib dependency
