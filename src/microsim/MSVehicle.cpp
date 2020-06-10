@@ -6482,8 +6482,8 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                     egoET = myJunctionEntryTime;
                 } else if (response && response2) {
                     // in a mutual conflict scenario, use entry time to avoid deadlock
-                    foeET = veh->myJunctionEntryTime;
-                    egoET = myJunctionEntryTime;
+                    foeET = veh->myJunctionConflictEntryTime;
+                    egoET = myJunctionConflictEntryTime;
                 }
             }
             if (egoET == foeET) {
