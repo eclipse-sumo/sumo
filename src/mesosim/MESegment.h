@@ -60,17 +60,17 @@ public:
      * @param[in] jamThresh percentage of occupied space before the segment is jammed
      * @param[in] multiQueue whether to install multiple queues on this segment
      * @param[in] junctionControl whether junction control is enabled on this segment
-     * @param[in] the quotient of geometrical length / given length
      * @todo recheck the id; using a ':' as divider is not really nice
      */
     MESegment(const std::string& id,
               const MSEdge& parent, MESegment* next,
-              double length, double speed,
-              int idx,
-              SUMOTime tauff, SUMOTime taufj,
-              SUMOTime taujf, SUMOTime taujj,
-              double jamThresh,
-              bool multiQueue, bool junctionControl);
+              const double length, const double speed,
+              const int idx,
+              const SUMOTime tauff, const SUMOTime taufj,
+              const SUMOTime taujf, const SUMOTime taujj,
+              const double jamThresh,
+              const bool multiQueue,
+              const bool junctionControl);
 
 
     typedef std::vector<MEVehicle*> Queue;
@@ -429,9 +429,6 @@ private:
 
     /// @brief return the maximum tls penalty for all links from this edge
     double getMaxPenaltySeconds() const;
-
-    /// @brief whether the segment requires use of multiple queues
-    static bool useMultiQueue(bool multiQueue, const MSEdge& parent);
 
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
     inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap) const {

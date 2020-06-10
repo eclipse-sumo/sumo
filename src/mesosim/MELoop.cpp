@@ -274,13 +274,14 @@ MELoop::numSegmentsFor(const double length, const double sLength) {
 void
 MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     const double length = e.getLength();
-    int no = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
-    const double slength = length / (double)no;
+    const int numSegments = numSegmentsFor(length, oc.getFloat("meso-edgelength"));
+    const double slength = length / (double)numSegments;
     MESegment* newSegment = nullptr;
     MESegment* nextSegment = nullptr;
-    bool multiQueue = oc.getBool("meso-multi-queue");
+    const bool laneQueue = oc.getBool("meso-lane-queue");
+    bool multiQueue = oc.getBool("meso-multi-queue") && e.getLanes().size() > 1 && (laneQueue || e.getNumSuccessors() > 1);
     bool junctionControl = oc.getBool("meso-junction-control") || isEnteringRoundabout(e);
-    for (int s = no - 1; s >= 0; s--) {
+    for (int s = numSegments - 1; s >= 0; s--) {
         std::string id = e.getID() + ":" + toString(s);
         newSegment =
             new MESegment(id, e, nextSegment, slength,
@@ -288,7 +289,7 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
                           string2time(oc.getString("meso-tauff")), string2time(oc.getString("meso-taufj")),
                           string2time(oc.getString("meso-taujf")), string2time(oc.getString("meso-taujj")),
                           oc.getFloat("meso-jam-threshold"), multiQueue, junctionControl);
-        multiQueue = false;
+        multiQueue = laneQueue;
         junctionControl = false;
         nextSegment = newSegment;
     }

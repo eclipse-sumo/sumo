@@ -64,11 +64,13 @@ const double MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<double>::
 // ===========================================================================
 MESegment::MESegment(const std::string& id,
                      const MSEdge& parent, MESegment* next,
-                     double length, double speed,
-                     int idx,
-                     SUMOTime tauff, SUMOTime taufj,
-                     SUMOTime taujf, SUMOTime taujj,
-                     double jamThresh, bool multiQueue, bool junctionControl) :
+                     const double length, const double speed,
+                     const int idx,
+                     const SUMOTime tauff, const SUMOTime taufj,
+                     const SUMOTime taujf, const SUMOTime taujj,
+                     const double jamThresh,
+                     const bool multiQueue,
+                     const bool junctionControl) :
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_ff((SUMOTime)(tauff / parent.getLanes().size())),
@@ -78,7 +80,7 @@ MESegment::MESegment(const std::string& id,
     myTau_length(MAX2(MESO_MIN_SPEED, speed) * parent.getLanes().size() / TIME2STEPS(1)),
     myHeadwayCapacity(length / DEFAULT_VEH_LENGTH_WITH_GAP * parent.getLanes().size())/* Eissfeldt p. 69 */,
     myCapacity(length * parent.getLanes().size()),
-    myOccupancy(0.f),
+    myOccupancy(0.),
     myJunctionControl(junctionControl),
     myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 &&
                  // only apply to the last segment of a tls-controlled edge
@@ -100,20 +102,21 @@ MESegment::MESegment(const std::string& id,
     myLastMeanSpeedUpdate(SUMOTime_MIN) {
     myCarQues.push_back(std::vector<MEVehicle*>());
     myBlockTimes.push_back(-1);
-    if (useMultiQueue(multiQueue, parent)) {
+    if (multiQueue) {
         const std::vector<MSLane*>& lanes = parent.getLanes();
         while (myCarQues.size() < lanes.size()) {
             myCarQues.push_back(std::vector<MEVehicle*>());
             myBlockTimes.push_back(-1);
         }
-        for (int i = 0; i < (int)parent.getNumSuccessors(); ++i) {
-            const MSEdge* const edge = parent.getSuccessors()[i];
-            const std::vector<MSLane*>* const allowed = parent.allowedLanes(*edge);
-            assert(allowed != 0);
-            assert(allowed->size() > 0);
-            for (std::vector<MSLane*>::const_iterator j = allowed->begin(); j != allowed->end(); ++j) {
-                std::vector<MSLane*>::const_iterator it = std::find(lanes.begin(), lanes.end(), *j);
-                myFollowerMap[edge].push_back((int)distance(lanes.begin(), it));
+        if (next == nullptr) {
+            for (const MSEdge* const edge : parent.getSuccessors()) {
+                const std::vector<MSLane*>* const allowed = parent.allowedLanes(*edge);
+                assert(allowed != nullptr);
+                assert(allowed->size() > 0);
+                for (MSLane* const l : *allowed) {
+                    std::vector<MSLane*>::const_iterator it = std::find(lanes.begin(), lanes.end(), l);
+                    myFollowerMap[edge].push_back((int)distance(lanes.begin(), it));
+                }
             }
         }
     }
@@ -132,10 +135,6 @@ MESegment::MESegment(const std::string& id):
 }
 
 
-bool
-MESegment::useMultiQueue(bool multiQueue, const MSEdge& parent) {
-    return multiQueue && parent.getLanes().size() > 1 && parent.getNumSuccessors() > 1;
-}
 
 void
 MESegment::recomputeJamThreshold(double jamThresh) {
@@ -326,7 +325,7 @@ MESegment::writeVehicles(OutputDevice& of) const {
 
 MEVehicle*
 MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Notification reason) {
-    myOccupancy = MAX2(0., myOccupancy - v->getVehicleType().getLengthWithGap());
+    myOccupancy = myOccupancy - v->getVehicleType().getLengthWithGap();
     std::vector<MEVehicle*>& cars = myCarQues[v->getQueIndex()];
     assert(std::find(cars.begin(), cars.end(), v) != cars.end());
     // One could be tempted to do  v->setSegment(next); here but position on lane will be invalid if next == 0
@@ -335,12 +334,11 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
     myEdge.lock();
     if (v == cars.back()) {
         cars.pop_back();
-        if (!cars.empty()) {
+        if (cars.empty()) {
+            myOccupancy = 0.;
+        } else {
             myEdge.unlock();
             return cars.back();
-        }
-        if (myOccupancy < NUMERICAL_EPS) {
-            myOccupancy = 0;
         }
     } else {
         cars.erase(std::find(cars.begin(), cars.end(), v));
@@ -512,17 +510,30 @@ MESegment::receive(MEVehicle* veh, SUMOTime time, bool isDepart, bool afterTelep
     assert(veh->getEdge() == &getEdge());
     // route continues
     const double maxSpeedOnEdge = veh->getEdge()->getVehicleMaxSpeed(veh);
+    const SUMOVehicleClass svc = veh->getVClass();
     const double uspeed = MAX2(maxSpeedOnEdge, MESO_MIN_SPEED);
     int nextQueIndex = 0;
     if (myCarQues.size() > 1) {
-        const MSEdge* succ = veh->succEdge(1);
-        // succ may be invalid if called from initialise() with an invalid route
-        if (succ != nullptr && myFollowerMap.count(succ) > 0) {
-            const std::vector<int>& indices = myFollowerMap[succ];
-            nextQueIndex = indices[0];
-            for (std::vector<int>::const_iterator i = indices.begin() + 1; i != indices.end(); ++i) {
-                if (myCarQues[*i].size() < myCarQues[nextQueIndex].size()) {
-                    nextQueIndex = *i;
+        int minSize = std::numeric_limits<int>::max();
+        if (myNextSegment == nullptr) {
+            const MSEdge* const succ = veh->succEdge(1);
+            // succ may be invalid if called from initialise() with an invalid route
+            if (succ != nullptr && myFollowerMap.count(succ) > 0) {
+                for (const int i : myFollowerMap[succ]) {
+                    const MSLane* const l = myEdge.getLanes()[i];
+                    if (l->allowsVehicleClass(svc) && myCarQues[i].size() < minSize) {
+                        nextQueIndex = i;
+                        minSize = (int)myCarQues[i].size();
+                    }
+                }
+            }
+        }
+        if (minSize == std::numeric_limits<int>::max()) {
+            for (int i = 0; i < (int)myCarQues.size(); i++) {
+                const MSLane* const l = myEdge.getLanes()[i];
+                if (l->allowsVehicleClass(svc) && myCarQues[i].size() < minSize) {
+                    nextQueIndex = i;
+                    minSize = (int)myCarQues[i].size();
                 }
             }
         }

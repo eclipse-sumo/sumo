@@ -501,6 +501,8 @@ MSFrame::fillOptions() {
                       "Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default)");
     oc.doRegister("meso-multi-queue", new Option_Bool(true));
     oc.addDescription("meso-multi-queue", "Mesoscopic", "Enable multiple queues at edge ends");
+    oc.doRegister("meso-lane-queue", new Option_Bool(false));
+    oc.addDescription("meso-lane-queue", "Mesoscopic", "Enable separate queues for every lane");
     oc.doRegister("meso-junction-control", new Option_Bool(false));
     oc.addDescription("meso-junction-control", "Mesoscopic", "Enable mesoscopic traffic light and priority junction handling");
     oc.doRegister("meso-junction-control.limited", new Option_Bool(false));
