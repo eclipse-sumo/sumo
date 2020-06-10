@@ -52,15 +52,15 @@ class MSRoute;
 class GUIViewTraffic : public GUISUMOAbstractView {
     FXDECLARE(GUIViewTraffic)
 public:
-    /// constructor
+    /// @brief constructor
     GUIViewTraffic(FXComposite* p, GUIMainWindow& app,
                    GUISUMOViewParent* parent, GUINet& net, FXGLVisual* glVis,
                    FXGLCanvas* share);
-    /// destructor
+    /// @brief destructor
     virtual ~GUIViewTraffic();
 
-    /// builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow&);
+    /// @brief builds the view toolbars
+    virtual void buildViewToolBars(GUIGlChildWindow*);
 
 
     /** @brief Starts vehicle tracking

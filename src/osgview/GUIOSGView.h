@@ -118,7 +118,7 @@ public:
 
     };
 
-
+    /// @brief struct for OSG movable elements
     struct OSGMovable {
         osg::ref_ptr<osg::PositionAttitudeTransform> pos;
         osg::ref_ptr<osg::ShapeDrawable> geom;
@@ -126,18 +126,18 @@ public:
         bool active;
     };
 
-
-    /// constructor
+    /// @brief constructor
     GUIOSGView(FXComposite* p, GUIMainWindow& app,
                GUISUMOViewParent* parent, GUINet& net, FXGLVisual* glVis,
                FXGLCanvas* share);
 
+    /// @brief destructor
     virtual ~GUIOSGView();
 
-    /// builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow&);
+    /// @brief builds the view toolbars
+    virtual void buildViewToolBars(GUIGlChildWindow*);
 
-    /// recenters the view
+    /// @brief recenters the view
     void recenterView();
 
     /** @brief centers to the chosen artifact
@@ -148,12 +148,13 @@ public:
      */
     void centerTo(GUIGlID id, bool applyZoom, double zoomDist = 20);
 
+    /// @brief show viewport editor
     void showViewportEditor();
 
-    /// applies the given viewport settings
+    /// @brief applies the given viewport settings
     void setViewportFromToRot(const Position& lookFrom, const Position& lookAt, double rotation);
 
-    ///@brief copy the viewport to the given view
+    /// @brief copy the viewport to the given view
     void copyViewportTo(GUISUMOAbstractView* view);
 
     /** @brief Starts vehicle tracking

@@ -78,7 +78,7 @@ public:
     virtual ~GUISUMOAbstractView();
 
     /// @brief builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow&) { }
+    virtual void buildViewToolBars(GUIGlChildWindow*) { }
 
     /// @brief recenters the view
     virtual void recenterView();

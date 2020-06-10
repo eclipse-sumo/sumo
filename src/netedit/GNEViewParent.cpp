@@ -137,8 +137,8 @@ GNEViewParent::GNEViewParent(FXMDIClient* p, FXMDIMenu* mdimenu, const FXString&
     // Hidde all Frames Area
     hideFramesArea();
 
-    //  Buld view toolBars
-    myView->buildViewToolBars(*this);
+    // Build view toolBars
+    myView->buildViewToolBars(this);
 
     // create windows
     GUIGlChildWindow::create();
