@@ -53,7 +53,7 @@ The CMake Tools plugin should automatically recognize the `CMakeLists.txt` file 
 
 You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are refered to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (`Command+Shift+P` on MacOS) and enter `CMake: Select a kit`. 
 
-SUMO provides certain features that may be enabled or disabled during compilation. CMake refers to these features as **variants**. These variants are defined in the `cmake-variants.yaml` file in the top-level directory of your SUMO repository. This file describe certain features or properties for the CMake configuration process. In Visual Studio Code, you can easily switch between different predefined variants by using the command palette and entering `CMake: Select Variant`. You should use this feature to quickly switch between a `release` and a `debug` build of SUMO. 
+SUMO provides certain features that may be enabled or disabled during compilation. CMake refers to these features as **variants**. These variants are defined in the `cmake-variants.yaml` file in the top-level directory of your SUMO repository. This file describes certain features or properties for the CMake configuration process. In Visual Studio Code, you can easily switch between different predefined variants by using the command palette and entering `CMake: Select Variant`. You should use this feature to quickly switch between a `release` and a `debug` build of SUMO. 
 
 ### CMake Build
 
