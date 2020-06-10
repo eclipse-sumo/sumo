@@ -46,7 +46,9 @@ public:
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @param objectsUnderGrippedCursor collection of objects under gripped cursor after click over view
      */
-    void processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor);
+    void processClick(const Position& clickedPosition, 
+        const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, 
+        const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor);
 
     /// @brief show prohibition frame
     void show();
