@@ -98,11 +98,9 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                 myAttributeCarrierLanes.push_back(AC);
                 myAttributeCarrierEdges.push_back(AC);
                 // If we're editing a shape, ignore rest of elements (including other polygons)
-                if (editedPolyShape != nullptr) {
-                    if (AC == editedPolyShape) {
-                        // cast Poly from attribute carrier
-                        myPolys.push_back(dynamic_cast<GNEPoly*>(AC));
-                    }
+                if (editedPolyShape != nullptr && AC == editedPolyShape) {
+                    // cast Poly from attribute carrier
+                    myPolys.push_back(dynamic_cast<GNEPoly*>(AC));
                 } else {
                     // cast specific network elemetns
                     if (AC->getTagProperty().isNetworkElement()) {
