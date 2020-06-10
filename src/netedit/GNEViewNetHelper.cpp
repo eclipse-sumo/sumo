@@ -2737,6 +2737,7 @@ GNEViewNetHelper::DemandCheckableButtons::updateDemandCheckableButtons() {
 GNEViewNetHelper::DataCheckableButtons::DataCheckableButtons(GNEViewNet* viewNet) :
     edgeDataButton(nullptr),
     edgeRelDataButton(nullptr),
+    TAZRelDataButton(nullptr),
     myViewNet(viewNet) {
 }
 
