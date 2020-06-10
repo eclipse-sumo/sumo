@@ -12,15 +12,13 @@
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNECreateEdgeFrame.cpp
-/// @author  Mirko Barthauer (Technische Universitaet Braunschweig)
-/// @date    May 2018
+/// @author  Pablo Alvarez Lopez
+/// @date    Dec 2018
 ///
-// The Widget for editing connection prohibits
+// The Widget for create edges (and junctions)
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
@@ -28,23 +26,6 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
-
-// ===========================================================================
-// FOX callback mapping
-// ===========================================================================
-FXDEFMAP(GNECreateEdgeFrame) GNECreateEdgeFrameMap[] = {
-    /** currently unused **/
-    FXMAPFUNC(SEL_COMMAND, MID_CANCEL, GNECreateEdgeFrame::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND, MID_OK, GNECreateEdgeFrame::onCmdOK)
-    /** **/
-};
-
-// Object implementation
-FXIMPLEMENT(GNECreateEdgeFrame, FXVerticalFrame, GNECreateEdgeFrameMap, ARRAYNUMBER(GNECreateEdgeFrameMap))
-
-// ===========================================================================
-// static members
-// ===========================================================================
 
 
 // ===========================================================================
@@ -143,20 +124,5 @@ void
 GNECreateEdgeFrame::hide() {
     GNEFrame::hide();
 }
-
-
-long
-GNECreateEdgeFrame::onCmdCancel(FXObject*, FXSelector, void*) {
-    /** unused **/
-    return 1;
-}
-
-
-long
-GNECreateEdgeFrame::onCmdOK(FXObject*, FXSelector, void*) {
-    /** unused **/
-    return 1;
-}
-
 
 /****************************************************************************/

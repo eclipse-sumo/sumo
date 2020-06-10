@@ -30,8 +30,6 @@
  * The Widget for create edges
  */
 class GNECreateEdgeFrame : public GNEFrame {
-    /// @brief FOX-declaration
-    FXDECLARE(GNECreateEdgeFrame)
 
 public:
     /**@brief Constructor
@@ -61,17 +59,6 @@ public:
 
     /// @brief hide prohibition frame
     void hide();
-
-    /// @name FOX-callbacks
-    /// @{
-    /// @brief Called when the user presses the OK-Button saves any edge modifications
-    long onCmdOK(FXObject*, FXSelector, void*);
-
-    /// @brief Called when the user presses the Cancel-button discards any edge modifications
-    long onCmdCancel(FXObject*, FXSelector, void*);
-
-protected:
-    FOX_CONSTRUCTOR(GNECreateEdgeFrame)
 
 private:
     /// @brief source junction for new edge
