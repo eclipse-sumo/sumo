@@ -680,6 +680,8 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
     myShowLaneDirection->setCheck(mySettings->showLaneDirection);
     myShowSublanes->setCheck(mySettings->showSublanes);
     mySpreadSuperposed->setCheck(mySettings->spreadSuperposed);
+    myLaneColorRainbowCheck->setCheck(mySettings->edgeValueHideCheck);
+    myLaneColorRainbowThreshold->setValue(mySettings->edgeValueHideThreshold);
     myLaneWidthUpscaleDialer->setValue(mySettings->laneWidthExaggeration);
     myLaneMinWidthDialer->setValue(mySettings->laneMinSize);
 
@@ -927,6 +929,8 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     } else if (sender == myVehicleTextParamKey) {
         tmpSettings.vehicleTextParam = myVehicleTextParamKey->getText().text();
     }
+    tmpSettings.edgeValueHideCheck = myLaneColorRainbowCheck->getCheck();
+    tmpSettings.edgeValueHideThreshold = myLaneColorRainbowThreshold->getValue();
     tmpSettings.laneWidthExaggeration = (double) myLaneWidthUpscaleDialer->getValue();
     tmpSettings.laneMinSize = (double) myLaneMinWidthDialer->getValue();
 

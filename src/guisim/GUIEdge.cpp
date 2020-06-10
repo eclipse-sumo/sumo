@@ -285,7 +285,8 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                                                 : lane2->getColorValue(s, activeScheme));
                     const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(doubleValue);
                     if (doubleValue != s.MISSING_DATA
-                            && color.alpha() != 0) {
+                            && color.alpha() != 0
+                            && (!s.edgeValueHideCheck || doubleValue > s.edgeValueHideThreshold)) {
                         value = toString(doubleValue);
                     }
                 }

@@ -146,6 +146,8 @@ GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) 
             mySettings.vehicleParam = attrs.getStringSecure("vehicleParam", mySettings.vehicleParam);
             mySettings.vehicleTextParam = attrs.getStringSecure("vehicleTextParam", mySettings.vehicleTextParam);
             mySettings.edgeData = attrs.getStringSecure("edgeData", mySettings.edgeData);
+            mySettings.edgeValueHideCheck = StringUtils::toBool(attrs.getStringSecure("edgeValueHideCheck", toString(mySettings.edgeValueHideCheck)));
+            mySettings.edgeValueHideThreshold = StringUtils::toDouble(attrs.getStringSecure("edgeValueHideThreshold", toString(mySettings.edgeValueHideThreshold)));
             myCurrentColorer = element;
             mySettings.edgeColorer.setActive(laneEdgeMode);
             mySettings.edgeScaler.setActive(laneEdgeScaleMode);

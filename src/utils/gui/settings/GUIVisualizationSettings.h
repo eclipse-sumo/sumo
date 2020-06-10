@@ -600,6 +600,10 @@ public:
 
     /// @brief key for coloring by edgeData
     std::string edgeData;
+
+    /// @brief value below which edge data value should not be rendered
+    bool edgeValueHideCheck;
+    double edgeValueHideThreshold;
     /// @}
 
     /// @name vehicle visualization settings

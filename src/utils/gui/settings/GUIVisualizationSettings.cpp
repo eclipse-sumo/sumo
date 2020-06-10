@@ -384,6 +384,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     vehicleParam("PARAM_NUMERICAL"),
     vehicleTextParam("PARAM_TEXT"),
     edgeData("speed"),
+    edgeValueHideCheck(false),
+    edgeValueHideThreshold(0),
     vehicleQuality(0), showBlinker(true),
     drawLaneChangePreference(false),
     drawMinGap(false),
@@ -1394,6 +1396,8 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("vehicleParam", vehicleParam);
     dev.writeAttr("vehicleTextParam", vehicleTextParam);
     dev.writeAttr("edgeData", edgeData);
+    dev.writeAttr("edgeValueHideCheck", edgeValueHideCheck);
+    dev.writeAttr("edgeValueHideThreshold", edgeValueHideThreshold);
     dev.lf();
     dev << "               ";
     edgeName.print(dev, "edgeName");
@@ -1626,6 +1630,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (edgeData != v2.edgeData) {
+        return false;
+    }
+    if (edgeValueHideCheck != v2.edgeValueHideCheck) {
+        return false;
+    }
+    if (edgeValueHideThreshold != v2.edgeValueHideThreshold) {
         return false;
     }
     if (!(vehicleColorer == v2.vehicleColorer)) {
