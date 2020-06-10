@@ -2840,10 +2840,13 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             break;
         // specific modes
         case NetworkEditMode::NETWORK_CREATE_EDGE:
+            myViewParent->getCreateEdgeFrame()->show();
+            myViewParent->getCreateEdgeFrame()->focusUpperElement();
+            myCurrentFrame = myViewParent->getCreateEdgeFrame();
+            myNetworkCheckableButtons.createEdgeButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckChainEdges->show();
             myNetworkViewOptions.menuCheckAutoOppositeEdge->show();
-            myNetworkCheckableButtons.createEdgeButton->setChecked(true);
             // show toolbar grip of view options
             myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;

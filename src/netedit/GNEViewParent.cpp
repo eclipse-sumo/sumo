@@ -710,9 +710,7 @@ GNEViewParent::Frames::hideFrames() {
     deleteFrame->hide();
     polygonFrame->hide();
     prohibitionFrame->hide();
-    /** currently createEdgeFrame unused
     createEdgeFrame->hide();
-    **/
     routeFrame->hide();
     vehicleFrame->hide();
     vehicleTypeFrame->hide();
@@ -739,9 +737,7 @@ GNEViewParent::Frames::setWidth(int frameWidth) {
     deleteFrame->setFrameWidth(frameWidth);
     polygonFrame->setFrameWidth(frameWidth);
     prohibitionFrame->setFrameWidth(frameWidth);
-    /** currently createEdgeFrame unused
     createEdgeFrame->setFrameWidth(frameWidth);
-    **/
     routeFrame->setFrameWidth(frameWidth);
     vehicleFrame->setFrameWidth(frameWidth);
     vehicleTypeFrame->setFrameWidth(frameWidth);
@@ -778,10 +774,8 @@ GNEViewParent::Frames::isFrameShown() const {
         return true;
     } else if (prohibitionFrame->shown()) {
         return true;
-        /** currently createEdgeFrame unused
-        } else if (createEdgeFrame->shown()) {
-            return true;
-        **/
+    } else if (createEdgeFrame->shown()) {
+        return true;
     } else if (routeFrame->shown()) {
         return true;
     } else if (vehicleFrame->shown()) {
@@ -831,10 +825,8 @@ GNEViewParent::Frames::getCurrentShownFrame() const {
         return polygonFrame;
     } else if (prohibitionFrame->shown()) {
         return prohibitionFrame;
-        /** currently createEdgeFrame unused
-        } else if (createEdgeFrame->shown()) {
-            return true;
-        **/
+    } else if (createEdgeFrame->shown()) {
+        return createEdgeFrame;
     } else if (routeFrame->shown()) {
         return routeFrame;
     } else if (vehicleFrame->shown()) {
