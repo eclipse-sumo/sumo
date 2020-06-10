@@ -1716,7 +1716,7 @@ MSLCM_SL2015::_wantsChangeSublane(
             }
 #ifdef DEBUG_WANTSCHANGE
             if (gDebugFlag2) std::cout << SIMTIME
-                                           << " arrivalPosLatProcedure=" << myVehicle.getParameter().arrivalPosLatProcedure
+                                           << " arrivalPosLatProcedure=" << (int)myVehicle.getParameter().arrivalPosLatProcedure
                                            << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
 #endif
 
