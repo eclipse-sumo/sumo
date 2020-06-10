@@ -5,6 +5,8 @@ set(netedit_frames_common_SRCS
    GNESelectorFrame.cpp
    GNEDeleteFrame.h
    GNEDeleteFrame.cpp
+   GNEMoveFrame.h
+   GNEMoveFrame.cpp
    )
 
 add_library(netedit_frames_common STATIC ${netedit_frames_common_SRCS})
