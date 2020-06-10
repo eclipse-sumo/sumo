@@ -271,7 +271,7 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
             }
             if (drawEdgeValue) {
                 const int activeScheme = s.getLaneEdgeMode();
-                std::string value;
+                std::string value = "";
                 if (activeScheme == 31) {
                     // edge param, could be non-numerical
                     value = getParameter(s.edgeParam, "");
@@ -284,7 +284,10 @@ GUIEdge::drawGL(const GUIVisualizationSettings& s) const {
                                                 ? getColorValue(s, activeScheme)
                                                 : lane2->getColorValue(s, activeScheme));
                     const RGBColor color = (MSGlobals::gUseMesoSim ? s.edgeColorer : s.laneColorer).getScheme().getColor(doubleValue);
-                    value = doubleValue == s.MISSING_DATA || color.alpha() == 0 ? "" : toString(doubleValue);
+                    if (doubleValue != s.MISSING_DATA
+                            && color.alpha() != 0) {
+                        value = toString(doubleValue);
+                    }
                 }
                 if (value != "") {
                     GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, angle);
