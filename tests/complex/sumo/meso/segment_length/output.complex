@@ -1,0 +1,6 @@
+Success.
+Success.
+Durations int.net.xml: count 19, min 302.78 (10), max 306.17 (140), mean 304.45 Q1 303.30, median 304.02, Q3 306.17
+Deviation int.net.xml meso vs. micro (190m): 0.2682856386435294
+Durations noint.net.xml: count 19, min 309.80 (10), max 311.24 (120), mean 310.72 Q1 310.42, median 310.75, Q3 311.10
+Deviation noint.net.xml meso vs. micro (190m): 0.21354997089565458
