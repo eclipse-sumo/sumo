@@ -184,6 +184,12 @@ GNEViewParent::getInspectorFrame() const {
 }
 
 
+GNEDeleteFrame*
+GNEViewParent::getDeleteFrame() const {
+    return myCommonFrames.deleteFrame;
+}
+
+
 GNESelectorFrame*
 GNEViewParent::getSelectorFrame() const {
     return myCommonFrames.selectorFrame;
@@ -223,12 +229,6 @@ GNEViewParent::getCrossingFrame() const {
 GNETAZFrame*
 GNEViewParent::getTAZFrame() const {
     return myNetworkFrames.TAZFrame;
-}
-
-
-GNEDeleteFrame*
-GNEViewParent::getDeleteFrame() const {
-    return myCommonFrames.deleteFrame;
 }
 
 

@@ -113,13 +113,16 @@ public:
     /// @brief get current frame (note: it can be null)
     GNEFrame* getCurrentShownFrame() const;
 
-    /// @brief get frame for NETWORK_INSPECT
+    /// @brief get frame for inspect elements
     GNEInspectorFrame* getInspectorFrame() const;
 
-    /// @brief get frame for NETWORK_SELECT
+    /// @brief get frame for delete elements
+    GNEDeleteFrame* getDeleteFrame() const;
+
+    /// @brief get frame for select elements
     GNESelectorFrame* getSelectorFrame() const;
 
-    /// @brief get frame for NETWORK_MOVE
+    /// @brief get frame for move elements
     GNEMoveFrame* getMoveFrame() const;
 
     /// @brief get frame for NETWORK_CONNECT
@@ -136,9 +139,6 @@ public:
 
     /// @brief get frame for NETWORK_TAZ
     GNETAZFrame* getTAZFrame() const;
-
-    /// @brief get frame for NETWORK_DELETE
-    GNEDeleteFrame* getDeleteFrame() const;
 
     /// @brief get frame for NETWORK_POLYGON
     GNEPolygonFrame* getPolygonFrame() const;
