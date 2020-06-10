@@ -86,23 +86,23 @@
 // ===========================================================================
 // Debug flags
 // ===========================================================================
-//#define DEBUG_ACTIONSTEPS
-//#define DEBUG_STATE
-//#define DEBUG_SURROUNDING
-//#define DEBUG_MANEUVER
-//#define DEBUG_COMMITTED_SPEED
-//#define DEBUG_PATCHSPEED
-//#define DEBUG_INFORM
-//#define DEBUG_ROUNDABOUTS
-//#define DEBUG_WANTSCHANGE
-//#define DEBUG_COOPERATE
-//#define DEBUG_SLOWDOWN
-//#define DEBUG_SAVE_BLOCKER_LENGTH
-//#define DEBUG_BLOCKING
-//#define DEBUG_TRACI
-//#define DEBUG_STRATEGIC_CHANGE
-//#define DEBUG_KEEP_LATGAP
-//#define DEBUG_EXPECTED_SLSPEED
+#define DEBUG_ACTIONSTEPS
+#define DEBUG_STATE
+#define DEBUG_SURROUNDING
+#define DEBUG_MANEUVER
+#define DEBUG_COMMITTED_SPEED
+#define DEBUG_PATCHSPEED
+#define DEBUG_INFORM
+#define DEBUG_ROUNDABOUTS
+#define DEBUG_WANTSCHANGE
+#define DEBUG_COOPERATE
+#define DEBUG_SLOWDOWN
+#define DEBUG_SAVE_BLOCKER_LENGTH
+#define DEBUG_BLOCKING
+#define DEBUG_TRACI
+#define DEBUG_STRATEGIC_CHANGE
+#define DEBUG_KEEP_LATGAP
+#define DEBUG_EXPECTED_SLSPEED
 //#define DEBUG_COND (myVehicle.getID() == "moped.18" || myVehicle.getID() == "moped.16")
 //#define DEBUG_COND (myVehicle.getID() == "Togliatti_71_0")
 #define DEBUG_COND (myVehicle.isSelected())
@@ -1571,7 +1571,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         // ONLY FOR CHANGING TO THE RIGHT
         // start keepRight maneuver when no speed loss is expected and continue
         // started maneuvers if the loss isn't too big
-        if (right && (maxGainRight >= 0
+        if (right && myVehicle.getSpeed() > 0 && (maxGainRight >= 0
                       || ((myPreviousState & LCA_KEEPRIGHT) != 0 && maxGainRight >= -myKeepRightParam))) {
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane
