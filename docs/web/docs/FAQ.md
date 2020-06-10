@@ -280,7 +280,7 @@ gdb --args sumoD -c debug.sumocfg
 ### Error: tcpip::Storage::readIsSafe: want to read 8 bytes from Storage, but only 4 remaining
 
 The TraCI protocal changed in version 1.0.0. Please make sure that TraCI
-client version and SUMO version match.
+client version and SUMO version match. When using SUMO version 1.0.0 or larger you cannot use traci version 17 or lower (check by calling `traci.getVersion()`)
 
 ## Features
 
