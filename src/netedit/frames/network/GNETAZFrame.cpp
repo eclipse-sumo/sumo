@@ -396,7 +396,7 @@ GNETAZFrame::TAZSaveChanges::TAZSaveChanges(GNETAZFrame* TAZFrameParent) :
     FXGroupBox(TAZFrameParent->myContentFrame, "Modifications", GUIDesignGroupBoxFrame),
     myTAZFrameParent(TAZFrameParent) {
     // Create groupbox for save changes
-    mySaveChangesButton = new FXButton(this, "Save changes", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
+    mySaveChangesButton = new FXButton(this, "Confirm changes", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_OK, GUIDesignButton);
     mySaveChangesButton->disable();
     // Create groupbox cancel changes
     myCancelChangesButton = new FXButton(this, "Cancel changes", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_CANCEL, GUIDesignButton);
