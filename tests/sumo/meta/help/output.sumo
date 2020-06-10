@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_6_0+0550-a6383f6a64
+Eclipse SUMO Version v1_6_0+0665-d50a9ed15f
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -607,6 +607,7 @@ Mesoscopic Options:
                                          computed based on edge speed and tauff
                                          (default)
   --meso-multi-queue                   Enable multiple queues at edge ends
+  --meso-lane-queue                    Enable separate queues for every lane
   --meso-junction-control              Enable mesoscopic traffic light and
                                          priority junction handling
   --meso-junction-control.limited      Enable mesoscopic traffic light and

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun  5 07:00:47 2020 by Eclipse SUMO Version v1_6_0+0550-a6383f6a64
+<!-- generated on Wed Jun 10 19:03:29 2020 by Eclipse SUMO Version v1_6_0+0665-d50a9ed15f
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -331,6 +331,7 @@
         <meso-taujj value="1.4" type="TIME" help="Factor for calculating the jam-jam headway time"/>
         <meso-jam-threshold value="-1" type="FLOAT" help="Minimum percentage of occupied space to consider a segment jammed. A negative argument causes thresholds to be computed based on edge speed and tauff (default)"/>
         <meso-multi-queue value="true" type="BOOL" help="Enable multiple queues at edge ends"/>
+        <meso-lane-queue value="false" type="BOOL" help="Enable separate queues for every lane"/>
         <meso-junction-control value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling"/>
         <meso-junction-control.limited value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations"/>
         <meso-tls-penalty value="0" type="FLOAT" help="Apply scaled time penalties when driving across tls controlled junctions based on green split instead of checking actual phases"/>
