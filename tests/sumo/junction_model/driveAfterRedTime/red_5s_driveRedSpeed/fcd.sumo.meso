@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May  6 14:41:53 2020 by Eclipse SUMO Version v1_6_0+0116-fc17f5a0a5
+<!-- generated on Thu Jun 11 12:12:14 2020 by Eclipse SUMO Version v1_6_0+0674-e659555e74
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,6 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <mesoscopic>
         <mesosim value="true"/>
+        <meso-junction-control value="true"/>
     </mesoscopic>
 
 </configuration>
@@ -71,25 +72,178 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="39.00">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="40.00">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="44.00">
-        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
     </timestep>
     <timestep time="45.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="46.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="47.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="48.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="49.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="50.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="51.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="52.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="53.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="54.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="55.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="56.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="57.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="58.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="59.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="60.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="61.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="62.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="63.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="64.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="65.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="66.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="67.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="68.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="69.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="70.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="71.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="72.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="73.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="74.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="75.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="76.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="77.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="78.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="79.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="80.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="81.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="82.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="83.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="84.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="85.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="86.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="87.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="88.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="89.00">
+        <vehicle id="ego" x="104.95" y="0.00" angle="0.00" type="egoType" speed="0.00" pos="0.00" edge="SC" slope="0.00"/>
+    </timestep>
+    <timestep time="90.00">
         <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
     </timestep>
-    <timestep time="46.00"/>
+    <timestep time="91.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="92.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="93.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="94.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="95.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="96.00">
+        <vehicle id="ego" x="104.95" y="108.05" angle="0.00" type="egoType" speed="13.89" pos="0.00" edge="CN" slope="0.00"/>
+    </timestep>
+    <timestep time="97.00"/>
 </fcd-export>

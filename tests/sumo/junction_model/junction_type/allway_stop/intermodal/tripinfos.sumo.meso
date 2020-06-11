@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May  6 14:41:52 2020 by Eclipse SUMO Version v1_6_0+0116-fc17f5a0a5
+<!-- generated on Thu Jun 11 12:12:13 2020 by Eclipse SUMO Version v1_6_0+0674-e659555e74
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,18 +31,19 @@ SPDX-License-Identifier: EPL-2.0
 
     <mesoscopic>
         <mesosim value="true"/>
+        <meso-junction-control value="true"/>
     </mesoscopic>
 
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="EC" depart="0.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="24.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="24.00" routeLength="373.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_EC" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="SC" depart="2.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="26.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="24.00" routeLength="373.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_SC" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="NC" depart="4.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="28.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="24.00" routeLength="373.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_NC" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="WC" depart="6.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="30.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="24.00" routeLength="373.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_WC" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="SE" depart="20.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="44.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="24.00" routeLength="373.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_SE" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="EN" depart="22.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="46.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="24.00" routeLength="373.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_EN" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="NE" depart="24.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="48.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="24.00" routeLength="373.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_NE" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="WN" depart="26.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="50.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="24.00" routeLength="373.60" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_WN" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="EC" depart="0.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="25.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="25.00" routeLength="373.60" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.00" rerouteNo="0" devices="tripinfo_EC" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SC" depart="2.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="27.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="25.00" routeLength="373.60" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.00" rerouteNo="0" devices="tripinfo_SC" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="NC" depart="4.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="29.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="25.00" routeLength="373.60" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.00" rerouteNo="0" devices="tripinfo_NC" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="WC" depart="6.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="31.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="25.00" routeLength="373.60" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.00" rerouteNo="0" devices="tripinfo_WC" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="SE" depart="20.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="45.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="25.00" routeLength="373.60" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.00" rerouteNo="0" devices="tripinfo_SE" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="EN" depart="22.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="47.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="25.00" routeLength="373.60" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.00" rerouteNo="0" devices="tripinfo_EN" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="NE" depart="24.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="49.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="25.00" routeLength="373.60" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.00" rerouteNo="0" devices="tripinfo_NE" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="WN" depart="26.00" departLane="" departPos="0.00" departSpeed="16.00" departDelay="0.00" arrival="51.00" arrivalLane="" arrivalPos="186.80" arrivalSpeed="16.00" duration="25.00" routeLength="373.60" waitingTime="1.00" waitingCount="0" stopTime="0.00" timeLoss="1.00" rerouteNo="0" devices="tripinfo_WN" vType="t0" speedFactor="1.00" vaporized=""/>
 </tripinfos>

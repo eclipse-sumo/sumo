@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 31 12:21:22 2020 by Eclipse SUMO Version v1_5_0+1025-83bc0d0af0
+<!-- generated on Thu Jun 11 13:51:20 2020 by Eclipse SUMO Version v1_6_0+0675-0538a2c6ff
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,14 +39,16 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="120.00" id="customLoop1" sampledSeconds="517.78" density="51.78" laneDensity="17.26" occupancy="8.63" waitingTime="0.00" speed="3.70" departed="0" arrived="0" entered="25" left="16"/>
-    <interval begin="0.00" end="120.00" id="customLoop2" sampledSeconds="285.05" density="28.50" laneDensity="9.50" occupancy="4.75" waitingTime="0.00" speed="2.47" departed="0" arrived="0" entered="9" left="5"/>
-    <interval begin="120.00" end="240.00" id="customLoop1" sampledSeconds="878.36" density="87.84" laneDensity="29.28" occupancy="14.64" waitingTime="0.00" speed="2.13" departed="0" arrived="0" entered="22" left="22"/>
-    <interval begin="120.00" end="240.00" id="customLoop2" sampledSeconds="604.90" density="60.49" laneDensity="20.16" occupancy="10.08" waitingTime="0.00" speed="1.39" departed="0" arrived="0" entered="10" left="7"/>
-    <interval begin="240.00" end="360.00" id="customLoop1" sampledSeconds="778.21" density="77.82" laneDensity="25.94" occupancy="12.97" waitingTime="0.00" speed="2.83" departed="0" arrived="0" entered="27" left="27"/>
-    <interval begin="240.00" end="360.00" id="customLoop2" sampledSeconds="872.65" density="87.27" laneDensity="29.09" occupancy="14.54" waitingTime="0.00" speed="1.53" departed="0" arrived="0" entered="17" left="14"/>
-    <interval begin="360.00" end="480.00" id="customLoop1" sampledSeconds="1314.76" density="131.48" laneDensity="43.83" occupancy="21.91" waitingTime="0.00" speed="0.95" departed="0" arrived="0" entered="13" left="16"/>
-    <interval begin="360.00" end="480.00" id="customLoop2" sampledSeconds="1937.40" density="193.74" laneDensity="64.58" occupancy="32.29" waitingTime="0.00" speed="0.47" departed="0" arrived="0" entered="10" left="5"/>
-    <interval begin="480.00" end="576.00" id="customLoop1" sampledSeconds="120.75" density="15.09" laneDensity="5.03" occupancy="2.52" waitingTime="0.00" speed="0.11" departed="0" arrived="0" entered="0" left="6"/>
-    <interval begin="480.00" end="576.00" id="customLoop2" sampledSeconds="551.35" density="68.92" laneDensity="22.97" occupancy="11.49" waitingTime="0.00" speed="0.09" departed="0" arrived="0" entered="0" left="15"/>
+    <interval begin="0.00" end="120.00" id="customLoop1" sampledSeconds="563.59" density="56.36" laneDensity="18.79" occupancy="9.39" waitingTime="0.00" speed="3.28" departed="0" arrived="0" entered="25" left="16"/>
+    <interval begin="0.00" end="120.00" id="customLoop2" sampledSeconds="285.05" density="28.50" laneDensity="9.50" occupancy="4.75" waitingTime="0.00" speed="2.39" departed="0" arrived="0" entered="9" left="5"/>
+    <interval begin="120.00" end="240.00" id="customLoop1" sampledSeconds="911.40" density="91.14" laneDensity="30.38" occupancy="15.19" waitingTime="0.00" speed="2.04" departed="0" arrived="0" entered="22" left="21"/>
+    <interval begin="120.00" end="240.00" id="customLoop2" sampledSeconds="608.20" density="60.82" laneDensity="20.27" occupancy="10.14" waitingTime="0.00" speed="1.36" departed="0" arrived="0" entered="10" left="7"/>
+    <interval begin="240.00" end="360.00" id="customLoop1" sampledSeconds="978.13" density="97.81" laneDensity="32.60" occupancy="16.30" waitingTime="0.00" speed="2.12" departed="0" arrived="0" entered="27" left="24"/>
+    <interval begin="240.00" end="360.00" id="customLoop2" sampledSeconds="1263.61" density="126.36" laneDensity="42.12" occupancy="21.06" waitingTime="0.00" speed="0.93" departed="0" arrived="0" entered="17" left="10"/>
+    <interval begin="360.00" end="480.00" id="customLoop1" sampledSeconds="1834.35" density="183.44" laneDensity="61.15" occupancy="30.57" waitingTime="0.00" speed="0.76" departed="0" arrived="0" entered="13" left="15"/>
+    <interval begin="360.00" end="480.00" id="customLoop2" sampledSeconds="2416.99" density="241.70" laneDensity="80.57" occupancy="40.28" waitingTime="0.00" speed="0.41" departed="0" arrived="0" entered="10" left="5"/>
+    <interval begin="480.00" end="600.00" id="customLoop1" sampledSeconds="292.59" density="29.26" laneDensity="9.75" occupancy="4.88" waitingTime="0.00" speed="0.25" departed="0" arrived="0" entered="0" left="11"/>
+    <interval begin="480.00" end="600.00" id="customLoop2" sampledSeconds="1390.68" density="139.07" laneDensity="46.36" occupancy="23.18" waitingTime="0.00" speed="0.11" departed="0" arrived="0" entered="0" left="19"/>
+    <interval begin="600.00" end="645.00" id="customLoop1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+    <interval begin="600.00" end="645.00" id="customLoop2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
 </detector>
