@@ -317,8 +317,8 @@ public:
         if (it == myDepartLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
         }
-        if (isRailway(e->getPermissions())) {
-            // use closest split (best trainStop)
+        if ((e->getPermissions() & SVC_PEDESTRIAN) == 0) {
+            // use closest split (best trainStop, quay etc)
             double totalLength = 0.;
             double bestDist = std::numeric_limits<double>::max();
             const _IntermodalEdge* best = nullptr;
