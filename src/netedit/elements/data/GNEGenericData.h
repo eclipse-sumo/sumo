@@ -97,6 +97,12 @@ public:
     /// @brief Destructor
     virtual ~GNEGenericData();
 
+    /// @brief get generic data color
+    virtual const RGBColor& getColor() const = 0;
+
+    /// @brief check if current generic data is visible
+    virtual bool isGenericDataVisible() const = 0;
+
     /// @brief get ID
     const std::string& getID() const;
 
@@ -105,12 +111,6 @@ public:
 
     /// @brief get data interval parent
     GNEDataInterval* getDataIntervalParent() const;
-
-    /// @brief get generic data color
-    const RGBColor& getColor() const;
-
-    /// @brief check if current generic data is visible
-    bool isGenericDataVisible() const;
 
     // @brief draw attribute
     void drawAttribute(const PositionVector& shape) const;
@@ -235,12 +235,6 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     virtual void setEnabledAttribute(const int enabledAttributes) = 0;
-
-    /// @brief check if current generic data is visible (must be implemented in all generic data childs)
-    virtual bool isVisible() const = 0;
-
-    /// @brief get specific generic data color
-    virtual const RGBColor& getSpecificColor() const = 0;
 
     /// @brief Invalidated copy constructor.
     GNEGenericData(const GNEGenericData&) = delete;

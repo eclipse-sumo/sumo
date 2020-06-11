@@ -179,9 +179,6 @@ public:
     /// @brief get frame for DATA_TAZRELDATA
     GNETAZRelDataFrame* getTAZRelDataFrame() const;
 
-    /// @brief get current data frame
-    GNEGenericDataFrame* getDataFrame() const;
-
     /// @brief show frames area if at least a GNEFrame is showed
     /// @note this function is called in GNEFrame::Show();
     void showFramesArea();

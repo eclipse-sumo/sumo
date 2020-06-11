@@ -522,31 +522,6 @@ GNEHierarchicalChildElements::getNextChildDemandElement(const GNEDemandElement* 
 }
 
 
-
-
-
-GNEGenericData*
-GNEHierarchicalChildElements::getCurrentGenericDataElement() const {
-    // it would be reasonable to cache this rather than search through all
-    // datasets and intervals
-    const GNEDataInterval* activeInterval = nullptr;
-    const GNEGenericDataFrame* dataFrame = myAC->getNet()->getViewNet()->getViewParent()->getDataFrame();
-    if (dataFrame != nullptr) {
-        activeInterval = dataFrame->getIntervalSelector()->getDataInterval();
-    }
-    // XXX activeInterval could also be supplied in other data-submocdes (inspect, select, delete)
-    if (activeInterval == nullptr) {
-        return nullptr;
-    }
-    for (GNEGenericData* data : myChildGenericDataElements) {
-        if (data->getDataIntervalParent() == activeInterval) {
-            return data;
-        }
-    }
-    return nullptr;
-}
-
-
 void
 GNEHierarchicalChildElements::updateParentAdditional() {
     // by default nothing to do

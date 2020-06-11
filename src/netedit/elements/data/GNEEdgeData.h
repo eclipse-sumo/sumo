@@ -47,6 +47,12 @@ public:
     /// @brief Destructor
     ~GNEEdgeData();
 
+    /// @brief get edge data color
+    const RGBColor& getColor() const;
+
+    /// @brief check if current edge data is visible
+    bool isGenericDataVisible() const;
+
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -141,12 +147,6 @@ private:
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
-
-    /// @brief check if current generic data is visible
-    bool isVisible() const;
-
-    /// @brief get specific generic data color
-    const RGBColor& getSpecificColor() const;
 
     /// @brief Invalidated copy constructor.
     GNEEdgeData(const GNEEdgeData&) = delete;

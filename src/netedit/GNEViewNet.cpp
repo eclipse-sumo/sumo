@@ -643,6 +643,7 @@ GNEViewNet::getEdgeLaneParamKeys(bool edgeKeys) const {
 std::vector<std::string>
 GNEViewNet::getEdgeDataAttrs() const {
     std::set<std::string> keys;
+    /*
     for (const auto &edge : myNet->getAttributeCarriers()->getEdges()) {
         GNEGenericData* genericData = edge.second->getCurrentGenericDataElement();
         if (genericData != nullptr) {
@@ -651,6 +652,7 @@ GNEViewNet::getEdgeDataAttrs() const {
             }
         }
     }
+    */
     return std::vector<std::string>(keys.begin(), keys.end());
 }
 

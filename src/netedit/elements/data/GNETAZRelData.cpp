@@ -56,6 +56,41 @@ GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement*
 GNETAZRelData::~GNETAZRelData() {}
 
 
+const RGBColor& 
+GNETAZRelData::getColor() const {
+    return RGBColor::ORANGE;
+}
+
+
+bool 
+GNETAZRelData::isGenericDataVisible() const {
+    // obtain pointer to TAZ data frame (only for code legibly)
+    const GNETAZRelDataFrame* TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
+    // get current data edit mode
+    DataEditMode dataMode = myNet->getViewNet()->getEditModes().dataEditMode;
+    // check if we have to filter generic data
+    if ((dataMode == DataEditMode::DATA_INSPECT) || (dataMode == DataEditMode::DATA_DELETE) || (dataMode == DataEditMode::DATA_SELECT)) {
+        return true;
+    } else if (TAZRelDataFrame->shown()) {
+        // check interval
+        if ((TAZRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
+            (TAZRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+            return false;
+        }
+        // check attribute
+        if ((TAZRelDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
+            (getParametersMap().count(TAZRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+            return false;
+        }
+        // all checks ok, then return true
+        return true;
+    } else {
+        // GNETAZRelDataFrame hidden, then return false
+        return false;
+    }
+}
+
+
 void
 GNETAZRelData::updateGeometry() {
     // nothing to update
@@ -250,37 +285,6 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNETAZRelData::setEnabledAttribute(const int /*enabledAttributes*/) {
     throw InvalidArgument("Nothing to enable");
-}
-
-
-bool
-GNETAZRelData::isVisible() const {
-    // obtain pointer to TAZ data frame (only for code legibly)
-    const GNETAZRelDataFrame* TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
-    // check if we have to filter generic data
-    if (TAZRelDataFrame->shown()) {
-        // check interval
-        if ((TAZRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
-                (TAZRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
-            return false;
-        }
-        // check attribute
-        if ((TAZRelDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-                (getParametersMap().count(TAZRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
-            return false;
-        }
-        // all checks ok, then return true
-        return true;
-    } else {
-        // GNETAZRelDataFrame hidden, then return false
-        return false;
-    }
-}
-
-
-const RGBColor&
-GNETAZRelData::getSpecificColor() const {
-    return RGBColor::ORANGE;
 }
 
 /****************************************************************************/

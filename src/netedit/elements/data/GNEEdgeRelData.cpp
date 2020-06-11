@@ -56,6 +56,41 @@ GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fro
 GNEEdgeRelData::~GNEEdgeRelData() {}
 
 
+const RGBColor& 
+GNEEdgeRelData::getColor() const {
+    return RGBColor::GREEN;
+}
+
+
+bool
+GNEEdgeRelData::isGenericDataVisible() const {
+    // obtain pointer to edge data frame (only for code legibly)
+    const GNEEdgeRelDataFrame* edgeRelDataFrame = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame();
+    // get current data edit mode
+    DataEditMode dataMode = myNet->getViewNet()->getEditModes().dataEditMode;
+    // check if we have to filter generic data
+    if ((dataMode == DataEditMode::DATA_INSPECT) || (dataMode == DataEditMode::DATA_DELETE) || (dataMode == DataEditMode::DATA_SELECT)) {
+        return true;
+    } else if (edgeRelDataFrame->shown()) {
+        // check interval
+        if ((edgeRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
+            (edgeRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+            return false;
+        }
+        // check attribute
+        if ((edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
+            (getParametersMap().count(edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+            return false;
+        }
+        // all checks ok, then return true
+        return true;
+    } else {
+        // GNEEdgeRelDataFrame hidden, then return false
+        return false;
+    }
+}
+
+
 void
 GNEEdgeRelData::updateGeometry() {
     // nothing to update
@@ -250,37 +285,6 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
 void
 GNEEdgeRelData::setEnabledAttribute(const int /*enabledAttributes*/) {
     throw InvalidArgument("Nothing to enable");
-}
-
-
-bool
-GNEEdgeRelData::isVisible() const {
-    // obtain pointer to edge data frame (only for code legibly)
-    const GNEEdgeRelDataFrame* edgeRelDataFrame = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame();
-    // check if we have to filter generic data
-    if (edgeRelDataFrame->shown()) {
-        // check interval
-        if ((edgeRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
-                (edgeRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
-            return false;
-        }
-        // check attribute
-        if ((edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-                (getParametersMap().count(edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
-            return false;
-        }
-        // all checks ok, then return true
-        return true;
-    } else {
-        // GNEEdgeRelDataFrame hidden, then return false
-        return false;
-    }
-}
-
-
-const RGBColor&
-GNEEdgeRelData::getSpecificColor() const {
-    return RGBColor::GREEN;
 }
 
 /****************************************************************************/

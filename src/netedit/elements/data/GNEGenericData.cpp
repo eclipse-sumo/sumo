@@ -90,7 +90,7 @@ GNEGenericData::getDataIntervalParent() const {
     return myDataIntervalParent;
 }
 
-
+/*
 const RGBColor&
 GNEGenericData::getColor() const {
     // first check if we're in supermode demand
@@ -188,7 +188,7 @@ GNEGenericData::isGenericDataVisible() const {
         return false;
     }
 }
-
+*/
 
 void
 GNEGenericData::drawAttribute(const PositionVector& shape) const {

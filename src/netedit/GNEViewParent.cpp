@@ -310,20 +310,6 @@ GNEViewParent::getTAZRelDataFrame() const {
 }
 
 
-GNEGenericDataFrame*
-GNEViewParent::getDataFrame() const {
-    if (myDataFrames.edgeDataFrame->shown()) {
-        return myDataFrames.edgeDataFrame;
-    } else if (myDataFrames.edgeRelDataFrame->shown()) {
-        return myDataFrames.edgeRelDataFrame;
-    } else if (myDataFrames.TAZRelDataFrame->shown()) {
-        return myDataFrames.TAZRelDataFrame;
-    } else {
-        return nullptr;
-    }
-}
-
-
 void
 GNEViewParent::showFramesArea() {
     const bool frameShown = myCommonFrames.isCommonFrameShown() || 

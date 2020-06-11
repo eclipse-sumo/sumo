@@ -975,10 +975,11 @@ RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // declare a RGBColor variable
     RGBColor color;
+    // get inspected AC
+    const GNEAttributeCarrier *inspectedAC = myNet->getViewNet()->getDottedAC();
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
-    if (myNet->getViewNet()->getDottedAC() && (myNet->getViewNet()->getDottedAC()->isAttributeCarrierSelected() == false) &&
-            ((myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_TRIP) ||
-             (myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
+    if (inspectedAC && (inspectedAC->isAttributeCarrierSelected() == false) &&
+        ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TRIP) || (inspectedAC->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
         // obtain attribute "via"
         std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getDottedAC()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges
@@ -1008,16 +1009,7 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     }
     // check if we're in data mode
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && s.laneColorer.getActive() != 16) {
-        color = s.laneColorer.getSchemes()[0].getColor(11);
-        // check if we have to change color if parent edge has generic data elements
-        GNEGenericData* data = myParentEdge->getCurrentGenericDataElement();
-        if (data && data->isGenericDataVisible()) {
-            if (data->isAttributeCarrierSelected()) {
-                color = s.colorSettings.selectedEdgeDataColor;
-            } else {
-                color = data->getColor();
-            }
-        }
+        color = myParentEdge->getGenericDataColor(s);
     }
     // special color for conflicted candidate edges
     if (myParentEdge->isConflictedCandidate()) {
@@ -1199,15 +1191,6 @@ GNELane::getColorValue(const GUIVisualizationSettings& s, int activeScheme) cons
         }
         case 15: {
             return fabs(myParentEdge->getNBEdge()->getDistance());
-        }
-        case 16: {
-            // by edge data value
-            GNEGenericData* data = myParentEdge->getCurrentGenericDataElement();
-            if (data == nullptr) {
-                return GUIVisualizationSettings::MISSING_DATA;
-            } else {
-                return data->getDouble(s.edgeData, GUIVisualizationSettings::MISSING_DATA);
-            }
         }
     }
     return 0;

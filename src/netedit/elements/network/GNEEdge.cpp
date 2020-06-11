@@ -1581,6 +1581,18 @@ GNEEdge::updateDottedContour() {
 }
 
 
+RGBColor 
+GNEEdge::getGenericDataColor(const GUIVisualizationSettings& s) const {
+    RGBColor color = s.laneColorer.getSchemes()[0].getColor(11);
+    /* FIX */
+    for (const auto &genericData : getChildGenericDataElements()) {
+        if (genericData->isGenericDataVisible()) {
+            return genericData->getColor();
+        }
+    }
+    return color;
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
