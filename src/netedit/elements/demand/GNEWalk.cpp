@@ -440,9 +440,7 @@ GNEWalk::getCenteringBoundary() const {
 void
 GNEWalk::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of WalkEdges
-    if ((myTagProperty.getTag() == GNE_TAG_WALK_EDGES) &&
-            (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE) &&
-            (originalElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
+    if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
         // obtain new list of walk edges
         std::string newWalkEdges = getNewListOfParents(originalElement, newElement);
         // update walk edges

@@ -92,14 +92,11 @@ void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-        if ((originalElement->getTagProperty().getTag() == SUMO_TAG_LANE) &&
-                (originalElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
-            // obtain new list of E2 lanes
-            std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
-            // update E2 Lanes
-            if (newE2Lanes.size() > 0) {
-                setAttribute(SUMO_ATTR_LANES, newE2Lanes, undoList);
-            }
+        // obtain new list of E2 lanes
+        std::string newE2Lanes = getNewListOfParents(originalElement, newElement);
+        // update E2 Lanes
+        if (newE2Lanes.size() > 0) {
+            setAttribute(SUMO_ATTR_LANES, newE2Lanes, undoList);
         }
     } else if (splitPosition < myPositionOverLane) {
         // change lane

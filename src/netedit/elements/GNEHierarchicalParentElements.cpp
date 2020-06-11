@@ -313,6 +313,9 @@ GNEHierarchicalParentElements::getNewListOfParents(const GNENetworkElement* curr
             }
         }
     }
+    // remove consecutive (adjacent) duplicates
+    solution.erase(std::unique(solution.begin(), solution.end()), solution.end());
+    // return solution
     return toString(solution);
 }
 

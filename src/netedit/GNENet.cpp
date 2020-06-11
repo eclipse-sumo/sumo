@@ -1569,6 +1569,10 @@ GNENet::computeNetwork(GNEApplicationWindow* window, bool force, bool volatileOp
 void
 GNENet::computeDemandElements(GNEApplicationWindow* window) {
     window->setStatusBarText("Computing demand elements ...");
+    // if we aren't in Demand mode, update path calculator
+    if (!myViewNet->getEditModes().isCurrentSupermodeDemand())  {
+        myPathCalculator->updatePathCalculator();
+    }
     // iterate over all demand elements and compute
     for (const auto& i : myAttributeCarriers->getDemandElements()) {
         for (const auto& j : i.second) {
