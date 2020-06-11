@@ -138,7 +138,7 @@ MSVehicleControl::isPendingRemoval(SUMOVehicle* veh) {
 
 void
 MSVehicleControl::removePending() {
-    OutputDevice* tripinfoOut = OptionsCont::getOptions().isSet("tripinfo-output") ? &OutputDevice::getDeviceByOption("tripinfo-output") : nullptr;
+    OutputDevice* const tripinfoOut = OptionsCont::getOptions().isSet("tripinfo-output") ? &OutputDevice::getDeviceByOption("tripinfo-output") : nullptr;
 #ifdef HAVE_FOX
     std::vector<SUMOVehicle*>& vehs = myPendingRemovals.getContainer();
 #else
@@ -149,15 +149,14 @@ MSVehicleControl::removePending() {
         myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
         myRunningVehNo--;
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
-        if (veh->getDevice(typeid(MSDevice_Tripinfo)) != nullptr) {
-            // vehicle is equipped with tripinfo device (not all vehicles are)
-            for (MSVehicleDevice* const dev : veh->getDevices()) {
-                dev->generateOutput(tripinfoOut);
-            }
-            if (tripinfoOut != nullptr) {
-                // close tag after tripinfo (possibly including emissions from another device) have been written
-                tripinfoOut->closeTag();
-            }
+        // vehicle is equipped with tripinfo device (not all vehicles are)
+        const bool hasTripinfo = veh->getDevice(typeid(MSDevice_Tripinfo)) != nullptr;
+        for (MSVehicleDevice* const dev : veh->getDevices()) {
+            dev->generateOutput(hasTripinfo ? tripinfoOut : nullptr);
+        }
+        if (tripinfoOut != nullptr && hasTripinfo) {
+            // close tag after tripinfo (possibly including emissions from another device) have been written
+            tripinfoOut->closeTag();
         }
         deleteVehicle(veh);
     }
