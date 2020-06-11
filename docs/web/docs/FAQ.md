@@ -1112,6 +1112,17 @@ This can happen with an outdated version of python 2.7. Updating to
 ### How do I combine SUMO with a network simulator?
 
   Check out [veins](http://veins.car2x.org/).
+  
+## Validity
+### What are publications on SUMO's validity?
+- https://elib.dlr.de/120856/
+- https://elib.dlr.de/112657/
+- https://elib.dlr.de/6657/
+- https://elib.dlr.de/121278/
+- https://elib.dlr.de/97240/
+- https://elib.dlr.de/115720/
+- https://elib.dlr.de/116607/
+- https://ieeexplore.ieee.org/abstract/document/7906642
 
 ## Outdated (Questions for very old versions of SUMO)
 
