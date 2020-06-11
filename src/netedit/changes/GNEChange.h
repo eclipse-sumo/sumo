@@ -67,15 +67,17 @@ class GNEChange : public FXCommand {
 public:
     /**@brief Constructor
      * @param[in] forward The direction of this change
+     * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(bool forward);
+    GNEChange(bool forward, const bool selectedElement);
 
     /**@brief Constructor
-     * @param[in] forward The direction of this change
      * @param[in] parents hierarchical parent elements
      * @param[in] children hierarchical children elements
+     * @param[in] forward The direction of this change
+     * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* children, bool forward);
+    GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* children, bool forward, const bool selectedElement);
 
     /// @brief Destructor
     ~GNEChange();
@@ -197,6 +199,9 @@ protected:
      * junction) and keep them apart by this flag
      */
     bool myForward;
+
+    /// @brief flag for check if element is selected
+    const bool mySelectedElement;
 
     /// @brief reference to vector of parent edges
     const std::vector<GNEEdge*>& myParentEdges;

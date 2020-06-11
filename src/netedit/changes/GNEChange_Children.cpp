@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Children, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, GNEDemandElement* demandElementChild, const Operation operation) :
-    GNEChange(true),
+    GNEChange(true, demandElementChild->isAttributeCarrierSelected()),
     myParentDemandElement(demandElementParent),
     myChildDemandElement(demandElementChild),
     myOperation(operation),

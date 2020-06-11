@@ -90,7 +90,4 @@ private:
 
     /// @brief priority of GNECrossing
     PositionVector myCustomShape;
-
-    /// @brief flag to check if crossing is selected
-    bool mySelected;
 };

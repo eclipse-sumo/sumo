@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Shape, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Shape::GNEChange_Shape(GNEShape* shape, bool forward) :
-    GNEChange(shape, shape, forward),
+    GNEChange(shape, shape, forward, shape->isAttributeCarrierSelected()),
     myShape(shape) {
     myShape->incRef("GNEChange_Shape");
 }
@@ -64,6 +64,10 @@ GNEChange_Shape::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myShape->unselectAttributeCarrier();
+        }
         // remove shape from net
         myShape->getNet()->getAttributeCarriers()->deleteShape(myShape);
         // Remove element from parents and children
@@ -71,6 +75,10 @@ GNEChange_Shape::undo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myShape->selectAttributeCarrier();
+        }
         // Add shape in net
         myShape->getNet()->getAttributeCarriers()->insertShape(myShape);
         // Add element in parents and children
@@ -84,6 +92,10 @@ GNEChange_Shape::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myShape->selectAttributeCarrier();
+        }
         // Add shape in net
         myShape->getNet()->getAttributeCarriers()->insertShape(myShape);
         // Add element in parents and children
@@ -91,6 +103,10 @@ GNEChange_Shape::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from viewNet");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myShape->unselectAttributeCarrier();
+        }
         // remove shape from net
         myShape->getNet()->getAttributeCarriers()->deleteShape(myShape);
         // Remove element from parents and children

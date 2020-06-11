@@ -42,7 +42,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Edge, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating an edge
 GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
-    GNEChange(edge, edge, forward),
+    GNEChange(edge, edge, forward, edge->isAttributeCarrierSelected()),
     myEdge(edge) {
     edge->incRef("GNEChange_Edge");
     // save all hierarchical elements of edge's lane
@@ -79,6 +79,10 @@ GNEChange_Edge::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myEdge->unselectAttributeCarrier();
+        }
         // remove edge from parents and children
         removeElementFromParentsAndChildren(myEdge);
         // remove edge lanes from parents and children
@@ -88,6 +92,10 @@ GNEChange_Edge::undo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myEdge->selectAttributeCarrier();
+        }
         // insert edge into net
         myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
         // add edge into parents and children
@@ -105,6 +113,10 @@ GNEChange_Edge::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myEdge->selectAttributeCarrier();
+        }
         // insert edge into net
         myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
         // add edge into parents and children
@@ -114,6 +126,10 @@ GNEChange_Edge::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdge->getTagStr() + " '" + myEdge->getID() + "' from " + toString(SUMO_TAG_NET));
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myEdge->unselectAttributeCarrier();
+        }
         // remove edge from parents and children
         removeElementFromParentsAndChildren(myEdge);
         // remove edge lanes from parents and children

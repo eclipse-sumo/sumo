@@ -176,10 +176,6 @@ GNENetHelper::AttributeCarriers::registerJunction(GNEJunction* junction) {
     myNet->addGLObjectIntoGrid(junction);
     // update geometry
     junction->updateGeometry();
-    // check if junction is selected
-    if (junction->isAttributeCarrierSelected()) {
-        junction->selectAttributeCarrier(false);
-    }
     // add z in net boundary
     myNet->addZValueInBoundary(junction->getNBNode()->getPosition().z());
     return junction;
@@ -215,10 +211,6 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     myNet->expandBoundary(edge->getCenteringBoundary());
     // add edge into grid
     myNet->addGLObjectIntoGrid(edge);
-    // check if edge is selected
-    if (edge->isAttributeCarrierSelected()) {
-        edge->selectAttributeCarrier(false);
-    }
     // Add references into GNEJunctions
     edge->getFirstParentJunction()->addOutgoingGNEEdge(edge);
     edge->getSecondParentJunction()->addIncomingGNEEdge(edge);
@@ -495,10 +487,6 @@ GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(junction);
     // Remove from grid and container
     myNet->removeGLObjectFromGrid(junction);
-    // check if junction is selected
-    if (junction->isAttributeCarrierSelected()) {
-        junction->unselectAttributeCarrier(false);
-    }
     myJunctions.erase(junction->getMicrosimID());
     myNet->getNetBuilder()->getNodeCont().extract(junction->getNBNode());
     junction->decRef("GNENet::deleteSingleJunction");
@@ -549,10 +537,6 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(edge);
     // remove edge from visual grid and container
     myNet->removeGLObjectFromGrid(edge);
-    // check if junction is selected
-    if (edge->isAttributeCarrierSelected()) {
-        edge->unselectAttributeCarrier(false);
-    }
     myEdges.erase(edge->getMicrosimID());
     // extract edge of district container
     myNet->getNetBuilder()->getEdgeCont().extract(myNet->getNetBuilder()->getDistrictCont(), edge->getNBEdge());
@@ -610,10 +594,6 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
         myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
         // add element in grid
         myNet->addGLObjectIntoGrid(additional);
-        // check if additional is selected
-        if (additional->isAttributeCarrierSelected()) {
-            additional->selectAttributeCarrier(false);
-        }
         // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
         if (myNet->isUpdateGeometryEnabled()) {
             additional->updateGeometry();
@@ -638,10 +618,6 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
         myAdditionals.at(additional->getTagProperty().getTag()).erase(it);
         // remove element from grid
         myNet->removeGLObjectFromGrid(additional);
-        // check if additional is selected
-        if (additional->isAttributeCarrierSelected()) {
-            additional->unselectAttributeCarrier(false);
-        }
         // additionals has to be saved
         myNet->requireSaveAdditionals(true);
         // additional removed, then return true
@@ -692,10 +668,6 @@ GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
         myShapes.at(shape->getTagProperty().getTag()).insert(std::make_pair(shape->getID(), shape));
         // add element in grid
         myNet->addGLObjectIntoGrid(shape);
-        // check if shape is selected
-        if (shape->isAttributeCarrierSelected()) {
-            shape->selectAttributeCarrier(false);
-        }
         // update geometry after insertion of shapes if myUpdateGeometryEnabled is enabled
         if (myNet->isUpdateGeometryEnabled()) {
             shape->updateGeometry();
@@ -720,10 +692,6 @@ GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
         myShapes.at(shape->getTagProperty().getTag()).erase(it);
         // remove element from grid
         myNet->removeGLObjectFromGrid(shape);
-        // check if shape is selected
-        if (shape->isAttributeCarrierSelected()) {
-            shape->unselectAttributeCarrier(false);
-        }
         // shapes has to be saved
         myNet->requireSaveAdditionals(true);
         // shape removed, then return true
@@ -774,10 +742,6 @@ GNENetHelper::AttributeCarriers::insertTAZElement(GNETAZElement* TAZElement) {
         myTAZElements.at(TAZElement->getTagProperty().getTag()).insert(std::make_pair(TAZElement->getID(), TAZElement));
         // add element in grid
         myNet->addGLObjectIntoGrid(TAZElement);
-        // check if TAZElement is selected
-        if (TAZElement->isAttributeCarrierSelected()) {
-            TAZElement->selectAttributeCarrier(false);
-        }
         // update geometry after insertion of TAZElements if myUpdateGeometryEnabled is enabled
         if (myNet->isUpdateGeometryEnabled()) {
             TAZElement->updateGeometry();
@@ -802,10 +766,6 @@ GNENetHelper::AttributeCarriers::deleteTAZElement(GNETAZElement* TAZElement) {
         myTAZElements.at(TAZElement->getTagProperty().getTag()).erase(it);
         // remove element from grid
         myNet->removeGLObjectFromGrid(TAZElement);
-        // check if TAZElement is selected
-        if (TAZElement->isAttributeCarrierSelected()) {
-            TAZElement->unselectAttributeCarrier(false);
-        }
         // TAZElements has to be saved
         myNet->requireSaveAdditionals(true);
         // TAZElement removed, then return true
@@ -865,10 +825,6 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
         }
         // add element in grid
         myNet->addGLObjectIntoGrid(demandElement);
-        // check if demandElement is selected
-        if (demandElement->isAttributeCarrierSelected()) {
-            demandElement->selectAttributeCarrier(false);
-        }
         // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
         if (myNet->isUpdateGeometryEnabled()) {
             demandElement->updateGeometry();
@@ -901,10 +857,6 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         }
         // remove element from grid
         myNet->removeGLObjectFromGrid(demandElement);
-        // check if demandElement is selected
-        if (demandElement->isAttributeCarrierSelected()) {
-            demandElement->unselectAttributeCarrier(false);
-        }
         // demandElements has to be saved
         myNet->requireSaveDemandElements(true);
         // demandElement removed, then return true
@@ -1235,7 +1187,7 @@ GNENetHelper::PathCalculator::busStopConnected(const GNEAdditional* busStop, con
 // ---------------------------------------------------------------------------
 
 GNENetHelper::GNEChange_ReplaceEdgeInTLS::GNEChange_ReplaceEdgeInTLS(NBTrafficLightLogicCont& tllcont, NBEdge* replaced, NBEdge* by) :
-    GNEChange(true),
+    GNEChange(true, false),
     myTllcont(tllcont),
     myReplaced(replaced),
     myBy(by) {

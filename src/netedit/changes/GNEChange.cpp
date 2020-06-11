@@ -46,8 +46,9 @@ const std::vector<GNEGenericData*> GNEChange::myEmptyGenericDatas = {};
 // member method definitions
 // ===========================================================================
 
-GNEChange::GNEChange(bool forward) :
+GNEChange::GNEChange(bool forward, const bool selectedElement) :
     myForward(forward),
+    mySelectedElement(selectedElement),
     myParentEdges(myEmptyEdges),
     myParentLanes(myEmptyLanes),
     myParentAdditionals(myEmptyAdditionals),
@@ -64,8 +65,9 @@ GNEChange::GNEChange(bool forward) :
     myChildGenericDatas(myEmptyGenericDatas) {}
 
 
-GNEChange::GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* childs, bool forward) :
+GNEChange::GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* childs, bool forward, const bool selectedElement) :
     myForward(forward),
+    mySelectedElement(selectedElement),
     myParentEdges(parents->getParentEdges()),
     myParentLanes(parents->getParentLanes()),
     myParentAdditionals(parents->getParentAdditionals()),

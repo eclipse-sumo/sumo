@@ -37,7 +37,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
-    GNEChange(true),
+    GNEChange(true, false),
     myEdge(edge),
     myLane(nullptr),
     myLaneAttrs(laneAttrs),
@@ -47,7 +47,7 @@ GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
 
 
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
-    GNEChange(lane, lane, forward),
+    GNEChange(lane, lane, forward, lane->isAttributeCarrierSelected()),
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs),
@@ -88,6 +88,10 @@ GNEChange_Lane::undo() {
         // show extra information for tests
         if (myLane != nullptr) {
             WRITE_DEBUG("Removing " + myLane->getTagStr() + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+            // unselect if mySelectedElement is enabled
+            if (mySelectedElement) {
+                myLane->unselectAttributeCarrier();
+            }
             // remove lane from parents and children
             removeElementFromParentsAndChildren(myLane);
         } else {
@@ -99,6 +103,10 @@ GNEChange_Lane::undo() {
         // show extra information for tests
         if (myLane != nullptr) {
             WRITE_DEBUG("Adding " + myLane->getTagStr() + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+            // select if mySelectedElement is enabled
+            if (mySelectedElement) {
+                myLane->selectAttributeCarrier();
+            }
             // add lane into parents and children
             addElementInParentsAndChildren(myLane);
         } else {
@@ -118,6 +126,10 @@ GNEChange_Lane::redo() {
         // show extra information for tests
         if (myLane != nullptr) {
             WRITE_DEBUG("Adding " + myLane->getTagStr() + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+            // select if mySelectedElement is enabled
+            if (mySelectedElement) {
+                myLane->selectAttributeCarrier();
+            }
             // add lane into parents and children
             addElementInParentsAndChildren(myLane);
         } else {
@@ -129,6 +141,10 @@ GNEChange_Lane::redo() {
         // show extra information for tests
         if (myLane != nullptr) {
             WRITE_DEBUG("Removing " + myLane->getTagStr() + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+            // unselect if mySelectedElement is enabled
+            if (mySelectedElement) {
+                myLane->unselectAttributeCarrier();
+            }
             // remove lane from parents and children
             removeElementFromParentsAndChildren(myLane);
         } else {

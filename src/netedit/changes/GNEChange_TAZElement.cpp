@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TAZElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_TAZElement::GNEChange_TAZElement(GNETAZElement* TAZElement, bool forward) :
-    GNEChange(TAZElement, TAZElement, forward),
+    GNEChange(TAZElement, TAZElement, forward, TAZElement->isAttributeCarrierSelected()),
     myTAZElement(TAZElement) {
     myTAZElement->incRef("GNEChange_TAZElement");
 }
@@ -64,6 +64,10 @@ GNEChange_TAZElement::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' from viewNet");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myTAZElement->unselectAttributeCarrier();
+        }
         // remove TAZElement from net
         myTAZElement->getNet()->getAttributeCarriers()->deleteTAZElement(myTAZElement);
         // Remove element from parents and children
@@ -71,6 +75,10 @@ GNEChange_TAZElement::undo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' into viewNet");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myTAZElement->selectAttributeCarrier();
+        }
         // Add TAZElement in net
         myTAZElement->getNet()->getAttributeCarriers()->insertTAZElement(myTAZElement);
         // Add element in parents and children
@@ -84,6 +92,10 @@ GNEChange_TAZElement::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' into viewNet");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myTAZElement->selectAttributeCarrier();
+        }
         // Add TAZElement in net
         myTAZElement->getNet()->getAttributeCarriers()->insertTAZElement(myTAZElement);
         // Add element in parents and children
@@ -91,6 +103,10 @@ GNEChange_TAZElement::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' from viewNet");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myTAZElement->unselectAttributeCarrier();
+        }
         // remove TAZElement from net
         myTAZElement->getNet()->getAttributeCarriers()->deleteTAZElement(myTAZElement);
         // Remove element from parents and children

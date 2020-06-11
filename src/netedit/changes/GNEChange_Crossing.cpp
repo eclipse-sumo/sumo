@@ -39,28 +39,26 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Crossing, GNEChange, nullptr, 0)
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const std::vector<NBEdge*>& edges,
                                        double width, bool priority, int customTLIndex, int customTLIndex2, const PositionVector& customShape, bool selected, bool forward):
-    GNEChange(junctionParent, junctionParent, forward),
+    GNEChange(junctionParent, junctionParent, forward, selected),
     myJunctionParent(junctionParent),
     myEdges(edges),
     myWidth(width),
     myPriority(priority),
     myCustomTLIndex(customTLIndex),
     myCustomTLIndex2(customTLIndex2),
-    myCustomShape(customShape),
-    mySelected(selected) {
+    myCustomShape(customShape) {
 }
 
 
 GNEChange_Crossing::GNEChange_Crossing(GNEJunction* junctionParent, const NBNode::Crossing& crossing, bool forward):
-    GNEChange(forward),
+    GNEChange(forward, false),
     myJunctionParent(junctionParent),
     myEdges(crossing.edges),
     myWidth(crossing.width),
     myPriority(crossing.priority),
     myCustomTLIndex(crossing.customTLIndex),
     myCustomTLIndex2(crossing.customTLIndex2),
-    myCustomShape(crossing.customShape),
-    mySelected(false) {
+    myCustomShape(crossing.customShape) {
 }
 
 
@@ -72,6 +70,10 @@ void GNEChange_Crossing::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("removing " + toString(SUMO_TAG_CROSSING) + " from " + myJunctionParent->getTagStr() + " '" + myJunctionParent->getID() + "'");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myJunctionParent->retrieveGNECrossing(myJunctionParent->getNBNode()->getCrossing(myEdges), false)->unselectAttributeCarrier();
+        }
         // remove crossing of NBNode
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings
@@ -96,8 +98,8 @@ void GNEChange_Crossing::undo() {
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
-        // select if mySelected is enabled
-        if (mySelected) {
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
     }
@@ -120,13 +122,17 @@ void GNEChange_Crossing::redo() {
         }
         // rebuild GNECrossings
         myJunctionParent->rebuildGNECrossings();
-        // select if mySelected is enabled
-        if (mySelected) {
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
             myJunctionParent->retrieveGNECrossing(c, false)->selectAttributeCarrier();
         }
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + toString(SUMO_TAG_CROSSING) + " from " + myJunctionParent->getTagStr() + " '" + myJunctionParent->getID() + "'");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myJunctionParent->retrieveGNECrossing(myJunctionParent->getNBNode()->getCrossing(myEdges), false)->unselectAttributeCarrier();
+        }
         // remove crossing of NBNode and update geometry
         myJunctionParent->getNBNode()->removeCrossing(myEdges);
         // rebuild GNECrossings

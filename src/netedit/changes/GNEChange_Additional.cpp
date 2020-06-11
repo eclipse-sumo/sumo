@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
-    GNEChange(additional, additional, forward),
+    GNEChange(additional, additional, forward, additional->isAttributeCarrierSelected()),
     myAdditional(additional) {
     myAdditional->incRef("GNEChange_Additional");
 }
@@ -62,6 +62,10 @@ GNEChange_Additional::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myAdditional->unselectAttributeCarrier();
+        }
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
         // remove additional from parents and children
@@ -69,6 +73,10 @@ GNEChange_Additional::undo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myAdditional->selectAttributeCarrier();
+        }
         // insert additional into net
         myAdditional->getNet()->getAttributeCarriers()->insertAdditional(myAdditional);
         // add additional in parent elements
@@ -84,6 +92,10 @@ GNEChange_Additional::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myAdditional->selectAttributeCarrier();
+        }
         // insert additional into net
         myAdditional->getNet()->getAttributeCarriers()->insertAdditional(myAdditional);
         // add additional in parent elements
@@ -91,6 +103,10 @@ GNEChange_Additional::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myAdditional->getTagStr() + " '" + myAdditional->getID() + "' in GNEChange_Additional");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myAdditional->unselectAttributeCarrier();
+        }
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
         // remove additional from parents and children

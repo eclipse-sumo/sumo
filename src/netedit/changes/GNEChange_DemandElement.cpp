@@ -38,7 +38,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
-    GNEChange(demandElement, demandElement, forward),
+    GNEChange(demandElement, demandElement, forward, demandElement->isAttributeCarrierSelected()),
     myDemandElement(demandElement),
     myEdgePath(demandElement->getPathEdges()) {
     myDemandElement->incRef("GNEChange_DemandElement");
@@ -71,6 +71,10 @@ GNEChange_DemandElement::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myDemandElement->unselectAttributeCarrier();
+        }
         // delete demand element from net
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
@@ -82,6 +86,10 @@ GNEChange_DemandElement::undo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myDemandElement->selectAttributeCarrier();
+        }
         // insert demand element into net
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // add demand element in parents and children
@@ -105,6 +113,10 @@ GNEChange_DemandElement::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myDemandElement->selectAttributeCarrier();
+        }
         // insert demand element into net
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // add demand element in parents and children
@@ -112,6 +124,10 @@ GNEChange_DemandElement::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myDemandElement->unselectAttributeCarrier();
+        }
         // delete demand element from net
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path

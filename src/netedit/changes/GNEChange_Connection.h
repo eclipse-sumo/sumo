@@ -67,7 +67,4 @@ private:
 
     /// @brief the data which must be copied because the original reference does not persist
     NBEdge::Connection myNBEdgeConnection;
-
-    /// @brief flag to indicates if crossing was previously selected
-    bool mySelected;
 };

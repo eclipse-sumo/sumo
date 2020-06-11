@@ -36,7 +36,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Junction, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating a junction
 GNEChange_Junction::GNEChange_Junction(GNEJunction* junction, bool forward):
-    GNEChange(junction, junction, forward),
+    GNEChange(junction, junction, forward, junction->isAttributeCarrierSelected()),
     myJunction(junction) {
     junction->incRef("GNEChange_Junction");
 }
@@ -57,11 +57,19 @@ GNEChange_Junction::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myJunction->unselectAttributeCarrier();
+        }
         // add junction to net
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myJunction->selectAttributeCarrier();
+        }
         // delete junction from net
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     }
@@ -75,11 +83,19 @@ GNEChange_Junction::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myJunction->getTagStr() + " '" + myJunction->getID() + "' into " + toString(SUMO_TAG_NET));
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myJunction->selectAttributeCarrier();
+        }
         // add junction into net
         myJunction->getNet()->getAttributeCarriers()->insertJunction(myJunction);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myJunction->getTagStr() + " '" + myJunction->getID() + "' from " + toString(SUMO_TAG_NET));
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myJunction->unselectAttributeCarrier();
+        }
         // delete junction from net
         myJunction->getNet()->getAttributeCarriers()->deleteSingleJunction(myJunction);
     }

@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DataInterval, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DataInterval::GNEChange_DataInterval(GNEDataInterval* dataInterval, bool forward) :
-    GNEChange(forward),
+    GNEChange(forward, dataInterval->isAttributeCarrierSelected()),
     myDataInterval(dataInterval),
     myDataSetParent(dataInterval->getDataSetParent()) {
     myDataInterval->incRef("GNEChange_DataInterval");

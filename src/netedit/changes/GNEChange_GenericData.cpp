@@ -39,7 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_GenericData, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool forward) :
-    GNEChange(genericData, genericData, forward),
+    GNEChange(genericData, genericData, forward, genericData->isAttributeCarrierSelected()),
     myGenericData(genericData),
     myDataIntervalParent(genericData->getDataIntervalParent()) {
     myGenericData->incRef("GNEChange_GenericData");
@@ -65,6 +65,10 @@ GNEChange_GenericData::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myGenericData->unselectAttributeCarrier();
+        }
         // delete generic data from interval parent
         myDataIntervalParent->removeGenericDataChild(myGenericData);
         // remove genericData from parents and children
@@ -72,6 +76,10 @@ GNEChange_GenericData::undo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myGenericData->selectAttributeCarrier();
+        }
         // insert generic data into interval parent
         myDataIntervalParent->addGenericDataChild(myGenericData);
         // add genericData in parents and children
@@ -87,6 +95,10 @@ GNEChange_GenericData::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myGenericData->selectAttributeCarrier();
+        }
         // insert generic data into interval parent
         myDataIntervalParent->addGenericDataChild(myGenericData);
         // add genericData in parents and children
@@ -94,6 +106,10 @@ GNEChange_GenericData::redo() {
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myGenericData->unselectAttributeCarrier();
+        }
         // delete generic data from interval parent
         myDataIntervalParent->removeGenericDataChild(myGenericData);
         // remove genericData from parents and children

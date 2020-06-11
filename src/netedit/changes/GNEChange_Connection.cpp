@@ -35,16 +35,13 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Connection, GNEChange, nullptr, 0)
 
 
 GNEChange_Connection::GNEChange_Connection(GNEEdge* edge, NBEdge::Connection nbCon, bool selected, bool forward) :
-    GNEChange(forward),
+    GNEChange(forward, selected),
     myEdge(edge),
-    myNBEdgeConnection(nbCon),
-    mySelected(selected) {
-    assert(myEdge);
+    myNBEdgeConnection(nbCon) {
 }
 
 
 GNEChange_Connection::~GNEChange_Connection() {
-    assert(myEdge);
 }
 
 
@@ -59,12 +56,12 @@ GNEChange_Connection::undo() {
         myEdge->removeConnection(myNBEdgeConnection);
     } else {
         // show extra information for tests
-        std::string selected = mySelected ? ("a previously selected ") : ("");
+        std::string selected = mySelectedElement ? ("a previously selected ") : ("");
         WRITE_DEBUG("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" +
                     myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " +
                     toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // add connection into edge
-        myEdge->addConnection(myNBEdgeConnection, mySelected);
+        myEdge->addConnection(myNBEdgeConnection, mySelectedElement);
     }
     // enable save networkElements
     myEdge->getNet()->requireSaveNet(true);
@@ -75,12 +72,12 @@ void
 GNEChange_Connection::redo() {
     if (myForward) {
         // show extra information for tests
-        std::string selected = mySelected ? ("a previously selected ") : ("");
+        std::string selected = mySelectedElement ? ("a previously selected ") : ("");
         WRITE_DEBUG("Adding " + selected + toString(SUMO_TAG_CONNECTION) + " '" +
                     myEdge->getNBEdge()->getLaneID(myNBEdgeConnection.fromLane) + "->" + myNBEdgeConnection.toEdge->getLaneID(myNBEdgeConnection.toLane) + "' into " +
                     toString(SUMO_TAG_EDGE) + " '" + myEdge->getID() + "'");
         // add connection into edge
-        myEdge->addConnection(myNBEdgeConnection, mySelected);
+        myEdge->addConnection(myNBEdgeConnection, mySelectedElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + toString(SUMO_TAG_CONNECTION) + " '" +
