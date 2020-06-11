@@ -44,6 +44,8 @@
 #define DEFAULT_VEH_LENGTH_WITH_GAP (SUMOVTypeParameter::getDefault().length + SUMOVTypeParameter::getDefault().minGap)
 // avoid division by zero when driving very slowly
 #define MESO_MIN_SPEED (0.05)
+// divide tau by lane number unless we have multiple queues
+#define SCALED_TAU(x) (multiQueue ? x : (SUMOTime)(x / parent.getLanes().size()))
 
 //#define DEBUG_OPENED
 //#define DEBUG_JAMTHRESHOLD
@@ -52,12 +54,14 @@
 #define DEBUG_COND (myEdge.isSelected())
 #define DEBUG_COND2(obj) ((obj != 0 && (obj)->isSelected()))
 
+
 // ===========================================================================
 // static member defintion
 // ===========================================================================
 MSEdge MESegment::myDummyParent("MESegmentDummyParent", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
 MESegment MESegment::myVaporizationTarget("vaporizationTarget");
 const double MESegment::DO_NOT_PATCH_JAM_THRESHOLD(std::numeric_limits<double>::max());
+
 
 // ===========================================================================
 // method definitions
@@ -73,10 +77,8 @@ MESegment::MESegment(const std::string& id,
                      const bool junctionControl) :
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
-    myTau_ff((SUMOTime)(tauff / parent.getLanes().size())),
-    myTau_fj((SUMOTime)(taufj / parent.getLanes().size())), // Eissfeldt p. 90 and 151 ff.
-    myTau_jf((SUMOTime)(taujf / parent.getLanes().size())),
-    myTau_jj((SUMOTime)(taujj / parent.getLanes().size())),
+    myTau_ff(SCALED_TAU(tauff)), myTau_fj(SCALED_TAU(taufj)), // Eissfeldt p. 90 and 151 ff.
+    myTau_jf(SCALED_TAU(taujf)), myTau_jj(SCALED_TAU(taujj)),
     myTau_length(MAX2(MESO_MIN_SPEED, speed) * parent.getLanes().size() / TIME2STEPS(1)),
     myHeadwayCapacity(length / DEFAULT_VEH_LENGTH_WITH_GAP * parent.getLanes().size())/* Eissfeldt p. 69 */,
     myCapacity(length * parent.getLanes().size()),
