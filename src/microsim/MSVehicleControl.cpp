@@ -28,6 +28,7 @@
 #include "MSNet.h"
 #include "MSRouteHandler.h"
 #include <microsim/devices/MSVehicleDevice.h>
+#include <microsim/devices/MSDevice_Tripinfo.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/Named.h>
 #include <utils/common/RGBColor.h>
@@ -148,12 +149,15 @@ MSVehicleControl::removePending() {
         myTotalTravelTime += STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep() - veh->getDeparture());
         myRunningVehNo--;
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_ARRIVED);
-        for (MSVehicleDevice* const dev : veh->getDevices()) {
-            dev->generateOutput(tripinfoOut);
-        }
-        if (tripinfoOut != nullptr) {
-            // close tag after tripinfo (possibly including emissions from another device) have been written
-            tripinfoOut->closeTag();
+        if (veh->getDevice(typeid(MSDevice_Tripinfo)) != nullptr) {
+            // vehicle is equipped with tripinfo device (not all vehicles are)
+            for (MSVehicleDevice* const dev : veh->getDevices()) {
+                dev->generateOutput(tripinfoOut);
+            }
+            if (tripinfoOut != nullptr) {
+                // close tag after tripinfo (possibly including emissions from another device) have been written
+                tripinfoOut->closeTag();
+            }
         }
         deleteVehicle(veh);
     }
