@@ -1043,17 +1043,15 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
         const double passingLength = p.getLength() + passingClearanceTime * speed;
         // check link state
         if DEBUGCOND(p) {
-            gDebugFlag1 = true;
+            gDebugFlag1 = true; // get debug output from MSLink
             std::cout << "   link=" << (link == nullptr ? "NULL" : link->getViaLaneOrLane()->getID())
-                      << " dist=" << dist << " d2=" << dist - p.getMinGap() << " la=" << LOOKAHEAD_SAMEDIR* speed
-                      << " opened=" << (link == nullptr ? "NULL" : toString(link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, nullptr, p.ignoreRed(link)))) << "\n";
-            gDebugFlag1 = false;
+                      << " dist=" << dist << " d2=" << dist - p.getMinGap() << " la=" << LOOKAHEAD_SAMEDIR* speed << "\n";
         }
         if (link != nullptr
                 // only check close before junction, @todo we should take deceleration into account here
                 && dist - p.getMinGap() < LOOKAHEAD_SAMEDIR * speed
                 // persons move before vehicles so we subtract DELTA_TO because they cannot rely on vehicles having passed the intersection in the current time step
-                && !link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, nullptr, p.ignoreRed(link))) {
+                && !link->opened(currentTime - DELTA_T, speed, speed, passingLength, p.getImpatience(currentTime), speed, 0, 0, nullptr, p.ignoreRed(link), p.myPerson)) {
             // prevent movement passed a closed link
             Obstacles closedLink(stripes, Obstacle(p.myRelX + dir * (dist - NUMERICAL_EPS), 0, OBSTACLE_LINKCLOSED, "closedLink_" + link->getViaLaneOrLane()->getID(), 0));
             p.mergeObstacles(currentObs, closedLink);
@@ -1066,6 +1064,9 @@ MSPModel_Striping::moveInDirectionOnLane(Pedestrians& pedestrians, const MSLane*
                 // @todo actually another path would be needed starting at the current position
                 p.myNLI = getNextLane(p, p.myLane, p.myWalkingAreaPath->from);
             }
+        }
+        if DEBUGCOND(p) {
+            gDebugFlag1 = false;
         }
         if (&lane->getEdge() == p.myStage->getDestination() && p.myStage->getDestinationStop() != nullptr) {
             Obstacles arrival(stripes, Obstacle(p.myStage->getArrivalPos() + dir * p.getMinGap(), 0, OBSTACLE_ARRIVALPOS, "arrival", 0));
