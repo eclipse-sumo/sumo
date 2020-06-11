@@ -142,12 +142,6 @@ public:
      */
     virtual const ConstMSEdgeVector::const_iterator& getCurrentRouteEdge() const = 0;
 
-    /** @brief Returns the vehicle's parameter (including departure definition)
-     *
-     * @return The vehicle's parameter
-     */
-    virtual const SUMOVehicleParameter& getParameter() const = 0;
-
     /** @brief Returns the vehicle's emission model parameter
      *
      * @return The vehicle's emission parameters

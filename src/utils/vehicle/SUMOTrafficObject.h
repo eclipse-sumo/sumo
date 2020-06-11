@@ -31,6 +31,7 @@
 // class declarations
 // ===========================================================================
 class MSVehicleType;
+class SUMOVehicleParameter;
 class MSEdge;
 class MSLane;
 class Position;
@@ -76,6 +77,12 @@ public:
      * @return The vehicle's type
      */
     virtual const MSVehicleType& getVehicleType() const = 0;
+
+    /** @brief Returns the vehicle's parameter (including departure definition)
+     *
+     * @return The vehicle's parameter
+     */
+    virtual const SUMOVehicleParameter& getParameter() const = 0;
 
     /** @brief Returns whether the object is at a stop
      * @return Whether it has stopped
