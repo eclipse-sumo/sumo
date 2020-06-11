@@ -73,6 +73,10 @@ MSTransportable::~MSTransportable() {
     }
 }
 
+std::mt19937*
+MSTransportable::getRNG() const {
+    return getEdge()->getLanes()[0]->getRNG();
+}
 
 bool
 MSTransportable::proceed(MSNet* net, SUMOTime time) {

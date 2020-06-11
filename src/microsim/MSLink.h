@@ -230,7 +230,7 @@ public:
                 double posLat = 0,
                 BlockingFoes* collectFoes = nullptr,
                 bool ignoreRed = false,
-                const SUMOVehicle* ego = nullptr) const;
+                const SUMOTrafficObject* ego = nullptr) const;
 
     /** @brief Returns the information whether this link is blocked
      * Valid after the vehicles have set their requests
@@ -248,7 +248,7 @@ public:
      **/
     bool blockedAtTime(SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                        bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                       BlockingFoes* collectFoes = nullptr, const SUMOVehicle* ego = nullptr) const;
+                       BlockingFoes* collectFoes = nullptr, const SUMOTrafficObject* ego = nullptr) const;
 
 
     bool isBlockingAnyone() const {
@@ -561,7 +561,7 @@ private:
     bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi,
                       SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                       bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,
-                      const SUMOVehicle* ego) const;
+                      const SUMOTrafficObject* ego) const;
 
     /// @brief figure out whether the cont status remains in effect when switching off the tls
     bool checkContOff() const;
