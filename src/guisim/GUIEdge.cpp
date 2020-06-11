@@ -323,7 +323,6 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
         vehicleControl->secureVehicles();
         FXMutexLock locker(myLock);
         int laneIndex = 0;
-        MESegment::Queue queue;
         for (std::vector<MSLane*>::const_iterator msl = myLanes->begin(); msl != myLanes->end(); ++msl, ++laneIndex) {
             GUILane* l = static_cast<GUILane*>(*msl);
             // go through the vehicles
@@ -333,7 +332,7 @@ GUIEdge::drawMesoVehicles(const GUIVisualizationSettings& s) const {
                 const double length = segment->getLength();
                 if (laneIndex < segment->numQueues()) {
                     // make a copy so we don't have to worry about synchronization
-                    queue = segment->getQueue(laneIndex);
+                    std::vector<MEVehicle*> queue = segment->getQueue(laneIndex);
                     const int queueSize = (int)queue.size();
                     double vehiclePosition = segmentOffset + length;
                     // draw vehicles beginning with the leader at the end of the segment

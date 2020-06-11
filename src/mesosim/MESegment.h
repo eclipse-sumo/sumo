@@ -45,6 +45,31 @@ class OutputDevice;
  * @brief A single mesoscopic segment (cell)
  */
 class MESegment : public Named {
+private:
+    class Queue {
+    public:
+        inline int size() const {
+            return (int)myVehicles.size();
+        }
+        inline const std::vector<MEVehicle*>& getVehicles() const {
+            return myVehicles;
+        }
+        inline std::vector<MEVehicle*>& getModifiableVehicles() {
+            return myVehicles;
+        }
+        inline SUMOTime getBlockTime() const {
+            return myBlockTime;
+        }
+        inline void setBlockTime(SUMOTime t) {
+            myBlockTime = t;
+        }
+    private:
+        std::vector<MEVehicle*> myVehicles;
+
+        /// @brief The block time
+        SUMOTime myBlockTime = -1;
+    };
+
 public:
     /** @brief constructor
      * @param[in] id The id of this segment (currently: "<EDGEID>:<SEGMENTNO>")
@@ -73,8 +98,6 @@ public:
               const bool junctionControl);
 
 
-    typedef std::vector<MEVehicle*> Queue;
-    typedef std::vector<Queue> Queues;
     /// @name Measure collection
     /// @{
 
@@ -119,19 +142,19 @@ public:
      * @return the total number of cars on the segment
      */
     inline int getCarNumber() const {
-        return myNumCars;
+        return myNumVehicles;
     }
 
     /// @brief return the number of queues
     inline int numQueues() const {
-        return (int)myCarQues.size();
+        return (int)myQueues.size();
     }
     /** @brief Returns the cars in the queue with the given index for visualization
      * @return the Queue (XXX not thread-safe!)
      */
-    inline const Queue& getQueue(int index) const {
-        assert(index < (int)myCarQues.size());
-        return myCarQues[index];
+    inline const std::vector<MEVehicle*>& getQueue(int index) const {
+        assert(index < (int)myQueues.size());
+        return myQueues[index].getVehicles();
     }
 
     /** @brief Returns the running index of the segment in the edge (0 is the most upstream).
@@ -482,16 +505,13 @@ private:
     std::vector<MSMoveReminder*> myDetectorData;
 
     /// @brief The car queues. Vehicles are inserted in the front and removed in the back
-    Queues myCarQues;
+    std::vector<Queue> myQueues;
 
-    /// @brief The cached value for the number of cars
-    int myNumCars;
+    /// @brief The cached value for the number of vehicles
+    int myNumVehicles;
 
     /// @brief The follower edge to que index mapping for multi queue segments
     std::map<const MSEdge*, std::vector<int> > myFollowerMap;
-
-    /// @brief The block times
-    std::vector<SUMOTime> myBlockTimes;
 
     /* @brief The block time for vehicles who wish to enter this segment.
      * @note since we do not know which queue will be used there is only one
