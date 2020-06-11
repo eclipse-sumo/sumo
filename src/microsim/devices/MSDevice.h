@@ -108,11 +108,12 @@ public:
     virtual ~MSDevice() { }
 
 
-    /** @brief Called on writing tripinfo output
+    /** @brief Called on vehicle deletion to extend tripinfo and other outputs
      *
-     * The device may write some statistics into the tripinfo output. It
-     *  is assumed that the written information is a valid xml-snipplet, which
-     *  will be embedded within the vehicle's information.
+     * The device may write some statistics into the tripinfo output and may
+     *  choose to finalize its own outputs. It is assumed that the
+     *  information written to tripinfoOut is a valid xml-snipplet, which
+     *  will be embedded within the vehicle's tripinfo information.
      *
      * The device should use the openTag / closeTag methods of the OutputDevice
      *  for correct indentation.
