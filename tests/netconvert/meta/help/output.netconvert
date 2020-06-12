@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_6_0+0706-f1f29cc5b6
+Eclipse SUMO netconvert Version v1_6_0+0709-defcafb769
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -452,7 +452,7 @@ Pedestrian Options:
                                          above the threshold
   --walkingareas                       Always build walking areas even if there
                                          are no crossings
-  --walkingareas.join-min-dist FLOAT   Do not create a walkingarea between
+  --walkingareas.join-dist FLOAT       Do not create a walkingarea between
                                          sidewalks that are connected by a
                                          pedestrian junction within FLOAT
 

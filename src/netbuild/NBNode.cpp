@@ -2508,7 +2508,7 @@ void
 NBNode::buildCrossingsAndWalkingAreas() {
     buildCrossings();
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"),
-            OptionsCont::getOptions().getFloat("walkingareas.join-min-dist"));
+            OptionsCont::getOptions().getFloat("walkingareas.join-dist"));
     // ensure that all crossings are properly connected
     for (auto& crossing : myCrossings) {
         if (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "" || !crossing->valid) {
