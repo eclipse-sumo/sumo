@@ -618,6 +618,7 @@ MSLane::insertVehicle(MSVehicle& veh) {
     if (success && myExtrapolateSubstepDepart && veh.getDepartDelay() > 0) {
         SUMOTime relevantDelay = MIN2(DELTA_T, veh.getDepartDelay());
         // try to compensate sub-step depart delay by moving the vehicle forward
+        speed = veh.getSpeed(); // may have been adapted in isInsertionSuccess
         double dist = speed * relevantDelay / (double)DELTA_T;
         std::pair<MSVehicle* const, double> leaderInfo = getLeader(&veh, pos, veh.getBestLanesContinuation());
         if (leaderInfo.first != nullptr) {
