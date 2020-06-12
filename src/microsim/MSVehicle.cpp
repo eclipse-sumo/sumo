@@ -4164,14 +4164,32 @@ MSVehicle::executeFractionalMove(double dist) {
     myState.myLastCoveredDist = dist;
     myCachedPosition = Position::INVALID;
 
+    const std::vector<const MSLane*> lanes = getUpcomingLanesUntil(dist);
+    const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
+    for (int i = 0; i < (int)lanes.size(); i++) {
+        MSLink* link = nullptr;
+        if (i + 1 < (int)lanes.size()) {
+            const MSLane* from = lanes[i];
+            const MSLane* to = lanes[i + 1];
+            link = MSLinkContHelper::getConnectingLink(*from, *to);
+        }
+        myLFLinkLanes.push_back(DriveProcessItem(
+                    link, getSpeed(), getSpeed(), true, t, getSpeed(), 0, 0, dist));
+    }
     // minimum execute move:
     std::vector<MSLane*> passedLanes;
     // Whether the vehicle did move to another lane
     bool moved = false;
     // Reason for a possible emergency stop
     std::string emergencyReason = " for unknown reasons";
+    if (lanes.size() > 1) {
+        myLane->removeVehicle(this, MSMoveReminder::NOTIFICATION_JUNCTION, false);
+    }
     processLaneAdvances(passedLanes, moved, emergencyReason);
     workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
+    if (lanes.size() > 1) {
+        myLane->forceVehicleInsertion(this, getPositionOnLane(), MSMoveReminder::NOTIFICATION_JUNCTION, getLateralPositionOnLane());
+    }
 }
 
 
