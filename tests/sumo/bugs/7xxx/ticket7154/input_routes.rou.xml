@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 12 Jun 2020 09:27:59 AM CEST by Eclipse SUMO netedit Version v1_6_0+0695-5c4f2f583d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/centerTramLaneChoice/net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <route-files value="/home/kobo/dlr/debug/centerTramLaneChoice/input_routes.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flow_0" begin="0.00" end="360" period="1.5" departSpeed="max">
+        <route edges="gneE6 gneE0 gneE1 gneE2 gneE3 gneE4"/>
+    </flow>
+</routes>

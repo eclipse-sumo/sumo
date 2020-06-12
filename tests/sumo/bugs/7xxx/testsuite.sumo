@@ -9,3 +9,6 @@ ticket7136
 
 # intermodal routing failure from quay
 ticket7149
+
+# collision on departure with extrapolate-departpos
+ticket7154
