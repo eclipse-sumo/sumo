@@ -350,8 +350,8 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         write(device, OptionsCont::getOptions(), synonymTag, getParentDemandElements().at(0)->getID());
     }
     // write specific attribute depeding of tag property
-    if ((getParentDemandElements().size() == 2) && (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-        // write manually route
+    if (myTagProperty.getTag() == SUMO_TAG_VEHICLE || myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) {
+        // write route
         device.writeAttr(SUMO_ATTR_ROUTE, getParentDemandElements().at(1)->getID());
     }
     // write from, to and edge vias
@@ -365,7 +365,7 @@ GNEVehicle::writeDemandElement(OutputDevice& device) const {
         }
     }
     // write specific routeFlow/flow attributes
-    if ((myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+    if ((myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // write routeFlow values depending if it was set
         if (isAttributeEnabled(SUMO_ATTR_END)) {
             device.writeAttr(SUMO_ATTR_END,  time2string(repetitionEnd));

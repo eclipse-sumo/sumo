@@ -72,7 +72,8 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
         dev.writeAttr(SUMO_ATTR_TYPE, typeID);
     }
     // write depart depending of tag
-    if ((tag == SUMO_TAG_FLOW) || (tag == SUMO_TAG_PERSONFLOW)) {
+    if ((tag == SUMO_TAG_FLOW) || (tag == SUMO_TAG_PERSONFLOW) || 
+        (tag == GNE_TAG_FLOW_ROUTE) || (tag == GNE_TAG_FLOW_WITHROUTE)) {
         dev.writeAttr(SUMO_ATTR_BEGIN, getDepart());
     } else {
         dev.writeAttr(SUMO_ATTR_DEPART, getDepart());
@@ -94,7 +95,6 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
     if (wasSet(VEHPARS_DEPARTPOSLAT_SET)) {
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTPOS_LAT, getDepartPosLat());
     }
-
     //  departspeed
     if (wasSet(VEHPARS_DEPARTSPEED_SET) && !defaultOptionOverrides(oc, "departspeed")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, getDepartSpeed());
@@ -166,7 +166,9 @@ SUMOVehicleParameter::Stop::Stop() :
     joinTriggered(false),
     parking(false),
     friendlyPos(false),
-    speed(0) {
+    speed(0),
+    arrival(0),
+    index(0) {
 }
 
 
