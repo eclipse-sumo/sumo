@@ -401,7 +401,7 @@ GNEVehicle::isDemandElementValid() const {
         // check if from and to are the same edges
         if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
             return true;
-        } else if (getPathEdges().size() > 0) {
+        } else if (getPath().size() > 0) {
             // if path edges isn't empty, then there is a valid route
             return true;
         } else {
@@ -577,7 +577,7 @@ void
 GNEVehicle::computePath() {
     // calculate route and update routeEdges (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()));
+        replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getVClass(), getParentEdges()), getVClass());
     }
     // update geometry
     updateGeometry();
@@ -588,7 +588,7 @@ void
 GNEVehicle::invalidatePath() {
     // calculate route and update routeEdges (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        replacePathEdges(this, getParentEdges());
+        replacePathEdges(this, getParentEdges(), getVClass());
     }
     // update geometry
     updateGeometry();
@@ -1636,9 +1636,16 @@ GNEVehicle::updateSpreadGeometry() {
         arrivalPosLane = arrivalPos;
     }
     // calculate depart pos geometry path starting at the lane begin
-    if (getPathEdges().size() > 0) {
+    if (getPath().size() > 0) {
+        // convert path to edges
+        std::vector<GNEEdge*> edges;
+        for (const auto &pathElement : getPath()) {
+            if (pathElement.getEdge()) {
+                edges.push_back(pathElement.getEdge());
+            }
+        }
         // calculate edge geometry path
-        GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getPathEdges(), getVClass(),
+        GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, edges, getVClass(),
                                                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // use route edges
@@ -1705,9 +1712,9 @@ GNEVehicle::updateStackedGeometry() {
              } else {
                 firstLane = nullptr;
             }
-        } else if (getPathEdges().size() > 0) {
+        } else if ((getPath().size() > 0) && getPath().front().getEdge()) {
             // use path edges
-            firstLane = getPathEdges().front()->getLanes().front();
+            firstLane = getPath().front().getEdge()->getLanes().front();
         } else if (getParentEdges().size() > 0) {
             // use first 
             firstLane = getParentEdges().front()->getLanes().front();
@@ -1722,8 +1729,15 @@ GNEVehicle::updateStackedGeometry() {
             departPosLane += firstLane->getLaneShape().length();
         }
         // calculate spread geometry path
-        if (getPathEdges().size() > 0) {
-            GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
+        if (getPath().size() > 0) {
+            // convert path to edges
+            std::vector<GNEEdge*> edges;
+            for (const auto &pathElement : getPath()) {
+                if (pathElement.getEdge()) {
+                    edges.push_back(pathElement.getEdge());
+                }
+            }
+            GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, edges, getVClass(),
                                                     firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
             // use route edges

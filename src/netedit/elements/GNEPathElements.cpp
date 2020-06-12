@@ -20,22 +20,45 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEShape.h>
-#include <netedit/elements/additional/GNETAZElement.h>
-#include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEPathElements.h"
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNEPathElements::PathElement - methods
+// ---------------------------------------------------------------------------
+
+GNEPathElements::PathElement::PathElement(GNEJunction* junction) :
+    myJunction(junction),
+    myEdge(nullptr) {
+}
+
+
+GNEPathElements::PathElement::PathElement(GNEEdge* edge) :
+    myJunction(nullptr),
+    myEdge(edge) {
+}
+
+
+GNEJunction* 
+GNEPathElements::PathElement::getJunction() const {
+    return myJunction;
+}
+
+
+GNEEdge* 
+GNEPathElements::PathElement::getEdge() const {
+    return myEdge;
+}
+
+
+GNEPathElements::PathElement::PathElement():
+    myJunction(nullptr),
+    myEdge(nullptr) {
+}
 
 // ---------------------------------------------------------------------------
 // GNEPathElements - methods
@@ -47,9 +70,9 @@ GNEPathElements::GNEPathElements() {}
 GNEPathElements::~GNEPathElements() {}
 
 
-const std::vector<GNEEdge*>&
-GNEPathElements::getPathEdges() const {
-    return myRouteEdges;
+const std::vector<GNEPathElements::PathElement>&
+GNEPathElements::getPath() const {
+    return myPathElements;
 }
 
 // ---------------------------------------------------------------------------
@@ -57,16 +80,23 @@ GNEPathElements::getPathEdges() const {
 // ---------------------------------------------------------------------------
 
 void
-GNEPathElements::replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges) {
+GNEPathElements::replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& pathEdges, SUMOVehicleClass vClass) {
     // remove demandElement of parent edges
-    for (const auto& edge : myRouteEdges) {
-        edge->removePathElement(elementChild);
+    for (const auto& pathElement : myPathElements) {
+        if (pathElement.getEdge()) {
+            pathElement.getEdge()->removePathElement(elementChild);
+        }
     }
     // set new route edges
-    myRouteEdges = routeEdges;
+    myPathElements.clear();
+    for (const auto &edge : pathEdges) {
+        myPathElements.push_back(GNEPathElements::PathElement(edge));
+    }
     // add demandElement into parent edges
-    for (const auto& edge : myRouteEdges) {
-        edge->addPathElement(elementChild);
+    for (const auto& pathElement : myPathElements) {
+        if (pathElement.getEdge()) {
+            pathElement.getEdge()->addPathElement(elementChild);
+        }
     }
 }
 

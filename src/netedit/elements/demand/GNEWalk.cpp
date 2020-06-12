@@ -173,7 +173,7 @@ GNEWalk::isDemandElementValid() const {
             // check if exist a route between parent edges
             return (myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), getParentEdges()).size() > 0);
         }
-    } else if (getPathEdges().size() > 0) {
+    } else if (getPath().size() > 0) {
         // if path edges isn't empty, then there is a valid route
         return true;
     } else {
@@ -312,11 +312,18 @@ GNEWalk::updateGeometry() {
         // use edges of route parent
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
                                                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
-    } else if (getPathEdges().empty()) {
+    } else if (getPath().empty()) {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
                                                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
+        // convert path to edges
+        std::vector<GNEEdge*> edges;
+        for (const auto &pathElement : getPath()) {
+            if (pathElement.getEdge()) {
+                edges.push_back(pathElement.getEdge());
+            }
+        }
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, edges, getVClass(),
                                                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
@@ -374,7 +381,7 @@ GNEWalk::computePath() {
         edges = getParentDemandElements().back()->getParentEdges();
     }
     // calculate path and update path edges
-    replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), edges));
+    replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getVClass(), edges), getVClass());
     // update geometry
     updateGeometry();
 }
@@ -403,7 +410,7 @@ GNEWalk::invalidatePath() {
         edges = getParentDemandElements().back()->getParentEdges();
     }
     // set edges
-    replacePathEdges(this, edges);
+    replacePathEdges(this, edges, getVClass());
     // update geometry
     updateGeometry();
 }

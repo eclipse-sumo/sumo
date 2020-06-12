@@ -63,6 +63,6 @@ private:
      */
     GNEDemandElement* myDemandElement;
 
-    /// @brief reference to edge path vector
-    const std::vector<GNEEdge*>& myEdgePath;
+    /// @brief reference to path vector
+    const std::vector<GNEPathElements::PathElement>& myPath;
 };

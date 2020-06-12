@@ -158,7 +158,7 @@ GNEPersonTrip::isDemandElementValid() const {
     if ((getParentEdges().size() == 2) && (getParentEdges().at(0) == getParentEdges().at(1))) {
         // from and to are the same edges
         return true;
-    } else if (getPathEdges().size() > 0) {
+    } else if (getPath().size() > 0) {
         // if path edges isn't empty, then there is a valid route
         return true;
     } else {
@@ -291,8 +291,15 @@ GNEPersonTrip::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate geometry path
-    if (getPathEdges().size() > 0) {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getPathEdges(), getVClass(),
+    if (getPath().size() > 0) {
+        // convert path to edges
+        std::vector<GNEEdge*> edges;
+        for (const auto &pathElement : getPath()) {
+            if (pathElement.getEdge()) {
+                edges.push_back(pathElement.getEdge());
+            }
+        }
+        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, edges, getVClass(),
                                                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
@@ -349,7 +356,7 @@ GNEPersonTrip::computePath() {
         edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
     }
     // calculate path and update path edges
-    replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getParentDemandElements().at(0)->getVClass(), edges));
+    replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getVClass(), edges), getVClass());
     // update geometry
     updateGeometry();
 }
@@ -374,7 +381,7 @@ GNEPersonTrip::invalidatePath() {
         edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
     }
     // set edges
-    replacePathEdges(this, edges);
+    replacePathEdges(this, edges, getVClass());
     // update geometry
     updateGeometry();
 }

@@ -373,7 +373,6 @@ struct GNEGeometry {
      * @brief AC attribute carrier's segment
      * @brief segmentGeometry segment geometry to be updated
      * @brief edges list of edges
-     *
      * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if -1, then ends at the end of lane)
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)

@@ -39,6 +39,34 @@ class GNEPathElements {
 
 public:
 
+    /// @brief path element
+    class PathElement {
+
+    public:
+        /// @brief constructor for junctions
+        PathElement(GNEJunction* _junction);
+
+        /// @brief constructor for edges
+        PathElement(GNEEdge* _edge);
+
+        /// @brief get junction
+        GNEJunction* getJunction() const;
+
+        /// @brief get edge
+        GNEEdge* getEdge() const;
+
+    protected:
+        /// @brief junction
+        GNEJunction* myJunction;
+
+        /// @brief edge
+        GNEEdge* myEdge;
+
+    private:
+        /// @brief default constructor
+        PathElement();
+    };
+
     /// @brief Constructor
     GNEPathElements();
 
@@ -46,15 +74,15 @@ public:
     ~GNEPathElements();
 
     /// @brief get path edges
-    const std::vector<GNEEdge*>& getPathEdges() const;
+    const std::vector<GNEPathElements::PathElement>& getPath() const;
 
 protected:
     /// @brief replace edge route Parents
-    void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges);
+    void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges, SUMOVehicleClass vClass);
 
 private:
     /// @brief vector of edges used in paths
-    std::vector<GNEEdge*> myRouteEdges;
+    std::vector<PathElement> myPathElements;
 
     /// @brief Invalidated copy constructor.
     GNEPathElements(const GNEPathElements&) = delete;

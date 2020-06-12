@@ -40,7 +40,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
     GNEChange(demandElement, demandElement, forward, demandElement->isAttributeCarrierSelected()),
     myDemandElement(demandElement),
-    myEdgePath(demandElement->getPathEdges()) {
+    myPath(demandElement->getPath()) {
     myDemandElement->incRef("GNEChange_DemandElement");
 }
 
@@ -55,8 +55,10 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
             // remove demand element of network
             myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
             // remove element from path
-            for (const auto& i : myEdgePath) {
-                i->removePathElement(myDemandElement);
+            for (const auto& pathElement : myPath) {
+                if (pathElement.getEdge()) {
+                    pathElement.getEdge()->removePathElement(myDemandElement);
+                }
             }
             // remove demand element from parents and children
             removeElementFromParentsAndChildren(myDemandElement);
@@ -78,8 +80,10 @@ GNEChange_DemandElement::undo() {
         // delete demand element from net
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
-        for (const auto& i : myEdgePath) {
-            i->removePathElement(myDemandElement);
+        for (const auto& pathElement : myPath) {
+            if (pathElement.getEdge()) {
+                pathElement.getEdge()->removePathElement(myDemandElement);
+            }
         }
         // remove demand element from parents and children
         removeElementFromParentsAndChildren(myDemandElement);
@@ -131,8 +135,10 @@ GNEChange_DemandElement::redo() {
         // delete demand element from net
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
-        for (const auto& i : myEdgePath) {
-            i->removePathElement(myDemandElement);
+        for (const auto& pathElement : myPath) {
+            if (pathElement.getEdge()) {
+                pathElement.getEdge()->removePathElement(myDemandElement);
+            }
         }
         // remove demand element from parents and children
         removeElementFromParentsAndChildren(myDemandElement);
