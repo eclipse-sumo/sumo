@@ -56,8 +56,8 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
             myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
             // remove element from path
             for (const auto& pathElement : myPath) {
-                if (pathElement.getEdge()) {
-                    pathElement.getEdge()->removePathElement(myDemandElement);
+                if (pathElement.getLane()) {
+                    pathElement.getLane()->removePathElement(myDemandElement);
                 }
             }
             // remove demand element from parents and children
@@ -81,8 +81,8 @@ GNEChange_DemandElement::undo() {
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
         for (const auto& pathElement : myPath) {
-            if (pathElement.getEdge()) {
-                pathElement.getEdge()->removePathElement(myDemandElement);
+            if (pathElement.getLane()) {
+                pathElement.getLane()->removePathElement(myDemandElement);
             }
         }
         // remove demand element from parents and children
@@ -136,8 +136,8 @@ GNEChange_DemandElement::redo() {
         myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
         // remove element from path
         for (const auto& pathElement : myPath) {
-            if (pathElement.getEdge()) {
-                pathElement.getEdge()->removePathElement(myDemandElement);
+            if (pathElement.getLane()) {
+                pathElement.getLane()->removePathElement(myDemandElement);
             }
         }
         // remove demand element from parents and children

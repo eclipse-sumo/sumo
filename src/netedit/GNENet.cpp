@@ -328,6 +328,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     undoList->p_begin("delete " + toString(SUMO_TAG_EDGE));
     // iterate over lanes
     for (const auto& lane : edge->getLanes()) {
+        // invalidate path elements
+        lane->invalidatePathChildElements();
         // delete lane additionals
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);
@@ -361,8 +363,6 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
     while (edge->getChildGenericDataElements().size() > 0) {
         deleteGenericData(edge->getChildGenericDataElements().front(), undoList);
     }
-    // invalidate path element childrens
-    edge->invalidatePathChildElements();
     // remove edge from crossings related with this edge
     edge->getFirstParentJunction()->removeEdgeFromCrossings(edge, undoList);
     edge->getSecondParentJunction()->removeEdgeFromCrossings(edge, undoList);
@@ -465,6 +465,8 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         deleteEdge(edge, undoList, recomputeConnections);
     } else {
         undoList->p_begin("delete " + toString(SUMO_TAG_LANE));
+        // invalidate path elements
+        lane->invalidatePathChildElements();
         // delete lane additional children
         while (lane->getChildAdditionals().size() > 0) {
             deleteAdditional(lane->getChildAdditionals().front(), undoList);

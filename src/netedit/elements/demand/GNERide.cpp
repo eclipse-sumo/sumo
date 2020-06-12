@@ -287,11 +287,13 @@ GNERide::updateGeometry() {
     if (getPath().size() > 0) {
         // convert path to edges
         std::vector<GNEEdge*> edges;
+        /*
         for (const auto &pathElement : getPath()) {
             if (pathElement.getEdge()) {
                 edges.push_back(pathElement.getEdge());
             }
         }
+        */
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, edges, getVClass(),
                                                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
@@ -331,24 +333,28 @@ GNERide::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNERide::computePath() {
-    // declare edges
-    std::vector<GNEEdge*> edges;
-    // fill edges depending of ride tag
+    // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        edges.push_back(getParentEdges().front());
-        edges.push_back(getParentEdges().back());
+        updatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getLastAllowedVehicleLane(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        edges.push_back(getParentEdges().front());
-        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+        updatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getParentAdditionals().back()->getParentLanes().front(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
-        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        edges.push_back(getParentEdges().back());
+        updatePathLanes(this, getVClass(), 
+            getParentAdditionals().front()->getParentLanes().front(), 
+            getLastAllowedVehicleLane(),
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
-        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+        updatePathLanes(this, getVClass(), 
+            getParentAdditionals().front()->getParentLanes().front(), 
+            getParentAdditionals().back()->getParentLanes().front(), 
+            {});
     }
-    // calculate path and update path edges
-    replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getVClass(), edges), getVClass());
     // update geometry
     updateGeometry();
 }
@@ -356,24 +362,28 @@ GNERide::computePath() {
 
 void
 GNERide::invalidatePath() {
-    // declare edges
-    std::vector<GNEEdge*> edges;
-    // fill edges depending of ride tag
+    // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        edges.push_back(getParentEdges().front());
-        edges.push_back(getParentEdges().back());
+        invalidatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getLastAllowedVehicleLane(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        edges.push_back(getParentEdges().front());
-        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+        invalidatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getParentAdditionals().back()->getParentLanes().front(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
-        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        edges.push_back(getParentEdges().back());
+        invalidatePathLanes(this, getVClass(), 
+            getParentAdditionals().front()->getParentLanes().front(), 
+            getLastAllowedVehicleLane(),
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
-        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+        invalidatePathLanes(this, getVClass(), 
+            getParentAdditionals().front()->getParentLanes().front(), 
+            getParentAdditionals().back()->getParentLanes().front(), 
+            {});
     }
-    // set edges
-    replacePathEdges(this, edges, getVClass());
     // update geometry
     updateGeometry();
 }

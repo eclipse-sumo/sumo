@@ -318,11 +318,13 @@ GNEWalk::updateGeometry() {
     } else {
         // convert path to edges
         std::vector<GNEEdge*> edges;
+        /*
         for (const auto &pathElement : getPath()) {
             if (pathElement.getEdge()) {
                 edges.push_back(pathElement.getEdge());
             }
         }
+        */
         GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, edges, getVClass(),
                                                 getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
     }
@@ -360,28 +362,38 @@ GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNEWalk::computePath() {
-    // declare edges
-    std::vector<GNEEdge*> edges;
-    // fill edges depending of walk tag
+    // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
-        edges.push_back(getParentEdges().front());
-        edges.push_back(getParentEdges().back());
+        updatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getLastAllowedVehicleLane(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
-        edges.push_back(getParentEdges().front());
-        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+        updatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getParentAdditionals().back()->getParentLanes().front(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
-        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        edges.push_back(getParentEdges().back());
+        updatePathLanes(this, getVClass(), 
+            getParentAdditionals().front()->getParentLanes().front(), 
+            getLastAllowedVehicleLane(),
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
-        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+        updatePathLanes(this, getVClass(), 
+            getParentAdditionals().front()->getParentLanes().front(), 
+            getParentAdditionals().back()->getParentLanes().front(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        edges = getParentEdges();
+        updatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getLastAllowedVehicleLane(), 
+            getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        edges = getParentDemandElements().back()->getParentEdges();
+        updatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getLastAllowedVehicleLane(), 
+            getParentDemandElements().back()->getParentEdges());
     }
-    // calculate path and update path edges
-    replacePathEdges(this, myNet->getPathCalculator()->calculatePath(getVClass(), edges), getVClass());
     // update geometry
     updateGeometry();
 }
@@ -389,28 +401,38 @@ GNEWalk::computePath() {
 
 void
 GNEWalk::invalidatePath() {
-    // declare edges
-    std::vector<GNEEdge*> edges;
-    // fill edges depending of walk tag
+    // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
-        edges.push_back(getParentEdges().front());
-        edges.push_back(getParentEdges().back());
+        invalidatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getLastAllowedVehicleLane(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
-        edges.push_back(getParentEdges().front());
-        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+        invalidatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getParentAdditionals().back()->getParentLanes().front(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
-        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        edges.push_back(getParentEdges().back());
+        invalidatePathLanes(this, getVClass(), 
+            getParentAdditionals().front()->getParentLanes().front(), 
+            getLastAllowedVehicleLane(),
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
-        edges.push_back(getParentAdditionals().front()->getParentLanes().front()->getParentEdge());
-        edges.push_back(getParentAdditionals().back()->getParentLanes().front()->getParentEdge());
+        invalidatePathLanes(this, getVClass(), 
+            getParentAdditionals().front()->getParentLanes().front(), 
+            getParentAdditionals().back()->getParentLanes().front(), 
+            {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        edges = getParentEdges();
+        invalidatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getLastAllowedVehicleLane(), 
+            getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        edges = getParentDemandElements().back()->getParentEdges();
+        invalidatePathLanes(this, getVClass(), 
+            getFirstAllowedVehicleLane(), 
+            getLastAllowedVehicleLane(), 
+            getParentDemandElements().back()->getParentEdges());
     }
-    // set edges
-    replacePathEdges(this, edges, getVClass());
     // update geometry
     updateGeometry();
 }

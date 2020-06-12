@@ -1429,35 +1429,6 @@ GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDeman
 
 
 void
-GNEEdge::addPathElement(GNEDemandElement* pathElementChild) {
-    // avoid insert duplicatd path element childs
-    if (std::find(myPathDemandElementsElementChilds.begin(), myPathDemandElementsElementChilds.end(), pathElementChild) == myPathDemandElementsElementChilds.end()) {
-        myPathDemandElementsElementChilds.push_back(pathElementChild);
-    }
-}
-
-
-void
-GNEEdge::removePathElement(GNEDemandElement* pathElementChild) {
-    // search and remove pathElementChild
-    auto it = std::find(myPathDemandElementsElementChilds.begin(), myPathDemandElementsElementChilds.end(), pathElementChild);
-    if (it != myPathDemandElementsElementChilds.end()) {
-        myPathDemandElementsElementChilds.erase(it);
-    }
-}
-
-
-void
-GNEEdge::invalidatePathChildElements() {
-    // make a copy of myPathDemandElementsElementChilds
-    auto copyOfPathDemandElementsElementChilds = myPathDemandElementsElementChilds;
-    for (const auto& pathElementChild : copyOfPathDemandElementsElementChilds) {
-        pathElementChild->invalidatePath();
-    }
-}
-
-
-void
 GNEEdge::updateVehicleSpreadGeometries() {
     // get lane vehicles map
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > laneVehiclesMap = getVehiclesOverEdgeMap();
@@ -2532,6 +2503,7 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
             personStopEdge->drawGL(s);
         }
     }
+/*
     // draw path element childs
     for (const auto& elementChild : myPathDemandElementsElementChilds) {
         if (elementChild->getTagProperty().isVehicle()) {
@@ -2543,6 +2515,7 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
             drawPartialPersonPlan(s, elementChild, nullptr);
         }
     }
+*/
 }
 
 

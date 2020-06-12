@@ -44,23 +44,23 @@ public:
 
     public:
         /// @brief constructor for junctions
-        PathElement(GNEJunction* _junction);
+        PathElement(GNEJunction* junction);
 
-        /// @brief constructor for edges
-        PathElement(GNEEdge* _edge);
+        /// @brief constructor for lanes
+        PathElement(GNELane* lane);
 
         /// @brief get junction
         GNEJunction* getJunction() const;
 
-        /// @brief get edge
-        GNEEdge* getEdge() const;
+        /// @brief get lane
+        GNELane* getLane() const;
 
     protected:
         /// @brief junction
         GNEJunction* myJunction;
 
-        /// @brief edge
-        GNEEdge* myEdge;
+        /// @brief lane
+        GNELane* myLane;
 
     private:
         /// @brief default constructor
@@ -77,8 +77,11 @@ public:
     const std::vector<GNEPathElements::PathElement>& getPath() const;
 
 protected:
-    /// @brief replace edge route Parents
-    void replacePathEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& routeEdges, SUMOVehicleClass vClass);
+    /// @brief update path lanes
+    void updatePathLanes(GNEDemandElement* element, SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+
+    /// @brief invalidate path lanes
+    void invalidatePathLanes(GNEDemandElement* element, SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
 private:
     /// @brief vector of edges used in paths

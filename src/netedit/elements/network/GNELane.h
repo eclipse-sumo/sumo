@@ -184,6 +184,15 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
+    /// @brief add path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
+    void addPathElement(GNEDemandElement* pathElementChild);
+
+    /// @brief remove path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
+    void removePathElement(GNEDemandElement* pathElementChild);
+
+    /// @brief invalidate path element childs
+    void invalidatePathChildElements();
+
     /* @brief method for setting the special color of the lane
      * @param[in] color Pointer to new special color
      */
@@ -232,6 +241,9 @@ protected:
 
     /// @brief lane2lane connections
     GNEGeometry::Lane2laneConnection myLane2laneConnections;
+
+    /// @brief vector with references to path element childs
+    std::vector<GNEDemandElement*> myPathDemandElementsElementChilds;
 
 private:
     /// @brief set attribute after validation
