@@ -133,6 +133,12 @@ GNERide::writeDemandElement(OutputDevice& device) const {
     if (myArrivalPosition != -1) {
         device.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPosition);
     }
+    // write lines
+    if (myLines.empty()) {
+        device.writeAttr(SUMO_ATTR_LINES, "ANY");
+    } else {
+        device.writeAttr(SUMO_ATTR_LINES, myLines);
+    }
     // write parameters
     writeParams(device);
     // close tag
