@@ -13,7 +13,16 @@ permalink: /ChangeLog/
   - Closed roads with changed permissions are no longer ignored by the first loaded vehicles. Issue #6999  
   - Fixed invalid amount of charged energy in subsecond simulation when using battery device. Issue #7074
   - personTrips now support attribute fromTaz. Issue #7092
-  
+  - Fixed invalid error when setting vehicle stop. Issue #7059
+  - Fixed bugs that were causing collisions. Issue #7131, #7136, #7154
+  - Fixed deadlock on intersection. Issue #7139
+  - Fixed bug where vehicles at the stop line would fail give way to an emergency vehicle. Issue #7134
+  - Fixed invalid tripinfo output when only part of the fleet is generating output. Issue #7141
+  - Fixed bugs where pedestrians would step onto the road when it wasn't safe. Issue #7150, #7152
+  - Fixed pedestrian routing bug after riding a ship. Issue #7149
+  - Fixed invalid insertion lane when using option **--extrapolate-departpos**. Issue #7155
+  - Simulation now terminates when specifying a flow without end and attribute 'number'. Issue #7156
+    
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
   - Option **--fcd-output.distance** now also applies to Meso. Issue #7069  
@@ -37,6 +46,12 @@ permalink: /ChangeLog/
   
 - NETEDIT
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
+  - Routes with a single edge can now be created. Issue #7129
+  - Fixed bug where all passenger lanes changed their permissions when adding a sidewalk. Issue #7135
+  - Fixed crash when changing connection shape or junction shape. Issue #7138
+  - Fixed invalid output when transforming trip to vehicle. Issue #7073
+  - Fixed invalid routes when on of it's edges. Issue #6986
+  - Fixed invalid count of selected elements. Issue #7113
   
 - Tools
   - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
@@ -51,6 +66,7 @@ permalink: /ChangeLog/
   - Fixed crash when accessing prior riding stage with *person.getStage*. Issue #7060
   - Fixed crash and delayed effect when setting vehicle parameter "device.rerouting.period". Issue #7064, #7075
   - Polygons and POIs added at runtime now show up in contextSubscriptions. Issue #7057
+  - TraaS function getDeltaT is now working. Issue #7121
   
 - All Applications
   - File names with a `%`-Sign can no be loaded. Issue #6574
@@ -65,24 +81,28 @@ permalink: /ChangeLog/
   - Added option **--device.emissions.period** to control the period in which emission-output is written. Isue #7079
   - Charging stations now work when a vehicle is parking (either with `parking="true"` or when stopped at a parkingArea and a chargingStation simultaneously). Issue #7068
   - The distance at which vehicles react to device.bluelight can now be configured with option **--device.bluelight.reactiondist**. Issue #7112
+  - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
   - Added option **edges.join-tram-dist {{DT_FLOAT}}** which can be used to join overlying road and tram edges into a single lane with combined permissions. This is needed for the correct dynamics in OSM-derived networks. Issue #6980
   - When loading **ptstop-files** and filtering the network extend, the loaded stops will be filtered automatically. Issue #7024
   - When specifying a polygon boundary for option **--keep-edges.in-boundary**, the argument may now contain spaces to separate positions. This allows copying a polygon shape attribute. Issue #7025
+  - When an intersectoin is surrounded by connected footpaths, superfluous walkingareas are no longer built. The distance at which pedestrian nodes count as connected can be set by option **--walkingareas.join-dist**. Issue #7120
   
 - NETEDIT
   - Edges can now be colored by edgeData attribute (as in SUMO-GUI). Issue #6953
   - Added function 'select reachable' to the edge context menu (just like SUMO-GUI). Issue #6995
   - In create-route-mode, edges can now be colored by reachability from the last selected edge. Issue #6995
   - Added junction context-menu option *select roundabout*. Issue #5606
-  - Added junction context-menu option *convert to roundabout*. Issue #7030  
+  - Added junction context-menu option *convert to roundabout*. Issue #7030
+  - Vehicles and Flows with their own (unnamed) route can now be created directly. Issue #7103  
 
 - SUMO-GUI
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
   - A color legend for vehicle colors can no be enabled via the 'Legend' tab. Issue #6930
   - Vehicles can now be stopped and stops can be aborted via context menu.
+  - The hiding-treshold for edge coloring can now also hide edge color value labels (to avoid clutter from irrelevant numbers). Issue #7140
 
 - All Applications
   - Symbolic color definition "random" can now be used (i.e. in vehicle, vType, poi, ...). Issue #7058
@@ -97,9 +117,10 @@ permalink: /ChangeLog/
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now visualize person trajectories using option **--persons**. Issue #6978
-  - Added new tool [computeCoordination.py](Tools/Output/computecoordinationpy) to compute the fraction of delayed vehicles along a defined corridor. Issue #6987
+  - Added new tool [computeCoordination.py](Tools/Output.md/computecoordinationpy) to compute the fraction of delayed vehicles along a defined corridor. Issue #6987
   - implausibleRoutes.py now works better with routes consisting of a single edge only and respects internal edge lengths. It can also detect routes containing edge loops or node loops. Issue #7071
   - osmWebWizard now exports public transport edges for rail vehicles when setting both of the options 'Car-only Network' and 'Import public transport'. Issue #7081
+  - [edgeDataFromFlow.py](Tools/Detector.md#edgedatafromflowpy) now supports time intervals. Issue #7133
     
 ### Other
 - Netconvert
