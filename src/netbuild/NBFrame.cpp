@@ -406,6 +406,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("walkingareas", new Option_Bool(false));
     oc.addDescription("walkingareas", "Pedestrian", "Always build walking areas even if there are no crossings");
 
+    oc.doRegister("walkingareas.join-min-dist", new Option_Float(15));
+    oc.addDescription("walkingareas.join-min-dist", "Pedestrian", "Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT");
+
     // tls setting options
     // explicit tls
     oc.doRegister("tls.set", new Option_StringVector());

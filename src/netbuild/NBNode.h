@@ -636,7 +636,7 @@ public:
     /**@brief build pedestrian walking areas and set connections from/to walkingAreas
      * @param[in] cornerDetail The detail level when generating the inner curve
      */
-    void buildWalkingAreas(int cornerDetail);
+    void buildWalkingAreas(int cornerDetail, double joinMinDist);
 
     /// @brief build crossings, and walkingareas. Also removes invalid loaded crossings if wished
     void buildCrossingsAndWalkingAreas();
@@ -646,6 +646,9 @@ public:
 
     /// @brief return true if the given edges are connected by a crossing
     bool crossingBetween(const NBEdge* e1, const NBEdge* e2) const;
+
+    /// @brief return true if the given pedestrian paths are connected at another junction within dist
+    bool alreadyConnectedPaths(const NBEdge* e1, const NBEdge* e2, double dist) const; 
 
     /// @brief get prohibitions (BLocked connections)
     const NBConnectionProhibits& getProhibitions() {

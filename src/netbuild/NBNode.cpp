@@ -2507,7 +2507,8 @@ NBNode::forbidsPedestriansAfter(std::vector<std::pair<NBEdge*, bool> > normalize
 void
 NBNode::buildCrossingsAndWalkingAreas() {
     buildCrossings();
-    buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"));
+    buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"),
+            OptionsCont::getOptions().getFloat("walkingareas.join-min-dist"));
     // ensure that all crossings are properly connected
     for (auto& crossing : myCrossings) {
         if (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "" || !crossing->valid) {
@@ -2683,7 +2684,7 @@ NBNode::buildCrossings() {
 
 
 void
-NBNode::buildWalkingAreas(int cornerDetail) {
+NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
 #ifdef DEBUG_PED_STRUCTURES
     gDebugFlag1 = DEBUGCOND;
 #endif
@@ -2731,7 +2732,9 @@ NBNode::buildWalkingAreas(int cornerDetail) {
                 start = i;
             }
         } else {
-            if ((l.permissions & SVC_PEDESTRIAN) == 0 || crossingBetween(edge, prevEdge)) {
+            if ((l.permissions & SVC_PEDESTRIAN) == 0 
+                    || crossingBetween(edge, prevEdge)
+                    || alreadyConnectedPaths(edge, prevEdge, joinMinDist)) {
                 waIndices.push_back(std::make_pair(start, i - start));
                 if ((l.permissions & SVC_PEDESTRIAN) != 0) {
                     start = i;
@@ -3084,6 +3087,27 @@ NBNode::crossingBetween(const NBEdge* e1, const NBEdge* e2) const {
         }
     }
     return false;
+}
+
+
+bool
+NBNode::alreadyConnectedPaths(const NBEdge* e1, const NBEdge* e2, double dist) const {
+    if (e1 == e2) {
+        return false;
+    }
+    if (e1->getPermissions() != SVC_PEDESTRIAN
+            || e2->getPermissions() != SVC_PEDESTRIAN) {
+        // no paths
+        return false;
+    }
+    if (e1->getFinalLength() > dist &&
+            e2->getFinalLength() > dist) {
+        // too long
+        return false;
+    }
+    NBNode* other1 = e1->getFromNode() == this ? e1->getToNode() : e1->getFromNode();
+    NBNode* other2 = e2->getFromNode() == this ? e2->getToNode() : e2->getFromNode();
+    return other1 == other2;
 }
 
 
