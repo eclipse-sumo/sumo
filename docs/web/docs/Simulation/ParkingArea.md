@@ -106,9 +106,9 @@ When setting the (boolean) option **--parking.maneuver**, vehicles will spend ex
 
 The value corresponding to the closest angle is used. The value of maneuverAngleTimes is initialized to a vClass-specific value:
 
-- default: `manoeuverAngleTimes="10 3 4,80 1 11,110 11 2,170 8 3,181 3 4"`
+- default: `maneuverAngleTimes="10 3 4,80 1 11,110 11 2,170 8 3,181 3 4"`
 - truck, trailer, coach, delivery: all times doubled compared to default
-- bicycle, moped: `manoeuverAngleTimes="181 1 1"`
+- bicycle, moped: `maneuverAngleTimes="181 1 1"`
 
 # Rerouting when the current parkingArea is full
 
