@@ -51,6 +51,9 @@ repeat_stops
 # test repeating route definition with stops for flow
 repeat_flow_stops
 
+# test repeating route definition with stops for flow
+repeat_flow_busstop
+
 # test repeating route definition with stops when no period is defined
 repeat_stops_no_period
 
