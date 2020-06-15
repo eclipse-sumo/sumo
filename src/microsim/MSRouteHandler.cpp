@@ -737,6 +737,33 @@ MSRouteHandler::closeVehicle() {
     }
     if (route->mustReroute()) {
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
+        assert(myVehicleParameter->wasSet(VEHPARS_ROUTE_SET));
+        assert(route->getStops().size() > 0);
+        if (myVehicleParameter->stops.size() > 0) {
+            // the route was defined without edges and its current edges were
+            // derived from route-stops.
+            // We may need to add additional edges for the vehicle-stops
+            ConstMSEdgeVector edges = route->getEdges();
+            for (SUMOVehicleParameter::Stop stop : myVehicleParameter->stops) {
+                MSEdge* stopEdge = &MSLane::dictionary(stop.lane)->getEdge();
+                if (stop.index == 0) {
+                    if (edges.front() != stopEdge ||
+                            route->getStops().front().endPos < stop.endPos) {
+                        edges.insert(edges.begin(), stopEdge);
+                    }
+                } else if (stop.index == STOP_INDEX_END) {
+                    if (edges.back() != stopEdge ||
+                            route->getStops().back().endPos > stop.endPos) {
+                        edges.push_back(stopEdge);
+                    }
+                } else {
+                    WRITE_WARNING("Could not merge vehicle stops for vehicle '" + myVehicleParameter->id + "' into implicitly defined route '" + route->getID() + "'");
+                }
+            }
+            MSRoute* newRoute = new MSRoute("!" + myVehicleParameter->id, edges,
+                    false, new RGBColor(route->getColor()), route->getStops());
+            route = newRoute;
+        }
     }
 
     // try to build the vehicle
