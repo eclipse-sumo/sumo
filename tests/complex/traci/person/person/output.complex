@@ -94,7 +94,7 @@ prio stages for 'newPerson' past plan
 detour2 edges ('3si', '2o', '2fi', '2si', '4si')
 detour2 edges after routing (':0_w2', '4si')
 :0_w1
-10.0764419375
+10.0744419375
 :0_c0
 recovering from exception after asking for invalid stage index
 recovering from exception after asking for invalid stage index
