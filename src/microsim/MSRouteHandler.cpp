@@ -737,32 +737,8 @@ MSRouteHandler::closeVehicle() {
     }
     if (route->mustReroute()) {
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
-        assert(myVehicleParameter->wasSet(VEHPARS_ROUTE_SET));
-        assert(route->getStops().size() > 0);
         if (myVehicleParameter->stops.size() > 0) {
-            // the route was defined without edges and its current edges were
-            // derived from route-stops.
-            // We may need to add additional edges for the vehicle-stops
-            ConstMSEdgeVector edges = route->getEdges();
-            for (SUMOVehicleParameter::Stop stop : myVehicleParameter->stops) {
-                MSEdge* stopEdge = &MSLane::dictionary(stop.lane)->getEdge();
-                if (stop.index == 0) {
-                    if (edges.front() != stopEdge ||
-                            route->getStops().front().endPos < stop.endPos) {
-                        edges.insert(edges.begin(), stopEdge);
-                    }
-                } else if (stop.index == STOP_INDEX_END) {
-                    if (edges.back() != stopEdge ||
-                            route->getStops().back().endPos > stop.endPos) {
-                        edges.push_back(stopEdge);
-                    }
-                } else {
-                    WRITE_WARNING("Could not merge vehicle stops for vehicle '" + myVehicleParameter->id + "' into implicitly defined route '" + route->getID() + "'");
-                }
-            }
-            MSRoute* newRoute = new MSRoute("!" + myVehicleParameter->id, edges,
-                    false, new RGBColor(route->getColor()), route->getStops());
-            route = newRoute;
+            route = addVehicleStopsToImplicitRoute(route, false);
         }
     }
 
@@ -826,6 +802,40 @@ MSRouteHandler::closeVehicle() {
             MSNet::getInstance()->getInsertionControl().add(vehicle);
         }
     }
+}
+
+
+MSRoute*
+MSRouteHandler::addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPermanent) {
+    // the route was defined without edges and its current edges were
+    // derived from route-stops.
+    // We may need to add additional edges for the vehicle-stops
+    assert(myVehicleParameter->wasSet(VEHPARS_ROUTE_SET));
+    assert(route->getStops().size() > 0);
+    ConstMSEdgeVector edges = route->getEdges();
+    for (SUMOVehicleParameter::Stop stop : myVehicleParameter->stops) {
+        MSEdge* stopEdge = &MSLane::dictionary(stop.lane)->getEdge();
+        if (stop.index == 0) {
+            if (edges.front() != stopEdge ||
+                    route->getStops().front().endPos < stop.endPos) {
+                edges.insert(edges.begin(), stopEdge);
+            }
+        } else if (stop.index == STOP_INDEX_END) {
+            if (edges.back() != stopEdge ||
+                    route->getStops().back().endPos > stop.endPos) {
+                edges.push_back(stopEdge);
+            }
+        } else {
+            WRITE_WARNING("Could not merge vehicle stops for vehicle '" + myVehicleParameter->id + "' into implicitly defined route '" + route->getID() + "'");
+        }
+    }
+    MSRoute* newRoute = new MSRoute("!" + myVehicleParameter->id, edges,
+            isPermanent, new RGBColor(route->getColor()), route->getStops());
+    if (!MSRoute::dictionary(newRoute->getID(), newRoute)) {
+        delete newRoute;
+        throw ProcessError("Could not adapt implicit route for " + std::string(isPermanent ? "flow" : "vehicle") + "  '" + myVehicleParameter->id + "'");
+    }
+    return newRoute;
 }
 
 
@@ -1011,6 +1021,10 @@ MSRouteHandler::closeFlow() {
     }
     if (route->mustReroute()) {
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
+        if (myVehicleParameter->stops.size() > 0) {
+            route = addVehicleStopsToImplicitRoute(route, true);
+            myVehicleParameter->routeid = route->getID();
+        }
     }
     myActiveRouteID = "";
 
