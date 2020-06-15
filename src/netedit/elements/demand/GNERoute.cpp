@@ -25,6 +25,8 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNERoute.h"
 
@@ -75,6 +77,8 @@ GNERoute::GNERoute(GNENet* net) :
     Parameterised(),
     myColor(RGBColor::YELLOW),
     myVClass(SVC_PASSENGER) {
+    // compute route
+    computePath();
 }
 
 
@@ -85,6 +89,8 @@ GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routePara
     Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
     myVClass(routeParameters.vClass) {
+    // compute route
+    computePath();
 }
 
 
@@ -95,6 +101,8 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteH
     Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
     myVClass(routeParameters.vClass) {
+    // compute route
+    computePath();
 }
 
 
@@ -105,6 +113,8 @@ GNERoute::GNERoute(GNEDemandElement* route) :
     Parameterised(),
     myColor(route->getColor()),
     myVClass(route->getVClass()) {
+    // compute route
+    computePath();
 }
 
 
@@ -269,13 +279,19 @@ GNERoute::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNERoute::computePath() {
-    // nothing to compute
+    // calculate path using parent edges
+    calculatePathLanes(getVClass(), true, getFirstAllowedVehicleLane(),getLastAllowedVehicleLane(), getMiddleParentEdges());
+    // update geometry
+    updateGeometry();
 }
 
 
 void
 GNERoute::invalidatePath() {
-    // nothing to invalidate
+    // reset path 
+    resetPathLanes(getVClass(), true, getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), getMiddleParentEdges());
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -320,13 +336,53 @@ GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElem
 
 void
 GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
-    // Routes are drawn in GNEEdges
+    // Routes are drawn in drawPartialGL
 }
 
 
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    //
+    // only drawn in super mode demand
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+        // calculate route width
+        double routeWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.route;
+        // obtain color
+        RGBColor routeColor;
+        if (drawUsingSelectColor()) {
+            routeColor = s.colorSettings.selectedRouteColor;
+        } else {
+            routeColor = getColor();
+        }
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // iterate over segments
+        for (const auto& segment : myDemandElementSegmentGeometry) {
+            // draw partial segment
+            if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+                // Set route color (needed due drawShapeDottedContour)
+                GLHelper::setColor(routeColor);
+                // draw box lines
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, routeWidth);
+                // check if shape dotted contour has to be drawn
+                if (myNet->getViewNet()->getDottedAC() == this) {
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), routeWidth);
+                }
+            }
+        }
+        // Pop last matrix
+        glPopMatrix();
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection) {
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        }
+        // Pop name
+        glPopName();
+    }
 }
 
 

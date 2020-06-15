@@ -289,9 +289,6 @@ public:
     /// @brief return the first lane that disallow a vehicle of type vClass (or the first lane, if none was found)
     GNELane* getLaneByDisallowedVClass(const SUMOVehicleClass vClass) const;
 
-    /// @brief draw partial route
-    void drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement* route, const GNEJunction* junction) const;
-
     // @brief update vehicle spread geometries
     void updateVehicleSpreadGeometries();
 
@@ -404,9 +401,6 @@ private:
 
     /// @brief draw Rerouter symbols
     void drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* rerouter) const;
-
-    /// @brief draw demand elements
-    void drawDemandElements(const GUIVisualizationSettings& s) const;
 
     /// @brief check if given stacked positions are overlapped
     bool areStackPositionOverlapped(const GNEEdge::StackPosition& vehicleA, const GNEEdge::StackPosition& vehicleB) const;
