@@ -475,8 +475,8 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void 
-GNEStop::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    //
+GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/) const {
+    // Stops don't use drawPartialGL
 }
 
 

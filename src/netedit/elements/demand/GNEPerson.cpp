@@ -479,8 +479,8 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void 
-GNEPerson::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    //
+GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/) const {
+    // Stops don't use drawPartialGL
 }
 
 
