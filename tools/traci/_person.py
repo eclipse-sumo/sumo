@@ -165,12 +165,7 @@ class PersonDomain(Domain):
         nextStageIndex 0 retrieves value for the current stage.
         nextStageIndex must be lower then value of getRemainingStages(personID)
         """
-        self._connection._beginMessage(
-            tc.CMD_GET_PERSON_VARIABLE, tc.VAR_EDGES, personID, 1 + 4)
-        self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_INTEGER, nextStageIndex)
-        return self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
-                                             tc.VAR_EDGES, personID).readStringList()
+        return self._getCmd(tc.VAR_EDGES, personID, "i", nextStageIndex).readStringList()
 
     def getStage(self, personID, nextStageIndex=0):
         """getStage(string, int) -> int
@@ -184,12 +179,7 @@ class PersonDomain(Domain):
         nextStageIndex 0 retrieves value for the current stage.
         nextStageIndex must be lower then value of getRemainingStages(personID)
         """
-        self._connection._beginMessage(
-            tc.CMD_GET_PERSON_VARIABLE, tc.VAR_STAGE, personID, 1 + 4)
-        self._connection._string += struct.pack("!Bi",
-                                                tc.TYPE_INTEGER, nextStageIndex)
-        return simulation._readStage(self._connection._checkResult(tc.CMD_GET_PERSON_VARIABLE,
-                                                                   tc.VAR_STAGE, personID))
+        return simulation._readStage(self._getCmd(tc.VAR_STAGE, personID, "i", nextStageIndex))
 
     def getRemainingStages(self, personID):
         """getStage(string) -> int

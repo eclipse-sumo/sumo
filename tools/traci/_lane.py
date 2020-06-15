@@ -274,11 +274,7 @@ class LaneDomain(Domain):
         """getFoes(string, string) -> list(string)
         Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
         """
-        self._connection._beginMessage(
-            tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID, 1 + 4 + len(toLaneID))
-        self._connection._packString(toLaneID)
-        return Storage.readStringList(
-            self._connection._checkResult(tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID))
+        return self._getCmd(tc.VAR_FOES, laneID, "s", toLaneID).readStringList()
 
     def getInternalFoes(self, laneID):
         """getFoes(string) -> list(string)
@@ -293,10 +289,7 @@ class LaneDomain(Domain):
         """
         if isinstance(allowedClasses, str):
             allowedClasses = [allowedClasses]
-        self._connection._beginMessage(tc.CMD_SET_LANE_VARIABLE, tc.LANE_ALLOWED, laneID,
-                                       1 + 4 + sum(map(len, allowedClasses)) + 4 * len(allowedClasses))
-        self._connection._packStringList(allowedClasses)
-        self._connection._sendExact()
+        self._setCmd(tc.LANE_ALLOWED, laneID, "l", allowedClasses)
 
     def setDisallowed(self, laneID, disallowedClasses):
         """setDisallowed(string, list) -> None
@@ -305,23 +298,18 @@ class LaneDomain(Domain):
         """
         if isinstance(disallowedClasses, str):
             disallowedClasses = [disallowedClasses]
-        self._connection._beginMessage(tc.CMD_SET_LANE_VARIABLE, tc.LANE_DISALLOWED, laneID,
-                                       1 + 4 + sum(map(len, disallowedClasses)) + 4 * len(disallowedClasses))
-        self._connection._packStringList(disallowedClasses)
-        self._connection._sendExact()
+        self._setCmd(tc.LANE_DISALLOWED, laneID, "l", disallowedClasses)
 
     def setMaxSpeed(self, laneID, speed):
         """setMaxSpeed(string, double) -> None
 
         Sets a new maximum allowed speed on the lane in m/s.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID, speed)
+        self._setCmd(tc.VAR_MAXSPEED, laneID, "d", speed)
 
     def setLength(self, laneID, length):
         """setLength(string, double) -> None
 
         Sets the length of the lane in m.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_LANE_VARIABLE, tc.VAR_LENGTH, laneID, length)
+        self._setCmd(tc.VAR_LENGTH, laneID, "d", length)

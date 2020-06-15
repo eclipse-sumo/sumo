@@ -406,24 +406,14 @@ class VehicleDomain(Domain):
 
         .
         """
-        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                                       tc.VAR_EDGE_TRAVELTIME, vehID, 1 + 4 + 1 + 8 + 1 + 4 + len(edgeID))
-        self._connection._string += struct.pack(
-            "!BiBd", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, time)
-        self._connection._packString(edgeID)
-        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, vehID).readDouble()
+        return self._getCmd(tc.VAR_EDGE_TRAVELTIME, vehID, "tds", 2, time, edgeID).readDouble()
 
     def getEffort(self, vehID, time, edgeID):
         """getEffort(string, double, string) -> double
 
         .
         """
-        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                                       tc.VAR_EDGE_EFFORT, vehID, 1 + 4 + 1 + 8 + 1 + 4 + len(edgeID))
-        self._connection._string += struct.pack(
-            "!BiBd", tc.TYPE_COMPOUND, 2, tc.TYPE_DOUBLE, time)
-        self._connection._packString(edgeID)
-        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_EDGE_EFFORT, vehID).readDouble()
+        return self._getCmd(tc.VAR_EDGE_EFFORT, vehID, "tds", 2, time, edgeID).readDouble()
 
     def isRouteValid(self, vehID):
         """isRouteValid(string) -> bool
@@ -666,10 +656,7 @@ class VehicleDomain(Domain):
         Note that the returned leader may be further away than the given dist and that the vehicle
         will only look on its current best lanes and not look beyond the end of its final route edge.
         """
-        self._connection._beginMessage(
-            tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID, 1 + 8)
-        self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, dist)
-        return _readLeader(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_LEADER, vehID))
+        return _readLeader(self._getCmd(tc.VAR_LEADER, vehID, "d", dist))
 
     def getRightFollowers(self, vehID, blockingOnly=False):
         """ bool -> list(pair(string, double))
@@ -728,66 +715,27 @@ class VehicleDomain(Domain):
         but either all neighboring vehicles are returned (in case LCA_BLOCKED) or
         none is returned (in case !LCA_BLOCKED).
         """
-        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID, 2)
-        self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, mode)
-        return _readNeighbors(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEIGHBORS, vehID))
+        return _readNeighbors(self._getCmd(tc.VAR_NEIGHBORS, vehID, "B", mode))
 
     def getFollowSpeed(self, vehID, speed, gap, leaderSpeed, leaderMaxDecel, leaderID=""):
         """getFollowSpeed(string, double, double, double, double, string) -> double
         Return the follow speed computed by the carFollowModel of vehID
         """
-        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                                       tc.VAR_FOLLOW_SPEED, vehID,
-                                       1 + 4 +
-                                       1 + 8 +
-                                       1 + 8 +
-                                       1 + 8 +
-                                       1 + 8 +
-                                       1 + 4 +
-                                       len(leaderID))
-        self._connection._string += struct.pack(
-            "!BiBdBdBdBd", tc.TYPE_COMPOUND, 5,
-            tc.TYPE_DOUBLE, speed,
-            tc.TYPE_DOUBLE, gap,
-            tc.TYPE_DOUBLE, leaderSpeed,
-            tc.TYPE_DOUBLE, leaderMaxDecel)
-        self._connection._packString(leaderID)
-        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_FOLLOW_SPEED, vehID).readDouble()
+        return self._getCmd(tc.VAR_FOLLOW_SPEED, vehID, "tdddds", 5,
+                            speed, gap, leaderSpeed, leaderMaxDecel, leaderID).readDouble()
 
     def getSecureGap(self, vehID, speed, leaderSpeed, leaderMaxDecel, leaderID=""):
         """getSecureGap(string, double, double, double, string) -> double
         Return the secure gap computed by the carFollowModel of vehID
         """
-        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                                       tc.VAR_SECURE_GAP, vehID,
-                                       1 + 4 +
-                                       1 + 8 +
-                                       1 + 8 +
-                                       1 + 8 +
-                                       1 + 4 +
-                                       len(leaderID))
-        self._connection._string += struct.pack(
-            "!BiBdBdBd", tc.TYPE_COMPOUND, 4,
-            tc.TYPE_DOUBLE, speed,
-            tc.TYPE_DOUBLE, leaderSpeed,
-            tc.TYPE_DOUBLE, leaderMaxDecel)
-        self._connection._packString(leaderID)
-        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_SECURE_GAP, vehID).readDouble()
+        return self._getCmd(tc.VAR_SECURE_GAP, vehID,"tddds", 4,
+                            speed, leaderSpeed, leaderMaxDecel, leaderID).readDouble()
 
     def getStopSpeed(self, vehID, speed, gap):
         """getStopSpeed(string, double, double) -> double
         Return the speed for stopping at gap computed by the carFollowModel of vehID
         """
-        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE,
-                                       tc.VAR_STOP_SPEED, vehID,
-                                       1 + 4 +
-                                       1 + 8 +
-                                       1 + 8)
-        self._connection._string += struct.pack(
-            "!BiBdBd", tc.TYPE_COMPOUND, 2,
-            tc.TYPE_DOUBLE, speed,
-            tc.TYPE_DOUBLE, gap)
-        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_STOP_SPEED, vehID).readDouble()
+        return self._getCmd(tc.VAR_STOP_SPEED, vehID,"tdd", 2, speed, gap).readDouble()
 
     def getStopDelay(self, vehID):
         """getStopDelay(string) -> double
@@ -824,10 +772,7 @@ class VehicleDomain(Domain):
         if limit == 0:
             return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
         else:
-            self._connection._beginMessage(
-                tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEXT_STOPS2, vehID, 1 + 4)
-            self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, limit)
-            return _readNextStops(self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.VAR_NEXT_STOPS2, vehID))
+            return _readNextStops(self._getCmd(tc.VAR_NEXT_STOPS2, vehID, "i", limit))
 
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double) -> None
