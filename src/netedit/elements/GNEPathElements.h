@@ -68,7 +68,7 @@ public:
     };
 
     /// @brief Constructor
-    GNEPathElements();
+    GNEPathElements(GNEDemandElement* demandElement);
 
     /// @brief Destructor
     ~GNEPathElements();
@@ -76,14 +76,20 @@ public:
     /// @brief get path edges
     const std::vector<GNEPathElements::PathElement>& getPath() const;
 
+    /// @brief draw path child
+    void drawPathChildren(const GUIVisualizationSettings& s, const GNELane* lane) const;
+
 protected:
     /// @brief update path lanes
-    void updatePathLanes(GNEDemandElement* element, SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+    void updatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
     /// @brief invalidate path lanes
-    void invalidatePathLanes(GNEDemandElement* element, SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+    void invalidatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
 private:
+    /// @brief ponter to demand element (this)
+    GNEDemandElement* myDemandElement;
+
     /// @brief vector of edges used in paths
     std::vector<PathElement> myPathElements;
 
