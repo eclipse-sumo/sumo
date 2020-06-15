@@ -193,6 +193,14 @@ public:
         mySavings = savings;
     }
 
+    bool mustReroute() const {
+        return myReroute;
+    }
+
+    void setReroute(bool reroute = true) {
+        myReroute = reroute;
+    }
+
     /// Returns the stops
     const std::vector<SUMOVehicleParameter::Stop>& getStops() const;
 
@@ -271,6 +279,9 @@ private:
 
     /// @brief The estimated savings when rerouting
     double mySavings;
+
+    /// @brief Whether this route is incomplete and requires rerouting
+    bool myReroute;
 
     /// @brief List of the stops on the parsed route
     std::vector<SUMOVehicleParameter::Stop> myStops;

@@ -520,6 +520,13 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
     }
 
     try {
+        const bool mustReroute = myActiveRoute.size() == 0 && myActiveRouteStops.size() != 0;
+        if (mustReroute) {
+            // implicit route from stops
+            for (const SUMOVehicleParameter::Stop& stop : myActiveRouteStops) {
+                myActiveRoute.push_back(&MSLane::dictionary(stop.lane)->getEdge());
+            }
+        }
         if (myActiveRoute.size() == 0) {
             delete myActiveRouteColor;
             myActiveRouteColor = nullptr;
@@ -570,6 +577,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                                      myActiveRouteColor, myActiveRouteStops);
         route->setPeriod(myActiveRoutePeriod);
         route->setCosts(myCurrentCosts);
+        route->setReroute(mustReroute);
         myActiveRoute.clear();
         if (!MSRoute::dictionary(myActiveRouteID, route)) {
             delete route;
@@ -722,6 +730,9 @@ MSRouteHandler::closeVehicle() {
     } catch (ProcessError&) {
         delete myVehicleParameter;
         throw;
+    }
+    if (route->mustReroute()) {
+        myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
     }
 
     // try to build the vehicle
@@ -963,8 +974,12 @@ MSRouteHandler::closeFlow() {
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
         closeRoute(true);
     }
-    if (MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG) == nullptr) {
+    const MSRoute* route = MSRoute::dictionary(myVehicleParameter->routeid, &myParsingRNG);
+    if (route == nullptr) {
         throw ProcessError("The route '" + myVehicleParameter->routeid + "' for flow '" + myVehicleParameter->id + "' is not known.");
+    }
+    if (route->mustReroute()) {
+        myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
     }
     myActiveRouteID = "";
 

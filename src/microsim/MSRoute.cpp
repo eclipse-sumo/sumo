@@ -56,6 +56,7 @@ MSRoute::MSRoute(const std::string& id,
     myPeriod(0),
     myCosts(-1),
     mySavings(0),
+    myReroute(false),
     myStops(stops) {}
 
 
