@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 15 12:53:57 2020 by Eclipse SUMO duarouter Version v1_6_0+0727-7ff87f424b
+<!-- generated on Mon Jun 15 14:41:25 2020 by Eclipse SUMO duarouter Version v1_6_0+0729-333dfde668
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,21 +31,45 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="bus" maxSpeed="3.00" sigma="0"/>
     <vehicle id="bus.0" type="bus" depart="0.00">
-        <route edges="a b c -c -b -a"/>
+        <route edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+        <stop busStop="busStop_a" duration="10.00"/>
+        <stop busStop="busStop_c" duration="10.00"/>
+        <stop busStop="busStop_-c" duration="10.00"/>
+        <stop busStop="busStop_-a" duration="10.00"/>
+        <stop busStop="busStop_a" duration="10.00"/>
+        <stop busStop="busStop_c" duration="10.00"/>
+        <stop busStop="busStop_-c" duration="10.00"/>
+        <stop busStop="busStop_-a" duration="10.00"/>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
         <stop busStop="busStop_-c" duration="10.00"/>
         <stop busStop="busStop_-a" duration="10.00"/>
     </vehicle>
     <vehicle id="bus.1" type="bus" depart="100.00">
-        <route edges="a b c -c -b -a"/>
+        <route edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
+        <stop busStop="busStop_a" duration="10.00"/>
+        <stop busStop="busStop_c" duration="10.00"/>
+        <stop busStop="busStop_-c" duration="10.00"/>
+        <stop busStop="busStop_-a" duration="10.00"/>
+        <stop busStop="busStop_a" duration="10.00"/>
+        <stop busStop="busStop_c" duration="10.00"/>
+        <stop busStop="busStop_-c" duration="10.00"/>
+        <stop busStop="busStop_-a" duration="10.00"/>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
         <stop busStop="busStop_-c" duration="10.00"/>
         <stop busStop="busStop_-a" duration="10.00"/>
     </vehicle>
     <vehicle id="bus_single" type="bus" depart="300.00">
-        <route edges="a c -c -a"/>
+        <route edges="a c -c -a a c -c -a a c -c -a"/>
+        <stop busStop="busStop_a" duration="10.00"/>
+        <stop busStop="busStop_c" duration="10.00"/>
+        <stop busStop="busStop_-c" duration="10.00"/>
+        <stop busStop="busStop_-a" duration="10.00"/>
+        <stop busStop="busStop_a" duration="10.00"/>
+        <stop busStop="busStop_c" duration="10.00"/>
+        <stop busStop="busStop_-c" duration="10.00"/>
+        <stop busStop="busStop_-a" duration="10.00"/>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
         <stop busStop="busStop_-c" duration="10.00"/>
