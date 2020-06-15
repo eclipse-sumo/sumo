@@ -3,3 +3,6 @@ polygon
 
 # Tests adding polygon dynamics
 polygon_dynamics
+
+# add polygon with more than 255 points
+add_large
