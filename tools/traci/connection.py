@@ -137,7 +137,7 @@ class Connection:
                 if len(v) <= 255:
                     packed += struct.pack("!BB", tc.TYPE_POLYGON, len(v))
                 else:
-                    packed += struct.pack("!BiB", tc.TYPE_POLYGON, 0, len(v))
+                    packed += struct.pack("!BBi", tc.TYPE_POLYGON, 0, len(v))
                 for p in v:
                     packed += struct.pack("!dd", *p)
             elif f == "t":  # tuple aka compound
