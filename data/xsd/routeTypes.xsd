@@ -672,7 +672,8 @@
             <xsd:element name="stop" type="stopType"/>
             <xsd:element name="param" type="paramType"/>
         </xsd:choice>
-        <xsd:attribute name="edges" type="xsd:string" use="required"/>
+        <!-- route can also be defined with stops alone -->
+        <xsd:attribute name="edges" type="xsd:string" use="optional"/>
         <xsd:attribute name="color" type="colorType"/>
         <xsd:attribute name="exitTimes" type="xsd:string"/>
         <xsd:attribute name="cost" type="xsd:float"/>
