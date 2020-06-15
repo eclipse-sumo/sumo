@@ -364,9 +364,9 @@ std::vector<GNEEdge*>
 GNEHierarchicalParentElements::getMiddleParentEdges() const {
     std::vector<GNEEdge*> middleEdges;
     // there are only middle edges if there is more than two edges
-    if (middleEdges.size() > 2) {
-        // resize middleEdges
-        middleEdges.resize(myParentEdges.size() - 2);
+    if (myParentEdges.size() > 2) {
+        // reserve middleEdges
+        middleEdges.reserve(myParentEdges.size() - 2);
         // iterate over second and previous last parent edge
         for (auto i = (myParentEdges.begin() + 1); i != (myParentEdges.end() - 1); i++) {
             middleEdges.push_back(*i);
