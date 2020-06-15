@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_5_0+0517-ca1f5da
+Eclipse SUMO netgenerate Version v1_6_0+0711-584f973708
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -373,6 +373,9 @@ Pedestrian Options:
                                          above the threshold
   --walkingareas                       Always build walking areas even if there
                                          are no crossings
+  --walkingareas.join-dist FLOAT       Do not create a walkingarea between
+                                         sidewalks that are connected by a
+                                         pedestrian junction within FLOAT
 
 Bicycle Options:
   --bikelanes.guess                    Guess bike lanes based on edge speed

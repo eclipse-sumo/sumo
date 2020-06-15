@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  5 10:18:40 2020 by Eclipse SUMO netgenerate Version v1_5_0+0517-ca1f5da
+<!-- generated on Mon Jun 15 07:47:46 2020 by Eclipse SUMO netgenerate Version v1_6_0+0711-584f973708
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -530,6 +530,9 @@
 
         <!-- Always build walking areas even if there are no crossings -->
         <walkingareas value="false" type="BOOL"/>
+
+        <!-- Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT -->
+        <walkingareas.join-dist value="15" type="FLOAT"/>
 
     </pedestrian>
 
