@@ -9,3 +9,6 @@ public_transport_implicit_route
 
 # define a repeating route without defining edges, first and last stop are not repeated
 public_transport_implicit_route_depot
+
+# define a repeating route without defining edges, first and last stop are not repeated
+public_transport_implicit_route_depot_flow
