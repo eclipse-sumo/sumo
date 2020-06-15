@@ -1677,8 +1677,7 @@ class VehicleDomain(Domain):
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
         '''Remove vehicle with the given ID for the give reason.
            Reasons are defined in module constants and start with REMOVE_'''
-        self._connection._sendByteCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, reason)
+        self._connection._sendCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, "b", reason)
 
     def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1):
         '''Place vehicle at the given x,y coordinates and force it's angle to

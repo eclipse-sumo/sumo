@@ -145,7 +145,8 @@ class Domain:
                 self._name, self._deprecatedFor))
         if self._connection is None:
             raise FatalTraCIError("Not connected.")
-        result = self._connection._sendReadOneStringCmd(self._cmdGetID, varID, objectID)
+        self._connection._beginMessage(self._cmdGetID, varID, objectID)
+        result = self._connection._checkResult(self._cmdGetID, varID, objectID)
         return self._retValFunc[varID](result)
 
     def getIDList(self):
