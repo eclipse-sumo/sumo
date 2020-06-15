@@ -23,7 +23,6 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 
@@ -323,6 +322,12 @@ GNERoute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElem
 void
 GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Routes are drawn in GNEEdges
+}
+
+
+void
+GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+    //
 }
 
 

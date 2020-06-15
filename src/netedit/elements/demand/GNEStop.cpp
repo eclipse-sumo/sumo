@@ -18,14 +18,11 @@
 // Representation of Stops in NETEDIT
 /****************************************************************************/
 #include <cmath>
-#include <netedit/elements/additional/GNEStoppingPlace.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/vehicle/SUMORouteHandler.h>
@@ -474,6 +471,12 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             getParentDemandElements().front()->drawGL(s);
         }
     }
+}
+
+
+void 
+GNEStop::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+    //
 }
 
 

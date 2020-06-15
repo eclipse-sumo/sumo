@@ -21,14 +21,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/additional/GNEBusStop.h>
-#include <netedit/elements/additional/GNEChargingStation.h>
-#include <netedit/elements/additional/GNEContainerStop.h>
-#include <netedit/elements/additional/GNEParkingArea.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 
 #include "GNEPerson.h"
 #include "GNEPersonTrip.h"

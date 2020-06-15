@@ -292,12 +292,6 @@ public:
     /// @brief draw partial route
     void drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElement* route, const GNEJunction* junction) const;
 
-    /// @brief draw partial trip and Flow
-    void drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement* tripOrFromTo, const GNEJunction* junction) const;
-
-    /// @brief draw partial person plan
-    void drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement* personPlan, const GNEJunction* junction) const;
-
     // @brief update vehicle spread geometries
     void updateVehicleSpreadGeometries();
 

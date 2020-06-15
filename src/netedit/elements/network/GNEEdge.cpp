@@ -1232,199 +1232,6 @@ GNEEdge::drawPartialRoute(const GUIVisualizationSettings& s, const GNEDemandElem
     }
     // Pop name
     glPopName();
-    // draw route children
-    for (const auto& i : route->getChildDemandElements()) {
-        if (i->getTagProperty().getTag() == GNE_TAG_WALK_ROUTE) {
-            drawPartialPersonPlan(s, i, junction);
-        }
-    }
-}
-
-
-void
-GNEEdge::drawPartialTripFromTo(const GUIVisualizationSettings& s, const GNEDemandElement* tripOrFromTo, const GNEJunction* junction) const {
-    // declare flag to draw spread vehicles
-    const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
-    // calculate tripOrFromTo width
-    double tripOrFromToWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.trip;
-    // Add a draw matrix
-    glPushMatrix();
-    // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, tripOrFromTo->getType());
-    // Set color of the base
-    if (tripOrFromTo->drawUsingSelectColor()) {
-        GLHelper::setColor(s.colorSettings.selectedVehicleColor);
-    } else {
-        GLHelper::setColor(s.colorSettings.vehicleTrips);
-    }
-    // draw trip from to
-    if (junction) {
-        // iterate over segments
-        if (drawSpreadVehicles) {
-            for (const auto& segment : tripOrFromTo->getDemandElementSegmentSpreadGeometry()) {
-                // draw partial segment
-                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
-            }
-        } else {
-            for (const auto& segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
-                // draw partial segment
-                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
-            }
-        }
-    } else {
-        // iterate over segments
-        if (drawSpreadVehicles) {
-            for (const auto& segment : tripOrFromTo->getDemandElementSegmentSpreadGeometry()) {
-                // draw partial segment
-                if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
-                }
-            }
-        } else {
-            for (const auto& segment : tripOrFromTo->getDemandElementSegmentGeometry()) {
-                // draw partial segment
-                if ((segment.edge == this) && (segment.AC == tripOrFromTo)) {
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
-                }
-            }
-        }
-    }
-    // Pop last matrix
-    glPopMatrix();
-    // Draw name if isn't being drawn for selecting
-    if (!s.drawForRectangleSelection) {
-        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-    }
-}
-
-
-void
-GNEEdge::drawPartialPersonPlan(const GUIVisualizationSettings& s, const GNEDemandElement* personPlan, const GNEJunction* junction) const {
-    // declare flag to enable or disable draw person plan
-    bool drawPersonPlan = false;
-    if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
-        drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getDottedAC() == personPlan->getParentDemandElements().front()) {
-        drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == personPlan->getParentDemandElements().front()) {
-        drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getDottedAC() && myNet->getViewNet()->getDottedAC()->getTagProperty().isPersonPlan() &&
-               (myNet->getViewNet()->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == personPlan->getAttribute(GNE_ATTR_PARENT))) {
-        drawPersonPlan = true;
-    }
-    // check if draw person plan elements can be drawn
-    if (drawPersonPlan) {
-        // calculate personPlan width
-        double personPlanWidth = 0;
-        // flag to check if width must be duplicated
-        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == personPlan) || (myNet->getViewNet()->getDottedAC() == personPlan->getParentDemandElements().front()) ? true : false;
-        // Set width depending of person plan type
-        if (personPlan->getTagProperty().isPersonTrip()) {
-            personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.personTrip;
-        } else if (personPlan->getTagProperty().isWalk()) {
-            personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.walk;
-        } else if (personPlan->getTagProperty().isRide()) {
-            personPlanWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.ride;
-        }
-        // check if width has to be duplicated
-        if (duplicateWidth) {
-            personPlanWidth *= 2;
-        }
-        // set personPlan color
-        RGBColor personPlanColor;
-        // Set color depending of person plan type
-        if (personPlan->drawUsingSelectColor()) {
-            personPlanColor = s.colorSettings.selectedPersonPlanColor;
-        } else if (personPlan->getTagProperty().isPersonTrip()) {
-            personPlanColor = s.colorSettings.personTrip;
-        } else if (personPlan->getTagProperty().isWalk()) {
-            personPlanColor = s.colorSettings.walk;
-        } else if (personPlan->getTagProperty().isRide()) {
-            personPlanColor = s.colorSettings.ride;
-        }
-        // Start drawing adding an gl identificator
-        glPushName(personPlan->getGlID());
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, personPlan->getType());
-        // draw person plan
-        if (junction) {
-            // iterate over segments
-            for (const auto& segment : personPlan->getDemandElementSegmentGeometry()) {
-                // draw partial segment
-                if ((segment.junction == junction) && (segment.AC == personPlan)) {
-                    // Set person plan color (needed due drawShapeDottedContour)
-                    GLHelper::setColor(personPlanColor);
-                    // draw box line
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, personPlanWidth);
-                    // check if shape dotted contour has to be drawn
-                    if (myNet->getViewNet()->getDottedAC() == personPlan) {
-                        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, personPlanWidth);
-                    }
-                }
-            }
-        } else {
-            // iterate over segments
-            for (const auto& segment : personPlan->getDemandElementSegmentGeometry()) {
-                // draw partial segment
-                if ((segment.edge == this) && (segment.AC == personPlan)) {
-                    // Set person plan color (needed due drawShapeDottedContour)
-                    GLHelper::setColor(personPlanColor);
-                    // draw box line
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, personPlanWidth);
-                    // check if shape dotted contour has to be drawn
-                    if (myNet->getViewNet()->getDottedAC() == personPlan) {
-                        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, personPlanWidth);
-                    }
-                }
-            }
-        }
-        // Pop last matrix
-        glPopMatrix();
-        // Draw name if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        }
-        // Pop name
-        glPopName();
-        // check if person plan ArrivalPos attribute
-        if (personPlan->getTagProperty().hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
-            // obtain arrival position using last segment
-            const Position& arrivalPos = personPlan->getDemandElementSegmentGeometry().getLastPosition();
-            // only draw arrival position point if isn't -1
-            if (arrivalPos != Position::INVALID) {
-                // obtain circle width
-                const double circleWidth = (duplicateWidth ? SNAP_RADIUS : (SNAP_RADIUS / 2.0)) * MIN2((double)0.5, s.laneWidthExaggeration);
-                const double circleWidthSquared = circleWidth * circleWidth;
-                if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(arrivalPos) <= (circleWidthSquared + 2))) {
-                    glPushMatrix();
-                    // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
-                    glTranslated(arrivalPos.x(), arrivalPos.y(), GLO_PERSONTRIP + 0.01);
-                    // Set color depending of person plan type
-                    if (personPlan->drawUsingSelectColor()) {
-                        GLHelper::setColor(s.colorSettings.selectedPersonPlanColor);
-                    } else if (personPlan->getTagProperty().isPersonTrip()) {
-                        GLHelper::setColor(s.colorSettings.personTrip);
-                    } else if (personPlan->getTagProperty().isWalk()) {
-                        GLHelper::setColor(s.colorSettings.walk);
-                    } else if (personPlan->getTagProperty().isRide()) {
-                        GLHelper::setColor(s.colorSettings.ride);
-                    }
-                    // resolution of drawn circle depending of the zoom (To improve smothness)
-                    GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-                    glPopMatrix();
-                }
-            }
-        }
-    }
-    // draw person if this edge correspond to the first edge of first Person's person plan
-    const GNEDemandElement* firstPersonPlan = personPlan->getParentDemandElements().front()->getChildDemandElements().front();
-    const GNEEdge* firstEdge = GNERouteHandler::getFirstPersonPlanEdge(firstPersonPlan);
-    // draw person parent if this is the edge first edge and this is the first plan
-    if ((firstEdge == this) && (firstPersonPlan == personPlan)) {
-        personPlan->getParentDemandElements().front()->drawGL(s);
-    }
 }
 
 
@@ -2444,6 +2251,7 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
             }
         }
     }
+/*
     // draw person plans
     if (s.drawForPositionSelection) {
         for (const auto& personTripFromTo : getChildDemandElementsByType(GNE_TAG_PERSONTRIP_EDGE_EDGE)) {
@@ -2497,6 +2305,7 @@ GNEEdge::drawDemandElements(const GUIVisualizationSettings& s) const {
             drawPartialPersonPlan(s, getChildDemandElementsByType(GNE_TAG_RIDE_EDGE_BUSSTOP).front(), nullptr);
         }
     }
+*/
     // draw person stops
     for (const auto &personStopEdge : getChildDemandElements()) {
         if (personStopEdge->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {

@@ -282,9 +282,6 @@ private:
     /// @brief draw junction childs
     void drawJunctionChilds(const GUIVisualizationSettings& s) const;
 
-    /// @brief draw demand elements childs
-    void drawDemandElements(const GUIVisualizationSettings& s, const GNEEdge* edge) const;
-
     /// @brief draw generic data between two edges
     void drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const;
 

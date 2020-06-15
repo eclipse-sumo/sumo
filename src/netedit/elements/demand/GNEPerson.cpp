@@ -24,8 +24,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
@@ -477,6 +475,12 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             glPopName();
         }
     }
+}
+
+
+void 
+GNEPerson::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+    //
 }
 
 

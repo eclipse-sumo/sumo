@@ -123,6 +123,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     void drawGL(const GUIVisualizationSettings& s) const;
+
+    /**@brief Draws partial object
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] lane lane in which draw partial
+    */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const ;
     /// @}
 
     /// @brief inherited from GNEAttributeCarrier

@@ -295,6 +295,12 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /**@brief Draws partial object
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] lane lane in which draw partial
+    */
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const = 0;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -373,13 +379,11 @@ protected:
     /// @brief stacked label number
     int myStackedLabelNumber;
 
-    /// @name Functions relative to change values in setAttribute(...)
-    /// @{
+    /// @brief the radius in which to register clicks for geometry nodes
+    static const double SNAP_RADIUS;
 
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
-
-    /// @}
 
     /// @brief calculate personPlan start and end positions over lanes
     void calculatePersonPlanLaneStartEndPos(double& startLanePos, double& endLanePos, Position &extraStartPosition, Position &extraEndPosition) const;

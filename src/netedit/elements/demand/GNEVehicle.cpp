@@ -24,8 +24,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_EnableAttribute.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
@@ -577,7 +575,7 @@ void
 GNEVehicle::computePath() {
     // calculate route and update routeEdges (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        updatePathLanes(this, getVClass(), 
+        updatePathLanes(getVClass(), 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getMiddleParentEdges());
@@ -592,7 +590,7 @@ void
 GNEVehicle::invalidatePath() {
     // calculate route and update routeEdges (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        invalidatePathLanes(this, getVClass(), 
+        invalidatePathLanes(getVClass(), 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getMiddleParentEdges());
@@ -780,6 +778,47 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
             // pop name
             glPopName();
         }
+    }
+}
+
+
+void 
+GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+    // declare flag to draw spread vehicles
+    const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
+    // calculate tripOrFromTo width
+    const double tripOrFromToWidth = s.addSize.getExaggeration(s, lane) * s.widthSettings.trip;
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, getType());
+    // Set color of the base
+    if (drawUsingSelectColor()) {
+        GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+    } else {
+        GLHelper::setColor(s.colorSettings.vehicleTrips);
+    }
+    // iterate over segments
+    if (drawSpreadVehicles) {
+        for (const auto& segment : mySpreadSegmentGeometry) {
+            // draw partial segment
+            if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+            }
+        }
+    } else {
+        for (const auto& segment : myDemandElementSegmentGeometry) {
+            // draw partial segment
+            if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+            }
+        }
+    }
+    // Pop last matrix
+    glPopMatrix();
+    // Draw name if isn't being drawn for selecting
+    if (!s.drawForRectangleSelection) {
+        drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
     }
 }
 
@@ -1741,13 +1780,11 @@ GNEVehicle::updateStackedGeometry() {
         if (getPath().size() > 0) {
             // convert path to edges
             std::vector<GNEEdge*> edges;
-            /*
             for (const auto &pathElement : getPath()) {
-                if (pathElement.getEdge()) {
-                    edges.push_back(pathElement.getEdge());
+                if (pathElement.getLane()) {
+                    edges.push_back(pathElement.getLane()->getParentEdge());
                 }
             }
-            */
             GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, edges, getVClass(),
                                                     firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
         } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {

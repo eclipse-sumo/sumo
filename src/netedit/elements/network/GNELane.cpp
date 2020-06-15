@@ -571,6 +571,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 demandElement->drawGL(s);
             }
         }
+        // draw child path elements
+        for (const auto &demandElement : myPathDemandElementChildren) {
+            demandElement->drawPathChildren(s, this);
+        }
     }
 }
 
@@ -842,12 +846,11 @@ GNELane::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-
 void
 GNELane::addPathElement(GNEDemandElement* pathElementChild) {
     // avoid insert duplicatd path element childs
-    if (std::find(myPathDemandElementsElementChilds.begin(), myPathDemandElementsElementChilds.end(), pathElementChild) == myPathDemandElementsElementChilds.end()) {
-        myPathDemandElementsElementChilds.push_back(pathElementChild);
+    if (std::find(myPathDemandElementChildren.begin(), myPathDemandElementChildren.end(), pathElementChild) == myPathDemandElementChildren.end()) {
+        myPathDemandElementChildren.push_back(pathElementChild);
     }
 }
 
@@ -855,9 +858,9 @@ GNELane::addPathElement(GNEDemandElement* pathElementChild) {
 void
 GNELane::removePathElement(GNEDemandElement* pathElementChild) {
     // search and remove pathElementChild
-    auto it = std::find(myPathDemandElementsElementChilds.begin(), myPathDemandElementsElementChilds.end(), pathElementChild);
-    if (it != myPathDemandElementsElementChilds.end()) {
-        myPathDemandElementsElementChilds.erase(it);
+    auto it = std::find(myPathDemandElementChildren.begin(), myPathDemandElementChildren.end(), pathElementChild);
+    if (it != myPathDemandElementChildren.end()) {
+        myPathDemandElementChildren.erase(it);
     }
 }
 
@@ -865,7 +868,7 @@ GNELane::removePathElement(GNEDemandElement* pathElementChild) {
 void
 GNELane::invalidatePathChildElements() {
     // make a copy of myPathDemandElementsElementChilds
-    auto copyOfPathDemandElementsElementChilds = myPathDemandElementsElementChilds;
+    auto copyOfPathDemandElementsElementChilds = myPathDemandElementChildren;
     for (const auto& pathElementChild : copyOfPathDemandElementsElementChilds) {
         pathElementChild->invalidatePath();
     }

@@ -207,6 +207,12 @@ GNEVehicleType::drawGL(const GUIVisualizationSettings&) const {
 }
 
 
+void 
+GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/) const {
+    // nothing to draw
+}
+
+
 std::string
 GNEVehicleType::getAttribute(SumoXMLAttr key) const {
     // obtain default values depending of vehicle class

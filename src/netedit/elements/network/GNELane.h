@@ -184,10 +184,10 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
-    /// @brief add path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
+    /// @brief add path element (used by GNEPathElement)
     void addPathElement(GNEDemandElement* pathElementChild);
 
-    /// @brief remove path element (Only used by GNEHierarchicalParentElements::changeRouteEdges)
+    /// @brief remove path element (used by GNEPathElement)
     void removePathElement(GNEDemandElement* pathElementChild);
 
     /// @brief invalidate path element childs
@@ -242,8 +242,8 @@ protected:
     /// @brief lane2lane connections
     GNEGeometry::Lane2laneConnection myLane2laneConnections;
 
-    /// @brief vector with references to path element childs
-    std::vector<GNEDemandElement*> myPathDemandElementsElementChilds;
+    /// @brief vector with references to path element children
+    std::vector<GNEDemandElement*> myPathDemandElementChildren;
 
 private:
     /// @brief set attribute after validation
