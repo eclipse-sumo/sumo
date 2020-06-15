@@ -19,6 +19,9 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/GNENet.h>
 
 #include "GNEPathElements.h"
 
@@ -31,21 +34,14 @@
 // GNEPathElements::PathElement - methods
 // ---------------------------------------------------------------------------
 
-GNEPathElements::PathElement::PathElement(GNEJunction* junction) :
-    myJunction(junction),
-    myLane(nullptr) {
-}
-
-
 GNEPathElements::PathElement::PathElement(GNELane* lane) :
-    myJunction(nullptr),
     myLane(lane) {
 }
 
 
 GNEJunction* 
 GNEPathElements::PathElement::getJunction() const {
-    return myJunction;
+    return myLane->getParentEdge()->getSecondParentJunction();
 }
 
 
@@ -56,7 +52,6 @@ GNEPathElements::PathElement::getLane() const {
 
 
 GNEPathElements::PathElement::PathElement():
-    myJunction(nullptr),
     myLane(nullptr) {
 }
 

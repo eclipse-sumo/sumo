@@ -753,107 +753,58 @@ GNEGeometry::adjustStartPosGeometricPath(double& startPos, const GNELane* startL
 
 
 void
-GNEGeometry::calculateEdgeGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry,
-                                        const std::vector<GNEEdge*>& edges, const SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, double startPos, double endPos,
-                                        const Position& extraFirstPosition, const Position& extraLastPosition) {
-    // clear geometry
-    segmentGeometry.clearSegmentGeometry();
-    // first check that there is parent edges
-    if (edges.size() > 0) {
-        // calculate depending if both from and to edges are the same
-        if (fromLane == toLane) {
-            // if obtained lane is null, then force to use first lane
-            if (fromLane == nullptr) {
-                calculateLaneGeometricPath(AC, segmentGeometry, {edges.front()->getLanes().front()}, startPos, endPos, extraFirstPosition, extraLastPosition);
-            } else {
-                calculateLaneGeometricPath(AC, segmentGeometry, {fromLane}, startPos, endPos, extraFirstPosition, extraLastPosition);
-            }
-        } else {
-            // declare vector of lanes
-            std::vector<GNELane*> lanes;
-            // reserve space
-            lanes.reserve(edges.size());
-            // obtain lanes by VClass
-            for (auto edgeParent = edges.begin(); edgeParent != edges.end(); edgeParent++) {
-                GNELane* allowedLane = nullptr;
-                if (edgeParent == edges.begin()) {
-                    allowedLane = fromLane;
-                } else if (edgeParent == (edges.end() - 1)) {
-                    allowedLane = toLane;
-                } else if (AC->getTagProperty().isRide()) {
-                    // obtain first disallowed lane (special case for rides)
-                    allowedLane = (*edgeParent)->getLaneByDisallowedVClass(vClass);
-                } else {
-                    // obtain first allowed lane
-                    allowedLane = (*edgeParent)->getLaneByAllowedVClass(vClass);
-                }
-                // if there isn't allowed lane, then use first lane
-                if (allowedLane == nullptr) {
-                    allowedLane = (*edgeParent)->getLanes().front();
-                }
-                // add it to lanes
-                lanes.push_back(allowedLane);
-            }
-            // calculate geometric path
-            calculateLaneGeometricPath(AC, segmentGeometry, lanes, startPos, endPos, extraFirstPosition, extraLastPosition);
-        }
-    }
-}
-
-
-void
-GNEGeometry::calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNELane*>& lanes,
+GNEGeometry::calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEPathElements::PathElement>& path,
                                         double startPos, double endPos, const Position& extraFirstPosition, const Position& extraLastPosition) {
     // clear geometry
     segmentGeometry.clearSegmentGeometry();
     // first check that there is parent edges
-    if (lanes.size() > 0) {
+    if (path.size() > 0) {
         // calculate depending if both from and to edges are the same
-        if (lanes.size() == 1) {
+        if (path.size() == 1) {
             // filter start and end pos
-            adjustStartPosGeometricPath(startPos, lanes.front(), endPos, lanes.front());
+            adjustStartPosGeometricPath(startPos, path.front().getLane(), endPos, path.front().getLane());
             // check if we have to define a new custom Segment, or we can use the commonLane shape
             if ((startPos != -1) || (endPos != -1) || (extraFirstPosition != Position::INVALID) || (extraLastPosition != Position::INVALID)) {
                 // declare a lane to be trimmed
                 Geometry trimmedLane;
                 // update geometry
-                trimmedLane.updateGeometry(lanes.front()->getLaneShape(), startPos, endPos, extraFirstPosition, extraLastPosition);
+                trimmedLane.updateGeometry(path.front().getLane()->getLaneShape(), startPos, endPos, extraFirstPosition, extraLastPosition);
                 // add sublane geometry
-                segmentGeometry.insertCustomSegment(AC, lanes.front(),
+                segmentGeometry.insertCustomSegment(AC, path.front().getLane(),
                                                     trimmedLane.getShape(),
                                                     trimmedLane.getShapeRotations(),
                                                     trimmedLane.getShapeLengths(), true);
             } else {
                 // add entire lane geometry geometry
-                segmentGeometry.insertLaneSegment(AC, lanes.front(), true);
+                segmentGeometry.insertLaneSegment(AC, path.front().getLane(), true);
             }
         } else {
-            // iterate over lanes
-            for (int i = 0; i < (int)lanes.size(); i++) {
+            // iterate over path
+            for (int i = 0; i < (int)path.size(); i++) {
                 // get lane (only for code readability)
-                const GNELane* lane = lanes.at(i);
+                const GNELane* lane = path.at(i).getLane();
                 // first check that lane shape isn't empty
                 if (lane->getLaneShape().size() > 0) {
                     // check if first or last lane must be splitted
-                    if ((lanes.at(i) == lanes.front()) && (startPos != -1)) {
+                    if ((path.at(i).getLane() == path.front().getLane()) && (startPos != -1)) {
                         // filter start position
-                        adjustStartPosGeometricPath(startPos, lanes.at(i), endPos, nullptr);
+                        adjustStartPosGeometricPath(startPos, path.at(i).getLane(), endPos, nullptr);
                         // declare a lane to be trimmed
                         Geometry frontTrimmedLane;
                         // update geometry
-                        frontTrimmedLane.updateGeometry(lanes.at(i)->getLaneShape(), startPos, -1, extraFirstPosition, Position::INVALID);
+                        frontTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), startPos, -1, extraFirstPosition, Position::INVALID);
                         // add sublane geometry
                         segmentGeometry.insertCustomSegment(AC, lane,
                                                             frontTrimmedLane.getShape(),
                                                             frontTrimmedLane.getShapeRotations(),
                                                             frontTrimmedLane.getShapeLengths(), true);
-                    } else if ((lane == lanes.back()) && (endPos != -1)) {
+                    } else if ((lane == path.back().getLane()) && (endPos != -1)) {
                         // filter end position
                         adjustStartPosGeometricPath(startPos, nullptr, endPos, lane);
                         // declare a lane to be trimmed
                         Geometry backTrimmedLane;
                         // update geometry
-                        backTrimmedLane.updateGeometry(lanes.at(i)->getLaneShape(), -1, endPos, Position::INVALID, extraLastPosition);
+                        backTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), -1, endPos, Position::INVALID, extraLastPosition);
                         // add sublane geometry
                         segmentGeometry.insertCustomSegment(AC, lane,
                                                             backTrimmedLane.getShape(),
@@ -861,13 +812,13 @@ GNEGeometry::calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeomet
                                                             backTrimmedLane.getShapeLengths(), true);
                     } else {
                         // add entire lane geometry
-                        segmentGeometry.insertLaneSegment(AC, lanes.at(i), true);
+                        segmentGeometry.insertLaneSegment(AC, path.at(i).getLane(), true);
                     }
                 }
                 // now continue with connection
-                if ((i + 1) < (int)lanes.size()) {
+                if ((i + 1) < (int)path.size()) {
                     // obtain next lane
-                    const GNELane* nextLane = lanes.at(i + 1);
+                    const GNELane* nextLane = path.at(i + 1).getLane();
                     // check that next lane exist
                     if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
                         // add lane2laneConnection segment geometry

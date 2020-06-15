@@ -1681,35 +1681,20 @@ GNEVehicle::updateSpreadGeometry() {
     if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
         arrivalPosLane = arrivalPos;
     }
-    // calculate depart pos geometry path starting at the lane begin
-    if (getPath().size() > 0) {
-        // convert path to edges
-        std::vector<GNEEdge*> edges;
-        /*
-        for (const auto &pathElement : getPath()) {
-            if (pathElement.getLane()) {
-                edges.push_back(pathElement.getEdge());
-            }
+    // continue depending of tag
+    if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+        // calculate edge geometry path using path
+        GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+    } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
+        // calculate edge geometry path using route edges
+        if (getParentDemandElements().size() > 1) {
+            GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
         }
-        */
-        // calculate edge geometry path
-        GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, edges, getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-    } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-        // use route edges
-        if (getParentDemandElements().size() == 2) {
-            // calculate edge geometry path
-            GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
-                                                    getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-        } else if (getChildDemandElements().size() > 0) {
-            // calculate edge geometry path
-            GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getChildDemandElements().front()->getParentEdges(), getVClass(),
-                                                    getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+    } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+        // calculate edge geometry path using embedded route edges
+        if (getChildDemandElements().size() > 0) {
+            GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getChildDemandElements().front()->getPath(), departPosLane, arrivalPosLane);
         }
-    } else {
-        // calculate edge geometry path
-        GNEGeometry::calculateEdgeGeometricPath(this, mySpreadSegmentGeometry, getParentEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
     }
 }
 
@@ -1776,32 +1761,16 @@ GNEVehicle::updateStackedGeometry() {
         if ((departPosProcedure == DepartPosDefinition::GIVEN) && (departPosLane < 0)) {
             departPosLane += firstLane->getLaneShape().length();
         }
-        // calculate spread geometry path
-        if (getPath().size() > 0) {
-            // convert path to edges
-            std::vector<GNEEdge*> edges;
-            for (const auto &pathElement : getPath()) {
-                if (pathElement.getLane()) {
-                    edges.push_back(pathElement.getLane()->getParentEdge());
-                }
-            }
-            GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, edges, getVClass(),
-                                                    firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+        // continue depending of tag
+        if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
+            // calculate edge geometry path using path
+            GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
         } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
-            // use route edges
-            if (getParentDemandElements().size() == 2) {
-                // calculate edge geometry path
-                GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getParentEdges(), getVClass(),
-                                                        firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-            } else if (getChildDemandElements().size() > 0) {
-                // calculate edge geometry path
-                GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getChildDemandElements().front()->getParentEdges(), getVClass(),
-                                                        firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
-            }
-        } else {
-            // calculate edge geometry path
-            GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
-                                                    firstLane, getLastAllowedVehicleLane(), departPosLane, arrivalPosLane);
+            // calculate edge geometry path using route edges
+            GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
+        } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
+            // calculate edge geometry path using embedded route edges
+            GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getChildDemandElements().front()->getPath(), departPosLane, arrivalPosLane);
         }
         // update start pos geometry
         myDemandElementGeometry.updateGeometry(firstLane, departPosLane);

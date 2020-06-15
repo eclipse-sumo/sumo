@@ -277,7 +277,9 @@ GNEDetectorE2::updateGeometry() {
         myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
 
     } else if (getParentLanes().size() > 1) {
+/**
         GNEGeometry::calculateLaneGeometricPath(this, mySegmentGeometry, getParentLanes(), myPositionOverLane, myEndPositionOverLane);
+**/
         /*
         // Set block icon position
         myBlockIcon.position = myAdditionalGeometry.multiShape.front().getLineCenter();

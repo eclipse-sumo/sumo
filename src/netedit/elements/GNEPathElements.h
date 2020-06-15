@@ -20,12 +20,16 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEGeometry.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/geom/Position.h>
 
-#include "GNEAttributeCarrier.h"
+// ===========================================================================
+// class declaration
+// ===========================================================================
 
+class GNEEdge;
+class GNELane;
+class GNEJunction;
+class GNEDemandElement;
 
 // ===========================================================================
 // class definitions
@@ -43,9 +47,6 @@ public:
     class PathElement {
 
     public:
-        /// @brief constructor for junctions
-        PathElement(GNEJunction* junction);
-
         /// @brief constructor for lanes
         PathElement(GNELane* lane);
 
@@ -56,9 +57,6 @@ public:
         GNELane* getLane() const;
 
     protected:
-        /// @brief junction
-        GNEJunction* myJunction;
-
         /// @brief lane
         GNELane* myLane;
 

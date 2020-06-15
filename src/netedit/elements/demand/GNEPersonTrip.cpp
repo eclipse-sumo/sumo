@@ -289,23 +289,8 @@ GNEPersonTrip::updateGeometry() {
     Position endPos = Position::INVALID;
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
-    // calculate geometry path
-    if (getPath().size() > 0) {
-        // convert path to edges
-        std::vector<GNEEdge*> edges;
-        /*
-        for (const auto &pathElement : getPath()) {
-            if (pathElement.getEdge()) {
-                edges.push_back(pathElement.getEdge());
-            }
-        }
-        */
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, edges, getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
-    } else {
-        GNEGeometry::calculateEdgeGeometricPath(this, myDemandElementSegmentGeometry, getParentEdges(), getVClass(),
-                                                getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), departPosLane, arrivalPosLane, startPos, endPos);
-    }
+    // calculate edge geometry path using path
+    GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();

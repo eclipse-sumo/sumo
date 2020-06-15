@@ -31,6 +31,8 @@
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
+#include <netedit/elements/GNEPathElements.h>
+
 #include "GNEReferenceCounter.h"
 
 
@@ -369,29 +371,16 @@ struct GNEGeometry {
     /// @brief adjust start and end positions in geometric path
     static void adjustStartPosGeometricPath(double& startPos, const GNELane* startLane, double& endPos, const GNELane* endLane);
 
-    /**@brief calculate route between edges
-     * @brief AC attribute carrier's segment
-     * @brief segmentGeometry segment geometry to be updated
-     * @brief edges list of edges
-     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
-     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
-     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
-     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
-     */
-    static void calculateEdgeGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEEdge*>& edges,
-                                           const SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, double startPos = -1, double endPos = -1,
-                                           const Position& extraFirstPosition = Position::INVALID, const Position& extraLastPosition = Position::INVALID);
-
     /**@brief calculate route between lanes
      * @brief AC attribute carrier's segment
      * @brief segmentGeometry segment geometry to be updated
-     * @brief lanes list of lanes
+     * @brief path list of pathElements (lanes)
      * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if -1, then ends at the end of lane)
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNELane*>& lanes,
+    static void calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEPathElements::PathElement>& path,
                                            double startPos = -1, double endPos = -1, const Position& extraFirstPosition = Position::INVALID,
                                            const Position& extraLastPosition = Position::INVALID);
 
