@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <route id="r0" edges="SC CN NC CS" repeat="3" period="300">
+    <route id="r0" edges="SC CN NC CS" repeat="3" cycleTime="300">
         <stop busStop="A_up" until="20"/>
         <stop busStop="B_up" until="65"/>
         <stop busStop="C_up" until="100"/>
