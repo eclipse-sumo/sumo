@@ -131,12 +131,6 @@ GNEDemandElement::updateDemandElementStackLabel(const int stack) {
 }
 
 
-const GNEGeometry::SegmentGeometry&
-GNEDemandElement::getDemandElementSegmentSpreadGeometry() const {
-    return mySpreadSegmentGeometry;
-}
-
-
 void
 GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane) {
     mySpreadGeometry.updateGeometry(lane, posOverLane);

@@ -156,8 +156,6 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
-    /// @name members and functions relative to demand element (stacked) geometries
-    /// @{
     /// @brief get demand element geometry (stacked)
     const GNEGeometry::Geometry& getDemandElementGeometry();
 
@@ -169,16 +167,9 @@ public:
 
     /// @brief update stack label
     void updateDemandElementStackLabel(const int stack);
-    /// @}
-
-    /// @name members and functions relative to demand element spread geometries
-    /// @{
-    /// @brief get demand element segment spread geometry
-    const GNEGeometry::SegmentGeometry& getDemandElementSegmentSpreadGeometry() const;
 
     /// @brief update element spread geometry
     void updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane);
-    /// @}
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
@@ -372,9 +363,6 @@ protected:
 
     /// @brief demand element spread geometry (Only used by vehicles and pedestrians)
     GNEGeometry::Geometry mySpreadGeometry;
-
-    /// @brief demand element spread segment geometry (Only used by vehicles and pedestrians)
-    GNEGeometry::SegmentGeometry mySpreadSegmentGeometry;
 
     /// @brief stacked label number
     int myStackedLabelNumber;

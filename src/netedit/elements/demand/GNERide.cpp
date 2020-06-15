@@ -284,7 +284,7 @@ GNERide::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+    GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();

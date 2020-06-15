@@ -238,7 +238,7 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 void
 GNERoute::updateGeometry() {
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getPath());
+    GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getPath());
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {

@@ -1191,8 +1191,6 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     GNENet *net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
-    // obtain vehicle type
-    GNEDemandElement* vType = originalVehicle->getParentDemandElements().front();
     // declare route parameters
     RouteParameter routeParameters;
     // set "yellow" as original route color
@@ -1259,8 +1257,6 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     GNENet *net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
-    // obtain vehicle type
-    GNEDemandElement* vType = originalVehicle->getParentDemandElements().front();
     // declare route parameters
     RouteParameter routeParameters;
     // set "yellow" as original route color
@@ -1340,8 +1336,6 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     GNENet *net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
-    // obtain vehicle type
-    GNEDemandElement* vType = originalVehicle->getParentDemandElements().front();
     // get route
     GNEDemandElement *route = nullptr;
     // declare edges
@@ -1398,8 +1392,6 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     GNENet *net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
-    // obtain vehicle type
-    GNEDemandElement* vType = originalVehicle->getParentDemandElements().front();
     // declare route
     GNEDemandElement *route = nullptr;
     // declare edges

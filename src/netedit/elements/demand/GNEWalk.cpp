@@ -309,10 +309,10 @@ GNEWalk::updateGeometry() {
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // calculate edge geometry path using parent route
-        GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
+        GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
     } else {
         // calculate edge geometry path using path
-        GNEGeometry::calculateLaneGeometricPath(this, mySpreadSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+        GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {

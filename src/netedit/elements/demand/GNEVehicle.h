@@ -338,18 +338,6 @@ private:
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);
 
-    /// @brief update spread geometry
-    void updateSpreadGeometry();
-
-    /// @brief partial update pre-computed spread geometry information
-    void updatePartialSpreadGeometry(const GNEEdge* edge);
-
-    /// @brief update stacked geometry
-    void updateStackedGeometry();
-
-    /// @brief partial update pre-computed departPosgeometry information
-    void updatePartialStackedGeometry(const GNEEdge* edge);
-
     /// @brief draw stack label
     void drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const;
 
