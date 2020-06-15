@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jun 15 17:03:39 2020 by Eclipse SUMO Version v1_6_0+0733-efb824785d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="bus_single" type="bus" depart="300.00" arrival="1420.00">
+        <route edges="detour -a a b c -c -b -a a b c -c -b -a a b c -c -b -a a b c -c detour"/>
+        <stop busStop="depot" duration="5.00"/>
+        <stop busStop="busStop_a" duration="10.00" until="310.00"/>
+        <stop busStop="busStop_c" duration="10.00" until="320.00"/>
+        <stop busStop="busStop_-c" duration="10.00" until="330.00"/>
+        <stop busStop="busStop_-a" duration="10.00" until="340.00"/>
+        <stop busStop="busStop_a" duration="10.00" until="410.00"/>
+        <stop busStop="busStop_c" duration="10.00" until="420.00"/>
+        <stop busStop="busStop_-c" duration="10.00" until="430.00"/>
+        <stop busStop="busStop_-a" duration="10.00" until="440.00"/>
+        <stop busStop="busStop_a" duration="10.00" until="510.00"/>
+        <stop busStop="busStop_c" duration="10.00" until="520.00"/>
+        <stop busStop="busStop_-c" duration="10.00" until="530.00"/>
+        <stop busStop="busStop_-a" duration="10.00" until="540.00"/>
+        <stop busStop="depot" duration="120.00"/>
+    </vehicle>
+
+</routes>
