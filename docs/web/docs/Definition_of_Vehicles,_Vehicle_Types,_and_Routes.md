@@ -128,7 +128,7 @@ are:
 | **edges**      | id list                     | The edges the vehicle shall drive along, given as their ids, separated using spaces |
 | color          | [color](#colors) | This route's color                 |
 | repeat         | int | The number of times that the edges of this route shall be repeated (default 0)  |
-| period         | time (s) | When defining a repeating route with stops and those stops use the `until` attribute, the times will be shifted forward by 'period' on each repeat |
+| cycleTime      | time (s) | When defining a repeating route with stops and those stops use the `until` attribute, the times will be shifted forward by 'cycleTime' on each repeat |
 
 There are a few important things to consider when building your own
 routes:
@@ -160,7 +160,7 @@ using [{{SUMO}}/tools/route/sort_routes.py]({{Source}}tools/route/sort_routes.py
     
 ### Repeated Routes
 When using attribute 'repeat' to repeat a route. The number of edges will be repeated the given number of times *after* driving them for the first time. 
-If route is defined as stand-alone route (defined with it's own id outside a vehicl definition), any stops defined within the route will be repeated as well. If the stops use attribute 'until', they will be shifted by attribute 'period' in each iteration.
+If route is defined as stand-alone route (defined with it's own id outside a vehicl definition), any stops defined within the route will be repeated as well. If the stops use attribute 'until', they will be shifted by attribute 'cycleTime' in each iteration.
 
 !!! caution
     When defining a route as child element of a vehicle, any defined stops will belong to the vehicle rather than the route and will not be repeated.
