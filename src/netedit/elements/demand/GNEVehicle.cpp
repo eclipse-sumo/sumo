@@ -632,14 +632,13 @@ GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNEVehicle::computePath() {
-    // calculate route and update routeEdges (only for flows and trips)
+    // calculate path (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
         calculatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getMiddleParentEdges());
     }
-
     // update geometry
     updateGeometry();
 }
@@ -647,7 +646,7 @@ GNEVehicle::computePath() {
 
 void
 GNEVehicle::invalidatePath() {
-    // calculate route and update routeEdges (only for flows and trips)
+    // reset path (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
         resetPathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
