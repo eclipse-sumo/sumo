@@ -472,7 +472,7 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void 
-GNEPersonStop::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+GNEPersonStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/) const {
     //
 }
 
