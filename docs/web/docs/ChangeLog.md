@@ -123,6 +123,8 @@ permalink: /ChangeLog/
   - [edgeDataFromFlow.py](Tools/Detector.md#edgedatafromflowpy) now supports time intervals. Issue #7133
     
 ### Other
+- Simulation
+  - Route attribute 'period' was renamed to 'cycleTime'. Issue #7168
 - Netconvert
   - Roads of type 'highway.track' (aggricultural roads) are no longer accessible by cars when importing OSM data. Issue #7082
 
