@@ -213,48 +213,28 @@ class TrafficLightDomain(Domain):
         """getPhase(string, int) -> int
         Returns the number of persons that would be served in the given phase
         """
-        self._connection._beginMessage(
-            self._cmdGetID, tc.VAR_PERSON_NUMBER, tlsID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, index)
-        result = self._connection._checkResult(
-            self._cmdGetID, tc.VAR_PERSON_NUMBER, tlsID)
-        return result.readInt()
+        return self._getCmd(tc.VAR_PERSON_NUMBER, tlsID, "i", index).readInt()
 
     def getBlockingVehicles(self, tlsID, linkIndex):
         """getBlockingVehicles(string, int) -> int
         Returns the list of vehicles that are blocking the subsequent block for
         the given tls-linkIndex
         """
-        self._connection._beginMessage(
-            self._cmdGetID, tc.TL_BLOCKING_VEHICLES, tlsID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, linkIndex)
-        result = self._connection._checkResult(
-            self._cmdGetID, tc.TL_BLOCKING_VEHICLES, tlsID)
-        return result.readStringList()
+        return self._getCmd(tc.TL_BLOCKING_VEHICLES, tlsID, "i", linkIndex).readStringList()
 
     def getRivalVehicles(self, tlsID, linkIndex):
         """getRivalVehicles(string, int) -> int
         Returns the list of vehicles that also wish to enter the subsequent block for
         the given tls-linkIndex (regardless of priority)
         """
-        self._connection._beginMessage(
-            self._cmdGetID, tc.TL_RIVAL_VEHICLES, tlsID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, linkIndex)
-        result = self._connection._checkResult(
-            self._cmdGetID, tc.TL_RIVAL_VEHICLES, tlsID)
-        return result.readStringList()
+        return self._getCmd(tc.TL_RIVAL_VEHICLES, tlsID, "i", linkIndex).readStringList()
 
     def getPriorityVehicles(self, tlsID, linkIndex):
         """getPriorityVehicles(string, int) -> int
         Returns the list of vehicles that also wish to enter the subsequent block for
         the given tls-linkIndex (only those with higher priority)
         """
-        self._connection._beginMessage(
-            self._cmdGetID, tc.TL_PRIORITY_VEHICLES, tlsID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, linkIndex)
-        result = self._connection._checkResult(
-            self._cmdGetID, tc.TL_PRIORITY_VEHICLES, tlsID)
-        return result.readStringList()
+        return self._getCmd(tc.TL_PRIORITY_VEHICLES, tlsID, "i", linkIndex).readStringList()
 
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None
@@ -263,8 +243,7 @@ class TrafficLightDomain(Domain):
         rugGyYuoO, for red, red-yellow, green, yellow, off, where lower case letters mean that the stream has
         to decelerate.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_RED_YELLOW_GREEN_STATE, tlsID, state)
+        self._setCmd(tc.TL_RED_YELLOW_GREEN_STATE, tlsID, "s", state)
 
     def setLinkState(self, tlsID, tlsLinkIndex, state):
         """setLinkState(string, string, int, string) -> None
@@ -288,16 +267,14 @@ class TrafficLightDomain(Domain):
         Switches to the phase with the given index in the list of all phases for
         the current program.
         """
-        self._connection._sendIntCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_INDEX, tlsID, index)
+        self._setCmd(tc.TL_PHASE_INDEX, tlsID, "i", index)
 
     def setPhaseName(self, tlsID, name):
         """setPhase(string, string) -> None
 
         Sets the name of the current phase within the current program
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.VAR_NAME, tlsID, name)
+        self._setCmd(tc.VAR_NAME, tlsID, "s", name)
 
     def setProgram(self, tlsID, programID):
         """setProgram(string, string) -> None
@@ -306,8 +283,7 @@ class TrafficLightDomain(Domain):
         been loaded earlier. The special value 'off' can always be used to
         switch off the traffic light.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_PROGRAM, tlsID, programID)
+        self._setCmd(tc.TL_PROGRAM, tlsID, "s", programID)
 
     def setPhaseDuration(self, tlsID, phaseDuration):
         """setPhaseDuration(string, double) -> None
@@ -315,8 +291,7 @@ class TrafficLightDomain(Domain):
         Set the remaining phase duration of the current phase in seconds.
         This value has no effect on subsquent repetitions of this phase.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_PHASE_DURATION, tlsID, phaseDuration)
+        self._setCmd(tc.TL_PHASE_DURATION, tlsID, "d", phaseDuration)
 
     def setProgramLogic(self, tlsID, tls):
         """setProgramLogic(string, Logic) -> None

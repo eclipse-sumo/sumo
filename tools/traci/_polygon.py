@@ -95,15 +95,13 @@ class PolygonDomain(Domain):
         """setFilled(string, bool) -> None
         Sets the filled status of the polygon
         """
-        self._connection._sendIntCmd(
-            tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_FILL, polygonID, (1 if filled else 0))
+        self._connection._sendCmd(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_FILL, polygonID, "i", filled)
 
     def setLineWidth(self, polygonID, lineWidth):
         """setFilled(string, double) -> None
         Sets the line width for drawing unfilled polygon
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_WIDTH, polygonID, lineWidth)
+        self._connection._sendCmd(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_WIDTH, polygonID, "d", lineWidth)
 
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0, lineWidth=1):
         self._connection._sendCmd(tc.CMD_SET_POLYGON_VARIABLE, tc.ADD, polygonID, "tscBipd",

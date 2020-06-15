@@ -66,11 +66,6 @@ class Connection:
         for s in l:
             self._string += struct.pack("!i", len(s)) + s.encode("latin1")
 
-    def _packDoubleList(self, l):
-        self._string += struct.pack("!Bi", tc.TYPE_DOUBLELIST, len(l))
-        for x in l:
-            self._string += struct.pack("!d", x)
-
     def _recvExact(self):
         try:
             result = bytes()
@@ -162,17 +157,15 @@ class Connection:
         self._string += packed
         return self._sendExact()
 
-    def _sendIntCmd(self, cmdID, varID, objID, value):
-        self._sendCmd(cmdID, varID, objID, "i", value)
-
     def _sendDoubleCmd(self, cmdID, varID, objID, value):
         self._sendCmd(cmdID, varID, objID, "d", value)
 
     def _sendStringCmd(self, cmdID, varID, objID, value):
         self._sendCmd(cmdID, varID, objID, "s", value)
 
-    def _checkResult(self, cmdID, varID, objID):
-        result = self._sendExact()
+    def _checkResult(self, cmdID, varID, objID, result=None):
+        if result is None:
+            result = self._sendExact()
         result.readLength()
         response, retVarID = result.read("!BB")
         objectID = result.readString()

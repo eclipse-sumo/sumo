@@ -62,12 +62,7 @@ class EdgeDomain(Domain):
         Returns the travel time value (in s) used for (re-)routing
         which is valid on the edge at the given time.
         """
-        self._connection._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME,
-                                       edgeID, 1 + 8)
-        self._connection._string += struct.pack(
-            "!Bd", tc.TYPE_DOUBLE, time)
-        return self._connection._checkResult(tc.CMD_GET_EDGE_VARIABLE,
-                                             tc.VAR_EDGE_TRAVELTIME, edgeID).readDouble()
+        return self._getCmd(tc.VAR_EDGE_TRAVELTIME, edgeID, "d", time).readDouble()
 
     def getWaitingTime(self, edgeID):
         """getWaitingTime() -> double
@@ -82,12 +77,7 @@ class EdgeDomain(Domain):
         Returns the effort value used for (re-)routing
         which is valid on the edge at the given time.
         """
-        self._connection._beginMessage(tc.CMD_GET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT,
-                                       edgeID, 1 + 8)
-        self._connection._string += struct.pack(
-            "!Bd", tc.TYPE_DOUBLE, time)
-        return self._connection._checkResult(tc.CMD_GET_EDGE_VARIABLE,
-                                             tc.VAR_EDGE_EFFORT, edgeID).readDouble()
+        return self._getCmd(tc.VAR_EDGE_EFFORT, edgeID, "d", time).readDouble()
 
     def getCO2Emission(self, edgeID):
         """getCO2Emission(string) -> double
@@ -225,20 +215,9 @@ class EdgeDomain(Domain):
         apply to that time range. Otherwise they apply all the time
         """
         if begin is None and end is None:
-            self._connection._beginMessage(
-                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1 + 4 + 1 + 8)
-            self._connection._string += struct.pack("!BiBd",
-                                                    tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, time)
-            self._connection._sendExact()
+            self._setCmd(tc.VAR_EDGE_TRAVELTIME, edgeID, "td", 1, time)
         elif begin is not None and end is not None:
-            self._connection._beginMessage(
-                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_TRAVELTIME, edgeID, 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
-            self._connection._string += struct.pack("!BiBdBdBd",
-                                                    tc.TYPE_COMPOUND, 3,
-                                                    tc.TYPE_DOUBLE, begin,
-                                                    tc.TYPE_DOUBLE, end,
-                                                    tc.TYPE_DOUBLE, time)
-            self._connection._sendExact()
+            self._setCmd(tc.VAR_EDGE_TRAVELTIME, edgeID, "tddd", 3, begin, end, time)
         else:
             raise TraCIException("Both, begin time and end time must be specified")
 
@@ -251,20 +230,9 @@ class EdgeDomain(Domain):
         apply to that time range. Otherwise they apply all the time.
         """
         if begin is None and end is None:
-            self._connection._beginMessage(
-                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 8)
-            self._connection._string += struct.pack("!BiBd",
-                                                    tc.TYPE_COMPOUND, 1, tc.TYPE_DOUBLE, effort)
-            self._connection._sendExact()
+            self._setCmd(tc.VAR_EDGE_EFFORT, edgeID, "td", 1, effort)
         elif begin is not None and end is not None:
-            self._connection._beginMessage(
-                tc.CMD_SET_EDGE_VARIABLE, tc.VAR_EDGE_EFFORT, edgeID, 1 + 4 + 1 + 8 + 1 + 8 + 1 + 8)
-            self._connection._string += struct.pack("!BiBdBdBd",
-                                                    tc.TYPE_COMPOUND, 3,
-                                                    tc.TYPE_DOUBLE, begin,
-                                                    tc.TYPE_DOUBLE, end,
-                                                    tc.TYPE_DOUBLE, effort)
-            self._connection._sendExact()
+            self._setCmd(tc.VAR_EDGE_EFFORT, edgeID, "tddd", 3, begin, end, effort)
         else:
             raise TraCIException("Both, begin time and end time must be specified")
 
@@ -273,5 +241,4 @@ class EdgeDomain(Domain):
 
         Set a new maximum speed (in m/s) for all lanes of the edge.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_EDGE_VARIABLE, tc.VAR_MAXSPEED, edgeID, speed)
+        self._setCmd(tc.VAR_MAXSPEED, edgeID, "d", speed)

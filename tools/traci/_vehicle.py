@@ -1317,8 +1317,7 @@ class VehicleDomain(Domain):
         tc.ROUTING_MODE_DEFAULT    : use weight storages and fall-back to edge speeds (default)
         tc.ROUTING_MODE_AGGREGATED : use global smoothed travel times from device.rerouting
         """
-        self._connection._sendIntCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_ROUTING_MODE, vehID, routingMode)
+        self._setCmd(tc.VAR_ROUTING_MODE, vehID, "i", routingMode)
 
     def rerouteTraveltime(self, vehID, currentTravelTimes=True):
         """rerouteTraveltime(string, bool) -> None Reroutes a vehicle. If
@@ -1354,8 +1353,7 @@ class VehicleDomain(Domain):
 
         Sets an integer encoding the state of the vehicle's signals.
         """
-        self._connection._sendIntCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SIGNALS, vehID, signals)
+        self._setCmd(tc.VAR_SIGNALS, vehID, "i", signals)
 
     def moveTo(self, vehID, laneID, pos, reason=tc.MOVE_AUTOMATIC):
         self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE,
@@ -1600,8 +1598,7 @@ class VehicleDomain(Domain):
 
         Sets the driver imperfection sigma.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_IMPERFECTION, vehID, imperfection)
+        self._setCmd(tc.VAR_IMPERFECTION, vehID, "d", imperfection)
 
     def setTau(self, vehID, tau):
         """setTau(string, double) -> None
@@ -1609,24 +1606,21 @@ class VehicleDomain(Domain):
         Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s
         for this vehicle.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_TAU, vehID, tau)
+        self._setCmd(tc.VAR_TAU, vehID, "d", tau)
 
     def setLaneChangeMode(self, vehID, lcm):
         """setLaneChangeMode(string, integer) -> None
 
         Sets the vehicle's lane change mode as a bitset.
         """
-        self._connection._sendIntCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_LANECHANGE_MODE, vehID, lcm)
+        self._setCmd(tc.VAR_LANECHANGE_MODE, vehID, "i", lcm)
 
     def setSpeedMode(self, vehID, sm):
         """setSpeedMode(string, integer) -> None
 
         Sets the vehicle's speed mode as a bitset.
         """
-        self._connection._sendIntCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_SPEEDSETMODE, vehID, sm)
+        self._setCmd(tc.VAR_SPEEDSETMODE, vehID, "i", sm)
 
     def addLegacy(self, vehID, routeID, depart=tc.DEPARTFLAG_NOW, pos=0, speed=0,
                   lane=tc.DEPARTFLAG_LANE_FIRST_ALLOWED, typeID="DEFAULT_VEHTYPE"):
@@ -1677,7 +1671,7 @@ class VehicleDomain(Domain):
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
         '''Remove vehicle with the given ID for the give reason.
            Reasons are defined in module constants and start with REMOVE_'''
-        self._connection._sendCmd(tc.CMD_SET_VEHICLE_VARIABLE, tc.REMOVE, vehID, "b", reason)
+        self._setCmd(tc.REMOVE, vehID, "b", reason)
 
     def moveToXY(self, vehID, edgeID, lane, x, y, angle=tc.INVALID_DOUBLE_VALUE, keepRoute=1):
         '''Place vehicle at the given x,y coordinates and force it's angle to

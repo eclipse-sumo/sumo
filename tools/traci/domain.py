@@ -143,11 +143,18 @@ class Domain:
         if self._deprecatedFor:
             warnings.warn("The domain %s is deprecated, use %s instead." % (
                 self._name, self._deprecatedFor))
+        return self._retValFunc[varID](self._getCmd(varID, objectID))
+
+    def _getCmd(self, varID, objectID, format="", *values):
         if self._connection is None:
             raise FatalTraCIError("Not connected.")
-        self._connection._beginMessage(self._cmdGetID, varID, objectID)
-        result = self._connection._checkResult(self._cmdGetID, varID, objectID)
-        return self._retValFunc[varID](result)
+        r = self._connection._sendCmd(self._cmdGetID, varID, objectID, format, *values)
+        return self._connection._checkResult(self._cmdGetID, varID, objectID, r)
+
+    def _setCmd(self, varID, objectID, format="", *values):
+        if self._connection is None:
+            raise FatalTraCIError("Not connected.")
+        self._connection._sendCmd(self._cmdSetID, varID, objectID, format, *values)
 
     def getIDList(self):
         """getIDList() -> list(string)
