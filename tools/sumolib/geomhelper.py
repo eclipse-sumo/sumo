@@ -21,6 +21,11 @@ import math
 
 INVALID_DISTANCE = -1
 
+# back-ported from python 3 for backward compatibility
+# https://www.python.org/dev/peps/pep-0485/#proposed-implementation
+def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
+
 
 def distance(p1, p2):
     dx = p1[0] - p2[0]
@@ -120,12 +125,12 @@ def distancePointToPolygon(point, polygon, perpendicular=False):
 
 
 def positionAtOffset(p1, p2, offset):
-    if math.isclose(offset, 0.):  # for pathological cases with dist == 0 and offset == 0
+    if isclose(offset, 0.):  # for pathological cases with dist == 0 and offset == 0
         return p1
 
     dist = distance(p1, p2)
 
-    if math.isclose(dist, offset):
+    if isclose(dist, offset):
         return p2
 
     if offset > dist:
