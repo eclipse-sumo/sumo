@@ -121,7 +121,7 @@ class Connection:
         self._packString(objID, varID)
 
     def _sendCmd(self, cmdID, varID, objID, format="", *values):
-        packed = ""
+        packed = bytes()
         for f, v in zip(format, values):
             if f == "i":
                 packed += struct.pack("!Bi", tc.TYPE_INTEGER, int(v))

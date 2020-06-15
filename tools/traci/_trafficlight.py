@@ -299,35 +299,22 @@ class TrafficLightDomain(Domain):
         Sets a new program for the given tlsID from a Logic object.
         See getCompleteRedYellowGreenDefinition.
         """
-        length = 1 + 4 + 1 + 4 + \
-            len(tls.programID) + 1 + 4 + 1 + 4 + 1 + 4  # tls parameter
+        format = "tsiit"
+        values = [5, tls.programID, tls.type, tls.currentPhaseIndex, len(tls.phases)]
         for p in tls.phases:
-            length += (1 + 4 + 1 + 8 + 1 + 4 + len(p.state)
-                       + 1 + 8 + 1 + 8  # minDur, maxDur
-                       + 1 + 4 + len(p.next) * (1 + 4)
-                       + 1 + 4 + len(p.name))
-        length += 1 + 4  # subparams
-        for k, v in tls.subParameter.items():
-            length += 1 + 4 + 4 + len(k) + 4 + len(v)
-        self._connection._beginMessage(
-            tc.CMD_SET_TL_VARIABLE, tc.TL_COMPLETE_PROGRAM_RYG, tlsID, length)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 5)
-        self._connection._packString(tls.programID)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tls.type)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, tls.currentPhaseIndex)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.phases))
-        for p in tls.phases:
-            self._connection._string += struct.pack("!BiBd", tc.TYPE_COMPOUND, 6, tc.TYPE_DOUBLE, p.duration)
-            self._connection._packString(p.state)
-            self._connection._string += struct.pack("!BdBd", tc.TYPE_DOUBLE, p.minDur, tc.TYPE_DOUBLE, p.maxDur)
-            self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(p.next))
+            format += "tdsddt"
+            values += [6, p.duration, p.state, p.minDur, p.maxDur, len(p.next)]
             for n in p.next:
-                self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, n)
-            self._connection._packString(p.name)
+                format += "i"
+                values += [n]
+            format += "s"
+            values += [p.name]
         # subparams
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, len(tls.subParameter))
+        format += "t"
+        values += [len(tls.subParameter)]
         for par in tls.subParameter.items():
-            self._connection._packStringList(par)
-        self._connection._sendExact()
+            format += "l"
+            values += [par]
+        self._setCmd(tc.TL_COMPLETE_PROGRAM_RYG, tlsID, format, *values)
 
     setCompleteRedYellowGreenDefinition = setProgramLogic
