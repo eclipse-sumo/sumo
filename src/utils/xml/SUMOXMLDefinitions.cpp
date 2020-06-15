@@ -518,6 +518,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "toJunction",             SUMO_ATTR_TOJUNCTION },
     { "period",                 SUMO_ATTR_PERIOD },
     { "repeat",                 SUMO_ATTR_REPEAT },
+    { "cycleTime",              SUMO_ATTR_CYCLETIME },
     { "fromTaz",                SUMO_ATTR_FROM_TAZ },
     { "toTaz",                  SUMO_ATTR_TO_TAZ },
     { "reroute",                SUMO_ATTR_REROUTE },

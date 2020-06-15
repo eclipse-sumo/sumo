@@ -467,7 +467,12 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myActiveRouteProbability = attrs.getOpt<double>(SUMO_ATTR_PROB, myActiveRouteID.c_str(), ok, DEFAULT_VEH_PROB);
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
     myActiveRouteRepeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, myActiveRouteID.c_str(), ok, 0);
-    myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0);
+    myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, myActiveRouteID.c_str(), ok,
+            // handle obsolete attribute name
+            attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
+    if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
+        WRITE_WARNING("Attribute 'period' is deprecated for route. Use 'cycleTime' instead.");
+    }
     if (myActiveRouteRepeat > 0) {
         if (MSGlobals::gCheckRoutes) {
             SUMOVehicleClass vClass = SVC_IGNORING;
@@ -559,11 +564,10 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                 for (SUMOVehicleParameter::Stop stop : tmpStops) {
                     if (stop.until > 0) {
                         if (myActiveRoutePeriod <= 0) {
-                            if (myVehicleParameter != nullptr) {
-                                throw ProcessError("Cannot repeat stops with 'until' in route for " + type + " '" + myVehicleParameter->id + "' because no period is defined.");
-                            } else {
-                                throw ProcessError("Cannot repeat stops with 'until' in route '" + myActiveRouteID + "' because no period is defined.");
-                            }
+                            const std::string description = myVehicleParameter != nullptr
+                                ?  "for " + type + " '" + myVehicleParameter->id + "'"
+                                :  "'" + myActiveRouteID + "'";
+                            throw ProcessError("Cannot repeat stops with 'until' in route " + description + " because no cycleTime is defined.");
                         }
                         stop.until += myActiveRoutePeriod * (i + 1);
                         stop.arrival += myActiveRoutePeriod * (i + 1);

@@ -679,7 +679,7 @@
         <xsd:attribute name="cost" type="xsd:float"/>
         <xsd:attribute name="savings" type="xsd:float"/>
         <xsd:attribute name="repeat" type="xsd:nonNegativeInteger"/>
-        <xsd:attribute name="period" type="timeType"/>
+        <xsd:attribute name="cycleTime" type="timeType"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeDistRouteType">
