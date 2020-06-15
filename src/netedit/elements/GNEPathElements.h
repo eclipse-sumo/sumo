@@ -78,11 +78,11 @@ public:
     void drawPathChildren(const GUIVisualizationSettings& s, const GNELane* lane) const;
 
 protected:
-    /// @brief update path lanes
-    void updatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+    /// @brief calculate path lanes
+    void calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
-    /// @brief invalidate path lanes
-    void invalidatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass,  GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+    /// @brief reset path lanes
+    void resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass,  GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
 private:
     /// @brief ponter to demand element (this)

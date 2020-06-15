@@ -87,7 +87,7 @@ GNEPathElements::drawPathChildren(const GUIVisualizationSettings& s, const GNELa
 // ---------------------------------------------------------------------------
 
 void
-GNEPathElements::updatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
+GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
     // declare a edge vector
     std::vector<GNEEdge*> edges;
     // add from-via-edge lanes
@@ -134,7 +134,7 @@ GNEPathElements::updatePathLanes(SUMOVehicleClass vClass, const bool allowedVCla
 
 
 void
-GNEPathElements::invalidatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
+GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
     // declare a edge vector
     std::vector<GNEEdge*> edges;
     // add from-via-edge lanes
@@ -145,8 +145,6 @@ GNEPathElements::invalidatePathLanes(SUMOVehicleClass vClass, const bool allowed
     edges.push_back(toLane->getParentEdge());
     // remove consecutive (adjacent) duplicates
     edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
-    // calculate path
-    const std::vector<GNEEdge*> path/* = element->getNet()->getPathCalculator()->calculatePath(vClass, edges)*/;
     // remove demandElement of parent lanes
     for (const auto& pathElement : myPathElements) {
         if (pathElement.getLane()) {
@@ -155,17 +153,17 @@ GNEPathElements::invalidatePathLanes(SUMOVehicleClass vClass, const bool allowed
     }
     // set new route lanes
     myPathElements.clear();
-    // check if path was sucesfully calculated
-    if (path.size() > 0) {
-        for (int i = 0; i < (int)path.size(); i++) {
+    // use edges as path elements
+    if (edges.size() > 0) {
+        for (int i = 0; i < (int)edges.size(); i++) {
             if (i == 0) {
                 myPathElements.push_back(fromLane);
-            } else if (i == (int)path.size()) {
+            } else if (i == (int)edges.size()) {
                 myPathElements.push_back(toLane);
             } else if (allowedVClass) {
-                myPathElements.push_back(path.at(i)->getLaneByAllowedVClass(vClass));
+                myPathElements.push_back(edges.at(i)->getLaneByAllowedVClass(vClass));
             } else {
-                myPathElements.push_back(path.at(i)->getLaneByDisallowedVClass(vClass));
+                myPathElements.push_back(edges.at(i)->getLaneByDisallowedVClass(vClass));
             }
         }
     } else {
