@@ -87,7 +87,7 @@ GNEPathElements::drawPathChildren(const GUIVisualizationSettings& s, const GNELa
 // ---------------------------------------------------------------------------
 
 void
-GNEPathElements::updatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
+GNEPathElements::updatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
     // declare a edge vector
     std::vector<GNEEdge*> edges;
     // add from-via-edge lanes
@@ -115,8 +115,10 @@ GNEPathElements::updatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane, GNE
                 myPathElements.push_back(fromLane);
             } else if (i == (int)path.size()) {
                 myPathElements.push_back(toLane);
-            } else {
+            } else if (allowedVClass) {
                 myPathElements.push_back(path.at(i)->getLaneByAllowedVClass(vClass));
+            } else {
+                myPathElements.push_back(path.at(i)->getLaneByDisallowedVClass(vClass));
             }
         }
     } else {
@@ -132,7 +134,7 @@ GNEPathElements::updatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane, GNE
 
 
 void
-GNEPathElements::invalidatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
+GNEPathElements::invalidatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
     // declare a edge vector
     std::vector<GNEEdge*> edges;
     // add from-via-edge lanes
@@ -160,8 +162,10 @@ GNEPathElements::invalidatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane,
                 myPathElements.push_back(fromLane);
             } else if (i == (int)path.size()) {
                 myPathElements.push_back(toLane);
-            } else {
+            } else if (allowedVClass) {
                 myPathElements.push_back(path.at(i)->getLaneByAllowedVClass(vClass));
+            } else {
+                myPathElements.push_back(path.at(i)->getLaneByDisallowedVClass(vClass));
             }
         }
     } else {

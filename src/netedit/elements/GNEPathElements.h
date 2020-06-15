@@ -79,10 +79,10 @@ public:
 
 protected:
     /// @brief update path lanes
-    void updatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+    void updatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
     /// @brief invalidate path lanes
-    void invalidatePathLanes(SUMOVehicleClass vClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+    void invalidatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass,  GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
 private:
     /// @brief ponter to demand element (this)

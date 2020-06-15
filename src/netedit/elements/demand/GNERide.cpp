@@ -320,22 +320,22 @@ void
 GNERide::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), false, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), false, 
             getFirstAllowedVehicleLane(), 
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), false, 
             getParentAdditionals().front()->getParentLanes().front(), 
             getLastAllowedVehicleLane(),
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), false, 
             getParentAdditionals().front()->getParentLanes().front(), 
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
@@ -349,22 +349,22 @@ void
 GNERide::invalidatePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), false, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), false, 
             getFirstAllowedVehicleLane(), 
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), false, 
             getParentAdditionals().front()->getParentLanes().front(), 
             getLastAllowedVehicleLane(),
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), false, 
             getParentAdditionals().front()->getParentLanes().front(), 
             getParentAdditionals().back()->getParentLanes().front(), 
             {});

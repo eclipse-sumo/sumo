@@ -634,7 +634,7 @@ void
 GNEVehicle::computePath() {
     // calculate route and update routeEdges (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getMiddleParentEdges());
@@ -649,7 +649,7 @@ void
 GNEVehicle::invalidatePath() {
     // calculate route and update routeEdges (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getMiddleParentEdges());

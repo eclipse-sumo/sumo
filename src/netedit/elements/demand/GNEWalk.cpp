@@ -350,32 +350,32 @@ void
 GNEWalk::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), true, 
             getParentAdditionals().front()->getParentLanes().front(), 
             getLastAllowedVehicleLane(),
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), true, 
             getParentAdditionals().front()->getParentLanes().front(), 
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        updatePathLanes(getVClass(), 
+        updatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getParentDemandElements().back()->getParentEdges());
@@ -389,32 +389,32 @@ void
 GNEWalk::invalidatePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), true, 
             getParentAdditionals().front()->getParentLanes().front(), 
             getLastAllowedVehicleLane(),
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), true, 
             getParentAdditionals().front()->getParentLanes().front(), 
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        invalidatePathLanes(getVClass(), 
+        invalidatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
             getParentDemandElements().back()->getParentEdges());
