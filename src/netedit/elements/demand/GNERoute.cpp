@@ -387,7 +387,29 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
 
 
 void 
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector& lane2laneShape) const {
+GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+    // only drawn in super mode demand
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+        // obtain lane2lane geometry
+        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().connectionsMap.at(toLane);
+        // calculate width
+        const double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.route;
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // Set color of the base
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedRouteColor);
+        } else {
+            GLHelper::setColor(getColor());
+        }
+        // draw lane2lane
+        GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
+        // Pop last matrix
+        glPopMatrix();
+    }
 }
 
 

@@ -530,8 +530,48 @@ GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) c
 
 
 void 
-GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector& lane2laneShape) const {
-    //
+GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+    // get GNEViewNet
+    GNEViewNet* viewNet = myNet->getViewNet();
+    // declare flag to enable or disable draw person plan
+    bool drawPersonPlan = false;
+    if (viewNet->getDemandViewOptions().showAllPersonPlans()) {
+        drawPersonPlan = true;
+    } else if (viewNet->getDottedAC() == getParentDemandElements().front()) {
+        drawPersonPlan = true;
+    } else if (viewNet->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
+        drawPersonPlan = true;
+    } else if (viewNet->getDottedAC() && viewNet->getDottedAC()->getTagProperty().isPersonPlan() &&
+        (viewNet->getDottedAC()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
+        drawPersonPlan = true;
+    }
+    // check if draw person plan elements can be drawn
+    if (drawPersonPlan) {
+        // obtain lane2lane geometry
+        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().connectionsMap.at(toLane);
+        // flag to check if width must be duplicated
+        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == this) || (myNet->getViewNet()->getDottedAC() == getParentDemandElements().front()) ? true : false;
+        // get width
+        double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.ride;
+        // check if width has to be duplicated
+        if (duplicateWidth) {
+            width *= 2;
+        }
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // Set color of the base
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+        } else {
+            GLHelper::setColor(s.colorSettings.ride);
+        }
+        // draw lane2lane
+        GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
+        // Pop last matrix
+        glPopMatrix();
+    }
 }
 
 

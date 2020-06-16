@@ -85,9 +85,10 @@ GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const G
 
 void 
 GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, const GNEJunction* junction) const {
-    for (const auto &pathElement : myPathElements) {
-        if (pathElement.getJunction() == junction) {
-            myDemandElement->drawPartialGL(s, junction, {});
+    for (auto &i = myPathElements.begin(); i != myPathElements.end(); i++) {
+        // check that next pathElement isn't the last 
+        if ((i->getJunction() == junction) && ((i+1) != myPathElements.end())) {
+            myDemandElement->drawPartialGL(s, i->getLane(), (i+1)->getLane());
         }
     }
 }

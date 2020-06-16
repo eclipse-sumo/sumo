@@ -845,8 +845,8 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
     if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == this) || isAttributeCarrierSelected())) {
         // declare flag to draw spread vehicles
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
-        // calculate tripOrFromTo width
-        const double tripOrFromToWidth = s.addSize.getExaggeration(s, lane) * s.widthSettings.trip;
+        // calculate width
+        const double width = s.addSize.getExaggeration(s, lane) * s.widthSettings.trip;
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
@@ -862,14 +862,14 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 // draw partial segment
                 if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, width);
                 }
             }
         } else {
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 // draw partial segment
                 if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, tripOrFromToWidth);
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, width);
                 }
             }
         }
@@ -884,7 +884,27 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 
 
 void 
-GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector& lane2laneShape) const {
+GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+    if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == this) || isAttributeCarrierSelected())) {
+        // obtain lane2lane geometry
+        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().connectionsMap.at(toLane);
+        // calculate width
+        const double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.trip;
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // Set color of the base
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+        } else {
+            GLHelper::setColor(s.colorSettings.vehicleTrips);
+        }
+        // draw lane2lane
+        GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
+        // Pop last matrix
+        glPopMatrix();
+    }
 }
 
 

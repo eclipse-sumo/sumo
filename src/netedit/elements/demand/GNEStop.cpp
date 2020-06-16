@@ -481,7 +481,7 @@ GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*l
 
 
 void 
-GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEJunction* /*junction*/, const PositionVector& /*lane2laneShape*/) const {
+GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* fromLane, const GNELane* toLane) const {
     // Stops don't use drawPartialGL
 }
 
