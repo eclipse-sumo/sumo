@@ -238,6 +238,15 @@ public:
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
 
+    /// @brief add path element (used by GNEPathElement)
+    void addPathElement(GNEDemandElement* pathElementChild);
+
+    /// @brief remove path element (used by GNEPathElement)
+    void removePathElement(GNEDemandElement* pathElementChild);
+
+    /// @brief invalidate path element childs
+    void invalidatePathChildElements();
+
 private:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
@@ -253,6 +262,9 @@ private:
 
     /// @brief the built crossing objects
     std::vector<GNECrossing*> myGNECrossings;
+
+    /// @brief vector with references to path element children
+    std::vector<GNEDemandElement*> myPathDemandElementChildren;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxSize;

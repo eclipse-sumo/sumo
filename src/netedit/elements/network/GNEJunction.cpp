@@ -405,6 +405,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw Junction childs
             drawJunctionChilds(s);
+            // draw child path elements
+            for (const auto &demandElement : myPathDemandElementChildren) {
+                demandElement->drawJunctionPathChildren(s, this);
+            }
         }
     }
 }
@@ -951,6 +955,35 @@ GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
         if (includingNeighbours) {
             i->getFirstParentJunction()->markConnectionsDeprecated(false);
         }
+    }
+}
+
+
+void
+GNEJunction::addPathElement(GNEDemandElement* pathElementChild) {
+    // avoid insert duplicatd path element childs
+    if (std::find(myPathDemandElementChildren.begin(), myPathDemandElementChildren.end(), pathElementChild) == myPathDemandElementChildren.end()) {
+        myPathDemandElementChildren.push_back(pathElementChild);
+    }
+}
+
+
+void
+GNEJunction::removePathElement(GNEDemandElement* pathElementChild) {
+    // search and remove pathElementChild
+    auto it = std::find(myPathDemandElementChildren.begin(), myPathDemandElementChildren.end(), pathElementChild);
+    if (it != myPathDemandElementChildren.end()) {
+        myPathDemandElementChildren.erase(it);
+    }
+}
+
+
+void
+GNEJunction::invalidatePathChildElements() {
+    // make a copy of myPathDemandElementsElementChilds
+    auto copyOfPathDemandElementsElementChilds = myPathDemandElementChildren;
+    for (const auto& pathElementChild : copyOfPathDemandElementsElementChilds) {
+        pathElementChild->invalidatePath();
     }
 }
 
