@@ -67,6 +67,7 @@ permalink: /ChangeLog/
   - Fixed crash and delayed effect when setting vehicle parameter "device.rerouting.period". Issue #7064, #7075
   - Polygons and POIs added at runtime now show up in contextSubscriptions. Issue #7057
   - TraaS function getDeltaT is now working. Issue #7121
+  - The python client now supports adding polygons with more than 255 shape points. Issue #7161
   
 - All Applications
   - File names with a `%`-Sign can no be loaded. Issue #6574
@@ -81,7 +82,7 @@ permalink: /ChangeLog/
   - Added option **--device.emissions.period** to control the period in which emission-output is written. Isue #7079
   - Charging stations now work when a vehicle is parking (either with `parking="true"` or when stopped at a parkingArea and a chargingStation simultaneously). Issue #7068
   - The distance at which vehicles react to device.bluelight can now be configured with option **--device.bluelight.reactiondist**. Issue #7112
-  - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148
+  - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148  
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
@@ -103,6 +104,9 @@ permalink: /ChangeLog/
   - A color legend for vehicle colors can no be enabled via the 'Legend' tab. Issue #6930
   - Vehicles can now be stopped and stops can be aborted via context menu.
   - The hiding-treshold for edge coloring can now also hide edge color value labels (to avoid clutter from irrelevant numbers). Issue #7140
+  
+- DUAROUTER
+  - Route attributes 'repeat' and 'cycleTime' are now supported. Issue #7165
 
 - All Applications
   - Symbolic color definition "random" can now be used (i.e. in vehicle, vType, poi, ...). Issue #7058
