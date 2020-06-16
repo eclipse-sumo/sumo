@@ -78,11 +78,14 @@ public:
     void drawPathChildren(const GUIVisualizationSettings& s, const GNELane* lane) const;
 
 protected:
-    /// @brief calculate path lanes
+    /// @brief calculate path lanes (Dijkstra)
     void calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
+    /// @brief calculate consecutive path lanes (used by routes)
+    void calculateConsecutivePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, const std::vector<GNEEdge*> &edges);
+
     /// @brief reset path lanes
-    void resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass,  GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+    void resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
 private:
     /// @brief ponter to demand element (this)
@@ -90,6 +93,9 @@ private:
 
     /// @brief vector of edges used in paths
     std::vector<PathElement> myPathElements;
+
+    /// @brief calculate from-via-to edges
+    const std::vector<GNEEdge*> calculateFromViaToEdges(GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
     /// @brief Invalidated copy constructor.
     GNEPathElements(const GNEPathElements&) = delete;

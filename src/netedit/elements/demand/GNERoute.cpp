@@ -279,8 +279,8 @@ GNERoute::updatePartialGeometry(const GNEEdge* edge) {
 
 void
 GNERoute::computePath() {
-    // calculate path using parent edges
-    calculatePathLanes(getVClass(), true, getFirstAllowedVehicleLane(),getLastAllowedVehicleLane(), getMiddleParentEdges());
+    // calculate consecutive path using parent edges
+    calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
     // update geometry
     updateGeometry();
 }
@@ -288,8 +288,8 @@ GNERoute::computePath() {
 
 void
 GNERoute::invalidatePath() {
-    // reset path 
-    resetPathLanes(getVClass(), true, getFirstAllowedVehicleLane(), getLastAllowedVehicleLane(), getMiddleParentEdges());
+    // due routes don't need to calculate a dijkstra path, just calculate consecutive path lanes again
+    calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
     // update geometry
     updateGeometry();
 }

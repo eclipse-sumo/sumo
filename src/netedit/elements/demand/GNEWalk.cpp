@@ -370,10 +370,8 @@ GNEWalk::computePath() {
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        calculatePathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getLastAllowedVehicleLane(), 
-            getParentEdges());
+        // calculate consecutive path using parent edges
+        calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         calculatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
@@ -409,10 +407,8 @@ GNEWalk::invalidatePath() {
             getParentAdditionals().back()->getParentLanes().front(), 
             {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
-        resetPathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getLastAllowedVehicleLane(), 
-            getParentEdges());
+        // due walk edges don't need to calculate a dijkstra path, just calculate consecutive path lanes again
+        calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         resetPathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 

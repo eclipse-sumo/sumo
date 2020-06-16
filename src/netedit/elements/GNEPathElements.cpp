@@ -90,16 +90,8 @@ void
 GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
     // check if from and to lane are valid
     if (fromLane && toLane) {
-        // declare a edge vector
-        std::vector<GNEEdge*> edges;
-        // add from-via-edge lanes
-        edges.push_back(fromLane->getParentEdge());
-        for (const auto &edge : viaEdges) {
-            edges.push_back(edge);
-        }
-        edges.push_back(toLane->getParentEdge());
-        // remove consecutive (adjacent) duplicates
-        edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
+        // get from-via-to edges
+        const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, edges);
         // calculate path
         const std::vector<GNEEdge*> path = myDemandElement->getNet()->getPathCalculator()->calculatePath(vClass, edges);
         // remove demandElement of parent lanes
@@ -136,20 +128,39 @@ GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedV
 }
 
 
+void 
+GNEPathElements::calculateConsecutivePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, const std::vector<GNEEdge*>& edges) {
+    // remove demandElement of parent lanes
+    for (const auto& pathElement : myPathElements) {
+        if (pathElement.getLane()) {
+            pathElement.getLane()->removePathElement(myDemandElement);
+        }
+    }
+    // set new route lanes
+    myPathElements.clear();
+    // use edges as path elements
+    for (const auto &edge : edges) {
+        if (allowedVClass) {
+            myPathElements.push_back(edge->getLaneByAllowedVClass(vClass));
+        } else {
+            myPathElements.push_back(edge->getLaneByDisallowedVClass(vClass));
+        }
+    }
+    // add demandElement into parent lanes
+    for (const auto& pathElement : myPathElements) {
+        if (pathElement.getLane()) {
+            pathElement.getLane()->addPathElement(myDemandElement);
+        }
+    }
+}
+
+
 void
 GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
     // check if from and to lane are valid
     if (fromLane && toLane) {
-        // declare a edge vector
-        std::vector<GNEEdge*> edges;
-        // add from-via-edge lanes
-        edges.push_back(fromLane->getParentEdge());
-        for (const auto &edge : viaEdges) {
-            edges.push_back(edge);
-        }
-        edges.push_back(toLane->getParentEdge());
-        // remove consecutive (adjacent) duplicates
-        edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
+        // get from-via-to edges
+        const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, edges);
         // remove demandElement of parent lanes
         for (const auto& pathElement : myPathElements) {
             if (pathElement.getLane()) {
@@ -181,6 +192,23 @@ GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClas
             }
         }
     }
+}
+
+
+const std::vector<GNEEdge*> 
+GNEPathElements::calculateFromViaToEdges(GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& viaEdges) {
+    // declare a edge vector
+    std::vector<GNEEdge*> edges;
+    // add from-via-edge lanes
+    edges.push_back(fromLane->getParentEdge());
+    for (const auto &edge : viaEdges) {
+        edges.push_back(edge);
+    }
+    edges.push_back(toLane->getParentEdge());
+    // remove consecutive (adjacent) duplicates
+    edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
+    // return edges
+    return edges;
 }
 
 /****************************************************************************/
