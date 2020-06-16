@@ -24,6 +24,7 @@ multiref
 
 # Tests the import of shared routes on a different net
 multiref2
+repeat_cycletime
 implicit_route_repeat
 
 # Tests for false user input
