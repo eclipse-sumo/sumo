@@ -1,0 +1,16 @@
+<routes>
+    <vType id="slow" sigma="0" maxSpeed="5" lcKeepRight="0"/>
+    <vType id="fast" sigma="0" maxSpeed="50"/>
+    <vType id="rescue" latAlignment="arbitrary" sigma="0" guiShape="emergency" vClass="emergency" speedFactor="2" minGapLat="0"/>
+
+    <route id="r0" edges="SC CN"/>
+
+    <vehicle id="left1"   type="slow"  route="r0" depart="35" departLane="1" departPos="-20"/>
+    <vehicle id="right1"  type="fast"  route="r0" depart="35" departLane="0" departPos="-20"/>
+    <vehicle id="left2"   type="fast"  route="r0" depart="37" departLane="1" departPos="-20"/>
+    <vehicle id="right2"  type="fast"  route="r0" depart="37" departLane="0" departPos="-20"/>
+
+    <vehicle id="rescue"  type="rescue" route="r0" depart="45" departLane="1"/>
+
+
+</routes>

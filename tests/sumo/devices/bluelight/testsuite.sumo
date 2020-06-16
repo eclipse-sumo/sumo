@@ -1,3 +1,6 @@
 single
 multiple
 reactiondist
+
+# sublane motivation for emergency lane formation must override other motivations
+override_strategic
