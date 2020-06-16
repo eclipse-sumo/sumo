@@ -663,6 +663,12 @@ The following attributes are supported
 !!! note
     The contents of a decal-configuration can also be embedded in a view-settings file and thus loaded on startup. see [Configuration Files](#configuration_files)
 
+!!! note
+    When loading an image file with an embedded geo-reference (i.e. [GeoTIFF](https://en.wikipedia.org/wiki/GeoTIFF)) and the simulation network also has a geo-reference, then the image will be positioned automatically.
+    
+!!! note
+    Background images for a network can be downloaded with the [tileGet tool](Tools/Misc.md#tilegetpy).
+
 ## Transparency
 
 All image files in the visualization support transparency. For vehicles,
