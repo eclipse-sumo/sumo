@@ -171,6 +171,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("lcState left", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateLeft));
     // close building
     if (MSGlobals::gLateralResolution > 0) {
+        ret->mkItem("lcState center", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLCStateCenter));
         ret->mkItem("right side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getRightSideOnEdge2));
         ret->mkItem("left side on edge [m]", true, new FunctionBinding<GUIVehicle, double>(this, &GUIVehicle::getLeftSideOnEdge));
         ret->mkItem("rightmost edge sublane [#]", true, new FunctionBinding<GUIVehicle, int>(this, &GUIVehicle::getRightSublaneOnEdge));
@@ -950,6 +951,11 @@ GUIVehicle::getLCStateRight() const {
 std::string
 GUIVehicle::getLCStateLeft() const {
     return toString((LaneChangeAction)getLaneChangeModel().getSavedState(1).second);
+}
+
+std::string
+GUIVehicle::getLCStateCenter() const {
+    return toString((LaneChangeAction)getLaneChangeModel().getSavedState(0).second);
 }
 
 std::string
