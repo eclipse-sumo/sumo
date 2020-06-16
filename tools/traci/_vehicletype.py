@@ -23,37 +23,13 @@ import struct
 from . import constants as tc
 from . import exceptions
 
-_RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
-                      tc.VAR_MAXSPEED: Storage.readDouble,
-                      tc.VAR_SPEED_FACTOR: Storage.readDouble,
-                      tc.VAR_SPEED_DEVIATION: Storage.readDouble,
-                      tc.VAR_ACCEL: Storage.readDouble,
-                      tc.VAR_DECEL: Storage.readDouble,
-                      tc.VAR_EMERGENCY_DECEL: Storage.readDouble,
-                      tc.VAR_APPARENT_DECEL: Storage.readDouble,
-                      tc.VAR_ACTIONSTEPLENGTH: Storage.readDouble,
-                      tc.VAR_IMPERFECTION: Storage.readDouble,
-                      tc.VAR_TAU: Storage.readDouble,
-                      tc.VAR_VEHICLECLASS: Storage.readString,
-                      tc.VAR_EMISSIONCLASS: Storage.readString,
-                      tc.VAR_SHAPECLASS: Storage.readString,
-                      tc.VAR_MINGAP: Storage.readDouble,
-                      tc.VAR_WIDTH: Storage.readDouble,
-                      tc.VAR_HEIGHT: Storage.readDouble,
-                      tc.VAR_MAXSPEED_LAT: Storage.readDouble,
-                      tc.VAR_MINGAP_LAT: Storage.readDouble,
-                      tc.VAR_LATALIGNMENT: Storage.readString,
-                      tc.VAR_PERSON_CAPACITY: Storage.readInt,
-                      tc.VAR_COLOR: lambda result: result.read("!BBBB")}
-
 
 class VehicleTypeDomain(Domain):
 
     def __init__(self):
         Domain.__init__(self, "vehicletype", tc.CMD_GET_VEHICLETYPE_VARIABLE, tc.CMD_SET_VEHICLETYPE_VARIABLE,
                         tc.CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, tc.RESPONSE_SUBSCRIBE_VEHICLETYPE_VARIABLE,
-                        tc.CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT, tc.RESPONSE_SUBSCRIBE_VEHICLETYPE_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        tc.CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT, tc.RESPONSE_SUBSCRIBE_VEHICLETYPE_CONTEXT)
 
     def getLength(self, typeID):
         """getLength(string) -> double

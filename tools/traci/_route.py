@@ -21,16 +21,13 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-_RETURN_VALUE_FUNC = {tc.VAR_EDGES: Storage.readStringList}
-
 
 class RouteDomain(Domain):
 
     def __init__(self):
         Domain.__init__(self, "route", tc.CMD_GET_ROUTE_VARIABLE, tc.CMD_SET_ROUTE_VARIABLE,
                         tc.CMD_SUBSCRIBE_ROUTE_VARIABLE, tc.RESPONSE_SUBSCRIBE_ROUTE_VARIABLE,
-                        tc.CMD_SUBSCRIBE_ROUTE_CONTEXT, tc.RESPONSE_SUBSCRIBE_ROUTE_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        tc.CMD_SUBSCRIBE_ROUTE_CONTEXT, tc.RESPONSE_SUBSCRIBE_ROUTE_CONTEXT)
 
     def getEdges(self, routeID):
         """getEdges(string) -> list(string)

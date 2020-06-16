@@ -115,16 +115,8 @@ def _readLinks(result):
     return signals
 
 
-_RETURN_VALUE_FUNC = {tc.TL_RED_YELLOW_GREEN_STATE: Storage.readString,
-                      tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
-                      tc.TL_CONTROLLED_LANES: Storage.readStringList,
-                      tc.TL_CONTROLLED_LINKS: _readLinks,
-                      tc.TL_CURRENT_PROGRAM: Storage.readString,
-                      tc.TL_CURRENT_PHASE: Storage.readInt,
-                      tc.VAR_PERSON_NUMBER: Storage.readInt,
-                      tc.VAR_NAME: Storage.readString,
-                      tc.TL_NEXT_SWITCH: Storage.readDouble,
-                      tc.TL_PHASE_DURATION: Storage.readDouble}
+_RETURN_VALUE_FUNC = {tc.TL_COMPLETE_DEFINITION_RYG: _readLogics,
+                      tc.TL_CONTROLLED_LINKS: _readLinks}
 
 
 class TrafficLightDomain(Domain):
@@ -213,28 +205,28 @@ class TrafficLightDomain(Domain):
         """getPhase(string, int) -> int
         Returns the number of persons that would be served in the given phase
         """
-        return self._getCmd(tc.VAR_PERSON_NUMBER, tlsID, "i", index).readInt()
+        return self._getUniversal(tc.VAR_PERSON_NUMBER, tlsID, "i", index)
 
     def getBlockingVehicles(self, tlsID, linkIndex):
         """getBlockingVehicles(string, int) -> int
         Returns the list of vehicles that are blocking the subsequent block for
         the given tls-linkIndex
         """
-        return self._getCmd(tc.TL_BLOCKING_VEHICLES, tlsID, "i", linkIndex).readStringList()
+        return self._getUniversal(tc.TL_BLOCKING_VEHICLES, tlsID, "i", linkIndex)
 
     def getRivalVehicles(self, tlsID, linkIndex):
         """getRivalVehicles(string, int) -> int
         Returns the list of vehicles that also wish to enter the subsequent block for
         the given tls-linkIndex (regardless of priority)
         """
-        return self._getCmd(tc.TL_RIVAL_VEHICLES, tlsID, "i", linkIndex).readStringList()
+        return self._getUniversal(tc.TL_RIVAL_VEHICLES, tlsID, "i", linkIndex)
 
     def getPriorityVehicles(self, tlsID, linkIndex):
         """getPriorityVehicles(string, int) -> int
         Returns the list of vehicles that also wish to enter the subsequent block for
         the given tls-linkIndex (only those with higher priority)
         """
-        return self._getCmd(tc.TL_PRIORITY_VEHICLES, tlsID, "i", linkIndex).readStringList()
+        return self._getUniversal(tc.TL_PRIORITY_VEHICLES, tlsID, "i", linkIndex)
 
     def setRedYellowGreenState(self, tlsID, state):
         """setRedYellowGreenState(string, string) -> None

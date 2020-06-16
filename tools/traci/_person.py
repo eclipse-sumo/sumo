@@ -23,28 +23,7 @@ from . import constants as tc
 from . import _simulation as simulation
 
 
-_RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
-                      tc.ID_COUNT: Storage.readInt,
-                      tc.VAR_SPEED: Storage.readDouble,
-                      tc.VAR_POSITION: lambda result: result.read("!dd"),
-                      tc.VAR_POSITION3D: lambda result: result.read("!ddd"),
-                      tc.VAR_ANGLE: Storage.readDouble,
-                      tc.VAR_SLOPE: Storage.readDouble,
-                      tc.VAR_ROAD_ID: Storage.readString,
-                      tc.VAR_TYPE: Storage.readString,
-                      tc.VAR_ROUTE_ID: Storage.readString,
-                      tc.VAR_COLOR: lambda result: result.read("!BBBB"),
-                      tc.VAR_LANEPOSITION: Storage.readDouble,
-                      tc.VAR_LENGTH: Storage.readDouble,
-                      tc.VAR_WAITING_TIME: Storage.readDouble,
-                      tc.VAR_WIDTH: Storage.readDouble,
-                      tc.VAR_MINGAP: Storage.readDouble,
-                      tc.VAR_NEXT_EDGE: Storage.readString,
-                      tc.VAR_STAGE: simulation._readStage,
-                      tc.VAR_STAGES_REMAINING: Storage.readInt,
-                      tc.VAR_VEHICLE: Storage.readString,
-                      tc.VAR_EDGES: Storage.readStringList,
-                      }
+_RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage}
 
 
 class PersonDomain(Domain):
@@ -165,7 +144,7 @@ class PersonDomain(Domain):
         nextStageIndex 0 retrieves value for the current stage.
         nextStageIndex must be lower then value of getRemainingStages(personID)
         """
-        return self._getCmd(tc.VAR_EDGES, personID, "i", nextStageIndex).readStringList()
+        return self._getUniversal(tc.VAR_EDGES, personID, "i", nextStageIndex)
 
     def getStage(self, personID, nextStageIndex=0):
         """getStage(string, int) -> int
@@ -179,7 +158,7 @@ class PersonDomain(Domain):
         nextStageIndex 0 retrieves value for the current stage.
         nextStageIndex must be lower then value of getRemainingStages(personID)
         """
-        return simulation._readStage(self._getCmd(tc.VAR_STAGE, personID, "i", nextStageIndex))
+        return self._getUniversal(tc.VAR_STAGE, personID, "i", nextStageIndex)
 
     def getRemainingStages(self, personID):
         """getStage(string) -> int

@@ -21,30 +21,13 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-_RETURN_VALUE_FUNC = {
-    tc.VAR_ROAD_ID: Storage.readString,
-    tc.VAR_LANE_ID: Storage.readString,
-    tc.VAR_VEHSPERHOUR: Storage.readDouble,
-    tc.VAR_SPEED: Storage.readDouble,
-    tc.VAR_TYPE: Storage.readString,
-    tc.VAR_BEGIN: Storage.readDouble,
-    tc.VAR_END: Storage.readDouble,
-    tc.VAR_ROUTE_ID: Storage.readString,
-    tc.VAR_ROUTE_PROBE: Storage.readString,
-    tc.VAR_VTYPES: Storage.readStringList,
-    tc.VAR_PASSED: Storage.readInt,
-    tc.VAR_INSERTED: Storage.readInt,
-    tc.VAR_REMOVED: Storage.readInt,
-}
-
 
 class CalibratorDomain(Domain):
 
     def __init__(self):
         Domain.__init__(self, "calibrator", tc.CMD_GET_CALIBRATOR_VARIABLE, tc.CMD_SET_CALIBRATOR_VARIABLE,
                         tc.CMD_SUBSCRIBE_CALIBRATOR_VARIABLE, tc.RESPONSE_SUBSCRIBE_CALIBRATOR_VARIABLE,
-                        tc.CMD_SUBSCRIBE_CALIBRATOR_CONTEXT, tc.RESPONSE_SUBSCRIBE_CALIBRATOR_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        tc.CMD_SUBSCRIBE_CALIBRATOR_CONTEXT, tc.RESPONSE_SUBSCRIBE_CALIBRATOR_CONTEXT)
 
     def getEdgeID(self, calibratorID):
         """getEdgeID(string) -> string

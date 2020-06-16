@@ -21,11 +21,7 @@ from .domain import Domain
 from .storage import Storage
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.VAR_TYPE: Storage.readString,
-                      tc.VAR_SHAPE: Storage.readShape,
-                      tc.VAR_FILL: lambda result: bool(result.read("!i")[0]),
-                      tc.VAR_WIDTH: Storage.readDouble,
-                      tc.VAR_COLOR: lambda result: result.read("!BBBB")}
+_RETURN_VALUE_FUNC = {tc.VAR_FILL: lambda result: bool(result.read("!i")[0])}
 
 
 class PolygonDomain(Domain):

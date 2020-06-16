@@ -23,24 +23,13 @@ from .storage import Storage
 from . import constants as tc
 from .exceptions import TraCIException
 
-_RETURN_VALUE_FUNC = {tc.TRACI_ID_LIST: Storage.readStringList,
-                      tc.ID_COUNT: Storage.readInt,
-                      tc.VAR_TYPE: Storage.readString,
-                      tc.VAR_POSITION: lambda result: result.read("!dd"),
-                      tc.VAR_COLOR: lambda result: result.read("!BBBB"),
-                      tc.VAR_WIDTH: Storage.readDouble,
-                      tc.VAR_HEIGHT: Storage.readDouble,
-                      tc.VAR_ANGLE: Storage.readDouble,
-                      tc.VAR_IMAGEFILE: Storage.readString}
-
 
 class PoiDomain(Domain):
 
     def __init__(self):
         Domain.__init__(self, "poi", tc.CMD_GET_POI_VARIABLE, tc.CMD_SET_POI_VARIABLE,
                         tc.CMD_SUBSCRIBE_POI_VARIABLE, tc.RESPONSE_SUBSCRIBE_POI_VARIABLE,
-                        tc.CMD_SUBSCRIBE_POI_CONTEXT, tc.RESPONSE_SUBSCRIBE_POI_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        tc.CMD_SUBSCRIBE_POI_CONTEXT, tc.RESPONSE_SUBSCRIBE_POI_CONTEXT)
 
     def getType(self, poiID):
         """getType(string) -> string

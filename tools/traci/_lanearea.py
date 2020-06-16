@@ -21,17 +21,6 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-_RETURN_VALUE_FUNC = {tc.JAM_LENGTH_METERS: Storage.readDouble,
-                      tc.JAM_LENGTH_VEHICLE: Storage.readInt,
-                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
-                      tc.VAR_POSITION: Storage.readDouble,
-                      tc.VAR_LENGTH: Storage.readDouble,
-                      tc.VAR_LANE_ID: Storage.readString,
-                      tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList,
-                      tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt}
-
 
 class LaneAreaDomain(Domain):
 
@@ -39,7 +28,8 @@ class LaneAreaDomain(Domain):
         Domain.__init__(self, name, tc.CMD_GET_LANEAREA_VARIABLE, None,
                         tc.CMD_SUBSCRIBE_LANEAREA_VARIABLE, tc.RESPONSE_SUBSCRIBE_LANEAREA_VARIABLE,
                         tc.CMD_SUBSCRIBE_LANEAREA_CONTEXT, tc.RESPONSE_SUBSCRIBE_LANEAREA_CONTEXT,
-                        _RETURN_VALUE_FUNC, deprecatedFor)
+                        {}, deprecatedFor,
+                        subscriptionDefault=(tc.LAST_STEP_VEHICLE_NUMBER,))
 
     def getJamLengthVehicle(self, detID):
         """getJamLengthVehicle(string) -> integer

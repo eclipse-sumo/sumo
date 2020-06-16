@@ -20,11 +20,6 @@ from .domain import Domain
 from .storage import Storage
 from . import constants as tc
 
-_RETURN_VALUE_FUNC = {tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList,
-                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt}
-
 
 class MultiEntryExitDomain(Domain):
 
@@ -32,7 +27,7 @@ class MultiEntryExitDomain(Domain):
         Domain.__init__(self, "multientryexit", tc.CMD_GET_MULTIENTRYEXIT_VARIABLE, None,
                         tc.CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE, tc.RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE,
                         tc.CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT, tc.RESPONSE_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        subscriptionDefault=(tc.LAST_STEP_VEHICLE_NUMBER,))
 
     def getLastStepVehicleNumber(self, detID):
         """getLastStepVehicleNumber(string) -> integer

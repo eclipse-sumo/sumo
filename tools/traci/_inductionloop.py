@@ -26,30 +26,17 @@ def readVehicleData(result):
     result.readLength()
     nbData = result.readInt()
     data = []
-    for i in range(nbData):
-        result.read("!B")
-        vehID = result.readString()
-        result.read("!B")
-        length = result.readDouble()
-        result.read("!B")
-        entryTime = result.readDouble()
-        result.read("!B")
-        leaveTime = result.readDouble()
-        result.read("!B")
-        typeID = result.readString()
+    for _ in range(nbData):
+        vehID = result.readTypedString()
+        length = result.readTypedDouble()
+        entryTime = result.readTypedDouble()
+        leaveTime = result.readTypedDouble()
+        typeID = result.readTypedString()
         data.append((vehID, length, entryTime, leaveTime, typeID))
     return data
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_POSITION: Storage.readDouble,
-                      tc.VAR_LANE_ID: Storage.readString,
-                      tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList,
-                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
-                      tc.LAST_STEP_LENGTH: Storage.readDouble,
-                      tc.LAST_STEP_TIME_SINCE_DETECTION: Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_DATA: readVehicleData}
+_RETURN_VALUE_FUNC = {tc.LAST_STEP_VEHICLE_DATA: readVehicleData}
 
 
 class InductionLoopDomain(Domain):
@@ -58,7 +45,8 @@ class InductionLoopDomain(Domain):
         Domain.__init__(self, "inductionloop", tc.CMD_GET_INDUCTIONLOOP_VARIABLE, None,
                         tc.CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE,
                         tc.CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT, tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        _RETURN_VALUE_FUNC,
+                        subscriptionDefault=(tc.LAST_STEP_VEHICLE_NUMBER,))
 
     def getPosition(self, loopID):
         """getPosition(string) -> double

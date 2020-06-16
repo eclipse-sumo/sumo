@@ -20,23 +20,13 @@ from . import constants as tc
 from .domain import Domain
 from .storage import Storage
 
-_RETURN_VALUE_FUNC = {
-    tc.VAR_LANE_ID: Storage.readString,
-    tc.VAR_POSITION: Storage.readDouble,
-    tc.VAR_LANEPOSITION: Storage.readDouble,
-    tc.VAR_NAME: Storage.readString,
-    tc.VAR_STOP_STARTING_VEHICLES_NUMBER: Storage.readInt,
-    tc.VAR_STOP_STARTING_VEHICLES_IDS: Storage.readStringList,
-}
-
 
 class OverheadWireDomain(Domain):
 
     def __init__(self):
         Domain.__init__(self, "overheadwire", tc.CMD_GET_OVERHEADWIRE_VARIABLE, tc.CMD_SET_OVERHEADWIRE_VARIABLE,
                         tc.CMD_SUBSCRIBE_OVERHEADWIRE_VARIABLE, tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE,
-                        tc.CMD_SUBSCRIBE_OVERHEADWIRE_CONTEXT, tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        tc.CMD_SUBSCRIBE_OVERHEADWIRE_CONTEXT, tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_CONTEXT)
 
     def getLaneID(self, stopID):
         """getLaneID(string) -> string

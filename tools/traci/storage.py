@@ -67,7 +67,7 @@ class Storage:
 
     def readTypedString(self):
         t = self.read("!B")[0]
-        assert(t == tc.TYPE_STRING)
+        assert t == tc.TYPE_STRING, "expected TYPE_STRING (%02x), found %02x." % (tc.TYPE_STRING, t)
         return self.readString()
 
     def readStringList(self):

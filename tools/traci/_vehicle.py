@@ -37,8 +37,7 @@ def _readBestLanes(result):
     nbLanes = result.read("!i")[0]  # Length
     lanes = []
     for _ in range(nbLanes):
-        result.read("!B")
-        laneID = result.readString()
+        laneID = result.readTypedString()
         length, occupation, offset = result.read("!BdBdBb")[1::2]
         allowsContinuation = bool(result.read("!BB")[1])
         numNextLanes = result.read("!Bi")[1]
@@ -48,10 +47,9 @@ def _readBestLanes(result):
 
 
 def _readLeader(result):
-    result.read("!iB")
-    vehicleID = result.readString()
-    result.read("!B")
-    dist = result.readDouble()
+    assert result.read("!i")[0] == 2  # compound size
+    vehicleID = result.readTypedString()
+    dist = result.readTypedDouble()
     if vehicleID == "" and legacyGetLeader():
         return None
     return vehicleID, dist
@@ -103,77 +101,15 @@ def _readNextStops(result):
     return tuple(nextStop)
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_SPEED: Storage.readDouble,
-                      tc.VAR_SPEED_LAT: Storage.readDouble,
-                      tc.VAR_SPEED_WITHOUT_TRACI: Storage.readDouble,
-                      tc.VAR_ACCELERATION: Storage.readDouble,
-                      tc.VAR_POSITION: lambda result: result.read("!dd"),
-                      tc.VAR_POSITION3D: lambda result: result.read("!ddd"),
-                      tc.VAR_ANGLE: Storage.readDouble,
-                      tc.VAR_ROAD_ID: Storage.readString,
-                      tc.VAR_LANE_ID: Storage.readString,
-                      tc.VAR_LANE_INDEX: Storage.readInt,
-                      tc.VAR_TYPE: Storage.readString,
-                      tc.VAR_ROUTE_ID: Storage.readString,
-                      tc.VAR_ROUTE_INDEX: Storage.readInt,
-                      tc.VAR_COLOR: lambda result: result.read("!BBBB"),
-                      tc.VAR_LANEPOSITION: Storage.readDouble,
-                      tc.VAR_CO2EMISSION: Storage.readDouble,
-                      tc.VAR_COEMISSION: Storage.readDouble,
-                      tc.VAR_HCEMISSION: Storage.readDouble,
-                      tc.VAR_PMXEMISSION: Storage.readDouble,
-                      tc.VAR_NOXEMISSION: Storage.readDouble,
-                      tc.VAR_FUELCONSUMPTION: Storage.readDouble,
-                      tc.VAR_NOISEEMISSION: Storage.readDouble,
-                      tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
-                      tc.VAR_PERSON_CAPACITY: Storage.readInt,
-                      tc.VAR_PERSON_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_PERSON_ID_LIST: Storage.readStringList,
-                      tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
-                      tc.VAR_EDGE_EFFORT: Storage.readDouble,
-                      tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
-                      tc.VAR_EDGES: Storage.readStringList,
-                      tc.VAR_SIGNALS: Storage.readInt,
-                      tc.VAR_LENGTH: Storage.readDouble,
-                      tc.VAR_MAXSPEED: Storage.readDouble,
-                      tc.VAR_ALLOWED_SPEED: Storage.readDouble,
-                      tc.VAR_VEHICLECLASS: Storage.readString,
-                      tc.VAR_SPEED_FACTOR: Storage.readDouble,
-                      tc.VAR_SPEED_DEVIATION: Storage.readDouble,
-                      tc.VAR_EMISSIONCLASS: Storage.readString,
-                      tc.VAR_WAITING_TIME: Storage.readDouble,
-                      tc.VAR_ACCUMULATED_WAITING_TIME: Storage.readDouble,
-                      tc.VAR_LANECHANGE_MODE: Storage.readInt,
-                      tc.VAR_SPEEDSETMODE: Storage.readInt,
-                      tc.VAR_SLOPE: Storage.readDouble,
-                      tc.VAR_WIDTH: Storage.readDouble,
-                      tc.VAR_HEIGHT: Storage.readDouble,
-                      tc.VAR_LINE: Storage.readString,
-                      tc.VAR_VIA: Storage.readStringList,
-                      tc.VAR_MINGAP: Storage.readDouble,
-                      tc.VAR_SHAPECLASS: Storage.readString,
-                      tc.VAR_ACCEL: Storage.readDouble,
-                      tc.VAR_DECEL: Storage.readDouble,
-                      tc.VAR_EMERGENCY_DECEL: Storage.readDouble,
-                      tc.VAR_APPARENT_DECEL: Storage.readDouble,
-                      tc.VAR_ACTIONSTEPLENGTH: Storage.readDouble,
-                      tc.VAR_LASTACTIONTIME: Storage.readDouble,
-                      tc.VAR_IMPERFECTION: Storage.readDouble,
-                      tc.VAR_TAU: Storage.readDouble,
+_RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_BEST_LANES: _readBestLanes,
                       tc.VAR_LEADER: _readLeader,
                       tc.VAR_NEIGHBORS: _readNeighbors,
                       tc.VAR_NEXT_TLS: _readNextTLS,
                       tc.VAR_NEXT_STOPS: _readNextStops,
-                      tc.VAR_LANEPOSITION_LAT: Storage.readDouble,
-                      tc.VAR_MAXSPEED_LAT: Storage.readDouble,
-                      tc.VAR_MINGAP_LAT: Storage.readDouble,
-                      tc.VAR_LATALIGNMENT: Storage.readString,
-                      tc.DISTANCE_REQUEST: Storage.readDouble,
-                      tc.VAR_ROUTING_MODE: Storage.readInt,
-                      tc.VAR_STOPSTATE: Storage.readInt,
-                      tc.VAR_STOP_DELAY: Storage.readDouble,
-                      tc.VAR_DISTANCE: Storage.readDouble}
+                      tc.VAR_NEXT_STOPS2: _readNextStops,
+                      # ignore num compounds and type int
+                      tc.CMD_CHANGELANE: lambda result: result.read("!iBiBi")[2::2]}
 
 
 class VehicleDomain(Domain):
@@ -406,14 +342,14 @@ class VehicleDomain(Domain):
 
         .
         """
-        return self._getCmd(tc.VAR_EDGE_TRAVELTIME, vehID, "tds", 2, time, edgeID).readDouble()
+        return self._getUniversal(tc.VAR_EDGE_TRAVELTIME, vehID, "tds", 2, time, edgeID)
 
     def getEffort(self, vehID, time, edgeID):
         """getEffort(string, double, string) -> double
 
         .
         """
-        return self._getCmd(tc.VAR_EDGE_EFFORT, vehID, "tds", 2, time, edgeID).readDouble()
+        return self._getUniversal(tc.VAR_EDGE_EFFORT, vehID, "tds", 2, time, edgeID)
 
     def isRouteValid(self, vehID):
         """isRouteValid(string) -> bool
@@ -656,7 +592,7 @@ class VehicleDomain(Domain):
         Note that the returned leader may be further away than the given dist and that the vehicle
         will only look on its current best lanes and not look beyond the end of its final route edge.
         """
-        return _readLeader(self._getCmd(tc.VAR_LEADER, vehID, "d", dist))
+        return self._getUniversal(tc.VAR_LEADER, vehID, "d", dist)
 
     def getRightFollowers(self, vehID, blockingOnly=False):
         """ bool -> list(pair(string, double))
@@ -715,27 +651,27 @@ class VehicleDomain(Domain):
         but either all neighboring vehicles are returned (in case LCA_BLOCKED) or
         none is returned (in case !LCA_BLOCKED).
         """
-        return _readNeighbors(self._getCmd(tc.VAR_NEIGHBORS, vehID, "B", mode))
+        return self._getUniversal(tc.VAR_NEIGHBORS, vehID, "B", mode)
 
     def getFollowSpeed(self, vehID, speed, gap, leaderSpeed, leaderMaxDecel, leaderID=""):
         """getFollowSpeed(string, double, double, double, double, string) -> double
         Return the follow speed computed by the carFollowModel of vehID
         """
-        return self._getCmd(tc.VAR_FOLLOW_SPEED, vehID, "tdddds", 5,
-                            speed, gap, leaderSpeed, leaderMaxDecel, leaderID).readDouble()
+        return self._getUniversal(tc.VAR_FOLLOW_SPEED, vehID, "tdddds", 5,
+                                  speed, gap, leaderSpeed, leaderMaxDecel, leaderID)
 
     def getSecureGap(self, vehID, speed, leaderSpeed, leaderMaxDecel, leaderID=""):
         """getSecureGap(string, double, double, double, string) -> double
         Return the secure gap computed by the carFollowModel of vehID
         """
-        return self._getCmd(tc.VAR_SECURE_GAP, vehID,"tddds", 4,
-                            speed, leaderSpeed, leaderMaxDecel, leaderID).readDouble()
+        return self._getUniversal(tc.VAR_SECURE_GAP, vehID,"tddds", 4,
+                                  speed, leaderSpeed, leaderMaxDecel, leaderID)
 
     def getStopSpeed(self, vehID, speed, gap):
         """getStopSpeed(string, double, double) -> double
         Return the speed for stopping at gap computed by the carFollowModel of vehID
         """
-        return self._getCmd(tc.VAR_STOP_SPEED, vehID,"tdd", 2, speed, gap).readDouble()
+        return self._getUniversal(tc.VAR_STOP_SPEED, vehID,"tdd", 2, speed, gap)
 
     def getStopDelay(self, vehID):
         """getStopDelay(string) -> double
@@ -772,7 +708,7 @@ class VehicleDomain(Domain):
         if limit == 0:
             return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
         else:
-            return _readNextStops(self._getCmd(tc.VAR_NEXT_STOPS2, vehID, "i", limit))
+            return self._getUniversal(tc.VAR_NEXT_STOPS2, vehID, "i", limit)
 
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double) -> None
@@ -788,24 +724,15 @@ class VehicleDomain(Domain):
 
         Return the distance to the given edge and position along the vehicles route.
         """
-        self._connection._beginMessage(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST,
-                                       vehID, 1 + 4 + 1 + 4 + len(edgeID) + 8 + 1 + 1)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
-        self._connection._packString(edgeID, tc.POSITION_ROADMAP)
-        self._connection._string += struct.pack("!dBB",
-                                                pos, laneIndex, tc.REQUEST_DRIVINGDIST)
-        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
+        return self._getUniversal(tc.DISTANCE_REQUEST, vehID, "tru", 2,
+                                  (edgeID, pos, laneIndex), tc.REQUEST_DRIVINGDIST)
 
     def getDrivingDistance2D(self, vehID, x, y):
         """getDrivingDistance2D(string, double, double) -> integer
 
         Return the distance to the given network position along the vehicles route.
         """
-        self._connection._beginMessage(
-            tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID, 1 + 4 + 1 + 8 + 8 + 1)
-        self._connection._string += struct.pack("!BiBddB", tc.TYPE_COMPOUND, 2,
-                                                tc.POSITION_2D, x, y, tc.REQUEST_DRIVINGDIST)
-        return self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.DISTANCE_REQUEST, vehID).readDouble()
+        return self._getUniversal(tc.DISTANCE_REQUEST, vehID, "tou", 2, (x, y), tc.REQUEST_DRIVINGDIST)
 
     def getDistance(self, vehID):
         """getDistance(string) -> double
@@ -859,11 +786,7 @@ class VehicleDomain(Domain):
         """getLaneChangeState(string, int) -> (int, int)
         Return the lane change state for the vehicle
         """
-        self._connection._beginMessage(
-            tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, direction)
-        result = self._connection._checkResult(tc.CMD_GET_VEHICLE_VARIABLE, tc.CMD_CHANGELANE, vehID)
-        return result.read("!iBiBi")[2::2]  # ignore num compounds and type int
+        return self._getUniversal(tc.CMD_CHANGELANE, vehID, "i", direction)
 
     def getLaneChangeStatePretty(self, vehID, direction):
         """getLaneChangeState(string, int) -> ([string, ...], [string, ...])

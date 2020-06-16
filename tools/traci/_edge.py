@@ -24,37 +24,13 @@ from .storage import Storage
 from .exceptions import TraCIException
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_EDGE_TRAVELTIME: Storage.readDouble,
-                      tc.VAR_WAITING_TIME: Storage.readDouble,
-                      tc.VAR_EDGE_EFFORT: Storage.readDouble,
-                      tc.VAR_CO2EMISSION: Storage.readDouble,
-                      tc.VAR_COEMISSION: Storage.readDouble,
-                      tc.VAR_HCEMISSION: Storage.readDouble,
-                      tc.VAR_PMXEMISSION: Storage.readDouble,
-                      tc.VAR_NOXEMISSION: Storage.readDouble,
-                      tc.VAR_FUELCONSUMPTION: Storage.readDouble,
-                      tc.VAR_NOISEEMISSION: Storage.readDouble,
-                      tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
-                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
-                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
-                      tc.LAST_STEP_LENGTH: Storage.readDouble,
-                      tc.VAR_LANE_INDEX: Storage.readInt,
-                      tc.VAR_NAME: Storage.readString,
-                      tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList,
-                      tc.LAST_STEP_PERSON_ID_LIST: Storage.readStringList,
-                      }
-
-
 class EdgeDomain(Domain):
 
     def __init__(self):
         Domain.__init__(self, "edge", tc.CMD_GET_EDGE_VARIABLE, tc.CMD_SET_EDGE_VARIABLE,
                         tc.CMD_SUBSCRIBE_EDGE_VARIABLE, tc.RESPONSE_SUBSCRIBE_EDGE_VARIABLE,
                         tc.CMD_SUBSCRIBE_EDGE_CONTEXT, tc.RESPONSE_SUBSCRIBE_EDGE_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        subscriptionDefault=(tc.LAST_STEP_VEHICLE_NUMBER,))
 
     def getAdaptedTraveltime(self, edgeID, time):
         """getAdaptedTraveltime(string, double) -> double
@@ -62,7 +38,7 @@ class EdgeDomain(Domain):
         Returns the travel time value (in s) used for (re-)routing
         which is valid on the edge at the given time.
         """
-        return self._getCmd(tc.VAR_EDGE_TRAVELTIME, edgeID, "d", time).readDouble()
+        return self._getUniversal(tc.VAR_EDGE_TRAVELTIME, edgeID, "d", time)
 
     def getWaitingTime(self, edgeID):
         """getWaitingTime() -> double
@@ -77,7 +53,7 @@ class EdgeDomain(Domain):
         Returns the effort value used for (re-)routing
         which is valid on the edge at the given time.
         """
-        return self._getCmd(tc.VAR_EDGE_EFFORT, edgeID, "d", time).readDouble()
+        return self._getUniversal(tc.VAR_EDGE_EFFORT, edgeID, "d", time)
 
     def getCO2Emission(self, edgeID):
         """getCO2Emission(string) -> double

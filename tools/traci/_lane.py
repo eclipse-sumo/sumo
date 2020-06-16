@@ -28,7 +28,7 @@ def _readLinks(result):
     result.read("!Bi")  # Type Compound, Length
     nbLinks = result.readInt()
     links = []
-    for i in range(nbLinks):
+    for _ in range(nbLinks):
         result.read("!B")                           # Type String
         approachedLane = result.readString()
         result.read("!B")                           # Type String
@@ -50,32 +50,7 @@ def _readLinks(result):
     return links
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
-                      tc.VAR_MAXSPEED: Storage.readDouble,
-                      tc.VAR_WIDTH: Storage.readDouble,
-                      tc.LANE_ALLOWED: Storage.readStringList,
-                      tc.LANE_DISALLOWED: Storage.readStringList,
-                      tc.LANE_LINK_NUMBER: Storage.readInt,
-                      tc.LANE_LINKS: _readLinks,
-                      tc.VAR_SHAPE: Storage.readShape,
-                      tc.LANE_EDGE_ID: Storage.readString,
-                      tc.VAR_CO2EMISSION: Storage.readDouble,
-                      tc.VAR_COEMISSION: Storage.readDouble,
-                      tc.VAR_HCEMISSION: Storage.readDouble,
-                      tc.VAR_PMXEMISSION: Storage.readDouble,
-                      tc.VAR_NOXEMISSION: Storage.readDouble,
-                      tc.VAR_FUELCONSUMPTION: Storage.readDouble,
-                      tc.VAR_NOISEEMISSION: Storage.readDouble,
-                      tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
-                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
-                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
-                      tc.LAST_STEP_LENGTH: Storage.readDouble,
-                      tc.VAR_WAITING_TIME: Storage.readDouble,
-                      tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
-                      tc.VAR_FOES: Storage.readStringList,
-                      tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList}
+_RETURN_VALUE_FUNC = {tc.LANE_LINKS: _readLinks}
 
 
 class LaneDomain(Domain):
@@ -84,7 +59,7 @@ class LaneDomain(Domain):
         Domain.__init__(self, "lane", tc.CMD_GET_LANE_VARIABLE, tc.CMD_SET_LANE_VARIABLE,
                         tc.CMD_SUBSCRIBE_LANE_VARIABLE, tc.RESPONSE_SUBSCRIBE_LANE_VARIABLE,
                         tc.CMD_SUBSCRIBE_LANE_CONTEXT, tc.RESPONSE_SUBSCRIBE_LANE_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        _RETURN_VALUE_FUNC, subscriptionDefault=(tc.LAST_STEP_VEHICLE_NUMBER,))
 
     def getLength(self, laneID):
         """getLength(string) -> double
@@ -274,7 +249,7 @@ class LaneDomain(Domain):
         """getFoes(string, string) -> list(string)
         Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
         """
-        return self._getCmd(tc.VAR_FOES, laneID, "s", toLaneID).readStringList()
+        return self._getUniversal(tc.VAR_FOES, laneID, "s", toLaneID)
 
     def getInternalFoes(self, laneID):
         """getFoes(string) -> list(string)
