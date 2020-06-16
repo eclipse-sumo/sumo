@@ -226,7 +226,7 @@ openend. The following types are available:
 - Additional infrastructure for
   [detecting](Simulation/Output.md#simulated_detectors) or for
   [influencing
-  traffic](SUMO_User_Documentation.md#traffic_management_and_other_structures).
+  traffic](index.md#traffic_management_and_other_structures).
 - [Point of Interest
   (PoI)](Simulation/Shapes.md#poi_point_of_interest_definitions)
 - [Polygon](Simulation/Shapes.md#polygon_definitions)

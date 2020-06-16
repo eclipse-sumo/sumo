@@ -15,7 +15,7 @@ wishes for this population.
 
   A) a road network as generated via
   [NETCONVERT](NETCONVERT.md) or
-  [NETGENERATE](NETGENERATE.md), see [Building Networks](SUMO_User_Documentation.md#network_building)
+  [NETGENERATE](NETGENERATE.md), see [Building Networks](index.md#network_building)
 
   B) a population definition, see [Activity-based Demand Generation](Demand/Activity-based_Demand_Generation.md)
 

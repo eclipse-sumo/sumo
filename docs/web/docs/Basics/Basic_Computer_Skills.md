@@ -47,7 +47,7 @@ Explorer [here](https://www.teacherclick.com/winxp/t_4_1.htm) or
 
 SUMO consists of many separate programs for different simulation-related
 tasks (a reference to all the seperate programs can be found in
-[SUMO_User_Documentation\#Appendices](../SUMO_User_Documentation.md#appendices)).
+[SUMO_User_Documentation\#Appendices](../index.md#appendices)).
 Only the program *sumo-gui.exe* [SUMO-GUI](../SUMO-GUI.md) has a
 graphical user interface (GUI). All other programs must be called from
 the **command line**.

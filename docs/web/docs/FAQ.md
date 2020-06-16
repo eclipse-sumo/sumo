@@ -34,7 +34,7 @@ permalink: /FAQ/
 
   The main page for getting an overview over the various topics is the
   outline
-  [SUMO_User_Documentation](SUMO_User_Documentation.md). If
+  [SUMO_User_Documentation](index.md). If
   you do not find the topic of interest listed there use the site search.
   Alterantively, use a general purpose search engine as this will also include the mailing list archives.
 

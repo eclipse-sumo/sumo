@@ -255,3 +255,8 @@ background-color: #dfd;
 font-weight: 700;
 color: #338033;
 }
+
+.task-list-item {
+position: relative;
+list-style-type: none;
+}

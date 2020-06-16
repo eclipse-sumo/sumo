@@ -11,8 +11,7 @@ dev_addr: 127.0.0.1:8000
 copyright: "Copyright &copy; 2001 - 2020 German Aerospace Center (DLR) and others."
 
 nav:
-  - Home: index.md
-  - Documentation: SUMO_User_Documentation.md
+  - Documentation: index.md
   - Tutorials: Tutorials.md
   - FAQ: FAQ.md
   - Downloads: Downloads.md
