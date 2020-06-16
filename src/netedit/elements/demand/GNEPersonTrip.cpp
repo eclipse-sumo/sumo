@@ -536,6 +536,12 @@ GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
 }
 
 
+void 
+GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector& lane2laneShape) const {
+    //
+}
+
+
 std::string
 GNEPersonTrip::getAttribute(SumoXMLAttr key) const {
     switch (key) {

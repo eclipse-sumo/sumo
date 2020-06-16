@@ -287,11 +287,17 @@ public:
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
 
-    /**@brief Draws partial object
+    /**@brief Draws partial object (lane)
     * @param[in] s The settings for the current view (may influence drawing)
-    * @param[in] lane lane in which draw partial
+    * @param[in] lane GNELane in which draw partial
     */
     virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const = 0;
+
+    /**@brief Draws partial object (edge)
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] junction GNEJunction in which draw partial
+    */
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector &lane2laneShape) const = 0;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

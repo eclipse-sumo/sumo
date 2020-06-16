@@ -473,7 +473,13 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
 
 void 
 GNEPersonStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/) const {
-    //
+    // personStops don't use drawPartialGL
+}
+
+
+void 
+GNEPersonStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEJunction* /*junction*/, const PositionVector& /*lane2laneShape*/) const {
+    // personStops don't use drawPartialGL
 }
 
 

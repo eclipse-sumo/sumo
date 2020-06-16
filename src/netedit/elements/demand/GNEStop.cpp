@@ -480,6 +480,12 @@ GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*l
 }
 
 
+void 
+GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNEJunction* /*junction*/, const PositionVector& /*lane2laneShape*/) const {
+    // Stops don't use drawPartialGL
+}
+
+
 std::string
 GNEStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {

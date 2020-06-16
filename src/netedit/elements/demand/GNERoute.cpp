@@ -386,6 +386,11 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
 }
 
 
+void 
+GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector& lane2laneShape) const {
+}
+
+
 std::string
 GNERoute::getAttribute(SumoXMLAttr key) const {
     switch (key) {

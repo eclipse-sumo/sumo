@@ -883,6 +883,11 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 }
 
 
+void 
+GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector& lane2laneShape) const {
+}
+
+
 std::string
 GNEVehicle::getAttribute(SumoXMLAttr key) const {
     switch (key) {

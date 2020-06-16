@@ -583,6 +583,12 @@ GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) c
 }
 
 
+void 
+GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector& lane2laneShape) const {
+
+}
+
+
 std::string
 GNEWalk::getAttribute(SumoXMLAttr key) const {
     switch (key) {

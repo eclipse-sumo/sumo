@@ -529,6 +529,12 @@ GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) c
 }
 
 
+void 
+GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNEJunction* junction, const PositionVector& lane2laneShape) const {
+    //
+}
+
+
 std::string
 GNERide::getAttribute(SumoXMLAttr key) const {
     switch (key) {
