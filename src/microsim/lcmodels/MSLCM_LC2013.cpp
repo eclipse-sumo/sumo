@@ -1221,6 +1221,9 @@ MSLCM_LC2013::_wantsChange(
                   + neighLead.first->getVehicleType().getLengthWithGap()
                   + neighLead.second);
     }
+    if (myStrategicParam < 0) {
+        laDist = -1e3; // never perform strategic change
+    }
 
     // free space that is available for changing
     //const double neighSpeed = (neighLead.first != 0 ? neighLead.first->getSpeed() :
