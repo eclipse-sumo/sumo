@@ -573,7 +573,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw child path elements
         for (const auto &demandElement : myPathDemandElementChildren) {
-            demandElement->drawPathChildren(s, this);
+            demandElement->drawLanePathChildren(s, this);
         }
     }
 }

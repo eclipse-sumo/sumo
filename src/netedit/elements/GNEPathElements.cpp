@@ -21,6 +21,7 @@
 
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/GNENet.h>
 
 #include "GNEPathElements.h"
@@ -74,10 +75,19 @@ GNEPathElements::getPath() const {
 
 
 void 
-GNEPathElements::drawPathChildren(const GUIVisualizationSettings& s, const GNELane* lane) const {
+GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const GNELane* lane) const {
     for (const auto &pathElement : myPathElements) {
         if (pathElement.getLane() == lane) {
             myDemandElement->drawPartialGL(s, lane);
+        }
+    }
+}
+
+void 
+GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, const GNEJunction* junction) const {
+    for (const auto &pathElement : myPathElements) {
+        if (pathElement.getJunction() == junction) {
+            myDemandElement->drawPartialGL(s, junction, {});
         }
     }
 }
@@ -96,9 +106,8 @@ GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedV
         const std::vector<GNEEdge*> path = myDemandElement->getNet()->getPathCalculator()->calculatePath(vClass, edges);
         // remove demandElement of parent lanes
         for (const auto& pathElement : myPathElements) {
-            if (pathElement.getLane()) {
-                pathElement.getLane()->removePathElement(myDemandElement);
-            }
+            pathElement.getLane()->removePathElement(myDemandElement);
+            pathElement.getJunction()->removePathElement(myDemandElement);
         }
         // set new route lanes
         myPathElements.clear();
@@ -120,9 +129,8 @@ GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedV
         }
         // add demandElement into parent lanes
         for (const auto& pathElement : myPathElements) {
-            if (pathElement.getLane()) {
-                pathElement.getLane()->addPathElement(myDemandElement);
-            }
+            pathElement.getLane()->addPathElement(myDemandElement);
+            pathElement.getJunction()->addPathElement(myDemandElement);
         }
     }
 }
@@ -132,9 +140,8 @@ void
 GNEPathElements::calculateConsecutivePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, const std::vector<GNEEdge*>& edges) {
     // remove demandElement of parent lanes
     for (const auto& pathElement : myPathElements) {
-        if (pathElement.getLane()) {
-            pathElement.getLane()->removePathElement(myDemandElement);
-        }
+        pathElement.getLane()->removePathElement(myDemandElement);
+        pathElement.getJunction()->removePathElement(myDemandElement);
     }
     // set new route lanes
     myPathElements.clear();
@@ -148,9 +155,8 @@ GNEPathElements::calculateConsecutivePathLanes(SUMOVehicleClass vClass, const bo
     }
     // add demandElement into parent lanes
     for (const auto& pathElement : myPathElements) {
-        if (pathElement.getLane()) {
-            pathElement.getLane()->addPathElement(myDemandElement);
-        }
+        pathElement.getLane()->addPathElement(myDemandElement);
+        pathElement.getJunction()->addPathElement(myDemandElement);
     }
 }
 
@@ -163,9 +169,8 @@ GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClas
         const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, edges);
         // remove demandElement of parent lanes
         for (const auto& pathElement : myPathElements) {
-            if (pathElement.getLane()) {
-                pathElement.getLane()->removePathElement(myDemandElement);
-            }
+            pathElement.getLane()->removePathElement(myDemandElement);
+            pathElement.getJunction()->removePathElement(myDemandElement);
         }
         // set new route lanes
         myPathElements.clear();
@@ -187,9 +192,8 @@ GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClas
         }
         // add demandElement into parent lanes
         for (const auto& pathElement : myPathElements) {
-            if (pathElement.getLane()) {
-                pathElement.getLane()->addPathElement(myDemandElement);
-            }
+            pathElement.getLane()->addPathElement(myDemandElement);
+            pathElement.getJunction()->addPathElement(myDemandElement);
         }
     }
 }

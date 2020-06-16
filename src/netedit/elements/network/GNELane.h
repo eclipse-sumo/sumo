@@ -20,8 +20,9 @@
 #pragma once
 #include <config.h>
 
-#include "GNENetworkElement.h"
 #include <netedit/elements/GNECandidateElement.h>
+
+#include "GNENetworkElement.h"
 
 // ===========================================================================
 // class declarations
