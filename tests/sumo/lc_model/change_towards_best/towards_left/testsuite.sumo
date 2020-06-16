@@ -2,3 +2,9 @@ default_model
 
 # use lcStrategic to delay changing
 change_later
+
+# use lcStrategic to delay changing
+change_later2
+
+# disable strategic (urgent) strategic changes
+disable
