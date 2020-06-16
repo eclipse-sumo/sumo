@@ -148,7 +148,7 @@ This Documentation is continuously updated and always refers to the latest devel
 - [Unexpected lane-changing maneuvers?](FAQ.md#why_do_the_vehicles_perform_unexpected_lane-changing_maneuvers)
 - [How to get high flows?](FAQ.md#how_do_i_get_high_flowsvehicle_densities)
 
-# [Additional Tools](Tools.md)
+# Additional Tools
 
 For an index of all tools see
 
