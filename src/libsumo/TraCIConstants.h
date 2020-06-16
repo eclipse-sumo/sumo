@@ -1046,6 +1046,15 @@ TRACI_CONST int VAR_NEXT_STOPS2 = 0x74;
 // current acceleration (get: vehicle)
 TRACI_CONST int VAR_ACCELERATION = 0x72;
 
+// arrival position (get,set: vehicle)
+TRACI_CONST int VAR_ARRIVALPOS = 0x75;
+
+// arrival lane (get,set: vehicle)
+TRACI_CONST int VAR_ARRIVALLANE = 0x76;
+
+// arrival speed (get,set: vehicle)
+TRACI_CONST int VAR_ARRIVALSPEED = 0x77;
+
 // add log message (set: simulation)
 TRACI_CONST int CMD_MESSAGE = 0x65;
 
