@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 30 15:09:53 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
+<!-- generated on Tue Jun 16 23:49:12 2020 by Eclipse SUMO Version v1_6_0+0776-43570bfb8a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,5 +64,5 @@ SPDX-License-Identifier: EPL-2.0
     <change id="ahead.13" type="vehDistCyc" time="96.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="0.39" pos="1.33" reason="strategic|urgent" leaderGap="5.21" leaderSecureGap="0.39" leaderSpeed="1.86" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="2.67" origLeaderSecureGap="0.39" origLeaderSpeed="1.76" latGap="None"/>
     <change id="left.7" type="vehDistCyc" time="98.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="0.42" pos="1.82" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="8.23" origLeaderSecureGap="0.00" origLeaderSpeed="3.61" latGap="None"/>
     <change id="left.7" type="vehDistCyc" time="101.00" from="gneE4c_1" to="gneE4c_2" dir="1" speed="1.42" pos="3.88" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
-    <change id="ahead.14" type="vehDistCyc" time="102.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="4.60" pos="5.01" reason="strategic|urgent" leaderGap="14.27" leaderSecureGap="4.18" leaderSpeed="5.02" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="ahead.14" type="vehDistCyc" time="102.00" from="gneE4c_0" to="gneE4c_1" dir="1" speed="4.60" pos="5.01" reason="strategic|urgent" leaderGap="14.27" leaderSecureGap="4.18" leaderSpeed="5.02" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="2.07"/>
 </lanechanges>
