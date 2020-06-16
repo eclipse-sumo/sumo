@@ -239,21 +239,14 @@ class Domain:
 
         Returns the value of the given parameter for the given objID
         """
-        self._connection._beginMessage(
-            self._cmdGetID, tc.VAR_PARAMETER, objID, 1 + 4 + len(param))
-        self._connection._packString(param)
-        result = self._connection._checkResult(
-            self._cmdGetID, tc.VAR_PARAMETER, objID)
-        return result.readString()
+        return self._getCmd(tc.VAR_PARAMETER, objID, "s", param).readString()
 
     def getParameterWithKey(self, objID, param):
         """getParameterWithKey(string, string) -> (string, string)
 
         Returns the (key, value) tuple of the given parameter for the given objID
         """
-        self._connection._beginMessage(self._cmdGetID, tc.VAR_PARAMETER_WITH_KEY, objID, 1 + 4 + len(param))
-        self._connection._packString(param)
-        return _readParameterWithKey(self._connection._checkResult(self._cmdGetID, tc.VAR_PARAMETER_WITH_KEY, objID))
+        return _readParameterWithKey(self._getCmd(tc.VAR_PARAMETER_WITH_KEY, objID, "s", param))
 
     def subscribeParameterWithKey(self, objID, key, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
         """subscribeParameterWithKey(string, string) -> None
