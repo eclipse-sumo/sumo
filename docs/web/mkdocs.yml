@@ -19,7 +19,7 @@ nav:
   - Developer: Developer/Main.md
   - ChangeLog: ChangeLog.md
   - Recent Changes: https://github.com/eclipse/sumo/commits/master/docs/web
-  - Contact: Contact.md
+  - Contact: https://eclipse.org/sumo/contact/
 
 theme:
   name: mkdocs
