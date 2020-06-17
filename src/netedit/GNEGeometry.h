@@ -243,7 +243,7 @@ struct GNEGeometry {
             const GNEJunction* getJunction() const;
 
             /// @brief valid
-            const bool getValid() const;
+            bool getValid() const;
 
         protected:
             /// @brief lane
@@ -274,7 +274,7 @@ struct GNEGeometry {
             SegmentToUpdate(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
 
             /// @brief get segment index
-            const int getSegmentIndex() const;
+            int getSegmentIndex() const;
 
             // @brief get lane segment
             const GNELane* getLane() const;

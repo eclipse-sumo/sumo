@@ -510,7 +510,7 @@ GNEGeometry::SegmentGeometry::Segment::getJunction() const {
 }
 
 
-const bool 
+bool
 GNEGeometry::SegmentGeometry::Segment::getValid() const {
     return myValid;
 }
@@ -526,7 +526,7 @@ GNEGeometry::SegmentGeometry::SegmentToUpdate::SegmentToUpdate(const int segment
 }
 
 
-const int 
+int
 GNEGeometry::SegmentGeometry::SegmentToUpdate::getSegmentIndex() const {
     return mySegmentIndex;
 }
