@@ -38,3 +38,4 @@ patch_crossing
 remove_crossing
 rename_node
 remove_roundabout
+change_tlType
