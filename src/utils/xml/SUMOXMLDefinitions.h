@@ -817,6 +817,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TLID,
     /// @brief node: the type of traffic light
     SUMO_ATTR_TLTYPE,
+    /// @brief node: the layout of the traffic light program
+    SUMO_ATTR_TLLAYOUT,
     /// @brief link: the index of the link within the traffic light
     SUMO_ATTR_TLLINKINDEX,
     /// @brief link: the index of the opposite direction link of a pedestrian crossing
