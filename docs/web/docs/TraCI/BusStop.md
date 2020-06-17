@@ -1,5 +1,5 @@
 ---
-title: TraCI/BusStop.md
+title: TraCI/BusStop
 permalink: /TraCI/BusStop/
 ---
 Asks for the value of a certain variable of the named BusStop.
