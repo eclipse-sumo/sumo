@@ -5,8 +5,10 @@ permalink: /TraCI/BusStop/
 Asks for the value of a certain variable of the named BusStop.
 The value returned is the state of the asked variable/value within the
 last simulation step. Please note that for asking values from your
-BusStop and load them at the start of the simulation. The `freq` and `file`
-attributes do not matter for TraCI.
+BusStop [you have to define
+them](../Simulation/Public_Transport.md#bus_stops)
+within an {{AdditionalFile}} and load them at the start of the simulation. The `freq` and `file`
+attributes do not affect TraCI.
 
 The following variable values can be retrieved, the type of the return
 value is also shown in the table.
