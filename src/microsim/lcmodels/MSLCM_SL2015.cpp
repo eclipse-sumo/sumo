@@ -1690,86 +1690,87 @@ MSLCM_SL2015::_wantsChangeSublane(
         }
     }
 
-    // only factor in preferred lateral alignment if there is no speedGain motivation
-    if (fabs(latDist) <= NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
-        double latDistSublane = 0.;
-        const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
-        const double halfVehWidth = getWidth() * 0.5;
-        if (myVehicle.getParameter().arrivalPosLatProcedure != ArrivalPosLatDefinition::DEFAULT
-                && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
-                && bestLaneOffset == 0
-                && (myVehicle.getArrivalPos() - myVehicle.getPositionOnLane()) < ARRIVALPOS_LAT_THRESHOLD) {
-            // vehicle is on its final edge, on the correct lane and close to
-            // its arrival position. Change to the desired lateral position
-            switch (myVehicle.getParameter().arrivalPosLatProcedure) {
-                case ArrivalPosLatDefinition::GIVEN:
-                    latDistSublane = myVehicle.getParameter().arrivalPosLat - myVehicle.getLateralPositionOnLane();
-                    break;
-                case ArrivalPosLatDefinition::RIGHT:
-                    latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
-                    break;
-                case ArrivalPosLatDefinition::CENTER:
-                    latDistSublane = -myVehicle.getLateralPositionOnLane();
-                    break;
-                case ArrivalPosLatDefinition::LEFT:
-                    latDistSublane = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
-                    break;
-                default:
-                    assert(false);
-            }
+    double latDistSublane = 0.;
+    const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
+    const double halfVehWidth = getWidth() * 0.5;
+    if (myVehicle.getParameter().arrivalPosLatProcedure != ArrivalPosLatDefinition::DEFAULT
+            && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
+            && bestLaneOffset == 0
+            && (myVehicle.getArrivalPos() - myVehicle.getPositionOnLane()) < ARRIVALPOS_LAT_THRESHOLD) {
+        // vehicle is on its final edge, on the correct lane and close to
+        // its arrival position. Change to the desired lateral position
+        switch (myVehicle.getParameter().arrivalPosLatProcedure) {
+            case ArrivalPosLatDefinition::GIVEN:
+                latDistSublane = myVehicle.getParameter().arrivalPosLat - myVehicle.getLateralPositionOnLane();
+                break;
+            case ArrivalPosLatDefinition::RIGHT:
+                latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
+                break;
+            case ArrivalPosLatDefinition::CENTER:
+                latDistSublane = -myVehicle.getLateralPositionOnLane();
+                break;
+            case ArrivalPosLatDefinition::LEFT:
+                latDistSublane = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
+                break;
+            default:
+                assert(false);
+        }
 #ifdef DEBUG_WANTSCHANGE
-            if (gDebugFlag2) std::cout << SIMTIME
-                                           << " arrivalPosLatProcedure=" << (int)myVehicle.getParameter().arrivalPosLatProcedure
-                                           << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
+        if (gDebugFlag2) std::cout << SIMTIME
+                                       << " arrivalPosLatProcedure=" << (int)myVehicle.getParameter().arrivalPosLatProcedure
+                                       << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
 #endif
 
-        } else {
+    } else {
 
-            LateralAlignment align = myVehicle.getVehicleType().getPreferredLateralAlignment();
-            // Check whether the vehicle should adapt its alignment to an upcoming turn
-            if (myTurnAlignmentDist > 0) {
-                const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
-                if (turnInfo.first < myTurnAlignmentDist) {
-                    // Vehicle is close enough to the link to change its default alignment
-                    switch (turnInfo.second) {
-                        case LinkDirection::TURN:
-                        case LinkDirection::LEFT:
-                        case LinkDirection::PARTLEFT:
-                            align = MSGlobals::gLefthand ? LATALIGN_RIGHT : LATALIGN_LEFT;
-                            break;
-                        case LinkDirection::TURN_LEFTHAND:
-                        case LinkDirection::RIGHT:
-                        case LinkDirection::PARTRIGHT:
-                            align = MSGlobals::gLefthand ? LATALIGN_LEFT : LATALIGN_RIGHT;
-                            break;
-                        case LinkDirection::STRAIGHT:
-                        case LinkDirection::NODIR:
-                        default:
-                            break;
-                    }
+        LateralAlignment align = myVehicle.getVehicleType().getPreferredLateralAlignment();
+        // Check whether the vehicle should adapt its alignment to an upcoming turn
+        if (myTurnAlignmentDist > 0) {
+            const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
+            if (turnInfo.first < myTurnAlignmentDist) {
+                // Vehicle is close enough to the link to change its default alignment
+                switch (turnInfo.second) {
+                    case LinkDirection::TURN:
+                    case LinkDirection::LEFT:
+                    case LinkDirection::PARTLEFT:
+                        align = MSGlobals::gLefthand ? LATALIGN_RIGHT : LATALIGN_LEFT;
+                        break;
+                    case LinkDirection::TURN_LEFTHAND:
+                    case LinkDirection::RIGHT:
+                    case LinkDirection::PARTRIGHT:
+                        align = MSGlobals::gLefthand ? LATALIGN_LEFT : LATALIGN_RIGHT;
+                        break;
+                    case LinkDirection::STRAIGHT:
+                    case LinkDirection::NODIR:
+                    default:
+                        break;
                 }
             }
-            switch (align) {
-                case LATALIGN_RIGHT:
-                    latDistSublane = -halfLaneWidth + halfVehWidth - getPosLat();
-                    break;
-                case LATALIGN_LEFT:
-                    latDistSublane = halfLaneWidth - halfVehWidth - getPosLat();
-                    break;
-                case LATALIGN_CENTER:
-                    latDistSublane = -getPosLat();
-                    break;
-                case LATALIGN_NICE:
-                    latDistSublane = latDistNice;
-                    break;
-                case LATALIGN_COMPACT:
-                    latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
-                    break;
-                case LATALIGN_ARBITRARY:
-                    latDistSublane = getLateralDrift();
-                    break;
-            }
         }
+        switch (align) {
+            case LATALIGN_RIGHT:
+                latDistSublane = -halfLaneWidth + halfVehWidth - getPosLat();
+                break;
+            case LATALIGN_LEFT:
+                latDistSublane = halfLaneWidth - halfVehWidth - getPosLat();
+                break;
+            case LATALIGN_CENTER:
+                latDistSublane = -getPosLat();
+                break;
+            case LATALIGN_NICE:
+                latDistSublane = latDistNice;
+                break;
+            case LATALIGN_COMPACT:
+                latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
+                break;
+            case LATALIGN_ARBITRARY:
+                latDistSublane = getLateralDrift();
+                break;
+        }
+    }
+    // only factor in preferred lateral alignment if there is no speedGain motivation or it runs in the same direction
+    if (fabs(latDist) <= NUMERICAL_EPS * myVehicle.getActionStepLengthSecs() ||
+            latDistSublane * latDist > 0) {
 
 #if defined(DEBUG_WANTSCHANGE) || defined(DEBUG_STATE) || defined(DEBUG_MANEUVER)
         if (gDebugFlag2) std::cout << SIMTIME
