@@ -1,5 +1,5 @@
 ---
-title: TraCI/ParkingArea.md
+title: TraCI/ParkingArea
 permalink: /TraCI/ParkingArea/
 ---
 Asks for the value of a certain variable of the named ParkingArea.

@@ -1,5 +1,5 @@
 ---
-title: TraCI/ChargingStation.md
+title: TraCI/ChargingStation
 permalink: /TraCI/ChargingStation/
 ---
 Asks for the value of a certain variable of the named ChargingStation.

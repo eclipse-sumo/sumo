@@ -1,5 +1,5 @@
 ---
-title: TraCI/OverheadWire.md
+title: TraCI/OverheadWire
 permalink: /TraCI/OverheadWire/
 ---
 Asks for the value of a certain variable of the named OverheadWire.
