@@ -79,11 +79,14 @@ struct GNEGeometry {
         /// @brief update position and rotation (using a lane and a position over lane)
         void updateGeometry(const GNELane* lane, const double posOverLane);
 
+        /// @brief update geometry (using a lane)
+        void updateGeometry(const GNELane* lane);
+
         /// @brief update geometry (using geometry of another additional)
         void updateGeometry(const GNEAdditional* additional);
 
         /// @brief update geometry (using a new shape, rotations and lenghts)
-        void updateGeometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
+        void updateGeometry(const Geometry &geometry);
 
         /// @brief get Position
         const Position& getPosition() const;
@@ -101,6 +104,9 @@ struct GNEGeometry {
         const std::vector<double>& getShapeLengths() const;
 
     private:
+        /// @brief clear geometry
+        void clearGeometry();
+
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
@@ -118,6 +124,12 @@ struct GNEGeometry {
 
         /// @brief The lengths of the shape (note: Always size = myShape.size()-1)
         std::vector<double> myShapeLengths;
+
+        /// @brief lane (to use lane geometry)
+        const GNELane *myLane;
+
+        /// @brief additional (to use additional geometry)
+        const GNEAdditional *myAdditional;
 
         /// @brief Invalidated assignment operator
         Geometry& operator=(const Geometry& other) = delete;
@@ -198,16 +210,19 @@ struct GNEGeometry {
 
         public:
             /// @brief parameter constructor for lanes (geometry will be taked from lane)
-            Segment(const GNELane* lane, const bool _valid);
+            Segment(const GNELane* lane, const bool valid);
 
             /// @brief parameter constructor for segments which geometry will be storaged in segment
             Segment(const GNELane* lane, const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths, const bool valid);
 
             /// @brief parameter constructor for lane2lane connections
-            Segment(const GNELane* currentLane, const GNELane* nextLane, const bool _valid);
+            Segment(const GNELane* lane, const GNELane* nextLane, const bool valid);
 
-            /// @brief update segment
-            void update(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
+            /// @brief update segment using geometry
+            void update(const Geometry &geometry);
+
+            /// @brief update segment using lane
+            void update(const GNELane* lane);
 
             /// @brief get lane/lane2lane shape
             const PositionVector& getShape() const;
@@ -230,20 +245,20 @@ struct GNEGeometry {
             /// @brief valid
             const bool getValid() const;
 
-        private:
+        protected:
             /// @brief lane
             const GNELane* myLane;
 
-            /// @brief junction
-            const GNEJunction* myJunction;
+            /// @brief nextLane
+            const GNELane* myNextLane;
 
             /// @brief valid
             const bool myValid;
 
-        private:
             /// @brief flag to use lane shape
             bool myUseLaneShape;
 
+        private:
             /// @brief geometry used in segment
             Geometry mySegmentGeometry;
 
@@ -252,19 +267,30 @@ struct GNEGeometry {
         };
 
         /// @brief struct used for represent segments that must be updated
-        struct SegmentToUpdate {
+        class SegmentToUpdate {
 
+        public:
             /// @brief constructor
-            SegmentToUpdate(const int _index, const GNELane* _lane, const GNELane* _nextLane);
+            SegmentToUpdate(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
 
+            /// @brief get segment index
+            const int getSegmentIndex() const;
+
+            // @brief get lane segment
+            const GNELane* getLane() const;
+
+            /// @brief get lane segment (used for updating lane2lane segments)
+            const GNELane* getNextLane() const;
+
+        private:
             /// @brief segment index
-            const int index;
+            const int mySegmentIndex;
 
             // @brief lane segment
-            const GNELane* lane;
+            const GNELane* myLane;
 
             /// @brief lane segment (used for updating lane2lane segments)
-            const GNELane* nextLane;
+            const GNELane* myNextLane;
 
         private:
             /// @brief Invalidated assignment operator
@@ -284,7 +310,7 @@ struct GNEGeometry {
         void insertLane2LaneSegment(const GNELane* currentLane, const GNELane* nextLane, const bool valid);
 
         /// @brief update custom segment
-        void updateCustomSegment(const int segmentIndex, const PositionVector& newLaneShape, const std::vector<double>& newLaneShapeRotations, const std::vector<double>& newLaneShapeLengths);
+        void updateCustomSegment(const int segmentIndex, const Geometry &geometry);
 
         /// @brief update lane2Lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
@@ -331,7 +357,7 @@ struct GNEGeometry {
     struct Lane2laneConnection {
 
         /// @brief constructor
-        Lane2laneConnection(const GNELane* originLane);
+        Lane2laneConnection(const GNELane* fromLane);
 
         /// @brief update
         void updateLane2laneConnection();
@@ -339,9 +365,13 @@ struct GNEGeometry {
         /// @brief connection shape
         std::map<const GNELane*, Geometry> connectionsMap;
 
+    protected:
+        /// @brief from lane
+        const GNELane* myFromLane;
+
     private:
-        /// @brief origin lane
-        const GNELane* myOriginLane = nullptr;
+        /// @brief constructor
+        Lane2laneConnection();
 
         /// @brief Invalidated assignment operator
         Lane2laneConnection& operator=(const Lane2laneConnection& other) = delete;
