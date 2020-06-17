@@ -146,6 +146,13 @@ inline std::string toString<TrafficLightType>(const TrafficLightType& type, std:
 
 
 template <>
+inline std::string toString<TrafficLightLayout>(const TrafficLightLayout& layout, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::TrafficLightLayouts.getString(layout);
+}
+
+
+template <>
 inline std::string toString<LaneChangeModel>(const LaneChangeModel& model, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SUMOXMLDefinitions::LaneChangeModels.getString(model);

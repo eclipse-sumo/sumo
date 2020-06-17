@@ -1362,6 +1362,14 @@ enum class TrafficLightType {
     INVALID //< must be the last one
 };
 
+/// @enum TrafficLightLayout
+enum class TrafficLightLayout {
+    OPPOSITES,
+    INCOMING,
+    ALTERNATE_ONEWAY,
+    INVALID //< must be the last one
+};
+
 
 /** @enum LaneChangeAction
  * @brief The state of a vehicle's lane-change behavior
@@ -1542,6 +1550,9 @@ public:
     /// @brief traffic light types
     static StringBijection<TrafficLightType> TrafficLightTypes;
 
+    /// @brief traffic light layouts
+    static StringBijection<TrafficLightLayout> TrafficLightLayouts;
+
     /// @brief lane change models
     static StringBijection<LaneChangeModel> LaneChangeModels;
 
@@ -1636,6 +1647,9 @@ private:
 
     /// @brief traffic light types values
     static StringBijection<TrafficLightType>::Entry trafficLightTypesValues[];
+
+    /// @brief traffic light layout values
+    static StringBijection<TrafficLightLayout>::Entry trafficLightLayoutValues[];
 
     /// @brief lane change model values
     static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];

@@ -133,6 +133,11 @@ public:
     ///@brief Returns the maximum index controlled by this traffic light
     int getMaxIndex();
 
+    /// @brief sets the layout for the generated signal plan
+    void setLayout(TrafficLightLayout layout) {
+        myLayout = layout;
+    }
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{
@@ -277,5 +282,8 @@ protected:
 private:
     /// @brief Whether left-mover should not have an additional phase
     bool myHaveSinglePhase;
+
+    /// @brief the layout for generated signal plans
+    TrafficLightLayout myLayout;
 
 };

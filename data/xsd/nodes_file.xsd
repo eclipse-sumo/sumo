@@ -39,6 +39,7 @@
         <xsd:attribute name="type" type="nodeTypeType" use="optional"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
         <xsd:attribute name="tlType" type="tlTypeType" use="optional"/>
+        <xsd:attribute name="tlLayout" type="tlLayoutType" use="optional"/>
         <xsd:attribute name="controlledInner" type="xsd:string" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
@@ -87,5 +88,13 @@
     <xsd:complexType name="joinExcludeType">
         <xsd:attribute name="nodes" type="xsd:string" use="required"/>
     </xsd:complexType>
+
+    <xsd:simpleType name="tlLayoutType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="opposites"/>
+            <xsd:enumeration value="incoming"/>
+            <xsd:enumeration value="alternateOneWay"/>
+        </xsd:restriction>
+    </xsd:simpleType>
 
 </xsd:schema>
