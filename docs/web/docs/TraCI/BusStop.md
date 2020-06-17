@@ -14,7 +14,7 @@ The following variable values can be retrieved, the type of the return
 value is also shown in the table.
 
 <center>
-**Overview BusStopInduction Loop Variables**
+**Overview BusStop Variables**
 </center>
 
 | Variable                                     | ValueType           | Description       |  [Python Method](../TraCI/Interfacing_TraCI_from_Python.md)    |
