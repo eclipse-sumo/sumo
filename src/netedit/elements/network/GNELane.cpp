@@ -109,30 +109,30 @@ GNELane::updateGeometry() {
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
     // update shapes parents associated with this lane
-    for (auto i : getParentShapes()) {
-        i->updateGeometry();
+    for (const auto &shape : getParentShapes()) {
+        shape->updateGeometry();
     }
     // update child shapes associated with this lane
-    for (auto i : getChildShapes()) {
-        i->updateGeometry();
+    for (const auto &shape : getChildShapes()) {
+        shape->updateGeometry();
     }
     // update additionals children associated with this lane
-    for (auto i : getParentAdditionals()) {
-        i->updateGeometry();
+    for (const auto &additional : getParentAdditionals()) {
+        additional->updateGeometry();
     }
     // update additionals parents associated with this lane
-    for (auto i : getChildAdditionals()) {
-        i->updateGeometry();
+    for (const auto &additional : getChildAdditionals()) {
+        additional->updateGeometry();
     }
-    // partial update demand elements parents associated with this lane
-    for (auto i : getParentDemandElements()) {
-        i->updatePartialGeometry(myParentEdge);
+    // update partial demand elements parents associated with this lane
+    for (const auto &demandElement : getParentDemandElements()) {
+        demandElement->updatePartialGeometry(myParentEdge);
     }
-    // partial update demand elements children associated with this lane
-    for (auto i : getChildDemandElements()) {
-        i->updatePartialGeometry(myParentEdge);
+    // update partial demand elements children associated with this lane and invalidate path
+    for (const auto &demandElement : getChildDemandElements()) {
+        demandElement->updatePartialGeometry(myParentEdge);
     }
-    // In Move mode, connections aren't updated
+    // in Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
         // Update incoming connections of this lane
         auto incomingConnections = getGNEIncomingConnections();
@@ -145,7 +145,7 @@ GNELane::updateGeometry() {
             i->updateGeometry();
         }
     }
-    // If lane has enought length for show textures of restricted lanes
+    // if lane has enought length for show textures of restricted lanes
     if ((getLaneShapeLength() > 4)) {
         // if lane is restricted
         if (isRestricted(SVC_PEDESTRIAN) || isRestricted(SVC_BICYCLE) || isRestricted(SVC_BUS)) {
