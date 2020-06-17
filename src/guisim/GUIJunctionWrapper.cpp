@@ -26,7 +26,14 @@
 #include <string>
 #include <utility>
 #ifdef HAVE_OSG
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
+#endif
 #include <osg/Geometry>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #endif
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
