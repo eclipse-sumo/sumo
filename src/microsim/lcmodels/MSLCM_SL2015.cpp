@@ -1484,9 +1484,9 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
                 }
             } else {
-                // if anticipated gains to the left are higher, prefer this
+                // if anticipated gains to the left are higher then to the right and current gains are equal, prefer left
                 if (currentLatDist > 0
-                        //&& latDist < 0 @todo check why this causes some timeloss in tests
+                        //&& latDist < 0 // #7184 compensates for #7185
                         && mySpeedGainProbabilityLeft > mySpeedGainProbabilityRight
                         && relativeGain > GAIN_PERCEPTION_THRESHOLD
                         && maxGain - relativeGain < NUMERICAL_EPS) {
@@ -3117,6 +3117,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
                   << " fullLatDist=" << fullLatDist
                   << " speedAccel=" << speedAccel
                   << " speedDecel=" << speedDecel
+                  << " speedDecelSafe=" << speedDecelSafe
                   << " speedBound=" << speedBound
                   << std::endl;
     }
