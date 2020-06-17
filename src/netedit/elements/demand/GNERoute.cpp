@@ -248,7 +248,7 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 void
 GNERoute::updateGeometry() {
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getPath());
+    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath());
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
@@ -363,7 +363,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+            if (segment.getEdge() == lane->getParentEdge()) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines

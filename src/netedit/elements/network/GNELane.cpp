@@ -906,7 +906,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
             // iterate over segments
             for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
                 // draw partial segment
-                if ((segment.junction == junction) && (segment.AC == E2Detector)) {
+                if (segment.getJunction() == junction) {
                     // Set E2Detector color (needed due drawShapeDottedContour)
                     GLHelper::setColor(E2DetectorColor);
                     // draw box lines
@@ -921,7 +921,7 @@ GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEA
             // iterate over segments
             for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
                 // draw partial segment
-                if ((segment.lane == this) && (segment.AC == E2Detector)) {
+                if (segment.getLane() == this) {
                     // Set E2Detector color (needed due drawShapeDottedContour)
                     GLHelper::setColor(E2DetectorColor);
                     // draw box lines

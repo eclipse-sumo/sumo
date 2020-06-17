@@ -584,13 +584,13 @@ GNEVehicle::updateGeometry() {
         // continue depending of tag
         if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
             // calculate edge geometry path using path
-            GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
         } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
             // calculate edge geometry path using route edges
-            GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
         } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
             // calculate edge geometry path using embedded route edges
-            GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getChildDemandElements().front()->getPath(), departPosLane, arrivalPosLane);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getChildDemandElements().front()->getPath(), departPosLane, arrivalPosLane);
         }
         // update start pos geometry
         myDemandElementGeometry.updateGeometry(firstLane, departPosLane);
@@ -861,14 +861,14 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         if (drawSpreadVehicles) {
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 // draw partial segment
-                if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+                if (segment.getEdge() == lane->getParentEdge()) {
                     GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, width);
                 }
             }
         } else {
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 // draw partial segment
-                if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+                if (segment.getEdge() == lane->getParentEdge()) {
                     GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, width);
                 }
             }

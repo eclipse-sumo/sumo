@@ -284,7 +284,7 @@ GNERide::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -469,7 +469,7 @@ GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) c
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+            if (segment.getEdge() == lane->getParentEdge()) {
                 // Set person plan color (needed due drawShapeDottedContour)
                 GLHelper::setColor(myDemandElementColor);
                 // draw box line
