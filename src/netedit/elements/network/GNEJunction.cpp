@@ -1120,7 +1120,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
                     for (const auto& node : nodes) {
                         GNEJunction* junction = myNet->retrieveJunction(node->getID());
                         undoList->add(new GNEChange_TLS(junction, TLS, false), true);
-                        undoList->add(new GNEChange_TLS(junction, TLS, true), true);
+                        undoList->add(new GNEChange_TLS(junction, newDef, true), true);
                     }
                 }
             }
