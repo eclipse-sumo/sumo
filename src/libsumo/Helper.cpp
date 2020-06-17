@@ -578,6 +578,7 @@ Helper::findObjectShape(int domain, const std::string& id, PositionVector& shape
     }
 }
 
+
 void
 Helper::collectObjectIDsInRange(int domain, const PositionVector& shape, double range, std::set<std::string>& into) {
     std::set<const Named*> objects;
@@ -586,6 +587,7 @@ Helper::collectObjectIDsInRange(int domain, const PositionVector& shape, double 
         into.insert(obj->getID());
     }
 }
+
 
 void
 Helper::collectObjectsInRange(int domain, const PositionVector& shape, double range, std::set<const Named*>& into) {
@@ -614,8 +616,8 @@ Helper::collectObjectsInRange(int domain, const PositionVector& shape, double ra
                 myLaneTree = new LANE_RTREE_QUAL(&MSLane::visit);
                 MSLane::fill(*myLaneTree);
             }
-            LaneStoringVisitor sv(into, shape, range, domain);
-            myLaneTree->Search(cmin, cmax, sv);
+            LaneStoringVisitor lsv(into, shape, range, domain);
+            myLaneTree->Search(cmin, cmax, lsv);
         }
         break;
         default:
