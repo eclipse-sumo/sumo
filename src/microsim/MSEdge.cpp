@@ -603,10 +603,11 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
         bool result = false;
         MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this, pos);
         MEVehicle* veh = static_cast<MEVehicle*>(&v);
+        int qIdx;
         if (pars.departPosProcedure == DepartPosDefinition::FREE) {
             while (segment != nullptr && !result) {
                 if (checkOnly) {
-                    result = segment->hasSpaceFor(veh, time, true);
+                    result = segment->hasSpaceFor(veh, time, qIdx, true) == time;
                 } else {
                     result = segment->initialise(veh, time);
                 }
@@ -614,7 +615,7 @@ MSEdge::insertVehicle(SUMOVehicle& v, SUMOTime time, const bool checkOnly, const
             }
         } else {
             if (checkOnly) {
-                result = segment->hasSpaceFor(veh, time, true);
+                result = segment->hasSpaceFor(veh, time, qIdx, true) == time;
             } else {
                 result = segment->initialise(veh, time);
             }
