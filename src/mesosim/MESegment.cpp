@@ -576,7 +576,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     myEdge.unlock();
     myNumVehicles++;
     if (!isDepart && !isTeleport) {
-        // regular departs could take place anywhere on the edge so they should not block regular flow
+        // departs and teleports could take place anywhere on the edge so they should not block regular flow
         // the -1 facilitates interleaving of multiple streams
         q.setEntryBlockTime(time + tauWithVehLength(myTau_ff, veh->getVehicleType().getLengthWithGap()) - 1);
     }

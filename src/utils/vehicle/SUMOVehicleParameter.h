@@ -296,11 +296,7 @@ public:
      * @brief Definition of vehicle stop (position and duration)
      */
     class Stop : public Parameterised {
-
     public:
-        /// @brief constructor
-        Stop();
-
         /** @brief Writes the stop as XML
          *
          * @param[in, out] dev The device to write into
@@ -333,34 +329,34 @@ public:
         std::string overheadWireSegment;
 
         /// @brief The stopping position start
-        double startPos;
+        double startPos = 0.;
 
         /// @brief The stopping position end
-        double endPos;
+        double endPos = 0.;
 
         /// @brief The (expected) time at which the vehicle reaches the stop
-        SUMOTime arrival;
+        SUMOTime arrival = 0;
 
         /// @brief The stopping duration
-        SUMOTime duration;
+        SUMOTime duration = -1;
 
         /// @brief The time at which the vehicle may continue its journey
-        SUMOTime until;
+        SUMOTime until = -1;
 
         /// @brief The maximum time extension for boarding / loading
-        SUMOTime extension;
+        SUMOTime extension = -1;
 
         /// @brief whether an arriving person lets the vehicle continue
-        bool triggered;
+        bool triggered = false;
 
         /// @brief whether an arriving container lets the vehicle continue
-        bool containerTriggered;
+        bool containerTriggered = false;
 
         /// @brief whether an joined vehicle lets this vehicle continue
-        bool joinTriggered;
+        bool joinTriggered = false;
 
         /// @brief whether the vehicle is removed from the net while stopping
-        bool parking;
+        bool parking = false;
 
         /// @brief IDs of persons the vehicle has to wait for until departing
         std::set<std::string> awaitedPersons;
@@ -369,7 +365,7 @@ public:
         std::set<std::string> awaitedContainers;
 
         /// @brief enable or disable friendly position (used by NETEDIT)
-        bool friendlyPos;
+        bool friendlyPos = false;
 
         /// @brief act Type (only used by Persons) (used by NETEDIT)
         std::string actType;
@@ -387,13 +383,13 @@ public:
         std::string join;
 
         /// @brief the speed at which this stop counts as reached (waypoint mode)
-        double speed;
+        double speed = 0.;
 
         /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
         std::vector<std::tuple<std::string, double, double> > accessPos;
 
         /// @brief at which position in the stops list
-        int index;
+        int index = 0;
 
         /// @brief Information for the output which parameter were set
         int parametersSet = 0;
