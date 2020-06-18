@@ -108,7 +108,7 @@ echo $SUMO_HOME
 
 and console shows "/home/<user\>/sumo-<version\>"
 
-## Building the SUMO binaries with cmake (recommended)
+## Building the SUMO binaries with cmake
 
 To build with cmake version 3 or higher is required.
 
