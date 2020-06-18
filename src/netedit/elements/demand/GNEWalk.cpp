@@ -298,21 +298,15 @@ GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEWalk::updateGeometry() {
-    // declare depart and arrival pos lane
-    double departPosLane = -1;
-    double arrivalPosLane = -1;
-    // declare start and end positions
-    Position startPos = Position::INVALID;
-    Position endPos = Position::INVALID;
     // calculate person plan start and end positions
-    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // calculate edge geometry path using parent route
-        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), extremeGeometry);
     } else {
         // calculate edge geometry path using path
-        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane, startPos, endPos);
+        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), extremeGeometry);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -329,16 +323,10 @@ GNEWalk::updateDottedContour() {
 
 void
 GNEWalk::updatePartialGeometry(const GNELane* lane) {
-    // declare depart and arrival pos lane
-    double departPosLane = -1;
-    double arrivalPosLane = -1;
-    // declare start and end positions
-    Position startPos = Position::INVALID;
-    Position endPos = Position::INVALID;
     // calculate person plan start and end positions
-    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
     // udpate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(lane);

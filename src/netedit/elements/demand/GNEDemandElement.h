@@ -380,8 +380,8 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
-    /// @brief calculate personPlan start and end positions over lanes
-    void calculatePersonPlanLaneStartEndPos(double& startLanePos, double& endLanePos, Position &extraStartPosition, Position &extraEndPosition) const;
+    /// @brief calculate extreme geometry
+    GNEGeometry::ExtremeGeometry calculatePersonPlanLaneStartEndPos() const;
 
 private:
     /**@brief check restriction with the number of children

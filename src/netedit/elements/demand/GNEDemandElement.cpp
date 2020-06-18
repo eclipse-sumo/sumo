@@ -309,13 +309,10 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
 }
 
 
-void
-GNEDemandElement::calculatePersonPlanLaneStartEndPos(double& startLanePos, double& endLanePos, Position &extraStartPosition, Position &extraEndPosition) const {
-    // set default values
-    startLanePos = -1;
-    endLanePos = -1;
-    extraStartPosition = Position::INVALID;
-    extraEndPosition = Position::INVALID;
+GNEGeometry::ExtremeGeometry
+GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
+    // declare extreme geometry
+    GNEGeometry::ExtremeGeometry extremeGeometry;
     // get previous person Plan
     const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
     double endLanePosPreviousLane = 0;
@@ -327,41 +324,42 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos(double& startLanePos, doubl
         } else {
             // get arrival pos (end busStop shape)
             endLanePosPreviousLane = previousPersonPlan->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_ENDPOS);
-            extraStartPosition = previousPersonPlan->getParentAdditionals().back()->getAdditionalGeometry().getShape().back();
+            extremeGeometry.viewStartPos = previousPersonPlan->getParentAdditionals().back()->getAdditionalGeometry().getShape().back();
         }
     }
     // set lane start position
     if (myTagProperty.personPlanStartEdge()) {
         if (previousPersonPlan) {
             // use as startLanePos the endLanePosPreviousLane
-            startLanePos = endLanePosPreviousLane;
+            extremeGeometry.laneStartPosition = endLanePosPreviousLane;
             // obtain last allowed vehicle lane of previous person plan
             const GNELane *lastAllowedLanePrevious = previousPersonPlan->getLastAllowedVehicleLane();
             // check if both plans start in the same lane
             if (lastAllowedLanePrevious) {
-                extraStartPosition = lastAllowedLanePrevious->getLaneShape().positionAtOffset(startLanePos);
+                extremeGeometry.viewStartPos = lastAllowedLanePrevious->getLaneShape().positionAtOffset(extremeGeometry.laneStartPosition);
             }
         } else {
             // return pedestrian departPos
-            startLanePos = getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+            extremeGeometry.laneStartPosition = getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
         }
     } else if (myTagProperty.personPlanStartBusStop()) { 
         // use as startLanePos the busStop end position
-        startLanePos = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
+        extremeGeometry.laneStartPosition = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
         // use as extraEndPosition the end of first busStop shape
-        extraStartPosition = getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
+        extremeGeometry.viewStartPos = getParentAdditionals().front()->getAdditionalGeometry().getShape().back();
     }
     // set lane end position
     if (myTagProperty.personPlanEndEdge()) {
         // use as endLane Position the arrival position
-        endLanePos = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+        extremeGeometry.laneEndPosition = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
     } else if (myTagProperty.personPlanEndBusStop()) { 
         // use as endLanePosition the busStop start position
-        endLanePos = getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
+        extremeGeometry.laneEndPosition = getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
         // use as extraEndPosition the begin of last busStop shape
-        extraEndPosition = getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
+        extremeGeometry.viewEndPos = getParentAdditionals().back()->getAdditionalGeometry().getShape().front();
     }
-    // now obtain lanes
+    // return extreme geometry
+    return extremeGeometry;
 }
 
 

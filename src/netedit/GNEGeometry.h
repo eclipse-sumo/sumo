@@ -53,9 +53,29 @@ class GNEHierarchicalParentElements;
 // ===========================================================================
 
 struct GNEGeometry {
+    
+    /// @brief struct for variables used in Geometry extremes
+    struct ExtremeGeometry {
+        /// @brief constructor
+        ExtremeGeometry();
 
-    /// @brief struct for pack all variables related with geometry of stop
-    struct Geometry {
+        /// @brief depart position over lane
+        double laneStartPosition;
+
+        /// @brief arrival position over lane
+        double laneEndPosition;
+
+        /// @brief start position over view
+        Position viewStartPos;
+
+        /// @brief end position over view
+        Position viewEndPos;
+    };
+
+    /// @brief class for NETEDIT geometries over lanes
+    class Geometry {
+
+    public:
         /// @brief constructor
         Geometry();
 
@@ -63,15 +83,12 @@ struct GNEGeometry {
         Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
 
         /**@brief update geometry shape
-         * @param startPos if is different of -1, then shape will be cut in these first position
-         * @param endPos if is different of -1, then shape will be cut in these last position
-         * @param extraFirstPosition if is different of Position::INVALID, add it in shape front position (after cut)
-         * @param extraLastPosition if is different of Position::INVALID, add it in shape last position (after cut)
-         * @note lengths and rotations will be updated
+         * @param shape Shape to be updated
+         * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
          */
         void updateGeometry(const PositionVector& shape, double startPos = -1, double endPos = -1,
-                            const Position& extraFirstPosition = Position::INVALID,
-                            const Position& extraLastPosition = Position::INVALID);
+            const Position& extraFirstPosition = Position::INVALID,
+            const Position& extraLastPosition = Position::INVALID);
 
         /// @brief update position and rotation
         void updateGeometry(const Position& position, const double rotation);
@@ -408,25 +425,19 @@ struct GNEGeometry {
     /**@brief calculate route between lanes
      * @brief segmentGeometry segment geometry to be updated
      * @brief path list of pathElements (lanes)
-     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
-     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
-     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
-     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
+     * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
      */
-    static void calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEPathElements::PathElement>& path,
-                                           double startPos = -1, double endPos = -1, const Position& extraFirstPosition = Position::INVALID,
-                                           const Position& extraLastPosition = Position::INVALID);
+    static void calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, 
+        const std::vector<GNEPathElements::PathElement>& path,
+        GNEGeometry::ExtremeGeometry &extremeGeometry);
 
     /**@brief calculate route between edges
      * @brief segmentGeometry segment geometry to be updated
      * @brief lane GNELane that called this function
-     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
-     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
-     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
-     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
+     * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
      */
-    static void updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane, double startPos = -1, double endPos = -1,
-                                    const Position& extraFirstPosition = Position::INVALID, const Position& extraLastPosition = Position::INVALID);
+    static void updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane, 
+        GNEGeometry::ExtremeGeometry &extremeGeometry);
 
     /// @brief draw lane geometry (use their own function due colors)
     static void drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& shape, const std::vector<double>& rotations,

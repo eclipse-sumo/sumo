@@ -541,15 +541,14 @@ GNEVehicle::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNEVehicle::updateGeometry() {
-    // declare two pointers for depart and arrival pos lanes
-    double departPosLane = -1;
-    double arrivalPosLane = -1;
+    // declare extreme geometry
+    GNEGeometry::ExtremeGeometry extremeGeometry;
     // check if depart and arrival pos lanes are defined
     if (departPosProcedure == DepartPosDefinition::GIVEN) {
-        departPosLane = departPos;
+        extremeGeometry.laneStartPosition = departPos;
     }
     if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
-        arrivalPosLane = arrivalPos;
+        extremeGeometry.laneEndPosition = arrivalPos;
     }
     // get first allowed lane
     GNELane* firstLane = getFirstAllowedVehicleLane();
@@ -578,22 +577,22 @@ GNEVehicle::updateGeometry() {
     // continue only if lane was sucesfully found
     if (firstLane) {
         // check if depart pos has to be adjusted
-        if ((departPosProcedure == DepartPosDefinition::GIVEN) && (departPosLane < 0)) {
-            departPosLane += firstLane->getLaneShape().length();
+        if ((departPosProcedure == DepartPosDefinition::GIVEN) && (extremeGeometry.laneStartPosition < 0)) {
+            extremeGeometry.laneStartPosition += firstLane->getLaneShape().length();
         }
         // continue depending of tag
         if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
             // calculate edge geometry path using path
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), extremeGeometry);
         } else if ((myTagProperty.getTag() == SUMO_TAG_VEHICLE) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE)) {
             // calculate edge geometry path using route edges
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), extremeGeometry);
         } else if ((myTagProperty.getTag() == GNE_TAG_VEHICLE_WITHROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
             // calculate edge geometry path using embedded route edges
-            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getChildDemandElements().front()->getPath(), departPosLane, arrivalPosLane);
+            GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getChildDemandElements().front()->getPath(), extremeGeometry);
         }
         // update start pos geometry
-        myDemandElementGeometry.updateGeometry(firstLane, departPosLane);
+        myDemandElementGeometry.updateGeometry(firstLane, extremeGeometry.laneStartPosition);
         firstLane->getParentEdge()->updateVehicleStackLabels();
     }
     // update child demand elementss
@@ -611,18 +610,17 @@ GNEVehicle::updateDottedContour() {
 
 void
 GNEVehicle::updatePartialGeometry(const GNELane* lane) {
-    // declare two pointers for depart and arrival pos lanes
-    double departPosLane = -1;
-    double arrivalPosLane = -1;
+    // declare extreme geometry
+    GNEGeometry::ExtremeGeometry extremeGeometry;
     // check if depart and arrival pos lanes are defined
     if (departPosProcedure == DepartPosDefinition::GIVEN) {
-        departPosLane = departPos;
+        extremeGeometry.laneStartPosition = departPos;
     }
     if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
-        arrivalPosLane = arrivalPos;
+        extremeGeometry.laneEndPosition = arrivalPos;
     }
     // update geometry path for the given lane
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, departPosLane, arrivalPosLane);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updatePartialGeometry(lane);

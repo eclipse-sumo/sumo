@@ -39,6 +39,17 @@ PositionVector GNEGeometry::myCircleCoords;
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
+// GNEGeometry::ExtremeGeometry - methods
+// ---------------------------------------------------------------------------
+
+GNEGeometry::ExtremeGeometry::ExtremeGeometry() :
+    laneStartPosition(-1),
+    laneEndPosition(-1),
+    viewStartPos(Position::INVALID),
+    viewEndPos(Position::INVALID) {
+}
+
+// ---------------------------------------------------------------------------
 // GNEGeometry::Geometry - methods
 // ---------------------------------------------------------------------------
 
@@ -856,8 +867,7 @@ GNEGeometry::adjustStartPosGeometricPath(double& startPos, const GNELane* startL
 
 
 void
-GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEPathElements::PathElement>& path,
-    double startPos, double endPos, const Position& extraFirstPosition, const Position& extraLastPosition) {
+GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEPathElements::PathElement>& path, GNEGeometry::ExtremeGeometry &extremeGeometry) {
     // clear geometry
     segmentGeometry.clearSegmentGeometry();
     // first check that there is parent edges
@@ -865,13 +875,13 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
         // calculate depending if both from and to edges are the same
         if (path.size() == 1) {
             // filter start and end pos
-            adjustStartPosGeometricPath(startPos, path.front().getLane(), endPos, path.front().getLane());
+            adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, path.front().getLane(), extremeGeometry.laneEndPosition, path.front().getLane());
             // check if we have to define a new custom Segment, or we can use the commonLane shape
-            if ((startPos != -1) || (endPos != -1) || (extraFirstPosition != Position::INVALID) || (extraLastPosition != Position::INVALID)) {
+            if ((extremeGeometry.laneStartPosition != -1) || (extremeGeometry.laneEndPosition != -1) || (extremeGeometry.viewStartPos != Position::INVALID) || (extremeGeometry.viewEndPos != Position::INVALID)) {
                 // declare a lane to be trimmed
                 Geometry trimmedLane;
                 // update geometry
-                trimmedLane.updateGeometry(path.front().getLane()->getLaneShape(), startPos, endPos, extraFirstPosition, extraLastPosition);
+                trimmedLane.updateGeometry(path.front().getLane()->getLaneShape(), extremeGeometry.laneStartPosition, extremeGeometry.laneEndPosition, extremeGeometry.viewStartPos, extremeGeometry.viewEndPos);
                 // add sublane geometry
                 segmentGeometry.insertCustomSegment(path.front().getLane(), trimmedLane, true);
             } else {
@@ -886,22 +896,22 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
                 // first check that lane shape isn't empty
                 if (lane->getLaneShape().size() > 0) {
                     // check if first or last lane must be splitted
-                    if ((path.at(i).getLane() == path.front().getLane()) && (startPos != -1)) {
+                    if ((path.at(i).getLane() == path.front().getLane()) && (extremeGeometry.laneStartPosition != -1)) {
                         // filter start position
-                        adjustStartPosGeometricPath(startPos, path.at(i).getLane(), endPos, nullptr);
+                        adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, path.at(i).getLane(), extremeGeometry.laneEndPosition, nullptr);
                         // declare a lane to be trimmed
                         Geometry frontTrimmedLane;
                         // update geometry
-                        frontTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), startPos, -1, extraFirstPosition, Position::INVALID);
+                        frontTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), extremeGeometry.laneStartPosition, -1, extremeGeometry.viewStartPos, Position::INVALID);
                         // add sublane geometry
                         segmentGeometry.insertCustomSegment(lane, frontTrimmedLane, true);
-                    } else if ((lane == path.back().getLane()) && (endPos != -1)) {
+                    } else if ((lane == path.back().getLane()) && (extremeGeometry.laneEndPosition != -1)) {
                         // filter end position
-                        adjustStartPosGeometricPath(startPos, nullptr, endPos, lane);
+                        adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, nullptr, extremeGeometry.laneEndPosition, lane);
                         // declare a lane to be trimmed
                         Geometry backTrimmedLane;
                         // update geometry
-                        backTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), -1, endPos, Position::INVALID, extraLastPosition);
+                        backTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), -1, extremeGeometry.laneEndPosition, Position::INVALID, extremeGeometry.viewEndPos);
                         // add sublane geometry
                         segmentGeometry.insertCustomSegment(lane, backTrimmedLane, true);
                     } else {
@@ -926,18 +936,17 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
 
 
 void
-GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane, double startPos, double endPos,
-                                 const Position& extraFirstPosition, const Position& extraLastPosition) {
+GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane, GNEGeometry::ExtremeGeometry &extremeGeometry) {
     // calculate depending if both from and to edges are the same
     if ((segmentGeometry.size() == 1) && (segmentGeometry.front().getLane() == lane)) {
         // filter start and end pos
-        adjustStartPosGeometricPath(startPos, segmentGeometry.front().getLane(), endPos, segmentGeometry.front().getLane());
+        adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, segmentGeometry.front().getLane(), extremeGeometry.laneEndPosition, segmentGeometry.front().getLane());
         // check if we have to define a new custom Segment, or we can use the commonLane shape
-        if ((startPos != -1) || (endPos != -1) || (extraFirstPosition != Position::INVALID) || (extraLastPosition != Position::INVALID)) {
+        if ((extremeGeometry.laneStartPosition != -1) || (extremeGeometry.laneEndPosition != -1) || (extremeGeometry.viewStartPos != Position::INVALID) || (extremeGeometry.viewEndPos != Position::INVALID)) {
             // declare a lane to be trimmed
             Geometry trimmedLane;
             // update geometry
-            trimmedLane.updateGeometry(segmentGeometry.front().getLane()->getLaneShape(), startPos, endPos, extraFirstPosition, extraLastPosition);
+            trimmedLane.updateGeometry(segmentGeometry.front().getLane()->getLaneShape(), extremeGeometry.laneStartPosition, extremeGeometry.laneEndPosition, extremeGeometry.viewStartPos, extremeGeometry.viewEndPos);
             // add sublane geometry
             segmentGeometry.updateCustomSegment(0, trimmedLane);
         }
@@ -962,22 +971,22 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, 
             // first check that lane shape isn't empty
             if (segmentToUpdate.getLane()->getLaneShape().size() > 0) {
                 // check if first or last lane must be splitted
-                if ((segmentToUpdate.getSegmentIndex() == 0) && (startPos != -1)) {
+                if ((segmentToUpdate.getSegmentIndex() == 0) && (extremeGeometry.laneStartPosition != -1)) {
                     // filter start position
-                    adjustStartPosGeometricPath(startPos, segmentToUpdate.getLane(), endPos, nullptr);
+                    adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, segmentToUpdate.getLane(), extremeGeometry.laneEndPosition, nullptr);
                     // declare a lane to be trimmed
                     Geometry frontTrimmedLane;
                     // update geometry
-                    frontTrimmedLane.updateGeometry(segmentToUpdate.getLane()->getLaneShape(), startPos, -1, extraFirstPosition, Position::INVALID);
+                    frontTrimmedLane.updateGeometry(segmentToUpdate.getLane()->getLaneShape(), extremeGeometry.laneStartPosition, -1, extremeGeometry.viewStartPos, Position::INVALID);
                     // update segment
                     segmentGeometry.updateCustomSegment(segmentToUpdate.getSegmentIndex(), frontTrimmedLane);
-                } else if ((segmentToUpdate.getSegmentIndex() == (segmentGeometry.size() - 1)) && (endPos != -1)) {
+                } else if ((segmentToUpdate.getSegmentIndex() == (segmentGeometry.size() - 1)) && (extremeGeometry.laneEndPosition != -1)) {
                     // filter end position
-                    adjustStartPosGeometricPath(startPos, nullptr, endPos, segmentToUpdate.getLane());
+                    adjustStartPosGeometricPath(extremeGeometry.laneStartPosition, nullptr, extremeGeometry.laneEndPosition, segmentToUpdate.getLane());
                     // declare a lane to be trimmed
                     Geometry backTrimmedLane;
                     // update geometry
-                    backTrimmedLane.updateGeometry(segmentToUpdate.getLane()->getLaneShape(), -1, endPos, Position::INVALID, extraLastPosition);
+                    backTrimmedLane.updateGeometry(segmentToUpdate.getLane()->getLaneShape(), -1, extremeGeometry.laneEndPosition, Position::INVALID, extremeGeometry.viewEndPos);
                     // update segment
                     segmentGeometry.updateCustomSegment(segmentToUpdate.getSegmentIndex(), backTrimmedLane);
                 }
