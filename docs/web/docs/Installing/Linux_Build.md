@@ -206,7 +206,12 @@ CMake provides no `make uninstall` so if you ever want to uninstall, run
 ```
 sudo xargs rm < install_manifest.txt
 ```
-from the same folder you ran `make install`.
+from the same folder you ran `make install`. This will leave some empty
+directories, so if you want to remove them as well, double check that
+$SUMO_HOME points to the right directory and run
+```
+sudo xargs rm -r $SUMO_HOME
+```
 
 ## Troubleshooting
 
