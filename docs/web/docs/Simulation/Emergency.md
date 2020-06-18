@@ -17,10 +17,9 @@ the future.
   blue light device. A blue light device indicates that the emergency
   vehicle is driving with special rights (using blue flashing light
   and sirene). All vehicles in front of the emergency vehicle in a
-  distanc of 25 meters are driving to sides of the edges. Only the
+  distanc of 25 meters (configurable with **--device.bluelight.reactiondist**) are driving to sides of the edges. Only the
   emergency vehicle is able use this virtual middle lane. After the
-  emergency vehicle has passed the vehicles they are driving like a
-  normal vehicle again (with the same lateral Alignement).
+  emergency vehicle has passed the vehicles resume normal driving (with their previous  lateral Alignement).
   Additionally, the emergency vehicle with the bluelight device is
   able to violate red traffic lights.
 - Disregarding right-of-way and traffic lights: This is supported by
