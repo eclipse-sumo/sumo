@@ -102,10 +102,8 @@ extrapolated based on edge-lengths and maximum speeds multiplied with --speed-fa
         options.routeFiles = args[1:]
     except Exception:
         sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))
-    if ((options.trips_output is None and options.routes_output is None) or
-            (options.trips_output is not None and options.routes_output is not None)):
-        sys.exit(
-            "Exactly one of the options --trips-output or --routes-output must be given")
+    if options.trips_output is not None and options.routes_output is not None:
+        sys.exit("Only one of the options --trips-output or --routes-output can be given")
     else:
         if options.trips_output:
             options.output = options.trips_output
@@ -498,18 +496,19 @@ def main(options):
             f.write(u'</routes>\n')
         options.routeFiles = allRouteFiles
 
-    if options.big:
-        # write output unsorted
-        tmpname = options.output + ".unsorted"
-        with io.open(tmpname, 'w', encoding="utf8") as f:
-            write_to_file(cut_routes(edges, orig_net, options, busStopEdges, startEndEdgeMap), f)
-        # sort out of memory
-        sort_routes.main([tmpname, '--big', '--outfile', options.output])
-    else:
-        routes = list(cut_routes(edges, orig_net, options, busStopEdges, startEndEdgeMap))
-        routes.sort(key=lambda v: v[0])
-        with io.open(options.output, 'w', encoding="utf8") as f:
-            write_to_file(routes, f)
+    if options.output:
+        if options.big:
+            # write output unsorted
+            tmpname = options.output + ".unsorted"
+            with io.open(tmpname, 'w', encoding="utf8") as f:
+                write_to_file(cut_routes(edges, orig_net, options, busStopEdges, startEndEdgeMap), f)
+            # sort out of memory
+            sort_routes.main([tmpname, '--big', '--outfile', options.output])
+        else:
+            routes = list(cut_routes(edges, orig_net, options, busStopEdges, startEndEdgeMap))
+            routes.sort(key=lambda v: v[0])
+            with io.open(options.output, 'w', encoding="utf8") as f:
+                write_to_file(routes, f)
 
 
 if __name__ == "__main__":
