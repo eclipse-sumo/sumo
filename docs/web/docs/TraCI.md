@@ -74,6 +74,9 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Multi-Entry-Exit Detectors Value
     Retrieval](TraCI/Multi-Entry-Exit_Detectors_Value_Retrieval.md)
     retrieve information about multi-entry/multi-exit detectors
+  - [Calibrator Value
+    Retrieval](TraCI/Calibrator.md)
+    retrieve information about calibrators
   - [Traffic Lights Value
     Retrieval](TraCI/Traffic_Lights_Value_Retrieval.md)
     retrieve information about traffic lights
@@ -95,6 +98,18 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
   - [Polygon Value
     Retrieval](TraCI/Polygon_Value_Retrieval.md) retrieve
     information about polygons
+  - [BusStop Value
+    Retrieval](TraCI/BusStop.md)
+    retrieve information about BusStops
+  - [Charging Station Value
+    Retrieval](TraCI/ChargingStation.md)
+    retrieve information about charging stations
+  - [Parking Area Value
+    Retrieval](TraCI/ParkingArea.md)
+    retrieve information about parking areas
+  - [Overhead Wire Value
+    Retrieval](TraCI/OverheadWire.md)
+    retrieve information about overhead wires
   - [Junction Value
     Retrieval](TraCI/Junction_Value_Retrieval.md) retrieve
     information about junctions
