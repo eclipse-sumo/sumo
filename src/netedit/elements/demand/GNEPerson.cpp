@@ -318,16 +318,6 @@ GNEPerson::updateDottedContour() {
     //
 }
 
-
-void
-GNEPerson::updatePartialGeometry(const GNELane* lane) {
-    // only update partial geometry of childrens
-    for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(lane);
-    }
-}
-
-
 void
 GNEPerson::computePath() {
     // nothing to compute

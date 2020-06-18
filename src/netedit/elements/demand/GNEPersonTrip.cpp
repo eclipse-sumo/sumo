@@ -299,19 +299,6 @@ GNEPersonTrip::updateDottedContour() {
 
 
 void
-GNEPersonTrip::updatePartialGeometry(const GNELane* lane) {
-    // calculate person plan start and end positions
-    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
-    // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
-    // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(lane);
-    }
-}
-
-
-void
 GNEPersonTrip::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {

@@ -267,21 +267,6 @@ GNERoute::updateDottedContour() {
 
 
 void
-GNERoute::updatePartialGeometry(const GNELane* lane) {
-    // declare extreme geometry
-    GNEGeometry::ExtremeGeometry extremeGeometry;
-    // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
-    // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
-            i->updatePartialGeometry(lane);
-        }
-    }
-}
-
-
-void
 GNERoute::computePath() {
     // calculate consecutive path using parent edges
     calculateConsecutivePathLanes(getVClass(), true, getParentEdges());

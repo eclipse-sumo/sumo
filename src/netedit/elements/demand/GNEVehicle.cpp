@@ -609,26 +609,6 @@ GNEVehicle::updateDottedContour() {
 
 
 void
-GNEVehicle::updatePartialGeometry(const GNELane* lane) {
-    // declare extreme geometry
-    GNEGeometry::ExtremeGeometry extremeGeometry;
-    // check if depart and arrival pos lanes are defined
-    if (departPosProcedure == DepartPosDefinition::GIVEN) {
-        extremeGeometry.laneStartPosition = departPos;
-    }
-    if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
-        extremeGeometry.laneEndPosition = arrivalPos;
-    }
-    // update geometry path for the given lane
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
-    // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(lane);
-    }
-}
-
-
-void
 GNEVehicle::computePath() {
     // calculate path (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
@@ -1038,11 +1018,18 @@ GNEVehicle::getAttributeDouble(SumoXMLAttr key) const {
         case SUMO_ATTR_BEGIN:
             return STEPS2TIME(depart);
         case SUMO_ATTR_DEPARTPOS:
-            // check if depart and arrival pos lanes are defined
+            // only return departPos it if is given
             if (departPosProcedure == DepartPosDefinition::GIVEN) {
                 return departPos;
             } else {
                 return 0;
+            }
+        case SUMO_ATTR_ARRIVALPOS:
+            // only return departPos it if is given
+            if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
+                return arrivalPos;
+            } else {
+                return -1;
             }
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:

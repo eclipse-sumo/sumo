@@ -144,9 +144,6 @@ public:
     /// @brief update dotted contour
     void updateDottedContour();
 
-    /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNELane* lane);
-
     /// @brief compute path
     void computePath();
 

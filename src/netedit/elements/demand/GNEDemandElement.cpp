@@ -137,6 +137,28 @@ GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const d
 }
 
 
+void 
+GNEDemandElement::updatePartialGeometry(const GNELane* lane) {
+    // declare extreme geometry
+    GNEGeometry::ExtremeGeometry extremeGeometry;
+    // special case for stops
+    if (myTagProperty.isVehicle()) {
+        // use depart/arrival positions as lane extremes
+        extremeGeometry.laneStartPosition = getAttributeDouble(SUMO_ATTR_DEPARTPOS);
+        extremeGeometry.laneEndPosition = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
+    } else if (myTagProperty.isPersonPlan()) {
+        // calculate person plan start and end positions
+        extremeGeometry = calculatePersonPlanLaneStartEndPos();
+    }
+    // update geometry path for the given lane
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
+    // update child demand elementss
+    for (const auto& i : getChildDemandElements()) {
+        i->updatePartialGeometry(lane);
+    }
+}
+
+
 bool
 GNEDemandElement::isDemandElementValid() const {
     return true;
