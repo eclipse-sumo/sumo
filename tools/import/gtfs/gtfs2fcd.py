@@ -36,7 +36,7 @@ def add_options():
     argParser = sumolib.options.ArgumentParser()
     argParser.add_argument("-r", "--region", help="define the region to process")
     argParser.add_argument("--gtfs", help="define gtfs zip file to load")
-    argParser.add_argument("--date", type=int, help="define the day to import")
+    argParser.add_argument("--date", type=str, help="define the day to import")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
     argParser.add_argument("--vtype-output", help="file to write the generated vehicle types to")
@@ -56,22 +56,22 @@ def main(options):
     if options.verbose:
         print('Loading GTFS data "%s"' % options.gtfs)
     gtfsZip = zipfile.ZipFile(options.gtfs)
-    routes = pd.read_csv(gtfsZip.open('routes.txt'))
-    stops = pd.read_csv(gtfsZip.open('stops.txt'))
-    stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'))
-    trips = pd.read_csv(gtfsZip.open('trips.txt'))
-    calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'))
+    routes = pd.read_csv(gtfsZip.open('routes.txt'), dtype=str)
+    stops = pd.read_csv(gtfsZip.open('stops.txt'), dtype=str)
+    stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'), dtype=str)
+    trips = pd.read_csv(gtfsZip.open('trips.txt'), dtype=str)
+    calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
 
     # currently not used:
-    # agency = pd.read_csv(gtfsZip.open('agency.txt'))
-    # calendar = pd.read_csv(gtfsZip.open('calendar.txt'))
-    # transfers = pd.read_csv(gtfsZip.open('transfers.txt'))
+    # agency = pd.read_csv(gtfsZip.open('agency.txt'), dtype=str)
+    # calendar = pd.read_csv(gtfsZip.open('calendar.txt'), dtype=str)
+    # transfers = pd.read_csv(gtfsZip.open('transfers.txt'), dtype=str)
 
     # Merging the tables
     tmp = pd.merge(trips, calendar_dates, on='service_id')
     trips_on_day = tmp[tmp['date'] == options.date]
     if options.region == "moin":
-        zones = pd.read_csv(gtfsZip.open('fare_stops.txt'))
+        zones = pd.read_csv(gtfsZip.open('fare_stops.txt'), dtype=str)
         stops_merged = pd.merge(pd.merge(stops, stop_times, on='stop_id'), zones, on='stop_id')
     else:
         stops_merged = pd.merge(stops, stop_times, on='stop_id')
@@ -89,23 +89,23 @@ def main(options):
 
     gtfs_modes = {
         # modes according to https://developers.google.com/transit/gtfs/reference/#routestxt
-        0:  'tram',
-        1:  'subway',
-        2:  'rail',
-        3:  'bus',
-        4:  'ship',
-        # 5:  'cableTram',
-        # 6:  'aerialLift',
-        # 7:  'funicular',
+        '0':  'tram',
+        '1':  'subway',
+        '2':  'rail',
+        '3':  'bus',
+        '4':  'ship',
+        # '5':  'cableTram',
+        # '6':  'aerialLift',
+        # '7':  'funicular',
         # modes used in Berlin and MDV see https://developers.google.com/transit/gtfs/reference/extended-route-types
-        100:  'rail',        # DB
-        109:  'light_rail',  # S-Bahn
-        400:  'subway',      # U-Bahn
-        700:  'bus',         # Bus
-        714:  'bus',         # SEV
-        715:  'bus',         # Rufbus
-        900:  'tram',        # Tram
-        1000: 'ship',        # Faehre
+        '100':  'rail',        # DB
+        '109':  'light_rail',  # S-Bahn
+        '400':  'subway',      # U-Bahn
+        '700':  'bus',         # Bus
+        '714':  'bus',         # SEV
+        '715':  'bus',         # Rufbus
+        '900':  'tram',        # Tram
+        '1000': 'ship',        # Faehre
         # modes used by hafas
         's': 'light_rail',
         'RE': 'rail',
