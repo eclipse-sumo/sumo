@@ -6,7 +6,7 @@ Asks for the value of a certain variable of the named Calibrator.
 The value returned is the state of the asked variable/value within the
 last simulation step. Please note that for asking values from your
 Calibrator [you have to define
-them](../docs/Simulation/Calibrator.md)
+them](../Simulation/Calibrator.md)
 within an {{AdditionalFile}} and load them at the start of the simulation. The `freq` and `file`
 attributes do not affect TraCI.
 
