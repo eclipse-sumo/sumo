@@ -252,7 +252,7 @@ GUIMEVehicle::getEdgeID() const {
 
 int
 GUIMEVehicle::getSegmentIndex() const {
-    return getSegment()->getIndex();
+    return getSegment() != nullptr ? getSegment()->getIndex() : -1;
 }
 
 
