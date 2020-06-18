@@ -610,7 +610,7 @@ GNEVehicle::updateDottedContour() {
 
 
 void
-GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
+GNEVehicle::updatePartialGeometry(const GNELane* lane) {
     // declare two pointers for depart and arrival pos lanes
     double departPosLane = -1;
     double arrivalPosLane = -1;
@@ -621,11 +621,11 @@ GNEVehicle::updatePartialGeometry(const GNEEdge* edge) {
     if (arrivalPosProcedure == ArrivalPosDefinition::GIVEN) {
         arrivalPosLane = arrivalPos;
     }
-    // update geometry path for the given edge
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane);
+    // update geometry path for the given lane
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, departPosLane, arrivalPosLane);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(edge);
+        i->updatePartialGeometry(lane);
     }
 }
 
@@ -861,14 +861,14 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         if (drawSpreadVehicles) {
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 // draw partial segment
-                if (segment.getEdge() == lane->getParentEdge()) {
+                if (segment.getLane() == lane) {
                     GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, width);
                 }
             }
         } else {
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 // draw partial segment
-                if (segment.getEdge() == lane->getParentEdge()) {
+                if (segment.getLane() == lane) {
                     GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, width);
                 }
             }

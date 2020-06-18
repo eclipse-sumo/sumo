@@ -290,7 +290,7 @@ GNEPersonTrip::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -305,7 +305,7 @@ GNEPersonTrip::updateDottedContour() {
 
 
 void
-GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
+GNEPersonTrip::updatePartialGeometry(const GNELane* lane) {
     // declare depart and arrival pos lane
     double departPosLane = -1;
     double arrivalPosLane = -1;
@@ -315,10 +315,10 @@ GNEPersonTrip::updatePartialGeometry(const GNEEdge* edge) {
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(edge);
+        i->updatePartialGeometry(lane);
     }
 }
 
@@ -476,7 +476,7 @@ GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if (segment.getEdge() == lane->getParentEdge()) {
+            if (segment.getLane() == lane) {
                 // Set person plan color (needed due drawShapeDottedContour)
                 GLHelper::setColor(myDemandElementColor);
                 // draw box line

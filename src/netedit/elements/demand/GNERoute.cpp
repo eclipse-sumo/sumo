@@ -265,13 +265,13 @@ GNERoute::updateDottedContour() {
 
 
 void
-GNERoute::updatePartialGeometry(const GNEEdge* edge) {
+GNERoute::updatePartialGeometry(const GNELane* lane) {
     // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
-            i->updatePartialGeometry(edge);
+            i->updatePartialGeometry(lane);
         }
     }
 }
@@ -363,7 +363,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if (segment.getEdge() == lane->getParentEdge()) {
+            if (segment.getLane() == lane) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines

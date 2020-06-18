@@ -240,7 +240,7 @@ public:
     virtual void updateDottedContour() = 0;
 
     /// @brief partial update pre-computed geometry information
-    virtual void updatePartialGeometry(const GNEEdge* edge) = 0;
+    virtual void updatePartialGeometry(const GNELane* lane) = 0;
 
     /// @brief compute path
     virtual void computePath() = 0;

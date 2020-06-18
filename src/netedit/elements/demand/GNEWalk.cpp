@@ -309,10 +309,10 @@ GNEWalk::updateGeometry() {
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // calculate edge geometry path using parent route
-        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
+        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane, startPos, endPos);
     } else {
         // calculate edge geometry path using path
-        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane, startPos, endPos);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -328,7 +328,7 @@ GNEWalk::updateDottedContour() {
 
 
 void
-GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
+GNEWalk::updatePartialGeometry(const GNELane* lane) {
     // declare depart and arrival pos lane
     double departPosLane = -1;
     double arrivalPosLane = -1;
@@ -338,10 +338,10 @@ GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // udpate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(edge);
+        i->updatePartialGeometry(lane);
     }
 }
 
@@ -505,7 +505,7 @@ GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) c
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if (segment.getEdge() == lane->getParentEdge()) {
+            if (segment.getLane() == lane) {
                 // Set person plan color (needed due drawShapeDottedContour)
                 GLHelper::setColor(myDemandElementColor);
                 // draw box line

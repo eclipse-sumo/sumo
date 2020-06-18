@@ -126,11 +126,11 @@ GNELane::updateGeometry() {
     }
     // update partial demand elements parents associated with this lane
     for (const auto &demandElement : getParentDemandElements()) {
-        demandElement->updatePartialGeometry(myParentEdge);
+        demandElement->updatePartialGeometry(this);
     }
     // update partial demand elements children associated with this lane and invalidate path
     for (const auto &demandElement : getChildDemandElements()) {
-        demandElement->updatePartialGeometry(myParentEdge);
+        demandElement->updatePartialGeometry(this);
     }
     // in Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {

@@ -420,13 +420,12 @@ GNEGeometry::SegmentGeometry::Segment::Segment(const GNELane* lane, const bool v
 }
 
 
-GNEGeometry::SegmentGeometry::Segment::Segment(const GNELane* lane,
-        const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths, const bool valid) :
+GNEGeometry::SegmentGeometry::Segment::Segment(const GNELane* lane, const Geometry &geometry, const bool valid) :
     myLane(lane),
     myNextLane(nullptr),
     myValid(valid),
     myUseLaneShape(false),
-    mySegmentGeometry(shape, shapeRotations, shapeLengths) {
+    mySegmentGeometry(geometry) {
 }
 
 
@@ -492,12 +491,6 @@ GNEGeometry::SegmentGeometry::Segment::getShapeLengths() const {
 }
 
 
-const GNEEdge* 
-GNEGeometry::SegmentGeometry::Segment::getEdge() const {
-    return myLane->getParentEdge();
-}
-
-
 const GNELane* 
 GNEGeometry::SegmentGeometry::Segment::getLane() const {
     return myLane;
@@ -558,9 +551,9 @@ GNEGeometry::SegmentGeometry::insertLaneSegment(const GNELane* lane, const bool 
 
 
 void
-GNEGeometry::SegmentGeometry::insertCustomSegment(const GNELane* lane, const PositionVector& laneShape, const std::vector<double>& laneShapeRotations, const std::vector<double>& laneShapeLengths, const bool valid) {
+GNEGeometry::SegmentGeometry::insertCustomSegment(const GNELane* lane, const Geometry &geometry, const bool valid) {
     // add segment in myShapeSegments
-    myShapeSegments.push_back(Segment(lane, laneShape, laneShapeRotations, laneShapeLengths, valid));
+    myShapeSegments.push_back(Segment(lane, geometry, valid));
 }
 
 
@@ -880,10 +873,7 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
                 // update geometry
                 trimmedLane.updateGeometry(path.front().getLane()->getLaneShape(), startPos, endPos, extraFirstPosition, extraLastPosition);
                 // add sublane geometry
-                segmentGeometry.insertCustomSegment(path.front().getLane(),
-                                                    trimmedLane.getShape(),
-                                                    trimmedLane.getShapeRotations(),
-                                                    trimmedLane.getShapeLengths(), true);
+                segmentGeometry.insertCustomSegment(path.front().getLane(), trimmedLane, true);
             } else {
                 // add entire lane geometry geometry
                 segmentGeometry.insertLaneSegment(path.front().getLane(), true);
@@ -904,10 +894,7 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
                         // update geometry
                         frontTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), startPos, -1, extraFirstPosition, Position::INVALID);
                         // add sublane geometry
-                        segmentGeometry.insertCustomSegment(lane,
-                                                            frontTrimmedLane.getShape(),
-                                                            frontTrimmedLane.getShapeRotations(),
-                                                            frontTrimmedLane.getShapeLengths(), true);
+                        segmentGeometry.insertCustomSegment(lane, frontTrimmedLane, true);
                     } else if ((lane == path.back().getLane()) && (endPos != -1)) {
                         // filter end position
                         adjustStartPosGeometricPath(startPos, nullptr, endPos, lane);
@@ -916,10 +903,7 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
                         // update geometry
                         backTrimmedLane.updateGeometry(path.at(i).getLane()->getLaneShape(), -1, endPos, Position::INVALID, extraLastPosition);
                         // add sublane geometry
-                        segmentGeometry.insertCustomSegment(lane,
-                                                            backTrimmedLane.getShape(),
-                                                            backTrimmedLane.getShapeRotations(),
-                                                            backTrimmedLane.getShapeLengths(), true);
+                        segmentGeometry.insertCustomSegment(lane, backTrimmedLane, true);
                     } else {
                         // add entire lane geometry
                         segmentGeometry.insertLaneSegment(path.at(i).getLane(), true);
@@ -942,10 +926,10 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
 
 
 void
-GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNEEdge* edge, double startPos, double endPos,
+GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane, double startPos, double endPos,
                                  const Position& extraFirstPosition, const Position& extraLastPosition) {
     // calculate depending if both from and to edges are the same
-    if ((segmentGeometry.size() == 1) && (segmentGeometry.front().getEdge() == edge)) {
+    if ((segmentGeometry.size() == 1) && (segmentGeometry.front().getLane() == lane)) {
         // filter start and end pos
         adjustStartPosGeometricPath(startPos, segmentGeometry.front().getLane(), endPos, segmentGeometry.front().getLane());
         // check if we have to define a new custom Segment, or we can use the commonLane shape
@@ -962,7 +946,7 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, 
         std::vector<GNEGeometry::SegmentGeometry::SegmentToUpdate> segmentsToUpdate;
         // iterate over all segments
         for (auto segment = segmentGeometry.begin(); segment != segmentGeometry.end(); segment++) {
-            if (segment->getEdge() == edge) {
+            if (segment->getLane() == lane) {
                 // obtain segment index
                 const int index = (int)(segment - segmentGeometry.begin());
                 // add SegmentToUpdate in vector

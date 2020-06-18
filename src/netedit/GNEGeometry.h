@@ -213,7 +213,7 @@ struct GNEGeometry {
             Segment(const GNELane* lane, const bool valid);
 
             /// @brief parameter constructor for segments which geometry will be storaged in segment
-            Segment(const GNELane* lane, const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths, const bool valid);
+            Segment(const GNELane* lane, const Geometry &geometry, const bool valid);
 
             /// @brief parameter constructor for lane2lane connections
             Segment(const GNELane* lane, const GNELane* nextLane, const bool valid);
@@ -232,9 +232,6 @@ struct GNEGeometry {
 
             /// @brief get lane/lane2lane shape lengths
             const std::vector<double>& getShapeLengths() const;
-
-            /// @brief edge
-            const GNEEdge* getEdge() const;
 
             /// @brief lane
             const GNELane* getLane() const;
@@ -304,7 +301,7 @@ struct GNEGeometry {
         void insertLaneSegment(const GNELane* lane, const bool valid);
 
         /// @brief insert custom segment
-        void insertCustomSegment(const GNELane* lane, const PositionVector& laneShape, const std::vector<double>& laneShapeRotations, const std::vector<double>& laneShapeLengths, const bool valid);
+        void insertCustomSegment(const GNELane* lane, const Geometry &geometry, const bool valid);
 
         /// @brief insert entire lane2lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void insertLane2LaneSegment(const GNELane* currentLane, const GNELane* nextLane, const bool valid);
@@ -422,13 +419,13 @@ struct GNEGeometry {
 
     /**@brief calculate route between edges
      * @brief segmentGeometry segment geometry to be updated
-     * @brief edge called edge
+     * @brief lane GNELane that called this function
      * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
      * @param endPos end position in the last lane (if -1, then ends at the end of lane)
      * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
      * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
      */
-    static void updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNEEdge* edge, double startPos = -1, double endPos = -1,
+    static void updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane, double startPos = -1, double endPos = -1,
                                     const Position& extraFirstPosition = Position::INVALID, const Position& extraLastPosition = Position::INVALID);
 
     /// @brief draw lane geometry (use their own function due colors)

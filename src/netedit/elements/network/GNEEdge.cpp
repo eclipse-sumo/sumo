@@ -117,28 +117,14 @@ GNEEdge::updateGeometry() {
                 connection->updateGeometry();
             }
         }
-        // Update geometry of additionals children vinculated to this edge
-        for (const auto& childAdditionals : getChildAdditionals()) {
-            childAdditionals->updateGeometry();
-        }
         // Update geometry of parent additionals that have this edge as parent
         for (const auto& additionalParent : getParentAdditionals()) {
             additionalParent->updateGeometry();
         }
-        // Update partial geometry of demand elements parents that have this edge as parent
-        for (const auto& demandElementParent : getParentDemandElements()) {
-            demandElementParent->updatePartialGeometry(this);
+        // Update geometry of additionals children vinculated to this edge
+        for (const auto& childAdditionals : getChildAdditionals()) {
+            childAdditionals->updateGeometry();
         }
-        // Update partial geometry of demand elements children vinculated to this edge
-        for (const auto& childDemandElements : getChildDemandElements()) {
-            childDemandElements->updatePartialGeometry(this);
-        }
-/*
-        // Update partial geometry of routes vinculated to this edge
-        for (const auto& pathElementChild : myPathDemandElementsElementChilds) {
-            pathElementChild->updatePartialGeometry(this);
-        }
-*/
         // mark dotted geometry deprecated
         myDottedGeometry.markDottedGeometryDeprecated();
     }

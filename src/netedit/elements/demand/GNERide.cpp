@@ -284,7 +284,7 @@ GNERide::updateGeometry() {
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         i->updateGeometry();
@@ -298,7 +298,7 @@ GNERide::updateDottedContour() {
 
 
 void
-GNERide::updatePartialGeometry(const GNEEdge* edge) {
+GNERide::updatePartialGeometry(const GNELane* lane) {
     // declare depart and arrival pos lane
     double departPosLane = -1;
     double arrivalPosLane = -1;
@@ -308,10 +308,10 @@ GNERide::updatePartialGeometry(const GNEEdge* edge) {
     // calculate person plan start and end positions
     calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
     // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, departPosLane, arrivalPosLane, startPos, endPos);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(edge);
+        i->updatePartialGeometry(lane);
     }
 }
 
@@ -469,7 +469,7 @@ GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) c
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if (segment.getEdge() == lane->getParentEdge()) {
+            if (segment.getLane() == lane) {
                 // Set person plan color (needed due drawShapeDottedContour)
                 GLHelper::setColor(myDemandElementColor);
                 // draw box line

@@ -320,10 +320,10 @@ GNEPerson::updateDottedContour() {
 
 
 void
-GNEPerson::updatePartialGeometry(const GNEEdge* edge) {
+GNEPerson::updatePartialGeometry(const GNELane* lane) {
     // only update partial geometry of childrens
     for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(edge);
+        i->updatePartialGeometry(lane);
     }
 }
 
