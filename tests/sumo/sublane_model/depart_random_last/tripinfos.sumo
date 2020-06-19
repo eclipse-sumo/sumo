@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 30 15:09:54 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
+<!-- generated on Wed Jun 17 11:40:35 2020 by Eclipse SUMO Version v1_6_0+0791-c319842b44
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,5 +41,5 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="cars.5" depart="1.00" departLane="beg_0" departPos="63.34" departPosLat="-2.10" departSpeed="0.00" departDelay="0.50" arrival="21.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="-1.70" arrivalSpeed="8.36" duration="20.00" routeLength="136.66" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.29" rerouteNo="0" devices="tripinfo_cars.5" vType="car" speedFactor="0.66" vaporized=""/>
     <tripinfo id="cars.7" depart="1.00" departLane="beg_0" departPos="48.14" departPosLat="-1.16" departSpeed="0.00" departDelay="0.30" arrival="22.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="-0.90" arrivalSpeed="9.65" duration="21.00" routeLength="151.86" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.80" rerouteNo="0" devices="tripinfo_cars.7" vType="car" speedFactor="0.77" vaporized=""/>
     <tripinfo id="cars.8" depart="1.00" departLane="beg_0" departPos="40.54" departPosLat="0.21" departSpeed="0.00" departDelay="0.20" arrival="22.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.90" arrivalSpeed="10.90" duration="21.00" routeLength="159.46" waitingTime="1.00" waitingCount="1" stopTime="0.00" timeLoss="7.13" rerouteNo="0" devices="tripinfo_cars.8" vType="car" speedFactor="0.88" vaporized=""/>
-    <tripinfo id="cars.9" depart="1.00" departLane="beg_0" departPos="32.94" departPosLat="1.13" departSpeed="0.00" departDelay="0.10" arrival="25.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="9.04" duration="24.00" routeLength="167.06" waitingTime="2.00" waitingCount="1" stopTime="0.00" timeLoss="7.15" rerouteNo="0" devices="tripinfo_cars.9" vType="car" speedFactor="0.71" vaporized=""/>
+    <tripinfo id="cars.9" depart="1.00" departLane="beg_0" departPos="32.94" departPosLat="1.13" departSpeed="0.00" departDelay="0.10" arrival="26.00" arrivalLane="end_0" arrivalPos="100.00" arrivalPosLat="0.00" arrivalSpeed="8.68" duration="25.00" routeLength="167.06" waitingTime="2.00" waitingCount="1" stopTime="0.00" timeLoss="7.45" rerouteNo="0" devices="tripinfo_cars.9" vType="car" speedFactor="0.71" vaporized=""/>
 </tripinfos>

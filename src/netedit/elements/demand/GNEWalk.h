@@ -145,7 +145,7 @@ public:
     void updateDottedContour();
 
     /// @brief partial update pre-computed geometry information
-    void updatePartialGeometry(const GNEEdge* edge);
+    void updatePartialGeometry(const GNELane* lane);
 
     /// @brief compute path
     void computePath();

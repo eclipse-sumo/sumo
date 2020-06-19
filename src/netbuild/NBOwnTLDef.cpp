@@ -54,21 +54,24 @@ NBOwnTLDef::NBOwnTLDef(const std::string& id,
                        const std::vector<NBNode*>& junctions, SUMOTime offset,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type),
-    myHaveSinglePhase(false) {
+    myHaveSinglePhase(false),
+    myLayout(TrafficLightLayout::INVALID) {
 }
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type),
-    myHaveSinglePhase(false) {
+    myHaveSinglePhase(false),
+    myLayout(TrafficLightLayout::INVALID) {
 }
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string& id, SUMOTime offset,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, DefaultProgramID, offset, type),
-    myHaveSinglePhase(false) {
+    myHaveSinglePhase(false),
+    myLayout(TrafficLightLayout::INVALID) {
 }
 
 
@@ -312,8 +315,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     const SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
     const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
     // left-turn phases do not work well for joined tls, so we build incoming instead
-    const double groupOpposites = (OptionsCont::getOptions().getString("tls.layout") == "opposites"
-                                   && (myControlledNodes.size() <= 2 || corridorLike()));
+    TrafficLightLayout layout = (myLayout == TrafficLightLayout::INVALID
+            ? SUMOXMLDefinitions::TrafficLightLayouts.get(OptionsCont::getOptions().getString("tls.layout"))
+            : myLayout);
+    const double groupOpposites = (layout == TrafficLightLayout::OPPOSITES && (myControlledNodes.size() <= 2 || corridorLike()));
 
     // build all phases
     std::vector<int> greenPhases; // indices of green phases

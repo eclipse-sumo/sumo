@@ -98,7 +98,7 @@ GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, con
 // ---------------------------------------------------------------------------
 
 void
-GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
+GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& /* viaEdges */) {
     // check if from and to lane are valid
     if (fromLane && toLane) {
         // get from-via-to edges
@@ -163,7 +163,7 @@ GNEPathElements::calculateConsecutivePathLanes(SUMOVehicleClass vClass, const bo
 
 
 void
-GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges) {
+GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& /* viaEdges */) {
     // check if from and to lane are valid
     if (fromLane && toLane) {
         // get from-via-to edges

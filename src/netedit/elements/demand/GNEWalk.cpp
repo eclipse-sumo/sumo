@@ -298,21 +298,15 @@ GNEWalk::commitGeometryMoving(GNEUndoList* undoList) {
 
 void
 GNEWalk::updateGeometry() {
-    // declare depart and arrival pos lane
-    double departPosLane = -1;
-    double arrivalPosLane = -1;
-    // declare start and end positions
-    Position startPos = Position::INVALID;
-    Position endPos = Position::INVALID;
     // calculate person plan start and end positions
-    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
     // calculate geometry path depending if is a Walk over route
     if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
         // calculate edge geometry path using parent route
-        GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), departPosLane, arrivalPosLane);
+        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getParentDemandElements().at(1)->getPath(), extremeGeometry);
     } else {
         // calculate edge geometry path using path
-        GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getPath(), departPosLane, arrivalPosLane);
+        GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), extremeGeometry);
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -328,20 +322,14 @@ GNEWalk::updateDottedContour() {
 
 
 void
-GNEWalk::updatePartialGeometry(const GNEEdge* edge) {
-    // declare depart and arrival pos lane
-    double departPosLane = -1;
-    double arrivalPosLane = -1;
-    // declare start and end positions
-    Position startPos = Position::INVALID;
-    Position endPos = Position::INVALID;
+GNEWalk::updatePartialGeometry(const GNELane* lane) {
     // calculate person plan start and end positions
-    calculatePersonPlanLaneStartEndPos(departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
     // udpate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge, departPosLane, arrivalPosLane, startPos, endPos);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(edge);
+        i->updatePartialGeometry(lane);
     }
 }
 
@@ -505,7 +493,7 @@ GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) c
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+            if (segment.getLane() == lane) {
                 // Set person plan color (needed due drawShapeDottedContour)
                 GLHelper::setColor(myDemandElementColor);
                 // draw box line

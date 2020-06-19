@@ -156,10 +156,10 @@ GNEVehicleType::updateDottedContour() {
 
 
 void
-GNEVehicleType::updatePartialGeometry(const GNEEdge* edge) {
+GNEVehicleType::updatePartialGeometry(const GNELane* lane) {
     // update geometry of all childrens
     for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(edge);
+        i->updatePartialGeometry(lane);
     }
 }
 
@@ -214,7 +214,7 @@ GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELa
 
 
 void
-GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* fromLane, const GNELane* toLane) const {
+GNEVehicleType::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /* fromLane */, const GNELane* /* toLane */) const {
     // vehicleTypes don't use drawPartialGL
 }
 

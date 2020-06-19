@@ -279,7 +279,7 @@ GNEStop::updateDottedContour() {
 
 
 void
-GNEStop::updatePartialGeometry(const GNEEdge* edge) {
+GNEStop::updatePartialGeometry(const GNELane* lane) {
     //only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getParentLanes().size() > 0) {
         // Cut shape using as delimitators fixed start position and fixed end position
@@ -290,7 +290,7 @@ GNEStop::updatePartialGeometry(const GNEEdge* edge) {
     }
     // recompute geometry of all Demand elements related with this this stop
     if (getParentDemandElements().front()->getTagProperty().isRoute()) {
-        getParentDemandElements().front()->updatePartialGeometry(edge);
+        getParentDemandElements().front()->updatePartialGeometry(lane);
     }
 }
 
@@ -481,7 +481,7 @@ GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*l
 
 
 void 
-GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* fromLane, const GNELane* toLane) const {
+GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /* fromLane */, const GNELane* /* toLane */) const {
     // Stops don't use drawPartialGL
 }
 

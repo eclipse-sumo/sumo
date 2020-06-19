@@ -53,9 +53,29 @@ class GNEHierarchicalParentElements;
 // ===========================================================================
 
 struct GNEGeometry {
+    
+    /// @brief struct for variables used in Geometry extremes
+    struct ExtremeGeometry {
+        /// @brief constructor
+        ExtremeGeometry();
 
-    /// @brief struct for pack all variables related with geometry of stop
-    struct Geometry {
+        /// @brief depart position over lane
+        double laneStartPosition;
+
+        /// @brief arrival position over lane
+        double laneEndPosition;
+
+        /// @brief start position over view
+        Position viewStartPos;
+
+        /// @brief end position over view
+        Position viewEndPos;
+    };
+
+    /// @brief class for NETEDIT geometries over lanes
+    class Geometry {
+
+    public:
         /// @brief constructor
         Geometry();
 
@@ -63,15 +83,12 @@ struct GNEGeometry {
         Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
 
         /**@brief update geometry shape
-         * @param startPos if is different of -1, then shape will be cut in these first position
-         * @param endPos if is different of -1, then shape will be cut in these last position
-         * @param extraFirstPosition if is different of Position::INVALID, add it in shape front position (after cut)
-         * @param extraLastPosition if is different of Position::INVALID, add it in shape last position (after cut)
-         * @note lengths and rotations will be updated
+         * @param shape Shape to be updated
+         * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
          */
         void updateGeometry(const PositionVector& shape, double startPos = -1, double endPos = -1,
-                            const Position& extraFirstPosition = Position::INVALID,
-                            const Position& extraLastPosition = Position::INVALID);
+            const Position& extraFirstPosition = Position::INVALID,
+            const Position& extraLastPosition = Position::INVALID);
 
         /// @brief update position and rotation
         void updateGeometry(const Position& position, const double rotation);
@@ -79,11 +96,14 @@ struct GNEGeometry {
         /// @brief update position and rotation (using a lane and a position over lane)
         void updateGeometry(const GNELane* lane, const double posOverLane);
 
+        /// @brief update geometry (using a lane)
+        void updateGeometry(const GNELane* lane);
+
         /// @brief update geometry (using geometry of another additional)
         void updateGeometry(const GNEAdditional* additional);
 
         /// @brief update geometry (using a new shape, rotations and lenghts)
-        void updateGeometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
+        void updateGeometry(const Geometry &geometry);
 
         /// @brief get Position
         const Position& getPosition() const;
@@ -101,6 +121,9 @@ struct GNEGeometry {
         const std::vector<double>& getShapeLengths() const;
 
     private:
+        /// @brief clear geometry
+        void clearGeometry();
+
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
@@ -118,6 +141,12 @@ struct GNEGeometry {
 
         /// @brief The lengths of the shape (note: Always size = myShape.size()-1)
         std::vector<double> myShapeLengths;
+
+        /// @brief lane (to use lane geometry)
+        const GNELane *myLane;
+
+        /// @brief additional (to use additional geometry)
+        const GNEAdditional *myAdditional;
 
         /// @brief Invalidated assignment operator
         Geometry& operator=(const Geometry& other) = delete;
@@ -194,19 +223,23 @@ struct GNEGeometry {
     struct SegmentGeometry {
 
         /// @brief struct used for represent segments of element geometry
-        struct Segment {
+        class Segment {
+
+        public:
             /// @brief parameter constructor for lanes (geometry will be taked from lane)
-            Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane, const bool _valid);
+            Segment(const GNELane* lane, const bool valid);
 
             /// @brief parameter constructor for segments which geometry will be storaged in segment
-            Segment(const GNEAttributeCarrier* _AC, const GNELane* _lane,
-                    const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths, const bool _valid);
+            Segment(const GNELane* lane, const Geometry &geometry, const bool valid);
 
             /// @brief parameter constructor for lane2lane connections
-            Segment(const GNEAttributeCarrier* _AC, const GNELane* currentLane, const GNELane* nextLane, const bool _valid);
+            Segment(const GNELane* lane, const GNELane* nextLane, const bool valid);
 
-            /// @brief update segment
-            void update(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
+            /// @brief update segment using geometry
+            void update(const Geometry &geometry);
+
+            /// @brief update segment using lane
+            void update(const GNELane* lane);
 
             /// @brief get lane/lane2lane shape
             const PositionVector& getShape() const;
@@ -217,25 +250,29 @@ struct GNEGeometry {
             /// @brief get lane/lane2lane shape lengths
             const std::vector<double>& getShapeLengths() const;
 
-            /// @brief element
-            const GNEAttributeCarrier* AC;
-
-            /// @brief edge
-            const GNEEdge* edge;
-
             /// @brief lane
-            const GNELane* lane;
+            const GNELane* getLane() const;
 
             /// @brief junction
-            const GNEJunction* junction;
+            const GNEJunction* getJunction() const;
 
             /// @brief valid
-            const bool valid;
+            bool getValid() const;
 
-        private:
+        protected:
+            /// @brief lane
+            const GNELane* myLane;
+
+            /// @brief nextLane
+            const GNELane* myNextLane;
+
+            /// @brief valid
+            const bool myValid;
+
             /// @brief flag to use lane shape
             bool myUseLaneShape;
 
+        private:
             /// @brief geometry used in segment
             Geometry mySegmentGeometry;
 
@@ -244,19 +281,30 @@ struct GNEGeometry {
         };
 
         /// @brief struct used for represent segments that must be updated
-        struct SegmentToUpdate {
+        class SegmentToUpdate {
 
+        public:
             /// @brief constructor
-            SegmentToUpdate(const int _index, const GNELane* _lane, const GNELane* _nextLane);
+            SegmentToUpdate(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
 
+            /// @brief get segment index
+            int getSegmentIndex() const;
+
+            // @brief get lane segment
+            const GNELane* getLane() const;
+
+            /// @brief get lane segment (used for updating lane2lane segments)
+            const GNELane* getNextLane() const;
+
+        private:
             /// @brief segment index
-            const int index;
+            const int mySegmentIndex;
 
             // @brief lane segment
-            const GNELane* lane;
+            const GNELane* myLane;
 
             /// @brief lane segment (used for updating lane2lane segments)
-            const GNELane* nextLane;
+            const GNELane* myNextLane;
 
         private:
             /// @brief Invalidated assignment operator
@@ -267,17 +315,16 @@ struct GNEGeometry {
         SegmentGeometry();
 
         /// @brief insert entire lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertLaneSegment(const GNEAttributeCarrier* AC, const GNELane* lane, const bool valid);
+        void insertLaneSegment(const GNELane* lane, const bool valid);
 
         /// @brief insert custom segment
-        void insertCustomSegment(const GNEAttributeCarrier* AC, const GNELane* lane,
-                                 const PositionVector& laneShape, const std::vector<double>& laneShapeRotations, const std::vector<double>& laneShapeLengths, const bool valid);
+        void insertCustomSegment(const GNELane* lane, const Geometry &geometry, const bool valid);
 
         /// @brief insert entire lane2lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
-        void insertLane2LaneSegment(const GNEAttributeCarrier* AC, const GNELane* currentLane, const GNELane* nextLane, const bool valid);
+        void insertLane2LaneSegment(const GNELane* currentLane, const GNELane* nextLane, const bool valid);
 
         /// @brief update custom segment
-        void updateCustomSegment(const int segmentIndex, const PositionVector& newLaneShape, const std::vector<double>& newLaneShapeRotations, const std::vector<double>& newLaneShapeLengths);
+        void updateCustomSegment(const int segmentIndex, const Geometry &geometry);
 
         /// @brief update lane2Lane segment (used to avoid unnecessary calculation in calculatePartialShapeRotationsAndLengths)
         void updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane);
@@ -324,7 +371,7 @@ struct GNEGeometry {
     struct Lane2laneConnection {
 
         /// @brief constructor
-        Lane2laneConnection(const GNELane* originLane);
+        Lane2laneConnection(const GNELane* fromLane);
 
         /// @brief update
         void updateLane2laneConnection();
@@ -332,9 +379,13 @@ struct GNEGeometry {
         /// @brief connection shape
         std::map<const GNELane*, Geometry> connectionsMap;
 
+    protected:
+        /// @brief from lane
+        const GNELane* myFromLane;
+
     private:
-        /// @brief origin lane
-        const GNELane* myOriginLane = nullptr;
+        /// @brief constructor
+        Lane2laneConnection();
 
         /// @brief Invalidated assignment operator
         Lane2laneConnection& operator=(const Lane2laneConnection& other) = delete;
@@ -372,28 +423,21 @@ struct GNEGeometry {
     static void adjustStartPosGeometricPath(double& startPos, const GNELane* startLane, double& endPos, const GNELane* endLane);
 
     /**@brief calculate route between lanes
-     * @brief AC attribute carrier's segment
      * @brief segmentGeometry segment geometry to be updated
      * @brief path list of pathElements (lanes)
-     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
-     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
-     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
-     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
+     * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
      */
-    static void calculateLaneGeometricPath(const GNEAttributeCarrier* AC, GNEGeometry::SegmentGeometry& segmentGeometry, const std::vector<GNEPathElements::PathElement>& path,
-                                           double startPos = -1, double endPos = -1, const Position& extraFirstPosition = Position::INVALID,
-                                           const Position& extraLastPosition = Position::INVALID);
+    static void calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, 
+        const std::vector<GNEPathElements::PathElement>& path,
+        GNEGeometry::ExtremeGeometry &extremeGeometry);
 
     /**@brief calculate route between edges
      * @brief segmentGeometry segment geometry to be updated
-     * @brief edge called edge
-     * @param startPos start position in the first lane (if -1, then starts at the beginning of lane)
-     * @param endPos end position in the last lane (if -1, then ends at the end of lane)
-     * @param extraFirstPosition extra first position (if is Position::INVALID, then it's ignored)
-     * @param extraLastPosition extra last position (if is Position::INVALID, then it's ignored)
+     * @brief lane GNELane that called this function
+     * @param extremeGeometry ExtremeGeometry used to cut/adjust shape
      */
-    static void updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNEEdge* edge, double startPos = -1, double endPos = -1,
-                                    const Position& extraFirstPosition = Position::INVALID, const Position& extraLastPosition = Position::INVALID);
+    static void updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, const GNELane* lane, 
+        GNEGeometry::ExtremeGeometry &extremeGeometry);
 
     /// @brief draw lane geometry (use their own function due colors)
     static void drawLaneGeometry(const GNEViewNet* viewNet, const PositionVector& shape, const std::vector<double>& rotations,

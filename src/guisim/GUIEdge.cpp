@@ -56,6 +56,8 @@
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MEVehicle.h>
+
+
 GUIEdge::GUIEdge(const std::string& id, int numericalID,
                  const SumoXMLEdgeFunc function,
                  const std::string& streetName, const std::string& edgeType, int priority,
@@ -422,7 +424,7 @@ GUIEdge::setMultiColor(const GUIColorer& c) const {
         case 11: // by segment jammed state
             for (MESegment* segment = MSGlobals::gMesoNet->getSegmentForEdge(*this);
                     segment != nullptr; segment = segment->getNextSegment()) {
-                mySegmentColors.push_back(c.getScheme().getColor(segment->free() ? 0 : 1));
+                mySegmentColors.push_back(c.getScheme().getColor(segment->getRelativeOccupancy() <= segment->getRelativeJamThreshold() ? 0 : 1));
             }
             return true;
         case 12: // by segment occupancy

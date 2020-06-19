@@ -287,7 +287,7 @@ GNEPersonStop::updateDottedContour() {
 
 
 void
-GNEPersonStop::updatePartialGeometry(const GNEEdge* /*edge*/) {
+GNEPersonStop::updatePartialGeometry(const GNELane* /*lane*/) {
     // nothing to update
 }
 

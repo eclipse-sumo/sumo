@@ -240,7 +240,7 @@ public:
     virtual void updateDottedContour() = 0;
 
     /// @brief partial update pre-computed geometry information
-    virtual void updatePartialGeometry(const GNEEdge* edge) = 0;
+    virtual void updatePartialGeometry(const GNELane* lane) = 0;
 
     /// @brief compute path
     virtual void computePath() = 0;
@@ -380,8 +380,8 @@ protected:
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
-    /// @brief calculate personPlan start and end positions over lanes
-    void calculatePersonPlanLaneStartEndPos(double& startLanePos, double& endLanePos, Position &extraStartPosition, Position &extraEndPosition) const;
+    /// @brief calculate extreme geometry
+    GNEGeometry::ExtremeGeometry calculatePersonPlanLaneStartEndPos() const;
 
 private:
     /**@brief check restriction with the number of children

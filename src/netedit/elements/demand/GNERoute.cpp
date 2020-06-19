@@ -247,8 +247,10 @@ GNERoute::commitGeometryMoving(GNEUndoList*) {
 
 void
 GNERoute::updateGeometry() {
+    // declare extreme geometry
+    GNEGeometry::ExtremeGeometry extremeGeometry;
     // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(this, myDemandElementSegmentGeometry, getPath());
+    GNEGeometry::calculateLaneGeometricPath(myDemandElementSegmentGeometry, getPath(), extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
@@ -265,13 +267,15 @@ GNERoute::updateDottedContour() {
 
 
 void
-GNERoute::updatePartialGeometry(const GNEEdge* edge) {
+GNERoute::updatePartialGeometry(const GNELane* lane) {
+    // declare extreme geometry
+    GNEGeometry::ExtremeGeometry extremeGeometry;
     // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, edge);
+    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
         if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
-            i->updatePartialGeometry(edge);
+            i->updatePartialGeometry(lane);
         }
     }
 }
@@ -363,7 +367,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if ((segment.edge == lane->getParentEdge()) && (segment.AC == this)) {
+            if (segment.getLane() == lane) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines

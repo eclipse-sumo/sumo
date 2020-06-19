@@ -1484,9 +1484,9 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
                 }
             } else {
-                // if anticipated gains to the left are higher, prefer this
+                // if anticipated gains to the left are higher then to the right and current gains are equal, prefer left
                 if (currentLatDist > 0
-                        //&& latDist < 0 @todo check why this causes some timeloss in tests
+                        //&& latDist < 0 // #7184 compensates for #7185
                         && mySpeedGainProbabilityLeft > mySpeedGainProbabilityRight
                         && relativeGain > GAIN_PERCEPTION_THRESHOLD
                         && maxGain - relativeGain < NUMERICAL_EPS) {
@@ -1690,86 +1690,87 @@ MSLCM_SL2015::_wantsChangeSublane(
         }
     }
 
-    // only factor in preferred lateral alignment if there is no speedGain motivation
-    if (fabs(latDist) <= NUMERICAL_EPS * myVehicle.getActionStepLengthSecs()) {
-        double latDistSublane = 0.;
-        const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
-        const double halfVehWidth = getWidth() * 0.5;
-        if (myVehicle.getParameter().arrivalPosLatProcedure != ArrivalPosLatDefinition::DEFAULT
-                && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
-                && bestLaneOffset == 0
-                && (myVehicle.getArrivalPos() - myVehicle.getPositionOnLane()) < ARRIVALPOS_LAT_THRESHOLD) {
-            // vehicle is on its final edge, on the correct lane and close to
-            // its arrival position. Change to the desired lateral position
-            switch (myVehicle.getParameter().arrivalPosLatProcedure) {
-                case ArrivalPosLatDefinition::GIVEN:
-                    latDistSublane = myVehicle.getParameter().arrivalPosLat - myVehicle.getLateralPositionOnLane();
-                    break;
-                case ArrivalPosLatDefinition::RIGHT:
-                    latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
-                    break;
-                case ArrivalPosLatDefinition::CENTER:
-                    latDistSublane = -myVehicle.getLateralPositionOnLane();
-                    break;
-                case ArrivalPosLatDefinition::LEFT:
-                    latDistSublane = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
-                    break;
-                default:
-                    assert(false);
-            }
+    double latDistSublane = 0.;
+    const double halfLaneWidth = myVehicle.getLane()->getWidth() * 0.5;
+    const double halfVehWidth = getWidth() * 0.5;
+    if (myVehicle.getParameter().arrivalPosLatProcedure != ArrivalPosLatDefinition::DEFAULT
+            && myVehicle.getRoute().getLastEdge() == &myVehicle.getLane()->getEdge()
+            && bestLaneOffset == 0
+            && (myVehicle.getArrivalPos() - myVehicle.getPositionOnLane()) < ARRIVALPOS_LAT_THRESHOLD) {
+        // vehicle is on its final edge, on the correct lane and close to
+        // its arrival position. Change to the desired lateral position
+        switch (myVehicle.getParameter().arrivalPosLatProcedure) {
+            case ArrivalPosLatDefinition::GIVEN:
+                latDistSublane = myVehicle.getParameter().arrivalPosLat - myVehicle.getLateralPositionOnLane();
+                break;
+            case ArrivalPosLatDefinition::RIGHT:
+                latDistSublane = -halfLaneWidth + halfVehWidth - myVehicle.getLateralPositionOnLane();
+                break;
+            case ArrivalPosLatDefinition::CENTER:
+                latDistSublane = -myVehicle.getLateralPositionOnLane();
+                break;
+            case ArrivalPosLatDefinition::LEFT:
+                latDistSublane = halfLaneWidth - halfVehWidth - myVehicle.getLateralPositionOnLane();
+                break;
+            default:
+                assert(false);
+        }
 #ifdef DEBUG_WANTSCHANGE
-            if (gDebugFlag2) std::cout << SIMTIME
-                                           << " arrivalPosLatProcedure=" << (int)myVehicle.getParameter().arrivalPosLatProcedure
-                                           << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
+        if (gDebugFlag2) std::cout << SIMTIME
+                                       << " arrivalPosLatProcedure=" << (int)myVehicle.getParameter().arrivalPosLatProcedure
+                                       << " arrivalPosLat=" << myVehicle.getParameter().arrivalPosLat << "\n";
 #endif
 
-        } else {
+    } else {
 
-            LateralAlignment align = myVehicle.getVehicleType().getPreferredLateralAlignment();
-            // Check whether the vehicle should adapt its alignment to an upcoming turn
-            if (myTurnAlignmentDist > 0) {
-                const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
-                if (turnInfo.first < myTurnAlignmentDist) {
-                    // Vehicle is close enough to the link to change its default alignment
-                    switch (turnInfo.second) {
-                        case LinkDirection::TURN:
-                        case LinkDirection::LEFT:
-                        case LinkDirection::PARTLEFT:
-                            align = MSGlobals::gLefthand ? LATALIGN_RIGHT : LATALIGN_LEFT;
-                            break;
-                        case LinkDirection::TURN_LEFTHAND:
-                        case LinkDirection::RIGHT:
-                        case LinkDirection::PARTRIGHT:
-                            align = MSGlobals::gLefthand ? LATALIGN_LEFT : LATALIGN_RIGHT;
-                            break;
-                        case LinkDirection::STRAIGHT:
-                        case LinkDirection::NODIR:
-                        default:
-                            break;
-                    }
+        LateralAlignment align = myVehicle.getVehicleType().getPreferredLateralAlignment();
+        // Check whether the vehicle should adapt its alignment to an upcoming turn
+        if (myTurnAlignmentDist > 0) {
+            const std::pair<double, LinkDirection>& turnInfo = myVehicle.getNextTurn();
+            if (turnInfo.first < myTurnAlignmentDist) {
+                // Vehicle is close enough to the link to change its default alignment
+                switch (turnInfo.second) {
+                    case LinkDirection::TURN:
+                    case LinkDirection::LEFT:
+                    case LinkDirection::PARTLEFT:
+                        align = MSGlobals::gLefthand ? LATALIGN_RIGHT : LATALIGN_LEFT;
+                        break;
+                    case LinkDirection::TURN_LEFTHAND:
+                    case LinkDirection::RIGHT:
+                    case LinkDirection::PARTRIGHT:
+                        align = MSGlobals::gLefthand ? LATALIGN_LEFT : LATALIGN_RIGHT;
+                        break;
+                    case LinkDirection::STRAIGHT:
+                    case LinkDirection::NODIR:
+                    default:
+                        break;
                 }
             }
-            switch (align) {
-                case LATALIGN_RIGHT:
-                    latDistSublane = -halfLaneWidth + halfVehWidth - getPosLat();
-                    break;
-                case LATALIGN_LEFT:
-                    latDistSublane = halfLaneWidth - halfVehWidth - getPosLat();
-                    break;
-                case LATALIGN_CENTER:
-                    latDistSublane = -getPosLat();
-                    break;
-                case LATALIGN_NICE:
-                    latDistSublane = latDistNice;
-                    break;
-                case LATALIGN_COMPACT:
-                    latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
-                    break;
-                case LATALIGN_ARBITRARY:
-                    latDistSublane = getLateralDrift();
-                    break;
-            }
         }
+        switch (align) {
+            case LATALIGN_RIGHT:
+                latDistSublane = -halfLaneWidth + halfVehWidth - getPosLat();
+                break;
+            case LATALIGN_LEFT:
+                latDistSublane = halfLaneWidth - halfVehWidth - getPosLat();
+                break;
+            case LATALIGN_CENTER:
+                latDistSublane = -getPosLat();
+                break;
+            case LATALIGN_NICE:
+                latDistSublane = latDistNice;
+                break;
+            case LATALIGN_COMPACT:
+                latDistSublane = sublaneSides[sublaneCompact] - rightVehSide;
+                break;
+            case LATALIGN_ARBITRARY:
+                latDistSublane = getLateralDrift();
+                break;
+        }
+    }
+    // only factor in preferred lateral alignment if there is no speedGain motivation or it runs in the same direction
+    if (fabs(latDist) <= NUMERICAL_EPS * myVehicle.getActionStepLengthSecs() ||
+            latDistSublane * latDist > 0) {
 
 #if defined(DEBUG_WANTSCHANGE) || defined(DEBUG_STATE) || defined(DEBUG_MANEUVER)
         if (gDebugFlag2) std::cout << SIMTIME
@@ -1982,7 +1983,8 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
             const double gap = ahead[sublane].second;
             double vSafe;
             if (leader == nullptr) {
-                vSafe = myCarFollowModel.followSpeed(&myVehicle, vMax, preb[laneIndex].length, 0, 0);
+                const double dist = preb[laneIndex].length - myVehicle.getPositionOnLane();
+                vSafe = myCarFollowModel.followSpeed(&myVehicle, vMax, dist, 0, 0);
             } else {
                 if (leader->getAcceleration() > 0.5 * leader->getCarFollowModel().getMaxAccel()) {
                     // assume that the leader will continue accelerating to its maximum speed
@@ -3116,6 +3118,7 @@ MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
                   << " fullLatDist=" << fullLatDist
                   << " speedAccel=" << speedAccel
                   << " speedDecel=" << speedDecel
+                  << " speedDecelSafe=" << speedDecelSafe
                   << " speedBound=" << speedBound
                   << std::endl;
     }

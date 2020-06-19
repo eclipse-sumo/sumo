@@ -326,28 +326,43 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         WRITE_ERROR("Unknown traffic light type '" + typeS + "' for node '" + currentNode->getID() + "'.");
         return;
     }
+    TrafficLightLayout layout = TrafficLightLayout::INVALID;
+    if (attrs.hasAttribute(SUMO_ATTR_TLLAYOUT)) {
+        std::string layoutS = attrs.get<std::string>(SUMO_ATTR_TLLAYOUT, nullptr, ok);
+        if (SUMOXMLDefinitions::TrafficLightLayouts.hasString(layoutS)) {
+            layout = SUMOXMLDefinitions::TrafficLightLayouts.get(layoutS);
+        } else {
+            WRITE_ERROR("Unknown traffic light layout '" + typeS + "' for node '" + currentNode->getID() + "'.");
+            return;
+        }
+    }
     if (tlID != "" && tlc.getPrograms(tlID).size() > 0) {
         // we already have definitions for this tlID
-        const std::map<std::string, NBTrafficLightDefinition*>& programs = tlc.getPrograms(tlID);
-        std::map<std::string, NBTrafficLightDefinition*>::const_iterator it;
-        for (it = programs.begin(); it != programs.end(); it++) {
-            if (it->second->getType() != type) {
-                WRITE_ERROR("Mismatched traffic light type '" + typeS + "' for tl '" + tlID + "'.");
-                ok = false;
-            } else {
-                tlDefs.insert(it->second);
-                it->second->addNode(currentNode);
+        for (auto item : tlc.getPrograms(tlID)) {
+            NBTrafficLightDefinition* def = item.second;
+            tlDefs.insert(def);
+            def->addNode(currentNode);
+            if (def->getType() != type && attrs.hasAttribute(SUMO_ATTR_TLTYPE)) {
+                WRITE_WARNINGF("Changing traffic light type '%' to '%' for tl '%'.", toString(def->getType()), typeS, tlID);
+                def->setType(type);
+                if (type != TrafficLightType::STATIC && dynamic_cast<NBLoadedSUMOTLDef*>(def) != nullptr) {
+                    dynamic_cast<NBLoadedSUMOTLDef*>(def)->guessMinMaxDuration();
+                }
+            }
+            if (layout != TrafficLightLayout::INVALID && dynamic_cast<NBOwnTLDef*>(def) != nullptr) {
+                dynamic_cast<NBOwnTLDef*>(def)->setLayout(layout);
             }
         }
     } else {
         // we need to add a new defition
         tlID = (tlID == "" ? currentNode->getID() : tlID);
-        NBTrafficLightDefinition* tlDef = new NBOwnTLDef(tlID, currentNode, 0, type);
+        NBOwnTLDef* tlDef = new NBOwnTLDef(tlID, currentNode, 0, type);
         if (!tlc.insert(tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
             throw ProcessError("Could not allocate tls '" + currentNode->getID() + "'.");
         }
+        tlDef->setLayout(layout);
         tlDefs.insert(tlDef);
     }
     // process inner edges which shall be controlled

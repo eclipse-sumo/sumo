@@ -63,6 +63,7 @@ GUIMEVehicle::getParameterWindow(GUIMainWindow& app,
     // add items
     ret->mkItem("edge [id]", true, new FunctionBindingString<GUIMEVehicle>(this, &GUIMEVehicle::getEdgeID));
     ret->mkItem("segment [#]", true,  new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getSegmentIndex));
+    ret->mkItem("queue [#]", true,  new FunctionBinding<GUIMEVehicle, int>(this, &GUIMEVehicle::getQueIndex));
     ret->mkItem("position [m]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIMEVehicle, double>(this, &MEVehicle::getSpeed));
     ret->mkItem("angle [degree]", true, new FunctionBinding<GUIMEVehicle, double>(this, &GUIBaseVehicle::getNaviDegree));
@@ -252,7 +253,7 @@ GUIMEVehicle::getEdgeID() const {
 
 int
 GUIMEVehicle::getSegmentIndex() const {
-    return getSegment()->getIndex();
+    return getSegment() != nullptr ? getSegment()->getIndex() : -1;
 }
 
 

@@ -817,6 +817,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_TLID,
     /// @brief node: the type of traffic light
     SUMO_ATTR_TLTYPE,
+    /// @brief node: the layout of the traffic light program
+    SUMO_ATTR_TLLAYOUT,
     /// @brief link: the index of the link within the traffic light
     SUMO_ATTR_TLLINKINDEX,
     /// @brief link: the index of the opposite direction link of a pedestrian crossing
@@ -1360,6 +1362,14 @@ enum class TrafficLightType {
     INVALID //< must be the last one
 };
 
+/// @enum TrafficLightLayout
+enum class TrafficLightLayout {
+    OPPOSITES,
+    INCOMING,
+    ALTERNATE_ONEWAY,
+    INVALID //< must be the last one
+};
+
 
 /** @enum LaneChangeAction
  * @brief The state of a vehicle's lane-change behavior
@@ -1540,6 +1550,9 @@ public:
     /// @brief traffic light types
     static StringBijection<TrafficLightType> TrafficLightTypes;
 
+    /// @brief traffic light layouts
+    static StringBijection<TrafficLightLayout> TrafficLightLayouts;
+
     /// @brief lane change models
     static StringBijection<LaneChangeModel> LaneChangeModels;
 
@@ -1634,6 +1647,9 @@ private:
 
     /// @brief traffic light types values
     static StringBijection<TrafficLightType>::Entry trafficLightTypesValues[];
+
+    /// @brief traffic light layout values
+    static StringBijection<TrafficLightLayout>::Entry trafficLightLayoutValues[];
 
     /// @brief lane change model values
     static StringBijection<LaneChangeModel>::Entry laneChangeModelValues[];

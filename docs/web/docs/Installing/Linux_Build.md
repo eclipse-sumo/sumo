@@ -108,7 +108,7 @@ echo $SUMO_HOME
 
 and console shows "/home/<user\>/sumo-<version\>"
 
-## Building the SUMO binaries with cmake (recommended)
+## Building the SUMO binaries with cmake
 
 To build with cmake version 3 or higher is required.
 
@@ -191,23 +191,28 @@ that you can delete all source and intermediate files afterwards. If you
 do not want (or need) to do that, you can simply skip this step and run
 SUMO from the bin subfolder (bin/sumo-gui and bin/sumo).
 
-If you want to install the SUMO binaries, run
-
-```
-make install
-```
-
-or
-
+If you want to install the SUMO binaries into your system, run
 ```
 sudo make install
 ```
 
 You have to adjust your SUMO_HOME variable to the install dir (usually
 /usr/local/share/sumo)
-
 ```
 export SUMO_HOME=/usr/local/share/sumo
+```
+
+## Uninstalling
+
+CMake provides no `make uninstall` so if you ever want to uninstall, run
+```
+sudo xargs rm < install_manifest.txt
+```
+from the same folder you ran `make install`. This will leave some empty
+directories, so if you want to remove them as well, double check that
+$SUMO_HOME points to the right directory (see above) and run
+```
+sudo xargs rm -r $SUMO_HOME
 ```
 
 ## Troubleshooting
