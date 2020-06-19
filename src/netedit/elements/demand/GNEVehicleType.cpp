@@ -92,18 +92,6 @@ GNEVehicleType::writeDemandElement(OutputDevice& device) const {
 }
 
 
-GNEEdge*
-GNEVehicleType::getFromEdge() const {
-    return nullptr;
-}
-
-
-GNEEdge*
-GNEVehicleType::getToEdge() const {
-    return nullptr;
-}
-
-
 SUMOVehicleClass
 GNEVehicleType::getVClass() const {
     return vehicleClass;

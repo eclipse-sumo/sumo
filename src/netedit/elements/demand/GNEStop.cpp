@@ -140,26 +140,6 @@ GNEStop::fixDemandElementProblem() {
 }
 
 
-GNEEdge*
-GNEStop::getFromEdge() const {
-    if (getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
-    } else {
-        return getParentLanes().front()->getParentEdge();
-    }
-}
-
-
-GNEEdge*
-GNEStop::getToEdge() const {
-    if (getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
-    } else {
-        return getParentLanes().front()->getParentEdge();
-    }
-}
-
-
 SUMOVehicleClass
 GNEStop::getVClass() const {
     return getParentDemandElements().front()->getVClass();

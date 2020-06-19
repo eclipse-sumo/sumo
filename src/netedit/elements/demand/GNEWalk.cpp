@@ -24,8 +24,6 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEWalk.h"
 #include "GNERoute.h"
@@ -203,28 +201,6 @@ GNEWalk::getDemandElementProblem() const {
 void
 GNEWalk::fixDemandElementProblem() {
     // currently the only solution is removing Walk
-}
-
-
-GNEEdge*
-GNEWalk::getFromEdge() const {
-    if (getParentDemandElements().size() == 2) {
-        // obtain position and rotation of first edge route
-        return getParentDemandElements().at(1)->getFromEdge();
-    } else {
-        return getParentEdges().front();
-    }
-}
-
-
-GNEEdge*
-GNEWalk::getToEdge() const {
-    if (getParentDemandElements().size() == 2) {
-        // obtain position and rotation of first edge route
-        return getParentDemandElements().at(1)->getToEdge();
-    } else {
-        return getParentEdges().back();
-    }
 }
 
 

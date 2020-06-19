@@ -257,18 +257,6 @@ GNEPerson::fixDemandElementProblem() {
 }
 
 
-GNEEdge*
-GNEPerson::getFromEdge() const {
-    return getChildDemandElements().front()->getFromEdge();
-}
-
-
-GNEEdge*
-GNEPerson::getToEdge() const {
-    return getChildDemandElements().front()->getToEdge();
-}
-
-
 SUMOVehicleClass
 GNEPerson::getVClass() const {
     return getParentDemandElements().front()->getVClass();

@@ -129,12 +129,6 @@ public:
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
-    /// @brief obtain from edge of this demand element
-    GNEEdge* getFromEdge() const;
-
-    /// @brief obtain to edge of this demand element
-    GNEEdge* getToEdge() const;
-
     /// @brief obtain VClass related with this demand element
     SUMOVehicleClass getVClass() const;
 

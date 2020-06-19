@@ -471,38 +471,6 @@ GNEVehicle::fixDemandElementProblem() {
 }
 
 
-GNEEdge*
-GNEVehicle::getFromEdge() const {
-    if (getParentDemandElements().size() == 2) {
-        // obtain edge of route
-        return getParentDemandElements().at(1)->getFromEdge();
-    } else if (getParentEdges().size() > 0) {
-        return getParentEdges().front();
-    } else if (getChildDemandElements().size() > 0) {
-        // obtain edge of embedded route
-        return getChildDemandElements().at(0)->getFromEdge();
-    } else {
-        throw ProcessError("Undefined from edge");
-    }
-}
-
-
-GNEEdge*
-GNEVehicle::getToEdge() const {
-    if (getParentDemandElements().size() == 2) {
-        // oobtain edge of route
-        return getParentDemandElements().at(1)->getToEdge();
-    } else if (getParentEdges().size() > 0) {
-        return getParentEdges().back();
-    } else if (getChildDemandElements().size() > 0) {
-        // obtain edge of embedded route
-        return getChildDemandElements().at(0)->getToEdge();
-    } else {
-        throw ProcessError("Undefined to edge");
-    }
-}
-
-
 SUMOVehicleClass
 GNEVehicle::getVClass() const {
     return getParentDemandElements().front()->getVClass();
@@ -638,17 +606,7 @@ GNEVehicle::invalidatePath() {
 
 Position
 GNEVehicle::getPositionInView() const {
-    // obtain lane
-    GNELane* lane = getFromEdge()->getLanes().front();
-    // get position depending of lane's length
-    if (lane->getLaneShape().length() < 2.5) {
-        return lane->getLaneShape().front();
-    } else {
-        Position A = lane->getLaneShape().positionAtOffset(2.5);
-        Position B = lane->getLaneShape().positionAtOffset(2.5);
-        // return Middle point
-        return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
-    }
+    return myDemandElementGeometry.getPosition();
 }
 
 
@@ -688,7 +646,7 @@ GNEVehicle::getParentName() const {
 Boundary
 GNEVehicle::getCenteringBoundary() const {
     Boundary vehicleBoundary;
-    vehicleBoundary.add(getFromEdge()->getLanes().front()->getLaneShape().front());
+    vehicleBoundary.add(myDemandElementGeometry.getPosition());
     vehicleBoundary.grow(20);
     return vehicleBoundary;
 }
@@ -703,8 +661,9 @@ GNEVehicle::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkEl
 void
 GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
     // only drawn in super mode demand
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
+        myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // declare common attributes
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         const double exaggeration = s.vehicleSize.getExaggeration(s, this);
@@ -1115,10 +1074,13 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
             parseDepartLane(value, toString(SUMO_TAG_VEHICLE), id, dummyDepartLane, dummyDepartLaneProcedure, error);
             // if error is empty, check if depart lane is correct
             if (error.empty()) {
-                if (dummyDepartLaneProcedure != DepartLaneDefinition::GIVEN) {
+                const GNELane *lane = getFirstAllowedVehicleLane();
+                if (lane == nullptr) {
+                    return false;
+                } else if (dummyDepartLaneProcedure != DepartLaneDefinition::GIVEN) {
                     return true;
                 } else {
-                    return dummyDepartLane < (int)getFromEdge()->getLanes().size();
+                    return dummyDepartLane < (int)lane->getParentEdge()->getLanes().size();
                 }
             } else {
                 return false;

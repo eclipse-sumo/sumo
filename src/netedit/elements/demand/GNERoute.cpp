@@ -197,18 +197,6 @@ GNERoute::fixDemandElementProblem() {
 }
 
 
-GNEEdge*
-GNERoute::getFromEdge() const {
-    return getParentEdges().front();
-}
-
-
-GNEEdge*
-GNERoute::getToEdge() const {
-    return getParentEdges().back();
-}
-
-
 SUMOVehicleClass
 GNERoute::getVClass() const {
     return myVClass;
@@ -331,18 +319,14 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    // only drawn in super mode demand
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+    // check if route can be drawn
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
+        myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
         myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
-        // calculate route width
-        double routeWidth = s.addSize.getExaggeration(s, this) * s.widthSettings.route;
+        // get route width
+        const double routeWidth = s.addSize.getExaggeration(s, lane) * s.widthSettings.route;
         // obtain color
-        RGBColor routeColor;
-        if (drawUsingSelectColor()) {
-            routeColor = s.colorSettings.selectedRouteColor;
-        } else {
-            routeColor = getColor();
-        }
+        const RGBColor routeColor = drawUsingSelectColor()? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix

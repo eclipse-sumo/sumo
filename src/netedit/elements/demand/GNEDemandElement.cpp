@@ -27,7 +27,6 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
-#include "GNERouteHandler.h"
 
 
 // ===========================================================================
@@ -574,13 +573,10 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
                 GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, segmentWidth);
             }
         } else {
-            // create geometry using extrem of both lanes
-            GNEGeometry::Geometry geom;
-            geom.updateGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
-            // draw geometry
-            GNEGeometry::drawGeometry(myNet->getViewNet(), geom, (0.5*segmentWidth));
+            // draw line between end of first shape and first position of second shape
+            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5*segmentWidth));
         }
         // Pop last matrix
         glPopMatrix();

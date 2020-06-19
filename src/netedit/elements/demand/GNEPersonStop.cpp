@@ -141,26 +141,6 @@ GNEPersonStop::fixDemandElementProblem() {
 }
 
 
-GNEEdge*
-GNEPersonStop::getFromEdge() const {
-    if (getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getParentEdges().front();
-    } else {
-        return getParentEdges().front();
-    }
-}
-
-
-GNEEdge*
-GNEPersonStop::getToEdge() const {
-    if (getParentAdditionals().size() > 0) {
-        return getParentAdditionals().front()->getParentEdges().front();
-    } else {
-        return getParentEdges().front();
-    }
-}
-
-
 SUMOVehicleClass
 GNEPersonStop::getVClass() const {
     return getParentDemandElements().front()->getVClass();

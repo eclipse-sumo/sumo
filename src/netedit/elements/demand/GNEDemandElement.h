@@ -176,12 +176,13 @@ public:
 
     /// @name members and functions relative to elements common to all demand elements
     /// @{
+/*
     /// @brief obtain from edge of this demand element
     virtual GNEEdge* getFromEdge() const = 0;
 
     /// @brief obtain to edge of this demand element
     virtual GNEEdge* getToEdge() const = 0;
-
+*/
     /// @brief obtain VClass related with this demand element
     virtual SUMOVehicleClass getVClass() const = 0;
 
@@ -374,14 +375,14 @@ protected:
     /// @brief stacked label number
     int myStackedLabelNumber;
 
-    /// @brief person plans arrival position radius
-    static const double myPersonPlanArrivalPositionDiameter;
-
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
     /// @brief get first person plan edge
     const GNEEdge *getFirstPersonPlanEdge() const;
+
+    /// @name Only for person plans
+    /// @{
 
     /// @brief calculate extreme geometry
     GNEGeometry::ExtremeGeometry calculatePersonPlanLaneStartEndPos() const;
@@ -393,6 +394,11 @@ protected:
     /// @brief draw person plan partial junction
     void drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, 
         const double personPlanWidth, const RGBColor &personPlanColor) const;
+
+    /// @brief person plans arrival position radius
+    static const double myPersonPlanArrivalPositionDiameter;
+
+    /// @}
 
 private:
     /**@brief check restriction with the number of children
