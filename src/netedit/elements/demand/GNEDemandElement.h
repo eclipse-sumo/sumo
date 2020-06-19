@@ -374,14 +374,25 @@ protected:
     /// @brief stacked label number
     int myStackedLabelNumber;
 
-    /// @brief the radius in which to register clicks for geometry nodes
-    static const double SNAP_RADIUS;
+    /// @brief person plans arrival position radius
+    static const double myPersonPlanArrivalPositionDiameter;
 
     /// @brief check if a new demand element ID is valid
     bool isValidDemandElementID(const std::string& newID) const;
 
+    /// @brief get first person plan edge
+    const GNEEdge *getFirstPersonPlanEdge() const;
+
     /// @brief calculate extreme geometry
     GNEGeometry::ExtremeGeometry calculatePersonPlanLaneStartEndPos() const;
+
+    /// @brief draw person plan partial lane
+    void drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane, 
+        const double personPlanWidth, const RGBColor &personPlanColor) const;
+
+    /// @brief draw person plan partial junction
+    void drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, 
+        const double personPlanWidth, const RGBColor &personPlanColor) const;
 
 private:
     /**@brief check restriction with the number of children

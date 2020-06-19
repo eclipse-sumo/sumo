@@ -673,6 +673,9 @@ GNEGeometry::Lane2laneConnection::Lane2laneConnection(const GNELane* fromLane) :
 
 void
 GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
+    // declare numPoints
+    const int numPoints = 5;
+    const int maximumLanes = 10;
     // clear connectionsMap
     myConnectionsMap.clear();
     // iterate over outgoingEdge's lanes
@@ -682,21 +685,20 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
             const NBEdge* NBEdgeFrom = myFromLane->getParentEdge()->getNBEdge();
             const NBEdge* NBEdgeTo = outgoingLane->getParentEdge()->getNBEdge();
             // only create smooth shapes if Edge From has as maximum 10 lanes
-            if ((NBEdgeFrom->getNumLanes() <= 10) && (NBEdgeFrom->getToNode()->getShape().area() > 4)) {
+            if ((NBEdgeFrom->getNumLanes() <= maximumLanes) && (NBEdgeFrom->getToNode()->getShape().area() > 4)) {
                 // Calculate smooth shape
                 myConnectionsMap[outgoingLane].updateGeometry(NBEdgeFrom->getToNode()->computeSmoothShape(
                             NBEdgeFrom->getLaneShape(myFromLane->getIndex()),
                             NBEdgeTo->getLaneShape(outgoingLane->getIndex()),
-                            5, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
-                            (double) 5. * (double) NBEdgeFrom->getNumLanes(),
-                            (double) 5. * (double) NBEdgeTo->getNumLanes()));
+                            numPoints, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
+                            (double) numPoints * (double) NBEdgeFrom->getNumLanes(),
+                            (double) numPoints * (double) NBEdgeTo->getNumLanes()));
             } else {
-                // create a shape using shape extremes
+                // create a shape using lane shape extremes
                 myConnectionsMap[outgoingLane].updateGeometry({
-                    NBEdgeFrom->getLaneShape(myFromLane->getIndex()).back(),
-                    NBEdgeTo->getLaneShape(outgoingLane->getIndex()).front()});
+                    myFromLane->getLaneShape().back(),
+                    outgoingLane->getLaneShape().front()});
             }
-
         }
     }
 }

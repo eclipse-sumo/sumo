@@ -1144,45 +1144,6 @@ GNERouteHandler::buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemand
 }
 
 
-GNEEdge*
-GNERouteHandler::getFirstPersonPlanEdge(const GNEDemandElement *personPlan) {
-    // set specific mode depending of tag
-    switch (personPlan->getTagProperty().getTag()) {
-        // route
-        case GNE_TAG_WALK_ROUTE:
-            return personPlan->getParentDemandElements().at(1)->getParentEdges().front();
-        // edges
-        case GNE_TAG_WALK_EDGES:
-        // edge->edge
-        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
-        case GNE_TAG_WALK_EDGE_EDGE:
-        case GNE_TAG_RIDE_EDGE_EDGE:
-        // edge->busStop
-        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
-        case GNE_TAG_WALK_EDGE_BUSSTOP:
-        case GNE_TAG_RIDE_EDGE_BUSSTOP:
-            return personPlan->getParentEdges().front();
-            break;
-        // busStop->edge
-        case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
-        case GNE_TAG_WALK_BUSSTOP_EDGE:
-        case GNE_TAG_RIDE_BUSSTOP_EDGE:
-        // busStop->busStop
-        case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
-        case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
-        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
-            return personPlan->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
-        // stops
-        case GNE_TAG_PERSONSTOP_BUSSTOP:
-            return personPlan->getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
-        case GNE_TAG_PERSONSTOP_EDGE:
-            return personPlan->getParentLanes().front()->getParentEdge();
-        default:
-            return nullptr;
-    }
-}
-
-
 void
 GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbeddedRoute) {
     // get original vehicle tag

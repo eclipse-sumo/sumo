@@ -160,9 +160,6 @@ public:
     /// @brief build stop
     static void buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters);
 
-    /// @brief for the given Person plan, get first edge
-    static GNEEdge *getFirstPersonPlanEdge(const GNEDemandElement *personPlan);
-
     /// @}
 
     /// @brief transform vehicle functions

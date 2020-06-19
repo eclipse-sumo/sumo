@@ -21,16 +21,19 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEDemandElement.h"
+#include "GNERouteHandler.h"
 
 
 // ===========================================================================
-// static
+// static defintions
 // ===========================================================================
-const double GNEDemandElement::SNAP_RADIUS = SUMO_const_halfLaneWidth;
+const double GNEDemandElement::myPersonPlanArrivalPositionDiameter = SUMO_const_halfLaneWidth;
 
 // ===========================================================================
 // member method definitions
@@ -331,6 +334,44 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
 }
 
 
+const GNEEdge* 
+GNEDemandElement::getFirstPersonPlanEdge() const {
+    // set specific mode depending of tag
+    switch (myTagProperty.getTag()) {
+        // route
+        case GNE_TAG_WALK_ROUTE:
+            return getParentDemandElements().at(1)->getParentEdges().front();
+            // edges
+        case GNE_TAG_WALK_EDGES:
+            // edge->edge
+        case GNE_TAG_PERSONTRIP_EDGE_EDGE:
+        case GNE_TAG_WALK_EDGE_EDGE:
+        case GNE_TAG_RIDE_EDGE_EDGE:
+            // edge->busStop
+        case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
+        case GNE_TAG_WALK_EDGE_BUSSTOP:
+        case GNE_TAG_RIDE_EDGE_BUSSTOP:
+            return getParentEdges().front();
+            // busStop->edge
+        case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
+        case GNE_TAG_WALK_BUSSTOP_EDGE:
+        case GNE_TAG_RIDE_BUSSTOP_EDGE:
+            // busStop->busStop
+        case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
+        case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
+        case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
+            return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+            // stops
+        case GNE_TAG_PERSONSTOP_BUSSTOP:
+            return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+        case GNE_TAG_PERSONSTOP_EDGE:
+            return getParentLanes().front()->getParentEdge();
+        default:
+            return nullptr;
+    }
+}
+
+
 GNEGeometry::ExtremeGeometry
 GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
     // declare extreme geometry
@@ -382,6 +423,170 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
     }
     // return extreme geometry
     return extremeGeometry;
+}
+
+
+void 
+GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane, 
+    const double personPlanWidth, const RGBColor &personPlanColor) const {
+    // get inspected person plan
+    const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getDottedAC();
+    const GNEDemandElement* personParent = getParentDemandElements().front();
+    // declare flag to enable or disable draw person plan
+    bool drawPersonPlan = false;
+    if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
+        // all person plan has to be drawn
+        drawPersonPlan = true;
+    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == personParent) {
+        // if person parent is locked, draw all their person plans children
+        drawPersonPlan = true;
+    } else if (personPlanInspected == personParent) {
+        // draw if we're inspecting person parent
+        drawPersonPlan = true;
+    } else if (personPlanInspected == this) {
+        // draw if we're inspecting this demand element
+        drawPersonPlan = true;
+    }
+    // check if draw person plan elements can be drawn
+    if (drawPersonPlan) {
+        // flag to check if width must be duplicated
+        const bool duplicateWidth = (personPlanInspected == this) || (personPlanInspected == personParent);
+        // get segment widtsh
+        const double segmentWidth = s.addSize.getExaggeration(s, lane) * personPlanWidth;
+        // get color
+        const RGBColor &color = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : personPlanColor;
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // iterate over segments
+        for (const auto& segment : myDemandElementSegmentGeometry) {
+            // draw partial segment
+            if (segment.getLane() == lane) {
+                // Set person plan color
+                GLHelper::setColor(color);
+                // draw segment depending of duplicateWidth
+                if (duplicateWidth) {
+                    // draw segment geometry
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2*segmentWidth));
+                    // check if shape dotted contour has to be drawn
+                    if (personPlanInspected == this) {
+                        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2*segmentWidth));
+                    }
+                } else {
+                    // draw segment geometry
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, segmentWidth);
+                    // check if shape dotted contour has to be drawn
+                    if (personPlanInspected == this) {
+                        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, segmentWidth);
+                    }
+                }
+            }
+        }
+        // Pop last matrix
+        glPopMatrix();
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection) {
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        }
+        // Pop name
+        glPopName();
+        // check if person plan ArrivalPos attribute
+        if (myTagProperty.hasAttribute(SUMO_ATTR_ARRIVALPOS)) {
+            // obtain arrival position using last segment
+            const Position& arrivalPos = getDemandElementSegmentGeometry().getLastPosition();
+            // only draw arrival position point if isn't -1
+            if (arrivalPos != Position::INVALID) {
+                // obtain circle width
+                const double circleRadius = (duplicateWidth ? myPersonPlanArrivalPositionDiameter : (myPersonPlanArrivalPositionDiameter / 2.0));
+                const double circleWidth = circleRadius * MIN2((double)0.5, s.laneWidthExaggeration);
+                const double circleWidthSquared = circleWidth * circleWidth;
+                if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(arrivalPos) <= (circleWidthSquared + 2))) {
+                    // push draw matrix
+                    glPushMatrix();
+                    // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
+                    glTranslated(arrivalPos.x(), arrivalPos.y(), getType() + 0.01);
+                    // Set person plan color
+                    GLHelper::setColor(color);
+                    // resolution of drawn circle depending of the zoom (To improve smothness)
+                    GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+                    // pop draw matrix
+                    glPopMatrix();
+                }
+            }
+        }
+    }
+    // draw person parent if this is the edge first edge and this is the first plan
+    if ((getFirstPersonPlanEdge() == lane->getParentEdge()) && (personParent->getChildDemandElements().front() == this)) {
+        personParent->drawGL(s);
+    }
+}
+
+
+void 
+GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, 
+    const double personPlanWidth, const RGBColor &personPlanColor) const {
+    // get inspected person plan
+    const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getDottedAC();
+    const GNEDemandElement* personParent = getParentDemandElements().front();
+    // declare flag to enable or disable draw person plan
+    bool drawPersonPlan = false;
+    if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
+        // all person plan has to be drawn
+        drawPersonPlan = true;
+    } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == personParent) {
+        // if person parent is locked, draw all their person plans children
+        drawPersonPlan = true;
+    } else if (personPlanInspected == personParent) {
+        // draw if we're inspecting person parent
+        drawPersonPlan = true;
+    } else if (personPlanInspected == this) {
+        // draw if we're inspecting this demand element
+        drawPersonPlan = true;
+    }
+    // check if draw person plan elements can be drawn
+    if (drawPersonPlan) {
+        // flag to check if width must be duplicated
+        const bool duplicateWidth = (personPlanInspected == this) || (personPlanInspected == personParent);
+        // get segment widtsh
+        const double segmentWidth = s.addSize.getExaggeration(s, fromLane) * personPlanWidth;
+        // get color
+        const RGBColor &color = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : personPlanColor;
+
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // push a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // check if draw lane2lane connection or a red line
+        if (fromLane->getLane2laneConnections().exist(toLane)) {
+            // obtain lane2lane geometry
+            const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+            // Set person plan color
+            GLHelper::setColor(color);
+            // draw lane2lane
+            if (duplicateWidth) {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, (2*segmentWidth));
+            } else {
+                GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, segmentWidth);
+            }
+        } else {
+            // create geometry using extrem of both lanes
+            GNEGeometry::Geometry geom;
+            geom.updateGeometry({fromLane->getLaneShape().back(), toLane->getLaneShape().front()});
+            // Set invalid person plan color
+            GLHelper::setColor(RGBColor::RED);
+            // draw geometry
+            GNEGeometry::drawGeometry(myNet->getViewNet(), geom, (0.5*segmentWidth));
+        }
+        // Pop last matrix
+        glPopMatrix();
+        // Pop name
+        glPopName();
+    }
 }
 
 
