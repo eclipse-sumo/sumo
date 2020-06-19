@@ -113,7 +113,7 @@ must be given, while speed data is optional. All data is saved in csv
 format.
 
 ```
-Detector_id;Time(sec);Number_of_passenger_cars;Number_of_trucks;Average_speed_of passenger_cars;Average_speed_of_trucks
+Detector_id;Time(minutes);Number_of_passenger_cars;Number_of_trucks;Average_speed_of passenger_cars;Average_speed_of_trucks
 ```
 
 ## Determining the routes
