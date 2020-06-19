@@ -14,6 +14,16 @@ The generated traffic should obviously match the counting data but this requirem
 - [jtcrouter](../Tools/Turns.md#jtcrouterpy) uses turn-counts
 - [routeSampler](../Tools/Turns.md#routesamplerpy) uses turn-counts and edge counts (and also origin-destination counts)
 
+
+## Chosing the right tool
+The algorithms listed above where developed to solve different problems and may work badly when used on the wrong kind of problem.
+
+- DFROUTER requires that all edges which are used as sources and sinks of traffic are provided with traffic count data. In contrast, flowrouter can infer traffic on those edges from measurements at intermediate locations.
+- DFROUTER and jtcrouter have no capability for calibrating generated routes among the set of all routes that fit the measurment data. They can provide good results on motorway networks but produce implausible routes in highly meshed networks (i.e. cities).
+- flowrouter can use a blacklist to avoid implausible routes. The tool [implausibleRoutes.py](Routes.md#implausibleroutespy) can be used to generate restrictions for routes that are implausible according to a configurable heuristic. When the set of implausible routes is very large (which is often the case due to a combinatorical explosion of possible routes), creating such a blacklist may be infeasible.
+- routeSampler uses a whitelist to restrict the set of routes that can be used to construct a solution. Generating a sufficient set of plausible routes is easier than listing all implausible routes.
+- routeSampler is the only tool that can use edge-count data together with turn-count data
+
 # DFROUTER
 Since version 0.9.5, the SUMO-package contains a routing module named
 [DFROUTER](../DFROUTER.md). The idea behind this router is that
@@ -31,8 +41,7 @@ routes. This is done in several steps, being mainly:
 3.  Computing the flow amounts between the detectors
 4.  Saving the flow amounts and further control structures
 
-!!! caution
-    The [DFROUTER](../DFROUTER.md) application has known deficiencies when used on highly meshed networks as found in cities. Alternatives are [the flowrouter tool](../Tools/Detector.md#flowrouterpy) or [dynamic calibration](../Simulation/Calibrator.md#building_a_scenario_without_knowledge_of_routes_based_on_flow_measurements).
+
 
 ## Computing Detector Types
 
