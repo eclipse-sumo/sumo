@@ -1,6 +1,9 @@
 # vehicle may use both lanes of the roundabout
 low_traffic
 
+# vehicle may use both lanes of the roundabout
+low_traffic_subsecond
+
 # vehicles should use both lanes of the roundabout
 medium_traffic
 
