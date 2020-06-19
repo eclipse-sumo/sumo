@@ -9,6 +9,7 @@ node_types
 
 # test loading of different traffic light types
 tl_types
+tl_layouts
 
 # tests for using the speed_in_kmh option
 speed_in_kmh
