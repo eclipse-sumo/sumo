@@ -6,6 +6,9 @@ motorway
 # sublane behavior on junctions
 junction
 
+# tests for behavior at a 2-lane roundabout
+roundabout
+
 # vehicle behavior on a single edge with 2 lanes (default alignment)
 1edge_2lanes
 depart_random_last
