@@ -153,8 +153,8 @@ buildNetwork(NBNetBuilder& nb) {
         }
         // check values
         bool hadError = false;
-        if (attachLength == 0 && (xNo < 2 || yNo < 2)) {
-            WRITE_ERROR("The number of nodes must be at least 2 in both directions.");
+        if (xNo < 1 || yNo < 1 || (attachLength == 0 && (xNo < 2 && yNo < 2))) {
+            WRITE_ERROR("The number of nodes must be positive and at least 2 in one directions.");
             hadError = true;
         }
         if (xLength < 10. || yLength < 10.) {
