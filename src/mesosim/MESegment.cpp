@@ -381,16 +381,6 @@ MESegment::removeCar(MEVehicle* v, SUMOTime leaveTime, const MSMoveReminder::Not
 
 
 SUMOTime
-MESegment::getTimeHeadway(const int qIdx, const MESegment* pred, const bool predFree, const MEVehicle* veh) const {
-    const Queue& q = myQueues[qIdx];
-    const SUMOTime tau = (predFree
-                          ? (q.getOccupancy() <= myJamThreshold ? myTau_ff : myTau_fj)
-                          : (q.getOccupancy() <= myJamThreshold ? myTau_jf : TIME2STEPS(myA * q.size() + myB)));
-    return (SUMOTime)(tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap()) / pred->getTLSCapacity(veh));
-}
-
-
-SUMOTime
 MESegment::getNextInsertionTime(SUMOTime earliestEntry) const {
     // since we do not know which queue will be used we give a conservative estimate
     SUMOTime earliestLeave = earliestEntry;
@@ -498,7 +488,19 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
     MEVehicle* lc = removeCar(veh, time, reason); // new leaderCar
     q.setBlockTime(time);
     if (!isInvalid(next)) {
-        myLastHeadway = next->getTimeHeadway(nextQIdx, this, q.getOccupancy() <= myJamThreshold, veh);
+        const bool nextFree = next->myQueues[nextQIdx].getOccupancy() <= next->myJamThreshold;
+        const SUMOTime tau = (q.getOccupancy() <= myJamThreshold
+            ? (nextFree ? myTau_ff : myTau_fj)
+            : (nextFree ? myTau_jf : TIME2STEPS(myA * q.size() + myB)));
+        myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap());
+        if (myTLSPenalty) {
+            const MSLink* const link = getLink(veh, true);
+            if (link != nullptr) {
+                assert(link->isTLSControlled());
+                assert(link->getGreenFraction() > 0);
+                myLastHeadway = (SUMOTime)(myLastHeadway / link->getGreenFraction());
+            }
+        }
         q.setBlockTime(q.getBlockTime() + myLastHeadway);
     }
     if (lc != nullptr) {
@@ -758,20 +760,6 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
     } else {
         return 0;
     }
-}
-
-
-double
-MESegment::getTLSCapacity(const MEVehicle* veh) const {
-    if (myTLSPenalty) {
-        const MSLink* link = getLink(veh, true);
-        if (link != nullptr) {
-            assert(link->isTLSControlled());
-            assert(link->getGreenFraction() > 0);
-            return link->getGreenFraction();
-        }
-    }
-    return 1;
 }
 
 

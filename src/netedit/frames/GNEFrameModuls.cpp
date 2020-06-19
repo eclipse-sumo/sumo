@@ -2560,10 +2560,10 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
                 // draw connection between lanes
                 if ((j + 1) < (int)path.getSubPath().size()) {
                     const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
-                    if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
-                        GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), lineWidth);
+                    if (lane->getLane2laneConnections().exist(nextLane) > 0) {
+                        GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidth);
                     } else {
-                        GLHelper::drawBoxLines({ lane->getLaneShape().back(), nextLane->getLaneShape().front() }, lineWidth);
+                        GLHelper::drawBoxLines({lane->getLaneShape().back(), nextLane->getLaneShape().front()}, lineWidth);
                     }
                 }
             }
@@ -2592,8 +2592,8 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
                 // draw connection between lanes
                 if ((j + 1) < (int)path.getSubPath().size()) {
                     const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
-                    if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
-                        GLHelper::drawBoxLines(lane->getLane2laneConnections().connectionsMap.at(nextLane).getShape(), lineWidthin);
+                    if (lane->getLane2laneConnections().exist(nextLane) > 0) {
+                        GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidthin);
                     } else {
                         GLHelper::drawBoxLines({ lane->getLaneShape().back(), nextLane->getLaneShape().front() }, lineWidthin);
                     }

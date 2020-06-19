@@ -322,19 +322,6 @@ GNEWalk::updateDottedContour() {
 
 
 void
-GNEWalk::updatePartialGeometry(const GNELane* lane) {
-    // calculate person plan start and end positions
-    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
-    // udpate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
-    // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(lane);
-    }
-}
-
-
-void
 GNEWalk::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
@@ -571,28 +558,38 @@ GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLan
     }
     // check if draw person plan elements can be drawn
     if (drawPersonPlan) {
-        // obtain lane2lane geometry
-        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().connectionsMap.at(toLane);
-        // flag to check if width must be duplicated
-        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == this) || (myNet->getViewNet()->getDottedAC() == getParentDemandElements().front()) ? true : false;
-        // get width
-        double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.walk;
-        // check if width has to be duplicated
-        if (duplicateWidth) {
-            width *= 2;
-        }
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
         glTranslated(0, 0, getType());
-        // Set color of the base
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+        // flag to check if width must be duplicated
+        bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == this) || (myNet->getViewNet()->getDottedAC() == getParentDemandElements().front()) ? true : false;
+        // get width
+        double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.walk;
+        // continue depending if exist a lane2laneconnection between from and to lane
+        if (fromLane->getLane2laneConnections().exist(toLane)) {
+            // Set color of the base
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+            } else {
+                GLHelper::setColor(RGBColor::RED);
+            }
+            //
         } else {
-            GLHelper::setColor(s.colorSettings.walk);
+            // check if width has to be duplicated
+            if (duplicateWidth) {
+                width *= 2;
+            }
+            // Set color of the base
+            if (drawUsingSelectColor()) {
+                GLHelper::setColor(s.colorSettings.selectedVehicleColor);
+            } else {
+                GLHelper::setColor(s.colorSettings.walk);
+            }
+            // draw lane2lane
+            GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), width);
         }
-        // draw lane2lane
-        GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
+
         // Pop last matrix
         glPopMatrix();
     }

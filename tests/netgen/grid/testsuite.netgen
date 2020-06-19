@@ -47,5 +47,11 @@ default_type
 # option --default.type
 default_type2
 
+# only a single stretch of road without arms
+flat
+
+# a single node with attachments
+cross
+
 # Tests processing of errors in input
 errors

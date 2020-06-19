@@ -171,6 +171,9 @@ public:
     /// @brief update element spread geometry
     void updateDemandElementSpreadGeometry(const GNELane* lane, const double posOverLane);
 
+    /// @brief partial update pre-computed geometry information
+    void updatePartialGeometry(const GNELane* lane);
+
     /// @name members and functions relative to elements common to all demand elements
     /// @{
     /// @brief obtain from edge of this demand element
@@ -238,9 +241,6 @@ public:
 
     /// @brief update dotted contour
     virtual void updateDottedContour() = 0;
-
-    /// @brief partial update pre-computed geometry information
-    virtual void updatePartialGeometry(const GNELane* lane) = 0;
 
     /// @brief compute path
     virtual void computePath() = 0;

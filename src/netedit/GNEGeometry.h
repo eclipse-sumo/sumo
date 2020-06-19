@@ -367,21 +367,28 @@ struct GNEGeometry {
         SegmentGeometry& operator=(const SegmentGeometry& other) = delete;
     };
 
-    /// @brief lane2lane struct
-    struct Lane2laneConnection {
+    /// @brief class lane2lane connection geometry
+    class Lane2laneConnection {
 
+    public:
         /// @brief constructor
         Lane2laneConnection(const GNELane* fromLane);
 
         /// @brief update
         void updateLane2laneConnection();
 
-        /// @brief connection shape
-        std::map<const GNELane*, Geometry> connectionsMap;
+        /// @brief check if exist a lane2lane geometry for the given tolane 
+        bool exist(const GNELane* toLane) const;
+
+        /// @brief get getLane2laneGeometry 
+        const GNEGeometry::Geometry& getLane2laneGeometry(const GNELane* toLane) const;
 
     protected:
         /// @brief from lane
         const GNELane* myFromLane;
+
+        /// @brief connection shape
+        std::map<const GNELane*, GNEGeometry::Geometry> myConnectionsMap;
 
     private:
         /// @brief constructor

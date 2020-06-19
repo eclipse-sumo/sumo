@@ -292,19 +292,6 @@ GNERide::updateDottedContour() {
 
 
 void
-GNERide::updatePartialGeometry(const GNELane* lane) {
-    // calculate person plan start and end positions
-    GNEGeometry::ExtremeGeometry extremeGeometry = calculatePersonPlanLaneStartEndPos();
-    // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
-    // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        i->updatePartialGeometry(lane);
-    }
-}
-
-
-void
 GNERide::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
@@ -534,9 +521,9 @@ GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLan
         drawPersonPlan = true;
     }
     // check if draw person plan elements can be drawn
-    if (drawPersonPlan) {
+    if (drawPersonPlan && fromLane->getLane2laneConnections().exist(toLane)) {
         // obtain lane2lane geometry
-        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().connectionsMap.at(toLane);
+        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // flag to check if width must be duplicated
         bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == this) || (myNet->getViewNet()->getDottedAC() == getParentDemandElements().front()) ? true : false;
         // get width

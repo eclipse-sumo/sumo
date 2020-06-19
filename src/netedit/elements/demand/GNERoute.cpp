@@ -267,21 +267,6 @@ GNERoute::updateDottedContour() {
 
 
 void
-GNERoute::updatePartialGeometry(const GNELane* lane) {
-    // declare extreme geometry
-    GNEGeometry::ExtremeGeometry extremeGeometry;
-    // calculate geometry path
-    GNEGeometry::updateGeometricPath(myDemandElementSegmentGeometry, lane, extremeGeometry);
-    // update child demand elementss
-    for (const auto& i : getChildDemandElements()) {
-        if (!i->getTagProperty().isPersonStop() && !i->getTagProperty().isStop()) {
-            i->updatePartialGeometry(lane);
-        }
-    }
-}
-
-
-void
 GNERoute::computePath() {
     // calculate consecutive path using parent edges
     calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
@@ -394,9 +379,9 @@ void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
     // only drawn in super mode demand
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+        fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // obtain lane2lane geometry
-        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().connectionsMap.at(toLane);
+        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width
         const double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.route;
         // Add a draw matrix
