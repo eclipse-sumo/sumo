@@ -1,0 +1,5 @@
+# group phases by incoming edge
+layout_incoming
+
+# group phases by incoming edge (set via node attribute)
+layout_incoming_attribute
