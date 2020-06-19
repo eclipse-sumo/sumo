@@ -1,2 +1,2 @@
-Error: The number of nodes must be at least 2 in both directions.
+Error: The number of nodes must be positive and at least 2 in one directions.
 Quitting (on error).
