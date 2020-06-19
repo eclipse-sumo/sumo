@@ -521,9 +521,9 @@ GNERide::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLan
         drawPersonPlan = true;
     }
     // check if draw person plan elements can be drawn
-    if (drawPersonPlan) {
+    if (drawPersonPlan && fromLane->getLane2laneConnections().exist(toLane)) {
         // obtain lane2lane geometry
-        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().connectionsMap.at(toLane);
+        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // flag to check if width must be duplicated
         bool duplicateWidth = (myNet->getViewNet()->getDottedAC() == this) || (myNet->getViewNet()->getDottedAC() == getParentDemandElements().front()) ? true : false;
         // get width

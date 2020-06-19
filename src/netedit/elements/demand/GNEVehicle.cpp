@@ -863,9 +863,10 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 
 void 
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
-    if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == this) || isAttributeCarrierSelected())) {
+    if (!s.drawForRectangleSelection && fromLane->getLane2laneConnections().exist(toLane) && 
+        ((myNet->getViewNet()->getDottedAC() == this) || isAttributeCarrierSelected())) {
         // obtain lane2lane geometry
-        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().connectionsMap.at(toLane);
+        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width
         const double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.trip;
         // Add a draw matrix

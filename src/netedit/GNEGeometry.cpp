@@ -469,7 +469,7 @@ GNEGeometry::SegmentGeometry::Segment::update(const GNELane* lane) {
 const PositionVector&
 GNEGeometry::SegmentGeometry::Segment::getShape() const {
     if (myNextLane) {
-        return myLane->getLane2laneConnections().connectionsMap.at(myNextLane).getShape();
+        return myLane->getLane2laneConnections().getLane2laneGeometry(myNextLane).getShape();
     } else if (myUseLaneShape) {
         return myLane->getLaneShape();
     } else {
@@ -481,7 +481,7 @@ GNEGeometry::SegmentGeometry::Segment::getShape() const {
 const std::vector<double>&
 GNEGeometry::SegmentGeometry::Segment::getShapeRotations() const {
     if (myNextLane) {
-        return myLane->getLane2laneConnections().connectionsMap.at(myNextLane).getShapeRotations();
+        return myLane->getLane2laneConnections().getLane2laneGeometry(myNextLane).getShapeRotations();
     } else if (myUseLaneShape) {
         return myLane->getShapeRotations();
     } else {
@@ -493,7 +493,7 @@ GNEGeometry::SegmentGeometry::Segment::getShapeRotations() const {
 const std::vector<double>&
 GNEGeometry::SegmentGeometry::Segment::getShapeLengths() const {
     if (myNextLane) {
-        return myLane->getLane2laneConnections().connectionsMap.at(myNextLane).getShapeLengths();
+        return myLane->getLane2laneConnections().getLane2laneGeometry(myNextLane).getShapeLengths();
     } else if (myUseLaneShape) {
         return myLane->getShapeLengths();
     } else {
@@ -583,7 +583,7 @@ GNEGeometry::SegmentGeometry::updateCustomSegment(const int segmentIndex, const 
 
 void
 GNEGeometry::SegmentGeometry::updateLane2LaneSegment(const int segmentIndex, const GNELane* lane, const GNELane* nextLane) {
-    myShapeSegments.at(segmentIndex + 1).update(lane->getLane2laneConnections().connectionsMap.at(nextLane));
+    myShapeSegments.at(segmentIndex + 1).update(lane->getLane2laneConnections().getLane2laneGeometry(nextLane));
 }
 
 
@@ -674,7 +674,7 @@ GNEGeometry::Lane2laneConnection::Lane2laneConnection(const GNELane* fromLane) :
 void
 GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
     // clear connectionsMap
-    connectionsMap.clear();
+    myConnectionsMap.clear();
     // iterate over outgoingEdge's lanes
     for (const auto& outgoingEdge : myFromLane->getParentEdge()->getSecondParentJunction()->getGNEOutgoingEdges()) {
         for (const auto& outgoingLane : outgoingEdge->getLanes()) {
@@ -684,7 +684,7 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
             // only create smooth shapes if Edge From has as maximum 10 lanes
             if ((NBEdgeFrom->getNumLanes() <= 10) && (NBEdgeFrom->getToNode()->getShape().area() > 4)) {
                 // Calculate smooth shape
-                connectionsMap[outgoingLane].updateGeometry(NBEdgeFrom->getToNode()->computeSmoothShape(
+                myConnectionsMap[outgoingLane].updateGeometry(NBEdgeFrom->getToNode()->computeSmoothShape(
                             NBEdgeFrom->getLaneShape(myFromLane->getIndex()),
                             NBEdgeTo->getLaneShape(outgoingLane->getIndex()),
                             5, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
@@ -692,13 +692,25 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
                             (double) 5. * (double) NBEdgeTo->getNumLanes()));
             } else {
                 // create a shape using shape extremes
-                connectionsMap[outgoingLane].updateGeometry({
+                myConnectionsMap[outgoingLane].updateGeometry({
                     NBEdgeFrom->getLaneShape(myFromLane->getIndex()).back(),
                     NBEdgeTo->getLaneShape(outgoingLane->getIndex()).front()});
             }
 
         }
     }
+}
+
+
+bool
+GNEGeometry::Lane2laneConnection::exist(const GNELane* toLane) const {
+    return (myConnectionsMap.count(toLane) > 0);
+}
+
+
+const GNEGeometry::Geometry&
+GNEGeometry::Lane2laneConnection::getLane2laneGeometry(const GNELane* toLane) const {
+    return myConnectionsMap.at(toLane);
 }
 
 
@@ -924,7 +936,7 @@ GNEGeometry::calculateLaneGeometricPath(GNEGeometry::SegmentGeometry& segmentGeo
                     // obtain next lane
                     const GNELane* nextLane = path.at(i + 1).getLane();
                     // check that next lane exist
-                    if (lane->getLane2laneConnections().connectionsMap.count(nextLane) > 0) {
+                    if (lane->getLane2laneConnections().exist(nextLane)) {
                         // add lane2laneConnection segment geometry
                         segmentGeometry.insertLane2LaneSegment(lane, nextLane, true);
                     }
@@ -992,7 +1004,7 @@ GNEGeometry::updateGeometricPath(GNEGeometry::SegmentGeometry& segmentGeometry, 
                 }
             }
             // check that next lane exist
-            if (segmentToUpdate.getLane()->getLane2laneConnections().connectionsMap.count(segmentToUpdate.getNextLane()) > 0) {
+            if (segmentToUpdate.getLane()->getLane2laneConnections().exist(segmentToUpdate.getNextLane())) {
                 // update lane2laneConnection shape
                 segmentGeometry.updateLane2LaneSegment(segmentToUpdate.getSegmentIndex(), segmentToUpdate.getLane(), segmentToUpdate.getNextLane());
             }
