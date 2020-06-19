@@ -261,6 +261,18 @@ protected:
     /// @brief fix states in regard to custom crossing indices
     void checkCustomCrossingIndices(NBTrafficLightLogic* logic) const;
 
+    /// @brief avoid yellow signal between successive green (major) phases
+    void fixSuperfluousYellow(NBTrafficLightLogic* logic) const;
+
+    /// @brief switch of signal for links that are always green
+    void deactivateAlwaysGreen(NBTrafficLightLogic* logic) const;
+
+    /// @brief switch of signal for links that are inside a joined tls
+    void deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& fromEdges) const;
+
+    /// @brief compute time to clear all vehicles from within an alternateOneWay layout
+    SUMOTime computeEscapeTime(const std::string& state, const EdgeVector& fromEdges, const EdgeVector& toEdges) const;
+
     /** @class edge_by_incoming_priority_sorter
      * @brief Sorts edges by their priority within the node they end at
      */
