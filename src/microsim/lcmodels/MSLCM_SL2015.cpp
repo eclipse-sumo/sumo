@@ -1300,18 +1300,18 @@ MSLCM_SL2015::_wantsChangeSublane(
         // unless we are approaching the exit
         if (left) {
             ret |= LCA_COOPERATIVE;
-        } else {
-            ret |= LCA_STAY | LCA_COOPERATIVE;
-        }
-        if (!cancelRequest(ret, laneOffset)) {
-            if ((ret & LCA_STAY) == 0) {
-                latDist = latLaneDist;
-                maneuverDist = latLaneDist;
-                blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
-                                        leaders, followers, blockers,
-                                        neighLeaders, neighFollowers, neighBlockers);
+            if (!cancelRequest(ret, laneOffset)) {
+                if ((ret & LCA_STAY) == 0) {
+                    latDist = latLaneDist;
+                    maneuverDist = latLaneDist;
+                    blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
+                            leaders, followers, blockers,
+                            neighLeaders, neighFollowers, neighBlockers);
+                }
+                return ret;
             }
-            return ret;
+        } else {
+            myKeepRightProbability = 0;
         }
     }
 
