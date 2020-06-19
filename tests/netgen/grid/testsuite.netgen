@@ -47,5 +47,8 @@ default_type
 # option --default.type
 default_type2
 
+# only a single stretch of road without arms
+flat
+
 # Tests processing of errors in input
 errors
