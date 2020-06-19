@@ -404,6 +404,18 @@ GNEAdditional::getOptionalAdditionalName() const {
     return myAdditionalName;
 }
 
+
+void 
+GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+
+}
+
+
+void 
+GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+
+}
+
 // ---------------------------------------------------------------------------
 // GNEAdditional::BlockIcon - methods
 // ---------------------------------------------------------------------------

@@ -241,6 +241,21 @@ public:
      * @see GUIGlObject::drawGL
      */
     virtual void drawGL(const GUIVisualizationSettings& s) const = 0;
+
+    /**@brief Draws partial object (lane)
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] lane GNELane in which draw partial
+    * @note currently only E2Multilane detectors use drawPartialGL
+    */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const;
+
+    /**@brief Draws partial object (junction)
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] fromLane from GNELane
+    * @param[in] toLane to GNELane
+    * @note currently only E2Multilane detectors use drawPartialGL
+    */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
