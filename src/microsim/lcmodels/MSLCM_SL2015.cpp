@@ -29,6 +29,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPModel.h>
+#include "MSLCHelper.h"
 #include "MSLCM_SL2015.h"
 
 // ===========================================================================
@@ -1018,7 +1019,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 
     const SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     // compute bestLaneOffset
-    MSVehicle::LaneQ curr, neigh;
+    MSVehicle::LaneQ curr, neigh, best;
     int bestLaneOffset = 0;
     double currentDist = 0;
     double neighDist = 0;
@@ -1052,6 +1053,7 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
                 bestLaneOffset = laneOffset;
             }
+            best = preb[p + bestLaneOffset];
             currIdx = p;
             break;
         }
@@ -1192,38 +1194,9 @@ MSLCM_SL2015::_wantsChangeSublane(
     // @note: while this lets vehicles change earlier into the correct direction
     // it also makes the vehicles more "selfish" and prevents changes which are necessary to help others
 
-
-    // TODO: include updated roundabout distance code from LC2013 (probably best to put it to AbstractLCModel class)
-    // VARIANT_15 (insideRoundabout)
-    int roundaboutEdgesAhead = 0;
-    for (std::vector<MSLane*>::iterator it = curr.bestContinuations.begin(); it != curr.bestContinuations.end(); ++it) {
-        if ((*it) != nullptr && (*it)->getEdge().isRoundabout()) {
-            roundaboutEdgesAhead += 1;
-        } else if (roundaboutEdgesAhead > 0) {
-            // only check the next roundabout
-            break;
-        }
-    }
-    int roundaboutEdgesAheadNeigh = 0;
-    for (std::vector<MSLane*>::iterator it = neigh.bestContinuations.begin(); it != neigh.bestContinuations.end(); ++it) {
-        if ((*it) != nullptr && (*it)->getEdge().isRoundabout()) {
-            roundaboutEdgesAheadNeigh += 1;
-        } else if (roundaboutEdgesAheadNeigh > 0) {
-            // only check the next roundabout
-            break;
-        }
-    }
-    if (roundaboutEdgesAhead > 1) {
-        currentDist += roundaboutEdgesAhead * ROUNDABOUT_DIST_BONUS * myRoundaboutBonus;
-        neighDist += roundaboutEdgesAheadNeigh * ROUNDABOUT_DIST_BONUS * myRoundaboutBonus;
-    }
-    if (roundaboutEdgesAhead > 0) {
-#ifdef DEBUG_ROUNDABOUTS
-        if (gDebugFlag2) {
-            std::cout << " roundaboutEdgesAhead=" << roundaboutEdgesAhead << " roundaboutEdgesAheadNeigh=" << roundaboutEdgesAheadNeigh << "\n";
-        }
-#endif
-    }
+    const double roundaboutBonus = MSLCHelper::getRoundaboutDistBonus(myVehicle, myRoundaboutBonus, curr, neigh, best);
+    currentDist += roundaboutBonus;
+    neighDist += roundaboutBonus;
 
     if (laneOffset != 0) {
         ret = checkStrategicChange(ret,
@@ -1237,7 +1210,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                                    currentDist,
                                    neighDist,
                                    laDist,
-                                   roundaboutEdgesAhead,
+                                   roundaboutBonus,
                                    latLaneDist,
                                    latDist);
     }
@@ -1311,9 +1284,18 @@ MSLCM_SL2015::_wantsChangeSublane(
 #endif
         return ret;
     }
-
     // VARIANT_15
-    if (roundaboutEdgesAhead > 1) {
+    if (roundaboutBonus > 0) {
+
+#ifdef DEBUG_WANTS_CHANGE
+        if (DEBUG_COND) {
+            std::cout << STEPS2TIME(currentTime)
+                      << " veh=" << myVehicle.getID()
+                      << " roundaboutBonus=" << roundaboutBonus
+                      << " myLeftSpace=" << myLeftSpace
+                      << "\n";
+        }
+#endif
         // try to use the inner lanes of a roundabout to increase throughput
         // unless we are approaching the exit
         if (left) {
@@ -2546,7 +2528,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
                                    double currentDist,
                                    double neighDist,
                                    double laDist,
-                                   int roundaboutEdgesAhead,
+                                   double roundaboutBonus,
                                    double latLaneDist,
                                    double& latDist
                                   ) {
@@ -2631,7 +2613,7 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             && bestLaneOffset == 0
             && !leaders.hasStoppedVehicle()
             && neigh.bestContinuations.back()->getLinkCont().size() != 0
-            && roundaboutEdgesAhead == 0
+            && roundaboutBonus == 0
             && neighDist < TURN_LANE_DIST) {
             // VARIANT_21 (stayOnBest)
             // we do not want to leave the best lane for a lane which leads elsewhere

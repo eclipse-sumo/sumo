@@ -282,7 +282,7 @@ protected:
                              double currentDist,
                              double neighDist,
                              double laDist,
-                             int roundaboutEdgesAhead,
+                             double roundaboutBonus,
                              double latLaneDist,
                              double& latDist
                             );
