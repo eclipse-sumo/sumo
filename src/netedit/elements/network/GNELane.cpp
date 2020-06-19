@@ -572,7 +572,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // draw child path elements
-        for (const auto &demandElement : myPathDemandElementChildren) {
+        for (const auto &demandElement : myPathDemandElements) {
             demandElement->drawLanePathChildren(s, this);
         }
     }
@@ -847,30 +847,55 @@ GNELane::isAttributeEnabled(SumoXMLAttr key) const {
 
 
 void
-GNELane::addPathElement(GNEDemandElement* pathElementChild) {
-    // avoid insert duplicatd path element childs
-    if (std::find(myPathDemandElementChildren.begin(), myPathDemandElementChildren.end(), pathElementChild) == myPathDemandElementChildren.end()) {
-        myPathDemandElementChildren.push_back(pathElementChild);
+GNELane::addPathAdditionalElement(GNEAdditional* additionalElement) {
+    // avoid insert duplicated path element childs
+    if (std::find(myPathAdditionalElements.begin(), myPathAdditionalElements.end(), additionalElement) == myPathAdditionalElements.end()) {
+        myPathAdditionalElements.push_back(additionalElement);
     }
 }
 
 
 void
-GNELane::removePathElement(GNEDemandElement* pathElementChild) {
+GNELane::removePathAdditionalElement(GNEAdditional* additionalElement) {
     // search and remove pathElementChild
-    auto it = std::find(myPathDemandElementChildren.begin(), myPathDemandElementChildren.end(), pathElementChild);
-    if (it != myPathDemandElementChildren.end()) {
-        myPathDemandElementChildren.erase(it);
+    auto it = std::find(myPathAdditionalElements.begin(), myPathAdditionalElements.end(), additionalElement);
+    if (it != myPathAdditionalElements.end()) {
+        myPathAdditionalElements.erase(it);
     }
 }
 
 
 void
-GNELane::invalidatePathChildElements() {
-    // make a copy of myPathDemandElementsElementChilds
-    auto copyOfPathDemandElementsElementChilds = myPathDemandElementChildren;
-    for (const auto& pathElementChild : copyOfPathDemandElementsElementChilds) {
-        pathElementChild->invalidatePath();
+GNELane::addPathDemandElement(GNEDemandElement* demandElement) {
+    // avoid insert duplicated path element childs
+    if (std::find(myPathDemandElements.begin(), myPathDemandElements.end(), demandElement) == myPathDemandElements.end()) {
+        myPathDemandElements.push_back(demandElement);
+    }
+}
+
+
+void
+GNELane::removePathDemandElement(GNEDemandElement* demandElement) {
+    // search and remove pathElementChild
+    auto it = std::find(myPathDemandElements.begin(), myPathDemandElements.end(), demandElement);
+    if (it != myPathDemandElements.end()) {
+        myPathDemandElements.erase(it);
+    }
+}
+
+
+void
+GNELane::invalidatePathElements() {
+    // make a copy of myPathAdditionalElements
+    auto copyOfPathAdditionalElements = myPathAdditionalElements;
+    for (const auto& additionalElement : copyOfPathAdditionalElements) {
+        // note: Additional elements use update geometry
+        additionalElement->updateGeometry();
+    }
+    // make a copy of myPathDemandElements
+    auto copyOfPathDemandElements = myPathDemandElements;
+    for (const auto& demandElement : copyOfPathDemandElements) {
+        demandElement->invalidatePath();
     }
 }
 

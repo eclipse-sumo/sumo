@@ -406,7 +406,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw Junction childs
             drawJunctionChilds(s);
             // draw child path elements
-            for (const auto &demandElement : myPathDemandElementChildren) {
+            for (const auto &demandElement : myPathDemandElements) {
                 demandElement->drawJunctionPathChildren(s, this);
             }
         }
@@ -960,30 +960,55 @@ GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
 
 
 void
-GNEJunction::addPathElement(GNEDemandElement* pathElementChild) {
-    // avoid insert duplicatd path element childs
-    if (std::find(myPathDemandElementChildren.begin(), myPathDemandElementChildren.end(), pathElementChild) == myPathDemandElementChildren.end()) {
-        myPathDemandElementChildren.push_back(pathElementChild);
+GNEJunction::addPathAdditionalElement(GNEAdditional* additionalElement) {
+    // avoid insert duplicated path element childs
+    if (std::find(myPathAdditionalElements.begin(), myPathAdditionalElements.end(), additionalElement) == myPathAdditionalElements.end()) {
+        myPathAdditionalElements.push_back(additionalElement);
     }
 }
 
 
 void
-GNEJunction::removePathElement(GNEDemandElement* pathElementChild) {
+GNEJunction::removePathAdditionalElement(GNEAdditional* additionalElement) {
     // search and remove pathElementChild
-    auto it = std::find(myPathDemandElementChildren.begin(), myPathDemandElementChildren.end(), pathElementChild);
-    if (it != myPathDemandElementChildren.end()) {
-        myPathDemandElementChildren.erase(it);
+    auto it = std::find(myPathAdditionalElements.begin(), myPathAdditionalElements.end(), additionalElement);
+    if (it != myPathAdditionalElements.end()) {
+        myPathAdditionalElements.erase(it);
     }
 }
 
 
 void
-GNEJunction::invalidatePathChildElements() {
-    // make a copy of myPathDemandElementsElementChilds
-    auto copyOfPathDemandElementsElementChilds = myPathDemandElementChildren;
-    for (const auto& pathElementChild : copyOfPathDemandElementsElementChilds) {
-        pathElementChild->invalidatePath();
+GNEJunction::addPathDemandElement(GNEDemandElement* demandElement) {
+    // avoid insert duplicated path element childs
+    if (std::find(myPathDemandElements.begin(), myPathDemandElements.end(), demandElement) == myPathDemandElements.end()) {
+        myPathDemandElements.push_back(demandElement);
+    }
+}
+
+
+void
+GNEJunction::removePathDemandElement(GNEDemandElement* demandElement) {
+    // search and remove pathElementChild
+    auto it = std::find(myPathDemandElements.begin(), myPathDemandElements.end(), demandElement);
+    if (it != myPathDemandElements.end()) {
+        myPathDemandElements.erase(it);
+    }
+}
+
+
+void
+GNEJunction::invalidatePathElements() {
+    // make a copy of myPathAdditionalElements
+    auto copyOfPathAdditionalElements = myPathAdditionalElements;
+    for (const auto& additionalElement : copyOfPathAdditionalElements) {
+        // note: currently additional elements don't use compute/invalidate paths
+        additionalElement->updateGeometry();
+    }
+    // make a copy of myPathDemandElements
+    auto copyOfPathDemandElements = myPathDemandElements;
+    for (const auto& demandElement : copyOfPathDemandElements) {
+        demandElement->invalidatePath();
     }
 }
 

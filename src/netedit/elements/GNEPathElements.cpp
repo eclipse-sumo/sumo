@@ -60,7 +60,14 @@ GNEPathElements::PathElement::PathElement():
 // GNEPathElements - methods
 // ---------------------------------------------------------------------------
 
-GNEPathElements::GNEPathElements(GNEDemandElement* demandElement):
+GNEPathElements::GNEPathElements(GNEAdditional* additional) :
+    myAdditionalElement(additional),
+    myDemandElement(nullptr) {
+}
+
+
+GNEPathElements::GNEPathElements(GNEDemandElement* demandElement) :
+    myAdditionalElement(nullptr),
     myDemandElement(demandElement) {
 }
 
@@ -101,16 +108,13 @@ void
 GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& /* viaEdges */) {
     // check if from and to lane are valid
     if (fromLane && toLane) {
+        // remove path elements from lanes and junctions
+        removeElements();
         // get from-via-to edges
         const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, edges);
         // calculate path
         const std::vector<GNEEdge*> path = myDemandElement->getNet()->getPathCalculator()->calculatePath(vClass, edges);
-        // remove demandElement of parent lanes
-        for (const auto& pathElement : myPathElements) {
-            pathElement.getLane()->removePathElement(myDemandElement);
-            pathElement.getJunction()->removePathElement(myDemandElement);
-        }
-        // set new route lanes
+        // set new path lanes
         myPathElements.clear();
         // check if path was sucesfully calculated
         if (path.size() > 0) {
@@ -128,23 +132,17 @@ GNEPathElements::calculatePathLanes(SUMOVehicleClass vClass, const bool allowedV
         } else {
             myPathElements = {fromLane, toLane};
         }
-        // add demandElement into parent lanes
-        for (const auto& pathElement : myPathElements) {
-            pathElement.getLane()->addPathElement(myDemandElement);
-            pathElement.getJunction()->addPathElement(myDemandElement);
-        }
+        // add path elements in lanes and junctions
+        addElements();
     }
 }
 
 
 void 
 GNEPathElements::calculateConsecutivePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, const std::vector<GNEEdge*>& edges) {
-    // remove demandElement of parent lanes
-    for (const auto& pathElement : myPathElements) {
-        pathElement.getLane()->removePathElement(myDemandElement);
-        pathElement.getJunction()->removePathElement(myDemandElement);
-    }
-    // set new route lanes
+    // remove path elements from lanes and junctions
+    removeElements();
+    // set new paht lanes
     myPathElements.clear();
     // use edges as path elements
     for (const auto &edge : edges) {
@@ -154,11 +152,23 @@ GNEPathElements::calculateConsecutivePathLanes(SUMOVehicleClass vClass, const bo
             myPathElements.push_back(edge->getLaneByDisallowedVClass(vClass));
         }
     }
-    // add demandElement into parent lanes
-    for (const auto& pathElement : myPathElements) {
-        pathElement.getLane()->addPathElement(myDemandElement);
-        pathElement.getJunction()->addPathElement(myDemandElement);
+    // add path elements in lanes and junctions
+    addElements();
+}
+
+
+void 
+GNEPathElements::calculateConsecutivePathLanes(const std::vector<GNELane*>& lanes) {
+    // remove path elements from lanes and junctions
+    removeElements();
+    // set new route lanes
+    myPathElements.clear();
+    // use edges as path elements
+    for (const auto &lane : lanes) {
+        myPathElements.push_back(lane);
     }
+    // add path elements in lanes and junctions
+    addElements();
 }
 
 
@@ -166,13 +176,10 @@ void
 GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*>& /* viaEdges */) {
     // check if from and to lane are valid
     if (fromLane && toLane) {
+        // remove path elements from lanes and junctions
+        removeElements();
         // get from-via-to edges
         const std::vector<GNEEdge*> edges = calculateFromViaToEdges(fromLane, toLane, edges);
-        // remove demandElement of parent lanes
-        for (const auto& pathElement : myPathElements) {
-            pathElement.getLane()->removePathElement(myDemandElement);
-            pathElement.getJunction()->removePathElement(myDemandElement);
-        }
         // set new route lanes
         myPathElements.clear();
         // use edges as path elements
@@ -191,10 +198,45 @@ GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClas
         } else {
             myPathElements = {fromLane, toLane};
         }
+        // add path elements in lanes and junctions
+        addElements();
+    }
+}
+
+
+void 
+GNEPathElements::addElements() {
+    if (myAdditionalElement) {
         // add demandElement into parent lanes
         for (const auto& pathElement : myPathElements) {
-            pathElement.getLane()->addPathElement(myDemandElement);
-            pathElement.getJunction()->addPathElement(myDemandElement);
+            pathElement.getLane()->addPathAdditionalElement(myAdditionalElement);
+            pathElement.getJunction()->addPathAdditionalElement(myAdditionalElement);
+        }
+    }
+    if (myDemandElement) {
+        // add demandElement into parent lanes
+        for (const auto& pathElement : myPathElements) {
+            pathElement.getLane()->addPathDemandElement(myDemandElement);
+            pathElement.getJunction()->addPathDemandElement(myDemandElement);
+        }
+    }
+}
+
+
+void
+GNEPathElements::removeElements() {
+    if (myAdditionalElement) {
+        // remove demandElement from parent lanes
+        for (const auto& pathElement : myPathElements) {
+            pathElement.getLane()->removePathAdditionalElement(myAdditionalElement);
+            pathElement.getJunction()->removePathAdditionalElement(myAdditionalElement);
+        }
+    }
+    if (myDemandElement) {
+        // remove demandElement from parent lanes
+        for (const auto& pathElement : myPathElements) {
+            pathElement.getLane()->removePathDemandElement(myDemandElement);
+            pathElement.getJunction()->removePathDemandElement(myDemandElement);
         }
     }
 }
@@ -214,6 +256,12 @@ GNEPathElements::calculateFromViaToEdges(GNELane* fromLane, GNELane* toLane, con
     edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
     // return edges
     return edges;
+}
+
+
+GNEPathElements::GNEPathElements() :
+    myAdditionalElement(nullptr),
+    myDemandElement(nullptr) {
 }
 
 /****************************************************************************/

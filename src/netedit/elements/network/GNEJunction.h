@@ -238,14 +238,20 @@ public:
     /// @brief mark connections as deprecated
     void markConnectionsDeprecated(bool includingNeighbours);
 
-    /// @brief add path element (used by GNEPathElement)
-    void addPathElement(GNEDemandElement* pathElementChild);
+    /// @brief add path additional element (used by GNEPathElement)
+    void addPathAdditionalElement(GNEAdditional* additionalElement);
 
-    /// @brief remove path element (used by GNEPathElement)
-    void removePathElement(GNEDemandElement* pathElementChild);
+    /// @brief remove path additional element (used by GNEPathElement)
+    void removePathAdditionalElement(GNEAdditional* additionalElement);
+
+    /// @brief add path demand element (used by GNEPathElement)
+    void addPathDemandElement(GNEDemandElement* demandElement);
+
+    /// @brief remove path demand element (used by GNEPathElement)
+    void removePathDemandElement(GNEDemandElement* demandElement);
 
     /// @brief invalidate path element childs
-    void invalidatePathChildElements();
+    void invalidatePathElements();
 
 private:
     /// @brief A reference to the represented junction
@@ -263,8 +269,11 @@ private:
     /// @brief the built crossing objects
     std::vector<GNECrossing*> myGNECrossings;
 
-    /// @brief vector with references to path element children
-    std::vector<GNEDemandElement*> myPathDemandElementChildren;
+    /// @brief vector with references to path additional elements
+    std::vector<GNEAdditional*> myPathAdditionalElements;
+
+    /// @brief vector with references to path demand elements
+    std::vector<GNEDemandElement*> myPathDemandElements;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxSize;

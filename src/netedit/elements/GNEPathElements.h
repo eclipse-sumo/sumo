@@ -29,6 +29,7 @@
 class GNEEdge;
 class GNELane;
 class GNEJunction;
+class GNEAdditional;
 class GNEDemandElement;
 
 // ===========================================================================
@@ -65,7 +66,10 @@ public:
         PathElement();
     };
 
-    /// @brief Constructor
+    /// @brief Constructor for additional elements
+    GNEPathElements(GNEAdditional* additionalElement);
+
+    /// @brief Constructor for demand elements
     GNEPathElements(GNEDemandElement* demandElement);
 
     /// @brief Destructor
@@ -87,18 +91,33 @@ protected:
     /// @brief calculate consecutive path lanes (used by routes)
     void calculateConsecutivePathLanes(SUMOVehicleClass vClass, const bool allowedVClass, const std::vector<GNEEdge*> &edges);
 
+    /// @brief calculate consecutive path lanes (used by E2Detectors)
+    void calculateConsecutivePathLanes(const std::vector<GNELane*> &lanes);
+
     /// @brief reset path lanes
     void resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
 private:
-    /// @brief ponter to demand element (this)
+    /// @brief pointer to additional element
+    GNEAdditional* myAdditionalElement;
+
+    /// @brief pointer to demand element
     GNEDemandElement* myDemandElement;
 
     /// @brief vector of edges used in paths
     std::vector<PathElement> myPathElements;
 
+    /// @brief add elements
+    void addElements();
+
+    /// @brief remove elements
+    void removeElements();
+
     /// @brief calculate from-via-to edges
     const std::vector<GNEEdge*> calculateFromViaToEdges(GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
+
+    /// @brief default constructor
+    GNEPathElements();
 
     /// @brief Invalidated copy constructor.
     GNEPathElements(const GNEPathElements&) = delete;

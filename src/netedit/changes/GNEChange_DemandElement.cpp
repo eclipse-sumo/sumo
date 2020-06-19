@@ -57,7 +57,7 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
             // remove element from path
             for (const auto& pathElement : myPath) {
                 if (pathElement.getLane()) {
-                    pathElement.getLane()->removePathElement(myDemandElement);
+                    pathElement.getLane()->removePathDemandElement(myDemandElement);
                 }
             }
             // remove demand element from parents and children
@@ -82,7 +82,7 @@ GNEChange_DemandElement::undo() {
         // remove element from path
         for (const auto& pathElement : myPath) {
             if (pathElement.getLane()) {
-                pathElement.getLane()->removePathElement(myDemandElement);
+                pathElement.getLane()->removePathDemandElement(myDemandElement);
             }
         }
         // remove demand element from parents and children
@@ -137,7 +137,7 @@ GNEChange_DemandElement::redo() {
         // remove element from path
         for (const auto& pathElement : myPath) {
             if (pathElement.getLane()) {
-                pathElement.getLane()->removePathElement(myDemandElement);
+                pathElement.getLane()->removePathDemandElement(myDemandElement);
             }
         }
         // remove demand element from parents and children
