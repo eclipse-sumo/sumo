@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 24 13:44:20 2020 by Eclipse SUMO Version v1_4_0+0771-0b04545
+<!-- generated on Sat Jun 20 22:34:45 2020 by Eclipse SUMO Version v1_6_0+0871-114e9ffca1
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,5 +38,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <DispatchInfo>
-    <dispatchShared time="0.00" persons="0" sharingPersons="1" type="1" absLoss="-0.00" relLoss="-0.00" absLoss2="0.00" relLoss2="0.00"/>
+    <dispatchShared time="0.00" id="taxi" persons="0" sharingPersons="1" type="1" absLoss="-0.00" relLoss="-0.00" absLoss2="0.00" relLoss2="0.00"/>
 </DispatchInfo>
