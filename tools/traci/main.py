@@ -81,7 +81,6 @@ _connections = {}
 _traceFile = {}
 # cannot use immutable type as global variable
 _currentLabel = [""]
-_legacyGetLeader = [True]
 _connectHook = None
 
 
@@ -145,8 +144,6 @@ def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFi
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
     """
-    if 'TRACI_LEGACY_LEADER' in os.environ:
-        setLegacyGetLeader()
     if label in _connections:
         raise TraCIException("Connection '%s' is already active." % label)
     if traceFile is not None:
@@ -281,4 +278,4 @@ def getConnection(label="default"):
 
 
 def setLegacyGetLeader(enabled):
-    _legacyGetLeader[0] = enabled
+    _vehicle._legacyGetLeader = enabled
