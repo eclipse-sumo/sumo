@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_6_0+0665-d50a9ed15f
+Eclipse SUMO Version v1_6_0+0870-48191dc38d
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -186,7 +186,7 @@ Processing Options:
                                          300, non-positive values disable
                                          teleporting
   --time-to-teleport.highways TIME     The waiting time after which vehicles on
-                                         a fast road (speed > 69m/s) are
+                                         a fast road (speed > 69km/h) are
                                          teleported if they are on a
                                          non-continuing lane
   --waiting-time-memory TIME           Length of time interval, over which
