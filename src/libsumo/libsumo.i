@@ -268,12 +268,12 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
         for (int i = 0; i < size; i++) {
             PyTuple_SetItem(nextLanes, i, PyUnicode_FromString(iter->continuationLanes[i].c_str()));
         }
-        PyTuple_SetItem($result, index++, Py_BuildValue("(sdddNN)",
+        PyTuple_SetItem($result, index++, Py_BuildValue("(sddiNN)",
                                                         iter->laneID.c_str(),
                                                         iter->length,
                                                         iter->occupation,
                                                         iter->bestLaneOffset,
-                                                        iter->allowsContinuation,
+                                                        PyBool_FromLong(iter->allowsContinuation),
                                                         nextLanes));
     }
 };
