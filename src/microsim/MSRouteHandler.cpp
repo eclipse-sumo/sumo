@@ -928,6 +928,10 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
                 copyPlan->push_back(s->clone());
             }
             myActivePlan = copyPlan;
+            if (myVehicleParameter->departPosProcedure == DepartPosDefinition::RANDOM) {
+                const double initialDepartPos = RandHelper::rand(myActivePlan->front()->getDestination()->getLength(), &myParsingRNG);
+                myActivePlan->front()->setArrivalPos(initialDepartPos);
+            }
         }
         myVehicleParameter->id = (baseID 
                 + (i >= 0 ? "." + toString(i) : "") 
