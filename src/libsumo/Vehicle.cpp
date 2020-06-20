@@ -354,21 +354,19 @@ Vehicle::getBestLanes(const std::string& vehicleID) {
     std::vector<TraCIBestLanesData> result;
     MSVehicle* veh = dynamic_cast<MSVehicle*>(Helper::getVehicle(vehicleID));
     if (veh != nullptr && veh->isOnRoad()) {
-        const std::vector<MSVehicle::LaneQ>& bestLanes = veh->getBestLanes();
-        for (std::vector<MSVehicle::LaneQ>::const_iterator i = bestLanes.begin(); i != bestLanes.end(); ++i) {
+        for (const MSVehicle::LaneQ& lq : veh->getBestLanes()) {
             TraCIBestLanesData bld;
-            const MSVehicle::LaneQ& lq = *i;
             bld.laneID = lq.lane->getID();
             bld.length = lq.length;
             bld.occupation = lq.nextOccupation;
             bld.bestLaneOffset = lq.bestLaneOffset;
             bld.allowsContinuation = lq.allowsContinuation;
-            for (std::vector<MSLane*>::const_iterator j = lq.bestContinuations.begin(); j != lq.bestContinuations.end(); ++j) {
-                if ((*j) != nullptr) {
-                    bld.continuationLanes.push_back((*j)->getID());
+            for (const MSLane* const lane : lq.bestContinuations) {
+                if (lane != nullptr) {
+                    bld.continuationLanes.push_back(lane->getID());
                 }
             }
-            result.push_back(bld);
+            result.emplace_back(bld);
         }
     }
     return result;
