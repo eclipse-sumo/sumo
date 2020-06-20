@@ -120,6 +120,7 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
             myOutput->writeXMLHeader("DispatchInfo_GreedyShared", "");
             myOutput->openTag("dispatchShared");
             myOutput->writeAttr("time", time2string(now));
+            myOutput->writeAttr("id", taxi->getHolder().getID());
             myOutput->writeAttr("persons", toString(res->persons));
             myOutput->writeAttr("sharingPersons", toString(res2->persons));
             myOutput->writeAttr("type", shareCase);
