@@ -2227,7 +2227,7 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapRoadPosition(objID, variable, rp);
         }
         default:
-            return false;
+            return VehicleType::handleVariableWithID(objID, getTypeID(objID), variable, wrapper);
     }
 }
 

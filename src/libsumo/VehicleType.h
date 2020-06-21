@@ -108,6 +108,8 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
+    static bool handleVariableWithID(const std::string& objID, const std::string& typeID, const int variable, VariableWrapper* wrapper);
+
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;

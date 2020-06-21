@@ -60,8 +60,7 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_VEHICLE_VARIABLE, variable, id);
     try {
-        if (!libsumo::Vehicle::handleVariable(id, variable, &server) &&
-                !libsumo::VehicleType::handleVariable(libsumo::Vehicle::getTypeID(id), variable, &server)) {
+        if (!libsumo::Vehicle::handleVariable(id, variable, &server)) {
             switch (variable) {
                 case libsumo::VAR_LEADER: {
                     double dist = 0;
