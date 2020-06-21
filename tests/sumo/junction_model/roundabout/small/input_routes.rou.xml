@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flow_0" begin="0.00" end="200.00" period="7" departSpeed="max">
+        <route edges="NC gneE3 gneE2 CS.25" color="cyan"/>
+    </flow>
+    <flow id="flow_0b" begin="2.00" end="200.00" period="7" departSpeed="max">
+        <route edges="NC gneE3 gneE2 CS.25" color="cyan"/>
+    </flow>
+    <flow id="flow_1" begin="5.00" end="200.00" probability="0.3">
+        <route edges="SC gneE1 gneE0 CN.25" color="cyan"/>
+    </flow>
+    <flow id="flow_2" begin="5.00" end="200.00" probability="0.3">
+        <route edges="WC gneE2 gneE1 CE.25" color="cyan"/>
+    </flow>
+</routes>
