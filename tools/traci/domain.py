@@ -89,7 +89,7 @@ class SubscriptionResults:
     def get(self, refID=None):
         if refID is None:
             return self._results
-        return self._results.get(refID, None)
+        return self._results.get(refID, {})
 
     def addContext(self, refID, domain, objID, varID=None, data=None):
         if refID not in self._contextResults:
@@ -102,7 +102,7 @@ class SubscriptionResults:
     def getContext(self, refID=None):
         if refID is None:
             return self._contextResults
-        return self._contextResults.get(refID, None)
+        return self._contextResults.get(refID, {})
 
     def __repr__(self):
         return "<%s, %s>" % (self._results, self._contextResults)

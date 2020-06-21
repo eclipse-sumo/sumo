@@ -20,6 +20,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 import os
 import sys
+from pprint import pprint
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 
@@ -41,6 +42,6 @@ traci.vehicle.subscribeContext(vehID, tc.CMD_GET_VEHICLE_VARIABLE, 50,
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
-    print(traci.vehicle.getContextSubscriptionResults(vehID))
+    pprint(traci.vehicle.getContextSubscriptionResults(vehID))
 
 traci.close()
