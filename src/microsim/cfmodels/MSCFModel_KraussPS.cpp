@@ -46,7 +46,10 @@ MSCFModel_KraussPS::maxNextSpeed(double speed, const MSVehicle* const veh) const
     const double aMax = MAX2(0., getMaxAccel() - gravity * sin(DEG2RAD(veh->getSlope())));
     // assuming drag force is proportional to the square of speed
     const double vMax = sqrt(aMax / getMaxAccel()) * myType->getMaxSpeed();
-    return MIN2(speed + (double) ACCEL2SPEED(aMax), vMax);
+    return MAX2(
+            // prevent stalling at low speed
+            getMaxAccel() / 2,
+            MIN2(speed + (double) ACCEL2SPEED(aMax), vMax));
 }
 
 
