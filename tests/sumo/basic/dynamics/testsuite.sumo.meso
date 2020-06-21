@@ -1,9 +1,6 @@
 # avoid spill back of jams onto a junction (checkRewindLinkLanes) - no internal links in meso
 #avoid_spill_back
 
-# tests for driver impatience
-impatience
-
 # test behavior when vehicles cannot drive
 deadlock
 

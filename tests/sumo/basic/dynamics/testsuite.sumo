@@ -1,17 +1,8 @@
-# avoid spill back of jams onto a junction (checkRewindLinkLanes)
-avoid_spill_back
-
-# tests for driver impatience
-impatience
-
 # test behavior when vehicles cannot drive
 deadlock
 
 # tests for dynamics at ramps leading to and from motorways
 ramps
-
-# dynamics at roundabout
-roundabout
 
 # tests for vehicle insertion (especially for high flows)
 insertion
