@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jun 20 19:53:34 2020 by Eclipse SUMO Version v1_6_0+0870-48191dc38d
+<!-- generated on Sun Jun 21 23:31:38 2020 by Eclipse SUMO Version v1_6_0+0885-71846a2475
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -805,7 +805,7 @@
         <device.taxi.dispatch-algorithm value="greedy" type="STR"/>
 
         <!-- Write information from the dispatch algorithm to FILE -->
-        <device.taxi.dispatch-algorithm.output value="dispatch.xml" type="STR"/>
+        <device.taxi.dispatch-algorithm.output value="" type="STR"/>
 
         <!-- Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE] -->
         <device.taxi.dispatch-algorithm.params value="" type="STR"/>
