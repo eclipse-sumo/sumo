@@ -35,6 +35,10 @@ def start(args, traceFile=None):
     simulation.load(args[1:])
 
 
+def setLegacyGetLeader(enabled):
+    vehicle._legacyGetLeader = enabled
+
+
 def _startTracing(traceFile, cmd):
     _traceFile[0] = open(traceFile, 'w')
     _traceFile[0].write("traci.start(%s)\n" % repr(cmd))

@@ -333,11 +333,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %typemap(out) std::pair<std::string, double> {
-    if ($1.first == "") {
-        $result = Py_None;
-    } else {
-        $result = Py_BuildValue("(sd)", $1.first.c_str(), $1.second);
-    }
+    $result = Py_BuildValue("(sd)", $1.first.c_str(), $1.second);
 };
 
 %extend libsumo::TraCIStage {
@@ -361,6 +357,11 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 };
 
 %exceptionclass libsumo::TraCIException;
+
+%pythonappend libsumo::Vehicle::getLeader(const std::string&, double) %{
+    if val[0] == "" and vehicle._legacyGetLeader:
+        return None
+%}
 
 #endif
 
@@ -476,6 +477,7 @@ vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeade
 vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
 vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
 vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
+vehicle._legacyGetLeader = True
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 _trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)

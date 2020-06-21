@@ -39,13 +39,6 @@ else:
 import sumolib  # noqa
 from sumolib.miscutils import getFreeSocketPort  # noqa
 
-# must be defined before _vehicle is imported
-
-
-def legacyGetLeader():
-    return _legacyGetLeader[0]
-
-
 from .domain import _defaultDomains  # noqa
 # StepListener needs to be imported for backwards compatibility
 from .connection import Connection, StepListener  # noqa
