@@ -87,6 +87,7 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 
 ## Forcing Insertion / Avoiding depart delay
 
+- Make sure that all lanes are used for insertion i.e. by setting `departLane="random"` (or `free` or `best`)
 - Insert with `departSpeed="max"`: vehicle speeds at insertion will be adjusted to the
   maximum safe speed that allows insertion at the specified time to
   succeed
