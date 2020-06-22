@@ -22,6 +22,12 @@ permalink: /ChangeLog/
   - Fixed pedestrian routing bug after riding a ship. Issue #7149
   - Fixed invalid insertion lane when using option **--extrapolate-departpos**. Issue #7155
   - Simulation now terminates when specifying a flow without end and attribute 'number'. Issue #7156
+  - Fixed issues with rescue-lane creation. Issue #7134
+  - Fixed sublane model issues #7181, #7182, #3681
+  - Random departPos for personFlow is now working. Issue #7210
+  - CarFollowModel 'KraussPS' no longer stalls at steep inclines. Issue #2849
+  - Fixed discontinuous acceleration profile and usafe driving when passing a minor link. Issue #7213
+  - Fixed unnecessary waiting at roundabout. Issue #1847
     
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
@@ -38,11 +44,12 @@ permalink: /ChangeLog/
   - Option **--geometry.avoid-overlap** is no longer lost on reloading a network. Issue #7033  
   - Fixed infinite loop when loading OSM data with 'NaN' values. Issue #7101
   - Fixed invalid 'neigh' lanes when editing network. Issue #7108
-  - Fixed bad node shapes at complex intersections with roads and footpaths. Issue #7042
+  - Fixed bad node shapes at complex intersections with roads and footpaths. Issue #7042  
   
 - SUMO-GUI
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
+  - Fixed crash in mesosim when keeping vehicle parameter window open. Issue #7194
   
 - NETEDIT
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
@@ -52,6 +59,7 @@ permalink: /ChangeLog/
   - Fixed invalid output when transforming trip to vehicle. Issue #7073
   - Fixed invalid routes when on of it's edges. Issue #6986
   - Fixed invalid count of selected elements. Issue #7113
+  - Fixed missing minDur and maxDur attributes after changing tlType. Issue #7188
   
 - Tools
   - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
@@ -61,13 +69,14 @@ permalink: /ChangeLog/
   - turnFile2EdgeRelations.py can now handle empty intervals. Issue #7084
   
 - TraCI
-  - Fixed memory leak when using libsumo. Issue #7012
+  - Fixed memory leak when using libsumo. Issue #7012, #7169
   - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
   - Fixed crash when accessing prior riding stage with *person.getStage*. Issue #7060
   - Fixed crash and delayed effect when setting vehicle parameter "device.rerouting.period". Issue #7064, #7075
   - Polygons and POIs added at runtime now show up in contextSubscriptions. Issue #7057
   - TraaS function getDeltaT is now working. Issue #7121
   - The python client now supports adding polygons with more than 255 shape points. Issue #7161
+  - Vehicle type parameters can now be retrieved from vehicles with libsumo. Issue #7209
   
 - All Applications
   - File names with a `%`-Sign can no be loaded. Issue #6574
@@ -83,6 +92,7 @@ permalink: /ChangeLog/
   - Charging stations now work when a vehicle is parking (either with `parking="true"` or when stopped at a parkingArea and a chargingStation simultaneously). Issue #7068
   - The distance at which vehicles react to device.bluelight can now be configured with option **--device.bluelight.reactiondist**. Issue #7112
   - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148  
+  - Strategic lane-changes can now be disabled by setting 'lcStrategic="-1"`. Issue #7180
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
@@ -90,6 +100,8 @@ permalink: /ChangeLog/
   - When loading **ptstop-files** and filtering the network extend, the loaded stops will be filtered automatically. Issue #7024
   - When specifying a polygon boundary for option **--keep-edges.in-boundary**, the argument may now contain spaces to separate positions. This allows copying a polygon shape attribute. Issue #7025
   - When an intersectoin is surrounded by connected footpaths, superfluous walkingareas are no longer built. The distance at which pedestrian nodes count as connected can be set by option **--walkingareas.join-dist**. Issue #7120
+  - Added new node attribute 'tlLayout' to configure signal plan layout per node. Issue #7187
+  - Added new traffic light layout 'alternateOneWay' to model work zones where each direction uses the interior of a joined traffic light exclusively. Issue #7199
   
 - NETEDIT
   - Edges can now be colored by edgeData attribute (as in SUMO-GUI). Issue #6953
