@@ -73,7 +73,7 @@ public:
      * @param[in] key The parameter's name
      * @param[in] value The parameter's value
      */
-    void setParameter(const std::string& key, const std::string& value);
+    virtual void setParameter(const std::string& key, const std::string& value);
 
     /**@brief Removes a parameter
      * @param[in] key The parameter's name

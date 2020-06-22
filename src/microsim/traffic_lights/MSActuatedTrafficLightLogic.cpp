@@ -743,4 +743,22 @@ MSActuatedTrafficLightLogic::getLinkMinDuration(int target) const {
     return result;
 }
 
+
+void
+MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::string& value) {
+    // some pre-defined parameters can be updated at runtime
+    if (key == "detector-gap" || key == "passing-time" || key == "file" || key == "freq" || key == "vTypes"
+            || StringUtils::startsWith(key, "linkMaxDur")
+            || StringUtils::startsWith(key, "linkMinDur")) {
+        throw InvalidArgument(key + " cannot be changed dynamically for actuated traffic light '" + getID() + "'");
+    } else if (key == "max-gap") {
+        myMaxGap = StringUtils::toDouble(value);
+    } else if (key == "show-detectors") {
+        myShowDetectors = StringUtils::toBool(value);
+    } else if (key == "inactive-threshold") {
+        myInactiveThreshold = StringUtils::toDouble(value);
+    }
+    Parameterised::setParameter(key, value);
+}
+
 /****************************************************************************/

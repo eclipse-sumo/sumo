@@ -96,6 +96,9 @@ public:
 
     void setShowDetectors(bool show);
 
+    /**@brief Sets a parameter and updates internal constants */
+    void setParameter(const std::string& key, const std::string& value);
+
 protected:
     struct InductLoopInfo {
         InductLoopInfo(MSInductLoop* _loop, int numPhases):
