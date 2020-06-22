@@ -3,3 +3,6 @@ trafficlight
 
 # Tests the trafficlight API
 railsignal_state
+
+# tests interaction with actuated traffic light
+actuated

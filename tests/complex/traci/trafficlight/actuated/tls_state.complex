@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jun 22 13:05:24 2020 by Eclipse SUMO Version v1_6_0+0894-61a7d8ef3c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="55885"/>
+    </traci_server>
+
+    <gui_only>
+        <window-size value="500,500"/>
+        <window-pos value="50,50"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <tlLogic id="C" type="static" programID="1">
+        <phase duration="5.00"  state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="6.00"  state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
+        <phase duration="8.00"  state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="8.00"  state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
+        <phase duration="8.00"  state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="8.00"  state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
+        <phase duration="8.00"  state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="8.00"  state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
+        <phase duration="8.00"  state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="54.00" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3.00"  state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6.00"  state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3.00"  state="rrrrrrrryyrrrrrrrryy"/>
+        <phase duration="60.00" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3.00"  state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6.00"  state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3.00"  state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="47.00" state="rrrrrGGGggrrrrrGGGgg"/>
+    </tlLogic>
+</additional>
