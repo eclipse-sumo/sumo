@@ -125,6 +125,14 @@ GNEEdge::updateGeometry() {
         for (const auto& childAdditionals : getChildAdditionals()) {
             childAdditionals->updateGeometry();
         }
+        // Update geometry of parent demand elements that have this edge as parent
+        for (const auto& additionalParent : getParentDemandElements()) {
+            additionalParent->updateGeometry();
+        }
+        // Update geometry of additionals demand elements vinculated to this edge
+        for (const auto& childAdditionals : getChildDemandElements()) {
+            childAdditionals->updateGeometry();
+        }
         // mark dotted geometry deprecated
         myDottedGeometry.markDottedGeometryDeprecated();
     }
