@@ -212,6 +212,9 @@ public:
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
 
+    /// @brief partial update pre-computed geometry information
+    void updatePartialGeometry(const GNELane* lane);
+
     /// @name inherited from GUIGlObject
     /// @{
 
@@ -367,7 +370,7 @@ protected:
     GNEGeometry::Geometry myAdditionalGeometry;
 
     /// @brief segment geometry to be precomputed in updateGeometry(...) (used by E2Multilane)
-    GNEGeometry::SegmentGeometry mySegmentGeometry;
+    GNEGeometry::SegmentGeometry myAdditionalSegmentGeometry;
 
     /// @brief variable AdditionalMove
     AdditionalMove myMove;

@@ -119,17 +119,21 @@ GNELane::updateGeometry() {
     // update additionals children associated with this lane
     for (const auto &additional : getParentAdditionals()) {
         additional->updateGeometry();
+        additional->updatePartialGeometry(this);
     }
     // update additionals parents associated with this lane
     for (const auto &additional : getChildAdditionals()) {
         additional->updateGeometry();
+        additional->updatePartialGeometry(this);
     }
     // update partial demand elements parents associated with this lane
     for (const auto &demandElement : getParentDemandElements()) {
+        demandElement->updateGeometry();
         demandElement->updatePartialGeometry(this);
     }
-    // update partial demand elements children associated with this lane and invalidate path
+    // update partial demand elements children associated with this lane
     for (const auto &demandElement : getChildDemandElements()) {
+        demandElement->updateGeometry();
         demandElement->updatePartialGeometry(this);
     }
     // in Move mode, connections aren't updated
@@ -404,10 +408,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw child additional
         for (const auto& additional : getChildAdditionals()) {
-            //draw partial E2 detectors
-            if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                drawPartialE2DetectorPlan(s, additional, nullptr);
-            } else if (!additional->getTagProperty().isPlacedInRTree()) {
+            if (!additional->getTagProperty().isPlacedInRTree()) {
                 // check that ParkingAreas aren't draw two times
                 additional->drawGL(s);
             }
@@ -557,10 +558,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw child additional
         for (const auto& additional : getChildAdditionals()) {
-            //draw partial E2 detectors
-            if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                drawPartialE2DetectorPlan(s, additional, nullptr);
-            } else if (!additional->getTagProperty().isPlacedInRTree()) {
+            if (!additional->getTagProperty().isPlacedInRTree()) {
                 // check that ParkingAreas aren't draw two times
                 additional->drawGL(s);
             }
@@ -571,10 +569,15 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 demandElement->drawGL(s);
             }
         }
-        // draw child path elements
+        // draw child path additional elements
+        for (const auto &additional : myPathAdditionalElements) {
+            additional->drawLanePathChildren(s, this);
+        }
+        // draw child path demand elements
         for (const auto &demandElement : myPathDemandElements) {
             demandElement->drawLanePathChildren(s, this);
         }
+
     }
 }
 
@@ -906,68 +909,6 @@ GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
     mySpecialColorValue = colorValue;
 }
 
-
-void
-GNELane::drawPartialE2DetectorPlan(const GUIVisualizationSettings& s, const GNEAdditional* E2Detector, const GNEJunction* junction) const {
-    // calculate E2Detector width
-    const double E2DetectorWidth = s.addSize.getExaggeration(s, E2Detector);
-    // check if E2 can be drawn
-    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // obtain color
-        RGBColor E2DetectorColor;
-        if (E2Detector->drawUsingSelectColor()) {
-            E2DetectorColor = s.colorSettings.selectedRouteColor;
-        } else {
-            E2DetectorColor = s.detectorSettings.E2Color;
-        }
-        // Start drawing adding an gl identificator
-        glPushName(E2Detector->getGlID());
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, E2Detector->getType());
-        // draw E2Detector
-        if (junction) {
-            // iterate over segments
-            for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
-                // draw partial segment
-                if (segment.getJunction() == junction) {
-                    // Set E2Detector color (needed due drawShapeDottedContour)
-                    GLHelper::setColor(E2DetectorColor);
-                    // draw box lines
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
-                    // check if shape dotted contour has to be drawn
-                    if (myNet->getViewNet()->getDottedAC() == E2Detector) {
-                        GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
-                    }
-                }
-            }
-        } else {
-            // iterate over segments
-            for (const auto& segment : E2Detector->getAdditionalSegmentGeometry()) {
-                // draw partial segment
-                if (segment.getLane() == this) {
-                    // Set E2Detector color (needed due drawShapeDottedContour)
-                    GLHelper::setColor(E2DetectorColor);
-                    // draw box lines
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
-                    // check if shape dotted contour has to be drawn
-                    if (myNet->getViewNet()->getDottedAC() == E2Detector) {
-                        GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
-                    }
-                }
-            }
-        }
-        // Pop last matrix
-        glPopMatrix();
-        // Draw name if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-        }
-        // Pop name
-        glPopName();
-    }
-}
 
 // ===========================================================================
 // private

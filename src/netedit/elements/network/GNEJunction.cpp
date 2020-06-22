@@ -405,7 +405,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw Junction childs
             drawJunctionChilds(s);
-            // draw child path elements
+            // draw child path additional elements
+            for (const auto &additionalElement : myPathAdditionalElements) {
+                additionalElement->drawJunctionPathChildren(s, this);
+            }
+            // draw child path demand elements
             for (const auto &demandElement : myPathDemandElements) {
                 demandElement->drawJunctionPathChildren(s, this);
             }
@@ -1308,17 +1312,8 @@ void
 GNEJunction::drawJunctionChilds(const GUIVisualizationSettings& s) const {
     // draw connections and route elements connections (Only for incoming edges)
     for (const auto& incomingEdge : myGNEIncomingEdges) {
-        // first draw connections
         for (const auto& connection : incomingEdge->getGNEConnections()) {
             connection->drawGL(s);
-        }
-        // then draw E2 multilane detectors
-        for (const auto& lane : incomingEdge->getLanes()) {
-            for (const auto& additional : lane->getChildAdditionals()) {
-                if (additional->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                    lane->drawPartialE2DetectorPlan(s, additional, this);
-                }
-            }
         }
     }
 }

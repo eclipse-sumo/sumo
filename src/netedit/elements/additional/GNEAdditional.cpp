@@ -21,14 +21,15 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEAdditional.h"
 
@@ -127,7 +128,7 @@ GNEAdditional::getAdditionalGeometry() const {
 
 const GNEGeometry::SegmentGeometry&
 GNEAdditional::getAdditionalSegmentGeometry() const {
-    return mySegmentGeometry;
+    return myAdditionalSegmentGeometry;
 }
 
 
@@ -332,6 +333,21 @@ GNEAdditional::isAdditionalBlocked() const {
 }
 
 
+void 
+GNEAdditional::updatePartialGeometry(const GNELane* lane) {
+    // currently only for E2 Multilane Detectors
+    if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
+        // declare extreme geometry
+        GNEGeometry::ExtremeGeometry extremeGeometry;
+        // get extremes
+        extremeGeometry.laneStartPosition = GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_POSITION));
+        extremeGeometry.laneEndPosition = GNEAttributeCarrier::parse<double>(getAttribute(SUMO_ATTR_ENDPOS));
+        // update geometry path for the given lane
+        GNEGeometry::updateGeometricPath(myAdditionalSegmentGeometry, lane, extremeGeometry);
+    }
+}
+
+
 GUIGLObjectPopupMenu*
 GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -407,13 +423,72 @@ GNEAdditional::getOptionalAdditionalName() const {
 
 void 
 GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-
+    // calculate E2Detector width
+    const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
+    // check if E2 can be drawn
+    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // obtain color
+        const RGBColor routeColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // iterate over segments
+        for (const auto& segment : myAdditionalSegmentGeometry) {
+            // draw partial segment
+            if (segment.getLane() == lane) {
+                // Set route color (needed due drawShapeDottedContour)
+                GLHelper::setColor(routeColor);
+                // draw box lines
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
+                // check if shape dotted contour has to be drawn
+                if (myNet->getViewNet()->getDottedAC() == this) {
+                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
+                }
+            }
+        }
+        // Pop last matrix
+        glPopMatrix();
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection) {
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        }
+        // Pop name
+        glPopName();
+    }
 }
 
 
 void 
 GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
-
+    // calculate E2Detector width
+    const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
+    // check if E2 can be drawn
+    if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // Set color of the base
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+        } else {
+            GLHelper::setColor(s.detectorSettings.E2Color);
+        }
+        // draw lane2lane
+        if (fromLane->getLane2laneConnections().exist(toLane)) {
+            GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), E2DetectorWidth);
+        } else {
+            // Set invalid person plan color
+            GLHelper::setColor(RGBColor::RED);
+            // draw line between end of first shape and first position of second shape
+            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5*E2DetectorWidth));
+        }
+        // Pop last matrix
+        glPopMatrix();
+    }
 }
 
 // ---------------------------------------------------------------------------
