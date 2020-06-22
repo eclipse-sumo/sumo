@@ -297,6 +297,7 @@ each lanes maximum speed).
 induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
 
 Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
+
 - **inactive-threshold** (default 180): The parameter sets the time in s after which an inactive phase will be entered preferentially.
 - **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals rather than phase duration
 
