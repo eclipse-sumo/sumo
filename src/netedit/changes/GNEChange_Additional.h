@@ -63,4 +63,7 @@ private:
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNEAdditional* myAdditional;
+
+    /// @brief reference to path vector
+    const std::vector<GNEPathElements::PathElement>& myPath;
 };
