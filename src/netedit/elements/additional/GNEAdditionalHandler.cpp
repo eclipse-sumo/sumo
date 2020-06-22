@@ -21,8 +21,6 @@
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_TAZElement.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNENet.h>
@@ -30,7 +28,6 @@
 #include <utils/vehicle/SUMORouteHandler.h>
 
 #include "GNEAdditionalHandler.h"
-#include "GNEShape.h"
 #include "GNEBusStop.h"
 #include "GNEAccess.h"
 #include "GNECalibrator.h"
