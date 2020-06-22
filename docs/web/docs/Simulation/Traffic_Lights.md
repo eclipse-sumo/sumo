@@ -273,6 +273,8 @@ Sumo will issue a warning a phase or link index does not have usable detectors.
 <tlLogic id="0" programID="my_program" offset="0" type="actuated">
   <param key="max-gap" value="3.0"/>
   <param key="detector-gap" value="2.0"/>
+  <param key="passing-time" value="2.0"/>
+  <param key="vTypes" value=""/>
   <param key="show-detectors" value="false"/>
   <param key="file" value="NULL"/>
   <param key="freq" value="300"/>
@@ -282,17 +284,21 @@ Sumo will issue a warning a phase or link index does not have usable detectors.
 </tlLogic>
 ```
 #### Parameters
+Several optional parameters can be used to control the behavior of actuated traffic lights. The examples values in the previous section are the default values for these parameters and their meaning is given below:
 
-The value of **max-gap** describes the maximum time gap between
-successive vehicle that will cause the current phase to be prolonged
-(within limits). **detector-gap** determines the time distance between
-the (automatially generated) detector and the stop line in seconds (at
-each lanes maximum speed). If **show-detectors** is set to *true*, the
-generated detectors are shown in [SUMO-GUI](../SUMO-GUI.md). The
-parameters **file** and **freq** have the same meaning as for [regular
-induction loop
-detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
-The examples values are the default values for these parameters.
+- **max-gap**: the maximum time gap between successive vehicle that will cause the current phase to be prolonged
+(within maxDur limit)
+- **detector-gap**: determines the time distance between the (automatially generated) detector and the stop line in seconds (at
+each lanes maximum speed). 
+- **passing-time**: estimates the headway between vehicles when passing the stop line. This sets an uppper bound on the distance between detector and stop line according to the formula `(minDur / passingTime + 0.5) / 7.5`. The intent of this bound is to allow all vehicles between the detector and the stop line to pass the intersection within the minDur time. A warning will be issued if the minDur gives insufficient clearing time.
+- **linkMaxDur:X** (where X is a traffic light index): This sets an additional maximum duration criterion based on individual signals rather than phase duration.
+- **show-detectors** controls whether generated detectors will be visible or hidden in [SUMO-GUI](../SUMO-GUI.md). The default for all traffic lights can be set with option **--tls.actuated.show-detectors**. It is also possible to toggle this value from within the GUI by right-clicking on a traffic light.
+- parameters **vTypes**, **file** and **freq** have the same meaning as for [regular
+induction loop detectors](../Simulation/Output/Induction_Loops_Detectors_(E1).md).
+
+Some parameters are only used when a signal plan with [dynamic phase selection](#dynamic_phase_selection_phase_skipping) is active:
+- **inactive-threshold** (default 180): The parameter sets the time in s after which an inactive phase will be entered preferentially.
+- **linkMinDur:X** (where X is a traffic light index): This sets an additional minimum duration criterion based on individual signals rather than phase duration
 
 #### Custom Detectors
 To use custom detectors (i.e. for custom placement or output) additional parameters can be defined where KEY is a lane that is incoming to the traffic light and VALUE is a user-defined inductionLoop (that could also lie on another upstream lane).
