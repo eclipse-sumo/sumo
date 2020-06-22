@@ -3131,8 +3131,44 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
 #endif
     }
     if (distToCrossing >= 0) {
-        // drive up to the crossing point with the current link leader
-        vsafeLeader = MAX2(vsafeLeader, cfModel.stopSpeed(this, getSpeed(), distToCrossing - getVehicleType().getMinGap()));
+        // can the leader still stop in the way?
+        const double vStop = cfModel.stopSpeed(this, getSpeed(), distToCrossing - getVehicleType().getMinGap());
+        if (leaderInfo.first == this) {
+            // braking for pedestrian
+            vsafeLeader = vStop;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStop=" << vStop << "\n";
+#endif
+        } else {
+            const double leaderBrakeGap = leaderInfo.first->getCarFollowModel().brakeGap(leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getMaxDecel(), 0);
+            const double leaderDistToCrossing = distToCrossing - leaderInfo.second;
+            const bool leaderClear = leaderDistToCrossing < leaderBrakeGap;
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) std::cout << "  leaderDistToCrossing=" << leaderDistToCrossing << " leaderBrakeGap=" << leaderBrakeGap << "  leaderClear=" << leaderClear << "\n";;
+#endif
+            if (leaderClear) {
+                vsafeLeader = getCarFollowModel().maxNextSpeed(getSpeed(), this);
+            } else {
+                // estimate the time at which the leader has gone past the crossing point
+                const double leaderPastCPTime = leaderDistToCrossing / MAX2(leaderInfo.first->getSpeed(), SUMO_const_haltingSpeed);
+                // reach distToCrossing after that time
+                // avgSpeed * leaderPastCPTime = distToCrossing
+                // ballistic: avgSpeed = (getSpeed + vFinal) / 2
+                const double vFinal = MAX2(getSpeed(), 2 * (distToCrossing - getVehicleType().getMinGap()) / leaderPastCPTime - getSpeed());
+                const double v2 = getSpeed() + ACCEL2SPEED((vFinal - getSpeed()) / leaderPastCPTime);
+                vsafeLeader = MAX2(vsafeLeader, MIN2(v2, vStop));
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+                if (DEBUG_COND) {
+                    std::cout << "    driving up to the crossing point (distToCrossing=" << distToCrossing << ")"
+                        << " leaderPastCPTime=" << leaderPastCPTime
+                        << " vFinal=" << vFinal
+                        << " v2=" << v2
+                        << " vStop=" << vStop
+                        << " vsafeLeader=" << vsafeLeader << "\n";
+                }
+#endif
+            }
+        }
     }
     return vsafeLeader;
 }
