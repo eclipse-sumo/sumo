@@ -1,1 +1,1 @@
-Warning: p3 at edge 'beg' position 100.00 cannot use waiting vehicle 'bus.0' at position 50.00 because it is too far away.
+Warning: Person 'p3' at edge 'beg' position 100.00 cannot use waiting vehicle 'bus.0' at position 50.00 because it is too far away.
