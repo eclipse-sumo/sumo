@@ -1,6 +1,7 @@
 Warning: Vehicle 'NS.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=42.00.
-Warning: Vehicle 'SW.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=226.00.
-Warning: Vehicle 'ES.32' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=504.00.
-Warning: Vehicle 'WE.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=572.00.
-Warning: Vehicle 'WN.33' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=724.00.
-Warning: Vehicle 'SN.44' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=1021.00.
+Warning: Vehicle 'ES.1' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=55.00.
+Warning: Vehicle 'SN.10' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=312.00.
+Warning: Vehicle 'SW.14' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=455.00.
+Warning: Vehicle 'NE.22' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=475.00.
+Warning: Vehicle 'WN.25' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=568.00.
+Warning: Vehicle 'WE.27' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=596.00.

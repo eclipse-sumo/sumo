@@ -1,9 +1,13 @@
 Warning: Vehicle 'WE.0' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=41.00.
-Warning: Vehicle 'ES.31' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=346.00.
-Warning: Vehicle 'WE.33' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=484.00.
-Warning: Teleporting vehicle 'EW.44'; collision with vehicle 'ES.57', lane='REN_1', gap=-7.05', latGap=-0.20, time=594.00 stage=move.
-Warning: Vehicle 'EW.44' ends teleporting on edge 'RNW', time 595.00.
-Warning: Vehicle 'NE.49' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=641.00.
-Warning: Vehicle 'WE.47' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=697.00.
-Warning: Teleporting vehicle 'ES.64'; collision with vehicle 'EW.71', lane='REN_1', gap=-6.88', latGap=-0.20, time=764.00 stage=move.
-Warning: Vehicle 'ES.64' ends teleporting on edge 'RNW', time 764.00.
+Warning: Vehicle 'WE.4' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=140.00.
+Warning: Vehicle 'SW.19' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=245.00.
+Warning: Vehicle 'SN.20' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=340.00.
+Warning: Vehicle 'NS.29' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=405.00.
+Warning: Teleporting vehicle 'WE.28'; collision with vehicle 'WN.24', lane='RWS_1', gap=-4.37', latGap=-0.06, time=417.00 stage=move.
+Warning: Vehicle 'WE.28' ends teleporting on edge 'CE', time 421.00.
+Warning: Vehicle 'SN.26' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=457.00.
+Warning: Vehicle 'EW.44' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=516.00.
+Warning: Teleporting vehicle 'WE.36'; collision with vehicle 'ES.54', lane='RWS_0', gap=-0.48', latGap=-0.02, time=538.00 stage=move.
+Warning: Vehicle 'WE.36' ends teleporting on edge 'RSE', time 538.00.
+Warning: Vehicle 'SN.44' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=651.00.
+Warning: Vehicle 'EW.84' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=961.00.
