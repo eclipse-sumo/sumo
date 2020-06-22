@@ -614,6 +614,13 @@ TRACI_CONST int ROUTING_MODE_EFFORT = 0x02;
 TRACI_CONST int ROUTING_MODE_COMBINED = 0x03;
 
 // ****************************************
+// Traffic light types
+// ****************************************
+TRACI_CONST int TRAFFICLIGHT_TYPE_STATIC = 0x00;
+TRACI_CONST int TRAFFICLIGHT_TYPE_ACTUATED = 0x03;
+TRACI_CONST int TRAFFICLIGHT_TYPE_DELAYBASED = 0x04;
+
+// ****************************************
 // FILTER TYPES (for context subscription filters)
 // ****************************************
 
