@@ -2771,7 +2771,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
 
-        if (!(*link)->havePriority() && !determinedFoePresence && brakeDist < seen && !(*link)->lastWasContMajor()) {
+        const bool couldBrakeForMinor = !(*link)->havePriority() && brakeDist < seen && !(*link)->lastWasContMajor();
+        if (couldBrakeForMinor && !determinedFoePresence) {
             // vehicle decelerates just enough to be able to stop if necessary and then accelerates
             double maxSpeedAtVisibilityDist = cfModel.maximumSafeStopSpeed(visibilityDistance, myState.mySpeed, false, 0.);
             // XXX: estimateSpeedAfterDistance does not use euler-logic (thus returns a lower value than possible here...)
@@ -2805,6 +2806,12 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                     setRequest = false;
                 }
             }
+        }
+        if (couldBrakeForMinor && (*link)->getLane()->getEdge().isRoundabout()) {
+            slowedDownForMinor = true;
+#ifdef DEBUG_PLAN_MOVE
+            if (DEBUG_COND) std::cout << "   slowedDownForMinor at roundabout\n";
+#endif
         }
 
         SUMOTime arrivalTime;
@@ -3126,6 +3133,7 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
                       << " laneLength=" << lane->getLength()
                       << " stopDist=" << seen - lane->getLength()  - POSITION_EPS
                       << " vsafeLeader=" << vsafeLeader
+                      << " distToCrossing=" << distToCrossing
                       << "\n";
         }
 #endif
