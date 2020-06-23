@@ -134,6 +134,7 @@ class Connection:
             elif f == "u":  # raw unsigned byte needed for distance command
                 packed += struct.pack("!B", int(v))
             elif f == "s":
+                v = str(v)
                 packed += struct.pack("!Bi", tc.TYPE_STRING, len(v)) + v.encode("latin1")
             elif f == "p":  # polygon
                 if len(v) <= 255:
