@@ -164,7 +164,7 @@ class VehicleDomain(Domain):
 
     def getSpeedWithoutTraCI(self, vehID):
         """getSpeedWithoutTraCI(string) -> double
-        Returns the speed that the vehicle would drive if not speed-influencing
+        Returns the speed that the vehicle would drive if no speed-influencing
         command such as setSpeed or slowDown was given.
         """
         return self._getUniversal(tc.VAR_SPEED_WITHOUT_TRACI, vehID)
@@ -327,29 +327,34 @@ class VehicleDomain(Domain):
     def getPersonNumber(self, vehID):
         """getPersonNumber(string) -> integer
         Returns the total number of persons which includes those defined
-        using attribute 'personNumber' as well as <person>-objects which are riding in
+        using attribute 'personNumber' as well as <person>-objects who are riding in
         this vehicle.
         """
         return self._getUniversal(tc.VAR_PERSON_NUMBER, vehID)
 
     def getPersonIDList(self, vehID):
-        """getPersonIDList(string) -> integer
-        Returns the list of persons which includes those defined using attribute 'personNumber'
-        as well as <person>-objects which are riding in this vehicle.
+        """getPersonIDList(string) -> list(string)
+        Returns the list of persons who are riding in this vehicle.
         """
         return self._getUniversal(tc.LAST_STEP_PERSON_ID_LIST, vehID)
 
     def getAdaptedTraveltime(self, vehID, time, edgeID):
         """getAdaptedTraveltime(string, double, string) -> double
 
-        .
+        Returns the information about the travel time of edge "edgeID" valid
+        for the given time from the vehicle's internal edge weights
+        container (see setAdaptedTraveltime).
+        If there is no individual travel time set, INVALID_DOUBLE_VALUE is returned.
         """
         return self._getUniversal(tc.VAR_EDGE_TRAVELTIME, vehID, "tds", 2, time, edgeID)
 
     def getEffort(self, vehID, time, edgeID):
         """getEffort(string, double, string) -> double
 
-        .
+        Returns the information about the effort needed for edge "edgeID" valid
+        for the given time from the vehicle's internal effort
+        container (see setEffort).
+        If there is no individual travel time set, INVALID_DOUBLE_VALUE is returned.
         """
         return self._getUniversal(tc.VAR_EDGE_EFFORT, vehID, "tds", 2, time, edgeID)
 
@@ -384,7 +389,7 @@ class VehicleDomain(Domain):
     def getLateralLanePosition(self, vehID):
         """getLateralLanePosition(string) -> double
 
-        Returns The lateral position of the vehicle on its current lane measured in m.
+        Returns the lateral position of the vehicle on its current lane measured in m.
         """
         return self._getUniversal(tc.VAR_LANEPOSITION_LAT, vehID)
 
@@ -398,7 +403,7 @@ class VehicleDomain(Domain):
     def getLateralAlignment(self, vehID):
         """getLateralAlignment(string) -> string
 
-        Returns The preferred lateral alignment of the vehicle
+        Returns The preferred lateral alignment of the vehicle, see https://sumo.dlr.de/docs/Simulation/SublaneModel.html#lane-changing
         """
         return self._getUniversal(tc.VAR_LATALIGNMENT, vehID)
 
@@ -419,7 +424,7 @@ class VehicleDomain(Domain):
     def getVehicleClass(self, vehID):
         """getVehicleClass(string) -> string
 
-        Returns the vehicle class of this vehicle.
+        Returns the vehicle class of this vehicle, see https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#abstract_vehicle_class.
         """
         return self._getUniversal(tc.VAR_VEHICLECLASS, vehID)
 
@@ -517,7 +522,7 @@ class VehicleDomain(Domain):
     def getShapeClass(self, vehID):
         """getShapeClass(string) -> string
 
-        Returns the shape class of this vehicle.
+        Returns the shape class of this vehicle, see https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#visualization.
         """
         return self._getUniversal(tc.VAR_SHAPECLASS, vehID)
 
@@ -552,14 +557,14 @@ class VehicleDomain(Domain):
     def getActionStepLength(self, vehID):
         """getActionStepLength(string) -> double
 
-        Returns the action step length for this vehicle.
+        Returns the action step length in s for this vehicle.
         """
         return self._getUniversal(tc.VAR_ACTIONSTEPLENGTH, vehID)
 
     def getLastActionTime(self, vehID):
         """getLastActionTime(string) -> double
 
-        Returns the time of last action point for this vehicle.
+        Returns the time in s of last action point for this vehicle.
         """
         return self._getUniversal(tc.VAR_LASTACTIONTIME, vehID)
 
