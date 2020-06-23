@@ -629,6 +629,9 @@ private:
     /// @brief Whether the default bicycle type was already used or can still be replaced
     bool myDefaultBikeTypeMayBeDeleted;
 
+    /// @brief Whether the default taxi type was already used or can still be replaced
+    bool myDefaultTaxiTypeMayBeDeleted;
+
     /// the number of vehicles wainting for persons contained in myWaiting which can only continue by being triggered
     int myWaitingForPerson;
 
