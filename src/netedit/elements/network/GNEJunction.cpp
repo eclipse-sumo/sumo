@@ -1002,6 +1002,25 @@ GNEJunction::removePathDemandElement(GNEDemandElement* demandElement) {
 
 
 void
+GNEJunction::addPathGenericData(GNEGenericData* genericData) {
+    // avoid insert duplicated path element childs
+    if (std::find(myPathGenericDatas.begin(), myPathGenericDatas.end(), genericData) == myPathGenericDatas.end()) {
+        myPathGenericDatas.push_back(genericData);
+    }
+}
+
+
+void
+GNEJunction::removePathGenericData(GNEGenericData* genericData) {
+    // search and remove pathElementChild
+    auto it = std::find(myPathGenericDatas.begin(), myPathGenericDatas.end(), genericData);
+    if (it != myPathGenericDatas.end()) {
+        myPathGenericDatas.erase(it);
+    }
+}
+
+
+void
 GNEJunction::invalidatePathElements() {
     // make a copy of myPathAdditionalElements
     auto copyOfPathAdditionalElements = myPathAdditionalElements;
@@ -1013,6 +1032,12 @@ GNEJunction::invalidatePathElements() {
     auto copyOfPathDemandElements = myPathDemandElements;
     for (const auto& demandElement : copyOfPathDemandElements) {
         demandElement->invalidatePath();
+    }
+    // make a copy of myPathGenericDatas
+    auto copyOfPathGenericDatas = myPathGenericDatas;
+    for (const auto& genericData : copyOfPathGenericDatas) {
+        // note: currently generic datas don't use compute/invalidate paths
+        genericData->updateGeometry();
     }
 }
 

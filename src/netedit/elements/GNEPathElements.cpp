@@ -62,13 +62,22 @@ GNEPathElements::PathElement::PathElement():
 
 GNEPathElements::GNEPathElements(GNEAdditional* additional) :
     myAdditionalElement(additional),
-    myDemandElement(nullptr) {
+    myDemandElement(nullptr),
+    myGenericData(nullptr) {
 }
 
 
 GNEPathElements::GNEPathElements(GNEDemandElement* demandElement) :
     myAdditionalElement(nullptr),
-    myDemandElement(demandElement) {
+    myDemandElement(demandElement),
+    myGenericData(nullptr) {
+}
+
+
+GNEPathElements::GNEPathElements(GNEGenericData* genericData) :
+    myAdditionalElement(nullptr),
+    myDemandElement(nullptr),
+    myGenericData(genericData) {
 }
 
 
@@ -245,6 +254,14 @@ GNEPathElements::addElements() {
             pathElement.getJunction()->addPathDemandElement(myDemandElement);
         }
     }
+    // demand elements
+    if (myGenericData) {
+        // add genericData into parent lanes
+        for (const auto& pathElement : myPathElements) {
+            pathElement.getLane()->addPathGenericData(myGenericData);
+            pathElement.getJunction()->addPathGenericData(myGenericData);
+        }
+    }
 }
 
 
@@ -264,6 +281,14 @@ GNEPathElements::removeElements() {
         for (const auto& pathElement : myPathElements) {
             pathElement.getLane()->removePathDemandElement(myDemandElement);
             pathElement.getJunction()->removePathDemandElement(myDemandElement);
+        }
+    }
+    // generic datas
+    if (myGenericData) {
+        // remove genericData from parent lanes
+        for (const auto& pathElement : myPathElements) {
+            pathElement.getLane()->removePathGenericData(myGenericData);
+            pathElement.getJunction()->removePathGenericData(myGenericData);
         }
     }
 }
@@ -288,7 +313,8 @@ GNEPathElements::calculateFromViaToEdges(GNELane* fromLane, GNELane* toLane, con
 
 GNEPathElements::GNEPathElements() :
     myAdditionalElement(nullptr),
-    myDemandElement(nullptr) {
+    myDemandElement(nullptr),
+    myGenericData(nullptr) {
 }
 
 /****************************************************************************/

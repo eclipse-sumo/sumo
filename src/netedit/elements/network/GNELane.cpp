@@ -888,17 +888,42 @@ GNELane::removePathDemandElement(GNEDemandElement* demandElement) {
 
 
 void
+GNELane::addPathGenericData(GNEGenericData* genericData) {
+    // avoid insert duplicated path element childs
+    if (std::find(myPathGenericDatas.begin(), myPathGenericDatas.end(), genericData) == myPathGenericDatas.end()) {
+        myPathGenericDatas.push_back(genericData);
+    }
+}
+
+
+void
+GNELane::removePathGenericData(GNEGenericData* genericData) {
+    // search and remove pathElementChild
+    auto it = std::find(myPathGenericDatas.begin(), myPathGenericDatas.end(), genericData);
+    if (it != myPathGenericDatas.end()) {
+        myPathGenericDatas.erase(it);
+    }
+}
+
+
+void
 GNELane::invalidatePathElements() {
     // make a copy of myPathAdditionalElements
     auto copyOfPathAdditionalElements = myPathAdditionalElements;
     for (const auto& additionalElement : copyOfPathAdditionalElements) {
-        // note: Additional elements use update geometry
+        // note: currently additional elements don't use compute/invalidate paths
         additionalElement->updateGeometry();
     }
     // make a copy of myPathDemandElements
     auto copyOfPathDemandElements = myPathDemandElements;
     for (const auto& demandElement : copyOfPathDemandElements) {
         demandElement->invalidatePath();
+    }
+    // make a copy of myPathGenericDatas
+    auto copyOfPathGenericDatas = myPathGenericDatas;
+    for (const auto& genericData : copyOfPathGenericDatas) {
+        // note: currently generic datas don't use compute/invalidate paths
+        genericData->updateGeometry();
     }
 }
 

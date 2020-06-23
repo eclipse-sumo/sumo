@@ -31,6 +31,7 @@ class GNELane;
 class GNEJunction;
 class GNEAdditional;
 class GNEDemandElement;
+class GNEGenericData;
 
 // ===========================================================================
 // class definitions
@@ -72,6 +73,9 @@ public:
     /// @brief Constructor for demand elements
     GNEPathElements(GNEDemandElement* demandElement);
 
+    /// @brief Constructor for generic datas
+    GNEPathElements(GNEGenericData* genericData);
+
     /// @brief Destructor
     ~GNEPathElements();
 
@@ -103,6 +107,9 @@ private:
 
     /// @brief pointer to demand element
     GNEDemandElement* myDemandElement;
+
+    /// @brief pointer to generic data
+    GNEGenericData* myGenericData;
 
     /// @brief vector of edges used in paths
     std::vector<PathElement> myPathElements;
