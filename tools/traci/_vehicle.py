@@ -571,19 +571,19 @@ class VehicleDomain(Domain):
     def getImperfection(self, vehID):
         """getImperfection(string) -> double
 
-        .
+        Returns the sigma value denoting the driver imperfection in the Krauss model (0 denotes perfect driving).
         """
         return self._getUniversal(tc.VAR_IMPERFECTION, vehID)
 
     def getTau(self, vehID):
         """getTau(string) -> double
 
-        Returns the driver's reaction time in s for this vehicle.
+        Returns the driver's desired (minimum) headway time in s for this vehicle.
         """
         return self._getUniversal(tc.VAR_TAU, vehID)
 
     def getBestLanes(self, vehID):
-        """getBestLanes(string) ->
+        """getBestLanes(string) -> tuple(bestLanesTuples)
 
         Information about the wish to use subsequent edges' lanes.
         """
@@ -602,7 +602,7 @@ class VehicleDomain(Domain):
         return self._getUniversal(tc.VAR_LEADER, vehID, "d", dist)
 
     def getRightFollowers(self, vehID, blockingOnly=False):
-        """ bool -> list(pair(string, double))
+        """ bool -> list(tuple(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -612,7 +612,7 @@ class VehicleDomain(Domain):
         return self.getNeighbors(vehID, mode)
 
     def getRightLeaders(self, vehID, blockingOnly=False):
-        """ bool -> list(pair(string, double))
+        """ bool -> list(tuple(string, double))
         Convenience method, see getNeighbors()
         """
         if blockingOnly:
@@ -718,7 +718,7 @@ class VehicleDomain(Domain):
             return self._getUniversal(tc.VAR_NEXT_STOPS2, vehID, "i", limit)
 
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
-        """subscribeLeader(string, double) -> None
+        """subscribeLeader(string, double, double, double) -> None
 
         Subscribe for the leading vehicle id together with the distance.
         The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
@@ -744,7 +744,7 @@ class VehicleDomain(Domain):
     def getDistance(self, vehID):
         """getDistance(string) -> double
 
-        Returns the distance to the starting point like an odometer
+        Returns the distance to the starting point like an odometer.
         """
         return self._getUniversal(tc.VAR_DISTANCE, vehID)
 
@@ -863,16 +863,14 @@ class VehicleDomain(Domain):
 
         Sets the maximum speed in m/s for this vehicle.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED, vehID, speed)
+        self._setCmd(tc.VAR_MAXSPEED, vehID, "d", speed)
 
     def setMaxSpeedLat(self, vehID, speed):
         """setMaxSpeedLat(string, double) -> None
 
         Sets the maximum lateral speed in m/s for this vehicle.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.VAR_MAXSPEED_LAT, vehID, speed)
+        self._setCmd(tc.VAR_MAXSPEED_LAT, vehID, "d", speed)
 
     def rerouteParkingArea(self, vehID, parkingAreaID):
         """rerouteParkingArea(string, string)
@@ -896,16 +894,7 @@ class VehicleDomain(Domain):
         """
         if type(duration) is int and duration >= 1000 and duration % 1000 == 0:
             warnings.warn("API change now handles duration as floating point seconds", stacklevel=2)
-        self._connection._beginMessage(tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_STOP,
-                                       vehID, (1 + 4 + 1 + 4 + len(edgeID) + 1 + 8 + 1 + 1 +
-                                               1 + 8 + 1 + 1 + 1 + 8 + 1 + 8))
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 7)
-        self._connection._packString(edgeID)
-        self._connection._string += struct.pack("!BdBBBdBB", tc.TYPE_DOUBLE, pos,
-                                                tc.TYPE_BYTE, laneIndex, tc.TYPE_DOUBLE, duration, tc.TYPE_BYTE, flags)
-        self._connection._string += struct.pack("!BdBd",
-                                                tc.TYPE_DOUBLE, startPos, tc.TYPE_DOUBLE, until)
-        self._connection._sendExact()
+        self._setCmd(tc.CMD_STOP, vehID, "tsdbdbdd", 7, edgeID, pos, laneIndex, duration, flags, startPos, until)
 
     def setBusStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE,
                    until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
@@ -914,8 +903,7 @@ class VehicleDomain(Domain):
         Adds or modifies a bus stop with the given parameters. The duration and the until attribute are
         in seconds.
         """
-        self.setStop(vehID, stopID, duration=duration,
-                     until=until, flags=flags | tc.STOP_BUS_STOP)
+        self.setStop(vehID, stopID, duration=duration, until=until, flags=flags | tc.STOP_BUS_STOP)
 
     def setContainerStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE,
                          until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
@@ -924,8 +912,7 @@ class VehicleDomain(Domain):
         Adds or modifies a container stop with the given parameters. The duration and the until attribute are
         in seconds.
         """
-        self.setStop(vehID, stopID, duration=duration, until=until,
-                     flags=flags | tc.STOP_CONTAINER_STOP)
+        self.setStop(vehID, stopID, duration=duration, until=until, flags=flags | tc.STOP_CONTAINER_STOP)
 
     def setChargingStationStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE,
                                until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_DEFAULT):
@@ -934,8 +921,7 @@ class VehicleDomain(Domain):
         Adds or modifies a stop at a chargingStation with the given parameters. The duration and the until attribute are
         in seconds.
         """
-        self.setStop(vehID, stopID, duration=duration, until=until,
-                     flags=flags | tc.STOP_CHARGING_STATION)
+        self.setStop(vehID, stopID, duration=duration, until=until, flags=flags | tc.STOP_CHARGING_STATION)
 
     def setParkingAreaStop(self, vehID, stopID, duration=tc.INVALID_DOUBLE_VALUE,
                            until=tc.INVALID_DOUBLE_VALUE, flags=tc.STOP_PARKING):
@@ -944,18 +930,14 @@ class VehicleDomain(Domain):
         Adds or modifies a stop at a parkingArea with the given parameters. The duration and the until attribute are
         in seconds.
         """
-        self.setStop(vehID, stopID, duration=duration, until=until,
-                     flags=flags | tc.STOP_PARKING_AREA)
+        self.setStop(vehID, stopID, duration=duration, until=until, flags=flags | tc.STOP_PARKING_AREA)
 
     def resume(self, vehID):
         """resume(string) -> None
 
         Resumes the vehicle from the current stop (throws an error if the vehicle is not stopped).
         """
-        self._connection._beginMessage(
-            tc.CMD_SET_VEHICLE_VARIABLE, tc.CMD_RESUME, vehID, 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 0)
-        self._connection._sendExact()
+        self._setCmd(tc.CMD_RESUME, vehID, "t", 0)
 
     def changeLane(self, vehID, laneIndex, duration):
         """changeLane(string, int, double) -> None
