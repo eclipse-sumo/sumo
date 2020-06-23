@@ -6,12 +6,17 @@ step 2
 hasGUI True
 views ('View #0',)
 examining View #0
-zoom 100.0
-offset (500.0, 500.0)
-schema standard
-visible boundary ((-457.2093023255814, -4.0), (1457.2093023255813, 1004.0))
+set zoom (80.0)
+get zoom 80.0
+set offset (400.0, 400.0)
+get offset (400.0, 400.0)
+set schema ('real world')
+get schema real world
+visible boundary ((-796.5116279069767, -230.0), (1596.5116279069766, 1030.0))
 has view View #0 True
 has view 'foo' False
+track vehicle 'horiz'
+get tracked vehicle horiz
 {0: ('View #0',)}
 step 3
 {0: ('View #0',)}
