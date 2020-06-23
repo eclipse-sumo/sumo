@@ -253,25 +253,18 @@ class PersonDomain(Domain):
         Appends a stage object to the plan of the given person
         Such an object is obtainable using getStage
         """
-        self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.APPEND_STAGE,
-                                       personID, simulation._stageSize(stage))
-        simulation._writeStage(stage, self._connection)
-        self._connection._sendExact()
+        format, values = simulation._writeStage(stage)
+        self._setCmd(tc.APPEND_STAGE, personID, format, *values)
 
     def replaceStage(self, personID, stageIndex, stage):
         """replaceStage(string, int, stage)
         Replaces the nth subsequent stage with the given stage object
         Such an object is obtainable using getStage
         """
-        msgSize = (1 + 4  # compound
-                   + 1 + 4  # stageIndex
-                   + simulation._stageSize(stage))
-
-        self._connection._beginMessage(tc.CMD_SET_PERSON_VARIABLE, tc.REPLACE_STAGE, personID, msgSize)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 2)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_INTEGER, stageIndex)
-        simulation._writeStage(stage, self._connection)
-        self._connection._sendExact()
+        format, values = simulation._writeStage(stage)
+        format = "ti" + format
+        values = [2, stageIndex] + values
+        self._setCmd(tc.REPLACE_STAGE, personID, format, *values)
 
     def appendDrivingStage(self, personID, toEdge, lines, stopID=""):
         """appendDrivingStage(string, string, string, string)
