@@ -20,7 +20,7 @@ The algorithms listed above where developed to solve different problems and may 
 
 - DFROUTER requires that all edges which are used as sources and sinks of traffic are provided with traffic count data. In contrast, flowrouter can infer traffic on those edges from measurements at intermediate locations.
 - DFROUTER and jtcrouter have no capability for calibrating generated routes among the set of all routes that fit the measurment data. They can provide good results on motorway networks but produce implausible routes in highly meshed networks (i.e. cities).
-- flowrouter can use a blacklist to avoid implausible routes. The tool [implausibleRoutes.py](Routes.md#implausibleroutespy) can be used to generate restrictions for routes that are implausible according to a configurable heuristic. When the set of implausible routes is very large (which is often the case due to a combinatorical explosion of possible routes), creating such a blacklist may be infeasible.
+- flowrouter can use a blacklist to avoid implausible routes. The tool [implausibleRoutes.py](../Tools/Routes.md#implausibleroutespy) can be used to generate restrictions for routes that are implausible according to a configurable heuristic. When the set of implausible routes is very large (which is often the case due to a combinatorical explosion of possible routes), creating such a blacklist may be infeasible.
 - routeSampler uses a whitelist to restrict the set of routes that can be used to construct a solution. Generating a sufficient set of plausible routes is easier than listing all implausible routes.
 - routeSampler is the only tool that can use edge-count data together with turn-count data
 
