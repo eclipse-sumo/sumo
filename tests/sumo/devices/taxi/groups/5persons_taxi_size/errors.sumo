@@ -1,2 +1,4 @@
+Warning: Vehicle 'trip_0' with device.taxi should have vClass taxi instead of 'passenger'
+Warning: Vehicle 'trip_1' with device.taxi should have vClass taxi instead of 'passenger'
 Warning: Vehicle 'trip_0' aborted waiting for a person or container that will never come.
 Warning: Vehicle 'trip_1' aborted waiting for a person or container that will never come.
