@@ -48,7 +48,7 @@ class VehicleTypeDomain(Domain):
     def getSpeedFactor(self, typeID):
         """getSpeedFactor(string) -> double
 
-        .
+        Returns the speed factor of vehicles of this type.
         """
         return self._getUniversal(tc.VAR_SPEED_FACTOR, typeID)
 
@@ -97,14 +97,14 @@ class VehicleTypeDomain(Domain):
     def getImperfection(self, typeID):
         """getImperfection(string) -> double
 
-        .
+        Returns the driver's imperfection for vehicles of this type.
         """
         return self._getUniversal(tc.VAR_IMPERFECTION, typeID)
 
     def getTau(self, typeID):
         """getTau(string) -> double
 
-        Returns the driver's reaction time in s for vehicles of this type.
+        Returns the driver's desired headway in s for vehicles of this type.
         """
         return self._getUniversal(tc.VAR_TAU, typeID)
 
@@ -190,128 +190,112 @@ class VehicleTypeDomain(Domain):
 
         Sets the length in m of the vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_LENGTH, typeID, length)
+        self._setCmd(tc.VAR_LENGTH, typeID, "d", length)
 
     def setMaxSpeed(self, typeID, speed):
         """setMaxSpeed(string, double) -> None
 
         Sets the maximum speed in m/s of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MAXSPEED, typeID, speed)
+        self._setCmd(tc.VAR_MAXSPEED, typeID, "d", speed)
 
     def setVehicleClass(self, typeID, clazz):
         """setVehicleClass(string, string) -> None
 
         Sets the class of vehicles of this type.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_VEHICLECLASS, typeID, clazz)
+        self._setCmd(tc.VAR_VEHICLECLASS, typeID, "s", clazz)
 
     def setSpeedFactor(self, typeID, factor):
         """setSpeedFactor(string, double) -> None
 
-        .
+        Sets the speed factor of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SPEED_FACTOR, typeID, factor)
+        self._setCmd(tc.VAR_SPEED_FACTOR, typeID, "d", factor)
 
     def setSpeedDeviation(self, typeID, deviation):
         """setSpeedDeviation(string, double) -> None
 
         Sets the maximum speed deviation of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SPEED_DEVIATION, typeID, deviation)
+        self._setCmd(tc.VAR_SPEED_DEVIATION, typeID, "d", deviation)
 
     def setEmissionClass(self, typeID, clazz):
         """setEmissionClass(string, string) -> None
 
         Sets the emission class of vehicles of this type.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_EMISSIONCLASS, typeID, clazz)
+        self._setCmd(tc.VAR_EMISSIONCLASS, typeID, "s", clazz)
 
     def setWidth(self, typeID, width):
         """setWidth(string, double) -> None
 
         Sets the width in m of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_WIDTH, typeID, width)
+        self._setCmd(tc.VAR_WIDTH, typeID, "d", width)
 
     def setHeight(self, typeID, height):
         """setHeight(string, double) -> None
 
         Sets the height in m of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_HEIGHT, typeID, height)
+        self._setCmd(tc.VAR_HEIGHT, typeID, "d", height)
 
     def setMinGap(self, typeID, minGap):
         """setMinGap(string, double) -> None
 
         Sets the offset (gap to front vehicle if halting) of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MINGAP, typeID, minGap)
+        self._setCmd(tc.VAR_MINGAP, typeID, "d", minGap)
 
     def setMinGapLat(self, typeID, minGapLat):
         """setMinGapLat(string, double) -> None
 
         Sets the minimum lateral gap at 50km/h of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MINGAP_LAT, typeID, minGapLat)
+        self._setCmd(tc.VAR_MINGAP_LAT, typeID, "d", minGapLat)
 
     def setMaxSpeedLat(self, typeID, speed):
         """setMaxSpeedLat(string, double) -> None
 
         Sets the maximum lateral speed of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_MAXSPEED_LAT, typeID, speed)
+        self._setCmd(tc.VAR_MAXSPEED_LAT, typeID, "d", speed)
 
     def setLateralAlignment(self, typeID, latAlignment):
         """setLateralAlignment(string, string) -> None
 
         Sets the preferred lateral alignment of this type.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_LATALIGNMENT, typeID, latAlignment)
+        self._setCmd(tc.VAR_LATALIGNMENT, typeID, "s", latAlignment)
 
     def setShapeClass(self, typeID, clazz):
         """setShapeClass(string, string) -> None
 
         Sets the shape class of vehicles of this type.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_SHAPECLASS, typeID, clazz)
+        self._setCmd(tc.VAR_SHAPECLASS, typeID, "s", clazz)
 
     def setAccel(self, typeID, accel):
         """setAccel(string, double) -> None
 
         Sets the maximum acceleration in m/s^2 of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_ACCEL, typeID, accel)
+        self._setCmd(tc.VAR_ACCEL, typeID, "d", accel)
 
     def setDecel(self, typeID, decel):
         """setDecel(string, double) -> None
 
         Sets the maximal comfortable deceleration in m/s^2 of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_DECEL, typeID, decel)
+        self._setCmd(tc.VAR_DECEL, typeID, "d", decel)
 
     def setEmergencyDecel(self, typeID, decel):
         """setDecel(string, double) -> None
 
         Sets the maximal physically possible deceleration in m/s^2 of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_EMERGENCY_DECEL, typeID, decel)
+        self._setCmd(tc.VAR_EMERGENCY_DECEL, typeID, "d", decel)
 
     def setActionStepLength(self, typeID, actionStepLength, resetActionOffset=True):
         """setActionStepLength(string, double, bool) -> None
@@ -327,24 +311,21 @@ class VehicleTypeDomain(Domain):
         # Use negative value to indicate resetActionOffset == False
         if not resetActionOffset:
             actionStepLength *= -1
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_ACTIONSTEPLENGTH, typeID, actionStepLength)
+        self._setCmd(tc.VAR_ACTIONSTEPLENGTH, typeID, "d", actionStepLength)
 
     def setApparentDecel(self, typeID, decel):
         """setDecel(string, double) -> None
 
         Sets the apparent deceleration in m/s^2 of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_APPARENT_DECEL, typeID, decel)
+        self._setCmd(tc.VAR_APPARENT_DECEL, typeID, "d", decel)
 
     def setImperfection(self, typeID, imperfection):
         """setImperfection(string, double) -> None
 
-        .
+        Sets the driver imperfection of vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_IMPERFECTION, typeID, imperfection)
+        self._setCmd(tc.VAR_IMPERFECTION, typeID, "d", imperfection)
 
     def setTau(self, typeID, tau):
         """setTau(string, double) -> None
@@ -352,24 +333,18 @@ class VehicleTypeDomain(Domain):
         Sets the driver's tau-parameter (reaction time or anticipation time depending on the car-following model) in s
         for vehicles of this type.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_TAU, typeID, tau)
+        self._setCmd(tc.VAR_TAU, typeID, "d", tau)
 
     def setColor(self, typeID, color):
         """setColor(string, (integer, integer, integer, integer)) -> None
 
         Sets the color of this type.
         """
-        self._connection._beginMessage(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.VAR_COLOR, typeID, 1 + 1 + 1 + 1 + 1)
-        self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]), int(color[2]),
-                                                int(color[3]) if len(color) > 3 else 255)
-        self._connection._sendExact()
+        self._setCmd(tc.VAR_COLOR, typeID, "c", color)
 
     def copy(self, origTypeID, newTypeID):
         """copy(string, string) -> None
 
         Duplicates the vType with ID origTypeID. The newly created vType is assigned the ID newTypeID
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_VEHICLETYPE_VARIABLE, tc.COPY, origTypeID, newTypeID)
+        self._setCmd(tc.COPY, origTypeID, "s", newTypeID)
