@@ -66,7 +66,7 @@ TrafficLight::getRedYellowGreenState(const std::string& tlsID) {
 
 
 std::vector<TraCILogic>
-TrafficLight::getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
+TrafficLight::getAllProgramLogics(const std::string& tlsID) {
     std::vector<TraCILogic> result;
     const std::vector<MSTrafficLightLogic*> logics = getTLS(tlsID).getAllLogics();
     for (MSTrafficLightLogic* logic : logics) {
@@ -299,7 +299,7 @@ TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDurat
 
 
 void
-TrafficLight::setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic) {
+TrafficLight::setProgramLogic(const std::string& tlsID, const TraCILogic& logic) {
     MSTLLogicControl::TLSLogicVariants& vars = getTLS(tlsID);
     // make sure index and phaseNo are consistent
     if (logic.currentPhaseIndex >= (int)logic.phases.size()) {

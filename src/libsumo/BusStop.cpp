@@ -91,15 +91,13 @@ BusStop::getVehicleIDs(const std::string& stopID) {
 
 int
 BusStop::getPersonCount(const std::string& stopID) {
-    return (int)getBusStop(stopID)->getWaitingPersons().size();
+    return (int)getBusStop(stopID)->getNumWaitingPersons();
 }
 
 std::vector<std::string>
 BusStop::getPersonIDs(const std::string& stopID) {
     std::vector<std::string> result;
-    for (MSTransportable* t : getBusStop(stopID)->getWaitingPersons()) {
-        result.push_back(t->getID());
-    }
+    getBusStop(stopID)->getWaitingPersonIDs(result);
     return result;
 }
 
