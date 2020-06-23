@@ -217,7 +217,8 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                 OutputDevice& dev, const bool uniform,
                 const bool differSourceSink, const bool noVtype,
                 const std::string& prefix, const bool stepLog,
-                bool pedestrians, bool persontrips) {
+                bool pedestrians, bool persontrips,
+                const std::string& modes) {
     if (myContainer.size() == 0) {
         return;
     }
@@ -279,6 +280,9 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                     dev.openTag(SUMO_TAG_PERSONTRIP);
                     dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, personArrivalPos);
+                    if (modes != "") {
+                        dev.writeAttr(SUMO_ATTR_MODES, modes);
+                    }
                     dev.closeTag();
                     dev.closeTag();
                 } else {
@@ -309,7 +313,8 @@ void
 ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                      OutputDevice& dev, bool noVtype,
                      const std::string& prefix,
-                     bool asProbability, bool pedestrians, bool persontrips) {
+                     bool asProbability, bool pedestrians, bool persontrips,
+                     const std::string& modes) {
     if (myContainer.size() == 0) {
         return;
     }
@@ -362,6 +367,9 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                 dev.openTag(SUMO_TAG_PERSONTRIP);
                 dev.writeAttr(SUMO_ATTR_FROM, c->origin).writeAttr(SUMO_ATTR_TO, c->destination);
                 dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
+                if (modes != "") {
+                    dev.writeAttr(SUMO_ATTR_MODES, modes);
+                }
                 dev.closeTag();
                 dev.closeTag();
             } else {
