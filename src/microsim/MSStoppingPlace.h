@@ -202,8 +202,13 @@ public:
     /// @brief get list of vehicles waiting at this stop
     std::vector<const SUMOVehicle*> getStoppedVehicles() const;
 
-    /// @brief get list of persons waiting at this stop
-    std::vector<MSTransportable*> getWaitingPersons() const;
+    /// @brief get number of persons waiting at this stop
+    inline int getNumWaitingPersons() const {
+        return (int)myWaitingTransportables.size();
+    }
+
+    /// @brief get IDs of persons waiting at this stop
+    void getWaitingPersonIDs(std::vector<std::string>& into) const;
 
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();

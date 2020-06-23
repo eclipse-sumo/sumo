@@ -297,13 +297,12 @@ MSStoppingPlace::getStoppedVehicles() const {
 }
 
 
-std::vector<MSTransportable*>
-MSStoppingPlace::getWaitingPersons() const {
-    std::vector<MSTransportable*> result;
+void
+MSStoppingPlace::getWaitingPersonIDs(std::vector<std::string>& into) const {
     for (auto item : myWaitingTransportables) {
-        result.push_back(item.first);
+        into.push_back(item.first->getID());
     }
-    return result;
+    std::sort(into.begin(), into.end());
 }
 
 
@@ -313,5 +312,6 @@ MSStoppingPlace::clearState() {
     myWaitingTransportables.clear();
     myLastFreePos = myEndPos;
 }
+
 
 /****************************************************************************/
