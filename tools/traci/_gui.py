@@ -67,26 +67,21 @@ class GuiDomain(Domain):
 
         Set the current zoom factor for the given view.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_ZOOM, viewID, zoom)
+        self._setCmd(tc.VAR_VIEW_ZOOM, viewID, "d", zoom)
 
     def setOffset(self, viewID, x, y):
         """setOffset(string, double, double) -> None
 
         Set the current offset for the given view.
         """
-        self._connection._beginMessage(
-            tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_OFFSET, viewID, 1 + 8 + 8)
-        self._connection._string += struct.pack("!Bdd", tc.POSITION_2D, x, y)
-        self._connection._sendExact()
+        self._setCmd(tc.VAR_VIEW_OFFSET, viewID, "o", [x, y])
 
     def setSchema(self, viewID, schemeName):
         """setSchema(string, string) -> None
 
         Set the current coloring scheme for the given view.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_SCHEMA, viewID, schemeName)
+        self._setCmd(tc.VAR_VIEW_SCHEMA, viewID, "s", schemeName)
 
     def setBoundary(self, viewID, xmin, ymin, xmax, ymax):
         """setBoundary(string, double, double, double, double) -> None
@@ -94,10 +89,7 @@ class GuiDomain(Domain):
         aspect ratio than the given boundary, the view is expanded along one
         axis to meet the window aspect ratio and contain the given boundary.
         """
-        self._connection._beginMessage(
-            tc.CMD_SET_GUI_VARIABLE, tc.VAR_VIEW_BOUNDARY, viewID, 1 + 1 + 8 + 8 + 8 + 8)
-        self._connection._string += struct.pack("!BBdddd", tc.TYPE_POLYGON, 2, xmin, ymin, xmax, ymax)
-        self._connection._sendExact()
+        self._setCmd(tc.VAR_VIEW_BOUNDARY, viewID, "p", [[xmin, ymin], [xmax, ymax]])
 
     def screenshot(self, viewID, filename, width=-1, height=-1):
         """screenshot(string, string, int, int) -> None
@@ -108,20 +100,14 @@ class GuiDomain(Domain):
         include ps, svg and pdf, on linux probably gif, png and jpg as well.
         Width and height of the image can be given as optional parameters.
         """
-        self._connection._beginMessage(
-            tc.CMD_SET_GUI_VARIABLE, tc.VAR_SCREENSHOT, viewID, 1 + 4 + 1 + 4 + len(filename) + 1 + 4 + 1 + 4)
-        self._connection._string += struct.pack("!Bi", tc.TYPE_COMPOUND, 3)
-        self._connection._packString(filename)
-        self._connection._string += struct.pack("!BiBi", tc.TYPE_INTEGER, width, tc.TYPE_INTEGER, height)
-        self._connection._sendExact()
+        self._setCmd(tc.VAR_SCREENSHOT, viewID, "tsii", 3, filename, width, height)
 
     def trackVehicle(self, viewID, vehID):
         """trackVehicle(string, string) -> None
 
         Start visually tracking the given vehicle on the given view.
         """
-        self._connection._sendStringCmd(
-            tc.CMD_SET_GUI_VARIABLE, tc.VAR_TRACK_VEHICLE, viewID, vehID)
+        self._setCmd(tc.VAR_TRACK_VEHICLE, viewID, "s", vehID)
 
     def hasView(self, viewID=DEFAULT_VIEW):
         """hasView(string): -> bool

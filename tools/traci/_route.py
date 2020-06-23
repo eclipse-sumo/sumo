@@ -41,7 +41,4 @@ class RouteDomain(Domain):
 
         Adds a new route with the given id consisting of the given list of edge IDs.
         """
-        self._connection._beginMessage(tc.CMD_SET_ROUTE_VARIABLE, tc.ADD, routeID,
-                                       1 + 4 + sum(map(len, edges)) + 4 * len(edges))
-        self._connection._packStringList(edges)
-        self._connection._sendExact()
+        self._setCmd(tc.ADD, routeID, "l", edges)

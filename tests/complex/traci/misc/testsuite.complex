@@ -16,9 +16,6 @@ tracing
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
 
-# tests for vehicle mapping
-moveToXY
-
 # Tests for lateral collisions
 lateralCollision
 

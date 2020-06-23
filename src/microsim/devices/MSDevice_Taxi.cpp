@@ -86,6 +86,9 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
             // (see MSStageDriving::isWaitingFor)
             const_cast<SUMOVehicleParameter&>(v.getParameter()).line = TAXI_SERVICE;
         }
+        if (v.getVClass() != SVC_TAXI) {
+            WRITE_WARNING("Vehicle '" + v.getID() + "' with device.taxi should have vClass taxi instead of '" + toString(v.getVClass()) + "'");
+        }
     }
 }
 

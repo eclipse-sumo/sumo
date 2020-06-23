@@ -1,5 +1,4 @@
 Loading configuration ... done.
- Retrying in 1 seconds
 calibrators ('cali_SN', 'cali_WE')
 calibrator count 2
 examining cali_SN
@@ -7,6 +6,7 @@ examining cali_SN
   lane SC_0
   vehsPerHour 900.0
   speed -1.0
+  getTypeID DEFAULT_BIKETYPE
   begin 0.0
   end 200.0
   getRouteID SN
@@ -21,6 +21,7 @@ examining cali_WE
   lane 
   vehsPerHour 450.0
   speed 10.0
+  getTypeID DEFAULT_VEHTYPE
   begin 0.0
   end 100.0
   getRouteID WE
@@ -30,3 +31,4 @@ examining cali_WE
   getInserted 13
   getRemoved 3
   getParameter 42
+calibrator: cali_SN, period: 0.0 - 200.0, setFlow: 300.0

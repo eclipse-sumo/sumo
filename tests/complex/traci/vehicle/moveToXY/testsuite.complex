@@ -1,0 +1,29 @@
+# tests for mapping vehicles outside the road network
+keepRoute2
+
+# tests for mapping vehicles on multi-lane road
+multi_lane
+
+# tests for mapping vehicles on multi-lane road
+multi_lane_sublane
+
+# mapping a fast vehicle onto short edges
+short_edges
+
+# tests for mapping vehicles on a 3d-network
+elevation_sublane
+
+# tests for mapping vehicles on a road with a 100% incline
+extreme_elevation
+
+# tests for mapping vehicles on a road with a 100% incline
+extreme_elevation_keeproute2
+
+# tests for mapping vehicles with/without regard to permissions
+permissions
+
+# moved vehicle should block intersections on approach and while on the intersection
+intersection
+
+# moved vehicle should update waitingTime
+waitingTime

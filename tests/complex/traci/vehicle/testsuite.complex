@@ -1,3 +1,6 @@
+# tests for vehicle mapping
+moveToXY
+
 # Tests the openGap() method.
 openGap
 

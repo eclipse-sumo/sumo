@@ -12,6 +12,8 @@ occupancy 14.062612603401092
 meanLength 5.0
 timeSinceDet 0.0
 vehData [('horiz', 5.0, 2.859373873965989, -1.0, 'DEFAULT_VEHTYPE')]
+position 10.0
+laneID 2fi_0
 {16: 1}
 step 3
 {16: 1}

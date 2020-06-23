@@ -624,7 +624,7 @@ public:
                 }
             }
         }
-        if (validStops.size() < 2) {
+        if (validStops.size() < 2 && pars.line != "taxi") {
             WRITE_WARNING("Not using public transport line '" + pars.line + "' for routing persons. It has less than two usable stops.");
             return;
         }
