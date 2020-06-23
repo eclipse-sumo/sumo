@@ -202,12 +202,3 @@ MSCFModel_W99::duplicate(const MSVehicleType* vtype) const {
     return new MSCFModel_W99(vtype);
 }
 
-
-double
-MSCFModel_W99::getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
-    double sdxc, sdxo, sdxv;
-    computeThresholds(speed, leaderSpeed, 0, 0.5, sdxc, sdxo, sdxv);
-    return MAX2(sdxv, MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel));
-}
-
-
