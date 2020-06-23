@@ -1024,9 +1024,9 @@ TraCITestClient::testAPI() {
                      new libsumo::TraCIPhase(3, "GGGGGGG", 3, 3),
                      new libsumo::TraCIPhase(3, "yyyyyyy", 3, 3)
     });
-    trafficlights.setCompleteRedYellowGreenDefinition("n_m4", logic);
+    trafficlights.setProgramLogic("n_m4", logic);
 
-    std::vector<libsumo::TraCILogic> logics = trafficlights.getCompleteRedYellowGreenDefinition("n_m4");
+    std::vector<libsumo::TraCILogic> logics = trafficlights.getAllProgramLogics("n_m4");
     answerLog << "    completeDefinition:\n";
     for (int i = 0; i < (int)logics.size(); ++i) {
         answerLog << "      subID=" << logics[i].programID << " type=" << logics[i].type << " phase=" << logics[i].currentPhaseIndex << "\n";

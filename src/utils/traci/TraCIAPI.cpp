@@ -1885,7 +1885,7 @@ TraCIAPI::TrafficLightScope::getRedYellowGreenState(const std::string& tlsID) co
 }
 
 std::vector<libsumo::TraCILogic>
-TraCIAPI::TrafficLightScope::getCompleteRedYellowGreenDefinition(const std::string& tlsID) const {
+TraCIAPI::TrafficLightScope::getAllProgramLogics(const std::string& tlsID) const {
     std::vector<libsumo::TraCILogic> ret;
     myParent.createCommand(libsumo::CMD_GET_TL_VARIABLE, libsumo::TL_COMPLETE_DEFINITION_RYG, tlsID);
     if (myParent.processGet(libsumo::CMD_GET_TL_VARIABLE, libsumo::TYPE_COMPOUND)) {
@@ -2051,7 +2051,7 @@ TraCIAPI::TrafficLightScope::setPhaseDuration(const std::string& tlsID, double p
 }
 
 void
-TraCIAPI::TrafficLightScope::setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
+TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt(5);

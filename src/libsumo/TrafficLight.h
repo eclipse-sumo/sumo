@@ -54,7 +54,7 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static std::string getRedYellowGreenState(const std::string& tlsID);
-    static std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID);
+    static std::vector<TraCILogic> getAllProgramLogics(const std::string& tlsID);
     static std::vector<std::string> getControlledJunctions(const std::string& tlsID);
     static std::vector<std::string> getControlledLanes(const std::string& tlsID);
     static std::vector<std::vector<TraCILink> > getControlledLinks(const std::string& tlsID);
@@ -75,7 +75,7 @@ public:
     static void setPhaseName(const std::string& tlsID, const std::string& name);
     static void setProgram(const std::string& tlsID, const std::string& programID);
     static void setPhaseDuration(const std::string& tlsID, const double phaseDuration);
-    static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic);
+    static void setProgramLogic(const std::string& tlsID, const TraCILogic& logic);
     static void setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value);
 
     LIBSUMO_SUBSCRIPTION_API
@@ -83,6 +83,10 @@ public:
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+
+    // aliases for backward compatibility
+    inline static std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) { return getAllProgramLogics(tlsID); }
+    inline static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic) { setProgramLogic(tlsID, logic); }
 
 private:
 #ifndef SWIGJAVA
