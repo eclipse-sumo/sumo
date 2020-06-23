@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:16:08 2019 by Eclipse SUMO od2trips Version v1_3_1+0801-355be15e4b
+<!-- generated on Tue Jun 23 15:42:00 2020 by Eclipse SUMO od2trips Version v1_6_0+0938-6895ba79a7
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -65,6 +65,9 @@
 
         <!-- Writes persontrips instead of vehicles -->
         <persontrips value="false" type="BOOL"/>
+
+        <!-- Add modes attribute to personTrips -->
+        <persontrips.modes value="" type="STR[]"/>
 
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
