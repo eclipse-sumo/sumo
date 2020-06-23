@@ -254,6 +254,22 @@ GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClas
 
 
 void 
+GNEPathElements::calculateSingleLanePath(GNEEdge* edge) {
+    // only for demand elements
+    if (myGenericData) {
+        // remove path elements from lanes and junctions
+        removeElements();
+        // iterate over edge lanes and add it
+        for (const auto &lane : edge->getLanes()) {
+            myPathElements.push_back(lane);
+        }
+        // add path elements in lanes and junctions
+        addElements();
+    }
+}
+
+
+void 
 GNEPathElements::addElements() {
     // additionals
     if (myAdditionalElement) {

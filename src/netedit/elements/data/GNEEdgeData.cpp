@@ -30,6 +30,8 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/data/GNEEdgeDataFrame.h>
 
 #include "GNEEdgeData.h"
@@ -92,12 +94,15 @@ GNEEdgeData::isGenericDataVisible() const {
 
 void
 GNEEdgeData::updateGeometry() {
-    // declare extreme geometry
-    GNEGeometry::ExtremeGeometry extremeGeometry;
-    // calculate consecutive path using parent lanes
-    calculateConsecutivePathLanes(getParentLanes());
-    // calculate edge geometry path using path
-    GNEGeometry::calculateLaneGeometricPath(myAdditionalSegmentGeometry, getPath(), extremeGeometry);
+    // set path
+    calculateSingleLanePath(getParentEdges().front());
+    // clear segments
+    myGenericDataSegmentGeometries.clear();
+    // iterate over all lanes
+    for (const auto &lane : getParentEdges().front()->getLanes()) {
+        // add and update geometry vinculated with lane
+        myGenericDataSegmentGeometries[lane].insertLaneSegment(lane, true);
+    }
 }
 
 

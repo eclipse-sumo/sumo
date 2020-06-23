@@ -545,7 +545,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 demandElement->drawGL(s);
             }
         }
-        // draw child path additional elements
+        // draw child path additionals
         for (const auto &additional : myPathAdditionalElements) {
             additional->drawLanePathChildren(s, this);
         }
@@ -553,7 +553,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto &demandElement : myPathDemandElements) {
             demandElement->drawLanePathChildren(s, this);
         }
-
+        // draw child path generic datas
+        for (const auto &genericData : myPathGenericDatas) {
+            genericData->drawLanePathChildren(s, this);
+        }
     }
 }
 

@@ -101,6 +101,9 @@ protected:
     /// @brief reset path lanes
     void resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
+    /// @brief calculate consecutive path lanes (used by genericdatas)
+    void calculateSingleLanePath(GNEEdge* edge);
+
 private:
     /// @brief pointer to additional element
     GNEAdditional* myAdditionalElement;

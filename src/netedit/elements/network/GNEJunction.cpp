@@ -403,13 +403,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw Junction childs
             drawJunctionChilds(s);
-            // draw child path additional elements
+            // draw child path additionals
             for (const auto &additionalElement : myPathAdditionalElements) {
                 additionalElement->drawJunctionPathChildren(s, this);
             }
             // draw child path demand elements
             for (const auto &demandElement : myPathDemandElements) {
                 demandElement->drawJunctionPathChildren(s, this);
+            }
+            // draw child path generic datas
+            for (const auto &genericData : myPathGenericDatas) {
+                genericData->drawJunctionPathChildren(s, this);
             }
         }
     }

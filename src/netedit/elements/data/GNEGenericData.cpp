@@ -287,7 +287,24 @@ GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void 
 GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-
+    if ((myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) && (myGenericDataSegmentGeometries.count(lane) > 0)) {
+        // get lane width
+        const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType());
+        // Set route color (needed due drawShapeDottedContour)
+        GLHelper::setColor(getColor());
+        // draw box lines
+        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), myGenericDataSegmentGeometries.at(lane).front(), laneWidth);
+        // Pop last matrix
+        glPopMatrix();
+        // Pop name
+        glPopName();
+    }
 }
 
 

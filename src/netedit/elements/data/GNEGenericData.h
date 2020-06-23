@@ -244,7 +244,7 @@ protected:
     GNEDataInterval* myDataIntervalParent;
 
     /// @brief segment geometry to be precomputed in updateGeometry(...)
-    GNEGeometry::SegmentGeometry myAdditionalSegmentGeometry;
+    std::map<const GNELane*, GNEGeometry::SegmentGeometry> myGenericDataSegmentGeometries;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
