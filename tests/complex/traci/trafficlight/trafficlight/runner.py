@@ -40,13 +40,14 @@ tlsID = "0"
 def check():
     print("examining", tlsID)
     print("ryg", traci.trafficlight.getRedYellowGreenState(tlsID))
-    print("rygdef", traci.trafficlight.getCompleteRedYellowGreenDefinition(tlsID))
+    print("rygdef", traci.trafficlight.getAllProgramLogics(tlsID))
     print("lanes", traci.trafficlight.getControlledLanes(tlsID))
     print("links", traci.trafficlight.getControlledLinks(tlsID))
     print("program", traci.trafficlight.getProgram(tlsID))
     print("phase", traci.trafficlight.getPhase(tlsID))
     print("phaseName", traci.trafficlight.getPhaseName(tlsID))
     print("switch", traci.trafficlight.getNextSwitch(tlsID))
+    print("duration", traci.trafficlight.getPhaseDuration(tlsID))
 
 
 phases = []
@@ -57,7 +58,7 @@ phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 phases.append(traci.trafficlight.Phase(20, "rrrrGGggrrrrGGgg", 0, 0))
 logic = traci.trafficlight.Logic("custom", 0, 0, phases)
-traci.trafficlight.setCompleteRedYellowGreenDefinition(tlsID, logic)
+traci.trafficlight.setProgramLogic(tlsID, logic)
 
 traci.trafficlight.setPhase(tlsID, 4)
 traci.trafficlight.setPhaseName(tlsID, "setByTraCI")

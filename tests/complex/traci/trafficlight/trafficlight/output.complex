@@ -15,6 +15,7 @@ program custom
 phase 4
 phaseName setByTraCI
 switch 26.0
+duration 20.0
 numDefs=2 numPhases=[8, 6]
 {0: ('0',)}
 step 3
@@ -33,6 +34,7 @@ program online
 phase 0
 phaseName 
 switch 7.0
+duration 1.0
 set ryg gGyruOorrrrrrrrr
 program online
 ryg oooooooooooooooo
