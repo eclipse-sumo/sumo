@@ -68,6 +68,7 @@ getParameter parkingArea.key3 val3
 getParameter busStop.name Magnusstr.
 getParameter busStop.lane o_0
 getParameter busStop.key2 val2
+getBusStopIDList ('bs',)
 getBusStopWaiting 1
 getBusStopWaitingIDList ('p1',)
 findRoute Stage(type=3, edges=('o', '2o'), travelTime=1088.96043165, cost=1088.96043165, length=15136.55, depart=-1073741824.0, departPos=-1073741824.0, arrivalPos=-1073741824.0)
