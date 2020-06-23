@@ -43,6 +43,8 @@ print("occupancy", traci.inductionloop.getLastStepOccupancy(loopID))
 print("meanLength", traci.inductionloop.getLastStepMeanLength(loopID))
 print("timeSinceDet", traci.inductionloop.getTimeSinceDetection(loopID))
 print("vehData", traci.inductionloop.getVehicleData(loopID))
+print("position", traci.inductionloop.getPosition(loopID))
+print("laneID", traci.inductionloop.getLaneID(loopID))
 
 traci.inductionloop.subscribe(loopID)
 print(traci.inductionloop.getSubscriptionResults(loopID))
