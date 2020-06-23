@@ -784,7 +784,7 @@ MSFrame::checkOptions() {
 
     if (oc.isSet("persontrip.transfer.car-walk")) {
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
-            if (opt != "parkingAreas" && opt != "ptStops" && opt != "allJunctions") {
+            if (opt != "parkingAreas" && opt != "ptStops" && opt != "allJunctions" && opt != "taxi") {
                 WRITE_ERROR("Invalid transfer option '" + opt + "'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'");
                 ok = false;
             }
