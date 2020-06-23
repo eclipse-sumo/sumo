@@ -61,6 +61,7 @@ MSVehicleControl::MSVehicleControl() :
     myDefaultPedTypeMayBeDeleted(true),
     myDefaultContainerTypeMayBeDeleted(true),
     myDefaultBikeTypeMayBeDeleted(true),
+    myDefaultTaxiTypeMayBeDeleted(true),
     myWaitingForPerson(0),
     myWaitingForContainer(0),
     myMaxSpeedFactor(1),
@@ -76,6 +77,10 @@ MSVehicleControl::MSVehicleControl() :
     SUMOVTypeParameter defBikeType(DEFAULT_BIKETYPE_ID, SVC_BICYCLE);
     defBikeType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
     myVTypeDict[DEFAULT_BIKETYPE_ID] = MSVehicleType::build(defBikeType);
+
+    SUMOVTypeParameter defTaxiType(DEFAULT_TAXITYPE_ID, SVC_TAXI);
+    defTaxiType.parametersSet |= VTYPEPARS_VEHICLECLASS_SET;
+    myVTypeDict[DEFAULT_TAXITYPE_ID] = MSVehicleType::build(defTaxiType);
 
     SUMOVTypeParameter defContainerType(DEFAULT_CONTAINERTYPE_ID, SVC_IGNORING);
     // ISO Container TEU (cannot set this based on vClass)
@@ -238,6 +243,7 @@ MSVehicleControl::clearState() {
     myDefaultPedTypeMayBeDeleted = true;
     myDefaultContainerTypeMayBeDeleted = true;
     myDefaultBikeTypeMayBeDeleted = true;
+    myDefaultTaxiTypeMayBeDeleted = true;
 }
 
 
@@ -324,6 +330,14 @@ MSVehicleControl::checkVType(const std::string& id) {
             delete myVTypeDict[id];
             myVTypeDict.erase(myVTypeDict.find(id));
             myDefaultBikeTypeMayBeDeleted = false;
+        } else {
+            return false;
+        }
+    } else if (id == DEFAULT_TAXITYPE_ID) {
+        if (myDefaultTaxiTypeMayBeDeleted) {
+            delete myVTypeDict[id];
+            myVTypeDict.erase(myVTypeDict.find(id));
+            myDefaultTaxiTypeMayBeDeleted = false;
         } else {
             return false;
         }
