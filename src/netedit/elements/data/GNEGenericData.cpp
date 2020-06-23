@@ -287,7 +287,8 @@ GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 void 
 GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    if ((myTagProperty.getTag() == SUMO_TAG_MEANDATA_EDGE) && (myGenericDataSegmentGeometries.count(lane) > 0)) {
+    // draw lane segment
+    if (myGenericDataSegmentGeometries.count(lane) > 0) {
         // get lane width
         const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
         // Start drawing adding an gl identificator
@@ -310,7 +311,27 @@ GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 
 void
 GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
-
+    // get lane width
+    const double laneWidth = s.addSize.getExaggeration(s, fromLane) * (fromLane->getParentEdge()->getNBEdge()->getLaneWidth(fromLane->getIndex()) * 0.5);
+    // Start drawing adding an gl identificator
+    glPushName(getGlID());
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, getType());
+    // Set route color (needed due drawShapeDottedContour)
+    GLHelper::setColor(getColor());
+    if (fromLane->getLane2laneConnections().exist(toLane)) {
+        // draw box lines
+        GNEGeometry::drawGeometry(myNet->getViewNet(), fromLane->getLane2laneConnections().getLane2laneGeometry(toLane), laneWidth);
+    } else {
+        // draw line between end of first shape and first position of second shape
+        GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, laneWidth);
+    }
+    // Pop last matrix
+    glPopMatrix();
+    // Pop name
+    glPopName();
 }
 
 /****************************************************************************/
