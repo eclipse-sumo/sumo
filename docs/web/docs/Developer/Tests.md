@@ -18,7 +18,7 @@ files you are comparing the current outputs to *are* right - you have to
 prepare them once and update/verify them again every time the expected
 results change.
 
-At the moment all our [Nightly_Build.md](tests run each night)
+At the moment all our tests run [each night](Nightly_Build.md)
 with the results on this [summary webpage](https://sumo.dlr.de/daily/).
 
 # Setup
