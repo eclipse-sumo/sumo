@@ -38,6 +38,7 @@ routingMode 0
 length 5.0
 maxSpeed 55.55555555555556
 speedFactor 1.0
+speedDeviation 0.0
 allowedSpeed 11.11
 accel 2.6
 decel 4.5
@@ -62,6 +63,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -69,6 +71,7 @@ driving dist 2991.432806497137
 driving dist 2D 1089.0303920102156
 line 
 via ()
+dist 5.467193502862939
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
@@ -119,6 +122,7 @@ routingMode 1
 length 1.0
 maxSpeed 9.0
 speedFactor 1.1
+speedDeviation 0.0
 allowedSpeed 9.0
 accel 1.1
 decel 5.1
@@ -143,6 +147,7 @@ minGapLat 0.5
 lateralAlignment arbitrary
 lanePosLat 0.2
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -150,6 +155,7 @@ driving dist 2966.0480817393727
 driving dist 2D 1063.6456672524512
 line S46
 via ('3o', '4o')
+dist 30.85191826062743
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
@@ -200,6 +206,7 @@ routingMode 0
 length 5.0
 maxSpeed 55.55555555555556
 speedFactor 1.0
+speedDeviation 0.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
@@ -224,6 +231,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -231,6 +239,7 @@ driving dist -1073741824.0
 driving dist 2D -1073741824.0
 line 
 via ()
+dist -1073741824.0
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
@@ -295,6 +304,7 @@ routingMode 0
 length 5.0
 maxSpeed 55.55555555555556
 speedFactor 1.0
+speedDeviation 0.0
 allowedSpeed 11.11
 accel 2.6
 decel 4.5
@@ -319,6 +329,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat 0.0
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -326,6 +337,7 @@ driving dist 2989.98165543857
 driving dist 2D 1087.579240951649
 line t
 via ()
+dist 6.918344561429695
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
@@ -374,7 +386,7 @@ step 20.0
 {80: '1o', 86: 80.0}
 speed before moveToXY 20.0
 step 21.0
-speed after moveToVTD 20.0
+speed after moveToXY 20.0
 {80: '1o', 86: 6.303079914048878}
 step 22.0
 {80: '1o', 86: 26.30307991404888}
@@ -617,6 +629,7 @@ routingMode 0
 length 5.0
 maxSpeed 55.55555555555556
 speedFactor 1.0
+speedDeviation 0.0
 allowedSpeed 13.89
 accel 2.6
 decel 4.5
@@ -641,6 +654,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -0.5600000000000023
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -648,6 +662,7 @@ driving dist -1073741824.0
 driving dist 2D -1073741824.0
 line 
 via ()
+dist 697.49
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
@@ -750,6 +765,7 @@ routingMode 0
 length 7.0
 maxSpeed 55.55555555555556
 speedFactor 1.0
+speedDeviation 0.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
@@ -774,6 +790,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -781,6 +798,7 @@ driving dist -1073741824.0
 driving dist 2D -1073741824.0
 line 
 via ()
+dist -1073741824.0
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
@@ -823,6 +841,7 @@ routingMode 0
 length 8.0
 maxSpeed 10.0
 speedFactor 1.0
+speedDeviation 0.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
@@ -847,6 +866,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -854,6 +874,7 @@ driving dist -1073741824.0
 driving dist 2D -1073741824.0
 line 
 via ()
+dist -1073741824.0
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
@@ -896,6 +917,7 @@ routingMode 0
 length 7.0
 maxSpeed 55.55555555555556
 speedFactor 1.0
+speedDeviation 0.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
@@ -920,6 +942,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -927,6 +950,7 @@ driving dist -1073741824.0
 driving dist 2D -1073741824.0
 line 
 via ()
+dist -1073741824.0
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
@@ -969,6 +993,7 @@ routingMode 0
 length 8.0
 maxSpeed 10.0
 speedFactor 1.0
+speedDeviation 0.0
 allowedSpeed -1073741824.0
 accel 2.6
 decel 4.5
@@ -993,6 +1018,7 @@ minGapLat 0.6
 lateralAlignment center
 lanePosLat -1073741824.0
 person number 0
+person IDs ()
 personCapacity 4
 waiting time 0.0
 accumulated waiting time 0.0
@@ -1000,6 +1026,7 @@ driving dist -1073741824.0
 driving dist 2D -1073741824.0
 line 
 via ()
+dist -1073741824.0
 lane change state right (1073741824, 1073741824)
 lane change state left (1073741824, 1073741824)
 lane change able right False
