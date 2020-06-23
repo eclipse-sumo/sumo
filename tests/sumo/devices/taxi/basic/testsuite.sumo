@@ -18,3 +18,6 @@ end_of_work
 
 # some taxis are late to work
 late_taxi
+
+# persontrip triggers taxi call
+persontrip_taxiflow
