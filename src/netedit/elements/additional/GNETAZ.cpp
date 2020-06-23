@@ -354,7 +354,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // pop name
         glPopName();
         // draw TAZRel datas
-        for (const auto &TAZRel : getChildGenericDataElements()) {
+        for (const auto &TAZRel : getChildGenericDatas()) {
+        /** temporal **/
             // only draw for the first TAZ
             if ((TAZRel->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (TAZRel->getParentTAZElements().front() == this)) {
                 // push name (needed for getGUIGlObjectsUnderCursor(...)

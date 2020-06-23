@@ -92,7 +92,12 @@ GNEEdgeData::isGenericDataVisible() const {
 
 void
 GNEEdgeData::updateGeometry() {
-    // nothing to update
+    // declare extreme geometry
+    GNEGeometry::ExtremeGeometry extremeGeometry;
+    // calculate consecutive path using parent lanes
+    calculateConsecutivePathLanes(getParentLanes());
+    // calculate edge geometry path using path
+    GNEGeometry::calculateLaneGeometricPath(myAdditionalSegmentGeometry, getPath(), extremeGeometry);
 }
 
 

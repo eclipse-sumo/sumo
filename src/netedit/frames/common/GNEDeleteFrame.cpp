@@ -388,7 +388,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     myDemandElementParents(hierarchicalParent->getParentDemandElements().size()),
     myDemandElementChilds(hierarchicalChild->getChildDemandElements().size()),
     myGenericDataParents(hierarchicalParent->getParentGenericDatas().size()),
-    myGenericDataChilds(hierarchicalChild->getChildGenericDataElements().size()) {
+    myGenericDataChilds(hierarchicalChild->getChildGenericDatas().size()) {
     // add the number of subodinated elements of additionals, shapes, demand elements and generic datas
     for (const auto& additional : hierarchicalParent->getParentAdditionals()) {
         addValuesFromSubordinatedElements(this, additional);
@@ -411,7 +411,7 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
     for (const auto& additional : hierarchicalChild->getChildDemandElements()) {
         addValuesFromSubordinatedElements(this, additional);
     }
-    for (const auto& genericData : hierarchicalChild->getChildGenericDataElements()) {
+    for (const auto& genericData : hierarchicalChild->getChildGenericDatas()) {
         addValuesFromSubordinatedElements(this, genericData);
     }
 }

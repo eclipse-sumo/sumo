@@ -1344,7 +1344,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                     // show data elements
-                    for (const auto& i : edge->getChildGenericDataElements()) {
+                    for (const auto& i : edge->getChildGenericDatas()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
                 }

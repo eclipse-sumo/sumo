@@ -298,9 +298,6 @@ public:
     /// @brief update dotted contour (public due Generic datas)
     void updateDottedContour();
 
-    /// @brief get generic data color
-    RGBColor getGenericDataColor(const GUIVisualizationSettings& s) const;
-
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;

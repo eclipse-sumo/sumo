@@ -284,4 +284,16 @@ GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // currently unused
 }
 
+
+void 
+GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+
+}
+
+
+void
+GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+
+}
+
 /****************************************************************************/

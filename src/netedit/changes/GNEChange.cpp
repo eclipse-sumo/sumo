@@ -81,7 +81,7 @@ GNEChange::GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChil
     myChildShapes(childs->getChildShapes()),
     myChildTAZElements(childs->getChildTAZElements()),
     myChildDemandElements(childs->getChildDemandElements()),
-    myChildGenericDatas(childs->getChildGenericDataElements()) {}
+    myChildGenericDatas(childs->getChildGenericDatas()) {}
 
 
 GNEChange::~GNEChange() {}

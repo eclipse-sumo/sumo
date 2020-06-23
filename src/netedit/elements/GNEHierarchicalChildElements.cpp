@@ -350,7 +350,7 @@ GNEHierarchicalChildElements::getChildDemandElements() const {
 
 
 const std::vector<GNEGenericData*>&
-GNEHierarchicalChildElements::getChildGenericDataElements() const {
+GNEHierarchicalChildElements::getChildGenericDatas() const {
     return myChildGenericDataElements;
 }
 
