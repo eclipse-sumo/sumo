@@ -1,5 +1,4 @@
 Loading configuration ... done.
- Retrying in 1 seconds
 step 0
 step 1
 step 2
@@ -27,3 +26,5 @@ step 5
 {0: ('0',)}
 new polygon lineWidth 3.0
 lineWidth modified 0.5
+polygons ('0', 'poly2')
+polygons ('0',)

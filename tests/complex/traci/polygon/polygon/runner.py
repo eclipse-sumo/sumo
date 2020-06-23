@@ -79,4 +79,7 @@ print("new polygon lineWidth", traci.polygon.getLineWidth(polygonID2))
 traci.polygon.setLineWidth(polygonID2, 0.5)
 print("lineWidth modified", traci.polygon.getLineWidth(polygonID2))
 
+print("polygons", traci.polygon.getIDList())
+traci.polygon.remove(polygonID2)
+print("polygons", traci.polygon.getIDList())
 traci.close()
