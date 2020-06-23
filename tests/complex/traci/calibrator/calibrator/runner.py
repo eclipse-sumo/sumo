@@ -54,7 +54,11 @@ for cali in traci.calibrator.getIDList():
 
 traci.calibrator.setFlow("cali_WE", 100, 200, 1800, 15, "DEFAULT_VEHTYPE", "WS")
 traci.calibrator.setFlow("cali_SN", 0, 200, 300, -1, "DEFAULT_VEHTYPE", "SN")
-print("calibrator: %s, period: %s - %s, setFlow: %s" %("cali_SN", traci.calibrator.getBegin("cali_SN"), traci.calibrator.getEnd("cali_SN"), traci.calibrator.getVehsPerHour("cali_SN")))
+print("calibrator: %s, period: %s - %s, setFlow: %s" % (
+    "cali_SN",
+    traci.calibrator.getBegin("cali_SN"),
+    traci.calibrator.getEnd("cali_SN"),
+    traci.calibrator.getVehsPerHour("cali_SN")))
 
 for step in range(250):
     traci.simulationStep()
