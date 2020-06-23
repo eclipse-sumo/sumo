@@ -76,7 +76,7 @@ MSCFModel_W99::computeThresholds(double speed, double predSpeed, double leaderAc
 
     const double dv = predSpeed - speed;
     sdxc = myType->getMinGap(); // cc0
-    if (speed > 0) {
+    if (predSpeed > 0) {
         const double v_slower = (dv >= 0 || leaderAccel < 1) ? speed : predSpeed + dv * rndVal;
         sdxc += myCC1 * MAX2(0.0, v_slower);
     }
