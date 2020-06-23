@@ -1,5 +1,4 @@
 Loading configuration ... done.
- Retrying in 1 seconds
 step 1.0
   examining det0
      pos 100.0
@@ -10,6 +9,8 @@ step 1.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -19,6 +20,8 @@ step 1.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
 step 2.0
   examining det0
      pos 100.0
@@ -29,6 +32,8 @@ step 2.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -38,6 +43,8 @@ step 2.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
 step 3.0
   examining det0
      pos 100.0
@@ -48,6 +55,8 @@ step 3.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -57,6 +66,8 @@ step 3.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
 step 4.0
   examining det0
      pos 100.0
@@ -67,6 +78,8 @@ step 4.0
      meanSpeed 11.3493838485
      vehIDs ('veh0',)
      occupancy 14.9417079185
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -76,6 +89,8 @@ step 4.0
      meanSpeed 9.83419226993
      vehIDs ('veh1',)
      occupancy 0.116017146486
+     jamLengthVeh 0
+     jamLengthMet 0.0
 laneareas ('det0', 'det1')
 lanearea count 2
 subscriptionResults:  {16: 1}
@@ -90,6 +105,8 @@ step 5.0
      meanSpeed 11.6024607055
      vehIDs ('veh0',)
      occupancy 20.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -99,6 +116,8 @@ step 5.0
      meanSpeed 9.30736140179
      vehIDs ('veh1',)
      occupancy 1.25
+     jamLengthVeh 0
+     jamLengthMet 0.0
 subscriptionResults:  {16: 1}
 subscriptionResults:  {16: 1}
 step 6.0
@@ -111,6 +130,8 @@ step 6.0
      meanSpeed 11.2122077217
      vehIDs ('veh0',)
      occupancy 13.7996183727
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -120,6 +141,8 @@ step 6.0
      meanSpeed 9.22512255463
      vehIDs ('veh1',)
      occupancy 1.25
+     jamLengthVeh 0
+     jamLengthMet 0.0
 subscriptionResults:  {16: 1}
 subscriptionResults:  {16: 1}
 step 7.0
@@ -132,6 +155,8 @@ step 7.0
      meanSpeed 11.5971325158
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -141,6 +166,8 @@ step 7.0
      meanSpeed 9.68091993209
      vehIDs ('veh1',)
      occupancy 1.25
+     jamLengthVeh 0
+     jamLengthMet 0.0
 subscriptionResults:  {16: 0}
 subscriptionResults:  {16: 1}
 step 8.0
@@ -153,6 +180,8 @@ step 8.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -162,6 +191,8 @@ step 8.0
      meanSpeed 10.0823303927
      vehIDs ('veh1',)
      occupancy 1.25
+     jamLengthVeh 0
+     jamLengthMet 0.0
 subscriptionResults:  {16: 0}
 subscriptionResults:  {16: 1}
 step 9.0
@@ -174,6 +205,8 @@ step 9.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -183,6 +216,8 @@ step 9.0
      meanSpeed 10.102234744
      vehIDs ('veh1',)
      occupancy 1.25
+     jamLengthVeh 0
+     jamLengthMet 0.0
 subscriptionResults:  {16: 0}
 subscriptionResults:  {16: 1}
 step 10.0
@@ -195,6 +230,8 @@ step 10.0
      meanSpeed -1.0
      vehIDs ()
      occupancy 0.0
+     jamLengthVeh 0
+     jamLengthMet 0.0
   examining det1
      pos 148.5
      length 400.0
@@ -204,5 +241,7 @@ step 10.0
      meanSpeed 10.0021523569
      vehIDs ('veh1',)
      occupancy 1.25
+     jamLengthVeh 0
+     jamLengthMet 0.0
 subscriptionResults:  {16: 0}
 subscriptionResults:  {16: 1}
