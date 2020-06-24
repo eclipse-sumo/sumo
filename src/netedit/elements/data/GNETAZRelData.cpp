@@ -64,6 +64,10 @@ GNETAZRelData::getColor() const {
 
 bool 
 GNETAZRelData::isGenericDataVisible() const {
+    // first check if we're in supermode data
+    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        return false;
+    }
     // obtain pointer to TAZ data frame (only for code legibly)
     const GNETAZRelDataFrame* TAZRelDataFrame = myNet->getViewNet()->getViewParent()->getTAZRelDataFrame();
     // get current data edit mode

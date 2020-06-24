@@ -243,9 +243,6 @@ protected:
     /// @brief dataInterval Parent
     GNEDataInterval* myDataIntervalParent;
 
-    /// @brief segment geometry to be precomputed in updateGeometry(...)
-    std::map<const GNELane*, GNEGeometry::SegmentGeometry> myGenericDataSegmentGeometries;
-
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

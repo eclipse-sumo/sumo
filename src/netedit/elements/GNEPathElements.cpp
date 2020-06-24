@@ -19,6 +19,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEJunction.h>
@@ -108,8 +109,8 @@ GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const G
             }
         }
     }
-    // demand elements
-    if (myGenericData) {
+    // generic datas (only in supermode Data)
+    if (myGenericData && myGenericData->isGenericDataVisible()) {
         for (const auto &pathElement : myPathElements) {
             if (pathElement.getLane() == lane) {
                 myGenericData->drawPartialGL(s, lane);
@@ -138,8 +139,8 @@ GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, con
             }
         }
     }
-    // demand elements
-    if (myGenericData) {
+    // generic datas
+    if (myGenericData && myGenericData->isGenericDataVisible()) {
         for (auto i = myPathElements.begin(); i != myPathElements.end(); i++) {
             // check that next pathElement isn't the last 
             if ((i->getJunction() == junction) && ((i+1) != myPathElements.end())) {
@@ -254,14 +255,18 @@ GNEPathElements::resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClas
 
 
 void 
-GNEPathElements::calculateSingleLanePath(GNEEdge* edge) {
+GNEPathElements::calculateGenericDataLanePath(const std::vector<GNEEdge*> &edges) {
     // only for demand elements
     if (myGenericData) {
         // remove path elements from lanes and junctions
         removeElements();
+        // clear path
+        myPathElements.clear();
         // iterate over edge lanes and add it
-        for (const auto &lane : edge->getLanes()) {
-            myPathElements.push_back(lane);
+        for (const auto &edge : edges) {
+            for (const auto &lane : edge->getLanes()) {
+                myPathElements.push_back(lane);
+            }
         }
         // add path elements in lanes and junctions
         addElements();

@@ -65,6 +65,10 @@ GNEEdgeData::getColor() const {
 
 bool 
 GNEEdgeData::isGenericDataVisible() const {
+    // first check if we're in supermode data
+    if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
+        return false;
+    }
     // obtain pointer to edge data frame (only for code legibly)
     const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
     // get current data edit mode
@@ -94,15 +98,8 @@ GNEEdgeData::isGenericDataVisible() const {
 
 void
 GNEEdgeData::updateGeometry() {
-    // set path
-    calculateSingleLanePath(getParentEdges().front());
-    // clear segments
-    myGenericDataSegmentGeometries.clear();
-    // iterate over all lanes
-    for (const auto &lane : getParentEdges().front()->getLanes()) {
-        // add and update geometry vinculated with lane
-        myGenericDataSegmentGeometries[lane].insertLaneSegment(lane, true);
-    }
+    // calculate generic data path
+    calculateGenericDataLanePath(getParentEdges());
 }
 
 
