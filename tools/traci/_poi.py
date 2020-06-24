@@ -161,6 +161,6 @@ class PoiDomain(Domain):
         if alphaMax > 0 and duration <= 0:
             raise TraCIException("poi.highlight(): alphaMax>0 requires duration>0")
         if alphaMax > 0:
-            self._setCmd(tc.VAR_HIGHLIGHT, poiID, "uucdBdB", tc.TYPE_COMPOUND, 5, color, size, alphaMax, duration, type)
+            self._setCmd(tc.VAR_HIGHLIGHT, poiID, "tcdBdB", 5, color, size, alphaMax, duration, type)
         else:
-            self._setCmd(tc.VAR_HIGHLIGHT, poiID, "uucd", tc.TYPE_COMPOUND, 2, color, size)
+            self._setCmd(tc.VAR_HIGHLIGHT, poiID, "tcd", 2, color, size)

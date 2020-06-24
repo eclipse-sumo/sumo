@@ -1323,9 +1323,9 @@ class VehicleDomain(Domain):
             raise TraCIException("vehicle.highlight(): alphaMax>0 requires duration>0")
 
         if alphaMax > 0:
-            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "uucdBdB", tc.TYPE_COMPOUND, 5, color, size, alphaMax, duration, type)
+            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcdBdB", 5, color, size, alphaMax, duration, type)
         else:
-            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "uucd", tc.TYPE_COMPOUND, 2, color, size)
+            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcd", 2, color, size)
 
     def setImperfection(self, vehID, imperfection):
         """setImperfection(string, double) -> None
