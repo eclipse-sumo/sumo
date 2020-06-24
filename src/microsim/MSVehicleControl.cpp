@@ -208,8 +208,24 @@ MSVehicleControl::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_DEPART, myTotalDepartureDelay);
     out.writeAttr(SUMO_ATTR_TIME, myTotalTravelTime).closeTag();
     // save vehicle types
-    for (VTypeDictType::iterator it = myVTypeDict.begin(); it != myVTypeDict.end(); ++it) {
-        it->second->getParameter().write(out);
+    VTypeDictType vTypes = myVTypeDict;
+    if (myDefaultVTypeMayBeDeleted) {
+        vTypes.erase(DEFAULT_VTYPE_ID);
+    }
+    if (myDefaultPedTypeMayBeDeleted) {
+        vTypes.erase(DEFAULT_PEDTYPE_ID);
+    }
+    if (myDefaultContainerTypeMayBeDeleted) {
+        vTypes.erase(DEFAULT_CONTAINERTYPE_ID);
+    }
+    if (myDefaultBikeTypeMayBeDeleted) {
+        vTypes.erase(DEFAULT_BIKETYPE_ID);
+    }
+    if (myDefaultTaxiTypeMayBeDeleted) {
+        vTypes.erase(DEFAULT_TAXITYPE_ID);
+    }
+    for (const auto& item : vTypes) {
+        item.second->getParameter().write(out);
     }
     for (VTypeDistDictType::iterator it = myVTypeDistDict.begin(); it != myVTypeDistDict.end(); ++it) {
         out.openTag(SUMO_TAG_VTYPE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, it->first);

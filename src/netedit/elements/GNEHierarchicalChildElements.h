@@ -121,16 +121,13 @@ public:
     const std::vector<GNEDemandElement*>& getChildDemandElements() const;
 
     /// @brief return child generic data elements
-    const std::vector<GNEGenericData*>& getChildGenericDataElements() const;
-
+    const std::vector<GNEGenericData*>& getChildGenericDatas() const;
 
     /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
     void sortChildAdditionals();
 
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
-
-
 
     /// @brief return child demand elements by type
     const std::vector<GNEDemandElement*>& getChildDemandElementsByType(SumoXMLTag tag) const;

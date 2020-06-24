@@ -1,4 +1,4 @@
-Eclipse SUMO od2trips Version v1_4_0+1029-d1b8be6105
+Eclipse SUMO od2trips Version v1_6_0+0938-6895ba79a7
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -37,6 +37,7 @@ Output Options:
                                      spaced flow
   --pedestrians                    Writes pedestrians instead of vehicles
   --persontrips                    Writes persontrips instead of vehicles
+  --persontrips.modes STR[]        Add modes attribute to personTrips
   --ignore-vehicle-type            Does not save vtype information
 
 Time Options:

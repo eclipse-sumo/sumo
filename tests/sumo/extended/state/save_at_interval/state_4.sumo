@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 18 10:00:17 2019 by Eclipse SUMO Version v1_4_0+0173-908b4d0
+<!-- generated on Tue Jun 23 15:39:32 2020 by Eclipse SUMO Version v1_6_0+0938-6895ba79a7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,13 +34,9 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0173-908b4d0" time="4.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+0938-6895ba79a7" time="4.00">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="2" end="0" depart="0.00" time="0.00"/>
-    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
-    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
-    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE"/>
     <vType id="type0" sigma="0"/>
     <vType id="type1" sigma="0"/>
     <vType id="type2" sigma="0">

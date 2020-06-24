@@ -339,8 +339,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
             deleteDemandElement(lane->getChildDemandElements().front(), undoList);
         }
         // delete lane generic data elements
-        while (lane->getChildGenericDataElements().size() > 0) {
-            deleteGenericData(lane->getChildGenericDataElements().front(), undoList);
+        while (lane->getChildGenericDatas().size() > 0) {
+            deleteGenericData(lane->getChildGenericDatas().front(), undoList);
         }
     }
     // delete edge child additionals
@@ -356,8 +356,8 @@ GNENet::deleteEdge(GNEEdge* edge, GNEUndoList* undoList, bool recomputeConnectio
         deleteDemandElement(edge->getChildDemandElements().front(), undoList);
     }
     // delete edge child generic datas
-    while (edge->getChildGenericDataElements().size() > 0) {
-        deleteGenericData(edge->getChildGenericDataElements().front(), undoList);
+    while (edge->getChildGenericDatas().size() > 0) {
+        deleteGenericData(edge->getChildGenericDatas().front(), undoList);
     }
     // remove edge from crossings related with this edge
     edge->getFirstParentJunction()->removeEdgeFromCrossings(edge, undoList);
@@ -409,7 +409,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
             undoList->p_add(new GNEChange_Attribute(demandElement, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
         }
         // replace in generic datas
-        std::vector<GNEGenericData*> copyOfLaneGenericDatas = lane->getChildGenericDataElements();
+        std::vector<GNEGenericData*> copyOfLaneGenericDatas = lane->getChildGenericDatas();
         for (const auto& demandElement : copyOfLaneGenericDatas) {
             undoList->p_add(new GNEChange_Attribute(demandElement, SUMO_ATTR_LANE, by->getNBEdge()->getLaneID(lane->getIndex())));
         }
@@ -427,8 +427,8 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
         undoList->p_add(new GNEChange_Attribute(which->getChildDemandElements().front(), SUMO_ATTR_EDGE, by->getID()));
     }
     // replace in edge demand elements children
-    while (which->getChildGenericDataElements().size() > 0) {
-        undoList->p_add(new GNEChange_Attribute(which->getChildGenericDataElements().front(), SUMO_ATTR_EDGE, by->getID()));
+    while (which->getChildGenericDatas().size() > 0) {
+        undoList->p_add(new GNEChange_Attribute(which->getChildGenericDatas().front(), SUMO_ATTR_EDGE, by->getID()));
     }
     // replace in rerouters
     for (const auto& rerouter : which->getParentAdditionals()) {
@@ -476,8 +476,8 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
             deleteDemandElement(lane->getChildDemandElements().front(), undoList);
         }
         // delete lane generic data children
-        while (lane->getChildGenericDataElements().size() > 0) {
-            deleteGenericData(lane->getChildGenericDataElements().front(), undoList);
+        while (lane->getChildGenericDatas().size() > 0) {
+            deleteGenericData(lane->getChildGenericDatas().front(), undoList);
         }
         // update affected connections
         if (recomputeConnections) {
@@ -538,8 +538,8 @@ GNENet::deleteAdditional(GNEAdditional* additional, GNEUndoList* undoList) {
         deleteDemandElement(additional->getChildDemandElements().front(), undoList);
     }
     // remove all generic data children of this additional deleteGenericData this function recursively
-    while (additional->getChildGenericDataElements().size() > 0) {
-        deleteGenericData(additional->getChildGenericDataElements().front(), undoList);
+    while (additional->getChildGenericDatas().size() > 0) {
+        deleteGenericData(additional->getChildGenericDatas().front(), undoList);
     }
     // remove all additional children of this additional calling this function recursively
     while (additional->getChildAdditionals().size() > 0) {
@@ -568,8 +568,8 @@ GNENet::deleteTAZElement(GNETAZElement* TAZElement, GNEUndoList* undoList) {
         deleteDemandElement(TAZElement->getChildDemandElements().front(), undoList);
     }
     // remove all generic data children of this TAZElement deleteGenericData this function recursively
-    while (TAZElement->getChildGenericDataElements().size() > 0) {
-        deleteGenericData(TAZElement->getChildGenericDataElements().front(), undoList);
+    while (TAZElement->getChildGenericDatas().size() > 0) {
+        deleteGenericData(TAZElement->getChildGenericDatas().front(), undoList);
     }
     // remove all TAZElement children of this TAZElement calling this function recursively
     while (TAZElement->getChildTAZElements().size() > 0) {
@@ -597,8 +597,8 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
             deleteDemandElement(demandElement->getChildDemandElements().front(), undoList);
         }
         // remove all generic data children of this additional deleteGenericData this function recursively
-        while (demandElement->getChildGenericDataElements().size() > 0) {
-            deleteGenericData(demandElement->getChildGenericDataElements().front(), undoList);
+        while (demandElement->getChildGenericDatas().size() > 0) {
+            deleteGenericData(demandElement->getChildGenericDatas().front(), undoList);
         }
         // we need an special case for person
         if (demandElement->getTagProperty().isPersonPlan() && (demandElement->getParentDemandElements().front()->getChildDemandElements().size() == 1)) {
@@ -652,8 +652,8 @@ GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
         deleteDemandElement(genericData->getChildDemandElements().front(), undoList);
     }
     // remove all generic data children of this additional deleteGenericData this function recursively
-    while (genericData->getChildGenericDataElements().size() > 0) {
-        deleteGenericData(genericData->getChildGenericDataElements().front(), undoList);
+    while (genericData->getChildGenericDatas().size() > 0) {
+        deleteGenericData(genericData->getChildGenericDatas().front(), undoList);
     }
     // remove generic data
     undoList->add(new GNEChange_GenericData(genericData, false), true);

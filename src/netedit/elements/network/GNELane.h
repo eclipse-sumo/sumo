@@ -197,6 +197,12 @@ public:
     /// @brief remove path demand element (used by GNEPathElement)
     void removePathDemandElement(GNEDemandElement* demandElement);
 
+    /// @brief add path demand element (used by GNEPathElement)
+    void addPathGenericData(GNEGenericData* genericData);
+
+    /// @brief remove path demand element (used by GNEPathElement)
+    void removePathGenericData(GNEGenericData* genericData);
+
     /// @brief invalidate path element childs
     void invalidatePathElements();
 
@@ -252,6 +258,9 @@ private:
 
     /// @brief vector with references to path demand elements
     std::vector<GNEDemandElement*> myPathDemandElements;
+
+    /// @brief vector with references to path generic data elements
+    std::vector<GNEGenericData*> myPathGenericDatas;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

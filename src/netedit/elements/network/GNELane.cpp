@@ -136,6 +136,14 @@ GNELane::updateGeometry() {
         demandElement->updateGeometry();
         demandElement->updatePartialGeometry(this);
     }
+    // Update geometry of parent generic datas that have this edge as parent
+    for (const auto& additionalParent : getParentGenericDatas()) {
+        additionalParent->updateGeometry();
+    }
+    // Update geometry of additionals generic datas vinculated to this edge
+    for (const auto& childAdditionals : getChildGenericDatas()) {
+        childAdditionals->updateGeometry();
+    }
     // in Move mode, connections aren't updated
     if (myNet->getViewNet() && myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
         // Update incoming connections of this lane
@@ -348,12 +356,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // Push name
     glPushName(getGlID());
-    // push GL Name of genericData
-    for (const auto& genericData : myParentEdge->getChildGenericDataElements()) {
-        if (genericData->isGenericDataVisible()) {
-            glPushName(genericData->getGlID());
-        }
-    }
     // Traslate to front
     glTranslated(0, 0, myParentEdge->getNBEdge()->getLength() < 1 ? GLO_JUNCTION + 1 : getType());
     const RGBColor color = setLaneColor(s);
@@ -368,12 +370,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Pop Lane Name
         glPopName();
-        // pop GL Name of generic datas
-        for (const auto& genericData : myParentEdge->getChildGenericDataElements()) {
-            if (genericData->isGenericDataVisible()) {
-                glPopName();
-            }
-        }
     } else if ((s.scale * exaggeration) < 1.) {
         // draw as lines, depending of myShapeColors
         if (myShapeColors.size() > 0) {
@@ -385,16 +381,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Pop Lane Name
         glPopName();
-        // pop GL Name of generic datas
-        for (const auto& genericData : myParentEdge->getChildGenericDataElements()) {
-            if (genericData->isGenericDataVisible()) {
-                glPopName();
-                if (myIndex == 0) {
-                    // draw attribute in first lane
-                    genericData->drawAttribute(myLaneGeometry.getShape());
-                }
-            }
-        }
         // draw parents
         for (const auto& additionalParent : getParentAdditionals()) {
             if (additionalParent->getTagProperty().getTag() == SUMO_TAG_VSS) {
@@ -535,16 +521,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop Lane Name
         glPopName();
-        // pop GL Name of generic datas
-        for (const auto& genericData : myParentEdge->getChildGenericDataElements()) {
-            if (genericData->isGenericDataVisible()) {
-                glPopName();
-                if (myIndex == 0) {
-                    // draw attribute in first lane
-                    genericData->drawAttribute(myLaneGeometry.getShape());
-                }
-            }
-        }
         // draw parents
         for (const auto& VSS : getParentAdditionals()) {
             if (VSS->getTagProperty().getTag() == SUMO_TAG_VSS) {
@@ -569,7 +545,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 demandElement->drawGL(s);
             }
         }
-        // draw child path additional elements
+        // draw child path additionals
         for (const auto &additional : myPathAdditionalElements) {
             additional->drawLanePathChildren(s, this);
         }
@@ -577,7 +553,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         for (const auto &demandElement : myPathDemandElements) {
             demandElement->drawLanePathChildren(s, this);
         }
-
+        // draw child path generic datas
+        for (const auto &genericData : myPathGenericDatas) {
+            genericData->drawLanePathChildren(s, this);
+        }
     }
 }
 
@@ -888,17 +867,42 @@ GNELane::removePathDemandElement(GNEDemandElement* demandElement) {
 
 
 void
+GNELane::addPathGenericData(GNEGenericData* genericData) {
+    // avoid insert duplicated path element childs
+    if (std::find(myPathGenericDatas.begin(), myPathGenericDatas.end(), genericData) == myPathGenericDatas.end()) {
+        myPathGenericDatas.push_back(genericData);
+    }
+}
+
+
+void
+GNELane::removePathGenericData(GNEGenericData* genericData) {
+    // search and remove pathElementChild
+    auto it = std::find(myPathGenericDatas.begin(), myPathGenericDatas.end(), genericData);
+    if (it != myPathGenericDatas.end()) {
+        myPathGenericDatas.erase(it);
+    }
+}
+
+
+void
 GNELane::invalidatePathElements() {
     // make a copy of myPathAdditionalElements
     auto copyOfPathAdditionalElements = myPathAdditionalElements;
     for (const auto& additionalElement : copyOfPathAdditionalElements) {
-        // note: Additional elements use update geometry
+        // note: currently additional elements don't use compute/invalidate paths
         additionalElement->updateGeometry();
     }
     // make a copy of myPathDemandElements
     auto copyOfPathDemandElements = myPathDemandElements;
     for (const auto& demandElement : copyOfPathDemandElements) {
         demandElement->invalidatePath();
+    }
+    // make a copy of myPathGenericDatas
+    auto copyOfPathGenericDatas = myPathGenericDatas;
+    for (const auto& genericData : copyOfPathGenericDatas) {
+        // note: currently generic datas don't use compute/invalidate paths
+        genericData->updateGeometry();
     }
 }
 
@@ -1005,10 +1009,6 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
         if (!setFunctionalColor(c.getActive(), color) && !setMultiColor(s, c, color)) {
             color = c.getScheme().getColor(getColorValue(s, c.getActive()));
         }
-    }
-    // check if we're in data mode
-    if (myNet->getViewNet()->getEditModes().isCurrentSupermodeData() && s.laneColorer.getActive() != 16) {
-        color = myParentEdge->getGenericDataColor(s);
     }
     // special color for conflicted candidate edges
     if (myParentEdge->isConflictedCandidate()) {

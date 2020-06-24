@@ -31,6 +31,7 @@ class GNELane;
 class GNEJunction;
 class GNEAdditional;
 class GNEDemandElement;
+class GNEGenericData;
 
 // ===========================================================================
 // class definitions
@@ -72,6 +73,9 @@ public:
     /// @brief Constructor for demand elements
     GNEPathElements(GNEDemandElement* demandElement);
 
+    /// @brief Constructor for generic datas
+    GNEPathElements(GNEGenericData* genericData);
+
     /// @brief Destructor
     ~GNEPathElements();
 
@@ -97,12 +101,18 @@ protected:
     /// @brief reset path lanes
     void resetPathLanes(SUMOVehicleClass vClass, const bool allowedVClass, GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
 
+    /// @brief calculate consecutive path lanes (used by genericdatas)
+    void calculateSingleLanePath(GNEEdge* edge);
+
 private:
     /// @brief pointer to additional element
     GNEAdditional* myAdditionalElement;
 
     /// @brief pointer to demand element
     GNEDemandElement* myDemandElement;
+
+    /// @brief pointer to generic data
+    GNEGenericData* myGenericData;
 
     /// @brief vector of edges used in paths
     std::vector<PathElement> myPathElements;

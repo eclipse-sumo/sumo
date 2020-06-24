@@ -27,6 +27,7 @@
 
 #include <netedit/elements/GNEHierarchicalParentElements.h>
 #include <netedit/elements/GNEHierarchicalChildElements.h>
+#include <netedit/elements/GNEPathElements.h>
 #include <netedit/GNEGeometry.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
@@ -50,7 +51,7 @@ class GNEDataInterval;
  * @class GNEGenericData
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEGenericData : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNEGenericData : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements, public GNEPathElements {
 
 public:
     /**@brief Constructor
@@ -167,6 +168,19 @@ public:
      */
     void drawGL(const GUIVisualizationSettings& s) const;
 
+    /**@brief Draws partial object (lane)
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] lane GNELane in which draw partial
+    */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const;
+
+    /**@brief Draws partial object (junction)
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] fromLane from GNELane
+    * @param[in] toLane to GNELane
+    */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const;
+
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;
     /// @}
@@ -228,6 +242,9 @@ public:
 protected:
     /// @brief dataInterval Parent
     GNEDataInterval* myDataIntervalParent;
+
+    /// @brief segment geometry to be precomputed in updateGeometry(...)
+    std::map<const GNELane*, GNEGeometry::SegmentGeometry> myGenericDataSegmentGeometries;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

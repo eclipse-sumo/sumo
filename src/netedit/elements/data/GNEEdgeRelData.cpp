@@ -93,18 +93,33 @@ GNEEdgeRelData::isGenericDataVisible() const {
 
 void
 GNEEdgeRelData::updateGeometry() {
-    // nothing to update
+    // set path
+    calculateSingleLanePath(getParentEdges().front());
+    calculateSingleLanePath(getParentEdges().back());
+    // clear segments
+    myGenericDataSegmentGeometries.clear();
+    // iterate over all lanes
+    for (const auto &lane : getParentEdges().front()->getLanes()) {
+        // add and update geometry vinculated with lane
+        myGenericDataSegmentGeometries[lane].insertLaneSegment(lane, true);
+    }
+    for (const auto &lane : getParentEdges().back()->getLanes()) {
+        // add and update geometry vinculated with lane
+        myGenericDataSegmentGeometries[lane].insertLaneSegment(lane, true);
+    }
 }
 
 
 void
 GNEEdgeRelData::updateDottedContour() {
+/*
     // just update geometry of parent edges
     for (const auto& edge : getParentEdges()) {
         if (edge->getDottedGeometry().isGeometryDeprecated()) {
             edge->updateDottedContour();
         }
     }
+*/
 }
 
 

@@ -51,7 +51,6 @@ permalink: /Developer/Main/
 - [Progress on implementing an XML validation](XML_Validation.md)
 - [Developer/HowToRelease](HowToRelease.md) - how to build a release
 - [Developer/Docker](Docker.md) - projects using Dockerised SUMO
-- [Eclipse Migration](../Eclipse_Migration.md)
 - [Git](../GitStuff.md)
 - [Visual Studio Code](VisualStudioCode.md) - how to use Visual Studio Code with the SUMO code base
 

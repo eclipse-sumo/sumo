@@ -1306,7 +1306,7 @@ class VehicleDomain(Domain):
         self._setCmd(tc.VAR_ACTIONSTEPLENGTH, vehID, "d", actionStepLength)
 
     def highlight(self, vehID, color=(255, 0, 0, 255), size=-1, alphaMax=-1, duration=-1, type=0):
-        """ highlight(string, color, float, ubyte) -> void
+        """ highlight(string, color, float, ubyte, float, ubyte) -> None
             Adds a circle of the given color tracking the vehicle.
             If a positive size [in m] is given the size of the highlight is chosen accordingly,
             otherwise the length of the vehicle is used as reference.
@@ -1314,7 +1314,7 @@ class VehicleDomain(Domain):
             otherwise it permanently follows the vehicle.
         """
         if type > 255:
-            raise TraCIException("poi.highlight(): maximal value for type is 255")
+            raise TraCIException("vehicle.highlight(): maximal value for type is 255")
         if alphaMax > 255:
             raise TraCIException("vehicle.highlight(): maximal value for alphaMax is 255")
         if alphaMax <= 0 and duration > 0:
@@ -1322,16 +1322,10 @@ class VehicleDomain(Domain):
         if alphaMax > 0 and duration <= 0:
             raise TraCIException("vehicle.highlight(): alphaMax>0 requires duration>0")
 
-        if type > 0:
-            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcdBdB", 5, color, size, alphaMax, duration, type)
-        elif alphaMax > 0:
-            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcdBd", 4, color, size, alphaMax, duration)
-        elif size > 0:
-            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcd", 2, color, size)
-        elif color:
-            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tc", 1, color)
+        if alphaMax > 0:
+            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "uucdBdB", tc.TYPE_COMPOUND, 5, color, size, alphaMax, duration, type)
         else:
-            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "t", 0)
+            self._setCmd(tc.VAR_HIGHLIGHT, vehID, "uucd", tc.TYPE_COMPOUND, 2, color, size)
 
     def setImperfection(self, vehID, imperfection):
         """setImperfection(string, double) -> None

@@ -133,6 +133,14 @@ GNEEdge::updateGeometry() {
         for (const auto& childAdditionals : getChildDemandElements()) {
             childAdditionals->updateGeometry();
         }
+        // Update geometry of parent generic datas that have this edge as parent
+        for (const auto& additionalParent : getParentGenericDatas()) {
+            additionalParent->updateGeometry();
+        }
+        // Update geometry of additionals generic datas vinculated to this edge
+        for (const auto& childAdditionals : getChildGenericDatas()) {
+            childAdditionals->updateGeometry();
+        }
         // mark dotted geometry deprecated
         myDottedGeometry.markDottedGeometryDeprecated();
     }
@@ -533,25 +541,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         drawEdgeName(s);
     }
     // draw dotted contour
-    if (myNet->getViewNet()->getDottedAC()) {
-        // get dotted (inspected) AC
-        const GNEAttributeCarrier* AC = myNet->getViewNet()->getDottedAC();
-        // declare a flag for drawing dotted geometry
-        bool drawDottedGeometry = false;
-        if (AC == this) {
-            drawDottedGeometry = true;
-        } else if (AC->getTagProperty().isGenericData()) {
-            // iterate over generic data childs
-            for (const auto& genericData : getChildGenericDataElements()) {
-                // draw dotted contor around the first and last lane if isn't being drawn for selecting
-                if (genericData == AC) {
-                    drawDottedGeometry = true;
-                }
-            }
-        }
-        if (drawDottedGeometry) {
-            GNEGeometry::drawShapeDottedContour(s, GLO_EDGEDATA, s.laneWidthExaggeration, myDottedGeometry);
-        }
+    if (myNet->getViewNet()->getDottedAC() == this) {
+        GNEGeometry::drawShapeDottedContour(s, getType(), s.laneWidthExaggeration, myDottedGeometry);
     }
 }
 
@@ -1294,19 +1285,6 @@ GNEEdge::updateDottedContour() {
     mainShape.closePolygon();
     // update edge dotted geometry
     updateDottedGeometry(mainShape);
-}
-
-
-RGBColor 
-GNEEdge::getGenericDataColor(const GUIVisualizationSettings& s) const {
-    RGBColor color = s.laneColorer.getSchemes()[0].getColor(11);
-    /* FIX */
-    for (const auto &genericData : getChildGenericDataElements()) {
-        if (genericData->isGenericDataVisible()) {
-            return genericData->getColor();
-        }
-    }
-    return color;
 }
 
 // ===========================================================================

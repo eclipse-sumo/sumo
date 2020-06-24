@@ -250,6 +250,12 @@ public:
     /// @brief remove path demand element (used by GNEPathElement)
     void removePathDemandElement(GNEDemandElement* demandElement);
 
+    /// @brief add path demand element (used by GNEPathElement)
+    void addPathGenericData(GNEGenericData* genericData);
+
+    /// @brief remove path demand element (used by GNEPathElement)
+    void removePathGenericData(GNEGenericData* genericData);
+
     /// @brief invalidate path element childs
     void invalidatePathElements();
 
@@ -274,6 +280,9 @@ private:
 
     /// @brief vector with references to path demand elements
     std::vector<GNEDemandElement*> myPathDemandElements;
+
+    /// @brief vector with references to path generic data elements
+    std::vector<GNEGenericData*> myPathGenericDatas;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
     double myMaxSize;
@@ -302,9 +311,6 @@ private:
 
     /// @brief draw junction childs
     void drawJunctionChilds(const GUIVisualizationSettings& s) const;
-
-    /// @brief draw generic data between two edges
-    void drawPathGenericDataElementChilds(const GUIVisualizationSettings& s) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);

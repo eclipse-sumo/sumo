@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 
 #include "GNEChange_Additional.h"
@@ -35,7 +36,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
     GNEChange(additional, additional, forward, additional->isAttributeCarrierSelected()),
-    myAdditional(additional) {
+    myAdditional(additional),
+    myPath(additional->getPath()) {
     myAdditional->incRef("GNEChange_Additional");
 }
 
@@ -49,6 +51,11 @@ GNEChange_Additional::~GNEChange_Additional() {
         if (myAdditional->getNet()->getAttributeCarriers()->additionalExist(myAdditional)) {
             // delete additional from net
             myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
+            // remove element from path
+            for (const auto& pathElement : myPath) {
+                pathElement.getLane()->removePathAdditionalElement(myAdditional);
+                pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+            }
             // remove additional from parents and children
             removeElementFromParentsAndChildren(myAdditional);
         }
@@ -68,6 +75,11 @@ GNEChange_Additional::undo() {
         }
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
+        // remove element from path
+        for (const auto& pathElement : myPath) {
+            pathElement.getLane()->removePathAdditionalElement(myAdditional);
+            pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+        }
         // remove additional from parents and children
         removeElementFromParentsAndChildren(myAdditional);
     } else {
@@ -109,6 +121,11 @@ GNEChange_Additional::redo() {
         }
         // delete additional from net
         myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
+        // remove element from path
+        for (const auto& pathElement : myPath) {
+            pathElement.getLane()->removePathAdditionalElement(myAdditional);
+            pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+        }
         // remove additional from parents and children
         removeElementFromParentsAndChildren(myAdditional);
     }

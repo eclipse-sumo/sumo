@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 18 10:00:18 2019 by Eclipse SUMO Version v1_4_0+0173-908b4d0
+<!-- generated on Tue Jun 23 15:40:38 2020 by Eclipse SUMO Version v1_6_0+0938-6895ba79a7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,13 +31,9 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0173-908b4d0" time="2.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+0938-6895ba79a7" time="2.00">
     <route id="!0" state="0" edges="1si"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
-    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
-    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
-    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE"/>
     <vType id="idm" length="5.00" minGap="2.00" carFollowModel="IDM" accel="0.5" decel="3" tau="1" delta="1"/>
     <vehicle id="0" type="idm" depart="0.00" route="!0" speedFactor="1.00" state="0 0 5.10 0 1000" pos="5.59" speed="0.49" posLat="0.00"/>
     <lane id="1si_0">

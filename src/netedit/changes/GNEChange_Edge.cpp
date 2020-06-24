@@ -54,7 +54,7 @@ GNEChange_Edge::GNEChange_Edge(GNEEdge* edge, bool forward):
         myChildLaneShapes.push_back(lane->getChildShapes());
         myChildLaneAdditionals.push_back(lane->getChildAdditionals());
         myChildLaneDemandElements.push_back(lane->getChildDemandElements());
-        myChildLaneGenericData.push_back(lane->getChildGenericDataElements());
+        myChildLaneGenericData.push_back(lane->getChildGenericDatas());
     }
 }
 
