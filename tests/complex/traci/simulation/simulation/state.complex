@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Dec 21 11:55:03 2019 by Eclipse SUMO Version v1_4_0+0263-e040fa1c09
+<!-- generated on Wed Jun 24 10:46:34 2020 by Eclipse SUMO Version v1_6_0+0955-28010709bb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="43339"/>
+        <remote-port value="55883"/>
     </traci_server>
 
     <gui_only>
@@ -33,12 +33,10 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0263-e040fa1c09" time="6.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+0955-28010709bb" time="6.00">
     <route id="broken" state="1" edges="o o"/>
     <route id="horizontal" state="1" edges="o"/>
     <delay number="2" begin="6" end="1" depart="0.00" time="0.00"/>
-    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
-    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="badDriver" accel="5" decel="2" tau="0.1"/>
