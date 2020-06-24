@@ -176,6 +176,11 @@ RODUAFrame::addDUAOptions() {
     oc.addDescription("persontrip.transfer.car-walk", "Processing",
                       "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions', 'taxi' and combinations)");
 
+    oc.doRegister("persontrip.transfer.taxi-walk", new Option_StringVector());
+    oc.addDescription("persontrip.transfer.taxi-walk", "Processing", "Where taxis can drop off customers ('allJunctions, 'ptStops')");
+
+    oc.doRegister("persontrip.transfer.walk-taxi", new Option_StringVector());
+    oc.addDescription("persontrip.transfer.walk-taxi", "Processing", "Where taxis can pick up customers ('allJunctions, 'ptStops')");
 }
 
 

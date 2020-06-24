@@ -74,8 +74,13 @@ public:
         myFollowingViaEdges.clear();
     }
 
-    void removeSuccessor(const IntermodalEdge* const edge) {
-        myFollowingEdges.erase(std::find(myFollowingEdges.begin(), myFollowingEdges.end(), edge));
+    bool removeSuccessor(const IntermodalEdge* const edge) {
+        auto it = std::find(myFollowingEdges.begin(), myFollowingEdges.end(), edge);
+        if (it != myFollowingEdges.end()) {
+            myFollowingEdges.erase(it);
+        } else {
+            return false;
+        }
         for (auto it = myFollowingViaEdges.begin(); it != myFollowingViaEdges.end();) {
             if (it->first == edge) {
                 it = myFollowingViaEdges.erase(it);
@@ -83,6 +88,14 @@ public:
                 ++it;
             }
         }
+        for (auto it = myFollowingViaEdges.begin(); it != myFollowingViaEdges.end();) {
+            if (it->first == edge) {
+                it = myFollowingViaEdges.erase(it);
+            } else {
+                ++it;
+            }
+        }
+        return true;
     }
 
     virtual const std::vector<IntermodalEdge*>& getSuccessors(SUMOVehicleClass vClass = SVC_IGNORING) const {

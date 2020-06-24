@@ -57,7 +57,8 @@ public:
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
         return ((trip->modeSet & myModeRestrictions) != myModeRestrictions
-                || ((trip->vehicle == nullptr ? SVC_IGNORING : trip->vehicle->getVClass()) & myVehicleRestriction) != myVehicleRestriction);
+                || (myVehicleRestriction != SVC_IGNORING &&
+                    ((trip->vehicle == nullptr ? SVC_PEDESTRIAN : trip->vehicle->getVClass()) & myVehicleRestriction) == 0));
     }
 
 private:

@@ -1218,12 +1218,28 @@ MSNet::getIntermodalRouter(const int rngIndex, const int routingMode, const MSEd
                 carWalk |= MSIntermodalRouter::Network::PT_STOPS;
             } else if (opt == "allJunctions") {
                 carWalk |= MSIntermodalRouter::Network::ALL_JUNCTIONS;
-            } else if (opt == "taxi") {
-                carWalk |= MSIntermodalRouter::Network::ALL_JUNCTIONS_TAXI;
             }
         }
-        if (MSDevice_Taxi::getTaxi() != nullptr) {
-            carWalk |= MSIntermodalRouter::Network::ALL_JUNCTIONS_TAXI;
+        // XXX there is currently no reason to combine multiple values, thus getValueString rather than getStringVector
+        const std::string& taxiDropoff = oc.getValueString("persontrip.transfer.taxi-walk");
+        const std::string& taxiPickup = oc.getValueString("persontrip.transfer.walk-taxi");
+        if (taxiDropoff == "") {
+            if (MSDevice_Taxi::getTaxi() != nullptr) {
+                carWalk |= MSIntermodalRouter::Network::TAXI_DROPOFF_ANYWHERE;
+            }
+        } else if (taxiDropoff == "ptStops") {
+            carWalk |= MSIntermodalRouter::Network::TAXI_DROPOFF_PT;
+        } else if (taxiDropoff == "allJunctions") {
+            carWalk |= MSIntermodalRouter::Network::TAXI_DROPOFF_ANYWHERE;
+        }
+        if (taxiPickup == "") {
+            if (MSDevice_Taxi::getTaxi() != nullptr) {
+                carWalk |= MSIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE;
+            }
+        } else if (taxiPickup == "ptStops") {
+            carWalk |= MSIntermodalRouter::Network::TAXI_PICKUP_PT;
+        } else if (taxiPickup == "allJunctions") {
+            carWalk |= MSIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE;
         }
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
         if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
@@ -1260,7 +1276,7 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
     myInstance->getInsertionControl().adaptIntermodalRouter(router);
     myInstance->getVehicleControl().adaptIntermodalRouter(router);
     // add access to transfer from walking to taxi-use
-    if ((router.getCarWalkTransfer() & MSIntermodalRouter::Network::ALL_JUNCTIONS_TAXI) != 0) {
+    if ((router.getCarWalkTransfer() & MSIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE) != 0) {
         for (MSEdge* edge : myInstance->getEdgeControl().getEdges()) {
             if ((edge->getPermissions() & SVC_PEDESTRIAN) != 0 && (edge->getPermissions() & SVC_TAXI) != 0) {
                 router.getNetwork()->addCarAccess(edge, SVC_TAXI);

@@ -183,10 +183,23 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             carWalk |= ROIntermodalRouter::Network::PT_STOPS;
         } else if (opt == "allJunctions") {
             carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS;
-        } else if (opt == "taxi") {
-            carWalk |= ROIntermodalRouter::Network::ALL_JUNCTIONS_TAXI;
         }
     }
+    for (const std::string& opt : oc.getStringVector("persontrip.transfer.taxi-walk")) {
+        if (opt == "ptStops") {
+            carWalk |= ROIntermodalRouter::Network::TAXI_DROPOFF_PT;
+        } else if (opt == "allJunctions") {
+            carWalk |= ROIntermodalRouter::Network::TAXI_DROPOFF_ANYWHERE;
+        }
+    }
+    for (const std::string& opt : oc.getStringVector("persontrip.transfer.walk-taxi")) {
+        if (opt == "ptStops") {
+            carWalk |= ROIntermodalRouter::Network::TAXI_PICKUP_PT;
+        } else if (opt == "allJunctions") {
+            carWalk |= ROIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE;
+        }
+    }
+
     RailwayRouter<ROEdge, ROVehicle>* railRouter = nullptr;
     if (net.hasBidiEdges()) {
         railRouter = new RailwayRouter<ROEdge, ROVehicle>(ROEdge::getAllEdges(), true, ttFunction, nullptr, false, net.hasPermissions(), oc.isSet("restriction-params"));

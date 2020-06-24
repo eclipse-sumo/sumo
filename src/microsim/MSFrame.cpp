@@ -451,7 +451,13 @@ MSFrame::fillOptions() {
 
     oc.doRegister("persontrip.transfer.car-walk", new Option_StringVector(StringVector({ "parkingAreas" })));
     oc.addDescription("persontrip.transfer.car-walk", "Routing",
-                      "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions', 'taxi' and combinations)");
+                      "Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations)");
+
+    oc.doRegister("persontrip.transfer.taxi-walk", new Option_StringVector());
+    oc.addDescription("persontrip.transfer.taxi-walk", "Routing", "Where taxis can drop off customers ('allJunctions, 'ptStops')");
+
+    oc.doRegister("persontrip.transfer.walk-taxi", new Option_StringVector());
+    oc.addDescription("persontrip.transfer.walk-taxi", "Routing", "Where taxis can pick up customers ('allJunctions, 'ptStops')");
 
     // devices
     oc.addOptionSubTopic("Emissions");
@@ -784,7 +790,7 @@ MSFrame::checkOptions() {
 
     if (oc.isSet("persontrip.transfer.car-walk")) {
         for (const std::string& opt : OptionsCont::getOptions().getStringVector("persontrip.transfer.car-walk")) {
-            if (opt != "parkingAreas" && opt != "ptStops" && opt != "allJunctions" && opt != "taxi") {
+            if (opt != "parkingAreas" && opt != "ptStops" && opt != "allJunctions") {
                 WRITE_ERROR("Invalid transfer option '" + opt + "'. Must be one of 'parkingAreas', 'ptStops' and 'allJunctions'");
                 ok = false;
             }
