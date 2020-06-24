@@ -160,42 +160,7 @@ class PoiDomain(Domain):
             raise TraCIException("poi.highlight(): duration>0 requires alphaMax>0")
         if alphaMax > 0 and duration <= 0:
             raise TraCIException("poi.highlight(): alphaMax>0 requires duration>0")
-
-        if type > 0:
-            compoundLength = 5
-        elif alphaMax > 0:
-            compoundLength = 4
-        elif size > 0:
-            compoundLength = 2
-        elif color:
-            compoundLength = 1
+        if alphaMax > 0:
+            self._setCmd(tc.VAR_HIGHLIGHT, poiID, "uucdBdB", tc.TYPE_COMPOUND, 5, color, size, alphaMax, duration, type)
         else:
-            compoundLength = 0
-
-        msg_length = 1 + 1
-        if compoundLength >= 1:
-            msg_length += 1 + 4
-        if compoundLength >= 2:
-            msg_length += 1 + 8
-        if compoundLength >= 3:
-            msg_length += 1 + 8 + 1 + 1
-        if compoundLength >= 5:
-            msg_length += 1 + 1
-        if not color:
-            # Send red as highlight standard
-            color = (255, 0, 0, 255)
-
-        self._connection._beginMessage(tc.CMD_SET_POI_VARIABLE, tc.VAR_HIGHLIGHT, poiID, msg_length)
-        self._connection._string += struct.pack("!BB", tc.TYPE_COMPOUND, compoundLength)
-        if compoundLength >= 1:
-            self._connection._string += struct.pack("!BBBBB", tc.TYPE_COLOR, int(color[0]), int(color[1]),
-                                                    int(color[2]), int(color[3]) if len(color) > 3 else 255)
-        if compoundLength >= 2:
-            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, size)
-        if compoundLength >= 3:
-            self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, alphaMax)
-            self._connection._string += struct.pack("!Bd", tc.TYPE_DOUBLE, duration)
-        if compoundLength >= 5:
-            self._connection._string += struct.pack("!BB", tc.TYPE_UBYTE, type)
-        self._connection._sendExact()
-
+            self._setCmd(tc.VAR_HIGHLIGHT, poiID, "uucd", tc.TYPE_COMPOUND, 2, color, size)

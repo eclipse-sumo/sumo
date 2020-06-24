@@ -58,14 +58,6 @@ class Connection:
         for domain in _defaultDomains:
             domain._register(self, self._subscriptionMapping)
 
-    def _packString(self, s, pre=tc.TYPE_STRING):
-        self._string += struct.pack("!Bi", pre, len(s)) + s.encode("latin1")
-
-    def _packStringList(self, l):
-        self._string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(l))
-        for s in l:
-            self._string += struct.pack("!i", len(s)) + s.encode("latin1")
-
     def _recvExact(self):
         try:
             result = bytes()
@@ -102,8 +94,7 @@ class Connection:
                 self._queue = []
                 raise TraCIException(err, prefix[1], _RESULTS[prefix[2]])
             elif prefix[1] != command:
-                raise FatalTraCIError("Received answer %s for command %s." % (prefix[1],
-                                                                              command))
+                raise FatalTraCIError("Received answer %s for command %s." % (prefix[1], command))
             elif prefix[1] == tc.CMD_STOP:
                 length = result.read("!B")[0] - 1
                 result.read("!%sx" % length)
@@ -111,22 +102,15 @@ class Connection:
         self._queue = []
         return result
 
-    def _beginMessage(self, cmdID, varID, objID, length=0):
-        self._queue.append(cmdID)
-        length += 1 + 1 + 1 + 4 + len(objID)
-        if length <= 255:
-            self._string += struct.pack("!BB", length, cmdID)
-        else:
-            self._string += struct.pack("!BiB", 0, length + 4, cmdID)
-        self._packString(objID, varID)
-
-    def _sendCmd(self, cmdID, varID, objID, format="", *values):
+    def _pack(self, format, *values):
         packed = bytes()
         for f, v in zip(format, values):
             if f == "i":
                 packed += struct.pack("!Bi", tc.TYPE_INTEGER, int(v))
             elif f == "d":
-                packed += struct.pack("!Bd", tc.TYPE_DOUBLE, v)
+                packed += struct.pack("!Bd", tc.TYPE_DOUBLE, float(v))
+            elif f == "D":  # raw double for some base commands like simstep
+                packed += struct.pack("!d", float(v))
             elif f == "b":
                 packed += struct.pack("!Bb", tc.TYPE_BYTE, int(v))
             elif f == "B":
@@ -167,15 +151,29 @@ class Connection:
             elif f == "r":
                 packed += struct.pack("!Bi", tc.POSITION_ROADMAP, len(v[0])) + v[0].encode("latin1")
                 packed += struct.pack("!dB", v[1], v[2])
-        self._beginMessage(cmdID, varID, objID, len(packed))
+        return packed
+
+    def _sendCmd(self, cmdID, varID, objID, format="", *values):
+        self._queue.append(cmdID)
+        packed = self._pack(format, *values)
+        length = len(packed) + 1 + 1  # length and command
+        if varID is not None:
+            if isinstance(varID, tuple):  # begin and end of a subscription
+                length += 8 + 8 + 4 + len(objID)
+            else:
+                length += 1 + 4 + len(objID)
+        if length <= 255:
+            self._string += struct.pack("!BB", length, cmdID)
+        else:
+            self._string += struct.pack("!BiB", 0, length + 4, cmdID)
+        if varID is not None:
+            if isinstance(varID, tuple):
+                self._string += struct.pack("!dd", *varID)
+            else:
+                self._string += struct.pack("!B", varID)
+            self._string += struct.pack("!i", len(objID)) + objID.encode("latin1")
         self._string += packed
         return self._sendExact()
-
-    def _sendDoubleCmd(self, cmdID, varID, objID, value):
-        self._sendCmd(cmdID, varID, objID, "d", value)
-
-    def _sendStringCmd(self, cmdID, varID, objID, value):
-        self._sendCmd(cmdID, varID, objID, "s", value)
 
     def _readSubscription(self, result):
         # to enable this you also need to set _DEBUG to True in storage.py
@@ -219,24 +217,16 @@ class Connection:
         return objectID, response
 
     def _subscribe(self, cmdID, begin, end, objID, varIDs, parameters=None):
-        self._queue.append(cmdID)
-        length = 1 + 1 + 8 + 8 + 4 + len(objID) + 1 + len(varIDs)
-        if parameters:
-            for v in varIDs:
-                if v in parameters:
-                    length += len(parameters[v])
-        if length <= 255:
-            self._string += struct.pack("!B", length)
-        else:
-            self._string += struct.pack("!Bi", 0, length + 4)
-        self._string += struct.pack("!Bddi",
-                                    cmdID, begin, end, len(objID)) + objID.encode("latin1")
-        self._string += struct.pack("!B", len(varIDs))
+        format = "u"
+        args = [len(varIDs)]
         for v in varIDs:
-            self._string += struct.pack("!B", v)
-            if parameters and v in parameters:
-                self._string += parameters[v]
-        result = self._sendExact()
+            format += "u"
+            args.append(v)
+            if parameters is not None and v in parameters:
+                f, a = parameters[v]
+                format += f
+                args.append(a)
+        result = self._sendCmd(cmdID, (begin, end), objID, format, *args)
         if varIDs:
             objectID, response = self._readSubscription(result)
             if response - cmdID != 16 or objectID != objID:
@@ -247,18 +237,7 @@ class Connection:
         return self._subscriptionMapping[cmdID]
 
     def _subscribeContext(self, cmdID, begin, end, objID, domain, dist, varIDs):
-        self._queue.append(cmdID)
-        length = 1 + 1 + 8 + 8 + 4 + len(objID) + 1 + 8 + 1 + len(varIDs)
-        if length <= 255:
-            self._string += struct.pack("!B", length)
-        else:
-            self._string += struct.pack("!Bi", 0, length + 4)
-        self._string += struct.pack("!Bddi",
-                                    cmdID, begin, end, len(objID)) + objID.encode("latin1")
-        self._string += struct.pack("!BdB", domain, dist, len(varIDs))
-        for v in varIDs:
-            self._string += struct.pack("!B", v)
-        result = self._sendExact()
+        result = self._sendCmd(cmdID, (begin, end), objID, "uDu" + (len(varIDs) * "u"), domain, dist, len(varIDs), *varIDs)
         if varIDs:
             objectID, response = self._readSubscription(result)
             if response - cmdID != 16 or objectID != objID:
@@ -293,7 +272,9 @@ class Connection:
             else:
                 length += 4  # extended msg length
                 self._string += struct.pack("!BiBB", 0, length, command, filterType)
-            self._packStringList(params)
+            self._string += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(params))
+            for s in params:
+                self._string += struct.pack("!i", len(s)) + s.encode("latin1")
         elif filterType == tc.FILTER_TYPE_LANES:
             # filter with list(byte) parameter
             # check uniqueness of given lanes in list
@@ -315,10 +296,7 @@ class Connection:
         """
         Load a simulation from the given arguments.
         """
-        self._queue.append(tc.CMD_LOAD)
-        self._string += struct.pack("!BiB", 0, 1 + 4 + 1 + 1 + 4 + sum(map(len, args)) + 4 * len(args), tc.CMD_LOAD)
-        self._packStringList(args)
-        self._sendExact()
+        self._sendCmd(tc.CMD_LOAD, None, None, "l", args)
 
     def simulationStep(self, step=0.):
         """
@@ -328,9 +306,7 @@ class Connection:
         """
         if type(step) is int and step >= 1000:
             warnings.warn("API change now handles step as floating point seconds", stacklevel=2)
-        self._queue.append(tc.CMD_SIMSTEP)
-        self._string += struct.pack("!BBd", 1 + 1 + 8, tc.CMD_SIMSTEP, step)
-        result = self._sendExact()
+        result = self._sendCmd(tc.CMD_SIMSTEP, None, None, "D", step)
         for subscriptionResults in self._subscriptionMapping.values():
             subscriptionResults.reset()
         numSubs = result.readInt()

@@ -724,7 +724,7 @@ class VehicleDomain(Domain):
         The dist parameter defines the maximum lookahead, 0 calculates a lookahead from the brake gap.
         """
         self._connection._subscribe(tc.CMD_SUBSCRIBE_VEHICLE_VARIABLE, begin, end, vehID,
-                                    (tc.VAR_LEADER,), {tc.VAR_LEADER: struct.pack("!Bd", tc.TYPE_DOUBLE, dist)})
+                                    (tc.VAR_LEADER,), {tc.VAR_LEADER: ("d", dist)})
 
     def getDrivingDistance(self, vehID, edgeID, pos, laneIndex=0):
         """getDrivingDistance(string, string, double, integer) -> double
