@@ -17,24 +17,28 @@
 ///
 // The pedestrian following model for remote controlled pedestrian movement
 /****************************************************************************/
-
 #pragma once
-
 
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSNet.h>
-#include <microsim/transportables/hybridsim.grpc.pb.h>
 #include <utils/geom/Boundary.h>
 #include "MSPModel.h"
+
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class MSPModel_Remote
+ * @brief The pedestrian following model connected to the external JuPedSim simulation
+ */
 class MSPModel_Remote : public MSPModel {
-
-
 public:
     MSPModel_Remote(const OptionsCont& oc, MSNet* net);
 
     ~MSPModel_Remote();
-    PedestrianState* add(MSPerson* person, MSPerson::MSPersonStage_Walking* stage, SUMOTime now) override;
-    void remove(PedestrianState* state) override;
+    MSTransportableStateAdapter* add(MSTransportable* person, MSStageMoving* stage, SUMOTime now) override;
+    void remove(MSTransportableStateAdapter* state) override;
     bool usingInternalLanes();
 
     SUMOTime execute(SUMOTime time);
@@ -59,17 +63,17 @@ private:
     * @class PState
     * @brief Container for pedestrian state and individual position update function
     */
-    class PState : public PedestrianState {
+    class PState : public MSTransportableStateAdapter {
     public:
-        PState(MSPerson* person, MSPerson::MSPersonStage_Walking* stage);
+        PState(MSPerson* person, MSStageMoving* stage);
         ~PState() override;
-        double getEdgePos(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
-        Position getPosition(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
-        double getAngle(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
-        SUMOTime getWaitingTime(const MSPerson::MSPersonStage_Walking& stage, SUMOTime now) const override;
-        double getSpeed(const MSPerson::MSPersonStage_Walking& stage) const override;
-        const MSEdge* getNextEdge(const MSPerson::MSPersonStage_Walking& stage) const override;
-        MSPerson::MSPersonStage_Walking* getStage();
+        double getEdgePos(const MSStageMoving& stage, SUMOTime now) const override;
+        Position getPosition(const MSStageMoving& stage, SUMOTime now) const override;
+        double getAngle(const MSStageMoving& stage, SUMOTime now) const override;
+        SUMOTime getWaitingTime(const MSStageMoving& stage, SUMOTime now) const override;
+        double getSpeed(const MSStageMoving& stage) const override;
+        const MSEdge* getNextEdge(const MSStageMoving& stage) const override;
+        MSStageMoving* getStage();
         MSPerson* getPerson();
 
         void setPosition(double x, double y);
@@ -77,20 +81,14 @@ private:
     private:
         Position myPosition;
         double myPhi;
-        MSPerson::MSPersonStage_Walking* myStage;
+        MSStageMoving* myStage;
         MSPerson* myPerson;
     };
 
 
     MSNet* myNet;
-    std::unique_ptr<hybridsim::HybridSimulation::Stub> myHybridsimStub;
     Boundary myBoundary;
     void initialize();
-    void handleWalkingArea(MSEdge* msEdge, hybridsim::Scenario& scenario);
-    void handlePedestrianLane(MSLane* pLane, hybridsim::Scenario& scenario);
-    void makeStartOrEndTransition(Position position, Position scnd, double width, hybridsim::Scenario& scenario,
-                                  hybridsim::Edge_Type type, int i);
-    void handleShape(const PositionVector& shape, hybridsim::Scenario& scenario);
 
     std::map<int, PState*> remoteIdPStateMapping;
     std::map<const MSEdge*, std::tuple<int, int>> edgesTransitionsMapping;
@@ -100,5 +98,3 @@ private:
 
     MSLane* getFirstPedestrianLane(const MSEdge* const& edge);
 };
-
-

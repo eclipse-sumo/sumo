@@ -1,3 +1,9 @@
+if (JPS_FOUND)
+    set(microsim_transportables_JPS_SRCS
+        MSPModel_Remote.cpp
+        MSPModel_Remote.h
+        )
+endif ()
 set(microsim_transportables_STAT_SRCS
         MSPerson.cpp
         MSPerson.h
@@ -17,7 +23,11 @@ set(microsim_transportables_STAT_SRCS
         MSTransportable.h
         MSTransportableControl.cpp
         MSTransportableControl.h
+        ${microsim_transportables_JPS_SRCS}
         )
 
 add_library(microsim_transportables STATIC ${microsim_transportables_STAT_SRCS} ${remote_model})
 set_property(TARGET microsim_transportables PROPERTY PROJECT_LABEL "z_microsim_transportables")
+if (JPS_FOUND)
+    target_link_libraries(microsim_transportables jps)
+endif ()

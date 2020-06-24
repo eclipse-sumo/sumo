@@ -80,6 +80,9 @@
 /* defined if GL2PS is available */
 #cmakedefine HAVE_GL2PS
 
+/* defined if JuPedSim is available */
+#cmakedefine HAVE_JPS
+
 /* defined if osg is available */
 #cmakedefine HAVE_OSG
 
