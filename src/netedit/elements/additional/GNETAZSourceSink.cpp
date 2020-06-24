@@ -86,11 +86,6 @@ GNETAZSourceSink::updateGeometry() {
     // This TAZElement doesn't own a geometry
 }
 
-void
-GNETAZSourceSink::updateDottedContour() {
-    // This TAZElement doesn't own a dotted contour
-}
-
 
 Position
 GNETAZSourceSink::getPositionInView() const {

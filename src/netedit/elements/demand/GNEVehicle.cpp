@@ -571,12 +571,6 @@ GNEVehicle::updateGeometry() {
 
 
 void
-GNEVehicle::updateDottedContour() {
-    //
-}
-
-
-void
 GNEVehicle::computePath() {
     // calculate path (only for flows and trips)
     if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == SUMO_TAG_TRIP)) {
@@ -766,7 +760,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length);
                 }
                 // check if dotted contour has to be drawn
-                if (myNet->getViewNet()->getDottedAC() == this) {
+                if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
                     GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
                 }
             }
@@ -779,7 +773,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
 
 void 
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getDottedAC() == this) || isAttributeCarrierSelected())) {
+    if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getInspectedAttributeCarrier() == this) || isAttributeCarrierSelected())) {
         // declare flag to draw spread vehicles
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         // calculate width
@@ -823,7 +817,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 void 
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
     if (!s.drawForRectangleSelection && fromLane->getLane2laneConnections().exist(toLane) && 
-        ((myNet->getViewNet()->getDottedAC() == this) || isAttributeCarrierSelected())) {
+        ((myNet->getViewNet()->getInspectedAttributeCarrier() == this) || isAttributeCarrierSelected())) {
         // obtain lane2lane geometry
         const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width
@@ -1278,17 +1272,17 @@ GNEVehicle::getHierarchyName() const {
     // special case for Trips and flow
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if we're inspecting a Edge
-        if (myNet->getViewNet()->getDottedAC() &&
-                myNet->getViewNet()->getDottedAC()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() &&
+                myNet->getViewNet()->getInspectedAttributeCarrier()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // check if edge correspond to a "from", "to" or "via" edge
-            if (getParentEdges().front() == myNet->getViewNet()->getDottedAC()) {
+            if (getParentEdges().front() == myNet->getViewNet()->getInspectedAttributeCarrier()) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
-            } else if (getParentEdges().front() == myNet->getViewNet()->getDottedAC()) {
+            } else if (getParentEdges().front() == myNet->getViewNet()->getInspectedAttributeCarrier()) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
             } else {
                 // iterate over via
                 for (const auto& i : via) {
-                    if (i == myNet->getViewNet()->getDottedAC()->getID()) {
+                    if (i == myNet->getViewNet()->getInspectedAttributeCarrier()->getID()) {
                         return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
                     }
                 }

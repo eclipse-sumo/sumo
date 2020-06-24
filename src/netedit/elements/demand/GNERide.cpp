@@ -260,11 +260,6 @@ GNERide::updateGeometry() {
     }
 }
 
-void
-GNERide::updateDottedContour() {
-    //
-}
-
 
 void
 GNERide::computePath() {

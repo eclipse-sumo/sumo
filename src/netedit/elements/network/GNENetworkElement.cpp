@@ -70,12 +70,6 @@ GNENetworkElement::getGUIGlObject() {
 }
 
 
-void
-GNENetworkElement::updateDottedGeometry(const PositionVector& shape) {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), shape);
-}
-
-
 GUIParameterTableWindow*
 GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     // Create table

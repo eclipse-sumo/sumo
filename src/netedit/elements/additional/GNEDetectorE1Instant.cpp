@@ -120,18 +120,6 @@ GNEDetectorE1Instant::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(getParentLanes().front());
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void GNEDetectorE1Instant::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
-                                          myAdditionalGeometry.getPosition(),
-                                          myAdditionalGeometry.getRotation(),
-                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E1InstantWidth,
-                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E1InstantHeight);
 }
 
 
@@ -230,8 +218,8 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), E1InstantExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), E1InstantExaggeration, myDottedGeometry);
         }
         glPopName();
     }

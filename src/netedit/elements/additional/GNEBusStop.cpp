@@ -84,17 +84,6 @@ GNEBusStop::updateGeometry() {
         }
         i->updatePartialGeometry(getParentLanes().front());
     }
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEBusStop::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
-                                          myAdditionalGeometry.getShape(),
-                                          myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.busStopWidth);
 }
 
 
@@ -213,8 +202,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), busStopExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), busStopExaggeration, myDottedGeometry);
         }
         // Pop name
         glPopName();

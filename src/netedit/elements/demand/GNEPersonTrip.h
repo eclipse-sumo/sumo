@@ -131,9 +131,6 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
-    /// @brief update dotted contour
-    void updateDottedContour();
-
     /// @brief compute path
     void computePath();
 

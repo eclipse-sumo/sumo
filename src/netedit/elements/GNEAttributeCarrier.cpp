@@ -115,12 +115,6 @@ GNEAttributeCarrier::drawUsingSelectColor() const {
 }
 
 
-const GNEGeometry::DottedGeometry&
-GNEAttributeCarrier::getDottedGeometry() const {
-    return myDottedGeometry;
-}
-
-
 template<> int
 GNEAttributeCarrier::parse(const std::string& string) {
     return StringUtils::toInt(string);

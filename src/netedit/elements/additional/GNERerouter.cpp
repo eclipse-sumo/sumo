@@ -65,17 +65,6 @@ GNERerouter::updateGeometry() {
 
     // update connection positions
     myChildConnections.update();
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNERerouter::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myPosition, 0,
-                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.rerouterSize,
-                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.rerouterSize);
 }
 
 
@@ -175,8 +164,8 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // Draw child connections
         drawChildConnections(s, getType());
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), rerouterExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), rerouterExaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);

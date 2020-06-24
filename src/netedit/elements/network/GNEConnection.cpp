@@ -131,8 +131,6 @@ GNEConnection::updateGeometry() {
         }
         // mark connection as non-deprecated
         myShapeDeprecated = false;
-        // mark dotted geometry deprecated
-        myDottedGeometry.markDottedGeometryDeprecated();
     }
 }
 
@@ -327,8 +325,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawLine(myInternalJunctionMarker);
             }
             // check if dotted contour has to be drawn (not useful at high zoom)
-            if (myNet->getViewNet()->getDottedAC() == this) {
-                GNEGeometry::drawShapeDottedContour(s, getType(), 1, myDottedGeometry);
+            if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+                //GNEGeometry::drawShapeDottedContour(s, getType(), 1, myDottedGeometry);
             }
         }
         // Pop draw matrix 1
@@ -650,27 +648,5 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         updateGeometry();
     }
 }
-
-
-void
-GNEConnection::updateDottedContour() {
-    // build contour using connection geometry
-    PositionVector contourFront = myConnectionGeometry.getShape();
-    PositionVector contourback = contourFront;
-    // move both 0.25 to side
-    contourFront.move2side(0.25);
-    contourback.move2side(-0.25);
-    // reverse contourback
-    contourback = contourback.reverse();
-    // add contour back to contourfront
-    for (const auto& position : contourback) {
-        contourFront.push_back(position);
-    }
-    // close contour front
-    contourFront.closePolygon();
-    // set as dotted contour
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), contourFront);
-}
-
 
 /****************************************************************************/

@@ -168,8 +168,6 @@ GNELane::updateGeometry() {
             }
         }
     }
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
@@ -451,7 +449,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfWidth2);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             GLHelper::drawShapeDottedContourAroundShape(s, getType(), myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
         }
         // Pop draw matrix 1
@@ -968,23 +966,17 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void
-GNELane::updateDottedContour() {
-    //
-}
-
-
 RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // declare a RGBColor variable
     RGBColor color;
     // get inspected AC
-    const GNEAttributeCarrier *inspectedAC = myNet->getViewNet()->getDottedAC();
+    const GNEAttributeCarrier *inspectedAC = myNet->getViewNet()->getInspectedAttributeCarrier();
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (inspectedAC && (inspectedAC->isAttributeCarrierSelected() == false) &&
         ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TRIP) || (inspectedAC->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
         // obtain attribute "via"
-        std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getDottedAC()->getAttribute(SUMO_ATTR_VIA));
+        std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getInspectedAttributeCarrier()->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges
         for (const auto& edge : viaEdges) {
             // check if parent edge is in the via edges
@@ -1277,7 +1269,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) co
         // Pop VSS name
         glPopName();
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == vss) {
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == vss) {
             GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
         }
         // Draw connections

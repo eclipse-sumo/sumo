@@ -150,12 +150,6 @@ GNEDataInterval::updateGeometry() {
 }
 
 
-void
-GNEDataInterval::updateDottedContour() {
-    // nothing to update
-}
-
-
 Position
 GNEDataInterval::getPositionInView() const {
     return Position();

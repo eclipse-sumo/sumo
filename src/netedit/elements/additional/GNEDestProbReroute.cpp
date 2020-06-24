@@ -69,12 +69,6 @@ GNEDestProbReroute::updateGeometry() {
 }
 
 
-void
-GNEDestProbReroute::updateDottedContour() {
-    // This additional doesn't own a dotted contour
-}
-
-
 Position
 GNEDestProbReroute::getPositionInView() const {
     return getParentAdditionals().at(0)->getPositionInView();

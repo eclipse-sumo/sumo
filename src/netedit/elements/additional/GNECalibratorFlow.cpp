@@ -90,11 +90,6 @@ GNECalibratorFlow::updateGeometry() {
 }
 
 
-void GNECalibratorFlow::updateDottedContour() {
-    // This additional doesn't own a dotted contour
-}
-
-
 Position
 GNECalibratorFlow::getPositionInView() const {
     return getParentAdditionals().at(0)->getPositionInView();

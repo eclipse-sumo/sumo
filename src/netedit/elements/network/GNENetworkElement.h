@@ -90,16 +90,10 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
-    /// @brief updated dotted geometry
-    void updateDottedGeometry(const PositionVector& shape);
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
-
-    /// @brief update dotted contour
-    virtual void updateDottedContour() = 0;
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;

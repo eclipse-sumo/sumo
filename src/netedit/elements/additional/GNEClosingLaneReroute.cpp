@@ -71,12 +71,6 @@ GNEClosingLaneReroute::updateGeometry() {
 }
 
 
-void
-GNEClosingLaneReroute::updateDottedContour() {
-    // This additional doesn't own a dotted contour
-}
-
-
 Position
 GNEClosingLaneReroute::getPositionInView() const {
     return getParentAdditionals().at(0)->getPositionInView();

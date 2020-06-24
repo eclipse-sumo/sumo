@@ -84,12 +84,6 @@ GNEVariableSpeedSignStep::updateGeometry() {
 }
 
 
-void
-GNEVariableSpeedSignStep::updateDottedContour() {
-    // This additional doesn't own a dotted contour
-}
-
-
 Position
 GNEVariableSpeedSignStep::getPositionInView() const {
     return getParentAdditionals().at(0)->getPositionInView();

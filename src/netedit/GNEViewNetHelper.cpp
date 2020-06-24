@@ -1895,23 +1895,23 @@ bool
 GNEViewNetHelper::DemandViewOptions::showNonInspectedDemandElements(const GNEDemandElement* demandElement) const {
     if (menuCheckHideNonInspectedDemandElements->shown()) {
         // check conditions
-        if ((menuCheckHideNonInspectedDemandElements->getCheck() == FALSE) || (myViewNet->getDottedAC() == nullptr)) {
+        if ((menuCheckHideNonInspectedDemandElements->getCheck() == FALSE) || (myViewNet->getInspectedAttributeCarrier() == nullptr)) {
             // if checkbox is disabled or there isn't insepected element, then return true
             return true;
-        } else if (myViewNet->getDottedAC()->getTagProperty().isDemandElement()) {
-            if (myViewNet->getDottedAC() == demandElement) {
+        } else if (myViewNet->getInspectedAttributeCarrier()->getTagProperty().isDemandElement()) {
+            if (myViewNet->getInspectedAttributeCarrier() == demandElement) {
                 // if inspected element correspond to demandElement, return true
                 return true;
             } else {
                 // if demandElement is a route, check if dottedAC is one of their children (Vehicle or Stop)
                 for (const auto& i : demandElement->getChildDemandElements()) {
-                    if (i == myViewNet->getDottedAC()) {
+                    if (i == myViewNet->getInspectedAttributeCarrier()) {
                         return true;
                     }
                 }
                 // if demandElement is a vehicle, check if dottedAC is one of his route Parent
                 for (const auto& i : demandElement->getParentDemandElements()) {
-                    if (i == myViewNet->getDottedAC()) {
+                    if (i == myViewNet->getInspectedAttributeCarrier()) {
                         return true;
                     }
                 }

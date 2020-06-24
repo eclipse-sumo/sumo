@@ -92,14 +92,6 @@ GNEAccess::updateGeometry() {
     myBlockIcon.offset = Position(-1, 0);
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(getParentLanes().front());
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEAccess::updateDottedContour() {
-    //
 }
 
 
@@ -186,7 +178,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 16);
             // check if dotted contour has to be drawn
-            if (myNet->getViewNet()->getDottedAC() == this) {
+            if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
                 /*
                                 GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
                 */

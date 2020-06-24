@@ -269,12 +269,6 @@ GNEPersonTrip::updateGeometry() {
 
 
 void
-GNEPersonTrip::updateDottedContour() {
-    //
-}
-
-
-void
 GNEPersonTrip::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {

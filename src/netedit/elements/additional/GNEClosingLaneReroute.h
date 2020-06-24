@@ -62,9 +62,6 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
-    /// @brief update dotted contour
-    void updateDottedContour();
-
     /// @brief Returns position of additional in view
     Position getPositionInView() const;
 

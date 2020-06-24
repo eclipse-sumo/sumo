@@ -315,9 +315,6 @@ private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
-    /// @brief update dotted contour
-    void updateDottedContour();
-
     /**@brief reposition the node at pos without updating GRID and informs the edges
     * @param[in] pos The new position
     * @note: those operations are not added to the undoList.

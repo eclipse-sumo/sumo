@@ -429,7 +429,7 @@ void
 GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane, 
     const double personPlanWidth, const RGBColor &personPlanColor) const {
     // get inspected person plan
-    const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getDottedAC();
+    const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getInspectedAttributeCarrier();
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;
@@ -528,7 +528,7 @@ void
 GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, 
     const double personPlanWidth, const RGBColor &personPlanColor) const {
     // get inspected person plan
-    const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getDottedAC();
+    const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getInspectedAttributeCarrier();
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;

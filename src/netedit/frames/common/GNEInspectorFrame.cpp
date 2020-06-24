@@ -115,7 +115,7 @@ GNEInspectorFrame::show() {
 
 void
 GNEInspectorFrame::hide() {
-    myViewNet->setDottedAC(nullptr);
+    myViewNet->setInspectedAttributeCarrier(nullptr);
     GNEFrame::hide();
 }
 
@@ -233,7 +233,7 @@ GNEInspectorFrame::inspectSingleElement(GNEAttributeCarrier* AC) {
     // Use the implementation of inspect for multiple AttributeCarriers to avoid repetition of code
     std::vector<GNEAttributeCarrier*> itemsToInspect;
     if (AC != nullptr) {
-        myViewNet->setDottedAC(AC);
+        myViewNet->setInspectedAttributeCarrier(AC);
         if (AC->isAttributeCarrierSelected()) {
             // obtain selected ACs depending of current supermode
             std::vector<GNEAttributeCarrier*> selectedACs = myViewNet->getNet()->getSelectedAttributeCarriers(false);
@@ -349,7 +349,7 @@ void
 GNEInspectorFrame::clearInspectedAC() {
     // Only remove if there is inspected ACs
     if (myAttributesEditor->getEditedACs().size() > 0) {
-        myViewNet->setDottedAC(nullptr);
+        myViewNet->setInspectedAttributeCarrier(nullptr);
         // Inspect empty selection (to hide all Editors)
         inspectMultisection({});
     }

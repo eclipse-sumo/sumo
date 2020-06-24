@@ -103,17 +103,6 @@ GNEEdgeData::updateGeometry() {
 }
 
 
-void
-GNEEdgeData::updateDottedContour() {
-/*
-    // just update geometry of parent edge
-    if (getParentEdges().front()->getDottedGeometry().isGeometryDeprecated()) {
-        getParentEdges().front()->updateDottedContour();
-    }
-*/
-}
-
-
 Position
 GNEEdgeData::getPositionInView() const {
     return getParentEdges().front()->getPositionInView();

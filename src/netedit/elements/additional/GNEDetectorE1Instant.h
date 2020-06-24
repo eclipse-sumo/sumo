@@ -82,9 +82,6 @@ public:
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
-
-    /// @brief update dotted contour
-    void updateDottedContour();
     /// @}
 
     /// @name inherited from GUIGlObject

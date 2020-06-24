@@ -318,12 +318,6 @@ GNEAdditional::endGeometryMoving() {
 }
 
 
-void
-GNEAdditional::updateDottedContour() {
-    //
-}
-
-
 bool
 GNEAdditional::isAdditionalBlocked() const {
     return myBlockMovement;
@@ -440,10 +434,12 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
                 GLHelper::setColor(routeColor);
                 // draw box lines
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
+                /*
                 // check if shape dotted contour has to be drawn
-                if (myNet->getViewNet()->getDottedAC() == this) {
+                if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
                 }
+                */
             }
         }
         // Pop last matrix

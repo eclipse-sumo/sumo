@@ -72,19 +72,6 @@ GNERouteProbe::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(firstLane);
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNERouteProbe::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
-                                          myAdditionalGeometry.getPosition(),
-                                          myAdditionalGeometry.getRotation(),
-                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.routeProbeSize,
-                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.routeProbeSize);
 }
 
 
@@ -207,8 +194,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), routeProbeExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), routeProbeExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();

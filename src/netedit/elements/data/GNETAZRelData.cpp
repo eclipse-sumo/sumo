@@ -101,17 +101,6 @@ GNETAZRelData::updateGeometry() {
 }
 
 
-void
-GNETAZRelData::updateDottedContour() {
-    // just update geometry of parent TAZs
-    for (const auto& TAZ : getParentTAZElements()) {
-        if (TAZ->getDottedGeometry().isGeometryDeprecated()) {
-            TAZ->updateDottedContour();
-        }
-    }
-}
-
-
 Position
 GNETAZRelData::getPositionInView() const {
     return getParentTAZElements().front()->getPositionInView();

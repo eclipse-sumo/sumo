@@ -138,12 +138,6 @@ GNEVehicleType::updateGeometry() {
 
 
 void
-GNEVehicleType::updateDottedContour() {
-    //
-}
-
-
-void
 GNEVehicleType::computePath() {
     // nothing to compute
 }

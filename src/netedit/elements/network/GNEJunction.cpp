@@ -100,8 +100,6 @@ GNEJunction::getJunctionShape() const {
 void
 GNEJunction::updateGeometry() {
     updateGeometryAfterNetbuild(true);
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
@@ -110,8 +108,6 @@ GNEJunction::updateGeometryAfterNetbuild(bool rebuildNBNodeCrossings) {
     myMaxSize = MAX2(getCenteringBoundary().getWidth(), getCenteringBoundary().getHeight());
     rebuildGNECrossings(rebuildNBNodeCrossings);
     checkMissingConnections();
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 
@@ -372,8 +368,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 }
             }
             // check if dotted contour has to be drawn
-            if (myNet->getViewNet()->getDottedAC() == this) {
-                GNEGeometry::drawShapeDottedContour(s, getType(), junctionExaggeration, myDottedGeometry);
+            if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+                //GNEGeometry::drawShapeDottedContour(s, getType(), junctionExaggeration, myDottedGeometry);
             }
             // draw TLS
             drawTLSIcon(s);
@@ -1431,21 +1427,6 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-}
-
-
-void
-GNEJunction::updateDottedContour() {
-    // obtain junction shape
-    PositionVector shape = myNBNode->getShape();
-    // check if we have to calculate buuble or shape
-    if (shape.area() < 4) {
-        updateDottedGeometry(GNEGeometry::getVertexCircleAroundPosition(myNBNode->getPosition(), 4, 32));
-    } else {
-        // close polygon
-        shape.closePolygon();
-        updateDottedGeometry(shape);
     }
 }
 

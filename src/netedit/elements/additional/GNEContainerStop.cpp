@@ -66,16 +66,6 @@ GNEContainerStop::updateGeometry() {
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getParentLanes().front());
 
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEContainerStop::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
-                                          myAdditionalGeometry.getShape(),
-                                          myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.containerStopWidth);
 }
 
 
@@ -186,8 +176,8 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), containerStopExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), containerStopExaggeration, myDottedGeometry);
         }
         // Pop name
         glPopName();

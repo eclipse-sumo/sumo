@@ -283,16 +283,6 @@ GNEDetectorE2::updateGeometry() {
         myBlockIcon.setRotation(getParentLanes().front());
 
     }
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEDetectorE2::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
-                                          myAdditionalGeometry.getShape(),
-                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E2Width);
 }
 
 
@@ -410,9 +400,9 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             if (myAdditionalGeometry.getShape().size() > 0) {
-                GNEGeometry::drawShapeDottedContour(s, getType(), E2Exaggeration, myDottedGeometry);
+                //GNEGeometry::drawShapeDottedContour(s, getType(), E2Exaggeration, myDottedGeometry);
             }
         }
         // Pop name

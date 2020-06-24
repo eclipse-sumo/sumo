@@ -126,19 +126,6 @@ GNEDetectorEntryExit::updateGeometry() {
 
     // update E3 parent children
     getParentAdditionals().at(0)->updateChildConnections();
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEDetectorEntryExit::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
-                                          myAdditionalGeometry.getPosition(),
-                                          myAdditionalGeometry.getRotation(),
-                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E3EntryExitWidth,
-                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E3EntryExitHeight);
 }
 
 
@@ -255,8 +242,8 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
         }
         // pop gl identificator
         glPopName();

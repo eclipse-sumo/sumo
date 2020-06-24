@@ -68,17 +68,6 @@ GNEChargingStation::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for sign
     myBlockIcon.setRotation(getParentLanes().front());
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEChargingStation::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
-                                          myAdditionalGeometry.getShape(),
-                                          myNet->getViewNet()->getVisualisationSettings().stoppingPlaceSettings.chargingStationWidth);
 }
 
 
@@ -184,8 +173,8 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), chargingStationExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            // GNEGeometry::drawShapeDottedContour(s, getType(), chargingStationExaggeration, myDottedGeometry);
         }
         // Pop name matrix
         glPopName();

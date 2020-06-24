@@ -119,9 +119,6 @@ public:
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
-    /// @brief update dotted contour
-    virtual void updateDottedContour() = 0;
-
     /// @brief Returns element position in view
     virtual Position getPositionInView() const = 0;
 

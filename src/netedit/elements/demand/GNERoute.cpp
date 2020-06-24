@@ -249,12 +249,6 @@ GNERoute::updateGeometry() {
 
 
 void
-GNERoute::updateDottedContour() {
-    //
-}
-
-
-void
 GNERoute::computePath() {
     // calculate consecutive path using parent edges
     calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
@@ -342,7 +336,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
                 // draw box lines
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, routeWidth);
                 // check if shape dotted contour has to be drawn
-                if (myNet->getViewNet()->getDottedAC() == this) {
+                if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
                     GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), routeWidth);
                 }
             }

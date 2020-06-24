@@ -96,12 +96,6 @@ GNEDataSet::updateGeometry() {
 }
 
 
-void
-GNEDataSet::updateDottedContour() {
-    // nothing to update
-}
-
-
 Position
 GNEDataSet::getPositionInView() const {
     return Position(0, 0);

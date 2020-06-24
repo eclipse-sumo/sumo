@@ -64,19 +64,6 @@ GNEVaporizer::updateGeometry() {
 
     // Set block icon rotation, and using their rotation for logo
     myBlockIcon.setRotation(firstLane);
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEVaporizer::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(),
-                                          myAdditionalGeometry.getPosition(),
-                                          myAdditionalGeometry.getRotation(),
-                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.vaporizerSize,
-                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.vaporizerSize);
 }
 
 
@@ -200,8 +187,8 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), vaporizerExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), vaporizerExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();

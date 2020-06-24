@@ -233,9 +233,6 @@ public:
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
 
-    /// @brief update dotted contour
-    virtual void updateDottedContour() = 0;
-
     /// @brief compute path
     virtual void computePath() = 0;
 

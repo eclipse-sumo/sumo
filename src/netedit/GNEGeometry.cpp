@@ -271,113 +271,22 @@ GNEGeometry::Geometry::calculateShapeRotationsAndLengths() {
 // GNEGeometry::DottedGeometry - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::DottedGeometry::DottedGeometry() :
-    myRotation(0),
-    myDottedGeometryDeprecated(true) {
+GNEGeometry::DottedGeometry::DottedGeometry() {
 }
 
 
 void
-GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& contourShape) {
-    // disable rotation
-    myRotation = 0;
-    // obtain shape's centroid
-    myCentroid = contourShape.getCentroid();
-    // set new shape
-    myShape = contourShape;
-    // subs Centroid (to set myShape in 0,0. It's needed due scaling)
-    myShape.sub(myCentroid);
-    // set new resampled shape
-    myShape = myShape.resample(s.dottedContourSettings.segmentLength);
-    // resize shapeColors
-    myShapeColors.resize(myShape.size());
-    // iterate over shapeColors
-    for (int i = 0; i < (int)myShapeColors.size(); i++) {
-        // set first or second contour color
-        if (i % 2 == 0) {
-            myShapeColors.at(i) = s.dottedContourSettings.firstColor;
-        } else {
-            myShapeColors.at(i) = s.dottedContourSettings.secondColor;
-        }
-    }
-    // calculate shape rotation and lengths
+GNEGeometry::DottedGeometry::updateDottedGeometry(const GNELane *lane) {
+    // reset containers
+    myShapeRotations.clear();
+    myShapeLengths.clear();
+    myShapeColors.clear();
+    // set shape
+    myShape = lane->getLaneShape();
+    // resample
+    myShape.resample(3);
     calculateShapeRotationsAndLengths();
-    // set geometry updated
-    myDottedGeometryDeprecated = false;
-}
-
-
-void
-GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& lineShape, const double width) {
-    if (width > 0) {
-        // build contour using line shape
-        PositionVector contourFront = lineShape;
-        PositionVector contourback = contourFront;
-        // move both to side
-        contourFront.move2side(width);
-        contourback.move2side(-width);
-        // reverse contourback
-        contourback = contourback.reverse();
-        // append contourback into contourfront
-        for (auto position : contourback) {
-            contourFront.push_back(position);
-        }
-        // close contourFront
-        contourFront.closePolygon();
-        // updated dotted geometry, but now with a contour shape
-        updateDottedGeometry(s, contourFront);
-    } else {
-        updateDottedGeometry(s, lineShape);
-    }
-}
-
-
-void GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings& s, const Position& position, const double rotation, const double width, const double height) {
-    // declare rectangle and adjust using width, height
-    PositionVector rectangle({
-        { width, -height},
-        { width,  height},
-        {-width,  height},
-        {-width, -height}
-    });
-    // close rectangle
-    rectangle.closePolygon();
-    // move rectangle to position
-    rectangle.add(position);
-    // update dotted geometry using rectangle
-    updateDottedGeometry(s, rectangle);
-    // set rotation
-    myRotation = rotation;
-}
-
-
-void
-GNEGeometry::DottedGeometry::markDottedGeometryDeprecated() {
-    myDottedGeometryDeprecated = true;
-}
-
-
-bool
-GNEGeometry::DottedGeometry::isGeometryDeprecated() const {
-    return myDottedGeometryDeprecated;
-}
-
-
-const Position&
-GNEGeometry::DottedGeometry::getCentroid() const {
-    return myCentroid;
-}
-
-
-double
-GNEGeometry::DottedGeometry::getRotation() const {
-    return myRotation;
-}
-
-
-const PositionVector&
-GNEGeometry::DottedGeometry::getShape() const {
-    return myShape;
+    myShapeColors.resize(myShape.size());
 }
 
 
@@ -1092,34 +1001,6 @@ GNEGeometry::drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometr
     } else {
         // draw a boxline as usual
         GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), width);
-    }
-}
-
-
-void
-GNEGeometry::drawShapeDottedContour(const GUIVisualizationSettings& s, const double typeLayer, const double exaggeration, const DottedGeometry& dottedGeometry) {
-    // first check that given shape isn't empty
-    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && (dottedGeometry.getShape().size() > 0)) {
-        // push matrix
-        glPushMatrix();
-        // Move to Centroid
-        glTranslated(dottedGeometry.getCentroid().x(), dottedGeometry.getCentroid().y(), typeLayer + 2);
-        // scale matrix depending of the exaggeration
-        if (exaggeration != 1) {
-            glScaled(exaggeration, exaggeration, 1);
-        }
-        // rotate depending of rotation
-        if (dottedGeometry.getRotation() != 0) {
-            glRotated(dottedGeometry.getRotation(), 0, 0, 1);
-        }
-        // draw box lines
-        GLHelper::drawBoxLines(dottedGeometry.getShape(),
-                               dottedGeometry.getShapeRotations(),
-                               dottedGeometry.getShapeLengths(),
-                               dottedGeometry.getShapeColors(),
-                               s.dottedContourSettings.segmentWidth);
-        // pop matrix
-        glPopMatrix();
     }
 }
 

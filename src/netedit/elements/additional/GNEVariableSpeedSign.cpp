@@ -60,17 +60,6 @@ GNEVariableSpeedSign::updateGeometry() {
 
     // update child connections
     myChildConnections.update();
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEVariableSpeedSign::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myPosition, 0,
-                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.VSSSize,
-                                          myNet->getViewNet()->getVisualisationSettings().additionalSettings.VSSSize);
 }
 
 
@@ -175,8 +164,8 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), VSSExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), VSSExaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);

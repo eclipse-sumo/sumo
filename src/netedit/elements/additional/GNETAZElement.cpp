@@ -105,12 +105,6 @@ GNETAZElement::generateChildID(SumoXMLTag childTag) {
 }
 
 
-void
-GNETAZElement::updateDottedContour() {
-    //
-}
-
-
 bool
 GNETAZElement::isTAZElementBlocked() const {
     return myBlockMovement;

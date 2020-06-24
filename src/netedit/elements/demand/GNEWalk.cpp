@@ -292,12 +292,6 @@ GNEWalk::updateGeometry() {
 
 
 void
-GNEWalk::updateDottedContour() {
-    //
-}
-
-
-void
 GNEWalk::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {

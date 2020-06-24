@@ -206,9 +206,6 @@ public:
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
     /// @}
 
-    /// @brief update dotted contour
-    virtual void updateDottedContour() = 0;
-
     /// @brief Check if additional item is currently blocked (i.e. cannot be moved with mouse)
     bool isAdditionalBlocked() const;
 

@@ -161,9 +161,6 @@ public:
     virtual Boundary getCenteringBoundary() const = 0;
     /// @}
 
-    /// @brief update dotted contour
-    virtual void updateDottedContour() = 0;
-
     /// @brief Check if TAZElement item is currently blocked (i.e. cannot be moved with mouse)
     bool isTAZElementBlocked() const;
 

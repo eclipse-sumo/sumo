@@ -215,7 +215,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet(net),
     myCurrentFrame(nullptr),
     myUndoList(undoList),
-    myDottedAC(nullptr) {
+    myInspectedAttributeCarrier(nullptr) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -604,7 +604,7 @@ GNEViewNet::GNEViewNet() :
     myNet(nullptr),
     myCurrentFrame(nullptr),
     myUndoList(nullptr),
-    myDottedAC(nullptr) {
+    myInspectedAttributeCarrier(nullptr) {
 }
 
 
@@ -733,9 +733,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // check if menuCheckLockPerson must be enabled or disabled
         if (myDemandViewOptions.menuCheckLockPerson->getCheck() == FALSE) {
             // check if we're in inspector mode and we're inspecting exactly one element
-            if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && getDottedAC()) {
+            if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedAttributeCarrier) {
                 // obtain tag property
-                const GNETagProperties& tagProperty = getDottedAC()->getTagProperty();
+                const GNETagProperties& tagProperty = myInspectedAttributeCarrier->getTagProperty();
                 // enable menu check lock person if is either a person, a person plan or a person stop
                 if (tagProperty.isPerson() || tagProperty.isPersonPlan() || tagProperty.isPersonStop()) {
                     myDemandViewOptions.menuCheckLockPerson->enable();
@@ -1126,18 +1126,14 @@ GNEViewNet::getIntervalBar() {
 
 
 const GNEAttributeCarrier*
-GNEViewNet::getDottedAC() const {
-    return myDottedAC;
+GNEViewNet::getInspectedAttributeCarrier() const {
+    return myInspectedAttributeCarrier;
 }
 
 
 void
-GNEViewNet::setDottedAC(GNEAttributeCarrier* AC) {
-    myDottedAC = AC;
-    // check if dotted geometry has to be updated
-    if (myDottedAC && myDottedAC->getDottedGeometry().isGeometryDeprecated()) {
-        myDottedAC->updateDottedContour();
-    }
+GNEViewNet::setInspectedAttributeCarrier(const GNEAttributeCarrier* AC) {
+    myInspectedAttributeCarrier = AC;
 }
 
 
@@ -2286,7 +2282,7 @@ long
 GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
-        if (myDottedAC != nullptr && myDottedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        if (myInspectedAttributeCarrier != nullptr && myInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
             // make sure we do not inspect the connection will it is being deleted
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
@@ -2314,7 +2310,7 @@ long
 GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
-        if (myDottedAC != nullptr && myDottedAC->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        if (myInspectedAttributeCarrier != nullptr && myInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
             // make sure we do not inspect the connection will it is being deleted
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
@@ -2598,7 +2594,7 @@ GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
     // lock or unlock current inspected person depending of menuCheckLockPerson value
     if (myDemandViewOptions.menuCheckLockPerson->getCheck()) {
         // obtan locked person or person plan
-        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(getDottedAC());
+        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarrier);
         if (personOrPersonPlan) {
             // lock person depending if casted demand element is either a person or a person plan
             if (personOrPersonPlan->getTagProperty().isPerson()) {

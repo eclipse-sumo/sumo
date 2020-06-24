@@ -208,16 +208,6 @@ GNEPoly::updateGeometry() {
 
 
 void
-GNEPoly::updateDottedContour() {
-    if (myShape.isClosed()) {
-        myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myShape);
-    } else {
-        myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myShape, 0);
-    }
-}
-
-
-void
 GNEPoly::writeShape(OutputDevice& device) {
     writeXML(device, myGEO);
 }
@@ -427,8 +417,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), polyExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), polyExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();
@@ -919,8 +909,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
         myNet->addGLObjectIntoGrid(this);
     }
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 /****************************************************************************/

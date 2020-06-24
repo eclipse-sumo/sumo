@@ -89,14 +89,8 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     virtual GUIGlObject* getGUIGlObject() = 0;
 
-    /// @brief get dotted geometry
-    const GNEGeometry::DottedGeometry& getDottedGeometry() const;
-
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
-
-    /// @brief update dotted contour
-    virtual void updateDottedContour() = 0;
 
     /// @}
 
@@ -358,9 +352,6 @@ protected:
 
     /// @brief dummy TagProperty used for reference some elements (for Example, dummyEdge)
     static GNETagProperties dummyTagProperty;
-
-    /// @brief dotted geometry
-    GNEGeometry::DottedGeometry myDottedGeometry;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

@@ -295,9 +295,6 @@ public:
     // @brief update vehicle geometries
     void updateVehicleStackLabels();
 
-    /// @brief update dotted contour (public due Generic datas)
-    void updateDottedContour();
-
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;

@@ -152,34 +152,13 @@ struct GNEGeometry {
         Geometry& operator=(const Geometry& other) = delete;
     };
 
-    /// @brief struct for pack all variables related with DottedGeometry of stop
+    /// @brief struct for pack all variables related with DottedGeometry
     struct DottedGeometry {
         /// @brief constructor
         DottedGeometry();
 
-        /// @brief update DottedGeometry (using an existent shape)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& contourShape);
-
-        /// @brief update DottedGeometry (using an line shape and a width)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, const PositionVector& lineShape, const double width);
-
-        /// @brief update DottedGeometry (using a position, rotation, width and height)
-        void updateDottedGeometry(const GUIVisualizationSettings& s, const Position& position, const double rotation, const double width, const double height);
-
-        /// @brief mark dotted geometry deprecated
-        void markDottedGeometryDeprecated();
-
-        /// @brief check if geometry is deprecated
-        bool isGeometryDeprecated() const;
-
-        /// @brief get Centroid
-        const Position& getCentroid() const;
-
-        /// @brief get rotation
-        double getRotation() const;
-
-        /// @brief The shape of the additional element
-        const PositionVector& getShape() const;
+        /// @brief update DottedGeometry (using lane shape
+        void updateDottedGeometry(const GNELane *lane);
 
         /// @brief The rotations of the single shape parts
         const std::vector<double>& getShapeRotations() const;
@@ -194,12 +173,6 @@ struct GNEGeometry {
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
-        /// @brief shape's centroid
-        Position myCentroid;
-
-        /// @brief shape's rotation (only used in certain dotted contours)
-        double myRotation;
-
         /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
         PositionVector myShape;
 
@@ -211,9 +184,6 @@ struct GNEGeometry {
 
         /// @brief The colors  of the dotted shape
         std::vector<RGBColor> myShapeColors;
-
-        /// @brief flag to mark dotted geometry depreciated
-        bool myDottedGeometryDeprecated;
 
         /// @brief Invalidated assignment operator
         DottedGeometry& operator=(const DottedGeometry& other) = delete;
@@ -455,9 +425,6 @@ struct GNEGeometry {
 
     /// @brief draw geometry segment
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
-
-    /// @brief draw a dotted contour around the given Non closed shape with certain width
-    static void drawShapeDottedContour(const GUIVisualizationSettings& s, const double typeLayer, const double exaggeration, const DottedGeometry& dottedGeometry);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

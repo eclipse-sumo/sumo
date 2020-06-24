@@ -71,26 +71,6 @@ GNEParkingSpace::updateGeometry() {
 }
 
 
-void
-GNEParkingSpace::updateDottedContour() {
-    // calculate shape using a Position vector as reference
-    PositionVector shape({
-        {-(myWidth / 2), 0},
-        { (myWidth / 2), 0},
-        { (myWidth / 2), myLength},
-        {-(myWidth / 2), myLength},
-    });
-    // close shape
-    shape.closePolygon();
-    // rotate position vector (note: convert from degree to rads
-    shape.rotate2D(myAngle * PI / 180.0);
-    // move to space position
-    shape.add(myPosition);
-    // set dotted geometry
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), shape);
-}
-
-
 Position
 GNEParkingSpace::getPositionInView() const {
     return myPosition;
@@ -173,8 +153,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // pop draw matrix
         glPopMatrix();
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), parkingAreaExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), parkingAreaExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();
@@ -331,8 +311,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
 }
 
 

@@ -72,12 +72,6 @@ GNEParkingAreaReroute::updateGeometry() {
 }
 
 
-void
-GNEParkingAreaReroute::updateDottedContour() {
-    // This additional doesn't own a dotted contour
-}
-
-
 Position
 GNEParkingAreaReroute::getPositionInView() const {
     return getParentAdditionals().at(0)->getPositionInView();

@@ -141,8 +141,6 @@ GNEEdge::updateGeometry() {
         for (const auto& childAdditionals : getChildGenericDatas()) {
             childAdditionals->updateGeometry();
         }
-        // mark dotted geometry deprecated
-        myDottedGeometry.markDottedGeometryDeprecated();
     }
     // update vehicle geometry
     updateVehicleSpreadGeometries();
@@ -541,8 +539,8 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         drawEdgeName(s);
     }
     // draw dotted contour
-    if (myNet->getViewNet()->getDottedAC() == this) {
-        GNEGeometry::drawShapeDottedContour(s, getType(), s.laneWidthExaggeration, myDottedGeometry);
+    if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        //GNEGeometry::drawShapeDottedContour(s, getType(), s.laneWidthExaggeration, myDottedGeometry);
     }
 }
 
@@ -1250,41 +1248,6 @@ GNEEdge::updateVehicleStackLabels() {
             }
         }
     }
-}
-
-
-void
-GNEEdge::updateDottedContour() {
-    // obtain lanes
-    const GNELane* frontLane = myLanes.front();
-    const GNELane* backLane = myLanes.back();
-    // obtain visualization settings
-    const GUIVisualizationSettings& visualizationSetting = myNet->getViewNet()->getVisualisationSettings();
-    // obtain lane widdths
-    const double myHalfLaneWidthFront = myNBEdge->getLaneWidth(frontLane->getIndex()) / 2;
-    const double myHalfLaneWidthBack = (visualizationSetting.spreadSuperposed && backLane->drawAsRailway(visualizationSetting) &&
-                                        myNBEdge->isBidiRail()) ? 0 : myNBEdge->getLaneWidth(backLane->getIndex()) / 2;
-    // obtain shapes from NBEdge
-    PositionVector mainShape = frontLane->getParentEdge()->getNBEdge()->getLaneShape(frontLane->getIndex());
-    PositionVector backShape = backLane->getParentEdge()->getNBEdge()->getLaneShape(backLane->getIndex());
-    // move to side depending of lefthand
-    if (visualizationSetting.lefthand) {
-        mainShape.move2side(myHalfLaneWidthFront * -1);
-        backShape.move2side(myHalfLaneWidthBack);
-    } else {
-        mainShape.move2side(myHalfLaneWidthFront);
-        backShape.move2side(myHalfLaneWidthBack * -1);
-    }
-    // reverse back shape
-    backShape = backShape.reverse();
-    // add back shape into mainShape
-    for (const auto& position : backShape) {
-        mainShape.push_back(position);
-    }
-    // close polygon
-    mainShape.closePolygon();
-    // update edge dotted geometry
-    updateDottedGeometry(mainShape);
 }
 
 // ===========================================================================
@@ -2120,7 +2083,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
             // finish draw
             glPopMatrix();
             // draw contour if is selected
-            if (myNet->getViewNet()->getDottedAC() == rerouter) {
+            if (myNet->getViewNet()->getInspectedAttributeCarrier() == rerouter) {
                 GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
             }
         }

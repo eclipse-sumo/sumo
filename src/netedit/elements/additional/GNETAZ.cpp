@@ -84,12 +84,6 @@ GNETAZ::updateGeometry() {
 }
 
 
-void
-GNETAZ::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myShape);
-}
-
-
 Position
 GNETAZ::getPositionInView() const {
     return myShape.getCentroid();
@@ -348,8 +342,8 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, GLO_TAZ + 0.05, polyExaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, GLO_TAZ + 0.05, polyExaggeration, myDottedGeometry);
         }
         // pop name
         glPopName();

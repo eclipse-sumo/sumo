@@ -62,17 +62,6 @@ GNEDetectorE3::updateGeometry() {
 
     // Update connection's geometry
     myChildConnections.update();
-
-    // mark dotted geometry deprecated
-    myDottedGeometry.markDottedGeometryDeprecated();
-}
-
-
-void
-GNEDetectorE3::updateDottedContour() {
-    myDottedGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), myPosition, 0,
-                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E3Size,
-                                          myNet->getViewNet()->getVisualisationSettings().detectorSettings.E3Size);
 }
 
 
@@ -170,8 +159,8 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getDottedAC() == this) {
-            GNEGeometry::drawShapeDottedContour(s, getType(), E3Exaggeration, myDottedGeometry);
+        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            //GNEGeometry::drawShapeDottedContour(s, getType(), E3Exaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
                 GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);

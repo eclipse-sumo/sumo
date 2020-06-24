@@ -588,7 +588,7 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
         throw ProcessError("Trying to delete a default Vehicle Type");
     } else {
         // check if currently is being inspected
-        if (myViewNet->getDottedAC() == demandElement) {
+        if (myViewNet->getInspectedAttributeCarrier() == demandElement) {
             myViewNet->getViewParent()->getInspectorFrame()->clearInspectedAC();
         }
         undoList->p_begin("delete " + demandElement->getTagStr());

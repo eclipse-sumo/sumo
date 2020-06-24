@@ -374,11 +374,11 @@ public:
     /// @brief get interval bar
     GNEViewNetHelper::IntervalBar& getIntervalBar();
 
-    /// @brief get AttributeCarrier under cursor
-    const GNEAttributeCarrier* getDottedAC() const;
+    /// @brief get inspected AttributeCarrier
+    const GNEAttributeCarrier* getInspectedAttributeCarrier() const;
 
     /// @brief set attributeCarrier under cursor
-    void setDottedAC(GNEAttributeCarrier* AC);
+    void setInspectedAttributeCarrier(const GNEAttributeCarrier* AC);
 
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;
@@ -507,10 +507,8 @@ private:
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
 
-    /**@brief current AttributeCarrier that is drawn using with a dotted contour
-     * note: it's constant because is edited from constant functions (example: drawGL(...) const)
-     */
-    GNEAttributeCarrier* myDottedAC;
+    /// @brief get inspected attribute carrier
+    const GNEAttributeCarrier* myInspectedAttributeCarrier;
 
     /// @brief create edit mode buttons and elements
     void buildEditModeControls();
