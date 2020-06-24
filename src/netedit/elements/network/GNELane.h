@@ -231,6 +231,9 @@ private:
     /// @brief lane geometry
     GNEGeometry::Geometry myLaneGeometry;
 
+    /// @brief dotted lane geometry
+    GNEGeometry::DottedGeometry myDottedLaneGeometry;
+
     /// @name computed only once (for performance) in updateGeometry()
     /// @{
 

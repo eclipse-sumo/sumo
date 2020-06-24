@@ -277,34 +277,36 @@ GNEGeometry::DottedGeometry::DottedGeometry() {
 
 void
 GNEGeometry::DottedGeometry::updateDottedGeometry(const GNELane *lane) {
-    // reset containers
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-    myShapeColors.clear();
-    // set shape
-    myShape = lane->getLaneShape();
+    // reset shape
+    myDottedShape.clear();
+    // get shape
+    for (int i = 1; i < (int)lane->getLaneShape().size(); i++) {
+        myDottedShape.push_back({lane->getLaneShape()[i-1], lane->getLaneShape()[i]});
+    }
     // resample
-    myShape.resample(3);
+    for (auto & shape : myDottedShape) {
+        shape = shape.resample(2);
+    }
+    // calculate shape rotations and lenghts
     calculateShapeRotationsAndLengths();
-    myShapeColors.resize(myShape.size());
+}
+
+
+const PositionVector& 
+GNEGeometry::DottedGeometry::getShape() const {
+    return {};
 }
 
 
 const std::vector<double>&
 GNEGeometry::DottedGeometry::getShapeRotations() const {
-    return myShapeRotations;
+    return {};
 }
 
 
 const std::vector<double>&
 GNEGeometry::DottedGeometry::getShapeLengths() const {
-    return myShapeLengths;
-}
-
-
-const std::vector<RGBColor>&
-GNEGeometry::DottedGeometry::getShapeColors() const {
-    return myShapeColors;
+    return {};
 }
 
 
@@ -313,17 +315,21 @@ GNEGeometry::DottedGeometry::calculateShapeRotationsAndLengths() {
     // clear rotations and lengths
     myShapeRotations.clear();
     myShapeLengths.clear();
-    // Get number of parts of the shape
-    int numberOfSegments = (int)myShape.size() - 1;
-    // If number of segments is more than 0
-    if (numberOfSegments >= 0) {
-        // Reserve memory (To improve efficiency)
-        myShapeRotations.reserve(numberOfSegments);
-        myShapeLengths.reserve(numberOfSegments);
-        // Calculate lengths and rotations for every shape
-        for (int i = 0; i < numberOfSegments; i++) {
-            myShapeRotations.push_back(calculateRotation(myShape[i], myShape[i + 1]));
-            myShapeLengths.push_back(calculateLength(myShape[i], myShape[i + 1]));
+    for (int i = 0; i < myDottedShape.size(); i++) {
+        myShapeRotations.push_back({});
+        myShapeLengths.push_back({});
+        // Get number of parts of the shape
+        int numberOfSegments = (int)myDottedShape.at(i).size() - 1;
+        // If number of segments is more than 0
+        if (numberOfSegments >= 0) {
+            // Reserve memory (To improve efficiency)
+            myShapeRotations.reserve(numberOfSegments);
+            myShapeLengths.reserve(numberOfSegments);
+            // Calculate lengths and rotations for every shape
+            for (int j = 0; j < numberOfSegments; j++) {
+                myShapeRotations.at(i).push_back(calculateRotation(myDottedShape.at(i)[j], myDottedShape.at(i)[j + 1]));
+                myShapeLengths.at(i).push_back(calculateLength(myDottedShape.at(i)[j], myDottedShape.at(i)[j + 1]));
+            }
         }
     }
 }
@@ -1002,6 +1008,25 @@ GNEGeometry::drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometr
         // draw a boxline as usual
         GLHelper::drawBoxLines(segment.getShape(), segment.getShapeRotations(), segment.getShapeLengths(), width);
     }
+}
+
+
+void 
+GNEGeometry::drawDottedContour(const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width) {
+    // Push draw matrix 1
+    glPushMatrix();
+    glTranslated(0, 0, GLO_MAX);
+    /*
+    // first check if we're in draw for selecting cliking mode
+    if (!s.drawForPositionSelection) {
+        // draw box lines with own colors
+        GLHelper::drawBoxLines(dottedGeometry.getShape(), 
+            dottedGeometry.getShapeRotations(), 
+            dottedGeometry.getShapeLengths(), 
+            (width * 0.5) + 1);
+    }
+    */
+    glPopMatrix();
 }
 
 

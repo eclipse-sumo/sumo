@@ -160,30 +160,27 @@ struct GNEGeometry {
         /// @brief update DottedGeometry (using lane shape
         void updateDottedGeometry(const GNELane *lane);
 
-        /// @brief The rotations of the single shape parts
+        /// @brief get shape
+        const PositionVector& getShape() const;
+
+        /// @brief get rotations of the single shape parts
         const std::vector<double>& getShapeRotations() const;
 
-        /// @brief The lengths of the single shape parts
+        /// @brief get lengths of the single shape parts
         const std::vector<double>& getShapeLengths() const;
-
-        /// @brief The colors of the single shape parts
-        const std::vector<RGBColor>& getShapeColors() const;
 
     private:
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
         /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
-        PositionVector myShape;
+        std::vector<PositionVector> myDottedShape;
 
         /// @brief The rotations of the dotted shape
-        std::vector<double> myShapeRotations;
+        std::vector<std::vector<double> > myShapeRotations;
 
         /// @brief The lengths of the dotted shape
-        std::vector<double> myShapeLengths;
-
-        /// @brief The colors  of the dotted shape
-        std::vector<RGBColor> myShapeColors;
+        std::vector<std::vector<double> > myShapeLengths;
 
         /// @brief Invalidated assignment operator
         DottedGeometry& operator=(const DottedGeometry& other) = delete;
@@ -425,6 +422,9 @@ struct GNEGeometry {
 
     /// @brief draw geometry segment
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
+
+    /// @brief draw dotted contour
+    static void drawDottedContour(const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometry, const double width);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

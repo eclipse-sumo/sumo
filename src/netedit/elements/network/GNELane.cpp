@@ -108,6 +108,8 @@ GNELane::updateGeometry() {
     myLaneGeometry.updateGeometry(myParentEdge->getNBEdge()->getLaneShape(myIndex));
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
+    // update dotted lane geometry
+    myDottedLaneGeometry.updateDottedGeometry(this);
     // update shapes parents associated with this lane
     for (const auto &shape : getParentShapes()) {
         shape->updateGeometry();
@@ -450,7 +452,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            GLHelper::drawShapeDottedContourAroundShape(s, getType(), myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape, halfWidth);
+            GNEGeometry::drawDottedContour(s, myDottedLaneGeometry, halfWidth);
         }
         // Pop draw matrix 1
         glPopMatrix();
