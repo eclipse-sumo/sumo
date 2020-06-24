@@ -21,3 +21,12 @@ late_taxi
 
 # persontrip triggers taxi call
 persontrip_taxiflow
+
+# persontrip triggers taxi call
+persontrip_pickup_ptStops
+
+# persontrip triggers taxi call
+persontrip_dropoff_ptStops
+
+# persontrip triggers taxi call
+persontrip_ptStops

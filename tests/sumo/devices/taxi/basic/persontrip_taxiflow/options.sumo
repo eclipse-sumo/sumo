@@ -2,3 +2,5 @@
 -r input_routes.rou.xml
 --tripinfo-output tripinfos.xml
 --tripinfo-output.write-unfinished
+--persontrip.transfer.taxi-walk allJunctions
+--persontrip.transfer.walk-taxi allJunctions
