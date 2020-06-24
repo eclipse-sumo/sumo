@@ -2,4 +2,5 @@
 --additional-files input_additional.add.xml,input_additional2.add.xml
 --route-files=input_routes.rou.xml 
 -o routes.rou.xml
---persontrip.transfer.car-walk taxi
+--persontrip.transfer.taxi-walk allJunctions
+--persontrip.transfer.walk-taxi allJunctions

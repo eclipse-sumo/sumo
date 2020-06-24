@@ -1,4 +1,4 @@
-Eclipse SUMO Version v1_6_0+0870-48191dc38d
+Eclipse SUMO Version v1_6_0+0968-7568adba16
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -294,8 +294,11 @@ Routing Options:
   --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
                                          walking allowed (possible values:
                                          'parkingAreas', 'ptStops',
-                                         'allJunctions', 'taxi' and
-                                         combinations)
+                                         'allJunctions' and combinations)
+  --persontrip.transfer.taxi-walk STR[]  Where taxis can drop off customers
+                                         ('allJunctions, 'ptStops')
+  --persontrip.transfer.walk-taxi STR[]  Where taxis can pick up customers
+                                         ('allJunctions, 'ptStops')
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
                                          'rerouting' device
   --device.rerouting.explicit STR[]    Assign a 'rerouting' device to named

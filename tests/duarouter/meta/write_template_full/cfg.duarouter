@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar 23 13:21:04 2020 by Eclipse SUMO duarouter Version v1_5_0+0891-eebab722dd
+<!-- generated on Wed Jun 24 13:44:54 2020 by Eclipse SUMO duarouter Version v1_6_0+0968-7568adba16
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -80,6 +80,8 @@
         <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit&apos;s theta (negative values mean auto-estimation)"/>
         <persontrip.walkfactor value="0.75" type="FLOAT" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"/>
         <persontrip.transfer.car-walk value="parkingAreas" type="STR[]" help="Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos;, &apos;taxi&apos; and combinations)"/>
+        <persontrip.transfer.taxi-walk value="" type="STR[]" help="Where taxis can drop off customers (&apos;allJunctions, &apos;ptStops&apos;)"/>
+        <persontrip.transfer.walk-taxi value="" type="STR[]" help="Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;)"/>
     </processing>
 
     <defaults>
