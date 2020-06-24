@@ -1,0 +1,23 @@
+# persontrip triggers taxi call
+1persontrip
+
+# persontrip is too short so walking is used instead
+short
+
+# walk to the next road edge and use taxi to destination
+walk_first
+
+# take the taxi as far as possible and then walk
+walk_last
+
+# persontrip triggers taxi call
+taxiflow
+
+# persontrip triggers taxi call
+pickup_ptStops
+
+# persontrip triggers taxi call
+dropoff_ptStops
+
+# persontrip triggers taxi call
+ptStops
