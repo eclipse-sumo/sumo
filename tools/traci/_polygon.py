@@ -100,6 +100,9 @@ class PolygonDomain(Domain):
         self._connection._sendCmd(tc.CMD_SET_POLYGON_VARIABLE, tc.VAR_WIDTH, polygonID, "d", lineWidth)
 
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0, lineWidth=1):
+        """add(string,  list((double, double)), (integer, integer, integer, integer), bool, string, integer, double) -> None 
+        Adds a new polygon 
+        """
         self._connection._sendCmd(tc.CMD_SET_POLYGON_VARIABLE, tc.ADD, polygonID, "tscBipd",
                                   6, polygonType, color, fill, layer, shape, lineWidth) 
 
@@ -122,4 +125,7 @@ class PolygonDomain(Domain):
                                   5, trackedObjectID, timeSpan, alphaSpan, looped, rotate)
 
     def remove(self, polygonID, layer=0):
+        """remove(string, integer) -> None 
+        Removes a polygon with the given ID
+        """
         self._connection._sendCmd(tc.CMD_SET_POLYGON_VARIABLE, tc.REMOVE, polygonID, "i", layer)
