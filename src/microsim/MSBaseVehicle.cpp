@@ -745,7 +745,7 @@ MSBaseVehicle::getFuelConsumption() const {
 double
 MSBaseVehicle::getElectricityConsumption() const {
     if (isOnRoad() || isIdling()) {
-        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::ELEC, getSpeed(), getAcceleration(), getSlope());
+        return PollutantsInterface::compute(myType->getEmissionClass(), PollutantsInterface::ELEC, getSpeed(), getAcceleration(), getSlope(), getEmissionParameters());
     } else {
         return 0.;
     }
