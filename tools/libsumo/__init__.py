@@ -17,7 +17,7 @@
 
 from functools import wraps
 import sys
-from .libsumo import simulation
+from .libsumo import vehicle, simulation
 from .libsumo import *  # noqa
 
 _traceFile = [None]

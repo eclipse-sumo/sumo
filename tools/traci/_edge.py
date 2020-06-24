@@ -17,10 +17,8 @@
 # @date    2011-03-17
 
 from __future__ import absolute_import
-import struct
 from . import constants as tc
 from .domain import Domain
-from .storage import Storage
 from .exceptions import TraCIException
 
 

@@ -18,8 +18,6 @@
 
 from __future__ import absolute_import
 from .domain import Domain
-from .storage import Storage
-import struct
 from . import constants as tc
 from . import exceptions
 

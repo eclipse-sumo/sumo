@@ -25,8 +25,8 @@ import math
 import colorsys
 import socket
 import random
-from collections import defaultdict
-from .statistics import Statistics, geh, uMax, uMin
+# needed for backward compatibility
+from .statistics import Statistics, geh, uMax, uMin  # noqa
 
 
 def round(value):  # to round in Python 3 like in Python 2
@@ -57,6 +57,7 @@ class working_dir:
     """
     temporarily change working directory using 'with' statement
     """
+
     def __init__(self, dir):
         self.dir = dir
         self.origdir = os.getcwd()

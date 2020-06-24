@@ -16,9 +16,7 @@
 # @date    2011-03-16
 
 from __future__ import absolute_import
-import struct
 from .domain import Domain
-from .storage import Storage
 from . import constants as tc
 
 _RETURN_VALUE_FUNC = {tc.VAR_FILL: lambda result: bool(result.read("!i")[0])}
@@ -100,8 +98,8 @@ class PolygonDomain(Domain):
         self._setCmd(tc.VAR_WIDTH, polygonID, "d", lineWidth)
 
     def add(self, polygonID, shape, color, fill=False, polygonType="", layer=0, lineWidth=1):
-        """add(string,  list((double, double)), (integer, integer, integer, integer), bool, string, integer, double) -> None 
-        Adds a new polygon 
+        """add(string,  list((double, double)), (integer, integer, integer, integer), bool, string, integer, double) -> None
+        Adds a new polygon.
         """
         self._setCmd(tc.ADD, polygonID, "tscBipd", 6, polygonType, color, fill, layer, shape, lineWidth)
 
@@ -123,7 +121,7 @@ class PolygonDomain(Domain):
         self._setCmd(tc.VAR_ADD_DYNAMICS, polygonID, "tsffBB", 5, trackedObjectID, timeSpan, alphaSpan, looped, rotate)
 
     def remove(self, polygonID, layer=0):
-        """remove(string, integer) -> None 
+        """remove(string, integer) -> None
         Removes a polygon with the given ID
         """
         self._setCmd(tc.REMOVE, polygonID, "i", layer)

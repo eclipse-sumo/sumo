@@ -17,9 +17,7 @@
 # @date    2008-10-09
 
 from __future__ import absolute_import
-import struct
 from .domain import Domain
-from .storage import Storage
 from . import constants as tc
 from .exceptions import TraCIException
 
@@ -91,7 +89,7 @@ class PoiDomain(Domain):
         """setPosition(string, (double, double)) -> None
 
         Sets the position coordinates of the poi.
-        """       
+        """
         self._setCmd(tc.VAR_POSITION, poiID, "o", (x, y))
 
     def setColor(self, poiID, color):
@@ -120,28 +118,29 @@ class PoiDomain(Domain):
         """setAngle(string, double) -> None
 
         Sets the angle of the poi.
-        """      
+        """
         self._setCmd(tc.VAR_ANGLE, poiID, "d", angle)
 
     def setImageFile(self, poiID, imageFile):
         """setImageFile(string, string) -> None
 
         Sets the image file of the poi.
-        """      
+        """
         self._setCmd(tc.VAR_IMAGEFILE, poiID, "s", imageFile)
 
     def add(self, poiID, x, y, color, poiType="", layer=0, imgFile="", width=1, height=1, angle=0):
-        """add(string, double, double, (integer, integer, integer, integer), string, integer, string,double, double, double, double)-> None
-        
+        """
+        add(string, double, double, (byte, byte, byte, byte), string, integer, string, double, double, double) -> None
+
         Adds a poi with the given values
-        """       
-        self._setCmd(tc.ADD, poiID, "tsciosddd", 8, poiType, color, layer, (x,y), imgFile, width, height, angle)
+        """
+        self._setCmd(tc.ADD, poiID, "tsciosddd", 8, poiType, color, layer, (x, y), imgFile, width, height, angle)
 
     def remove(self, poiID, layer=0):
         """
         remove(string, integer) -> None
         Removes the poi with the given poiID
-        """  
+        """
         self._setCmd(tc.REMOVE, poiID, "i", layer)
 
     def highlight(self, poiID, color=(255, 0, 0, 255), size=-1, alphaMax=-1, duration=-1, type=0):

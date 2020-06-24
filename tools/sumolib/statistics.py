@@ -18,13 +18,7 @@
 from __future__ import absolute_import
 from __future__ import print_function
 from __future__ import division
-import sys
-import time
-import os
 import math
-import colorsys
-import socket
-import random
 import warnings
 from collections import defaultdict
 
@@ -33,6 +27,7 @@ class _ExtremeType(object):
     """
     see http://www.python.org/dev/peps/pep-0326/
     """
+
     def __init__(self, isMax, rep):
         object.__init__(self)
         self._isMax = isMax

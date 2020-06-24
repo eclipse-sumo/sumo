@@ -16,9 +16,7 @@
 # @date    2015-02-06
 
 from __future__ import absolute_import
-import struct
 from .domain import Domain
-from .storage import Storage
 from . import constants as tc
 from . import _simulation as simulation
 
@@ -191,7 +189,7 @@ class PersonDomain(Domain):
         will immediately vanish on departure.
         """
         format = "tssdd"
-        values = [4, typeID, edgeID, depart, pos] 
+        values = [4, typeID, edgeID, depart, pos]
         self._setCmd(tc.ADD, personID, format, *values)
 
     def appendWaitingStage(self, personID, duration, description="waiting", stopID=""):
@@ -199,7 +197,7 @@ class PersonDomain(Domain):
         Appends a waiting stage with duration in s to the plan of the given person
         """
         format = "tidss"
-        values = [4, tc.STAGE_WAITING, duration, description, stopID] 
+        values = [4, tc.STAGE_WAITING, duration, description, stopID]
         self._setCmd(tc.APPEND_STAGE, personID, format, *values)
 
     def appendWalkingStage(self, personID, edges, arrivalPos, duration=-1, speed=-1, stopID=""):
@@ -222,7 +220,6 @@ class PersonDomain(Domain):
         format = "tisss"
         values = [4, tc.STAGE_DRIVING, toEdge, lines, stopID]
         self._setCmd(tc.APPEND_STAGE, personID, format, *values)
-
 
     def appendStage(self, personID, stage):
         """appendStage(string, stage)

@@ -19,7 +19,6 @@
 from __future__ import absolute_import
 from . import constants as tc
 from .domain import Domain
-from .storage import Storage
 
 
 class LaneAreaDomain(Domain):

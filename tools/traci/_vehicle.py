@@ -23,10 +23,8 @@
 # @date    2011-03-09
 
 from __future__ import absolute_import
-import struct
 import warnings
 from .domain import Domain
-from .storage import Storage
 from . import constants as tc
 from .exceptions import TraCIException
 
@@ -403,7 +401,8 @@ class VehicleDomain(Domain):
     def getLateralAlignment(self, vehID):
         """getLateralAlignment(string) -> string
 
-        Returns The preferred lateral alignment of the vehicle, see https://sumo.dlr.de/docs/Simulation/SublaneModel.html#lane-changing
+        Returns The preferred lateral alignment of the vehicle,
+        see https://sumo.dlr.de/docs/Simulation/SublaneModel.html#lane-changing
         """
         return self._getUniversal(tc.VAR_LATALIGNMENT, vehID)
 
@@ -424,7 +423,8 @@ class VehicleDomain(Domain):
     def getVehicleClass(self, vehID):
         """getVehicleClass(string) -> string
 
-        Returns the vehicle class of this vehicle, see https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#abstract_vehicle_class.
+        Returns the vehicle class of this vehicle,
+        see https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#abstract_vehicle_class.
         """
         return self._getUniversal(tc.VAR_VEHICLECLASS, vehID)
 
@@ -522,7 +522,8 @@ class VehicleDomain(Domain):
     def getShapeClass(self, vehID):
         """getShapeClass(string) -> string
 
-        Returns the shape class of this vehicle, see https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#visualization.
+        Returns the shape class of this vehicle,
+        see https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html#visualization.
         """
         return self._getUniversal(tc.VAR_SHAPECLASS, vehID)
 
@@ -671,14 +672,14 @@ class VehicleDomain(Domain):
         """getSecureGap(string, double, double, double, string) -> double
         Return the secure gap computed by the carFollowModel of vehID
         """
-        return self._getUniversal(tc.VAR_SECURE_GAP, vehID,"tddds", 4,
+        return self._getUniversal(tc.VAR_SECURE_GAP, vehID, "tddds", 4,
                                   speed, leaderSpeed, leaderMaxDecel, leaderID)
 
     def getStopSpeed(self, vehID, speed, gap):
         """getStopSpeed(string, double, double) -> double
         Return the speed for stopping at gap computed by the carFollowModel of vehID
         """
-        return self._getUniversal(tc.VAR_STOP_SPEED, vehID,"tdd", 2, speed, gap)
+        return self._getUniversal(tc.VAR_STOP_SPEED, vehID, "tdd", 2, speed, gap)
 
     def getStopDelay(self, vehID):
         """getStopDelay(string) -> double

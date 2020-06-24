@@ -20,7 +20,6 @@
 
 from __future__ import absolute_import
 from .domain import Domain
-from .storage import Storage
 from . import constants as tc
 
 

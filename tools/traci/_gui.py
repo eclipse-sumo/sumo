@@ -17,9 +17,7 @@
 # @date    2011-03-09
 
 from __future__ import absolute_import
-import struct
 from .domain import Domain
-from .storage import Storage
 from . import constants as tc
 
 _RETURN_VALUE_FUNC = {tc.VAR_HAS_VIEW: lambda result: bool(result.read("!i")[0])}

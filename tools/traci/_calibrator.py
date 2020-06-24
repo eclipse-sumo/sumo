@@ -16,10 +16,8 @@
 # @date    2020-03-16
 
 from __future__ import absolute_import
-import struct
 from . import constants as tc
 from .domain import Domain
-from .storage import Storage
 
 
 class CalibratorDomain(Domain):
@@ -113,4 +111,5 @@ class CalibratorDomain(Domain):
         """setFlow(string, double, double, double, double, string, string, string, string) -> None
         Update or add a calibrator interval
         """
-        self._setCmd(tc.CMD_SET_FLOW, calibratorID, "tddddssss",8, begin, end, vehsPerHour, speed, typeID, routeID, departLane, departSpeed)
+        self._setCmd(tc.CMD_SET_FLOW, calibratorID, "tddddssss", 8, begin, end,
+                     vehsPerHour, speed, typeID, routeID, departLane, departSpeed)

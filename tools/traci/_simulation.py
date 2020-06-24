@@ -18,11 +18,9 @@
 # @date    2011-03-15
 
 from __future__ import absolute_import
-import struct
 import warnings
 from . import constants as tc
 from .domain import Domain
-from .storage import Storage
 from .exceptions import FatalTraCIError
 
 
@@ -91,8 +89,8 @@ def _readStage(result):
 def _writeStage(stage):
     format = "tisssldddsddds"
     values = [13, stage.type, stage.vType, stage.line, stage.destStop, stage.edges,
-            stage.travelTime, stage.cost, stage.length, stage.intended,
-            stage.depart, stage.departPos, stage.arrivalPos, stage.description]
+              stage.travelTime, stage.cost, stage.length, stage.intended,
+              stage.depart, stage.departPos, stage.arrivalPos, stage.description]
     return format, values
 
 

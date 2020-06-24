@@ -131,7 +131,7 @@ class Connection:
                 packed += struct.pack("!Bi", tc.TYPE_COMPOUND, v)
             elif f == "c":  # color
                 packed += struct.pack("!BBBBB", tc.TYPE_COLOR, int(v[0]), int(v[1]), int(v[2]),
-                                                int(v[3]) if len(v) > 3 else 255)
+                                      int(v[3]) if len(v) > 3 else 255)
             elif f == "l":  # string list
                 packed += struct.pack("!Bi", tc.TYPE_STRINGLIST, len(v))
                 for s in v:
@@ -237,7 +237,8 @@ class Connection:
         return self._subscriptionMapping[cmdID]
 
     def _subscribeContext(self, cmdID, begin, end, objID, domain, dist, varIDs):
-        result = self._sendCmd(cmdID, (begin, end), objID, "uDu" + (len(varIDs) * "u"), domain, dist, len(varIDs), *varIDs)
+        result = self._sendCmd(cmdID, (begin, end), objID, "uDu" + (len(varIDs) * "u"),
+                               domain, dist, len(varIDs), *varIDs)
         if varIDs:
             objectID, response = self._readSubscription(result)
             if response - cmdID != 16 or objectID != objID:

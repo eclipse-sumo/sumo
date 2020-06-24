@@ -24,7 +24,6 @@ from __future__ import print_function
 import sys
 import os
 
-from optparse import OptionParser
 from collections import defaultdict
 
 import detector
@@ -40,13 +39,13 @@ DEBUG = False
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Convert detector flow file to edgeData format")
     parser.add_argument("-d", "--detector-file", dest="detfile",
-                         help="read detectors from FILE (mandatory)", metavar="FILE")
+                        help="read detectors from FILE (mandatory)", metavar="FILE")
     parser.add_argument("-f", "--detector-flow-file", dest="flowfile",
-                         help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
+                        help="read detector flows to compare to from FILE (mandatory)", metavar="FILE")
     parser.add_argument("-o", "--output-file", dest="output",
-                         help="output edgeData FILE (mandatory)", metavar="FILE")
+                        help="output edgeData FILE (mandatory)", metavar="FILE")
     parser.add_argument("-q", "--flow-columns", dest="flowcols", default="qPKW,qLKW",
-                         help="which columns contains flows", metavar="STRING")
+                        help="which columns contains flows", metavar="STRING")
     parser.add_argument("-b", "--begin", default=0,
                         help="custom begin time (minutes or H:M:S)")
     parser.add_argument("-e", "--end", default=1440,
@@ -54,10 +53,10 @@ def get_options(args=None):
     parser.add_argument("-i", "--interval", default=1440,
                         help="custom aggregation interval (minutes or H:M:S)")
     parser.add_argument("-v", "--verbose", action="store_true", dest="verbose",
-                         default=False, help="tell me what you are doing")
+                        default=False, help="tell me what you are doing")
     options = parser.parse_args(args=args)
     if not options.detfile or not options.flowfile or not options.output:
-        optParser.print_help()
+        parser.print_help()
         sys.exit()
 
     return options

@@ -32,7 +32,7 @@ SUMO_HOME = os.environ.get('SUMO_HOME',
 sys.path.append(os.path.join(SUMO_HOME, 'tools'))
 import sumolib  # noqa
 from sumolib.xml import parse  # noqa
-from sumolib.miscutils import parseTime
+from sumolib.miscutils import parseTime  # noqa
 DEBUG = False
 
 
