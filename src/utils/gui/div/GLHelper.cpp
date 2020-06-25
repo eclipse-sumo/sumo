@@ -460,7 +460,7 @@ GLHelper::drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, c
             contourFront.push_back(shape.front());
         }
         // resample shape
-        PositionVector resampledShape = contourFront.resample(s.dottedContourSettings.segmentLength);
+        PositionVector resampledShape = contourFront.resample(s.dottedContourSettings.segmentLength, false);
         // push matrix
         glPushMatrix();
         // draw contour over shape
@@ -489,7 +489,7 @@ GLHelper::drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, con
         shape.push_back(Position(width / 2, height / -2));
         shape.push_back(Position(width / 2, height / 2));
         // resample shape
-        shape = shape.resample(s.dottedContourSettings.segmentLength);
+        shape = shape.resample(s.dottedContourSettings.segmentLength, false);
         // push matrix
         glPushMatrix();
         // translate to center

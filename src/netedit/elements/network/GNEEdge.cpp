@@ -1815,7 +1815,7 @@ GNEEdge::smoothElevation(GNEUndoList* undoList) {
     } else {
         PositionVector modifiedShape = myNBEdge->getGeometry();
         if (modifiedShape.size() < 5) {
-            modifiedShape = modifiedShape.resample(OptionsCont::getOptions().getFloat("opendrive.curve-resolution"));
+            modifiedShape = modifiedShape.resample(OptionsCont::getOptions().getFloat("opendrive.curve-resolution"), false);
         }
         const double scale = elevation.length2D() / modifiedShape.length2D();
         //std::cout << "   elevation=" << elevation << "\n mod1=" << modifiedShape << " scale=" << scale << "\n";

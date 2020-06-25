@@ -152,22 +152,55 @@ struct GNEGeometry {
         Geometry& operator=(const Geometry& other) = delete;
     };
 
-    /// @brief struct for pack all variables related with DottedGeometry
-    struct DottedGeometry {
+    /// @brief class for pack all variables related with DottedGeometry color
+    class DottedGeometryColor {
+
+    public:
+        /// @brief constructor
+        DottedGeometryColor();
+
+        /// @brief get color (and change flag)
+        const RGBColor &getColor();
+
+        /// @brief change color
+        void changeColor();
+
+    private:
+        /// @brief flag to get color
+        bool myColorFlag;
+
+        /// @brief Invalidated assignment operator
+        DottedGeometryColor& operator=(const DottedGeometryColor& other) = delete;
+    };
+
+    /// @brief class for pack all variables related with DottedGeometry
+    class DottedGeometry {
+
+    public:
         /// @brief constructor
         DottedGeometry();
+
+        /// @brief constructor for extremes
+        DottedGeometry(const DottedGeometry &topDottedGeometry, const bool firstExtrem, 
+                       const DottedGeometry &botDottedGeometry, const bool drawExtrem);
 
         /// @brief update DottedGeometry (using lane shape
         void updateDottedGeometry(const GNELane *lane);
 
+        /// @brief draw dottedShape
+        void drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const;
+
+        /// @brief move shape to side
+        void moveShapeToSide(const double value);
+
         /// @brief get shape
-        const PositionVector& getShape() const;
+        const std::vector<PositionVector> &getShape() const;
 
         /// @brief get rotations of the single shape parts
-        const std::vector<double>& getShapeRotations() const;
+        const std::vector<std::vector<double> > &getShapeRotations() const;
 
         /// @brief get lengths of the single shape parts
-        const std::vector<double>& getShapeLengths() const;
+        const std::vector<std::vector<double> > &getShapeLengths() const;
 
     private:
         /// @brief calculate shape rotations and lengths
@@ -423,8 +456,8 @@ struct GNEGeometry {
     /// @brief draw geometry segment
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
 
-    /// @brief draw dotted contour
-    static void drawDottedContour(const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometry, const double width);
+    /// @brief draw dotted contour for the given dottedGeometry
+    static void drawDottedContour(const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool lastDrawExtrem);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

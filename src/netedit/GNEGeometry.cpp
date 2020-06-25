@@ -268,10 +268,55 @@ GNEGeometry::Geometry::calculateShapeRotationsAndLengths() {
 }
 
 // ---------------------------------------------------------------------------
+// GNEGeometry::DottedGeometryColor - methods
+// ---------------------------------------------------------------------------
+
+GNEGeometry::DottedGeometryColor::DottedGeometryColor() :
+    myColorFlag(true) {}
+
+
+const RGBColor&
+GNEGeometry::DottedGeometryColor::getColor() {
+    if (myColorFlag) {
+        myColorFlag = false;
+        return RGBColor::RED;
+    } else {
+        myColorFlag = true;
+        return RGBColor::BLUE;
+    }
+}
+
+void
+GNEGeometry::DottedGeometryColor::changeColor() {
+    if (myColorFlag) {
+        myColorFlag = false;
+    } else {
+        myColorFlag = true;
+    }
+}
+
+// ---------------------------------------------------------------------------
 // GNEGeometry::DottedGeometry - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::DottedGeometry::DottedGeometry() {
+GNEGeometry::DottedGeometry::DottedGeometry() {}
+
+
+GNEGeometry::DottedGeometry::DottedGeometry(const DottedGeometry &topDottedGeometry, const bool firstExtrem, 
+    const DottedGeometry &botDottedGeometry, const bool drawExtrem) {
+    // add extremes
+    if (firstExtrem) {
+        myDottedShape.push_back({topDottedGeometry.getShape().front().front(), botDottedGeometry.getShape().front().front()});
+    }
+    if (drawExtrem) {
+        myDottedShape.push_back({topDottedGeometry.getShape().back().back(), botDottedGeometry.getShape().back().back()});
+    }
+    // resample
+    for (auto &shape : myDottedShape) {
+        shape = shape.resample(2, true);
+    }
+    // calculate shape rotations and lenghts
+    calculateShapeRotationsAndLengths();
 }
 
 
@@ -284,29 +329,53 @@ GNEGeometry::DottedGeometry::updateDottedGeometry(const GNELane *lane) {
         myDottedShape.push_back({lane->getLaneShape()[i-1], lane->getLaneShape()[i]});
     }
     // resample
-    for (auto & shape : myDottedShape) {
-        shape = shape.resample(2);
+    for (auto &shape : myDottedShape) {
+        shape = shape.resample(2, true);
     }
     // calculate shape rotations and lenghts
     calculateShapeRotationsAndLengths();
 }
 
+void
+GNEGeometry::DottedGeometry::drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const {
+    // iterate over myDottedShape
+    for (int i = 0; i < (int)myDottedShape.size(); i++) {
+        // iterate over shape
+        for (int j = 0; j < ((int)myDottedShape.at(i).size() - 1); j++) {
+            // set color
+            GLHelper::setColor(dottedGeometryColor.getColor());
+            // draw box line
+            GLHelper::drawBoxLine(myDottedShape.at(i)[j], 
+                myShapeRotations.at(i).at(j),
+                myShapeLengths.at(i).at(j), 0.2);
+        }
+    }
+}
 
-const PositionVector& 
+void 
+GNEGeometry::DottedGeometry::moveShapeToSide(const double value) {
+    // move 2 side
+    for (auto &shape : myDottedShape) {
+        shape.move2side(value);
+    }
+}
+
+
+const std::vector<PositionVector>& 
 GNEGeometry::DottedGeometry::getShape() const {
-    return {};
+    return myDottedShape;
 }
 
 
-const std::vector<double>&
+const std::vector<std::vector<double> >&
 GNEGeometry::DottedGeometry::getShapeRotations() const {
-    return {};
+    return myShapeRotations;
 }
 
 
-const std::vector<double>&
+const std::vector<std::vector<double> >&
 GNEGeometry::DottedGeometry::getShapeLengths() const {
-    return {};
+    return myShapeLengths;
 }
 
 
@@ -1012,20 +1081,30 @@ GNEGeometry::drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometr
 
 
 void 
-GNEGeometry::drawDottedContour(const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width) {
+GNEGeometry::drawDottedContour(const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool lastDrawExtrem) {
+    // declare DottedGeometryColor
+    DottedGeometryColor dottedGeometryColor;
+    // make a copy of dotted geometry
+    DottedGeometry topDottedGeometry = dottedGeometry;
+    DottedGeometry botDottedGeometry = dottedGeometry;
+    // move geometries
+    topDottedGeometry.moveShapeToSide(width);
+    botDottedGeometry.moveShapeToSide(width * -1);
+    // calculate extremes
+    DottedGeometry extremes(topDottedGeometry, drawFirstExtrem, botDottedGeometry, lastDrawExtrem);
     // Push draw matrix 1
     glPushMatrix();
+    // translate to front
     glTranslated(0, 0, GLO_MAX);
-    /*
-    // first check if we're in draw for selecting cliking mode
-    if (!s.drawForPositionSelection) {
-        // draw box lines with own colors
-        GLHelper::drawBoxLines(dottedGeometry.getShape(), 
-            dottedGeometry.getShapeRotations(), 
-            dottedGeometry.getShapeLengths(), 
-            (width * 0.5) + 1);
-    }
-    */
+    // draw top dotted geometry
+    topDottedGeometry.drawDottedGeometry(dottedGeometryColor);
+    // draw top dotted geometry
+    botDottedGeometry.drawDottedGeometry(dottedGeometryColor);
+    // change color
+    dottedGeometryColor.changeColor();
+    // draw extrem dotted geometry
+    extremes.drawDottedGeometry(dottedGeometryColor);
+    // pop matrix
     glPopMatrix();
 }
 
