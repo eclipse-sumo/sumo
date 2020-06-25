@@ -127,57 +127,61 @@ def simulationStep(step=0):
 static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsumo::TraCIResult> >& subMap) {
     PyObject* result = PyDict_New();
     for (auto iter = subMap.begin(); iter != subMap.end(); ++iter) {
-        const int theKey = iter->first;
-        const libsumo::TraCIResult* const theVal = iter->second.get();
-        const libsumo::TraCIDouble* const theDouble = dynamic_cast<const libsumo::TraCIDouble*>(theVal);
+        const libsumo::TraCIResult* const traciVal = iter->second.get();
+        PyObject* pyVal = nullptr;
+        const libsumo::TraCIDouble* const theDouble = dynamic_cast<const libsumo::TraCIDouble*>(traciVal);
         if (theDouble != nullptr) {
-            PyDict_SetItem(result, PyInt_FromLong(theKey), PyFloat_FromDouble(theDouble->value));
-            continue;
+            pyVal = PyFloat_FromDouble(theDouble->value);
         }
-        const libsumo::TraCIInt* const theInt = dynamic_cast<const libsumo::TraCIInt*>(theVal);
-        if (theInt != nullptr) {
-            PyDict_SetItem(result, PyInt_FromLong(theKey), PyInt_FromLong(theInt->value));
-            continue;
-        }
-        const libsumo::TraCIString* const theString = dynamic_cast<const libsumo::TraCIString*>(theVal);
-        if (theString != nullptr) {
-            PyDict_SetItem(result, PyInt_FromLong(theKey), PyUnicode_FromString(theString->value.c_str()));
-            continue;
-        }
-        const libsumo::TraCIStringList* const theStringList = dynamic_cast<const libsumo::TraCIStringList*>(theVal);
-        if (theStringList != nullptr) {
-            const Py_ssize_t size = theStringList->value.size();
-            PyObject* tuple = PyTuple_New(size);
-            for (Py_ssize_t i = 0; i < size; i++) {
-                PyTuple_SetItem(tuple, i, PyUnicode_FromString(theStringList->value[i].c_str()));
+        if (pyVal == nullptr) {
+            const libsumo::TraCIInt* const theInt = dynamic_cast<const libsumo::TraCIInt*>(traciVal);
+            if (theInt != nullptr) {
+                pyVal = PyInt_FromLong(theInt->value);
             }
-            PyDict_SetItem(result, PyInt_FromLong(theKey), tuple);
-            continue;
         }
-        const libsumo::TraCIPosition* const thePosition = dynamic_cast<const libsumo::TraCIPosition*>(theVal);
-        if (thePosition != nullptr) {
-            PyObject* tuple;
-            if (thePosition->z != libsumo::INVALID_DOUBLE_VALUE) {
-                tuple = Py_BuildValue("(ddd)", thePosition->x, thePosition->y, thePosition->z);
-            } else {
-                tuple = Py_BuildValue("(dd)", thePosition->x, thePosition->y);
+        if (pyVal == nullptr) {
+            const libsumo::TraCIString* const theString = dynamic_cast<const libsumo::TraCIString*>(traciVal);
+            if (theString != nullptr) {
+                pyVal = PyUnicode_FromString(theString->value.c_str());
             }
-            PyDict_SetItem(result, PyInt_FromLong(theKey), tuple);
-            continue;
         }
-        const libsumo::TraCIRoadPosition* const theRoadPosition = dynamic_cast<const libsumo::TraCIRoadPosition*>(theVal);
-        if (theRoadPosition != nullptr) {
-            PyObject* tuple;
-            if (theRoadPosition->laneIndex != libsumo::INVALID_INT_VALUE) {
-                tuple = Py_BuildValue("(sdi)", theRoadPosition->edgeID.c_str(), theRoadPosition->pos, theRoadPosition->laneIndex);
-            } else {
-                tuple = Py_BuildValue("(sd)", theRoadPosition->edgeID.c_str(), theRoadPosition->pos);
+        if (pyVal == nullptr) {
+            const libsumo::TraCIStringList* const theStringList = dynamic_cast<const libsumo::TraCIStringList*>(traciVal);
+            if (theStringList != nullptr) {
+                const Py_ssize_t size = theStringList->value.size();
+                pyVal = PyTuple_New(size);
+                for (Py_ssize_t i = 0; i < size; i++) {
+                    PyTuple_SetItem(pyVal, i, PyUnicode_FromString(theStringList->value[i].c_str()));
+                }
             }
-            PyDict_SetItem(result, PyInt_FromLong(theKey), tuple);
-            continue;
         }
-        PyObject* value = SWIG_NewPointerObj(SWIG_as_voidptr(theVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
-        PyDict_SetItem(result, PyInt_FromLong(theKey), value);
+        if (pyVal == nullptr) {
+            const libsumo::TraCIPosition* const thePosition = dynamic_cast<const libsumo::TraCIPosition*>(traciVal);
+            if (thePosition != nullptr) {
+                if (thePosition->z != libsumo::INVALID_DOUBLE_VALUE) {
+                    pyVal = Py_BuildValue("(ddd)", thePosition->x, thePosition->y, thePosition->z);
+                } else {
+                    pyVal = Py_BuildValue("(dd)", thePosition->x, thePosition->y);
+                }
+            }
+        }
+        if (pyVal == nullptr) {
+            const libsumo::TraCIRoadPosition* const theRoadPosition = dynamic_cast<const libsumo::TraCIRoadPosition*>(traciVal);
+            if (theRoadPosition != nullptr) {
+                if (theRoadPosition->laneIndex != libsumo::INVALID_INT_VALUE) {
+                    pyVal = Py_BuildValue("(sdi)", theRoadPosition->edgeID.c_str(), theRoadPosition->pos, theRoadPosition->laneIndex);
+                } else {
+                    pyVal = Py_BuildValue("(sd)", theRoadPosition->edgeID.c_str(), theRoadPosition->pos);
+                }
+            }
+        }
+        if (pyVal == nullptr) {
+            pyVal = SWIG_NewPointerObj(SWIG_as_voidptr(traciVal), SWIGTYPE_p_libsumo__TraCIResult, 0);
+        }
+        PyObject* const pyKey = PyInt_FromLong(iter->first);
+        PyDict_SetItem(result, pyKey, pyVal);
+        Py_DECREF(pyKey);
+        Py_DECREF(pyVal);
     }
     return result;
 }
@@ -190,19 +194,29 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %typemap(out) std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > {
     $result = PyDict_New();
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        const std::string theKey = iter->first;
-        PyDict_SetItem($result, PyUnicode_FromString(theKey.c_str()), parseSubscriptionMap(iter->second));
+        PyObject* const pyKey = PyUnicode_FromString(iter->first.c_str());
+        PyObject* const pyVal = parseSubscriptionMap(iter->second);
+        PyDict_SetItem($result, pyKey, pyVal);
+        Py_DECREF(pyKey);
+        Py_DECREF(pyVal);
     }
 };
 
 %typemap(out) std::map<std::string, std::map<std::string, std::map<int, std::shared_ptr<libsumo::TraCIResult> > > > {
     $result = PyDict_New();
     for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyObject* innerDict = PyDict_New();
+        PyObject* const pyKey = PyUnicode_FromString(iter->first.c_str());
+        PyObject* const innerDict = PyDict_New();
         for (auto inner = iter->second.begin(); inner != iter->second.end(); ++inner) {
-            PyDict_SetItem(innerDict, PyUnicode_FromString(inner->first.c_str()), parseSubscriptionMap(inner->second));
+            PyObject* const innerKey = PyUnicode_FromString(inner->first.c_str());
+            PyObject* const innerVal = parseSubscriptionMap(inner->second);
+            PyDict_SetItem(innerDict, innerKey, innerVal);
+            Py_DECREF(innerKey);
+            Py_DECREF(innerVal);
         }
-        PyDict_SetItem($result, PyUnicode_FromString(iter->first.c_str()), innerDict);
+        PyDict_SetItem($result, pyKey, innerDict);
+        Py_DECREF(pyKey);
+        Py_DECREF(innerDict);
     }
 };
 
