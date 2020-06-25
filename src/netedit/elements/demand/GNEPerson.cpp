@@ -443,7 +443,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // check if dotted contour has to be drawn
             if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-                GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, exaggeration, exaggeration);
+                // GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, exaggeration, exaggeration);
             }
             // pop name
             glPopName();

@@ -151,7 +151,6 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::setColor(RGBColor::WHITE);
             GLHelper::drawBoxLine(Position(0, s.additionalSettings.VSSSize), 0, 2 * s.additionalSettings.VSSSize, s.additionalSettings.VSSSize);
-
         }
         // Pop draw icon matrix
         glPopMatrix();
@@ -168,7 +167,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             //GNEGeometry::drawShapeDottedContour(s, getType(), VSSExaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
-                GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
+                // GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
             }
         }
         // Pop name

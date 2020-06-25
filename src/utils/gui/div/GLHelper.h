@@ -271,12 +271,6 @@ public:
     static void drawTriangleAtEnd(const Position& p1, const Position& p2,
                                   double tLength, double tWidth);
 
-    /// @brief draw a dotted contour around the given Non closed shape with certain width
-    static void drawShapeDottedContourAroundShape(const GUIVisualizationSettings& s, const int type, const PositionVector& shape, const double width);
-
-    /// @brief draw a dotted contour around the given Position with certain width and height
-    static void drawShapeDottedContourRectangle(const GUIVisualizationSettings& s, const int type, const Position& center, const double width, const double height, const double rotation = 0, const double offsetX = 0, const double offsetY = 0);
-
     /// @brief Sets the gl-color to this value
     static void setColor(const RGBColor& c);
 

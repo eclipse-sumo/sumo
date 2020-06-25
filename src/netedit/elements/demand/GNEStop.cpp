@@ -409,10 +409,10 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
                 // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
                 if (getParentLanes().size() > 0) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),
-                            getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
+                    // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),
+                    //        getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
                 } else {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), exaggeration);
+                    // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(), exaggeration);
                 }
             }
         } else {

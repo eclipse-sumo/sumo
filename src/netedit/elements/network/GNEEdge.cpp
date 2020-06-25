@@ -2084,7 +2084,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
             glPopMatrix();
             // draw contour if is selected
             if (myNet->getViewNet()->getInspectedAttributeCarrier() == rerouter) {
-                GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
+                // GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
             }
         }
         // Pop name

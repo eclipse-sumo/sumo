@@ -761,7 +761,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // check if dotted contour has to be drawn
                 if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-                    GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
+                    // GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
                 }
             }
             // pop name

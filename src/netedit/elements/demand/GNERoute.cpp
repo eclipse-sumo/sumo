@@ -337,7 +337,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, routeWidth);
                 // check if shape dotted contour has to be drawn
                 if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), routeWidth);
+                    // GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), routeWidth);
                 }
             }
         }
