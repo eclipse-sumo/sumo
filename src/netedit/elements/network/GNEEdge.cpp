@@ -540,7 +540,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw dotted contour
     if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-        //GNEGeometry::drawShapeDottedContour(s, getType(), s.laneWidthExaggeration, myDottedGeometry);
+        drawDottedContour(s);
     }
 }
 
@@ -1892,6 +1892,27 @@ GNEEdge::getVehiclesOverEdgeMap() const {
         }
     }
     return vehiclesOverEdgeMap;
+}
+
+
+void 
+GNEEdge::drawDottedContour(const GUIVisualizationSettings& s) const {
+    if (myLanes.size() == 1) {
+        GNELane::LaneDrawingConstants laneDrawingConstants(s, myLanes.front());
+        GNEGeometry::drawDottedContour(myLanes.front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, true, true);
+    } else {
+        // obtain a copy of both geometries
+        GNEGeometry::DottedGeometry dottedGeometryTop = myLanes.front()->getDottedLaneGeometry();
+        GNEGeometry::DottedGeometry dottedGeometryBot = myLanes.back()->getDottedLaneGeometry();
+        // obtain both LaneDrawingConstants
+        GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, myLanes.front());
+        GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, myLanes.back());
+        // move shapes to side
+        dottedGeometryTop.moveShapeToSide(laneDrawingConstantsFront.halfWidth);
+        dottedGeometryBot.moveShapeToSide(laneDrawingConstantsBack.halfWidth * -1);
+        // draw dotted contour using both geometries
+        GNEGeometry::drawDottedContour(dottedGeometryTop, dottedGeometryBot);
+    }
 }
 
 

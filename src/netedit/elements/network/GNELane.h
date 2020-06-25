@@ -47,6 +47,28 @@ class GNELane : public GNENetworkElement, public GNECandidateElement, public FXD
     FXDECLARE(GNELane)
 
 public:
+
+    /// @brief structs for LaneDrawingConstants
+    struct LaneDrawingConstants {
+        /// @brief parameter constructor
+        LaneDrawingConstants(const GUIVisualizationSettings& s, const GNELane* lane);
+
+        /// @brief selection scale
+        const double selectionScale;
+
+        /// @brief exaggeration
+        const double exaggeration;
+
+        // compute lane-marking intersection points)
+        const double halfWidth2;
+
+        // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
+        const double halfWidth;
+    private:
+        /// @brief default constructor
+        LaneDrawingConstants();
+    };
+
     /**@brief Constructor
      * @param[in] idStorage The storage of gl-ids to get the one for this lane representation from
      * @param[in] the edge this lane belongs to
@@ -67,6 +89,9 @@ public:
 
     /// @brief get lengths of the single shape parts
     const std::vector<double>& getShapeLengths() const;
+
+    /// @brief get dotted lane geometry
+    const GNEGeometry::DottedGeometry &getDottedLaneGeometry() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();

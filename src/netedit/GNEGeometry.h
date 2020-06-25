@@ -456,8 +456,11 @@ struct GNEGeometry {
     /// @brief draw geometry segment
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
 
-    /// @brief draw dotted contour for the given dottedGeometry
+    /// @brief draw dotted contour for the given dottedGeometry (used by lanes, routes, etc.)
     static void drawDottedContour(const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool lastDrawExtrem);
+
+    /// @brief draw dotted contour for the given dottedGeometries (used by edges)
+    static void drawDottedContour(const DottedGeometry &dottedGeometryTop, const DottedGeometry &dottedGeometrybot);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

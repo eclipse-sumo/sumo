@@ -387,6 +387,9 @@ private:
     /// @brief get vehicles a that start over this edge
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getVehiclesOverEdgeMap() const;
 
+    /// @brief draw dotted contour
+    void drawDottedContour(const GUIVisualizationSettings& s) const;
+
     /// @brief draw geometry points
     void drawGeometryPoints(const GUIVisualizationSettings& s) const;
 

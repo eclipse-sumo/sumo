@@ -53,6 +53,37 @@ FXIMPLEMENT(GNELane, FXDelegator, 0, 0)
 // method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNELane::LaneDrawingConstants - methods
+// ---------------------------------------------------------------------------
+
+GNELane::LaneDrawingConstants::LaneDrawingConstants(const GUIVisualizationSettings& s, const GNELane* lane) :
+    selectionScale(lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected() ? s.selectionScale : 1),
+    exaggeration(selectionScale * s.laneWidthExaggeration),
+    halfWidth2(exaggeration * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) / 2 - SUMO_const_laneMarkWidth / 2)),
+    halfWidth(lane->drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2) {
+    // start drawing lane checking whether it is not too small
+    //selectionScale = lane->isAttributeCarrierSelected() || lane->getParentEdge()->isAttributeCarrierSelected() ? s.selectionScale : 1;
+    //exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
+                                                             // compute lane-marking intersection points)
+    //halfWidth2 = exaggeration * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) / 2 - SUMO_const_laneMarkWidth / 2);
+
+    // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
+    //halfWidth =  lane->drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
+}
+
+
+GNELane::LaneDrawingConstants::LaneDrawingConstants() :
+    selectionScale(0),
+    exaggeration(0),
+    halfWidth2(0),
+    halfWidth(0) {
+}
+
+// ---------------------------------------------------------------------------
+// GNELane - methods
+// ---------------------------------------------------------------------------
+
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
         {}, {}, {}, {}, {}, {}, {}, {},     // Parents
@@ -94,6 +125,12 @@ GNELane::getShapeRotations() const {
 const std::vector<double>&
 GNELane::getShapeLengths() const {
     return myLaneGeometry.getShapeLengths();
+}
+
+
+const GNEGeometry::DottedGeometry&
+GNELane::getDottedLaneGeometry() const {
+    return myDottedLaneGeometry;
 }
 
 
@@ -352,25 +389,25 @@ GNELane::drawLane2LaneConnections() const {
 
 void
 GNELane::drawGL(const GUIVisualizationSettings& s) const {
+    // get lane drawing constants
+    LaneDrawingConstants laneDrawingConstants(s, this);
+    // get lane color
+    const RGBColor color = setLaneColor(s);
     // Push draw matrix 1
     glPushMatrix();
     // Push name
     glPushName(getGlID());
     // Traslate to front
     glTranslated(0, 0, myParentEdge->getNBEdge()->getLength() < 1 ? GLO_JUNCTION + 1 : getType());
-    const RGBColor color = setLaneColor(s);
-    // start drawing lane checking whether it is not too small
-    const double selectionScale = isAttributeCarrierSelected() || myParentEdge->isAttributeCarrierSelected() ? s.selectionScale : 1;
-    const double exaggeration = selectionScale * s.laneWidthExaggeration; // * s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // recognize full transparency and simply don't draw
-    if ((color.alpha() == 0) || ((s.scale * exaggeration) < s.laneMinSize)) {
+    if ((color.alpha() == 0) || ((s.scale * laneDrawingConstants.exaggeration) < s.laneMinSize)) {
         // Pop draw matrix 1
         glPopMatrix();
         // Pop Lane Name
         glPopName();
-    } else if ((s.scale * exaggeration) < 1.) {
+    } else if ((s.scale * laneDrawingConstants.exaggeration) < 1.) {
         // draw as lines, depending of myShapeColors
         if (myShapeColors.size() > 0) {
             GLHelper::drawLine(myLaneGeometry.getShape(), myShapeColors);
@@ -408,10 +445,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         // we draw the lanes with reduced width so that the lane markings below are visible
         // (this avoids artifacts at geometry corners without having to
-        // compute lane-marking intersection points)
-        const double halfWidth2 = exaggeration * (myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2 - SUMO_const_laneMarkWidth / 2);
-        // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
-        const double halfWidth =  drawUsingSelectColor() ? halfWidth2 - exaggeration * 0.3 : halfWidth2;
         const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge->getNBEdge()->isBidiRail();
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawAsRailway(s) && (!s.drawForRectangleSelection || spreadSuperposed)) {
@@ -420,14 +453,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             // draw as railway: assume standard gauge of 1435mm when lane width is not set
             // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
             // assume crosstie length of 181% gauge (2600mm for standard gauge)
-            double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * exaggeration;
+            double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * laneDrawingConstants.exaggeration;
             if (spreadSuperposed) {
                 shape.move2side(halfGauge * 0.8);
                 halfGauge *= 0.4;
                 //std::cout << "spreadSuperposed " << getID() << " old=" << myLaneGeometry.getShape() << " new=" << shape << "\n";
             }
-            const double halfInnerFeetWidth = halfGauge - 0.039 * exaggeration;
-            const double halfRailWidth = halfInnerFeetWidth + 0.15 * exaggeration;
+            const double halfInnerFeetWidth = halfGauge - 0.039 * laneDrawingConstants.exaggeration;
+            const double halfRailWidth = halfInnerFeetWidth + 0.15 * laneDrawingConstants.exaggeration;
             const double halfCrossTieWidth = halfGauge * 1.81;
             // Draw lane geometry
             GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
@@ -440,27 +473,27 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             // Set current color back
             GLHelper::setColor(current);
             // Draw crossties
-            GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * exaggeration, 0.6 * exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
+            GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * laneDrawingConstants.exaggeration, 0.6 * laneDrawingConstants.exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
         } else {
-            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfWidth);
+            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
         }
-        if (halfWidth != halfWidth2 && !spreadSuperposed) {
+        if (laneDrawingConstants.halfWidth != laneDrawingConstants.halfWidth2 && !spreadSuperposed) {
             // draw again to show the selected edge
             GLHelper::setColor(s.colorSettings.selectedEdgeColor);
             glTranslated(0, 0, -.1);
-            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfWidth2);
+            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, laneDrawingConstants.halfWidth2);
         }
         // Pop draw matrix 1
         glPopMatrix();
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContour(myDottedLaneGeometry, halfWidth, true, true);
+            GNEGeometry::drawDottedContour(myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
         }
         // only draw details depending of the scale and if isn't being drawn for selecting
         if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
             // if exaggeration is 1, draw drawMarkings
-            if (s.laneShowBorders && exaggeration == 1 && !drawAsRailway(s)) {
-                drawMarkings(s, exaggeration);
+            if (s.laneShowBorders && laneDrawingConstants.exaggeration == 1 && !drawAsRailway(s)) {
+                drawMarkings(s, laneDrawingConstants.exaggeration);
             }
             // draw ROWs only if target junction has a valid logic)
             if (s.showLinkDecals && myParentEdge->getSecondParentJunction()->isLogicValid() && s.scale > 3) {
@@ -474,7 +507,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 } else {
                     glColor3d(0.3, 0.3, 0.3);
                 }
-                drawDirectionIndicators(exaggeration, spreadSuperposed);
+                drawDirectionIndicators(laneDrawingConstants.exaggeration, spreadSuperposed);
             }
             if (s.drawLinkJunctionIndex.show) {
                 drawLinkNo(s);
@@ -485,7 +518,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // If there are texture of restricted lanes to draw, check if icons can be drawn
         if (!s.drawForRectangleSelection && !s.drawForPositionSelection && !s.disableLaneIcons &&
-                (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, exaggeration)) {
+                (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, laneDrawingConstants.exaggeration)) {
             // Declare default width of icon (3)
             double iconWidth = 1;
             // Obtain width of icon, if width of lane is different

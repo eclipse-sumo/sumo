@@ -1109,6 +1109,29 @@ GNEGeometry::drawDottedContour(const DottedGeometry &dottedGeometry, const doubl
 }
 
 
+void 
+GNEGeometry::drawDottedContour(const DottedGeometry &dottedGeometryTop, const DottedGeometry &dottedGeometrybot) {
+    // declare DottedGeometryColor
+    DottedGeometryColor dottedGeometryColor;
+    // calculate extremes
+    DottedGeometry extremes(dottedGeometryTop, true, dottedGeometrybot, true);
+    // Push draw matrix 1
+    glPushMatrix();
+    // translate to front
+    glTranslated(0, 0, GLO_MAX);
+    // draw top dotted geometry
+    dottedGeometryTop.drawDottedGeometry(dottedGeometryColor);
+    // draw top dotted geometry
+    dottedGeometrybot.drawDottedGeometry(dottedGeometryColor);
+    // change color
+    dottedGeometryColor.changeColor();
+    // draw extrem dotted geometry
+    extremes.drawDottedGeometry(dottedGeometryColor);
+    // pop matrix
+    glPopMatrix();
+}
+
+
 PositionVector
 GNEGeometry::getVertexCircleAroundPosition(const Position& pos, const double width, const int steps) {
     // first check if we have to fill myCircleCoords (only once)
