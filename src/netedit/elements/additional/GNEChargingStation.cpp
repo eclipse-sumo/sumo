@@ -174,7 +174,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            // GNEGeometry::drawShapeDottedContour(s, getType(), chargingStationExaggeration, myDottedGeometry);
+            GNEGeometry::drawDottedContourShape(myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
         }
         // Pop name matrix
         glPopName();

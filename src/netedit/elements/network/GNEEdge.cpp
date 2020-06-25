@@ -1899,7 +1899,7 @@ void
 GNEEdge::drawDottedContour(const GUIVisualizationSettings& s) const {
     if (myLanes.size() == 1) {
         GNELane::LaneDrawingConstants laneDrawingConstants(s, myLanes.front());
-        GNEGeometry::drawDottedContour(myLanes.front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, true, true);
+        GNEGeometry::drawDottedContourLane(myLanes.front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, true, true);
     } else {
         // obtain a copy of both geometries
         GNEGeometry::DottedGeometry dottedGeometryTop = myLanes.front()->getDottedLaneGeometry();
@@ -1911,7 +1911,7 @@ GNEEdge::drawDottedContour(const GUIVisualizationSettings& s) const {
         dottedGeometryTop.moveShapeToSide(laneDrawingConstantsFront.halfWidth);
         dottedGeometryBot.moveShapeToSide(laneDrawingConstantsBack.halfWidth * -1);
         // draw dotted contour using both geometries
-        GNEGeometry::drawDottedContour(dottedGeometryTop, dottedGeometryBot);
+        GNEGeometry::drawDottedContourEdge(dottedGeometryTop, dottedGeometryBot);
     }
 }
 

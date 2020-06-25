@@ -343,7 +343,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            //GNEGeometry::drawShapeDottedContour(s, GLO_TAZ + 0.05, polyExaggeration, myDottedGeometry);
+            GNEGeometry::drawDottedContourClosedShape(myShape, polyExaggeration);
         }
         // pop name
         glPopName();

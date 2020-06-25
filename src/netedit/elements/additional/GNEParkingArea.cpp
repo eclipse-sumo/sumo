@@ -191,7 +191,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            //GNEGeometry::drawShapeDottedContour(s, getType(), parkingAreaExaggeration, myDottedGeometry);
+            GNEGeometry::drawDottedContourShape(myAdditionalGeometry.getShape(), myWidth * parkingAreaExaggeration);
         }
         // Pop name matrix
         glPopName();

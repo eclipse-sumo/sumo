@@ -167,7 +167,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             //GNEGeometry::drawShapeDottedContour(s, getType(), VSSExaggeration, myDottedGeometry);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
-                // GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
+                //GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
             }
         }
         // Pop name

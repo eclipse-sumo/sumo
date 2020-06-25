@@ -487,7 +487,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContour(myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
+            GNEGeometry::drawDottedContourLane(myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
         }
         // only draw details depending of the scale and if isn't being drawn for selecting
         if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {

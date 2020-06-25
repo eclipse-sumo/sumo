@@ -203,7 +203,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            //GNEGeometry::drawShapeDottedContour(s, getType(), busStopExaggeration, myDottedGeometry);
+            GNEGeometry::drawDottedContourShape(myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.busStopWidth * busStopExaggeration);
         }
         // Pop name
         glPopName();

@@ -180,9 +180,12 @@ struct GNEGeometry {
         /// @brief constructor
         DottedGeometry();
 
+        /// @brief constructor for shapes
+        DottedGeometry(PositionVector shape, const bool closeShape);
+
         /// @brief constructor for extremes
-        DottedGeometry(const DottedGeometry &topDottedGeometry, const bool firstExtrem, 
-                       const DottedGeometry &botDottedGeometry, const bool drawExtrem);
+        DottedGeometry(const DottedGeometry &topDottedGeometry, const bool drawFirstExtrem, 
+                       const DottedGeometry &botDottedGeometry, const bool drawLastExtrem);
 
         /// @brief update DottedGeometry (using lane shape
         void updateDottedGeometry(const GNELane *lane);
@@ -457,10 +460,19 @@ struct GNEGeometry {
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
 
     /// @brief draw dotted contour for the given dottedGeometry (used by lanes, routes, etc.)
-    static void drawDottedContour(const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool lastDrawExtrem);
+    static void drawDottedContourLane(const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
-    static void drawDottedContour(const DottedGeometry &dottedGeometryTop, const DottedGeometry &dottedGeometrybot);
+    static void drawDottedContourEdge(const DottedGeometry &dottedGeometryTop, const DottedGeometry &dottedGeometrybot);
+
+    /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
+    static void drawDottedContourClosedShape(const PositionVector &shape, const double exaggeration);
+
+    /// @brief draw dotted contour for the given shape (used by additionals)
+    static void drawDottedContourShape(const PositionVector &shape, const double width);
+
+    /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
+    static void drawDottedContourCircle(const Position &position, const double radius);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);
