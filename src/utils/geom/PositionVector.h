@@ -400,8 +400,11 @@ public:
     /// @brief returned vector that varies z smoothly over its length
     PositionVector interpolateZ(double zStart, double zEnd) const;
 
-    /// @brief resample shape with the given number of points (equal spacing)
-    PositionVector resample(double maxLength) const;
+    /**@brief resample shape (i.e. transform to segments, equal spacing)
+     * @param[in] maxLength lenght of every segment
+     * @param[in] adjustEnd enable or disable adjust end (i.e. result has the same original lenght, last segment could be short)
+     */
+    PositionVector resample(double maxLength, const bool adjustEnd) const;
 
     /// @brief return the offset at the given index
     double offsetAtIndex2D(int index) const;

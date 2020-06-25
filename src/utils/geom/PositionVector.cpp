@@ -1644,7 +1644,7 @@ PositionVector::interpolateZ(double zStart, double zEnd) const {
 
 
 PositionVector
-PositionVector::resample(double maxLength) const {
+PositionVector::resample(double maxLength, const bool adjustEnd) const {
     PositionVector result;
     if (maxLength == 0) {
         return result;
@@ -1656,6 +1656,11 @@ PositionVector::resample(double maxLength) const {
     maxLength = length / ceil(length / maxLength);
     for (double pos = 0; pos <= length; pos += maxLength) {
         result.push_back(positionAtOffset2D(pos));
+    }
+    // check if we have to adjust last element
+    if (adjustEnd && !result.empty() && (result.back() != back())) {
+        // add last element
+        result.push_back(back());
     }
     return result;
 }
