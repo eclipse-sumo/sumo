@@ -154,10 +154,9 @@ protected:
 
     /** @brief An internal definition of a loaded edge
      */
-    struct Edge : public Parameterised {
-
-        explicit Edge(long long int _id)
-            :
+    class Edge : public Parameterised {
+    public:
+        explicit Edge(long long int _id) :
             id(_id), myNoLanes(-1), myNoLanesForward(0),
             myMaxSpeed(MAXSPEED_UNGIVEN),
             myMaxSpeedBackward(MAXSPEED_UNGIVEN),
@@ -172,6 +171,7 @@ protected:
             myCurrentIsElectrified(false)
         { }
 
+        virtual ~Edge() {}
 
         /// @brief The edge's id
         const long long int id;
@@ -215,8 +215,6 @@ protected:
     private:
         /// invalidated assignment operator
         Edge& operator=(const Edge& s) = delete;
-
-
     };
 
 
