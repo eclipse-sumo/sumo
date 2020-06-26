@@ -157,7 +157,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         // Show Lock icon
         myBlockIcon.drawIcon(s, VSSExaggeration, 0.4);
         // Draw child connections
-        drawChildConnections(s, getType());
+        drawChildConnections(s, getType(), VSSExaggeration);
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getPositionInView(), s.scale, s.addName);
@@ -166,9 +166,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             GNEGeometry::drawDottedSquaredShape(myPosition, s.additionalSettings.VSSSize, s.additionalSettings.VSSSize, 0, VSSExaggeration);
             // draw shape dotte contour aroud alld connections between child and parents
-            for (auto i : myChildConnections.connectionPositions) {
-                //GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
-            }
+            drawChildDottedConnections(s, VSSExaggeration);
         }
         // Pop name
         glPopName();

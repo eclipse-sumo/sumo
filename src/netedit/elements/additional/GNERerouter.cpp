@@ -162,14 +162,12 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // Show Lock icon
         myBlockIcon.drawIcon(s, rerouterExaggeration, 0.4);
         // Draw child connections
-        drawChildConnections(s, getType());
+        drawChildConnections(s, getType(), rerouterExaggeration);
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             GNEGeometry::drawDottedSquaredShape(myPosition, s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize, 0, rerouterExaggeration);
             // draw shape dotte contour aroud alld connections between child and parents
-            for (auto i : myChildConnections.connectionPositions) {
-                //GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
-            }
+            drawChildDottedConnections(s, rerouterExaggeration);
         }
         // Draw name
         drawName(getPositionInView(), s.scale, s.addName);

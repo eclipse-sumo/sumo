@@ -191,10 +191,16 @@ struct GNEGeometry {
         void updateDottedGeometry(const GNELane *lane);
 
         /// @brief draw dottedShape
-        void drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const;
+        void drawDottedGeometry(DottedGeometryColor &dottedGeometryColor, const double offset) const;
 
         /// @brief move shape to side
         void moveShapeToSide(const double value);
+
+        /// @brief get width
+        double getWidth() const;
+
+        /// @brief change default width
+        void setWidth(const double width);
 
         /// @brief get shape
         const std::vector<PositionVector> &getShape() const;
@@ -208,6 +214,9 @@ struct GNEGeometry {
     private:
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
+
+        /// @brief geometry width (by defaul 0.2)
+        double myWidth;
 
         /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
         std::vector<PositionVector> myDottedShape;

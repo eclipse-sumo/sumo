@@ -82,8 +82,11 @@ public:
     /// @brief update child connections
     void updateChildConnections();
 
-    // Draw connections between parent and children
-    void drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const;
+    /// @brief Draw connections between parent and children
+    void drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const;
+
+    /// @brief Draw dotted connections between parent and children
+    void drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const;
 
     /// @name Functions related with geometry of element
     /// @{
@@ -159,21 +162,33 @@ protected:
 
     private:
         /// @brief connection geometry
-        struct ConnectionGeometry {
-            /// @brief default constructor
-            ConnectionGeometry();
+        class ConnectionGeometry {
 
+        public:
             /// @brief parameter constructor
-            ConnectionGeometry(GNELane* _lane, Position _pos, double _rot);
+            ConnectionGeometry(GNELane* lane);
 
+            /// @brief get lane
+            const GNELane* getLane() const;
+            
+            /// @brief get position
+            const Position &getPosition() const;
+
+            /// @brief get rotation
+            const double getRotation() const;
+
+        private:
             /// @brief lane
-            GNELane* lane;
+            GNELane* myLane;
 
             /// @brief position
-            Position pos;
+            Position myPosition;
 
             /// @brief rotation
-            double rot;
+            double myRotation;
+
+            /// @brief default constructor
+            ConnectionGeometry();
         };
 
     public:
@@ -184,13 +199,16 @@ protected:
         void update();
 
         /// @brief draw connections between Parent and childrens
-        void draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const;
+        void drawConnection(const GUIVisualizationSettings& s, const GUIGlObjectType parentType, const double exaggeration) const;
+
+        /// @brief draw dotted connections between Parent and childrens
+        void drawDottedConnection(const double exaggeration) const;
 
         /// @brief position and rotation of every symbol over lane
         std::vector<ConnectionGeometry> symbolsPositionAndRotation;
 
-        /// @brief Matrix with the Vertex's positions of connections between parents an their children
-        std::vector<PositionVector> connectionPositions;
+        /// @brief geometry connections between parents an their children
+        std::vector<GNEGeometry::Geometry> connectionsGeometries;
 
     private:
         /// @brief pointer to hierarchical element parent

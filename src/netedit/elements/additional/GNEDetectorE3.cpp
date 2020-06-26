@@ -153,7 +153,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         // Show Lock icon depending
         myBlockIcon.drawIcon(s, E3Exaggeration, 0.4);
         // Draw child connections
-        drawChildConnections(s, getType());
+        drawChildConnections(s, getType(), E3Exaggeration);
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getPositionInView(), s.scale, s.addName);
@@ -162,9 +162,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             GNEGeometry::drawDottedSquaredShape(myPosition, s.detectorSettings.E3Size, s.detectorSettings.E3Size, 0, E3Exaggeration);
             // draw shape dotte contour aroud alld connections between child and parents
-            for (auto i : myChildConnections.connectionPositions) {
-                //GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
-            }
+            drawChildDottedConnections(s, E3Exaggeration);
         }
         // Pop name
         glPopName();

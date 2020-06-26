@@ -1257,9 +1257,9 @@ GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
 void
 GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, vss);
+    const double VSSExaggeration = s.addSize.getExaggeration(s, vss);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // obtain lanePos and route
         const Position& lanePos = vss->getChildPosition(this);
         const double laneRot = vss->getChildRotation(this);
@@ -1270,7 +1270,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) co
         glTranslated(lanePos.x(), lanePos.y(), vss->getType());
         glRotated(-1 * laneRot, 0, 0, 1);
         glTranslated(0, -1.5, 0);
-        glScaled(exaggeration, exaggeration, 1);
+        glScaled(VSSExaggeration, VSSExaggeration, 1);
         // draw circle
         int noPoints = 9;
         if (s.scale > 25) {
@@ -1301,7 +1301,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) co
             // GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
         }
         // Draw connections
-        vss->drawChildConnections(s, getType());
+        vss->drawChildConnections(s, getType(), VSSExaggeration);
     }
 }
 

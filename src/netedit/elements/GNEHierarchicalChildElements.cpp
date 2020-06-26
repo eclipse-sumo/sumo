@@ -70,8 +70,8 @@ GNEHierarchicalChildElements::~GNEHierarchicalChildElements() {}
 const Position&
 GNEHierarchicalChildElements::getChildPosition(const GNELane* lane) {
     for (const auto& childConnection : myChildConnections.symbolsPositionAndRotation) {
-        if (childConnection.lane == lane) {
-            return childConnection.pos;
+        if (childConnection.getLane() == lane) {
+            return childConnection.getPosition();
         }
     }
     throw ProcessError("Lane doesn't exist");
@@ -81,8 +81,8 @@ GNEHierarchicalChildElements::getChildPosition(const GNELane* lane) {
 double
 GNEHierarchicalChildElements::getChildRotation(const GNELane* lane) {
     for (const auto& childConnection : myChildConnections.symbolsPositionAndRotation) {
-        if (childConnection.lane == lane) {
-            return childConnection.rot;
+        if (childConnection.getLane() == lane) {
+            return childConnection.getRotation();
         }
     }
     throw ProcessError("Lane doesn't exist");
@@ -96,8 +96,20 @@ GNEHierarchicalChildElements::updateChildConnections() {
 
 
 void
-GNEHierarchicalChildElements::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent) const {
-    myChildConnections.draw(s, GLTypeParent);
+GNEHierarchicalChildElements::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const {
+    // first check if connections can be drawn
+    if (!s.drawForRectangleSelection && (exaggeration > 0)) {
+        myChildConnections.drawConnection(s, GLTypeParent, exaggeration);
+    }
+}
+
+
+void 
+GNEHierarchicalChildElements::drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const {
+    // first check if connections can be drawn
+    if (!s.drawForRectangleSelection && (exaggeration > 0)) {
+        myChildConnections.drawDottedConnection(exaggeration);
+    }
 }
 
 
@@ -570,17 +582,40 @@ GNEHierarchicalChildElements::changeChildLanes(GNEAdditional* elementChild, cons
 // GNEHierarchicalChildElements::ChildConnections - methods
 // ---------------------------------------------------------------------------
 
-GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::ConnectionGeometry() :
-    lane(nullptr),
-    pos(Position::INVALID),
-    rot(0) {
+GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::ConnectionGeometry(GNELane* lane) :
+    myLane(lane),
+    myRotation(0) {
+    // set position and length depending of shape's lengt
+    if (lane->getLaneShape().length() - 6 > 0) {
+        myPosition = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length() - 6);
+        myRotation = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length() - 6);
+    } else {
+        myPosition = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length());
+        myRotation = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length());
+    }
 }
 
 
-GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::ConnectionGeometry(GNELane* _lane, Position _pos, double _rot) :
-    lane(_lane),
-    pos(_pos),
-    rot(_rot) {
+const GNELane*
+GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::getLane() const {
+    return myLane;
+}
+
+const Position&
+GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::getPosition() const {
+    return myPosition;
+}
+
+
+const double 
+GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::getRotation() const {
+    return myRotation;
+}
+
+
+GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::ConnectionGeometry() :
+    myLane(nullptr),
+    myRotation(0) {
 }
 
 
@@ -590,111 +625,111 @@ GNEHierarchicalChildElements::ChildConnections::ChildConnections(GNEHierarchical
 
 void
 GNEHierarchicalChildElements::ChildConnections::update() {
-    // first clear connection positions
-    connectionPositions.clear();
+    // first clear containers
+    connectionsGeometries.clear();
     symbolsPositionAndRotation.clear();
     // calculate position and rotation of every simbol for every edge
     for (const auto& edge : myHierarchicalElement->myChildEdges) {
         for (const auto& lane : edge->getLanes()) {
-            Position pos;
-            double rot;
-            // set position and length depending of shape's lengt
-            if (lane->getLaneShape().length() - 6 > 0) {
-                pos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length() - 6);
-                rot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length() - 6);
-            } else {
-                pos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length());
-                rot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length());
-            }
-            symbolsPositionAndRotation.push_back(ConnectionGeometry(lane, pos, rot));
+            symbolsPositionAndRotation.push_back(ConnectionGeometry(lane));
         }
     }
     // calculate position and rotation of every symbol for every lane
     for (const auto& lane : myHierarchicalElement->myChildLanes) {
-        Position pos;
-        double rot;
-        // set position and length depending of shape's lengt
-        if (lane->getLaneShape().length() - 6 > 0) {
-            pos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length() - 6);
-            rot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length() - 6);
-        } else {
-            pos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length());
-            rot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length());
-        }
-        symbolsPositionAndRotation.push_back(ConnectionGeometry(lane, pos, rot));
+        symbolsPositionAndRotation.push_back(ConnectionGeometry(lane));
     }
     // calculate position for every child additional
     for (const auto& additional : myHierarchicalElement->myChildAdditionals) {
-        // check that position is different of position
+        // check that additional position is different of parent position
         if (additional->getPositionInView() != myHierarchicalElement->getPositionInView()) {
-            std::vector<Position> posConnection;
-            double A = std::abs(additional->getPositionInView().x() - myHierarchicalElement->getPositionInView().x());
-            double B = std::abs(additional->getPositionInView().y() - myHierarchicalElement->getPositionInView().y());
+            // create connection shape
+            std::vector<Position> connectionShape;
+            const double A = std::abs(additional->getPositionInView().x() - myHierarchicalElement->getPositionInView().x());
+            const double B = std::abs(additional->getPositionInView().y() - myHierarchicalElement->getPositionInView().y());
             // Set positions of connection's vertex. Connection is build from Entry to E3
-            posConnection.push_back(additional->getPositionInView());
+            connectionShape.push_back(additional->getPositionInView());
             if (myHierarchicalElement->getPositionInView().x() > additional->getPositionInView().x()) {
                 if (myHierarchicalElement->getPositionInView().y() > additional->getPositionInView().y()) {
-                    posConnection.push_back(Position(additional->getPositionInView().x() + A, additional->getPositionInView().y()));
+                    connectionShape.push_back(Position(additional->getPositionInView().x() + A, additional->getPositionInView().y()));
                 } else {
-                    posConnection.push_back(Position(additional->getPositionInView().x(), additional->getPositionInView().y() - B));
+                    connectionShape.push_back(Position(additional->getPositionInView().x(), additional->getPositionInView().y() - B));
                 }
             } else {
                 if (myHierarchicalElement->getPositionInView().y() > additional->getPositionInView().y()) {
-                    posConnection.push_back(Position(additional->getPositionInView().x(), additional->getPositionInView().y() + B));
+                    connectionShape.push_back(Position(additional->getPositionInView().x(), additional->getPositionInView().y() + B));
                 } else {
-                    posConnection.push_back(Position(additional->getPositionInView().x() - A, additional->getPositionInView().y()));
+                    connectionShape.push_back(Position(additional->getPositionInView().x() - A, additional->getPositionInView().y()));
                 }
             }
-            posConnection.push_back(myHierarchicalElement->getPositionInView());
-            connectionPositions.push_back(posConnection);
+            connectionShape.push_back(myHierarchicalElement->getPositionInView());
+            // declare Geometry
+            GNEGeometry::Geometry geometry;
+            // update geometry with connectino shape
+            geometry.updateGeometry(connectionShape);
+            // add geometry in connectionsGeometry
+            connectionsGeometries.push_back(geometry);
         }
     }
     // calculate geometry for connections between parent and children
     for (const auto& symbol : symbolsPositionAndRotation) {
-        std::vector<Position> posConnection;
-        double A = std::abs(symbol.pos.x() - myHierarchicalElement->getPositionInView().x());
-        double B = std::abs(symbol.pos.y() - myHierarchicalElement->getPositionInView().y());
+        // create connection shape
+        std::vector<Position> connectionShape;
+        const double A = std::abs(symbol.getPosition().x() - myHierarchicalElement->getPositionInView().x());
+        const double B = std::abs(symbol.getPosition().y() - myHierarchicalElement->getPositionInView().y());
         // Set positions of connection's vertex. Connection is build from Entry to E3
-        posConnection.push_back(symbol.pos);
-        if (myHierarchicalElement->getPositionInView().x() > symbol.pos.x()) {
-            if (myHierarchicalElement->getPositionInView().y() > symbol.pos.y()) {
-                posConnection.push_back(Position(symbol.pos.x() + A, symbol.pos.y()));
+        connectionShape.push_back(symbol.getPosition());
+        if (myHierarchicalElement->getPositionInView().x() > symbol.getPosition().x()) {
+            if (myHierarchicalElement->getPositionInView().y() > symbol.getPosition().y()) {
+                connectionShape.push_back(Position(symbol.getPosition().x() + A, symbol.getPosition().y()));
             } else {
-                posConnection.push_back(Position(symbol.pos.x(), symbol.pos.y() - B));
+                connectionShape.push_back(Position(symbol.getPosition().x(), symbol.getPosition().y() - B));
             }
         } else {
-            if (myHierarchicalElement->getPositionInView().y() > symbol.pos.y()) {
-                posConnection.push_back(Position(symbol.pos.x(), symbol.pos.y() + B));
+            if (myHierarchicalElement->getPositionInView().y() > symbol.getPosition().y()) {
+                connectionShape.push_back(Position(symbol.getPosition().x(), symbol.getPosition().y() + B));
             } else {
-                posConnection.push_back(Position(symbol.pos.x() - A, symbol.pos.y()));
+                connectionShape.push_back(Position(symbol.getPosition().x() - A, symbol.getPosition().y()));
             }
         }
-        posConnection.push_back(myHierarchicalElement->getPositionInView());
-        connectionPositions.push_back(posConnection);
+        connectionShape.push_back(myHierarchicalElement->getPositionInView());
+        // declare Geometry
+        GNEGeometry::Geometry geometry;
+        // update geometry with connectino shape
+        geometry.updateGeometry(connectionShape);
+        // add geometry in connectionsGeometry
+        connectionsGeometries.push_back(geometry);
     }
 }
 
 
 void
-GNEHierarchicalChildElements::ChildConnections::draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const {
-    // first check if connections can be drawn
-    if (!s.drawForRectangleSelection) {
-        // Iterate over myConnectionPositions
-        for (const auto& connection : connectionPositions) {
-            // Add a draw matrix
-            glPushMatrix();
-            // traslate in the Z axis
-            glTranslated(0, 0, parentType - 0.01);
-            // Set color of the base
-            GLHelper::setColor(s.colorSettings.childConnections);
-            // iterate over connections
-            for (auto position = connection.begin(); (position + 1) != connection.end(); position++) {
-                // Draw Lines
-                GLHelper::drawLine((*position), (*(position + 1)));
-            }
-            // Pop draw matrix
-            glPopMatrix();
-        }
+GNEHierarchicalChildElements::ChildConnections::drawConnection(const GUIVisualizationSettings& s, const GUIGlObjectType parentType, const double exaggeration) const {
+    // Iterate over myConnectionPositions
+    for (const auto& connectionGeometry : connectionsGeometries) {
+        // Add a draw matrix
+        glPushMatrix();
+        // traslate in the Z axis
+        glTranslated(0, 0, parentType - 0.01);
+        // Set color of the base
+        GLHelper::setColor(s.colorSettings.childConnections);
+        // Draw box lines
+        GLHelper::drawBoxLines(connectionGeometry.getShape(), connectionGeometry.getShapeRotations(), connectionGeometry.getShapeLengths(), exaggeration * 0.1);
+        // Pop draw matrix
+        glPopMatrix();
+    }
+}
+
+
+void
+GNEHierarchicalChildElements::ChildConnections::drawDottedConnection(const double exaggeration) const {
+    // Iterate over myConnectionPositions
+    for (const auto& connectionGeometry : connectionsGeometries) {
+        // calculate dotted geometry
+        GNEGeometry::DottedGeometry dottedGeometry(connectionGeometry.getShape(), false);
+        // change default width
+        dottedGeometry.setWidth(0.1);
+        // use drawDottedContourLane to draw it
+        GNEGeometry::drawDottedContourLane(dottedGeometry, exaggeration * 0.1, false, false);
     }
 }
 

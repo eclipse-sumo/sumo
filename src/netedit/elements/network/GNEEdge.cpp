@@ -2068,9 +2068,9 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
 void
 GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* rerouter) const {
     // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, rerouter);
+    const double rerouteExaggeration = s.addSize.getExaggeration(s, rerouter);
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(rerouteExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(rerouter->getGlID());
         // draw rerouter symbol over all lanes
@@ -2081,7 +2081,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
             glPushMatrix();
             glTranslated(lanePos.x(), lanePos.y(), rerouter->getType());
             glRotated(-1 * laneRot, 0, 0, 1);
-            glScaled(exaggeration, exaggeration, 1);
+            glScaled(rerouteExaggeration, rerouteExaggeration, 1);
             // mode
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             glBegin(GL_TRIANGLES);
@@ -2111,7 +2111,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
         // Pop name
         glPopName();
         // Draw connections
-        rerouter->drawChildConnections(s, getType());
+        rerouter->drawChildConnections(s, getType(), rerouteExaggeration);
     }
 }
 
