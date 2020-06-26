@@ -100,6 +100,10 @@ private:
 
         /// @brief The block time
         SUMOTime myBlockTime = -1;
+
+    private:
+        /// @brief Invalidated assignment operator.
+        Queue& operator=(const Queue&) = delete;
     };
 
 public:

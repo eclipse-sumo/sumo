@@ -65,8 +65,8 @@ public:
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
         const double halfWidth;
     private:
-        /// @brief default constructor
-        LaneDrawingConstants();
+        /// @brief Invalidated assignment operator.
+        LaneDrawingConstants& operator=(const LaneDrawingConstants&) = delete;
     };
 
     /**@brief Constructor

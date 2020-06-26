@@ -1088,7 +1088,7 @@ void
 NBOwnTLDef::fixSuperfluousYellow(NBTrafficLightLogic* logic) const {
     // assume that yellow states last at most one phase
     const int n = logic->getNumLinks();
-    const int p = logic->getPhases().size();
+    const int p = (int)logic->getPhases().size();
     for (int i1 = 0; i1 < n; ++i1) {
         LinkState prev = (LinkState)logic->getPhases().back().state[i1];
         for (int i2 = 0; i2 < p; ++i2) {
@@ -1117,7 +1117,7 @@ NBOwnTLDef::deactivateAlwaysGreen(NBTrafficLightLogic* logic) const {
             }
         }
     }
-    const int p = logic->getPhases().size();
+    const int p = (int)logic->getPhases().size();
     for (int i1 = 0; i1 < n; ++i1) {
         if (alwaysGreen[i1]) {
             for (int i2 = 0; i2 < p; ++i2) {
@@ -1131,7 +1131,7 @@ NBOwnTLDef::deactivateAlwaysGreen(NBTrafficLightLogic* logic) const {
 void
 NBOwnTLDef::deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& fromEdges) const {
     const int n = logic->getNumLinks();
-    const int p = logic->getPhases().size();
+    const int p = (int)logic->getPhases().size();
     for (int i1 = 0; i1 < n; ++i1) {
         if (fromEdges[i1]->isInsideTLS()) {
             for (int i2 = 0; i2 < p; ++i2) {
@@ -1144,7 +1144,7 @@ NBOwnTLDef::deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& 
 
 SUMOTime
 NBOwnTLDef::computeEscapeTime(const std::string& state, const EdgeVector& fromEdges, const EdgeVector& toEdges) const {
-    const int n = state.size();
+    const int n = (int)state.size();
     double maxTime = 0;
     for (int i1 = 0; i1 < n; ++i1) {
         if (state[i1] == 'y' && !fromEdges[i1]->isInsideTLS()) {

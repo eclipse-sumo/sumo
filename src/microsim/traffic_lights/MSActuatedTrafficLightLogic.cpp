@@ -756,9 +756,10 @@ MSActuatedTrafficLightLogic::setParameter(const std::string& key, const std::str
     } else if (key == "show-detectors") {
         myShowDetectors = StringUtils::toBool(value);
     } else if (key == "inactive-threshold") {
-        myInactiveThreshold = StringUtils::toDouble(value);
+        myInactiveThreshold = string2time(value);
     }
     Parameterised::setParameter(key, value);
 }
+
 
 /****************************************************************************/
