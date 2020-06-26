@@ -858,6 +858,10 @@ TraCITestClient::testAPI() {
     answerLog << "    getLaneChangeState (right): " << state.first << ", " << state.second << "\n";
     vehicle.rerouteTraveltime("0");
     vehicle.setSpeedFactor("0", 0.8);
+    vehicle.setSpeedMode("0", 0);
+    answerLog << "    getSpeedMode after change: " << vehicle.getSpeedMode("0") << "\n";
+    vehicle.setLaneChangeMode("0", 0);
+    answerLog << "    getLaneChangeMode after change: " << vehicle.getLaneChangeMode("0") << "\n";
     answerLog << "    remove:\n";
     vehicle.remove("0");
     answerLog << "    getIDCount: " << vehicle.getIDCount() << "\n";
