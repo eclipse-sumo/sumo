@@ -299,8 +299,21 @@ GNEGeometry::DottedGeometryColor::changeColor() {
 // GNEGeometry::DottedGeometry - methods
 // ---------------------------------------------------------------------------
 
+
+GNEGeometry::DottedGeometry::Segment::Segment() :
+    offset(0) {
+}
+
+
+GNEGeometry::DottedGeometry::Segment::Segment(PositionVector newShape) :
+    shape(newShape),
+    offset(0) {
+}
+
+
 GNEGeometry::DottedGeometry::DottedGeometry() :
-    myWidth(0.2) {}
+    myWidth(0.2) {
+}
 
 
 GNEGeometry::DottedGeometry::DottedGeometry(PositionVector shape, const bool closeShape) :
@@ -312,11 +325,11 @@ GNEGeometry::DottedGeometry::DottedGeometry(PositionVector shape, const bool clo
     if (shape.size() > 1) {
         // get shape
         for (int i = 1; i < (int)shape.size(); i++) {
-            myDottedShape.push_back({shape[i-1], shape[i]});
+            myDottedGeometrySegments.push_back(Segment({shape[i-1], shape[i]}));
         }
         // resample
-        for (auto &partialShape : myDottedShape) {
-            partialShape = partialShape.resample(2, true);
+        for (auto &segment : myDottedGeometrySegments) {
+            segment.shape = segment.shape.resample(2, true);
         }
         // calculate shape rotations and lenghts
         calculateShapeRotationsAndLengths();
@@ -329,14 +342,18 @@ GNEGeometry::DottedGeometry::DottedGeometry(const DottedGeometry &topDottedGeome
     myWidth(0.2) {
     // add extremes
     if (drawFirstExtrem) {
-        myDottedShape.push_back({topDottedGeometry.getShape().front().front(), botDottedGeometry.getShape().front().front()});
+        myDottedGeometrySegments.push_back(Segment({
+            topDottedGeometry.myDottedGeometrySegments.front().shape.front(), 
+            botDottedGeometry.myDottedGeometrySegments.front().shape.front()}));
     }
     if (drawLastExtrem) {
-        myDottedShape.push_back({topDottedGeometry.getShape().back().back(), botDottedGeometry.getShape().back().back()});
+        myDottedGeometrySegments.push_back(Segment({
+            topDottedGeometry.myDottedGeometrySegments.back().shape.back(), 
+            botDottedGeometry.myDottedGeometrySegments.back().shape.back()}));
     }
     // resample
-    for (auto &shape : myDottedShape) {
-        shape = shape.resample(2, true);
+    for (auto &segment : myDottedGeometrySegments) {
+        segment.shape = segment.shape.resample(2, true);
     }
     // calculate shape rotations and lenghts
     calculateShapeRotationsAndLengths();
@@ -345,33 +362,34 @@ GNEGeometry::DottedGeometry::DottedGeometry(const DottedGeometry &topDottedGeome
 
 void
 GNEGeometry::DottedGeometry::updateDottedGeometry(const GNELane *lane) {
-    // reset shape
-    myDottedShape.clear();
+    // reset segments
+    myDottedGeometrySegments.clear();
     // get shape
     for (int i = 1; i < (int)lane->getLaneShape().size(); i++) {
-        myDottedShape.push_back({lane->getLaneShape()[i-1], lane->getLaneShape()[i]});
+        myDottedGeometrySegments.push_back(Segment({lane->getLaneShape()[i-1], lane->getLaneShape()[i]}));
     }
     // resample
-    for (auto &shape : myDottedShape) {
-        shape = shape.resample(2, true);
+    for (auto &segment : myDottedGeometrySegments) {
+        segment.shape = segment.shape.resample(2, true);
     }
     // calculate shape rotations and lenghts
     calculateShapeRotationsAndLengths();
 }
 
+
 void
-GNEGeometry::DottedGeometry::drawDottedGeometry(DottedGeometryColor &dottedGeometryColor, const double offset) const {
-    // iterate over myDottedShape
-    for (int i = 0; i < (int)myDottedShape.size(); i++) {
+GNEGeometry::DottedGeometry::drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const {
+    // iterate over all segments
+    for (auto &segment : myDottedGeometrySegments) {
         // iterate over shape
-        for (int j = 0; j < ((int)myDottedShape.at(i).size() - 1); j++) {
+        for (int i = 0; i < ((int)segment.shape.size() - 1); i++) {
             // set color
             GLHelper::setColor(dottedGeometryColor.getColor());
             // draw box line
-            GLHelper::drawBoxLine(myDottedShape.at(i)[j], 
-                myShapeRotations.at(i).at(j),
-                myShapeLengths.at(i).at(j), 
-                myWidth, offset);
+            GLHelper::drawBoxLine(segment.shape[i], 
+                segment.rotations.at(i),
+                segment.lengths.at(i), 
+                myWidth, segment.offset);
         }
     }
 }
@@ -380,8 +398,8 @@ GNEGeometry::DottedGeometry::drawDottedGeometry(DottedGeometryColor &dottedGeome
 void 
 GNEGeometry::DottedGeometry::moveShapeToSide(const double value) {
     // move 2 side
-    for (auto &shape : myDottedShape) {
-        shape.move2side(value);
+    for (auto &segment : myDottedGeometrySegments) {
+        segment.shape.move2side(value);
     }
 }
 
@@ -397,44 +415,21 @@ GNEGeometry::DottedGeometry::setWidth(const double width) {
     myWidth = width;
 }
 
-
-const std::vector<PositionVector>& 
-GNEGeometry::DottedGeometry::getShape() const {
-    return myDottedShape;
-}
-
-
-const std::vector<std::vector<double> >&
-GNEGeometry::DottedGeometry::getShapeRotations() const {
-    return myShapeRotations;
-}
-
-
-const std::vector<std::vector<double> >&
-GNEGeometry::DottedGeometry::getShapeLengths() const {
-    return myShapeLengths;
-}
-
-
 void
 GNEGeometry::DottedGeometry::calculateShapeRotationsAndLengths() {
-    // clear rotations and lengths
-    myShapeRotations.clear();
-    myShapeLengths.clear();
-    for (int i = 0; i < myDottedShape.size(); i++) {
-        myShapeRotations.push_back({});
-        myShapeLengths.push_back({});
+    // iterate over all segments
+    for (auto &segment : myDottedGeometrySegments) {
         // Get number of parts of the shape
-        int numberOfSegments = (int)myDottedShape.at(i).size() - 1;
+        int numberOfSegments = (int)segment.shape.size() - 1;
         // If number of segments is more than 0
         if (numberOfSegments >= 0) {
             // Reserve memory (To improve efficiency)
-            myShapeRotations.reserve(numberOfSegments);
-            myShapeLengths.reserve(numberOfSegments);
+            segment.rotations.reserve(numberOfSegments);
+            segment.lengths.reserve(numberOfSegments);
             // Calculate lengths and rotations for every shape
-            for (int j = 0; j < numberOfSegments; j++) {
-                myShapeRotations.at(i).push_back(calculateRotation(myDottedShape.at(i)[j], myDottedShape.at(i)[j + 1]));
-                myShapeLengths.at(i).push_back(calculateLength(myDottedShape.at(i)[j], myDottedShape.at(i)[j + 1]));
+            for (int i = 0; i < numberOfSegments; i++) {
+                segment.rotations.push_back(calculateRotation(segment.shape[i], segment.shape[i + 1]));
+                segment.lengths.push_back(calculateLength(segment.shape[i], segment.shape[i + 1]));
             }
         }
     }
@@ -1134,13 +1129,13 @@ GNEGeometry::drawDottedContourLane(const DottedGeometry &dottedGeometry, const d
     // translate to front
     glTranslated(0, 0, GLO_MAX);
     // draw top dotted geometry
-    topDottedGeometry.drawDottedGeometry(dottedGeometryColor, topDottedGeometry.getWidth());
+    topDottedGeometry.drawDottedGeometry(dottedGeometryColor);
     // draw top dotted geometry
-    botDottedGeometry.drawDottedGeometry(dottedGeometryColor, (topDottedGeometry.getWidth() * -1));
+    botDottedGeometry.drawDottedGeometry(dottedGeometryColor);
     // change color
     dottedGeometryColor.changeColor();
     // draw extrem dotted geometry
-    extremes.drawDottedGeometry(dottedGeometryColor, 0);
+    extremes.drawDottedGeometry(dottedGeometryColor);
     // pop matrix
     glPopMatrix();
 }
@@ -1157,13 +1152,13 @@ GNEGeometry::drawDottedContourEdge(const DottedGeometry &dottedGeometryTop, cons
     // translate to front
     glTranslated(0, 0, GLO_MAX);
     // draw top dotted geometry
-    dottedGeometryTop.drawDottedGeometry(dottedGeometryColor, dottedGeometryTop.getWidth());
+    dottedGeometryTop.drawDottedGeometry(dottedGeometryColor);
     // draw top dotted geometry
-    dottedGeometrybot.drawDottedGeometry(dottedGeometryColor, (dottedGeometryTop.getWidth() * -1));
+    dottedGeometrybot.drawDottedGeometry(dottedGeometryColor);
     // change color
     dottedGeometryColor.changeColor();
     // draw extrem dotted geometry
-    extremes.drawDottedGeometry(dottedGeometryColor, 0);
+    extremes.drawDottedGeometry(dottedGeometryColor);
     // pop matrix
     glPopMatrix();
 }
@@ -1184,7 +1179,7 @@ GNEGeometry::drawDottedContourClosedShape(const PositionVector &shape, const dou
         // translate to front
         glTranslated(0, 0, GLO_MAX);
         // draw dotted geometry
-        dottedGeometry.drawDottedGeometry(dottedGeometryColor, 0);
+        dottedGeometry.drawDottedGeometry(dottedGeometryColor);
         // pop matrix
         glPopMatrix();
     }

@@ -177,6 +177,28 @@ struct GNEGeometry {
     class DottedGeometry {
 
     public:
+
+        /// @brief dotted geometry segment
+        struct Segment {
+            /// @brief default constructor
+            Segment();
+            
+            /// @brief constructor for a given shape
+            Segment(PositionVector newShape);
+
+            /// @brief shape
+            PositionVector shape;
+
+            /// @brief rotations
+            std::vector<double> rotations;
+
+            /// @brief lengths
+            std::vector<double> lengths;
+
+            /// @brief drawing offset
+            double offset;
+        };
+
         /// @brief constructor
         DottedGeometry();
 
@@ -191,7 +213,7 @@ struct GNEGeometry {
         void updateDottedGeometry(const GNELane *lane);
 
         /// @brief draw dottedShape
-        void drawDottedGeometry(DottedGeometryColor &dottedGeometryColor, const double offset) const;
+        void drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const;
 
         /// @brief move shape to side
         void moveShapeToSide(const double value);
@@ -202,15 +224,6 @@ struct GNEGeometry {
         /// @brief change default width
         void setWidth(const double width);
 
-        /// @brief get shape
-        const std::vector<PositionVector> &getShape() const;
-
-        /// @brief get rotations of the single shape parts
-        const std::vector<std::vector<double> > &getShapeRotations() const;
-
-        /// @brief get lengths of the single shape parts
-        const std::vector<std::vector<double> > &getShapeLengths() const;
-
     private:
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
@@ -219,13 +232,7 @@ struct GNEGeometry {
         double myWidth;
 
         /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
-        std::vector<PositionVector> myDottedShape;
-
-        /// @brief The rotations of the dotted shape
-        std::vector<std::vector<double> > myShapeRotations;
-
-        /// @brief The lengths of the dotted shape
-        std::vector<std::vector<double> > myShapeLengths;
+        std::vector<DottedGeometry::Segment> myDottedGeometrySegments;
 
         /// @brief Invalidated assignment operator
         DottedGeometry& operator=(const DottedGeometry& other) = delete;
