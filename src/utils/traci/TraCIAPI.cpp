@@ -349,181 +349,6 @@ TraCIAPI::processSet(int command) {
 }
 
 
-int
-TraCIAPI::getUnsignedByte(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_UBYTE)) {
-        return myInput.readUnsignedByte();
-    }
-    return libsumo::INVALID_INT_VALUE;
-}
-
-
-int
-TraCIAPI::getByte(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_BYTE)) {
-        return myInput.readByte();
-    }
-    return libsumo::INVALID_INT_VALUE;
-}
-
-
-
-int
-TraCIAPI::getInt(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_INTEGER)) {
-        return myInput.readInt();
-    }
-    return libsumo::INVALID_INT_VALUE;
-}
-
-
-double
-TraCIAPI::getDouble(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_DOUBLE)) {
-        return myInput.readDouble();
-    }
-    return libsumo::INVALID_DOUBLE_VALUE;
-}
-
-
-libsumo::TraCIPositionVector
-TraCIAPI::getPolygon(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    libsumo::TraCIPositionVector ret;
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_POLYGON)) {
-        int size = myInput.readUnsignedByte();
-        if (size == 0) {
-            size = myInput.readInt();
-        }
-        for (int i = 0; i < size; ++i) {
-            libsumo::TraCIPosition p;
-            p.x = myInput.readDouble();
-            p.y = myInput.readDouble();
-            p.z = 0.;
-            ret.push_back(p);
-        }
-    }
-    return ret;
-}
-
-
-libsumo::TraCIPosition
-TraCIAPI::getPosition(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    libsumo::TraCIPosition p;
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::POSITION_2D)) {
-        p.x = myInput.readDouble();
-        p.y = myInput.readDouble();
-        p.z = 0;
-    }
-    return p;
-}
-
-
-libsumo::TraCIPosition
-TraCIAPI::getPosition3D(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    libsumo::TraCIPosition p;
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::POSITION_3D)) {
-        p.x = myInput.readDouble();
-        p.y = myInput.readDouble();
-        p.z = myInput.readDouble();
-    }
-    return p;
-}
-
-
-std::string
-TraCIAPI::getString(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_STRING)) {
-        return myInput.readString();
-    }
-    return "";
-}
-
-
-std::vector<std::string>
-TraCIAPI::getStringVector(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    std::vector<std::string> r;
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_STRINGLIST)) {
-        const int size = myInput.readInt();
-        for (int i = 0; i < size; ++i) {
-            r.push_back(myInput.readString());
-        }
-    }
-    return r;
-}
-
-
-libsumo::TraCIColor
-TraCIAPI::getColor(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    libsumo::TraCIColor c;
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_COLOR)) {
-        c.r = (unsigned char)myInput.readUnsignedByte();
-        c.g = (unsigned char)myInput.readUnsignedByte();
-        c.b = (unsigned char)myInput.readUnsignedByte();
-        c.a = (unsigned char)myInput.readUnsignedByte();
-    }
-    return c;
-}
-
-
-libsumo::TraCIStage
-TraCIAPI::getTraCIStage(int cmd, int var, const std::string& id, tcpip::Storage* add) {
-    libsumo::TraCIStage s;
-    createCommand(cmd, var, id, add);
-    if (processGet(cmd, libsumo::TYPE_COMPOUND)) {
-        myInput.readInt(); // components
-        myInput.readUnsignedByte();
-        s.type = myInput.readInt();
-
-        myInput.readUnsignedByte();
-        s.vType = myInput.readString();
-
-        myInput.readUnsignedByte();
-        s.line = myInput.readString();
-
-        myInput.readUnsignedByte();
-        s.destStop = myInput.readString();
-
-        myInput.readUnsignedByte();
-        s.edges = myInput.readStringList();
-
-        myInput.readUnsignedByte();
-        s.travelTime = myInput.readDouble();
-
-        myInput.readUnsignedByte();
-        s.cost = myInput.readDouble();
-
-        myInput.readUnsignedByte();
-        s.length = myInput.readDouble();
-
-        myInput.readUnsignedByte();
-        s.intended = myInput.readString();
-
-        myInput.readUnsignedByte();
-        s.depart = myInput.readDouble();
-
-        myInput.readUnsignedByte();
-        s.departPos = myInput.readDouble();
-
-        myInput.readUnsignedByte();
-        s.arrivalPos = myInput.readDouble();
-
-        myInput.readUnsignedByte();
-        s.description = myInput.readString();
-    }
-    return s;
-}
-
-
 void
 TraCIAPI::readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into) {
     while (variableCount > 0) {
@@ -658,22 +483,12 @@ TraCIAPI::load(const std::vector<std::string>& args) {
 // ---------------------------------------------------------------------------
 // TraCIAPI::EdgeScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::EdgeScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-int
-TraCIAPI::EdgeScope::getIDCount() const {
-    return myParent.getInt(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::ID_COUNT, "");
-}
-
 double
 TraCIAPI::EdgeScope::getAdaptedTraveltime(const std::string& edgeID, double time) const {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(time);
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
+    return getDouble(libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
 }
 
 double
@@ -681,95 +496,95 @@ TraCIAPI::EdgeScope::getEffort(const std::string& edgeID, double time) const {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(time);
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT, edgeID, &content);
+    return getDouble(libsumo::VAR_EDGE_EFFORT, edgeID, &content);
 }
 
 double
 TraCIAPI::EdgeScope::getCO2Emission(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_CO2EMISSION, edgeID);
+    return getDouble(libsumo::VAR_CO2EMISSION, edgeID);
 }
 
 
 double
 TraCIAPI::EdgeScope::getCOEmission(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_COEMISSION, edgeID);
+    return getDouble(libsumo::VAR_COEMISSION, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getHCEmission(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_HCEMISSION, edgeID);
+    return getDouble(libsumo::VAR_HCEMISSION, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getPMxEmission(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_PMXEMISSION, edgeID);
+    return getDouble(libsumo::VAR_PMXEMISSION, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getNOxEmission(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_NOXEMISSION, edgeID);
+    return getDouble(libsumo::VAR_NOXEMISSION, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getFuelConsumption(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_FUELCONSUMPTION, edgeID);
+    return getDouble(libsumo::VAR_FUELCONSUMPTION, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getNoiseEmission(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_NOISEEMISSION, edgeID);
+    return getDouble(libsumo::VAR_NOISEEMISSION, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getElectricityConsumption(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_ELECTRICITYCONSUMPTION, edgeID);
+    return getDouble(libsumo::VAR_ELECTRICITYCONSUMPTION, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getLastStepMeanSpeed(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::LAST_STEP_MEAN_SPEED, edgeID);
+    return getDouble(libsumo::LAST_STEP_MEAN_SPEED, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getLastStepOccupancy(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::LAST_STEP_OCCUPANCY, edgeID);
+    return getDouble(libsumo::LAST_STEP_OCCUPANCY, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getLastStepLength(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::LAST_STEP_LENGTH, edgeID);
+    return getDouble(libsumo::LAST_STEP_LENGTH, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getTraveltime(const std::string& edgeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_CURRENT_TRAVELTIME, edgeID);
+    return getDouble(libsumo::VAR_CURRENT_TRAVELTIME, edgeID);
 }
 
 int
 TraCIAPI::EdgeScope::getLastStepVehicleNumber(const std::string& edgeID) const {
-    return myParent.getInt(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::LAST_STEP_VEHICLE_NUMBER, edgeID);
+    return getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, edgeID);
 }
 
 double
 TraCIAPI::EdgeScope::getLastStepHaltingNumber(const std::string& edgeID) const {
-    return myParent.getInt(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, edgeID);
+    return getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, edgeID);
 }
 
 std::vector<std::string>
 TraCIAPI::EdgeScope::getLastStepVehicleIDs(const std::string& edgeID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::LAST_STEP_VEHICLE_ID_LIST, edgeID);
+    return getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, edgeID);
 }
 
 
 int
 TraCIAPI::EdgeScope::getLaneNumber(const std::string& edgeID) const {
-    return myParent.getInt(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_LANE_INDEX, edgeID);
+    return getInt(libsumo::VAR_LANE_INDEX, edgeID);
 }
 
 
 std::string
 TraCIAPI::EdgeScope::getStreetName(const std::string& edgeID) const {
-    return myParent.getString(libsumo::CMD_GET_EDGE_VARIABLE, libsumo::VAR_NAME, edgeID);
+    return getString(libsumo::VAR_NAME, edgeID);
 }
 
 
@@ -814,50 +629,37 @@ TraCIAPI::EdgeScope::setEffort(const std::string& edgeID, double effort, double 
 
 void
 TraCIAPI::EdgeScope::setMaxSpeed(const std::string& edgeID, double speed) const {
-    tcpip::Storage content;
-    content.writeByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
-    myParent.createCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_MAXSPEED, edgeID, &content);
-    myParent.processSet(libsumo::CMD_SET_EDGE_VARIABLE);
+    setDouble(libsumo::VAR_MAXSPEED, edgeID, speed);
 }
 
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::GUIScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::GUIScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_GUI_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
 double
 TraCIAPI::GUIScope::getZoom(const std::string& viewID) const {
-    return myParent.getDouble(libsumo::CMD_GET_GUI_VARIABLE, libsumo::VAR_VIEW_ZOOM, viewID);
+    return getDouble(libsumo::VAR_VIEW_ZOOM, viewID);
 }
 
 libsumo::TraCIPosition
 TraCIAPI::GUIScope::getOffset(const std::string& viewID) const {
-    return myParent.getPosition(libsumo::CMD_GET_GUI_VARIABLE, libsumo::VAR_VIEW_OFFSET, viewID);
+    return getPos(libsumo::VAR_VIEW_OFFSET, viewID);
 }
 
 std::string
 TraCIAPI::GUIScope::getSchema(const std::string& viewID) const {
-    return myParent.getString(libsumo::CMD_GET_GUI_VARIABLE, libsumo::VAR_VIEW_SCHEMA, viewID);
+    return getString(libsumo::VAR_VIEW_SCHEMA, viewID);
 }
 
 libsumo::TraCIPositionVector
 TraCIAPI::GUIScope::getBoundary(const std::string& viewID) const {
-    return myParent.getPolygon(libsumo::CMD_GET_GUI_VARIABLE, libsumo::VAR_VIEW_BOUNDARY, viewID);
+    return getPolygon(libsumo::VAR_VIEW_BOUNDARY, viewID);
 }
 
 
 void
 TraCIAPI::GUIScope::setZoom(const std::string& viewID, double zoom) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(zoom);
-    myParent.createCommand(libsumo::CMD_SET_GUI_VARIABLE, libsumo::VAR_VIEW_ZOOM, viewID, &content);
-    myParent.processSet(libsumo::CMD_SET_GUI_VARIABLE);
+    setDouble(libsumo::VAR_VIEW_ZOOM, viewID, zoom);
 }
 
 void
@@ -872,11 +674,7 @@ TraCIAPI::GUIScope::setOffset(const std::string& viewID, double x, double y) con
 
 void
 TraCIAPI::GUIScope::setSchema(const std::string& viewID, const std::string& schemeName) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(schemeName);
-    myParent.createCommand(libsumo::CMD_SET_GUI_VARIABLE, libsumo::VAR_VIEW_SCHEMA, viewID, &content);
-    myParent.processSet(libsumo::CMD_SET_GUI_VARIABLE);
+    setString(libsumo::VAR_VIEW_SCHEMA, viewID, schemeName);
 }
 
 void
@@ -909,60 +707,51 @@ TraCIAPI::GUIScope::screenshot(const std::string& viewID, const std::string& fil
 
 void
 TraCIAPI::GUIScope::trackVehicle(const std::string& viewID, const std::string& vehID) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(vehID);
-    myParent.createCommand(libsumo::CMD_SET_GUI_VARIABLE, libsumo::VAR_TRACK_VEHICLE, viewID, &content);
-    myParent.processSet(libsumo::CMD_SET_GUI_VARIABLE);
+    setString(libsumo::VAR_VIEW_SCHEMA, viewID, vehID);
 }
 
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::InductionLoopScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::InductionLoopScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
 double
 TraCIAPI::InductionLoopScope::getPosition(const std::string& loopID) const {
-    return myParent.getDouble(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::VAR_POSITION, loopID);
+    return getDouble(libsumo::VAR_POSITION, loopID);
 }
 
 std::string
 TraCIAPI::InductionLoopScope::getLaneID(const std::string& loopID) const {
-    return myParent.getString(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::VAR_LANE_ID, loopID);
+    return getString(libsumo::VAR_LANE_ID, loopID);
 }
 
 int
 TraCIAPI::InductionLoopScope::getLastStepVehicleNumber(const std::string& loopID) const {
-    return myParent.getInt(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_VEHICLE_NUMBER, loopID);
+    return getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, loopID);
 }
 
 double
 TraCIAPI::InductionLoopScope::getLastStepMeanSpeed(const std::string& loopID) const {
-    return myParent.getDouble(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_MEAN_SPEED, loopID);
+    return getDouble(libsumo::LAST_STEP_MEAN_SPEED, loopID);
 }
 
 std::vector<std::string>
 TraCIAPI::InductionLoopScope::getLastStepVehicleIDs(const std::string& loopID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_VEHICLE_ID_LIST, loopID);
+    return getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, loopID);
 }
 
 double
 TraCIAPI::InductionLoopScope::getLastStepOccupancy(const std::string& loopID) const {
-    return myParent.getDouble(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_OCCUPANCY, loopID);
+    return getDouble(libsumo::LAST_STEP_OCCUPANCY, loopID);
 }
 
 double
 TraCIAPI::InductionLoopScope::getLastStepMeanLength(const std::string& loopID) const {
-    return myParent.getDouble(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_LENGTH, loopID);
+    return getDouble(libsumo::LAST_STEP_LENGTH, loopID);
 }
 
 double
 TraCIAPI::InductionLoopScope::getTimeSinceDetection(const std::string& loopID) const {
-    return myParent.getDouble(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_TIME_SINCE_DETECTION, loopID);
+    return getDouble(libsumo::LAST_STEP_TIME_SINCE_DETECTION, loopID);
 }
 
 
@@ -1003,69 +792,48 @@ TraCIAPI::InductionLoopScope::getVehicleData(const std::string& loopID) const {
 // ---------------------------------------------------------------------------
 // TraCIAPI::JunctionScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::JunctionScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-int
-TraCIAPI::JunctionScope::getIDCount() const {
-    return myParent.getInt(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::ID_COUNT, "");
-}
-
-
 libsumo::TraCIPosition
 TraCIAPI::JunctionScope::getPosition(const std::string& junctionID) const {
-    return myParent.getPosition(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::VAR_POSITION, junctionID);
+    return getPos(libsumo::VAR_POSITION, junctionID);
 }
 
 libsumo::TraCIPositionVector
 TraCIAPI::JunctionScope::getShape(const std::string& junctionID) const {
-    return myParent.getPolygon(libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::VAR_SHAPE, junctionID);
+    return getPolygon(libsumo::VAR_SHAPE, junctionID);
 }
 
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::LaneScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::LaneScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_LANE_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-int
-TraCIAPI::LaneScope::getIDCount() const {
-    return myParent.getInt(libsumo::CMD_GET_LANE_VARIABLE, libsumo::ID_COUNT, "");
-}
-
 double
 TraCIAPI::LaneScope::getLength(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_LENGTH, laneID);
+    return getDouble(libsumo::VAR_LENGTH, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getMaxSpeed(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_MAXSPEED, laneID);
+    return getDouble(libsumo::VAR_MAXSPEED, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getWidth(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_WIDTH, laneID);
+    return getDouble(libsumo::VAR_WIDTH, laneID);
 }
 
 std::vector<std::string>
 TraCIAPI::LaneScope::getAllowed(const std::string& laneID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LANE_ALLOWED, laneID);
+    return getStringVector(libsumo::LANE_ALLOWED, laneID);
 }
 
 std::vector<std::string>
 TraCIAPI::LaneScope::getDisallowed(const std::string& laneID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LANE_DISALLOWED, laneID);
+    return getStringVector(libsumo::LANE_DISALLOWED, laneID);
 }
 
 int
 TraCIAPI::LaneScope::getLinkNumber(const std::string& laneID) const {
-    return myParent.getInt(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LANE_LINK_NUMBER, laneID);
+    return getInt(libsumo::LANE_LINK_NUMBER, laneID);
 }
 
 std::vector<libsumo::TraCIConnection>
@@ -1120,87 +888,87 @@ TraCIAPI::LaneScope::getLinks(const std::string& laneID) const {
 
 libsumo::TraCIPositionVector
 TraCIAPI::LaneScope::getShape(const std::string& laneID) const {
-    return myParent.getPolygon(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_SHAPE, laneID);
+    return getPolygon(libsumo::VAR_SHAPE, laneID);
 }
 
 std::string
 TraCIAPI::LaneScope::getEdgeID(const std::string& laneID) const {
-    return myParent.getString(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LANE_EDGE_ID, laneID);
+    return getString(libsumo::LANE_EDGE_ID, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getCO2Emission(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_CO2EMISSION, laneID);
+    return getDouble(libsumo::VAR_CO2EMISSION, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getCOEmission(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_COEMISSION, laneID);
+    return getDouble(libsumo::VAR_COEMISSION, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getHCEmission(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_HCEMISSION, laneID);
+    return getDouble(libsumo::VAR_HCEMISSION, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getPMxEmission(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_PMXEMISSION, laneID);
+    return getDouble(libsumo::VAR_PMXEMISSION, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getNOxEmission(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_NOXEMISSION, laneID);
+    return getDouble(libsumo::VAR_NOXEMISSION, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getFuelConsumption(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_FUELCONSUMPTION, laneID);
+    return getDouble(libsumo::VAR_FUELCONSUMPTION, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getNoiseEmission(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_NOISEEMISSION, laneID);
+    return getDouble(libsumo::VAR_NOISEEMISSION, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getElectricityConsumption(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_ELECTRICITYCONSUMPTION, laneID);
+    return getDouble(libsumo::VAR_ELECTRICITYCONSUMPTION, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getLastStepMeanSpeed(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LAST_STEP_MEAN_SPEED, laneID);
+    return getDouble(libsumo::LAST_STEP_MEAN_SPEED, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getLastStepOccupancy(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LAST_STEP_OCCUPANCY, laneID);
+    return getDouble(libsumo::LAST_STEP_OCCUPANCY, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getLastStepLength(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LAST_STEP_LENGTH, laneID);
+    return getDouble(libsumo::LAST_STEP_LENGTH, laneID);
 }
 
 double
 TraCIAPI::LaneScope::getTraveltime(const std::string& laneID) const {
-    return myParent.getDouble(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_CURRENT_TRAVELTIME, laneID);
+    return getDouble(libsumo::VAR_CURRENT_TRAVELTIME, laneID);
 }
 
 int
 TraCIAPI::LaneScope::getLastStepVehicleNumber(const std::string& laneID) const {
-    return myParent.getInt(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LAST_STEP_VEHICLE_NUMBER, laneID);
+    return getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, laneID);
 }
 
 int
 TraCIAPI::LaneScope::getLastStepHaltingNumber(const std::string& laneID) const {
-    return myParent.getInt(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, laneID);
+    return getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, laneID);
 }
 
 std::vector<std::string>
 TraCIAPI::LaneScope::getLastStepVehicleIDs(const std::string& laneID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LAST_STEP_VEHICLE_ID_LIST, laneID);
+    return getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, laneID);
 }
 
 
@@ -1228,84 +996,51 @@ TraCIAPI::LaneScope::getInternalFoes(const std::string& laneID) const {
 
 void
 TraCIAPI::LaneScope::setAllowed(const std::string& laneID, const std::vector<std::string>& allowedClasses) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeInt((int)allowedClasses.size());
-    for (int i = 0; i < (int)allowedClasses.size(); ++i) {
-        content.writeString(allowedClasses[i]);
-    }
-    myParent.createCommand(libsumo::CMD_SET_LANE_VARIABLE, libsumo::LANE_ALLOWED, laneID, &content);
-    myParent.processSet(libsumo::CMD_SET_LANE_VARIABLE);
+    setStringVector(libsumo::LANE_ALLOWED, laneID, allowedClasses);
 }
 
 void
 TraCIAPI::LaneScope::setDisallowed(const std::string& laneID, const std::vector<std::string>& disallowedClasses) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-    content.writeInt((int)disallowedClasses.size());
-    for (int i = 0; i < (int)disallowedClasses.size(); ++i) {
-        content.writeString(disallowedClasses[i]);
-    }
-    myParent.createCommand(libsumo::CMD_SET_LANE_VARIABLE, libsumo::LANE_DISALLOWED, laneID, &content);
-    myParent.processSet(libsumo::CMD_SET_LANE_VARIABLE);
+    setStringVector(libsumo::LANE_DISALLOWED, laneID, disallowedClasses);
 }
 
 void
 TraCIAPI::LaneScope::setMaxSpeed(const std::string& laneID, double speed) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(speed);
-    myParent.createCommand(libsumo::CMD_SET_LANE_VARIABLE, libsumo::VAR_MAXSPEED, laneID, &content);
-    myParent.processSet(libsumo::CMD_SET_LANE_VARIABLE);
+    setDouble(libsumo::VAR_MAXSPEED, laneID, speed);
 }
 
 void
 TraCIAPI::LaneScope::setLength(const std::string& laneID, double length) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(length);
-    myParent.createCommand(libsumo::CMD_SET_LANE_VARIABLE, libsumo::VAR_LENGTH, laneID, &content);
-    myParent.processSet(libsumo::CMD_SET_LANE_VARIABLE);
+    setDouble(libsumo::VAR_LENGTH, laneID, length);
 }
 
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::LaneAreaDetector-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::LaneAreaScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_LANEAREA_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-
 
 
 // ---------------------------------------------------------------------------
 // TraCIAPI::MeMeScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::MeMeScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
 int
 TraCIAPI::MeMeScope::getLastStepVehicleNumber(const std::string& detID) const {
-    return myParent.getInt(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, libsumo::LAST_STEP_VEHICLE_NUMBER, detID);
+    return getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, detID);
 }
 
 double
 TraCIAPI::MeMeScope::getLastStepMeanSpeed(const std::string& detID) const {
-    return myParent.getInt(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, libsumo::LAST_STEP_MEAN_SPEED, detID);
+    return getInt(libsumo::LAST_STEP_MEAN_SPEED, detID);
 }
 
 std::vector<std::string>
 TraCIAPI::MeMeScope::getLastStepVehicleIDs(const std::string& detID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, libsumo::LAST_STEP_VEHICLE_ID_LIST, detID);
+    return getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, detID);
 }
 
 int
 TraCIAPI::MeMeScope::getLastStepHaltingNumber(const std::string& detID) const {
-    return myParent.getInt(libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
+    return getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, detID);
 }
 
 
@@ -1313,59 +1048,45 @@ TraCIAPI::MeMeScope::getLastStepHaltingNumber(const std::string& detID) const {
 // ---------------------------------------------------------------------------
 // TraCIAPI::POIScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::POIScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_POI_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-int
-TraCIAPI::POIScope::getIDCount() const {
-    return myParent.getInt(libsumo::CMD_GET_POI_VARIABLE, libsumo::ID_COUNT, "");
-}
-
 std::string
 TraCIAPI::POIScope::getType(const std::string& poiID) const {
-    return myParent.getString(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_TYPE, poiID);
+    return getString(libsumo::VAR_TYPE, poiID);
 }
 
 libsumo::TraCIPosition
 TraCIAPI::POIScope::getPosition(const std::string& poiID) const {
-    return myParent.getPosition(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_POSITION, poiID);
+    return getPos(libsumo::VAR_POSITION, poiID);
 }
 
 libsumo::TraCIColor
 TraCIAPI::POIScope::getColor(const std::string& poiID) const {
-    return myParent.getColor(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_COLOR, poiID);
+    return getCol(libsumo::VAR_COLOR, poiID);
 }
 
 double
 TraCIAPI::POIScope::getWidth(const std::string& poiID) const {
-    return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_WIDTH, poiID);
+    return getDouble(libsumo::VAR_WIDTH, poiID);
 }
 
 double
 TraCIAPI::POIScope::getHeight(const std::string& poiID) const {
-    return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_HEIGHT, poiID);
+    return getDouble(libsumo::VAR_HEIGHT, poiID);
 }
 
 double
 TraCIAPI::POIScope::getAngle(const std::string& poiID) const {
-    return myParent.getDouble(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_ANGLE, poiID);
+    return getDouble(libsumo::VAR_ANGLE, poiID);
 }
 
 std::string
 TraCIAPI::POIScope::getImageFile(const std::string& poiID) const {
-    return myParent.getString(libsumo::CMD_GET_POI_VARIABLE, libsumo::VAR_IMAGEFILE, poiID);
+    return getString(libsumo::VAR_IMAGEFILE, poiID);
 }
 
 
 void
 TraCIAPI::POIScope::setType(const std::string& poiID, const std::string& setType) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(setType);
-    myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_TYPE, poiID, &content);
-    myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
+    setString(libsumo::VAR_TYPE, poiID, setType);
 }
 
 
@@ -1395,41 +1116,25 @@ TraCIAPI::POIScope::setColor(const std::string& poiID, const libsumo::TraCIColor
 
 void
 TraCIAPI::POIScope::setWidth(const std::string& poiID, double width) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(width);
-    myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_WIDTH, poiID, &content);
-    myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
+    setDouble(libsumo::VAR_WIDTH, poiID, width);
 }
 
 
 void
 TraCIAPI::POIScope::setHeight(const std::string& poiID, double height) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(height);
-    myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_HEIGHT, poiID, &content);
-    myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
+    setDouble(libsumo::VAR_HEIGHT, poiID, height);
 }
 
 
 void
 TraCIAPI::POIScope::setAngle(const std::string& poiID, double angle) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-    content.writeDouble(angle);
-    myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_ANGLE, poiID, &content);
-    myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
+    setDouble(libsumo::VAR_ANGLE, poiID, angle);
 }
 
 
 void
 TraCIAPI::POIScope::setImageFile(const std::string& poiID, const std::string& imageFile) const {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(imageFile);
-    myParent.createCommand(libsumo::CMD_SET_POI_VARIABLE, libsumo::VAR_IMAGEFILE, poiID, &content);
-    myParent.processSet(libsumo::CMD_SET_POI_VARIABLE);
+    setString(libsumo::VAR_IMAGEFILE, poiID, imageFile);
 }
 
 
@@ -1472,38 +1177,27 @@ TraCIAPI::POIScope::remove(const std::string& poiID, int layer) const {
 }
 
 
-
 // ---------------------------------------------------------------------------
 // TraCIAPI::PolygonScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::PolygonScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_POLYGON_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-int
-TraCIAPI::PolygonScope::getIDCount() const {
-    return myParent.getInt(libsumo::CMD_GET_POLYGON_VARIABLE, libsumo::ID_COUNT, "");
-}
-
 double
 TraCIAPI::PolygonScope::getLineWidth(const std::string& polygonID) const {
-    return myParent.getDouble(libsumo::CMD_GET_POLYGON_VARIABLE, libsumo::VAR_WIDTH, polygonID);
+    return getDouble(libsumo::VAR_WIDTH, polygonID);
 }
 
 std::string
 TraCIAPI::PolygonScope::getType(const std::string& polygonID) const {
-    return myParent.getString(libsumo::CMD_GET_POLYGON_VARIABLE, libsumo::VAR_TYPE, polygonID);
+    return getString(libsumo::VAR_TYPE, polygonID);
 }
 
 libsumo::TraCIPositionVector
 TraCIAPI::PolygonScope::getShape(const std::string& polygonID) const {
-    return myParent.getPolygon(libsumo::CMD_GET_POLYGON_VARIABLE, libsumo::VAR_SHAPE, polygonID);
+    return getPolygon(libsumo::VAR_SHAPE, polygonID);
 }
 
 libsumo::TraCIColor
 TraCIAPI::PolygonScope::getColor(const std::string& polygonID) const {
-    return myParent.getColor(libsumo::CMD_GET_POLYGON_VARIABLE, libsumo::VAR_COLOR, polygonID);
+    return getCol(libsumo::VAR_COLOR, polygonID);
 }
 
 void
@@ -1597,13 +1291,8 @@ TraCIAPI::PolygonScope::remove(const std::string& polygonID, int layer) const {
 // TraCIAPI::RouteScope-methods
 // ---------------------------------------------------------------------------
 std::vector<std::string>
-TraCIAPI::RouteScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-std::vector<std::string>
 TraCIAPI::RouteScope::getEdges(const std::string& routeID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::VAR_EDGES, routeID);
+    return getStringVector(libsumo::VAR_EDGES, routeID);
 }
 
 
@@ -1622,88 +1311,88 @@ TraCIAPI::RouteScope::add(const std::string& routeID, const std::vector<std::str
 // ---------------------------------------------------------------------------
 int
 TraCIAPI::SimulationScope::getCurrentTime() const {
-    return myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_TIME_STEP, "");
+    return getInt(libsumo::VAR_TIME_STEP, "");
 }
 
 double
 TraCIAPI::SimulationScope::getTime() const {
-    return myParent.getDouble(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_TIME, "");
+    return getDouble(libsumo::VAR_TIME, "");
 }
 
 int
 TraCIAPI::SimulationScope::getLoadedNumber() const {
-    return (int) myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_LOADED_VEHICLES_NUMBER, "");
+    return (int) getInt(libsumo::VAR_LOADED_VEHICLES_NUMBER, "");
 }
 
 std::vector<std::string>
 TraCIAPI::SimulationScope::getLoadedIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_LOADED_VEHICLES_IDS, "");
+    return getStringVector(libsumo::VAR_LOADED_VEHICLES_IDS, "");
 }
 
 int
 TraCIAPI::SimulationScope::getDepartedNumber() const {
-    return (int) myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_DEPARTED_VEHICLES_NUMBER, "");
+    return (int) getInt(libsumo::VAR_DEPARTED_VEHICLES_NUMBER, "");
 }
 
 std::vector<std::string>
 TraCIAPI::SimulationScope::getDepartedIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_DEPARTED_VEHICLES_IDS, "");
+    return getStringVector(libsumo::VAR_DEPARTED_VEHICLES_IDS, "");
 }
 
 int
 TraCIAPI::SimulationScope::getArrivedNumber() const {
-    return (int) myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_ARRIVED_VEHICLES_NUMBER, "");
+    return (int) getInt(libsumo::VAR_ARRIVED_VEHICLES_NUMBER, "");
 }
 
 std::vector<std::string>
 TraCIAPI::SimulationScope::getArrivedIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_ARRIVED_VEHICLES_IDS, "");
+    return getStringVector(libsumo::VAR_ARRIVED_VEHICLES_IDS, "");
 }
 
 int
 TraCIAPI::SimulationScope::getStartingTeleportNumber() const {
-    return (int) myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_TELEPORT_STARTING_VEHICLES_NUMBER, "");
+    return (int) getInt(libsumo::VAR_TELEPORT_STARTING_VEHICLES_NUMBER, "");
 }
 
 std::vector<std::string>
 TraCIAPI::SimulationScope::getStartingTeleportIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_TELEPORT_STARTING_VEHICLES_IDS, "");
+    return getStringVector(libsumo::VAR_TELEPORT_STARTING_VEHICLES_IDS, "");
 }
 
 int
 TraCIAPI::SimulationScope::getEndingTeleportNumber() const {
-    return (int) myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_TELEPORT_ENDING_VEHICLES_NUMBER, "");
+    return (int) getInt(libsumo::VAR_TELEPORT_ENDING_VEHICLES_NUMBER, "");
 }
 
 std::vector<std::string>
 TraCIAPI::SimulationScope::getEndingTeleportIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_TELEPORT_ENDING_VEHICLES_IDS, "");
+    return getStringVector(libsumo::VAR_TELEPORT_ENDING_VEHICLES_IDS, "");
 }
 
 double
 TraCIAPI::SimulationScope::getDeltaT() const {
-    return myParent.getDouble(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_DELTA_T, "");
+    return getDouble(libsumo::VAR_DELTA_T, "");
 }
 
 libsumo::TraCIPositionVector
 TraCIAPI::SimulationScope::getNetBoundary() const {
-    return myParent.getPolygon(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_NET_BOUNDING_BOX, "");
+    return getPolygon(libsumo::VAR_NET_BOUNDING_BOX, "");
 }
 
 
 int
 TraCIAPI::SimulationScope::getMinExpectedNumber() const {
-    return myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_MIN_EXPECTED_VEHICLES, "");
+    return getInt(libsumo::VAR_MIN_EXPECTED_VEHICLES, "");
 }
 
 int
 TraCIAPI::SimulationScope::getBusStopWaiting(const std::string& stopID) const {
-    return (int) myParent.getInt(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_BUS_STOP_WAITING, stopID);
+    return (int) getInt(libsumo::VAR_BUS_STOP_WAITING, stopID);
 }
 
 std::vector<std::string>
 TraCIAPI::SimulationScope::getBusStopWaitingIDList(const std::string& stopID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_SIM_VARIABLE, libsumo::VAR_BUS_STOP_WAITING_IDS, stopID);
+    return getStringVector(libsumo::VAR_BUS_STOP_WAITING_IDS, stopID);
 }
 
 
@@ -1853,7 +1542,7 @@ TraCIAPI::SimulationScope::findRoute(const std::string& fromEdge, const std::str
     content.writeDouble(pos);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(routingMode);
-    return myParent.getTraCIStage(libsumo::CMD_GET_SIM_VARIABLE, libsumo::FIND_ROUTE, "", &content);
+    return getTraCIStage(libsumo::FIND_ROUTE, "", &content);
 }
 
 
@@ -1866,22 +1555,13 @@ TraCIAPI::SimulationScope::writeMessage(const std::string msg) {
     myParent.processSet(libsumo::CMD_SET_SIM_VARIABLE);
 }
 
+
 // ---------------------------------------------------------------------------
 // TraCIAPI::TrafficLightScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::TrafficLightScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_TL_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-int
-TraCIAPI::TrafficLightScope::getIDCount() const {
-    return myParent.getInt(libsumo::CMD_GET_TL_VARIABLE, libsumo::ID_COUNT, "");
-}
-
 std::string
 TraCIAPI::TrafficLightScope::getRedYellowGreenState(const std::string& tlsID) const {
-    return myParent.getString(libsumo::CMD_GET_TL_VARIABLE, libsumo::TL_RED_YELLOW_GREEN_STATE, tlsID);
+    return getString(libsumo::TL_RED_YELLOW_GREEN_STATE, tlsID);
 }
 
 std::vector<libsumo::TraCILogic>
@@ -1939,7 +1619,7 @@ TraCIAPI::TrafficLightScope::getAllProgramLogics(const std::string& tlsID) const
 
 std::vector<std::string>
 TraCIAPI::TrafficLightScope::getControlledLanes(const std::string& tlsID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_TL_VARIABLE, libsumo::TL_CONTROLLED_LANES, tlsID);
+    return getStringVector(libsumo::TL_CONTROLLED_LANES, tlsID);
 }
 
 std::vector<std::vector<libsumo::TraCILink> >
@@ -1972,27 +1652,27 @@ TraCIAPI::TrafficLightScope::getControlledLinks(const std::string& tlsID) const 
 
 std::string
 TraCIAPI::TrafficLightScope::getProgram(const std::string& tlsID) const {
-    return myParent.getString(libsumo::CMD_GET_TL_VARIABLE, libsumo::TL_CURRENT_PROGRAM, tlsID);
+    return getString(libsumo::TL_CURRENT_PROGRAM, tlsID);
 }
 
 int
 TraCIAPI::TrafficLightScope::getPhase(const std::string& tlsID) const {
-    return myParent.getInt(libsumo::CMD_GET_TL_VARIABLE, libsumo::TL_CURRENT_PHASE, tlsID);
+    return getInt(libsumo::TL_CURRENT_PHASE, tlsID);
 }
 
 std::string
 TraCIAPI::TrafficLightScope::getPhaseName(const std::string& tlsID) const {
-    return myParent.getString(libsumo::CMD_GET_TL_VARIABLE, libsumo::VAR_NAME, tlsID);
+    return getString(libsumo::VAR_NAME, tlsID);
 }
 
 double
 TraCIAPI::TrafficLightScope::getPhaseDuration(const std::string& tlsID) const {
-    return myParent.getDouble(libsumo::CMD_GET_TL_VARIABLE, libsumo::TL_PHASE_DURATION, tlsID);
+    return getDouble(libsumo::TL_PHASE_DURATION, tlsID);
 }
 
 double
 TraCIAPI::TrafficLightScope::getNextSwitch(const std::string& tlsID) const {
-    return myParent.getDouble(libsumo::CMD_GET_TL_VARIABLE, libsumo::TL_NEXT_SWITCH, tlsID);
+    return getDouble(libsumo::TL_NEXT_SWITCH, tlsID);
 }
 
 
@@ -2001,7 +1681,7 @@ TraCIAPI::TrafficLightScope::getServedPersonCount(const std::string& tlsID, int 
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_INTEGER);
     content.writeInt(index);
-    return myParent.getInt(myCmdGetID, libsumo::VAR_PERSON_NUMBER, tlsID, &content);
+    return getInt(libsumo::VAR_PERSON_NUMBER, tlsID, &content);
 }
 
 
@@ -2099,114 +1779,109 @@ TraCIAPI::TrafficLightScope::setProgramLogic(const std::string& tlsID, const lib
 // ---------------------------------------------------------------------------
 // TraCIAPI::VehicleTypeScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::VehicleTypeScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
 double
 TraCIAPI::VehicleTypeScope::getLength(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_LENGTH, typeID);
+    return getDouble(libsumo::VAR_LENGTH, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getMaxSpeed(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_MAXSPEED, typeID);
+    return getDouble(libsumo::VAR_MAXSPEED, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getSpeedFactor(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_SPEED_FACTOR, typeID);
+    return getDouble(libsumo::VAR_SPEED_FACTOR, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getSpeedDeviation(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_SPEED_DEVIATION, typeID);
+    return getDouble(libsumo::VAR_SPEED_DEVIATION, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getAccel(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_ACCEL, typeID);
+    return getDouble(libsumo::VAR_ACCEL, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getDecel(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_DECEL, typeID);
+    return getDouble(libsumo::VAR_DECEL, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getEmergencyDecel(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_EMERGENCY_DECEL, typeID);
+    return getDouble(libsumo::VAR_EMERGENCY_DECEL, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getApparentDecel(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_APPARENT_DECEL, typeID);
+    return getDouble(libsumo::VAR_APPARENT_DECEL, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getImperfection(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_IMPERFECTION, typeID);
+    return getDouble(libsumo::VAR_IMPERFECTION, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getTau(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_TAU, typeID);
+    return getDouble(libsumo::VAR_TAU, typeID);
 }
 
 std::string
 TraCIAPI::VehicleTypeScope::getVehicleClass(const std::string& typeID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_VEHICLECLASS, typeID);
+    return getString(libsumo::VAR_VEHICLECLASS, typeID);
 }
 
 std::string
 TraCIAPI::VehicleTypeScope::getEmissionClass(const std::string& typeID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_EMISSIONCLASS, typeID);
+    return getString(libsumo::VAR_EMISSIONCLASS, typeID);
 }
 
 std::string
 TraCIAPI::VehicleTypeScope::getShapeClass(const std::string& typeID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_SHAPECLASS, typeID);
+    return getString(libsumo::VAR_SHAPECLASS, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getMinGap(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_MINGAP, typeID);
+    return getDouble(libsumo::VAR_MINGAP, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getMinGapLat(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_MINGAP_LAT, typeID);
+    return getDouble(libsumo::VAR_MINGAP_LAT, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getMaxSpeedLat(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_MAXSPEED_LAT, typeID);
+    return getDouble(libsumo::VAR_MAXSPEED_LAT, typeID);
 }
 
 std::string
 TraCIAPI::VehicleTypeScope::getLateralAlignment(const std::string& typeID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_LATALIGNMENT, typeID);
+    return getString(libsumo::VAR_LATALIGNMENT, typeID);
 }
 
 int
 TraCIAPI::VehicleTypeScope::getPersonCapacity(const std::string& typeID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_PERSON_CAPACITY, typeID);
+    return getInt(libsumo::VAR_PERSON_CAPACITY, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getWidth(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_WIDTH, typeID);
+    return getDouble(libsumo::VAR_WIDTH, typeID);
 }
 
 double
 TraCIAPI::VehicleTypeScope::getHeight(const std::string& typeID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_HEIGHT, typeID);
+    return getDouble(libsumo::VAR_HEIGHT, typeID);
 }
 
 libsumo::TraCIColor
 TraCIAPI::VehicleTypeScope::getColor(const std::string& typeID) const {
-    return myParent.getColor(libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::VAR_COLOR, typeID);
+    return getCol(libsumo::VAR_COLOR, typeID);
 }
 
 
@@ -2409,29 +2084,19 @@ TraCIAPI::VehicleTypeScope::setColor(const std::string& typeID, const libsumo::T
 // ---------------------------------------------------------------------------
 // TraCIAPI::VehicleScope-methods
 // ---------------------------------------------------------------------------
-std::vector<std::string>
-TraCIAPI::VehicleScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-int
-TraCIAPI::VehicleScope::getIDCount() const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::ID_COUNT, "");
-}
-
 double
 TraCIAPI::VehicleScope::getSpeed(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SPEED, vehicleID);
+    return getDouble(libsumo::VAR_SPEED, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getLateralSpeed(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SPEED_LAT, vehicleID);
+    return getDouble(libsumo::VAR_SPEED_LAT, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getAcceleration(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ACCELERATION, vehicleID);
+    return getDouble(libsumo::VAR_ACCELERATION, vehicleID);
 }
 
 double
@@ -2449,7 +2114,7 @@ TraCIAPI::VehicleScope::getFollowSpeed(const std::string& vehicleID, double spee
     content.writeDouble(leaderMaxDecel);
     content.writeByte(libsumo::TYPE_STRING);
     content.writeString(leaderID);
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_FOLLOW_SPEED, vehicleID, &content);
+    return getDouble(libsumo::VAR_FOLLOW_SPEED, vehicleID, &content);
 }
 
 
@@ -2466,7 +2131,7 @@ TraCIAPI::VehicleScope::getSecureGap(const std::string& vehicleID, double speed,
     content.writeDouble(leaderMaxDecel);
     content.writeByte(libsumo::TYPE_STRING);
     content.writeString(leaderID);
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SECURE_GAP, vehicleID, &content);
+    return getDouble(libsumo::VAR_SECURE_GAP, vehicleID, &content);
 }
 
 double
@@ -2478,166 +2143,172 @@ TraCIAPI::VehicleScope::getStopSpeed(const std::string& vehicleID, double speed,
     content.writeDouble(speed);
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(gap);
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_STOP_SPEED, vehicleID, &content);
+    return getDouble(libsumo::VAR_STOP_SPEED, vehicleID, &content);
 }
 
 
 double
 TraCIAPI::VehicleScope::getMaxSpeed(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_MAXSPEED, vehicleID);
+    return getDouble(libsumo::VAR_MAXSPEED, vehicleID);
 }
 
 libsumo::TraCIPosition
 TraCIAPI::VehicleScope::getPosition(const std::string& vehicleID) const {
-    return myParent.getPosition(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_POSITION, vehicleID);
+    return getPos(libsumo::VAR_POSITION, vehicleID);
 }
 
 libsumo::TraCIPosition
 TraCIAPI::VehicleScope::getPosition3D(const std::string& vehicleID) const {
-    return myParent.getPosition3D(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_POSITION3D, vehicleID);
+    return getPos3D(libsumo::VAR_POSITION3D, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getAngle(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ANGLE, vehicleID);
+    return getDouble(libsumo::VAR_ANGLE, vehicleID);
 }
 
 std::string
 TraCIAPI::VehicleScope::getRoadID(const std::string& vehicleID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ROAD_ID, vehicleID);
+    return getString(libsumo::VAR_ROAD_ID, vehicleID);
 }
 
 std::string
 TraCIAPI::VehicleScope::getLaneID(const std::string& vehicleID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_LANE_ID, vehicleID);
+    return getString(libsumo::VAR_LANE_ID, vehicleID);
 }
 
 int
 TraCIAPI::VehicleScope::getLaneIndex(const std::string& vehicleID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_LANE_INDEX, vehicleID);
+    return getInt(libsumo::VAR_LANE_INDEX, vehicleID);
 }
 
 std::string
 TraCIAPI::VehicleScope::getTypeID(const std::string& vehicleID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_TYPE, vehicleID);
+    return getString(libsumo::VAR_TYPE, vehicleID);
 }
 
 std::string
 TraCIAPI::VehicleScope::getRouteID(const std::string& vehicleID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ROUTE_ID, vehicleID);
+    return getString(libsumo::VAR_ROUTE_ID, vehicleID);
 }
 
 int
 TraCIAPI::VehicleScope::getRouteIndex(const std::string& vehicleID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ROUTE_INDEX, vehicleID);
+    return getInt(libsumo::VAR_ROUTE_INDEX, vehicleID);
 }
 
 
 std::vector<std::string>
 TraCIAPI::VehicleScope::getRoute(const std::string& vehicleID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_EDGES, vehicleID);
+    return getStringVector(libsumo::VAR_EDGES, vehicleID);
 }
 
 libsumo::TraCIColor
 TraCIAPI::VehicleScope::getColor(const std::string& vehicleID) const {
-    return myParent.getColor(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_COLOR, vehicleID);
+    return getCol(libsumo::VAR_COLOR, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getLanePosition(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_LANEPOSITION, vehicleID);
+    return getDouble(libsumo::VAR_LANEPOSITION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getDistance(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_DISTANCE, vehicleID);
+    return getDouble(libsumo::VAR_DISTANCE, vehicleID);
 }
 
 int
 TraCIAPI::VehicleScope::getSignals(const std::string& vehicleID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SIGNALS, vehicleID);
+    return getInt(libsumo::VAR_SIGNALS, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getLateralLanePosition(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_LANEPOSITION_LAT, vehicleID);
+    return getDouble(libsumo::VAR_LANEPOSITION_LAT, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getCO2Emission(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_CO2EMISSION, vehicleID);
+    return getDouble(libsumo::VAR_CO2EMISSION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getCOEmission(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_COEMISSION, vehicleID);
+    return getDouble(libsumo::VAR_COEMISSION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getHCEmission(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_HCEMISSION, vehicleID);
+    return getDouble(libsumo::VAR_HCEMISSION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getPMxEmission(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_PMXEMISSION, vehicleID);
+    return getDouble(libsumo::VAR_PMXEMISSION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getNOxEmission(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_NOXEMISSION, vehicleID);
+    return getDouble(libsumo::VAR_NOXEMISSION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getFuelConsumption(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_FUELCONSUMPTION, vehicleID);
+    return getDouble(libsumo::VAR_FUELCONSUMPTION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getNoiseEmission(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_NOISEEMISSION, vehicleID);
+    return getDouble(libsumo::VAR_NOISEEMISSION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getElectricityConsumption(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ELECTRICITYCONSUMPTION, vehicleID);
+    return getDouble(libsumo::VAR_ELECTRICITYCONSUMPTION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getWaitingTime(const std::string& vehID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_WAITING_TIME, vehID);
+    return getDouble(libsumo::VAR_WAITING_TIME, vehID);
 }
 
 int
+TraCIAPI::VehicleScope::getLaneChangeMode(const std::string& vehID) const {
+    return getInt(libsumo::VAR_LANECHANGE_MODE, vehID);
+}
+
+
+int
 TraCIAPI::VehicleScope::getSpeedMode(const std::string& vehID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SPEEDSETMODE, vehID);
+    return getInt(libsumo::VAR_SPEEDSETMODE, vehID);
 }
 
 
 double
 TraCIAPI::VehicleScope::getSlope(const std::string& vehID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SLOPE, vehID);
+    return getDouble(libsumo::VAR_SLOPE, vehID);
 }
 
 
 std::string
 TraCIAPI::VehicleScope::getLine(const std::string& typeID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_LINE, typeID);
+    return getString(libsumo::VAR_LINE, typeID);
 }
 
 std::vector<std::string>
 TraCIAPI::VehicleScope::getVia(const std::string& vehicleID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_VIA, vehicleID);
+    return getStringVector(libsumo::VAR_VIA, vehicleID);
 }
 
 std::string
 TraCIAPI::VehicleScope::getEmissionClass(const std::string& vehicleID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_EMISSIONCLASS, vehicleID);
+    return getString(libsumo::VAR_EMISSIONCLASS, vehicleID);
 }
 
 std::string
 TraCIAPI::VehicleScope::getShapeClass(const std::string& vehicleID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SHAPECLASS, vehicleID);
+    return getString(libsumo::VAR_SHAPECLASS, vehicleID);
 }
 
 std::vector<libsumo::TraCINextTLSData>
@@ -2746,123 +2417,123 @@ TraCIAPI::VehicleScope::getLaneChangeState(const std::string& vehicleID, int dir
 
 int
 TraCIAPI::VehicleScope::getStopState(const std::string& vehicleID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_STOPSTATE, vehicleID);
+    return getInt(libsumo::VAR_STOPSTATE, vehicleID);
 }
 
 int
 TraCIAPI::VehicleScope::getRoutingMode(const std::string& vehicleID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ROUTING_MODE, vehicleID);
+    return getInt(libsumo::VAR_ROUTING_MODE, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getStopDelay(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_STOP_DELAY, vehicleID);
+    return getDouble(libsumo::VAR_STOP_DELAY, vehicleID);
 }
 
 
 double
 TraCIAPI::VehicleScope::getAccel(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ACCEL, vehicleID);
+    return getDouble(libsumo::VAR_ACCEL, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getDecel(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_DECEL, vehicleID);
+    return getDouble(libsumo::VAR_DECEL, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getTau(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_TAU, vehicleID);
+    return getDouble(libsumo::VAR_TAU, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getImperfection(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_IMPERFECTION, vehicleID);
+    return getDouble(libsumo::VAR_IMPERFECTION, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getSpeedFactor(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SPEED_FACTOR, vehicleID);
+    return getDouble(libsumo::VAR_SPEED_FACTOR, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getSpeedDeviation(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SPEED_DEVIATION, vehicleID);
+    return getDouble(libsumo::VAR_SPEED_DEVIATION, vehicleID);
 }
 
 std::string
 TraCIAPI::VehicleScope::getVehicleClass(const std::string& vehicleID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_VEHICLECLASS, vehicleID);
+    return getString(libsumo::VAR_VEHICLECLASS, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getMinGap(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_MINGAP, vehicleID);
+    return getDouble(libsumo::VAR_MINGAP, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getWidth(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_WIDTH, vehicleID);
+    return getDouble(libsumo::VAR_WIDTH, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getLength(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_LENGTH, vehicleID);
+    return getDouble(libsumo::VAR_LENGTH, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getHeight(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_HEIGHT, vehicleID);
+    return getDouble(libsumo::VAR_HEIGHT, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getAccumulatedWaitingTime(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ACCUMULATED_WAITING_TIME, vehicleID);
+    return getDouble(libsumo::VAR_ACCUMULATED_WAITING_TIME, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getAllowedSpeed(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ALLOWED_SPEED, vehicleID);
+    return getDouble(libsumo::VAR_ALLOWED_SPEED, vehicleID);
 }
 
 int
 TraCIAPI::VehicleScope::getPersonNumber(const std::string& vehicleID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_PERSON_NUMBER, vehicleID);
+    return getInt(libsumo::VAR_PERSON_NUMBER, vehicleID);
 }
 
 int
 TraCIAPI::VehicleScope::getPersonCapacity(const std::string& vehicleID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_PERSON_CAPACITY, vehicleID);
+    return getInt(libsumo::VAR_PERSON_CAPACITY, vehicleID);
 }
 
 std::vector<std::string>
 TraCIAPI::VehicleScope::getPersonIDList(const std::string& vehicleID) const {
-    return myParent.getStringVector(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::LAST_STEP_PERSON_ID_LIST, vehicleID);
+    return getStringVector(libsumo::LAST_STEP_PERSON_ID_LIST, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getSpeedWithoutTraCI(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_SPEED_WITHOUT_TRACI, vehicleID);
+    return getDouble(libsumo::VAR_SPEED_WITHOUT_TRACI, vehicleID);
 }
 
 bool
 TraCIAPI::VehicleScope::isRouteValid(const std::string& vehicleID) const {
-    return myParent.getInt(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_ROUTE_VALID, vehicleID) != 0;
+    return getInt(libsumo::VAR_ROUTE_VALID, vehicleID) != 0;
 }
 
 double
 TraCIAPI::VehicleScope::getMaxSpeedLat(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_MAXSPEED_LAT, vehicleID);
+    return getDouble(libsumo::VAR_MAXSPEED_LAT, vehicleID);
 }
 
 double
 TraCIAPI::VehicleScope::getMinGapLat(const std::string& vehicleID) const {
-    return myParent.getDouble(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_MINGAP_LAT, vehicleID);
+    return getDouble(libsumo::VAR_MINGAP_LAT, vehicleID);
 }
 
 std::string
 TraCIAPI::VehicleScope::getLateralAlignment(const std::string& vehicleID) const {
-    return myParent.getString(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_LATALIGNMENT, vehicleID);
+    return getString(libsumo::VAR_LATALIGNMENT, vehicleID);
 }
 
 void
@@ -3105,6 +2776,15 @@ TraCIAPI::VehicleScope::setSpeed(const std::string& vehicleID, double speed) con
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(speed);
     myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_SPEED, vehicleID, &content);
+    myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
+}
+
+void
+TraCIAPI::VehicleScope::setLaneChangeMode(const std::string& vehicleID, int mode) const {
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_INTEGER);
+    content.writeInt(mode);
+    myParent.createCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_LANECHANGE_MODE, vehicleID, &content);
     myParent.processSet(libsumo::CMD_SET_VEHICLE_VARIABLE);
 }
 
@@ -3384,88 +3064,77 @@ TraCIAPI::VehicleScope::addSubscriptionFilterByteList(int filterType, const std:
 
 
 // ---------------------------------------------------------------------------
-// // TraCIAPI::PersonScope-methods
-//  ---------------------------------------------------------------------------
-
-std::vector<std::string>
-TraCIAPI::PersonScope::getIDList() const {
-    return myParent.getStringVector(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::TRACI_ID_LIST, "");
-}
-
-int
-TraCIAPI::PersonScope::getIDCount() const {
-    return myParent.getInt(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::ID_COUNT, "");
-}
-
+// TraCIAPI::PersonScope-methods
+// ---------------------------------------------------------------------------
 double
 TraCIAPI::PersonScope::getSpeed(const std::string& personID) const {
-    return myParent.getDouble(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_SPEED, personID);
+    return getDouble(libsumo::VAR_SPEED, personID);
 }
 
 libsumo::TraCIPosition
 TraCIAPI::PersonScope::getPosition(const std::string& personID) const {
-    return myParent.getPosition(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_POSITION, personID);
+    return getPos(libsumo::VAR_POSITION, personID);
 }
 
 libsumo::TraCIPosition
 TraCIAPI::PersonScope::getPosition3D(const std::string& personID) const {
-    return myParent.getPosition3D(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_POSITION3D, personID);
+    return getPos3D(libsumo::VAR_POSITION3D, personID);
 }
 
 double
 TraCIAPI::PersonScope::getAngle(const std::string& personID) const {
-    return myParent.getDouble(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_ANGLE, personID);
+    return getDouble(libsumo::VAR_ANGLE, personID);
 }
 
 double
 TraCIAPI::PersonScope::getSlope(const std::string& personID) const {
-    return myParent.getDouble(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_SLOPE, personID);
+    return getDouble(libsumo::VAR_SLOPE, personID);
 }
 
 double
 TraCIAPI::PersonScope::getLanePosition(const std::string& personID) const {
-    return myParent.getDouble(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_LANEPOSITION, personID);
+    return getDouble(libsumo::VAR_LANEPOSITION, personID);
 }
 
 libsumo::TraCIColor
 TraCIAPI::PersonScope::getColor(const std::string& personID) const {
-    return myParent.getColor(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_COLOR, personID);
+    return getCol(libsumo::VAR_COLOR, personID);
 }
 
 double
 TraCIAPI::PersonScope::getLength(const std::string& personID) const {
-    return myParent.getDouble(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_LENGTH, personID);
+    return getDouble(libsumo::VAR_LENGTH, personID);
 }
 
 std::string
 TraCIAPI::PersonScope::getRoadID(const std::string& personID) const {
-    return myParent.getString(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_ROAD_ID, personID);
+    return getString(libsumo::VAR_ROAD_ID, personID);
 }
 
 std::string
 TraCIAPI::PersonScope::getTypeID(const std::string& personID) const {
-    return myParent.getString(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_TYPE, personID);
+    return getString(libsumo::VAR_TYPE, personID);
 }
 
 double
 TraCIAPI::PersonScope::getWaitingTime(const std::string& personID) const {
-    return myParent.getDouble(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_WAITING_TIME, personID);
+    return getDouble(libsumo::VAR_WAITING_TIME, personID);
 }
 
 std::string
 TraCIAPI::PersonScope::getNextEdge(const std::string& personID) const {
-    return myParent.getString(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_NEXT_EDGE, personID);
+    return getString(libsumo::VAR_NEXT_EDGE, personID);
 }
 
 
 std::string
 TraCIAPI::PersonScope::getVehicle(const std::string& personID) const {
-    return myParent.getString(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_VEHICLE, personID);
+    return getString(libsumo::VAR_VEHICLE, personID);
 }
 
 int
 TraCIAPI::PersonScope::getRemainingStages(const std::string& personID) const {
-    return myParent.getInt(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_STAGES_REMAINING, personID);
+    return getInt(libsumo::VAR_STAGES_REMAINING, personID);
 }
 
 libsumo::TraCIStage
@@ -3473,7 +3142,7 @@ TraCIAPI::PersonScope::getStage(const std::string& personID, int nextStageIndex)
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_INTEGER);
     content.writeInt(nextStageIndex);
-    return myParent.getTraCIStage(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_STAGE, personID, &content);
+    return getTraCIStage(libsumo::VAR_STAGE, personID, &content);
 }
 
 std::vector<std::string>
@@ -3481,7 +3150,7 @@ TraCIAPI::PersonScope::getEdges(const std::string& personID, int nextStageIndex)
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_INTEGER);
     content.writeInt(nextStageIndex);
-    return myParent.getStringVector(libsumo::CMD_GET_PERSON_VARIABLE, libsumo::VAR_EDGES, personID, &content);
+    return getStringVector(libsumo::VAR_EDGES, personID, &content);
 }
 
 void
@@ -3692,12 +3361,203 @@ TraCIAPI::PersonScope::setColor(const std::string& personID, const libsumo::TraC
 }
 
 
+// ---------------------------------------------------------------------------
+// TraCIAPI::TraCIScopeWrapper-methods
+// ---------------------------------------------------------------------------
+
+int
+TraCIAPI::TraCIScopeWrapper::getUnsignedByte(int var, const std::string& id, tcpip::Storage* add) const {
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_UBYTE)) {
+        return myParent.myInput.readUnsignedByte();
+    }
+    return libsumo::INVALID_INT_VALUE;
+}
+
+
+int
+TraCIAPI::TraCIScopeWrapper::getByte(int var, const std::string& id, tcpip::Storage* add) const {
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_BYTE)) {
+        return myParent.myInput.readByte();
+    }
+    return libsumo::INVALID_INT_VALUE;
+}
+
+
+
+int
+TraCIAPI::TraCIScopeWrapper::getInt(int var, const std::string& id, tcpip::Storage* add) const {
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_INTEGER)) {
+        return myParent.myInput.readInt();
+    }
+    return libsumo::INVALID_INT_VALUE;
+}
+
+
+double
+TraCIAPI::TraCIScopeWrapper::getDouble(int var, const std::string& id, tcpip::Storage* add) const {
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_DOUBLE)) {
+        return myParent.myInput.readDouble();
+    }
+    return libsumo::INVALID_DOUBLE_VALUE;
+}
+
+
+libsumo::TraCIPositionVector
+TraCIAPI::TraCIScopeWrapper::getPolygon(int var, const std::string& id, tcpip::Storage* add) const {
+    libsumo::TraCIPositionVector ret;
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_POLYGON)) {
+        int size = myParent.myInput.readUnsignedByte();
+        if (size == 0) {
+            size = myParent.myInput.readInt();
+        }
+        for (int i = 0; i < size; ++i) {
+            libsumo::TraCIPosition p;
+            p.x = myParent.myInput.readDouble();
+            p.y = myParent.myInput.readDouble();
+            p.z = 0.;
+            ret.push_back(p);
+        }
+    }
+    return ret;
+}
+
+
+libsumo::TraCIPosition
+TraCIAPI::TraCIScopeWrapper::getPos(int var, const std::string& id, tcpip::Storage* add) const {
+    libsumo::TraCIPosition p;
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::POSITION_2D)) {
+        p.x = myParent.myInput.readDouble();
+        p.y = myParent.myInput.readDouble();
+        p.z = 0;
+    }
+    return p;
+}
+
+
+libsumo::TraCIPosition
+TraCIAPI::TraCIScopeWrapper::getPos3D(int var, const std::string& id, tcpip::Storage* add) const {
+    libsumo::TraCIPosition p;
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::POSITION_3D)) {
+        p.x = myParent.myInput.readDouble();
+        p.y = myParent.myInput.readDouble();
+        p.z = myParent.myInput.readDouble();
+    }
+    return p;
+}
+
+
+std::string
+TraCIAPI::TraCIScopeWrapper::getString(int var, const std::string& id, tcpip::Storage* add) const {
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_STRING)) {
+        return myParent.myInput.readString();
+    }
+    return "";
+}
+
+
+std::vector<std::string>
+TraCIAPI::TraCIScopeWrapper::getStringVector(int var, const std::string& id, tcpip::Storage* add) const {
+    std::vector<std::string> r;
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_STRINGLIST)) {
+        const int size = myParent.myInput.readInt();
+        for (int i = 0; i < size; ++i) {
+            r.push_back(myParent.myInput.readString());
+        }
+    }
+    return r;
+}
+
+
+libsumo::TraCIColor
+TraCIAPI::TraCIScopeWrapper::getCol(int var, const std::string& id, tcpip::Storage* add) const {
+    libsumo::TraCIColor c;
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_COLOR)) {
+        c.r = (unsigned char)myParent.myInput.readUnsignedByte();
+        c.g = (unsigned char)myParent.myInput.readUnsignedByte();
+        c.b = (unsigned char)myParent.myInput.readUnsignedByte();
+        c.a = (unsigned char)myParent.myInput.readUnsignedByte();
+    }
+    return c;
+}
+
+
+libsumo::TraCIStage
+TraCIAPI::TraCIScopeWrapper::getTraCIStage(int var, const std::string& id, tcpip::Storage* add) const {
+    libsumo::TraCIStage s;
+    myParent.createCommand(myCmdGetID, var, id, add);
+    if (myParent.processGet(myCmdGetID, libsumo::TYPE_COMPOUND)) {
+        myParent.myInput.readInt(); // components
+        myParent.myInput.readUnsignedByte();
+        s.type = myParent.myInput.readInt();
+
+        myParent.myInput.readUnsignedByte();
+        s.vType = myParent.myInput.readString();
+
+        myParent.myInput.readUnsignedByte();
+        s.line = myParent.myInput.readString();
+
+        myParent.myInput.readUnsignedByte();
+        s.destStop = myParent.myInput.readString();
+
+        myParent.myInput.readUnsignedByte();
+        s.edges = myParent.myInput.readStringList();
+
+        myParent.myInput.readUnsignedByte();
+        s.travelTime = myParent.myInput.readDouble();
+
+        myParent.myInput.readUnsignedByte();
+        s.cost = myParent.myInput.readDouble();
+
+        myParent.myInput.readUnsignedByte();
+        s.length = myParent.myInput.readDouble();
+
+        myParent.myInput.readUnsignedByte();
+        s.intended = myParent.myInput.readString();
+
+        myParent.myInput.readUnsignedByte();
+        s.depart = myParent.myInput.readDouble();
+
+        myParent.myInput.readUnsignedByte();
+        s.departPos = myParent.myInput.readDouble();
+
+        myParent.myInput.readUnsignedByte();
+        s.arrivalPos = myParent.myInput.readDouble();
+
+        myParent.myInput.readUnsignedByte();
+        s.description = myParent.myInput.readString();
+    }
+    return s;
+}
+
+
+std::vector<std::string>
+TraCIAPI::TraCIScopeWrapper::getIDList() const {
+    return getStringVector(libsumo::TRACI_ID_LIST, "");
+}
+
+
+int
+TraCIAPI::TraCIScopeWrapper::getIDCount() const {
+    return getInt(libsumo::ID_COUNT, "");
+}
+
+
 std::string
 TraCIAPI::TraCIScopeWrapper::getParameter(const std::string& objectID, const std::string& key) const {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_STRING);
     content.writeString(key);
-    return myParent.getString(myCmdGetID, libsumo::VAR_PARAMETER, objectID, &content);
+    return getString(libsumo::VAR_PARAMETER, objectID, &content);
 }
 
 
@@ -3730,6 +3590,49 @@ TraCIAPI::TraCIScopeWrapper::setParameter(const std::string& objectID, const std
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(value);
     myParent.createCommand(myCmdSetID, libsumo::VAR_PARAMETER, objectID, &content);
+    myParent.processSet(myCmdSetID);
+}
+
+
+void
+TraCIAPI::TraCIScopeWrapper::setInt(int var, const std::string& id, int value) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(value);
+    myParent.createCommand(myCmdSetID, var, id, &content);
+    myParent.processSet(myCmdSetID);
+}
+
+
+void
+TraCIAPI::TraCIScopeWrapper::setDouble(int var, const std::string& id, double value) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(value);
+    myParent.createCommand(myCmdSetID, var, id, &content);
+    myParent.processSet(myCmdSetID);
+}
+
+
+void
+TraCIAPI::TraCIScopeWrapper::setString(int var, const std::string& id, const std::string& value) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(value);
+    myParent.createCommand(myCmdSetID, var, id, &content);
+    myParent.processSet(myCmdSetID);
+}
+
+
+void
+TraCIAPI::TraCIScopeWrapper::setStringVector(int var, const std::string& id, const std::vector<std::string>& value) const {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+    content.writeInt((int)value.size());
+    for (const std::string& s : value) {
+        content.writeString(s);
+    }
+    myParent.createCommand(myCmdSetID, var, id, &content);
     myParent.processSet(myCmdSetID);
 }
 

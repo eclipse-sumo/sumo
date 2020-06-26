@@ -76,24 +76,10 @@ public:
     /// @brief Let sumo load a simulation using the given command line like options.
     void load(const std::vector<std::string>& args);
 
-    /// @name Atomar getter
-    /// @{
-    int getUnsignedByte(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    int getByte(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    int getInt(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    double getDouble(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    libsumo::TraCIPositionVector getPolygon(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    libsumo::TraCIPosition getPosition(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    libsumo::TraCIPosition getPosition3D(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    std::string getString(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    std::vector<std::string> getStringVector(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    libsumo::TraCIColor getColor(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    libsumo::TraCIStage getTraCIStage(int cmd, int var, const std::string& id, tcpip::Storage* add = 0);
-    /// @}
-
     const tcpip::Storage& getCommandStorage() const {
         return myOutput;
     }
+
 
     /** @class TraCIScopeWrapper
      * @brief An abstract interface for accessing type-dependent values
@@ -116,7 +102,10 @@ public:
         /// @brief Destructor
         virtual ~TraCIScopeWrapper() {}
 
-        /// @brief retrieve generic paramter
+        std::vector<std::string> getIDList() const;
+        int getIDCount() const;
+
+        /// @brief retrieve generic parameter
         std::string getParameter(const std::string& objectID, const std::string& key) const;
 
         /// @brief retrieve generic parameter and return (key, value) tuple
@@ -139,10 +128,29 @@ public:
         libsumo::SubscriptionResults& getModifiableSubscriptionResults();
         libsumo::SubscriptionResults& getModifiableContextSubscriptionResults(const std::string& objID);
 
+    protected:
+        int getUnsignedByte(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        int getByte(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        int getInt(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        double getDouble(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        libsumo::TraCIPositionVector getPolygon(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        libsumo::TraCIPosition getPos3D(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        std::string getString(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        std::vector<std::string> getStringVector(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        libsumo::TraCIColor getCol(int var, const std::string& id, tcpip::Storage* add = 0) const;
+        libsumo::TraCIStage getTraCIStage(int var, const std::string& id, tcpip::Storage* add = 0) const;
+
+        void setInt(int var, const std::string& id, int value) const;
+        void setDouble(int var, const std::string& id, double value) const;
+        void setString(int var, const std::string& id, const std::string& value) const;
+        void setStringVector(int var, const std::string& id, const std::vector<std::string>& value) const;
 
     protected:
         /// @brief The parent TraCI client which offers the connection
         TraCIAPI& myParent;
+
+    private:
         int myCmdGetID;
         int myCmdSetID;
         int mySubscribeID;
@@ -161,9 +169,6 @@ public:
     };
 
 
-
-
-
     /** @class EdgeScope
      * @brief Scope for interaction with edges
      */
@@ -172,8 +177,6 @@ public:
         EdgeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_EDGE_VARIABLE, libsumo::CMD_SET_EDGE_VARIABLE, libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE, libsumo::CMD_SUBSCRIBE_EDGE_CONTEXT) {}
         virtual ~EdgeScope() {}
 
-        std::vector<std::string> getIDList() const;
-        int getIDCount() const;
         double getAdaptedTraveltime(const std::string& edgeID, double time) const;
         double getEffort(const std::string& edgeID, double time) const;
         double getCO2Emission(const std::string& edgeID) const;
@@ -208,9 +211,6 @@ public:
     };
 
 
-
-
-
     /** @class GUIScope
      * @brief Scope for interaction with the gui
      */
@@ -219,7 +219,6 @@ public:
         GUIScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_GUI_VARIABLE, libsumo::CMD_SET_GUI_VARIABLE, libsumo::CMD_SUBSCRIBE_GUI_VARIABLE, libsumo::CMD_SUBSCRIBE_GUI_CONTEXT) {}
         virtual ~GUIScope() {}
 
-        std::vector<std::string> getIDList() const;
         double getZoom(const std::string& viewID = DEFAULT_VIEW) const;
         libsumo::TraCIPosition getOffset(const std::string& viewID = DEFAULT_VIEW) const;
         std::string getSchema(const std::string& viewID = DEFAULT_VIEW) const;
@@ -241,9 +240,6 @@ public:
     };
 
 
-
-
-
     /** @class InductionLoopScope
      * @brief Scope for interaction with inductive loops
      */
@@ -252,7 +248,6 @@ public:
         InductionLoopScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, -1, libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE, libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_CONTEXT) {}
         virtual ~InductionLoopScope() {}
 
-        std::vector<std::string> getIDList() const;
         double  getPosition(const std::string& loopID) const;
         std::string getLaneID(const std::string& loopID) const;
         int getLastStepVehicleNumber(const std::string& loopID) const;
@@ -274,9 +269,6 @@ public:
     };
 
 
-
-
-
     /** @class JunctionScope
      * @brief Scope for interaction with junctions
      */
@@ -285,8 +277,6 @@ public:
         JunctionScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::CMD_SET_JUNCTION_VARIABLE, libsumo::CMD_SUBSCRIBE_JUNCTION_VARIABLE, libsumo::CMD_SUBSCRIBE_JUNCTION_CONTEXT) {}
         virtual ~JunctionScope() {}
 
-        std::vector<std::string> getIDList() const;
-        int getIDCount() const;
         libsumo::TraCIPosition getPosition(const std::string& junctionID) const;
         libsumo::TraCIPositionVector getShape(const std::string& junctionID) const;
 
@@ -300,9 +290,6 @@ public:
     };
 
 
-
-
-
     /** @class LaneScope
      * @brief Scope for interaction with lanes
      */
@@ -311,8 +298,6 @@ public:
         LaneScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_LANE_VARIABLE, libsumo::CMD_SET_LANE_VARIABLE, libsumo::CMD_SUBSCRIBE_LANE_VARIABLE, libsumo::CMD_SUBSCRIBE_LANE_CONTEXT) {}
         virtual ~LaneScope() {}
 
-        std::vector<std::string> getIDList() const;
-        int getIDCount() const;
         double getLength(const std::string& laneID) const;
         double getMaxSpeed(const std::string& laneID) const;
         double getWidth(const std::string& laneID) const;
@@ -363,8 +348,6 @@ public:
         LaneAreaScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_LANEAREA_VARIABLE, -1, libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE, libsumo::CMD_SUBSCRIBE_LANEAREA_CONTEXT) {}
         virtual ~LaneAreaScope() {}
 
-        std::vector<std::string> getIDList() const;
-
     private:
         /// @brief invalidated copy constructor
         LaneAreaScope(const LaneAreaScope& src);
@@ -383,7 +366,6 @@ public:
         MeMeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_MULTIENTRYEXIT_VARIABLE, -1, libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE, libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_CONTEXT) {}
         virtual ~MeMeScope() {}
 
-        std::vector<std::string> getIDList() const;
         int getLastStepVehicleNumber(const std::string& detID) const;
         double getLastStepMeanSpeed(const std::string& detID) const;
         std::vector<std::string> getLastStepVehicleIDs(const std::string& detID) const;
@@ -399,9 +381,6 @@ public:
     };
 
 
-
-
-
     /** @class POIScope
      * @brief Scope for interaction with POIs
      */
@@ -410,8 +389,6 @@ public:
         POIScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_POI_VARIABLE, libsumo::CMD_SET_POI_VARIABLE, libsumo::CMD_SUBSCRIBE_POI_VARIABLE, libsumo::CMD_SUBSCRIBE_POI_CONTEXT) {}
         virtual ~POIScope() {}
 
-        std::vector<std::string> getIDList() const;
-        int getIDCount() const;
         std::string getType(const std::string& poiID) const;
         libsumo::TraCIPosition getPosition(const std::string& poiID) const;
         libsumo::TraCIColor getColor(const std::string& poiID) const;
@@ -440,9 +417,6 @@ public:
     };
 
 
-
-
-
     /** @class PolygonScope
      * @brief Scope for interaction with polygons
      */
@@ -451,8 +425,6 @@ public:
         PolygonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_POLYGON_VARIABLE, libsumo::CMD_SET_POLYGON_VARIABLE, libsumo::CMD_SUBSCRIBE_POLYGON_VARIABLE, libsumo::CMD_SUBSCRIBE_POLYGON_CONTEXT) {}
         virtual ~PolygonScope() {}
 
-        std::vector<std::string> getIDList() const;
-        int getIDCount() const;
         double getLineWidth(const std::string& polygonID) const;
         std::string getType(const std::string& polygonID) const;
         libsumo::TraCIPositionVector getShape(const std::string& polygonID) const;
@@ -474,9 +446,6 @@ public:
     };
 
 
-
-
-
     /** @class RouteScope
      * @brief Scope for interaction with routes
      */
@@ -485,7 +454,6 @@ public:
         RouteScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT) {}
         virtual ~RouteScope() {}
 
-        std::vector<std::string> getIDList() const;
         std::vector<std::string> getEdges(const std::string& routeID) const;
 
         void add(const std::string& routeID, const std::vector<std::string>& edges) const;
@@ -498,7 +466,6 @@ public:
         RouteScope& operator=(const RouteScope& src);
 
     };
-
 
 
     /** @class SimulationScope
@@ -548,9 +515,6 @@ public:
     };
 
 
-
-
-
     /** @class TrafficLightScope
      * @brief Scope for interaction with traffic lights
      */
@@ -559,8 +523,6 @@ public:
         TrafficLightScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_TL_VARIABLE, libsumo::CMD_SET_TL_VARIABLE, libsumo::CMD_SUBSCRIBE_TL_VARIABLE, libsumo::CMD_SUBSCRIBE_TL_CONTEXT) {}
         virtual ~TrafficLightScope() {}
 
-        std::vector<std::string> getIDList() const;
-        int getIDCount() const;
         std::string getRedYellowGreenState(const std::string& tlsID) const;
         std::vector<libsumo::TraCILogic> getAllProgramLogics(const std::string& tlsID) const;
         std::vector<std::string> getControlledLanes(const std::string& tlsID) const;
@@ -593,9 +555,6 @@ public:
     };
 
 
-
-
-
     /** @class VehicleTypeScope
      * @brief Scope for interaction with vehicle types
      */
@@ -604,7 +563,6 @@ public:
         VehicleTypeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_VEHICLETYPE_VARIABLE, libsumo::CMD_SET_VEHICLETYPE_VARIABLE, libsumo::CMD_SUBSCRIBE_VEHICLETYPE_VARIABLE, libsumo::CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT) {}
         virtual ~VehicleTypeScope() {}
 
-        std::vector<std::string> getIDList() const;
         double getLength(const std::string& typeID) const;
         double getMaxSpeed(const std::string& typeID) const;
         double getSpeedFactor(const std::string& typeID) const;
@@ -659,9 +617,6 @@ public:
     };
 
 
-
-
-
     /** @class VehicleScope
      * @brief Scope for interaction with vehicles
      */
@@ -690,8 +645,6 @@ public:
 
         /// @name vehicle value retrieval
         /// @{
-        std::vector<std::string> getIDList() const;
-        int getIDCount() const;
         double getSpeed(const std::string& vehicleID) const;
         double getLateralSpeed(const std::string& vehicleID) const;
         double getAcceleration(const std::string& vehicleID) const;
@@ -720,10 +673,11 @@ public:
         double getFuelConsumption(const std::string& vehicleID) const;
         double getNoiseEmission(const std::string& vehicleID) const;
         double getElectricityConsumption(const std::string& vehicleID) const;
-        int getSpeedMode(const std::string& vehicleID) const;
         int getStopState(const std::string& vehicleID) const;
         double getWaitingTime(const std::string& vehicleID) const;
         double getAccumulatedWaitingTime(const std::string& vehicleID) const;
+        int getLaneChangeMode(const std::string& vehicleID) const;
+        int getSpeedMode(const std::string& vehicleID) const;
         double getSlope(const std::string& vehicleID) const;
         double getAllowedSpeed(const std::string& vehicleID) const;
         int getPersonNumber(const std::string& vehicleID) const;
@@ -795,6 +749,7 @@ public:
         void slowDown(const std::string& vehicleID, double speed, double duration) const;
         void openGap(const std::string& vehicleID, double newTau, double duration, double changeRate, double maxDecel) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
+        void setLaneChangeMode(const std::string& vehicleID, int mode) const;
         void setSpeedMode(const std::string& vehicleID, int mode) const;
         void setStop(const std::string vehicleID, const std::string edgeID, const double endPos = 1.,
                      const int laneIndex = 0, const double duration = std::numeric_limits<double>::max(),
@@ -883,6 +838,7 @@ public:
 
     };
 
+
     /** @class PersonScope
      * * @brief Scope for interaction with vehicles
      * */
@@ -891,8 +847,6 @@ public:
         PersonScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_PERSON_VARIABLE, libsumo::CMD_SET_PERSON_VARIABLE, libsumo::CMD_SUBSCRIBE_PERSON_VARIABLE, libsumo::CMD_SUBSCRIBE_PERSON_CONTEXT) {}
         virtual ~PersonScope() {}
 
-        std::vector<std::string> getIDList() const;
-        int getIDCount() const;
         double getSpeed(const std::string& personID) const;
         libsumo::TraCIPosition getPosition(const std::string& personID) const;
         libsumo::TraCIPosition getPosition3D(const std::string& personID) const;
