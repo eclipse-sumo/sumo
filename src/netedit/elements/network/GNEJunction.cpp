@@ -348,7 +348,12 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     } else {
                         GLHelper::drawFilledPolyTesselated(junctionShape, true);
                     }
+                    // pop draw matrix
                     glPopMatrix();
+                    // check if dotted contour has to be drawn
+                    if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+                        GNEGeometry::drawDottedContourClosedShape(junctionShape, junctionExaggeration);
+                    }
                 }
             }
             // check if bubble has to be drawn
@@ -366,10 +371,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     }
                     glPopMatrix();
                 }
-            }
-            // check if dotted contour has to be drawn
-            if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-                //GNEGeometry::drawShapeDottedContour(s, getType(), junctionExaggeration, myDottedGeometry);
+                // check if dotted contour has to be drawn
+                if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+                    GNEGeometry::drawDottedContourCircle(myNBNode->getCenter(), BUBBLE_RADIUS, junctionExaggeration);
+                }
             }
             // draw TLS
             drawTLSIcon(s);

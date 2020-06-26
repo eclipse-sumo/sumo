@@ -313,8 +313,8 @@ GNEGeometry::DottedGeometry::DottedGeometry(PositionVector shape, const bool clo
             myDottedShape.push_back({shape[i-1], shape[i]});
         }
         // resample
-        for (auto &shape : myDottedShape) {
-            shape = shape.resample(2, true);
+        for (auto &partialShape : myDottedShape) {
+            partialShape = partialShape.resample(2, true);
         }
         // calculate shape rotations and lenghts
         calculateShapeRotationsAndLengths();
@@ -1153,34 +1153,61 @@ GNEGeometry::drawDottedContourEdge(const DottedGeometry &dottedGeometryTop, cons
 
 
 void
-GNEGeometry::drawDottedContourClosedShape(const PositionVector &shape, const double /*exaggeration*/) {
-    // declare DottedGeometryColor
-    DottedGeometryColor dottedGeometryColor;
-    // calculate dotted geometry
-    GNEGeometry::DottedGeometry dottedGeometry(shape, true);
-    // Push draw matrix
-    glPushMatrix();
-    // translate to front
-    glTranslated(0, 0, GLO_MAX);
-    // draw dotted geometry
-    dottedGeometry.drawDottedGeometry(dottedGeometryColor);
-    // pop matrix
-    glPopMatrix();
+GNEGeometry::drawDottedContourClosedShape(const PositionVector &shape, const double exaggeration) {
+    if (exaggeration > 0) {
+        // declare DottedGeometryColor
+        DottedGeometryColor dottedGeometryColor;
+        // scale shape
+        PositionVector scaledShape = shape;
+        scaledShape.scaleRelative(exaggeration);
+        // calculate dotted geometry
+        GNEGeometry::DottedGeometry dottedGeometry(scaledShape, true);
+        // Push draw matrix
+        glPushMatrix();
+        // translate to front
+        glTranslated(0, 0, GLO_MAX);
+        // draw dotted geometry
+        dottedGeometry.drawDottedGeometry(dottedGeometryColor);
+        // pop matrix
+        glPopMatrix();
+    }
 }
 
 
 void 
-GNEGeometry::drawDottedContourShape(const PositionVector& shape, const double width) {
+GNEGeometry::drawDottedContourShape(const PositionVector& shape, const double width, const double exaggeration) {
     // calculate dotted geometry
     GNEGeometry::DottedGeometry dottedGeometry(shape, false);
     // use drawDottedContourLane to draw it
-    drawDottedContourLane(dottedGeometry, width, true, true);
+    drawDottedContourLane(dottedGeometry, width * exaggeration, true, true);
 }
 
 
 void 
-GNEGeometry::drawDottedContourCircle(const Position& /*position*/, const double /*radius*/) {
+GNEGeometry::drawDottedContourCircle(const Position& pos, const double radius, const double exaggeration) {
+    if (radius * exaggeration < 2) {
+        drawDottedContourClosedShape(getVertexCircleAroundPosition(pos, radius * exaggeration, 8), 1);
+    } else {
+        drawDottedContourClosedShape(getVertexCircleAroundPosition(pos, radius * exaggeration, 16), 1);
+    }
+}
 
+
+void 
+GNEGeometry::drawDottedSquaredShape(const Position &pos, const double width, const double height, const double rot, const double exaggeration) {
+    // create shape
+    PositionVector shape;
+    // make rectangle
+    shape.push_back(Position(0 + width, 0 + height));
+    shape.push_back(Position(0 + width, 0 - height));
+    shape.push_back(Position(0 - width, 0 - height));
+    shape.push_back(Position(0 - width, 0 + height));
+    // rotate shape
+    shape.rotate2D(DEG2RAD(rot));
+    // move to position
+    shape.add(pos);
+    // draw using drawDottedContourClosedShape
+    drawDottedContourClosedShape(shape, exaggeration);
 }
 
 

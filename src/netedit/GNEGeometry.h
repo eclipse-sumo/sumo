@@ -469,10 +469,13 @@ struct GNEGeometry {
     static void drawDottedContourClosedShape(const PositionVector &shape, const double exaggeration);
 
     /// @brief draw dotted contour for the given shape (used by additionals)
-    static void drawDottedContourShape(const PositionVector &shape, const double width);
+    static void drawDottedContourShape(const PositionVector &shape, const double width, const double exaggeration);
 
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
-    static void drawDottedContourCircle(const Position &position, const double radius);
+    static void drawDottedContourCircle(const Position &pos, const double radius, const double exaggeration);
+
+    /// @brief draw dotted squared contour (used by additionals and demand elements)
+    static void drawDottedSquaredShape(const Position &pos, const double width, const double height, const double rot, const double exaggeration);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

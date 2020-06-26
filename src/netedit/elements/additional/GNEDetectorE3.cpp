@@ -160,7 +160,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            //GNEGeometry::drawShapeDottedContour(s, getType(), E3Exaggeration, myDottedGeometry);
+            GNEGeometry::drawDottedSquaredShape(myPosition, s.detectorSettings.E3Size, s.detectorSettings.E3Size, 0, E3Exaggeration);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
                 //GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);

@@ -164,7 +164,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            //GNEGeometry::drawShapeDottedContour(s, getType(), VSSExaggeration, myDottedGeometry);
+            GNEGeometry::drawDottedSquaredShape(myPosition, s.additionalSettings.VSSSize, s.additionalSettings.VSSSize, 0, VSSExaggeration);
             // draw shape dotte contour aroud alld connections between child and parents
             for (auto i : myChildConnections.connectionPositions) {
                 //GLHelper::drawShapeDottedContourAroundShape(s, getType(), i, 0);
