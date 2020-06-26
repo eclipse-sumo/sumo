@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Jun 26 15:51:39 2020
+TraCITestClient output file. Date: Fri Jun 26 16:09:38 2020
 
 
 -> Command sent: <SetOrder>:
@@ -107,6 +107,8 @@ testAPI:
     getLeader: 2, 493.85
     getLaneChangeState (left): 1073741824, 1073741824
     getLaneChangeState (right): 1073741824, 1073741824
+    getSpeedMode after change: 0
+    getLaneChangeMode after change: 0
     remove:
     getIDCount: 2
   inductionloop:
