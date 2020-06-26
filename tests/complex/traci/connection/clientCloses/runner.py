@@ -43,8 +43,8 @@ def runSingle(traciEndTime, sumoEndTime=None):
         opt = addOption
     else:
         opt = addOption + ["--end", str(sumoEndTime)]
-    sumoProcess = subprocess.Popen(
-        [sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + opt)
+    sumoProcess = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + opt,
+                                   stdout=sys.stdout)
     traci.init(PORT)
     while not step > traciEndTime:
         traci.simulationStep()

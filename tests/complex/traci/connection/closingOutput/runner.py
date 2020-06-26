@@ -33,7 +33,7 @@ if sys.argv[1] == "sumo":
 else:
     addOption = ["-S", "-Q"]
 
-traci.start([sumoBinary, "-c", "sumo.sumocfg"] + addOption)
+traci.start([sumoBinary, "-c", "sumo.sumocfg"] + addOption, stdout=sys.stdout)
 time.sleep(10)
 step = 0
 while step <= 100:

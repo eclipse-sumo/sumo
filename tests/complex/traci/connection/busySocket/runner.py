@@ -37,11 +37,10 @@ else:
     secondConfig = "sumo_log.sumocfg"
 PORT = sumolib.miscutils.getFreeSocketPort()
 
-sumoProc = subprocess.Popen(
-    [sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + addOption)
+sumoProc = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + addOption,
+                            stdout=sys.stdout)
 traci.init(PORT)
-subprocess.call([sumoBinary, "-c", secondConfig,
-                 "--remote-port", str(PORT)] + addOption)
+subprocess.call([sumoBinary, "-c", secondConfig, "--remote-port", str(PORT)] + addOption, stdout=sys.stdout)
 step = 0
 while not step > 100:
     traci.simulationStep()

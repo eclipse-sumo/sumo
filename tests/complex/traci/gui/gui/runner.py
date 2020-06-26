@@ -29,7 +29,8 @@ import traci  # noqa
 import sumolib  # noqa
 
 traci.start([sumolib.checkBinary('sumo-gui')] +
-            "-S -Q -c sumo.sumocfg --window-size 500,500 --window-pos 50,50".split())
+            "-S -Q -c sumo.sumocfg --window-size 500,500 --window-pos 50,50".split(),
+            stdout=sys.stdout)
 for step in range(3):
     print("step", step)
     traci.simulationStep()

@@ -132,7 +132,7 @@ def init(port=8813, numRetries=10, host="localhost", label="default", proc=None)
     return getVersion()
 
 
-def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFile=None):
+def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFile=None, stdout=None):
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
@@ -146,7 +146,7 @@ def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFi
         cmd2 = cmd + ["--remote-port", str(sumoPort)]
         if verbose:
             print("Calling " + ' '.join(cmd2))
-        sumoProcess = subprocess.Popen(cmd2)
+        sumoProcess = subprocess.Popen(cmd2, stdout=stdout)
         try:
             return init(sumoPort, numRetries, "localhost", label, sumoProcess)
         except TraCIException:
