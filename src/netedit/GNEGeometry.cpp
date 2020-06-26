@@ -301,13 +301,13 @@ GNEGeometry::DottedGeometryColor::changeColor() {
 
 
 GNEGeometry::DottedGeometry::Segment::Segment() :
-    offset(0) {
+    offset(-1) {
 }
 
 
 GNEGeometry::DottedGeometry::Segment::Segment(PositionVector newShape) :
     shape(newShape),
-    offset(0) {
+    offset(-1) {
 }
 
 
@@ -350,6 +350,8 @@ GNEGeometry::DottedGeometry::DottedGeometry(const DottedGeometry &topDottedGeome
         myDottedGeometrySegments.push_back(Segment({
             topDottedGeometry.myDottedGeometrySegments.back().shape.back(), 
             botDottedGeometry.myDottedGeometrySegments.back().shape.back()}));
+        // invert offset of second dotted geometry
+        myDottedGeometrySegments.back().offset *= -1;
     }
     // resample
     for (auto &segment : myDottedGeometrySegments) {
@@ -389,7 +391,7 @@ GNEGeometry::DottedGeometry::drawDottedGeometry(DottedGeometryColor &dottedGeome
             GLHelper::drawBoxLine(segment.shape[i], 
                 segment.rotations.at(i),
                 segment.lengths.at(i), 
-                myWidth, segment.offset);
+                myWidth, myWidth * segment.offset);
         }
     }
 }
@@ -414,6 +416,16 @@ void
 GNEGeometry::DottedGeometry::setWidth(const double width) {
     myWidth = width;
 }
+
+
+void 
+GNEGeometry::DottedGeometry::inverOffset() {
+    // iterate over all segments
+    for (auto &segment : myDottedGeometrySegments) {
+        segment.offset *= -1;
+    }
+}
+
 
 void
 GNEGeometry::DottedGeometry::calculateShapeRotationsAndLengths() {
@@ -1122,6 +1134,8 @@ GNEGeometry::drawDottedContourLane(const DottedGeometry &dottedGeometry, const d
     // move geometries
     topDottedGeometry.moveShapeToSide(width);
     botDottedGeometry.moveShapeToSide(width * -1);
+    // invert offset of top dotted geometry
+    topDottedGeometry.inverOffset();
     // calculate extremes
     DottedGeometry extremes(topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
     // Push draw matrix
@@ -1171,7 +1185,8 @@ GNEGeometry::drawDottedContourClosedShape(const PositionVector &shape, const dou
         DottedGeometryColor dottedGeometryColor;
         // scale shape using exaggeration and default dotted geometry width
         PositionVector scaledShape = shape;
-        scaledShape.scaleRelative(exaggeration + 0.2);
+        // scale exaggeration
+        scaledShape.scaleRelative(exaggeration);
         // calculate dotted geometry
         GNEGeometry::DottedGeometry dottedGeometry(scaledShape, true);
         // Push draw matrix

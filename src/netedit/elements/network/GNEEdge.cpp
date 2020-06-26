@@ -1910,6 +1910,8 @@ GNEEdge::drawDottedContour(const GUIVisualizationSettings& s) const {
         // move shapes to side
         dottedGeometryTop.moveShapeToSide(laneDrawingConstantsFront.halfWidth);
         dottedGeometryBot.moveShapeToSide(laneDrawingConstantsBack.halfWidth * -1);
+        // invert offset of top dotted geometry
+        dottedGeometryTop.inverOffset();
         // draw dotted contour using both geometries
         GNEGeometry::drawDottedContourEdge(dottedGeometryTop, dottedGeometryBot);
     }

@@ -195,7 +195,7 @@ struct GNEGeometry {
             /// @brief lengths
             std::vector<double> lengths;
 
-            /// @brief drawing offset
+            /// @brief drawing offset (-1 or 1 only)
             double offset;
         };
 
@@ -223,6 +223,9 @@ struct GNEGeometry {
 
         /// @brief change default width
         void setWidth(const double width);
+
+        /// @brief invert offset of all segments
+        void inverOffset();
 
     private:
         /// @brief calculate shape rotations and lengths
