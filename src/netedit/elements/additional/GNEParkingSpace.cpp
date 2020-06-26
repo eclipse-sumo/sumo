@@ -116,6 +116,9 @@ void
 GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     // Set initial values
     const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);
+    // obtain values with exaggeration
+    const double widthExaggeration = myWidth * parkingAreaExaggeration;
+    const double lengthExaggeration = myLength * parkingAreaExaggeration;
     // first check if additional has to be drawn
     if (s.drawAdditionals(parkingAreaExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // check if boundary has to be drawn
@@ -136,7 +139,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColorContour);
             }
-            GLHelper::drawBoxLine(Position(0, myLength + 0.05), 0, myLength + 0.1, (myWidth / 2) + 0.05);
+            GLHelper::drawBoxLine(Position(0, lengthExaggeration + 0.05), 0, lengthExaggeration + 0.1, (widthExaggeration * 0.5) + 0.05);
         }
         // Traslate matrix and draw blue innen
         glTranslated(0, 0, 0.1);
@@ -146,15 +149,28 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::setColor(s.stoppingPlaceSettings.parkingSpaceColor);
         }
-        GLHelper::drawBoxLine(Position(0, myLength), 0, myLength, myWidth / 2);
+        GLHelper::drawBoxLine(Position(0, lengthExaggeration), 0, lengthExaggeration, widthExaggeration * 0.5);
         // Traslate matrix and draw lock icon if isn't being drawn for selecting
-        glTranslated(0, myLength / 2, 0.1);
+        glTranslated(0, lengthExaggeration * 0.5 , 0.1);
+        // draw lock icon
         myBlockIcon.drawIcon(s, parkingAreaExaggeration);
         // pop draw matrix
         glPopMatrix();
         // check if dotted contour has to be drawn
         if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            GNEGeometry::drawDottedSquaredShape(myPosition, myWidth, myLength, myAngle, parkingAreaExaggeration);
+            // calculate shape
+            PositionVector shape;
+            // make rectangle
+            shape.push_back(Position((widthExaggeration * -0.5), 0));
+            shape.push_back(Position((widthExaggeration * +0.5), 0));
+            shape.push_back(Position((widthExaggeration * +0.5), lengthExaggeration));
+            shape.push_back(Position((widthExaggeration * -0.5), lengthExaggeration));
+            // rotate shape
+            shape.rotate2D(DEG2RAD(myAngle));
+            // move to position
+            shape.add(myPosition);
+            // draw using drawDottedContourClosedShape
+            GNEGeometry::drawDottedContourClosedShape(shape, 1);
         }
         // pop name
         glPopName();
