@@ -70,7 +70,7 @@ The following table lists the different encounter types along with their codes, 
 | <font color="lightgray">5    | <font color="lightgray">MERGING                    | <font color="lightgray">Ego and foe share an upcoming edge of their routes while the merging point for the routes is still ahead (incomplete type, only used internally). ||||
 | 6    | MERGING_LEADER             | As 5. The estimated arrival at the merge point is earlier for the foe than for the ego vehicle.                                                                                                                           | foeEntryDist | foeSpeed | mergePoint|
 | 7    | MERGING_FOLLOWER           | As 5. The estimated arrival at the merge point is earlier for the ego than for the foe vehicle.                                                                                                                           | egoEntryDist | egoSpeed | mergePoint|
-| 8    | MERGING_ADJACENT           | As 5. The Vehicles' current routes lead to adjacent lanes on the same edge.                                                                                                                                               ||||
+| 8    | MERGING_ADJACENT           | As 5. The vehicles' current routes lead to adjacent lanes on the same edge.                                                                                                                                               ||||
 | <font color="lightgray">9    | <font color="lightgray">CROSSING                   | <font color="lightgray">Ego's and foe's routes have crossing edges (incomplete type, only used internally)                                                                ||||
 | 10   | CROSSING_LEADER            | As 6. The estimated arrival of the ego at the conflict point is earlier than for the foe vehicle.                                                                                                                         | foeEntryDist | foeSpeed | foeCrossingPoint|
 | 11   | CROSSING_FOLLOWER          | As 6. The estimated arrival of the foe at the conflict point is earlier than for the ego vehicle.                                                                                                                         | egoEntryDist | egoSpeed | egoCrossingPoint|
@@ -242,8 +242,8 @@ Elements of type `<conflict>` hold the following information in their child elem
 | typeSpan  | values  | list of integers (Encounter type codes)  | Timeseries of classifications for the tracked encounter.  |
 | egoPosition  | values  | list of 2D-coordinates  | Timeseries of the ego vehicle's positions.  |
 | egoVelocity  | values  | list of 2D-vectors  | Timeseries of the ego vehicle's velocity vectors.  |
-| foePosition  | values  | list of 2D-coordinates  | Timeseries of the foe vehicle's positions.  |
-| foeVelocity  | values  | list of 2D-vectors  | Timeseries of the ego vehicle's velocity vectors.  |
+| foePosition  | values  | list of 2D-coordinates  | Timeseries of the foe vehicle positions.  |
+| foeVelocity  | values  | list of 2D-vectors  | Timeseries of the foe vehicle velocity vectors.  |
 | conflictPoint  | values  | list of 2D-coordinates  | Timeseries of the (eventually extrapolated) coordinates of the conflict point. The *conflict* point is taken as the respective *entry point to the conflict area*.   |
 | TTCSpan  | values  | list of floats  | Timeseries of the calculated TTC values. May contain entries 'NA' corresponding to times, where TTC is not defined.  |
 | DRACSpan  | values  | list of floats  | Timeseries of the calculated DRAC values. May contain entries 'NA' corresponding to times, where DRAC is not defined.  |
