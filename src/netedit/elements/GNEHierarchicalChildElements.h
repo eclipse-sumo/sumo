@@ -175,7 +175,7 @@ protected:
             const Position &getPosition() const;
 
             /// @brief get rotation
-            const double getRotation() const;
+            double getRotation() const;
 
         private:
             /// @brief lane

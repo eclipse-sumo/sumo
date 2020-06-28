@@ -297,6 +297,9 @@ public:
      */
     class Stop : public Parameterised {
     public:
+        /// @brief Destructor
+        virtual ~Stop() {}
+
         /** @brief Writes the stop as XML
          *
          * @param[in, out] dev The device to write into

@@ -607,7 +607,7 @@ GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::getPosition(
 }
 
 
-const double 
+double
 GNEHierarchicalChildElements::ChildConnections::ConnectionGeometry::getRotation() const {
     return myRotation;
 }
