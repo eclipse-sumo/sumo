@@ -177,7 +177,6 @@ struct GNEGeometry {
     class DottedGeometry {
 
     public:
-
         /// @brief dotted geometry segment
         struct Segment {
             /// @brief default constructor
@@ -209,8 +208,11 @@ struct GNEGeometry {
         DottedGeometry(const DottedGeometry &topDottedGeometry, const bool drawFirstExtrem, 
                        const DottedGeometry &botDottedGeometry, const bool drawLastExtrem);
 
-        /// @brief update DottedGeometry (using lane shape
+        /// @brief update DottedGeometry (using lane shape)
         void updateDottedGeometry(const GNELane *lane);
+
+        /// @brief update DottedGeometry (using shape)
+        void updateDottedGeometry(PositionVector shape, const bool closeShape);
 
         /// @brief draw dottedShape
         void drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const;
@@ -402,15 +404,18 @@ struct GNEGeometry {
         /// @brief check if exist a lane2lane geometry for the given tolane 
         bool exist(const GNELane* toLane) const;
 
-        /// @brief get getLane2laneGeometry 
+        /// @brief get lane2lane geometry 
         const GNEGeometry::Geometry& getLane2laneGeometry(const GNELane* toLane) const;
+
+        /// @brief get lane2lane dotted geometry 
+        const GNEGeometry::DottedGeometry& getLane2laneDottedGeometry(const GNELane* toLane) const;
 
     protected:
         /// @brief from lane
         const GNELane* myFromLane;
 
         /// @brief connection shape
-        std::map<const GNELane*, GNEGeometry::Geometry> myConnectionsMap;
+        std::map<const GNELane*, std::pair<GNEGeometry::Geometry, GNEGeometry::DottedGeometry> > myConnectionsMap;
 
     private:
         /// @brief constructor

@@ -380,6 +380,29 @@ GNEGeometry::DottedGeometry::updateDottedGeometry(const GNELane *lane) {
 
 
 void
+GNEGeometry::DottedGeometry::updateDottedGeometry(PositionVector shape, const bool closeShape) {
+    // reset segments
+    myDottedGeometrySegments.clear();
+    // check if shape has to be closed
+    if (closeShape && (shape.size() > 2)) {
+        shape.closePolygon();
+    }
+    if (shape.size() > 1) {
+        // get shape
+        for (int i = 1; i < (int)shape.size(); i++) {
+            myDottedGeometrySegments.push_back(Segment({shape[i-1], shape[i]}));
+        }
+        // resample
+        for (auto &segment : myDottedGeometrySegments) {
+            segment.shape = segment.shape.resample(2, true);
+        }
+        // calculate shape rotations and lenghts
+        calculateShapeRotationsAndLengths();
+    }
+}
+
+
+void
 GNEGeometry::DottedGeometry::drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const {
     // iterate over all segments
     for (auto &segment : myDottedGeometrySegments) {
@@ -712,21 +735,24 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
             // get NBEdges from and to
             const NBEdge* NBEdgeFrom = myFromLane->getParentEdge()->getNBEdge();
             const NBEdge* NBEdgeTo = outgoingLane->getParentEdge()->getNBEdge();
+            // declare shape
+            PositionVector shape;
             // only create smooth shapes if Edge From has as maximum 10 lanes
             if ((NBEdgeFrom->getNumLanes() <= maximumLanes) && (NBEdgeFrom->getToNode()->getShape().area() > 4)) {
-                // Calculate smooth shape
-                myConnectionsMap[outgoingLane].updateGeometry(NBEdgeFrom->getToNode()->computeSmoothShape(
-                            NBEdgeFrom->getLaneShape(myFromLane->getIndex()),
-                            NBEdgeTo->getLaneShape(outgoingLane->getIndex()),
-                            numPoints, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
-                            (double) numPoints * (double) NBEdgeFrom->getNumLanes(),
-                            (double) numPoints * (double) NBEdgeTo->getNumLanes()));
+                // calculate smoot shape
+                shape = NBEdgeFrom->getToNode()->computeSmoothShape(
+                    NBEdgeFrom->getLaneShape(myFromLane->getIndex()),
+                    NBEdgeTo->getLaneShape(outgoingLane->getIndex()),
+                    numPoints, NBEdgeFrom->getTurnDestination() == NBEdgeTo,
+                    (double) numPoints * (double) NBEdgeFrom->getNumLanes(),
+                    (double) numPoints * (double) NBEdgeTo->getNumLanes());
             } else {
                 // create a shape using lane shape extremes
-                myConnectionsMap[outgoingLane].updateGeometry({
-                    myFromLane->getLaneShape().back(),
-                    outgoingLane->getLaneShape().front()});
+                shape = {myFromLane->getLaneShape().back(), outgoingLane->getLaneShape().front()};
             }
+            // update connection map
+            myConnectionsMap[outgoingLane].first.updateGeometry(shape);
+            myConnectionsMap[outgoingLane].second.updateDottedGeometry(shape, false);
         }
     }
 }
@@ -740,7 +766,13 @@ GNEGeometry::Lane2laneConnection::exist(const GNELane* toLane) const {
 
 const GNEGeometry::Geometry&
 GNEGeometry::Lane2laneConnection::getLane2laneGeometry(const GNELane* toLane) const {
-    return myConnectionsMap.at(toLane);
+    return myConnectionsMap.at(toLane).first;
+}
+
+
+const GNEGeometry::DottedGeometry&
+GNEGeometry::Lane2laneConnection::getLane2laneDottedGeometry(const GNELane* toLane) const {
+    return myConnectionsMap.at(toLane).second;
 }
 
 
