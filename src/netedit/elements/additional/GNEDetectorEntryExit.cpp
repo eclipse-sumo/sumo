@@ -242,7 +242,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             drawName(getPositionInView(), s.scale, s.addName);
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             // GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
         }
         // pop gl identificator

@@ -164,7 +164,7 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // Draw child connections
         drawChildConnections(s, getType(), rerouterExaggeration);
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             GNEGeometry::drawDottedSquaredShape(myPosition, s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize, 0, rerouterExaggeration);
             // draw shape dotte contour aroud alld connections between child and parents
             drawChildDottedConnections(s, rerouterExaggeration);

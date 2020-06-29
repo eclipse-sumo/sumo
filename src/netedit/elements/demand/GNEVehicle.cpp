@@ -760,7 +760,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     drawFlowLabel(vehiclePosition, vehicleRotation, width, length);
                 }
                 // check if dotted contour has to be drawn
-                if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+                if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
                     // GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
                 }
             }
@@ -773,7 +773,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
 
 void 
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
-    if (!s.drawForRectangleSelection && ((myNet->getViewNet()->getInspectedAttributeCarrier() == this) || isAttributeCarrierSelected())) {
+    if (!s.drawForRectangleSelection && ((s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) || isAttributeCarrierSelected())) {
         // declare flag to draw spread vehicles
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         // calculate width
@@ -817,7 +817,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
 void 
 GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
     if (!s.drawForRectangleSelection && fromLane->getLane2laneConnections().exist(toLane) && 
-        ((myNet->getViewNet()->getInspectedAttributeCarrier() == this) || isAttributeCarrierSelected())) {
+        ((s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) || isAttributeCarrierSelected())) {
         // obtain lane2lane geometry
         const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width

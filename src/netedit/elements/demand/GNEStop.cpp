@@ -406,7 +406,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw name if isn't being drawn for selecting
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // check if dotted contour has to be drawn
-            if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
                 // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
                 if (getParentLanes().size() > 0) {
                     // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),

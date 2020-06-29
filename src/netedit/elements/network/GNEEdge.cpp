@@ -539,7 +539,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
         drawEdgeName(s);
     }
     // draw dotted contour
-    if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+    if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
         drawDottedContour(s);
     }
 }

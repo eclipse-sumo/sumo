@@ -174,20 +174,18 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), GLO_ACCESS);
         // draw circle
         if (s.drawForRectangleSelection) {
-            GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 8);
+            GLHelper::drawFilledCircle(0.5 * exaggeration, 8);
         } else {
-            GLHelper::drawFilledCircle((double) 0.5 * exaggeration, 16);
-            // check if dotted contour has to be drawn
-            if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-                /*
-                                GLHelper::drawShapeDottedContourAroundClosedShape(s, getType(), vertices);
-                */
-            }
+            GLHelper::drawFilledCircle(0.5 * exaggeration, 16);
         }
         // pop matrix
         glPopMatrix();
         // pop gl identficador
         glPopName();
+        // check if dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedContourCircle(myAdditionalGeometry.getPosition(), 0.5, exaggeration);
+        }
     }
 }
 

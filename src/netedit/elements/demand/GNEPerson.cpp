@@ -442,7 +442,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
             // check if dotted contour has to be drawn
-            if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
                 // GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, exaggeration, exaggeration);
             }
             // pop name

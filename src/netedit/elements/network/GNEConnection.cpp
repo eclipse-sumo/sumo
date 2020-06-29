@@ -325,7 +325,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawLine(myInternalJunctionMarker);
             }
             // check if dotted contour has to be drawn (not useful at high zoom)
-            if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
                 //GNEGeometry::drawShapeDottedContour(s, getType(), 1, myDottedGeometry);
             }
         }

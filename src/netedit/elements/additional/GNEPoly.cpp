@@ -417,7 +417,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             GNEGeometry::drawDottedContourClosedShape(myShape, polyExaggeration);
         }
         // pop name

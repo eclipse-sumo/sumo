@@ -186,12 +186,12 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         myBlockIcon.drawIcon(s, vaporizerExaggeration, 0.4);
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
-        // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            // GNEGeometry::drawShapeDottedContour(s, getType(), vaporizerExaggeration, myDottedGeometry);
-        }
         // pop name
         glPopName();
+        // check if dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedSquaredShape(myAdditionalGeometry.getPosition(), 1, 1, myAdditionalGeometry.getRotation(), vaporizerExaggeration);
+        }
     }
 }
 

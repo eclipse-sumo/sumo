@@ -157,7 +157,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // pop draw matrix
         glPopMatrix();
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             // calculate shape
             PositionVector shape;
             // make rectangle

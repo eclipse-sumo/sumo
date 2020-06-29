@@ -193,12 +193,12 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         myBlockIcon.drawIcon(s, routeProbeExaggeration, 0.4);
         // draw name
         drawName(getPositionInView(), s.scale, s.addName);
-        // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            // GNEGeometry::drawShapeDottedContour(s, getType(), routeProbeExaggeration, myDottedGeometry);
-        }
         // pop name
         glPopName();
+        // check if dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedSquaredShape(myAdditionalGeometry.getPosition(), 1, 1, myAdditionalGeometry.getRotation(), routeProbeExaggeration);
+        }
     }
 }
 

@@ -340,7 +340,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     }
     glPopMatrix();
     // check if dotted contour has to be drawn
-    if (myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+    if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
         // GNEGeometry::drawShapeDottedContour(s, getType(), exaggeration, myDottedGeometry);
     }
 }
