@@ -42,7 +42,9 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
     if (veh.getLaneChangeModel().isOpposite()) {
         return 0;
     }
+#ifdef DEBUG_WANTS_CHANGE
     const bool debugVehicle = veh.getLaneChangeModel().debugVehicle();
+#endif
     const MSVehicle::LaneQ& inner = curr.lane == best.lane ? neigh : curr;
 
     int roundaboutJunctionsAhead = 0;
@@ -128,28 +130,36 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
                                         ? (lane->getLength() - veh.getPositionOnLane()) / lane->getLength() : 1;
         prevNormal = lane;
         occupancyOuter += upstreamDiscount * lane->getBruttoVehLenSum();
+#ifdef DEBUG_WANTS_CHANGE
         if (debugVehicle) {
             std::cout << " lane=" << lane->getID() << " occ=" << lane->getBruttoVehLenSum() << " discount=" << upstreamDiscount << " outer=" << occupancyOuter << "\n";
         }
+#endif
         if (via != nullptr) {
             occupancyOuter += via->getBruttoVehLenSum();
+#ifdef DEBUG_WANTS_CHANGE
             if (debugVehicle) {
                 std::cout << " via=" << via->getID() << " occ=" << via->getBruttoVehLenSum() << " outer=" << occupancyOuter << "\n";
             }
+#endif
         }
         if (i < (int)inner.bestContinuations.size()) {
             MSLane* innerLane = inner.bestContinuations[i];
             occupancyInner += upstreamDiscount * innerLane->getBruttoVehLenSum();
+#ifdef DEBUG_WANTS_CHANGE
             if (debugVehicle) {
                 std::cout << " inner=" << innerLane->getID() << " occ=" << innerLane->getBruttoVehLenSum() << " discount=" << upstreamDiscount << " inner=" << occupancyInner << "\n";
             }
+#endif
             if (prevInner != nullptr) {
                 for (MSLink* link : prevInner->getLinkCont()) {
                     if (link->getLane() == innerLane && link->getViaLane() != nullptr) {
                         occupancyInner += link->getViaLane()->getBruttoVehLenSum();
+#ifdef DEBUG_WANTS_CHANGE
                         if (debugVehicle) {
                             std::cout << " innerVia=" << link->getViaLane()->getID() << " occ=" << link->getViaLane()->getBruttoVehLenSum() << " inner=" << occupancyInner << "\n";
                         }
+#endif
                     }
                 }
             }
