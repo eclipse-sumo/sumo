@@ -26,14 +26,7 @@ import colorsys
 import socket
 import random
 # needed for backward compatibility
-from .statistics import Statistics, geh, uMax, uMin  # noqa
-
-
-def round(value):  # to round in Python 3 like in Python 2
-    if value < 0:
-        return math.ceil(value - 0.5)
-    else:
-        return math.floor(value + 0.5)
+from .statistics import Statistics, geh, uMax, uMin, round  # noqa
 
 
 def benchmark(func):
