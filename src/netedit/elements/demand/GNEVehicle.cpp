@@ -810,6 +810,28 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
+        // check if shape dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            // get first and last allowed lanes
+            const GNELane* firstLane = getFirstAllowedVehicleLane();
+            const GNELane* lastLane = getLastAllowedVehicleLane();
+            // iterate over segments
+            for (const auto& segment : myDemandElementSegmentGeometry) {
+                if (segment.isLaneSegment() && (segment.getLane() == lane)) {
+                    // draw partial segment
+                    if (firstLane == lane) {
+                        // draw front dotted contour
+                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedGeometry(segment.getShape(), false), width, true, false);
+                    } else if (lastLane == lane) {
+                        // draw back dotted contour
+                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedGeometry(segment.getShape(), false), width, false, true);
+                    } else {
+                        // draw dotted contour
+                        GNEGeometry::drawDottedContourLane(lane->getDottedLaneGeometry(), width, false, false);
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -836,6 +858,13 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
         // Pop last matrix
         glPopMatrix();
+        // check if shape dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            // draw lane2lane dotted geometry
+            if (fromLane->getLane2laneConnections().exist(toLane)) {
+                GNEGeometry::drawDottedContourLane(fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), width, false, false);
+            }
+        }
     }
 }
 

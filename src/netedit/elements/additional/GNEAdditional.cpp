@@ -442,6 +442,8 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
+        // Pop name
+        glPopName();
         // check if shape dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             // iterate over segments
@@ -461,8 +463,6 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
                 }
             }
         }
-        // Pop name
-        glPopName();
     }
 }
 
