@@ -32,6 +32,7 @@ if 'SUMO_HOME' in os.environ:
     import sumolib
     from sumolib.xml import parse, parse_fast  # noqa
     from sumolib.miscutils import Statistics  # noqa
+    from sumolib.statistics import setPrecision
 else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
@@ -55,6 +56,8 @@ def get_options():
                          default=None, help="output file for full data dump")
     optParser.add_option("-q", "--fast", action="store_true",
                          default=False, help="use fast parser (does not track missing data)")
+    optParser.add_option("-p", "--precision", type="int",
+                         default=2, help="Set output precision")
     options, args = optParser.parse_args()
 
     if len(args) != 1:
@@ -99,7 +102,7 @@ def main():
         else:
             missingAttr.add(elementID)
 
-    print(stats)
+    print(stats.toString(options.precision))
     if missingAttr:
         print("%s elements did not provide attribute '%s' Example ids: %s" %
               (len(missingAttr), options.attribute, sorted(missingAttr)[:10]))
@@ -117,7 +120,7 @@ def main():
         with open(options.full_output, 'w') as f:
             for id, data in vals.items():
                 for x in data:
-                    f.write("%s %s\n" % (x, id))
+                    f.write(setPrecision("%.2f %s\n", options.precision) % (x, id))
 
 
 if __name__ == "__main__":
