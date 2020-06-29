@@ -2614,7 +2614,8 @@ MSLCM_SL2015::checkStrategicChange(int ret,
             && !leaders.hasStoppedVehicle()
             && neigh.bestContinuations.back()->getLinkCont().size() != 0
             && roundaboutBonus == 0
-            && neighDist < TURN_LANE_DIST) {
+            && neighDist < TURN_LANE_DIST
+            && myStrategicParam >= 0) {
             // VARIANT_21 (stayOnBest)
             // we do not want to leave the best lane for a lane which leads elsewhere
             // unless our leader is stopped or we are approaching a roundabout
