@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun 12 14:22:23 2020 by Eclipse SUMO netconvert Version v1_6_0+0709-defcafb769
+<!-- generated on Mon Jun 29 23:44:41 2020 by Eclipse SUMO netconvert Version v1_6_0+1029-ac5bd53e07
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -112,6 +112,7 @@
         <offset.z value="0" type="FLOAT" help="Adds FLOAT to net z-positions"/>
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
+        <roundabouts.visibility-distance value="9" type="FLOAT" help="Default visibility when approaching a roundabout"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
         <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
         <fringe.guess value="false" type="BOOL" help="Enable guessing of network fringe nodes"/>
