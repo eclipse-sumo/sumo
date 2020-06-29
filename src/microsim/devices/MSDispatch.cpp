@@ -177,7 +177,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
     int numDispatched = 0;
     int numPostponed = 0;
     // find available vehicles
-    std::set<MSDevice_Taxi*> available;
+    std::set<MSDevice_Taxi*, MSVehicleDevice::ComparatorNumericalVehicleIdLess> available;
     for (auto* taxi : fleet) {
         if (taxi->isEmpty()) {
             available.insert(taxi);
@@ -267,7 +267,7 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
     bool havePostponed = false;
     int numDispatched = 0;
     // find available vehicles
-    std::set<MSDevice_Taxi*> available;
+    std::set<MSDevice_Taxi*, MSVehicleDevice::ComparatorNumericalVehicleIdLess> available;
     for (auto* taxi : fleet) {
         if (taxi->isEmpty()) {
             available.insert(taxi);
