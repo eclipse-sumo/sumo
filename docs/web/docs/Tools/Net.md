@@ -162,3 +162,15 @@ converts '.net.xml' road geometries to [KML](https://en.wikipedia.org/wiki/Keyho
 By default, normal edge geometries will be exported. This can be changed with options
 - **--lanes**: write lane geometries
 - **--internal**: write junction-internal edges or lanes
+
+# net2geojson.py
+
+converts '.net.xml' road geometries to [GeoJSON](https://en.wikipedia.org/wiki/GeoJSON) format.
+
+```
+<SUMO_HOME>/tools/net/net2geojson.py -n your.net.xml -o output.geojson
+```
+
+By default, normal edge geometries will be exported. This can be changed with options
+- **--lanes**: write lane geometries
+- **--internal**: write junction-internal edges or lanes
