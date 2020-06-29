@@ -432,9 +432,10 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     drawForRectangleSelection(false),
     forceDrawForPositionSelection(false),
     forceDrawForRectangleSelection(false),
+    forceDrawDottedContour(false),
     lefthand(false),
     disableLaneIcons(false) {
-
+    // init defaults depending of NETEDIT or SUMO-GUI
     if (netedit) {
         initNeteditDefaults();
     } else {
@@ -1369,6 +1370,7 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.writeAttr("drawBoundaries", drawBoundaries);
     dev.writeAttr("forceDrawPositionSelection", forceDrawForPositionSelection);
     dev.writeAttr("forceDrawRectangleSelection", forceDrawForRectangleSelection);
+    dev.writeAttr("forceDrawDottedContour", forceDrawDottedContour);
     dev.closeTag();
     dev.openTag(SUMO_TAG_VIEWSETTINGS_BACKGROUND);
     dev.writeAttr("backgroundColor", backgroundColor);
@@ -1539,6 +1541,9 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (forceDrawForRectangleSelection != v2.forceDrawForRectangleSelection) {
+        return false;
+    }
+    if (forceDrawDottedContour != v2.forceDrawDottedContour) {
         return false;
     }
     if (backgroundColor != v2.backgroundColor) {
@@ -1888,5 +1893,14 @@ GUIVisualizationSettings::getCircleResolution() const {
     }
 }
 
+
+bool 
+GUIVisualizationSettings::drawDottedContour() const {
+    if (drawForPositionSelection || drawForRectangleSelection) {
+        return false;
+    } else {
+        return forceDrawDottedContour;
+    }
+}
 
 /****************************************************************************/

@@ -508,6 +508,9 @@ public:
     /// @brief function to calculate circle resolution for all circles drawn in drawGL(...) functions
     int getCircleResolution() const;
 
+    /// @brief check if dotted contour can be drawn
+    bool drawDottedContour() const;
+
     /// @brief The name of this setting
     std::string name;
 
@@ -771,6 +774,9 @@ public:
 
     /// @brief flag to force draw for rectangle selection (see drawForRectangleSelection)
     bool forceDrawForRectangleSelection;
+
+    /// @brief flag to force draw dotted contour
+    bool forceDrawDottedContour;
 
     /**@brief whether drawing is performed in left-hand networks
      * @note used to avoid calls to OptionsCont::getOptions() in every drawgl(...) function, and
