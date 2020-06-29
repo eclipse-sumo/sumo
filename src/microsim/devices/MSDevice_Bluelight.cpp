@@ -113,7 +113,8 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         myUpcomingEdges.push_back(edgeID);
     }
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
-        SUMOVehicle* veh2 = it->second;
+        MSVehicle* veh2 = dynamic_cast<MSVehicle*>(it->second);
+        assert(veh2 != nullptr);
         //Vehicle only from edge should react
         if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), veh2->getEdge()->getID()) != myUpcomingEdges.end()){//currentEdgeID == veh2->getEdge()->getID()) {
             if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
@@ -124,7 +125,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             //make sure that vehicle are still building the a rescue lane
             if (influencedVehicles.count(veh2->getID()) > 0) {
                 //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
-                MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
+                MSVehicleType& t = veh2->getSingularType();
                 //Setting the lateral alignment to build a rescue lane
                 if (veh2->getLane()->getIndex() == numLanes - 1) {
                     t.setPreferredLateralAlignment(LATALIGN_LEFT);
@@ -150,7 +151,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             if (distanceDelta <= myReactionDist && veh.getID() != veh2->getID() && influencedVehicles.count(veh2->getID()) == 0) {
                 //online a percentage of vehicles should react to the emergency vehicle to make the behaviour more realistic
                 double reaction = RandHelper::rand();
-                MSVehicle::Influencer& lanechange = static_cast<MSVehicle*>(veh2)->getInfluencer();
+                MSVehicle::Influencer& lanechange = veh2->getInfluencer();
 
                 //other vehicle should not use the rescue lane so they should not make any lane changes
                 lanechange.setLaneChangeMode(1605);//todo change lane back
@@ -161,11 +162,11 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                     reactionProb = 0.577;
                 }
                 if (reaction < reactionProb) {
-                    influencedVehicles.insert(static_cast<std::string>(veh2->getID()));
-                    influencedTypes.insert(std::make_pair(static_cast<std::string>(veh2->getID()), veh2->getVehicleType().getID()));
+                    influencedVehicles.insert(veh2->getID());
+                    influencedTypes.insert(std::make_pair(veh2->getID(), veh2->getVehicleType().getID()));
 
                     //Vehicle gets a new Vehicletype to change the alignment and the lanechange options
-                    MSVehicleType& t = static_cast<MSVehicle*>(veh2)->getSingularType();
+                    MSVehicleType& t = veh2->getSingularType();
                     //Setting the lateral alignment to build a rescue lane
                     if (veh2->getLane()->getIndex() == numLanes - 1) {
                         t.setPreferredLateralAlignment(LATALIGN_LEFT);
@@ -188,7 +189,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                         MSVehicleType* targetType = MSNet::getInstance()->getVehicleControl().getVType(it->second);
                         //targetType is nullptr if the vehicle type has already changed to its old vehicleType
                         if (targetType != nullptr) {
-                            static_cast<MSVehicle*>(veh2)->replaceVehicleType(targetType);
+                            veh2->replaceVehicleType(targetType);
                         }
                     }
                 }
