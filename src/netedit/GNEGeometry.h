@@ -274,7 +274,7 @@ struct GNEGeometry {
             /// @brief get lane/lane2lane shape lengths
             const std::vector<double>& getShapeLengths() const;
 
-            /// @brief lane
+            /// @brief lane (only for lane segments)
             const GNELane* getLane() const;
 
             /// @brief junction
@@ -282,6 +282,9 @@ struct GNEGeometry {
 
             /// @brief valid
             bool getValid() const;
+
+            /// @brief return true if this is a lane segment (i.e. myNextLane is nullptr)
+            bool isLaneSegment() const;
 
         protected:
             /// @brief lane

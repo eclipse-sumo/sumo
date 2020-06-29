@@ -429,17 +429,11 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // iterate over segments
         for (const auto& segment : myAdditionalSegmentGeometry) {
             // draw partial segment
-            if (segment.getLane() == lane) {
+            if (segment.isLaneSegment() && (segment.getLane() == lane)) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines
                 GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, E2DetectorWidth);
-                /*
-                // check if shape dotted contour has to be drawn
-                if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-                    GLHelper::drawShapeDottedContourAroundShape(s, getType(), segment.getShape(), E2DetectorWidth);
-                }
-                */
             }
         }
         // Pop last matrix
@@ -447,6 +441,25 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+        }
+        // check if shape dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            // iterate over segments
+            for (const auto& segment : myAdditionalSegmentGeometry) {
+                if (segment.isLaneSegment() && (segment.getLane() == lane)) {
+                    // draw partial segment
+                    if (getParentLanes().front() == lane) {
+                        // draw front dotted contour
+                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedGeometry(segment.getShape(), false), E2DetectorWidth, true, false);
+                    } else if (getParentLanes().back() == lane) {
+                        // draw back dotted contour
+                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedGeometry(segment.getShape(), false), E2DetectorWidth, false, true);
+                    } else {
+                        // draw dotted contour
+                        GNEGeometry::drawDottedContourLane(lane->getDottedLaneGeometry(), E2DetectorWidth, false, false);
+                    }
+                }
+            }
         }
         // Pop name
         glPopName();
@@ -481,6 +494,13 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
         }
         // Pop last matrix
         glPopMatrix();
+        // check if shape dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            // draw lane2lane dotted geometry
+            if (fromLane->getLane2laneConnections().exist(toLane)) {
+                GNEGeometry::drawDottedContourLane(fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), E2DetectorWidth, false, false);
+            }
+        }
     }
 }
 

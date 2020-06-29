@@ -570,6 +570,12 @@ GNEGeometry::SegmentGeometry::Segment::getValid() const {
     return myValid;
 }
 
+
+bool 
+GNEGeometry::SegmentGeometry::Segment::isLaneSegment() const {
+    return (myNextLane == nullptr);
+}
+
 // ---------------------------------------------------------------------------
 // GNEGeometry::SegmentGeometry::SegmentToUpdate - methods
 // ---------------------------------------------------------------------------

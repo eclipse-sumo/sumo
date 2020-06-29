@@ -330,7 +330,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
-            if (segment.getLane() == lane) {
+            if (segment.isLaneSegment() && (segment.getLane() == lane)) {
                 // Set route color (needed due drawShapeDottedContour)
                 GLHelper::setColor(routeColor);
                 // draw box lines

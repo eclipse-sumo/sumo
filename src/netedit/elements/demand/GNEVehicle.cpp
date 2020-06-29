@@ -792,14 +792,14 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         if (drawSpreadVehicles) {
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 // draw partial segment
-                if (segment.getLane() == lane) {
+                if (segment.isLaneSegment() && (segment.getLane() == lane)) {
                     GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, width);
                 }
             }
         } else {
             for (const auto& segment : myDemandElementSegmentGeometry) {
                 // draw partial segment
-                if (segment.getLane() == lane) {
+                if (segment.isLaneSegment() && (segment.getLane() == lane)) {
                     GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, width);
                 }
             }
