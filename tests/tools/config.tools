@@ -117,6 +117,7 @@ str:test.str
 gpsdat:gpsdat.txt
 gpx:output.gpx
 kml:output.kml
+geojson:output.geojson
 match:match.txt
 dualog:dua.log
 image:image.svg

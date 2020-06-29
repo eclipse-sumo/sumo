@@ -11,3 +11,6 @@ netmatch
 
 # convert net to kml
 net2kml
+
+# convert net to geojson
+net2geojson
