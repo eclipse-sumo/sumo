@@ -17,11 +17,9 @@ These files can be created and edited with a text editor.
 On Windows you can open a basic text editor in the following way:
 
 ```
-Start->All Programs->Accessories->NotePad
+Start->Windows Accessories->Notepad
 ```
-
-(Start-\>Alle Programme-\>Zubehör-\>Editor on a German installation of
-windows)
+Or by pressing the `Win` + `R` keys and entering `notepad`
 
 Notepad is a very basic text editor. You can increase your comfort and
 productivity by switching to an editor with more features. Consider
@@ -29,9 +27,9 @@ productivity by switching to an editor with more features. Consider
 [vim](http://www.vim.org/download.php#pc) and also see this [comparison of text editors](https://en.wikipedia.org/wiki/Comparison_of_text_editors)
 
 !!! note
-    The files used with SUMO have by convention names ending with
-    `.xml` and variants of `.sumocfg`. Doing a double-click in Windows
-    Explorer will probably not open up your favourite text editor. Either
+    Files used by SUMO have by convention names ending with
+    `.xml` and variants of `.sumocfg` (those are called file extensions). Doing a double-click in Windows
+    Explorer will probably not open up your favorite text editor. Either
     open the file from within your text editor or
     [learn](https://www.google.com/#q=windows+file+associations) how to
     change file associations.
@@ -46,14 +44,16 @@ Explorer [here](https://www.teacherclick.com/winxp/t_4_1.htm) or
 # Running Programs from the Command Line
 
 SUMO consists of many separate programs for different simulation-related
-tasks (a reference to all the seperate programs can be found in
-[SUMO_User_Documentation\#Appendices](../index.md#appendices)).
-Only the program *sumo-gui.exe* [SUMO-GUI](../SUMO-GUI.md) has a
+tasks (a reference to all the seperate programs can be found
+[here](../Sumo_at_a_Glance.md#included_applications) and a list of the additional Tools [here](../index.md#additional_tools)).
+Only [SUMO-GUI](../SUMO-GUI.md) (*sumo-gui.exe*) and [NETEDIT](../NETEDIT.md) (*netedit.exe*) have a
 graphical user interface (GUI). All other programs must be called from
 the **command line**.
 
 At first you have to open the command line. On Windows, you have to
-start "**cmd.exe**" (Start-\>Execute-\>cmd.exe). A black window should
+start "**cmd.exe**" (Start-\>Windows System-\>Command prompt). You can also press the `Win` + `R` keys and enter `cmd` or search for `cmd` in the Windows search box, on the Taskbar.
+
+A black window should
 appear. This is your command line. Since version 0.12.3 you can also
 double-click the file **start-command-line.bat** (see also
 [below](#sumo_0123_and_later)) to open a command line with
@@ -69,9 +69,12 @@ Commands look like this
 ```
 netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
 ```
-
 Here *netconvert* is the name of the program and the rest of the command
 sets options for this program.
+
+A command line execution (in this case a very basic *sumo* simulation) is shown in the following gif:
+
+![](../images/sumo_cmd.gif)
 
 The sections below should be sufficient to get you started using SUMO.
 For further information about the command line see [Basics/Using the
@@ -82,8 +85,8 @@ Also look [here](https://ss64.com/nt/).
 ## SUMO 0.12.3 and later
 
 In your SUMO release (all SUMO files and folders you downloaded) there
-is a directory *bin*. This directory contains a batch file named
-*start-command-line.bat*. This batch file starts a command-line and
+is a `bin` directory. This directory contains a batch file named
+`start-command-line.bat`. This batch file starts a command-line and
 makes sure that you can execute SUMO-programs.
 
 1.  execute *start-command-line.bat* by double-clicking
@@ -98,38 +101,6 @@ netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-fil
 
 and press `enter`
 
-## SUMO 0.12.2 and earlier
-
-To use the command line perform the following steps
-
-1.  Start-\>Run
-2.  type `cmd` and press `enter`.
-3.  navigate to the directory containing your configuration and network
-    files using the command [cd](https://ss64.com/nt/cd.html) (change
-    directory)
-4.  enter a command such as
-
-```
-netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
-```
-
-and press `enter`
-
-If you receive an error like *command not found* your computer does not
-know where to find *netconvert.exe*
-
-If the files of your SUMO release are located at `C:\sumo-0.12.2` You
-can type out the full path to *netconvert.exe* like this:
-
-```
-C:\sumo-0.12.2\bin\netconvert --node-files=hello.nod.xml --edge-files=hello.edg.xml --output-file=hello.net.xml
-```
-
-and press `enter`.
-
-Once this gets to cumbersome you can configure your `PATH` variable
-instead as explained below.
-
 ## SUMO_HOME
 
 Many [tools](../Tools.md) require the environment variable
@@ -138,7 +109,7 @@ This is the directory containing the folders *bin* and *tools*. Setting
 environment variables is explained below.
 
 !!! note
-    this variable is also used to find [xsd schema files for input validation](../XMLValidation.md). If the variable is not set, schema files are downloaded from the internet and this may file if the server [sumo.dlr.de](https://sumo.dlr.de/) is not reachable.
+    This variable is also used to find [xsd schema files for input validation](../XMLValidation.md). If the variable is not set, schema files are downloaded from the internet and this may file if the server [sumo.dlr.de](https://sumo.dlr.de/) is not reachable.
 
 ## Configuring Path Settings
 
@@ -148,24 +119,25 @@ your `PATH` variable and the `SUMO_HOME` variable.
 ### Windows
 
 !!! note
-    If you have installed SUMO via the windows *.msi* installer file this is done automatically.
+    If you have installed SUMO via the windows *.msi* installer file, this is done automatically.
 
-1.  Right-click My Computer, and then click Properties.
-2.  Click the Advanced tab.
-3.  Click Environment variables.
-4.  Under user variables select PATH and click Edit. If no such variable
-    exists you must create it with the *New*-Button
-5.  Append `;C:\Program Files\sumo-{{Version}}\bin` to the end of the PATH value
+1.  On the Windows search box (on the Taskbar) search for *environment*. The best match result should be the "Edit the system environment variables" option. Open it.   
+![](../images/win_environment_variables.png)
+2.  A small window should appear. Under *user variables* select **PATH** (or **Path** - Windows environment variables are case insensitive) and click *Edit*. If no such variable exists you must create it with the *New*-Button   
+![](../images/win_user_variables.png)
+3.  Append `;C:\Program Files\sumo-{{Version}}\bin` to the end of the **PATH** value
     (don't delete the existing values\!)
-6.  Under user variables select SUMO_HOME and click Edit. If no such
+4.  Under *user variables* now select **SUMO_HOME** and click *Edit*. If no such
     variable exists you must create it with the *New*-Button
-7.  Set `C:\Program Files\sumo-{{Version}}` as the value of the SUMO_HOME variable
+5.  Set `C:\Program Files\sumo-{{Version}}` as the value of the **SUMO_HOME** variable
 
 !!! note
     Replace `C:\Program Files\sumo-{{Version}}\` with your sumo directory.
 
 !!! caution
     You must close and reopen any existing command-line window for the new variable setting to become effective.
+
+
 
 ### Linux
 
@@ -212,6 +184,52 @@ folder. On Ubuntu this is
 ```
 /usr/share/sumo
 ```
+
+### macOS
+
+First you need to determine which shell (**bash** or **zsh**) you are currently working with. In a terminal, type `ps -p $$`  (this should let you see under CMD which shell you are using). The default shell in macOS Catalina is **zsh**.
+
+#### for ZSH
+
+In a Terminal, execute the following steps:
+```
+open ~/.zshrc
+```
+This will open the *.zshrc* file in TextEdit. Add the following line to that document:
+```
+export SUMO_HOME="/your/path/to/sumo"
+```
+Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.   
+Save that document in TextEdit. Now you need to apply the changes by entering:
+```
+source ~/.zshrc
+```
+in the terminal. You are done! To test if the environment variable was set correctly, you can print it into the terminal:
+```
+echo $SUMO_HOME
+```
+and you should be able to get the recently added path there.
+
+#### for Bash
+
+In a Terminal, execute the following steps:
+```
+open ~/.bash_profile
+```
+This will open the *.bash_profile* file in TextEdit. Add the following line to that document:
+```
+export SUMO_HOME="/your/path/to/sumo"
+```
+Make sure to replace `/your/path/to/sumo` with your ***actual*** path to sumo.   
+Save that document in TextEdit. Now you need to apply the changes by entering:
+```
+source ~/.bash_profile
+```
+in the terminal. You are done! To test if the environment variable was set correctly, you can print it into the terminal:
+```
+echo $SUMO_HOME
+```
+and you should be able to get the recently added path there.
 
 # Tips for using the Command-Line
 
