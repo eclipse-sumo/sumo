@@ -141,10 +141,6 @@ public:
     /// @brief whether the taxi is empty
     bool isEmpty();
 
-    TaxiState getState() const {
-        return myState;
-    }
-
     /// @brief returns a taxi if any exist or nullptr
     static SUMOVehicle* getTaxi();
 
