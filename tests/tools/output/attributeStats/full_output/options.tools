@@ -1,1 +1,1 @@
---full-output fullstats.dat input_data.xml tools/output/attributeStats.py 
+-p 3 --full-output fullstats.dat input_data.xml tools/output/attributeStats.py 
