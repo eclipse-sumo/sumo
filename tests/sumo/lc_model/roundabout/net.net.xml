@@ -1,31 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 21 13:04:42 2019 by Eclipse SUMO netconvert Version v1_2_0+0252-83989c2
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Mon Jun 29 23:49:03 2020 by Eclipse SUMO netconvert Version v1_6_0+1029-ac5bd53e07
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value="input_plain.nod.xml"/>
-        <edge-files value="input_plain.edg.xml"/>
+        <sumo-net-file value="tests/sumo/lc_model/roundabout/net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
-        <output-file value="net.net.xml"/>
+        <output-file value="tests/sumo/lc_model/roundabout/net.net.xml"/>
     </output>
 
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
     <report>
-        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.3" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="300.00,300.00" convBoundary="0.00,0.00,600.00,600.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -204,10 +215,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="CN" to="NC" fromLane="1" toLane="1" via=":N_0_0" dir="t" state="M"/>
     <connection from="CS" to="SC" fromLane="1" toLane="1" via=":S_0_0" dir="t" state="M"/>
     <connection from="CW" to="WC" fromLane="1" toLane="1" via=":W_0_0" dir="t" state="M"/>
-    <connection from="EC" to="REN" fromLane="0" toLane="0" via=":RE_0_0" dir="r" state="m"/>
-    <connection from="EC" to="REN" fromLane="1" toLane="1" via=":RE_1_0" dir="r" state="m"/>
-    <connection from="NC" to="RNW" fromLane="0" toLane="0" via=":RN_0_0" dir="r" state="m"/>
-    <connection from="NC" to="RNW" fromLane="1" toLane="1" via=":RN_1_0" dir="r" state="m"/>
+    <connection from="EC" to="REN" fromLane="0" toLane="0" via=":RE_0_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="EC" to="REN" fromLane="1" toLane="1" via=":RE_1_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="NC" to="RNW" fromLane="0" toLane="0" via=":RN_0_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="NC" to="RNW" fromLane="1" toLane="1" via=":RN_1_0" dir="r" state="m" visibility="9.00"/>
     <connection from="REN" to="CN" fromLane="0" toLane="0" via=":RN_2_0" dir="r" state="M"/>
     <connection from="REN" to="CN" fromLane="0" toLane="1" via=":RN_3_0" dir="r" state="M"/>
     <connection from="REN" to="RNW" fromLane="0" toLane="0" via=":RN_4_0" dir="s" state="M"/>
@@ -224,10 +235,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="RWS" to="CS" fromLane="0" toLane="1" via=":RS_3_0" dir="r" state="M"/>
     <connection from="RWS" to="RSE" fromLane="0" toLane="0" via=":RS_4_0" dir="s" state="M"/>
     <connection from="RWS" to="RSE" fromLane="1" toLane="1" via=":RS_4_1" dir="s" state="M"/>
-    <connection from="SC" to="RSE" fromLane="0" toLane="0" via=":RS_0_0" dir="r" state="m"/>
-    <connection from="SC" to="RSE" fromLane="1" toLane="1" via=":RS_1_0" dir="r" state="m"/>
-    <connection from="WC" to="RWS" fromLane="0" toLane="0" via=":RW_4_0" dir="r" state="m"/>
-    <connection from="WC" to="RWS" fromLane="1" toLane="1" via=":RW_5_0" dir="r" state="m"/>
+    <connection from="SC" to="RSE" fromLane="0" toLane="0" via=":RS_0_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="SC" to="RSE" fromLane="1" toLane="1" via=":RS_1_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="WC" to="RWS" fromLane="0" toLane="0" via=":RW_4_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="WC" to="RWS" fromLane="1" toLane="1" via=":RW_5_0" dir="r" state="m" visibility="9.00"/>
 
     <connection from=":E_0" to="EC" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from=":N_0" to="NC" fromLane="0" toLane="1" dir="t" state="M"/>
