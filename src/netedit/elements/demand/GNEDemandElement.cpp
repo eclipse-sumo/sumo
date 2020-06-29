@@ -516,6 +516,28 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
                 }
             }
         }
+        // check if shape dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            // get first and last allowed lanes
+            const GNELane* firstLane = getFirstAllowedVehicleLane();
+            const GNELane* lastLane = getLastAllowedVehicleLane();
+            // iterate over segments
+            for (const auto& segment : myDemandElementSegmentGeometry) {
+                if (segment.isLaneSegment() && (segment.getLane() == lane)) {
+                    // draw partial segment
+                    if (firstLane == lane) {
+                        // draw front dotted contour
+                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedGeometry(segment.getShape(), false), segmentWidth, true, false);
+                    } else if (lastLane == lane) {
+                        // draw back dotted contour
+                        GNEGeometry::drawDottedContourLane(GNEGeometry::DottedGeometry(segment.getShape(), false), segmentWidth, false, true);
+                    } else {
+                        // draw dotted contour
+                        GNEGeometry::drawDottedContourLane(lane->getDottedLaneGeometry(), segmentWidth, false, false);
+                    }
+                }
+            }
+        }
     }
     // draw person parent if this is the edge first edge and this is the first plan
     if ((getFirstPersonPlanEdge() == lane->getParentEdge()) && (personParent->getChildDemandElements().front() == this)) {
@@ -553,7 +575,6 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         const double segmentWidth = s.addSize.getExaggeration(s, fromLane) * personPlanWidth;
         // get color
         const RGBColor &color = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : personPlanColor;
-
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // push a draw matrix
@@ -582,6 +603,13 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         glPopMatrix();
         // Pop name
         glPopName();
+        // check if shape dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            // draw lane2lane dotted geometry
+            if (fromLane->getLane2laneConnections().exist(toLane)) {
+                GNEGeometry::drawDottedContourLane(fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), segmentWidth, false, false);
+            }
+        }
     }
 }
 
