@@ -738,6 +738,14 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
             const LinkState linkState = from.getToNode()->getLinkState(
                                             &from, c.toEdge, c.fromLane, c.toLane, c.mayDefinitelyPass, c.tlID);
             into.writeAttr(SUMO_ATTR_STATE, linkState);
+            if (linkState == LINKSTATE_MINOR
+                    && c.visibility == NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE
+                    && c.toEdge->getJunctionPriority(c.toEdge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
+                const double visibilityDistance = OptionsCont::getOptions().getFloat("roundabouts.visibility-distance");
+                if (visibilityDistance != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
+                    into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, visibilityDistance);
+                }
+            }
         }
     }
     c.writeParams(into);

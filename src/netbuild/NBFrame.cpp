@@ -264,6 +264,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.addSynonyme("roundabouts.guess", "guess-roundabouts", true);
     oc.addDescription("roundabouts.guess", "Processing", "Enable roundabout-guessing");
 
+    oc.doRegister("roundabouts.visibility-distance", new Option_Float(9));
+    oc.addDescription("roundabouts.visibility-distance", "Processing", "Default visibility when approaching a roundabout");
+
     oc.doRegister("opposites.guess", new Option_Bool(false));
     oc.addDescription("opposites.guess", "Processing", "Enable guessing of opposite direction lanes usable for overtaking");
 
@@ -687,6 +690,10 @@ NBFrame::checkOptions() {
     if (!oc.isDefault("default.right-of-way") &&
             !SUMOXMLDefinitions::RightOfWayValues.hasString(oc.getString("default.right-of-way"))) {
         WRITE_ERROR("default.right-of-way must be one of '" + toString(SUMOXMLDefinitions::RightOfWayValues.getStrings()) + "'");
+        ok = false;
+    }
+    if (oc.getFloat("roundabouts.visibility-distance") < 0 && oc.getFloat("roundabouts.visibility-distance") != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
+        WRITE_ERROR("roundabouts.visibility-distance must be positive or -1");
         ok = false;
     }
     if (oc.isDefault("railway.topology.repair") && oc.getBool("railway.topology.repair.connect-straight")) {
