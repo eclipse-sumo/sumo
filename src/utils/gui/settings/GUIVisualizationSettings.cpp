@@ -138,10 +138,10 @@ const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColor(255, 200
 // Dotted contour values
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationDottedContourSettings::segmentWidth(0.15);
+const double GUIVisualizationDottedContourSettings::segmentWidth(0.2);
 const double GUIVisualizationDottedContourSettings::segmentLength(2);
-const RGBColor GUIVisualizationDottedContourSettings::firstColor(255, 255, 255);
-const RGBColor GUIVisualizationDottedContourSettings::secondColor(0, 0, 0);
+const RGBColor GUIVisualizationDottedContourSettings::firstColor(225, 225, 225);
+const RGBColor GUIVisualizationDottedContourSettings::secondColor(30, 30, 30);
 
 // -------------------------------------------------------------------------
 // widths of certain NETEDIT objects

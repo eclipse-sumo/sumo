@@ -270,10 +270,10 @@ private:
     /// @}
 
     /// @brief optional special color
-    const RGBColor* mySpecialColor = nullptr;
+    const RGBColor* mySpecialColor;
 
     /// @brief optional value that corresponds to which the special color corresponds
-    double mySpecialColorValue = -1;
+    double mySpecialColorValue;
 
     /// @brief The color of the shape parts (cached)
     mutable std::vector<RGBColor> myShapeColors;

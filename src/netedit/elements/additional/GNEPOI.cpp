@@ -260,9 +260,9 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
                 if (getShapeImgFile().empty()) {
-                    GNEGeometry::drawDottedContourCircle(*this, 1.3, POIExaggeration);
+                    GNEGeometry::drawDottedContourCircle(s, *this, 1.3, POIExaggeration);
                 } else {
-                    GNEGeometry::drawDottedSquaredShape(*this, getWidth(), getHeight(), getShapeNaviDegree(), POIExaggeration);
+                    GNEGeometry::drawDottedSquaredShape(s, *this, getWidth(), getHeight(), getShapeNaviDegree(), POIExaggeration);
                 }
             }
             // pop name

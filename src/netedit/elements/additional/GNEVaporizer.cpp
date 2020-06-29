@@ -190,7 +190,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedSquaredShape(myAdditionalGeometry.getPosition(), 1, 1, myAdditionalGeometry.getRotation(), vaporizerExaggeration);
+            GNEGeometry::drawDottedSquaredShape(s, myAdditionalGeometry.getPosition(), 1, 1, myAdditionalGeometry.getRotation(), vaporizerExaggeration);
         }
     }
 }

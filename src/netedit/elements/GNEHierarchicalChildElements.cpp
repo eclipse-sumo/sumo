@@ -108,7 +108,7 @@ void
 GNEHierarchicalChildElements::drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const {
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection && (exaggeration > 0)) {
-        myChildConnections.drawDottedConnection(exaggeration);
+        myChildConnections.drawDottedConnection(s, exaggeration);
     }
 }
 
@@ -721,15 +721,15 @@ GNEHierarchicalChildElements::ChildConnections::drawConnection(const GUIVisualiz
 
 
 void
-GNEHierarchicalChildElements::ChildConnections::drawDottedConnection(const double exaggeration) const {
+GNEHierarchicalChildElements::ChildConnections::drawDottedConnection(const GUIVisualizationSettings& s, const double exaggeration) const {
     // Iterate over myConnectionPositions
     for (const auto& connectionGeometry : connectionsGeometries) {
         // calculate dotted geometry
-        GNEGeometry::DottedGeometry dottedGeometry(connectionGeometry.getShape(), false);
+        GNEGeometry::DottedGeometry dottedGeometry(s, connectionGeometry.getShape(), false);
         // change default width
         dottedGeometry.setWidth(0.1);
         // use drawDottedContourLane to draw it
-        GNEGeometry::drawDottedContourLane(dottedGeometry, exaggeration * 0.1, false, false);
+        GNEGeometry::drawDottedContourLane(s, dottedGeometry, exaggeration * 0.1, false, false);
     }
 }
 

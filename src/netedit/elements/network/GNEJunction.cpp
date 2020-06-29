@@ -352,7 +352,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     glPopMatrix();
                     // check if dotted contour has to be drawn
                     if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-                        GNEGeometry::drawDottedContourClosedShape(myNBNode->getShape(), junctionExaggeration);
+                        GNEGeometry::drawDottedContourClosedShape(s, myNBNode->getShape(), junctionExaggeration);
                     }
                 }
             }
@@ -373,7 +373,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 }
                 // check if dotted contour has to be drawn
                 if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-                    GNEGeometry::drawDottedContourCircle(myNBNode->getCenter(), BUBBLE_RADIUS, junctionExaggeration);
+                    GNEGeometry::drawDottedContourCircle(s, myNBNode->getCenter(), BUBBLE_RADIUS, junctionExaggeration);
                 }
             }
             // draw TLS

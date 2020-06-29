@@ -88,6 +88,7 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
     myLane2laneConnections(this) {
 }
 
+
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
         {}, {}, {}, {}, {}, {}, {}, {},     // Parents
@@ -139,7 +140,9 @@ GNELane::updateGeometry() {
     // update connections
     myLane2laneConnections.updateLane2laneConnection();
     // update dotted lane geometry
-    myDottedLaneGeometry.updateDottedGeometry(this);
+    if (myNet->getViewNet()) {
+        myDottedLaneGeometry.updateDottedGeometry(myNet->getViewNet()->getVisualisationSettings(), this);
+    }
     // update shapes parents associated with this lane
     for (const auto &shape : getParentShapes()) {
         shape->updateGeometry();
@@ -480,7 +483,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedContourLane(myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
+            GNEGeometry::drawDottedContourLane(s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
         }
         // only draw details depending of the scale and if isn't being drawn for selecting
         if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {

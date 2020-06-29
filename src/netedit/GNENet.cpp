@@ -1101,6 +1101,12 @@ GNENet::setViewNet(GNEViewNet* viewNet) {
     myViewNet = viewNet;
     // add default vTypes
     myAttributeCarriers->addDefaultVTypes();
+    // update geometry of all lanes (needed  for dotted geometry)
+    for (const auto &edge : myAttributeCarriers->getEdges()) {
+        for (const auto &lane : edge.second->getLanes()) {
+            lane->updateGeometry();
+        }
+    }
 }
 
 

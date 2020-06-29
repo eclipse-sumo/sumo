@@ -1899,7 +1899,7 @@ void
 GNEEdge::drawDottedContour(const GUIVisualizationSettings& s) const {
     if (myLanes.size() == 1) {
         GNELane::LaneDrawingConstants laneDrawingConstants(s, myLanes.front());
-        GNEGeometry::drawDottedContourLane(myLanes.front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, true, true);
+        GNEGeometry::drawDottedContourLane(s, myLanes.front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, true, true);
     } else {
         // obtain a copy of both geometries
         GNEGeometry::DottedGeometry dottedGeometryTop = myLanes.front()->getDottedLaneGeometry();
@@ -1913,7 +1913,7 @@ GNEEdge::drawDottedContour(const GUIVisualizationSettings& s) const {
         // invert offset of top dotted geometry
         dottedGeometryTop.inverOffset();
         // draw dotted contour using both geometries
-        GNEGeometry::drawDottedContourEdge(dottedGeometryTop, dottedGeometryBot);
+        GNEGeometry::drawDottedContourEdge(s, dottedGeometryTop, dottedGeometryBot);
     }
 }
 

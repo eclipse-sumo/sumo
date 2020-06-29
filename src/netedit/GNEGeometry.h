@@ -157,7 +157,7 @@ struct GNEGeometry {
 
     public:
         /// @brief constructor
-        DottedGeometryColor();
+        DottedGeometryColor(const GUIVisualizationSettings& settings);
 
         /// @brief get color (and change flag)
         const RGBColor &getColor();
@@ -166,6 +166,9 @@ struct GNEGeometry {
         void changeColor();
 
     private:
+        /// @brief pointer to GUIVisualizationSettings
+        const GUIVisualizationSettings& mySettings;
+
         /// @brief flag to get color
         bool myColorFlag;
 
@@ -202,17 +205,18 @@ struct GNEGeometry {
         DottedGeometry();
 
         /// @brief constructor for shapes
-        DottedGeometry(PositionVector shape, const bool closeShape);
+        DottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
 
         /// @brief constructor for extremes
-        DottedGeometry(const DottedGeometry &topDottedGeometry, const bool drawFirstExtrem, 
+        DottedGeometry(const GUIVisualizationSettings& s,
+                       const DottedGeometry &topDottedGeometry, const bool drawFirstExtrem, 
                        const DottedGeometry &botDottedGeometry, const bool drawLastExtrem);
 
         /// @brief update DottedGeometry (using lane shape)
-        void updateDottedGeometry(const GNELane *lane);
+        void updateDottedGeometry(const GUIVisualizationSettings& s, const GNELane *lane);
 
         /// @brief update DottedGeometry (using shape)
-        void updateDottedGeometry(PositionVector shape, const bool closeShape);
+        void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
 
         /// @brief draw dottedShape
         void drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const;
@@ -233,7 +237,7 @@ struct GNEGeometry {
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
 
-        /// @brief geometry width (by defaul 0.2)
+        /// @brief geometry width
         double myWidth;
 
         /// @brief dotted element shape (note: It's centered in 0,0 due scaling)
@@ -487,22 +491,22 @@ struct GNEGeometry {
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
 
     /// @brief draw dotted contour for the given dottedGeometry (used by lanes, routes, etc.)
-    static void drawDottedContourLane(const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
+    static void drawDottedContourLane(const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
-    static void drawDottedContourEdge(const DottedGeometry &dottedGeometryTop, const DottedGeometry &dottedGeometrybot);
+    static void drawDottedContourEdge(const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometryTop, const DottedGeometry &dottedGeometrybot);
 
     /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
-    static void drawDottedContourClosedShape(const PositionVector &shape, const double exaggeration);
+    static void drawDottedContourClosedShape(const GUIVisualizationSettings& s, const PositionVector &shape, const double exaggeration);
 
     /// @brief draw dotted contour for the given shape (used by additionals)
-    static void drawDottedContourShape(const PositionVector &shape, const double width, const double exaggeration);
+    static void drawDottedContourShape(const GUIVisualizationSettings& s, const PositionVector &shape, const double width, const double exaggeration);
 
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
-    static void drawDottedContourCircle(const Position &pos, const double radius, const double exaggeration);
+    static void drawDottedContourCircle(const GUIVisualizationSettings& s, const Position &pos, const double radius, const double exaggeration);
 
     /// @brief draw dotted squared contour (used by additionals and demand elements)
-    static void drawDottedSquaredShape(const Position &pos, const double width, const double height, const double rot, const double exaggeration);
+    static void drawDottedSquaredShape(const GUIVisualizationSettings& s, const Position &pos, const double width, const double height, const double rot, const double exaggeration);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);
