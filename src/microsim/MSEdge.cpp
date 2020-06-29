@@ -1161,7 +1161,7 @@ MSEdge::getWaitingVehicle(MSTransportable* transportable, const double position)
                       vehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED))) {
                 return vehicle;
             }
-            if (!vehicle->isLineStop(position)) {
+            if (!vehicle->isLineStop(position) && vehicle->allowsBoarding(transportable)) {
                 WRITE_WARNING((transportable->isPerson() ? "Person '" : "Container '")
                         + transportable->getID() + "' at edge '" + getID() + "' position " + toString(position) + " cannot use waiting vehicle '"
                               + vehicle->getID() + "' at position " + toString(vehicle->getPositionOnLane()) + " because it is too far away.");
