@@ -40,6 +40,7 @@ def check(poiID):
     print("height", traci.poi.getHeight(poiID))
     print("angle", traci.poi.getAngle(poiID))
 
+
 traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
 for step in range(3):
     print("step", step)
@@ -65,7 +66,7 @@ traci.poi.setImageFile(poiID, "testImage.png")
 
 check(poiID)
 print("ImageFile: ", traci.poi.getImageFile(poiID))
-traci.poi.highlight(poiID, (255, 0, 0, 255),-1, 1, 30, 0)
+traci.poi.highlight(poiID, (255, 0, 0, 255), -1, 1, 30, 0)
 
 traci.poi.add("p2", 2, 2, (11, 21, 31, 41), "ptest")
 check("p2")

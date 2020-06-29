@@ -35,7 +35,8 @@ def parse_args():
     argParser = sumolib.options.ArgumentParser(usage=USAGE)
     argParser.add_argument("-n", "--net-file", dest="netFile", help="The .net.xml file to convert")
     argParser.add_argument("-d", "--edgedata-file", dest="edgeData", help="Optional edgeData to include in the output")
-    argParser.add_argument("-p", "--ptline-file", dest="ptlines", help="Optional ptline information to include in the output")
+    argParser.add_argument("-p", "--ptline-file", dest="ptlines",
+                           help="Optional ptline information to include in the output")
     argParser.add_argument("-o", "--output-file", dest="outFile", help="The geojson output file name")
     argParser.add_argument("-l", "--lanes", action="store_true", default=False,
                            help="Export lane geometries instead of edge geometries")
@@ -77,7 +78,7 @@ if __name__ == "__main__":
             if not options.edgedataTimeline:
                 break
 
-    ptLines = defaultdict(lambda : defaultdict(set))
+    ptLines = defaultdict(lambda: defaultdict(set))
     if options.ptlines:
         for ptline in sumolib.xml.parse(options.ptlines, "ptLine", heterogeneous=True):
             if ptline.route:
@@ -88,13 +89,13 @@ if __name__ == "__main__":
 
     geomType = 'lane' if options.lanes else 'edge'
     for id, geometry, width in getGeometries(options, net):
-        lonLatGeometry = [net.convertXY2LonLat(x, y ) for x,y in geometry]
+        lonLatGeometry = [net.convertXY2LonLat(x, y) for x, y in geometry]
         feature = {}
         feature["type"] = "Feature"
         feature["properties"] = {
-                "element" : geomType,
-                "id" : id,
-                }
+            "element": geomType,
+            "id": id,
+        }
         edgeID = net.getLane(id).getEdge().getID() if options.lanes else id
         if edgeID in edgeData:
             if options.edgedataTimeline:
@@ -108,10 +109,10 @@ if __name__ == "__main__":
 
         feature["properties"]["name"] = net.getEdge(edgeID).getName()
 
-        feature["geometry"] = { 
-                "type" : "LineString",
-                "coordinates" : [[x, y] for x, y in lonLatGeometry]
-                }
+        feature["geometry"] = {
+            "type": "LineString",
+            "coordinates": [[x, y] for x, y in lonLatGeometry]
+        }
 
         features.append(feature)
 

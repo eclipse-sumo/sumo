@@ -265,13 +265,14 @@ class Connection:
             # check uniqueness of given lanes in list
             lanes = set()
             for i in params:
-                l = int(i)
-                if l < 0:
-                    l += 256
-                lanes.add(l)
+                lane = int(i)
+                if lane < 0:
+                    lane += 256
+                lanes.add(lane)
             if len(lanes) < len(list(params)):
                 warnings.warn("Ignoring duplicate lane specification for subscription filter.")
-            self._sendCmd(tc.CMD_ADD_SUBSCRIPTION_FILTER, None, None, (len(lanes) + 2) * "u", filterType, len(lanes), *lanes)
+            self._sendCmd(tc.CMD_ADD_SUBSCRIPTION_FILTER, None, None,
+                          (len(lanes) + 2) * "u", filterType, len(lanes), *lanes)
 
     def load(self, args):
         """

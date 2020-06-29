@@ -28,20 +28,21 @@ if "SUMO_HOME" in os.environ:
     sumoHome = os.environ["SUMO_HOME"]
 sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
-from sumolib.miscutils import Statistics
+from sumolib.miscutils import Statistics  # noqa
 
 
 def call(cmd):
-#    print(cmd)
-#    sys.stdout.flush()
-#    subprocess.call(cmd)#, stdout=open(os.devnull, "w"))
+    #    print(cmd)
+    #    sys.stdout.flush()
+    #    subprocess.call(cmd)#, stdout=open(os.devnull, "w"))
     subprocess.call(cmd, stdout=open(os.devnull, "w"))
     for s in sumolib.xml.parse("stats.xml", "vehicleTripStatistics"):
         return float(s.duration)
 
 
 subprocess.call([sumolib.checkBinary("netgenerate"), "--grid", "--grid.length", "500", "-o", "int.net.xml"])
-subprocess.call([sumolib.checkBinary("netgenerate"), "--grid", "--grid.length", "500", "--no-internal-links", "-o", "noint.net.xml"])
+subprocess.call([sumolib.checkBinary("netgenerate"), "--grid", "--grid.length",
+                 "500", "--no-internal-links", "-o", "noint.net.xml"])
 sumoBinary = sumolib.checkBinary("sumo")
 for net in ("int.net.xml", "noint.net.xml"):
     cmd = [sumoBinary, "-n", net, "-r", "input_routes.rou.xml", "--junction-taz", "--device.rerouting.probability", "1",
@@ -51,7 +52,8 @@ for net in ("int.net.xml", "noint.net.xml"):
     statsJC = Statistics("Durations with junction control %s" % net)
     for segLength in range(10, 200, 10):
         stats.add(call(cmd + ["--mesosim", "--meso-edgelength", str(segLength)]), label=segLength)
-        statsJC.add(call(cmd + ["--mesosim", "--meso-junction-control", "--meso-edgelength", str(segLength)]), label=segLength)
+        statsJC.add(call(cmd + ["--mesosim", "--meso-junction-control",
+                                "--meso-edgelength", str(segLength)]), label=segLength)
     print(stats)
     print(statsJC)
     print("Deviation %s meso vs. micro:" % net, (duration - stats.mean()) / duration)
