@@ -207,7 +207,7 @@ class Statistics:
 
 
     def __str__(self):
-        return toString()
+        return self.toString()
 
 
 def geh(m, c):
