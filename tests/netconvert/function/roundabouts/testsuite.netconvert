@@ -23,5 +23,8 @@ remove
 # 2-lane roundabout with 4 arms
 2lanes
 
+# reset roundabout visibility to default (unspecified)
+legacy_visibility
+
 # network topologies that should not be classified as a roundabout
 no_roundabout

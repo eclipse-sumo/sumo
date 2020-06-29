@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:03 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Mon Jun 29 23:45:14 2020 by Eclipse SUMO netconvert Version v1_6_0+1029-ac5bd53e07
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -157,9 +157,9 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="cluster_1907731754_338287766" type="dead_end" x="806.20" y="488.69" incLanes="177338975_0" intLanes="" shape="808.21,489.19 805.10,488.42"/>
 
     <connection from="177338976" to="30417941#5" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="177338976" to="30417941#5" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="177338976" to="30417941#5" fromLane="0" toLane="1" dir="s" state="m" visibility="9.00"/>
     <connection from="205013617#1" to="38922730#0" fromLane="0" toLane="0" dir="R" state="m"/>
-    <connection from="205013617#1" to="30417941#2" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="205013617#1" to="30417941#2" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
     <connection from="30417941#1" to="38922730#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30417941#1" to="30417941#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="30417941#1" to="30417941#2" fromLane="1" toLane="1" dir="s" state="M"/>
@@ -184,10 +184,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="30417941#6" to="30417941#1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="30417941#6" to="30417941#1" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from="30534383#2" to="205013609#0" fromLane="0" toLane="0" dir="R" state="m"/>
-    <connection from="30534383#2" to="30417941#1" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="30534383#2" to="30417941#1" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="30534383#2" to="30417941#1" fromLane="0" toLane="0" dir="s" state="m" visibility="9.00"/>
+    <connection from="30534383#2" to="30417941#1" fromLane="1" toLane="1" dir="s" state="m" visibility="9.00"/>
     <connection from="324041278#5" to="30417941#3" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="324041278#5" to="30417941#3" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="324041278#5" to="30417941#3" fromLane="0" toLane="1" dir="s" state="m" visibility="9.00"/>
 
     <roundabout nodes="2149919279 335691176 335691178 335691182 492500988 492500994" edges="30417941#1 30417941#2 30417941#3 30417941#4 30417941#5 30417941#6"/>
 

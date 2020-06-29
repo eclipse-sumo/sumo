@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:03 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <roundabouts.guess value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-5634" from="10708" to="13448" priority="-1" numLanes="1" speed="13.90" shape="78.96,157.64 86.41,150.19 94.13,139.30 99.90,126.29 101.19,116.71 101.30,106.09 97.07,83.16 82.53,2.50" spreadType="center"/>
+    <edge id="-9887" from="14304" to="17199" priority="-1" numLanes="1" speed="13.90" shape="2.17,131.67 13.41,141.44 24.68,151.71 30.27,157.46" spreadType="center"/>
+    <edge id="-9889" from="14305" to="17200" priority="-1" numLanes="1" speed="13.90" shape="140.43,276.18 77.80,210.09" spreadType="center"/>
+    <edge id="-9890" from="17200" to="17199" priority="-1" numLanes="1" speed="13.90" shape="73.35,209.78 71.60,210.93 67.71,213.02 62.84,214.62 57.48,215.70 52.94,215.70 48.65,215.25 44.34,214.15 40.41,212.44 36.91,210.57 33.80,208.10 30.27,204.85 27.50,201.18 24.74,196.03 22.82,190.01 22.30,185.03 22.36,180.66 23.01,176.54 24.23,172.11 25.72,168.35 28.34,164.34" spreadType="center"/>
+    <edge id="-9891" from="10708" to="17200" priority="-1" numLanes="1" speed="13.90" shape="80.89,164.53 81.94,166.06 83.44,168.75 84.89,171.93 86.04,176.12 86.71,180.70 86.85,185.62 86.20,189.28 85.18,193.39 83.77,196.71 82.00,200.46 79.95,203.30" spreadType="center"/>
+    <edge id="-9892" from="17199" to="10708" priority="-1" numLanes="1" speed="13.90" shape="34.75,157.71 37.63,155.70 42.64,153.14 46.78,151.91 51.56,151.12 56.84,150.84 61.16,151.55 64.39,152.33 67.58,153.51 70.47,155.04 73.16,156.64 74.50,157.76" spreadType="center"/>
+    <edge id="5634" from="13448" to="10708" priority="-1" numLanes="1" speed="13.90" shape="85.78,1.91 100.32,82.57 104.59,105.78 104.47,116.95 103.11,127.19 97.01,140.94 88.92,152.32 81.29,159.97" spreadType="center"/>
+    <edge id="9887" from="17199" to="14304" priority="-1" numLanes="1" speed="13.90" shape="27.91,159.76 22.39,154.08 11.21,143.90 0.00,134.16" spreadType="center"/>
+    <edge id="9889" from="17200" to="14305" priority="-1" numLanes="1" speed="13.90" shape="80.19,207.82 142.80,273.88" spreadType="center"/>
+
+    <roundabout nodes="10708 17199 17200" edges="-9890 -9891 -9892"/>
+
+</edges>

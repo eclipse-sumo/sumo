@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:45 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Mon Jun 29 23:44:43 2020 by Eclipse SUMO netconvert Version v1_6_0+1029-ac5bd53e07
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -169,9 +169,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
 
-    <connection from="--60036" to="b" fromLane="0" toLane="0" via=":B_0_0" dir="r" state="m"/>
-    <connection from="--60036" to="b" fromLane="1" toLane="1" via=":B_1_0" dir="r" state="m"/>
-    <connection from="-210" to="c" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="m"/>
+    <connection from="--60036" to="b" fromLane="0" toLane="0" via=":B_0_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="--60036" to="b" fromLane="1" toLane="1" via=":B_1_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="-210" to="c" fromLane="0" toLane="0" via=":C_0_0" dir="r" state="m" visibility="9.00"/>
     <connection from="-60036" to="--60036" fromLane="1" toLane="1" via=":20508_0_0" dir="t" state="M"/>
     <connection from="210" to="-210" fromLane="0" toLane="0" via=":25270_0_0" dir="t" state="M"/>
     <connection from="a" to="-60036" fromLane="0" toLane="0" via=":B_2_0" dir="r" state="M"/>
@@ -188,8 +188,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="d" to="outA" fromLane="0" toLane="1" via=":A_3_0" dir="r" state="M"/>
     <connection from="d" to="a" fromLane="0" toLane="0" via=":A_4_0" dir="s" state="M"/>
     <connection from="d" to="a" fromLane="1" toLane="1" via=":A_4_1" dir="s" state="M"/>
-    <connection from="inA" to="a" fromLane="0" toLane="0" via=":A_0_0" dir="r" state="m"/>
-    <connection from="inA" to="a" fromLane="1" toLane="1" via=":A_1_0" dir="r" state="m"/>
+    <connection from="inA" to="a" fromLane="0" toLane="0" via=":A_0_0" dir="r" state="m" visibility="9.00"/>
+    <connection from="inA" to="a" fromLane="1" toLane="1" via=":A_1_0" dir="r" state="m" visibility="9.00"/>
     <connection from="outA" to="inA" fromLane="1" toLane="1" via=":21832_0_0" dir="t" state="M"/>
 
     <connection from=":20508_0" to="--60036" fromLane="0" toLane="1" dir="t" state="M"/>

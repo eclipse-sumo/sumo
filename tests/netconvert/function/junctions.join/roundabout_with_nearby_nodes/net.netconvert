@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:05 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Mon Jun 29 23:45:17 2020 by Eclipse SUMO netconvert Version v1_6_0+1029-ac5bd53e07
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -135,9 +135,9 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
 
     <connection from="-157393607.0" to="-157393607.1400" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-157393607.1400" to="94587485#0" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-157393607.1400" to="94587485#0" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
     <connection from="-26751739.0" to="-26751739.539" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-26751739.539" to="26751740#1" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-26751739.539" to="26751740#1" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
     <connection from="-75642183" to="75642183" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="-8166420" to="8166420" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="157393607.0" to="157393607.7" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -146,8 +146,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="26751740#0" to="26751740#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="26751740#1" to="157393607.0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="26751740#1" to="94587485#0" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="75642183" to="26751740#0" fromLane="0" toLane="0" dir="r" state="m"/>
-    <connection from="8166420" to="94587485#1" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="75642183" to="26751740#0" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
+    <connection from="8166420" to="94587485#1" fromLane="0" toLane="0" dir="r" state="m" visibility="9.00"/>
     <connection from="94587485#0" to="-8166420" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="94587485#0" to="94587485#1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="94587485#1" to="-75642183" fromLane="0" toLane="0" dir="r" state="M"/>
