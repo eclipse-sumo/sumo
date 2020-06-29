@@ -28,6 +28,10 @@ permalink: /ChangeLog/
   - CarFollowModel 'KraussPS' no longer stalls at steep inclines. Issue #2849
   - Fixed discontinuous acceleration profile and usafe driving when passing a minor link. Issue #7213
   - Fixed unnecessary waiting at roundabout. Issue #1847
+  - Fixed issue where persons would prefer long walks over quick taxi rides. Issue #7216
+  - Fixed invalid followSpeed computation in carFollowModel 'W99'. Issue #7229
+  - Fixed failing lane-changes when using carFollowModel 'W99'. Issue #7211
+  - Fixed invalid SGAP and TGAP output from device.ssm when vehicles have different minGap values. Issue #7233
     
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
@@ -69,7 +73,7 @@ permalink: /ChangeLog/
   - turnFile2EdgeRelations.py can now handle empty intervals. Issue #7084
   
 - TraCI
-  - Fixed memory leak when using libsumo. Issue #7012, #7169
+  - Fixed memory leak when using libsumo. Issue #7012, #7169, #7220
   - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
   - Fixed crash when accessing prior riding stage with *person.getStage*. Issue #7060
   - Fixed crash and delayed effect when setting vehicle parameter "device.rerouting.period". Issue #7064, #7075
@@ -77,6 +81,7 @@ permalink: /ChangeLog/
   - TraaS function getDeltaT is now working. Issue #7121
   - The python client now supports adding polygons with more than 255 shape points. Issue #7161
   - Vehicle type parameters can now be retrieved from vehicles with libsumo. Issue #7209
+  - Fixed invalid electric vehicle parameters being used when calling 'traci.vehicle.getElectricityConsumption'. Issue #7196
   
 - All Applications
   - File names with a `%`-Sign can no be loaded. Issue #6574
@@ -93,6 +98,7 @@ permalink: /ChangeLog/
   - The distance at which vehicles react to device.bluelight can now be configured with option **--device.bluelight.reactiondist**. Issue #7112
   - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148  
   - Strategic lane-changes can now be disabled by setting 'lcStrategic="-1"`. Issue #7180
+  - Taxi pickup and drop-off location can now be restricted to public transport stops by setting **--persontrip.transfer.walk-taxi ptStops** and **--persontrip.transfer.taxi-walk ptStops**. Issue #7192
   
 - NETCONVERT
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
@@ -102,6 +108,7 @@ permalink: /ChangeLog/
   - When an intersectoin is surrounded by connected footpaths, superfluous walkingareas are no longer built. The distance at which pedestrian nodes count as connected can be set by option **--walkingareas.join-dist**. Issue #7120
   - Added new node attribute 'tlLayout' to configure signal plan layout per node. Issue #7187
   - Added new traffic light layout 'alternateOneWay' to model work zones where each direction uses the interior of a joined traffic light exclusively. Issue #7199
+  - Added option **--roundabouts.visibility-distance** to set the default visibility distance when entering a roundabout. The new default is 9 (meters) which is twice the default link visibility and this leads to smoother flow when there are no foe vehicles at a roundabout. The old behavior can be restored by setting **--roundabouts.visibility-distance -1**. Issue #4703
   
 - NETEDIT
   - Edges can now be colored by edgeData attribute (as in SUMO-GUI). Issue #6953
@@ -119,6 +126,9 @@ permalink: /ChangeLog/
   
 - DUAROUTER
   - Route attributes 'repeat' and 'cycleTime' are now supported. Issue #7165
+  
+- OD2TRIPS
+  - Can now specify persontrip modes with option **--persontrip.modes**. Issue #7219
 
 - All Applications
   - Symbolic color definition "random" can now be used (i.e. in vehicle, vType, poi, ...). Issue #7058
@@ -137,6 +147,8 @@ permalink: /ChangeLog/
   - implausibleRoutes.py now works better with routes consisting of a single edge only and respects internal edge lengths. It can also detect routes containing edge loops or node loops. Issue #7071
   - osmWebWizard now exports public transport edges for rail vehicles when setting both of the options 'Car-only Network' and 'Import public transport'. Issue #7081
   - [edgeDataFromFlow.py](Tools/Detector.md#edgedatafromflowpy) now supports time intervals. Issue #7133
+  - Added new tool [net2geojson](Tools/Net.md#net2geojsonpy) for converting a .net.xml file into GeoJSON format. Issue #7237
+  - [attributeStats.py](Tools/Output.md#attributestatspy) now supports option **--precision** to control output precision. Issue #7238
     
 ### Other
 - Simulation
