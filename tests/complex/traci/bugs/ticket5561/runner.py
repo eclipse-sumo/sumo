@@ -40,7 +40,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
         if stop[2] == "busStop2" and traci.vehicle.getLaneID(bus_id) == stop[0]:
             bus_pos = traci.vehicle.getLanePosition(bus_id)
             if bus_stop_pos - bus_pos < 10:
-                traci.vehicle.setBusStop(bus_id, "busStop2", 0, 0, 0)
+                traci.vehicle.setBusStop(bus_id, "busStop2", 0)
                 print("abort stop at busStop2 at t=%s" % traci.simulation.getTime())
     traci.simulationStep()
 traci.close()
