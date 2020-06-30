@@ -282,14 +282,10 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, startEndEdgeMap=Non
                     cut_stops(moving, busStopEdges, remaining)
                     departShift = None
                     if routeRef:
-                        departShift = newDepart - float(oldDepart)
-                        lastUntil = cut_stops(routeRef, busStopEdges, remaining,
-                                              departShift, options.defaultStopDuration)
-                        if lastUntil > departShift:
-                            standaloneRoutesDepart[moving.route] = lastUntil
-                            newDepart = float(oldDepart) + lastUntil
-                        else:
-                            standaloneRoutesDepart[moving.route] = departShift
+                        departShift = cut_stops(routeRef, busStopEdges, remaining,
+                                                newDepart - float(oldDepart), options.defaultStopDuration)
+                        standaloneRoutesDepart[moving.route] = departShift
+                        newDepart = float(oldDepart) + departShift
                         routeRef.edges = " ".join(remaining)
                         yield -1, routeRef
                     else:
@@ -331,7 +327,6 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, startEndEdgeMap=Non
 def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0):
     if vehicle.stop:
         skippedStopDuration = 0
-        lastUntil = 0
         haveStop = False
         for stop in list(vehicle.stop):
             if stop.busStop:
@@ -352,10 +347,10 @@ def cut_stops(vehicle, busStopEdges, remaining, departShift=0, defaultDuration=0
                 haveStop = True
                 continue
             if stop.until is not None and not haveStop:
-                lastUntil = float(stop.until)
+                if departShift < float(stop.until):
+                    departShift = float(stop.until)
             vehicle.removeChild(stop)
-        return lastUntil if haveStop else 0
-    return 0
+    return departShift
 
 
 def getFirstIndex(areaEdges, edges):
