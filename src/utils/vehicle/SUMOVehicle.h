@@ -215,6 +215,11 @@ public:
      */
     virtual bool hasDeparted() const = 0;
 
+    /** @brief Returns the distance that was already driven by this vehicle
+     * @return the distance driven [m]
+     */
+    virtual double getOdometer() const = 0;
+
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */

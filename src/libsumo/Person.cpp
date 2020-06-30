@@ -194,9 +194,12 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     }
     result.description = stage->getStageDescription(p->isPerson());
     result.length = stage->getDistance();
-    // negative values indicate that the information is not available
-    result.cost = -1;
-    result.travelTime = -1;
+    if (result.length == -1.) {
+        result.length = INVALID_DOUBLE_VALUE;
+    }
+    result.departPos = INVALID_DOUBLE_VALUE;
+    result.cost = INVALID_DOUBLE_VALUE;
+    result.travelTime = INVALID_DOUBLE_VALUE;
     // Some stage type dependant attributes
     switch (stage->getStageType()) {
         case MSStageType::DRIVING: {

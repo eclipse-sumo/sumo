@@ -46,7 +46,10 @@ class Stage(object):
         if getattr(self, attrname) == default:
             return ""
         else:
-            return "%s=%s" % (attrname, getattr(self, attrname))
+            val = getattr(self, attrname)
+            if val == tc.INVALID_DOUBLE_VALUE:
+                val = "INVALID"
+            return "%s=%s" % (attrname, val)
 
     def __repr__(self):
         return "Stage(%s)" % ', '.join([v for v in [

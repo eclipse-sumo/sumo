@@ -48,7 +48,9 @@ def print_prior_plan(personID, comment=""):
         try:
             stages.append((i, traci.person.getStage(personID, i)))
             i -= 1
-        except traci.TraCIException:
+        except traci.TraCIException as e:
+            if traci.isLibsumo():
+                print(e, file=sys.stderr)
             break
     stages.reverse()
     for i, stage in stages:
@@ -154,10 +156,11 @@ print("persons on edge %s at time %s: %s" % (
     traci.simulation.getTime(),
     traci.edge.getLastStepPersonIDs(traci.person.getRoadID("newPerson"))))
 
+print_remaining_plan("newPerson", "remaining plan before jump")
 traci.person.removeStages("newPerson")
-traci.person.appendWaitingStage(
-    "newPerson", 10, "Jumped out of a moving vehicle. Ouch!")
+traci.person.appendWaitingStage("newPerson", 10, "Jumped out of a moving vehicle. Ouch!")
 print_prior_plan("newPerson", "past plan")
+print_remaining_plan("newPerson", "remaining plan after jump")
 
 step()
 # change plan on junction

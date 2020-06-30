@@ -127,6 +127,16 @@ MSStageDriving::getAngle(SUMOTime /* now */) const {
 }
 
 
+double
+MSStageDriving::getDistance() const {
+    if (myVehicle != nullptr) {
+        // distance was previously set to driven distance upon embarking
+        return myVehicle->getOdometer() - myVehicleDistance;
+    }
+    return myVehicleDistance;
+}
+
+
 std::string
 MSStageDriving::getStageDescription(const bool isPerson) const {
     return isWaiting4Vehicle() ? "waiting for " + joinToString(myLines, ",") : (isPerson ? "driving" : "transport");
@@ -295,9 +305,7 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
     MSStage::setArrived(net, transportable, now);
     if (myVehicle != nullptr) {
         // distance was previously set to driven distance upon embarking
-        myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
-                                myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
-                                myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge()) - myVehicleDistance;
+        myVehicleDistance = myVehicle->getOdometer() - myVehicleDistance;
         myTimeLoss = myVehicle->getTimeLoss() - myTimeLoss;
         if (myVehicle->isStopped()) {
             myArrivalPos = myVehicle->getPositionOnLane();
@@ -318,10 +326,14 @@ MSStageDriving::setVehicle(SUMOVehicle* v) {
         myVehicleLine = v->getParameter().line;
         myVehicleType = v->getVehicleType().getID();
         myVehicleVClass = v->getVClass();
-        myVehicleDistance = myVehicle->getRoute().getDistanceBetween(
-                                myVehicle->getDepartPos(), myVehicle->getPositionOnLane(),
-                                myVehicle->getRoute().begin(),  myVehicle->getCurrentRouteEdge());
-        myTimeLoss = myVehicle->getTimeLoss();
+        if (myVehicle->hasDeparted()) {
+            myVehicleDistance = myVehicle->getOdometer();
+            myTimeLoss = myVehicle->getTimeLoss();
+        } else {
+            // it probably got triggered by the person
+            myVehicleDistance = 0.;
+            myTimeLoss = 0;
+        }
     }
 }
 
@@ -330,6 +342,9 @@ MSStageDriving::abort(MSTransportable* t) {
     if (myVehicle != nullptr) {
         // jumping out of a moving vehicle!
         myVehicle->removeTransportable(t);
+        myVehicleDistance = myVehicle->getOdometer() - myVehicleDistance;
+        myTimeLoss = myVehicle->getTimeLoss() - myTimeLoss;
+        myArrivalPos = myVehicle->getPositionOnLane();
     } else {
         MSTransportableControl& tc = (t->isPerson() ?
                                       MSNet::getInstance()->getPersonControl() :
