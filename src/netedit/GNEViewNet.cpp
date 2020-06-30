@@ -2135,18 +2135,22 @@ GNEViewNet::updateCursor() {
     bool cursorMove = false;
     // check if in current mode/supermode cursor move can be shown
     if (myEditModes.isCurrentSupermodeNetwork()) {
-        if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) ||
-                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
+        if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) ||
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
             cursorMove = true;
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
+        if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) ||
+            (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
             (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
             cursorMove = true;
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
-        // unused in data mode
+        if (myEditModes.dataEditMode == DataEditMode::DATA_SELECT) {
+            cursorMove = true;
+        }
     }
     // update cursor if control key is pressed
     if (myKeyPressed.controlKeyPressed() && cursorMove) {
@@ -3607,23 +3611,29 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_SELECT:
-            // check if a rect for selecting is being created
-            if (myKeyPressed.shiftKeyPressed()) {
-                // begin rectangle selection
-                mySelectingArea.beginRectangleSelection();
-            } else {
-                // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
-                if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
-                    // Check if this GLobject type is locked
-                    if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
-                        // toogle networkElement selection
-                        if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                            myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
-                        } else {
-                            myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+            // avoid to select if control key is pressed
+            if (!myKeyPressed.controlKeyPressed()) {
+                // check if a rect for selecting is being created
+                if (myKeyPressed.shiftKeyPressed()) {
+                    // begin rectangle selection
+                    mySelectingArea.beginRectangleSelection();
+                } else {
+                    // first check that under cursor there is an attribute carrier, isn't a demand element and is selectable
+                    if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                        // Check if this GLobject type is locked
+                        if (!myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(myObjectsUnderCursor.getGlTypeFront())) {
+                            // toogle networkElement selection
+                            if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                                myObjectsUnderCursor.getAttributeCarrierFront()->unselectAttributeCarrier();
+                            } else {
+                                myObjectsUnderCursor.getAttributeCarrierFront()->selectAttributeCarrier();
+                            }
                         }
                     }
+                    // process click
+                    processClick(eventData);
                 }
+            } else {
                 // process click
                 processClick(eventData);
             }
@@ -3862,11 +3872,8 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             break;
         }
         case DemandEditMode::DEMAND_SELECT:
-            // check if a rect for selecting is being created
-            if (myKeyPressed.shiftKeyPressed()) {
-                // begin rectangle selection
-                mySelectingArea.beginRectangleSelection();
-            } else {
+            // avoid to select if control key is pressed
+            if (!myKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
                 if (myKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
@@ -3887,6 +3894,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                     // process click
                     processClick(eventData);
                 }
+            } else {
+                // process click
+                processClick(eventData);
             }
             break;
         case DemandEditMode::DEMAND_MOVE: {
@@ -4013,11 +4023,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         }
         case DataEditMode::DATA_SELECT:
-            // check if a rect for selecting is being created
-            if (myKeyPressed.shiftKeyPressed()) {
-                // begin rectangle selection
-                mySelectingArea.beginRectangleSelection();
-            } else {
+            // avoid to select if control key is pressed
+            if (!myKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
                 if (myKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
@@ -4038,6 +4045,9 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
                     // process click
                     processClick(eventData);
                 }
+            } else {
+                // process click
+                processClick(eventData);
             }
             break;
         case DataEditMode::DATA_EDGEDATA:
