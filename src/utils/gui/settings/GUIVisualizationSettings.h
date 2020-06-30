@@ -214,6 +214,14 @@ struct GUIVisualizationCandidateColorSettings {
 };
 
 
+/// @brief struct for connection settings
+struct GUIVisualizationConnectionSettings {
+
+    /// @brief connection width
+    static const double connectionWidth;
+};
+
+
 /// @brief struct for additional settings
 struct GUIVisualizationAdditionalSettings {
 
@@ -806,6 +814,9 @@ public:
 
     /// @brief candidate color settings
     GUIVisualizationCandidateColorSettings candidateColorSettings;
+
+    /// @brief connection settings
+    GUIVisualizationConnectionSettings connectionSettings;
 
     /// @brief Additional settings
     GUIVisualizationAdditionalSettings additionalSettings;

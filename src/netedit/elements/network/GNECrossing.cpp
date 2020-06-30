@@ -103,6 +103,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             (myCrossingGeometry.getShapeLengths().size() > 0) &&
             (s.scale > 3.0)) {
         const auto NBCrossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
+        // check that current mode isn't TLS
         if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_TLS) {
             // push draw matrix 1
             glPushMatrix();
@@ -160,14 +161,14 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             glPopName();
             // pop draw matrix 1
             glPopMatrix();
+            // check if dotted contour has to be drawn (not useful at high zoom)
+            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+                GNEGeometry::drawDottedContourShape(s, myCrossingGeometry.getShape(), halfWidth, 1);
+            }
         }
         // link indices must be drawn in all edit modes if isn't being drawn for selecting
         if (s.drawLinkTLIndex.show && !s.drawForRectangleSelection) {
             drawTLSLinkNo(s);
-        }
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            //GNEGeometry::drawShapeDottedContour(s, getType(), 1, myDottedGeometry);
         }
     }
 }

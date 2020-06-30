@@ -84,6 +84,12 @@ const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255
 // additional values
 // -------------------------------------------------------------------------
 
+const double GUIVisualizationConnectionSettings::connectionWidth(0.2);
+
+// -------------------------------------------------------------------------
+// additional values
+// -------------------------------------------------------------------------
+
 const RGBColor GUIVisualizationAdditionalSettings::rerouterColor(255, 0, 0);
 const double GUIVisualizationAdditionalSettings::rerouterSize(1);
 const RGBColor GUIVisualizationAdditionalSettings::VSSColor(255, 255, 255);
@@ -140,8 +146,8 @@ const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColor(255, 200
 
 const double GUIVisualizationDottedContourSettings::segmentWidth(0.2);
 const double GUIVisualizationDottedContourSettings::segmentLength(2);
-const RGBColor GUIVisualizationDottedContourSettings::firstColor(225, 225, 225);
-const RGBColor GUIVisualizationDottedContourSettings::secondColor(30, 30, 30);
+const RGBColor GUIVisualizationDottedContourSettings::firstColor(235, 235, 235);
+const RGBColor GUIVisualizationDottedContourSettings::secondColor(20, 20, 20);
 
 // -------------------------------------------------------------------------
 // widths of certain NETEDIT objects
