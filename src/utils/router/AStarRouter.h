@@ -194,7 +194,7 @@ public:
                           + " edges=" + toString(into) + ")\n";
 #endif
 #ifdef ASTAR_DEBUG_VISITED
-                OutputDevice& dev = OutputDevice::getDevice(Named::getIDSecure(vehicle) + "_" + time2string(msTime) + "_" + from->getID() + "_" + to->getID());
+                OutputDevice& dev = OutputDevice::getDevice(Named::getIDSecure(vehicle) + "_" + toString(STEPS2TIME(msTime)) + "_" + from->getID() + "_" + to->getID());
                 for (const auto& i : myEdgeInfos) {
                     if (i.visited) {
                         dev << "edge:" << i.edge->getID() << "\n";
