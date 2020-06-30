@@ -2052,6 +2052,23 @@ GNESelectorFrame::ACsToSelected() const {
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_JUNCTION) && (myViewNet->getNet()->getAttributeCarriers()->getJunctions().size() > 0)) {
             return true;
         }
+        // check if exist connections
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_CONNECTION)) {
+            for (const auto &junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                if (junction.second->getGNEConnections().size() > 0) {
+                    return true;
+                }
+            }
+        }
+        // check if exist crossings
+        if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_CROSSING)) {
+            for (const auto &junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+                if (junction.second->getGNECrossings().size() > 0) {
+                    return true;
+                }
+            }
+        }
+        // check edges and lanes
         if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGE) || !myLockGLObjectTypes->IsObjectTypeLocked(GLO_LANE)) && (myViewNet->getNet()->getAttributeCarriers()->getEdges().size() > 0)) {
             return true;
         }
