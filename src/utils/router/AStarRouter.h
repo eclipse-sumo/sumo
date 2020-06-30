@@ -121,7 +121,8 @@ public:
     virtual ~AStarRouter() {}
 
     virtual SUMOAbstractRouter<E, V>* clone() {
-        return new AStarRouter<E, V>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable);
+        return new AStarRouter<E, V>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable,
+                this->myHavePermissions, this->myHaveRestrictions);
     }
 
     void init() {
