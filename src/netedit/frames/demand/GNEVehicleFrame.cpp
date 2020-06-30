@@ -346,24 +346,24 @@ GNEVehicleFrame::createPath() {
             // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
             SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
             // obtain vehicle parameters
-            SUMOVehicleParameter* vehicleParamters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
+            SUMOVehicleParameter* vehicleParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
             // build vehicle with embebbed route in GNERouteHandler
-            GNERouteHandler::buildVehicleEmbeddedRoute(myViewNet->getNet(), true, *vehicleParamters, routeEdges);
+            GNERouteHandler::buildVehicleEmbeddedRoute(myViewNet->getNet(), true, *vehicleParameters, routeEdges);
             // delete vehicleParamters
-            delete vehicleParamters;
-        } else if (vehicleTag == GNE_TAG_FLOW_ROUTE) {
-            // set begin and end attributes
-            if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
-                valuesMap[SUMO_ATTR_BEGIN] = "0";
-            }
-            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
-            // obtain flow parameters
-            SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseFlowAttributes(SUMOSAXAttrs, false, 0, SUMOTime_MAX);
-            // build flow in GNERouteHandler
-            GNERouteHandler::buildFlow(myViewNet->getNet(), true, *flowParameters, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), viaEdges);
-            // delete flowParameters
-            delete flowParameters;
+            delete vehicleParameters;
+        } else if (vehicleTag == SUMO_TAG_FLOW) {
+                // Add parameter departure
+                if (valuesMap[SUMO_ATTR_DEPART].empty()) {
+                    valuesMap[SUMO_ATTR_DEPART] = "0";
+                }
+                // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+                SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(vehicleTag));
+                // obtain flow parameters
+                SUMOVehicleParameter* flowParameters = SUMOVehicleParserHelper::parseVehicleAttributes(vehicleTag, SUMOSAXAttrs, false);
+                // build trip in GNERouteHandler
+                GNERouteHandler::buildFlow(myViewNet->getNet(), true, *flowParameters, myPathCreator->getSelectedEdges().front(), myPathCreator->getSelectedEdges().back(), viaEdges);
+                // delete tripParameters
+                delete flowParameters;
         } else if (vehicleTag == GNE_TAG_FLOW_WITHROUTE) {
             // set begin and end attributes
             if (valuesMap[SUMO_ATTR_BEGIN].empty()) {
