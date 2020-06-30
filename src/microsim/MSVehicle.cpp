@@ -5579,6 +5579,9 @@ MSVehicle::fixPosition() {
 
 std::pair<const MSLane*, double>
 MSVehicle::getLanePosAfterDist(double distance) const {
+    if (distance == 0) {
+        return std::make_pair(myLane, getPositionOnLane());
+    }
     const std::vector<const MSLane*> lanes = getUpcomingLanesUntil(distance);
     distance += getPositionOnLane();
     for (const MSLane* lane : lanes) {
