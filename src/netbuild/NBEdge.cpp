@@ -100,7 +100,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
     tlLinkIndex(-1),
     tlLinkIndex2(-1),
     mayDefinitelyPass(false),
-    keepClear(true),
+    keepClear(KEEPCLEAR_UNSPECIFIED),
     contPos(UNSPECIFIED_CONTPOS),
     visibility(UNSPECIFIED_VISIBILITY_DISTANCE),
     speed(UNSPECIFIED_SPEED),
@@ -113,7 +113,7 @@ NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_) :
 }
 
 
-NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, bool keepClear_, double contPos_,
+NBEdge::Connection::Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_, KeepClear keepClear_, double contPos_,
                                double visibility_, double speed_, double length_, bool haveVia_, bool uncontrolled_, const PositionVector& customShape_, SVCPermissions permissions_) :
     fromLane(fromLane_),
     toEdge(toEdge_),
@@ -1022,7 +1022,7 @@ NBEdge::addLane2LaneConnection(int from, NBEdge* dest,
                                int toLane, Lane2LaneInfoType type,
                                bool mayUseSameDestination,
                                bool mayDefinitelyPass,
-                               bool keepClear,
+                               KeepClear keepClear,
                                double contPos,
                                double visibility,
                                double speed,
@@ -1069,7 +1069,7 @@ NBEdge::setConnection(int lane, NBEdge* destEdge,
                       int destLane, Lane2LaneInfoType type,
                       bool mayUseSameDestination,
                       bool mayDefinitelyPass,
-                      bool keepClear,
+                      KeepClear keepClear,
                       double contPos,
                       double visibility,
                       double speed,
@@ -2956,7 +2956,7 @@ NBEdge::appendTurnaround(bool noTLSControlled, bool noFringe, bool onlyDeadends,
         // @todo #4382: once the network fringe is tagged, it also should not receive turn-arounds)
         if (isBidiRail() && isRailDeadEnd()) {
             // add a slow connection because direction-reversal implies stopping
-            setConnection(fromLane, myTurnDestination, toLane, Lane2LaneInfoType::VALIDATED, false, false, true, UNSPECIFIED_CONTPOS, UNSPECIFIED_VISIBILITY_DISTANCE, SUMO_const_haltingSpeed);
+            setConnection(fromLane, myTurnDestination, toLane, Lane2LaneInfoType::VALIDATED, false, false, KEEPCLEAR_UNSPECIFIED, UNSPECIFIED_CONTPOS, UNSPECIFIED_VISIBILITY_DISTANCE, SUMO_const_haltingSpeed);
             return;
         } else {
             return;

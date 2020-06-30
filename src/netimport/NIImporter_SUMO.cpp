@@ -205,7 +205,8 @@ NIImporter_SUMO::_loadNetwork(OptionsCont& oc) {
                 }
                 nbe->addLane2LaneConnection(
                     fromLaneIndex, toEdge, c.toLaneIdx, NBEdge::Lane2LaneInfoType::VALIDATED,
-                    true, c.mayDefinitelyPass, c.keepClear, c.contPos, c.visibility, c.speed, c.customLength, c.customShape, uncontrolled, c.permissions);
+                    true, c.mayDefinitelyPass, c.keepClear ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE,
+                    c.contPos, c.visibility, c.speed, c.customLength, c.customShape, uncontrolled, c.permissions);
                 if (c.getParametersMap().size() > 0) {
                     nbe->getConnectionRef(fromLaneIndex, toEdge, c.toLaneIdx).updateParameters(c.getParametersMap());
                 }

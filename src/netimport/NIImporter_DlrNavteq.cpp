@@ -809,7 +809,7 @@ NIImporter_DlrNavteq::ConnectedLanesHandler::report(const std::string& result) {
         // set as to be re-applied after network processing
         // if this connection runs across a node cluster it may not be possible to set this
         const bool warnOnly = st.size() > 7;
-        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, true,
+        myEdgeCont.addPostProcessConnection(from->getID(), fromLane, to->getID(), toLane, false, KEEPCLEAR_UNSPECIFIED,
                                             NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
                                             NBEdge::UNSPECIFIED_SPEED, NBEdge::UNSPECIFIED_LOADED_LENGTH, PositionVector::EMPTY, false, warnOnly);
     }

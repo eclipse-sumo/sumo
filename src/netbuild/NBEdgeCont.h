@@ -537,7 +537,7 @@ public:
      * @param[in] warnOnly Whether a failure to set this connection should only result in a warning
      */
     void addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
-                                  bool keepClear, double contPos, double visibility,
+                                  KeepClear keepClear, double contPos, double visibility,
                                   double speed, double length,
                                   const PositionVector& customShape,
                                   bool uncontrolled,
@@ -631,7 +631,7 @@ private:
          * @param[in] mayDefinitelyPass Whether the connection may be passed without braking
          */
         PostProcessConnection(const std::string& from_, int fromLane_, const std::string& to_, int toLane_,
-                              bool mayDefinitelyPass_, bool keepClear_, double contPos_, double visibility_, double speed_,
+                              bool mayDefinitelyPass_, KeepClear keepClear_, double contPos_, double visibility_, double speed_,
                               double length_,
                               const PositionVector& customShape_,
                               bool uncontrolled_,
@@ -656,7 +656,7 @@ private:
         /// @brief Whether the connection may be passed without braking
         bool mayDefinitelyPass;
         /// @brief Whether the connection may be passed without braking
-        bool keepClear;
+        KeepClear keepClear;
         /// @brief custom position for internal junction on this connection
         double contPos;
         /// @brief custom foe visiblity for connection

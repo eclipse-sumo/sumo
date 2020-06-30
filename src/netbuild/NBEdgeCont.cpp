@@ -901,7 +901,8 @@ NBEdgeCont::appendRailwayTurnarounds(const NBPTStopCont& sc) {
             NBEdge* to = edge->getTurnDestination(true);
             assert(to != 0);
             edge->setConnection(edge->getNumLanes() - 1,
-                                to, to->getNumLanes() - 1, NBEdge::Lane2LaneInfoType::VALIDATED, false, false, true,
+                                to, to->getNumLanes() - 1, NBEdge::Lane2LaneInfoType::VALIDATED, false, false,
+                                KEEPCLEAR_UNSPECIFIED,
                                 NBEdge::UNSPECIFIED_CONTPOS, NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
                                 SUMO_const_haltingSpeed);
         }
@@ -1088,7 +1089,7 @@ NBEdgeCont::getByID(const std::string& edgeID) const {
 // ----- other
 void
 NBEdgeCont::addPostProcessConnection(const std::string& from, int fromLane, const std::string& to, int toLane, bool mayDefinitelyPass,
-                                     bool keepClear, double contPos, double visibility, double speed, double length,
+                                     KeepClear keepClear, double contPos, double visibility, double speed, double length,
                                      const PositionVector& customShape, bool uncontrolled, bool warnOnly, SVCPermissions permissions) {
     myConnections[from].push_back(PostProcessConnection(from, fromLane, to, toLane, mayDefinitelyPass, keepClear, contPos, visibility,
                                   speed, length, customShape, uncontrolled, warnOnly, permissions));

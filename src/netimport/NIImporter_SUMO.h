@@ -184,7 +184,9 @@ private:
         int tlLinkIndex2;
         /// @brief Information about being definitely free to drive (on-ramps)
         bool mayDefinitelyPass;
-        /// @brief Whether the junction must be kept clear coming from this connection
+        /* @brief Whether the junction must be kept clear coming from this connection
+         * @note: The enum NBEdge::KeepClear is not needed here because data
+         *        from a .net.xml is fully specified */
         bool keepClear;
         /// @brief custom position for internal junction on this connection
         double contPos;

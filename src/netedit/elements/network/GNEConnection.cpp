@@ -592,7 +592,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             nbCon.mayDefinitelyPass = parse<bool>(value);
             break;
         case SUMO_ATTR_KEEP_CLEAR:
-            nbCon.keepClear = parse<bool>(value);
+            nbCon.keepClear = parse<bool>(value) ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE;
             break;
         case SUMO_ATTR_UNCONTROLLED:
             nbCon.uncontrolled = parse<bool>(value);

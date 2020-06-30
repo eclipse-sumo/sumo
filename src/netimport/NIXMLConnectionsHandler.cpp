@@ -248,7 +248,10 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes& attrs, NBEdge* 
             }
         }
         const bool mayDefinitelyPass = attrs.getOpt<bool>(SUMO_ATTR_PASS, nullptr, ok, defaultCon.mayDefinitelyPass);
-        const bool keepClear = attrs.getOpt<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok, defaultCon.keepClear);
+        KeepClear keepClear = defaultCon.keepClear;
+        if (attrs.hasAttribute(SUMO_ATTR_KEEP_CLEAR)) {
+            keepClear = attrs.get<bool>(SUMO_ATTR_KEEP_CLEAR, nullptr, ok) ? KEEPCLEAR_TRUE : KEEPCLEAR_FALSE;
+        }
         const double contPos = attrs.getOpt<double>(SUMO_ATTR_CONTPOS, nullptr, ok, defaultCon.contPos);
         const double visibility = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, defaultCon.visibility);
         const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, defaultCon.speed);

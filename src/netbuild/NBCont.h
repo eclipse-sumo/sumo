@@ -52,3 +52,11 @@ typedef std::set<NBNode*, ComparatorIdLess> NodeSet;
 
 /// @brief container for (sorted) lanes. The lanes are sorted from rightmost (id=0) to leftmost (id=nolanes-1)
 typedef std::vector<int> LaneVector;
+
+/// @brief keepClear status of connections
+enum KeepClear {
+    KEEPCLEAR_FALSE = 0,
+    KEEPCLEAR_TRUE = 1,
+    KEEPCLEAR_UNSPECIFIED = -1
+};
+

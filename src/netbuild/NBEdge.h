@@ -182,7 +182,6 @@ public:
         std::string type;
     };
 
-
     /** @struct Connection
      * @brief A structure which describes a connection between edges or lanes
      */
@@ -196,7 +195,7 @@ public:
 
         /// @brief constructor with more parameters
         Connection(int fromLane_, NBEdge* toEdge_, int toLane_, bool mayDefinitelyPass_,
-                   bool keepClear_ = true,
+                   KeepClear keepClear_ = KEEPCLEAR_UNSPECIFIED,
                    double contPos_ = UNSPECIFIED_CONTPOS,
                    double visibility_ = UNSPECIFIED_VISIBILITY_DISTANCE,
                    double speed_ = UNSPECIFIED_SPEED,
@@ -228,7 +227,7 @@ public:
         bool mayDefinitelyPass;
 
         /// @brief whether the junction must be kept clear when using this connection
-        bool keepClear;
+        KeepClear keepClear;
 
         /// @brief custom position for internal junction on this connection
         double contPos;
@@ -860,7 +859,7 @@ public:
                                 int toLane, Lane2LaneInfoType type,
                                 bool mayUseSameDestination = false,
                                 bool mayDefinitelyPass = false,
-                                bool keepClear = true,
+                                KeepClear keepClear = KEEPCLEAR_UNSPECIFIED,
                                 double contPos = UNSPECIFIED_CONTPOS,
                                 double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                                 double speed = UNSPECIFIED_SPEED,
@@ -907,7 +906,7 @@ public:
                        Lane2LaneInfoType type,
                        bool mayUseSameDestination = false,
                        bool mayDefinitelyPass = false,
-                       bool keepClear = true,
+                       KeepClear keepClear = KEEPCLEAR_UNSPECIFIED,
                        double contPos = UNSPECIFIED_CONTPOS,
                        double visibility = UNSPECIFIED_VISIBILITY_DISTANCE,
                        double speed = UNSPECIFIED_SPEED,

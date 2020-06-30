@@ -686,7 +686,8 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
             std::cout << "addCon3 from=" << from->getID() << "_" << fromLane << " to=" << to->getID() << "_" << toLane << "\n";
         }
 #endif
-        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, false, false, true,
+        from->addLane2LaneConnection(fromLane, to, toLane, NBEdge::Lane2LaneInfoType::USER, false, false,
+                                     KEEPCLEAR_UNSPECIFIED,
                                      NBEdge::UNSPECIFIED_CONTPOS,
                                      NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE,
                                      NBEdge::UNSPECIFIED_SPEED,
