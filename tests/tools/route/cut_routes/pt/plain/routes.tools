@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2020-06-08 12:08:23.693497 by cutRoutes.py v1_6_0+0590-ade58a062a
+<!-- generated on 2020-06-30 13:36:25.937087 by cutRoutes.py v1_6_0+1043-3e7d69ab4d
   options: input_net.net.xml <doubleminus>pt-input input_routes.rou.xml <doubleminus>pt-output out.rou.xml -a input_additional.add.xml <doubleminus>stops-output out.xml
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -31,7 +31,7 @@
     <route edges="161159325#0 161159325#1 -53356539#1 -53356539#0" id="bus_140:0">
         <stop busStop="4032629820" duration="30.00" until="108.0"/>
     </route>
-    <flow begin="0.00" end="3600.00" id="bus_140:0" line="140:0" period="600" route="bus_140:0" type="bus">
+    <flow begin="34.00" end="3634.00" id="bus_140:0" line="140:0" period="600" route="bus_140:0" type="bus">
         <param key="name" value="Buslinie 140: S+U Tempelhof => S Ostbahnhof "test mixed quotes'"/>
         <param key="completeness" value="0.06"/>
     </flow>
