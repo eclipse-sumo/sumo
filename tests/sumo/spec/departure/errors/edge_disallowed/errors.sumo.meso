@@ -1,2 +1,2 @@
-Error: Vehicle '1' is not allowed to depart on any lane of its first edge.
+Error: Vehicle '1' is not allowed to depart on any lane of edge 'SC'.
 Quitting (on error).

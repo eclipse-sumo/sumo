@@ -1,2 +1,2 @@
-Error: Vehicle 'VehicleClosedAlready' is not allowed to depart on any lane of its first edge.
+Error: Vehicle 'VehicleClosedAlready' is not allowed to depart on any lane of edge 'beg'.
 Quitting (on error).
