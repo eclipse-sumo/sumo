@@ -1062,14 +1062,18 @@ NBRequest::resetCooperating() {
 
 bool
 NBRequest::hasConflict() const {
-    for (std::string foes : myFoes) {
-        if (foes.find_first_of("1") != std::string::npos) {
+    for (int i = 0; i < (int)myFoes.size(); i++) {
+        if (hasConflictAtLink(i)) {
             return true;
         }
     }
     return false;
 }
 
+bool
+NBRequest::hasConflictAtLink(int linkIndex) const {
+    return myFoes[linkIndex].find_first_of("1") != std::string::npos;
+}
 
 int
 NBRequest::numLinks() const {
