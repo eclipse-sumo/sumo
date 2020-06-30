@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:10 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Jun 30 14:10:51 2020 by Eclipse SUMO netconvert Version v1_6_0+1046-380c0c8aeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,6 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <railway>
         <railway.topology.repair value="true"/>
+        <railway.topology.repair.stop-turn value="true"/>
     </railway>
 
     <report>
@@ -170,8 +171,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="a" to="-a" fromLane="0" toLane="0" speed="0.10" via=":1_0_0" dir="t" state="M"/>
     <connection from="b" to="a" fromLane="0" toLane="0" via=":2_0_0" dir="s" state="M"/>
     <connection from="e" to="d" fromLane="0" toLane="0" via=":7_0_0" dir="s" state="M"/>
-    <connection from="f" to="e" fromLane="0" toLane="0" via=":8_0_0" dir="s" state="M"/>
-    <connection from="g" to="-f" fromLane="0" toLane="0" via=":8_1_0" dir="s" state="M"/>
+    <connection from="f" to="e" fromLane="0" toLane="0" keepClear="0" via=":8_0_0" dir="s" state="M"/>
+    <connection from="g" to="-f" fromLane="0" toLane="0" keepClear="0" via=":8_1_0" dir="s" state="M"/>
     <connection from="gneE1" to="f" fromLane="0" toLane="0" via=":9_0_0" dir="s" state="M"/>
     <connection from="gneE2" to="b" fromLane="0" toLane="0" via=":3_0_0" dir="s" state="M"/>
     <connection from="h" to="g" fromLane="0" toLane="0" via=":11_0_0" dir="s" state="M"/>

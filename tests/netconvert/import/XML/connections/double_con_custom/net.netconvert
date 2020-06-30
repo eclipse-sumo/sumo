@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:48 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Jun 30 13:45:17 2020 by Eclipse SUMO netconvert Version v1_6_0+1046-380c0c8aeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,6 +52,6 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,4.80 0.00,-4.80"/>
 
     <connection from="WC" to="CE" fromLane="0" toLane="0" dir="s" state="m"/>
-    <connection from="WC" to="CE" fromLane="1" toLane="0" pass="1" dir="s" state="M"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="0" pass="1" keepClear="0" dir="s" state="M"/>
 
 </net>

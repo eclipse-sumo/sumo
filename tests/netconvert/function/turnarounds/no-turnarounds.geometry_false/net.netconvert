@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:09 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Jun 30 14:10:50 2020 by Eclipse SUMO netconvert Version v1_6_0+1046-380c0c8aeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -199,7 +199,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="A0A1" to="A1top0" fromLane="0" toLane="0" tl="A1" linkIndex="10" dir="s" state="o"/>
     <connection from="A0A1" to="A1left1" fromLane="0" toLane="1" tl="A1" linkIndex="11" dir="l" state="o"/>
     <connection from="A0A1" to="A1A0" fromLane="0" toLane="0" tl="A1" linkIndex="12" dir="t" state="o"/>
-    <connection from="A0B0" to="B0right0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="A0B0" to="B0right0" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="A0B0" to="B0A0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="A0bottom0" to="bottom0A0" fromLane="1" toLane="1" dir="t" state="M"/>
     <connection from="A0left0" to="left0A0" fromLane="0" toLane="0" dir="t" state="M"/>
@@ -236,7 +236,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="left1A1" to="A1B1" fromLane="0" toLane="0" tl="A1" linkIndex="14" dir="s" state="O"/>
     <connection from="left1A1" to="A1top0" fromLane="1" toLane="0" tl="A1" linkIndex="15" dir="l" state="o"/>
     <connection from="left1A1" to="A1left1" fromLane="1" toLane="1" tl="A1" linkIndex="16" dir="t" state="o"/>
-    <connection from="right0B0" to="B0A0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="right0B0" to="B0A0" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="right0B0" to="B0right0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="right1B1" to="B1top1" fromLane="0" toLane="0" tl="B1" linkIndex="3" dir="r" state="O"/>
     <connection from="right1B1" to="B1A1" fromLane="0" toLane="0" tl="B1" linkIndex="4" dir="s" state="O"/>

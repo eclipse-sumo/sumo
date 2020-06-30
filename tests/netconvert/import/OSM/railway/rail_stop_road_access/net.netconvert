@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Jun  7 11:11:48 2020 by Eclipse SUMO netconvert Version v1_6_0+0579-3f3e02ebd1
+<!-- generated on Tue Jun 30 14:00:40 2020 by Eclipse SUMO netconvert Version v1_6_0+1046-380c0c8aeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -12302,7 +12302,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="138000328#2" to="403449586#3" fromLane="0" toLane="1" via=":1513089444_3_0" dir="r" state="m"/>
     <connection from="138000328#2" to="-403449586#2" fromLane="0" toLane="1" via=":1513089444_4_0" dir="l" state="m"/>
     <connection from="138000328#2" to="-138000328#2" fromLane="0" toLane="0" via=":1513089444_5_0" dir="t" state="m"/>
-    <connection from="143847359#0" to="143847359#1" fromLane="0" toLane="0" via=":1728846611_1_0" dir="s" state="M"/>
+    <connection from="143847359#0" to="143847359#1" fromLane="0" toLane="0" keepClear="0" via=":1728846611_1_0" dir="s" state="M"/>
     <connection from="143847359#1" to="143847359#2" fromLane="0" toLane="0" via=":1728846607_1_0" dir="s" state="M"/>
     <connection from="143847359#2" to="143847359#3" fromLane="0" toLane="0" via=":1728846603_1_0" dir="s" state="M"/>
     <connection from="143847359#3" to="143847359#4" fromLane="0" toLane="0" via=":2153596411_1_0" dir="s" state="M"/>
@@ -12534,7 +12534,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="178942866#0" to="160913391" fromLane="0" toLane="0" via=":254830798_0_0" dir="s" state="M"/>
     <connection from="178942866#0" to="178942866#1" fromLane="0" toLane="0" via=":254830798_1_0" dir="s" state="M"/>
     <connection from="178942866#1" to="178942866#2" fromLane="0" toLane="0" via=":1892996704_1_0" dir="s" state="M"/>
-    <connection from="178942866#2" to="178942866#3" fromLane="0" toLane="0" via=":1728846611_0_0" dir="s" state="M"/>
+    <connection from="178942866#2" to="178942866#3" fromLane="0" toLane="0" keepClear="0" via=":1728846611_0_0" dir="s" state="M"/>
     <connection from="178942866#3" to="176023646#3" fromLane="0" toLane="0" via=":4156353775_1_0" dir="s" state="M"/>
     <connection from="178942871" to="178942866#2" fromLane="0" toLane="0" via=":1892996704_0_0" dir="s" state="M"/>
     <connection from="185867069" to="26708288#1" fromLane="1" toLane="1" via=":1965563751_0_0" dir="r" state="m"/>

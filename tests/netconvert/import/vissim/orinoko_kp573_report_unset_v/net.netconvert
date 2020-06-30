@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:54 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Jun 30 14:00:31 2020 by Eclipse SUMO netconvert Version v1_6_0+1046-380c0c8aeb
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -603,9 +603,9 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <connection from="1" to="30" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="30" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="1" to="2" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="1" to="30" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="30" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="1" to="2" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="10" to="1000705[0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="10" to="1000704" fromLane="1" toLane="0" dir="s" state="M"/>
@@ -641,62 +641,62 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1000714+1000713" to="1000703" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="1000714+1000713" to="1000707" fromLane="2" toLane="1" tl="1" linkIndex="9" dir="l" state="o"/>
     <connection from="1000714+1000713" to="1000712" fromLane="2" toLane="1" dir="t" state="m"/>
-    <connection from="11" to="13" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="11" to="13" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="11" to="12" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="12" to="37" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="12" to="37" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="12" to="11" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="13" to="19" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="13" to="19" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="13" to="14" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="14" to="12" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="14" to="12" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="14" to="13" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="15" to="17" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="15" to="17" fromLane="0" toLane="0" keepClear="0" dir="r" state="M"/>
     <connection from="15" to="16" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="16" to="15" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="17" to="20" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="17" to="20" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="17" to="18" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="18" to="16" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="18" to="16" fromLane="0" toLane="0" keepClear="0" dir="l" state="M"/>
     <connection from="18" to="17" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="19" to="18" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="19" to="18" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="19" to="20" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="2" to="1" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="2" to="1" fromLane="1" toLane="1" dir="t" state="M"/>
-    <connection from="20" to="14" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="20" to="14" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="20" to="19" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="21" to="22" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="22" to="43" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="22" to="47" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="22" to="21" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="23" to="7" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="23" to="7" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="23" to="24" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="23" to="7" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="23" to="7" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="23" to="24" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="24" to="6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="24" to="6" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="24" to="23" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="24" to="6" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="24" to="6" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="24" to="23" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="25" to="40" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="25" to="40" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="25" to="26" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="25" to="40" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="25" to="40" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="25" to="26" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="26" to="50" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="26" to="50" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="26" to="25" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="26" to="50" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="26" to="50" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="26" to="25" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="27" to="28" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="28" to="32" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="28" to="49" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="28" to="27" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="29" to="2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="29" to="2" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="29" to="30" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="29" to="2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="29" to="2" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="29" to="30" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="3" to="36" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="3" to="36" fromLane="0" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="3" to="4" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="3" to="36" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from="3" to="36" fromLane="1" toLane="2" keepClear="0" dir="s" state="M"/>
     <connection from="3" to="4" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="30" to="3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="30" to="3" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="30" to="29" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="30" to="3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="30" to="3" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="30" to="29" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="31" to="49" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="31" to="32" fromLane="0" toLane="0" dir="t" state="m"/>
@@ -707,36 +707,36 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="32" to="1000709" fromLane="1" toLane="0" dir="s" state="M"/>
     <connection from="33" to="1000702[0]" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="33" to="1000702[0]" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="34" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="34" to="8" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="34" to="33" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="34" to="8" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="34" to="8" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="34" to="33" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="35" to="4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="35" to="4" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="35" to="36" fromLane="0" toLane="1" dir="t" state="m"/>
-    <connection from="35" to="4" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="35" to="4" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="35" to="36" fromLane="1" toLane="2" dir="t" state="m"/>
     <connection from="36" to="1000714+1000713" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="36" to="1000714+1000713" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="36" to="1000714+1000713" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from="37" to="46" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="37" to="46" fromLane="0" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="37" to="38" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="38" to="11" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="38" to="11" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="38" to="37" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="39" to="26" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="39" to="26" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="39" to="40" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="39" to="26" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="39" to="26" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="39" to="40" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="4" to="29" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="4" to="29" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="4" to="3" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="4" to="29" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="4" to="29" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="4" to="3" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="40" to="42" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="40" to="42" fromLane="0" toLane="0" keepClear="0" dir="r" state="M"/>
     <connection from="40" to="39" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="40" to="42" fromLane="1" toLane="1" dir="r" state="M"/>
+    <connection from="40" to="42" fromLane="1" toLane="1" keepClear="0" dir="r" state="M"/>
     <connection from="40" to="39" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="41" to="39" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from="41" to="39" fromLane="0" toLane="0" keepClear="0" dir="l" state="M"/>
     <connection from="41" to="42" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="41" to="39" fromLane="1" toLane="1" dir="l" state="M"/>
+    <connection from="41" to="39" fromLane="1" toLane="1" keepClear="0" dir="l" state="M"/>
     <connection from="41" to="42" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="42" to="41" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="42" to="41" fromLane="1" toLane="1" dir="t" state="M"/>
@@ -748,11 +748,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="44" to="21" fromLane="1" toLane="0" dir="l" state="m"/>
     <connection from="44" to="43" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="45" to="46" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="45" to="38" fromLane="1" toLane="0" dir="s" state="M"/>
+    <connection from="45" to="38" fromLane="1" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="45" to="46" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="46" to="52" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="46" to="52" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="46" to="45" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="46" to="52" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="46" to="52" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="46" to="45" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="47" to="10" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="47" to="48" fromLane="0" toLane="0" dir="t" state="m"/>
@@ -764,42 +764,42 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="48" to="47" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="48" to="43" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="48" to="47" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="49" to="25" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="49" to="25" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="49" to="50" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="49" to="25" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="49" to="25" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="49" to="50" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="5" to="23" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="5" to="23" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="5" to="6" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="5" to="23" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="5" to="23" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="5" to="6" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="50" to="27" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="50" to="32" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="50" to="49" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="50" to="32" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="50" to="49" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="51" to="45" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="51" to="45" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="51" to="52" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="51" to="45" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="51" to="45" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="51" to="52" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="52" to="5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="52" to="5" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="52" to="51" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="52" to="5" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="52" to="5" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="52" to="51" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="53" to="48" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="53" to="10" fromLane="0" toLane="1" dir="l" state="m"/>
     <connection from="53" to="54" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="54" to="53" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from="6" to="51" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="6" to="51" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="6" to="5" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="6" to="51" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="6" to="51" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="6" to="5" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="7" to="33" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="7" to="33" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="7" to="8" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="7" to="33" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="7" to="33" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="7" to="8" fromLane="1" toLane="1" dir="t" state="m"/>
-    <connection from="8" to="24" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="8" to="24" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
     <connection from="8" to="7" fromLane="0" toLane="0" dir="t" state="m"/>
-    <connection from="8" to="24" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="8" to="24" fromLane="1" toLane="1" keepClear="0" dir="s" state="M"/>
     <connection from="8" to="7" fromLane="1" toLane="1" dir="t" state="m"/>
     <connection from="9" to="54" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="9" to="48" fromLane="0" toLane="0" dir="s" state="M"/>
