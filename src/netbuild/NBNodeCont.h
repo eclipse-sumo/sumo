@@ -238,6 +238,9 @@ public:
     /// @brief recheck myGuessedTLS after node logics are computed
     void recheckGuessedTLS(NBTrafficLightLogicCont& tlc);
 
+    /// @brief compute keepClear status for all connections
+    void computeKeepClear();
+
     /** @brief Builds clusters of tls-controlled junctions and joins the control if possible
      * @param[changed] tlc The traffic lights control for adding/removing new/prior tls
      * @param[in] maxdist The maximum distance between nodes for clustering

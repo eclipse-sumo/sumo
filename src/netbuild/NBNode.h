@@ -373,6 +373,9 @@ public:
     /// @brief compute right-of-way logic for all lane-to-lane connections
     void computeLogic2(bool checkLaneFoes);
 
+    /// @brief compute keepClear status for all connections
+    void computeKeepClear(); 
+
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
     bool writeLogic(OutputDevice& into) const;
 

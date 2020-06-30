@@ -559,6 +559,9 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
     // remove guessed traffic lights at junctions without conflicts (requires computeLogics2)
     myNodeCont.recheckGuessedTLS(myTLLCont);
 
+    // compute keepClear status (requires computeLogics2)
+    myNodeCont.computeKeepClear();
+
     //
     if (oc.isSet("street-sign-output")) {
         before = PROGRESS_BEGIN_TIME_MESSAGE("Generating street signs");

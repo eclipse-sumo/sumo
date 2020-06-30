@@ -686,7 +686,7 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         if (c.mayDefinitelyPass) {
             into.writeAttr(SUMO_ATTR_PASS, c.mayDefinitelyPass);
         }
-        if (from.getToNode()->getKeepClear() == false || c.keepClear == KEEPCLEAR_FALSE) {
+        if (c.keepClear == KEEPCLEAR_FALSE) {
             into.writeAttr<bool>(SUMO_ATTR_KEEP_CLEAR, false);
         }
         if (c.contPos != NBEdge::UNSPECIFIED_CONTPOS) {

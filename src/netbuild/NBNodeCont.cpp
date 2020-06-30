@@ -2039,6 +2039,14 @@ void NBNodeCont::recheckGuessedTLS(NBTrafficLightLogicCont& tlc) {
 
 
 void
+NBNodeCont::computeKeepClear() {
+    for (const auto& item : myNodes) {
+        item.second->computeKeepClear();
+    }
+}
+
+
+void
 NBNodeCont::joinTLS(NBTrafficLightLogicCont& tlc, double maxdist) {
     NodeClusters cands;
     generateNodeClusters(maxdist, cands);

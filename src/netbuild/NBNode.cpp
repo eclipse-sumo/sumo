@@ -956,6 +956,20 @@ NBNode::computeLogic2(bool checkLaneFoes) {
     }
 }
 
+void
+NBNode::computeKeepClear() {
+    if (hasConflict()) {
+        for (NBEdge* incoming : myIncomingEdges) {
+            std::vector<NBEdge::Connection>& connections = incoming->getConnections(); 
+            for (NBEdge::Connection& c : connections) {
+                if (!myKeepClear) {
+                    c.keepClear = KEEPCLEAR_FALSE;
+                }
+            }
+        }
+    }
+}
+
 
 bool
 NBNode::writeLogic(OutputDevice& into) const {
