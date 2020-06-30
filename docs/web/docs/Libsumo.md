@@ -33,7 +33,6 @@ The following things currently do not work (or work differently than with the Tr
   - TraCI client may accept any object where Libsumo needs a boolean value
 - using traci.init or traci.connect is not possible (you always need to use libsumo.start)
 - with traci every TraCIException will generate a message on stderr, Libsumo does not generate this message
-- the stepListener interface is not supported
 
 # Building it
 
