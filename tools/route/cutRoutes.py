@@ -283,7 +283,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, startEndEdgeMap=Non
                     departShift = None
                     if routeRef:
                         departShift = newDepart - float(oldDepart)
-                        lastUntil = cut_stops(routeRef, busStopEdges, remaining, departShift, options.defaultStopDuration)
+                        lastUntil = cut_stops(routeRef, busStopEdges, remaining,
+                                              departShift, options.defaultStopDuration)
                         if lastUntil > departShift:
                             standaloneRoutesDepart[moving.route] = lastUntil
                             newDepart = float(oldDepart) + lastUntil

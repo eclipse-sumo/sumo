@@ -65,8 +65,10 @@ class _ExtremeType(object):
 uMax = _ExtremeType(True, "uMax")
 uMin = _ExtremeType(False, "uMin")
 
+
 def setPrecision(formatstr, precision):
     return formatstr.replace('%.2f', '%.' + str(int(precision)) + 'f')
+
 
 class Statistics:
 
@@ -194,8 +196,8 @@ class Statistics:
         if len(self.values) > 0:
             min = ''
             if self.printMin:
-                min = setPrecision('min %.2f%s, ', precision) % (self.min,
-                                        ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
+                min = setPrecision('min %.2f%s, ', precision) % (
+                    self.min, ('' if self.min_label is None else ' (%s)' % (self.min_label,)))
             result = setPrecision('%s: count %s, %smax %.2f%s, mean %.2f', precision) % (
                 self.label, len(self.values), min,
                 self.max,
@@ -211,7 +213,6 @@ class Statistics:
             return result
         else:
             return '%s: no values' % self.label
-
 
     def __str__(self):
         return self.toString()
