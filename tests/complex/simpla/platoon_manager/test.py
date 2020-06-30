@@ -108,14 +108,7 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         self.patchSumoConfig()  # write default routes file and net file into config
 
     def connectToSumo(self, sumo_cfg):
-        # Set up a running sumo instance
-        SUMO_BINARY = sumolib.checkBinary('sumo')
-        PORT = sumolib.miscutils.getFreeSocketPort()
-        sumoCall = "%s -c %s --remote-port %s" % (SUMO_BINARY, sumo_cfg, PORT)
-        # print("sumoCall = '%s'"%sumoCall)
-        self.SUMO_PROCESS = subprocess.Popen(sumoCall, shell=True, stdout=sys.stdout)
-        # Connect
-        traci.init(PORT, numRetries=2)
+        traci.start([sumolib.checkBinary('sumo'), "-c", sumo_cfg])
 
     def patchSumoConfig(self, routes_fn="input_routes.rou.xml", net_fn="input_net.net.xml",
                         vtypes_fn="input_types.typ.xml"):
@@ -138,8 +131,6 @@ catchup="connected_pCatchup" catchupFollower="connected_pCatchupFollower" />
         simpla.stop()
         # close TraCI connection
         traci.close()
-        # wait for sumo to terminate
-        self.SUMO_PROCESS.wait()
         # reset simpla
         rp.initDefaults()
         cfg.initDefaults()

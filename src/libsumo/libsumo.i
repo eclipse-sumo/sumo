@@ -25,7 +25,9 @@
 
 // adding dummy init and close for easier traci -> libsumo transfer
 %pythoncode %{
-from traci import constants, exceptions, _vehicle, _person, _trafficlight, _simulation
+import sys
+from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation
+from traci.connection import StepListener 
 
 def isLibsumo():
     return True
@@ -46,7 +48,11 @@ def simulationStep(step=0):
                    person, poi, polygon, route, trafficlight, vehicle, vehicletype):
         result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
         result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
+    _manageStepListeners(step)
     return result
+
+_stepListeners = {}
+_nextStepListenerID = 0
 %}
 
 /* There is currently no TraCIPosition used as input so this is only for future usage
@@ -495,5 +501,8 @@ vehicle._legacyGetLeader = True
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 _trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
+addStepListener = wrapAsClassMethod(connection.Connection.addStepListener, sys.modules[__name__])
+removeStepListener = wrapAsClassMethod(connection.Connection.removeStepListener, sys.modules[__name__])
+_manageStepListeners = wrapAsClassMethod(connection.Connection._manageStepListeners, sys.modules[__name__])
 %}
 #endif

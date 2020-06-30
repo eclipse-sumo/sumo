@@ -296,8 +296,10 @@ class Connection:
         while numSubs > 0:
             responses.append(self._readSubscription(result))
             numSubs -= 1
+        self._manageStepListeners(step)
+        return responses
 
-        # manage stepListeners
+    def _manageStepListeners(self, step):
         listenersToRemove = []
         for (listenerID, listener) in self._stepListeners.items():
             keep = listener.step(step)
@@ -305,8 +307,6 @@ class Connection:
                 listenersToRemove.append(listenerID)
         for listenerID in listenersToRemove:
             self.removeStepListener(listenerID)
-
-        return responses
 
     def addStepListener(self, listener):
         """addStepListener(traci.StepListener) -> int

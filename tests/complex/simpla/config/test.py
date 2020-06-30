@@ -85,15 +85,7 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
         self.connectToSumo(self.sumocfg)
 
     def connectToSumo(self, sumo_cfg):
-        # Set up a running sumo instance
-        SUMO_BINARY = sumolib.checkBinary('sumo')
-        PORT = sumolib.miscutils.getFreeSocketPort()
-        # print("PORT=",PORT)
-        sumoCall = [SUMO_BINARY, "-c", sumo_cfg, "--remote-port", str(PORT), "-S"]
-        # print("sumoCall = '%s'"%sumoCall)
-        self.SUMO_PROCESS = subprocess.Popen(sumoCall)
-        # Connect
-        traci.init(PORT, numRetries=2)
+        traci.start([sumolib.checkBinary('sumo'), "-c", sumo_cfg, "-S"])
 
     def tearDown(self):
         ut.TestCase.tearDown(self)
@@ -102,8 +94,6 @@ catchupFollower="catchupFollowerVTypeID" /><verbosity value="200" ></verbosity>
         rp.initDefaults()
         os.remove(self.CFG1)
         traci.close()
-        self.SUMO_PROCESS.wait()
-        # print("tearDown() done.")
 
     def patchConfigFile(self, cfg_body):
         with open(self.CFG0, "r") as empty_cfg, open(self.CFG1, "w") as target_cfg:
