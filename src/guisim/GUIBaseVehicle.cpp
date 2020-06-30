@@ -260,9 +260,13 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdToggleStop(FXObject*, FXSelector, 
             std::string errorOut;
             const double brakeGap = microVeh->getCarFollowModel().brakeGap(microVeh->getSpeed());
             std::pair<const MSLane*, double> stopPos = microVeh->getLanePosAfterDist(brakeGap);
-            std::cout << " stopLane=" << Named::getIDSecure(stopPos.first) << " stopPos=" << stopPos.second << "\n";
             if (stopPos.first != nullptr) {
-                microVeh->addTraciStop(stopPos.first, stopPos.second, stopPos.second + POSITION_EPS, TIME2STEPS(3600), -1, false, false, false, errorOut);
+                SUMOVehicleParameter::Stop stop;
+                stop.lane = stopPos.first->getID();
+                stop.startPos = stopPos.second;
+                stop.endPos = stopPos.second + POSITION_EPS;
+                stop.duration = TIME2STEPS(3600);
+                microVeh->addTraciStop(stop, errorOut);
                 if (errorOut != "") {
                     WRITE_WARNING(errorOut);
                 }

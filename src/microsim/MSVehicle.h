@@ -1274,31 +1274,10 @@ public:
     /**
      * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
      * will wait for the given duration before continuing on its route
-     * @param lane     lane on wich to stop
-     * @param startPos start position on the given lane at wich to stop
-     * @param endPos   end position on the given lane at wich to stop
-     * @param duration waiting time duration
-     * @param until    time step at which the stop shall end
-     * @param parking  a flag indicating whether the traci stop is used for parking or not
-     * @param triggered a flag indicating whether the traci stop is triggered or not
-     * @param containerTriggered a flag indicating whether the traci stop is triggered by a container or not
+     * @param[in] stop Stop parameters
+     * @param[out] errorMsg returned error message
      */
-    bool addTraciStop(const MSLane* const lane, const double startPos, const double endPos, const SUMOTime duration, const SUMOTime until,
-                      const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg);
-
-    /**
-     * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
-     * will wait for the given duration before continuing on its route
-     * @param stopId    bus or container stop id
-     * @param duration waiting time duration
-     * @param until    time step at which the stop shall end
-     * @param parking   a flag indicating whether the traci stop is used for parking or not
-     * @param triggered a flag indicating whether the traci stop is triggered or not
-     * @param containerTriggered a flag indicating whether the traci stop is triggered by a container or not
-     * @param stoppingPlaceType a flag indicating the type of stopping place
-     */
-    bool addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
-                                     const bool triggered, const bool containerTriggered, const SumoXMLTag stoppingPlaceType, std::string& errorMsg);
+    bool addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg);
 
     /**
     * returns the next imminent stop in the stop queue

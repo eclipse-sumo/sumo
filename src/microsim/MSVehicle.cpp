@@ -6138,56 +6138,29 @@ MSVehicle::rerouteParkingArea(const std::string& parkingAreaID, std::string& err
 }
 
 bool
-MSVehicle::addTraciStop(const MSLane* const lane, const double startPos, const double endPos, const SUMOTime duration, const SUMOTime until,
-                        const bool parking, const bool triggered, const bool containerTriggered, std::string& errorMsg) {
+MSVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg) {
     //if the stop exists update the duration
     for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
-        if (iter->lane == lane && fabs(iter->pars.endPos - endPos) < POSITION_EPS) {
+        if (iter->lane->getID() == stop.lane && fabs(iter->pars.endPos - stop.endPos) < POSITION_EPS) {
             // update existing stop
-            if (duration == 0 && until < 0 && !iter->reached) {
+            if (stop.duration == 0 && stop.until < 0 && !iter->reached) {
                 myStops.erase(iter);
                 // XXX also erase from myParameter->stops ?
                 updateBestLanes(true);
             } else {
-                iter->duration = duration;
-                iter->triggered = triggered;
-                iter->containerTriggered = containerTriggered;
-                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).until = until;
-                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).parking = parking;
+                iter->duration = stop.duration;
+                iter->triggered = stop.triggered;
+                iter->containerTriggered = stop.containerTriggered;
+                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).until = stop.until;
+                const_cast<SUMOVehicleParameter::Stop&>(iter->pars).parking = stop.parking;
             }
             return true;
         }
     }
-    SUMOVehicleParameter::Stop newStop;
-    newStop.lane = lane->getID();
-    newStop.startPos = startPos;
-    newStop.endPos = endPos;
-    newStop.duration = duration;
-    newStop.until = until;
-    newStop.triggered = triggered;
-    newStop.containerTriggered = containerTriggered;
-    newStop.parking = parking;
-    newStop.index = STOP_INDEX_FIT;
-    newStop.parametersSet = STOP_START_SET | STOP_END_SET;
-    if (triggered) {
-        newStop.parametersSet |= STOP_TRIGGER_SET;
-    }
-    if (containerTriggered) {
-        newStop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-    }
-    if (parking) {
-        newStop.parametersSet |= STOP_PARKING_SET;
-    }
-    if (duration >= 0) {
-        newStop.parametersSet |= STOP_DURATION_SET;
-    }
-    if (until >= 0) {
-        newStop.parametersSet |= STOP_UNTIL_SET;
-    }
-    const bool result = addStop(newStop, errorMsg);
+    const bool result = addStop(stop, errorMsg);
     if (result) {
         /// XXX handle stops added out of order
-        myParameter->stops.push_back(newStop);
+        myParameter->stops.push_back(stop);
     }
     if (myLane != nullptr) {
         updateBestLanes(true);
@@ -6195,92 +6168,6 @@ MSVehicle::addTraciStop(const MSLane* const lane, const double startPos, const d
     return result;
 }
 
-
-bool
-MSVehicle::addTraciStopAtStoppingPlace(const std::string& stopId, const SUMOTime duration, const SUMOTime until, const bool parking,
-                                       const bool triggered, const bool containerTriggered, const SumoXMLTag stoppingPlaceType, std::string& errorMsg) {
-    //if the stop exists update the duration
-    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
-        Named* stop = nullptr;
-        switch (stoppingPlaceType) {
-            case SUMO_TAG_BUS_STOP:
-                stop = iter->busstop;
-                break;
-            case SUMO_TAG_CONTAINER_STOP:
-                stop = iter->containerstop;
-                break;
-            case SUMO_TAG_CHARGING_STATION:
-                stop = iter->chargingStation;
-                break;
-            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
-                stop = iter->overheadWireSegment;
-                break;
-            case SUMO_TAG_PARKING_AREA:
-                stop = iter->parkingarea;
-                break;
-            default:
-                throw ProcessError("Invalid stopping place type '" + toString(stoppingPlaceType) + "'");
-        }
-        if (stop != nullptr && stop->getID() == stopId) {
-            if (duration == 0 && !iter->reached) {
-                myStops.erase(iter);
-                updateBestLanes(true);
-            } else {
-                iter->duration = duration;
-            }
-            return true;
-        }
-    }
-
-    SUMOVehicleParameter::Stop newStop;
-    switch (stoppingPlaceType) {
-        case SUMO_TAG_BUS_STOP:
-            newStop.busstop = stopId;
-            break;
-        case SUMO_TAG_CONTAINER_STOP:
-            newStop.containerstop = stopId;
-            break;
-        case SUMO_TAG_CHARGING_STATION:
-            newStop.chargingStation = stopId;
-            break;
-        case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
-            newStop.overheadWireSegment = stopId;
-            break;
-        case SUMO_TAG_PARKING_AREA:
-            newStop.parkingarea = stopId;
-            break;
-        default:
-            throw ProcessError("Invalid stopping place type '" + toString(stoppingPlaceType) + "'");
-    }
-    MSStoppingPlace* bs = MSNet::getInstance()->getStoppingPlace(stopId, stoppingPlaceType);
-    if (bs == nullptr) {
-        errorMsg = "The " + toString(stoppingPlaceType) + " '" + stopId + "' is not known for vehicle '" + getID() + "'";
-        return false;
-    }
-    newStop.duration = duration;
-    newStop.until = until;
-    newStop.triggered = triggered;
-    newStop.containerTriggered = containerTriggered;
-    newStop.parking = parking;
-    newStop.index = STOP_INDEX_FIT;
-    newStop.lane = bs->getLane().getID();
-    newStop.endPos = bs->getEndLanePosition();
-    newStop.startPos = bs->getBeginLanePosition();
-    if (triggered) {
-        newStop.parametersSet |= STOP_TRIGGER_SET;
-    }
-    if (containerTriggered) {
-        newStop.parametersSet |= STOP_CONTAINER_TRIGGER_SET;
-    }
-    if (parking) {
-        newStop.parametersSet |= STOP_PARKING_SET;
-    }
-    const bool result = addStop(newStop, errorMsg);
-    if (myLane != nullptr) {
-        updateBestLanes(true);
-    }
-    return result;
-}
 
 bool
 MSVehicle::resumeFromStopping() {
