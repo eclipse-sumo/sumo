@@ -281,15 +281,17 @@ public:
     /**@brief Draws partial object (lane)
     * @param[in] s The settings for the current view (may influence drawing)
     * @param[in] lane GNELane in which draw partial
+    * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
     */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const = 0;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const = 0;
 
     /**@brief Draws partial object (junction)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] fromLane from GNELane
      * @param[in] toLane to GNELane
+     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const = 0;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const = 0;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier

@@ -286,7 +286,7 @@ GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void 
-GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const {
     // get lane width
     const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
     // Start drawing adding an gl identificator
@@ -316,7 +316,7 @@ GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 
 
 void
-GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const {
     if (fromLane->getParentEdge() != toLane->getParentEdge()) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());

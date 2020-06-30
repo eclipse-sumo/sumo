@@ -166,17 +166,19 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
 
     /**@brief Draws partial object (lane)
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @param[in] lane GNELane in which draw partial
-    */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const;
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] lane GNELane in which draw partial
+     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
+     */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const;
 
     /**@brief Draws partial object (junction)
-    * @param[in] s The settings for the current view (may influence drawing)
-    * @param[in] fromLane from GNELane
-    * @param[in] toLane to GNELane
-    */
-    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const;
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @param[in] fromLane from GNELane
+     * @param[in] toLane to GNELane
+     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
+     */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const;
 
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     virtual Boundary getCenteringBoundary() const = 0;

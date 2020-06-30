@@ -413,7 +413,7 @@ GNEAdditional::getOptionalAdditionalName() const {
 
 
 void 
-GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
     // check if E2 can be drawn
@@ -471,7 +471,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
 
 
 void 
-GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
     // check if E2 can be drawn

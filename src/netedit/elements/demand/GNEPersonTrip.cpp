@@ -367,14 +367,14 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void 
-GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const {
     // draw person plan over lane
     drawPersonPlanPartialLane(s, lane, drawGeometry, s.widthSettings.personTrip, s.colorSettings.personTrip);
 }
 
 
 void 
-GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const {
     // draw person plan over junction
     drawPersonPlanPartialJunction(s, fromLane, toLane, drawGeometry, s.widthSettings.personTrip, s.colorSettings.personTrip);
 }

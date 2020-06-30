@@ -312,7 +312,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) const {
+GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const {
     // check if route can be drawn
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
         myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
@@ -375,7 +375,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane) 
 
 
 void 
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane) const {
+GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const {
     // only drawn in super mode demand
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
         fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {

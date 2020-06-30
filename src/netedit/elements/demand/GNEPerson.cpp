@@ -453,13 +453,13 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void 
-GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/) const {
+GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const bool /*drawGeometry*/) const {
     // Stops don't use drawPartialGL
 }
 
 
 void 
-GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/) const {
+GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const bool /*drawGeometry*/) const {
     // Stops don't use drawPartialGL
 }
 
