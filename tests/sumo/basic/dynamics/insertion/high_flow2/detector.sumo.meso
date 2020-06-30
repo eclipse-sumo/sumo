@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Mar 31 12:21:23 2020 by Eclipse SUMO Version v1_5_0+1025-83bc0d0af0
+<!-- generated on Fri Jun 19 10:36:42 2020 by Eclipse SUMO Version v1_6_0+0825-6b1495a90e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -42,10 +42,12 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3576.30" density="41.17" laneDensity="20.59" occupancy="10.29" waitingTime="0.00" speed="27.95" departed="19" arrived="0" entered="1018" left="1033"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3576.30" density="41.17" laneDensity="20.59" occupancy="10.29" waitingTime="0.00" speed="27.95" departed="19" arrived="0" entered="1018" left="1033"/>
-    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="7821.90" density="90.05" laneDensity="45.02" occupancy="22.51" waitingTime="0.00" speed="16.11" departed="105" arrived="0" entered="1208" left="1300"/>
-    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="7821.90" density="90.05" laneDensity="45.02" occupancy="22.51" waitingTime="0.00" speed="16.11" departed="105" arrived="0" entered="1208" left="1300"/>
-    <interval begin="1800.00" end="2414.00" id="beg2_0" sampledSeconds="2763.05" density="46.63" laneDensity="23.31" occupancy="11.66" waitingTime="0.00" speed="23.99" departed="0" arrived="0" entered="678" left="695"/>
-    <interval begin="1800.00" end="2414.00" id="beg2_1" sampledSeconds="2763.05" density="46.63" laneDensity="23.31" occupancy="11.66" waitingTime="0.00" speed="23.99" departed="0" arrived="0" entered="678" left="695"/>
+    <interval begin="0.00" end="900.00" id="beg2_0" sampledSeconds="3465.27" density="39.89" laneDensity="19.95" occupancy="9.97" waitingTime="0.00" speed="28.30" departed="0" arrived="0" entered="1019" left="1013"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" sampledSeconds="3465.27" density="39.89" laneDensity="19.95" occupancy="9.97" waitingTime="0.00" speed="28.30" departed="0" arrived="0" entered="1019" left="1013"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" sampledSeconds="4589.15" density="52.83" laneDensity="26.42" occupancy="13.21" waitingTime="0.00" speed="27.19" departed="45" arrived="0" entered="1247" left="1293"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" sampledSeconds="4589.15" density="52.83" laneDensity="26.42" occupancy="13.21" waitingTime="0.00" speed="27.19" departed="45" arrived="0" entered="1247" left="1293"/>
+    <interval begin="1800.00" end="2700.00" id="beg2_0" sampledSeconds="2190.54" density="25.22" laneDensity="12.61" occupancy="6.30" waitingTime="0.00" speed="30.17" departed="0" arrived="0" entered="684" left="687"/>
+    <interval begin="1800.00" end="2700.00" id="beg2_1" sampledSeconds="2190.54" density="25.22" laneDensity="12.61" occupancy="6.30" waitingTime="0.00" speed="30.17" departed="0" arrived="0" entered="684" left="687"/>
+    <interval begin="2700.00" end="2713.00" id="beg2_0" sampledSeconds="41.36" density="32.96" laneDensity="16.48" occupancy="8.24" waitingTime="0.00" speed="29.04" departed="0" arrived="0" entered="11" left="13"/>
+    <interval begin="2700.00" end="2713.00" id="beg2_1" sampledSeconds="41.36" density="32.96" laneDensity="16.48" occupancy="8.24" waitingTime="0.00" speed="29.04" departed="0" arrived="0" entered="11" left="13"/>
 </detector>

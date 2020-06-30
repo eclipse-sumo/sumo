@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 16 23:38:25 2020 by Eclipse SUMO Version v1_5_0+1178-2eafbbddc0
+<!-- generated on Tue Jun 30 14:38:36 2020 by Eclipse SUMO Version v1_6_0+1046-86bad426ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
     <tripinfo id="train.1" depart="300.00" departLane="gneE0_0" departPos="109.60" departSpeed="0.00" departDelay="0.00" arrival="428.00" arrivalLane="gneE0_0" arrivalPos="1529.03" arrivalSpeed="13.89" duration="128.00" routeLength="1419.43" waitingTime="0.00" waitingCount="0" stopTime="2.00" timeLoss="23.75" rerouteNo="1" devices="vehroute_train.1 tripinfo_train.1 routing_train.1 person_train.1" vType="train" speedFactor="1.00" vaporized=""/>
     <tripinfo id="train.2" depart="600.00" departLane="gneE0_0" departPos="109.60" departSpeed="0.00" departDelay="0.00" arrival="728.00" arrivalLane="gneE0_0" arrivalPos="1529.03" arrivalSpeed="13.89" duration="128.00" routeLength="1419.43" waitingTime="0.00" waitingCount="0" stopTime="2.00" timeLoss="23.75" rerouteNo="1" devices="vehroute_train.2 tripinfo_train.2 routing_train.2" vType="train" speedFactor="1.00" vaporized=""/>
     <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="0.00" vehicle="p0_0" depart="0.00" arrival="33.00" arrivalPos="250.00" duration="33.00" routeLength="747.95" timeLoss="6.06"/>
+        <ride waitingTime="0.00" vehicle="p0_0" depart="0.00" arrival="33.00" arrivalPos="250.00" duration="33.00" routeLength="748.45" timeLoss="6.06"/>
         <ride waitingTime="291.00" vehicle="train.1" depart="324.00" arrival="405.00" arrivalPos="1300.00" duration="81.00" routeLength="1000.00" timeLoss="9.01"/>
         <access stop="left2end" duration="17.00" routeLength="24.54"/>
         <walk depart="422.00" departPos="250.00" arrival="816.00" arrivalPos="249.28" duration="394.00" routeLength="502.13" timeLoss="32.47" maxSpeed="1.39"/>

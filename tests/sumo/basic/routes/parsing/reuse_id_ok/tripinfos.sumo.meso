@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 01/15/18 11:31:32 by SUMO Version v0_31_0+1647-6d8dc768ae
+<!-- generated on Fri Jun 19 10:36:36 2020 by Eclipse SUMO Version v1_6_0+0825-6b1495a90e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,12 +14,15 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <processing>
         <route-steps value="1"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -37,12 +40,12 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="126.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="126.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_0 tripinfo_0" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="1" depart="1.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="128.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="127.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.49" rerouteNo="0" devices="vehroute_1 tripinfo_1" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="2" depart="2.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="129.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="127.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.98" rerouteNo="0" devices="vehroute_2 tripinfo_2" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="3" depart="3.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="131.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="128.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.47" rerouteNo="0" devices="vehroute_3 tripinfo_3" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="4" depart="4.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="132.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="128.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.96" rerouteNo="0" devices="vehroute_4 tripinfo_4" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="5" depart="5.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="134.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="129.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.44" rerouteNo="0" devices="vehroute_5 tripinfo_5" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="6" depart="6.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="135.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="129.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.93" rerouteNo="0" devices="vehroute_6 tripinfo_6" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="1" depart="1.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="128.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="127.00" routeLength="2500.00" waitingTime="0.49" waitingCount="0" stopTime="0.00" timeLoss="0.49" rerouteNo="0" devices="vehroute_1 tripinfo_1" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="2" depart="2.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="129.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="127.00" routeLength="2500.00" waitingTime="0.98" waitingCount="0" stopTime="0.00" timeLoss="0.98" rerouteNo="0" devices="vehroute_2 tripinfo_2" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="3" depart="3.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="131.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="128.00" routeLength="2500.00" waitingTime="1.46" waitingCount="0" stopTime="0.00" timeLoss="1.47" rerouteNo="0" devices="vehroute_3 tripinfo_3" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="4" depart="4.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="132.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="128.00" routeLength="2500.00" waitingTime="1.67" waitingCount="0" stopTime="0.00" timeLoss="1.96" rerouteNo="0" devices="vehroute_4 tripinfo_4" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="5" depart="5.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="134.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="129.00" routeLength="2500.00" waitingTime="1.67" waitingCount="0" stopTime="0.00" timeLoss="2.45" rerouteNo="0" devices="vehroute_5 tripinfo_5" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="6" depart="6.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="135.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="129.00" routeLength="2500.00" waitingTime="1.67" waitingCount="0" stopTime="0.00" timeLoss="2.93" rerouteNo="0" devices="vehroute_6 tripinfo_6" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
     <tripinfo id="7" depart="700.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="826.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="126.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_7 tripinfo_7" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
     <tripinfo id="0" depart="800.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="926.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="27.80" duration="126.00" routeLength="2500.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_0 tripinfo_0" vType="KRAUSS_DEFAULT" speedFactor="1.00" vaporized=""/>
 </tripinfos>
