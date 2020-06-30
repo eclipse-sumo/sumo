@@ -190,7 +190,7 @@ public:
                 this->endQuery(num_visited);
 #ifdef ASTAR_DEBUG_QUERY_PERF
                 std::cout << "visited " + toString(num_visited) + " edges (final path length=" + toString(into.size())
-                          + " time=" + toString(recomputeCosts(into, vehicle, msTime))
+                          + " time=" + toString(this->recomputeCosts(into, vehicle, msTime))
                           + " edges=" + toString(into) + ")\n";
 #endif
 #ifdef ASTAR_DEBUG_VISITED
@@ -214,8 +214,8 @@ public:
                       << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
                       << " HT=" << minimumInfo->heuristicEffort
                       << " Q(TT,HT,Edge)=";
-            for (typename std::vector<EdgeInfo*>::iterator it = myFrontierList.begin(); it != myFrontierList.end(); it++) {
-                std::cout << (*it)->effort << "," << (*it)->heuristicEffort << "," << (*it)->edge->getID() << " ";
+            for (auto edgeInfo : myFrontierList) {
+                std::cout << edgeInfo->effort << "," << edgeInfo->heuristicEffort << "," << edgeInfo->edge->getID() << " ";
             }
             std::cout << "\n";
 #endif
