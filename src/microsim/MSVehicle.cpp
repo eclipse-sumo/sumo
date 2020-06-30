@@ -1066,7 +1066,7 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
             }
         } else {
             if ((*myCurrEdge)->allowedLanes(getVClass()) == nullptr) {
-                msg = "Vehicle '" + getID() + "' is not allowed to depart on any lane of its first edge.";
+                msg = "Vehicle '" + getID() + "' is not allowed to depart on any lane of edge '" + (*myCurrEdge)->getID() + "'.";
                 myRouteValidity |= ROUTE_START_INVALID_PERMISSIONS;
                 return false;
             }
