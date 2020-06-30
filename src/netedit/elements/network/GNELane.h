@@ -281,14 +281,14 @@ private:
     /// @brief lane2lane connections
     GNEGeometry::Lane2laneConnection myLane2laneConnections;
 
-    /// @brief vector with references to path additional elements
-    std::vector<GNEAdditional*> myPathAdditionalElements;
+    /// @brief map with references to path additional elements
+    std::map<SumoXMLTag, std::vector<GNEAdditional*> > myPathAdditionalElements;
 
-    /// @brief vector with references to path demand elements
-    std::vector<GNEDemandElement*> myPathDemandElements;
+    /// @brief map with references to path demand elements
+    std::map<SumoXMLTag, std::vector<GNEDemandElement*> > myPathDemandElements;
 
-    /// @brief vector with references to path generic data elements
-    std::vector<GNEGenericData*> myPathGenericDatas;
+    /// @brief map with references to path generic data elements
+    std::map<SumoXMLTag, std::vector<GNEGenericData*> > myPathGenericDatas;
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

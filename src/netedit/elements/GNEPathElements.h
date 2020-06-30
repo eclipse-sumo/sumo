@@ -83,10 +83,10 @@ public:
     const std::vector<GNEPathElements::PathElement>& getPath() const;
 
     /// @brief draw lane path child
-    void drawLanePathChildren(const GUIVisualizationSettings& s, const GNELane* lane) const;
+    void drawLanePathChildren(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const;
 
     /// @brief draw junction path child
-    void drawJunctionPathChildren(const GUIVisualizationSettings& s, const GNEJunction* junction) const;
+    void drawJunctionPathChildren(const GUIVisualizationSettings& s, const GNEJunction* junction, const bool drawGeometry) const;
 
 protected:
     /// @brief calculate path lanes (Dijkstra)

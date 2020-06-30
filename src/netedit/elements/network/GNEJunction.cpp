@@ -404,17 +404,29 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw Junction childs
             drawJunctionChilds(s);
+            // draw child demand elements
+            for (const auto& demandElement : getChildDemandElements()) {
+                if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                    demandElement->drawGL(s);
+                }
+            }
             // draw child path additionals
-            for (const auto &additionalElement : myPathAdditionalElements) {
-                additionalElement->drawJunctionPathChildren(s, this);
+            for (const auto &tag : myPathAdditionalElements) {
+                for (const auto &additional : tag.second) {
+                    additional->drawJunctionPathChildren(s, this, true);
+                }
             }
             // draw child path demand elements
-            for (const auto &demandElement : myPathDemandElements) {
-                demandElement->drawJunctionPathChildren(s, this);
+            for (const auto &tag : myPathDemandElements) {
+                for (const auto &demandElement : tag.second) {
+                    demandElement->drawJunctionPathChildren(s, this, true);
+                }
             }
             // draw child path generic datas
-            for (const auto &genericData : myPathGenericDatas) {
-                genericData->drawJunctionPathChildren(s, this);
+            for (const auto &tag : myPathDemandElements) {
+                for (const auto &genericData : tag.second) {
+                    genericData->drawJunctionPathChildren(s, this, true);
+                }
             }
         }
     }
@@ -968,57 +980,69 @@ GNEJunction::markConnectionsDeprecated(bool includingNeighbours) {
 
 void
 GNEJunction::addPathAdditionalElement(GNEAdditional* additionalElement) {
+    // get tag
+    SumoXMLTag tag = additionalElement->getTagProperty().getTag();
     // avoid insert duplicated path element childs
-    if (std::find(myPathAdditionalElements.begin(), myPathAdditionalElements.end(), additionalElement) == myPathAdditionalElements.end()) {
-        myPathAdditionalElements.push_back(additionalElement);
+    if (std::find(myPathAdditionalElements[tag].begin(), myPathAdditionalElements[tag].end(), additionalElement) == myPathAdditionalElements[tag].end()) {
+        myPathAdditionalElements[tag].push_back(additionalElement);
     }
 }
 
 
 void
 GNEJunction::removePathAdditionalElement(GNEAdditional* additionalElement) {
+    // get tag
+    SumoXMLTag tag = additionalElement->getTagProperty().getTag();
     // search and remove pathElementChild
-    auto it = std::find(myPathAdditionalElements.begin(), myPathAdditionalElements.end(), additionalElement);
-    if (it != myPathAdditionalElements.end()) {
-        myPathAdditionalElements.erase(it);
+    auto it = std::find(myPathAdditionalElements[tag].begin(), myPathAdditionalElements[tag].end(), additionalElement);
+    if (it != myPathAdditionalElements[tag].end()) {
+        myPathAdditionalElements[tag].erase(it);
     }
 }
 
 
 void
 GNEJunction::addPathDemandElement(GNEDemandElement* demandElement) {
+    // get tag
+    SumoXMLTag tag = demandElement->getTagProperty().getTag();
     // avoid insert duplicated path element childs
-    if (std::find(myPathDemandElements.begin(), myPathDemandElements.end(), demandElement) == myPathDemandElements.end()) {
-        myPathDemandElements.push_back(demandElement);
+    if (std::find(myPathDemandElements[tag].begin(), myPathDemandElements[tag].end(), demandElement) == myPathDemandElements[tag].end()) {
+        myPathDemandElements[tag].push_back(demandElement);
     }
 }
 
 
 void
 GNEJunction::removePathDemandElement(GNEDemandElement* demandElement) {
+    // get tag
+    SumoXMLTag tag = demandElement->getTagProperty().getTag();
     // search and remove pathElementChild
-    auto it = std::find(myPathDemandElements.begin(), myPathDemandElements.end(), demandElement);
-    if (it != myPathDemandElements.end()) {
-        myPathDemandElements.erase(it);
+    auto it = std::find(myPathDemandElements[tag].begin(), myPathDemandElements[tag].end(), demandElement);
+    if (it != myPathDemandElements[tag].end()) {
+        myPathDemandElements[tag].erase(it);
     }
 }
 
 
 void
 GNEJunction::addPathGenericData(GNEGenericData* genericData) {
+    // get tag
+    SumoXMLTag tag = genericData->getTagProperty().getTag();
     // avoid insert duplicated path element childs
-    if (std::find(myPathGenericDatas.begin(), myPathGenericDatas.end(), genericData) == myPathGenericDatas.end()) {
-        myPathGenericDatas.push_back(genericData);
+    if (std::find(myPathGenericDatas[tag].begin(), myPathGenericDatas[tag].end(), genericData) == myPathGenericDatas[tag].end()) {
+        myPathGenericDatas[tag].push_back(genericData);
     }
 }
 
 
 void
 GNEJunction::removePathGenericData(GNEGenericData* genericData) {
+    // get tag
+    SumoXMLTag tag = genericData->getTagProperty().getTag();
     // search and remove pathElementChild
-    auto it = std::find(myPathGenericDatas.begin(), myPathGenericDatas.end(), genericData);
-    if (it != myPathGenericDatas.end()) {
-        myPathGenericDatas.erase(it);
+    auto it = std::find(myPathGenericDatas[tag].begin(), myPathGenericDatas[tag].end(), genericData);
+    if (it != myPathGenericDatas[tag].end()) {
+        myPathGenericDatas[tag].erase(it);
     }
 }
 
@@ -1027,20 +1051,26 @@ void
 GNEJunction::invalidatePathElements() {
     // make a copy of myPathAdditionalElements
     auto copyOfPathAdditionalElements = myPathAdditionalElements;
-    for (const auto& additionalElement : copyOfPathAdditionalElements) {
-        // note: currently additional elements don't use compute/invalidate paths
-        additionalElement->updateGeometry();
+    for (const auto& tag : copyOfPathAdditionalElements) {
+        for (const auto& additionalElement : tag.second) {
+            // note: currently additional elements don't use compute/invalidate paths
+            additionalElement->updateGeometry();
+        }
     }
     // make a copy of myPathDemandElements
     auto copyOfPathDemandElements = myPathDemandElements;
-    for (const auto& demandElement : copyOfPathDemandElements) {
-        demandElement->invalidatePath();
+    for (const auto& tag : copyOfPathDemandElements) {
+        for (const auto& demandElement : tag.second) {
+            demandElement->invalidatePath();
+        }
     }
     // make a copy of myPathGenericDatas
     auto copyOfPathGenericDatas = myPathGenericDatas;
-    for (const auto& genericData : copyOfPathGenericDatas) {
-        // note: currently generic datas don't use compute/invalidate paths
-        genericData->updateGeometry();
+    for (const auto& tag : copyOfPathGenericDatas) {
+        for (const auto& genericData : tag.second) {
+            // note: currently generic datas don't use compute/invalidate paths
+            genericData->updateGeometry();
+        }
     }
 }
 

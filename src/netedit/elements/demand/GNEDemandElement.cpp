@@ -427,7 +427,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
 
 void 
 GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane, 
-    const double personPlanWidth, const RGBColor &personPlanColor) const {
+    const bool drawGeometry, const double personPlanWidth, const RGBColor &personPlanColor) const {
     // get inspected person plan
     const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getInspectedAttributeCarrier();
     const GNEDemandElement* personParent = getParentDemandElements().front();
@@ -456,39 +456,42 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
         const RGBColor &color = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : personPlanColor;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
-        // iterate over segments
-        for (const auto& segment : myDemandElementSegmentGeometry) {
-            // draw partial segment
-            if (segment.isLaneSegment() && (segment.getLane() == lane)) {
-                // Set person plan color
-                GLHelper::setColor(color);
-                // draw segment depending of duplicateWidth
-                if (duplicateWidth) {
-                    // draw segment geometry
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2*segmentWidth));
-                    // check if shape dotted contour has to be drawn
-                    if (personPlanInspected == this) {
+        // only continue if drawGeometry is enabled
+        if (drawGeometry) {
+            // Add a draw matrix
+            glPushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            glTranslated(0, 0, getType());
+            // iterate over segments
+            for (const auto& segment : myDemandElementSegmentGeometry) {
+                // draw partial segment
+                if (segment.isLaneSegment() && (segment.getLane() == lane)) {
+                    // Set person plan color
+                    GLHelper::setColor(color);
+                    // draw segment depending of duplicateWidth
+                    if (duplicateWidth) {
+                        // draw segment geometry
                         GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2*segmentWidth));
-                    }
-                } else {
-                    // draw segment geometry
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, segmentWidth);
-                    // check if shape dotted contour has to be drawn
-                    if (personPlanInspected == this) {
+                        // check if shape dotted contour has to be drawn
+                        if (personPlanInspected == this) {
+                            GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2*segmentWidth));
+                        }
+                    } else {
+                        // draw segment geometry
                         GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, segmentWidth);
+                        // check if shape dotted contour has to be drawn
+                        if (personPlanInspected == this) {
+                            GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, segmentWidth);
+                        }
                     }
                 }
             }
-        }
-        // Pop last matrix
-        glPopMatrix();
-        // Draw name if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            // Pop last matrix
+            glPopMatrix();
+            // Draw name if isn't being drawn for selecting
+            if (!s.drawForRectangleSelection) {
+                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
+            }
         }
         // Pop name
         glPopName();
@@ -548,7 +551,7 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
 
 void 
 GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, 
-    const double personPlanWidth, const RGBColor &personPlanColor) const {
+    const bool drawGeometry, const double personPlanWidth, const RGBColor &personPlanColor) const {
     // get inspected person plan
     const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getInspectedAttributeCarrier();
     const GNEDemandElement* personParent = getParentDemandElements().front();
@@ -577,30 +580,33 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         const RGBColor &color = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : personPlanColor;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
-        // push a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
-        // check if draw lane2lane connection or a red line
-        if (fromLane->getLane2laneConnections().exist(toLane)) {
-            // obtain lane2lane geometry
-            const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
-            // Set person plan color
-            GLHelper::setColor(color);
-            // draw lane2lane
-            if (duplicateWidth) {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, (2*segmentWidth));
+        // only continue if drawGeometry is enabled
+        if (drawGeometry) {
+            // push a draw matrix
+            glPushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            glTranslated(0, 0, getType());
+            // check if draw lane2lane connection or a red line
+            if (fromLane->getLane2laneConnections().exist(toLane)) {
+                // obtain lane2lane geometry
+                const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+                // Set person plan color
+                GLHelper::setColor(color);
+                // draw lane2lane
+                if (duplicateWidth) {
+                    GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, (2*segmentWidth));
+                } else {
+                    GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, segmentWidth);
+                }
             } else {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, segmentWidth);
+                // Set invalid person plan color
+                GLHelper::setColor(RGBColor::RED);
+                // draw line between end of first shape and first position of second shape
+                GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5*segmentWidth));
             }
-        } else {
-            // Set invalid person plan color
-            GLHelper::setColor(RGBColor::RED);
-            // draw line between end of first shape and first position of second shape
-            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5*segmentWidth));
+            // Pop last matrix
+            glPopMatrix();
         }
-        // Pop last matrix
-        glPopMatrix();
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn
