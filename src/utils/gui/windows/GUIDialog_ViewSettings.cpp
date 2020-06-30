@@ -929,10 +929,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     } else if (sender == myVehicleTextParamKey) {
         tmpSettings.vehicleTextParam = myVehicleTextParamKey->getText().text();
     }
-    tmpSettings.edgeValueHideCheck = myLaneColorRainbowCheck->getCheck();
+    tmpSettings.edgeValueHideCheck = (myLaneColorRainbowCheck->getCheck() != FALSE);
     tmpSettings.edgeValueHideThreshold = myLaneColorRainbowThreshold->getValue();
-    tmpSettings.laneWidthExaggeration = (double) myLaneWidthUpscaleDialer->getValue();
-    tmpSettings.laneMinSize = (double) myLaneMinWidthDialer->getValue();
+    tmpSettings.laneWidthExaggeration = myLaneWidthUpscaleDialer->getValue();
+    tmpSettings.laneMinSize = myLaneMinWidthDialer->getValue();
 
     tmpSettings.vehicleColorer.setActive(myVehicleColorMode->getCurrentItem());
     tmpSettings.vehicleQuality = myVehicleShapeDetail->getCurrentItem();
