@@ -88,6 +88,11 @@ the following formats:
 - [a basic network view developed in the Amitran
   project](Networks/Export.md#amitran)
 
+Using python tools, conversion of .net.xml files into further formats is supported:
+
+- [KML](Tools/Net.md#net2kmlpy)
+- [GeoJSON](Tools/Net.md#net2geojsonpy)
+
 # Further supported Data Formats
 
 ## Import
