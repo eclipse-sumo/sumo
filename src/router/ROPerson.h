@@ -202,7 +202,7 @@ public:
             return to;
         }
         double getDestinationPos() const {
-            return arr;
+            return arr == std::numeric_limits<double>::infinity() ? -NUMERICAL_EPS : arr;
         }
         void saveAsXML(OutputDevice& os, const bool extended) const;
 
@@ -248,7 +248,7 @@ public:
             return edges.back();
         }
         double getDestinationPos() const {
-            return arr;
+            return arr == std::numeric_limits<double>::infinity() ? 0 : arr;
         }
         void saveAsXML(OutputDevice& os, const bool extended) const;
 
@@ -313,7 +313,7 @@ public:
             return dep == std::numeric_limits<double>::infinity() && replaceDefault ? 0 : dep;
         }
         double getArrivalPos(bool replaceDefault = true) const {
-            return arr == std::numeric_limits<double>::infinity() && replaceDefault ? -POSITION_EPS : arr;
+            return arr == std::numeric_limits<double>::infinity() && replaceDefault ? 0 : arr;
         }
         SVCPermissions getModes() const {
             return modes;

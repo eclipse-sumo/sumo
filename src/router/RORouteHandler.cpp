@@ -224,7 +224,7 @@ RORouteHandler::myStartElement(int element,
                 throw ProcessError("The to edge '' within a ride of '" + myVehicleParameter->id + "' is not known.");
             }
             double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
-                                stop == nullptr ? -NUMERICAL_EPS : stop->endPos);
+                                stop == nullptr ? std::numeric_limits<double>::infinity() : stop->endPos);
             const std::string desc = attrs.get<std::string>(SUMO_ATTR_LINES, pid.c_str(), ok);
             const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, pid.c_str(), ok, "");
             myActivePerson->addRide(from, to, desc, arrivalPos, busStopID, group);
@@ -1050,7 +1050,7 @@ RORouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     }
 
     double departPos = 0;
-    double arrivalPos = 0;
+    double arrivalPos = std::numeric_limits<double>::infinity();
     std::string busStopID;
     const ROPerson::PlanItem* const lastStage = myActivePerson->getPlan().empty() ? nullptr : myActivePerson->getPlan().back();
     parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, busStopID, lastStage, ok);
@@ -1108,7 +1108,7 @@ RORouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             throw ProcessError("Non-positive walking speed for  '" + myVehicleParameter->id + "'.");
         }
         double departPos = 0.;
-        double arrivalPos = 0.;
+        double arrivalPos = std::numeric_limits<double>::infinity();
         if (attrs.hasAttribute(SUMO_ATTR_DEPARTPOS)) {
             WRITE_WARNING("The attribute departPos is no longer supported for walks, please use the person attribute, the arrivalPos of the previous step or explicit stops.");
         }

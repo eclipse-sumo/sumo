@@ -146,6 +146,8 @@ ROPerson::Ride::saveAsXML(OutputDevice& os, const bool extended) const {
         if (name != "") {
             comment =  " <!-- " + name + " -->";
         }
+    } else if (arr != 0 && arr != std::numeric_limits<double>::infinity()) {
+        os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
     }
     os.writeAttr(SUMO_ATTR_LINES, lines);
     if (group != "") {
@@ -175,15 +177,14 @@ ROPerson::Walk::saveAsXML(OutputDevice& os, const bool extended) const {
         os.writeAttr(SUMO_ATTR_SPEED, v);
     }
     os.writeAttr(SUMO_ATTR_EDGES, edges);
-    if (arr != 0. && destStop == "") {
-        os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
-    }
     if (destStop != "") {
         os.writeAttr(SUMO_ATTR_BUS_STOP, destStop);
         const std::string name = RONet::getInstance()->getStoppingPlaceName(destStop);
         if (name != "") {
             comment =  " <!-- " + name + " -->";
         }
+    } else if (arr != 0 && arr != std::numeric_limits<double>::infinity()) {
+        os.writeAttr(SUMO_ATTR_ARRIVALPOS, arr);
     }
     os.closeTag(comment);
 }
