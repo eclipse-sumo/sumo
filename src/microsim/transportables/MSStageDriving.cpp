@@ -204,7 +204,7 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
             net->getPersonControl().addWaiting(myWaitingEdge, transportable);
             myWaitingEdge->addPerson(transportable);
             // check if the ride can be conducted and reserve it
-            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), myArrivalPos, myGroup);
+            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), getArrivalPos(), myGroup);
         } else {
             net->getContainerControl().addWaiting(myWaitingEdge, transportable);
             myWaitingEdge->addContainer(transportable);
@@ -225,7 +225,7 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
     os.writeAttr("vehicle", myVehicleID);
     os.writeAttr("depart", myDeparted >= 0 ? time2string(myDeparted) : "-1");
     os.writeAttr("arrival", myArrived >= 0 ? time2string(myArrived) : "-1");
-    os.writeAttr("arrivalPos", toString(myArrivalPos));
+    os.writeAttr("arrivalPos", toString(getArrivalPos()));
     os.writeAttr("duration", myArrived >= 0 ? time2string(duration) :
                  (myDeparted >= 0 ? time2string(now - myDeparted) : "-1"));
     os.writeAttr("routeLength", myVehicleDistance);
@@ -247,6 +247,8 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
         if (myDestinationStop->getMyName() != "") {
             comment = " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
         }
+    } else if (myArrivalPos != std::numeric_limits<double>::infinity()) {
+        os.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
     }
     os.writeAttr(SUMO_ATTR_LINES, myLines);
     if (myIntendedVehicleID != "") {
@@ -299,6 +301,10 @@ MSStageDriving::getEdges() const {
     return result;
 }
 
+double
+MSStageDriving::getArrivalPos() const {
+    return myArrivalPos == std::numeric_limits<double>::infinity() ? getDestination()->getLength() : myArrivalPos;
+}
 
 const std::string
 MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now) {
@@ -309,6 +315,8 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
         myTimeLoss = myVehicle->getTimeLoss() - myTimeLoss;
         if (myVehicle->isStopped()) {
             myArrivalPos = myVehicle->getPositionOnLane();
+        } else {
+            myArrivalPos = myVehicle->getArrivalPos();
         }
     } else {
         myVehicleDistance = -1.;

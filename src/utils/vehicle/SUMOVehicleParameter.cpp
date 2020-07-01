@@ -533,7 +533,7 @@ SUMOVehicleParameter::interpretEdgePos(double pos, double maximumValue, SumoXMLA
     if (pos < 0) {
         pos = maximumValue + pos;
     }
-    if (pos > maximumValue) {
+    if (pos > maximumValue && pos != std::numeric_limits<double>::infinity()) {
         WRITE_WARNING("Invalid " + toString(attr) + " " + toString(pos) + " given for " + id + ". Using edge end instead.");
         pos = maximumValue;
     }

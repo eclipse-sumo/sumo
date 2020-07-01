@@ -68,6 +68,9 @@ public:
 
     MSStage* clone() const;
 
+    /// @brief return default value for undefined arrivalPos
+    double getArrivalPos() const;
+
     /// abort this stage (TraCI)
     void abort(MSTransportable* t);
 

@@ -86,7 +86,7 @@ public:
         return nullptr;
     }
 
-    double getArrivalPos() const {
+    virtual double getArrivalPos() const {
         return myArrivalPos;
     }
 

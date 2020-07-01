@@ -203,7 +203,7 @@ MSRouteHandler::myStartElement(int element,
                     to = &bs->getLane().getEdge();
                 }
                 double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
-                                    bs == nullptr ? -NUMERICAL_EPS : bs->getEndLanePosition());
+                                    bs == nullptr ? std::numeric_limits<double>::infinity() : bs->getEndLanePosition());
 
                 SUMOVehicle* startVeh = nullptr;
                 if (myActivePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
@@ -276,7 +276,7 @@ MSRouteHandler::myStartElement(int element,
                         }
                     }
                     double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
-                                        cs == nullptr ? -NUMERICAL_EPS : cs->getEndLanePosition());
+                                        cs == nullptr ? std::numeric_limits<double>::infinity() : cs->getEndLanePosition());
                     if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
                         const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, containerId.c_str(), ok);
                         from = MSEdge::dictionary(fromID);
