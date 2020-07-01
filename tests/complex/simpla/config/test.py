@@ -18,7 +18,6 @@
 import unittest as ut
 import os
 import sys
-import subprocess
 
 # Put tools into PYTHONPATH
 sumoHome = os.environ.get("SUMO_HOME", os.path.abspath(

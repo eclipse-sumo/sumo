@@ -18,7 +18,6 @@
 import unittest as ut
 import os
 import sys
-import subprocess
 
 # Put tools into PYTHONPATH
 if 'SUMO_HOME' in os.environ:
