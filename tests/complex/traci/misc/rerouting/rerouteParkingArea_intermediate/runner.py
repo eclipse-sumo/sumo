@@ -28,7 +28,7 @@ import sumolib  # noqa
 sumoBinary = os.environ["SUMO_BINARY"]
 traci.start([sumoBinary,
              '-c', 'sumo.sumocfg',
-             '-n', 'input_net2.net.xml',
+             '-n', 'input_net4.net.xml',
              '-a', 'input_additional.add.xml',
              # '-S', '-Q',
              ])
