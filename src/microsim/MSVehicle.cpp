@@ -1821,7 +1821,7 @@ bool
 MSVehicle::isStoppedInRange(const double pos, const double tolerance) const {
     if (isStopped()) {
         const Stop& stop = myStops.front();
-        if (stop.pars.endPos - stop.pars.startPos <= MIN_STOP_LENGTH) {
+        if (stop.pars.endPos - stop.pars.startPos <= MIN_STOP_LENGTH + NUMERICAL_EPS) {
             return stop.pars.startPos - tolerance <= pos && stop.pars.endPos + tolerance >= pos;
         }
         return stop.pars.startPos <= pos && stop.pars.endPos >= pos;

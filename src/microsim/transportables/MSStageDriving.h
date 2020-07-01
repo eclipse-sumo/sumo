@@ -71,6 +71,8 @@ public:
     /// @brief return default value for undefined arrivalPos
     double getArrivalPos() const;
 
+    bool unspecifiedArrivalPos() const;
+
     /// abort this stage (TraCI)
     void abort(MSTransportable* t);
 

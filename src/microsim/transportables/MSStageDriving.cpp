@@ -303,7 +303,12 @@ MSStageDriving::getEdges() const {
 
 double
 MSStageDriving::getArrivalPos() const {
-    return myArrivalPos == std::numeric_limits<double>::infinity() ? getDestination()->getLength() : myArrivalPos;
+    return unspecifiedArrivalPos() ? getDestination()->getLength() : myArrivalPos;
+}
+
+bool
+MSStageDriving::unspecifiedArrivalPos() const {
+    return myArrivalPos == std::numeric_limits<double>::infinity();
 }
 
 const std::string

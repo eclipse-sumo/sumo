@@ -101,32 +101,41 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
         if (veh.isStopped()) {
             for (std::vector<MSTransportable*>::iterator i = myTransportables.begin(); i != myTransportables.end();) {
                 MSTransportable* transportable = *i;
-                if (transportable->getDestination() == veh.getEdge()
-                        && (transportable->getCurrentStage()->getDestinationStop() == nullptr
-                            || myHolder.isStoppedInRange(transportable->getCurrentStage()->getArrivalPos(), myHolder.getLength()))) {
-                    i = myTransportables.erase(i); // erase first in case proceed throws an exception
-                    if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
-                        if (myAmContainer) {
-                            MSNet::getInstance()->getContainerControl().erase(transportable);
-                        } else {
-                            MSNet::getInstance()->getPersonControl().erase(transportable);
+                if (transportable->getDestination() == veh.getEdge()) {
+                    MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
+                    // if this is the last stage, we can use the arrivalPos of the person
+                    const bool unspecifiedArrivalPos = stage->unspecifiedArrivalPos() && (
+                            transportable->getNumRemainingStages() > 1 || !transportable->getParameter().wasSet(VEHPARS_ARRIVALPOS_SET));
+                    const double arrivalPos = (stage->unspecifiedArrivalPos()
+                        ? SUMOVehicleParameter::interpretEdgePos(transportable->getParameter().arrivalPos, veh.getEdge()->getLength(),
+                                SUMO_ATTR_ARRIVALPOS, transportable->getID(), true)
+                        : stage->getArrivalPos());
+                    if (unspecifiedArrivalPos ||
+                            myHolder.isStoppedInRange(arrivalPos, myHolder.getLength() + MSGlobals::gStopTolerance)) {
+                        i = myTransportables.erase(i); // erase first in case proceed throws an exception
+                        if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+                            if (myAmContainer) {
+                                MSNet::getInstance()->getContainerControl().erase(transportable);
+                            } else {
+                                MSNet::getInstance()->getPersonControl().erase(transportable);
+                            }
                         }
-                    }
-                    if (MSStopOut::active()) {
-                        SUMOVehicle* vehicle = dynamic_cast<SUMOVehicle*>(&veh);
-                        if (myAmContainer) {
-                            MSStopOut::getInstance()->unloadedContainers(vehicle, 1);
-                        } else {
-                            MSStopOut::getInstance()->unloadedPersons(vehicle, 1);
+                        if (MSStopOut::active()) {
+                            SUMOVehicle* vehicle = dynamic_cast<SUMOVehicle*>(&veh);
+                            if (myAmContainer) {
+                                MSStopOut::getInstance()->unloadedContainers(vehicle, 1);
+                            } else {
+                                MSStopOut::getInstance()->unloadedPersons(vehicle, 1);
+                            }
                         }
+                        MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+                        if (taxiDevice != nullptr) {
+                            taxiDevice->customerArrived(transportable);
+                        }
+                        continue;
                     }
-                    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
-                    if (taxiDevice != nullptr) {
-                        taxiDevice->customerArrived(transportable);
-                    }
-                } else {
-                    ++i;
                 }
+                ++i;
             }
             myStopped = true;
         }
