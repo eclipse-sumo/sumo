@@ -304,7 +304,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 }
             }
             if (loops.size() == 0) {
-                WRITE_WARNING("At actuated tlLogic '" + getID() + "', actuated phase " + toString(phaseIndex) + " has no controlling detector");
+                WRITE_WARNINGF("At actuated tlLogic '%', actuated phase % has no controlling detector", getID(), toString(phaseIndex));
             }
         }
 #ifdef DEBUG_DETECTORS
@@ -340,7 +340,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     for (int i : actuatedLinks) {
         if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0
                 && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
-            WRITE_WARNING("At actuated tlLogic '" + getID() + "', linkIndex " + toString(i) + " has no controlling detector");
+            WRITE_WARNINGF("At actuated tlLogic '%', linkIndex % has no controlling detector", getID(), toString(i));
         }
     }
     // parse maximum green times for each link (optional)
