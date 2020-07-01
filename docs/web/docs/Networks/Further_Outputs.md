@@ -122,23 +122,11 @@ conditions must be met:
 Such edges will receive the polygon objects with the indicated IDs as
 road objects
 
-## (Q)GIS
+## (Q)GIS / GeoJSON
+Conversion of .net.xml file with [python tool net2geojson](Tools/Net.md#net2geojsonpy)
 
-NETCONVERT does not directly support an output that can be read by QGIS
-but on Linux the following conversion script can be used to convert a
-*net.xml* file into a loadable layer. The layer can be loaded with
-function *Add Delimited Text Layer* (Delimiter must be set to
-'semicolon', Geometry to WKT).
-
-```
-  #!/bin/bash
-  grep "<lane\|<net\|</net" $1 > $1.lanes.xml
-  python $SUMO_HOME/tools/xml/xml2csv.py $1.lanes.xml
-  sed -i 's/ /|/g' $1.lanes.csv
-  sed -i 's/,/ /g' $1.lanes.csv
-  sed -i 's/|/,/g' $1.lanes.csv
-  awk '$5="LINESTRING("$5")"' FS=';' OFS=';' $1.lanes.csv > $1.lanes.qgis.csv
-```
+## KML
+Conversion of .net.xml file with [python tool net2kml](Tools/Net.md#net2kmlpy)
 
 # Further Outputs
 
