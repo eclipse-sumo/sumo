@@ -318,7 +318,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
     } else if (routingAlgorithm == "CH") {
         const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : SUMOTime_MAX;
         router = new CHRouter<MSEdge, SUMOVehicle>(
-            MSEdge::getAllEdges(), true, myEffortFunc, vehicle->getVClass(), weightPeriod, true, false);
+            MSEdge::getAllEdges(), true, myEffortFunc, vehicle == nullptr ? SVC_PASSENGER : vehicle->getVClass(), weightPeriod, true, false);
     } else if (routingAlgorithm == "CHWrapper") {
         const SUMOTime weightPeriod = myAdaptationInterval > 0 ? myAdaptationInterval : SUMOTime_MAX;
         router = new CHRouterWrapper<MSEdge, SUMOVehicle>(
