@@ -54,7 +54,9 @@ GNEChange_Additional::~GNEChange_Additional() {
             // remove element from path
             for (const auto& pathElement : myPath) {
                 pathElement.getLane()->removePathAdditionalElement(myAdditional);
-                pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+                if (pathElement.getJunction()) {
+                    pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+                }
             }
             // remove additional from parents and children
             removeElementFromParentsAndChildren(myAdditional);
@@ -78,7 +80,9 @@ GNEChange_Additional::undo() {
         // remove element from path
         for (const auto& pathElement : myPath) {
             pathElement.getLane()->removePathAdditionalElement(myAdditional);
-            pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+            if (pathElement.getJunction()) {
+                pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+            }
         }
         // remove additional from parents and children
         removeElementFromParentsAndChildren(myAdditional);
@@ -124,7 +128,9 @@ GNEChange_Additional::redo() {
         // remove element from path
         for (const auto& pathElement : myPath) {
             pathElement.getLane()->removePathAdditionalElement(myAdditional);
-            pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+            if (pathElement.getJunction()) {
+                pathElement.getJunction()->removePathAdditionalElement(myAdditional);
+            }
         }
         // remove additional from parents and children
         removeElementFromParentsAndChildren(myAdditional);

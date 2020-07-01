@@ -58,7 +58,9 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
             // remove element from path
             for (const auto& pathElement : myPath) {
                 pathElement.getLane()->removePathDemandElement(myDemandElement);
-                pathElement.getJunction()->removePathDemandElement(myDemandElement);
+                if (pathElement.getJunction()) {
+                    pathElement.getJunction()->removePathDemandElement(myDemandElement);
+                }
             }
             // remove demand element from parents and children
             removeElementFromParentsAndChildren(myDemandElement);
@@ -82,7 +84,9 @@ GNEChange_DemandElement::undo() {
         // remove element from path
         for (const auto& pathElement : myPath) {
             pathElement.getLane()->removePathDemandElement(myDemandElement);
-            pathElement.getJunction()->removePathDemandElement(myDemandElement);
+            if (pathElement.getJunction()) {
+                pathElement.getJunction()->removePathDemandElement(myDemandElement);
+            }
         }
         // remove demand element from parents and children
         removeElementFromParentsAndChildren(myDemandElement);
@@ -140,7 +144,9 @@ GNEChange_DemandElement::redo() {
         // remove element from path
         for (const auto& pathElement : myPath) {
             pathElement.getLane()->removePathDemandElement(myDemandElement);
-            pathElement.getJunction()->removePathDemandElement(myDemandElement);
+            if (pathElement.getJunction()) {
+                pathElement.getJunction()->removePathDemandElement(myDemandElement);
+            }
         }
         // remove demand element from parents and children
         removeElementFromParentsAndChildren(myDemandElement);
