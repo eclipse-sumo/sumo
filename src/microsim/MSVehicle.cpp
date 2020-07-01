@@ -6310,14 +6310,19 @@ MSVehicle::getNextStopParameter() const {
     return nullptr;
 }
 
-void
-MSVehicle::abortNextStop() {
-    if (hasStops()) {
-        if (isStopped()) {
+bool
+MSVehicle::abortNextStop(int nextStopIndex) {
+    if (hasStops() && nextStopIndex < (int)myStops.size()) {
+        if (nextStopIndex == 0 && isStopped()) {
             resumeFromStopping();
         } else {
-            myStops.erase(myStops.begin());
+            auto stopIt = myStops.begin();
+            std::advance(stopIt, nextStopIndex);
+            myStops.erase(stopIt);
         }
+        return true;
+    } else {
+        return false;
     }
 }
 

@@ -1320,8 +1320,8 @@ public:
     */
     bool resumeFromStopping();
 
-    /// @brief deletes the next stop if it exists
-    void abortNextStop();
+    /// @brief deletes the next stop at the given index if it exists
+    bool abortNextStop(int nextStopIndex = 0);
 
     /// @brief update a vector of further lanes and return the new backPos
     double updateFurtherLanes(std::vector<MSLane*>& furtherLanes,
