@@ -44,7 +44,6 @@ class GNEGenericData;
 class GNEPathElements {
 
 public:
-
     /// @brief path element
     class PathElement {
 
@@ -52,15 +51,24 @@ public:
         /// @brief constructor for lanes
         PathElement(GNELane* lane);
 
+        /// @brief update nextLane
+        void updateNextLane(GNELane* lane);
+
         /// @brief get junction
         GNEJunction* getJunction() const;
 
         /// @brief get lane
         GNELane* getLane() const;
 
+        /// @brief get next lane
+        GNELane* getNextLane() const;
+
     protected:
         /// @brief lane
         GNELane* myLane;
+
+        /// @brief nextLane
+        GNELane* myNextLane;
 
     private:
         /// @brief default constructor
@@ -104,7 +112,6 @@ protected:
     /// @brief calculate consecutive path lanes (used by genericdatas)
     void calculateGenericDataLanePath(const std::vector<GNEEdge*> &edges);
 
-
 private:
     /// @brief pointer to additional element
     GNEAdditional* myAdditionalElement;
@@ -123,6 +130,9 @@ private:
 
     /// @brief remove elements
     void removeElements();
+
+    /// @brief update path element
+    void updatePathElements();
 
     /// @brief calculate from-via-to edges
     const std::vector<GNEEdge*> calculateFromViaToEdges(GNELane* fromLane, GNELane* toLane, const std::vector<GNEEdge*> &viaEdges);
