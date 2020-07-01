@@ -124,6 +124,16 @@ public:
                         double startPos = INVALID_DOUBLE_VALUE,
                         double until = INVALID_DOUBLE_VALUE);
 
+    static void replaceStop(const std::string& vehicleID,
+                        int nextStopIndex,
+                        const std::string& edgeID,
+                        double pos = 1.,
+                        int laneIndex = 0,
+                        double duration = INVALID_DOUBLE_VALUE,
+                        int flags = STOP_DEFAULT,
+                        double startPos = INVALID_DOUBLE_VALUE,
+                        double until = INVALID_DOUBLE_VALUE);
+
     static void rerouteParkingArea(const std::string& vehicleID,
                                    const std::string& parkingAreaID);
 

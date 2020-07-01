@@ -57,7 +57,7 @@ TRACI_CONST int CMD_SIMSTEP = 0x02;
 // command: set connection priority (execution order)
 TRACI_CONST int CMD_SETORDER = 0x03;
 
-// command: stop node
+// command: stop vehicle
 TRACI_CONST int CMD_STOP = 0x12;
 
 // command: reroute to parking area
@@ -77,6 +77,9 @@ TRACI_CONST int CMD_CHANGESUBLANE = 0x15;
 
 // command: open gap
 TRACI_CONST int CMD_OPENGAP = 0x16;
+
+// command: replace vehicle stop and updated route
+TRACI_CONST int CMD_REPLACE_STOP = 0x17;
 
 // command: change target
 TRACI_CONST int CMD_CHANGETARGET = 0x31;

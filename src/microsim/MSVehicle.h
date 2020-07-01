@@ -1007,6 +1007,9 @@ public:
         /// @brief get a short description for showing in the gui
         std::string getDescription() const;
 
+        /// @brief initialize attributes from the given stop parameters
+        void initPars(const SUMOVehicleParameter::Stop& stopPar);
+
     private:
         /// @brief Invalidated assignment operator
         Stop& operator=(const Stop& src);
@@ -1278,6 +1281,17 @@ public:
      * @param[out] errorMsg returned error message
      */
     bool addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg);
+
+    /**
+     * replace the next stop at the given index with the given stop parameters
+     * will wait for the given duration before continuing on its route
+     * The route between start other stops and destination will be kept unchanged and
+     * only the part around the replacement index will be adapted according to the new stop location
+     * @param[in] nextStopDist The replacement index
+     * @param[in] stop Stop parameters
+     * @param[out] errorMsg returned error message
+     */
+    bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, std::string& errorMsg);
 
     /**
     * returns the next imminent stop in the stop queue

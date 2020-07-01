@@ -954,6 +954,33 @@ Vehicle::setStop(const std::string& vehicleID,
     }
 }
 
+
+void
+Vehicle::replaceStop(const std::string& vehicleID,
+                 int nextStopIndex,
+                 const std::string& edgeID,
+                 double pos,
+                 int laneIndex,
+                 double duration,
+                 int flags,
+                 double startPos,
+                 double until) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh == nullptr) {
+        WRITE_WARNING("replaceStop not yet implemented for meso");
+        return;
+    }
+    SUMOVehicleParameter::Stop stopPars = buildStopParameters(edgeID,
+            pos, laneIndex, startPos, flags, duration, until);
+
+    std::string error;
+    if (!veh->replaceStop(nextStopIndex, stopPars, "traci:replaceStop", error)) {
+        throw TraCIException("Stop replacement failed for vehicle '" + vehicleID + "' (" + error + ").");
+    }
+}
+
+
 void
 Vehicle::rerouteParkingArea(const std::string& vehicleID, const std::string& parkingAreaID) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
