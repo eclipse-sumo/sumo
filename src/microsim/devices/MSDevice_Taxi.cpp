@@ -193,6 +193,7 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
 void
 MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*> reservations) {
     if (isEmpty()) {
+        SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         if (MSGlobals::gUseMesoSim) {
             throw ProcessError("Dispatch for meso not yet implemented");
         }
@@ -225,12 +226,12 @@ MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*> reservations
             std::string error;
             myHolder.addStop(stop, error);
             if (error != "") {
-                WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to %. time=% error=%", myHolder.getID(), stop.actType, SIMTIME, error)
+                WRITE_WARNINGF("Could not add taxi stop for vehicle '%' to %. time=% error=%", myHolder.getID(), stop.actType, time2string(t), error)
             }
         }
         SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = MSRoutingEngine::getRouterTT(myHolder.getRNGIndex(), myHolder.getVClass());
         // SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = myHolder.getInfluencer().getRouterTT(veh->getRNGIndex())
-        myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), "taxi:dispatch", router, false);
+        myHolder.reroute(t, "taxi:dispatch", router, false);
     } else {
         throw ProcessError("Dispatch for busy taxis not yet implemented");
     }
