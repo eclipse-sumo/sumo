@@ -3,6 +3,7 @@ moveToXY
 
 # Tests the openGap() method.
 openGap
+replaceStop
 
 # Tests the vehicle API
 vehicle

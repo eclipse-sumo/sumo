@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_A1B1" lane="A1B1_0" startPos="46.95" endPos="56.95"/>
+    <busStop id="busStop_A2B2" lane="A2B2_0" startPos="41.63" endPos="51.63"/>
+    <busStop id="busStop_B1C1" lane="B1C1_0" startPos="54.05" endPos="64.05"/>
+    <busStop id="busStop_B2C2" lane="B2C2_0" startPos="54.82" endPos="64.82"/>
+    <busStop id="busStop_C1D1" lane="C1D1_0" startPos="49.89" endPos="59.89"/>
+    <busStop id="busStop_C2D2" lane="C2D2_0" startPos="47.18" endPos="57.18"/>
+</additional>

@@ -1,0 +1,23 @@
+# original route
+default
+
+# replace first stop before the vehicle has departed
+first_init
+
+# replace first stop after the vehicle has departed
+first
+
+# replace first stop while already on the stop edge
+first_later
+
+# replace second stop after the vehicle has departed
+second
+
+# replace last stop after the vehicle has departed
+last
+
+# replace all stops after the vehicle has departed
+all
+
+# replace stop with invalid index
+invalid

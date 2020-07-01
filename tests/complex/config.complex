@@ -15,6 +15,7 @@ copy_test_path:input_net3.net.xml
 copy_test_path:input_net4.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
+copy_test_path:input_additional4.add.xml
 copy_test_path:input_definitionA.def.xml
 copy_test_path:input_definitionB.def.xml
 copy_test_path:input_flows.flows.xml
