@@ -447,37 +447,73 @@ Vehicle::getNextStops(const std::string& vehicleID, int limit) {
         WRITE_WARNING("getNextStops not yet implemented for meso");
         return result;
     }
-    for (const MSVehicle::Stop& stop : veh->getStops()) {
-        if (!stop.collision) {
+    if (limit < 0) {
+        // return past stops up to the given limit
+        const std::vector<SUMOVehicleParameter::Stop>& pastStops = veh->getPastStops(); 
+        const int n = (int)pastStops.size();
+        for (int i = MAX2(0, n + limit); i < n; i++) {
+            const SUMOVehicleParameter::Stop& stopPar = pastStops[i];
             TraCINextStopData nsd;
-            nsd.lane = stop.lane->getID();
-            nsd.endPos = stop.pars.endPos;
+            nsd.lane = stopPar.lane;
+            nsd.endPos = stopPar.endPos;
             // all optionals, only one can be set
-            if (stop.busstop != nullptr) {
-                nsd.stoppingPlaceID = stop.busstop->getID();
+            if (stopPar.busstop != "") {
+                nsd.stoppingPlaceID = stopPar.busstop;
             }
-            if (stop.containerstop != nullptr) {
-                nsd.stoppingPlaceID = stop.containerstop->getID();
+            if (stopPar.containerstop != "") {
+                nsd.stoppingPlaceID = stopPar.containerstop;
             }
-            if (stop.parkingarea != nullptr) {
-                nsd.stoppingPlaceID = stop.parkingarea->getID();
+            if (stopPar.parkingarea != "") {
+                nsd.stoppingPlaceID = stopPar.parkingarea;
             }
-            if (stop.chargingStation != nullptr) {
-                nsd.stoppingPlaceID = stop.chargingStation->getID();
+            if (stopPar.chargingStation != "") {
+                nsd.stoppingPlaceID = stopPar.chargingStation;
             }
-            nsd.stopFlags = ((stop.reached ? 1 : 0) +
-                             (stop.pars.parking ? 2 : 0) +
-                             (stop.pars.triggered ? 4 : 0) +
-                             (stop.pars.containerTriggered ? 8 : 0) +
-                             (stop.busstop != nullptr ? 16 : 0) +
-                             (stop.containerstop != nullptr ? 32 : 0) +
-                             (stop.chargingStation != nullptr ? 64 : 0) +
-                             (stop.parkingarea != nullptr ? 128 : 0));
-            nsd.duration = STEPS2TIME(stop.reached ? stop.duration : stop.pars.duration);
-            nsd.until = STEPS2TIME(stop.pars.until);
+            nsd.stopFlags = (1 + // implicitly reached
+                    (stopPar.parking ? 2 : 0) +
+                    (stopPar.triggered ? 4 : 0) +
+                    (stopPar.containerTriggered ? 8 : 0) +
+                    (stopPar.busstop != "" ? 16 : 0) +
+                    (stopPar.containerstop != "" ? 32 : 0) +
+                    (stopPar.chargingStation != "" ? 64 : 0) +
+                    (stopPar.parkingarea != "" ? 128 : 0));
+            nsd.duration = STEPS2TIME(stopPar.duration);
+            nsd.until = STEPS2TIME(stopPar.until);
             result.push_back(nsd);
-            if (limit > 0 && (int)result.size() >= limit) {
-                break;
+        }
+    } else {
+        for (const MSVehicle::Stop& stop : veh->getStops()) {
+            if (!stop.collision) {
+                TraCINextStopData nsd;
+                nsd.lane = stop.lane->getID();
+                nsd.endPos = stop.pars.endPos;
+                // all optionals, only one can be set
+                if (stop.busstop != nullptr) {
+                    nsd.stoppingPlaceID = stop.busstop->getID();
+                }
+                if (stop.containerstop != nullptr) {
+                    nsd.stoppingPlaceID = stop.containerstop->getID();
+                }
+                if (stop.parkingarea != nullptr) {
+                    nsd.stoppingPlaceID = stop.parkingarea->getID();
+                }
+                if (stop.chargingStation != nullptr) {
+                    nsd.stoppingPlaceID = stop.chargingStation->getID();
+                }
+                nsd.stopFlags = ((stop.reached ? 1 : 0) +
+                        (stop.pars.parking ? 2 : 0) +
+                        (stop.pars.triggered ? 4 : 0) +
+                        (stop.pars.containerTriggered ? 8 : 0) +
+                        (stop.busstop != nullptr ? 16 : 0) +
+                        (stop.containerstop != nullptr ? 32 : 0) +
+                        (stop.chargingStation != nullptr ? 64 : 0) +
+                        (stop.parkingarea != nullptr ? 128 : 0));
+                nsd.duration = STEPS2TIME(stop.reached ? stop.duration : stop.pars.duration);
+                nsd.until = STEPS2TIME(stop.pars.until);
+                result.push_back(nsd);
+                if (limit > 0 && (int)result.size() >= limit) {
+                    break;
+                }
             }
         }
     }

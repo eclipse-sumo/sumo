@@ -6213,6 +6213,7 @@ MSVehicle::resumeFromStopping() {
         if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
+        myPastStops.push_back(myStops.front().pars);
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
         // Other outputs use an independent counter and are not affected.

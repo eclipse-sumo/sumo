@@ -1296,6 +1296,10 @@ public:
         return myStops;
     }
 
+    inline const std::vector<SUMOVehicleParameter::Stop>& getPastStops() {
+        return myPastStops;
+    }
+
     /**
     * resumes a vehicle from stopping
     * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
@@ -1942,6 +1946,9 @@ protected:
 
     /// @brief The vehicle's list of stops
     std::list<Stop> myStops;
+
+    /// @brief The list of stops that the vehicle has already reached
+    std::vector<SUMOVehicleParameter::Stop> myPastStops;
 
     /// @brief The current acceleration after dawdling in m/s
     double myAcceleration;
