@@ -129,7 +129,7 @@ public:
     virtual ~SUMOAbstractRouter() {
         if (myNumQueries > 0) {
             WRITE_MESSAGE(myType + " answered " + toString(myNumQueries) + " queries and explored " + toString(double(myQueryVisits) / myNumQueries) +  " edges on average.");
-            WRITE_MESSAGE(myType + " spent " + toString(myQueryTimeSum) + "ms answering queries (" + toString(double(myQueryTimeSum) / myNumQueries) +  "ms on average).");
+            WRITE_MESSAGE(myType + " spent " + elapsedMs2string(myQueryTimeSum) + " answering queries (" + toString(double(myQueryTimeSum) / myNumQueries) +  "ms on average).");
         }
     }
 

@@ -391,7 +391,7 @@ MSNet::generateStatistics(SUMOTime start) {
     if (myLogExecutionTime) {
         long duration = SysUtils::getCurrentMillis() - mySimBeginMillis;
         // print performance notice
-        msg << "Performance: " << "\n" << " Duration: " << duration << "ms" << "\n";
+        msg << "Performance: " << "\n" << " Duration: " << elapsedMs2string(duration) << "\n";
         if (duration != 0) {
             msg << " Real time factor: " << (STEPS2TIME(myStep - start) * 1000. / (double)duration) << "\n";
             msg.setf(std::ios::fixed, std::ios::floatfield);     // use decimal format

@@ -105,6 +105,19 @@ time2string(SUMOTime t) {
     return oss.str();
 }
 
+std::string
+elapsedMs2string(long long int t) {
+    if (gHumanReadableTime) {
+        if (STEPS2TIME(t) > 60) {
+            // round to seconds
+            return time2string((t / 1000) * 1000);
+        } else {
+            return toString(t / 1000.0) + "s";
+        }
+    } else {
+        return time2string(t) + "s";
+    }
+}
 
 bool checkStepLengthMultiple(const SUMOTime t, const std::string& error, SUMOTime deltaT) {
     if (t % deltaT != 0) {

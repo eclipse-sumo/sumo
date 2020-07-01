@@ -69,5 +69,8 @@ SUMOTime string2time(const std::string& r);
 /// @brief convert SUMOTime to string
 std::string time2string(SUMOTime t);
 
+/// @brief convert ms to string for log output
+std::string elapsedMs2string(long long int t);
+
 /// @brief check if given SUMOTime is multiple of the step length
 bool checkStepLengthMultiple(const SUMOTime t, const std::string& error = "", SUMOTime deltaT = DELTA_T);
