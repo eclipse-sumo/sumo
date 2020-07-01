@@ -312,7 +312,7 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const {
+GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // check if route can be drawn
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
         myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
@@ -323,28 +323,25 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
         const RGBColor routeColor = drawUsingSelectColor()? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
         glPushName(getGlID());
-        // only continue if drawGeometry is enabled
-        if (drawGeometry) {
-            // Add a draw matrix
-            glPushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            glTranslated(0, 0, getType());
-            // iterate over segments
-            for (const auto& segment : myDemandElementSegmentGeometry) {
-                // draw partial segment
-                if (segment.isLaneSegment() && (segment.getLane() == lane)) {
-                    // Set route color (needed due drawShapeDottedContour)
-                    GLHelper::setColor(routeColor);
-                    // draw box lines
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, routeWidth);
-                }
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType() + offsetFront);
+        // iterate over segments
+        for (const auto& segment : myDemandElementSegmentGeometry) {
+            // draw partial segment
+            if (segment.isLaneSegment() && (segment.getLane() == lane)) {
+                // Set route color (needed due drawShapeDottedContour)
+                GLHelper::setColor(routeColor);
+                // draw box lines
+                GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, routeWidth);
             }
-            // Pop last matrix
-            glPopMatrix();
-            // Draw name if isn't being drawn for selecting
-            if (!s.drawForRectangleSelection) {
-                drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
-            }
+        }
+        // Pop last matrix
+        glPopMatrix();
+        // Draw name if isn't being drawn for selecting
+        if (!s.drawForRectangleSelection) {
+            drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
         // Pop name
         glPopName();
@@ -375,33 +372,30 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
 
 
 void 
-GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const {
+GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
     // only drawn in super mode demand
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
         fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // calculate width
         const double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.route;
+        // obtain lane2lane geometry
+        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // Start drawing adding an gl identificator
         glPushName(getGlID());
-        // only continue if drawGeometry is enabled
-        if (drawGeometry) {
-            // obtain lane2lane geometry
-            const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
-            // Add a draw matrix
-            glPushMatrix();
-            // Start with the drawing of the area traslating matrix to origin
-            glTranslated(0, 0, getType());
-            // Set color of the base
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectedRouteColor);
-            } else {
-                GLHelper::setColor(getColor());
-            }
-            // draw lane2lane
-            GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
-            // Pop last matrix
-            glPopMatrix();
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, getType() + offsetFront);
+        // Set color of the base
+        if (drawUsingSelectColor()) {
+            GLHelper::setColor(s.colorSettings.selectedRouteColor);
+        } else {
+            GLHelper::setColor(getColor());
         }
+        // draw lane2lane
+        GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, width);
+        // Pop last matrix
+        glPopMatrix();
         // Pop name
         glPopName();
         // check if shape dotted contour has to be drawn

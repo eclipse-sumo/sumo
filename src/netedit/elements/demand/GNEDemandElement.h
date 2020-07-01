@@ -283,15 +283,15 @@ public:
     * @param[in] lane GNELane in which draw partial
     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
     */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const = 0;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const = 0;
 
     /**@brief Draws partial object (junction)
      * @param[in] s The settings for the current view (may influence drawing)
      * @param[in] fromLane from GNELane
      * @param[in] toLane to GNELane
-     * @param[in] drawGeometry flag to enable/disable draw geometry (lines, boxLines, etc.)
+     * @param[in] offsetFront offset for drawing element front (needed for selected elements)
      */
-    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const = 0;
+    virtual void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const = 0;
     /// @}
 
     /// @name inherited from GNEAttributeCarrier
@@ -381,11 +381,11 @@ protected:
 
     /// @brief draw person plan partial lane
     void drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane, 
-        const bool drawGeometry, const double personPlanWidth, const RGBColor &personPlanColor) const;
+        const double offsetFront, const double personPlanWidth, const RGBColor &personPlanColor) const;
 
     /// @brief draw person plan partial junction
     void drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, 
-        const bool drawGeometry, const double personPlanWidth, const RGBColor &personPlanColor) const;
+        const double offsetFront, const double personPlanWidth, const RGBColor &personPlanColor) const;
 
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;

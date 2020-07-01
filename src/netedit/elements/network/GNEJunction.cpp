@@ -412,20 +412,98 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw child path additionals
             for (const auto &tag : myPathAdditionalElements) {
-                for (const auto &additional : tag.second) {
-                    additional->drawJunctionPathChildren(s, this, true);
+                // search first selected element
+                GNEAdditional *selectedElement = nullptr;
+                for (int i = 0; (i < tag.second.size()) && (selectedElement == nullptr); i++) {
+                    if (tag.second.at(i)->isAttributeCarrierSelected()) {
+                        selectedElement = tag.second.at(i);
+                    }
+                }
+                // continue depending of selectedElement
+                if (selectedElement) {
+                    // draw selected element with offset
+                    selectedElement->drawJunctionPathChildren(s, this, 0.1);
+                    // if we're drawing for position or rectangle selection, then draw all elements
+                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                        for (const auto &element : tag.second) {
+                            if (element != selectedElement) {
+                                element->drawJunctionPathChildren(s, this, 0);
+                            }
+                        }
+                    }
+                } else {
+                    // if we're drawing for position or rectangle selection, then draw all elements
+                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                        for (const auto &element : tag.second) {
+                            element->drawJunctionPathChildren(s, this, 0);
+                        }
+                    } else if (tag.second.size() > 0)  {
+                        tag.second.front()->drawJunctionPathChildren(s, this, 0);
+                    }
                 }
             }
             // draw child path demand elements
             for (const auto &tag : myPathDemandElements) {
-                for (const auto &demandElement : tag.second) {
-                    demandElement->drawJunctionPathChildren(s, this, true);
+                // search first selected element
+                GNEDemandElement *selectedElement = nullptr;
+                for (int i = 0; (i < tag.second.size()) && (selectedElement == nullptr); i++) {
+                    if (tag.second.at(i)->isAttributeCarrierSelected()) {
+                        selectedElement = tag.second.at(i);
+                    }
+                }
+                // continue depending of selectedElement
+                if (selectedElement) {
+                    // draw selected element with offset
+                    selectedElement->drawJunctionPathChildren(s, this, 0.1);
+                    // if we're drawing for position or rectangle selection, then draw all elements
+                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                        for (const auto &element : tag.second) {
+                            if (element != selectedElement) {
+                                element->drawJunctionPathChildren(s, this, 0);
+                            }
+                        }
+                    }
+                } else {
+                    // if we're drawing for position or rectangle selection, then draw all elements
+                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                        for (const auto &element : tag.second) {
+                            element->drawJunctionPathChildren(s, this, 0);
+                        }
+                    } else if (tag.second.size() > 0)  {
+                        tag.second.front()->drawJunctionPathChildren(s, this, 0);
+                    }
                 }
             }
             // draw child path generic datas
-            for (const auto &tag : myPathDemandElements) {
-                for (const auto &genericData : tag.second) {
-                    genericData->drawJunctionPathChildren(s, this, true);
+            for (const auto &tag : myPathGenericDatas) {
+                // search first selected element
+                GNEGenericData *selectedElement = nullptr;
+                for (int i = 0; (i < tag.second.size()) && (selectedElement == nullptr); i++) {
+                    if (tag.second.at(i)->isAttributeCarrierSelected()) {
+                        selectedElement = tag.second.at(i);
+                    }
+                }
+                // continue depending of selectedElement
+                if (selectedElement) {
+                    // draw selected element with offset
+                    selectedElement->drawJunctionPathChildren(s, this, 0.1);
+                    // if we're drawing for position or rectangle selection, then draw all elements
+                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                        for (const auto &element : tag.second) {
+                            if (element != selectedElement) {
+                                element->drawJunctionPathChildren(s, this, 0);
+                            }
+                        }
+                    }
+                } else {
+                    // if we're drawing for position or rectangle selection, then draw all elements
+                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                        for (const auto &element : tag.second) {
+                            element->drawJunctionPathChildren(s, this, 0);
+                        }
+                    } else if (tag.second.size() > 0)  {
+                        tag.second.front()->drawJunctionPathChildren(s, this, 0);
+                    }
                 }
             }
         }

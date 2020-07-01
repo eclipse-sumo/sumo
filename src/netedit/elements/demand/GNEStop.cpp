@@ -432,13 +432,13 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
 
 
 void 
-GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const bool /*drawGeometry*/) const {
+GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
 
 
 void 
-GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /* fromLane */, const GNELane* /* toLane */, const bool /*drawGeometry*/) const {
+GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /* fromLane */, const GNELane* /* toLane */, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
 

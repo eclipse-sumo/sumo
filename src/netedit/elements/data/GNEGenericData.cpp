@@ -286,84 +286,78 @@ GNEGenericData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 
 void 
-GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const {
+GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // get lane width
     const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
     // Start drawing adding an gl identificator
     glPushName(getGlID());
-    // only continue if drawGeometry is enabled
-    if (drawGeometry) {
-        // Add a draw matrix
-        glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
-        // Set orange color
-        GLHelper::setColor(RGBColor::BLACK);
-        // draw box lines
-        GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth);
-        // translate to top
-        glTranslated(0, 0, 0.01);
-        // Set color
-        GLHelper::setColor(getColor());
-        // draw interne box lines
-        GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1);
-        // Pop last matrix
-        glPopMatrix();
-    }
+    // Add a draw matrix
+    glPushMatrix();
+    // Start with the drawing of the area traslating matrix to origin
+    glTranslated(0, 0, getType() + offsetFront);
+    // Set orange color
+    GLHelper::setColor(RGBColor::BLACK);
+    // draw box lines
+    GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth);
+    // translate to top
+    glTranslated(0, 0, 0.01);
+    // Set color
+    GLHelper::setColor(getColor());
+    // draw interne box lines
+    GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1);
+    // Pop last matrix
+    glPopMatrix();
     // Pop name
     glPopName();
 }
 
 
 void
-GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const bool drawGeometry) const {
+GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
     if (fromLane->getParentEdge() != toLane->getParentEdge()) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
-        // only continue if drawGeometry is enabled
-        if (drawGeometry) {
-            // draw lanes
-            const auto fromLanes = fromLane->getParentEdge()->getLanes();
-            const auto toLanes = toLane->getParentEdge()->getLanes();
-            size_t index = 0;
-            while ((index < fromLanes.size()) || (index < toLanes.size())) {
-                // get lanes
-                const GNELane *from = (index < fromLanes.size())? fromLanes.at(index) : fromLanes.back();
-                const GNELane *to = (index < toLanes.size())? toLanes.at(index) : toLanes.back();
-                // get lane widths
-                const double laneWidthFrom = s.addSize.getExaggeration(s, from) * (from->getParentEdge()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
-                const double laneWidthTo = s.addSize.getExaggeration(s, to) * (to->getParentEdge()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
-                const double laneWidth = laneWidthFrom < laneWidthTo? laneWidthFrom : laneWidthTo;
-                // Add a draw matrix
-                glPushMatrix();
-                // translate to GLO
-                glTranslated(0, 0, getType());
+        // draw lanes
+        const auto fromLanes = fromLane->getParentEdge()->getLanes();
+        const auto toLanes = toLane->getParentEdge()->getLanes();
+        size_t index = 0;
+        while ((index < fromLanes.size()) || (index < toLanes.size())) {
+            // get lanes
+            const GNELane *from = (index < fromLanes.size())? fromLanes.at(index) : fromLanes.back();
+            const GNELane *to = (index < toLanes.size())? toLanes.at(index) : toLanes.back();
+            // get lane widths
+            const double laneWidthFrom = s.addSize.getExaggeration(s, from) * (from->getParentEdge()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
+            const double laneWidthTo = s.addSize.getExaggeration(s, to) * (to->getParentEdge()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
+            const double laneWidth = laneWidthFrom < laneWidthTo? laneWidthFrom : laneWidthTo;
+            // Add a draw matrix
+            glPushMatrix();
+            // translate to GLO
+            glTranslated(0, 0, getType() + offsetFront);
+            // Set color
+            GLHelper::setColor(RGBColor::BLACK);
+            if (from->getLane2laneConnections().exist(to)) {
+                // draw box lines
+                GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth);
+                // translate to top
+                glTranslated(0, 0, 0.01);
                 // Set color
-                GLHelper::setColor(RGBColor::BLACK);
-                if (from->getLane2laneConnections().exist(to)) {
-                    // draw box lines
-                    GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth);
-                    // translate to top
-                    glTranslated(0, 0, 0.01);
-                    // Set color
-                    GLHelper::setColor(getColor());
-                    // draw interne box lines
-                    GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
-                } else {
-                    // draw line between end of first shape and first position of second shape
-                    GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth);
-                    // translate to top
-                    glTranslated(0, 0, 0.01);
-                    // Set color
-                    GLHelper::setColor(getColor());
-                    // draw interne line between end of first shape and first position of second shape
-                    GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth - 0.1);
-                }
-                // Pop last matrix
-                glPopMatrix();
-                // update index
-                index++;
+                GLHelper::setColor(getColor());
+                // draw interne box lines
+                GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
+            } else {
+                // draw line between end of first shape and first position of second shape
+                GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth);
+                // translate to top
+                glTranslated(0, 0, 0.01);
+                // Set color
+                GLHelper::setColor(getColor());
+                // draw interne line between end of first shape and first position of second shape
+                GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth - 0.1);
             }
+            // Pop last matrix
+            glPopMatrix();
+            // update index
+            index++;
         }
         // Pop name
         glPopName();

@@ -92,12 +92,12 @@ GNEPathElements::getPath() const {
 
 
 void 
-GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const GNELane* lane, const bool drawGeometry) const {
+GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const GNELane* lane, const double offset) const {
     // additionals
     if (myAdditionalElement) {
         for (const auto &pathElement : myPathElements) {
             if (pathElement.getLane() == lane) {
-                myAdditionalElement->drawPartialGL(s, lane, drawGeometry);
+                myAdditionalElement->drawPartialGL(s, lane, offset);
             }
         }
     }
@@ -105,7 +105,7 @@ GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const G
     if (myDemandElement) {
         for (const auto &pathElement : myPathElements) {
             if (pathElement.getLane() == lane) {
-                myDemandElement->drawPartialGL(s, lane, drawGeometry);
+                myDemandElement->drawPartialGL(s, lane, offset);
             }
         }
     }
@@ -113,20 +113,20 @@ GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const G
     if (myGenericData && myGenericData->isGenericDataVisible()) {
         for (const auto &pathElement : myPathElements) {
             if (pathElement.getLane() == lane) {
-                myGenericData->drawPartialGL(s, lane, drawGeometry);
+                myGenericData->drawPartialGL(s, lane, offset);
             }
         }
     }
 }
 
 void 
-GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, const GNEJunction* junction, const bool drawGeometry) const {
+GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, const GNEJunction* junction, const double offset) const {
     // additionals
     if (myAdditionalElement) {
         for (auto i = myPathElements.begin(); i != myPathElements.end(); i++) {
             // check that next pathElement isn't the last 
             if ((i->getJunction() == junction) && ((i+1) != myPathElements.end())) {
-                myAdditionalElement->drawPartialGL(s, i->getLane(), (i+1)->getLane(), drawGeometry);
+                myAdditionalElement->drawPartialGL(s, i->getLane(), (i+1)->getLane(), offset);
             }
         }
     }
@@ -135,7 +135,7 @@ GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, con
         for (auto i = myPathElements.begin(); i != myPathElements.end(); i++) {
             // check that next pathElement isn't the last 
             if ((i->getJunction() == junction) && ((i+1) != myPathElements.end())) {
-                myDemandElement->drawPartialGL(s, i->getLane(), (i+1)->getLane(), drawGeometry);
+                myDemandElement->drawPartialGL(s, i->getLane(), (i+1)->getLane(), offset);
             }
         }
     }
@@ -144,7 +144,7 @@ GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, con
         for (auto i = myPathElements.begin(); i != myPathElements.end(); i++) {
             // check that next pathElement isn't the last 
             if ((i->getJunction() == junction) && ((i+1) != myPathElements.end())) {
-                myGenericData->drawPartialGL(s, i->getLane(), (i+1)->getLane(), drawGeometry);
+                myGenericData->drawPartialGL(s, i->getLane(), (i+1)->getLane(), offset);
             }
         }
     }
