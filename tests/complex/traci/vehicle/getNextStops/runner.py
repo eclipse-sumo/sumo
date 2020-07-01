@@ -40,6 +40,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     t = traci.simulation.getTime()
     if t % 10 == 0:
         print("time", t)
+        print("  past 2 stops", traci.vehicle.getNextStops(vehID, -2))
         print("  next 2 stops", traci.vehicle.getNextStops(vehID, 2))
         print("  all stops", traci.vehicle.getNextStops(vehID))
     traci.simulationStep()
