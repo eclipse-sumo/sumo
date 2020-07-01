@@ -91,7 +91,7 @@ main(int argc, char** argv) {
     OptionsCont& oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("A microscopic, multi-modal traffic simulation.");
-    oc.setApplicationName("sumo", "Eclipse SUMO Version " VERSION_STRING);
+    oc.setApplicationName("sumo", "Eclipse SUMO sumo Version " VERSION_STRING);
     gSimulation = true;
     int ret = 0;
     MSNet* net = nullptr;
