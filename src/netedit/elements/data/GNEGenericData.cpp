@@ -302,7 +302,11 @@ GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
     // translate to top
     glTranslated(0, 0, 0.01);
     // Set color
-    GLHelper::setColor(getColor());
+    if (isAttributeCarrierSelected()) {
+        GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
+    } else {
+        GLHelper::setColor(getColor());
+    }
     // draw interne box lines
     GNEGeometry::drawLaneGeometry(myNet->getViewNet(), lane->getLaneShape(), lane->getShapeRotations(), lane->getShapeLengths(), {}, laneWidth - 0.1);
     // Pop last matrix
@@ -341,7 +345,11 @@ GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 // translate to top
                 glTranslated(0, 0, 0.01);
                 // Set color
-                GLHelper::setColor(getColor());
+                if (isAttributeCarrierSelected()) {
+                    GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
+                } else {
+                    GLHelper::setColor(getColor());
+                }
                 // draw interne box lines
                 GNEGeometry::drawGeometry(myNet->getViewNet(), from->getLane2laneConnections().getLane2laneGeometry(to), laneWidth - 0.1);
             } else {
@@ -350,7 +358,11 @@ GNEGenericData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
                 // translate to top
                 glTranslated(0, 0, 0.01);
                 // Set color
-                GLHelper::setColor(getColor());
+                if (isAttributeCarrierSelected()) {
+                    GLHelper::setColor(s.colorSettings.selectedEdgeDataColor);
+                } else {
+                    GLHelper::setColor(getColor());
+                }
                 // draw interne line between end of first shape and first position of second shape
                 GLHelper::drawBoxLines({from->getLaneShape().back(), to->getLaneShape().front()}, laneWidth - 0.1);
             }
