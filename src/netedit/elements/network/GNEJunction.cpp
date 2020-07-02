@@ -415,10 +415,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw child path additionals
             for (const auto &tag : myPathAdditionalElements) {
                 // search first selected element
-                GNEAdditional *selectedElement = nullptr;
-                for (int i = 0; (i < tag.second.size()) && (selectedElement == nullptr); i++) {
-                    if (tag.second.at(i)->isAttributeCarrierSelected()) {
-                        selectedElement = tag.second.at(i);
+                const GNEAdditional* selectedElement = nullptr;
+                for (const GNEAdditional* const element : tag.second) {
+                    if (element->isAttributeCarrierSelected()) {
+                        selectedElement = element;
+                        break;
                     }
                 }
                 // continue depending of selectedElement
@@ -426,14 +427,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // draw selected element with offset
                     selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
                     // draw rest of elements
-                    for (const auto &element : tag.second) {
+                    for (const GNEAdditional* const element : tag.second) {
                         if (element != selectedElement) {
                             element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                         }
                     }
                 } else {
                     // draw all children
-                    for (const auto &element : tag.second) {
+                    for (const auto& element : tag.second) {
                         element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                     }
                 }
@@ -441,10 +442,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw child path demand elements
             for (const auto &tag : myPathDemandElements) {
                 // search first selected element
-                GNEDemandElement *selectedElement = nullptr;
-                for (int i = 0; (i < tag.second.size()) && (selectedElement == nullptr); i++) {
-                    if (tag.second.at(i)->isAttributeCarrierSelected()) {
-                        selectedElement = tag.second.at(i);
+                const GNEDemandElement* selectedElement = nullptr;
+                for (const GNEDemandElement* const element : tag.second) {
+                    if (element->isAttributeCarrierSelected()) {
+                        selectedElement = element;
+                        break;
                     }
                 }
                 // continue depending of selectedElement
@@ -452,14 +454,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // draw selected element with offset
                     selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
                     // draw rest of elements
-                    for (const auto &element : tag.second) {
+                    for (const GNEDemandElement* const element : tag.second) {
                         if (element != selectedElement) {
                             element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                         }
                     }
                 } else {
                     // draw all children
-                    for (const auto &element : tag.second) {
+                    for (const GNEDemandElement* const element : tag.second) {
                         element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                     }
                 }
@@ -467,10 +469,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw child path generic datas
             for (const auto &tag : myPathGenericDatas) {
                 // search first selected element
-                GNEGenericData *selectedElement = nullptr;
-                for (int i = 0; (i < tag.second.size()) && (selectedElement == nullptr); i++) {
-                    if (tag.second.at(i)->isAttributeCarrierSelected()) {
-                        selectedElement = tag.second.at(i);
+                const GNEGenericData* selectedElement = nullptr;
+                for (const GNEGenericData* const element : tag.second) {
+                    if (element->isAttributeCarrierSelected()) {
+                        selectedElement = element;
+                        break;
                     }
                 }
                 // continue depending of selectedElement
@@ -478,14 +481,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // draw selected element with offset
                     selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
                     // draw rest of elements
-                    for (const auto &element : tag.second) {
+                    for (const GNEGenericData* const element : tag.second) {
                         if (element != selectedElement) {
                             element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                         }
                     }
                 } else {
                     // draw all children
-                    for (const auto &element : tag.second) {
+                    for (const GNEGenericData* const element : tag.second) {
                         element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                     }
                 }
