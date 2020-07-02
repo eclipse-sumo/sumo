@@ -265,8 +265,6 @@ Determines on which lane the vehicle is tried to be inserted;
 - "`first`": the rightmost lane the vehicle
   may use
 
-BTW, I like "best" at most - dkrajzew
-
 ### departPos
 
 Determines the position on the chosen departure lane at which the
