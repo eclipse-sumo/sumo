@@ -1,0 +1,2 @@
+Warning: Container 'c2' at edge 'beg' position 240.00 cannot use waiting vehicle 'truck' at position 50.00 because it is too far away.
+Warning: Container 'c3' at edge 'beg' position 100.00 cannot use waiting vehicle 'truck' at position 50.00 because it is too far away.
