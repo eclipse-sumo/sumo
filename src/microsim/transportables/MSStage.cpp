@@ -467,15 +467,25 @@ MSStageWaiting::tripInfoOutput(OutputDevice& os, const MSTransportable* const) c
 void
 MSStageWaiting::routeOutput(const bool /* isPerson */, OutputDevice& os, const bool) const {
     if (myType != MSStageType::WAITING_FOR_DEPART) {
-        // lane index is arbitrary
-        os.openTag("stop").writeAttr(SUMO_ATTR_LANE, getDestination()->getID() + "_0");
+        os.openTag("stop");
+        std::string comment = "";
+        if (myDestinationStop != nullptr) {
+            os.writeAttr(SUMO_ATTR_BUS_STOP, myDestinationStop->getID());
+            if (myDestinationStop->getMyName() != "") {
+                comment =  " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
+            }
+        } else {
+            // lane index is arbitrary
+            os.writeAttr(SUMO_ATTR_LANE, getDestination()->getID() + "_0");
+            os.writeAttr(SUMO_ATTR_ENDPOS, getArrivalPos());
+        }
         if (myWaitingDuration >= 0) {
             os.writeAttr(SUMO_ATTR_DURATION, time2string(myWaitingDuration));
         }
         if (myWaitingUntil >= 0) {
             os.writeAttr(SUMO_ATTR_UNTIL, time2string(myWaitingUntil));
         }
-        os.closeTag();
+        os.closeTag(comment);
     }
 }
 
