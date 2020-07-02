@@ -87,12 +87,16 @@ GNEUndoList::p_end() {
 
 void
 GNEUndoList::p_clear() {
-    // disable updating of interval bar
-    myGNEApplicationWindowParent->getViewNet()->getIntervalBar().disableIntervalBarUpdate();
+    // disable updating of interval bar (check viewNet due #7252)
+    if (myGNEApplicationWindowParent->getViewNet()) {
+        myGNEApplicationWindowParent->getViewNet()->getIntervalBar().disableIntervalBarUpdate();
+    }
     p_abort();
     clear();
-    // enable updating of interval bar again
-    myGNEApplicationWindowParent->getViewNet()->getIntervalBar().enableIntervalBarUpdate();
+    // enable updating of interval bar again (check viewNet due #7252)
+    if (myGNEApplicationWindowParent->getViewNet()) {
+        myGNEApplicationWindowParent->getViewNet()->getIntervalBar().enableIntervalBarUpdate();
+    }
 }
 
 
