@@ -81,6 +81,12 @@ TRACI_CONST int CMD_OPENGAP = 0x16;
 // command: replace vehicle stop and updated route
 TRACI_CONST int CMD_REPLACE_STOP = 0x17;
 
+// command: retrieve information about the current taxi fleet and their status
+TRACI_CONST int VAR_TAXI_FLEET = 0x20;
+
+// command: send dispatch request for the given taxi
+TRACI_CONST int CMD_TAXI_DISPATCH = 0x21;
+
 // command: change target
 TRACI_CONST int CMD_CHANGETARGET = 0x31;
 
@@ -1231,6 +1237,9 @@ TRACI_CONST int REPLACE_STAGE = 0xcd;
 
 // append a person stage (person)
 TRACI_CONST int REMOVE_STAGE = 0xc5;
+
+// retrieve taxi reservation (person)
+TRACI_CONST int VAR_TAXI_RESERVATIONS = 0xc6;
 
 // zoom
 TRACI_CONST int VAR_VIEW_ZOOM = 0xa0;
