@@ -123,10 +123,10 @@ Such edges will receive the polygon objects with the indicated IDs as
 road objects
 
 ## (Q)GIS / GeoJSON
-Conversion of .net.xml file with [python tool net2geojson](Tools/Net.md#net2geojsonpy)
+Conversion of .net.xml file with [python tool net2geojson](../Tools/Net.md#net2geojsonpy)
 
 ## KML
-Conversion of .net.xml file with [python tool net2kml](Tools/Net.md#net2kmlpy)
+Conversion of .net.xml file with [python tool net2kml](../Tools/Net.md#net2kmlpy)
 
 # Further Outputs
 
