@@ -410,6 +410,8 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     demandElement->drawGL(s);
                 }
             }
+            // declare JunctionPathElementMarker
+            GNEPathElements::JunctionPathElementMarker junctionPathElementMarker;
             // draw child path additionals
             for (const auto &tag : myPathAdditionalElements) {
                 // search first selected element
@@ -422,23 +424,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // continue depending of selectedElement
                 if (selectedElement) {
                     // draw selected element with offset
-                    selectedElement->drawJunctionPathChildren(s, this, 0.1);
-                    // if we're drawing for position or rectangle selection, then draw all elements
-                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                        for (const auto &element : tag.second) {
-                            if (element != selectedElement) {
-                                element->drawJunctionPathChildren(s, this, 0);
-                            }
+                    selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
+                    // draw rest of elements
+                    for (const auto &element : tag.second) {
+                        if (element != selectedElement) {
+                            element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                         }
                     }
                 } else {
-                    // if we're drawing for position or rectangle selection, then draw all elements
-                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                        for (const auto &element : tag.second) {
-                            element->drawJunctionPathChildren(s, this, 0);
-                        }
-                    } else if (tag.second.size() > 0)  {
-                        tag.second.front()->drawJunctionPathChildren(s, this, 0);
+                    // draw all children
+                    for (const auto &element : tag.second) {
+                        element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                     }
                 }
             }
@@ -454,23 +450,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // continue depending of selectedElement
                 if (selectedElement) {
                     // draw selected element with offset
-                    selectedElement->drawJunctionPathChildren(s, this, 0.1);
-                    // if we're drawing for position or rectangle selection, then draw all elements
-                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                        for (const auto &element : tag.second) {
-                            if (element != selectedElement) {
-                                element->drawJunctionPathChildren(s, this, 0);
-                            }
+                    selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
+                    // draw rest of elements
+                    for (const auto &element : tag.second) {
+                        if (element != selectedElement) {
+                            element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                         }
                     }
                 } else {
-                    // if we're drawing for position or rectangle selection, then draw all elements
-                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                        for (const auto &element : tag.second) {
-                            element->drawJunctionPathChildren(s, this, 0);
-                        }
-                    } else if (tag.second.size() > 0)  {
-                        tag.second.front()->drawJunctionPathChildren(s, this, 0);
+                    // draw all children
+                    for (const auto &element : tag.second) {
+                        element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                     }
                 }
             }
@@ -486,23 +476,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                 // continue depending of selectedElement
                 if (selectedElement) {
                     // draw selected element with offset
-                    selectedElement->drawJunctionPathChildren(s, this, 0.1);
-                    // if we're drawing for position or rectangle selection, then draw all elements
-                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                        for (const auto &element : tag.second) {
-                            if (element != selectedElement) {
-                                element->drawJunctionPathChildren(s, this, 0);
-                            }
+                    selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
+                    // draw rest of elements
+                    for (const auto &element : tag.second) {
+                        if (element != selectedElement) {
+                            element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                         }
                     }
                 } else {
-                    // if we're drawing for position or rectangle selection, then draw all elements
-                    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                        for (const auto &element : tag.second) {
-                            element->drawJunctionPathChildren(s, this, 0);
-                        }
-                    } else if (tag.second.size() > 0)  {
-                        tag.second.front()->drawJunctionPathChildren(s, this, 0);
+                    // draw all children
+                    for (const auto &element : tag.second) {
+                        element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                     }
                 }
             }

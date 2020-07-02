@@ -662,9 +662,6 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // init view settings
     if (!myVisualizationSettings->drawForPositionSelection && myVisualizationSettings->forceDrawForPositionSelection) {
         myVisualizationSettings->drawForPositionSelection = true;
-        myVisualizationSettings->drawForRectangleSelection = true;
-    } else {
-        myVisualizationSettings->drawForRectangleSelection = false;
     }
     if (!myVisualizationSettings->drawForRectangleSelection && myVisualizationSettings->forceDrawForRectangleSelection) {
         myVisualizationSettings->drawForRectangleSelection = true;

@@ -477,12 +477,9 @@ GUISUMOAbstractView::getObjectsInBoundary(Boundary bound, bool singlePosition) {
         myVisualizationSettings->drawForRectangleSelection = true;
     }
     int hits2 = doPaintGL(GL_SELECT, bound);
-    // disable draw for selecting (to draw objects with less details)
-    if (singlePosition) {
-        myVisualizationSettings->drawForPositionSelection = false;
-    } else {
-        myVisualizationSettings->drawForRectangleSelection = false;
-    }
+    // reset flags
+    myVisualizationSettings->drawForPositionSelection = false;
+    myVisualizationSettings->drawForRectangleSelection = false;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
     if (nb_hits == -1) {
