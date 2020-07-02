@@ -239,6 +239,8 @@ GNEDataHandler::buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* 
         edge->addChildElement(edgeData);
         edgeData->incRef("buildEdgeData");
     }
+    // update edge parent geometry (because EdgeData is a path element)
+    edge->updateGeometry();
     return edgeData;
 }
 
@@ -257,6 +259,9 @@ GNEDataHandler::buildEdgeRelationData(GNENet* net, bool allowUndoRedo, GNEDataIn
         toEdge->addChildElement(edgeRelationData);
         edgeRelationData->incRef("buildEdgeRelationData");
     }
+    // update edge parents geometry (because edge RelationData is a path element)
+    fromEdge->updateGeometry();
+    toEdge->updateGeometry();
     return edgeRelationData;
 }
 
