@@ -5,6 +5,9 @@ moveToXY
 openGap
 replaceStop
 
+# test taxi API
+taxi
+
 # Tests the vehicle API
 vehicle
 
