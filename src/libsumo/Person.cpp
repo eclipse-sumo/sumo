@@ -26,6 +26,8 @@
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
+#include <microsim/devices/MSDevice_Taxi.h>
+#include <microsim/devices/MSDispatch_TraCI.h>
 #include <libsumo/TraCIConstants.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/StringTokenizer.h>
@@ -117,6 +119,42 @@ Person::getRoadID(const std::string& personID) {
 double
 Person::getLanePosition(const std::string& personID) {
     return getPerson(personID)->getEdgePos();
+}
+
+std::vector<TraCIStage>
+Person::getTaxiReservations(int onlyNew) {
+    std::vector<TraCIStage> result;
+    MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
+    if (dispatcher != nullptr) {
+        MSDispatch_TraCI* traciDispatcher = dynamic_cast<MSDispatch_TraCI*>(dispatcher); 
+        if (traciDispatcher == nullptr) {
+            throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
+        }
+        for (Reservation* res : dispatcher->getReservations()) {
+            if (onlyNew != 0) {
+                if (res->recheck != SUMOTime_MAX) {
+                    continue;
+                }
+                // reservations become the responsibility of the traci client
+                res->recheck = SUMOTime_MAX;
+            }
+            result.push_back(TraCIStage(STAGE_DRIVING,
+                        joinNamedToStringSorting(res->persons, " "), // vType
+                        "taxi", // line
+                        traciDispatcher->getReservationID(res), // destStop
+                        std::vector<std::string>({ res->from->getID(), res->to->getID() }), // edges
+                        STEPS2TIME(res->reservationTime), // traveltime
+                        res->persons.size(), // cost
+                        -1, // length
+                        res->group, // intended
+                        STEPS2TIME(res->pickupTime), // depart
+                        res->fromPos, // departPos
+                        res->toPos, // arrivalPos
+                        "" // description
+                        ));
+        }
+    }
+    return result;
 }
 
 
@@ -1008,8 +1046,10 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapInt(objID, variable, getRemainingStages(objID));
         case VAR_VEHICLE:
             return wrapper->wrapString(objID, variable, getVehicle(objID));
-        default:
+        case VAR_TAXI_RESERVATIONS:
             return false;
+        default:
+            return libsumo::VehicleType::handleVariable(getTypeID(objID), variable, wrapper);
     }
 }
 

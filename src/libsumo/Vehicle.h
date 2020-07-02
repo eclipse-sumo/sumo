@@ -108,6 +108,7 @@ public:
     static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
     static double getStopSpeed(const std::string& vehicleID, double speed, double gap);
     static double getStopDelay(const std::string& vehicleID);
+    static std::vector<std::string> getTaxiFleet(int taxiState = 0);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_GETTER
@@ -187,6 +188,7 @@ public:
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
     static void setParameter(const std::string& vehicleID, const std::string& param, const std::string& value);
     static void highlight(const std::string& vehicleID, const TraCIColor& col = TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
+    static void dispatchTaxi(const std::string& vehicleID,  const std::vector<std::string>& reservations);
     /// @}
 
     LIBSUMO_VEHICLE_TYPE_SETTER

@@ -44,8 +44,7 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
     const std::string id = inputStorage.readString();
     server.initWrapper(libsumo::RESPONSE_GET_PERSON_VARIABLE, variable, id);
     try {
-        if (!libsumo::Person::handleVariable(id, variable, &server) &&
-                !libsumo::VehicleType::handleVariable(libsumo::Person::getTypeID(id), variable, &server)) {
+        if (!libsumo::Person::handleVariable(id, variable, &server)) {
             switch (variable) {
                 case libsumo::VAR_EDGES: {
                     int nextStageIndex = 0;
@@ -84,6 +83,19 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     server.getWrapperStorage().writeString(paramName);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
                     server.getWrapperStorage().writeString(libsumo::Person::getParameter(id, paramName));
+                    break;
+                }
+                case libsumo::VAR_TAXI_RESERVATIONS: {
+                    int onlyNew = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, onlyNew)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Retrieval of reservations requires an integer flag.", outputStorage);
+                    }
+                    const std::vector<libsumo::TraCIStage>& result = libsumo::Person::getTaxiReservations(onlyNew);
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                    server.getWrapperStorage().writeInt((int)result.size());
+                    for (const libsumo::TraCIStage& s : result) {
+                        TraCIServerAPI_Simulation::writeStage(server.getWrapperStorage(), s);
+                    }
                     break;
                 }
                 default:

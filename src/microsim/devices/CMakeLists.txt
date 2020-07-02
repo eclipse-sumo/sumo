@@ -46,6 +46,8 @@ set(microsim_devices_STAT_SRCS
    MSDispatch_Greedy.h
    MSDispatch_GreedyShared.cpp
    MSDispatch_GreedyShared.h
+   MSDispatch_TraCI.h
+   MSDispatch_TraCI.cpp
    MSVehicleDevice.h
 )
 

@@ -38,6 +38,8 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSParkingArea.h>
+#include <microsim/devices/MSDevice_Taxi.h>
+#include <microsim/devices/MSDispatch_TraCI.h>
 #include <mesosim/MEVehicle.h>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/TraCIConstants.h>
@@ -807,6 +809,17 @@ Vehicle::getStopSpeed(const std::string& vehicleID, const double speed, double g
 double
 Vehicle::getStopDelay(const std::string& vehicleID) {
     return Helper::getVehicle(vehicleID)->getStopDelay();
+}
+
+std::vector<std::string>
+Vehicle::getTaxiFleet(int taxiState) {
+    std::vector<std::string> result;
+    for (MSDevice_Taxi* taxi : MSDevice_Taxi::getFleet()) {
+        if (taxi->getHolder().hasDeparted() && (taxi->getState() & taxiState) == taxi->getState()) {
+            result.push_back(taxi->getHolder().getID());
+        }
+    }
+    return result;
 }
 
 std::string
@@ -1968,6 +1981,30 @@ Vehicle::highlight(const std::string& vehicleID, const TraCIColor& col, double s
     Polygon::addDynamics(polyID, vehicleID, timeSpan, alphaSpan, false, true);
 }
 
+void
+Vehicle::dispatchTaxi(const std::string& vehicleID,  const std::vector<std::string>& reservations) {
+    MSBaseVehicle* veh = Helper::getVehicle(vehicleID);
+    MSDevice_Taxi* taxi = static_cast<MSDevice_Taxi*>(veh->getDevice(typeid(MSDevice_Taxi)));
+    if (taxi == nullptr) {
+        throw TraCIException("Vehicle '" + vehicleID + "' is not a taxi");
+    }
+    MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
+    if (dispatcher == nullptr) {
+        throw TraCIException("Cannot dispatch taxi because no reservations have been made");
+    }
+    MSDispatch_TraCI* traciDispatcher = dynamic_cast<MSDispatch_TraCI*>(dispatcher); 
+    if (traciDispatcher == nullptr) {
+        throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
+    }
+    if (reservations.size() == 0) {
+        throw TraCIException("No reservations have been specified for vehicle '" + vehicleID + "'");
+    }
+    try {
+        traciDispatcher->interpretDispatch(taxi, reservations);
+    } catch (InvalidArgument& e) {
+        throw TraCIException("Could not interpret reserations for vehicle '" + vehicleID + "' (" + e.what() + ").");
+    }
+}
 
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Vehicle, VEHICLE)
 
@@ -2240,6 +2277,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             rp.pos = lead.second;
             return wrapper->wrapRoadPosition(objID, variable, rp);
         }
+        case VAR_TAXI_FLEET:
+            return false;
         default:
             return VehicleType::handleVariableWithID(objID, getTypeID(objID), variable, wrapper);
     }

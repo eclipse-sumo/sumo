@@ -239,6 +239,15 @@ TraCIServerAPI_Vehicle::processGet(TraCIServer& server, tcpip::Storage& inputSto
                     server.getWrapperStorage().writeInt(state.second);
                     break;
                 }
+                case libsumo::VAR_TAXI_FLEET: {
+                    int flag = 0;
+                    if (!server.readTypeCheckingInt(inputStorage, flag)) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "Retrieval of taxi fleet requires an integer flag.", outputStorage);
+                    }
+                    server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+                    server.getWrapperStorage().writeStringList(libsumo::Vehicle::getTaxiFleet(flag));
+                    break;
+                }
                 case libsumo::VAR_PARAMETER: {
                     std::string paramName = "";
                     if (!server.readTypeCheckingString(inputStorage, paramName)) {
@@ -418,6 +427,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::VAR_LINE
             && variable != libsumo::VAR_VIA
             && variable != libsumo::VAR_HIGHLIGHT
+            && variable != libsumo::CMD_TAXI_DISPATCH
             && variable != libsumo::MOVE_TO_XY && variable != libsumo::VAR_PARAMETER/* && variable != libsumo::VAR_SPEED_TIME_LINE && variable != libsumo::VAR_LANE_TIME_LINE*/
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Change Vehicle State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
@@ -1195,6 +1205,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     }
                 }
                 libsumo::Vehicle::highlight(id, col, size, alphaMax, duration, type);
+            }
+            break;
+            case libsumo::CMD_TAXI_DISPATCH: {
+                std::vector<std::string> reservations;
+                if (!server.readTypeCheckingStringList(inputStorage, reservations)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "A dispatch command  must be defined as a list of reservation ids.", outputStorage);
+                }
+                libsumo::Vehicle::dispatchTaxi(id, reservations);
             }
             break;
             case libsumo::VAR_ACTIONSTEPLENGTH: {

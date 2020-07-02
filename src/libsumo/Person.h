@@ -66,6 +66,8 @@ public:
     static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);
 
+    static std::vector<TraCIStage> getTaxiReservations(int onlyNew = false);
+
     LIBSUMO_VEHICLE_TYPE_GETTER
 
     static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");

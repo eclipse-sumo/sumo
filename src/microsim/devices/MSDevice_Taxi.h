@@ -89,6 +89,14 @@ public:
     /// @brief resets counters
     static void cleanup();
 
+    static MSDispatch* getDispatchAlgorithm() {
+        return myDispatcher;
+    }
+
+    static const std::vector<MSDevice_Taxi*>& getFleet() {
+        return myFleet;
+    }
+
 public:
     /// @brief Destructor.
     ~MSDevice_Taxi();
@@ -140,6 +148,10 @@ public:
 
     /// @brief whether the taxi is empty
     bool isEmpty();
+
+    TaxiState getState() const {
+        return myState;
+    }
 
     /// @brief returns a taxi if any exist or nullptr
     static SUMOVehicle* getTaxi();

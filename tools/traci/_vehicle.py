@@ -859,6 +859,15 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ROUTING_MODE, vehID)
 
+    def getTaxiFleet(self, flag):
+        """getTaxiFleet(int) -> list(string)
+        Return the list of all taxis with the given mode:
+        0 : empty
+        1 : pickup
+        2 : occupied
+        """
+        return self._getUniversal(tc.VAR_TAXI_FLEET, "", "i", flag)
+
     def setMaxSpeed(self, vehID, speed):
         """setMaxSpeed(string, double) -> None
 
@@ -1403,6 +1412,16 @@ class VehicleDomain(Domain):
                      arrivalLane, arrivalPos, arrivalSpeed, fromTaz, toTaz, line, personCapacity, personNumber)
 
     addFull = add
+
+    def dispatchTaxi(self, vehID, reservations):
+        """dispatchTaxi(string, list(string)) -> None
+        dispatches the taxi with the given id to service the given reservations.
+        If only a single reservation is given, this implies pickup and drop-off
+        If multiple reservations are given, each reservation id must occur twice
+        (once for pickup and once for drop-off) and the list encodes ride
+        sharing of passengers (in pickup and drop-off order)
+        """
+        self._setCmd(tc.CMD_TAXI_DISPATCH, vehID, "l", reservations)
 
     def remove(self, vehID, reason=tc.REMOVE_VAPORIZED):
         '''Remove vehicle with the given ID for the give reason.

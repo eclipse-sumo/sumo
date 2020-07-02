@@ -27,6 +27,10 @@
 #include <utils/common/SUMOTime.h>
 #include "MSDevice_Taxi.h"
 
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MSTransportable;
 
 // ===========================================================================
 // class definitions
@@ -71,9 +75,7 @@ struct Reservation {
     }
 
     /// @brief debug identification
-    std::string getID() const {
-        return toString(persons);
-    }
+    std::string getID() const; 
 };
 
 /**
@@ -102,7 +104,7 @@ public:
     virtual ~MSDispatch() { }
 
     /// @brief add a new reservation
-    void addReservation(MSTransportable* person,
+    virtual Reservation* addReservation(MSTransportable* person,
                         SUMOTime reservationTime,
                         SUMOTime pickupTime,
                         const MSEdge* from, double fromPos,
@@ -112,6 +114,8 @@ public:
     /// @brief computes dispatch and updates reservations
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) = 0;
 
+    /// @brief retrieve all reservations
+    std::vector<Reservation*> getReservations();
 
     /// @brief check whether there are still (servable) reservations in the system
     bool hasServableReservations() {
@@ -134,8 +138,6 @@ public:
     bool myHasServableReservations = false;
 
 protected:
-    std::vector<Reservation*> getReservations();
-
     void servedReservation(const Reservation* res);
 
     /// @brief optional file output for dispatch information

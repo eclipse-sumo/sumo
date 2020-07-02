@@ -172,6 +172,19 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_VEHICLE, personID)
 
+    def getTaxiReservations(self, onlyNew):
+        """getTaxiReservations(int) -> list(Stage)
+        Returns all reservations. If onlyNew is 1, each reservation is returned
+        only once
+        """
+        answer = self._getCmd(tc.VAR_TAXI_RESERVATIONS, "", "i", onlyNew)
+        answer.read("!B")                   # Type
+        result = []
+        for _ in range(answer.readInt()):
+            answer.read("!B")                   # Type
+            result.append(simulation._readStage(answer))
+        return tuple(result)
+
     def removeStages(self, personID):
         """remove(string)
         Removes all stages of the person. If no new phases are appended,

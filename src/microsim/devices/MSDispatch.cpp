@@ -34,6 +34,16 @@
 //#define DEBUG_COND2(obj) (obj->getID() == "p0")
 #define DEBUG_COND2(obj) (true)
 
+
+// ===========================================================================
+// Reservation methods
+// ===========================================================================
+
+std::string
+Reservation::getID() const {
+    return toString(persons);
+}
+
 // ===========================================================================
 // MSDispatch methods
 // ===========================================================================
@@ -49,7 +59,7 @@ MSDispatch::MSDispatch(const std::map<std::string, std::string>& params) :
 }
 
 
-void
+Reservation*
 MSDispatch::addReservation(MSTransportable* person,
                            SUMOTime reservationTime,
                            SUMOTime pickupTime,
@@ -57,6 +67,7 @@ MSDispatch::addReservation(MSTransportable* person,
                            const MSEdge* to, double toPos,
                            const std::string& group) {
     // no new reservation nedded if the person can be added to an existing group
+    Reservation* result = nullptr;
     bool added = false;
     auto it = myGroupReservations.find(group);
     if (it != myGroupReservations.end()) {
@@ -68,6 +79,7 @@ MSDispatch::addReservation(MSTransportable* person,
                     && res->fromPos == fromPos
                     && res->toPos == toPos) {
                 res->persons.insert(person);
+                result = res;
                 added = true;
                 break;
             }
@@ -76,6 +88,7 @@ MSDispatch::addReservation(MSTransportable* person,
     if (!added) {
         Reservation* newRes = new Reservation({person}, reservationTime, pickupTime, from, fromPos, to, toPos, group);
         myGroupReservations[group].push_back(newRes);
+        result = newRes;
     }
     myHasServableReservations = true;
 #ifdef DEBUG_RESERVATION
@@ -88,6 +101,7 @@ MSDispatch::addReservation(MSTransportable* person,
                                            << " group=" << group
                                            << "\n";
 #endif
+    return result;
 }
 
 std::vector<Reservation*>
