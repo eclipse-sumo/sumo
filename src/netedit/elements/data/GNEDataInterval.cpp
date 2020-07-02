@@ -189,6 +189,11 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
         myAttributeColorsDeprecated = true;
         // update generic data IDs
         updateGenericDataIDs();
+        // update geometry after insertion if myUpdateGeometryEnabled is enabled
+        if (myNet->isUpdateGeometryEnabled()) {
+            // update generic data geometry
+            genericData->updateGeometry();
+        }
     } else {
         throw ProcessError("GenericData was already inserted");
     }

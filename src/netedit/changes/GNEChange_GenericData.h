@@ -67,6 +67,9 @@ private:
      */
     GNEGenericData* myGenericData;
 
+    /// @brief data set parent
+    GNEDataSet* myDataSetParent;
+
     /// @brief data interval parent
     GNEDataInterval* myDataIntervalParent;
 

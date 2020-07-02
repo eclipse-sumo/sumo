@@ -919,7 +919,12 @@ bool
 GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
     // first check that dataSet pointer is valid
     if (dataSet) {
-        return myDataSets.find(dataSet->getID()) != myDataSets.end();
+        for (const auto &dataset : myDataSets) {
+            if (dataset.second == dataSet) {
+                return true;
+            }
+        }
+        return false;
     } else {
         throw ProcessError("Invalid dataSet pointer");
     }

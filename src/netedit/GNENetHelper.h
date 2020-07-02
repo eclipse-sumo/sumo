@@ -81,6 +81,8 @@ struct GNENetHelper {
         friend class GNEChange_TAZElement;
         friend class GNEChange_DemandElement;
         friend class GNEChange_DataSet;
+        friend class GNEChange_DataInterval;
+        friend class GNEChange_GenericData;
 
     public:
         /// @brief constructor
