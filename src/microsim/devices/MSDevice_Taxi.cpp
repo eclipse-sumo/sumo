@@ -31,6 +31,7 @@
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
 #include "MSDispatch.h"
+#include "MSDispatch_Greedy.h"
 #include "MSDispatch_GreedyShared.h"
 #include "MSRoutingEngine.h"
 #include "MSDevice_Taxi.h"
