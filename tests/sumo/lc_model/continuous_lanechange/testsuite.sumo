@@ -6,6 +6,9 @@ lefthand
 # use configured lateral speed
 maxSpeedLat
 
+# use configured lateral speed that greatly differs from the default (implied by lanechange.duration)
+maxSpeedLat2
+
 # use configured maximum lateral speed when standing
 maxSpeedLatStanding
 
