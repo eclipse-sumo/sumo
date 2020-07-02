@@ -4,3 +4,10 @@ search_string:Error: non-whitespace characters are not allowed
 search_file:errors
 full_description:this is a non-issue so it should not create noise in the test results
 brief_description:known test platform issue
+
+[Reported by kobo at 02Jul11:13:15]
+search_string:Error: unable to open file 
+trigger_on_absence:1
+search_file:errors
+full_description:outdated xerces
+brief_description:see #7264
