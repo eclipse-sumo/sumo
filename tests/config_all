@@ -8,11 +8,13 @@ historical_report_location:$SUMO_REPORT
 [run_dependent_text]
 output:\r{REPLACE \n}
 output:[0-9\.]+ms{REPLACE (TIME)}
-output:[0-9\.]+s{REPLACE (TIME)}
+output:spent [0-9\.]+s{REPLACE spent (TIME)}
+output:Duration [0-9\.]+s{REPLACE Duration (TIME)}
 output:Version
 output:Build features
 log:[0-9\.]+ms{REPLACE (TIME)}
-log:[0-9\.]+s{REPLACE (TIME)}
+log:spent [0-9\.]+s{REPLACE spent (TIME)}
+log:Duration [0-9\.]+s{REPLACE Duration (TIME)}
 logPrefixed:[0-9\.]+ms{REPLACE (TIME)}
 logPrefixed:[0-9\.]+s{REPLACE (TIME)}
 errors:UTFDataFormatException

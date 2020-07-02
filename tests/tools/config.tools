@@ -169,6 +169,7 @@ output:Simulation.*started with{REPLACE Simulation started with}
 output:Retrying in
 output:00000 *${REPLACE 00000}
 dualog:uration:.*ms
+dualog:uration:.*s
 dualog:Real time factor
 dualog:UPS
 dualog:(.*ms)
