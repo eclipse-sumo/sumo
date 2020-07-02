@@ -621,12 +621,12 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
 void
 GNENet::deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList) {
     undoList->p_begin("delete " + dataSet->getTagStr());
-    // first remove all data interval children
-    while (dataSet->getDataIntervalChildren().size() > 0) {
-        deleteDataInterval(dataSet->getDataIntervalChildren().begin()->second, undoList);
+    // make a copy of all generic data children
+    auto copyOfDataIntervalChildren = dataSet->getDataIntervalChildren();
+    // clear all data intervals (this will be delete also the dataSet)
+    for (const auto &dataInterval : copyOfDataIntervalChildren) {
+        deleteDataInterval(dataInterval.second, undoList);
     }
-    // remove data set
-    undoList->add(new GNEChange_DataSet(dataSet, false), true);
     undoList->p_end();
 }
 
@@ -634,12 +634,12 @@ GNENet::deleteDataSet(GNEDataSet* dataSet, GNEUndoList* undoList) {
 void
 GNENet::deleteDataInterval(GNEDataInterval* dataInterval, GNEUndoList* undoList) {
     undoList->p_begin("delete " + dataInterval->getTagStr());
-    // first remove all generic data children
-    while (dataInterval->getGenericDataChildren().size() > 0) {
-        deleteGenericData(dataInterval->getGenericDataChildren().front(), undoList);
+    // make a copy of all generic data children
+    auto copyOfGenericDataChildren = dataInterval->getGenericDataChildren();
+    // clear all generic datas (this will be delete also the data intervals)
+    for (const auto &genericData : copyOfGenericDataChildren) {
+        deleteGenericData(genericData, undoList);
     }
-    // remove data interval
-    undoList->add(new GNEChange_DataInterval(dataInterval, false), true);
     undoList->p_end();
 }
 
@@ -655,8 +655,21 @@ GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
     while (genericData->getChildGenericDatas().size() > 0) {
         deleteGenericData(genericData->getChildGenericDatas().front(), undoList);
     }
+    // get pointer to dataInterval and dataSet
+    GNEDataInterval *dataInterval = genericData->getDataIntervalParent();
+    GNEDataSet *dataSet = dataInterval->getDataSetParent();
     // remove generic data
     undoList->add(new GNEChange_GenericData(genericData, false), true);
+    // check if data interval is empty
+    if (dataInterval->getGenericDataChildren().empty()) {
+        // remove data interval
+        undoList->add(new GNEChange_DataInterval(genericData->getDataIntervalParent(), false), true);
+        // now check if data set is empty
+        if (dataSet->getDataIntervalChildren().empty()) {
+            // remove data set
+            undoList->add(new GNEChange_DataSet(genericData->getDataIntervalParent()->getDataSetParent(), false), true);
+        }
+    }
     undoList->p_end();
 }
 

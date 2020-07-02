@@ -69,6 +69,9 @@ private:
 
     /// @brief data interval parent
     GNEDataInterval* myDataIntervalParent;
+
+    /// @brief reference to path vector
+    const std::vector<GNEPathElements::PathElement>& myPath;
 };
 
 /****************************************************************************/
