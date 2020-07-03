@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun  8 08:11:14 2020 by Eclipse SUMO netconvert Version v1_6_0+0588-5de7be01b6
+<!-- generated on Fri Jul  3 08:20:40 2020 by Eclipse SUMO netconvert Version v1_6_0+1121-71d7a99dd1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -3752,8 +3752,8 @@
     <connection from="-751.0.00" to="-831.0.00" fromLane="1" toLane="1" via=":4_14_1" dir="s" state="M"/>
     <connection from="-751.0.00" to="-832.0.00" fromLane="1" toLane="0" via=":4_16_0" dir="l" state="m"/>
     <connection from="-751.0.00" to="-838.0.00" fromLane="1" toLane="1" via=":4_17_0" dir="t" state="m"/>
-    <connection from="-752.0.00" to="-751.0.00" fromLane="0" toLane="0" via=":3_3_0" dir="s" state="M"/>
-    <connection from="-752.0.00" to="-751.0.00" fromLane="1" toLane="1" via=":3_3_1" dir="s" state="M"/>
+    <connection from="-752.0.00" to="-751.0.00" fromLane="0" toLane="0" keepClear="0" via=":3_3_0" dir="s" state="M"/>
+    <connection from="-752.0.00" to="-751.0.00" fromLane="1" toLane="1" keepClear="0" via=":3_3_1" dir="s" state="M"/>
     <connection from="-752.0.00" to="-839.0.00" fromLane="1" toLane="1" via=":3_5_0" dir="t" state="m"/>
     <connection from="-753.0.00" to="-831.0.00" fromLane="0" toLane="0" via=":4_9_0" dir="r" state="m"/>
     <connection from="-753.0.00" to="-832.0.00" fromLane="0" toLane="0" via=":4_10_0" dir="s" state="m"/>
@@ -3864,7 +3864,7 @@
     <connection from="-785.0.00" to="-786.0.00" fromLane="0" toLane="0" via=":36_3_0" dir="r" state="M"/>
     <connection from="-785.0.00" to="-784.0.00" fromLane="0" toLane="0" via=":36_4_0" dir="s" state="M"/>
     <connection from="-785.0.00" to="-873.0.00" fromLane="0" toLane="0" via=":36_5_0" dir="t" state="m"/>
-    <connection from="-786.0.00" to="-785.0.00" fromLane="0" toLane="0" via=":38_2_0" dir="r" state="M"/>
+    <connection from="-786.0.00" to="-785.0.00" fromLane="0" toLane="0" keepClear="0" via=":38_2_0" dir="r" state="M"/>
     <connection from="-786.0.00" to="-874.0.00" fromLane="0" toLane="0" via=":38_3_0" dir="t" state="m"/>
     <connection from="-787.0.00" to="-780.0.00" fromLane="0" toLane="0" via=":31_3_0" dir="r" state="m"/>
     <connection from="-787.0.00" to="-869.0.00" fromLane="0" toLane="0" via=":31_4_0" dir="l" state="m"/>
@@ -3872,7 +3872,7 @@
     <connection from="-788.0.00" to="-787.0.00" fromLane="0" toLane="0" via=":39_3_0" dir="s" state="M"/>
     <connection from="-788.0.00" to="-789.0.00" fromLane="0" toLane="0" via=":39_4_0" dir="l" state="m"/>
     <connection from="-788.0.00" to="-876.0.00" fromLane="0" toLane="0" via=":39_5_0" dir="t" state="m"/>
-    <connection from="-789.0.00" to="-788.0.00" fromLane="0" toLane="0" via=":40_0_0" dir="l" state="M"/>
+    <connection from="-789.0.00" to="-788.0.00" fromLane="0" toLane="0" keepClear="0" via=":40_0_0" dir="l" state="M"/>
     <connection from="-789.0.00" to="-877.0.00" fromLane="0" toLane="0" via=":40_1_0" dir="t" state="m"/>
     <connection from="-790.0.00" to="-803.0.00" fromLane="0" toLane="0" via=":42_0_0" dir="r" state="m"/>
     <connection from="-790.0.00" to="-904.0.00" fromLane="0" toLane="0" via=":42_1_0" dir="l" state="m"/>
@@ -4020,8 +4020,8 @@
     <connection from="-836.0.00" to="-837.0.00" fromLane="0" toLane="0" via=":51_1_0" dir="l" state="m"/>
     <connection from="-837.0.00" to="-936.0.00" fromLane="0" toLane="0" via=":66_0_0" dir="r" state="m"/>
     <connection from="-837.0.00" to="-829.0.00" fromLane="0" toLane="1" via=":66_1_0" dir="l" state="m"/>
-    <connection from="-838.0.00" to="-839.0.00" fromLane="0" toLane="0" via=":3_0_0" dir="s" state="M"/>
-    <connection from="-838.0.00" to="-839.0.00" fromLane="1" toLane="1" via=":3_0_1" dir="s" state="M"/>
+    <connection from="-838.0.00" to="-839.0.00" fromLane="0" toLane="0" keepClear="0" via=":3_0_0" dir="s" state="M"/>
+    <connection from="-838.0.00" to="-839.0.00" fromLane="1" toLane="1" keepClear="0" via=":3_0_1" dir="s" state="M"/>
     <connection from="-838.0.00" to="-751.0.00" fromLane="1" toLane="1" via=":3_2_0" dir="t" state="m"/>
     <connection from="-839.0.00" to="-752.0.00" fromLane="1" toLane="1" via=":5_0_0" dir="t" state="M"/>
     <connection from="-840.0.00" to="-763.0.00" fromLane="0" toLane="0" via=":2_0_0" dir="r" state="M"/>
@@ -4133,7 +4133,7 @@
     <connection from="-872.0.00" to="-873.0.00" fromLane="0" toLane="0" via=":36_6_0" dir="s" state="M"/>
     <connection from="-872.0.00" to="-786.0.00" fromLane="0" toLane="0" via=":36_7_0" dir="l" state="m"/>
     <connection from="-872.0.00" to="-784.0.00" fromLane="0" toLane="0" via=":36_8_0" dir="t" state="m"/>
-    <connection from="-873.0.00" to="-874.0.00" fromLane="0" toLane="0" via=":38_0_0" dir="l" state="M"/>
+    <connection from="-873.0.00" to="-874.0.00" fromLane="0" toLane="0" keepClear="0" via=":38_0_0" dir="l" state="M"/>
     <connection from="-873.0.00" to="-785.0.00" fromLane="0" toLane="0" via=":38_1_0" dir="t" state="m"/>
     <connection from="-874.0.00" to="-784.0.00" fromLane="0" toLane="0" via=":36_0_0" dir="r" state="m"/>
     <connection from="-874.0.00" to="-873.0.00" fromLane="0" toLane="0" via=":36_1_0" dir="l" state="m"/>
@@ -4141,7 +4141,7 @@
     <connection from="-875.0.00" to="-789.0.00" fromLane="0" toLane="0" via=":39_0_0" dir="r" state="M"/>
     <connection from="-875.0.00" to="-876.0.00" fromLane="0" toLane="0" via=":39_1_0" dir="s" state="M"/>
     <connection from="-875.0.00" to="-787.0.00" fromLane="0" toLane="0" via=":39_2_0" dir="t" state="m"/>
-    <connection from="-876.0.00" to="-877.0.00" fromLane="0" toLane="0" via=":40_2_0" dir="r" state="M"/>
+    <connection from="-876.0.00" to="-877.0.00" fromLane="0" toLane="0" keepClear="0" via=":40_2_0" dir="r" state="M"/>
     <connection from="-876.0.00" to="-788.0.00" fromLane="0" toLane="0" via=":40_3_0" dir="t" state="m"/>
     <connection from="-877.0.00" to="-876.0.00" fromLane="0" toLane="0" via=":39_6_0" dir="r" state="m"/>
     <connection from="-877.0.00" to="-787.0.00" fromLane="0" toLane="0" via=":39_7_0" dir="l" state="m"/>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Mar 13 07:33:01 2020 by Eclipse SUMO Version v1_5_0+0697-4d5abf8
+<!-- generated on Fri Jul  3 08:22:30 2020 by Eclipse SUMO sumo Version v1_6_0+1121-71d7a99dd1
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="input_net2.net.xml"/>
+        <net-file value="input_net4.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
@@ -24,7 +24,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="41495"/>
+        <remote-port value="49677"/>
     </traci_server>
 
 </configuration>
@@ -37,7 +37,7 @@
     </vehicle>
 
     <person id="p0" depart="0.00" arrival="93.00">
-        <ride from="A0A1" to="A2A3" lines="ego"/>
+        <ride from="A0A1" to="A2A3" arrivalPos="92.10" lines="ego"/>
         <walk edges="A2A3 A3B3"/>
     </person>
 
