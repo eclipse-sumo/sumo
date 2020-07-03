@@ -1963,6 +1963,11 @@ GNEFrameModuls::OverlappedInspection::onCmdShowList(FXObject*, FXSelector, void*
     } else {
         myOverlappedElementList->show();
     }
+    if (myOverlappedElementList->getNumItems() <= 10) {
+        myOverlappedElementList->setHeight(23 * myOverlappedElementList->getNumItems());
+    } else {
+        myOverlappedElementList->setHeight(230);
+    }
     myOverlappedElementList->recalc();
     // recalc and update frame
     recalc();
@@ -2028,9 +2033,7 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
     // Create next Item Button
     myNextElement = new FXButton(frameButtons, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWRIGHT), this, MID_GNE_OVERLAPPED_NEXT, GUIDesignButtonIconRectangular);
     // Create list of overlapped elements (by default hidden)
-    myOverlappedElementList = new FXList(this, this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListSingleElement);
-    // disable vertical scrolling
-    myOverlappedElementList->setScrollStyle(VSCROLLING_OFF);
+    myOverlappedElementList = new FXList(this, this, MID_GNE_OVERLAPPED_ITEMSELECTED, GUIDesignListFixedHeight);
     // by default list of overlapped elements is hidden)
     myOverlappedElementList->hide();
     // Create help button

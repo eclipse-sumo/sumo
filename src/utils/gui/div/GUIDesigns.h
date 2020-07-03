@@ -520,9 +520,6 @@
 /// @brief design for FXLists
 #define GUIDesignList                           (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X)
 
-/// @brief design for FXList sthat only allow a single selected elements selected
-#define GUIDesignListSingleElement              (LIST_SINGLESELECT | FRAME_NORMAL | LAYOUT_FILL_X)
-
 /// @brief design for FXLists with height fixed
 #define GUIDesignListFixedHeight                (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
 
