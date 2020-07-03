@@ -107,6 +107,8 @@ class ArgumentParser(argparse.ArgumentParser):
                                     help = ' help="%s"' % a.help
                             break
                     if print_template or v != a.default:
+                        if isinstance(v, list):
+                            v = " ".join(map(str, v))
                         out.write('    <%s value="%s"%s%s/>\n' % (key, v, default, help))
             out.write('</configuration>\n')
         if exit:
@@ -137,10 +139,13 @@ class ArgumentParser(argparse.ArgumentParser):
         config_args = []
         if idx > 0:
             act_map = {}
+            multi_value = set()
             for a in self._actions:
                 for s in a.option_strings:
                     if s.startswith("--"):
                         act_map[s[2:]] = a.option_strings
+                        if a.nargs:
+                            multi_value.add(s[2:])
             for cfg_file in args[idx].split(","):
                 for option in readOptions(cfg_file):
                     is_set = False
@@ -150,9 +155,12 @@ class ArgumentParser(argparse.ArgumentParser):
                             break
                     if not is_set:
                         if option.value == "True":
-                            config_args += ["--" + option.name, option.value]
+                            config_args += ["--" + option.name]
                         elif option.value != "False":
-                            config_args += ["--" + option.name, option.value]
+                            if option.name in multi_value:
+                                config_args += ["--" + option.name] + option.value.split()
+                            else:
+                                config_args += ["--" + option.name, option.value]
         namespace, unknown_args = argparse.ArgumentParser.parse_known_args(
             self, args=args+config_args, namespace=namespace)
         self.write_config_file(namespace)
