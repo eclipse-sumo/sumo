@@ -23,7 +23,7 @@ length 2.0
 MinGap 2.22
 width 1.11
 waiting time 0.0
-stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=INVALID, cost=INVALID, length=766.537661434, depart=INVALID, departPos=238.5, arrivalPos=486.54, description=walking)
+stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=INVALID, cost=INVALID, length=766.537661434, depart=0.0, departPos=238.5, arrivalPos=486.54, description=walking)
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
@@ -50,7 +50,7 @@ length 2.0
 MinGap 2.22
 width 1.11
 waiting time 0.0
-stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=INVALID, cost=INVALID, length=766.537661434, depart=INVALID, departPos=238.5, arrivalPos=486.54, description=walking)
+stage Stage(type=2, edges=('2fi', '2si', '1o'), travelTime=INVALID, cost=INVALID, length=766.537661434, depart=0.0, departPos=238.5, arrivalPos=486.54, description=walking)
 remainingStages 1
 edges ('2fi', '2si', '1o')
 vehicle 
@@ -85,14 +85,14 @@ riding in vehicle: 'newPerson'
 riding in vehicle (direct): 'newPerson'
 persons on edge :0_10 at time 17.0: ('newPerson',)
 remaining stages for 'newPerson' remaining plan before jump
-  0: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', '1o'), travelTime=INVALID, cost=INVALID, length=14.1178279391, depart=-0.001, departPos=INVALID, arrivalPos=486.549, description=driving)
+  0: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', '1o'), travelTime=INVALID, cost=INVALID, length=14.1178279391, depart=7.0, departPos=INVALID, arrivalPos=486.549, description=driving)
 prio stages for 'newPerson' past plan
-  -4: Stage(type=0, edges=('3si',), travelTime=INVALID, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=225.05, description=waiting (awaiting departure))
-  -3: Stage(type=2, edges=('3si', '2si'), travelTime=INVALID, cost=INVALID, length=54.5277393985, depart=INVALID, departPos=225.05, arrivalPos=215.05, description=walking)
-  -2: Stage(type=1, edges=('3si',), travelTime=INVALID, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=231.794681405, description=waiting (last stage removed))
-  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', '1o'), travelTime=INVALID, cost=INVALID, length=14.1178279391, depart=-0.001, departPos=INVALID, arrivalPos=486.55, description=driving)
+  -4: Stage(type=0, edges=('3si',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=225.05, description=waiting (awaiting departure))
+  -3: Stage(type=2, edges=('3si', '2si'), travelTime=7.0, cost=INVALID, length=54.5277393985, depart=0.0, departPos=225.05, arrivalPos=215.05, description=walking)
+  -2: Stage(type=1, edges=('3si',), travelTime=0.0, cost=INVALID, length=0.0, depart=7.0, departPos=INVALID, arrivalPos=231.794681405, description=waiting (last stage removed))
+  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=B42, edges=('3si', '1o'), travelTime=10.0, cost=INVALID, length=14.1178279391, depart=7.0, departPos=INVALID, arrivalPos=486.55, description=driving)
 remaining stages for 'newPerson' remaining plan after jump
-  0: Stage(type=1, edges=(':0_10',), travelTime=INVALID, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=9.06782793907, description=waiting (last stage removed))
+  0: Stage(type=1, edges=(':0_10',), travelTime=INVALID, cost=INVALID, length=0.0, depart=17.0, departPos=INVALID, arrivalPos=9.06782793907, description=waiting (last stage removed))
   1: Stage(type=1, edges=(':0_10',), travelTime=INVALID, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=9.06782793907, description=waiting (Jumped out of a moving vehicle. Ouch!))
 'detour' on road :0_w2
 'detour2' on road :0_w2
@@ -115,12 +115,12 @@ recovering from exception after asking for invalid stage index
 222.0 person=tripTest2 edge=2fi pos=19.0504063853
 223.0 person=tripTest2 edge=2fi pos=20.2967095385
 remaining stages for 'p3' (before replacement of current stage
-  0: Stage(type=2, edges=('1fi', '1si'), travelTime=INVALID, cost=INVALID, length=27.2498275842, depart=INVALID, departPos=238.5, arrivalPos=10.0, description=walking)
+  0: Stage(type=2, edges=('1fi', '1si'), travelTime=INVALID, cost=INVALID, length=27.2498275842, depart=224.0, departPos=238.5, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (after replacement
-  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (before replacement of next stage
-  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
   1: Stage(type=2, edges=('1o', '3o'), travelTime=INVALID, cost=INVALID, length=39.9912480851, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
 remaining stages for 'p3' (after replacement
-  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
+  0: Stage(type=2, edges=('1fi', '1o'), travelTime=INVALID, cost=INVALID, length=495.25, depart=234.0, departPos=10.0, arrivalPos=10.0, description=walking)
   1: Stage(type=2, edges=('1o', '4o'), travelTime=INVALID, cost=INVALID, length=39.9912480851, depart=INVALID, departPos=10.0, arrivalPos=10.0, description=walking)
