@@ -1,0 +1,3 @@
+ Retrying in 1 seconds
+taxiFleet ('taxi_0',)
+reservations (Stage(type=3, vType=a, line=taxi, destStop=0, edges=('A1B1', 'D2D3'), travelTime=0.0, cost=1.0, length=-1.0, intended=a, depart=0.0, departPos=0.0, arrivalPos=92.1), Stage(type=3, vType=b, line=taxi, destStop=1, edges=('B1C1', 'C1D1'), travelTime=0.0, cost=1.0, length=-1.0, intended=b, depart=0.0, departPos=0.0, arrivalPos=90.6), Stage(type=3, vType=c, line=taxi, destStop=2, edges=('C1D1', 'D2D3'), travelTime=0.0, cost=1.0, length=-1.0, intended=c, depart=0.0, departPos=0.0, arrivalPos=92.1))
