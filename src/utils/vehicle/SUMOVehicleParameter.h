@@ -338,7 +338,7 @@ public:
         double endPos = 0.;
 
         /// @brief The (expected) time at which the vehicle reaches the stop
-        SUMOTime arrival = 0;
+        SUMOTime arrival = -1;
 
         /// @brief The stopping duration
         SUMOTime duration = -1;
