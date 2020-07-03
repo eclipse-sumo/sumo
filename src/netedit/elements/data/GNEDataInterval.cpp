@@ -29,8 +29,6 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 
 #include "GNEDataInterval.h"

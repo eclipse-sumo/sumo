@@ -29,7 +29,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/frames/data/GNETAZRelDataFrame.h>
 
 #include "GNETAZRelData.h"
@@ -140,6 +139,24 @@ GNETAZRelData::getGenericDataProblem() const {
 void
 GNETAZRelData::fixGenericDataProblem() {
     throw InvalidArgument(getTagStr() + " cannot fix any problem");
+}
+
+
+void 
+GNETAZRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
+    // Nothing to draw
+}
+
+
+void 
+GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
+    //
+}
+
+
+void 
+GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const double /*offsetFront*/) const {
+    //
 }
 
 

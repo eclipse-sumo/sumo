@@ -81,6 +81,27 @@ public:
     /// @name inherited from GUIGlObject
     /// @{
 
+    /**@brief Draws the object
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @see GUIGlObject::drawGL
+    */
+    void drawGL(const GUIVisualizationSettings& s) const;
+
+    /**@brief Draws partial object (lane)
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] lane GNELane in which draw partial
+    * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+    */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const;
+
+    /**@brief Draws partial object (junction)
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @param[in] fromLane from GNELane
+    * @param[in] toLane to GNELane
+    * @param[in] offsetFront offset for drawing element front (needed for selected elements)
+    */
+    void drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const;
+
     //// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 
