@@ -122,6 +122,11 @@ MSStage::getDeparted() const {
     return myDeparted;
 }
 
+SUMOTime
+MSStage::getArrived() const {
+    return myArrived;
+}
+
 const std::string
 MSStage::setArrived(MSNet* /* net */, MSTransportable* /* transportable */, SUMOTime now) {
     myArrived = now;

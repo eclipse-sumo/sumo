@@ -238,13 +238,17 @@ Person::getStage(const std::string& personID, int nextStageIndex) {
     result.departPos = INVALID_DOUBLE_VALUE;
     result.cost = INVALID_DOUBLE_VALUE;
     result.travelTime = INVALID_DOUBLE_VALUE;
+    result.depart = stage->getDeparted() >= 0 ? STEPS2TIME(stage->getDeparted()) : INVALID_DOUBLE_VALUE;
+    result.travelTime = stage->getArrived() >= 0 ? STEPS2TIME(stage->getArrived() - stage->getDeparted()) : INVALID_DOUBLE_VALUE;
     // Some stage type dependant attributes
     switch (stage->getStageType()) {
         case MSStageType::DRIVING: {
             MSStageDriving* const drivingStage = static_cast<MSStageDriving*>(stage);
             result.vType = drivingStage->getVehicleType();
             result.intended = drivingStage->getIntendedVehicleID();
-            result.depart = STEPS2TIME(drivingStage->getIntendedDepart());
+            if (result.depart < 0 && drivingStage->getIntendedDepart() >= 0) {
+                result.depart = STEPS2TIME(drivingStage->getIntendedDepart());
+            }
             const std::set<std::string> lines = drivingStage->getLines();
             for (auto line = lines.begin(); line != lines.end(); line++) {
                 if (line != lines.begin()) {
