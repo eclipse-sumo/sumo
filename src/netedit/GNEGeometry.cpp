@@ -288,6 +288,7 @@ GNEGeometry::DottedGeometryColor::getColor() {
     }
 }
 
+
 void
 GNEGeometry::DottedGeometryColor::changeColor() {
     if (myColorFlag) {
@@ -295,6 +296,12 @@ GNEGeometry::DottedGeometryColor::changeColor() {
     } else {
         myColorFlag = true;
     }
+}
+
+
+void
+GNEGeometry::DottedGeometryColor::reset() {
+    myColorFlag = true;
 }
 
 // ---------------------------------------------------------------------------
@@ -449,7 +456,7 @@ GNEGeometry::DottedGeometry::setWidth(const double width) {
 
 
 void 
-GNEGeometry::DottedGeometry::inverOffset() {
+GNEGeometry::DottedGeometry::invertOffset() {
     // iterate over all segments
     for (auto &segment : myDottedGeometrySegments) {
         segment.offset *= -1;
@@ -1182,15 +1189,17 @@ GNEGeometry::drawDottedContourLane(const GUIVisualizationSettings& s, const Dott
     topDottedGeometry.moveShapeToSide(width);
     botDottedGeometry.moveShapeToSide(width * -1);
     // invert offset of top dotted geometry
-    topDottedGeometry.inverOffset();
+    topDottedGeometry.invertOffset();
     // calculate extremes
     DottedGeometry extremes(s, topDottedGeometry, drawFirstExtrem, botDottedGeometry, drawLastExtrem);
     // Push draw matrix
     glPushMatrix();
     // translate to front
-    glTranslated(0, 0, GLO_MAX);
+    glTranslated(0, 0, GLO_DOTTEDCONTOUR);
     // draw top dotted geometry
     topDottedGeometry.drawDottedGeometry(dottedGeometryColor);
+    // reset color
+    dottedGeometryColor.reset();
     // draw top dotted geometry
     botDottedGeometry.drawDottedGeometry(dottedGeometryColor);
     // change color
@@ -1203,25 +1212,43 @@ GNEGeometry::drawDottedContourLane(const GUIVisualizationSettings& s, const Dott
 
 
 void 
-GNEGeometry::drawDottedContourEdge(const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometryTop, const DottedGeometry &dottedGeometrybot) {
-    // declare DottedGeometryColor
-    DottedGeometryColor dottedGeometryColor(s);
-    // calculate extremes
-    DottedGeometry extremes(s, dottedGeometryTop, true, dottedGeometrybot, true);
-    // Push draw matrix
-    glPushMatrix();
-    // translate to front
-    glTranslated(0, 0, GLO_MAX);
-    // draw top dotted geometry
-    dottedGeometryTop.drawDottedGeometry(dottedGeometryColor);
-    // draw top dotted geometry
-    dottedGeometrybot.drawDottedGeometry(dottedGeometryColor);
-    // change color
-    dottedGeometryColor.changeColor();
-    // draw extrem dotted geometry
-    extremes.drawDottedGeometry(dottedGeometryColor);
-    // pop matrix
-    glPopMatrix();
+GNEGeometry::drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme) {
+    if (edge->getLanes().size() == 1) {
+        GNELane::LaneDrawingConstants laneDrawingConstants(s, edge->getLanes().front());
+        GNEGeometry::drawDottedContourLane(s, edge->getLanes().front()->getDottedLaneGeometry(), laneDrawingConstants.halfWidth, drawFrontExtreme, drawBackExtreme);
+    } else {
+        // obtain a copy of both geometries
+        GNEGeometry::DottedGeometry dottedGeometryTop = edge->getLanes().front()->getDottedLaneGeometry();
+        GNEGeometry::DottedGeometry dottedGeometryBot = edge->getLanes().back()->getDottedLaneGeometry();
+        // obtain both LaneDrawingConstants
+        GNELane::LaneDrawingConstants laneDrawingConstantsFront(s, edge->getLanes().front());
+        GNELane::LaneDrawingConstants laneDrawingConstantsBack(s, edge->getLanes().back());
+        // move shapes to side
+        dottedGeometryTop.moveShapeToSide(laneDrawingConstantsFront.halfWidth);
+        dottedGeometryBot.moveShapeToSide(laneDrawingConstantsBack.halfWidth * -1);
+        // invert offset of top dotted geometry
+        dottedGeometryTop.invertOffset();
+        // declare DottedGeometryColor
+        DottedGeometryColor dottedGeometryColor(s);
+        // calculate extremes
+        DottedGeometry extremes(s, dottedGeometryTop, drawFrontExtreme, dottedGeometryBot, drawBackExtreme);
+        // Push draw matrix
+        glPushMatrix();
+        // translate to front
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR);
+        // draw top dotted geometry
+        dottedGeometryTop.drawDottedGeometry(dottedGeometryColor);
+        // reset color
+        dottedGeometryColor.reset();
+        // draw top dotted geometry
+        dottedGeometryBot.drawDottedGeometry(dottedGeometryColor);
+        // change color
+        dottedGeometryColor.changeColor();
+        // draw extrem dotted geometry
+        extremes.drawDottedGeometry(dottedGeometryColor);
+        // pop matrix
+        glPopMatrix();
+    }
 }
 
 
@@ -1239,7 +1266,7 @@ GNEGeometry::drawDottedContourClosedShape(const GUIVisualizationSettings& s, con
         // Push draw matrix
         glPushMatrix();
         // translate to front
-        glTranslated(0, 0, GLO_MAX);
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR);
         // draw dotted geometry
         dottedGeometry.drawDottedGeometry(dottedGeometryColor);
         // pop matrix

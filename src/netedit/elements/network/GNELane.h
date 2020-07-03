@@ -47,9 +47,10 @@ class GNELane : public GNENetworkElement, public GNECandidateElement, public FXD
     FXDECLARE(GNELane)
 
 public:
+    /// @brief class for LaneDrawingConstants
+    class LaneDrawingConstants {
 
-    /// @brief structs for LaneDrawingConstants
-    struct LaneDrawingConstants {
+    public:
         /// @brief parameter constructor
         LaneDrawingConstants(const GUIVisualizationSettings& s, const GNELane* lane);
 
@@ -64,7 +65,11 @@ public:
 
         // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
         const double halfWidth;
+
     private:
+        // default constructor
+        LaneDrawingConstants();
+
         /// @brief Invalidated assignment operator.
         LaneDrawingConstants& operator=(const LaneDrawingConstants&) = delete;
     };

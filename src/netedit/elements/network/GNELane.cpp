@@ -73,6 +73,13 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants(const GUIVisualizationSettin
 }
 
 
+GNELane::LaneDrawingConstants::LaneDrawingConstants() :
+    selectionScale(0),
+    exaggeration(0),
+    halfWidth2(0),
+    halfWidth(0) {
+}
+
 // ---------------------------------------------------------------------------
 // GNELane - methods
 // ---------------------------------------------------------------------------

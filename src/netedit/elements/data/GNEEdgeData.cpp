@@ -176,6 +176,10 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
     glPopMatrix();
     // Pop name
     glPopName();
+    // check if shape dotted contour has to be drawn
+    if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+        GNEGeometry::drawDottedContourEdge(s, lane->getParentEdge(), true, true);
+    }
 }
 
 

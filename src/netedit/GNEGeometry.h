@@ -165,6 +165,9 @@ struct GNEGeometry {
         /// @brief change color
         void changeColor();
 
+        /// @brief rest Dotted Geometry Color
+        void reset();
+
     private:
         /// @brief pointer to GUIVisualizationSettings
         const GUIVisualizationSettings& mySettings;
@@ -231,7 +234,7 @@ struct GNEGeometry {
         void setWidth(const double width);
 
         /// @brief invert offset of all segments
-        void inverOffset();
+        void invertOffset();
 
     private:
         /// @brief calculate shape rotations and lengths
@@ -494,7 +497,7 @@ struct GNEGeometry {
     static void drawDottedContourLane(const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
-    static void drawDottedContourEdge(const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometryTop, const DottedGeometry &dottedGeometrybot);
+    static void drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme);
 
     /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
     static void drawDottedContourClosedShape(const GUIVisualizationSettings& s, const PositionVector &shape, const double exaggeration);
