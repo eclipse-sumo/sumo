@@ -235,7 +235,7 @@ stage3 = traci.simulation.Stage(
     vType="car", edges=["1o", "3o"], departPos=-20, arrivalPos=10, description="foo")
 stage4 = traci.simulation.Stage(
     type=traci.constants.STAGE_WALKING,
-    vType="car", edges=["1o", "4o"],departPos=-20, arrivalPos=10, description="foo")
+    vType="car", edges=["1o", "4o"], departPos=-20, arrivalPos=10, description="foo")
 
 traci.person.appendStage("p3", stage)
 for i in range(10):

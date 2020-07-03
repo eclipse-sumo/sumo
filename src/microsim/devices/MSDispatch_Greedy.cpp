@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSDispatch.cpp
+/// @file    MSDispatch_Greedy.cpp
 /// @author  Jakob Erdmann
 /// @date    16.12.2019
 ///
