@@ -72,6 +72,8 @@ algorithms are available
 
 - greedyShared: like 'greed' but tries to pick up another passenger while delivering the first passenger to it's destination. The algorithm supports parameters **absLossThreshold** and **relLossThreshold** to configure acceptable detours.
 
+- traci: Dispatch is defered to [traci control](#traci). The algorithm only keeps track of pending reservations
+
 !!! note
     User-contributed dispatch algorithms are welcome.
 
@@ -87,6 +89,13 @@ By default, taxis will remain in the simulation until all persons have left. To 
         <param key="device.taxi.end" value="3600"/>
     </vType>
 ```
+
+# TraCI
+To couple an external dispatch algorithm to SUMO, the following [TraCI](../TraCI.md) functions are provided:
+
+- traci.person.getTaxiReservations(onlyNew)
+- traci.vehicle.getTaxiFleet(taxiState)
+- traci.vehicle.dispatchTaxi(vehID, reservations)
 
 # Outputs
 
