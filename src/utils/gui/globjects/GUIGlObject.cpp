@@ -106,7 +106,12 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     //
     {"person",              GLO_PERSON},
     {"personFlow",          GLO_PERSONFLOW},
+    //
     {"dottedContour",       GLO_DOTTEDCONTOUR},
+    {"temporalShape",       GLO_TEMPORALSHAPE},
+    {"rectangleSelection",  GLO_RECTANGLESELECTION},
+    {"testElement",         GLO_TESTELEMENT},
+    //
     {"undefined",           GLO_MAX}
 };
 
