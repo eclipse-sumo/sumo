@@ -600,19 +600,8 @@ GNENet::deleteDemandElement(GNEDemandElement* demandElement, GNEUndoList* undoLi
         while (demandElement->getChildGenericDatas().size() > 0) {
             deleteGenericData(demandElement->getChildGenericDatas().front(), undoList);
         }
-        // we need an special case for person
-        if (demandElement->getTagProperty().isPersonPlan() && (demandElement->getParentDemandElements().front()->getChildDemandElements().size() == 1)) {
-            // obtain person
-            GNEDemandElement* person = demandElement->getParentDemandElements().front();
-            // remove demandElement
-            undoList->add(new GNEChange_DemandElement(demandElement, false), true);
-            // und now remove person
-            undoList->add(new GNEChange_DemandElement(person, false), true);
-        } else {
-            // remove demandElement
-            undoList->add(new GNEChange_DemandElement(demandElement, false), true);
-
-        }
+        // remove demandElement
+        undoList->add(new GNEChange_DemandElement(demandElement, false), true);
         undoList->p_end();
     }
 }

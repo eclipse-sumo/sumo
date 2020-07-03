@@ -3285,10 +3285,23 @@ GNEViewNet::deleteSelectedDemandElements() {
     if (demandElements.size() > 0) {
         std::string plural = demandElements.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected demand elements" + plural);
-        for (auto i : demandElements) {
+        // declare vector for persons
+        std::vector<GNEDemandElement*> persons;
+        for (const auto &demandElement: demandElements) {
+            // check if element is a personplan
+            if (demandElement->getTagProperty().isPersonPlan()) {
+                persons.push_back(demandElement->getParentDemandElements().front());
+            }
             // due there are demand elements that are removed when their parent is removed, we need to check if yet exists before removing
-            if (myNet->retrieveDemandElement(i->getTagProperty().getTag(), i->getID(), false) != nullptr) {
-                myNet->deleteDemandElement(i, myUndoList);
+            if (myNet->retrieveDemandElement(demandElement->getTagProperty().getTag(), demandElement->getID(), false) != nullptr) {
+                myNet->deleteDemandElement(demandElement, myUndoList);
+            }
+        }
+        // check if we have to remove empty persons
+        for (const auto &person : persons) {
+            // due person could be removed previously, check if exist
+            if (person->getChildDemandElements().empty() && myNet->retrieveDemandElement(person->getTagProperty().getTag(), person->getID(), false) != nullptr) {
+                myNet->deleteDemandElement(person, myUndoList);
             }
         }
         myUndoList->p_end();
