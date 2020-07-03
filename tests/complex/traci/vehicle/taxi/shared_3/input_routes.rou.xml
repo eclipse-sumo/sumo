@@ -12,9 +12,9 @@
         <ride from="A1B1" to="D2D3" lines="taxi"/>
     </person>
     <person id="b" depart="0">
-        <ride from="B1C1" to="C1D1" lines="taxi"/>
+        <ride from="B1C1" to="C1D1" lines="taxi" arrivalPos="50"/>
     </person>
-    <person id="c" depart="0">
+    <person id="c" depart="0" departPos="50">
         <ride from="C1D1" to="D2D3" lines="taxi"/>
     </person>
 </routes>
