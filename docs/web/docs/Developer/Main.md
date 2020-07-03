@@ -64,7 +64,3 @@ permalink: /Developer/Main/
 - [SUMO brew formula on Travis](https://travis-ci.org/dlr-ts/homebrew-sumo)
 - [SUMO on OpenHub](https://www.openhub.net/p/sumo/)
 - [SUMO on codeclimate](https://codeclimate.com/github/DLR-TS/sumo)
-
-## Text Snippets
-
-- [Purgatory/Text Snippets](../Purgatory/Text_Snippets.md) - some text snippets

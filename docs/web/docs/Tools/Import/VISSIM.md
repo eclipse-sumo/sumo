@@ -12,8 +12,6 @@ permalink: /Tools/Import/VISSIM/
 
 - translation to english
 
-<img src="http://latex.codecogs.com/gif.latex?\sqrt{\pi} +4" border="0" style="margin:0;"/>
-
 # Erweiterung der SUMO Netzkonversion
 
 Mit Version 6 der kommerziellen Verkehrsmikrosimulation der Firma PTV,

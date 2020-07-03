@@ -34,9 +34,6 @@ plugins:
       as_datetime: true
   - macros
 
-extra_css: 
-  - extra.css
-
 markdown_extensions:
   - admonition
   - pymdownx.tilde
@@ -82,4 +79,4 @@ extra:
     Outdated: '<div style="background: #801010; padding: .5em; border: 1px dashed #ffcc44; margin-right:10px; margin-left:10px; color: #ffffff">This information is outdated.</div>'
     Source: 'https://github.com/eclipse/sumo/blob/master/'
     SUMO: '***&lt;SUMO_HOME&gt;***'
-    SUMOUSERConference: '[SUMO User Conference](http://sumo.dlr.de/2020/)'
+    SUMOUSERConference: '[SUMO User Conference](https://eclipse.org/sumo/conference)'
