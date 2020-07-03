@@ -163,7 +163,7 @@ can be found in the SUMO-distribution under <SUMO_HOME\>/tools.
 Below are links to some of the most important tools:
 
 - [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy)
-- [TraCI/Interfacing_TraCI_from_Python](TraCI/Interfacing_TraCI_from_Python.md)
+- [TraCI/Interfacing TraCI from Python](TraCI/Interfacing_TraCI_from_Python.md)
 - [Reading SUMO networks and outputs with Python (sumolib)](Tools/Sumolib.md)
 - [Tools for converting SUMO outputs to CSV/Spreadsheet](Tools/Xml.md)
 - [Exporting mobility Traces (traceExporter)](Tools/TraceExporter.md)
