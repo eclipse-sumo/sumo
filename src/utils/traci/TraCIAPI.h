@@ -76,6 +76,9 @@ public:
     /// @brief Let sumo load a simulation using the given command line like options.
     void load(const std::vector<std::string>& args);
 
+    /// @brief return TraCI API and SUMO version
+    std::pair<int, std::string> getVersion();
+
     const tcpip::Storage& getCommandStorage() const {
         return myOutput;
     }

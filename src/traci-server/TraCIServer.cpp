@@ -888,11 +888,10 @@ TraCIServer::dispatchCommand() {
 // ---------- Server-internal command handling
 bool
 TraCIServer::commandGetVersion() {
-    std::string sumoVersion = VERSION_STRING;
     // Prepare response
     tcpip::Storage answerTmp;
     answerTmp.writeInt(libsumo::TRACI_VERSION);
-    answerTmp.writeString(std::string("SUMO ") + sumoVersion);
+    answerTmp.writeString("SUMO " VERSION_STRING);
     // When we get here, the response is stored in answerTmp -> put into myOutputStorage
     writeStatusCmd(libsumo::CMD_GETVERSION, libsumo::RTYPE_OK, "");
     // command length

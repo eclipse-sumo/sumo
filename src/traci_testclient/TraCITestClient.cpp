@@ -645,6 +645,8 @@ TraCITestClient::readAndReportTypeDependent(tcpip::Storage& inMsg, int valueData
 void
 TraCITestClient::testAPI() {
     answerLog << "testAPI:\n";
+    const auto& version = getVersion();
+    answerLog << "  getVersion: " << version.first << ", " << version.second << "\n";
     answerLog << "  setOrder:\n";
     setOrder(0);
     // edge
@@ -831,6 +833,7 @@ TraCITestClient::testAPI() {
     answerLog << "    moveToXY, simStep:\n";
     vehicle.moveToXY("0", "dummy", 0, 2231.61, 498.29, 90, 1);
     simulationStep();
+    // simulationStep(1);
     answerLog << "    getRoadID: " << vehicle.getRoadID("0") << "\n";
     answerLog << "    getLaneID: " << vehicle.getLaneID("0") << "\n";
     vehicle.changeTarget("0", "e_o0");

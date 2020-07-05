@@ -480,6 +480,21 @@ TraCIAPI::load(const std::vector<std::string>& args) {
 }
 
 
+std::pair<int, std::string>
+TraCIAPI::getVersion() {
+    tcpip::Storage content;
+    content.writeUnsignedByte(2);
+    content.writeUnsignedByte(libsumo::CMD_GETVERSION);
+    mySocket->sendExact(content);
+    tcpip::Storage inMsg;
+    check_resultState(inMsg, libsumo::CMD_GETVERSION);
+    inMsg.readUnsignedByte(); // msg length
+    inMsg.readUnsignedByte(); // libsumo::CMD_GETVERSION again, see #7284
+    const int traciVersion = inMsg.readInt(); // to fix evaluation order
+    return std::make_pair(traciVersion, inMsg.readString());
+}
+
+
 // ---------------------------------------------------------------------------
 // TraCIAPI::EdgeScope-methods
 // ---------------------------------------------------------------------------
