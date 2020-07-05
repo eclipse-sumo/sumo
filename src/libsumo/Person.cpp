@@ -144,7 +144,7 @@ Person::getTaxiReservations(int onlyNew) {
                         traciDispatcher->getReservationID(res), // destStop
                         std::vector<std::string>({ res->from->getID(), res->to->getID() }), // edges
                         STEPS2TIME(res->reservationTime), // traveltime
-                        res->persons.size(), // cost
+                        (double)res->persons.size(), // cost
                         -1, // length
                         res->group, // intended
                         STEPS2TIME(res->pickupTime), // depart

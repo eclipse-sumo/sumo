@@ -977,8 +977,8 @@ MSVehicle::Stop::initPars(const SUMOVehicleParameter::Stop& stopPar) {
     triggered = stopPar.triggered;
     containerTriggered = stopPar.containerTriggered;
     joinTriggered = stopPar.joinTriggered || stopPar.join != "";
-    numExpectedPerson = stopPar.awaitedPersons.size();
-    numExpectedContainer = stopPar.awaitedContainers.size();
+    numExpectedPerson = (int)stopPar.awaitedPersons.size();
+    numExpectedContainer = (int)stopPar.awaitedContainers.size();
 }
 
 /* -------------------------------------------------------------------------
@@ -6178,7 +6178,7 @@ MSVehicle::addTraciStop(SUMOVehicleParameter::Stop stop, std::string& errorMsg) 
 
 bool
 MSVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, std::string& errorMsg) {
-    const int n = myStops.size();
+    const int n = (int)myStops.size();
     if (nextStopIndex < 0 || nextStopIndex >= n) {
         errorMsg = ("Invalid nextStopIndex '" + toString(nextStopIndex) + "' for " + toString(n) + " remaining stops");
         return false;
