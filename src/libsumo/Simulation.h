@@ -49,11 +49,14 @@ public:
     /// @brief return whether a simulation (network) is present
     static bool isLoaded();
 
+    /// @brief Advances by one step (or up to the given time)
+    static void step(const double time = 0.);
+
     /// @brief close simulation
     static void close(const std::string& reason = "Libsumo requested termination.");
 
-    /// @brief Advances by one step (or up to the given time)
-    static void step(const double time = 0.);
+    /// @brief return TraCI API and SUMO version
+    static std::pair<int, std::string> getVersion();
 
     static int getCurrentTime();
     static double getTime();

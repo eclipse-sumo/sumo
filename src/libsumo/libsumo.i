@@ -29,18 +29,6 @@ import sys
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation
 from traci.connection import StepListener 
 
-def isLibsumo():
-    return True
-
-def hasGUI():
-    return False
-
-def init(port):
-    print("Warning! To make your code usable with traci and libsumo, please use traci.start instead of traci.init.")
-
-def load(args):
-    simulation.load(args)
-
 def simulationStep(step=0):
     simulation.step(step)
     result = []
@@ -354,6 +342,10 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 
 %typemap(out) std::pair<std::string, double> {
     $result = Py_BuildValue("(sd)", $1.first.c_str(), $1.second);
+};
+
+%typemap(out) std::pair<int, std::string> {
+    $result = Py_BuildValue("(is)", $1.first, $1.second.c_str());
 };
 
 %extend libsumo::TraCIStage {

@@ -19,7 +19,9 @@
 // C++ TraCI client API implementation
 /****************************************************************************/
 #include <config.h>
-
+#ifdef HAVE_VERSION_H
+#include <version.h>
+#endif
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
@@ -125,6 +127,12 @@ Simulation::subscribe(const std::vector<int>& varIDs, double begin, double end) 
 const TraCIResults
 Simulation::getSubscriptionResults() {
     return mySubscriptionResults[""];
+}
+
+
+std::pair<int, std::string>
+Simulation::getVersion() {
+    return std::make_pair(libsumo::TRACI_VERSION, "SUMO " VERSION_STRING);
 }
 
 
