@@ -1,4 +1,7 @@
 Loading configuration ... done.
+ Retrying in 1 seconds
+version at start (20, 'SUMO v1_6_0+1143-337bb52187')
+version (20, 'SUMO v1_6_0+1143-337bb52187')
 {114: ('horiz', 'horiz1'), 116: ()}
 step 0
 {114: (), 116: ('horiz',)}
