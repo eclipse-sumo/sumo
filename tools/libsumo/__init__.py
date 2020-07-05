@@ -26,17 +26,22 @@ _traceFile = [None]
 def isLibsumo():
     return True
 
+
 def hasGUI():
     return False
+
 
 def init(port):
     print("Warning! To make your code usable with traci and libsumo, please use traci.start instead of traci.init.")
 
+
 def load(args):
     simulation.load(args)
 
+
 def getVersion():
     return simulation.getVersion()
+
 
 def close():
     simulation.close()

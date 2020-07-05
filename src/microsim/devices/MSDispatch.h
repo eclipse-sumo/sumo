@@ -75,7 +75,7 @@ struct Reservation {
     }
 
     /// @brief debug identification
-    std::string getID() const; 
+    std::string getID() const;
 };
 
 /**
@@ -105,11 +105,11 @@ public:
 
     /// @brief add a new reservation
     virtual Reservation* addReservation(MSTransportable* person,
-                        SUMOTime reservationTime,
-                        SUMOTime pickupTime,
-                        const MSEdge* from, double fromPos,
-                        const MSEdge* to, double toPos,
-                        const std::string& group);
+                                        SUMOTime reservationTime,
+                                        SUMOTime pickupTime,
+                                        const MSEdge* from, double fromPos,
+                                        const MSEdge* to, double toPos,
+                                        const std::string& group);
 
     /// @brief computes dispatch and updates reservations
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) = 0;

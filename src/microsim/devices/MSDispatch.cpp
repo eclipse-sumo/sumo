@@ -136,7 +136,7 @@ SUMOTime
 MSDispatch::computePickupTime(SUMOTime t, const MSDevice_Taxi* taxi, const Reservation& res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router) {
     ConstMSEdgeVector edges;
     router.compute(taxi->getHolder().getEdge(), taxi->getHolder().getPositionOnLane(),
-            res.from, res.fromPos, &taxi->getHolder(), t, edges);
+                   res.from, res.fromPos, &taxi->getHolder(), t, edges);
     return TIME2STEPS(router.recomputeCosts(edges, &taxi->getHolder(), t));
 }
 

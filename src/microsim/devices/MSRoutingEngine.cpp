@@ -311,7 +311,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
                 MSEdge::getAllEdges(), true, &MSNet::getTravelTime,
                 string2time(oc.getString("begin")), string2time(oc.getString("end")), SUMOTime_MAX, 1);
             lookup = std::make_shared<const AStar::LMLT>(oc.getString("astar.landmark-distances"), MSEdge::getAllEdges(), &chrouter,
-                                                         nullptr, vehicle, "", oc.getInt("device.rerouting.threads"));
+                     nullptr, vehicle, "", oc.getInt("device.rerouting.threads"));
             vehicle->setChosenSpeedFactor(speedFactor);
         }
         router = new AStar(MSEdge::getAllEdges(), true, myEffortFunc, lookup, true);

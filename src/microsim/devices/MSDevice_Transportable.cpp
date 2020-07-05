@@ -105,11 +105,11 @@ MSDevice_Transportable::notifyMove(SUMOTrafficObject& veh, double /*oldPos*/, do
                     MSStageDriving* const stage = dynamic_cast<MSStageDriving*>(transportable->getCurrentStage());
                     // if this is the last stage, we can use the arrivalPos of the person
                     const bool unspecifiedArrivalPos = stage->unspecifiedArrivalPos() && (
-                            transportable->getNumRemainingStages() > 1 || !transportable->getParameter().wasSet(VEHPARS_ARRIVALPOS_SET));
+                                                           transportable->getNumRemainingStages() > 1 || !transportable->getParameter().wasSet(VEHPARS_ARRIVALPOS_SET));
                     const double arrivalPos = (stage->unspecifiedArrivalPos()
-                        ? SUMOVehicleParameter::interpretEdgePos(transportable->getParameter().arrivalPos, veh.getEdge()->getLength(),
-                                SUMO_ATTR_ARRIVALPOS, transportable->getID(), true)
-                        : stage->getArrivalPos());
+                                               ? SUMOVehicleParameter::interpretEdgePos(transportable->getParameter().arrivalPos, veh.getEdge()->getLength(),
+                                                       SUMO_ATTR_ARRIVALPOS, transportable->getID(), true)
+                                               : stage->getArrivalPos());
                     if (unspecifiedArrivalPos ||
                             myHolder.isStoppedInRange(arrivalPos, myHolder.getLength() + MSGlobals::gStopTolerance)) {
                         i = myTransportables.erase(i); // erase first in case proceed throws an exception

@@ -60,7 +60,7 @@ MSDevice_Bluelight::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "bluelight", v, false)) {
         MSDevice_Bluelight* device = new MSDevice_Bluelight(v, "bluelight_" + v.getID(),
-            getFloatParam(v, oc, "bluelight.reactiondist", oc.getFloat("device.bluelight.reactiondist"), false));
+                getFloatParam(v, oc, "bluelight.reactiondist", oc.getFloat("device.bluelight.reactiondist"), false));
         into.push_back(device);
     }
 }
@@ -104,7 +104,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM), "-1");
     } else {
         ego.getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
-                ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
+                                              ego.getVehicleType().getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
     }
     // build a rescue lane for all vehicles on the route of the emergency vehicle within the range of the siren
     MSVehicleType* vt = MSNet::getInstance()->getVehicleControl().getVType(veh.getVehicleType().getID());
@@ -112,11 +112,11 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
     //std::string currentEdgeID = veh.getEdge()->getID();
     //use edges on the way of the emergency vehicle
-    std::vector<const MSLane*> myUpcomingLanes= ego.getUpcomingLanesUntil(myReactionDist);
+    std::vector<const MSLane*> myUpcomingLanes = ego.getUpcomingLanesUntil(myReactionDist);
     std::vector<std::string> myUpcomingEdges;
     //get edgeIDs from Lanes
-    for (std::vector<const MSLane*>::iterator it = myUpcomingLanes.begin(); it != myUpcomingLanes.end(); ++it){
-        MSEdge& edge= (*it)->getEdge();
+    for (std::vector<const MSLane*>::iterator it = myUpcomingLanes.begin(); it != myUpcomingLanes.end(); ++it) {
+        MSEdge& edge = (*it)->getEdge();
         std::string edgeID = edge.getID();
         myUpcomingEdges.push_back(edgeID);
     }
@@ -124,7 +124,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
         MSVehicle* veh2 = dynamic_cast<MSVehicle*>(it->second);
         assert(veh2 != nullptr);
         //Vehicle only from edge should react
-        if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), veh2->getEdge()->getID()) != myUpcomingEdges.end()){//currentEdgeID == veh2->getEdge()->getID()) {
+        if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), veh2->getEdge()->getID()) != myUpcomingEdges.end()) { //currentEdgeID == veh2->getEdge()->getID()) {
             if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
                 // emergency vehicles should not react
                 continue;
@@ -201,7 +201,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                         if (targetType != nullptr) {
                             veh2->replaceVehicleType(targetType);
                             veh2->getLaneChangeModel().setParameter(toString(SUMO_ATTR_LCA_STRATEGIC_PARAM),
-                                    targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
+                                                                    targetType->getParameter().getLCParamString(SUMO_ATTR_LCA_STRATEGIC_PARAM, "1"));
                         }
                     }
                 }

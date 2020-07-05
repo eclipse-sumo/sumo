@@ -337,7 +337,7 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
         MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
         if (veh->getStops().size() > 1) {
             WRITE_WARNINGF("All customers left vehicle '%' at time % but there are % remaining stops",
-                    veh->getID(), time2string(MSNet::getInstance()->getCurrentTimeStep()), veh->getStops().size() - 1);
+                           veh->getID(), time2string(MSNet::getInstance()->getCurrentTimeStep()), veh->getStops().size() - 1);
             while (veh->getStops().size() > 1) {
                 veh->abortNextStop(1);
             }

@@ -2286,9 +2286,9 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         // intersection has wierd geometry and the intersection was found
                         egoDistToConflictFromJunctionEntry = 0;
                         WRITE_WARNINGF("Cannot compute SSM due to bad internal lane geometry at junction '%'. Crossing point between traffic from links % and % not found.",
-                                egoEntryLink->getJunction()->getID(),
-                                egoEntryLink->getIndex(),
-                                foeEntryLink->getIndex());
+                                       egoEntryLink->getJunction()->getID(),
+                                       egoEntryLink->getIndex(),
+                                       foeEntryLink->getIndex());
                         break;
                     }
                     foeConflictLane = foeConflictLane->getCanonicalSuccessorLane();
@@ -2313,9 +2313,9 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                         // intersection has wierd geometry and the intersection was found
                         foeDistToConflictFromJunctionEntry = 0;
                         WRITE_WARNINGF("Cannot compute SSM due to bad internal lane geometry at junction '%'. Crossing point between traffic from links % and % not found.",
-                                foeEntryLink->getJunction()->getID(),
-                                foeEntryLink->getIndex(),
-                                egoEntryLink->getIndex());
+                                       foeEntryLink->getJunction()->getID(),
+                                       foeEntryLink->getIndex(),
+                                       egoEntryLink->getIndex());
                         break;
                     }
                     egoConflictLane = egoConflictLane->getCanonicalSuccessorLane();

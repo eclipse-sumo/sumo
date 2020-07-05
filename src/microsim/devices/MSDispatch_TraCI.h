@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSDispatch.h
+/// @file    MSDispatch_TraCI.h
 /// @author  Jakob Erdmann
 /// @date    16.12.2019
 ///
@@ -46,11 +46,11 @@ public:
 
     /// @brief add a new reservation
     Reservation* addReservation(MSTransportable* person,
-                        SUMOTime reservationTime,
-                        SUMOTime pickupTime,
-                        const MSEdge* from, double fromPos,
-                        const MSEdge* to, double toPos,
-                        const std::string& group);
+                                SUMOTime reservationTime,
+                                SUMOTime pickupTime,
+                                const MSEdge* from, double fromPos,
+                                const MSEdge* to, double toPos,
+                                const std::string& group);
 
     /// @brief do nothing (dispatch happens via TraCI calls)
     virtual void computeDispatch(SUMOTime /*now*/, const std::vector<MSDevice_Taxi*>& /*fleet*/) {}

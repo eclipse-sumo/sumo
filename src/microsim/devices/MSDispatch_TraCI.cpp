@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSDispatch.cpp
+/// @file    MSDispatch_TraCI.cpp
 /// @author  Jakob Erdmann
 /// @date    16.12.2019
 ///
@@ -36,11 +36,11 @@
 
 Reservation*
 MSDispatch_TraCI::addReservation(MSTransportable* person,
-                           SUMOTime reservationTime,
-                           SUMOTime pickupTime,
-                           const MSEdge* from, double fromPos,
-                           const MSEdge* to, double toPos,
-                           const std::string& group) {
+                                 SUMOTime reservationTime,
+                                 SUMOTime pickupTime,
+                                 const MSEdge* from, double fromPos,
+                                 const MSEdge* to, double toPos,
+                                 const std::string& group) {
     Reservation* res = MSDispatch::addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group);
     if (!myReservationLookup.has(res)) {
         myReservationLookup.insert(toString(myReservationCount), res);
@@ -81,5 +81,5 @@ MSDispatch_TraCI::interpretDispatch(MSDevice_Taxi* taxi, const std::vector<std::
 }
 
 
-// 
+//
 /****************************************************************************/
