@@ -157,8 +157,8 @@ public:
 
 protected:
 
-    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their children
-    struct ChildConnections {
+    /// @brief class to pack all variables and functions relative to connections between hierarchical element and their children
+    class ChildConnections {
 
     private:
         /// @brief connection geometry

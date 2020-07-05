@@ -44,9 +44,9 @@ FXIMPLEMENT_ABSTRACT(GNEChange_GenericData, GNEChange, nullptr, 0)
 GNEChange_GenericData::GNEChange_GenericData(GNEGenericData* genericData, bool forward) :
     GNEChange(genericData, genericData, forward, genericData->isAttributeCarrierSelected()),
     myGenericData(genericData),
-    myPath(genericData->getPath()),
     myDataSetParent(genericData->getDataIntervalParent()->getDataSetParent()),
-    myDataIntervalParent(genericData->getDataIntervalParent()) {
+    myDataIntervalParent(genericData->getDataIntervalParent()),
+    myPath(genericData->getPath()) {
     myGenericData->incRef("GNEChange_GenericData");
 }
 
