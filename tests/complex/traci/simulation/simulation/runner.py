@@ -62,8 +62,8 @@ def ppStages(comment, stages):
 
 
 version = traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg",
-             "--ignore-route-errors",
-             "--log", "log.txt"])
+                       "--ignore-route-errors",
+                       "--log", "log.txt"])
 print("version at start", version)
 print("version", traci.getVersion())
 
