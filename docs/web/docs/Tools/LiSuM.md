@@ -233,7 +233,7 @@ If you want to contribute to the source or want to build for another reason
 make sure you have maven and a compatible JDK (8 or above) on your system.
 The cmake configuration step will create a "lisum-core" and a "lisum-gui" target
 (as well as a "lisum" target to build them both). Just run this target either
-using make (in a Linux or MacOS like environment) or by running the target from
+using make (in a Linux or macOS like environment) or by running the target from
 your IDE (e.g. Visual Studio on Windows). If you are using JDK8 and want the GUI
 you need to make sure that you have openjfx8 installed, since there is no openjfx
 for JDK8 on maven.

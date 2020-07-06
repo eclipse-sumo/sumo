@@ -3,7 +3,7 @@ title: Developer/Visual Studio Code
 permalink: /Developer/VisualStudioCode/
 ---
 
-Visual Studio Code is a lightweight integrated development environment. It can be used to develop in C/C++ (among other programming languages) on Windows, Linux and MacOS. 
+Visual Studio Code is a lightweight integrated development environment. It can be used to develop in C/C++ (among other programming languages) on Windows, Linux and macOS. 
 
 In this document, we describe how Visual Studio Code can be installed and which plugins should be used to work with the SUMO code base.
 
@@ -51,7 +51,7 @@ The CMake Tools plugin should automatically recognize the `CMakeLists.txt` file 
 
 ![Visual Studio Code CMake Configuration Output](../images/VSCodeCmakeConfig.png)
 
-You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are refered to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (`Command+Shift+P` on MacOS) and enter `CMake: Select a kit`. 
+You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are refered to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (`Command+Shift+P` on macOS) and enter `CMake: Select a kit`. 
 
 SUMO provides certain features that may be enabled or disabled during compilation. CMake refers to these features as **variants**. These variants are defined in the `cmake-variants.yaml` file in the top-level directory of your SUMO repository. This file describes certain features or properties for the CMake configuration process. In Visual Studio Code, you can easily switch between different predefined variants by using the command palette and entering `CMake: Select Variant`. You should use this feature to quickly switch between a `release` and a `debug` build of SUMO. 
 
@@ -89,7 +89,7 @@ A simple configuration to launch `sumo` can be seen here:
 ```
 
 !!! note 
-    If you try to launch `sumo-gui` with a run configuration on MacOS, the launch will fail because it cannot find the proper `DISPLAY` variable of the XQuartz server instance. A workaround seems to be to define a `preLaunchTask`in the configuration above which exports the `DISPLAY` variable for the debugging session. However, this needs more testing.
+    If you try to launch `sumo-gui` with a run configuration on macOS, the launch will fail because it cannot find the proper `DISPLAY` variable of the XQuartz server instance. A workaround seems to be to define a `preLaunchTask`in the configuration above which exports the `DISPLAY` variable for the debugging session. However, this needs more testing.
 
 ## General Remarks
 

@@ -22,8 +22,8 @@ permalink: /Developer/Main/
   build on Linux
 - [Installing/Windows Build](../Installing/Windows_Build.md) -
   how to build on Windows
-- [Installing/MacOS Build](../Installing/MacOS_Build.md) - how to
-  build on MacOS
+- [Installing/macOS Build](../Installing/MacOS_Build.md) - how to
+  build on macOS
 - [Developer/Documentation Build](Documentation_Build.md) - how to build the
   documentation
 - [Developer/Nightly Build](Nightly_Build.md) - what

@@ -14,7 +14,7 @@ output, that can be configured by given parameters.
 To create debugging symbols during the build, see the build instructions
 for your operating system ([Linux](../Installing/Linux_Build.md) /
 [Windows](../Installing/Windows_Build.md) /
-[MacOS](../Installing/MacOS_Build.md)). The corresponding binaries
+[macOS](../Installing/MacOS_Build.md)). The corresponding binaries
 receive the suffix `D` (e.g. `sumoD` instead of `sumo`). The debug
 configuration defines a preprocessor macro `_DEBUG` that may be used to
 encapsulate debug specific code. For simple text debugging, local macros

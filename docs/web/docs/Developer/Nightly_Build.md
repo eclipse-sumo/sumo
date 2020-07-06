@@ -72,7 +72,7 @@ and click on artifacts where a bin.zip should be available.
 | extra   | ubuntu64 gcc        | 07:00         | 1h                 |
 | sumo    | ubuntu64 clang      | 03:00         | 4h                 |
 | extra   | ubuntu64 clang      | 08:00         | 1.5h               |
-| sumo    | MacOS clang         | 00:00         | 1h                 |
+| sumo    | macOS clang         | 00:00         | 1h                 |
 
 ## Scenario tests
 

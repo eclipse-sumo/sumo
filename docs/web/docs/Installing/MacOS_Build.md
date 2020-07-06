@@ -1,11 +1,11 @@
 ---
-title: Installing/MacOS Build
+title: Installing/macOS Build
 permalink: /Installing/MacOS_Build/
 ---
 
-This document describes how to install and build SUMO on MacOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for MacOS](../Installing.md#macos) instead.
+This document describes how to install and build SUMO on macOS from its source code. If you don't want to **extend** SUMO, but just **use** it, you may want to simply follow the [installation instructions for macOS](../Installing.md#macos) instead.
 
-You may use one of two ways to build and install SUMO on MacOS: **Homebrew** (recommended) and **MacPorts**.
+You may use one of two ways to build and install SUMO on macOS: **Homebrew** (recommended) and **MacPorts**.
 
 # The Homebrew Approach
 
@@ -20,7 +20,7 @@ and make sure your homebrew db is up-to-date.
 brew update
 ```
 
-In order to compile the C++ source code files of SUMO, a C++ compiler is needed. On MacOS the default C/C++ compiler is Clang. If you want to install the Clang compilers, please use the following command:
+In order to compile the C++ source code files of SUMO, a C++ compiler is needed. On macOS the default C/C++ compiler is Clang. If you want to install the Clang compilers, please use the following command:
 ```
 xcode-select --install
 ```
@@ -94,10 +94,10 @@ More information is provided [here](../Developer/Unit_Tests.md).
 ### Integration Tests with TextTest
 SUMO uses an application called TextTest to manage and execute and extensive set of integration tests. If you plan to extend SUMO with new features, we would like to encourage you to also add tests for your code to the SUMO testsuite and to make sure that existing functionality is not affected. 
 
-The installation of TextTest on MacOS is documented [here](../Developer/Tests.md).
+The installation of TextTest on macOS is documented [here](../Developer/Tests.md).
 
 ### Code Editor
-Finally, you may also want to use a code editor or integrated development environment. There is a great variety of suitable tools available. If you are unsure which tool to pick, we would suggest to have a look at [Visual Studio Code](https://code.visualstudio.com/) for MacOS. The configuration of Visual Studio Code for the CMake setup is documented [here](../Developer/VisualStudioCode.md).
+Finally, you may also want to use a code editor or integrated development environment. There is a great variety of suitable tools available. If you are unsure which tool to pick, we would suggest to have a look at [Visual Studio Code](https://code.visualstudio.com/) for macOS. The configuration of Visual Studio Code for the CMake setup is documented [here](../Developer/VisualStudioCode.md).
 
 # The Macports Approach (legacy)
 

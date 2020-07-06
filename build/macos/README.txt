@@ -1,4 +1,4 @@
-These application bundles are necessary wrappers for the SUMO binaries in order to have a native feel on OSX. They have been built with Platypus [1]. Platypus is a developer tool that creates native Mac applications from command line scripts such as shell scripts or Python, Perl, Ruby, Tcl, JavaScript and PHP programs. 
+These application bundles are necessary wrappers for the SUMO binaries in order to have a native feel on macOS. They have been built with Platypus [1]. Platypus is a developer tool that creates native Mac applications from command line scripts such as shell scripts or Python, Perl, Ruby, Tcl, JavaScript and PHP programs. 
 In order to rebuild these bundles, the icon files and the launcher scripts are supplied in the build subfolder. The following steps are necessary to create the bundle:
 
 1) Download and install platypus

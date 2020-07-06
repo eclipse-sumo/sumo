@@ -64,9 +64,9 @@ Fedora can be found at these [repositories for binary Linux versions](http://dow
 These repositories contain nightly builds as well. In the case your
 system is not listed here or you need to modify the sources, [you have to build SUMO from sources](Installing/Linux_Build.md).
 
-# MacOS
+# macOS
 
-SUMO can be easily installed on MacOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking
+SUMO can be easily installed on macOS by using [Homebrew](http://brew.sh). If you did not already install homebrew, you can do so by invoking
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
@@ -93,7 +93,7 @@ echo $SUMO_HOME
 ```
 After the installation you need to log out/in in order to let X11 start automatically, when calling a gui-based application like ```sumo-gui```. (Alternatively, you may start X11 manually by pressing *cmd-space* and entering ```XQuartz```).
 
-SUMO provides native **OSX application bundles** for its graphical applications, so they can be added to the OSX dock or moved to the `Applications` folder. The brew installation will copy these bundles to `Applications` as part of the installation process. 
+SUMO provides native **macOS application bundles** for its graphical applications, so they can be added to the macOS dock or moved to the `Applications` folder. The brew installation will copy these bundles to `Applications` as part of the installation process. 
 
 In case this process fails, it can also be manually achieved by copying these application bundles from `$SUMO_HOME/build/osx/sumo-gui`, `$SUMO_HOME/build/osx/netedit` and `$SUMO_HOME/build/osx/osm-web-wizard` to the `/Applications` folder. 
 

@@ -13,20 +13,22 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # ****************************************************************************
-# @file    osm-web-wizard-launcher.zsh
+# @file    sumo-gui-launcher.zsh
 # @author  Robert Hilbrich
 # @date    Thu, 14 May 2020
 #
-# Launcher script for OSX application bundle for osm-web-wizard
+# Launcher script for macOS application bundle for sumo-gui
 # ****************************************************************************/
 
+emulate -LR zsh
+
 # Go through a list of possible config files, which may contain SUMO_HOME declaration
-FILE_LIST=("$HOME/.zshrc" "$HOME/.bash_profile" "$HOME/.bashrc" "$HOME/.profile")
+FILE_LIST=( "$HOME/.zshrc" "$HOME/.bash_profile" "$HOME/.bashrc" "$HOME/.profile" )
 
 for FILE in ${FILE_LIST[*]}; do
     if [ -z "$SUMO_HOME" ]; then
-        echo "Loading $FILE" 2> /dev/null
-        source $FILE 
+        echo "Loading $FILE"
+        source $FILE 2> /dev/null
     else
         echo "Found \$SUMO_HOME"
         break
@@ -38,7 +40,7 @@ if [ -z "$SUMO_HOME" ]; then
     osascript -e 'tell application (path to frontmost application as text) to display dialog "Could not identify the location of SUMO (SUMO_HOME environment variable not found)\n\nPlease set this environment variable in .zshrc, .bash_profile or .profile" buttons {"OK"} with icon stop'
     exit -1
 else
-    echo "Starting: python $SUMO_HOME/tools/osmWebWizard.py"
-    python $SUMO_HOME/tools/osmWebWizard.py
+    echo "Starting: $SUMO_HOME/bin/sumo-gui"
+    $SUMO_HOME/bin/sumo-gui
 fi
 

@@ -38,7 +38,7 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
     simulation outputs for the shown vehicle positions. Previously,
     the gui showed the time + 1 step.
   - Fixed crash when drawing persons
-  - Patched building under MacOS, thanks to Alex Voronov
+  - Patched building under macOS, thanks to Alex Voronov
   - lane coloring by netto occupancy no longer shows brutto
     occupancy (see [lane coloring](../SUMO-GUI.md#edgelane_visualisation_settings)).
   - drawing of simple vehicle shapes now always uses a distinct

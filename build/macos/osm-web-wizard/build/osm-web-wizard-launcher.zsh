@@ -13,11 +13,11 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 # ****************************************************************************
-# @file    netedit-launcher.zsh
+# @file    osm-web-wizard-launcher.zsh
 # @author  Robert Hilbrich
 # @date    Thu, 14 May 2020
 #
-# Launcher script for OSX application bundle for netedit
+# Launcher script for macOS application bundle for osm-web-wizard
 # ****************************************************************************/
 
 # Go through a list of possible config files, which may contain SUMO_HOME declaration
@@ -38,7 +38,7 @@ if [ -z "$SUMO_HOME" ]; then
     osascript -e 'tell application (path to frontmost application as text) to display dialog "Could not identify the location of SUMO (SUMO_HOME environment variable not found)\n\nPlease set this environment variable in .zshrc, .bash_profile or .profile" buttons {"OK"} with icon stop'
     exit -1
 else
-    echo "Starting: $SUMO_HOME/bin/netedit"
-    $SUMO_HOME/bin/netedit
+    echo "Starting: python $SUMO_HOME/tools/osmWebWizard.py"
+    python $SUMO_HOME/tools/osmWebWizard.py
 fi
 

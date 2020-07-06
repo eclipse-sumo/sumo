@@ -13,7 +13,7 @@ creation. Depends on a successful Linux build to pick up the docs.
 
 ## dailyUpdateMakeGCC.sh
 
-The build script for the nightly Linux and MacOS build. Calls cmake and
+The build script for the nightly Linux and macOS build. Calls cmake and
 triggers release and debug build as well as the tests and the zips.
 
 # Code Cleaning Tools

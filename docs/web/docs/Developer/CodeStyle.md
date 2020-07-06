@@ -7,7 +7,7 @@ permalink: /Developer/CodeStyle/
 
 We try to have the code compatible to a wide range of C++11 compatible
 compilers and test every commit / pull request against [gcc and clang on
-MacOS and Linux](https://travis-ci.org/eclipse/sumo), and [Visual
+macOS and Linux](https://travis-ci.org/eclipse/sumo), and [Visual
 Studio 2013 - 2017 on
 Windows](https://ci.appveyor.com/project/eclipsewebmaster/sumo). For the
 C++ code we use [AStyle](http://astyle.sourceforge.net/) to keep
