@@ -58,7 +58,7 @@ permalink: /FAQ/
 - Contribute to this wiki ([contact us](Contact.md), so we can
   give you editing rights)
 - Create a video tutorial and tell us about it
-- Join us at the annual [SUMO User Conference](http://www.dlr.de/ts/en/desktopdefault.aspx/tabid-3930/20125_read-47741/)
+- Join us at the annual [SUMO User Conference](https://eclipse.org/sumo/conference/)
 
 ### How do code contributions work?
 
