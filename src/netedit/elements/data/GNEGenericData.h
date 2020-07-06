@@ -242,6 +242,9 @@ protected:
     /// @brief dataInterval Parent
     GNEDataInterval* myDataIntervalParent;
 
+    /// @brief draw filtered attribute
+    void drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector &laneShape, const std::string &attribute) const;
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
