@@ -42,10 +42,11 @@ FXLinkLabel::fxexecute(FXString link) {
     FXString ext = FXPath::extension(link);
     FXString list;
     if (comparecase(link.section(':', 0), "http") == 0 ||
+            comparecase(link.section(':', 0), "https") == 0 ||
             comparecase(link.section(':', 0), "ftp") == 0 ||
             comparecase(ext, "htm") == 0 || comparecase(ext, "html") == 0 ||
             comparecase(ext, "php") == 0 || comparecase(ext, "asp") == 0) {
-        list = "mozilla-firefox\tmozilla\tnetscape\tkonqueror\tdillo\tlynx";
+        list = "firefox\tchromium\tkonqueror\tdillo\tlynx";
     } else if (comparecase(ext, "pdf") == 0) {
         list = "acroread\tkghostview\tgpdf\txpdf";
     }
