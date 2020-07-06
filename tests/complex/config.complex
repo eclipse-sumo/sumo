@@ -92,6 +92,9 @@ log:Simulation.*started with{REPLACE Simulation started with}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
 log:^Performance:{->}^Vehicles:
 log:traci.start(.*){REPLACE traci.start(ARGS)}
+log:traci.simulation.step(.*){REPLACE traci.simulationStep()}
+log:traci.simulation.getVersion()
+log:traci.close()
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 vehroutes2:<!--{[->]}-->
