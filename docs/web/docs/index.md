@@ -1,7 +1,7 @@
 <hTitles >SUMO User Documentation<hr style="border: 0.5px solid #338033;"></hTitles>
 
 !!! conference "User Conference 2020"
-    The [SUMO User Conference 2020](http://sumo.dlr.de/2020/) takes place **October 26-28, 2020**. This year's conference is going to be **virtual**.
+    The [SUMO User Conference 2020](http://sumo.dlr.de/2020/) takes place **October 26-28, 2020**. This year's conference is going to be **virtual** and the    participation will be **free** of charge.
 
 "**S**imulation of **U**rban **MO**bility" (SUMO) is an open source, highly portable, microscopic and continuous traffic simulation package designed to handle large networks. It allows for intermodal simulation including pedestrians and comes with a large set of tools for scenario creation. It is mainly developed by employees of the [Institute of Transportation Systems](https://www.dlr.de/ts) at the [German Aerospace Center](https://www.dlr.de). SUMO is licensed under the [EPL 2.0](https://eclipse.org/legal/epl-v20.html).
 
