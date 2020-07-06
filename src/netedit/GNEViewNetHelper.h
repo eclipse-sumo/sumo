@@ -1156,4 +1156,14 @@ struct GNEViewNetHelper {
         /// @brief pointer to net
         GNEViewNet* myViewNet;
     };
+
+    /// @brief get scaled rainbow colors
+    static const std::vector<RGBColor>& getRainbowScaledColors();
+
+    /// @brief get rainbow scaled color
+    static const RGBColor& getRainbowScaledColor(const double min, const double max, const double value);
+
+    private:
+        /// @brief scale (rainbow) colors
+        static std::vector<RGBColor> myRainbowScaledColors;
 };

@@ -46,9 +46,12 @@
 #include "GNEViewParent.h"
 #include "GNEApplicationWindow.h"
 
+
 // ===========================================================================
-// member method definitions
+// static members
 // ===========================================================================
+
+std::vector<RGBColor> GNEViewNetHelper::myRainbowScaledColors;
 
 // ---------------------------------------------------------------------------
 // GNEViewNetHelper::ObjectsUnderCursor - methods
@@ -2858,5 +2861,47 @@ GNEViewNetHelper::EditShapes::saveEditedShape() {
     }
 }
 
+
+const std::vector<RGBColor>& 
+GNEViewNetHelper::getRainbowScaledColors() {
+    // if is empty, fill it
+    if (myRainbowScaledColors.empty()) {
+        // fill scale colors (10)
+        myRainbowScaledColors.push_back(RGBColor(232, 35,  0));
+        myRainbowScaledColors.push_back(RGBColor(255, 165, 0));
+        myRainbowScaledColors.push_back(RGBColor(255, 255, 0));
+        myRainbowScaledColors.push_back(RGBColor(28,  215, 0));
+        myRainbowScaledColors.push_back(RGBColor(0,   181, 100));
+        myRainbowScaledColors.push_back(RGBColor(0,   255, 191));
+        myRainbowScaledColors.push_back(RGBColor(178, 255, 255));
+        myRainbowScaledColors.push_back(RGBColor(0,   112, 184));
+        myRainbowScaledColors.push_back(RGBColor(56,  41,  131));
+        myRainbowScaledColors.push_back(RGBColor(127, 0,   255));
+    }
+    return myRainbowScaledColors;
+}
+
+
+const RGBColor&
+GNEViewNetHelper::getRainbowScaledColor(const double min, const double max, const double value) {
+    // check extremes
+    if (value <= min) {
+        return getRainbowScaledColors().front();
+    } else if (value >= max) {
+        return getRainbowScaledColors().back();
+    } else {
+        // calculate value procent between [min, max]
+        const double procent = ((value - min) * 100) / (max - min);
+        // check if is valid
+        if (procent <= 0) {
+            return getRainbowScaledColors().front();
+        } else if (procent >= 100) {
+            return getRainbowScaledColors().back();
+        } else {
+            // return scaled color
+            return getRainbowScaledColors().at((int)(procent / 10.0));
+        }
+    }
+}
 
 /****************************************************************************/
