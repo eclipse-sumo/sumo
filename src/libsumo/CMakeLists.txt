@@ -61,6 +61,7 @@ set(libsumostatic_STAT_SRCS
 )
 
 add_library(libsumostatic STATIC ${libsumostatic_STAT_SRCS})
+add_dependencies(libsumostatic generate-version-h)
 set_property(TARGET libsumostatic PROPERTY FOLDER "libsumo")
 
 set(ENABLE_PYTHON_BINDINGS ON CACHE BOOL "Build Python Bindings")
