@@ -394,7 +394,7 @@ GNEGenericDataFrame::AttributeSelector::AttributeSelector(GNEGenericDataFrame* g
     // Create FXComboBox
     myAttributesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECT, GUIDesignComboBox);
     // build rainbow
-    myMinMaxLabel = GNEFrameModuls::buildRainbow(this, myScaleColors);
+    myMinMaxLabel = GNEFrameModuls::buildRainbow(this);
     // refresh interval selector
     refreshAttributeSelector();
     // AttributeSelector is always shown
@@ -469,24 +469,8 @@ const RGBColor&
 GNEGenericDataFrame::AttributeSelector::getScaledColor(const double min, const double max, const double value) const {
     // update myMinMaxLabel
     myMinMaxLabel->setText(("Min: " + toString(min) + " -> Max: " + toString(max)).c_str());
-    // check extremes
-    if (value <= min) {
-        return myScaleColors.front();
-    } else if (value >= max) {
-        return myScaleColors.back();
-    } else {
-        // calculate value procent between [min, max]
-        const double procent = ((value - min) * 100) / (max - min);
-        // check if is valid
-        if (procent <= 0) {
-            return myScaleColors.front();
-        } else if (procent >= 100) {
-            return myScaleColors.back();
-        } else {
-            // return scaled color
-            return myScaleColors.at((int)(procent / 10.0));
-        }
-    }
+    // return scaled color
+    return GNEViewNetHelper::getRainbowScaledColor(min, max, value);
 }
 
 

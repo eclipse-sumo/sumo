@@ -2867,23 +2867,12 @@ GNEFrameModuls::PathLegend::hidePathLegendModul() {
 // ---------------------------------------------------------------------------
 
 FXLabel*
-GNEFrameModuls::buildRainbow(FXComposite* parent, std::vector<RGBColor>& scaleColors) {
+GNEFrameModuls::buildRainbow(FXComposite* parent) {
     // create label for color information
     FXLabel* label = new FXLabel(parent, "Scale: Min -> Max", nullptr, GUIDesignLabelCenterThick);
-    // fill scale colors (10)
-    scaleColors.push_back(RGBColor(232, 35,  0));
-    scaleColors.push_back(RGBColor(255, 165, 0));
-    scaleColors.push_back(RGBColor(255, 255, 0));
-    scaleColors.push_back(RGBColor(28,  215, 0));
-    scaleColors.push_back(RGBColor(0,   181, 100));
-    scaleColors.push_back(RGBColor(0,   255, 191));
-    scaleColors.push_back(RGBColor(178, 255, 255));
-    scaleColors.push_back(RGBColor(0,   112, 184));
-    scaleColors.push_back(RGBColor(56,  41,  131));
-    scaleColors.push_back(RGBColor(127, 0,   255));
     // create frame for color scale
     FXHorizontalFrame* horizontalFrameColors = new FXHorizontalFrame(parent, GUIDesignAuxiliarHorizontalFrame);
-    for (const auto& color : scaleColors) {
+    for (const auto& color : GNEViewNetHelper::getRainbowScaledColors()) {
         FXLabel* colorLabel = new FXLabel(horizontalFrameColors, "", nullptr, GUIDesignLabelLeft);
         colorLabel->setBackColor(MFXUtils::getFXColor(color));
     }

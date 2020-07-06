@@ -1189,7 +1189,7 @@ GNETAZFrame::TAZEdgesGraphic::TAZEdgesGraphic(GNETAZFrame* TAZFrameParent) :
     FXLabel* selectedTAZEdgeLabel = new FXLabel(this, "Selected TAZ Edge", nullptr, GUIDesignLabelCenter);
     selectedTAZEdgeLabel->setBackColor(MFXUtils::getFXColor(myEdgeSelectedColor));
     // build rainbow
-    GNEFrameModuls::buildRainbow(this, myScaleColors);
+    GNEFrameModuls::buildRainbow(this);
     // create Radio button for show edges by source weight
     myColorBySourceWeight = new FXRadioButton(this, "Color by Source", this, MID_CHOOSEN_OPERATION, GUIDesignRadioButton);
     // create Radio button for show edges by sink weight
@@ -1228,6 +1228,7 @@ GNETAZFrame::TAZEdgesGraphic::hideTAZEdgesGraphicModul() {
 
 void
 GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
+    const std::vector<RGBColor>& scaledColors = GNEViewNetHelper::getRainbowScaledColors();
     // start painting all edges in gray
     for (const auto& i : myTAZFrameParent->myTAZCurrent->getNetEdges()) {
         // set candidate color (in this case, gray)
@@ -1241,13 +1242,13 @@ GNETAZFrame::TAZEdgesGraphic::updateEdgeColors() {
         for (const auto j : i.edge->getLanes()) {
             // check what will be painted (source, sink or both)
             if (myColorBySourceWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sourceColor), i.TAZSource->getDepartWeight());
+                j->setSpecialColor(&scaledColors.at(i.sourceColor), i.TAZSource->getDepartWeight());
             } else if (myColorBySinkWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sinkColor), i.TAZSink->getDepartWeight());
+                j->setSpecialColor(&scaledColors.at(i.sinkColor), i.TAZSink->getDepartWeight());
             } else if (myColorBySourcePlusSinkWeight->getCheck() == TRUE) {
-                j->setSpecialColor(&myScaleColors.at(i.sourcePlusSinkColor), i.TAZSource->getDepartWeight() + i.TAZSink->getDepartWeight());
+                j->setSpecialColor(&scaledColors.at(i.sourcePlusSinkColor), i.TAZSource->getDepartWeight() + i.TAZSink->getDepartWeight());
             } else {
-                j->setSpecialColor(&myScaleColors.at(i.sourceMinusSinkColor), i.TAZSource->getDepartWeight() - i.TAZSink->getDepartWeight());
+                j->setSpecialColor(&scaledColors.at(i.sourceMinusSinkColor), i.TAZSource->getDepartWeight() - i.TAZSink->getDepartWeight());
             }
         }
     }

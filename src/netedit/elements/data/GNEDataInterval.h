@@ -64,11 +64,17 @@ public:
     /// @brief update attribute colors deprecated
     void updateAttributeColors();
 
-    /// @brief get minimum parameter value
-    double getMinimumParameterValue(const std::string& parameter) const;
+    /// @brief get all minimum parameter value
+    double getAllMinimumParameterValue(const std::string& parameter) const;
 
-    /// @brief get maximum parameter value
-    double getMaximumParameterValue(const std::string& parameter) const;
+    /// @brief get all maximum parameter value
+    double getAllMaximumParameterValue(const std::string& parameter) const;
+
+    /// @brief get specific minimum parameter value
+    double getSpecificMinimumParameterValue(SumoXMLTag tag, const std::string& parameter) const;
+
+    /// @brief get specific maximum parameter value
+    double getSpecificMaximumParameterValue(SumoXMLTag tag, const std::string& parameter) const;
 
     /// @brief get ID
     const std::string& getID() const;
@@ -171,11 +177,15 @@ protected:
 
     /// @bief attribute colors
     struct AttributeColors {
+
         /// @brief default constructor
         AttributeColors();
-        
+
         /// @brief parameter constructor
         AttributeColors(const double defaultValue);
+
+        /// @brief update value
+        void updateValue(const double value);
 
         /// @brief minimum value
         double minValue;
@@ -184,8 +194,11 @@ protected:
         double maxValue;
     };
 
-    /// @brief attribute colors
-    std::map<std::string, AttributeColors> myAttributeColors;
+    /// @brief all attribute colors
+    std::map<std::string, AttributeColors> myAllAttributeColors;
+
+    /// @brief specific attribute colors
+    std::map<SumoXMLTag, std::map<std::string, AttributeColors> > mySpecificAttributeColors;
 
     /// @brief GNEDataSet parent to which this data interval belongs.
     GNEDataSet* myDataSetParent;

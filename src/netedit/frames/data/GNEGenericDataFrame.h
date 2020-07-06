@@ -219,9 +219,6 @@ public:
 
         /// @brief generic data tag
         SumoXMLTag myGenericDataTag;
-
-        /// @brief vector with the scale colors
-        std::vector<RGBColor> myScaleColors;
     };
 
     /// @brief get dataSet selector modul

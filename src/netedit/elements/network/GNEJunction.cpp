@@ -468,9 +468,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw child path generic datas
             for (const auto &tag : myPathGenericDatas) {
+                // filter visible generic datas
+                std::vector<GNEGenericData*> visibleGenericDatas;
+                visibleGenericDatas.reserve(tag.second.size());
+                for (const auto & genericData : tag.second) {
+                    if (genericData->isGenericDataVisible()) {
+                        visibleGenericDatas.push_back(genericData);
+                    }
+                }
                 // search first selected element
                 const GNEGenericData* selectedElement = nullptr;
-                for (const GNEGenericData* const element : tag.second) {
+                for (const GNEGenericData* const element : visibleGenericDatas) {
                     if (element->isAttributeCarrierSelected()) {
                         selectedElement = element;
                         break;
@@ -481,14 +489,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // draw selected element with offset
                     selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
                     // draw rest of elements
-                    for (const GNEGenericData* const element : tag.second) {
+                    for (const GNEGenericData* const element : visibleGenericDatas) {
                         if (element != selectedElement) {
                             element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                         }
                     }
                 } else {
                     // draw all children
-                    for (const GNEGenericData* const element : tag.second) {
+                    for (const GNEGenericData* const element : visibleGenericDatas) {
                         element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
                     }
                 }

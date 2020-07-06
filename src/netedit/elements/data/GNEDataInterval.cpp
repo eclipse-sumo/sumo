@@ -83,24 +83,29 @@ GNEDataInterval::markAttributeColorsDeprecated() {
 void 
 GNEDataInterval::updateAttributeColors() {
     if (myAttributeColorsDeprecated) {
-        // first clear container
-        myAttributeColors.clear();
+        // first clear both container
+        myAllAttributeColors.clear();
+        mySpecificAttributeColors.clear();
         // iterate over generic data children
         for (const auto &genericData : myGenericDataChildren) {
             for (const auto &param : genericData->getParametersMap()) {
-                // parse param value
-                const double value = parse<double>(param.second);
-                // if param doesn't exist, simply add it
-                if (myAttributeColors.count(param.first) == 0) {
-                    myAttributeColors[param.first] = AttributeColors(value);
-                } else {
-                    // update min value
-                    if (value < myAttributeColors.at(param.first).minValue) {
-                        myAttributeColors.at(param.first).minValue = value;
+                // check if value can be parsed
+                if (canParse<double>(param.second)) {
+                    // parse param value
+                    const double value = parse<double>(param.second);
+                    // set or update parameters in all attributes
+                    if (myAllAttributeColors.count(param.first) == 0) {
+                        myAllAttributeColors[param.first] = AttributeColors(value);
+                    } else {
+                        myAllAttributeColors[param.first].updateValue(value);
                     }
-                    // update max value
-                    if (value > myAttributeColors.at(param.first).maxValue) {
-                        myAttributeColors.at(param.first).minValue = value;
+                    // get tag
+                    SumoXMLTag tag = genericData->getTagProperty().getTag();
+                    // set or update parameters in specific attributes
+                    if (mySpecificAttributeColors[tag].count(param.first) == 0) {
+                        mySpecificAttributeColors[tag][param.first] = AttributeColors(value);
+                    } else {
+                        mySpecificAttributeColors[tag][param.first].updateValue(value);
                     }
                 }
             }
@@ -111,9 +116,9 @@ GNEDataInterval::updateAttributeColors() {
 
 
 double 
-GNEDataInterval::getMinimumParameterValue(const std::string& parameter) const {
-    if (myAttributeColors.count(parameter) > 0) {
-        return myAttributeColors.at(parameter).minValue;
+GNEDataInterval::getAllMinimumParameterValue(const std::string& parameter) const {
+    if (myAllAttributeColors.count(parameter) > 0) {
+        return myAllAttributeColors.at(parameter).minValue;
     } else {
         return 0;
     }
@@ -121,9 +126,29 @@ GNEDataInterval::getMinimumParameterValue(const std::string& parameter) const {
 
 
 double
-GNEDataInterval::getMaximumParameterValue(const std::string& parameter) const {
-    if (myAttributeColors.count(parameter) > 0) {
-        return myAttributeColors.at(parameter).maxValue;
+GNEDataInterval::getAllMaximumParameterValue(const std::string& parameter) const {
+    if (myAllAttributeColors.count(parameter) > 0) {
+        return myAllAttributeColors.at(parameter).maxValue;
+    } else {
+        return 0;
+    }
+}
+
+
+double 
+GNEDataInterval::getSpecificMinimumParameterValue(SumoXMLTag tag, const std::string& parameter) const {
+    if ((mySpecificAttributeColors.count(tag) > 0) && (mySpecificAttributeColors.at(tag).count(parameter) > 0)) {
+        return mySpecificAttributeColors.at(tag).at(parameter).minValue;
+    } else {
+        return 0;
+    }
+}
+
+
+double
+GNEDataInterval::getSpecificMaximumParameterValue(SumoXMLTag tag, const std::string& parameter) const {
+    if ((mySpecificAttributeColors.count(tag) > 0) && (mySpecificAttributeColors.at(tag).count(parameter) > 0)) {
+        return mySpecificAttributeColors.at(tag).at(parameter).maxValue;
     } else {
         return 0;
     }
@@ -326,6 +351,19 @@ GNEDataInterval::AttributeColors::AttributeColors() :
 GNEDataInterval::AttributeColors::AttributeColors(const double defaultValue) :
     minValue(defaultValue),
     maxValue(defaultValue) {
+}
+
+
+void
+GNEDataInterval::AttributeColors::updateValue(const double value) {
+    // update min value
+    if (value < minValue) {
+        minValue = value;
+    }
+    // update max value
+    if (value > maxValue) {
+        maxValue = value;
+    }
 }
 
 

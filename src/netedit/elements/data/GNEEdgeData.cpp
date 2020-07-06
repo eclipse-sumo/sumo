@@ -58,6 +58,22 @@ GNEEdgeData::~GNEEdgeData() {}
 
 const RGBColor& 
 GNEEdgeData::getColor() const {
+    if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGEDATA) {
+        // get selected data interval and filtered attribute
+        const GNEDataInterval *dataInterval = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval();
+        const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute();
+        // continue if there is a selected data interval and filtered attribute
+        if (dataInterval && (filteredAttribute.size() > 0)) {
+            // obtain minimum and maximum value
+            const double minValue = dataInterval->getSpecificMinimumParameterValue(myTagProperty.getTag(), filteredAttribute);
+            const double maxValue = dataInterval->getSpecificMaximumParameterValue(myTagProperty.getTag(), filteredAttribute);
+            // get value
+            const double value = parse<double>(getParameter(filteredAttribute, "0"));
+            // return color
+            return GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
+        }
+    }
+    // return default color
     return RGBColor::RED;
 }
 
@@ -68,22 +84,21 @@ GNEEdgeData::isGenericDataVisible() const {
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
         return false;
     }
-    // obtain pointer to edge data frame (only for code legibly)
-    const GNEEdgeDataFrame* edgeDataFrame = myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame();
     // get current data edit mode
     DataEditMode dataMode = myNet->getViewNet()->getEditModes().dataEditMode;
     // check if we have to filter generic data
     if ((dataMode == DataEditMode::DATA_INSPECT) || (dataMode == DataEditMode::DATA_DELETE) || (dataMode == DataEditMode::DATA_SELECT)) {
         return true;
-    } else if (edgeDataFrame->shown()) {
+    } else if (myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame()->shown()) {
+        // get selected data interval and filtered attribute
+        const GNEDataInterval *dataInterval = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval();
+        const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute();
         // check interval
-        if ((edgeDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
-            (edgeDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+        if ((dataInterval != nullptr) && (dataInterval != myDataIntervalParent)) {
             return false;
         }
         // check attribute
-        if ((edgeDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-            (getParametersMap().count(edgeDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+        if ((filteredAttribute.size() > 0) && (getParametersMap().count(filteredAttribute) == 0)) {
             return false;
         }
         // all checks ok, then return true

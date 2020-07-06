@@ -2867,16 +2867,16 @@ GNEViewNetHelper::getRainbowScaledColors() {
     // if is empty, fill it
     if (myRainbowScaledColors.empty()) {
         // fill scale colors (10)
-        myRainbowScaledColors.push_back(RGBColor(232, 35,  0));
-        myRainbowScaledColors.push_back(RGBColor(255, 165, 0));
-        myRainbowScaledColors.push_back(RGBColor(255, 255, 0));
-        myRainbowScaledColors.push_back(RGBColor(28,  215, 0));
-        myRainbowScaledColors.push_back(RGBColor(0,   181, 100));
-        myRainbowScaledColors.push_back(RGBColor(0,   255, 191));
-        myRainbowScaledColors.push_back(RGBColor(178, 255, 255));
-        myRainbowScaledColors.push_back(RGBColor(0,   112, 184));
-        myRainbowScaledColors.push_back(RGBColor(56,  41,  131));
-        myRainbowScaledColors.push_back(RGBColor(127, 0,   255));
+        myRainbowScaledColors.push_back(RGBColor(232, 35,  0,   255));
+        myRainbowScaledColors.push_back(RGBColor(255, 165, 0,   255));
+        myRainbowScaledColors.push_back(RGBColor(255, 255, 0,   255));
+        myRainbowScaledColors.push_back(RGBColor(28,  215, 0,   255));
+        myRainbowScaledColors.push_back(RGBColor(0,   181, 100, 255));
+        myRainbowScaledColors.push_back(RGBColor(0,   255, 191, 255));
+        myRainbowScaledColors.push_back(RGBColor(178, 255, 255, 255));
+        myRainbowScaledColors.push_back(RGBColor(0,   112, 184, 255));
+        myRainbowScaledColors.push_back(RGBColor(56,  41,  131, 255));
+        myRainbowScaledColors.push_back(RGBColor(127, 0,   255, 255));
     }
     return myRainbowScaledColors;
 }

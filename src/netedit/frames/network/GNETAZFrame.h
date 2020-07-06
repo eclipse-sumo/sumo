@@ -489,9 +489,6 @@ public:
         /// @brief add radio button "color source - Sink"
         FXRadioButton* myColorBySourceMinusSinkWeight;
 
-        /// @brief vector with the scale colors
-        std::vector<RGBColor> myScaleColors;
-
         /// @brief default RGBColor for all edges
         RGBColor myEdgeDefaultColor;
 
