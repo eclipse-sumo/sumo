@@ -59,6 +59,21 @@ GNEEdgeRelData::~GNEEdgeRelData() {}
 
 const RGBColor& 
 GNEEdgeRelData::getColor() const {
+    if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGERELDATA) {
+        // get selected data interval and filtered attribute
+        const GNEDataInterval *dataInterval = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval();
+        const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute();
+        // continue if there is a selected data interval and filtered attribute
+        if (dataInterval && (filteredAttribute.size() > 0)) {
+            // obtain minimum and maximum value
+            const double minValue = dataInterval->getSpecificMinimumParameterValue(myTagProperty.getTag(), filteredAttribute);
+            const double maxValue = dataInterval->getSpecificMaximumParameterValue(myTagProperty.getTag(), filteredAttribute);
+            // get value
+            const double value = parse<double>(getParameter(filteredAttribute, "0"));
+            // return color
+            return GNEViewNetHelper::getRainbowScaledColor(minValue, maxValue, value);
+        }
+    }
     return RGBColor::GREEN;
 }
 
@@ -154,7 +169,8 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 
 void
 GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
-    if ((fromLane->getParentEdge() == getParentEdges().front()) && (toLane->getParentEdge() == getParentEdges().back())) {
+    if ((fromLane->getParentEdge() == getParentEdges().front()) && (toLane->getParentEdge() == getParentEdges().back()) &&
+        (getParentEdges().front() != getParentEdges().back())) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // draw lanes
