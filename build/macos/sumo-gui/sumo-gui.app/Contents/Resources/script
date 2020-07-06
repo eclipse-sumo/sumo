@@ -17,7 +17,7 @@
 # @author  Robert Hilbrich
 # @date    Thu, 14 May 2020
 #
-# Launcher script for OSX application bundle for sumo-gui
+# Launcher script for macOS application bundle for sumo-gui
 # ****************************************************************************/
 
 emulate -LR zsh
