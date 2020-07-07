@@ -131,7 +131,7 @@ public class Sumo {
     public void start_ws() {
 
         //start SUMO
-        conn = new SumoTraciConnection(conf.sumo_bin, conf.config_file);
+        conn = new SumoTraciConnection(Config.sumo_bin, Config.config_file);
 
         //Add Options
         this.add_options();

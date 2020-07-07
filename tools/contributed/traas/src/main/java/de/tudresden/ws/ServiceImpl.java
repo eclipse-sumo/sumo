@@ -138,7 +138,7 @@ public class ServiceImpl extends Traci implements Service {
     public void setConfig(@WebParam(name = "filename") String filename) {
 
         if (!this.conf.running) {
-            this.conf.config_file = filename;
+            Config.config_file = filename;
         }
 
     }
@@ -148,7 +148,7 @@ public class ServiceImpl extends Traci implements Service {
     public void setSumoBinary(@WebParam(name = "binary") String filename) {
 
         if (!this.conf.running) {
-            this.conf.sumo_bin = filename;
+            Config.sumo_bin = filename;
         }
 
     }
