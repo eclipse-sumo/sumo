@@ -153,6 +153,12 @@ value is also shown in the table.
 <td><p>An integer encoding the <a href="../Simulation/Routing.html#travel-time_values_for_routing" title="wikilink">current routing mode</a> (0: default, 1: aggregated)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getRoutingMode">getRoutingMode</a></p></td>
 </tr>
+<tr class="even">
+<td><p>TaxiFleet (0x89)</p></td>
+<td><p>stingList</p></td>
+<td><p>Return the list of all taxis with the given mode:(0 : empty, 1 : pickup,2 : occupied)</p></td>
+<td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTaxiFleet">getTaxiFleet</a></p></td>
+</tr>
 <tr class="odd">
 <td><p>CO2 emissions<br />
 (id 0x60)</p></td>
