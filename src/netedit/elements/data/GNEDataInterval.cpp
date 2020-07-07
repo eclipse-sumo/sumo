@@ -32,7 +32,6 @@
 #include <netedit/frames/common/GNEInspectorFrame.h>
 
 #include "GNEDataInterval.h"
-#include "GNEDataSet.h"
 
 
 // ===========================================================================
