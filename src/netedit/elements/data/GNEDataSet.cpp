@@ -65,6 +65,26 @@ GNEDataSet::AttributeColors::updateValues(const std::string &attribute, const do
 }
 
 
+void 
+GNEDataSet::AttributeColors::updateAllValues(const AttributeColors &attributeColors) {
+    // iterate over map
+    for (const auto &attributeColor : attributeColors.myMinMaxValue) {
+        if (myMinMaxValue.count(attributeColor.first) == 0) {
+            myMinMaxValue[attributeColor.first] = attributeColor.second;
+        } else {
+            // update min value
+            if (attributeColor.second.first < myMinMaxValue.at(attributeColor.first).first) {
+                myMinMaxValue.at(attributeColor.first).first = attributeColor.second.first;
+            }
+            // update max value
+            if (attributeColor.second.second > myMinMaxValue.at(attributeColor.first).second) {
+                myMinMaxValue.at(attributeColor.first).second = attributeColor.second.second;
+            }
+        }
+    }
+}
+
+
 double 
 GNEDataSet::AttributeColors::getMinValue(const std::string &attribute) const {
     return myMinMaxValue.at(attribute).first;
@@ -133,34 +153,18 @@ GNEDataSet::updateAttributeColors() {
             interval.second->updateAttributeColors();
         }
         // continue with data sets containers
-        /*
         myAllAttributeColors.clear();
         mySpecificAttributeColors.clear();
-        // iterate over generic data children
-        for (const auto &genericData : myGenericDataChildren) {
-            for (const auto &param : genericData->getParametersMap()) {
-                // check if value can be parsed
-                if (canParse<double>(param.second)) {
-                    // parse param value
-                    const double value = parse<double>(param.second);
-                    // set or update parameters in all attributes
-                    if (myAllAttributeColors.count(param.first) == 0) {
-                        myAllAttributeColors[param.first] = GNEDataSet::AttributeColors(value);
-                    } else {
-                        myAllAttributeColors[param.first].updateValues(value);
-                    }
-                    // get tag
-                    SumoXMLTag tag = genericData->getTagProperty().getTag();
-                    // set or update parameters in specific attributes
-                    if (mySpecificAttributeColors[tag].count(param.first) == 0) {
-                        mySpecificAttributeColors[tag][param.first] = GNEDataSet::AttributeColors(value);
-                    } else {
-                        mySpecificAttributeColors[tag][param.first].updateValues(value);
-                    }
-                }
+        // iterate over all data interval children
+        for (const auto& interval : myDataIntervalChildren) {
+            myAllAttributeColors.updateAllValues(interval.second->getAllAttributeColors());
+        }
+        // iterate over specificdata interval children
+        for (const auto& interval : myDataIntervalChildren) {
+            for (const auto &specificAttributeColor : interval.second->getSpecificAttributeColors()) {
+                mySpecificAttributeColors[specificAttributeColor.first].updateAllValues(specificAttributeColor.second);
             }
         }
-        */
         myAttributeColorsDeprecated = false;
     }
 }

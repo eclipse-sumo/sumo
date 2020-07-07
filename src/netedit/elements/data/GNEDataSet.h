@@ -48,8 +48,11 @@ public:
         /// @brief default constructor
         AttributeColors();
 
-        /// @brief update value
+        /// @brief update value for an specific attribute
         void updateValues(const std::string &attribute, const double value);
+
+        /// @brief update value for all attributes
+        void updateAllValues(const AttributeColors &attributeColors);
 
         /// @brief get minimum value
         double getMinValue(const std::string &attribute) const;
