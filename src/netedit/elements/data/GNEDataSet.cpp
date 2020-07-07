@@ -39,6 +39,53 @@
 // member method definitions
 // ===========================================================================
 
+// ---------------------------------------------------------------------------
+// GNEDataSet::AttributeColors - methods
+// ---------------------------------------------------------------------------
+
+GNEDataSet::AttributeColors::AttributeColors() {
+}
+
+
+void
+GNEDataSet::AttributeColors::updateValues(const std::string &attribute, const double value) {
+    // check if exist
+    if (myMinMaxValue.count(attribute) == 0) {
+        myMinMaxValue[attribute] = std::make_pair(value, value);
+    } else {
+        // update min value
+        if (value < myMinMaxValue.at(attribute).first) {
+            myMinMaxValue.at(attribute).first = value;
+        }
+        // update max value
+        if (value > myMinMaxValue.at(attribute).second) {
+            myMinMaxValue.at(attribute).second = value;
+        }
+    }
+}
+
+
+double 
+GNEDataSet::AttributeColors::getMinValue(const std::string &attribute) const {
+    return myMinMaxValue.at(attribute).first;
+}
+
+
+double 
+GNEDataSet::AttributeColors::getMaxValue(const std::string &attribute) const {
+    return myMinMaxValue.at(attribute).second;
+}
+
+
+void 
+GNEDataSet::AttributeColors::clear() {
+    myMinMaxValue.clear();
+}
+
+// ---------------------------------------------------------------------------
+// GNEDataSet - methods
+// ---------------------------------------------------------------------------
+
 GNEDataSet::GNEDataSet(GNENet* net, const std::string dataSetID) :
     GNEAttributeCarrier(SUMO_TAG_DATASET, net),
     myDataSetID(dataSetID),
@@ -81,11 +128,53 @@ GNEDataSet::markAttributeColorsDeprecated() {
 void
 GNEDataSet::updateAttributeColors() {
     if (myAttributeColorsDeprecated) {
+        // first update attribute colors in data interval childrens
         for (const auto& interval : myDataIntervalChildren) {
             interval.second->updateAttributeColors();
         }
+        // continue with data sets containers
+        /*
+        myAllAttributeColors.clear();
+        mySpecificAttributeColors.clear();
+        // iterate over generic data children
+        for (const auto &genericData : myGenericDataChildren) {
+            for (const auto &param : genericData->getParametersMap()) {
+                // check if value can be parsed
+                if (canParse<double>(param.second)) {
+                    // parse param value
+                    const double value = parse<double>(param.second);
+                    // set or update parameters in all attributes
+                    if (myAllAttributeColors.count(param.first) == 0) {
+                        myAllAttributeColors[param.first] = GNEDataSet::AttributeColors(value);
+                    } else {
+                        myAllAttributeColors[param.first].updateValues(value);
+                    }
+                    // get tag
+                    SumoXMLTag tag = genericData->getTagProperty().getTag();
+                    // set or update parameters in specific attributes
+                    if (mySpecificAttributeColors[tag].count(param.first) == 0) {
+                        mySpecificAttributeColors[tag][param.first] = GNEDataSet::AttributeColors(value);
+                    } else {
+                        mySpecificAttributeColors[tag][param.first].updateValues(value);
+                    }
+                }
+            }
+        }
+        */
         myAttributeColorsDeprecated = false;
     }
+}
+
+
+const GNEDataSet::AttributeColors&
+GNEDataSet::getAllAttributeColors() const {
+    return myAllAttributeColors;
+}
+
+
+const std::map<SumoXMLTag, GNEDataSet::AttributeColors>&
+GNEDataSet::getSpecificAttributeColors() const {
+    return mySpecificAttributeColors;
 }
 
 

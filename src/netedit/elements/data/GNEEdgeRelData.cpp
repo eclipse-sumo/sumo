@@ -66,8 +66,8 @@ GNEEdgeRelData::getColor() const {
         // continue if there is a selected data interval and filtered attribute
         if (dataInterval && (filteredAttribute.size() > 0)) {
             // obtain minimum and maximum value
-            const double minValue = dataInterval->getSpecificMinimumParameterValue(myTagProperty.getTag(), filteredAttribute);
-            const double maxValue = dataInterval->getSpecificMaximumParameterValue(myTagProperty.getTag(), filteredAttribute);
+            const double minValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMinValue(filteredAttribute);
+            const double maxValue = dataInterval->getSpecificAttributeColors().at(myTagProperty.getTag()).getMaxValue(filteredAttribute);
             // get value
             const double value = parse<double>(getParameter(filteredAttribute, "0"));
             // return color

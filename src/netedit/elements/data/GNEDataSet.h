@@ -41,6 +41,33 @@ class GNEDataInterval;
 class GNEDataSet : public GNEAttributeCarrier {
 
 public:
+    /// @bief attribute colors
+    class AttributeColors {
+
+    public:
+        /// @brief default constructor
+        AttributeColors();
+
+        /// @brief update value
+        void updateValues(const std::string &attribute, const double value);
+
+        /// @brief get minimum value
+        double getMinValue(const std::string &attribute) const;
+
+        /// @brief get maximum value
+        double getMaxValue(const std::string &attribute) const;
+
+        /// @brief clear AttributeColors
+        void clear();
+
+    private:
+        /// @brief map with the minimum and maximum value
+        std::map<std::string, std::pair<double, double> > myMinMaxValue;
+
+        /// @brief Invalidated assignment operator.
+        AttributeColors& operator=(const AttributeColors&) = delete;
+    };
+
     /**@brief Constructor
      * @param[in] net pointer to GNEViewNet of this data element element belongs
      */
@@ -63,6 +90,12 @@ public:
 
     /// @brief update attribute colors deprecated
     void updateAttributeColors();
+
+    /// @brief all attribute colors
+    const GNEDataSet::AttributeColors &getAllAttributeColors() const;
+
+    /// @brief specific attribute colors
+    const std::map<SumoXMLTag, GNEDataSet::AttributeColors> &getSpecificAttributeColors() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -162,6 +195,12 @@ protected:
 
     /// @brief map with dataIntervals children sorted by begin
     std::map<const double, GNEDataInterval*> myDataIntervalChildren;
+
+    /// @brief all attribute colors
+    GNEDataSet::AttributeColors myAllAttributeColors;
+
+    /// @brief specific attribute colors
+    std::map<SumoXMLTag, GNEDataSet::AttributeColors> mySpecificAttributeColors;
 
     /// @brief flag for update attributeColors
     bool myAttributeColorsDeprecated;
