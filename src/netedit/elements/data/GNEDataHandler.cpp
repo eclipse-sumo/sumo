@@ -290,11 +290,21 @@ GNEDataHandler::parseAndBuildInterval(GNENet* net, bool allowUndoRedo, const SUM
         if (dataSet == nullptr) {
             dataSet = buildDataSet(net, true, id);
         }
-        // save ID of last created element
-        GNEDataInterval* dataInterval = buildDataInterval(net, allowUndoRedo, dataSet, begin, end);
-        // check if insertion has to be commited
-        if (insertedDatas) {
-            insertedDatas->commitDataIntervalInsertion(dataInterval);
+        // retrieve data interval
+        GNEDataInterval* dataInterval = dataSet->retrieveInterval(begin, end);
+        // check if data interval exist
+        if (dataInterval) {
+            // check if insertion has to be commited
+            if (insertedDatas) {
+                insertedDatas->commitDataIntervalInsertion(dataInterval);
+            }
+        } else {
+            // create data interval
+            dataInterval = buildDataInterval(net, allowUndoRedo, dataSet, begin, end);
+            // check if insertion has to be commited
+            if (insertedDatas) {
+                insertedDatas->commitDataIntervalInsertion(dataInterval);
+            }
         }
         return true;
     }
@@ -319,10 +329,15 @@ GNEDataHandler::parseAndBuildEdgeData(GNENet* net, bool allowUndoRedo, const SUM
             // Write error if lane isn't valid
             WRITE_WARNING(toString(SUMO_TAG_MEANDATA_EDGE) + " '" + edgeID + "' must be created within a data interval.");
         } else {
-            // check if there is already a edge data for the given edge in the interval
+            // check if there is already a edge data for the given edge in the given interval
             for (const auto& genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && (genericData->getParentEdges().front() == edge)) {
-                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + edge->getID() + "'");
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && 
+                    (genericData->getParentEdges().front() == edge)) {
+                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + 
+                        edge->getID() + "' in interval " + 
+                        insertedDatas->getLastInsertedDataInterval()->getID() + " [" + 
+                        insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                        insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_END) + "]");
                     return false;
                 }
             }
@@ -371,6 +386,19 @@ GNEDataHandler::parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, c
             // Write error if lane isn't valid
             WRITE_WARNING(toString(SUMO_TAG_EDGEREL) + " must be created within a data interval.");
         } else {
+            // check if there is already a edge data for the given edge in the interval
+            for (const auto& genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && 
+                    (genericData->getParentEdges().front() == fromEdge) && 
+                    (genericData->getParentEdges().back() == toEdge)) {
+                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " for edges '" + 
+                        fromEdge->getID() + "'->'" + toEdge->getID() + "' in interval " + 
+                        insertedDatas->getLastInsertedDataInterval()->getID() + " [" + 
+                        insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                        insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_END) + "]");
+                    return false;
+                }
+            }
             // declare parameter map
             std::map<std::string, std::string> parameters;
             // obtain all attribute
