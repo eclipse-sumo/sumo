@@ -88,9 +88,6 @@ public:
     /// @brief set new ID in dataSet
     void setDataSetID(const std::string& newID);
 
-    /// @brief mark attribute colors deprecated
-    void markAttributeColorsDeprecated();
-
     /// @brief update attribute colors deprecated
     void updateAttributeColors();
 
@@ -204,9 +201,6 @@ protected:
 
     /// @brief specific attribute colors
     std::map<SumoXMLTag, GNEDataSet::AttributeColors> mySpecificAttributeColors;
-
-    /// @brief flag for update attributeColors
-    bool myAttributeColorsDeprecated;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

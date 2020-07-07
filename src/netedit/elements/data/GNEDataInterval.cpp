@@ -46,8 +46,7 @@ GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, 
     GNEAttributeCarrier(SUMO_TAG_DATAINTERVAL, dataSetParent->getNet()),
     myDataSetParent(dataSetParent),
     myBegin(begin),
-    myEnd(end),
-    myAttributeColorsDeprecated(true) {
+    myEnd(end) {
 }
 
 
@@ -72,33 +71,22 @@ GNEDataInterval::updateGenericDataIDs() {
 
 
 void 
-GNEDataInterval::markAttributeColorsDeprecated() {
-    myAttributeColorsDeprecated = true;
-    // also mark it in data set parent
-    myDataSetParent->markAttributeColorsDeprecated();
-}
-
-
-void 
 GNEDataInterval::updateAttributeColors() {
-    if (myAttributeColorsDeprecated) {
-        // first clear both container
-        myAllAttributeColors.clear();
-        mySpecificAttributeColors.clear();
-        // iterate over generic data children
-        for (const auto &genericData : myGenericDataChildren) {
-            for (const auto &param : genericData->getParametersMap()) {
-                // check if value can be parsed
-                if (canParse<double>(param.second)) {
-                    // parse param value
-                    const double value = parse<double>(param.second);
-                    // update values in both containers
-                    myAllAttributeColors.updateValues(param.first, value);
-                    mySpecificAttributeColors[genericData->getTagProperty().getTag()].updateValues(param.first, value);
-                }
+    // first clear both container
+    myAllAttributeColors.clear();
+    mySpecificAttributeColors.clear();
+    // iterate over generic data children
+    for (const auto &genericData : myGenericDataChildren) {
+        for (const auto &param : genericData->getParametersMap()) {
+            // check if value can be parsed
+            if (canParse<double>(param.second)) {
+                // parse param value
+                const double value = parse<double>(param.second);
+                // update values in both containers
+                myAllAttributeColors.updateValues(param.first, value);
+                mySpecificAttributeColors[genericData->getTagProperty().getTag()].updateValues(param.first, value);
             }
         }
-        myAttributeColorsDeprecated = false;
     }
 }
 
@@ -168,8 +156,6 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
     // check that GenericData wasn't previously inserted
     if (!hasGenericDataChild(genericData)) {
         myGenericDataChildren.push_back(genericData);
-        // mark attributeColors deprecated
-        myAttributeColorsDeprecated = true;
         // update generic data IDs
         updateGenericDataIDs();
         // update geometry after insertion if myUpdateGeometryEnabled is enabled
@@ -177,6 +163,8 @@ GNEDataInterval::addGenericDataChild(GNEGenericData* genericData) {
             // update generic data geometry
             genericData->updateGeometry();
         }
+        // update colors
+        genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
     } else {
         throw ProcessError("GenericData was already inserted");
     }
@@ -190,11 +178,11 @@ GNEDataInterval::removeGenericDataChild(GNEGenericData* genericData) {
     if (it != myGenericDataChildren.end()) {
         // remove generic data child
         myGenericDataChildren.erase(it);
-        // mark attributeColors deprecated
-        myAttributeColorsDeprecated = true;
         // remove it from Inspector Frame and AttributeCarrierHierarchy
         myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(genericData);
         myDataSetParent->getNet()->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(genericData);
+        // update colors
+        genericData->getDataIntervalParent()->getDataSetParent()->updateAttributeColors();
     } else {
         throw ProcessError("GenericData wasn't previously inserted");
     }

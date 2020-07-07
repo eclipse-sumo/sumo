@@ -58,9 +58,6 @@ public:
     /// @brief update generic data child IDs
     void updateGenericDataIDs();
 
-    /// @brief mark attribute colors deprecated
-    void markAttributeColorsDeprecated();
-
     /// @brief update attribute colors deprecated
     void updateAttributeColors();
 
@@ -185,9 +182,6 @@ protected:
 
     /// @brief vector with generic data children
     std::vector<GNEGenericData*> myGenericDataChildren;
-
-    /// @brief flag for update attributeColors
-    bool myAttributeColorsDeprecated;
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

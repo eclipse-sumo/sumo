@@ -108,8 +108,7 @@ GNEDataSet::AttributeColors::clear() {
 
 GNEDataSet::GNEDataSet(GNENet* net, const std::string dataSetID) :
     GNEAttributeCarrier(SUMO_TAG_DATASET, net),
-    myDataSetID(dataSetID),
-    myAttributeColorsDeprecated(true) {
+    myDataSetID(dataSetID) {
 }
 
 
@@ -140,32 +139,23 @@ GNEDataSet::setDataSetID(const std::string& newID) {
 
 
 void
-GNEDataSet::markAttributeColorsDeprecated() {
-    myAttributeColorsDeprecated = true;
-}
-
-
-void
 GNEDataSet::updateAttributeColors() {
-    if (myAttributeColorsDeprecated) {
-        // first update attribute colors in data interval childrens
-        for (const auto& interval : myDataIntervalChildren) {
-            interval.second->updateAttributeColors();
+    // first update attribute colors in data interval childrens
+    for (const auto& interval : myDataIntervalChildren) {
+        interval.second->updateAttributeColors();
+    }
+    // continue with data sets containers
+    myAllAttributeColors.clear();
+    mySpecificAttributeColors.clear();
+    // iterate over all data interval children
+    for (const auto& interval : myDataIntervalChildren) {
+        myAllAttributeColors.updateAllValues(interval.second->getAllAttributeColors());
+    }
+    // iterate over specificdata interval children
+    for (const auto& interval : myDataIntervalChildren) {
+        for (const auto &specificAttributeColor : interval.second->getSpecificAttributeColors()) {
+            mySpecificAttributeColors[specificAttributeColor.first].updateAllValues(specificAttributeColor.second);
         }
-        // continue with data sets containers
-        myAllAttributeColors.clear();
-        mySpecificAttributeColors.clear();
-        // iterate over all data interval children
-        for (const auto& interval : myDataIntervalChildren) {
-            myAllAttributeColors.updateAllValues(interval.second->getAllAttributeColors());
-        }
-        // iterate over specificdata interval children
-        for (const auto& interval : myDataIntervalChildren) {
-            for (const auto &specificAttributeColor : interval.second->getSpecificAttributeColors()) {
-                mySpecificAttributeColors[specificAttributeColor.first].updateAllValues(specificAttributeColor.second);
-            }
-        }
-        myAttributeColorsDeprecated = false;
     }
 }
 
