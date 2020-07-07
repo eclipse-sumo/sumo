@@ -192,4 +192,35 @@ GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const P
     }
 }
 
+
+bool 
+GNEGenericData::isVisibleInspectDeleteSelect() const {
+    // get toolbar
+    const GNEViewNetHelper::IntervalBar& toolBar = myNet->getViewNet()->getIntervalBar();
+    // declare flag
+    bool draw = true;
+    // check filter by generic data type
+    if ((toolBar.getGenericDataTypeStr().size() > 0) && (toolBar.getGenericDataTypeStr() != myTagProperty.getTagStr())) {
+        draw = false;
+    }
+    // check filter by data set
+    if ((toolBar.getDataSetStr().size() > 0) && (toolBar.getDataSetStr() != myDataIntervalParent->getID())) {
+        draw = false;
+    }
+    // check filter by begin
+    if ((toolBar.getBeginStr().size() > 0) && (parse<double>(toolBar.getBeginStr()) > myDataIntervalParent->getAttributeDouble(SUMO_ATTR_BEGIN))) {
+        draw = false;
+    }
+    // check filter by end
+    if ((toolBar.getEndStr().size() > 0) && (parse<double>(toolBar.getEndStr()) < myDataIntervalParent->getAttributeDouble(SUMO_ATTR_END))) {
+        draw = false;
+    }
+    // check filter by attribute
+    if ((toolBar.getAttributeStr().size() > 0) && (getParametersMap().count(toolBar.getAttributeStr()) == 0)) {
+        draw = false;
+    }
+    // return flag
+    return draw;
+}
+
 /****************************************************************************/
