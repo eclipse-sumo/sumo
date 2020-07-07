@@ -234,11 +234,11 @@ protected:
     /// @brief flag for block shape
     bool myBlockShape;
 
-    /// @brief flag to indicate if polygon is open or closed
-    bool myClosedShape;
-
     /// @brief flag to indicate if polygon is simplified
     bool mySimplifiedShape;
+
+    /// @brief geometry for lenghts/rotations
+    GNEGeometry::Geometry myPolygonGeometry;
 
 private:
     /// @brief hint size of vertex

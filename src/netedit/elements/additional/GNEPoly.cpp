@@ -48,7 +48,6 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
         {}, {}, {}, {}, {}, {}, {}, {}),    // Childrens
     myNetworkElementShapeEdited(nullptr),
     myBlockShape(shapeBlocked),
-    myClosedShape(shape.front() == shape.back()),
     mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
@@ -59,6 +58,8 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
     for (int i = 0; i < (int) myGeoShape.size(); i++) {
         GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
     }
+    // update geometry
+    myPolygonGeometry.updateGeometry(myShape);
 }
 
 
@@ -203,7 +204,8 @@ GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
 
 void
 GNEPoly::updateGeometry() {
-    // Nothing to update
+    // just update geometry
+    myPolygonGeometry.updateGeometry(myShape);
 }
 
 
@@ -262,7 +264,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     }
     // create open or close polygon's shape only if myNetworkElementShapeEdited is nullptr
     if (myNetworkElementShapeEdited == nullptr) {
-        if (myClosedShape) {
+        if (myShape.isClosed()) {
             new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
         } else {
             new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
@@ -274,7 +276,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
         FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
-        if ((myClosedShape && (myShape.size() <= 4)) || (!myClosedShape && (myShape.size() <= 2))) {
+        if ((myShape.isClosed() && (myShape.size() <= 4)) || (!myShape.isClosed() && (myShape.size() <= 2))) {
             removeGeometryPoint->disable();
         }
         // disable setFirstPoint if mouse is over first point
@@ -320,9 +322,15 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawFilledCircle(1, s.getCircleResolution());
                 glPopMatrix();
             }
-        } else if (checkDraw(s)) {
+        } else if (getFill() && checkDraw(s)) {
             // draw inner polygon
             drawInnerPolygon(s, drawUsingSelectColor());
+        } else {
+            // push matrix
+            glPushMatrix();
+            setColor(s, false);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, 1);
+            glPopMatrix();
         }
         // draw geometry details hints if is not too small and isn't in selecting mode
         if (s.scale * vertexWidth > 1.) {
@@ -392,7 +400,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                                 glTranslated(vertex.x(), vertex.y(), GLO_POLYGON + 0.03);
                                 GLHelper::drawText("S", Position(), .1, 2 * vertexWidth, invertedColor);
                                 glPopMatrix();
-                            } else if ((vertex == myShape.back()) && (myClosedShape == false) && !s.drawForRectangleSelection &&
+                            } else if ((vertex == myShape.back()) && (myShape.isClosed() == false) && !s.drawForRectangleSelection &&
                                        s.drawDetail(s.detailSettings.geometryPointsText, polyExaggeration)) {
                                 // draw a "e" over last point if polygon isn't closed
                                 glPushMatrix();
@@ -449,7 +457,7 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
         PositionVector modifiedShape = myShape;
         int index = modifiedShape.indexOfClosest(pos);
         // remove point dependending of
-        if (myClosedShape && (index == 0 || index == (int)modifiedShape.size() - 1) && (myShape.size() > 2)) {
+        if (myShape.isClosed() && (index == 0 || index == (int)modifiedShape.size() - 1) && (myShape.size() > 2)) {
             modifiedShape.erase(modifiedShape.begin());
             modifiedShape.erase(modifiedShape.end() - 1);
             modifiedShape.push_back(modifiedShape.front());
@@ -466,8 +474,6 @@ GNEPoly::deleteGeometryPoint(const Position& pos, bool allowUndo) {
             myNet->removeGLObjectFromGrid(this);
             // set new shape
             myShape = modifiedShape;
-            // Check if new shape is closed
-            myClosedShape = (myShape.front() == myShape.back());
             // disable simplified shape flag
             mySimplifiedShape = false;
             // add object into grid again
@@ -487,7 +493,7 @@ GNEPoly::isPolygonBlocked() const {
 
 bool
 GNEPoly::isPolygonClosed() const {
-    return myClosedShape;
+    return myShape.isClosed();
 }
 
 
@@ -510,13 +516,12 @@ GNEPoly::getShapeEditedElement() const {
 void
 GNEPoly::openPolygon(bool allowUndo) {
     // only open if shape is closed
-    if (myClosedShape) {
+    if (myShape.isClosed()) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->p_begin("open polygon");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "false", myNet->getViewNet()->getUndoList());
             myNet->getViewNet()->getUndoList()->p_end();
         } else {
-            myClosedShape = false;
             myShape.pop_back();
             // disable simplified shape flag
             mySimplifiedShape = false;
@@ -532,13 +537,12 @@ GNEPoly::openPolygon(bool allowUndo) {
 void
 GNEPoly::closePolygon(bool allowUndo) {
     // only close if shape is opened
-    if (myClosedShape == false) {
+    if (myShape.isClosed() == false) {
         if (allowUndo) {
             myNet->getViewNet()->getUndoList()->p_begin("close shape");
             setAttribute(GNE_ATTR_CLOSE_SHAPE, "true", myNet->getViewNet()->getUndoList());
             myNet->getViewNet()->getUndoList()->p_end();
         } else {
-            myClosedShape = true;
             myShape.closePolygon();
             // disable simplified shape flag
             mySimplifiedShape = false;
@@ -564,7 +568,7 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
         for (int i = oldIndex; i < (int)myShape.size(); i++) {
             newShape.push_back(myShape[i]);
         }
-        if (myClosedShape) {
+        if (myShape.isClosed()) {
             for (int i = 1; i < oldIndex; i++) {
                 newShape.push_back(myShape[i]);
             }
@@ -582,8 +586,6 @@ GNEPoly::changeFirstGeometryPoint(int oldIndex, bool allowUndo) {
         } else {
             // set new shape
             myShape = newShape;
-            // Check if new shape is closed
-            myClosedShape = (myShape.front() == myShape.back());
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry to avoid grabbing Problems
@@ -618,8 +620,6 @@ GNEPoly::simplifyShape(bool allowUndo) {
         } else {
             // set new shape
             myShape = simplifiedShape;
-            // Check if new shape is closed
-            myClosedShape = (myShape.front() == myShape.back());
             // update geometry to avoid grabbing Problems
             updateGeometry();
         }
@@ -667,7 +667,7 @@ GNEPoly::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_BLOCK_SHAPE:
             return toString(myBlockShape);
         case GNE_ATTR_CLOSE_SHAPE:
-            return toString(myClosedShape);
+            return toString(myShape.isClosed());
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
@@ -813,14 +813,14 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (int i = 0; i < (int) myGeoShape.size(); i++) {
                 GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
             }
-            // Check if new shape is closed
-            myClosedShape = (myShape.front() == myShape.back());
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry of shape edited element
             if (myNetworkElementShapeEdited) {
                 myNetworkElementShapeEdited->updateGeometry();
             }
+            // update geometry
+            updateGeometry();
             break;
         }
         case SUMO_ATTR_GEOSHAPE: {
@@ -831,14 +831,14 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             for (int i = 0; i < (int) myShape.size(); i++) {
                 GeoConvHelper::getFinal().x2cartesian_const(myShape[i]);
             }
-            // Check if new shape is closed
-            myClosedShape = (myShape.front() == myShape.back());
             // disable simplified shape flag
             mySimplifiedShape = false;
             // update geometry of shape edited element
             if (myNetworkElementShapeEdited) {
                 myNetworkElementShapeEdited->updateGeometry();
             }
+            // update geometry
+            updateGeometry();
             break;
         }
         case SUMO_ATTR_COLOR:
@@ -881,8 +881,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             myBlockShape = parse<bool>(value);
             break;
         case GNE_ATTR_CLOSE_SHAPE:
-            myClosedShape = parse<bool>(value);
-            if (myClosedShape) {
+            if (parse<bool>(value)) {
                 myShape.closePolygon();
                 myGeoShape.closePolygon();
             } else {
@@ -891,6 +890,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // disable simplified shape flag
             mySimplifiedShape = false;
+            // update geometry
+            updateGeometry();
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
