@@ -753,11 +753,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
                 // draw stack label
                 if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
-                    drawStackLabel(vehiclePosition, vehicleRotation, width, length);
+                    drawStackLabel(s, vehiclePosition, vehicleRotation, width, length);
                 }
                 // draw flow label
                 if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-                    drawFlowLabel(vehiclePosition, vehicleRotation, width, length);
+                    drawFlowLabel(s, vehiclePosition, vehicleRotation, width, length);
                 }
                 // check if dotted contour has to be drawn
                 if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
@@ -1725,7 +1725,7 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 
 void
-GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
+GNEVehicle::drawStackLabel(const GUIVisualizationSettings& /*s*/, const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
     // declare contour width
     const double contourWidth = 0.05;
     // check if we have to mirror text
@@ -1744,14 +1744,14 @@ GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicle
     GLHelper::setColor(RGBColor(0, 128, 0));
     GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length - (contourWidth * 2), 0.3 - contourWidth);
     // draw stack label
-    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length / -2.0), .1, 0.6, RGBColor::WHITE, 90, 0, -1, mirrorText);
+    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length / -2.0), .1, 0.6, RGBColor::WHITE, 90, 0, -1);
     // pop draw matrix
     glPopMatrix();
 }
 
 
 void
-GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
+GNEVehicle::drawFlowLabel(const GUIVisualizationSettings& /*s*/, const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
     // declare contour width
     const double contourWidth = 0.05;
     // check if we have to mirror text
@@ -1770,7 +1770,7 @@ GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleR
     GLHelper::setColor(RGBColor::CYAN);
     GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length - (contourWidth * 2), 0.3 - contourWidth);
     // draw stack label
-    GLHelper::drawText("Flow", Position(0, length / -2.0), .1, 0.6, RGBColor::BLACK, 90, 0, -1, mirrorText);
+    GLHelper::drawText("Flow", Position(0, length / -2.0), .1, 0.6, RGBColor::BLACK, 90 , 0, -1);
     // pop draw matrix
     glPopMatrix();
 }

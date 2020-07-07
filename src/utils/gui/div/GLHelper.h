@@ -286,8 +286,7 @@ public:
                          const RGBColor& col = RGBColor::BLACK,
                          const double angle = 0,
                          const int align = 0,
-                         double width = -1,
-                         const bool mirrorText = false);
+                         double width = -1);
 
     static void drawTextSettings(
         const GUIVisualizationTextSettings& settings,
