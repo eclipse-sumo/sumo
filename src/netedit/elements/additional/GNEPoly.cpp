@@ -32,12 +32,6 @@
 
 
 // ===========================================================================
-// static members
-// ===========================================================================
-
-const double GNEPoly::myGeometryPointRadius = 0.8;
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
@@ -100,9 +94,9 @@ GNEPoly::startPolyShapeGeometryMoving(const double shapeOffset) {
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
     if (myBlockShape) {
-        startMoveShape(myShape, -1, myGeometryPointRadius);
+        startMoveShape(myShape, -1, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.geometryPointRadius);
     } else {
-        startMoveShape(myShape, shapeOffset, myGeometryPointRadius);
+        startMoveShape(myShape, shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.geometryPointRadius);
     }
 }
 
@@ -134,7 +128,7 @@ GNEPoly::getPolyVertexIndex(Position pos, const bool snapToGrid) const {
     Position newPos = myShape.positionAtOffset2D(offset);
     // first check if vertex already exists in the inner geometry
     for (int i = 0; i < (int)myShape.size(); i++) {
-        if (myShape[i].distanceTo2D(newPos) < myGeometryPointRadius) {
+        if (myShape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.geometryPointRadius) {
             // index refers to inner geometry
             if (i == 0 || i == (int)(myShape.size() - 1)) {
                 return -1;
@@ -181,10 +175,12 @@ GNEPoly::movePolyShape(const Position& offset) {
 
 void
 GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
+    // get visualisation settings
+    auto &s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = myShape;
     // get geometryPoint radius
-    const double geometryPointRadius = myGeometryPointRadius * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
+    const double geometryPointRadius = s.neteditSizeSettings.geometryPointRadius * s.polySize.getExaggeration(s, this);
     // remove double points
     shapeToCommit.removeDoublePoints(geometryPointRadius);
     // check if we have to merge start and end points
@@ -302,6 +298,10 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     const double polyExaggeration = s.polySize.getExaggeration(s, this);
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() && (polyExaggeration > 0)) {
+        // get colors
+        const RGBColor color = isAttributeCarrierSelected()? s.colorSettings.selectionColor : getShapeColor();
+        const RGBColor invertedColor = color.invertedColor();
+        const RGBColor darkerColor = color.changedBrightness(-32);
         // obtain scaled geometry
         GNEGeometry::Geometry scaledGeometry = myPolygonGeometry;
         if (polyExaggeration != 1) {
@@ -309,7 +309,6 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Obtain constants
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
-        const double vertexWidth = myGeometryPointRadius * MIN2((double)1, s.polySize.getExaggeration(s, this));
         const bool moveMode = (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE);
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
@@ -326,9 +325,13 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             if ((moveMode || myBlockShape) && scaledGeometry.getShape().around(mousePosition)) {
                 // push matrix
                 glPushMatrix();
+                // move to mouse position
                 glTranslated(mousePosition.x(), mousePosition.y(), 0);
-                setColor(s, false);
+                // set color
+                GLHelper::setColor(color);
+                // draw circle
                 GLHelper::drawFilledCircle(1, s.getCircleResolution());
+                // pop matrix
                 glPopMatrix();
             }
         } else if (getFill() && checkDraw(s)) {
@@ -337,41 +340,32 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             // push matrix
             glPushMatrix();
-            setColor(s, false);
-            GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, 0.5);
+            // set color
+            GLHelper::setColor(color);
+            // draw geometry
+            GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, s.neteditSizeSettings.polylineWidth);
+            // pop matrix
             glPopMatrix();
         }
         // draw geometry details hints if is not too small and isn't in selecting mode
-        if (s.scale * vertexWidth > 1.) {
-            // set colors
-            RGBColor invertedColor, darkerColor;
-            if (drawUsingSelectColor()) {
-                invertedColor = s.colorSettings.selectionColor.invertedColor();
-                darkerColor = s.colorSettings.selectionColor.changedBrightness(-32);
-            } else {
-                invertedColor = GLHelper::getColor().invertedColor();
-                darkerColor = GLHelper::getColor().changedBrightness(-32);
-            }
-            // check if shape is blocked
-            if (myBlockShape == false) {
-                // push boundary matrix
-                glPushMatrix();
-                // translate to front
-                glTranslated(0, 0, 0.1);
-                // set color
-                GLHelper::setColor(darkerColor);
-                // draw boundary
-                GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, myGeometryPointRadius * 0.25);
-                // pop boundary matrix
-                glPopMatrix();
-                // draw shape points only in Network supemode
-                if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                    // draw geometry points
-                    GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry, darkerColor, invertedColor, myGeometryPointRadius, polyExaggeration);
-                    // draw moving hint points
-                    if (myBlockMovement == false) {
-                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry, invertedColor, myGeometryPointRadius, polyExaggeration);
-                    }
+        if ((s.scale * s.neteditSizeSettings.geometryPointRadius > 1.) && (myBlockShape == false)) {
+            // push boundary matrix
+            glPushMatrix();
+            // translate to front
+            glTranslated(0, 0, 0.1);
+            // set color
+            GLHelper::setColor(darkerColor);
+            // draw boundary
+            GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, s.neteditSizeSettings.polygonContourWidth);
+            // pop boundary matrix
+            glPopMatrix();
+            // draw shape points only in Network supemode
+            if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                // draw geometry points
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry, darkerColor, invertedColor, s.neteditSizeSettings.geometryPointRadius, polyExaggeration);
+                // draw moving hint points
+                if (myBlockMovement == false) {
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry, invertedColor, s.neteditSizeSettings.geometryPointRadius, polyExaggeration);
                 }
             }
         }
@@ -379,7 +373,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedContourClosedShape(s, scaledGeometry.getShape(), polyExaggeration);
+            // draw depending if is closed
+            if (getFill() || scaledGeometry.getShape().isClosed()) {
+                GNEGeometry::drawDottedContourClosedShape(s, scaledGeometry.getShape(), polyExaggeration);
+            } else {
+                GNEGeometry::drawDottedContourShape(s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
+            }
         }
         // pop name
         glPopName();
@@ -395,7 +394,7 @@ GNEPoly::getVertexIndex(Position pos, bool snapToGrid) {
     }
     // first check if vertex already exists
     for (const auto &shapePosition : myShape) {
-        if (shapePosition.distanceTo2D(pos) < myGeometryPointRadius) {
+        if (shapePosition.distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.geometryPointRadius) {
             return myShape.indexOfClosest(shapePosition);
         }
     }

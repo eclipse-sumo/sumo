@@ -81,6 +81,14 @@ const RGBColor GUIVisualizationCandidateColorSettings::special(255, 0, 255, 255)
 const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255);  // Yellow
 
 // -------------------------------------------------------------------------
+// Netedit size values
+// -------------------------------------------------------------------------
+
+const double GUIVisualizationNeteditSizeSettings::geometryPointRadius(1.2);
+const double GUIVisualizationNeteditSizeSettings::polygonContourWidth(0.3);
+const double GUIVisualizationNeteditSizeSettings::polylineWidth(1);
+
+// -------------------------------------------------------------------------
 // additional values
 // -------------------------------------------------------------------------
 

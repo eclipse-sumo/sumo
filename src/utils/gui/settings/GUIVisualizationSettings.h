@@ -213,6 +213,18 @@ struct GUIVisualizationCandidateColorSettings {
     static const RGBColor conflict;
 };
 
+/// @brief struct for connection settings
+struct GUIVisualizationNeteditSizeSettings {
+
+    /// @brief geometry point radius
+    static const double geometryPointRadius;
+
+    /// @brief polygon contour width
+    static const double polygonContourWidth;
+
+    /// @brief poly line width
+    static const double polylineWidth;
+};
 
 /// @brief struct for connection settings
 struct GUIVisualizationConnectionSettings {
@@ -814,6 +826,9 @@ public:
 
     /// @brief candidate color settings
     GUIVisualizationCandidateColorSettings candidateColorSettings;
+
+    /// @brief netedit size settings
+    GUIVisualizationNeteditSizeSettings neteditSizeSettings;
 
     /// @brief connection settings
     GUIVisualizationConnectionSettings connectionSettings;

@@ -241,9 +241,6 @@ protected:
     GNEGeometry::Geometry myPolygonGeometry;
 
 private:
-    /// @brief hint size of vertex
-    static const double myGeometryPointRadius;
-
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
