@@ -261,7 +261,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else if (checkDraw(s)) {
             // draw inner polygon
-            drawInnerPolygon(s, drawUsingSelectColor());
+            drawInnerPolygon(s, getShapeLayer(), drawUsingSelectColor());
         }
         // draw geometry details hints if is not too small and isn't in selecting mode
         if (s.scale * vertexWidth > 1.) {

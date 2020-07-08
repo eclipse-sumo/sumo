@@ -121,7 +121,7 @@ protected:
     bool checkDraw(const GUIVisualizationSettings& s) const;
 
     /// @brief draw inner Polygon (before pushName() )
-    void drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const;
+    void drawInnerPolygon(const GUIVisualizationSettings& s, double layer, bool disableSelectionColor) const;
 
 private:
     /// The mutex used to avoid concurrent updates of the shape

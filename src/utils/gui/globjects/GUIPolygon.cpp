@@ -156,7 +156,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPolygon(s, false);
+        drawInnerPolygon(s, getShapeLayer(), false);
         // pop name
         glPopName();
     }
@@ -274,9 +274,9 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, double layer, bool disableSelectionColor) const {
     glPushMatrix();
-    glTranslated(0, 0, getShapeLayer());
+    glTranslated(0, 0, layer);
     setColor(s, disableSelectionColor);
 
     int textureID = -1;

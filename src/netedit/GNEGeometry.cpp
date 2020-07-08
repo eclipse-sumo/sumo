@@ -234,6 +234,20 @@ GNEGeometry::Geometry::getShapeLengths() const {
 }
 
 
+int 
+GNEGeometry::Geometry::getGeometryPointIndex(const Position& position, const double radius) const {
+    const double squaredRadius = (radius * radius);
+    // iterate over shape
+    for (int i = 0; i < (int)getShape().size(); i++) {
+        // check distance
+        if (getShape()[i].distanceSquaredTo2D(position) <= squaredRadius) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+
 void GNEGeometry::Geometry::clearGeometry() {
     // clear single position
     myPosition.set(0, 0, 0);
@@ -1118,6 +1132,88 @@ GNEGeometry::drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, c
         }
     } else {
         GLHelper::drawBoxLines(geometry.getShape(), geometry.getShapeRotations(), geometry.getShapeLengths(), width);
+    }
+}
+
+
+void 
+GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const Geometry& geometry, 
+    const RGBColor &geometryPointColor, const RGBColor &textColor, const double radius, const double exaggeration) {
+    // get mouse position
+    const Position mousePosition = viewNet->getPositionInformation();
+    // get radius squared
+    const double radiusSquared = (radius * radius);
+    // iterate over shape
+    for (const auto& vertex : geometry.getShape()) {
+        if (!s.drawForRectangleSelection || (mousePosition.distanceSquaredTo2D(vertex) <= (radiusSquared + 2))) {
+            // push geometry point matrix
+            glPushMatrix();
+            // move to vertex
+            glTranslated(vertex.x(), vertex.y(), 0.2);
+            // set color
+            GLHelper::setColor(geometryPointColor);
+            // draw circle
+            GLHelper::drawFilledCircle(radius, s.getCircleResolution());
+            // pop geometry point matrix
+            glPopMatrix();
+            // draw elevation or special symbols (Start, End and Block)
+            if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+                if (viewNet->getNetworkViewOptions().editingElevation()) {
+                    // Push Z matrix
+                    glPushMatrix();
+                    // draw Z (elevation)
+                    GLHelper::drawText(toString(vertex.z()), vertex, 0.3, 0.7, textColor);
+                    // pop Z matrix
+                    glPopMatrix();
+                } else if ((vertex == geometry.getShape().front()) &&
+                    s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                    // push "S" matrix
+                    glPushMatrix();
+                    // draw a "s" over first point
+                    GLHelper::drawText("S", vertex, 0.3, 2 * radius, textColor);
+                    // pop "S" matrix
+                    glPopMatrix();
+                } else if ((vertex == geometry.getShape().back()) && (geometry.getShape().isClosed() == false) &&
+                    s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                    // push "E" matrix
+                    glPushMatrix();
+                    // draw a "e" over last point if polygon isn't closed
+                    GLHelper::drawText("E", vertex, 0.3, 2 * radius, textColor);
+                    // pop "E" matrix
+                    glPopMatrix();
+                }
+            }
+        }
+    }
+}
+
+
+void 
+GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const Geometry& geometry, 
+    const RGBColor &hintColor, const double radius, const double exaggeration) {
+    // first NetworkEditMode  
+    if (viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+        // get mouse position
+        const Position mousePosition = viewNet->getPositionInformation();
+        // obtain distance to shape
+        const double distanceToShape = geometry.getShape().distance2D(mousePosition);
+        // continue depending of distance to shape
+        if ((distanceToShape < radius) && (geometry.getGeometryPointIndex(mousePosition, radius) == -1)) {
+            // obtain position over lane
+            const Position positionOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePosition));
+            // calculate hintPos
+            const Position hintPos = geometry.getShape().size() > 1 ? positionOverLane : geometry.getShape()[0];
+            // push hintPos matrix
+            glPushMatrix();
+            // translate to hintPos
+            glTranslated(hintPos.x(), hintPos.y(), 0.2);
+            // set color
+            GLHelper::setColor(hintColor);
+            // draw filled circle
+            GLHelper:: drawFilledCircle(radius, s.getCircleResolution());
+            // pop hintPos matrix
+            glPopMatrix();
+        }
     }
 }
 
