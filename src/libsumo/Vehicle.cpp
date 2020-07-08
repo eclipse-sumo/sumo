@@ -1421,6 +1421,18 @@ Vehicle::setSpeed(const std::string& vehicleID, double speed) {
 }
 
 void
+Vehicle::setPreviousSpeed(const std::string& vehicleID, double prevspeed) {
+    MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
+    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
+    if (veh == nullptr) {
+        WRITE_WARNING("setPreviousSpeed not yet implemented for meso");
+        return;
+    }
+
+    veh->setPreviousSpeed(prevspeed);
+}
+
+void
 Vehicle::setSpeedMode(const std::string& vehicleID, int speedMode) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);

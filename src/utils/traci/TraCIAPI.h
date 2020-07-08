@@ -752,6 +752,7 @@ public:
         void slowDown(const std::string& vehicleID, double speed, double duration) const;
         void openGap(const std::string& vehicleID, double newTau, double duration, double changeRate, double maxDecel) const;
         void setSpeed(const std::string& vehicleID, double speed) const;
+        void setPreviousSpeed(const std::string& vehicleID, double prevspeed) const;
         void setLaneChangeMode(const std::string& vehicleID, int mode) const;
         void setSpeedMode(const std::string& vehicleID, int mode) const;
         void setStop(const std::string vehicleID, const std::string edgeID, const double endPos = 1.,
@@ -772,6 +773,7 @@ public:
         void setShapeClass(const std::string& vehicleID, const std::string& clazz) const;
         void setEmissionClass(const std::string& vehicleID, const std::string& clazz) const;
         void setSpeedFactor(const std::string& vehicleID, double factor) const;
+        void setMinGap(const std::string& vehicleID, double minGap) const;
         void setMaxSpeed(const std::string& vehicleID, double speed) const;
         /// @}
 
