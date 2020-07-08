@@ -121,7 +121,7 @@ protected:
     bool checkDraw(const GUIVisualizationSettings& s) const;
 
     /// @brief draw inner Polygon (before pushName() )
-    void drawInnerPolygon(const GUIVisualizationSettings& s, double layer, bool disableSelectionColor) const;
+    void drawInnerPolygon(const GUIVisualizationSettings& s, const PositionVector& shape, double layer, bool disableSelectionColor) const;
 
 private:
     /// The mutex used to avoid concurrent updates of the shape
@@ -134,9 +134,9 @@ private:
     PositionVector* myRotatedShape;
 
     /// @brief store the drawing commands in a display list
-    void storeTesselation(double lineWidth) const;
+    void storeTesselation(const PositionVector& shape, double lineWidth) const;
 
     // @brief perform the tesselation / drawing
-    void performTesselation(double lineWidth) const;
+    void performTesselation(const PositionVector& shape, double lineWidth) const;
 
 };

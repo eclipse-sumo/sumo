@@ -105,6 +105,9 @@ struct GNEGeometry {
         /// @brief update geometry (using a new shape, rotations and lenghts)
         void updateGeometry(const Geometry &geometry);
 
+        /// @brief scale geometry
+        void scaleGeometry(const double scale);
+
         /// @brief get Position
         const Position& getPosition() const;
 

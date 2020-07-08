@@ -156,7 +156,7 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPolygon(s, getShapeLayer(), false);
+        drawInnerPolygon(s, (myRotatedShape != nullptr ? *myRotatedShape : myShape), getShapeLayer(), false);
         // pop name
         glPopName();
     }
@@ -185,8 +185,7 @@ GUIPolygon::setShape(const PositionVector& shape) {
 
 
 void
-GUIPolygon::performTesselation(double lineWidth) const {
-    const PositionVector& shape = myRotatedShape != nullptr ? *myRotatedShape : myShape;
+GUIPolygon::performTesselation(const PositionVector& shape, double lineWidth) const {
     if (getFill()) {
         // draw the tesselated shape
         double* points = new double[shape.size() * 3];
@@ -220,7 +219,7 @@ GUIPolygon::performTesselation(double lineWidth) const {
 
 
 void
-GUIPolygon::storeTesselation(double lineWidth) const {
+GUIPolygon::storeTesselation(const PositionVector& shape, double lineWidth) const {
     if (myDisplayList > 0) {
         glDeleteLists(myDisplayList, 1);
     }
@@ -229,7 +228,7 @@ GUIPolygon::storeTesselation(double lineWidth) const {
         throw ProcessError("GUIPolygon::storeTesselation() could not create display list");
     }
     glNewList(myDisplayList, GL_COMPILE);
-    performTesselation(lineWidth);
+    performTesselation(shape, lineWidth);
     glEndList();
 }
 
@@ -274,7 +273,7 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, double layer, bool disableSelectionColor) const {
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const PositionVector& shape, double layer, bool disableSelectionColor) const {
     glPushMatrix();
     glTranslated(0, 0, layer);
     setColor(s, disableSelectionColor);
@@ -311,7 +310,7 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, double layer, bo
     }
     // recall tesselation
     //glCallList(myDisplayList);
-    performTesselation(myLineWidth * s.polySize.getExaggeration(s, this));
+    performTesselation(shape, myLineWidth * s.polySize.getExaggeration(s, this));
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);
@@ -320,7 +319,6 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, double layer, bo
         glDisable(GL_TEXTURE_GEN_S);
         glDisable(GL_TEXTURE_GEN_T);
     }
-    const PositionVector& shape = myRotatedShape != nullptr ? *myRotatedShape : myShape;
 #ifdef GUIPolygon_DEBUG_DRAW_VERTICES
     GLHelper::debugVertices(shape, 80 / s.scale);
 #endif

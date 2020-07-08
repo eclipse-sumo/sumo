@@ -174,6 +174,8 @@ GNEPoly::movePolyShape(const Position& offset) {
     }
     // set new poly shape
     myShape = newShape;
+    // update geometry
+    updateGeometry();
 }
 
 
@@ -300,6 +302,11 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     const double polyExaggeration = s.polySize.getExaggeration(s, this);
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes() && (polyExaggeration > 0)) {
+        // obtain scaled geometry
+        GNEGeometry::Geometry scaledGeometry = myPolygonGeometry;
+        if (polyExaggeration != 1) {
+            scaledGeometry.scaleGeometry(polyExaggeration);
+        }
         // Obtain constants
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         const double vertexWidth = myGeometryPointRadius * MIN2((double)1, s.polySize.getExaggeration(s, this));
@@ -316,7 +323,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, 0, GLO_POLYGON);    // getShapeLayer()
         // first check if inner polygon can be drawn
         if (s.drawForPositionSelection && getFill()) {
-            if ((moveMode || myBlockShape) && myShape.around(mousePosition)) {
+            if ((moveMode || myBlockShape) && scaledGeometry.getShape().around(mousePosition)) {
                 // push matrix
                 glPushMatrix();
                 glTranslated(mousePosition.x(), mousePosition.y(), 0);
@@ -326,12 +333,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             }
         } else if (getFill() && checkDraw(s)) {
             // draw inner polygon
-            drawInnerPolygon(s, 0, drawUsingSelectColor());
+            drawInnerPolygon(s, scaledGeometry.getShape(), 0, drawUsingSelectColor());
         } else {
             // push matrix
             glPushMatrix();
             setColor(s, false);
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, 0.5);
+            GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, 0.5);
             glPopMatrix();
         }
         // draw geometry details hints if is not too small and isn't in selecting mode
@@ -354,16 +361,16 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 // set color
                 GLHelper::setColor(darkerColor);
                 // draw boundary
-                GNEGeometry::drawGeometry(myNet->getViewNet(), myPolygonGeometry, myGeometryPointRadius * 0.25);
+                GNEGeometry::drawGeometry(myNet->getViewNet(), scaledGeometry, myGeometryPointRadius * 0.25);
                 // pop boundary matrix
                 glPopMatrix();
                 // draw shape points only in Network supemode
                 if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                     // draw geometry points
-                    GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myPolygonGeometry, darkerColor, invertedColor, myGeometryPointRadius, polyExaggeration);
+                    GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry, darkerColor, invertedColor, myGeometryPointRadius, polyExaggeration);
                     // draw moving hint points
                     if (myBlockMovement == false) {
-                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myPolygonGeometry, invertedColor, myGeometryPointRadius, polyExaggeration);
+                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry, invertedColor, myGeometryPointRadius, polyExaggeration);
                     }
                 }
             }
@@ -372,7 +379,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedContourClosedShape(s, myShape, polyExaggeration);
+            GNEGeometry::drawDottedContourClosedShape(s, scaledGeometry.getShape(), polyExaggeration);
         }
         // pop name
         glPopName();
@@ -387,9 +394,9 @@ GNEPoly::getVertexIndex(Position pos, bool snapToGrid) {
         pos = myNet->getViewNet()->snapToActiveGrid(pos);
     }
     // first check if vertex already exists
-    for (auto i : myShape) {
-        if (i.distanceTo2D(pos) < myGeometryPointRadius) {
-            return myShape.indexOfClosest(i);
+    for (const auto &shapePosition : myShape) {
+        if (shapePosition.distanceTo2D(pos) < myGeometryPointRadius) {
+            return myShape.indexOfClosest(shapePosition);
         }
     }
     return -1;

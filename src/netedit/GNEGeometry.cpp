@@ -186,6 +186,17 @@ GNEGeometry::Geometry::updateGeometry(const Geometry &geometry) {
 }
 
 
+void 
+GNEGeometry::Geometry::scaleGeometry(const double scale) {
+    // scale shape and lenghts
+    myShape.scaleRelative(scale);
+    // scale lenghts
+    for (auto &shapeLength : myShapeLengths) {
+        shapeLength *= scale;
+    }
+}
+
+
 const Position&
 GNEGeometry::Geometry::getPosition() const {
     return myPosition;
@@ -1141,11 +1152,13 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
     const RGBColor &geometryPointColor, const RGBColor &textColor, const double radius, const double exaggeration) {
     // get mouse position
     const Position mousePosition = viewNet->getPositionInformation();
+    // get exaggeratedRadio
+    const double exaggeratedRadio = (radius * exaggeration);
     // get radius squared
-    const double radiusSquared = (radius * radius);
+    const double exaggeratedRadioSquared = (exaggeratedRadio * exaggeratedRadio);
     // iterate over shape
     for (const auto& vertex : geometry.getShape()) {
-        if (!s.drawForRectangleSelection || (mousePosition.distanceSquaredTo2D(vertex) <= (radiusSquared + 2))) {
+        if (!s.drawForRectangleSelection || (mousePosition.distanceSquaredTo2D(vertex) <= exaggeratedRadioSquared)) {
             // push geometry point matrix
             glPushMatrix();
             // move to vertex
@@ -1153,11 +1166,14 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
             // set color
             GLHelper::setColor(geometryPointColor);
             // draw circle
-            GLHelper::drawFilledCircle(radius, s.getCircleResolution());
+            GLHelper::drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
             // pop geometry point matrix
             glPopMatrix();
             // draw elevation or special symbols (Start, End and Block)
             if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+                // get draw detail
+                const bool drawDetail = s.drawDetail(s.detailSettings.geometryPointsText, exaggeration);
+                // draw text
                 if (viewNet->getNetworkViewOptions().editingElevation()) {
                     // Push Z matrix
                     glPushMatrix();
@@ -1165,20 +1181,18 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
                     GLHelper::drawText(toString(vertex.z()), vertex, 0.3, 0.7, textColor);
                     // pop Z matrix
                     glPopMatrix();
-                } else if ((vertex == geometry.getShape().front()) &&
-                    s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                } else if ((vertex == geometry.getShape().front()) && drawDetail) {
                     // push "S" matrix
                     glPushMatrix();
                     // draw a "s" over first point
-                    GLHelper::drawText("S", vertex, 0.3, 2 * radius, textColor);
+                    GLHelper::drawText("S", vertex, 0.3, 2 * exaggeratedRadio, textColor);
                     // pop "S" matrix
                     glPopMatrix();
-                } else if ((vertex == geometry.getShape().back()) && (geometry.getShape().isClosed() == false) &&
-                    s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+                } else if ((vertex == geometry.getShape().back()) && (geometry.getShape().isClosed() == false) && drawDetail) {
                     // push "E" matrix
                     glPushMatrix();
                     // draw a "e" over last point if polygon isn't closed
-                    GLHelper::drawText("E", vertex, 0.3, 2 * radius, textColor);
+                    GLHelper::drawText("E", vertex, 0.3, 2 * exaggeratedRadio, textColor);
                     // pop "E" matrix
                     glPopMatrix();
                 }
@@ -1195,10 +1209,14 @@ GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet*
     if (viewNet->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
         // get mouse position
         const Position mousePosition = viewNet->getPositionInformation();
+        // get exaggeratedRadio
+        const double exaggeratedRadio = (radius * exaggeration);
+        // get radius squared
+        const double exaggeratedRadioSquared = (exaggeratedRadio * exaggeratedRadio);
         // obtain distance to shape
         const double distanceToShape = geometry.getShape().distance2D(mousePosition);
         // continue depending of distance to shape
-        if ((distanceToShape < radius) && (geometry.getGeometryPointIndex(mousePosition, radius) == -1)) {
+        if ((distanceToShape < (exaggeratedRadio)) && (geometry.getGeometryPointIndex(mousePosition, (radius*exaggeration)) == -1)) {
             // obtain position over lane
             const Position positionOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePosition));
             // calculate hintPos
@@ -1210,7 +1228,7 @@ GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet*
             // set color
             GLHelper::setColor(hintColor);
             // draw filled circle
-            GLHelper:: drawFilledCircle(radius, s.getCircleResolution());
+            GLHelper:: drawFilledCircle(exaggeratedRadio, s.getCircleResolution());
             // pop hintPos matrix
             glPopMatrix();
         }
@@ -1382,10 +1400,11 @@ GNEGeometry::drawDottedContourShape(const GUIVisualizationSettings& s, const Pos
 
 void 
 GNEGeometry::drawDottedContourCircle(const GUIVisualizationSettings& s, const Position& pos, const double radius, const double exaggeration) {
-    if (radius * exaggeration < 2) {
-        drawDottedContourClosedShape(s, getVertexCircleAroundPosition(pos, radius * exaggeration, 8), 1);
+    // continue depending of exaggeratedRadio
+    if ((radius * exaggeration) < 2) {
+        drawDottedContourClosedShape(s, getVertexCircleAroundPosition(pos, radius, 8), exaggeration);
     } else {
-        drawDottedContourClosedShape(s, getVertexCircleAroundPosition(pos, radius * exaggeration, 16), 1);
+        drawDottedContourClosedShape(s, getVertexCircleAroundPosition(pos, radius, 16), exaggeration);
     }
 }
 
