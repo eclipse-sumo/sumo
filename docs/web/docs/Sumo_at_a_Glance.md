@@ -1,6 +1,6 @@
 ---
-title: Sumo at a Glance
-permalink: /Sumo_at_a_Glance/
+title: SUMO at a Glance
+permalink: /SUMO_at_a_Glance/
 ---
 
 ## About
@@ -69,20 +69,20 @@ The package includes:
 
 | Application Name                                    | Short Description                                         |
 | --------------------------------------------------- | --------------------------------------------------------- |
-| [SUMO](SUMO.md)                             | The microscopic simulation with no visualization; command line application                                         |
-| [SUMO-GUI](SUMO-GUI.md)                     | The microscopic simulation with a graphical user interface                                                        |
-| [NETCONVERT](NETCONVERT.md)                 | Network importer and generator; reads road networks from different formats and converts them into the SUMO-format   |
-| [NETEDIT](NETEDIT.md)                       | A graphical network editor.                                                                                  |
-| [NETGENERATE](NETGENERATE.md)               | Generates abstract networks for the SUMO-simulation                    |
-| [DUAROUTER](DUAROUTER.md)                   | Computes the fastest routes through the network, importing different types of demand description. Performs the DUA      |
-| [JTRROUTER](JTRROUTER.md)                   | Computes routes using junction turning percentages                                                               |
-| [DFROUTER](DFROUTER.md)                     | Computes routes from induction loop measurements                                                     |
-| [MAROUTER](MAROUTER.md)                     | Performs macroscopic assignment                                                            |
-| [OD2TRIPS](OD2TRIPS.md)                     | Decomposes O/D-matrices into single vehicle trips                                       |
-| [POLYCONVERT](POLYCONVERT.md)               | Imports points of interest and polygons from different formats and translates them into a description that may be visualized by [SUMO-GUI](SUMO-GUI.md) |
-| [ACTIVITYGEN](ACTIVITYGEN.md)               | Generates a demand based on mobility wishes of a modeled population                                |
-| [EMISSIONSMAP](Tools/Emissions.md)          | Generates an emission map                                                                   |
-| [EMISSIONSDRIVINGCYCLE](Tools/Emissions.md) | Calculates emission values based on a given driving cycle                           |
+| [sumo](sumo.md)                             | The microscopic simulation with no visualization; command line application                                         |
+| [sumo-gui](sumo-gui.md)                     | The microscopic simulation with a graphical user interface                                                        |
+| [netconvert](netconvert.md)                 | Network importer and generator; reads road networks from different formats and converts them into the SUMO-format   |
+| [netedit](netedit.md)                       | A graphical network editor.                                                                                  |
+| [netgenerate](netgenerate.md)               | Generates abstract networks for the SUMO-simulation                    |
+| [duarouter](duarouter.md)                   | Computes the fastest routes through the network, importing different types of demand description. Performs the DUA      |
+| [jtrrouter](jtrrouter.md)                   | Computes routes using junction turning percentages                                                               |
+| [dfrouter](dfrouter.md)                     | Computes routes from induction loop measurements                                                     |
+| [marouter](marouter.md)                     | Performs macroscopic assignment                                                            |
+| [od2trips](od2trips.md)                     | Decomposes O/D-matrices into single vehicle trips                                       |
+| [polyconvert](polyconvert.md)               | Imports points of interest and polygons from different formats and translates them into a description that may be visualized by [sumo-gui](sumo-gui.md) |
+| [activitygen](activitygen.md)               | Generates a demand based on mobility wishes of a modeled population                                |
+| [emissionsMap](Tools/Emissions.md#emissionsmap)          | Generates an emission map                                                                   |
+| [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle) | Calculates emission values based on a given driving cycle                           |
 | [Additional Tools](Tools.md)           | There are some tasks for which writing a large application is not necessary. Several solutions for different problems may be covered by these tools.            |
 
 Several parties have extended the SUMO package during their work and
@@ -202,7 +202,7 @@ integrated approach by now.
 </tr>
 <tr class="even">
 <td><p>Jakob Erdmann</p></td>
-<td><p>network import, <a href="NETEDIT.html" title="wikilink">NETEDIT</a></p></td>
+<td><p>network import, <a href="netedit.html" title="wikilink">netedit</a></p></td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -276,11 +276,11 @@ integrated approach by now.
 <img src="images/Tum-logo.png" title="tum-logo.png" alt="" />
 </figure></td>
 <td><p>Piotr Woznica</p></td>
-<td><p><a href="ACTIVITYGEN.html" title="wikilink">ACTIVITYGEN</a></p></td>
+<td><p><a href="activitygen.html" title="wikilink">activitygen</a></p></td>
 </tr>
 <tr class="even">
 <td><p>Walter Bamberger</p></td>
-<td><p>Development of <a href="ACTIVITYGEN.html" title="wikilink">ACTIVITYGEN</a> as a base for the evaluation of trust scenarios in VANETs. The work is part of the project <a href="http://www.ldv.ei.tum.de/fidens/">Fidens: Trust between Cooperative Systems</a> featuring trusted probabilistic knowledge processing in vehicular networks.</p></td>
+<td><p>Development of <a href="activitygen.html" title="wikilink">activitygen</a> as a base for the evaluation of trust scenarios in VANETs. The work is part of the project <a href="http://www.ldv.ei.tum.de/fidens/">Fidens: Trust between Cooperative Systems</a> featuring trusted probabilistic knowledge processing in vehicular networks.</p></td>
 <td></td>
 </tr>
 <tr class="odd">

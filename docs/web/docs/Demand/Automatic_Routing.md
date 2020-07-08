@@ -13,7 +13,7 @@ following situations:
 - changes to the net occur while the simulation is running
 - vehicles need to adapt their route while running
 
-In this case [SUMO](../SUMO.md) may be used directly for routing
+In this case [sumo](../sumo.md) may be used directly for routing
 with either routes or trip files (or a mix) as input.
 
 This routing approach works by giving some or all vehicles the
@@ -84,7 +84,7 @@ To understand the evolution of edge weights during the simulation it can
 be helpful to look at the values in detail:
 
 - used road coloring *by routing device assumed speed* in
-  [SUMO-GUI](../SUMO-GUI.md#changing_the_appearance.2Fvisualisation_of_the_simulation)
+  [sumo-gui](../sumo-gui.md#changing_the_appearance.2Fvisualisation_of_the_simulation)
 - use option **--device.rerouting.output** {{DT_FILE}} to get the raw numbers
 - use [TraCI function
   ''vehicle.getParameter("device.rerouting.edge:EDGEID")](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters)

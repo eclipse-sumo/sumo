@@ -11,13 +11,13 @@ best practices when modelling motorway networks and traffic.
 # Building a network for motorway simulation
 
 Networks can be imported from any supported data source or created from
-scratch with [NETEDIT](../NETEDIT.md). Depending on the level of
+scratch with [netedit](../netedit.md). Depending on the level of
 detail special processing may be necessary
 
 ## Motorway ramps
 
 If the network does not contain detailed ramp data,
-[NETCONVERT](../NETCONVERT.md) can be [configured to add them
+[netconvert](../netconvert.md) can be [configured to add them
 heuristically](../Networks/Further_Options.md#guessing_on-_and_off-ramps).
 This basically adds acceleration at on-ramps and deceleration lanes at
 off-ramps.
@@ -42,7 +42,7 @@ Combined ramps are those where the acceleration lane from an on-ramp
 becomes the deceleration lane for a nearby off-ramp. This forces
 vehicles into a weaving pattern where entering and exiting vehicles need
 to swap lanes. This type of situation may cause deadlocks in
-[SUMO](../SUMO.md) unless preventive measures are taking. The
+[sumo](../sumo.md) unless preventive measures are taking. The
 problem is exacerbated if the acceleration/deceleration lane is short or
 traffic is very dense.
 

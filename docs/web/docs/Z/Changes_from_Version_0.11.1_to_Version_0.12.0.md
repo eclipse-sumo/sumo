@@ -21,7 +21,7 @@ permalink: /Z/Changes_from_Version_0.11.1_to_Version_0.12.0/
   - moved to representation of time in milliseconds
   - Induction Loop occupancy is now given in % as defined
 
-- SUMO-GUI
+- sumo-gui
   - Improved layering (correct order of element drawing)
   - solved [bug 2872900: same title/naming for different dialog boxes](http://sourceforge.net/tracker/?func=detail&aid=2872900&group_id=45607&atid=443424)
   - solved [bug 2872824: fox related sumo crash](http://sourceforge.net/tracker/?func=detail&aid=2872824&group_id=45607&atid=443424)
@@ -35,7 +35,7 @@ permalink: /Z/Changes_from_Version_0.11.1_to_Version_0.12.0/
   - removed random routes generation; introduced a [script for generating random trips](../Tools/Trip.md#randomtripspy)
     instead
 
-- NETCONVERT
+- netconvert
   - removed the **--tls-poi-output**; instead, [poi_atTLS.py](../Tools/Shapes.md) can be used
   - OpenStreetMap import
     - removal of edges and nodes which have the attribute `action='delete'`

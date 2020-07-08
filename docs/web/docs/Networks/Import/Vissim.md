@@ -7,8 +7,8 @@ Although Vissim is a microscopic simulation as SUMO is, it follows a
 completely different concept of modelling traffic. Due to this, the
 import is quite clumsy, does not work with all networks, and manual work
 on the imported network is necessary. The option which forces
-[NETCONVERT](../../NETCONVERT.md) to read a vissim file is **--vissim-file** {{DT_FILE}} or **--vissim** {{DT_FILE}} for
-short. A usage example for [NETCONVERT](../../NETCONVERT.md)'s Vissim
+[netconvert](../../netconvert.md) to read a vissim file is **--vissim-file** {{DT_FILE}} or **--vissim** {{DT_FILE}} for
+short. A usage example for [netconvert](../../netconvert.md)'s Vissim
 import may look like:
 
 ```

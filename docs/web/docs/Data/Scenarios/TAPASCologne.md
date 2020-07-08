@@ -49,8 +49,7 @@ The TAPASCologne scenario package includes:
 - Road networks imported from OSM
 - POIs and Polygons imported from OSM
 - The mapped trips for time between 6:00 and 8:00 (am)
-- The mapped trips for time between 00:00 and 24:00 (in a separate
-  file)
+- The mapped trips for time between 00:00 and 24:00 (in a separate file)
 - The SUMO-configuration file
 
 As OSM data contains information about streets, railways, ways for
@@ -79,7 +78,7 @@ choosing the proper network is a matter of personal interest.
 The supplied routes are given for the "passenger_\*"-network. Though
 not tested, yet, we assume that they can not be used directly with other
 networks from the package. Still, computing correct routes should be
-possible by starting [DUAROUTER](../../DUAROUTER.md) with the
+possible by starting [duarouter](../../duarouter.md) with the
 appropriate network and **--repair** option.
 
 The following images show the scenario area with polygons and points of
@@ -90,7 +89,7 @@ network type (passenger, roadvehicles, all), a shape file is included.
 ![](../../images/Tapas_0_0_2_shapes3.gif)
 
 
-### Change Log
+### ChangeLog
 
 **Version 0.0.1 to version 0.0.2**
 
@@ -159,7 +158,7 @@ overall simulation quality.
   - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") unverified
   - ![Image:level16px_-1.gif](../../images/Level16px_-1.gif "Image:level16px_-1.gif") starts partially at highways
   - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") ad-hoc, errorneous mapping to OSM
-  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") shortest path routing, no [DUE](../../DUAROUTER.md) as of release 0.0.3
+  - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") shortest path routing, no [DUE](../../duarouter.md) as of release 0.0.3
 
 The below images show the structure of demand data over 24 hour period.
 This shows normal behavior of mobility. Peak hours like \~8-9am ,

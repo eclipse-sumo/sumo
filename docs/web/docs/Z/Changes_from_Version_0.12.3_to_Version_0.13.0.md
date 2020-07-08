@@ -48,7 +48,7 @@ not be loaded into old SUMO versions.
 
 ### Further Input Format Changes
 
-- DFROUTER
+- dfrouter
   - renamed element `detector_definition` to `detectorDefinition`
 - ROUTES
   - attribute `length` in element
@@ -58,7 +58,7 @@ not be loaded into old SUMO versions.
     vehicle. Attribute `minGap` is used to
     declare the distance between front bumper of a vehicle and the
     back bumper of its leader in a traffic jam.
-- NETCONVERT
+- netconvert
   - added optional attribute `name` to
     plain edge input. This is used for visualisation (Street name)
   - added optional attribute `endOffset`
@@ -93,7 +93,7 @@ to get a list of supported options including synonymes.
   - removed emitters, now only normal route files are allowed
   - renamed **--emissions-output** to **--summary**
   - renamed **--sloppy-emit** to **--sloppy-insert**
-- NETCONVERT
+- netconvert
   - now fully supports import of SUMO networks
 - TraCI
   - removed the possibility to set and retrieve traffic lights by

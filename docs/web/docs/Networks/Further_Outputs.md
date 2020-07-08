@@ -3,15 +3,15 @@ title: Networks/Further Outputs
 permalink: /Networks/Further_Outputs/
 ---
 
-[NETCONVERT](../NETCONVERT.md),
-[NETGENERATE](../NETGENERATE.md), and [NETEDIT](../NETEDIT.md)
+[netconvert](../netconvert.md),
+[netgenerate](../netgenerate.md), and [netedit](../netedit.md)
 allow to generate additional output files besides writing a SUMO network
 file. They will be presented in the following.
 
 # Writing/Exporting Networks
 
-If no other output option is given, [NETCONVERT](../NETCONVERT.md)
-and [NETGENERATE](../NETGENERATE.md) will write the result of
+If no other output option is given, [netconvert](../netconvert.md)
+and [netgenerate](../netgenerate.md) will write the result of
 network import/generation as a SUMO network file into "net.net.xml".
 Otherwise the specified output will be generated.
 
@@ -39,8 +39,8 @@ Descriptions](../Networks/PlainXML.md#node_descriptions)
 and [Edge
 Descriptions](../Networks/PlainXML.md#node_descriptions)).
 This shall ease processing of networks read from other formats than XML.
-The option **--plain-output** {{DT_FILE}} forces [NETCONVERT](../NETCONVERT.md) and
-[NETGENERATE](../NETGENERATE.md) to generate a file named
+The option **--plain-output** {{DT_FILE}} forces [netconvert](../netconvert.md) and
+[netgenerate](../netgenerate.md) to generate a file named
 "{{DT_FILE}}.nod.xml" which contains the previously imported nodes, a file named
 "{{DT_FILE}}.edg.xml" which contains the previously imported edges, and a file
 named "{{DT_FILE}}.con.xml" which contains the previously imported connections. The
@@ -134,8 +134,8 @@ Conversion of .net.xml file with [python tool net2kml](../Tools/Net.md#net2kmlpy
 
 The option **--ptstop-output** {{DT_FILE}} causes an {{AdditionalFile}} to be written that contains `<busStop/>` elements for the
 imported network. These can be loaded directly into
-[SUMO](../SUMO.md) or further modified with
-[NETEDIT](../NETEDIT.md).
+[sumo](../sumo.md) or further modified with
+[netedit](../netedit.md).
 
 ## Public Transport Lines
 
@@ -183,7 +183,7 @@ The option **--street-sign-output** {{DT_FILE}} causes a file with
 [POIs](../Simulation/Shapes.md#poi_point_of_interest_definitions)
 to be written. These POIs encode the type of street signs that are
 encountered on each edge and can be loaded as {{AdditionalFile}} in
-[SUMO-GUI](../SUMO-GUI.md). Currently used sign types are:
+[sumo-gui](../sumo-gui.md). Currently used sign types are:
 
 - priority
 - yield

@@ -33,7 +33,7 @@ software (Veins, VSimRTI, flow etc.) at this stage.
     and rebuild TraCI constants in python
     (tools/traci/rebuildConstants.py)
   - check whether the network version needs to be incremented and
-    update the value in NWFrame::MAJOR_VERSION. Netconvert tests
+    update the value in NWFrame::MAJOR_VERSION. netconvert tests
     need to be updated afterwards.
   - update author information
 - check the regular tests

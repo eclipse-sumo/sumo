@@ -15,19 +15,19 @@ retrieve values of simulated objects and to manipulate their behaviour
 ### SUMO startup
 
 TraCI uses a TCP based client/server architecture to provide access to
-[SUMO](SUMO.md). Thereby, [SUMO](SUMO.md) acts as server
+[sumo](sumo.md). Thereby, [sumo](sumo.md) acts as server
 that is started with additional command-line options: **--remote-port** {{DT_INT}} where {{DT_INT}} is the
-port [SUMO](SUMO.md) will listen on for incoming connections.
+port [sumo](sumo.md) will listen on for incoming connections.
 
-When started with the **--remote-port** {{DT_INT}} option, [SUMO](SUMO.md) only prepares the
+When started with the **--remote-port** {{DT_INT}} option, [sumo](sumo.md) only prepares the
 simulation and waits for all external applications to connect and take
 over the control. Please note, that the **--end** {{DT_TIME}} option is ignored when
-[SUMO](SUMO.md) runs as a TraCI server, [SUMO](SUMO.md)
+[sumo](sumo.md) runs as a TraCI server, [sumo](sumo.md)
 runs until the client demands a simulation end.
 
-When using [SUMO-GUI](SUMO-GUI.md) as a server, the simulation
+When using [sumo-gui](sumo-gui.md) as a server, the simulation
 must either be started by using the [*play*
-button](SUMO-GUI.md#usage_description) or by setting the option **--start**
+button](sumo-gui.md#usage_description) or by setting the option **--start**
 before TraCI commands will be processed.
 
 ### Multiple clients
@@ -61,7 +61,7 @@ Types](TraCI/Protocol.md#data_types)).
   simulation step, close the connection, reload the simulation.
 
 For the following APIs, the ID is equal to the ID defined in
-[SUMO](SUMO.md)'s input files. Here, you find their [general
+[sumo](sumo.md)'s input files. Here, you find their [general
 structure](TraCI/SUMO_ID_Commands_Structure.md).
 
 - Value Retrieval
@@ -155,7 +155,7 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
 
 ### Shutdown
 
-When using TraCI, the **--end** option of [SUMO](SUMO.md) is ignored.
+When using TraCI, the **--end** option of [sumo](sumo.md) is ignored.
 Instead the simulation is closed by issuing the [*close*
 command](TraCI/Control-related_commands.md#command_0x7f_close).
 To detect whether all route files have been exhausted and all vehicles
@@ -197,13 +197,13 @@ bindings are included when downloading a sumo-build.
 
 - <span style="background: #ccffcc;"> Python: [the package
   tools/traci](TraCI/Interfacing_TraCI_from_Python.md) allows
-  to interact with [SUMO](SUMO.md) using Python (This library
+  to interact with [sumo](sumo.md) using Python (This library
   is tested daily and supports all TraCI commands)</span>
 - C++: [The C++ TraCIAPI](TraCI/C++TraCIAPI.md) is client
-  library that is part of the [SUMO](SUMO.md)-source tree (API
+  library that is part of the [sumo](sumo.md)-source tree (API
   coverage is almost complete).
 - C++: [The Veins project](http://veins.car2x.org) provides a
-  middle-ware for coupling [SUMO](SUMO.md) with
+  middle-ware for coupling [sumo](sumo.md) with
   [OMNET++](https://omnetpp.org/). As part of the infrastructure it
   provides a C++ client library for the TraCI API (API completeness is
   a bit behind the python client).
@@ -217,7 +217,7 @@ bindings are included when downloading a sumo-build.
   <span style="background: #ffcccc;">Not all TraCI commands have been
   implemented</span>
 - Java: [TraaS](TraCI/TraaS.md#java_client) provides a client
-  library that is part of the [SUMO](SUMO.md)-source tree (API
+  library that is part of the [sumo](sumo.md)-source tree (API
   coverage is almost complete)
 - Others: Any language that can access webservies using
   [SOAP](https://en.wikipedia.org/wiki/SOAP) can access SUMO using the
@@ -228,14 +228,14 @@ bindings are included when downloading a sumo-build.
 
 ### V2X simulation
 
-TraCI allows to use [SUMO](SUMO.md) in combination with
+TraCI allows to use [sumo](sumo.md) in combination with
 communication network simulators vor simulating [vehicular
 communication](Topics/V2X.md). See
 [Topics/V2X](Topics/V2X.md) for a list of available solutions.
 
 ### Other Resources
 
-- [SUMO](SUMO.md)'s TraCI Server is a part of the plain
+- [sumo](sumo.md)'s TraCI Server is a part of the plain
   distribution. The source code is located in the folder
   `src/traci-server`.
 
@@ -336,11 +336,11 @@ the client wait for the simulation to shut down. The bug report was #524
 
 There used to be two "generations" of [TraCI](TraCI.md)
 commands. The first one mainly uses an internal mapping between the
-string-typed IDs used in [SUMO](SUMO.md) and an external
+string-typed IDs used in [sumo](sumo.md) and an external
 representation of these which is int-based. The mapping was done
 internally (within [TraCI](TraCI.md)).
 The second "generation", the current one uses string-IDs equal to
-those [SUMO](SUMO.md) reads. If you are bound to the first
+those [sumo](sumo.md) reads. If you are bound to the first
 generation API (for instance if you want to use TraNS) you can only
-use [SUMO](SUMO.md) up to version 0.12.3. See
+use [sumo](sumo.md) up to version 0.12.3. See
 [FAQ](FAQ.md) about obtaining an old version.

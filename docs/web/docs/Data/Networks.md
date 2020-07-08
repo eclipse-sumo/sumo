@@ -3,7 +3,7 @@ title: Data/Networks
 permalink: /Data/Networks/
 ---
 
-You should read the main page on [NETCONVERT](../NETCONVERT.md)
+You should read the main page on [netconvert](../netconvert.md)
 before reading this.
 
 # OpenStreetMap-project
@@ -18,7 +18,7 @@ before reading this.
 
     2. [Networks/Import/OpenStreetMap](../Networks/Import/OpenStreetMap.md)
         explains how to create Sumo-networks from OSM-data using
-        [NETCONVERT](../NETCONVERT.md).
+        [netconvert](../netconvert.md).
 
 *Comments*: A great source of networks and man-made infrastucture.
 However, infrastructure data and definitions are still changing

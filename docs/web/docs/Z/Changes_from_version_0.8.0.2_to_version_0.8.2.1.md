@@ -29,7 +29,7 @@ User-relevant changes:
   - Patched some of the lane-changing bugs
   - time-to-teleport -option added
   - replace "treshhold" by "treshold"
-- Netconvert
+- netconvert
   - Plain output of node and edges added (--plain-output)
   - got rid of the arcview/shapelib-import chaos
   - \--explicite-junctions -\> --explicite-tls

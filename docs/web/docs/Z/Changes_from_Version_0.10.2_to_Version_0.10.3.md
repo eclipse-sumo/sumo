@@ -14,10 +14,10 @@ permalink: /Z/Changes_from_Version_0.10.2_to_Version_0.10.3/
   - further work on simulation of inner-junction traffic in dense
     scenarios
 
-- NETCONVERT
+- netconvert
   - prunning on a bounding box was revalidated; tests were added
 
-- DFROUTER
+- dfrouter
   - made reading of detector positions more fault-tolerant
 
 - TraCI

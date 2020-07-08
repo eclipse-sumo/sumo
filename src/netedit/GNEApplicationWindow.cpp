@@ -1788,7 +1788,7 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
 
 long
 GNEApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXLinkLabel::fxexecute("https://sumo.dlr.de/docs/NETEDIT.html");
+    FXLinkLabel::fxexecute("https://sumo.dlr.de/docs/netedit.html");
     return 1;
 }
 

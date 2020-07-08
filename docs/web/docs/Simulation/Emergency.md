@@ -9,7 +9,7 @@ The simulation of emergency vehicles and their special rights is
 partially possible with SUMO. Additional capabilities are planned for
 the future.
 
-- [Blue light device](../SUMO.md#bluelight_device): A blue light device indicates that the emergency
+- [Blue light device](../sumo.md#bluelight_device): A blue light device indicates that the emergency
   vehicle is driving with special rights (using blue flashing light
   and sirene). Emergency vehicles can ignore red traffic lights.
   Other traffic participants are forced to form a virtual middle lane
@@ -34,7 +34,7 @@ the future.
 # Visualization
 
 The visualization of emergency vehicles is supported in
-[SUMO-GUI](../SUMO-GUI.md). When setting the vType-attribute `guiShape="emergency"` a
+[sumo-gui](../sumo-gui.md). When setting the vType-attribute `guiShape="emergency"` a
 white vehicle with the international sign for first aid is drawn.
 Furthermore a police car will be drawn with vType-attribute `guiShape="police"` and a
 firebrigade with vType-attribute `guiShape="firebrigade"`. When additionally setting the

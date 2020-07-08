@@ -35,7 +35,7 @@ necessary constraints must be fulfilled:
 If a vehicle cannot be inserted due to any of the above reasons it's
 insertion is delayed (see below). This *departDelay* is recorded in the
 [tripinfo-output](../Simulation/Output/TripInfo.md) and can also be
-inspected in [SUMO-GUI](../SUMO-GUI.md) via the vehicle parameter
+inspected in [sumo-gui](../sumo-gui.md) via the vehicle parameter
 dialog.
 
 The precise nature of insertion in regard to position, speed and depart
@@ -65,7 +65,7 @@ the default and one may switch to 1) using the option **--eager-insert**.
 
 ## Investigating insertion delay
 
-Using [SUMO-GUI](../SUMO-GUI.md) several options exist for showing
+Using [sumo-gui](../sumo-gui.md) several options exist for showing
 insertion delay:
 
 - Color vehicles *by insertion delay*

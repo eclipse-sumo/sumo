@@ -1,13 +1,13 @@
 ---
-title: POLYCONVERT
-permalink: /POLYCONVERT/
+title: polyconvert
+permalink: /polyconvert/
 ---
 
 # From 30.000 feet
 
-**POLYCONVERT** imports geometrical shapes (polygons or points of
+**polyconvert** imports geometrical shapes (polygons or points of
 interest) from different sources, converts them to a representation that
-may be visualized using [SUMO-GUI](SUMO-GUI.md).
+may be visualized using [sumo-gui](sumo-gui.md).
 
 - **Purpose:** Polygon and POI import, conversion, and projection
 - **System:** portable (Linux/Windows is tested); runs on command line
@@ -22,11 +22,11 @@ may be visualized using [SUMO-GUI](SUMO-GUI.md).
 - projections using a given proj.4-definition or via a matching
   network
 - Writes [simulation shape files](Simulation/Shapes.md) usable
-  within [SUMO-GUI](SUMO-GUI.md) and [SUMO](SUMO.md)
+  within [sumo-gui](sumo-gui.md) and [sumo](sumo.md)
 
 # Usage Description
 
-**POLYCONVERT** is able to import shapes from
+**polyconvert** is able to import shapes from
 different file types. Normally, for importing data of a certain type,
 the type name is used as option name and the value indicates the
 position of the file. So
@@ -39,7 +39,7 @@ imports from a VISUM-net file.
 
 ## Options
 
-You may use a XML schema definition file for setting up a POLYCONVERT
+You may use a XML schema definition file for setting up a polyconvert
 configuration:
 [polyconvertConfiguration.xsd](http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd).
 
@@ -60,7 +60,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 ### Input
 
-**POLYCONVERT** is capable to apply different
+**polyconvert** is capable to apply different
 attributes to the imported shapes in dependence of their "type". Not all
 imported formats have a type information. When using shape files, for
 example, all instances of an artifact type are normally stored in a
@@ -104,7 +104,7 @@ which has to be defined using **--output** {{DT_FILE}}.
 
 ### Projection
 
-One of the major uses of **POLYCONVERT** is to
+One of the major uses of **polyconvert** is to
 apply a projection on the read shapes. Normally, one wants the shapes to
 be aligned in accordance to a previously imported road network. In this
 case, the network should be given using **--net-file** {{DT_FILE}}. But it is also possible to use
@@ -127,7 +127,7 @@ changed, **--use-projection** must be given.
 
 Sometimes, shapes cover a much larger area than the network. In order to
 reduce the amount of data, one can force
-**POLYCONVERT** to prune the imported data on the
+**polyconvert** to prune the imported data on the
 network's or a given boundary. Read shapes which are completely outside
 this boundary are discarded in these cases.
 

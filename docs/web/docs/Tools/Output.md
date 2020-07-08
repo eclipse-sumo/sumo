@@ -133,7 +133,7 @@ python vehLanes.py <netstate_dump.xml> <output_file>
 Computes the numerical difference of
 [edgeData](../Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
 values for each edge and interval. The resulting file can be used to
-[visualize changes between two traffic scenarios](../SUMO-GUI.md#visualizing_edge-related_data). Both
+[visualize changes between two traffic scenarios](../sumo-gui.md#visualizing_edge-related_data). Both
 input files must contain the same edges and intervals.
 
 usage:

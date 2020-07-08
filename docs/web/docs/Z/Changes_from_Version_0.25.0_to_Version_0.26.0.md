@@ -62,7 +62,7 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
   - Fixed detector data for teleporting vehicles. #1452
   - Fixed meandata for circular networks. #1032
 
-- SUMO-GUI
+- sumo-gui
   - Fixed bug that was causing slightly exaggerated exit times to be
     shown when activating *Show Link Items* from the vehicle context
     menu. #2022
@@ -93,7 +93,7 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
   - Fixed crash. #2187
   - Coloring vehicles *by selection* is now working. #2149
 
-- NETEDIT
+- netedit
   - Fixed bug that made it impossible to modify numerical attributes
     (lane numbers, phase duration etc.) on some computers. #1966
   - Fixed error when modifying signal plans for joined traffic
@@ -103,7 +103,7 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
   - Fixed bug where junctions with uncommon shapes could not be
     selected.
 
-- NETCONVERT
+- netconvert
   - Fixed bug that was causing unsafe [internal
     junctions](../Simulation/Intersections.md#waiting_within_the_intersection)
     to be built. #2086, #2097
@@ -188,7 +188,7 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
 - Simulation
   - [MESO](../Simulation/Meso.md) and
     [MESO\#MESO-GUI](../Simulation/Meso.md#meso-gui) are now open.
-  - Can now simulated rail road crossings (see NETCONVERT
+  - Can now simulated rail road crossings (see netconvert
     enhancement below). Vehicles will get a red light whenever a
     train is approaching. #1744
   - Added option **--emission-output.precision** {{DT_INT}} for configuring the numerical precision of vehicle
@@ -221,7 +221,7 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
   - Added new [PHEMlight](../Models/Emissions/PHEMlight.md)
     version. #2206
 
-- SUMO-GUI
+- sumo-gui
   - Adjusted zooming distance when centering on simulation objects
     to make objects easier to find. #2146
   - Added option **--waiting-time-memory** {{DT_TIME}} for tracking accumulated waiting time of vehicles.
@@ -248,21 +248,21 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
     parameter dialog. These values record when a vehicle leaves,
     entered and was blocked on an edge segment.
 
-- NETCONVERT
+- netconvert
   - Added new [node type
     *rail_crossing*](../Networks/PlainXML.md#node_types)
     to model behavior at a rail road crossings. #1744
 
-- POLYCONVERT
+- polyconvert
   - Added default typemaps similar to netconvert. #1853
 
-- DUAROUTER
+- duarouter
   - Added person trips and
     [IntermodalRouting](../IntermodalRouting.md)
   - When a flow has a stop definition with attribute `until`, the time is
     shifted for each successive vehicle in the flow. #1514
 
-- MAROUTER
+- marouter
   - Added bulk routing and better OD cell handling for speed
     improvements. #2167
 
@@ -320,7 +320,7 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
     values `maxSpeedGap`, `pwagSimple` and `pwagGeneric` were removed since they never worked as intended.
   - Option **lanechange.allow-swap** is now deprecated.
 
-- SUMO-GUI
+- sumo-gui
   - Vehicle type parameters were moved to a separate dialog box
     (*Show Type Parameter*). #2133
 
@@ -332,7 +332,7 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
     state](../Simulation/SaveAndLoad.md)
   - [Arrival parameters are now
     documented](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#a_vehicles_depart_and_arrival_parameter)
-  - Extended [NETEDIT](../NETEDIT.md) documentation.
+  - Extended [netedit](../netedit.md) documentation.
   - Described [netdiff.py](../Tools/Net.md#netdiffpy), a tool
     for comparing networks which was undocumented for a long time.
   - Added page on [modelling networks for motorway simulation. In
@@ -341,7 +341,7 @@ permalink: /Z/Changes_from_Version_0.25.0_to_Version_0.26.0/
   - Added new [overview page for usage of elevation
     data](../Networks/Elevation.md)
   - Added documentation [on influencing the simulation via
-    SUMO-GUI](../SUMO-GUI.md#influencing_the_simulation)
+    sumo-gui](../sumo-gui.md#influencing_the_simulation)
   - Added detailed [License](../Libraries_Licenses.md) information.
   - All applications report some build configuration when called
     without options. #2118

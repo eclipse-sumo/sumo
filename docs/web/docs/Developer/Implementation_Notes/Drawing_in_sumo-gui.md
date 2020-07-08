@@ -18,7 +18,7 @@ three places:
   MSEdge::dictionary)
 
   !!! note
-      This also applies to NETEDIT
+      This also applies to netedit
 
 # Layers
 

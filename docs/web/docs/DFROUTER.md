@@ -1,18 +1,18 @@
 ---
-title: DFROUTER
-permalink: /DFROUTER/
+title: dfrouter
+permalink: /dfrouter/
 ---
 
 # From 30.000 feet
 
-**DFROUTER** uses induction loop values to compute vehicle routes that
-may be used by [SUMO](SUMO.md).
+**dfrouter** uses induction loop values to compute vehicle routes that
+may be used by [sumo](sumo.md).
 
 - **Purpose:** Building vehicle routes from induction loop counts
 - **System:** portable (Linux/Windows is tested); runs on command line
 - **Input (mandatory):**
 
-  A) a road network as generated via [NETCONVERT](NETCONVERT.md) or [NETGENERATE](NETGENERATE.md), see [Building Networks](index.md#network_building)
+  A) a road network as generated via [netconvert](netconvert.md) or [netgenerate](netgenerate.md), see [Building Networks](index.md#network_building)
   
   B) induction loop definitions
 
@@ -20,7 +20,7 @@ may be used by [SUMO](SUMO.md).
 
 - **Output:** [Definition of Vehicles, Vehicle Types, and
   Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-  usable by [SUMO](SUMO.md)
+  usable by [sumo](sumo.md)
 - **Programming Language:** C++
 
 # Usage Description
@@ -31,7 +31,7 @@ The complete list of options is given in the following.
 
 ## Options
 
-You may use a XML schema definition file for setting up a DFROUTER
+You may use a XML schema definition file for setting up a dfrouter
 configuration:
 [dfrouterConfiguration.xsd](http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd).
 
@@ -67,7 +67,7 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
 | **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; *default:* **false** |
 | **-o** {{DT_FILE}}<br> **--routes-output** {{DT_FILE}} | Saves computed routes to FILE |
-| **--routes-for-all** {{DT_BOOL}} | Forces DFROUTER to compute routes for in-between detectors; *default:* **false** |
+| **--routes-for-all** {{DT_BOOL}} | Forces dfrouter to compute routes for in-between detectors; *default:* **false** |
 | **--detector-output** {{DT_FILE}} | Saves typed detectors to FILE |
 | **--detectors-poi-output** {{DT_FILE}} | Saves detector positions as pois to FILE |
 | **--emitters-output** {{DT_FILE}} | Saves emitter definitions for source detectors to FILE |
@@ -77,7 +77,7 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--variable-speed-sign-output** {{DT_FILE}} | Saves variable seed sign definitions for sink detectors to FILE |
 | **--end-reroute-output** {{DT_FILE}} | Saves rerouter definitions for sink detectors to FILE |
 | **--validation-output** {{DT_FILE}} |  |
-| **--validation-output.add-sources** {{DT_BOOL}} | ; *default:* **false** |
+| **--validation-output.add-sources** {{DT_BOOL}} | *default:* **false** |
 
 ### Processing
 
@@ -100,10 +100,10 @@ Applications\#Configuration Files](Basics/Using_the_Command_Line_Applications.md
 | **--time-offset** {{DT_TIME}} | Subtracts TIME seconds from (scaled) flow times; *default:* **0** |
 | **--time-step** {{DT_TIME}} | Expected distance between two successive data sets; *default:* **60** |
 | **--calibrator-output** {{DT_BOOL}} | Write calibrators to FILE; *default:* **false** |
-| **--include-unused-routes** {{DT_BOOL}} | ; *default:* **false** |
-| **--revalidate-flows** {{DT_BOOL}} | ; *default:* **false** |
+| **--include-unused-routes** {{DT_BOOL}} | *default:* **false** |
+| **--revalidate-flows** {{DT_BOOL}} | *default:* **false** |
 | **--remove-empty-detectors** {{DT_BOOL}} | Removes empty detectors from the list; *default:* **false** |
-| **--strict-sources** {{DT_BOOL}} | ; *default:* **false** |
+| **--strict-sources** {{DT_BOOL}} | *default:* **false** |
 | **--respect-concurrent-inflows** {{DT_BOOL}} | Try to determine further inflows to an inbetween detector when computing split probabilities; *default:* **false** |
 | **--scale** {{DT_FLOAT}} | Scale factor for flows; *default:* **1** |
 

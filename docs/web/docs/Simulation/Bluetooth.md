@@ -5,7 +5,7 @@ permalink: /Simulation/Bluetooth/
 
 # Overview
 
-[SUMO](../SUMO.md) supports the simulation of wireless onboard
+[sumo](../sumo.md) supports the simulation of wireless onboard
 devices to facilitate a sensor mechanism which relies on the detection
 of radio signals (usually bluetooth or WLAN) emitted by the vehicle.
 Every vehicle can act as a sender and/or a receiving device. The
@@ -15,7 +15,7 @@ is currently not possible to retrieve the detection events via
 [TraCI](../TraCI.md) or react directly in the simulation to such an
 event. The relevant parameters for configuring the sender and recevier
 devices are described at
-[SUMO\#Communication](../SUMO.md#communication). Details on the
+[sumo#communication](../sumo.md#communication). Details on the
 detection process can be found in the following publication: [Behrisch,
 Michael and Gurczik, Gaby (2014) Modelling Bluetooth Inquiry for SUMO.
 In: SUMO2014 Modeling Mobility with Open Data. SUMO2014, 15.-16.
@@ -30,7 +30,7 @@ The Bluetooth functionality is enabled using two devices:
 
 Activation of these devices is explained [here](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices).
 
-The behavior of the **btreceiver** device can be further customized using the following [SUMO](../SUMO.md)-Options:
+The behavior of the **btreceiver** device can be further customized using the following [sumo](../sumo.md)-Options:
 
 - **--device.btreceiver-range** {{DT_FLOAT}} (defines the detection range in meters)
 - **--device.btreceiver-offtime** {{DT_FLOAT}} (defines the minimum time between connections in seconds. This can be used to model effects of communication traffic load).

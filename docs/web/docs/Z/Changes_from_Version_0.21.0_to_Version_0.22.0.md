@@ -46,7 +46,7 @@ permalink: /Z/Changes_from_Version_0.21.0_to_Version_0.22.0/
         file parsing and vehicle movement
   - Fixed rerouting close to junctions
 
-- SUMO-GUI
+- sumo-gui
   - Single-stepping the simulation with hotkey (*Ctrl-D*) is now
         working as smoothly as intended.
   - Changing simulation delay via mousewheel now works when the
@@ -61,12 +61,12 @@ permalink: /Z/Changes_from_Version_0.21.0_to_Version_0.22.0/
   - The drawing size of laneAreaDetectors can now be scaled
         properly.
 
-- NETCONVERT
+- netconvert
   - Street-sign-output now references the correct xsd file.
   - warnings are emitted if no proj support is available and
         projection is needed
 
-- DUAROUTER
+- duarouter
   - Fixed crash when using options **--repair** and **--ignore-errors**.
   - Fixed crash when using option **--remove-loops**.
   - When using option **--remove-loops** the non-looping parts of the route are now
@@ -117,7 +117,7 @@ permalink: /Z/Changes_from_Version_0.21.0_to_Version_0.22.0/
         in grid networks) and may be used to prevent jams on a single
         shortest path.
 
-- SUMO-GUI
+- sumo-gui
   - Now appending *.xml* suffix when saving viewport, view settings
         or decals
   - Added lane coloring *by loaded weights*. This colors by whatever
@@ -146,16 +146,16 @@ permalink: /Z/Changes_from_Version_0.21.0_to_Version_0.22.0/
   - Lane coloring by speed now uses more colors (the same as vehicle
         coloring by speed).
 
-- NETCONVERT
+- netconvert
   - Roundabouts can now be specified via [plain-xml input](../Networks/PlainXML.md#roundabouts).
         They are also written to the *.edg.xml*-file when using option **--plain-output-prefix**.
 
-- DUAROUTER
+- duarouter
   - Now supports parallel routing by using the option **--routing-threads** {{DT_INT}}
   - Added new routing algorithms 'astar' and 'CH' which are faster
         than the default 'dijkstra' algorithm.
 
-- JTRROUTER
+- jtrrouter
   - Routes which loop back on themselves are no longer genereated by
         default (can be enabled using option **--allow-loops**).
 
@@ -174,7 +174,7 @@ permalink: /Z/Changes_from_Version_0.21.0_to_Version_0.22.0/
   - Added [randomTrips.py](../Tools/Trip.md#randomtripspy)
         option **--weights-output-prefix** {{DT_STR}} to generate weight files which can be used to visualize
         the edge probabilities for being source/destination/via in
-        [SUMO-GUI](../SUMO-GUI.md).
+        [sumo-gui](../sumo-gui.md).
   - Added [randomTrips.py](../Tools/Trip.md#randomtripspy)
         option **--weights-prefix** {{DT_STR}} which allows loading edge probabilities for being
         source/destination/via. The file format is the same as for
@@ -186,7 +186,7 @@ permalink: /Z/Changes_from_Version_0.21.0_to_Version_0.22.0/
         for "three-click" scenario generation (thanks to Jakob
         Stigloher)
 
-- [MAROUTER](../MAROUTER.md)
+- [marouter](../marouter.md)
   - Added new router which reads trips and writes routes by computing a macroscopic user assignment.
 
 ### Other
@@ -195,17 +195,17 @@ permalink: /Z/Changes_from_Version_0.21.0_to_Version_0.22.0/
     sumo.dlr.de/trac)
 
 - Documentation
-  - Added [description of generic NETCONVERT warnings](../NETCONVERT.md#warnings_during_import).
-  - Added [description of OSM-specific NETCONVERT warnings](../Networks/Import/OpenStreetMap.md#warnings_during_import).
+  - Added [description of generic netconvert warnings](../netconvert.md#warnings_during_import).
+  - Added [description of OSM-specific netconvert warnings](../Networks/Import/OpenStreetMap.md#warnings_during_import).
   - Added [description of Windows build configurations](../Installing/Windows_Build.md#available_builds).
 
-- DUAROUTER
+- duarouter
   - Now issuing warnings about repaired routes.
 
 
-- SUMO-GUI
+- sumo-gui
   - Tweaked right-of-way colors for types *stop* and *allway_stop*.
-        [All colors are now documented.](../SUMO-GUI.md#right_of_way)
+        [All colors are now documented.](../sumo-gui.md#right_of_way)
 
 - Misc
   - The version string for each application now includes the flag

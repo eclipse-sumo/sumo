@@ -24,7 +24,7 @@ permalink: /Z/Changes_from_Version_0.19.0_to_Version_0.20.0/
     slow vehicles #1176.
   - Rerouting fixed for vehicles which are on internal lanes when
     the rerouting is requested #1128.
-- SUMO-GUI
+- sumo-gui
   - Fixed crash when using the object locator #923 on some versions of
     Ubuntu\].
   - Fixed bug where brake lights were shown even though the vehicle
@@ -36,7 +36,7 @@ permalink: /Z/Changes_from_Version_0.19.0_to_Version_0.20.0/
   - Fixed rare graphical glitch when drawing concave junction shapes
   - Fixed drawing of segmented vehicles (trains) which are longer
     than their departPos
-- NETCONVERT
+- netconvert
   - Fixed bug which gave some links the wrong priority thus causing
     collisions (see #1096)
   - Fixed crash when specifying connections from/to edges which are
@@ -87,7 +87,7 @@ permalink: /Z/Changes_from_Version_0.19.0_to_Version_0.20.0/
     model (contribution of TU Graz)
   - Rerouting now keeps existing stops and adds new stops which are
     part of the new route even in cyclic routes
-- SUMO-GUI
+- sumo-gui
   - Reworked drawing of trains to have more realistic [carriage lengths](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#visualization).
     Also some busses are drawn with flexible segments now.
   - The vehicle parameter dialog now lists the maximum speed of the
@@ -110,7 +110,7 @@ permalink: /Z/Changes_from_Version_0.19.0_to_Version_0.20.0/
     speed limit on the current lane and the speedFactor of the
     vehicle. The same color thresholds as in coloring *by speed* are
     now used.
-- NETCONVERT
+- netconvert
   - added option **--osm.elevation** {{DT_BOOL}} which imports elevation data from OSM input
     (default *false*).
   - Conflicts between connections originating from the same edge are

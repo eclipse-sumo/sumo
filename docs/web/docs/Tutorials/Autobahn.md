@@ -12,7 +12,7 @@ flows on a multi-lane highway and modifying and saving view settings.
 
 Editing geometry points
 
-Open [NETEDIT](../NETEDIT.md) to
+Open [netedit](../netedit.md) to
 create a fictional highway. We keep this very simplistic for the start
 and consider a segment without on- or off-ramps. Enter the edge creation
 mode by pressing `e` and create an edge that is a few kilometers long.

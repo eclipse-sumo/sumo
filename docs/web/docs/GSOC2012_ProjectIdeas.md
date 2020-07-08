@@ -21,9 +21,9 @@ help.
 
 ## Enhance Capabilities of the Simulation Viewer
 
-The [SUMO-GUI](SUMO-GUI.md) application depends on configuration
+The [sumo-gui](sumo-gui.md) application depends on configuration
 files. Since editing configuration files is difficult for many users,
-[SUMO-GUI](SUMO-GUI.md) should provide for a mechanism to load
+[sumo-gui](sumo-gui.md) should provide for a mechanism to load
 the required files via menus.
 
 ## Implement a movement model for pedestrians

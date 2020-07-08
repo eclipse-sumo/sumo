@@ -67,7 +67,7 @@ An example for a bus line and a person that may uses this line are given below:
 
 Generally, intermodal routing may consider multiple criteria such as
 travel time, costs, reliability and convenience. Currently,
-[DUAROUTER](DUAROUTER.md) only takes the following travel time
+[duarouter](duarouter.md) only takes the following travel time
 into account:
 
 - Individual vehicle transport uses the standard vehicle routing
@@ -79,4 +79,4 @@ into account:
 - Public transport uses the time to the next train departure (waiting time) and the difference of the *until*-times between successive stops
 - [Accessing a stop from another part of the network](Simulation/Public_Transport.md#access_lanes) takes
   time in direct proportion to the straight-line distance with a
-  configurable factor ([NETCONVERT](NETCONVERT.md) option **--railway.access-factor** {{DT_FLOAT}}). The distance can be customized in the access definition.
+  configurable factor ([netconvert](netconvert.md) option **--railway.access-factor** {{DT_FLOAT}}). The distance can be customized in the access definition.

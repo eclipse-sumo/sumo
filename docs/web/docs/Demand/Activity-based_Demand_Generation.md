@@ -3,7 +3,7 @@ title: Demand/Activity-based Demand Generation
 permalink: /Demand/Activity-based_Demand_Generation/
 ---
 
-[ACTIVITYGEN](../ACTIVITYGEN.md) generates demand from a
+[activitygen](../activitygen.md) generates demand from a
 description of the population in the net. To do so, it uses a simple
 activity-based traffic model. It supports the activities work, school,
 and free time and the conveyances walking, bike, car, and bus. Cars may
@@ -54,7 +54,7 @@ instead it contains start edge and end edge (and optionally some vias,
 so-called trips) only. This allows you to choose the router you want for
 linking departure and destination edges.
 
-When you run [DUAROUTER](../DUAROUTER.md) as shown above, all
+When you run [duarouter](../duarouter.md) as shown above, all
 vehicles will pick the fastest route under the assumption of being alone
 in the network. This may lead to unrealistic jamming and should be
 remedied with a [traffic assignment
@@ -606,8 +606,8 @@ multiple days) with Z as a running index over all cars
 SUMO has a [detailed model for individual multi-modal transport
 itineraries](../Specification/Persons.md). Since 0.26.0 multi-modal
 routing with public and individual transport modes is supported as well.
-However, [ACTIVITYGEN](../ACTIVITYGEN.md) does not make use of
-these facilities. In [ACTIVITYGEN](../ACTIVITYGEN.md)
+However, [activitygen](../activitygen.md) does not make use of
+these facilities. In [activitygen](../activitygen.md)
 
 - Buses are generated according to the bus schedule. People using
 buses do not show up in the simulation.
@@ -623,4 +623,4 @@ between Cooperative Systems](http://www.ldv.ei.tum.de/fidens/) featuring
 trusted probabilistic knowledge processing in vehicular networks. For
 further documentation on the internals of the model, refer to the source
 code in [{{SUMO}}/src/activitygen]({{Source}}src/activitygen) or ask the [original
-authors](../Sumo_at_a_Glance.md#contributors_and_participants).
+authors](../SUMO_at_a_Glance.md#contributors_and_participants).

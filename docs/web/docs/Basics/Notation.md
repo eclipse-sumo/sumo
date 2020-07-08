@@ -88,11 +88,11 @@ Complete examples of XML-Files are shown like the following:
 ### Referenced File Types
 
 - *<NETWORK_FILE\>*: a [SUMO network file](../Networks/SUMO_Road_Networks.md) as built by
-  [NETGENERATE](../NETGENERATE.md) or
-  [NETCONVERT](../NETCONVERT.md)
+  [netgenerate](../netgenerate.md) or
+  [netconvert](../netconvert.md)
 - *<ROUTES_FILE\>*: a [SUMO routes file](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-  as built by [DUAROUTER](../DUAROUTER.md) or
-  [JTRROUTER](../JTRROUTER.md) or by hand
+  as built by [duarouter](../duarouter.md) or
+  [jtrrouter](../jtrrouter.md) or by hand
 - *<TYPE_FILE\>*: a [SUMO edge type file](../SUMO_edge_type_file.md), built by hand or downloaded
 - *<OSM_FILE\>*: a [OpenStreetMap file](../OpenStreetMap_file.md)
   as exported from [OpenStreetMap](https://www.openstreetmap.org/)

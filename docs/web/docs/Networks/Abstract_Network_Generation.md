@@ -3,7 +3,7 @@ title: Networks/Abstract Network Generation
 permalink: /Networks/Abstract_Network_Generation/
 ---
 
-[NETGENERATE](../NETGENERATE.md) allows the generation of three
+[netgenerate](../netgenerate.md) allows the generation of three
 types of abstract networks: grid, spider and random.
 
 The type of network you want to create must be stated with one of the
@@ -117,4 +117,4 @@ types are allowed in accordance to the junction types currently known by
 the simulation: priority, traffic_light.
 
 Further, you can specify the default street type by using the same
-options as in the [NETCONVERT](../NETCONVERT.md)-application.
+options as in the [netconvert](../netconvert.md)-application.

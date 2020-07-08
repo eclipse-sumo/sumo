@@ -41,7 +41,7 @@ permalink: /Z/Changes_from_Version_0.26.0_to_Version_0.27.0/
     the threshold that defines jamming when using default options
     (thresholds based on allowed speeds). #2364
 
-- NETCONVERT
+- netconvert
   - Fixed connection-guessing heuristic. #1992, #1219, #1633, #2398
   - Option **--remove-edges.by-vclass** is now working when loading a *.net.xml* file. #2280
   - Fixed bugs when importing cycleways from OSM. #2324
@@ -51,25 +51,25 @@ permalink: /Z/Changes_from_Version_0.26.0_to_Version_0.27.0/
   - Fixed invalid lane permissions due to invalid removal of
     geometry-like nodes. #2488
 
-- SUMO-GUI
+- sumo-gui
   - Fixed crash when loading a large number of background images.
   - Fixed persons showing up too early in the locator. #1673
 
-- NETEDIT
+- netedit
   - Fixed crash when trying to set an empty string as edge length or
     edge width. #2322
   - Fixed crash when deleting the last lane of an edge.
 
-- DUAROUTER
+- duarouter
   - Trips and flows that use attribute `via` to loop over the destination
     edge more than once are now working. #2271
 
-- MAROUTER
+- marouter
   - The output is now correctly sorted when using trips as input. #2361
 
-- POLYCONVERT
-  - Polyconvert output files can now be imported again by
-    Polyconvert (i.e. for further transformations). #1715
+- polyconvert
+  - polyconvert output files can now be imported again by
+    polyconvert (i.e. for further transformations). #1715
 
 - TraCI
   - Fixed *route.add*, *gui.screenshot* and *gui.trackVehicle* and
@@ -135,7 +135,7 @@ permalink: /Z/Changes_from_Version_0.26.0_to_Version_0.27.0/
     original behaviour (values above 0 set the occupancy fraction
     threshold independent of edge speed as before).
 
-- SUMO-GUI
+- sumo-gui
   - The number of running vehicles and persons is now shown in the
     status bar. This display also acts as a button for opening the
     network parameter dialog. #1943
@@ -156,18 +156,18 @@ permalink: /Z/Changes_from_Version_0.26.0_to_Version_0.27.0/
   - Can now color edge segments (mesoscopic vehicle queues)
     individually by various traffic measures. #2243
 
-- NETCONVERT
+- netconvert
   - Added option **default.lanewidth** {{DT_FLOAT}} for setting the default width of lanes (also
-    applies to [NETGENERATE](../NETGENERATE.md)).
+    applies to [netgenerate](../netgenerate.md)).
   - Added option **numerical-ids** {{DT_BOOL}} for forcing all node and edge IDs to be integers
-    (also applies to [NETGENERATE](../NETGENERATE.md)). #1742
+    (also applies to [netgenerate](../netgenerate.md)). #1742
   - Added Option **speed.minimum** to avoid negative speeds when using Option **--speed.offset**. #2363
 
-- NETEDIT
+- netedit
   - Many additional network structures such as busStops, detectors
     and variable speed signs can now be defined and manipulated. #1916
 
-- NETGENERATE
+- netgenerate
   - Added option **grid.alphanumerical-ids** {{DT_BOOL}} for using a chess-like intersection naming scheme
     (A1, B3, etc).
 
@@ -229,7 +229,7 @@ permalink: /Z/Changes_from_Version_0.26.0_to_Version_0.27.0/
     model](../Simulation/Bluetooth.md) which has been available
     since version 0.18.0
 
-- NETCONVERT
+- netconvert
   - Network version is now 0.27.0
 
 - TraCI

@@ -37,7 +37,7 @@ the normal traveling mode (see section
   traveling in a platoon, with a platoon leader in catchup mode)
 
 !!! note
-    The corresponding vTypes have to be known by SUMO at startup. This means, they should be placed at the beginning of the [demand definitions](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md). When using [DUAROUTER](DUAROUTER.md) for route generation, please use the option **--vtype-output** to generate a seperate file containing the vTypes, which can be loaded upfront.
+    The corresponding vTypes have to be known by SUMO at startup. This means, they should be placed at the beginning of the [demand definitions](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md). When using [duarouter](duarouter.md) for route generation, please use the option **--vtype-output** to generate a seperate file containing the vTypes, which can be loaded upfront.
 
 
 It suffices to specify the platoon leader mode to use simpla. The

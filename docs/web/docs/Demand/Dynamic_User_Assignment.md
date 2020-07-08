@@ -36,8 +36,8 @@ python duaIterate.py -n <network-file> -t <trip-file> -l <nr-of-iteration
 ```
 
 *duaIterate.py* supports many of the same options as
-[SUMO](../SUMO.md). Any options not listed when calling
-*duaIterate.py* ***--help*** can be passed to [SUMO](../SUMO.md) by adding **sumo--long-option-name arg**
+[sumo](../sumo.md). Any options not listed when calling
+*duaIterate.py* ***--help*** can be passed to [sumo](../sumo.md) by adding **sumo--long-option-name arg**
 after the regular options (i.e. **sumo--step-length 0.5**).
 
 This script tries to calculate a user equilibrium, that is, it tries to
@@ -46,10 +46,10 @@ that each vehicle cannot reduce its travel cost (usually the travel
 time) by using a different route. It does so iteratively (hence the
 name) by
 
-1.  calling [DUAROUTER](../DUAROUTER.md) to route the vehicles in a
+1.  calling [duarouter](../duarouter.md) to route the vehicles in a
     network with the last known edge costs (starting with empty-network
     travel times)
-2.  calling [SUMO](../SUMO.md) to simulate "real" travel times
+2.  calling [sumo](../sumo.md) to simulate "real" travel times
     result from the calculated routes. The result edge costs are used in
     the net routing step.
 
@@ -62,7 +62,7 @@ the router to the route set of each vehicle in each iteration (at least
 if none of the present routes is the "cheapest") and may be chosen
 according to the route choice mechanisms described below.
 
-Between successive calls of DUAROUTER, the *.rou.alt.xml* format is used
+Between successive calls of duarouter, the *.rou.alt.xml* format is used
 to record not only the current *best* route but also previously computed
 alternative routes. These routes are collected within a route
 distribution and used when deciding the actual route to drive in the
@@ -118,7 +118,7 @@ simulation but the last one(s) should be the best.
 ### Loading vehicle types from an additional file
 
 By default, vehicle types are taken from the input trip file and are
-then propagated through [DUAROUTER](../DUAROUTER.md) iterations
+then propagated through [duarouter](../duarouter.md) iterations
 (always as part of the written route file).
 
 In order to use vehicle type definitions from an {{AdditionalFile}}, further options must
@@ -140,7 +140,7 @@ files.
 
 An alternative to the iterative user assignment above is incremental
 assignment. This happens automatically when using `<trip>` input directly in
-[SUMO](../SUMO.md) instead of `<vehicle>`s with pre-defined routes. In this
+[sumo](../sumo.md) instead of `<vehicle>`s with pre-defined routes. In this
 case each vehicle will compute a fastest-path computation at the time of
 departure which prevents all vehicles from driving blindly into the same
 jam and works pretty well empirically (for larger scenarios).
@@ -152,9 +152,9 @@ device allows for various configuration options, the script
 [Tools/Assign\#one-shot.py](../Tools/Assign.md#one-shotpy) may be
 used to automatically try different parameter settings.
 
-# [MAROUTER](../MAROUTER.md)
+# [marouter](../marouter.md)
 
-The [MAROUTER](../MAROUTER.md) application computes a *classic*
+The [marouter](../marouter.md) application computes a *classic*
 macroscopic assignment. It employs mathematical functions (resistive
 functions) that approximate travel time increases when increasing flow.
 This allows to compute an iterative assignment without the need for

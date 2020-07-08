@@ -23,9 +23,9 @@ documentation in HTML format.
 
 Within the installation folder, you will find a folder named "**bin**".
 Here, you can find the executables (programs). You may double click on
-[SUMO-GUI](SUMO-GUI.md) and take a look at the examples located
+[sumo-gui](sumo-gui.md) and take a look at the examples located
 in **docs/examples**. All other applications
-([DUAROUTER](DUAROUTER.md), [DFROUTER](DFROUTER.md),
+([duarouter](duarouter.md), [dfrouter](dfrouter.md),
 etc.) have to be run from the command line. To facilitate this there is
 also a start-commandline.bat which sets up the whole environment for
 you. If you feel unsure about the command line, please read

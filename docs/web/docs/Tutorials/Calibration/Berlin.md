@@ -42,7 +42,7 @@ value data from the detectors. Traffic Demand Modelling Due to find a
 work day, outside holidays, where considerable congestion occurred,
 Tuesday the 11 January 2011 was chosen. The traffic data from this day
 was aggregated to intervals of one minute. This minor simplification
-enabled the use of the module DFROUTER \[4\]. After defining the
+enabled the use of the module dfrouter \[4\]. After defining the
 location of the detectors the routes were calculated for all vehicles
 within the simulation automatically by the module. The vehicle
 distribution \[5\], including different vehicle classes characterized by
@@ -119,7 +119,7 @@ sensors and from the simulation are compared.
   <https://sumo.dlr.de/docs/Simulation/Variable_Speed_Signs.html>,
   last visited 21 February 2012
 - \[4\]
-  <https://sumo.dlr.de/docs/DFROUTER.html>,
+  <https://sumo.dlr.de/docs/dfrouter.html>,
   last visited 21 February 2012
 - \[5\]
   <https://sumo.dlr.de/docs/Definition_of_Vehicles,_Vehicle_Types,_and_Routes.html>,

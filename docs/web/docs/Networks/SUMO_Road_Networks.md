@@ -37,18 +37,18 @@ one can also find
 not meant to be edited by hand.** Rather you should use [SUMO XML
 description
 files](../Networks/PlainXML.md)
-together with [NETCONVERT](../NETCONVERT.md). You can also convert
+together with [netconvert](../netconvert.md). You can also convert
 an existing map from various formats using
-[NETCONVERT](../NETCONVERT.md) or generate geometrically simple,
-abstract road maps with [NETGENERATE](../NETGENERATE.md). To modify
-an existing *.net.xml*-file you may [load it with NETCONVERT along with
+[netconvert](../netconvert.md) or generate geometrically simple,
+abstract road maps with [netgenerate](../netgenerate.md). To modify
+an existing *.net.xml*-file you may [load it with netconvert along with
 patch files](../Networks/Import/SUMO_Road_Networks.md) You may also
-use [NETEDIT](../NETEDIT.md) for building own road networks or for
-reworking the ones obtained from [NETCONVERT](../NETCONVERT.md) or
-[NETGENERATE](../NETGENERATE.md).
+use [netedit](../netedit.md) for building own road networks or for
+reworking the ones obtained from [netconvert](../netconvert.md) or
+[netgenerate](../netgenerate.md).
 
 !!! caution
-    When creating SUMO networks from custom input data, the recommended approach is to create/generate [plain-xml-files](../Networks/PlainXML.md) and use [NETCONVERT](../NETCONVERT.md) to turn these into a *.net.xml file.* Trying to [generate the .net.xml file directly is fraught with dangers](../FAQ.md#i_made_changes_to_the_netxml-file_but_it_did_not_work_as_expected_why).
+    When creating SUMO networks from custom input data, the recommended approach is to create/generate [plain-xml-files](../Networks/PlainXML.md) and use [netconvert](../netconvert.md) to turn these into a *.net.xml file.* Trying to [generate the .net.xml file directly is fraught with dangers](../FAQ.md#i_made_changes_to_the_netxml-file_but_it_did_not_work_as_expected_why).
 
 ## Network Format
 
@@ -68,8 +68,8 @@ the instances in the following order:
 
 The networks are using cartesian, metric coordinates where the leftmost
 node is at x=0 and the node being most at the bottom is at y=0. This
-means that when being imported, [NETCONVERT](../NETCONVERT.md) and
-[NETGENERATE](../NETGENERATE.md) are projecting the network, first,
+means that when being imported, [netconvert](../netconvert.md) and
+[netgenerate](../netgenerate.md) are projecting the network, first,
 if the original network was not using cartesian and/or metric
 coordinates. Then, they move the road network to the origin at (0,0).
 
@@ -172,7 +172,7 @@ assignment. The following purposes are defined:
 - `connector`: The edge is a macroscopic
   connector - not a part of the real world road network. Still, within
   the simulation, no distinction is made between "connector" roads and
-  "normal" nodes. Only [SUMO-GUI](../SUMO-GUI.md) allows to hide
+  "normal" nodes. Only [sumo-gui](../sumo-gui.md) allows to hide
   connector edges.
 - `internal`: The edge is a part of an
   intersection (is located within the intersection), see above.
@@ -211,7 +211,7 @@ The attributes of a lane are:
 
 It should be noted, that currently all lanes of an edge have the same
 length, even if it differs from the geometrical length of the shape.
-[NETCONVERT](../NETCONVERT.md) even explicitly allows to override
+[netconvert](../netconvert.md) even explicitly allows to override
 the geometrical lengths. Additionally, even though the network is
 shifted to start at (0,0), it is not guaranteed that all of the
 network's parts have positive coordinates.
@@ -325,7 +325,7 @@ The junction itself is described by the following attributes:
 | **incLanes** | id list           | The ids of the lanes that end at the intersection; sorted by direction, clockwise, with direction up = 0                                                               |
 | **intLanes** | id list           | The IDs of the lanes within the intersection                                                                                                                           |
 | **shape**    | position list     | A polygon describing the road boundaries of the intersection                                                                                                           |
-| customShape  | bool              | Whether the shape was customized by the user (and should thus not be rebuilt by [NETCONVERT](../NETCONVERT.md) or [NETEDIT](../NETEDIT.md)), default *False* |
+| customShape  | bool              | Whether the shape was customized by the user (and should thus not be rebuilt by [netconvert](../netconvert.md) or [netedit](../netedit.md)), default *False* |
 
 Please note, that the x/y-positions of the junction describe the given,
 not the computed centre of the junction. It is allowed for two nodes to
@@ -453,7 +453,7 @@ The attributes are:
 | **dir**       | enum ("s" = straight, "t" = turn, "l" = left, "r" = right, "L" = partially left, R = partially right, "invalid" = no direction)     | The direction of the connection     |
 | **state**     | enum ("-" = dead end, "=" = equal, "m" = minor link, "M" = major link, traffic light only: "O" = controller off, "o" = yellow flashing, "y" = yellow minor link, "Y" = yellow major link, "r" = red, "g" = green minor, "G" green major) | The state of the connection  |
 
-When creating these connections without Netconvert (not recommended) it
+When creating these connections without netconvert (not recommended) it
 should be taken into account that a connection with an internal lane
 follows a special pattern. For example when lane 1_f_0 needs to be
 connected to 1_t_0 through 1_v_0, the following connection entries
@@ -465,7 +465,7 @@ It will also not load if next to the necessary connections a connection
 #### Indices of a connection
 
 Each connection has associated indices which can be shown in
-[SUMO-GUI](../SUMO-GUI.md) by customizing gui settings and
+[sumo-gui](../sumo-gui.md) by customizing gui settings and
 activating *Junctions-\>Show ... index*. These indices are usually
 identical but may be configured independently of each other.
 
@@ -495,7 +495,7 @@ during network building). Their presence in the network file has two
 reasons:
 
 - It facillitates re-importing a *.net.xml*-file with
-  [NETCONVERT](../NETCONVERT.md)
+  [netconvert](../netconvert.md)
 - lane-changing models may take roundabouts into account
 
 Each roundabout is defined (somewhat redundantly) by its nodes and
@@ -507,36 +507,36 @@ edges:
 
 ## Software for Viewing, Editing and Processing
 
-To create a SUMO network file, [NETCONVERT](../NETCONVERT.md) helps
+To create a SUMO network file, [netconvert](../netconvert.md) helps
 to generate it from maps in other formats and
-[NETGENERATE](../NETGENERATE.md) constructs a new map with simple
-geometries. [SUMO](../SUMO.md) performs its simulation directly in
+[netgenerate](../netgenerate.md) constructs a new map with simple
+geometries. [sumo](../sumo.md) performs its simulation directly in
 the map of this file. Most other SUMO tools read such files to generate
 or import information that must be the mapped onto a road network.
 
 Networks can be created and edited graphically using
-[NETEDIT](../NETEDIT.md).
+[netedit](../netedit.md).
 
 The SUMO net file is not meant for manual editing. Convert it to the
 [SUMO native XML
 descriptions](../Networks/PlainXML.md)
-with [NETCONVERT](../NETCONVERT.md) instead. You can then process
+with [netconvert](../netconvert.md) instead. You can then process
 these files by hand and rebuild the network with
-[NETCONVERT](../NETCONVERT.md).
+[netconvert](../netconvert.md).
 
 ## Further Documentation
 
 - Network Import
-  -  - [Defining own networks using XML and NETCONVERT](../Networks/PlainXML.md)
-    - [Importing networks from other applications using NETCONVERT](../Networks/Import.md)
-  - [NETCONVERT](../NETCONVERT.md) manual
+  -  - [Defining own networks using XML and netconvert](../Networks/PlainXML.md)
+    - [Importing networks from other applications using netconvert](../Networks/Import.md)
+  - [netconvert](../netconvert.md) manual
 - Generation of abstract road networks
   - [Generating abstract networks using
-      NETGENERATE](../Networks/Abstract_Network_Generation.md)
-  - [NETGENERATE](../NETGENERATE.md) manual
-- [NETEDIT](../NETEDIT.md) manual
+      netgenerate](../Networks/Abstract_Network_Generation.md)
+  - [netgenerate](../netgenerate.md) manual
+- [netedit](../netedit.md) manual
 - [Developer/Network Building
   Process](../Developer/Network_Building_Process.md)
 
 !!! note
-    Please see the [ChangeLog](../ChangeLog.md) when dealing with networks generated by old versions of [NETCONVERT](../NETCONVERT.md) / [NETGENERATE](../NETGENERATE.md).
+    Please see the [ChangeLog](../ChangeLog.md) when dealing with networks generated by old versions of [netconvert](../netconvert.md) / [netgenerate](../netgenerate.md).

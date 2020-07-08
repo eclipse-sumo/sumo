@@ -23,10 +23,10 @@ Besides defining trips manually, trips between junctions can also be achieved
 with
 
 - [Random Trips option **--junction-taz**](../Tools/Trip.md#randomtripspy)
-- [DUARUTER options **--write-trips.junctions**](../DUAROUTER.md)
+- [duarouter options **--write-trips.junctions**](../duarouter.md)
 
 !!! caution
-    When loading trips with `fromJunction` or `toJunction` attributes with [SUMO](../SUMO.md) or [DUAROUTER](../DUAROUTER.md), the option **--junction-taz** must be set or an equivalent TAZ-file must be loaded.
+    When loading trips with `fromJunction` or `toJunction` attributes with [sumo](../sumo.md) or [duarouter](../duarouter.md), the option **--junction-taz** must be set or an equivalent TAZ-file must be loaded.
 
 ## Trips between TAZ
 Instead of departing as junctions (which internally use specialised TAZ), the
@@ -37,14 +37,14 @@ tool [generateBidiDistricts.py](../Tools/District.md#generatebididistrictspy) ma
 be used. 
 
 ## Modifying existing routes
-If routes between edges already exist, the [DUAROUTER option **--remove-loops**](../DUAROUTER.md) can be used to shorten the roads in a way that avoids turn-arounds.
+If routes between edges already exist, the [duarouter option **--remove-loops**](../duarouter.md) can be used to shorten the roads in a way that avoids turn-arounds.
 
 # Controlling where turnarounds may happen
 By removing turnaround connections from a network (i.e. with
-[NETEDIT](../NETEDIT.md), turnarounds and unsuitable locations can be prevented.
+[netedit](../netedit.md), turnarounds and unsuitable locations can be prevented.
 
 Often it is easier to control the generation of turnaround connections when
-importing the network. For this purpose [NETCONVERT](../NETCONVERT.md) provides a number of options.
+importing the network. For this purpose [netconvert](../netconvert.md) provides a number of options.
 
 - **--no-turnarounds** : Disables build turnarounds. This may cause vehicles to
   take long detoures so they can achieve a turnaround by turning right or left repeatedly.

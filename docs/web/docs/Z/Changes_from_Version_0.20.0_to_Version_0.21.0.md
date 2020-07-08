@@ -33,20 +33,20 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
     leave an intersection. This results in a minor increase in
     junction throughput.
 
-- SUMO-GUI
+- sumo-gui
   - The time shown in the gui now matches the time found in
     simulation outputs for the shown vehicle positions. Previously,
     the gui showed the time + 1 step.
   - Fixed crash when drawing persons
   - Patched building under macOS, thanks to Alex Voronov
   - lane coloring by netto occupancy no longer shows brutto
-    occupancy (see [lane coloring](../SUMO-GUI.md#edgelane_visualisation_settings)).
+    occupancy (see [lane coloring](../sumo-gui.md#edgelane_visualisation_settings)).
   - drawing of simple vehicle shapes now always uses a distinct
     color for drawing details.
   - Fixed crash when closing the breakpoint editor
   - Fixed crash when loading viewsettings and changing them
     immediately.
-- NETCONVERT
+- netconvert
   - when loading traffic light programs from *tllogic-files*, the
     node attribute *controlledInner* is now propperly preserved
   - guessed traffic light programs no longer contain duplicate
@@ -56,9 +56,9 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
   - Extremely short internal lanes are no longer split. Instead a
     warning is issued since these cases usually indicate an invalid
     junction geometry.
-- DFROUTER
+- dfrouter
   - removed option **--all-end-follower** as it's not longer needed and buggy
-- DUAROUTER
+- duarouter
   - when using tazs (districts) they are now correctly attached to
     the network with an edge with travel time 0 (before it was 1)
 - TraCI
@@ -125,7 +125,7 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
   - added [outputs](../Simulation/Output.md) conforming to the
     Amitran standards
 
-- SUMO-GUI
+- sumo-gui
   - the option **--no-warnings** {{DT_BOOL}} now also applies to the GUI message window
   - Added person coloring scheme *by selection* and *by angle*
   - All person modes now give a waitingTime
@@ -145,7 +145,7 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
   - Lanes are now drawn with smooth shapes regardless of geometry
     (fixed white gaps at corners)
 
-- NETCONVERT
+- netconvert
   - Added element `<crossing>` for '.con.xml' files. [This can be used to specify pedestrian crossings](../Networks/PlainXML.md#pedestrian_crossings)
   - Added attribute `sidewalkWidth` to `<type>` elements in [*.typ.xml* files](../SUMO_edge_type_file.md). If this is given, edges
     of this type will get an extra lane with `allow="pedestrian"` and the specified width.
@@ -159,11 +159,11 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
     This allows to specify a custom shape for that node.
   - can write networks in the Amitran format
 
-- DUAROUTER
+- duarouter
   - `<trip>` and `<flow>` elements now support attribute `via` for specifying intermediate
     edges to use during routing.
-  - `vType` and `route` definitions can now be given in [*additional-files*](../SUMO.md#format_of_additional_files) just like for
-    [SUMO](../SUMO.md)
+  - `vType` and `route` definitions can now be given in [*additional-files*](../sumo.md#format_of_additional_files) just like for
+    [sumo](../sumo.md)
   - Pedestrian walks with attributes `from` and `to` are now routed and
     written with attribute `edges`.
   - the maximum (the average) speed factor are taken into account
@@ -172,11 +172,11 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
     with **--ignore-errors**). Previously, an unknown `vType` was silently copied to the
     output and treated like the default type during routing.
 
-- POLYCONVERT
+- polyconvert
   - OSM road shapes and traffic light positions can now be exported
     [by setting the appropriate entries in the typemap file.](../Networks/Import/OpenStreetMap.md#importing_additional_polygons_buildings_water_etc)
 
-- OD2TRIPS
+- od2trips
   - reads now OD matrices in Amitran format
 
 - Tools
@@ -185,7 +185,7 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
   - Added [randomTrips.py](../Tools/Trip.md#randomtripspy)
     option **--max-distance** {{DT_FLOAT}} to limit the straight-line distance of generated trips
   - Added [randomTrips.py](../Tools/Trip.md#randomtripspy)
-    option **-a, --additional-files** {{DT_FILE}}[,{{DT_FILE}}\]\* which is passed to [DUAROUTER](../DUAROUTER.md)
+    option **-a, --additional-files** {{DT_FILE}}[,{{DT_FILE}}\]\* which is passed to [duarouter](../duarouter.md)
   - Added [randomTrips.py](../Tools/Trip.md#randomtripspy)
     option **-i, --intermediate** {{DT_INT}} for generating trips with intermediate waypoints
   - Added [randomTrips.py](../Tools/Trip.md#randomtripspy)
@@ -207,7 +207,7 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
 
 - Documentation
   - An explanation for vehicle insertion can be found
-    [here](../SUMO.md#insertion_of_vehicles).
+    [here](../sumo.md#insertion_of_vehicles).
   - [Default parameters for different vehicle classes](../Vehicle_Type_Parameter_Defaults.md).
   - [Documentation for Calibrators](../Simulation/Calibrator.md). These simulation
     objects allow for dynamic adaption to traffic flow and speed at

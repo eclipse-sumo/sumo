@@ -94,7 +94,7 @@ the *rerouting device* are used.
 
 # Routing by Traveltime and Edge Priority
 Sometimes it is useful to guide route search with additional information while still taking travel times into account.
-For this use case the option **--weights.priority-factor FLOAT** can be used with [SUMO](../SUMO.md) and [DUAROUTER](../DUAROUTER.md).
+For this use case the option **--weights.priority-factor FLOAT** can be used with [sumo](../sumo.md) and [duarouter](../duarouter.md).
 
 When this option is set, the priority value of each edge is factored into the routing decision so that low-priority edges receive a penalty (they appear to be slower) whereas high-priority edges receive little or no penalty. For the option value `PriorityFactor`, the penalty is computed thus:
 ```
@@ -141,7 +141,7 @@ also be set using *traci.edge.setEffort*.
 !!! caution
     The default effort value is 0 which causes detour routes to be preferred when not loading sensible effort values.
     
-The applications [DUAROUTER](../DUAROUTER.md) and [MAROUTER](../MAROUTER.md) also support the options **--weight-file** and **--weight-attribute** but they can only be used with one of the weight attributes "CO", "CO2", "PMx", "HC", "NOx", "fuel", "electricity", "noise". However, the will still work as expected when the user loads custom effort values for these attributes.
+The applications [duarouter](../duarouter.md) and [marouter](../marouter.md) also support the options **--weight-file** and **--weight-attribute** but they can only be used with one of the weight attributes "CO", "CO2", "PMx", "HC", "NOx", "fuel", "electricity", "noise". However, the will still work as expected when the user loads custom effort values for these attributes.
 
 
 # Routing by *distance*
@@ -170,9 +170,9 @@ shortestDistance = stage.length
 
 # Routing Algorithms
 
-Applications that perform routing ([SUMO](../SUMO.md),
-[SUMO-GUI](../SUMO-GUI.md), [DUAROUTER](../DUAROUTER.md),
-[MAROUTER](../MAROUTER.md)) support the option **--routing.algorithm** for selecting among
+Applications that perform routing ([sumo](../sumo.md),
+[sumo-gui](../sumo-gui.md), [duarouter](../duarouter.md),
+[marouter](../marouter.md)) support the option **--routing.algorithm** for selecting among
 the following values:
 
 - *dijkstra*: (default)

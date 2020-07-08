@@ -20,7 +20,7 @@ permalink: /Z/Changes_from_Version_0.12.0_to_Version_0.12.1/
     - added the option **--lanechange.allow-swap**; if enabled, vehicles blocking each other are exchanged
 - GUI
   - debugged traffic lights tracker broken when moving to subseconds
-- NETCONVERT
+- netconvert
   - OSM-Import
     - osm importer fails fast - furtherly given files are not
       processed in the case of an error

@@ -35,12 +35,12 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
     vehicles leaving without entering
   - fixed bug where inductionLoops and instantInductionLoops
     sometimes failed to detect vehicles
-- SUMO-GUI
+- sumo-gui
   - fixed occasional crash when additional vehicle visualizations
     are active
   - fixed bug where the simulation control buttons (start,step)
     sometimes remained gray when tracking a vehicle
-- NETCONVERT
+- netconvert
   - fixed bug that caused right-of-way computations to fail
     (resulting in collision) at left-turning connections
   - fixed bug where networks imported from
@@ -54,7 +54,7 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
     using option **--ramps.guess**
   - deleted nodes are no longer included in the final network
     boundary
-- POLYCONVERT
+- polyconvert
   - Removed dependency on key/value ordering when importing from
     OSM. Instead, now elements which match multiple typemap entries
     are exported multiple times.
@@ -98,7 +98,7 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
     mean data outputs.
   - added a car following model which respects slope (kraussPS),
     your network needs z-coordinates then
-- SUMO-GUI
+- sumo-gui
   - added optional POI attributes 'lon' and 'lat' for specifying
     position in geo-referenced networks.
   - added options for showing polygon names and changing their line
@@ -110,7 +110,7 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
   - human readable color representations for red, green, blue, cyan,
     magenta, yellow, black, white, and grey
   - junction coloring
-- NETCONVERT
+- netconvert
   - added support for traffic-actuated traffic lights (see
     [Networks/PlainXML\#Node_Descriptions](../Networks/PlainXML.md#node_descriptions))
   - in plain connection files the element **delete** now also works

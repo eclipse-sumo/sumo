@@ -59,7 +59,7 @@ and [lane-changing-modell attributes (lcSublane,
 lcPushy)](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#lane-changing_models).
 
 When describing the state of a vehicle in
-[SUMO-GUI](../SUMO-GUI.md)-dialogs or in the
+[sumo-gui](../sumo-gui.md)-dialogs or in the
 [netstate-output](../Simulation/Output/RawDump.md), additional
 attributes are used:
 

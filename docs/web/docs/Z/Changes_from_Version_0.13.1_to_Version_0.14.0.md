@@ -13,14 +13,14 @@ permalink: /Z/Changes_from_Version_0.13.1_to_Version_0.14.0/
   - removed invalid *collision* warnings
   - removed various gui glitches when drawing vehicles
   - fixed free speed calculation
-- GUISIM
+- sumo-gui
   - tracking a vehicle no longer messes up start/stop controls
-- Netconvert
+- netconvert
   - fixed minor bugs related to updating edge attributes with
     additional *edg.xml* files
   - builds without PROJ will no longer produce a bugged binary
     (failing with "no option with the name proj.inverse exists")
-- Duarouter
+- duarouter
   - use identical units for parsed data and calculated defaults
 - Tools
   - netdiff now correctly handles repeating identical traffic light
@@ -28,7 +28,7 @@ permalink: /Z/Changes_from_Version_0.13.1_to_Version_0.14.0/
 
 ### Enhancements
 
-- NETCONVERT
+- netconvert
   - changed the way junctions are joined when using **--join.junctions**; see
     [Networks/Building Networks from own XML-descriptions\#Joining Nodes](../Networks/PlainXML.md#joining_nodes)
   - all output is now written using UTF-8 encoding instead of
@@ -40,7 +40,7 @@ permalink: /Z/Changes_from_Version_0.13.1_to_Version_0.14.0/
   - Importing large OSM Networks is much faster due to algorithmic
     improvements
   - added options **--keep-edges.by-type** and **--remove-edges.by-type** for restricting a network
-- GUISIM
+- sumo-gui
   - sumo-gui now parses command line options
 - general options
   - boolean options may be disabled from the command line
@@ -58,10 +58,10 @@ some applications. For benchmark values see
 
 - Simulation
   - default arrival position is now lane end instead of start
-- NETCONVERT
+- netconvert
   - renamed XML-element **reset** to **delete** to better reflect
     its purpose
-- GUISIM
+- sumo-gui
   - Changed close-simulation hotkey from Ctrl-C to Ctrl-W to better
     conform to interface standards
 - Tools

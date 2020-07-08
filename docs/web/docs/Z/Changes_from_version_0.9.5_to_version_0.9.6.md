@@ -3,10 +3,10 @@ title: Z/Changes from version 0.9.5 to version 0.9.6
 permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
 ---
 
-- POLYCONVERT: possibility to prune the polygons to import on a
+- polyconvert: possibility to prune the polygons to import on a
   bounding box added
 - DUA: Simulation may now load only a part of defined vehicles
-- NETCONVERT:
+- netconvert:
   - debugged connections for on-ramps which already have the right
     number of lanes
   - debugged problems when using networks built without internal
@@ -16,7 +16,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
   - added error messages when false lanes are defined in connections
 - SIMULATION:
   - c2c wth rerouting
-- GUISIM:
+- sumo-gui:
   - debugged memory leak in polygon visualization
   - removed simple/full geometry options; everything is now drawn
     using full geometry
@@ -32,7 +32,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
   - execute now gets the current simulation time
   - event handlers are non-static
 - .icc-files removed
-- class-documentation added/patched within DFROUTER
+- class-documentation added/patched within dfrouter
 - made access to positions in Position2DVector c++ compliant
 - xml-types are now read prior to other formats (other Xml-description
   afterwards)

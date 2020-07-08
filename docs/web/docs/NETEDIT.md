@@ -1,11 +1,11 @@
 ---
-title: NETEDIT
-permalink: /NETEDIT/
+title: netedit
+permalink: /netedit/
 ---
 
 # From 30.000 feet
 
-**NETEDIT** is a graphical network editor for SUMO.
+**netedit** is a graphical network editor for SUMO.
 
 - **Purpose:** create and modify SUMO networks
 - **System:** portable (Linux/Windows is tested); opens a window
@@ -15,29 +15,29 @@ permalink: /NETEDIT/
 
 # Usage Description
 
-**NETEDIT** is a visual network editor. It can be used
+**netedit** is a visual network editor. It can be used
 to create networks from scratch and to modify all aspects of existing
 networks. With a powerful selection and highlighting interface it can
-also be used to debug network attributes. **NETEDIT**
-is built on top of [NETCONVERT](NETCONVERT.md). As a general
-rule of thumb, anything [NETCONVERT](NETCONVERT.md) can do,
-**NETEDIT** can do as well.
-**NETEDIT** has unlimited undo/redo capabilities and
+also be used to debug network attributes. **netedit**
+is built on top of [netconvert](netconvert.md). As a general
+rule of thumb, anything [netconvert](netconvert.md) can do,
+**netedit** can do as well.
+**netedit** has unlimited undo/redo capabilities and
 thus allows editing mistakes to be quickly corrected. Editing commands
 are generally issued with a left-click (according to the current [edit
 mode](#edit_modes)). The user interface closely
 follows that of
-[SUMO-GUI](SUMO-GUI.md#interaction_with_the_view). Additional
+[sumo-gui](sumo-gui.md#interaction_with_the_view). Additional
 keyboard hotkeys are documented in the *Help* menu.
 
 ## Input
 
-**NETEDIT** is a GUI-Application and inputs are chosen
+**netedit** is a GUI-Application and inputs are chosen
 via menus. The following input formats are supported:
 
 - SUMO-net files
 - OSM-files
-- [NETCONVERT](NETCONVERT.md)-configuration files
+- [netconvert](netconvert.md)-configuration files
 
 ## Output
 
@@ -128,7 +128,7 @@ via menus. The following input formats are supported:
 | Select all text        | Ctrl + A | Select all text in a text field                  |
 
 In addition to these hotkeys, [all hotkeys for moving and zooming in
-SUMO-GUI](SUMO-GUI.md#keyboard_shortcuts) are supported.
+sumo-gui](sumo-gui.md#keyboard_shortcuts) are supported.
 
 - <Button-Left\>: Execute mode specific action
 - <Button-Right\>: Open context-menu
@@ -186,15 +186,15 @@ SUMO-GUI](SUMO-GUI.md#keyboard_shortcuts) are supported.
   a single junction (See [joining
   junctions](Networks/PlainXML.md#joining_nodes)).
 - **Options** (F10): inspect and set all options. These are the same
-  options that [NETCONVERT](NETCONVERT.md) accepts on the
+  options that [netconvert](netconvert.md) accepts on the
   commandline or in a configuration.
 
 ## Customizing Visualization
 
 Most of the visualization options that are available in
-[SUMO-GUI](SUMO-GUI.md#changing_the_appearancevisualisation_of_the_simulation)
-can also be set in NETEDIT. This includes the facilities for [loading
-background images](SUMO-GUI.md#using_decals_within_sumo-gui).
+[sumo-gui](sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)
+can also be set in netedit. This includes the facilities for [loading
+background images](sumo-gui.md#using_decals_within_sumo-gui).
 
 It is also possible to load [POIs and
 Polygons](Simulation/Shapes.md) using the menu *File-\>Load
@@ -221,11 +221,11 @@ stops, detectors and variable speed signs are kept in separate files and
 loaded at the start of the simulation.
 
 In SUMO the terms **node** and **junction** and **intersection** are
-used interchangeably (in NETEDIT the term junction is used throughout).
+used interchangeably (in netedit the term junction is used throughout).
 
 # Edit Modes
 
-**NETEDIT** is controlled via various editing modes.
+**netedit** is controlled via various editing modes.
 This serves to reduce the number of clicks. For example, in **Delete
 mode** a click on any object deletes it. Edit modes are divided into two
 large sets (Supermodes), but with certain common modes. Supermode
@@ -235,7 +235,7 @@ elements related to road traffic. Between both modes can be toggled
 either using the F3 and F4 keys or through the buttons located at the
 top of the window.
 
-![](images/Neteditsupermodes.png)Supermodes buttons.
+![](images/neteditsupermodes.png)Supermodes buttons.
 
 ## Common modes
 
@@ -269,7 +269,7 @@ with multiple elements of the same type this mode behaves differently:
 #### Generic Parameters
 Most simulation objects support [Generic Parameters](Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
 
-In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by NETEDIT (though peritted by SUMO). 
+In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by netedit (though peritted by SUMO). 
 The serialized form is useful in select mode when selecting objects with a particular parameter.
 
 #### Edge template
@@ -322,7 +322,7 @@ undesirable deletes:
 
 ![](images/GNEDeleteFrame5.png)If the user tries to remove an element with
 additional childs and 'Force deletion of additionals' is disabled,
-NETEDIT shows a warning dialog and the element isn't deleted.
+netedit shows a warning dialog and the element isn't deleted.
 
 - Delete only geometry points: Used to remove only geometry points
 
@@ -537,7 +537,7 @@ must be enabled. All parameters can be modified excepting *From*, *To*,
 *fromLane* and *toLane*.
 
 The connection coloring is done as [in
-SUMO-GUI](SUMO-GUI.md#right_of_way) with the exception of
+sumo-gui](sumo-gui.md#right_of_way) with the exception of
 traffic-light connections which are brown in inspect-mode.
 
 ![](images/GNEConnections4.png)Inspecting a connection. Note that check box
@@ -550,7 +550,7 @@ corresponding edge.
 #### Changing connections
 
 When a new junction is created, or their edges are modified, a set of
-new connections is automatically created. But NETEDIT allows also to
+new connections is automatically created. But netedit allows also to
 customize the connections of a lane using the connection mode. When a
 source lane is selected in connection mode all outgoing lanes at the
 junction are colored according the the categories below:
@@ -645,7 +645,7 @@ Crossings are added using the following steps:
 4.  click *Create Crossing*
 
 !!! note
-    For crossings to be visible in **NETEDIT**, the *Compute Junctions (F5)* functionality must be triggered at once.
+    For crossings to be visible in **netedit**, the *Compute Junctions (F5)* functionality must be triggered at once.
 
 ![](images/GNECrossingFrame1.png)In crossing mode, first a junction must be
 selected. 
@@ -790,12 +790,12 @@ creation can be aborted using "abort creation" button or pressing ESC
 key. Note that Routes can be created between edges that aren't connected
 thought a connection.
 
-![](images/NeteditRouteMode1.png)General view of Route Mode
-![](images/NeteditRouteMode2.png)Creating a new route. Current selected edges
+![](images/neteditRouteMode1.png)General view of Route Mode
+![](images/neteditRouteMode2.png)Creating a new route. Current selected edges
 and candidate edges are marked with different colors
 
-![](images/NeteditRouteMode3.png)Created route.
-![](images/NeteditRouteMode4.png)Inspecting route.
+![](images/neteditRouteMode3.png)Created route.
+![](images/neteditRouteMode4.png)Inspecting route.
 
 ### Vehicle mode
 
@@ -805,23 +805,23 @@ placed over a Route) and Trips (placed over a "from" edge). Also every
 vehicle need to be a "Vehicle Type", therefore both parameters has to be
 selected in both list of left frame.
 
-![](images/NeteditVehicleMode1.png)General view of vehicle mode, highlighting
+![](images/neteditVehicleMode1.png)General view of vehicle mode, highlighting
 the list of vehicles and vehicle types
-![](images/NeteditVehicleMode2.png)Creating a single vehicle clicking over
+![](images/neteditVehicleMode2.png)Creating a single vehicle clicking over
 route
 
-![](images/NeteditVehicleMode3.png)Creating a flow. It's similar to a
+![](images/neteditVehicleMode3.png)Creating a flow. It's similar to a
 vehicle, but with extra parameters, and note that certain are disjoint
 parameters. 
-![](images/NeteditVehicleMode4.png)Creating a trip. In this case
+![](images/neteditVehicleMode4.png)Creating a trip. In this case
 we need to specify a "from" and "to" edge, therefore we need to click
 over two edges. After clicking over edges, press "finish route creation"
 or Enter Key to create a trip. If more than two edges are clicked, it
 will be interpreted as "via" edges
 
-![](images/NeteditVehicleMode5.png)Inspecting a flow. Note the disjoint
+![](images/neteditVehicleMode5.png)Inspecting a flow. Note the disjoint
 parameters 
-![](images/NeteditVehicleMode6.png)Inspecting a trip. In this case
+![](images/neteditVehicleMode6.png)Inspecting a trip. In this case
 the route is highlighted. Note that a change in the infrastructure can
 be change the route trip.
 
@@ -838,17 +838,17 @@ parameters, only the most relevant parameters can be edited in left
 frame. To edit advanced parameters, use the Vehicle Type Dialog opened
 thought "Open attribute editor" button.
 
-![](images/NeteditVehicleTypeMode1.png)General view of Vehicle type Mode
-![](images/NeteditVehicleTypeMode2.png)Creating a new vehicle type. Note that
+![](images/neteditVehicleTypeMode1.png)General view of Vehicle type Mode
+![](images/neteditVehicleTypeMode2.png)Creating a new vehicle type. Note that
 non-default vehicle types can be deleted using "Delete Vehicle Type"
 
-![](images/NeteditVehicleTypeMode3.png)Editing values of a default vehicle
+![](images/neteditVehicleTypeMode3.png)Editing values of a default vehicle
 type (Length and Color). Note that this changes has influence in the
 existing vehicles 
-![](images/NeteditVehicleTypeMode4.png)Opening Vehicle Type
+![](images/neteditVehicleTypeMode4.png)Opening Vehicle Type
 attribute editor. Default values are shown in gray color
 
-![](images/NeteditVehicleTypeMode5.png)Editing values of a vehicle type using
+![](images/neteditVehicleTypeMode5.png)Editing values of a vehicle type using
 attribute editor.
 
 ### Stops mode
@@ -861,19 +861,19 @@ Before creating a new Stop, their demand element parent has to be
 selected and the stop type (placed over a Lane or over a stopping
 Place). To create it, simply click over a lane or over a stopping place.
 
-![](images/NeteditStopMode1.png)General view of Stop Mode. Route and stop
+![](images/neteditStopMode1.png)General view of Stop Mode. Route and stop
 type can be selected in frame. 
 
-![](images/NeteditStopMode2.png)Created stop
+![](images/neteditStopMode2.png)Created stop
 within the blue route placed over a lane.
 
-![](images/NeteditStopMode3.png)Created stop within the blue route placed
+![](images/neteditStopMode3.png)Created stop within the blue route placed
 over a busStop. If geometry of BusStop is changed, geometry of Stop will
 be also changed. 
-![](images/NeteditStopMode4.png)Inspecting a Stop placed
+![](images/neteditStopMode4.png)Inspecting a Stop placed
 over a lane.
 
-![](images/NeteditStopMode5.png)Inspecting a Stop placed over a busStop.
+![](images/neteditStopMode5.png)Inspecting a Stop placed over a busStop.
 
 ### Person Type mode
 
@@ -915,10 +915,10 @@ Person plans can be extended using the PersonPlan frame. Once the Person plan fr
 ![](images/PersonPlanCreator2.png)Multiple person plans can be added continuously
 
 
-# NETEDIT elements
+# netedit elements
 
 This elements comprise the road network and can be created and modified
-with **NETEDIT**.
+with **netedit**.
 
 ## Network Elements
 
@@ -971,7 +971,7 @@ defines the phases of a traffic light.
 *Additionals* are elements which do not belong to the network, but may
 be used to influence the simulation or generate specific outputs.
 Additionals are defined in an {{AdditionalFile}} and can be loaded in
-**NETEDIT**. Additionals are created in the
+**netedit**. Additionals are created in the
 *Additionals* editing mode (shortcut key: a). Once this mode is
 selected, the first step is to choose what kind of additional should be
 created in the comboBox "additional element". Once selected and if
@@ -1016,12 +1016,12 @@ Example of additional that cannot be moved
 ### Parameters
 
 There are two types of parameters for each additional:
-User-defined-parameters and **NETEDIT**-parameters.
+User-defined-parameters and **netedit**-parameters.
 The first mentioned parameters can be of type *int*, *float*, *bool*
 *string*, or *list* and each has a default value. In the case of type
 *list* the user can add or remove values using the *add* or *remove*
 *row* buttons. In the case of the characteristic parameters of
-**NETEDIT**, this is the option to block the movement
+**netedit**, this is the option to block the movement
 of an element, and in the case of the elements have a length, the user
 is allowed to change the length and reference.
 
@@ -1069,7 +1069,7 @@ a certain time defined by the user.
 [Bus stops](Simulation/Public_Transport.md) are positions of a
 lane in which vehicles ("busses") stop for a pre-given time. Every Bus
 stop has an unique ID assigned automatically by
-**NETEDIT**, a length and a list of bus lines defined
+**netedit**, a length and a list of bus lines defined
 by the user.
 
 ![](images/GNEBusStop.png)Bus stop
@@ -1087,7 +1087,7 @@ simulation](Specification/Logistics.md).
 [Charging stations](Models/Electric.md#charging_stations) define
 a surface over a lane in which the vehicles equipped with a battery are
 charged. Charging stations own an unique-ID generated by
-**NETEDIT**, a length, a charging power defined in W,
+**netedit**, a length, a charging power defined in W,
 a charging efficiency, a switch for enable or disable charge in transit,
 and a charge delay.
 
@@ -1112,7 +1112,7 @@ passed over a certain position on the lane.
 
 A [E1
 detector](Simulation/Output/Induction_Loops_Detectors_(E1).md)
-owns a ID parameter generated by **NETEDIT**, a
+owns a ID parameter generated by **netedit**, a
 position at a certain lane, a *freq* attribute which describes the
 period over which collected values shall be aggregated, a list of
 *VTypes* that will be detected, and a *file* attribute which tells the
@@ -1161,7 +1161,7 @@ placed and positioned over a lane.
 
 A [E1
 detector](Simulation/Output/Induction_Loops_Detectors_(E1).md)
-owns a ID parameter generated by **NETEDIT**, a
+owns a ID parameter generated by **netedit**, a
 position at a certain lane, a *freq* attribute which describes the
 period over which collected values shall be aggregated, a list of
 *VTypes* that will be detected and a *file* attribute which tells the
@@ -1263,8 +1263,8 @@ values editor.
 - *Split edge here*: Split an edge into two differentes edges
   connected with a junction.
 
-![](images/NetEditSplit1.png)Edge is splitted in the mouse cursor position
-![](images/NetEditSplit2.png)New edges are connected by a new junction
+![](images/neteditSplit1.png)Edge is splitted in the mouse cursor position
+![](images/neteditSplit2.png)New edges are connected by a new junction
 
 - *Split edge in both directions here*: Is similar to *Split edge
   here*, but generate splitted edges in both directions.
@@ -1274,23 +1274,23 @@ values editor.
 - *Add reverse direction*: If don't exist, add a revere edge between
   two junctions
 
-![](images/NetEditReversedirection1.png)In this case, a direction from right
-to left will be created ![](images/NetEditReversedirection2.png)New edge is
+![](images/neteditReversedirection1.png)In this case, a direction from right
+to left will be created ![](images/neteditReversedirection2.png)New edge is
 parallel to their reverse edge
 
 - *Set geometry endpoint here*: Create an geometry end point. It's
   useful to mark the start and the end of an road
 
-![](images/NetEditEndpoint1.png)Geometry endpoint will be created in the
-mouse cursor position ![](images/NetEditEndpoint2.png)There isn't an visual
+![](images/neteditEndpoint1.png)Geometry endpoint will be created in the
+mouse cursor position ![](images/neteditEndpoint2.png)There isn't an visual
 connection between end point and their end junction
 
 - *Restore geometry endpoint*: Restore a geometry endpoint to a normal
   edge
 - *Straighten edge*: Allow to restore the visual shape of an edge
 
-![](images/NetEditStraighten1.png)With the operation move visual shape of an
-edge can be modificed ![](images/NetEditStraighten2.png)Straighten edge
+![](images/neteditStraighten1.png)With the operation move visual shape of an
+edge can be modificed ![](images/neteditStraighten2.png)Straighten edge
 restore the original shape of an edge
 
 - *Duplicate lane*: duplicate a lane of an edge
@@ -1370,16 +1370,16 @@ left-clicking anywhere on the outline and dragging. Shift-clicking a geometry po
   and lane position if the position of the mouse with respect to the
   length of lane
 
-![](images/NetEditPositions.png)Position's parameter of Charging Station
+![](images/neteditPositions.png)Position's parameter of Charging Station
 
 - *Position in view and number of childs*: shows the number of childs
   that own an Additionals, and their position in view
 
-![](images/NetEditChilds.png)Position and childs of a E3 Detector
+![](images/neteditChilds.png)Position and childs of a E3 Detector
 
 - *show parameters*: show all parameters of additional.
 
-![](images/NetEditShowParameters.png)Showing of parameters of charging
+![](images/neteditShowParameters.png)Showing of parameters of charging
 Stations
 
 ## Route
@@ -1459,7 +1459,7 @@ this works almost the same way:
   - Either split an existing edge (right-click and select *Split
     edge here*)
   - Or [create a new edge with new junctions in create-edge
-    mode](NETEDIT.md#create_edges)
+    mode](netedit.md#create_edges)
 2.  switch to [select mode](#select)
 3.  select the original junction and the new junction near it
 4.  Menu *Processing-\>Join Selected Junctions (F7)*
@@ -1590,7 +1590,7 @@ To make a unidirectional track usable in both directions,
 # Planned Features
 
 - Support for editing features already supported by
-[NETCONVERT](NETCONVERT.md)
+[netconvert](netconvert.md)
   - Editing `<neigh>` information for
     [Simulation/OppositeDirectionDriving](Simulation/OppositeDirectionDriving.md).
 
@@ -1599,7 +1599,7 @@ To make a unidirectional track usable in both directions,
 
   - Editing [walkingarea
     shapes](Networks/PlainXML.md#walking_areas)
-- Integration of [NETGENERATE](NETGENERATE.md)
+- Integration of [netgenerate](netgenerate.md)
 - Integration of [netdiff](Tools/Net.md#netdiffpy)
 - Adding / merging of sub-networks to the existing network
 - ...

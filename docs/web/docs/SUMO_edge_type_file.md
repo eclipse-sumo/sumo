@@ -12,7 +12,7 @@ permalink: /SUMO_edge_type_file/
 | XML Schema         | [types_file.xsd](http://sumo.sourceforge.net/xsd/types_file.xsd)        |
 
 A **SUMO edge type file** assigns default values for certain attributes
-to types of roads. It configures [NETCONVERT](NETCONVERT.md)
+to types of roads. It configures [netconvert](netconvert.md)
 when importing, for example, [SUMO XML
 descriptions](Networks/PlainXML.md),
 [OpenStreetMap files](OpenStreetMap_file.md) or [ArcView
@@ -41,7 +41,7 @@ attributes:
 | discard        | bool        | If "yes", edges of that type are not imported. This parameter is optional and defaults to false.                                                                                                                            |
 | numLanes       | int         | The number of lanes on an edge. This is the default number of lanes per direction.                                                                                                                                          |
 | oneway         | bool        | If "yes", only the edge for one direction is created during the import. (This attribute makes no sense for SUMO XML descriptions but, for example, for OpenStreetMap files.)                                                |
-| priority       | int         | A number, which determines the priority between different road types. NETCONVERT derives the right-of-way rules at junctions from the priority. The number starts with one; higher numbers represent more important roads.  |
+| priority       | int         | A number, which determines the priority between different road types. netconvert derives the right-of-way rules at junctions from the priority. The number starts with one; higher numbers represent more important roads.  |
 | speed          | float       | The default (implicit) speed limit in m/s.                                                                                                                                                                                  |
 | sidewalkWidth  | float       | The default width for added sidewalks (defaults to -1 which disables extra sidewalks).                                                                                                                                      |
 
@@ -199,10 +199,10 @@ very welcome.
 
 ## Templates for OpenDrive
 
-The default type map is [{{SUMO}}/data/typemap/opendriveNetconvert.typ.xml]({{Source}}data/typemap/opendriveNetconvert.typ.xml).
+The default type map is [{{SUMO}}/data/typemap/opendrivenetconvert.typ.xml]({{Source}}data/typemap/opendrivenetconvert.typ.xml).
 
 There are additional templates which should be loaded when importing
 pedestrian infrastructure (sidewalks) and/or bike lanes:
 
-- [{{SUMO}}/data/typemap/opendriveNetconvertPedestrians.typ.xml]({{Source}}data/typemap/opendriveNetconvertPedestrians.typ.xml)
-- [{{SUMO}}/data/typemap/opendriveNetconvertBicycle.typ.xml]({{Source}}data/typemap/opendriveNetconvertBicycle.typ.xml)
+- [{{SUMO}}/data/typemap/opendrivenetconvertPedestrians.typ.xml]({{Source}}data/typemap/opendrivenetconvertPedestrians.typ.xml)
+- [{{SUMO}}/data/typemap/opendrivenetconvertBicycle.typ.xml]({{Source}}data/typemap/opendrivenetconvertBicycle.typ.xml)

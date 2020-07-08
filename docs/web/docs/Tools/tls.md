@@ -13,7 +13,7 @@ given traffic demand. Example call:
 ```
 
 This would generate the file *tlsOffsets.add.xml* which can be loaded
-into [SUMO](../SUMO.md):
+into [sumo](../sumo.md):
 
 ```
 sumo -n net.net.xml -r routes.rou.xml -a tlsOffsets.add.xml
@@ -35,7 +35,7 @@ formula to best accomodate a given traffic demand. Example call:
 ```
 
 This would generate the file *newTLS.add.xml* which can be loaded into
-[SUMO](../SUMO.md):
+[sumo](../sumo.md):
 
 ```
 sumo -n net.net.xml -r routes.rou.xml -a newTLS.add.xml
@@ -219,7 +219,7 @@ tools/tls/tls_csv2SUMO.py lsa_def.csv,lsa_def2.csv input_net.net.xml
 ```
 
 And obtain the following programs after loading them into
-[SUMO-GUI](../SUMO-GUI.md):
+[sumo-gui](../sumo-gui.md):
 
 **Figure: converted programs**
 
@@ -232,7 +232,7 @@ Converts a csv-tls-description into one SUMO can read as additional
 file. This tool differs from **tls_csv2SUMO.py** by being based on
 signal groups in a way that is closer to the typical representation used
 by traffic engineers. It accepts green times per signal group and
-creates the [SUMO](../SUMO.md) tls representation out of it using
+creates the [sumo](../sumo.md) tls representation out of it using
 the . Example call to convert two csv-tls-descriptions into the
 additional file *tls.add.xml*:
 
@@ -241,7 +241,7 @@ additional file *tls.add.xml*:
 ```
 
 In the opposite direction, templates for csv-tls-descriptions of all tls
-in a [SUMO](../SUMO.md) network can be written to a given directory
+in a [sumo](../sumo.md) network can be written to a given directory
 and completed by hand:
 
 ```
@@ -253,7 +253,7 @@ The block \[general\] sets general information relating to the signal
 program like the tls ID, the program ID, the cycle time \[s\] and the
 offset time \[s\]. Additional 0..n optional parameters can also be
 supplied. The \[links\] block lists the relations between signal groups
-and junction connections in [SUMO](../SUMO.md). The relation is
+and junction connections in [sumo](../sumo.md). The relation is
 build from the edges/lanes controlled by the respective signal group.
 The target edge/lane can be omitted. The last block \[signal groups\]
 contains the table of green times and signal group properties. The table

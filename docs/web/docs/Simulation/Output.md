@@ -5,7 +5,7 @@ permalink: /Simulation/Output/
 
 # Introduction
 
-[SUMO](../SUMO.md) allows to generate a large number of different
+[sumo](../sumo.md) allows to generate a large number of different
 measures. All write the values they collect into files or a socket
 connection following the common rules for [writing files](../Basics/Using_the_Command_Line_Applications.md#writing_files).
 Per default, all are disabled, and have to be triggered individually.
@@ -161,7 +161,7 @@ data reveals how long each vehicle intends to occupy an upcoming
 intersection.
 - The option **--movereminder-output** {{DT_FILE}} saves debugging data for the interaction between vehicle
 devices, lanes and output facilities. It is only available when
-compiling [SUMO](../SUMO.md) with debug flags.
+compiling [sumo](../sumo.md) with debug flags.
 - The option **--railsignal-block-output** {{DT_FILE}} saves information about rail signal blocks. For each
 controlled railSignal link the following information is generated:
   - **forwardBlock**: all lanes that are reached from the signalized
@@ -279,7 +279,7 @@ following output will be added:
 - Aborted rides: rides that could not be completed because no suitable
   vehicle was available
 
-When setting this option and using [SUMO-GUI](../SUMO-GUI.md), the
+When setting this option and using [sumo-gui](../sumo-gui.md), the
 network parameter dialog will also show a running average for these
 traffic measures (The dialog is accessible by right-clicking on the
 network background).

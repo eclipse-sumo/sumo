@@ -76,24 +76,24 @@ attribute and not to be set by the user.
 When Rail signals are placed at both ends of a bidrectional track they
 will restrict it's usage to one direction at a time.
 
-### Bidirectional rails in [SUMO-GUI](../SUMO-GUI.md)
+### Bidirectional rails in [sumo-gui](../sumo-gui.md)
 
-SUMO-GUI automatically shows only one of both edges to avoid duplicate
+sumo-gui automatically shows only one of both edges to avoid duplicate
 drawing of cross-ties. The visualisation option *show lane direction*
 can be used to identifiy superposed edges. (arrows in both directions
 will be show).
 
-### Working with bidirectional tracks in [NETEDIT](../NETEDIT.md)
+### Working with bidirectional tracks in [netedit](../netedit.md)
 
 - To show both edges that constitute a bidirectional track, activate
   edge visualisation otpion *spread superposed*. Both edges will be
   drawn narrower and with a side-offset to make them both visible
   without overlap.
 - To find (and highlight) all bidirectional tracks, use [attribute
-  selection](../NETEDIT.md#match_attribute) and search for
+  selection](../netedit.md#match_attribute) and search for
   attribute *bidi* with a value of *1*
 - Create bidirectional tracks [as explained
-  here](../NETEDIT.md#creating_bidirectional_railway_tracks)
+  here](../netedit.md#creating_bidirectional_railway_tracks)
 
 ### Importing bidirectional tracks from OSM
 
@@ -107,7 +107,7 @@ Commonly, rail networks import from OSM are incomplete in regard to
 bidirectional track usage. One example would be terminal tracks which a
 train can only leave by reversing direction. A large number of these
 issues can be fixed automatically be setting the
-[NETCONVERT](../NETCONVERT.md)-option **--railway.topology.repair**. To analyze problems with
+[netconvert](../netconvert.md)-option **--railway.topology.repair**. To analyze problems with
 bidirectional tracks, the option **--railway.topology.output** {{DT_FILE}} can be used to identify problematic
 tracks. The option **--railway.topology.all-bidi** can be used to make all tracks usable in both
 directions.
@@ -118,7 +118,7 @@ The [node type](../Networks/PlainXML.md#node_descriptions)
 `rail_signal` may be used to define signals which implement [Automatic Block
 Signaling](https://en.wikipedia.org/wiki/Automatic_block_signaling).
 
-By setting the [NETCONVERT](../NETCONVERT.md)-option **--railway.signals.discard** all signals
+By setting the [netconvert](../netconvert.md)-option **--railway.signals.discard** all signals
 can be removed from a network.
 
 ## Rail Crossings
@@ -133,7 +133,7 @@ When importing networks from
 crossings will be imported automatically. For other input data sources
 the crossings may have to be specified [via additional xml
 files](../Tutorials/ScenarioGuide.md#modifying_an_imported_network_via_plainxml)
-or set via [NETEDIT](../NETEDIT.md) after importing.
+or set via [netedit](../netedit.md) after importing.
 
 ## Kilometrage (Mileage, Chainage)
 
@@ -147,7 +147,7 @@ The distance value along an edge is computed as:
   |edgeDistance + vehiclePos|
 ```
 
-Edge distance is imported from OSM and can also be be set along a route in [NETEDIT](../NETEDIT.md#route)
+Edge distance is imported from OSM and can also be be set along a route in [netedit](../netedit.md#route)
 
 !!! note
     Negative distance values are not currently supported (pending introduction of another attribute)
@@ -162,7 +162,7 @@ At the default value of 0. Edge priority is ignored when routing. When setting a
   x = (edgePriority - minPriority) / (maxPriority - minPriority)
 ```
 
-The priority values can either be assigned by the user or computed heuristically by [NETCONVERT](../NETCONVERT.md) by setting the option **--railway.topology.direction-priority**. This requires that some of the tracks in the network are uni-directional (to unambiguously define the main direction). The assigned priority values are:
+The priority values can either be assigned by the user or computed heuristically by [netconvert](../netconvert.md) by setting the option **--railway.topology.direction-priority**. This requires that some of the tracks in the network are uni-directional (to unambiguously define the main direction). The assigned priority values are:
 
 - 4: unidirectional track
 - 3: main direction of bidirectional track

@@ -127,8 +127,8 @@ to collapse the static test suites on program start. E.g.:
 Within the  `$SUMO_HOME/tests` folder you can find batch files for Windows and shell files for Linux & macOS which start
 [TextTest](http://texttest.org/) with our test suites. `runAllTests.bat` (Windows) or `runTests.sh` (Linux, macOS)
 starts TextTest for testing all applications located in the folder,
-`runNetconvertTests.bat` (Windows) will only show tests for NETCONVERT,
-`runDuarouterTests.bat`(Windows) only those for DUAROUTER etc.
+`runNetconvertTests.bat` (Windows) will only show tests for netconvert,
+`runDuarouterTests.bat`(Windows) only those for duarouter etc.
 
 # Adding a Test to an existing Application
 
@@ -270,8 +270,8 @@ Our TextTest tests can be grouped into the categories described below
 ## Application Tests
 
 These tests are for the executable files in the *bin* folder such as
-[NETCONVERT](../NETCONVERT.md), [DUAROUTER](../DUAROUTER.md)
-and [SUMO](../SUMO.md). They work by running their application once
+[netconvert](../netconvert.md), [duarouter](../duarouter.md)
+and [sumo](../sumo.md). They work by running their application once
 with a predefined set of input files and compare against expected output
 files. The tests for sumo run once with the GUI version and once without
 GUI..
@@ -298,7 +298,7 @@ the traci python client (runner.py is a traci script in this case).
 
 ## Interactive GUI Tests
 
-These tests are currently only active for [NETEDIT](../NETEDIT.md)
+These tests are currently only active for [netedit](../netedit.md)
 and are described in more detail on the page
 [Developer/GUI_Testing](../Developer/GUI_Testing.md).
 

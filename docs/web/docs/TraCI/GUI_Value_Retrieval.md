@@ -14,7 +14,7 @@ something like "View \#0", where the last digit counts the open
 (sub-)windows in the simulation GUI. The id is shown in the view
 title-bar when un-maximizing the view subwindow (this happens
 automatically when [opening a new
-view](../SUMO-GUI.md#multiple_views)).
+view](../sumo-gui.md#multiple_views)).
 
 The following variable values can be retrieved, the type of the return
 value is also shown in the table.

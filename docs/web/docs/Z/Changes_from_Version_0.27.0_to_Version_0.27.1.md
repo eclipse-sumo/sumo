@@ -7,18 +7,18 @@ permalink: /Z/Changes_from_Version_0.27.0_to_Version_0.27.1/
 
 ### Bugfixes
 
-- NETCONVERT
+- netconvert
   - Original IDs are no longer lost when splitting edges. #2497
   - Elevation data is now correctly imported from OpenDRIVE
     networks. #2239
 
-- NETEDIT
+- netedit
   - Fixed crash when increasing the number of lanes by setting
     numLanes. #2505
   - Fixed slow loading of large networks.
   - Custom colors for selected junctions and edges are now working. #2386
 
-- DUAROUTER
+- duarouter
   - Fixed crash when using option **--ignore-error** with invalid `via`-edges. #2494
 
 ### Enhancements
@@ -30,7 +30,7 @@ permalink: /Z/Changes_from_Version_0.27.0_to_Version_0.27.1/
     Alternatively, *.xml* may be used which makes the state files
     human-readable.
 
-- NETCONVERT
+- netconvert
   - Networks exported to OpenDRIVE now use parametric curves to
     represent smooth geometry in place of straight-line segments. #2041
   - Networks exported to OpenDRIVE now contain elevation data. #2240
@@ -44,7 +44,7 @@ permalink: /Z/Changes_from_Version_0.27.0_to_Version_0.27.1/
   - Networks imported from OpenDRIVE now contain edge type
     information based on the OpenDRIVE lane types. #2509
 
-- SUMO-GUI
+- sumo-gui
   - Added Visualization options for drawing intersections with
     exaggerated size and disable edge drawing based on custom
     widths. #2140
@@ -55,7 +55,7 @@ permalink: /Z/Changes_from_Version_0.27.0_to_Version_0.27.1/
   - Lanes can now be colored according to the number of vehicles
     that are delayed from entering the network. #2489
 
-- NETEDIT
+- netedit
   - Added Visualization options for drawing intersections with
     exaggerated size and disable edge drawing based on custom
     widths. #2140

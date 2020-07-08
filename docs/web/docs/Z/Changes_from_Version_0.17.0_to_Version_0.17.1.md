@@ -7,7 +7,7 @@ permalink: /Z/Changes_from_Version_0.17.0_to_Version_0.17.1/
 
 ### Bugfixes
 
-- SUMO-GUI
+- sumo-gui
   - fixed crash when opening the viewport-dialog
-- NETCONVERT
+- netconvert
   - fixed wrong permissions when writing output in the dlr-navteq format

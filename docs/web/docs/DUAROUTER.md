@@ -1,13 +1,13 @@
 ---
-title: DUAROUTER
-permalink: /DUAROUTER/
+title: duarouter
+permalink: /duarouter/
 ---
 
 # From 30.000 feet
 
-**DUAROUTER** imports different demand definitions, computes vehicle
-routes that may be used by [SUMO](SUMO.md) using shortest path
-computation; When called iteratively **DUAROUTER** performs [dynamic
+**duarouter** imports different demand definitions, computes vehicle
+routes that may be used by [sumo](sumo.md) using shortest path
+computation; When called iteratively **duarouter** performs [dynamic
 user assignment (DUA)](Demand/Dynamic_User_Assignment.md). This
 is facilitated by the tool
 [duaiterate.py](Tools/Assign.md#dua-iteratepy) which converges
@@ -26,8 +26,8 @@ to an equilibrium state (DUE).
 - **Input (mandatory):**
 
   A) a road network as generated via
-  [NETCONVERT](NETCONVERT.md) or
-  [NETGENERATE](NETGENERATE.md), see [Building
+  [netconvert](netconvert.md) or
+  [netgenerate](netgenerate.md), see [Building
   Networks](index.md#network_building)
 
   B) a demand definition, see [Demand
@@ -35,25 +35,25 @@ to an equilibrium state (DUE).
 
 - **Output:** [Definition of Vehicles, Vehicle Types, and
   Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-  usable by [SUMO](SUMO.md)
+  usable by [sumo](sumo.md)
 - **Programming Language:** C++
 
 # Usage Description
 
 ## Outputs
 
-The primary output of DUAROUTER is a *.rou.xml* file which has its name
+The primary output of duarouter is a *.rou.xml* file which has its name
 specified by the option **-o**). Additionally a *.rou.alt.xml* with the same
 name prefix as the *.rou.xml* file will be generated. This *route
 alternative* file holds a [routeDistribution for every
 vehicle](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#route_and_vehicle_type_distributions).
 Such a *routeDistribution* is used during [dynamic user assignment
 (DUA)](Demand/Dynamic_User_Assignment.md) but can also be loaded
-directly into [SUMO](SUMO.md).
+directly into [sumo](sumo.md).
 
 ## Options
 
-You may use a XML schema definition file for setting up a DUAROUTER
+You may use a XML schema definition file for setting up a duarouter
 configuration:
 [duarouterConfiguration.xsd](http://sumo.dlr.de/xsd/duarouterConfiguration.xsd).
 

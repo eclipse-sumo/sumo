@@ -119,7 +119,7 @@ Daten anpassen können soll. Vorarbeiten hierzu liegen vor.
 
 #### Evaluierung des Routings nach Abbiegehäufigkeiten
 
-Der existierende JTRROUTER erstellt mittels einens einfachen
+Der existierende jtrrouter erstellt mittels einens einfachen
 Wahrscheinlichkeitsmodells Routen aus Abbiegehäufigkeiten an Kreuzungen.
 Dieses Modell sollte evaluiert und verfeinert werden.
 

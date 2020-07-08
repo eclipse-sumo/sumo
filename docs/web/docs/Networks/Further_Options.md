@@ -3,8 +3,8 @@ title: Networks/Further Options
 permalink: /Networks/Further_Options/
 ---
 
-[NETCONVERT](../NETCONVERT.md),
-[NETGENERATE](../NETGENERATE.md), and [NETEDIT](../NETEDIT.md)
+[netconvert](../netconvert.md),
+[netgenerate](../netgenerate.md), and [netedit](../netedit.md)
 offer some more options to describe how the network shall be imported.
 The scope of some options does not cover all import types.
 
@@ -40,7 +40,7 @@ geometry point at the removed node's position.
 
 Some people do not like to use speed definitions in m/s. If you want to
 define the speeds allowed on your edges in km/h instead, you should pass
-the option **--speed-in-kmh** to [NETCONVERT](../NETCONVERT.md).
+the option **--speed-in-kmh** to [netconvert](../netconvert.md).
 
 ## Importing Networks without Traffic Light Logic
 
@@ -50,7 +50,7 @@ traffic lights on our own. Doing this, we not only have to compute the
 signal plans but also compute which junctions will have traffic lights.
 There are several options steering this procedure. At first, you have to
 tell
-[NETCONVERT](../NETCONVERT.md)/[NETGENERATE](../NETGENERATE.md)
+[netconvert](../netconvert.md)/[netgenerate](../netgenerate.md)
 that you wish the program to guess positions of traffic lights. This is
 done using the **--tls.guess**-option.
 
@@ -82,7 +82,7 @@ edit the offsets within the generated network file (see
 Most of the imported network descriptions do not have information about
 highway on- and off-ramps. This means ramps are connected to the highway
 without acceleration/deceleration lanes. You can force
-[NETCONVERT](../NETCONVERT.md) to guess where on- and off-ramps
+[netconvert](../netconvert.md) to guess where on- and off-ramps
 shall be build. To enable this, use the option **--ramps.guess**. The algorithm ensures
 that acceleration lanes are added on highway junctions with one incoming
 and one outgoing highway edge and one incoming minor edge and that
@@ -92,7 +92,7 @@ added if the sum of incoming lanes differs from the sum of outgoing
 lanes. You can constrain the classification of highways by setting a
 minimum speed of this edge using **--ramps.min-highway-speed** {{DT_FLOAT}} and the classification of the minor
 edge is by setting its maximum speed using **--ramps.max-ramp-speed** {{DT_FLOAT}} (both options assume a speed
-in m/s). Furthermore, **--ramps.ramp-length** tells [NETCONVERT](../NETCONVERT.md) how
+in m/s). Furthermore, **--ramps.ramp-length** tells [netconvert](../netconvert.md) how
 long the added ramp shall be in meters.
 
 !!! note
@@ -112,7 +112,7 @@ want to return to the old behavior using the option **--no-internal-links**.
 
 ## Pruning the imported network
 
-[NETCONVERT](../NETCONVERT.md) offers you some possibilities to
+[netconvert](../netconvert.md) offers you some possibilities to
 constrain the read edges what is quite needful if one has a large street
 network but only wants to simulate a part of it or only the major roads.
 The first possibility to constrain the input is to name all the edges
@@ -120,10 +120,10 @@ you want to keep. You can either do this on the command line/within your
 configuration directly using **--keep-edges.explicit** {{DT_IDList}}[,{{DT_IDList}}\]\* where each {{DT_IDList}} represents the id of an edge
 you want to keep separated by a ',' or you can save this list into a
 file where each id is stored in a seperate line and then let
-[NETCONVERT](../NETCONVERT.md) read this file using **--keep-edges.input-file** {{DT_FILE}}. In the case
+[netconvert](../netconvert.md) read this file using **--keep-edges.input-file** {{DT_FILE}}. In the case
 you are joining edges using **--geometry.remove** (see "Removing Geometry Nodes"), you may
 also be interested in the option **--keep-edges.postload** which forces
-[NETCONVERT](../NETCONVERT.md) to join the edges first and remove
+[netconvert](../netconvert.md) to join the edges first and remove
 the unwished afterwards.
 
 It is also possible to constrain the imported edges by giving a minimum

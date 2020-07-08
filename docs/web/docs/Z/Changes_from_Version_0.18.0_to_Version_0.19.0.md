@@ -48,7 +48,7 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
     (#1077)
   - fixed reference counts for routes in state save
 
-- SUMO-GUI
+- sumo-gui
   - Right-click now always resolves to the correct object again. The
     problem was introduced in 0.18.0 and was triggered by drawing
     railways
@@ -64,13 +64,13 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
   - TraCI respects now the begin time option of a simulation
     (#1049)
 
-- DUAROUTER
+- duarouter
   - fixed crash when repairing routes with intermediate dead-end
     edges
   - fixed generation of route distributions with 0 probability for
     trips where the starting and ending edge were connected
 
-- NETCONVERT
+- netconvert
   - fixed bug where roundabouts sometimes had incorrect right-of-way
     rules
   - option **--keep-edges.in-geo-boundary** now works when giving a .net.xml file as input
@@ -80,7 +80,7 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
   - option **--junctions.join** no longer causes edges with a length above **--junctions.join-dist** {{DT_FLOAT}} to be
     removed.
 
-- DFROUTER
+- dfrouter
   - handling end times correctly
     (#428)
 
@@ -101,7 +101,7 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
     across junctions.
   - Vehicles may now change lanes while driving across junctions if
     the edge they were coming from has priority (only on networks
-    with merged internal lanes, see NETCONVERT changes). This
+    with merged internal lanes, see netconvert changes). This
     improves simulation performance, particualarly on multi-lane
     roundabouts.
   - Teleport warnings now always include a reason. For a vehicle
@@ -116,7 +116,7 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
   - conflicts between speed deviation and departure speed are
     handled more gracefully (#1035)
 
-- SUMO-GUI
+- sumo-gui
   - now drawing blinkers to visualize a vehicles desire to change
     lanes (this is only noticable if a vehicle cannot change lanes
     immediately).
@@ -152,23 +152,23 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
   - added possibility to remove waiting cars inspired by Bob Holcomb (#942)
   - improved execution speed of context subscriptions
 
-- NETEDIT
+- netedit
   - added option for reversing the direction of edges
   - lanes can now be selected based on their index
 
-- NETCONVERT
+- netconvert
   - when specifying connections it is now possible to refer to edges
     which got split (#492)
   - added new projection option to convert Gauss-Krueger to UTM
 
-- DUAROUTER
+- duarouter
   - major refactoring of input parsing, it is now possible to mix
     trips, flows and vehicles in one file
   - stops are respected on routing (#988)
 
 ### Other
 
-- NETCONVERT
+- netconvert
   - reworked type-related warnings when importing OSM data to
     increase readability
   - modified naming conventions for internal lanes: previously every

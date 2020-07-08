@@ -3,31 +3,31 @@ title: Demand/Importing O/D Matrices
 permalink: /Demand/Importing_O/D_Matrices/
 ---
 
-[OD2TRIPS](../../OD2TRIPS.md) computes trip tables from O/D
-(origin/destination) matrices. [OD2TRIPS](../../OD2TRIPS.md) assumes
+[od2trips](../../od2trips.md) computes trip tables from O/D
+(origin/destination) matrices. [od2trips](../../od2trips.md) assumes
 the matrix / the matrices to be coded as amounts of vehicles that drive
 from one district or traffic assignment zone (TAZ) to another within a
 certain time period. Because the generated trips must start and end at
-edges, [OD2TRIPS](../../OD2TRIPS.md) requires a mapping of TAZ to
+edges, [od2trips](../../od2trips.md) requires a mapping of TAZ to
 edges. During conversion of VISUM networks with
-[NETCONVERT](../../NETCONVERT.md) districts stored in the VISUM input
+[netconvert](../../netconvert.md) districts stored in the VISUM input
 file are parsed and stored within the generated SUMO network file. If
 you do not use VISUM as input, you must build a TAZ file by your own.
 The format is given in
 [\#Describing_the_TAZ](#describing_the_taz) below. You have
 to pass the file containing the TAZ definitions to
-[OD2TRIPS](../../OD2TRIPS.md) using the **--net-file** {{DT_FILE}} (**--net** {{DT_FILE}} or **-n** {{DT_FILE}} for short) option. TAZ
-can be created by drawing polygons in [NETEDIT](../../NETEDIT.md) and
+[od2trips](../../od2trips.md) using the **--net-file** {{DT_FILE}} (**--net** {{DT_FILE}} or **-n** {{DT_FILE}} for short) option. TAZ
+can be created by drawing polygons in [netedit](../../netedit.md) and
 processing them with the tool
 [Tools/District\#edgesInDistricts.py](../../Tools/District.md#edgesindistrictspy).
 
 All supported OD-formats are described in
 [\#Describing_the_Matrix_Cells](#describing_the_matrix_cells)
 below. You may either give a list of matrices to
-[OD2TRIPS](../../OD2TRIPS.md) using the **--od-matrix-files** {{DT_FILE}}[,{{DT_FILE}}]\* (**-d** {{DT_FILE}}[,{{DT_FILE}}]\* for short) option followed
+[od2trips](../../od2trips.md) using the **--od-matrix-files** {{DT_FILE}}[,{{DT_FILE}}]\* (**-d** {{DT_FILE}}[,{{DT_FILE}}]\* for short) option followed
 by the list of files separated using a ','.
 
-[OD2TRIPS](../../OD2TRIPS.md) reads all matrices and generates trip
+[od2trips](../../od2trips.md) reads all matrices and generates trip
 definitions. The generated trip definitions are numbered starting at
 zero. You can also add a prefix to the generated trip definition names
 using (**--prefix** {{DT_STR}}). As usual, they are written to the output file named using the
@@ -41,7 +41,7 @@ respectively. The meaning is the simulation step in seconds, as usual.
 
 Because each O/D-matrix cell describes the amount of vehicles to be
 inserted into the network within a certain time period,
-[OD2TRIPS](../../OD2TRIPS.md) has to compute the vehicle's explicit
+[od2trips](../../od2trips.md) has to compute the vehicle's explicit
 departure times. Normally, this is done by using a random time within
 the time interval a O/D-matrix cell describes. It still is possible to
 insert a cell's vehicles with an uniform time between their insertion.
@@ -105,16 +105,16 @@ destination lists are normalized after loading.
 ## Creating TAZ files
 
 - TAZ definitions can be created direclty in
-  [NETEDIT](../../NETEDIT.md#taz_traffic_analysis_zones)
+  [netedit](../../netedit.md#taz_traffic_analysis_zones)
 - TAZ definitions can be created by drawing polygons in
-  [NETEDIT](../../NETEDIT.md#pois_and_polygons), then using the tool
+  [netedit](../../netedit.md#pois_and_polygons), then using the tool
   [edgesInDistricts.py](../../Tools/District.md#edgesindistrictspy)
   for converting polygons to TAZ.
 
 ## Further Usage for TAZ
 
 - TAZ can be used with [route input for
-  DUAROUTER](../../Demand/Shortest_or_Optimal_Path_Routing.md#trip_definitions)
+  duarouter](../../Demand/Shortest_or_Optimal_Path_Routing.md#trip_definitions)
 - TAZ can be used with trips and flows [for
   SUMO](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#incomplete_routes_trips_and_flows).
 - TAZ edges appear in the simulation as special edges with the IDs
@@ -146,7 +146,7 @@ describe which values are supplied additionally within the matrix. For
 further information we ask you to consult the documentation supported by
 PTV. Herein, only the supported variants are described.
 
-The vehicle type information is used by [OD2TRIPS](../../OD2TRIPS.md)
+The vehicle type information is used by [od2trips](../../od2trips.md)
 by passing it to the generated vehicles. The type definition itself will
 not be generated, but the vehicle will have set the attribute `type="<TYPE>"`. The time informations are
 assumed to be in the form <HOURS\>.<MINUTES\>. Please note that the end is
@@ -194,13 +194,13 @@ $VMR
 
 The 'M' in the type name indicates that a vehicle type is used, the "R"
 that the values shall be rounded randomly. The second information is not
-processed by OD2TRIPS what means that you can parse both V-, VR-, VMR,
+processed by od2trips what means that you can parse both V-, VR-, VMR,
 and VM-matrices. Please remark that both the names list and the lists
 containing the amounts are written in a way that no more than 10 fields
 are stored in the same line. Each of the entries they contain seem to be
 left-aligned to a boundary of 11 characters (possibly 10 for the name
 and one space character). Both constraints are not mandatory for the
-importer used in OD2TRIPS.
+importer used in od2trips.
 
 ## The O-format (VISUM/VISSIM)
 
@@ -257,11 +257,11 @@ For details on the types and units see the schema at
 <https://sumo.dlr.de/xsd/amitran/od.xsd>
 
 !!! note
-    The "id" value of "actorConfig" is used as the vehicle type. The Amitran schema limits this to integer values whereas SUMO allows alphanumerical type ids. To overcome this limitation, set option **--xml-validation** never when running [OD2TRIPS](../../OD2TRIPS.md) or remove the schema definition and begin your Amitran file with `<demand>`.
+    The "id" value of "actorConfig" is used as the vehicle type. The Amitran schema limits this to integer values whereas SUMO allows alphanumerical type ids. To overcome this limitation, set option **--xml-validation** never when running [od2trips](../../od2trips.md) or remove the schema definition and begin your Amitran file with `<demand>`.
 
 # Splitting large Matrices
 
-[OD2TRIPS](../../OD2TRIPS.md) allows splitting matrices which define a
+[od2trips](../../od2trips.md) allows splitting matrices which define a
 long time period into smaller parts which contain definite percentages
 of the whole. There are two ways of defining the amounts the matrix
 shall be split into. In both cases, the probabilities are automatically
@@ -293,7 +293,7 @@ The second case is rather common in transportation science. It allows to
 split the matrix into 24 subparts - this means the number of fields is
 fixed to 24 - allowing to spread an O/D-matrix over a day describing it
 by hours. To use this, give additionally the option
---timeline.day-in-hours to [OD2TRIPS](../../OD2TRIPS.md). It the
+--timeline.day-in-hours to [od2trips](../../od2trips.md). It the
 assumes the values from the --timeline - option being a list of 24
 floats, divided by ',', each describing the probability of inserting a
 vehicle within the according hour.
@@ -365,11 +365,11 @@ One may note that this information is 15 years old. Additionally, no
 information about the type of vehicles is given.
 
 A 24h time line a given O/D-matrix shall be split by may be given to
-[OD2TRIPS](../../OD2TRIPS.md) using the following options:
+[od2trips](../../od2trips.md) using the following options:
 **--timeline.day-in-hours --timeline <TIME_LINE\>** where *<TIME_LINE\>*
 is a list of 24 percentages as given above. The amount of traffic
 defined within the O/D-matrix may be scaled via **--scale <SCALE\>**.
-Example call to [OD2TRIPS](../../OD2TRIPS.md):
+Example call to [od2trips](../../od2trips.md):
 
 ```
 od2trips -n <NET> -d <MATRIX> -o <OUTPUT> --scale <SKALIERUNG> \
@@ -378,7 +378,7 @@ od2trips -n <NET> -d <MATRIX> -o <OUTPUT> --scale <SKALIERUNG> \
 
 # Generated traffic modes
 
-By default [OD2TRIPS](../../OD2TRIPS.md) generates vehicular traffic.
+By default [od2trips](../../od2trips.md) generates vehicular traffic.
 Different types of traffic (passanger cars, trucks,...) can be created by using the option
 **--vtype** and **--prefix** (the latter is needed so that different types use distinct vehicle ids).
 
@@ -386,7 +386,7 @@ By setting one of the options **--pedestrians** or **--persontrips**, other mode
 
 # Combining trips from multiple calls
 
-Sometimes it is necessary to call [OD2TRIPS](../../OD2TRIPS.md)
+Sometimes it is necessary to call [od2trips](../../od2trips.md)
 multiple times to generated all the traffic for a given scenario:
 
 - to model different vehicle types which differ in their demand levels
@@ -394,12 +394,12 @@ multiple times to generated all the traffic for a given scenario:
   OD-pairs (and therefore cannot be modelled by applying a time-line)
 
 In this case the option **--prefix** {{DT_STR}} must be used with a distinct value for each
-call to [OD2TRIPS](../../OD2TRIPS.md) in order to make avoid duplicate
+call to [od2trips](../../od2trips.md) in order to make avoid duplicate
 trip ids.
 
 # Dealing with broken Data
 
-[OD2TRIPS](../../OD2TRIPS.md) behaves here as following:
+[od2trips](../../od2trips.md) behaves here as following:
 
 **incomplete districts**
 

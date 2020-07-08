@@ -41,7 +41,7 @@ python runner.py
 ## Code
 
 The control logic resides in the python script *runner.py*. It builds
-the network (via [NETCONVERT](../NETCONVERT.md)) generates the
+the network (via [netconvert](../netconvert.md)) generates the
 pedestrian routes (via
 [\[1\]](http://sumo.dlr.de/wiki/Tools/Trip#randomTrips.py%7CrandomTrips.py),
 and interacts with the simulation to controls the traffic light. It

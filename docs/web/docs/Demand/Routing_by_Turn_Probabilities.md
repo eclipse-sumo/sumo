@@ -3,7 +3,7 @@ title: Demand/Routing by Turn Probabilities
 permalink: /Demand/Routing_by_Turn_Probabilities/
 ---
 
-The [JTRROUTER](../JTRROUTER.md) is a routing applications which
+The [jtrrouter](../jtrrouter.md) is a routing applications which
 uses flows and turning percentages at junctions as input. The following
 parameter must be supplied:
 
@@ -104,7 +104,7 @@ as possible sinks.
 
 The [definitions of the
 flow](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#repeated_vehicles_flows)
-is the same as for the [DUAROUTER](../DUAROUTER.md) with just a
+is the same as for the [duarouter](../duarouter.md) with just a
 single difference: as it is not known where the vehicle will leave the
 network as the route it uses is randomly computed, the route must be
 specified using attribute *from* and attribute *to* must be omitted:

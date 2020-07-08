@@ -1,11 +1,11 @@
 ---
-title: NETCONVERT
-permalink: /NETCONVERT/
+title: netconvert
+permalink: /netconvert/
 ---
 
 # From 30.000 feet
 
-**NETCONVERT** imports digital road networks from different sources and
+**netconvert** imports digital road networks from different sources and
 generates road networks that can be used by other tools from the
 package.
 
@@ -18,7 +18,7 @@ outputs
 
 # Usage Description
 
-[NETCONVERT](NETCONVERT.md) is a command line application. It
+netconvert is a command line application. It
 assumes at least one parameter - the combination of the name of the file
 type to import as parameter name and the name of the file to import as
 parameter value. So, for importing a network from OpenStreetMap one
@@ -51,7 +51,7 @@ resulting SUMO-network is generated.
 
 ## Import
 
-[NETCONVERT](NETCONVERT.md) is able to import road networks from
+netconvert is able to import road networks from
 the following formats:
 
 - ["SUMO native" XML
@@ -75,7 +75,7 @@ the following formats:
 
 ## Export
 
-[NETCONVERT](NETCONVERT.md) is able to export road networks in
+netconvert is able to export road networks in
 the following formats:
 
 - [SUMO](Networks/Export.md#sumo) (\*.net.xml)
@@ -124,7 +124,7 @@ The following list ouf output is explained in more detail at
 
 # Options
 
-You may use a XML schema definition file for setting up a NETCONVERT
+You may use a XML schema definition file for setting up a netconvert
 configuration:
 [netconvertConfiguration.xsd](https://sumo.dlr.de/xsd/netconvertConfiguration.xsd).
 
@@ -222,12 +222,12 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--numerical-ids** {{DT_BOOL}} | Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers; *default:* **false** |
 | **--numerical-ids.node-start** {{DT_INT}} | Remaps IDs of nodes to integers starting at INT; *default:* **2147483647** |
 | **--numerical-ids.edge-start** {{DT_INT}} | Remaps IDs of edges to integers starting at INT; *default:* **2147483647** |
-| **--reserved-ids** {{DT_FILE}} | Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) |
+| **--reserved-ids** {{DT_FILE}} | Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) |
 | **--dismiss-vclasses** {{DT_BOOL}} | Removes vehicle class restrictions from imported edges; *default:* **false** |
 | **--geometry.split** {{DT_BOOL}} | Splits edges across geometry nodes; *default:* **false** |
 | **-R** {{DT_BOOL}}<br> **--geometry.remove** {{DT_BOOL}} | Replace nodes which only define edge geometry by geometry points (joins edges); *default:* **false** |
 | **--geometry.remove.keep-edges.explicit** {{DT_STR[]}} | Ensure that the given list of edges is not modified |
-| **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported) |
+| **--geometry.remove.keep-edges.input-file** {{DT_FILE}} | Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--geometry.remove.min-length** {{DT_FLOAT}} | Allow merging edges with differing attributes when their length is below min-length; *default:* **0** |
 | **--geometry.remove.width-tolerance** {{DT_FLOAT}} | Allow merging edges with differing lane widths if the difference is below FLOAT; *default:* **0** |
 | **--geometry.max-segment-length** {{DT_FLOAT}} | splits geometry to restrict segment length; *default:* **0** |
@@ -339,8 +339,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--keep-edges.min-speed** {{DT_FLOAT}} | Only keep edges with speed in meters/second > FLOAT; *default:* **-1** |
 | **--remove-edges.explicit** {{DT_STR[]}} | Remove edges in STR[] |
 | **--keep-edges.explicit** {{DT_STR[]}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
-| **--keep-edges.input-file** {{DT_FILE}} | Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options |
-| **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported) |
+| **--keep-edges.input-file** {{DT_FILE}} | Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options |
+| **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--keep-edges.postload** {{DT_BOOL}} | Remove edges after joining; *default:* **false** |
 | **--keep-edges.in-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
 | **--keep-edges.in-geo-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
@@ -506,7 +506,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 # Lefthand Networks
 
-By default, NETCONVERT assumes networks to follow right-hand traffic
+By default, netconvert assumes networks to follow right-hand traffic
 rules. When importing importing/building a network for a jurisdiction
 wiht left-hand traffic, the option **--lefthand** must be set.
 

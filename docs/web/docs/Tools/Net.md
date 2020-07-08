@@ -37,14 +37,14 @@ A typical use case for *netdiff.py* is this:
 1.  [Import a network from
     OSM](../Networks/Import/OpenStreetMap.md) (call this
     *A.net.xml*)
-2.  make some modifications with [NETEDIT](../NETEDIT.md) (save
+2.  make some modifications with [netedit](../netedit.md) (save
     this under the new name *B.net.xml*)
 3.  use *netdiff.py* to create the *diff*-files
 4.  At a later date, re-import the OSM network (with a newer OSM file, a
-    new version of [NETCONVERT](../NETCONVERT.md) or different
+    new version of [netconvert](../netconvert.md) or different
     options)
 5.  re-apply the *diff*-files to avoid repeating manual corrections with
-    [NETEDIT](../NETEDIT.md)
+    [netedit](../netedit.md)
 
 ![](../images/mergeA.png)
 ![](../images/mergeB.png)
@@ -82,7 +82,7 @@ reachable from a particular edge
 ```
 
 This will create a file called *selection.txt* which can be loaded in
-[SUMO-GUI](../SUMO-GUI.md) to visualize the portion of the network
+[sumo-gui](../sumo-gui.md) to visualize the portion of the network
 reachable from <edge_id\>. To visualize the selection you must load the
 file using the menus **Edit-\>Edit chosen**. Then you need to enable
 edge coloring by selection status in the view settings dialog
@@ -110,10 +110,10 @@ Use the option **--help** for the latest version information.
 # netextract.py
 
 This tool extracts nodes and edges from a given network for their reuse
-in NETCONVERT.
+in netconvert.
 
 !!! note
-    NETCONVERT is able to import *.net.xml* files and export [plain xml files](../Networks/PlainXML.md) which makes this tool obsolete. It is retained for educational purposes as it demonstrates working with a sumo network from python.
+    netconvert is able to import *.net.xml* files and export [plain xml files](../Networks/PlainXML.md) which makes this tool obsolete. It is retained for educational purposes as it demonstrates working with a sumo network from python.
 
 # xmledges_applyOffset.py and xmlnodes_applyOffset.py
 

@@ -28,13 +28,13 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
   - The last vehicle from a flow is no longer missing if the flow
     duration is not a multiple of the *period* parameter. #2864
 
-- NETCONVERT
+- netconvert
   - Fixed errors when exporting elevation data to OpenDRIVE. #2641
   - Fixed format conformity issues when exporting OpenDRIVE
     networks. #2673, #2674, #2682
   - Networks exported in the [DlrNavteq format](../Networks/Export.md#dlrnavteq) are now written
     with **--numerical-ids** by default.
-  - Fixed crash when importing OpenDrive and using [edge-removal options](../NETCONVERT.md#edge_removal). #2685
+  - Fixed crash when importing OpenDrive and using [edge-removal options](../netconvert.md#edge_removal). #2685
   - Improved connection guessing at roads with a lane reduction.
   - Fixed crash when specifying a
     [`<split>`](../Networks/PlainXML.md#road_segment_refining)-element
@@ -46,13 +46,13 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
     3D-geometry. #2782
   - Geometry fixes for output in [DlrNavteq format](../Networks/Export.md#dlrnavteq). #2785, #2786
 
-- NETEDIT
+- netedit
   - Fixed crash when doing undo/redo connection changes at a newly
     created junction. #2662
   - Fixed slow operation when switching between move-mode and other
     modes in a large network.
   - Fixed slow operation when move junctions in large networks. #2699
-  - Selecting objects by [matching against attributes](../NETEDIT.md#match_attribute) now works on
+  - Selecting objects by [matching against attributes](../netedit.md#match_attribute) now works on
     windows. #2675
   - Fixed crash when setting custom geometry endpoinds. #2693
   - Fixed shortcuts #2694
@@ -63,7 +63,7 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
   - Fixed an inconsistency with the definition of SUMO Time in
     Inspector mode. #2625
 
-- SUMO-GUI
+- sumo-gui
   - Fixed bug that was causing interface lag when right-clicking in
     networks with detailed geometry.
   - Configuring the visualisation of generated induction loops for
@@ -83,7 +83,7 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
 - MESO-GUI
   - Fixed invalid coloring of the gap between lanes. #1428
 
-- DUAROUTER
+- duarouter
   - The default vehicle class is now *passenger* (as in the
     simulation). Note, that non-passenger classes such as trains now
     need an explicit type definition to be able to use rail edges. #2829
@@ -163,7 +163,7 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
     type specific measurements. The attribute *splitByType* is no
     longer supported.
 
-- SUMO-GUI
+- sumo-gui
   - Added new option **--window-pos** {{DT_INT}},{{DT_INT}} for specifying the initial window placement.
   - Added new button to the object locator dialog that allows
     toggling selection status. #2687
@@ -189,7 +189,7 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
   - The latest headway for the current segment is now shown in the
     edge parameter dialog
 
-- NETCONVERT
+- netconvert
   - Pedestrian rail crossings are now working. #2654
   - Added new option **--geometry.check-overlap** {{DT_FLOAT}} for finding edges with overlapping lanes. This
     is typically a sign of faulty inputs. The accompanying option **--geometry.check-overlap.vertical-threshold** {{DT_FLOAT}}
@@ -220,18 +220,18 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
     new option **geometry.max-grade** {{DT_FLOAT}}.
   - <laneOffset\> data is now imported from OpenDrive networks
 
-- NETEDIT
+- netedit
   - Added new option **--window-pos** {{DT_INT}},{{DT_INT}} for specifying the initial window placement.
-  - new [hotkeys](../NETEDIT.md#hotkeys) implemented. #2694
+  - new [hotkeys](../netedit.md#hotkeys) implemented. #2694
   - New icons for edit modes. #2612
   - Added new button to the object locator dialog that allows
     toggling selection status. #2687
 
-- OD2TRIPS
+- od2trips
   - Added new option **--flow-output.probability** {{DT_BOOL}} for generating probabilistic flows instead of
     evenly spaced flows. Thanks to Dominik Buse for the patch.
 
-- DUAROUTER
+- duarouter
   - Added option **persontrip.walkfactor** {{DT_FLOAT}} to account for pedestrian delays in [intermodal routing](../IntermodalRouting.md#intermodal_cost_function). #2856
 
 
@@ -270,9 +270,9 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
 ### Other
 
 - Documentation
-  - Added description of the [Object Locator](../SUMO-GUI.md#selecting_objects)-menu
-  - Added documentation of [visualizing road access permissions](../SUMO-GUI.md#road_access_permissions)
-  - Added documentation of [crossings](../NETEDIT.md#crossings) in NETEDIT
+  - Added description of the [Object Locator](../sumo-gui.md#selecting_objects)-menu
+  - Added documentation of [visualizing road access permissions](../sumo-gui.md#road_access_permissions)
+  - Added documentation of [crossings](../netedit.md#crossings) in netedit
   - Added documentation for the [MESO-model](../Simulation/Meso.md#model_description)
   - Extended documentation of the [sublane-model](../Simulation/SublaneModel.md)
   - Added [TraCI performance information](../TraCI.md#performance)
@@ -293,5 +293,5 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
   - SBX has now version number 2 #2651
 
 - Miscellaneous
-  - [SUMO-GUI](../SUMO-GUI.md) and
-    [NETEDIT](../NETEDIT.md) now remember their last window position
+  - [sumo-gui](../sumo-gui.md) and
+    [netedit](../netedit.md) now remember their last window position

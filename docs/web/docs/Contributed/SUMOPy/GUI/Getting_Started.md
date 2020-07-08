@@ -121,7 +121,7 @@ observe in the simulations that vehicles get blocked at junctions for no
 obvious reason, then it is possible to resolve conflicts by setting the
 `Teleport` to a positive time (i.e. 10s).
 
-After pressing the `run` button, the SUMO-GUI interface pops up, ready
+After pressing the `run` button, the sumo-gui interface pops up, ready
 for simulation, as shown Fig.
 [here](../../../images/Fig_sumopy_gui_sumogui.png).
 
@@ -129,7 +129,7 @@ for simulation, as shown Fig.
 "SUMO GUI window.")
 
 Adjust delay time and press the Start button. At the end of the
-simulation, confirm OK and close the SUMO-GUI window. Simulation results
+simulation, confirm OK and close the sumo-gui window. Simulation results
 are now imported into SUMOPy and are ready to be examined, visualized
 and exported in various formats.
 
@@ -218,7 +218,7 @@ XML parser, leading to errors during import. If this occurs, simply
 
 prior to importing it.
 
-### Editing with SUMO’s Netedit
+### Editing with SUMO’s netedit
 
 The recommended way to edit the network is via netedit|, which is
 provided with SUMO from version 0.25. SUMO’s netedit| can be called by
@@ -227,12 +227,12 @@ choosing the menu
 `Network>Edit with netedit`
 
 netedit| will be fired up with the network ready to be edited. The use
-of netedit| is documented here: <http://sumo.dlr.de/docs/NETEDIT.html>. After
+of netedit| is documented here: <http://sumo.dlr.de/docs/netedit.html>. After
 editing, the network must be saved within netedit| be pressing <CTRL>-s
 or with File\>save|. Then netedit| can be closed and the modified
 network will be reimported into SUMOPy.
 
-### Editing with SUMO’s Netedit on background maps
+### Editing with SUMO’s netedit on background maps
 
 There is a possibility to edit the network with netedit| on background
 maps. Currently these are Google Satellite maps. Before editing with

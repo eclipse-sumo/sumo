@@ -5,7 +5,7 @@ permalink: /Simulation/Safety/
 
 # Collisions
 
-[SUMO](../SUMO.md) tracks gaps between vehicles that are on the
+[sumo](../sumo.md) tracks gaps between vehicles that are on the
 same edge either fully or partially. By default, whenever these gaps are
 reduced to below a vehicles *minGap* a collision is registered (default
 2.5m). This (potentially) surprising behavior is used to detect issues

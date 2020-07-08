@@ -11,14 +11,14 @@ permalink: /Networks/PlainXML/
   contains lots of generated information such as structures within an
   intersection and right-of-way logic.
 
-[NETCONVERT](../NETCONVERT.md) can [convert freely](../Networks/Export.md#plain) and without information loss
+[netconvert](../netconvert.md) can [convert freely](../Networks/Export.md#plain) and without information loss
 between these two formats. Only the *plain-xml* format is meant to be
 edited by the users. In contrast, the *.net.xml* format has lots of
 subtle inter-dependencies between it's elements and should never be
 edited by hand. The *plain-xml* format is described below.
 
 It is possible to loaded a *net.xml* file along with *plain-xml* patch
-files into [NETCONVERT](../NETCONVERT.md) to modify some aspects of
+files into [netconvert](../netconvert.md) to modify some aspects of
 an existing network.
 
 To defined a network at least two files are needed: one file for nodes
@@ -32,7 +32,7 @@ Further information on road networks may be also found in the [SUMO Road Network
 
 After you have generated the files as described below - you need at
 least the edges and the nodes-files, using type and/or a connections
-file is optional - you should run [NETCONVERT](../NETCONVERT.md) to
+file is optional - you should run [netconvert](../netconvert.md) to
 build the network. If you only use edges and nodes, stored in
 "MyEdges.edg.xml" and "MyNodes.nod.xml" respectively, the call should
 look like:
@@ -51,12 +51,12 @@ netconvert --node-files=MyNodes.nod.xml --edge-files=MyEdges.edg.xml \
 ```
 
 The options used here, including their abbreviations, are documented on
-the [NETCONVERT manual page](../NETCONVERT.md#input).
+the [netconvert manual page](../netconvert.md#input).
 
 Maybe your edge definitions are incomplete or buggy. If you still want
 to import your network, you can try passing **--ignore-errors** to
-[NETCONVERT](../NETCONVERT.md). In this case, edges which are not
-defined properly are omitted, but [NETCONVERT](../NETCONVERT.md)
+[netconvert](../netconvert.md). In this case, edges which are not
+defined properly are omitted, but [netconvert](../netconvert.md)
 tries to build the network anyway. You may also flip the network around
 the horizontal axis. Use option **--flip-y-axis** for this.
 
@@ -144,7 +144,7 @@ ends of a street needs an according node. This is not really necessary
 as you may see soon, but it eases the understanding of the concept:
 every edge (street/road) is a connection between two nodes (junctions).
 
-For traffic light nodes, [NETCONVERT](../NETCONVERT.md) generates a
+For traffic light nodes, [netconvert](../netconvert.md) generates a
 default traffic light program. The simulation can [load additional programs](../Simulation/Traffic_Lights.md) which may be used
 instead.
 
@@ -163,7 +163,7 @@ default may be changed using the option **--tls.default-type** {{DT_STR}}.
 ## Node types
 
 If you leave out the type of the node, it is automatically guessed by
-[NETCONVERT](../NETCONVERT.md) but may not be the one you intended.
+[netconvert](../netconvert.md) but may not be the one you intended.
 The following types are possible, any other string is counted as an
 error and will yield in a program stop:
 
@@ -257,14 +257,14 @@ the right of way depends on the node type:
 
 ### Understanding right-of-way rules in a Network
 
-The right-of-way rules are indicated in [SUMO-GUI by the colored bars at the end of each lane and by the colors of the connection arrows](../SUMO-GUI.md#right_of_way) when customizing the view with
+The right-of-way rules are indicated in [sumo-gui by the colored bars at the end of each lane and by the colors of the connection arrows](../sumo-gui.md#right_of_way) when customizing the view with
 *junctions-\>show lane to lane connections*.
 
 The right-of-way relationship between any two connections ca be shown in
-[NETEDIT using right-of-way mode](../NETEDIT.md#right-of-way).
+[netedit using right-of-way mode](../netedit.md#right-of-way).
 
 If a vehicle is braking in the simulation, the responsible foe vehicle
-(if any) can also be [identified directly](../SUMO-GUI.md#right_of_way).
+(if any) can also be [identified directly](../sumo-gui.md#right_of_way).
 
 !!! caution
     Never attempt to modify the junction logic within a ***.net.xml*** file manually as there are subtle inter-dependencies with other data structures in the network. Nevertheless, it may be useful to [look into the .net.xml to understand right-of-way](../Networks/SUMO_Road_Networks.md#requests)
@@ -273,8 +273,8 @@ If a vehicle is braking in the simulation, the responsible foe vehicle
 
 Sometimes your network may contain nodes which are very close together
 forming a big cluster. This happens frequently when [Importing Networks from OpenStreetMap](../Networks/Import/OpenStreetMap.md).
-[NETCONVERT](../NETCONVERT.md) supports the option **--junctions.join** to find such
-clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [NETEDIT](../NETEDIT.md#processing_menu_options). It is even possible to [undo joins](../NETEDIT.md#junction) that were computed automatically.
+[netconvert](../netconvert.md) supports the option **--junctions.join** to find such
+clusters and join them into a big and well shaped junction. Junctions can also be joined manually with [netedit](../netedit.md#processing_menu_options). It is even possible to [undo joins](../netedit.md#junction) that were computed automatically.
 
 ### Reasons for joining node clusters
 Within an intersection, special rules of traffic do apply. When modelling an intersection by a cluster of nodes, the edges within the cluster are regular roads where these rules cannot be applied. 
@@ -376,7 +376,7 @@ edge is unidirectional and starts at the
 "`to`"-node. If a name of one of the nodes can
 not be dereferenced (because they have not been defined within the nodes
 file) an error is generated. To avoid the stop of further netconversion
-in such cases, you may start [NETCONVERT](../NETCONVERT.md) with
+in such cases, you may start [netconvert](../netconvert.md) with
 the option **--ignore-errors**.
 
 For each edge, some further attributes should be supplied, being the
@@ -407,7 +407,7 @@ edge's shape within the `shape` attribute. If
 the length of the edge is not given otherwise, the distances of the
 shape elements will be summed. The information
 `spreadType="center"` forces
-[NETCONVERT](../NETCONVERT.md) to spread lanes to both sides of the
+[netconvert](../netconvert.md) to spread lanes to both sides of the
 connection between the begin node and the end node or from the list of
 lines making up the shape. If not given, lanes are spread to right, as
 default.
@@ -635,7 +635,7 @@ Manual specification of roundabouts is a useful supplement for the
 existing roundabout heuristic (activated via option **--roundabouts.guess**). Guessed
 roundabouts are written as part of the *plain-xml* output (option **--plain-output-prefix**).
 This output can then be customized by the user and fed back into
-[NETCONVERT](../NETCONVERT.md).
+[netconvert](../netconvert.md).
 
 ## Neighboring opposite-direction Lanes
 
@@ -774,7 +774,7 @@ connected (for example to prohibit left-turns at some junctions). Your
 can specify connections on the edge level or you can declare in in
 detail which incoming lane shall be connected to which outgoing lanes.
 If you leave some connections unspecified
-[NETCONVERT](../NETCONVERT.md) automatically computes the missing
+[netconvert](../netconvert.md) automatically computes the missing
 information based on heuristics.
 
 !!! caution
@@ -784,14 +784,14 @@ information based on heuristics.
 
 Though guessed if not given, definitions of connections between edges or
 lanes may be manually set up and given to
-[NETCONVERT](../NETCONVERT.md) using connection files. The
+[netconvert](../netconvert.md) using connection files. The
 connection file specifies which edges outgoing from a junction may be
 reached by a certain edge incoming into this junction and optionally
 also which lanes shall be used on both sides.
 
 If you only want to describe which edges may be reached from a certain
 edge, the definition is:`<connection from="<FROM_EDGE_ID>" to="<T0_EDGE_ID>"/>`. This tells
-[NETCONVERT](../NETCONVERT.md) not only that vehicles shall be
+[netconvert](../netconvert.md) not only that vehicles shall be
 allowed to drive from the edge named *<FROM_EDGE_ID\>* to the edge named
 *<TO_EDGE_ID\>*, but also prohibits all movements to other edges from
 *<FROM_EDGE_ID\>*, unless they are specified within this file. Let's
@@ -802,7 +802,7 @@ repeat the parameters:
 | **from**       | referenced edge id | The name of the edge the vehicles leave                                                                                              |
 | to             | referenced edge id | The name of the edge the vehicles may reach when leaving "from". If omitted or set to "" the incoming edge will have no connections. |
 
-When using this kind of input, [NETCONVERT](../NETCONVERT.md) will
+When using this kind of input, [netconvert](../netconvert.md) will
 compute which lanes shall be used if any of the connected edges has more
 than one lane. If you also want to override this computation and set the
 lanes by hand, use the following: `<connection from="<FROM_EDGE_ID>" to="<T0_EDGE_ID>" fromLane="<INT_1>" toLane="<INT_2>"/>`
@@ -980,18 +980,18 @@ have the right of way but this can be customized by using attribute
 This file describes traffic lights, signal plans and defines which
 connections they control. It consists of two types of elements described
 below. Files of this type must be loaded in
-[NETCONVERT](../NETCONVERT.md) using the option **--tllogic-files** {{DT_FILE}}.
+[netconvert](../netconvert.md) using the option **--tllogic-files** {{DT_FILE}}.
 
 ## traffic light definitions
 
 `<tlLogic ...>`-elements follow the same format as described in
 [Simulation/Traffic_Lights](../Simulation/Traffic_Lights.md). By
-using them in [NETCONVERT](../NETCONVERT.md), multiple programs
+using them in [netconvert](../netconvert.md), multiple programs
 (even for the same intersection) may be embedded in the *.net.xml* file
 instead of loading them into SUMO.
 
 !!! caution
-    Embedding [WAUTs (scheduled switching between programs)](../Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure) in the network via [NETCONVERT](../NETCONVERT.md) is currently not supported. These definitions must be loaded as [additional-file](../SUMO.md#format_of_additional_files) at the start of the simulation.
+    Embedding [WAUTs (scheduled switching between programs)](../Simulation/Traffic_Lights.md#defining_program_switch_times_and_procedure) in the network via [netconvert](../netconvert.md) is currently not supported. These definitions must be loaded as [additional-file](../sumo.md#format_of_additional_files) at the start of the simulation.
 
 ## controlled connections
 
@@ -1015,7 +1015,7 @@ which control multiple intersections.
 | **linkIndex**  | int                | the index in the *state*-attribute of the `<phase>`-elements which controls this connection |
 
 You can easily get examples for this type of file by loading a
-*sumo.net.xml* in [NETCONVERT](../NETCONVERT.md) and using option **--plain-output-prefix**.
+*sumo.net.xml* in [netconvert](../netconvert.md) and using option **--plain-output-prefix**.
 
 # Pedestrian Crossings
 

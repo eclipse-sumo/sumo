@@ -10,7 +10,7 @@ car-following models or on optimization algorithms.
 
 It is assumed that road network building and routes definition is known
 from other tutorials, as [Tutorials/Hello
-Sumo](../../Tutorials/Hello_Sumo.md), [Tutorials/quick
+SUMO](../../Tutorials/Hello_SUMO.md), [Tutorials/quick
 start](../../Tutorials/quick_start.md) or [Tutorials/Quick Start old
 style](../../Tutorials/Quick_Start_old_style.md).
 
@@ -65,11 +65,11 @@ In order to execute this tutorial, you need
 # Network Preparation
 
 Optimization requires several - many - iterations, and
-[SUMO](../../SUMO.md)'s execution speed highly depends on the number
+[sumo](../../sumo.md)'s execution speed highly depends on the number
 of edges a network is made of. Due to this we model the San Pablo Dam
 Road using two edges only. We build an edge file, and a node file as
 already discussed in previous ([Tutorials/Hello
-Sumo](../../Tutorials/Hello_Sumo.md), [Tutorials/Quick
+SUMO](../../Tutorials/Hello_SUMO.md), [Tutorials/Quick
 Start](../../Tutorials/Quick_Start_old_style.md)) tutorials.
 
 # Demand Preparation

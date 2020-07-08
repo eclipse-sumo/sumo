@@ -33,7 +33,7 @@ alternatives below.
 - For the build infrastructure you will need cmake together with a moderately
   recent g++ (4.8 will do) or clang++ (or any other C++11 enabled compiler).
 - The library Xerces-C is always needed. To use
-  [SUMO-GUI](../SUMO-GUI.md) you also need Fox Toolkit in version
+  [sumo-gui](../sumo-gui.md) you also need Fox Toolkit in version
   1.6.x. It is highly recommended to also install Proj to have support
   for geo-conversion and referencing. Another common requirement is
   network import from shapefile (arcgis). This requires the GDAL

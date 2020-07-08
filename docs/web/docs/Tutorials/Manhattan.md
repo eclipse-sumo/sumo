@@ -14,7 +14,7 @@ grid network. All files can also be found in the
 # Creating the network
 
 Creating manhattan grid networks is supported by the
-[NETGENERATE](../NETGENERATE.md) application. The option **--grid** creates
+[netgenerate](../netgenerate.md) application. The option **--grid** creates
 grid networks. The number of grid cells can be set using the option **--grid.number**.
 There are various options to configure the size and number of the cells
 and to change the number of lanes and types of junctions. The options
@@ -29,11 +29,11 @@ netgenerate -c manhattan/data/manhattan.netgcfg
 
 The vehicles in a Manhattan mobility model drive randomly according to
 specified turning ratios. This type of mobility is supported by the
-[JTRROUTER](../JTRROUTER.md) application. This application requires
+[jtrrouter](../jtrrouter.md) application. This application requires
 `<flow>`-definitions as input to define the starting point and starting times of
 vehicles.
 
-## Generating random flows for JTRROUTER
+## Generating random flows for jtrrouter
 
 The [randomTrips.py](../Tools/Trip.md#randomtripspy) tool can be
 used to generated suitable randomFlows with the following options.
@@ -55,11 +55,11 @@ multiple vehicles may enter the source edge in the first step.
 The options are also encoded in the script runner.py.
 
 !!! caution
-    The randomTrips option **--jtrrouter** is only available since SUMO version 1.2.0. In earlier versions, the 'to'-attribute must be removed manually from the generated flows before processing them with [JTRROUTER](../JTRROUTER.md).
+    The randomTrips option **--jtrrouter** is only available since SUMO version 1.2.0. In earlier versions, the 'to'-attribute must be removed manually from the generated flows before processing them with [jtrrouter](../jtrrouter.md).
 
-## Calling JTRROUTER
+## Calling jtrrouter
 
-The [JTRROUTER](../JTRROUTER.md) application is called with the
+The [jtrrouter](../jtrrouter.md) application is called with the
 generated random flows. To ensure routes of sufficient length the option
 **--allow-loops** must be set. Since no sink edge are defined, the option **--accept-all-destinations** is set. The
 default turn ratios for the Manhattan Mobility Model (25% right, 50%

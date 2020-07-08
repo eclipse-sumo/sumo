@@ -5,7 +5,7 @@ permalink: /XMLValidation/
 
 # Validation of XML inputs
 
-All [SUMO applications](Sumo_at_a_Glance.md#included_applications) support
+All [SUMO applications](SUMO_at_a_Glance.md#included_applications) support
 XML validation for their inputs. To enable this, the following options
 can be used:
 
@@ -79,7 +79,7 @@ application (or fail if there is no internet connection).
 # SUMO File Types
 
 A complete listing of file extensions used by [SUMO
-Applications](Sumo_at_a_Glance.md#included_applications) is
+Applications](SUMO_at_a_Glance.md#included_applications) is
 given at [File_Extensions](Other/File_Extensions.md).
 
 # Disabling Schema Validation

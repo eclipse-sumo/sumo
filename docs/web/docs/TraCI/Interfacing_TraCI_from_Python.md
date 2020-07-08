@@ -41,7 +41,7 @@ following example is a modification of
 [tutorial/traci_tls](../Tutorials/TraCI4Traffic_Lights.md)):
 
 First you compose the command line to start either
-[SUMO](../SUMO.md) or [SUMO-GUI](../SUMO-GUI.md) (leaving out
+[sumo](../sumo.md) or [sumo-gui](../sumo-gui.md) (leaving out
 the option  which was needed before 0.28.0):
 
 ```

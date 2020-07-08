@@ -37,7 +37,7 @@ permalink: /Z/Changes_from_Version_0.27.1_to_Version_0.28.0/
 - MESO
   - Tripinfo-output now has appropriate `timeLoss` values. #2570
 
-- NETCONVERT
+- netconvert
   - Fixed invalid lane permissions when setting lane-specific
     attributes without specifying lane-specific permissions. #2515
   - Fixed invalid elevation values at junctions when importing
@@ -51,22 +51,22 @@ permalink: /Z/Changes_from_Version_0.27.1_to_Version_0.28.0/
   - Fixed error when loading a *.net.xml* file and patching lane
     numbers with an *.edg.xml* file. #2459
 
-- SUMO-GUI
+- sumo-gui
   - The visulization option *show lane borders* is now working.
   - Fixed crash when user loads an empty E3 detector #2249
 
-- NETEDIT
+- netedit
   - Geometry nodes are no longer drawn when set to full transparency
     (alpha = 0).
   - Geometry nodes are now colored for selected edges.
   - All textures are now loaded instead of a white square or a
     netedit crash. #2594 #2476 #2597
 
-- DFROUTER
+- dfrouter
   - Vehicles now always depart with the measured speeds. A vehicle
     type with non-zero `speedDev` is used to allow patching the
     [vehicle-specific speed factor](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions)
-    in [SUMO](../SUMO.md). #2510
+    in [sumo](../sumo.md). #2510
 
 - TraCI
   - Vehicles added via method add() of the python client now have
@@ -97,7 +97,7 @@ permalink: /Z/Changes_from_Version_0.27.1_to_Version_0.28.0/
   - Added option **--tls.all-off** {{DT_BOOL}} for switching off all traffic lights in the
     simulation.
 
-- NETEDIT
+- netedit
   - Added new option **--new** {{DT_BOOL}} for starting with an empty network.
   - Added new option **--window-size** {{DT_INT}},{{DT_INT}} for specifying the initial window size. #2514
   - Junction attribute *tltype* is now supported.
@@ -116,16 +116,16 @@ permalink: /Z/Changes_from_Version_0.27.1_to_Version_0.28.0/
     deleting. #2432
   - Intervals of Rerouters can be edited using a dialog #2480
 
-- SUMO-GUI
+- sumo-gui
   - Added new option **--window-size** {{DT_INT}},{{DT_INT}} for specifying the initial window size. #2514
   - Added new visualization setting for drawing right-of-way rules
     (colored bars).
-  - [Background images (decals)](../SUMO-GUI.md#using_decals_within_sumo-gui) now
+  - [Background images (decals)](../sumo-gui.md#using_decals_within_sumo-gui) now
     support the new Boolean attribute *screenRelative*. When set to
     *true*, position and size are relative to the drawing window
     instead of being relative to the network. #2438
 
-- NETCONVERT
+- netconvert
   - Ferry routes are now imported from [OSM when using the *ships* typemap](../Networks/Import/OpenStreetMap.md#recommended_typemaps).
   - Railway crossings are now imported from
     [OSM](../Networks/Import/OpenStreetMap.md). #2059
@@ -149,7 +149,7 @@ permalink: /Z/Changes_from_Version_0.27.1_to_Version_0.28.0/
   - When converting an OSM network to [writingDlrNavteq or Amitran format](../Networks/Export.md), functional road class is
     now based on OSM highway types. #2602
 
-- DFROUTER
+- dfrouter
   - Vehicle types are now included in the
     [emitters-output](../Demand/Routes_from_Observation_Points.md#saving_flows_and_other_values)
     by default. The new option **--vtype-output** {{DT_FILE}} allows redirection the vTypes into a
@@ -186,12 +186,12 @@ permalink: /Z/Changes_from_Version_0.27.1_to_Version_0.28.0/
   - Added Tutorial for using [the OSM-Web-Wizard](../Tutorials/OSMWebWizard.md).
   - More details on [loading and inserting vehicles](../Simulation/VehicleInsertion.md)
   - Added new overview page on [vehicle permissions](../Simulation/VehiclePermissions.md)
-  - The [NETEDIT](../NETEDIT.md) documentation on old and novel
+  - The [netedit](../netedit.md) documentation on old and novel
     features has been expanded.
   - The tool
     [showDepartsAndArrivalsPerEdge.py](../Tools/Routes.md#showdepartsandarrivalsperedge)
     is now documented. It allows edge-coloring in
-    [SUMO-GUI](../SUMO-GUI.md) according to traffic statistics #2263
+    [sumo-gui](../sumo-gui.md) according to traffic statistics #2263
 
 - TraCI
   - TraCI version is now 13

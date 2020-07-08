@@ -558,15 +558,15 @@ GNEApplicationWindowHelper::EditMenuCommands::buildEditMenuCommands(FXMenuPane* 
     // add open in sumo options
     new FXMenuSeparator(editMenu);
     loadAdditionalsInSUMOGUI = new FXMenuCheck(editMenu,
-            "Load additionals in SUMO-GUI\t\tLoad additionals in SUMO-GUI.",
+            "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui.",
             myGNEApp, MID_GNE_TOOLBAREDIT_LOADADDITIONALS);
     loadAdditionalsInSUMOGUI->setCheck(TRUE);
     loadDemandInSUMOGUI = new FXMenuCheck(editMenu,
-                                          "Load demand in SUMO-GUI\t\tLoad demand in SUMO-GUI.",
+                                          "Load demand in sumo-gui\t\tLoad demand in sumo-gui.",
                                           myGNEApp, MID_GNE_TOOLBAREDIT_LOADDEMAND);
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = new FXMenuCommand(editMenu,
-                                      "Open in SUMO-GUI\tCtrl+T\tOpens the SUMO-GUI application with the current network.",
+                                      "Open in sumo-gui\tCtrl+T\tOpens the sumo-gui application with the current network.",
                                       GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
 }
 

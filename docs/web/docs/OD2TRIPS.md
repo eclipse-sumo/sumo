@@ -1,11 +1,11 @@
 ---
-title: OD2TRIPS
-permalink: /OD2TRIPS/
+title: od2trips
+permalink: /od2trips/
 ---
 
 # From 30.000 feet
 
-**OD2TRIPS** imports O/D-matrices and splits them into single vehicle
+**od2trips** imports O/D-matrices and splits them into single vehicle
 trips.
 
 - **Purpose:** Conversion of O/D-matrices to single vehicle trips
@@ -18,13 +18,13 @@ trips.
 
 # Usage Description
 
-OD2TRIPS maps traffic that is defined via origin and destination zones
+od2trips maps traffic that is defined via origin and destination zones
 onto the edges of a network. For details, see
 [Demand/Importing_O/D_Matrices](Demand/Importing_O/D_Matrices.md).
 
 ## Options
 
-You may use a XML schema definition file for setting up a OD2TRIPS
+You may use a XML schema definition file for setting up a od2trips
 configuration:
 [od2tripsConfiguration.xsd](http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd).
 

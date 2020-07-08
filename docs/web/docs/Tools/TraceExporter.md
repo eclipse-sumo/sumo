@@ -35,7 +35,7 @@ formats. Following files can be generated, sorted by application:
 - [Kepler-JSON](https://kepler.gl/)
 - [POIs](../Simulation/Shapes.md#poi_point_of_interest_definitions)
   (can visualize GPS distortions and sampling in
-  [SUMO-GUI](../SUMO-GUI.md))
+  [sumo-gui](../sumo-gui.md))
 - [fcd output](../Simulation/Output/FCDOutput.md) to restrict the
   file to certain regions or time intervals
 

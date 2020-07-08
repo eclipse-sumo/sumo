@@ -147,7 +147,7 @@ a scenario from measurements is therefore, to [generated random
 traffic](../Tools/Trip.md#randomtripspy) and use Calibrators in
 conjunction with [route probe
 detectors](../Simulation/Output/RouteProbe.md). While this can in
-principle be done with [DFROUTER](../DFROUTER.md) as well, the
+principle be done with [dfrouter](../dfrouter.md) as well, the
 method described here is more robust for highly meshed networks as found
 in cities.
 

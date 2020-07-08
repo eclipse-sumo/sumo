@@ -18,9 +18,9 @@ the assignment. Increasing the number of iteration steps increases the
 likelyhood of convergence to equilibrium.
 
 Within each iteration step, the script generates a configuration file
-for the [DUAROUTER](../DUAROUTER.md) application and starts it with
+for the [duarouter](../duarouter.md) application and starts it with
 this configuration file. Then, a configuration file for
-[SUMO](../SUMO.md) is built and [SUMO](../SUMO.md) is started.
+[sumo](../sumo.md) is built and [sumo](../sumo.md) is started.
 Both configuration files are competely defined within the script itself.
 As default, for each time step, SUMO will generate three dump files with
 edge-dumps aggregated over 150, 300, and 900s, a summary information as
@@ -28,7 +28,7 @@ well as a trip information output. The names of these outputs are
 numbered according to the iteration step. If you want to change the
 outputs, you also have to take a look into the script, but you should
 not disable the edge-based dump for aggregation over 900s, because this
-is read by the [DUAROUTER](../DUAROUTER.md) in the next iteration
+is read by the [duarouter](../duarouter.md) in the next iteration
 steps in order to compute the DUA.
 
 For further options to the script look either at the source code or

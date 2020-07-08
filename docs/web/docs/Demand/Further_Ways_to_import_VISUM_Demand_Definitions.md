@@ -5,7 +5,7 @@ permalink: /Demand/Further_Ways_to_import_VISUM_Demand_Definitions/
 
 VISUM stores its demand in [OD-matrices which can be
 imported](../Demand/Importing_O/D_Matrices.md) using
-[OD2TRIPS](../OD2TRIPS.md). Though, it may be interesting for using
+[od2trips](../od2trips.md). Though, it may be interesting for using
 the computed assignments without performing a [dynamic user
 assignment](../Demand/Dynamic_User_Assignment.md). The SUMO package
 contains some scripts which allow to process other VISUM data and are
@@ -16,9 +16,9 @@ discussed in the following.
 VISUM can save the defined/computed turning percentages at junctions.
 The format differs from [turning probabilities
 format](../Demand/Routing_by_Turn_Probabilities.md) used by
-[JTRROUTER](../JTRROUTER.md). The script
+[jtrrouter](../jtrrouter.md). The script
 ***visum_convertTurnPercentages.py*** converts VISUM turning
-percentages into [JTRROUTERs](../JTRROUTER.md) [turning
+percentages into [jtrrouter](../jtrrouter.md) [turning
 definitions](../Demand/Routing_by_Turn_Probabilities.md). The tool
 requires the SUMO-network converted from VISUM, the turning
 probabilities from VISUM, and the name of the file into which the
@@ -38,7 +38,7 @@ loops.
 
 ## See Also
 
-- [JTRROUTER](../JTRROUTER.md) - page on the turning ratios
+- [jtrrouter](../jtrrouter.md) - page on the turning ratios
   router
 - [Demand/Routing by Turn
   Probabilities](../Demand/Routing_by_Turn_Probabilities.md) -
@@ -49,9 +49,9 @@ loops.
 VISUM can save the routes it computes during the assignment. The format
 differs from [Definition of Vehicles, Vehicle Types, and
 Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-used by [SUMO](../SUMO.md) and [SUMO-GUI](../SUMO-GUI.md). The
+used by [sumo](../sumo.md) and [sumo-gui](../sumo-gui.md). The
 script ***visum_convertRoutes.py*** converts VISUM routes into
-[SUMO](../SUMO.md) routes. The tool requires the SUMO-network
+[sumo](../sumo.md) routes. The tool requires the SUMO-network
 converted from VISUM, the routes exported from VISUM, and the name of
 the file into which the converted turning probabilities shall be
 written. Additional options are shown in the following table:
@@ -79,8 +79,8 @@ in Python.
 
 ## Usability
 
-The routes can be directly used within [SUMO](../SUMO.md) /
-[SUMO-GUI](../SUMO-GUI.md).
+The routes can be directly used within [sumo](../sumo.md) /
+[sumo-gui](../sumo-gui.md).
 
 ## See Also
 

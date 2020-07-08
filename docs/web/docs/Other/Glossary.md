@@ -14,7 +14,7 @@ are included in the SUMO package.
 A file that can be included in a sumo
 configuration. This is needed to load pois, shapes, bus stops and
 variable speed signs. Refer to [the format
-description](../SUMO.md#format_of_additional_files) for
+description](../sumo.md#format_of_additional_files) for
 details.
 
 ## C

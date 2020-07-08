@@ -14,7 +14,7 @@ trace files for ns2/ns3, Shawn, OMNET, and PHEM.
 
 For generating vehicular traces, You need a simulation scenario,
 consisting at least of a road network and routes. You may visit
-[Tutorials/Hello Sumo](../Tutorials/Hello_Sumo.md),
+[Tutorials/Hello SUMO](../Tutorials/Hello_SUMO.md),
 [Tutorials/quick start](../Tutorials/quick_start.md) or
 [Tutorials/Quick Start old
 style](../Tutorials/Quick_Start_old_style.md) to learn how to get a
@@ -99,5 +99,5 @@ simulation.
 - See more information on SUMO's [fcd
   output](../Simulation/Output/FCDOutput.md)
 - Visit tutorials describing how to set up a simulation:
-  [Tutorials/Hello Sumo](../Tutorials/Hello_Sumo.md) or
+  [Tutorials/Hello SUMO](../Tutorials/Hello_SUMO.md) or
   [Tutorials/Quick Start](../Tutorials/quick_start.md)

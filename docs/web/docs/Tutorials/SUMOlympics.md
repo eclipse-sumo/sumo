@@ -16,7 +16,7 @@ by the PTV Group](https://www.youtube.com/watch?v=IpaNLxrtHOs).
 # Building the Net
 
 ![editEdgeAttr.png](../images/EditEdgeAttr.png "Editing the location of the edge's startpoint")Open
-[NETEDIT](../NETEDIT.md) and create a new network and add a single
+[netedit](../netedit.md) and create a new network and add a single
 edge by pressing `e` for entering the edge creation mode and clicking on
 two different locations in the editing area. Change to inspection mode
 (press `i`) and click on the starting point of the edge (at the location
@@ -133,7 +133,7 @@ lane width) 2) We wish to include pedestrians into the competition.
 
 ![sumolympics_TLSediting.png](../images/Sumolympics_TLSediting.png
 "Editing traffic lights")First we create a traffic light on the
-junction between the edges "beg" and "end" with NETEDIT: Press `t` to
+junction between the edges "beg" and "end" with netedit: Press `t` to
 enter the traffic light editing mode. Click on the junction, then on
 "Create TLS" in the left panel. Below, under the label phases, type
 "rrrrr" for the first phase ("r" for red) and set its duration to 100

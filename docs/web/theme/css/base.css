@@ -432,7 +432,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff589037',end
 filter: none;
 -webkit-box-shadow: 0 0 .2rem rgba(0,0,0,.1),0 .2rem .4rem rgba(0,0,0,.2);
 box-shadow: 0 0 .2rem rgba(0,0,0,.1),0 .2rem .4rem rgba(0,0,0,.2);
-padding: 2px;
+padding: 0px;
 }
 
 .navbar-nav .active a, .navbar-default .navbar-nav .active a:hover, .navbar-default .navbar-nav .active a:focus {

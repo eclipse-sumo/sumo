@@ -10,7 +10,7 @@ in circles. All definition files can also be found in the
 
 # Build a network
 
-First open [NETEDIT](../NETEDIT.md) and create edges to form a
+First open [netedit](../netedit.md) and create edges to form a
 closed loop. To do that press `Ctrl-N` to create a new network and then
 press `e` to enter the edge editing mode. Now create a closed loop of
 edges (you might consider to check 'chain' just right from the edit-mode
@@ -62,12 +62,12 @@ and net definitions:
 
 First attempt to run the simulation
 
-Now let us try to start SUMO with the config that we have just created.
+Now let us try to start sumo with the config that we have just created.
 To do so either double-click on the configuration-file `circles.sumocfg`
 (under Windows, if your installation was done with default settings) or
-change to the `baseDir` in a terminal and start SUMO (with graphical
+change to the `baseDir` in a terminal and start sumo (with graphical
 user interface) there by typing `sumo -c circles.sumocfg`. (If this does
-not start SUMO, you might have to add the sumo/bin directory to your
+not start sumo, you might have to add the SUMO/bin directory to your
 PATH?)
 
 Did it work? No.
@@ -132,7 +132,7 @@ again. To this end we will create a rerouter
 Create a rerouter in netedit (full implementation pending!)
 
 !!! caution
-    Editing rerouters in netedit is not implemented completely currently. Alter the tutorial correspondingly, when this has been done! (See [NETEDIT#Rerouter](../NETEDIT.md#rerouter))
+    Editing rerouters in netedit is not implemented completely currently. Alter the tutorial correspondingly, when this has been done! (See [netedit#Rerouter](../netedit.md#rerouter))
 
 !!! note
     In the future the editing of rerouters will be possible in netedit. Up to now rerouters have to be added manually (see below). Here is what can be done in netedit so far: Open your network `circles.net` and press `a` to enter the additionals edit-mode. From the dropdown menu "Additional element" on the left select `rerouter` and from "Edges" select `edge1` (see figure). Then click somewhere in the editing window to create the rerouter (the rerouter icon is placed at the location where you click, but the location has no further meaning). Repeat the steps to create a rerouter for `edge2`.
@@ -198,7 +198,7 @@ A net with two loops
     length](../Simulation/Basic_Definition.md#defining_the_time_step_length_and_integration_method)
     and try to observe stop-and-go waves, experiment with different
     [car-following models](../Car-Following-Models.md), [color the
-    vehicles](../SUMO-GUI.md#vehicle_visualisation_settings) by
+    vehicles](../sumo-gui.md#vehicle_visualisation_settings) by
     speed.
 
 If you create solutions for the exercises post them on this page\!

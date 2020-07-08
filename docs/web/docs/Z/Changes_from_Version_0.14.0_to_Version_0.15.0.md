@@ -23,7 +23,7 @@ permalink: /Z/Changes_from_Version_0.14.0_to_Version_0.15.0/
     rebuild**
   - fixed crash when using TraCI to set new TLS-programs with less
     phases (ticket \#652)
-- NETCONVERT
+- netconvert
   - looped ways are now correctly imported from OSM (before, these
     were pruned from the network)
   - fixed bug related to **--proj.plain-geo** (would sometimes crash or produce invalid
@@ -40,7 +40,7 @@ permalink: /Z/Changes_from_Version_0.14.0_to_Version_0.15.0/
   - corrected the link numbering
   - no longer crashes when reload is pressed during running
     simulation
-- DUAROUTER
+- duarouter
   - Option **--max-alternatives** is no longer ignored
   - clogit probabilities are calculated correctly
 
@@ -49,7 +49,7 @@ permalink: /Z/Changes_from_Version_0.14.0_to_Version_0.15.0/
 - Simulation
   - Meandata output can now print default travel times / emissions
     on empty edges (excludeEmpty="defaults")
-- DUAROUTER
+- duarouter
   - added Option **--routing-algorithm**. It supports the values *dijkstra* (default) and
     *astar* (new). The newly added *astar* algorithm uses the
     *euclidean distance heuristic*. It routes 30% faster on the road
@@ -57,9 +57,9 @@ permalink: /Z/Changes_from_Version_0.14.0_to_Version_0.15.0/
   - In verbose mode, some performance measures of the routing
     algorithm are given
   - better defaults for emission based routing
-- GUISIM
+- sumo-gui
   - object choser can now filter by selection
-- NETCONVERT
+- netconvert
   - added Options **--speed.offset** and **--speed.factor**. These modify all edge speeds by first
     multiplying with factor and then adding offset.
   - added output Option **--junctions.join-output FILE**. This writes a protocol of joined junctions

@@ -73,7 +73,7 @@ network problems or deliberate configuration,
 [collisions may occur](../Simulation/Safety.md#collisions). The default behavior of SUMO is to immediately teleport the rear vehicle onto the next edge of it's route (or remove it, when already on it's final edge). This behavior can be [configured to avoid or delay teleporting](../Simulation/Safety.md#collisions). 
 
 To avoid collisions, observe the simulation
-[SUMO-GUI](../SUMO-GUI.md) at the location and time of the
+[sumo-gui](../sumo-gui.md) at the location and time of the
 collision. Check if some of the [that may cause a collision are present
 in your network](../Simulation/Safety.md#deliberately_causing_collisions).
 

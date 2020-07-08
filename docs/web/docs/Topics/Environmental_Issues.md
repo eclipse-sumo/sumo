@@ -9,20 +9,20 @@ consumption of non-renewable materials. Much work is put into the
 development of solutions that reduce these harms. A traffic simulation
 should support such development by allowing to measure the amount of
 generated pollution and the amount of consumed fuel.
-[SUMO](../SUMO.md) (used for both, [SUMO](../SUMO.md) and
-[SUMO-GUI](../SUMO-GUI.md) in the following) includes models and
+[sumo](../sumo.md) (used for both, [sumo](../sumo.md) and
+[sumo-gui](../sumo-gui.md) in the following) includes models and
 interfaces that fulfill these needs.
 
 In the following, the topic of "environmental issues" as seen from
-[SUMO](../SUMO.md) perspective is described in the following.
+[sumo](../sumo.md) perspective is described in the following.
 
 # User Interaction
 
 Pollutants/noise/consumption is computed only if the user asks for it or
 if it is used for visualisation. Pollutants emitted by the simulated
-vehicles can be visualised using [SUMO-GUI](../SUMO-GUI.md) or be
-written into output files, both by [SUMO](../SUMO.md) and
-[SUMO-GUI](../SUMO-GUI.md). The following output can be used:
+vehicles can be visualised using [sumo-gui](../sumo-gui.md) or be
+written into output files, both by [sumo](../sumo.md) and
+[sumo-gui](../sumo-gui.md). The following output can be used:
 
 - [trip information](../Simulation/Output/TripInfo.md): in
   combination with the emissions device, the tripinfo output contains
@@ -117,7 +117,7 @@ The noise model is based on HARMONOISE.
 
 ## Emissions Modelling
 
-The emission models implemented in [SUMO](../SUMO.md) re-use
+The emission models implemented in [sumo](../sumo.md) re-use
 existing models and data bases. The first steps including an overview of
 fifteen reviewed models as well as the derivation of the [HBEFA
 v2.1-based](../Models/Emissions/HBEFA-based.md) model are given in

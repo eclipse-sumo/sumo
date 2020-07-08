@@ -33,13 +33,13 @@ permalink: /Z/Changes_from_Version_0.29.0_to_Version_0.30.0/
     determining suitable insertion lanes. #2998
   - loading state now writes tls states correctly #1229
 
-- NETCONVERT
+- netconvert
   - Various fixes to junction-shape computation. #2551, #2874, #1443
   - Ramp-guessing (option **--ramps.guess**) no longer identifies sharply turning
     roads as motorway ramps.
   - Fixed invalid right-of-way rules at junctions with type
     *traffic_light_right_on_red* when importing a *net.xml* file
-    or editing with [NETEDIT](../NETEDIT.md). #2976
+    or editing with [netedit](../netedit.md). #2976
   - Networks built with option **--junctions.scurve-stretch** now retain their shape when imported
     again. #2877
   - Networks [imported from VISUM](../Networks/Import/VISUM.md)
@@ -49,7 +49,7 @@ permalink: /Z/Changes_from_Version_0.29.0_to_Version_0.30.0/
   - Fixed crash when applying a `<split>` to an edge within a roundabout. #2737
   - Fixed infinite loop when importing some OpenDRIVE networks. #2918
 
-- NETEDIT
+- netedit
   - [vClass-specific speed limits](../Networks/PlainXML.md#vehicle-class_specific_speed_limits)
     are no longer lost when saving a network. #2508
   - The lane shapes induced by option **--rectangular-lane-cut** are no longer lost when
@@ -83,7 +83,7 @@ permalink: /Z/Changes_from_Version_0.29.0_to_Version_0.30.0/
 
 - Simulation
   - [vClass-specific speed limits](../Networks/PlainXML.md#vehicle-class_specific_speed_limits)
-    can now be loaded from an [*additional-file*](../SUMO.md#format_of_additional_files). #2870
+    can now be loaded from an [*additional-file*](../sumo.md#format_of_additional_files). #2870
   - Refactored implementation of [E2 detectors](../Simulation/Output/Lanearea_Detectors_(E2).md).
     These may now be defined to span over a sequence of lanes,
     XML-attribute `cont` is deprecated. #1491, #1877, #2773, #2871
@@ -123,7 +123,7 @@ permalink: /Z/Changes_from_Version_0.29.0_to_Version_0.30.0/
   - Added option **--chargingstations-output** {{DT_FILE}} which generates output for
     [chargingStations](../Models/Electric.md#charging_station_output). #2357
 
-- SUMO-GUI
+- sumo-gui
   - Added parameters
     *minGapLat,maxSpeedLat,latAlignment,boardingDuration,loadingDuration,car
     follow model* to the vType-parameter window.
@@ -136,7 +136,7 @@ permalink: /Z/Changes_from_Version_0.29.0_to_Version_0.30.0/
   - For long-running simulations the time displays can now show
     elapsed days. #2889
 
-- NETCONVERT
+- netconvert
   - Networks imported from
     [DlrNavteq](../Networks/Import/DlrNavteq.md)-format now
     process *prohibited_manoeuvres* and *connected_lanes* input
@@ -158,13 +158,13 @@ permalink: /Z/Changes_from_Version_0.29.0_to_Version_0.30.0/
   - Specific lanes can now be deleted [via loaded *.edg.xml* files](../Networks/PlainXML.md#deleting_edges_or_lanes)
     (to ensure that connections are kept as intended). #3009
 
-- NETEDIT
+- netedit
   - The junction visualization options *show link junction index*
     and *show link tls index* are now working #2955
   - When creating or moving edge and junction geometry, positions
-    can now be [restricted to a regular grid](../NETEDIT.md#background_grid) (i.e. multiples of
+    can now be [restricted to a regular grid](../netedit.md#background_grid) (i.e. multiples of
     100). #2776
-  - [Custom edge geometry endpoints](../NETEDIT.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
+  - [Custom edge geometry endpoints](../netedit.md#specifying_the_complete_geometry_of_an_edge_including_endpoints)
     values can now be entered in inspect mode. #2012
 
 - TraCI
@@ -206,8 +206,8 @@ permalink: /Z/Changes_from_Version_0.29.0_to_Version_0.30.0/
 
 - Miscellaneous
   - Improved routing efficiency of
-    [SUMO](../SUMO.md), [DUAROUTER](../DUAROUTER.md) and
-    [MAROUTER](../MAROUTER.md) when using option **--routing-algorithm astar**.
+    [sumo](../sumo.md), [duarouter](../duarouter.md) and
+    [marouter](../marouter.md) when using option **--routing-algorithm astar**.
 
 - Tools
   - [randomTrips.py](../Tools/Trip.md#randomtripspy) now
@@ -229,7 +229,7 @@ permalink: /Z/Changes_from_Version_0.29.0_to_Version_0.30.0/
   - New [overview page on safety-related behavior](../Simulation/Safety.md)
   - The [Quick Start tutorial](../Tutorials/quick_start.md) now
     describes how to create an network with
-    [NETEDIT](../NETEDIT.md)
+    [netedit](../netedit.md)
 
 - TraCI
   - TraCI version is now 15

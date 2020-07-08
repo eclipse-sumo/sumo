@@ -4,7 +4,7 @@ permalink: /Basics/Using_the_Command_Line_Applications/
 ---
 
 Most of the applications from the SUMO package are command line tools.
-Currently, only [SUMO-GUI](../SUMO-GUI.md) is not. If you do not
+Currently, only [sumo-gui](../sumo-gui.md) and [netedit](../netedit.md) are not. If you do not
 know what a "command line" is, we refer you to the page about [basic computer skills](../Basics/Basic_Computer_Skills.md#running_programs_from_the_command_line).
 
 The following presents some peculiarities of the SUMO-suite
@@ -14,7 +14,7 @@ applications.
 
 SUMO applications are plain executables. You just start them by typing
 their name from the command line; for example
-[NETGENERATE](../NETGENERATE.md) is called by
+[netgenerate](../netgenerate.md) is called by
 
 ```
 netgenerate.exe
@@ -29,15 +29,15 @@ netgenerate
 under Linux.
 
 This simply starts the application
-([NETGENERATE](../NETGENERATE.md) in this case). As no parameter
+([netgenerate](../netgenerate.md) in this case). As no parameter
 has been given, the application does not know what to do and prints only
 an information about itself:
 
 ```
-SUMO netgenerate Version {{Version}}
+Eclipse SUMO netgenerate Version {{Version}}
  Build features: Linux-4.1.39-56-default Proj GDAL GUI
- Copyright (C) 2001-2017 DLR and contributors; http://sumo.dlr.de
- License EPLv2: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
+ Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
+ License EPL-2.0: Eclipse Public License Version 2 <https://eclipse.org/legal/epl-v20.html>
  Use --help to get the list of options.
 ```
 
@@ -89,7 +89,7 @@ Please note that an abbreviation is indicated using a single '-'.
 ## Option Value Types
 
 The SUMO applications know what kind of a value they expect to be set.
-For example, [NETGENERATE](../NETGENERATE.md) allows you to set the
+For example, [netgenerate](../netgenerate.md) allows you to set the
 default number of lanes, which of course must be an integer value. In
 the case, a string or something else is given, this is recognized and
 the application answers with an error message on startup. Please note
@@ -120,26 +120,30 @@ configuration file. For the boolean options the value should be either
 For the example above, the configuration file (let's save it under
 "test.sumocfg", see below) would look like:
 
-    <configuration>
-        <input>
-            <net-file value="test.net.xml"/>
-            <route-files value="test.rou.xml"/>
-            <additional-files value="test.add.xml"/>
-        </input>
-    </configuration>
+```
+<configuration>
+    <input>
+        <net-file value="test.net.xml"/>
+        <route-files value="test.rou.xml"/>
+        <additional-files value="test.add.xml"/>
+    </input>
+</configuration>
+```
 
 The section `input` given above has only
 documentation purposes and no functional meaning.
 
 A less verbose but equivalent version would look like:
 
-    <configuration>
-        <n v="test.net.xml"/>
-        <r v="test.rou.xml"/>
-        <a v="test.add.xml"/>
-    </configuration>
+```
+<configuration>
+    <n v="test.net.xml"/>
+    <r v="test.rou.xml"/>
+    <a v="test.add.xml"/>
+</configuration>
+```
 
-The according [SUMO](../SUMO.md) execution call - working with both
+The according [sumo](../sumo.md) execution call - working with both
 configuration versions - would be:
 
 ```
@@ -160,8 +164,8 @@ sumo.exe test.sumocfg
 Depending on the targetted application, the configuration files have
 different extensions. It is highly recommended to follow this
 convention. For using simulation configurations with
-[SUMO-GUI](../SUMO-GUI.md) this is even required -
-[SUMO-GUI](../SUMO-GUI.md) can only read simulation configurations
+[sumo-gui](../sumo-gui.md) this is even required -
+[sumo-gui](../sumo-gui.md) can only read simulation configurations
 named "\*.sumocfg".
 
 All conventions for configuration extensions can be found on the page on
@@ -205,11 +209,13 @@ are generated.
 
 It is possible to refer to environment variables in configuration files. The syntax to refer to an environment variable is **${VARNAME}**. For example, your configuration file may reference a variable called **NETFILENAME**, containing the name of a network file, with the following configuration settings.
 
-    <configuration >
-        <input>
-            <net-file value="${NETFILENAME}.net.xml"/>
-        </input>
-    </configuration>
+```
+<configuration >
+    <input>
+        <net-file value="${NETFILENAME}.net.xml"/>
+    </input>
+</configuration>
+```
 
 # Common Options
 

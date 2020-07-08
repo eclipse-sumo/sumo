@@ -1,6 +1,6 @@
 ---
-title: Tutorials/Hello Sumo
-permalink: /Tutorials/Hello_Sumo/
+title: Tutorials/Hello SUMO
+permalink: /Tutorials/Hello_SUMO/
 ---
 
 !!! note
@@ -13,7 +13,7 @@ simplest net possible and let a single car drive on it. All files
 mentioned here can also be found in the {{SUMO}}/docs/tutorial/hello directory.
 The most recent version can be found in the repository at [{{SUMO}}/tests/complex/tutorial/hello/data/]({{Source}}tests/complex/tutorial/hello/data/).
 
-In [SUMO](../SUMO.md) a street network consists of nodes
+In [sumo](../sumo.md) a street network consists of nodes
 (junctions) and edges (streets connecting the junctions). Thus, if we
 want to create a network with two streets, subsequent to each other, we
 need three nodes and two edges. We will see in the section on
@@ -55,7 +55,7 @@ and end at the node given in `to`.
 
 Save this data into a file called `hello.edg.xml`. Now that we have
 nodes and edges we can call the first SUMO tool to create a network.
-Make sure [NETCONVERT](../NETCONVERT.md) is somewhere in your
+Make sure [netconvert](../netconvert.md) is somewhere in your
 `PATH` and call
 
 ```
@@ -66,7 +66,7 @@ This will generate our network called `hello.net.xml`.
 
 ## Routes
 
-Now that we have a net, we still need a car. In [SUMO](../SUMO.md)
+Now that we have a net, we still need a car. In [sumo](../sumo.md)
 the vehicles have types defining their basic properties such as length,
 acceleration and deceleration, and maximum speed. Furthermore it needs a
 so called sigma parameter which introduces some random behavior and is
@@ -158,7 +158,7 @@ set the delay between each step of the simulation in ms.
 More information on defining networks using XML can be found here:
 [Networks/Building Networks from own
 XML-descriptions](../Networks/PlainXML.md).
-[NETCONVERT](../NETCONVERT.md) also allows to import networks from
+[netconvert](../netconvert.md) also allows to import networks from
 other applications, further information is available here:
 [Networks/Import](../Networks/Import.md).
 

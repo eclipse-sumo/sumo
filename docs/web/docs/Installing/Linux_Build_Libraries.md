@@ -82,7 +82,7 @@ cd proj-4.6.0
 - Note: It seems like some distributions of Fox are built with
   disabled openGl-support. If you get unresolved references to methods
   such as "glColor...", "glVertex3f...", etc. during compilation of
-  [SUMO-GUI](../SUMO-GUI.md) you have to enable openGL-support
+  [sumo-gui](../sumo-gui.md) you have to enable openGL-support
   before compiling the FOX-library using "./configure
   --with-opengl=yes --prefix=$HOME && make install"; Still, this is
   the default normally.

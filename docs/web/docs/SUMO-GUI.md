@@ -1,37 +1,37 @@
 ---
-title: SUMO-GUI
-permalink: /SUMO-GUI/
+title: sumo-gui
+permalink: /sumo-gui/
 ---
 
 # From 30.000 feet
 
-**SUMO-GUI** is basically the same application as
-[SUMO](SUMO.md), just extended by a graphical user interface.
+**sumo-gui** is basically the same application as
+[sumo](sumo.md), just extended by a graphical user interface.
 
 - **Purpose:** Simulates a defined scenario
 - **System:** portable (Linux/Windows is tested); opens a window
-- **Input (mandatory):** A SUMO-configuration file (see [SUMO](SUMO.md))
-- **Output:** SUMO-GUI generates the same output as [SUMO](SUMO.md)
+- **Input (mandatory):** A SUMO-configuration file (see [sumo](sumo.md))
+- **Output:** sumo-gui generates the same output as [sumo](sumo.md)
 - **Programming Language:** C++
 
 # Usage Description
 
 ![guisim_empty.png](images/Guisim_empty.png)
 
-*Initial appearence of SUMO-GUI; may differ from what you see*
+*Initial appearence of sumo-gui; may differ from what you see*
 
-Being a window-based application, SUMO-GUI is started by a double click
+Being a window-based application, sumo-gui is started by a double click
 with the left mouse button on Windows, on Linux probably with a single
 click. After this, an empty window should show up, similar to the one
 shown in the image.
 
 Using either the "File-\>Open Simulation..." menu entry or by using the
 "open"-icon (![Image:open_sim.gif](images/Open_sim.gif)),
-you should be able to load an existing [SUMO](SUMO.md)
+you should be able to load an existing [sumo](sumo.md)
 [configuration
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files),
 if it has the proper [extension](Other/File_Extensions.md)
-*".sumocfg"*. If the [SUMO](SUMO.md) [configuration
+*".sumocfg"*. If the [sumo](sumo.md) [configuration
 file](Basics/Using_the_Command_Line_Applications.md#configuration_files)
 is erroneous, the errors are reported, otherwise your network referenced
 within the configuration file should be shown. Now you can start to
@@ -61,7 +61,7 @@ Besides loading simulation configurations, it is also possible to load
 networks by using either the "File-\>Open Network..." menu entry or by
 using the "open network"-icon (![Image:open_net.gif](images/Open_net.gif
 "Image:open_net.gif")). Please note, that normally
-**SUMO-GUI** assumes networks have the
+**sumo-gui** assumes networks have the
 [extension](Other/File_Extensions.md) *".net.xml"*, but also
 accepts other extensions.
 
@@ -189,7 +189,7 @@ The following additional functions are available via right-click:
 
 ## Selecting Objects
 
-**SUMO-GUI** allows for the selection of arbitrary
+**sumo-gui** allows for the selection of arbitrary
 network elements such as edges, lanes and junctions, which can be saved
 to a file (and also loaded from a file) for further processing.
 Selection is done by either choosing "Add To Selected" from the context
@@ -209,7 +209,7 @@ junction:myJunction
 
 Most network objects can be colored according to their selection status
 (*color by selection*) and selected network elements may be manipulated
-as a group in [NETEDIT](NETEDIT.md).
+as a group in [netedit](netedit.md).
 
 ## Locating Objects
 
@@ -601,7 +601,7 @@ well](#changing_the_appearancevisualisation_of_the_simulation).
 
 In addition to changing the appearance of simulated structures, one may
 also load additional background images ("decals") into
-**SUMO-GUI**. For this, open the visualisation
+**sumo-gui**. For this, open the visualisation
 settings using ![Image:colorwheel.gif](images/Colorwheel.gif
 "Image:colorwheel.gif") and - if you are not yet here - choose the
 "Background" panel (figure 1.1). You will see a table with following
@@ -614,7 +614,7 @@ columns: **picture file**, **center x**, **center y**, **width**,
 
 Now, if you click into the first row of the "picture file" column, you
 should be able to enter the complete path of an image file. Confirming
-the path by pressing RETURN should force **SUMO-GUI**
+the path by pressing RETURN should force **sumo-gui**
 to load and display the file below the road network, as shown in figure
 1.2.
 
@@ -623,7 +623,7 @@ to load and display the file below the road network, as shown in figure
 
 **Fig. 1.2: Example of a background image (decal).**
 
-Currently, **SUMO-GUI** may load .gif, .png and .bmp
+Currently, **sumo-gui** may load .gif, .png and .bmp
 files. If built with gdal-support further formats such as .tif are also
 usable.
 
@@ -680,10 +680,10 @@ settings) support (Red,Green,Blue,Alpha) color values.
 
 # Configuration Files
 
-**SUMO-GUI** uses the same configuration files as
+**sumo-gui** uses the same configuration files as
 SUMO. The recognized options can be obtained by calling *sumo --help* or
 you save a configuration file with default settings by calling `sumo --save-template <file> --save-commented`. The option **--gui-settings-file** is specific
-to **SUMO-GUI**. It allows you to load a previously
+to **sumo-gui**. It allows you to load a previously
 saved gui-settings file. The easiest way to obtain a gui-settings file
 is via the *View Settings*-Dialog
 ![Image:Open_viewsettings_editor.gif](images/Open_viewsettings_editor.gif
@@ -737,9 +737,9 @@ Breakpoints-\>save).
 You may either load *example.sumocfg* using the *open simulation*-dialog
 or by using the command-line `sumo-gui -c example.sumocfg`.
 
-You may use a XML schema definition file for setting up a SUMO-GUI
+You may use a XML schema definition file for setting up a sumo-gui
 configuration:
-[sumoConfiguration.xsd](http://sumo.sf.net/doc/current/docs/xsd/sumoConfiguration.xsd).
+[sumoConfiguration.xsd](https://sumo.dlr.de/xsd/sumoConfiguration.xsd).
 
 It is also possible to reference a predefined scheme by it's name alone:
 
@@ -768,12 +768,12 @@ simulation. The visualization settings can be set
 independently for each view. The viewing windows can be managed using
 the *Windows* menu in the main menu bar.
 
-When passing multiple files to the [SUMO](SUMO.md)-option **--gui-settings-file**, one
+When passing multiple files to the [sumo](sumo.md)-option **--gui-settings-file**, one
 viewing window is opened for each file at the start of the simulation.
 
 ## 3D Visualization
 
-When SUMO-GUI was compiled with [OSG
+When sumo-gui was compiled with [OSG
 (OpenSceneGraph)](http://www.openscenegraph.org/) support an additional
 (![Image:NewView3D.gif](images/NewView3D.gif))-button is
 present which can be used to open a 3D-View.
@@ -793,19 +793,19 @@ time-intervals.
   files](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md)
 - edge-probability files generated by
   [randomTrips.py](Tools/Trip.md#customized_weights)
-- [MAROUTER netload-output](MAROUTER.md#macroscopic_outputs)
+- [marouter netload-output](marouter.md#macroscopic_outputs)
 - [Smoothed traveltimes from
   device.rerouting](Demand/Automatic_Routing.md) when running
-  [SUMO](SUMO.md) with option **--device.rerouting.output**.
+  [sumo](sumo.md) with option **--device.rerouting.output**.
 - [showDepartsAndArrivalsPerEdge.py](Tools/Routes.md#showdepartsandarrivalsperedge)
 
 These files can be used with
-[DUAROUTER](Demand/Shortest_or_Optimal_Path_Routing.md#custom_edge_weights)
-and with [SUMO](SUMO.md) to affect vehicle routing. When running
-**SUMO-GUI**, these files can be visualized by
+[duarouter](Demand/Shortest_or_Optimal_Path_Routing.md#custom_edge_weights)
+and with [sumo](sumo.md) to affect vehicle routing. When running
+**sumo-gui**, these files can be visualized by
 setting the edge coloring *by loaded weight*.
 
-**SUMO-GUI** can also be used to visualize the
+**sumo-gui** can also be used to visualize the
 contained data to see how various traffic measures changed over time
 (without running a simulation at the same time).
 
@@ -814,7 +814,7 @@ contained data to see how various traffic measures changed over time
 
 Edgedata files for visualization can be loaded by setting option **--edgedata-files**. All
 attributes will be loaded and can be selected in the edge visualization
-settings They can also be loaded in **SUMO-GUI** from
+settings They can also be loaded in **sumo-gui** from
 the menu using *File-\>Open EdgeData*. The simulation end time will be
 automatically adjusted to the end of the data range.
 

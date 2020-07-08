@@ -1,11 +1,11 @@
 ---
-title: ACTIVITYGEN
-permalink: /ACTIVITYGEN/
+title: activitygen
+permalink: /activitygen/
 ---
 
 # From 30.000 feet
 
-**ACTIVITYGEN** reads the definition of a
+**activitygen** reads the definition of a
 population matching an also given network. It computes and mobility
 wishes for this population.
 
@@ -14,24 +14,24 @@ wishes for this population.
 - **Input (mandatory):**
 
   A) a road network as generated via
-  [NETCONVERT](NETCONVERT.md) or
-  [NETGENERATE](NETGENERATE.md), see [Building Networks](index.md#network_building)
+  [netconvert](netconvert.md) or
+  [netgenerate](netgenerate.md), see [Building Networks](index.md#network_building)
 
   B) a population definition, see [Activity-based Demand Generation](Demand/Activity-based_Demand_Generation.md)
 
 - **Output:** [Definition of Vehicles, Vehicle Types, and
   Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-  usable by [SUMO](SUMO.md)
+  usable by [sumo](sumo.md)
 - **Programming Language:** C++
 
 # Usage Description
 
 A step by step description for using
-**ACTIVITYGEN** can be found [here](Demand/Activity-based_Demand_Generation.md)
+**activitygen** can be found [here](Demand/Activity-based_Demand_Generation.md)
 
 ## Options
 
-You may use a XML schema definition file for setting up a ACTIVITYGEN
+You may use a XML schema definition file for setting up a activitygen
 configuration:
 [activitygenConfiguration.xsd](http://sumo.dlr.de/xsd/activitygenConfiguration.xsd).
 

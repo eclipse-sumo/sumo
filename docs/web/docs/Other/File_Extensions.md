@@ -14,28 +14,28 @@ this pattern.
 - Configuration files (always the first four letters of the
 corresponding executable with "cfg" appended)
   - **\*.sumocfg** (formerly .sumo.cfg): Configuration file for
-    [SUMO](../SUMO.md) and [SUMO-GUI](../SUMO-GUI.md)
+    [sumo](../sumo.md) and [sumo-gui](../sumo-gui.md)
     ([xsd](http://sumo.dlr.de/xsd/sumoConfiguration.xsd))
   - **\*.netccfg** (formerly .netc.cfg): Configuration file for
-    [NETCONVERT](../NETCONVERT.md)
+    [netconvert](../netconvert.md)
     ([xsd](http://sumo.dlr.de/xsd/netconvertConfiguration.xsd))
   - **\*.netgcfg** (formerly .netg.cfg): Configuration file for
-    [NETGENERATE](../NETGENERATE.md)
+    [netgenerate](../netgenerate.md)
     ([xsd](http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd))
   - **\*.duarcfg** (formerly .rou.cfg): Configuration file for
-    [DUAROUTER](../DUAROUTER.md)
+    [duarouter](../duarouter.md)
     ([xsd](http://sumo.dlr.de/xsd/duarouterConfiguration.xsd))
   - **\*.jtrrcfg** (formerly .jtr.cfg): Configuration file for
-    [JTRROUTER](../JTRROUTER.md)
+    [jtrrouter](../jtrrouter.md)
     ([xsd](http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd))
   - **\*.dfrocfg** (formerly .df.cfg): Configuration file for
-    [DFROUTER](../DFROUTER.md)
+    [dfrouter](../dfrouter.md)
     ([xsd](http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd))
   - **\*.od2tcfg** (formerly .od2t.cfg): Configuration file for
-    [OD2TRIPS](../OD2TRIPS.md)
+    [od2trips](../od2trips.md)
     ([xsd](http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd))
   - **\*.acticfg** (formerly .act.cfg): Configuration file for
-    [ACTIVITYGEN](../ACTIVITYGEN.md)
+    [activitygen](../activitygen.md)
     ([xsd](http://sumo.dlr.de/xsd/activitygenConfiguration.xsd))
 
 - Data files
@@ -49,36 +49,36 @@ corresponding executable with "cfg" appended)
     ([xsd](http://sumo.dlr.de/xsd/routes_file.xsd),
     [description](../Demand/Dynamic_User_Assignment.md#general_behavior))
   - **\*.add.xml**:
-    [SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md) - {{AdditionalFile}}
+    [sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) - {{AdditionalFile}}
     ([xsd](http://sumo.dlr.de/xsd/additional_file.xsd), missing description)
     - traffic lights only
       ([xsd](http://sumo.dlr.de/xsd/tllogic_file.xsd), missing
       description)
-  - **\*.edg.xml**: [NETCONVERT](../NETCONVERT.md) - edges file
+  - **\*.edg.xml**: [netconvert](../netconvert.md) - edges file
     ([xsd](http://sumo.dlr.de/xsd/edges_file.xsd),
     [description](../Networks/PlainXML.md#edge_descriptions))
-  - **\*.nod.xml**: [NETCONVERT](../NETCONVERT.md) - nodes file
+  - **\*.nod.xml**: [netconvert](../netconvert.md) - nodes file
     ([xsd](http://sumo.dlr.de/xsd/nodes_file.xsd),
     [description](../Networks/PlainXML.md#node_descriptions))
-  - **\*.con.xml**: [NETCONVERT](../NETCONVERT.md)- connection
+  - **\*.con.xml**: [netconvert](../netconvert.md)- connection
     file ([xsd](http://sumo.dlr.de/xsd/connections_file.xsd),
     [description](../Networks/PlainXML.md#connection_descriptions))
-  - **\*.typ.xml**: [NETCONVERT](../NETCONVERT.md)- edge types
+  - **\*.typ.xml**: [netconvert](../netconvert.md)- edge types
     file ([xsd](http://sumo.dlr.de/xsd/types_file.xsd),
     [description](../SUMO_edge_type_file.md))
   - **\*.trips.xml**: trip definitions for
-    [DUAROUTER](../DUAROUTER.md),[SUMO](../SUMO.md)
+    [duarouter](../duarouter.md),[sumo](../sumo.md)
     ([description](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#incomplete_routes_trips_and_flows))
   - **\*.flows.xml**: flow definitions for
-    [JTRROUTER](../JTRROUTER.md),[DUAROUTER](../DUAROUTER.md),[SUMO](../SUMO.md)
+    [jtrrouter](../jtrrouter.md),[duarouter](../duarouter.md),[sumo](../sumo.md)
     ([description](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#incomplete_routes_trips_and_flows))
   - **\*.turns.xml**: turn and sink definitions for
-    [JTRROUTER](../JTRROUTER.md)
+    [jtrrouter](../jtrrouter.md)
     ([xsd](http://sumo.dlr.de/xsd/turns_file.xsd),
     [description](../Demand/Routing_by_Turn_Probabilities.md))
   - **\*.taz.xml**: traffic analysis zones (or districts) file
     mainly for
-    [OD2TRIPS](../OD2TRIPS.md),[DUAROUTER](../DUAROUTER.md),[SUMO](../SUMO.md)
+    [od2trips](../od2trips.md),[duarouter](../duarouter.md),[sumo](../sumo.md)
     ([xsd](http://sumo.dlr.de/xsd/taz_file.xsd))
     ([description](../Demand/Importing_O/D_Matrices.md#describing_the_taz))
 
@@ -128,24 +128,24 @@ corresponding executable with "cfg" appended)
 ## Imported Files
 
 - **\*.osm**: OpenStreetMap XML databases as imported by
-[NETCONVERT](../NETCONVERT.md) and
-[POLYCONVERT](../POLYCONVERT.md), see [OpenStreetMap
+[netconvert](../netconvert.md) and
+[polyconvert](../polyconvert.md), see [OpenStreetMap
 file](../OpenStreetMap_file.md)
 - **\*.xodr**: OpenDRIVE XML network files as imported by
-[NETCONVERT](../NETCONVERT.md)
+[netconvert](../netconvert.md)
 - **\*.inp**: VISSIM network files as imported by
-[NETCONVERT](../NETCONVERT.md)
+[netconvert](../netconvert.md)
 - **\*.net**: VISUM network files as imported by
-[NETCONVERT](../NETCONVERT.md) and
-[POLYCONVERT](../POLYCONVERT.md), see
+[netconvert](../netconvert.md) and
+[polyconvert](../polyconvert.md), see
 [Networks/Import/VISUM](../Networks/Import/VISUM.md)
 - **\*.shp, \*.shx, \*.dbf**: ArcView-network descriptions (shapes,
 shape indices, definitions) as imported by
-[NETCONVERT](../NETCONVERT.md) and
-[POLYCONVERT](../POLYCONVERT.md)
+[netconvert](../netconvert.md) and
+[polyconvert](../polyconvert.md)
 - **\*.xml**:
   - MATSim road networks as imported by
-    [NETCONVERT](../NETCONVERT.md), see
+    [netconvert](../netconvert.md), see
     [Networks/Import/MATsim](../Networks/Import/MATsim.md)
 
 ## Exported Files

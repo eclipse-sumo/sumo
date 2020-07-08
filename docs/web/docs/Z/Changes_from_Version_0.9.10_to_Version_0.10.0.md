@@ -13,7 +13,7 @@ permalink: /Z/Changes_from_Version_0.9.10_to_Version_0.10.0/
   - (junction) internal lanes are the default now
   - copyright changed (removed obsolete ZAIK reference)
 
-- GUISIM
+- sumo-gui
   - solved [bug 2163422: Simulation does not start automatically](http://sourceforge.net/tracker/index.php?func=detail&aid=2163422&group_id=45607&atid=443424)
   - refactored the visualization speed-up; instead of using a
     self-made hack that uses a grid, an rtree structure is now used.
@@ -44,7 +44,7 @@ permalink: /Z/Changes_from_Version_0.9.10_to_Version_0.10.0/
   - changed format of dump definitions from command line to xml
     configuration
 
-- NETCONVERT
+- netconvert
   - solved [bug 2137657: edges disappear in combination with --keep-edges](http://sourceforge.net/tracker/index.php?func=detail&aid=2137657&group_id=45607&atid=443424)
   - changed APIs for setting lane-2-lane connections
   - work on Vissim-import
@@ -70,17 +70,17 @@ permalink: /Z/Changes_from_Version_0.9.10_to_Version_0.10.0/
   - removed unneeded option **--all-logics**
 
 - Router
-  - solved [bug 2149069: DFROUTER does not work with internal lanes](http://sourceforge.net/tracker/index.php?func=detail&aid=2149069&group_id=45607&atid=443424)
+  - solved [bug 2149069: dfrouter does not work with internal lanes](http://sourceforge.net/tracker/index.php?func=detail&aid=2149069&group_id=45607&atid=443424)
 
-- DFROUTER
+- dfrouter
   - removed support for elmar's detector descriptions
   - removed **--fast-flows** option
-  - solved [bug 2165708: False speed conversion in DFROUTER?](http://sourceforge.net/tracker/index.php?func=detail&aid=2165708&group_id=45607&atid=443424)
+  - solved [bug 2165708: False speed conversion in dfrouter?](http://sourceforge.net/tracker/index.php?func=detail&aid=2165708&group_id=45607&atid=443424)
   - named classes properly
   - applied changes to trigger definitions (see "Simulation")
-  - solved [bug 2165666: DFROUTER does not regard ''--all-end-follower"](http://sourceforge.net/tracker/index.php?func=detail&aid=2165666&group_id=45607&atid=443424)
+  - solved [bug 2165666: dfrouter does not regard ''--all-end-follower"](http://sourceforge.net/tracker/index.php?func=detail&aid=2165666&group_id=45607&atid=443424)
 
-- POLYCONVERT
+- polyconvert
   - refactoring
   - in-line documentation added
   - added OSM-import functionality

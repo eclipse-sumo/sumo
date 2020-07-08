@@ -20,7 +20,7 @@ loaded by the simulation.
 </additional>
 ```
 
-The following attributes are used within the `routeProble` element:
+The following attributes are used within the `routeProbe` element:
 
 | Attribute Name | Value Type  | Description                                       |
 | -------------- | ----------- | ------------------------------------------------- |
@@ -28,13 +28,13 @@ The following attributes are used within the `routeProble` element:
 | **edge**       | id (string) | The id of an edge in the simulation network       |
 | **freq**       | time (s)    | The frequency in which to report the distribution |
 | **file**       | string      | The file for generated output                     |
-| begin          | time (s)    | The time at which to start generating output      |
+| **begin**      | time (s)    | The time at which to start generating output      |
 
 ## Generated Output
 
 The output takes the form of a [route alternative
-file](../../DUAROUTER.md#outputs) which can be loaded directly in
-[SUMO](../../SUMO.md)
+file](../../duarouter.md#outputs) which can be loaded directly in
+[sumo](../../sumo.md)
 
 ```
 <route-probes>

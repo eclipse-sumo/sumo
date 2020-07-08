@@ -38,7 +38,7 @@ permalink: /ChangeLog/
   - Option **--fcd-output.distance** now also applies to Meso. Issue #7069  
   - Fixed invalid exit times in vehroute-output
   
-- NETCONVERT
+- netconvert
   - Fixed crash when patching a network with '.tll.xml' file. Issue #7014 (Regression in 1.6.0)
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7017
   - Fixed missing traffic lights when using **--tls.guess-signals** together with **--junctions.join**. Issue #6977
@@ -50,12 +50,12 @@ permalink: /ChangeLog/
   - Fixed invalid 'neigh' lanes when editing network. Issue #7108
   - Fixed bad node shapes at complex intersections with roads and footpaths. Issue #7042  
   
-- SUMO-GUI
+- sumo-gui
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
   - Fixed crash in mesosim when keeping vehicle parameter window open. Issue #7194
   
-- NETEDIT
+- netedit
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
   - Routes with a single edge can now be created. Issue #7129
   - Fixed bug where all passenger lanes changed their permissions when adding a sidewalk. Issue #7135
@@ -100,7 +100,7 @@ permalink: /ChangeLog/
   - Strategic lane-changes can now be disabled by setting 'lcStrategic="-1"`. Issue #7180
   - Taxi pickup and drop-off location can now be restricted to public transport stops by setting **--persontrip.transfer.walk-taxi ptStops** and **--persontrip.transfer.taxi-walk ptStops**. Issue #7192
   
-- NETCONVERT
+- netconvert
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
   - Added option **edges.join-tram-dist {{DT_FLOAT}}** which can be used to join overlying road and tram edges into a single lane with combined permissions. This is needed for the correct dynamics in OSM-derived networks. Issue #6980
   - When loading **ptstop-files** and filtering the network extend, the loaded stops will be filtered automatically. Issue #7024
@@ -110,24 +110,24 @@ permalink: /ChangeLog/
   - Added new traffic light layout 'alternateOneWay' to model work zones where each direction uses the interior of a joined traffic light exclusively. Issue #7199
   - Added option **--roundabouts.visibility-distance** to set the default visibility distance when entering a roundabout. The new default is 9 (meters) which is twice the default link visibility and this leads to smoother flow when there are no foe vehicles at a roundabout. The old behavior can be restored by setting **--roundabouts.visibility-distance -1**. Issue #4703
   
-- NETEDIT
-  - Edges can now be colored by edgeData attribute (as in SUMO-GUI). Issue #6953
-  - Added function 'select reachable' to the edge context menu (just like SUMO-GUI). Issue #6995
+- netedit
+  - Edges can now be colored by edgeData attribute (as in sumo-gui). Issue #6953
+  - Added function 'select reachable' to the edge context menu (just like sumo-gui). Issue #6995
   - In create-route-mode, edges can now be colored by reachability from the last selected edge. Issue #6995
   - Added junction context-menu option *select roundabout*. Issue #5606
   - Added junction context-menu option *convert to roundabout*. Issue #7030
   - Vehicles and Flows with their own (unnamed) route can now be created directly. Issue #7103  
 
-- SUMO-GUI
+- sumo-gui
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
   - A color legend for vehicle colors can no be enabled via the 'Legend' tab. Issue #6930
   - Vehicles can now be stopped and stops can be aborted via context menu.
   - The hiding-treshold for edge coloring can now also hide edge color value labels (to avoid clutter from irrelevant numbers). Issue #7140
   
-- DUAROUTER
+- duarouter
   - Route attributes 'repeat' and 'cycleTime' are now supported. Issue #7165
   
-- OD2TRIPS
+- od2trips
   - Can now specify persontrip modes with option **--persontrip.modes**. Issue #7219
 
 - All Applications
@@ -143,7 +143,7 @@ permalink: /ChangeLog/
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now visualize person trajectories using option **--persons**. Issue #6978
-  - Added new tool [computeCoordination.py](Tools/Output.md/computecoordinationpy) to compute the fraction of delayed vehicles along a defined corridor. Issue #6987
+  - Added new tool [computeCoordination.py](Tools/Output.md#computecoordinationpy) to compute the fraction of delayed vehicles along a defined corridor. Issue #6987
   - implausibleRoutes.py now works better with routes consisting of a single edge only and respects internal edge lengths. It can also detect routes containing edge loops or node loops. Issue #7071
   - osmWebWizard now exports public transport edges for rail vehicles when setting both of the options 'Car-only Network' and 'Import public transport'. Issue #7081
   - [edgeDataFromFlow.py](Tools/Detector.md#edgedatafromflowpy) now supports time intervals. Issue #7133
@@ -153,14 +153,14 @@ permalink: /ChangeLog/
 ### Other
 - Simulation
   - Route attribute 'period' was renamed to 'cycleTime'. Issue #7168
-- Netconvert
+- netconvert
   - Roads of type 'highway.track' (aggricultural roads) are no longer accessible by cars when importing OSM data. Issue #7082
 
 - TraCI
   - In the python client, function vehicle.getLeader can now optionally return the pair ("", -1) instead of 'None' if no leader is found. The new behavior can be enabled by calling function traci.setLegacyGetLeader(False). In later versions this will be the default behavior. The return value 'None' is deprecated. Issue #7013
 
 - Tools
-  - [randomTrips.py](Tools/Trip.md) now generates repeatable results by default (by using a fixed default seed). To obtain the prior random behavior without specifying a seed, the option **--random** can be used (just like for [SUMO](SUMO.md)). Issue #6989
+  - [randomTrips.py](Tools/Trip.md) now generates repeatable results by default (by using a fixed default seed). To obtain the prior random behavior without specifying a seed, the option **--random** can be used (just like for [sumo](sumo.md)). Issue #6989
 
 - Documentation
   - Dark Mode added (not available on Internet Explorer)
@@ -208,7 +208,7 @@ permalink: /ChangeLog/
     
 - MESO
   - Calibrator attribute `vTypes` is now working. Issue #6702
-- NETCONVERT
+- netconvert
   - Fixed precision when filtering network with a given boundary. Issue #6206
   - Fixed missing connections when importing OpenDRIVE. Issue #6712
   - OpenDRIVE networks where a single edges is connected to more than two junctions are now supported. Issue #6828
@@ -217,19 +217,19 @@ permalink: /ChangeLog/
   - OpenDRIVE import now correctly handles `signalReference` and signal `laneValidity` elements. Issue #2517, #2366
   - Fixed errors when loading custom lane shapes. Issue #6892, #6893, #6894, #6895
   - Fixed bug that could cause an invalid intermodal network to be written. Issue #6901
-- SUMO-GUI
+- sumo-gui
   - Fixed layout of meso edge parameter dialog at high occupancy (regression in 1.5.0)
   - Fixed crash when simulation ends while tracking person attributes. Issue #6784
   - Fixed missing stop annotations in 'show-route' mode. Issue #6814
   - Fixed crash when scaling railway track width. Issue #6859
-- NETEDIT
+- netedit
   - Fixed empty route id when creating route from non-consecutive edges with custom id. Issue #6722
   - Fixed invalid displayed connection attribute. Issue #6760
   - Fixed crash when moving a selection of junctions and edges. Issue #4918
-- DUAROUTER
+- duarouter
   - Attribute `group` of `<ride>` and `<personTrip>` is no longer lost. Issue #6555
   - Train routing now considers space requirement for train reversal. Issue #6697
-- OD2TRIPS
+- od2trips
   - Option **--departpos** is now working for pedestrians and personTrips. Issue #6720
 - TraCI
   - Fixed crash when calling vehicle.moveTo for an off-road vehicle with tripinfo-output. Issue #6717
@@ -266,10 +266,10 @@ permalink: /ChangeLog/
   - Public transport import from OSM now supports route definitions with abbreviated style. Issue #6862
   - Added option **--save-state.rng**. When this option is set, saved simulation state will include the state of all random number generators and this state will be restored upon loading. This RNG state takes up about 500kb. Issue #1418
       
-- NETEDIT
+- netedit
   - Added new 'Data Mode' to edit files with edge and turn-related data (`<edgeData>`, `<edgeRelation>`). Issue #6461
   - Traffic light phase editing function 'Insert Phase' now takes successive green states into account when synthesizing transition phases. Issue #6732
-- SUMO-GUI
+- sumo-gui
   - Missing data values (color by edgeData) can now be distinguished from negative data values. Issue #6660
   - `<edgeRelation>`-data files can now be visualized. Issue #6659
   - Traffic lights of type 'delay_based' can now dynamically toggle detector visualization.
@@ -281,7 +281,7 @@ permalink: /ChangeLog/
   - When loading a network with internal lanes and setting the option **--no-internal-links**, the internal lanes are still shown. This helps to understand track topology in rail networks. Issue #6852
   - Visualization of a vehicles route can now be configured with the menu option 'Draw looped routes' which can be disabled to reduce clutter in looped public transport routes. Issue #6917
   
-- NETCONVERT
+- netconvert
   - Edge attribute `spreadType` now supports value `roadCenter` which aligns edges with common geometry so that the geometry reflects the middle of the road regardless of differences in lane numbers (causing natural alignment for turning lanes). Issue #1758
   - Added option **--default.spreadtype** to set the default spread type for edges. Issue #6662
   - Connections now support attribute ''length'' to customize the length of internal lanes. Issue #6733
@@ -290,7 +290,7 @@ permalink: /ChangeLog/
   - Added node attribute 'name' to hold an optional string label. Issue #6635
   - Direction-specific speeds are now imported from OSM (*maxspeed:forward*, *maxspeed:backward*). Issue #6883
   
-- DUAROUTER
+- duarouter
   - When loading weights from edgeData files, arbitrary attributes can now be used with option **--weight-attribute**. Issue #6817
   - Added option **--weights.priority-factor FLOAT** to factor the priority of edges into the routing decision with a configurable weight (edges with higher priority are preferred increasingly when setting this to a higher value). Issue #6812
    
@@ -309,7 +309,7 @@ permalink: /ChangeLog/
     - supports loading multiple data intervals. Data aggregation can be customized using options **--begin**, **--end**, **--interval**
     - supports loading multiple files (routes, edgedata, turns). The corresponding options were renamed accordingly (**--route-files, --edgedata-files, --turn-files**)
     - supports optimization by linear programming using option **--optimize INT|full** (requires scipy). The integer argument can be used to configure the maximum deviation from the input route distribution.
-    - supports output of mismatch between measured counts and sampled counts for visualization in SUMO-GUI via `edgeData` and `edgeRelation` files using option **--mismatch-output**
+    - supports output of mismatch between measured counts and sampled counts for visualization in sumo-gui via `edgeData` and `edgeRelation` files using option **--mismatch-output**
     - supports direct optimization of route input (without resampling) by setting option **--optimize-input**
     - supports multi-edge counting data using `<edgeRelation from="A" to="D" via="B C" count="INT"/>`. Issue #6729
     - supports non-consecutive edgeRelations with maximum gap by using the new option **--turn-max-gap <INT>**. Issue #6726
@@ -318,10 +318,10 @@ permalink: /ChangeLog/
 
 ### Other
 - Network version is now 1.6 (Issue #1758)
-- The turn-file format used by JTRROUTER is now deprecated. Instead the new edgeRelation-file format should be used. To convert old files into the new format, the tool turnFile2EdgeRelations.py can be used. The tools jtcrouter.py and routeSampler.py will only accept the new file format as input.
-- NETCONVERT
+- The turn-file format used by jtrrouter is now deprecated. Instead the new edgeRelation-file format should be used. To convert old files into the new format, the tool turnFile2EdgeRelations.py can be used. The tools jtcrouter.py and routeSampler.py will only accept the new file format as input.
+- netconvert
   - Signal references from OpenDRIVE networks are now exported as a mapping from sumo-tls-link-index to OpenDRIVE-signal-id instead of sumo-edge to OpenDRIVE-signal-name. Issue #6863
-- NETEDIT
+- netedit
   - supermode hotkeys changed
     - F2: Network mode
     - F3: Demand mode
@@ -342,13 +342,13 @@ permalink: /ChangeLog/
   - Fixed bug where rerouting failed for no reason. Issue #6572
   - Fixed invalid error when loading a network where edge-IDs have non-ascii characters. Issue #6597
 
-- SUMO-GUI
+- sumo-gui
   - Fixed visualisation of containers. Issue #6426
   - Text setting options 'constant size' and 'background' are now working for 'link junction index' and 'link tls index'. Issue #6376
   - Traffic light parameter 'running duration' is now correct when switching phases via TraCI. Issue #6520
   - Fixed bug where Locator-Dialog 'Center' button remained disabled after successfully locating objects via substring filtering. Issue #6593
   
-- NETEDIT
+- netedit
   - Creating new traffic light plans where a plan already exists no longer results in invalid plans at joined traffic lights or traffic lights with signal groups. Instead a copy of the existing plan is created. Accordingly the button caption now varies between 'Create' and 'Copy'. Issue #6536, #6537
   - Fixed invalid position of Vehicle with negative departPos. Issue #6473
 
@@ -356,7 +356,7 @@ permalink: /ChangeLog/
   - Fixed invalid simulation state when vehicles are teleporting. Issue #6408
   - Meso calibrator is now shown in GUI. Issue #2345
   
-- NETCONVERT
+- netconvert
   - Fixed bug where loaded connection was not created. Issue #6470
   - Fixed bug where turning restrictions from OSM were violated. Issue #6482
   - Option **--flip-y-axis** is now working. In can be used to turn a right-hand network into a left-hand network and vice versa. Issue #3838
@@ -392,11 +392,11 @@ permalink: /ChangeLog/
   - Cooperative speed adjustment can now be configured independently from other cooperation by setting the new vType attribute 'lcCooperativeSpeed'. Issue #6534
   - Vehicles can now foresee speed reductions on their lane and change before being slowed down (configurable by new vType attribute 'lcSpeedGainLookahead'. Issue #6547
 
-- SUMO-GUI
+- sumo-gui
   - Dead-end links in the middle of a road are now colored in magenta to highlight connectivity problems. Issue #6391
   - Vehicles that stop (with a `<stop>`) in the middle of the road now activate emergency blinkers. Issue #6608
 
-- NETEDIT
+- netedit
   - Stacked vehicles (overlapping due to similar departPos) are now indicated by a number. Issue #6485
   - Stacked vehicles can now be "unstacked" by setting the option 'spread vehicles'. This spreads them alonger the lane sorted by depart time. Issue #5602
   - Flows are now distinguished from individual vehicles with a text caption. Issue #6486
@@ -407,7 +407,7 @@ permalink: /ChangeLog/
   - The background grid size can now be increased and decreased with hotkeys CTRL+PAGE_UP, CTRL+PAGE_DOWN. Issue #6542
   - Demand objects (vehicles, routes, ...) can now be located by ID. Issue #5110
 
-- NETCONVERT
+- netconvert
   - Improved connection building heuristic. Issue #6295, #6467, #6468
   - Improved heuristic for option **--junctions.join**. Issue #872, Issue #5398
   - Improved heuristic for option **--tls.guess**. Issue #6512
@@ -419,16 +419,16 @@ permalink: /ChangeLog/
   - Added option **--no-turnarounds.fringe** to prevent building of turnaround-connections at the network fringe. Issue #6621
   - Added option **--ptstop-output.no-bidi** to skip automatic generation of a bidi-stop on a bidirectional rail edge. Issue #6598
   
-- NETGENERATE
+- netgenerate
   - Fringe nodes are now automatically marked in grid networks when setting **--grid.attach-length** > 0. Issue #6622
 
-- DUAROUTER
+- duarouter
   - The maximum [map-matching](Demand/Shortest_or_Optimal_Path_Routing.md#mapmatching) distance is now configurable using option **--mapmatch.distance**. Also, mapmatching with large distance is now computationally efficient. Issue #6476
   - Trip, flows, personTrips and walks with attributes `fromJunction`,`toJunction` and `viaJunctions` are now supported when setting option **--junction-taz**. Issue #6474
   - Trips can now be written with attributes `fromJunction` and `toJunction` and `viaJunctions` by setting option **--write-trips.junctions**. Issue #6474
   - When using trip attributes `fromXY`, `fromLonLat`, etc. the given positions can now be mapped to junctions instead of edges by setting option **--mapmatch.junctions**. Issue #6475  
 
-- JTRROUTER
+- jtrrouter
   - Added option **--sources-are-sinks** (shortcut **-S**). When this option is set, all flows will terminate upon reaching the from-edge of another flow. Issue #6601
   - Added option **--discount-sources** (shortcut **-D**). When this option is set, the flow departing at an edge will be reduced by the amount of traffic that has reached this edge from upstream flows. When combined with option **--sources-are-sinks**, upstream flows will terminate at a downstream edge when the source flow number has been reached. This can be used to build a scenario from flow counts at arbitrary locations. Issue #6601
 
@@ -443,7 +443,7 @@ permalink: /ChangeLog/
   - Added [randomTrips.py](Tools/Trip.md) option **--personrides LINE** to generated person rides with the give line id.
   - Added [randomTrips.py](Tools/Trip.md) option **--junction-taz** to generated trips, flows, personTrips and walks between junctions. Issue #6474
   - Added the ability to download Satellite image backgrounds (using [tileGet.py](Tools/Misc.md#tilegetpy)) in [osmWebWizard](Tools/Import/OSM.md#osmwebwizardpy). Issue #6481
-  - Added new tool [jtcrouter.py](Tools/Turns.md#jtcrouterpy) to build a traffic demand scenario based on turn-count data (this uses [JTRROUTER](JTRROUTER.md) in the background). Issue #6229
+  - Added new tool [jtcrouter.py](Tools/Turns.md#jtcrouterpy) to build a traffic demand scenario based on turn-count data (this uses [jtrrouter](jtrrouter.md) in the background). Issue #6229
   - Added new tool [routeSampler.py](Tools/Turns.md#routesampler.py) to build a traffic demand scenario based on turn-count and edge-count data. This tool samples from a given set of routes to meet the detected counts. Issue #6616
   - Added new tool [turnCount2EdgeCount.py](Tools/Turns.md#turncount2edgecountpy) which converts turn-count data into edge-count data. Issue #6619
   
@@ -452,7 +452,7 @@ permalink: /ChangeLog/
 - Build
   - removed autotools build 
 
-- SUMO-GUI
+- sumo-gui
   - the settings file no longer accepts the element breakpoints-file (command line option is still there)
   - renamed attributes in the settings (breakpoint.value to breakpoint.time and decal.filename to decal.file)
   - Default settings values 'show link junction index' and 'show link tls index' changed because their interpretation varies after #6376. Old GUI-setting files must be updated to achieve the default look.
@@ -479,13 +479,13 @@ permalink: /ChangeLog/
   - Fixed invalid state file names when using human-readable times. Issue #6365
   - Fixed invalid energy usage (battery parameters ignored) in emission-ouput, full-output, tripinfo-output and edgeData-emissions. Issue #6364, #6359
   
-- NETEDIT
+- netedit
   - Fixed crash when defining walks between disconnected locations. Issue #5369
   - Fixed crash transforming trips to flows. Issue #6050
   - Now blocked shapes can be moved again. Issue #6053
   - Fixed invalid snap to grid when trying to move junction. Issue #6067
   - Coloring edges by generic parameter is now working. Issue #6062
-  - "Open in SUMO-GUI" option now works correctly when there are spaces in the path. Issue #6227
+  - "Open in sumo-gui" option now works correctly when there are spaces in the path. Issue #6227
   - Fixed bug where multiple junctions could mistakenly be created in the same place. Issue #6228
   - Fixed invalid lane shapes while moving edge geometry in a lefthand network. Issue #6234
   - Fixed invalid edge shape when using 'replace junction' ahead of junction with custom shape. Issue #5777
@@ -493,7 +493,7 @@ permalink: /ChangeLog/
   - Fixed slowdown clicking over edges with high concentration of routes. Issue #6276
   - Fixed crash when clicking in message window with invalid crossing. Issue #6368
 
-- NETCONVERT
+- netconvert
   - Fixed bugs in classification of roundabouts. Issue #6032
   - Preventing invalid double tracks when using typemap [osmNetconvertRailUsage.typ.xml]({{Source}}data/typemap/osmNetconvertRailUsage.typ.xml). Issue #6056
   - Disabling invalid handling of railway track count in OSM input. Issue #6057
@@ -513,13 +513,13 @@ permalink: /ChangeLog/
   - Fixed crash when loading network with internal lanes that have neighbor ('neigh') data. Issue #6205
   - Fixed crash when saving state while using calibrators. Issue #6369
 
-- SUMO-GUI
+- sumo-gui
   - Sublane-borders are no longer drawn for railways and sidewalks (where the sublane model does not apply).
   - Fixed crash when using vehicle popup-menu after the vehicle has left the simulation. Issue #6107
   - Fixed crash after removing view with active vehicle visualization once the vehicle leaves the simulation. Issue #6112
-  - "Open in Netedit" option now works correctly when there are spaces in the path. Issue #6227
+  - "Open in netedit" option now works correctly when there are spaces in the path. Issue #6227
 
-- DUAROUTER
+- duarouter
   - Fixed invalid mode change from car during intermodal routing. Issue #6070
   - Fixed invalid car routes during intermodal routing. Issue #6077
   - Fixed crash when loading network imported from VISUM. Issue #6358
@@ -554,7 +554,7 @@ permalink: /ChangeLog/
 - MESO
   - Vehicles that reach maximum impatience can now pass junctions from an unprioritized road regardless of foe traffic. The old behavior can be restored by disabling impatience growth via **--time-to-impatience 0**. Issue #5830
   
-- NETCONVERT
+- netconvert
   - Railway network input with sharp angles along an edge is now corrected by default. (The previous behavior can be enabled with option **--geometry.min-angle.fix.railways false**). Issue #6921
   - Pedestrian paths are no longer checked for minimum turning angles (greatly reducing superfluous warnings). Issue #6022
   - The option **--opposites.guess.fix-length** is no longer required when using networks with default lengths (no user-set values). The resulting networks will automatically adapt their edge lengths when changing geometry. Issue #6028
@@ -568,13 +568,13 @@ permalink: /ChangeLog/
   - Improved handling of VISUM connector-edges. By default, no extra edges are generated anymore and instead the regular network edges are assigned to the TAZ. Issue #6356
   - Now TAZ imported from VISUM can be written to a separate file using option **--taz-output**. Issue #6349
 
-- NETEDIT
-  - Now additionals and routes can optionally be loaded using option "Open in SUMO-GUI"). Issue #6049
+- netedit
+  - Now additionals and routes can optionally be loaded using option "Open in sumo-gui"). Issue #6049
   - Added shortcuts (Shift F1,F2,F3) for edge templates. Issue #6033
   - VTypes can be edited in multiple selected vehicles. Issue #6051
   - Improved support of GNEStops. Issue #5367
   
-- SUMO-GUI
+- sumo-gui
   - Added 'select reachable' function to the lane context-menu to select all lanes that can be reached by a given vehicle class from the origin lane. After such an operation, the coloring scheme 'by reachability' can be used to render an isochrone travel time map. Issue #3650
   - The currently loaded options can now be saved to a configuration via the file menu. Issue #5707  
   - The object locator dialog now allows filtering the object list by matching all ids/names that include a given text string.
@@ -597,22 +597,22 @@ permalink: /ChangeLog/
   - Added new tool [generateContinuousRerouters.py](Tools/Misc.md#generatecontinuousrerouterspy) to easily create a simulation where vehicles circulate according to configured turning ratios without ever arriving. #6310
   
 ### Other
-- SUMO-GUI, NETEDIT
+- sumo-gui, netedit
   - The hotkey for 'Edit Visualization' was changed to 'F9' to avoid conflicts when pasting clipboard.
   - Zooming now centers on the mouse-position by default instead of on the screen center. As before, the behavior can be toggled using the icon in the view menu bar and persists across application restarts. Issue #5992
-- NETCONVERT
+- netconvert
   - By default repeated warnings of the same type are aggregated (only their number is given beyond the initial 5). To see all warnings, the option **--aggregate-warnings -1** can be used. Issue #6335
   - The default number of lanes when importing 'highway.secondary' from OSM was changed from 2 to 1. Issue #5690
 - Documentation 
   - moved from MediaWiki to MkDocs
-  - Added ['Hello World' tutorial](Tutorials/Hello_World.md) that shows how to create a simulation by only using NETEDIT and SUMO-GUI (no command line or text editor necessary).
+  - Added ['Hello World' tutorial](Tutorials/Hello_World.md) that shows how to create a simulation by only using netedit and sumo-gui (no command line or text editor necessary).
   - Added new example simulation in 'docs/examples/sumo/model_railroad'. The speed of the train as well as the railroad switches can be controlled while the simulation is running. Merry Christmas!
 
 ## Version 1.3.1 (27.08.2019)
 
 ### Bugfixes
 
-- NETEDIT
+- netedit
   - Fixed crash when defining vehicle stops. Issue #5963 (regression in 1.3.0)
   - Fixed crashing and invalid errors when editing vehicle type attributes. Issue #5957 (regression in 1.3.0)
   - Fixed crash after defining flow on unusable edges. Issue #5958
@@ -625,11 +625,11 @@ permalink: /ChangeLog/
   - Fixed crash when loading rail signals with long gaps in between. Issue #5983
   - Fixed invalid restrictions on vType parameters. Issue #5991 (regression in 1.3.0)
 
-- NETCONVERT
+- netconvert
   - Fixed high running time when using edge-removal options with long edge lists. Issue #5954
   - Fixed creation of invalid network after defining invalid splits. Issue #5980
 
-- DUAROUTER
+- duarouter
   - Fixed crash on empty vType in input
 
 - TraCI / libsumo
@@ -641,7 +641,7 @@ permalink: /ChangeLog/
 
 ### Enhancements
 
-- NETEDIT
+- netedit
   - Added menu option for recomputing routes of trips and flows in demand mode (F5) Issue #5978
 
 - TraCI / libsumo
@@ -687,7 +687,7 @@ permalink: /ChangeLog/
   - Fixed bug where vehicles would fail to exit from a parkingArea. Issue #5907
   - Fixed unusable person plan when loading a personTrip with a non-zero departPos. Issue #5927
 
-- SUMO-GUI
+- sumo-gui
   - Fixed crash when rendering short vehicles as *simple shapes* with guiShape *truck/trailer* and *truck/semitrailer*. Issue #5510 (regression in 1.2.0)
   - Pedestrian crossings and walkingareas are no longer listed in the edge locator dialog by default (they can still be enabled by checking *Show internal structures*. Issue #5613
   - Fixed invalid image position and size when rendering vehicles as raster images. Issue #5688 (regression in 1.2.0)
@@ -695,7 +695,7 @@ permalink: /ChangeLog/
   - Fixed invalid vehicle angle when using the sublane model in lefthand-networks. Issue #5737
   - Fixed 3D-View rotation when holding middle-mouse button.
 
-- NETCONVERT
+- netconvert
   - Fixed handling of custom shapes in lefthand networks (for connections, crossings, walkingareas). Issue #5507
   - Fixed missing connections when importing OpenDRIVE networks with short laneSections in connecting roads. Issue #5504
   - Fixed invalid link direction at intermodal intersection and at intersections with sharp angles. Issue #5511, Issue #5512
@@ -710,7 +710,7 @@ permalink: /ChangeLog/
   - Option **--junctions.scurve-stretch** is now working for junctions with non-default radius. Issue #5881
   - Fixed exaggerated lane widths when importing briefly-orthogonal border lanes from OpenDRIVE. Issue #5888
 
-- NETEDIT
+- netedit
   - Crossing tls indices are now properly reset when deleting traffic light. Issue #5549
   - Controlled pedestrian crossings at a *rail_crossing* nodes are no longer lost when saving the network with netedit. Issue #5559 (regression in 1.0.0)
   - Snap-to-grid is now working in networks with elevation data. Issue #5878
@@ -723,10 +723,10 @@ permalink: /ChangeLog/
 - MESO
   - Fixed invalid *departPos* in tripinfo-output when loading saved state. Issue #5819
 
-- DUAROUTER
+- duarouter
   - Option **--write-trips** is now working for persons. Issue #5563
 
-- JTRROUTER
+- jtrrouter
   - Vehicle types with PHEMlight emission class can now be handled. Issue #5669
 
 - TraCI / Libsumo
@@ -767,7 +767,7 @@ permalink: /ChangeLog/
   - Traffic lights with type delay_based now use a default detection range of 100m (instead of using the whole lane length). This greatly improves efficiency by avoiding interference from far-away upstream junctions. The default range can be set using the new option **--tls.delay_based.detector-range** {{DT_FLOAT}}. Issue #5897
   - Added battery model parameter "recuperationEfficencyByDecel" to vary the recuperation efficiency based on the deceleration level. Thanks to Sagaama Insaf for the contribution. Issue #5675
 
-- NETCONVERT
+- netconvert
   - Now importing High-Speed-Rail tracks from OSM Issue #5525
   - Now importing attribute railway:bidirectional from OSM Issue #5531
   - Now importing track number (track_ref) parameter from OSM Issue #5533
@@ -779,15 +779,15 @@ permalink: /ChangeLog/
   - Added option **--join-lanes** {{DT_BOOL}} to allow merging of adjacent non-vehicle lanes (sidewalk, green verge). Issue #5880
   - Added option **--geometry.remove.width-tolerance** {{DT_FLOAT}} to allow removal of geometry-like nodes when lane widths of merged edges differ no more than the given threshold. Issue #5883
   - Option **--junctions.scurve-stretch** is no longer applied for non-vehicular connections. Issue #5887
-  - Added options for generating bicycle lanes: **--bikelanes.guess --bikelanes.guess.max-speed --bikelanes.guess.min-speed --bikelanes.guess.from-permissions --bikelanes.guess.exclude --default.bikelane-width** [These options work the same as the corresponding sidewalk options](Simulation/Bicycles.md#generating_a_network_with_bike_lanes) and can also be used with [NETGENERATE](NETGENERATE.md). Issue #5924
+  - Added options for generating bicycle lanes: **--bikelanes.guess --bikelanes.guess.max-speed --bikelanes.guess.min-speed --bikelanes.guess.from-permissions --bikelanes.guess.exclude --default.bikelane-width** [These options work the same as the corresponding sidewalk options](Simulation/Bicycles.md#generating_a_network_with_bike_lanes) and can also be used with [netgenerate](netgenerate.md). Issue #5924
 
-- NETEDIT
+- netedit
   - Inverting selection now takes selection locks into account. Issue #5615
   - When setting tltype to *actuated*, suitable values for *minDur* and *maxDur* will be added to the phases. Issue #5637
   - Added support for Vehicles, Flows and Trips. Issue #5585 Issue #5086 Issue #5050
   - Partial support of GNEPersons Issue #5369
 
-- SUMO-GUI
+- sumo-gui
   - Added new visualization presets *selection* (coloring everything according to selection status) and *rail* (analyze rail networks by showing allowed driving directions for all tracks and highlighting rail signals when zoomed out). Issue #5660
   - Added context menu option to show/hide detectors for actuated traffic lights Issue #5627
   - Added visualization option for drawing an edge color legend. Issue #5682
@@ -796,7 +796,7 @@ permalink: /ChangeLog/
   - The parkingAreas parameter dialog now includes the number of alternative parkingAreas due to loaded *parkingAreaReroute* definitions.
   - The *Recalibrate Rainbow* functionality now generates a distinct color for every permission code when coloring *by permissions*. Issue #5852
 
-- POLYCONVERT
+- polyconvert
   - Importing railway entities from OSM is now supported and [a new typemap](Networks/Import/OpenStreetMap.md#railway-specific_objects) was added for this. Issue #5572
   - Shapefile import now supports typemaps and also image files in type maps. Issue #5891
 
@@ -857,18 +857,18 @@ permalink: /ChangeLog/
     the vehicle is stopped. This case can be distinguished by the
     first bit ('reached').
 
-- NETCONVERT
+- netconvert
   - Network version is now 1.3
   - In the previous version, setting options **--tls.guess --tls.join** activated a heuristic
     that could create joint controllers for clusters of uncontrolled
     nodes (which would not be guessed as controled individually).
     Now this heuristic must be activated explicitly using option **--tls.guess.joining**.
 
-- NETEDIT
+- netedit
   - Changed button in allow/disallow-dialog from *allow only
     non-road vehicles* to *allow only road vehicles* vClasses. Issue #5526
 
-- NETGENERATE
+- netgenerate
   - Option **--rand.min-angle** {{DT_FLOAT}} now expects and argument in degrees instead of radians. Issue #5521
 
 ## Version 1.2.0 (16.04.2019)
@@ -907,7 +907,7 @@ permalink: /ChangeLog/
     - Fixed detection of railway collisions. Issue #3686, Issue #5312
     - Railway insertion on bidirectional tracks now checks for presence of oncoming vehicles. Issue #5074
 
-- SUMO-GUI
+- sumo-gui
   - Fixed crash when using the 3D-View. Issue #4944
   - Pedestrian crossing traffic-light indices can be drawn again (regression in 1.1.0). Issue #4960
   - Loading breakpoints from a gui settings file using the settings dialog is now working. Issue #5015
@@ -915,9 +915,9 @@ permalink: /ChangeLog/
   - Fixed invalid *pos* value in lane popup for lanes with a strong slope. Issue #5272
   - Stopped vehicles no longer have active brake signals.
 
-- NETEDIT
+- netedit
   - *split junction* is now working reliably in intermodal networks. Issue #4999
-  - Fixed crash when [copying edge template](NETEDIT.md#edge_template) with lane-specific attributes. Issue #5005
+  - Fixed crash when [copying edge template](netedit.md#edge_template) with lane-specific attributes. Issue #5005
   - Fixed index of created lanes when adding restricted lanes with context menu. This is partly a regression fix and partly an improvement over the earlier behavior. Issue #5006
   - Inspection contour now works correctly for spread bidirectional rail edges. Issue #5064
   - Now showing correct edge length when using *endOffset*. Issue #5066
@@ -925,7 +925,7 @@ permalink: /ChangeLog/
   - Setting connection attribute *uncontrolled* now takes effect. Issue #2599
   - Fixed crossing geometries after editing left-hand network. Issue #5265
 
-- NETCONVERT
+- netconvert
   - Custom node and crossing shapes are now correctly shifted when using options **--offset.x, offset.y**. Issue #4621
   - Fixed invalid right of way rules at traffic light intersection with uncontrolled connections. Issue #5047, Issue #5048
   - Connection attribute *uncontrolled* is no longer lost when saving as *plain-xml*. Issue #2956
@@ -947,13 +947,13 @@ permalink: /ChangeLog/
   - Patching attributes of existing connections is now working. Issue #2174
   - The default edge priorities for link-roads imported from OSM (e.g. on- and offRamps) have been changed to avoid invalid right-of-way rules at intersections. Issue #5382
 
-- DUAROUTER
+- duarouter
   - Fixed routing bug where the cost of some left-turns was underestimated. Issue #4968
   - vType attribute `speedDev="0"` is no longer lost in the output. Issue #5167
   - Person plans that start with a `<stop busStop="..."/>` and continue with a `<personTrip>` are now working. Issue #5298
   - Fixed invalid public transport routing when a `<personTrip>` is not the first item in the plan. Issue #5329
 
-- DFROUTER
+- dfrouter
   - Fixed duplicate vehicle ids in generated output. Issue #5381
 
 - TraCI
@@ -994,9 +994,9 @@ permalink: /ChangeLog/
     - RailSignal logic no longer requires all railway switch nodes to be of type *railSignal*. Instead they can be guarded by other railSignal nodes along the incoming tracks. Issue #5091
     - Added new output option **--railsignal-block-output** {{DT_FILE}} to support analysis of the [generated signal block structure](Simulation/Output.md#additional_debugging_outputs). Issue #5109
 
-- SUMO-GUI
+- sumo-gui
   - Major improvement in rendering speed
-  - Can [now load edge-data](SUMO-GUI.md#newer_versions) ([edgeData-output](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md), [MAROUTER-output](MAROUTER.md#macroscopic_outputs.md), [randomTrips-weights](Tools/Trip.md#customized_weights)) for visualization (time-varying edge colors). Issue #4916
+  - Can [now load edge-data](sumo-gui.md#newer_versions) ([edgeData-output](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md), [marouter-output](marouter.md#macroscopic_outputs.md), [randomTrips-weights](Tools/Trip.md#customized_weights)) for visualization (time-varying edge colors). Issue #4916
   - The current phase index can now optionally be shown for traffic-light controlled junctions. If a name was set for the current phase it is shown as well. Issue #4927
   - The current lane-changing state is now included in the vehicle parameter dialog. Issue #5038
   - Reloading is now disabled while running as TraCI-server. Issue #5052
@@ -1016,7 +1016,7 @@ permalink: /ChangeLog/
     - Drawing bidirectional railways in *spread* style is now supported. Edge IDs are also drawn at an offset to improve readability.
     - The visual length of railway carriages and locomotive [can now be configured](Simulation/Railways.md#visualisation). Issue #1233
 
-- NETCONVERT
+- netconvert
   - Improved junction joining heuristic to prevent superfluous joins. Issue #4987
   - [OpenDrive road objects](Networks/Import/OpenDRIVE.md#road_objects) can now be imported Issue #4646
   - Road objects can now be embedded when [generating OpenDRIVE output](Networks/Further_Outputs.md#embedding_road_objects).
@@ -1029,7 +1029,7 @@ permalink: /ChangeLog/
   - Changed option default for **--opendrive.advance-stopline** to 0 to improve generated geometries in most cases.
   - Roundabouts can now be disabled and removed by setting the node type to *right_before_left* Issue #2225
 
-- NETEDIT
+- netedit
   - Major improvement in rendering speed
   - Junction context menu function *split junctions* now restores original node ids Issue #4992
   - The new function *split junctions* and *reconnect* now recreates edges heuristically. Issue #4998
@@ -1039,7 +1039,7 @@ permalink: /ChangeLog/
   - Can now locate objects by their name (streetname or generic parameter key="name"). Issue #5270
   - Roundabouts can now be removed by setting the node type to *right_before_left* Issue #2225
 
-- DUAROUTER
+- duarouter
   - added new input element `<personFlow>` Issue #1515
   - Added option **--write-trips** {{DT_BOOL}} to output trips instead of routes. This is useful for validating trip input that shall be routed during simulation. Issue #4971
   - Added option **--write-trips.geo** {{DT_BOOL}} to write trips with attributes *fromLonLat, toLonLat* instead of *from* and *to*
@@ -1076,7 +1076,7 @@ permalink: /ChangeLog/
     cycles in urban road networks. To restore the old behavior, the
     option **--device.rerouting.adaptation-weight 0.5** can be used. Issue #4975
 
-- NETCONVERT
+- netconvert
   - Turn-arounds are no longer built at geometry-like nodes by
     default (when there is a node but no intersection so there would
     only be straight connections and turn-arounds). The old behavior
@@ -1137,12 +1137,12 @@ permalink: /ChangeLog/
   - Fixed invalid upper bound on density in [edgeData-output](Simulation/Output/Lane-_or_Edge-based_Traffic_Measures.md#generated_output) for multi-lane edges. Issue #4904
   - Fixed bug where trains would fail to reverse on bidirectional rail edges. Issue #4921
 
-- SUMO-GUI
+- sumo-gui
   - Closing and re-opening an edge or lane no longer causes invalid lane choice. Issue #4514
   - Errors due to invalid `<param>` values are now shown in the message window. Issue #4753
   - Fixed invalid vehicle shapes when drawing trains as *simple shapes* in mesoscopic mode. Issue #4773
 
-- NETCONVERT
+- netconvert
   - Fixed bug that was causing invalid road geometry when using high-resolution input data at dense junction clusters. Issue #4648
   - Fixed bug when building networks for opposite-direction overtaking that was causing collisions in the simulation. Issue #4628
   - Fixed invalid right-of-way rules in left-hand networks. Issue #4256
@@ -1155,7 +1155,7 @@ permalink: /ChangeLog/
   - Fixed bugs that could cause loss of elevation information. Issue #4877, Issue #4878
   - Fixed permissions on internal lanes after internal junctions. Issue #4912
 
-- NETEDIT
+- netedit
   - Loading joined traffic light programs via menu is now working. Issue #4622
   - Menu option *Load Foreign* can now be used to import OSM files directly. Issue #4634
   - Fixed bug where *right-of-way* mode would show invalid properties. Issue #4637
@@ -1197,7 +1197,7 @@ permalink: /ChangeLog/
     *true*, vehicles will park on the road lane, thereby reducing
     road capacity. Issue #4895
 
-- SUMO-GUI
+- sumo-gui
   - Added `<poly>` attribute *lineWidth* to determine the drawing width of
     unfilled polygons. Issue #4715
   - TAZ now support attribute *color* for rendering the associated
@@ -1217,25 +1217,25 @@ permalink: /ChangeLog/
   - The text background color for IDs and object descriptions can
     now be configured. Issue #4894
 
-- NETEDIT
+- netedit
   - New editing mode for TAZ (Traffic Analysis Zones). Issue #3425
   - Overlapping objects can now be inspected via consecutive clicks
     on the same location. Issue #2385
   - Shift-click can now be used to inspect, select and delete lanes.
   - LaneAreaDetectors (E2) that span multiple consecutive lanes can
-    now be created within NETEDIT. Issue #2909
+    now be created within netedit. Issue #2909
   - POIs can now be created from geo-coordinates in the clipboard
     (e.g. from online map sites) with a single click. Issue #4496
   - Selection colors can now be customized. Issue #4736
   - Can now color streets according to custom lane or edge
     [parameters](Simulation/GenericParameters.md). Issue #4276
 
-- NETGENERATE
+- netgenerate
   - Added options **--perturb-x, --perturb-y, --perturb-z** to add random perturbations to all node
     coordinates. Perturbations can be specified as *mean* or capped
     normal distribution *normc(a,b,c,d)*. Issue #4776
 
-- NETCONVERT
+- netconvert
   - Added option **--tls.layout** {{DT_STR}} for selecting between layouts that group opposite
     directions ('opposites') and layouts that have one phase per
     incoming edge ('incoming'). Issue #4033
@@ -1281,7 +1281,7 @@ permalink: /ChangeLog/
 - Documentation
   - Updated [documentation for railway
     simulation](Simulation/Railways.md)
-  - Updated [MAROUTER](MAROUTER.md#usage_description)
+  - Updated [marouter](marouter.md#usage_description)
     documentation
 - Miscellaneous
   - Network version is now 1.1
@@ -1312,21 +1312,21 @@ permalink: /ChangeLog/
   - Public transport routing now properly uses stops that are
     defined as child elements of a vehicle. Issue #4575
 
-- SUMO-GUI
+- sumo-gui
   - Fixed freeze when activating 'Show lane direction' for lanes
     with width=0. Issue #4533
 
-- NETEDIT
+- netedit
   - Fixed freeze when activating 'Show lane direction' for lanes
     with width=0. Issue #4533
   - Custom endpoints are now honored when reversing an edge or
     adding a reverse direction edge via context menu. Issue #4501
 
-- NETCONVERT
+- netconvert
   - Networks for opposite direction driving now allow overtaking
     past junctions on straight connections that are slightly curved. Issue #4585
 
-- OD2Trips
+- od2trips
   - Flows with non-positive probability are no longer written. Issue #4600
 
 - MESO
@@ -1347,7 +1347,7 @@ permalink: /ChangeLog/
   - Increased running speed of simulations with *device.rerouting*
     using few vehicles in a large network. Issue #4598
 
-- NETEDIT
+- netedit
   - Added option *reset custom shape* to the right-click menu of
     junction- and lane-selections Issue #4481, Issue #4490
   - When editing junction shapes, vertices can now be removed by
@@ -1427,7 +1427,7 @@ permalink: /ChangeLog/
     correct right-of-way rules. Issue #1484
   - Fixed invalid deceleration at yellow traffic light. Issue #4450
 
-- SUMO-GUI
+- sumo-gui
   - width of railway edges is now taken into account when drawing
     (interpreted as gauge). Issue #3748
   - window-size and position now remain unchanged when reloading the
@@ -1456,7 +1456,7 @@ permalink: /ChangeLog/
 - MESO
   - Fixed deadlock at roundabouts when running with option **--meso-junction-control.limited** or **--meso-junction-control false**. Issue #4074
 
-- NETEDIT
+- netedit
   - Splitting edges, deleting individual edges and lanes or adding
     lanes via the *duplicate* menu option no longer resets
     connections and traffic light plans. Issue #3742
@@ -1475,13 +1475,13 @@ permalink: /ChangeLog/
   - Splitting edges no longer introduces unnecessary custom
     endpoints. Issue #3895
   - Fixed inverted interpretation of *lanePosLat* for POIs compared
-    to SUMO-GUI. Issue #4002
+    to sumo-gui. Issue #4002
   - Fixed crash when deleting one of multiple signal programs for
     the same junction. Issue #4132
   - Added support for BusStops Acces. Issue #4018
   - Crossings no longer become invalid when splitting an edge. Issue #4295
 
-- NETCONVERT
+- netconvert
   - Option **--ramp.guess** no longer builds ramps at traffic light controlled
     nodes. Issue #3848
   - Fixed bug that was causing invalid link states at intermodal
@@ -1497,10 +1497,10 @@ permalink: /ChangeLog/
   - Fixed invalid intermodal junction logic that could cause
     collisions and deadlocks. Issue #4198, Issue #4252
 
-- DUAROUTER
+- duarouter
   - Fixed crash on intermodal routing. Issue #3883
 
-- POLYCONVERT
+- polyconvert
   - Fixed bug when importing OSM data with objects that are marked
     as *deleted*. Issue #3786
 
@@ -1568,7 +1568,7 @@ permalink: /ChangeLog/
     vehicles and the reporting period can be configured. Issue #1910
   - FCD-output can now be restricted to a subset of network edges
     loaded from a file with option **--fcd-output.filter-edges.input-file** {{DT_FILE}}. The file format is that of an
-    edge selection as saved by [NETEDIT](NETEDIT.md).
+    edge selection as saved by [netedit](netedit.md).
   - Intended departure times (attribute *depart*) and intended
     vehicle id (attribute *intended*) are now added to
     vehroute-output of public transport rides. Issue #3948
@@ -1614,7 +1614,7 @@ permalink: /ChangeLog/
   - Added lane/edge-attribute stopOffset for defining vClass
     specific stopping positions in front of traffic lights. Issue #3754
 
-- SUMO-GUI
+- sumo-gui
   - Added control for scaling traffic demand dynamically. Issue #1951
   - Added option to disable drawing of bicycle lane markings on
     intersections.
@@ -1640,7 +1640,7 @@ permalink: /ChangeLog/
 - MESO
   - Simulation of persons and public transport is now supported. Issue #3816
 
-- NETEDIT
+- netedit
   - Added *Prohibition*-mode for checking right-of-way at junctions
     (hotkey 'w'). Thanks to Mirko Barthauer for the contribution. Issue #3850
   - Added virtual attribute to identify [bidirectional rail edge
@@ -1651,7 +1651,7 @@ permalink: /ChangeLog/
     (*spread superposed*) Issue #3720
   - Added button *add states* to *traffic light*-mode to complement
     the functionality of *cleanup states*. Issue #3846
-  - Netedit now flags connection targets with incompatible
+  - netedit now flags connection targets with incompatible
     permissions as *conflict* and only creates them with
     *<ctrl\>+<click\>*. Issue #3823
   - Traffic light indices are now drawn for pedestrian crossings
@@ -1679,7 +1679,7 @@ permalink: /ChangeLog/
   - Custom edge geometry endpoints can now be manipulated in *Move
     mode*. Issue #3716
 
-- NETCONVERT
+- netconvert
   - Geo-referenced networks (i.e. from OSM) can now be merged by loading them together (**-s net1.net.xml,net2.net.xml**). Issue #4085
   - Element `<crossing>` now supports attribute *linkIndex2* to specify a custom signal index for the reverse direction. Issue #3820
   - When defining [double connections](Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane), the right-of-way rules now take the road topology into account to differentiate between on-ramp and off-ramp situations. Issue #3834
@@ -1696,7 +1696,7 @@ permalink: /ChangeLog/
   - Added option **--junctions.limit-turn-speed** {{DT_FLOAT}} which sets an upper bound on speed while passing an intersection based on the turning radius. To account for imperfect road geometry, the option **--junctions.limit-turn-speed.min-angle** can be used to avoid speed limits for small turns. Warnings are issued when the difference between road speed and connection speed rises above a configurable threshold (**--junctions.limit-turn-speed.warn.straight, --junctions.limit-turn-speed.warn.turn**). These warnings often indicate exaggerated road speeds on urban roads as well as faulty geometry. Issue #1141
   - Geo-reference information is now imported from OpenDRIVE input. Issue #4414
 
-- NETGENERATE
+- netgenerate
   - Simplified node and edge names
     - The alphanumerical junction naming scheme now supports
       arbitrary grid sizes (using ids like *XY23*)
@@ -1720,21 +1720,21 @@ permalink: /ChangeLog/
   - Added options **--turn-lanes** {{DT_INT}} and **--turn-lanes.length** {{DT_FLOAT}} to add left-turn lanes to generated
     networks. Issue #3892
 
-- DUAROUTER
+- duarouter
   - Intended departure times (attribute *depart*) and intended
     vehicle id (attribute *intended*) are now added to
     vehroute-output of public transport rides. Issue #3948
   - Stopping place names are now added as XML-comments in
     route-output of public transport rides. Issue #3952
 
-- POLYCONVERT
+- polyconvert
   - Option **--osm.use-name** now also applies to POIs. Issue #4246
 
 - TraCI
   - [Libsumo](Libsumo.md) can now be used in place of the
     TraCI client libraries to increase execution speed of
     TraCI-Simulations by directly linking against
-    [SUMO](SUMO.md) for all
+    [sumo](sumo.md) for all
     [SWIG](https://en.wikipedia.org/wiki/SWIG)-supported languages.
     Graphical simulation with libsumo is not yet supported.
   - function *vehicle.add* now supports using the empty string ("")
@@ -1827,11 +1827,11 @@ permalink: /ChangeLog/
 !!! note
     The previous behavior can be restored by setting option **--default.speeddev 0**
 
-- SUMO-GUI
+- sumo-gui
   - Default color for persons is now 'blue' to better distinguish
     them from vehicles.
 
-- NETCONVERT
+- netconvert
   - There is no longer an offset of 0.1m between lanes. This means
     the total visual width of an edge is now the sum of all lane
     widths. This also fixes an inconsistency between visualization
@@ -1907,101 +1907,101 @@ permalink: /ChangeLog/
 
 ## Older Versions
 
-- [Z/Changes from Version 0.31.0 to Version
+- [Changes from Version 0.31.0 to Version
   0.32.0](Z/Changes_from_Version_0.31.0_to_Version_0.32.0.md)
-- [Z/Changes from Version 0.30.0 to Version
+- [Changes from Version 0.30.0 to Version
   0.31.0](Z/Changes_from_Version_0.30.0_to_Version_0.31.0.md)
-- [Z/Changes from Version 0.29.0 to Version
+- [Changes from Version 0.29.0 to Version
   0.30.0](Z/Changes_from_Version_0.29.0_to_Version_0.30.0.md)
-- [Z/Changes from Version 0.28.0 to Version
+- [Changes from Version 0.28.0 to Version
   0.29.0](Z/Changes_from_Version_0.28.0_to_Version_0.29.0.md)
-- [Z/Changes from Version 0.27.1 to Version
+- [Changes from Version 0.27.1 to Version
   0.28.0](Z/Changes_from_Version_0.27.1_to_Version_0.28.0.md)
-- [Z/Changes from Version 0.27.0 to Version
+- [Changes from Version 0.27.0 to Version
   0.27.1](Z/Changes_from_Version_0.27.0_to_Version_0.27.1.md)
-- [Z/Changes from Version 0.26.0 to Version
+- [Changes from Version 0.26.0 to Version
   0.27.0](Z/Changes_from_Version_0.26.0_to_Version_0.27.0.md)
-- [Z/Changes from Version 0.25.0 to Version
+- [Changes from Version 0.25.0 to Version
   0.26.0](Z/Changes_from_Version_0.25.0_to_Version_0.26.0.md)
-- [Z/Changes from Version 0.24.0 to Version
+- [Changes from Version 0.24.0 to Version
   0.25.0](Z/Changes_from_Version_0.24.0_to_Version_0.25.0.md)
-- [Z/Changes from Version 0.23.0 to Version
+- [Changes from Version 0.23.0 to Version
   0.24.0](Z/Changes_from_Version_0.23.0_to_Version_0.24.0.md)
-- [Z/Changes from Version 0.22.0 to Version
+- [Changes from Version 0.22.0 to Version
   0.23.0](Z/Changes_from_Version_0.22.0_to_Version_0.23.0.md)
-- [Z/Changes from Version 0.21.0 to Version
+- [Changes from Version 0.21.0 to Version
   0.22.0](Z/Changes_from_Version_0.21.0_to_Version_0.22.0.md)
-- [Z/Changes from Version 0.20.0 to Version
+- [Changes from Version 0.20.0 to Version
   0.21.0](Z/Changes_from_Version_0.20.0_to_Version_0.21.0.md)
-- [Z/Changes from Version 0.19.0 to Version
+- [Changes from Version 0.19.0 to Version
   0.20.0](Z/Changes_from_Version_0.19.0_to_Version_0.20.0.md)
-- [Z/Changes from Version 0.18.0 to Version
+- [Changes from Version 0.18.0 to Version
   0.19.0](Z/Changes_from_Version_0.18.0_to_Version_0.19.0.md)
-- [Z/Changes from Version 0.17.1 to Version
+- [Changes from Version 0.17.1 to Version
   0.18.0](Z/Changes_from_Version_0.17.1_to_Version_0.18.0.md)
-- [Z/Changes from Version 0.17.0 to Version
+- [Changes from Version 0.17.0 to Version
   0.17.1](Z/Changes_from_Version_0.17.0_to_Version_0.17.1.md)
-- [Z/Changes from Version 0.16.0 to Version
+- [Changes from Version 0.16.0 to Version
   0.17.0](Z/Changes_from_Version_0.16.0_to_Version_0.17.0.md)
-- [Z/Changes from Version 0.15.0 to Version
+- [Changes from Version 0.15.0 to Version
   0.16.0](Z/Changes_from_Version_0.15.0_to_Version_0.16.0.md)
-- [Z/Changes from Version 0.14.0 to Version
+- [Changes from Version 0.14.0 to Version
   0.15.0](Z/Changes_from_Version_0.14.0_to_Version_0.15.0.md)
-- [Z/Changes from Version 0.13.1 to Version
+- [Changes from Version 0.13.1 to Version
   0.14.0](Z/Changes_from_Version_0.13.1_to_Version_0.14.0.md)
-- [Z/Changes from Version 0.13.0 to Version
+- [Changes from Version 0.13.0 to Version
   0.13.1](Z/Changes_from_Version_0.13.0_to_Version_0.13.1.md)
-- [Z/Changes from Version 0.12.3 to Version
+- [Changes from Version 0.12.3 to Version
   0.13.0](Z/Changes_from_Version_0.12.3_to_Version_0.13.0.md)
-- [Z/Changes from Version 0.12.2 to Version
+- [Changes from Version 0.12.2 to Version
   0.12.3](Z/Changes_from_Version_0.12.2_to_Version_0.12.3.md)
-- [Z/Changes from Version 0.12.1 to Version
+- [Changes from Version 0.12.1 to Version
   0.12.2](Z/Changes_from_Version_0.12.1_to_Version_0.12.2.md)
-- [Z/Changes from Version 0.12.0 to Version
+- [Changes from Version 0.12.0 to Version
   0.12.1](Z/Changes_from_Version_0.12.0_to_Version_0.12.1.md)
-- [Z/Changes from Version 0.11.1 to Version
+- [Changes from Version 0.11.1 to Version
   0.12.0](Z/Changes_from_Version_0.11.1_to_Version_0.12.0.md)
-- [Z/Changes from Version 0.11.0 to Version
+- [Changes from Version 0.11.0 to Version
   0.11.1](Z/Changes_from_Version_0.11.0_to_Version_0.11.1.md)
-- [Z/Changes from Version 0.10.3 to Version
+- [Changes from Version 0.10.3 to Version
   0.11.0](Z/Changes_from_Version_0.10.3_to_Version_0.11.0.md)
-- [Z/Changes from Version 0.10.2 to Version
+- [Changes from Version 0.10.2 to Version
   0.10.3](Z/Changes_from_Version_0.10.2_to_Version_0.10.3.md)
-- [Z/Changes from Version 0.10.1 to Version
+- [Changes from Version 0.10.1 to Version
   0.10.2](Z/Changes_from_Version_0.10.1_to_Version_0.10.2.md)
-- [Z/Changes from Version 0.10.0 to Version
+- [Changes from Version 0.10.0 to Version
   0.10.1](Z/Changes_from_Version_0.10.0_to_Version_0.10.1.md)
-- [Z/Changes from Version 0.9.10 to Version
+- [Changes from Version 0.9.10 to Version
   0.10.0](Z/Changes_from_Version_0.9.10_to_Version_0.10.0.md)
-- [Z/Changes from version 0.9.9 to version
+- [Changes from version 0.9.9 to version
   0.9.10](Z/Changes_from_version_0.9.9_to_version_0.9.10.md)
-- [Z/Changes from version 0.9.8 to version
+- [Changes from version 0.9.8 to version
   0.9.9](Z/Changes_from_version_0.9.8_to_version_0.9.9.md)
-- [Z/Changes from version 0.9.7 to version
+- [Changes from version 0.9.7 to version
   0.9.8](Z/Changes_from_version_0.9.7_to_version_0.9.8.md)
-- [Z/Changes from version 0.9.6 to version
+- [Changes from version 0.9.6 to version
   0.9.7](Z/Changes_from_version_0.9.6_to_version_0.9.7.md)
-- [Z/Changes from version 0.9.5 to version
+- [Changes from version 0.9.5 to version
   0.9.6](Z/Changes_from_version_0.9.5_to_version_0.9.6.md)
-- [Z/Changes from version 0.9.3 to version
+- [Changes from version 0.9.3 to version
   0.9.4](Z/Changes_from_version_0.9.3_to_version_0.9.4.md)
-- [Z/Changes from version 0.9.2 to version
+- [Changes from version 0.9.2 to version
   0.9.3](Z/Changes_from_version_0.9.2_to_version_0.9.3.md)
-- [Z/Changes from version 0.9.1 to version
+- [Changes from version 0.9.1 to version
   0.9.2](Z/Changes_from_version_0.9.1_to_version_0.9.2.md)
-- [Z/Changes from version 0.9.0 to version
+- [Changes from version 0.9.0 to version
   0.9.1](Z/Changes_from_version_0.9.0_to_version_0.9.1.md)
-- [Z/Changes from version 0.8.x to version
+- [Changes from version 0.8.x to version
   0.9.0](Z/Changes_from_version_0.8.x_to_version_0.9.0.md)
-- [Z/Changes from version 0.8.2.2 to version
+- [Changes from version 0.8.2.2 to version
   0.8.3](Z/Changes_from_version_0.8.2.2_to_version_0.8.3.md)
-- [Z/Changes from version 0.8.2.1 to version
+- [Changes from version 0.8.2.1 to version
   0.8.2.2](Z/Changes_from_version_0.8.2.1_to_version_0.8.2.2.md)
-- [Z/Changes from version 0.8.0.2 to version
+- [Changes from version 0.8.0.2 to version
   0.8.2.1](Z/Changes_from_version_0.8.0.2_to_version_0.8.2.1.md)
-- [Z/Changes from version 0.8.0.1 to version
+- [Changes from version 0.8.0.1 to version
   0.8.0.2](Z/Changes_from_version_0.8.0.1_to_version_0.8.0.2.md)
-- [Z/Changes from version 0.8.0 to version
+- [Changes from version 0.8.0 to version
   0.8.0.1](Z/Changes_from_version_0.8.0_to_version_0.8.0.1.md)
-- [Z/Changes from version 0.7.0 to version
+- [Changes from version 0.7.0 to version
   pre0.8](Z/Changes_from_version_0.7.0_to_version_pre0.8.md)

@@ -95,7 +95,7 @@ static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
 ```
 
 At first, this method asks whether the option which makes
-[NETCONVERT](../../NETCONVERT.md) read a file of the according format
+[netconvert](../../netconvert.md) read a file of the according format
 is set and whether the set value is right. By now, this means only that
 a check whether the given file(s) really exist(s) is made, not whether
 it is well formatted or valid in any means. The method

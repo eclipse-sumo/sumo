@@ -70,7 +70,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
   - Fixed too high density values in meandata output. #3265
   - Fixed invalid *routeLength* in tripinfo-output. #3355
 
-- SUMO-GUI
+- sumo-gui
   - Fixed visual glitch when drawing vehicles with multiple
     carriages as raster images. #3049
   - Fixed crash when reloading a simulation after editing the
@@ -90,7 +90,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
     not a multiple of the lateral-resolution.
   - Fixed wrong occupancy values in Parameter Window for short
     lanes.
-  - [Pre-configured screenshots](../SUMO-GUI.md#screenshots)
+  - [Pre-configured screenshots](../sumo-gui.md#screenshots)
     are now taken at the correct time regardless of simulation
     speed. #1340
   - Fixed visual glitches when drawing waiting pedestrians, parking
@@ -98,7 +98,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
   - The list of additional simulation objects no longer includes
     POIs and polygons (they have their own locator lists). #3384
 
-- Netconvert
+- netconvert
   - **--ptstop-output** now exports stop lanes with the appropriate vClass. #3075
   - **--ptstop-output** now exports stop lanes in the correct road direction #3101, #3212
   - Fixed invalid geo-reference when loading lefthand *.net.xml*
@@ -127,7 +127,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
     - Fixed invalid internal-lane speed when importing OpenDRIVE
       networks or setting lane-specific speeds. #3240
 
-- Netedit
+- netedit
   - Fixed rendering slowdown (regression in 0.30.0) #3167
   - Fixed error when loading pois with attributes *lane* and *pos*
     (regression in 0.30.0) #3199
@@ -141,7 +141,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
     *endPos* can now be loaded.
   - Undo now restores the selection status of deleted additionals. #3073
   - Loading color schemes is now working (only schemes saved by
-    Netedit are valid). #2936
+    netedit are valid). #2936
   - Fixed invalid geo-reference when editing lefthand networks #3198
   - The cycle time is now always shown for selected traffic lights
     in tls-mode. #3206
@@ -161,14 +161,14 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
   - The junction visualization option *Show lane to lane
     connections* now takes effect.
 
-- DUAROUTER
+- duarouter
   - Fixed bugs that were causing intermodal routing failures. #3119, #3226
   - Fixed invalid `speedFactor` output when specifying both `speedFactor` and `speedDev` in the input
     files. #3121
   - Fixed (almost) infinite loop when specifying `<flow>` without *end*. #3225
   - Fixed handling of *departPos* and *arrivalPos* for persons. #3246
 
-- MAROUTER
+- marouter
   - Fixed crash due to error in matrix parsing. #3366
 
 - TraCI
@@ -234,7 +234,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
   - Added new lanechangeModel parameter *lcAccelLat* to model
     lateral acceleration in the sublane model. #3371
 
-- SUMO-GUI
+- sumo-gui
   - All `<param>` values of simulation objects (i.e. TLS) can now be
     inspected. #3098
   - Calibrators can now be defined for specific lanes not just for
@@ -258,7 +258,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
     tracker windows. Previously this was fixed at 1s. Now it
     defaults to the **--step-length** value.
 
-- NETCONVERT
+- netconvert
   - [<split\>-definitions](../Networks/PlainXML.md#road_segment_refining)
     now support the attribute *id* to specify the id of the newly
     created node. Two-way roads can be split with the same node by
@@ -283,8 +283,8 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
   - The option **--proj.scale** now accepts arbitrary floats and can be used to
     scale the output network. #3351
 
-- NETEDIT
-  - [POIs and Polygons](../NETEDIT.md#pois_and_polygons) can
+- netedit
+  - [POIs and Polygons](../netedit.md#pois_and_polygons) can
     now be defined with a new editing mode. #1667
   - Minimum and maximum phase duration for actuated traffic lights
     can now be defined. #831
@@ -304,17 +304,17 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
     assumed edge travel times can be set globally.](../TraCI/Change_Vehicle_State.md#supported_device_parameters) #3097
   - Rerouting-device [period and assumed edge travel times can now be retrieved.](../TraCI/Vehicle_Value_Retrieval.md#supported_device_parameters) #3097
 
-- DUAROUTER
+- duarouter
   - Routing with **--routing-algorithm astar** is now working efficiently when using [traffic
     assignment zones](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#traffic_assignement_zones_taz). #3144
   - Stops on internal lanes are now supported. #3174
   - Pedestrian `<walk>`s may now be defined using attribute *route*. #3302
 
-- DFROUTER
+- dfrouter
   - Added option **--randomize-flows** for randomizing the departure times of generated
     vehicles.
 
-- OD2TRIPS
+- od2trips
   - Added option **--pedestrians** for generating pedestrian demand rather than
     vehicles. #3331
   - Added option **--persontrips** for generating [intermodal traffic demand](../Specification/Persons.md#persontrips). #3331

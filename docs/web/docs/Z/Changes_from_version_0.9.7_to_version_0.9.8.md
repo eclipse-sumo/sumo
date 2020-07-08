@@ -78,7 +78,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
     shapefile](http://sourceforge.net/tracker/index.php?func=detail&aid=1886198&group_id=45607&atid=443421);
     see comment; thanks to Maxim Raya for the bug report
 
-- DFROUTER
+- dfrouter
   - trying to make it more usable for inner-city scenarios with many
     connections
 - spell checking
@@ -100,7 +100,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
 - fixed vehicle decelerations when being on a higher priorised road
   (bug
   [1830266](http://sourceforge.net/tracker/index.php?func=detail&aid=1830266&group_id=45607&atid=443421))
-- fixed NETCONVERTER bugs occuring when connected nodes are too close
+- fixed netconvert bugs occuring when connected nodes are too close
   together (bugs
   [1639460](http://sourceforge.net/tracker/index.php?func=detail&aid=1639460&group_id=45607&atid=443421),
   [1639436](http://sourceforge.net/tracker/index.php?func=detail&aid=1639436&group_id=45607&atid=443421))

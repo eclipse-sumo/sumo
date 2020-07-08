@@ -311,14 +311,14 @@ Strictly speaking, junctions or nodes need a unique id, which makes them
 referenceable by streets which start or end there. Since our network is
 always embedded into the plane, they also need x- and y-coordinates. A
 type may be given if the one determined by
-[NETCONVERT](NETCONVERT.md) is not correct.
+[netconvert](netconvert.md) is not correct.
 
 | Attribute | Type     | Range                                         | Default | Remark       |
 | --------- | -------- | --------------------------------------------- | ------- | ------------ |
 | id        | string   | valid XML ids                                 | \-      |              |
 | x         | float(m) | \-10^6<x<10^6                               | \-      |              |
 | y         | float(m) | \-10^6<y<10^6                               | \-      |              |
-| type      | string   | priority, right_before_left, traffic_light | \-      | if no value is given, [NETCONVERT](NETCONVERT.md) tries to determine the type heuristically |
+| type      | string   | priority, right_before_left, traffic_light | \-      | if no value is given, [netconvert](netconvert.md) tries to determine the type heuristically |
 
 ## Streets
 
@@ -431,7 +431,7 @@ will stop forever.
 ### Before start
 
 On route loading (which is not necessarily the same as application
-startup) Sumo checks the route for connectivity and for proper placement
+startup) SUMO checks the route for connectivity and for proper placement
 of stops. If speed deviation and/or speed factor are set, it calculates
 a speed factor for the vehicle by drawing from a gaussian distribution.
 There are some cutoffs applied to the finally chosen speed factor to
@@ -439,7 +439,7 @@ have it in a sensible range. It cannot be larger than speedFactor + two
 standard deviations and not smaller 0.2 \* speedFactor. If the chosen
 factor does not work with the chosen departure speed it is recalculated.
 
-On vehicle loading Sumo also checks whether the vehicle is allowed to
+On vehicle loading SUMO also checks whether the vehicle is allowed to
 drive on all edges of its route and whether all other parameters are in
 the allowed ranges. If any violation of parameter ranges occurs, the
 simulation stops immediately with an error message. (It is still in

@@ -444,7 +444,7 @@ GUIApplicationWindow::fillMenuBar() {
                       nullptr, this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
     new FXMenuCommand(myEditMenu,
-                      "Open in Netedit\tCtrl+T\tOpens the netedit application with the current network.",
+                      "Open in netedit\tCtrl+T\tOpens the netedit application with the current network.",
                       GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT);
 
     // build settings menu
@@ -788,7 +788,7 @@ GUIApplicationWindow::onCmdEditViewScheme(FXObject*, FXSelector, void*) {
 
 long
 GUIApplicationWindow::onCmdHelp(FXObject*, FXSelector, void*) {
-    FXLinkLabel::fxexecute("https://sumo.dlr.de/docs/SUMO-GUI.html");
+    FXLinkLabel::fxexecute("https://sumo.dlr.de/docs/sumo-gui.html");
     return 1;
 }
 

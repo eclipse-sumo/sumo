@@ -26,7 +26,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
     *busStop*. Now they always walk to the middle of the busstop
     rather than to its *endPos*. #1562
 
-- SUMO-GUI
+- sumo-gui
   - Fixing crash when selecting *Show all routes* from the vehicle
     menu.
   - When loading a gui-settings-file from the *View Settings*
@@ -39,7 +39,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
     stops for left-hand networks.
   - Fixed error when reloading a network with `<param>`-elements. #1979
 
-- NETCONVERT
+- netconvert
   - Fixed missing connections in multi-modal networks. #1865
   - Fixed bug that caused invalid pedestrian crossings to be
     generated after importing a *.net.xml* file. #1907
@@ -95,16 +95,16 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
       compatible with old-style signal plans. Note, that this may
       create unsafe intersections, causing collisions.
 
-- NETEDIT
+- netedit
   - When renaming an edge, the lane IDs are now updated as well. #1867
   - Fractional widths can now be set when inspecting edges.
   - Modifying traffic light plans which control multiple nodes is
     now working. #2009
 
-- DUAROUTER
+- duarouter
   - Fixed invalid error when compiled without the FOX library. #1956
 
-- OD2TRIPS
+- od2trips
   - Option **--begin** is now working. #1889
 
 - MESO-GUI
@@ -133,7 +133,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
     now have `vClass="passenger"` by default. Earlier, the default was `ignoring` which would let
     the vehicles drive along footpaths and railways.
   - [Zipper merging](https://en.wikipedia.org/wiki/Merge_%28traffic%29) is
-    now supported (see Netconvert enhancement below). #1292
+    now supported (see netconvert enhancement below). #1292
   - Added person statistics to [verbose output](../Simulation/Output.md#commandline_output_verbose). #1898
   - Now warning about jammed pedestrians.
   - Now warning about pedestrians "collisions".
@@ -156,12 +156,12 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
     *Navigational Standards* with *0* pointing towards the North and
     *90* pointing due East. #1372
 
-- NETEDIT
-  - [NETEDIT](../NETEDIT.md) is now open. Have fun.
+- netedit
+  - [netedit](../netedit.md) is now open. Have fun.
   - Int and float options can now be set in the
     *Processing-\>Options* dialog.
   - Added many lane- and junction-coloring modes already known from
-    [SUMO-GUI](../SUMO-GUI.md#edge2fLane_visualisation_settings.md). #1756
+    [sumo-gui](../sumo-gui.md#edge2fLane_visualisation_settings.md). #1756
   - Pedestrian crossings are now supported when editing traffic
     light plans.
   - Attributes of pedestrian crossings can now be modified.
@@ -173,18 +173,18 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
     unchecking *Select edges*. #1895
   - A lane (or a selections of lanes) can now be duplicated by
     selecting *Duplicate lane* from the context menu. #1896
-  - *Selection Mode* now allows [additional operators](../NETEDIT.md#select) when matching against a
+  - *Selection Mode* now allows [additional operators](../netedit.md#select) when matching against a
     non-numerical attribute. #1923
   - Added new option *Copy edge name to clipboard* to the lane
     popup-menu.
   - Junction attribute *keepClear* is now supported.
   - Custom junction shapes can now be drawn by selecting *Set custom
     shape* from the junction popup-menu. This will create a
-    [modifiable shape outline. The popup-menu of this outline allows saving, discarding and simplifying the shape.](../NETEDIT.md#modifiable_poly)
+    [modifiable shape outline. The popup-menu of this outline allows saving, discarding and simplifying the shape.](../netedit.md#modifiable_poly)
   - Added *reload* menu option. #2029
-  - When editing traffic light plans, [states can now be set for multiple links and multiple phases at the same time](../NETEDIT.md#traffic_lights).
+  - When editing traffic light plans, [states can now be set for multiple links and multiple phases at the same time](../netedit.md#traffic_lights).
 
-- SUMO-GUI
+- sumo-gui
   - Persons can now be tracked by selecting *Start Tracking* from
     the context menu. #1779
   - The current route of pedestrians can now be shown by selecting
@@ -192,9 +192,9 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
   - Error messages can now by clicked for jumping to the referenced
     simulation object (i.e. a teleporting vehicle). #900
   - Added person statistics to network parameter dialog. #1898
-  - Added new menu option *Edit-\>Open in Netedit* for opening the
+  - Added new menu option *Edit-\>Open in netedit* for opening the
     current network (at the current location) in
-    [NETEDIT](../NETEDIT.md).
+    [netedit](../netedit.md).
   - Added new option *Copy edge name to clipboard* to the lane
     popup-menu.
   - Added new options *Close edge* and *Close lane* to the lane
@@ -205,7 +205,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
     will make vehicles recompute their route when entering that
     edge.
   - The size and color of link indices can now be customized (old
-    [gui settings files](../SUMO-GUI.md#changing_the_appearancevisualisation_of_the_simulation)
+    [gui settings files](../sumo-gui.md#changing_the_appearancevisualisation_of_the_simulation)
     may have to be updated).
   - Average trip data (for completed vehicle trips) is now available
     in the network parameter dialogue when running with option **--duration-log.statistics**.
@@ -219,7 +219,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
   - The network version is now shown the the network parameter
     dialog.
 
-- NETCONVERT
+- netconvert
   - [Zipper merging](https://en.wikipedia.org/wiki/Merge_%28traffic%29) is
     now supported via the new [node type *zipper*](../Networks/PlainXML.md#node_types). #1292
   - [Right-turn-on-red](https://en.wikipedia.org/wiki/Right_turn_on_red)
@@ -263,7 +263,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
     which crossings will not be generated at uncontrolled nodes
     (before this was hard-coded to *13.89*m/s). #1819
 
-- POLYCONVERT
+- polyconvert
   - Added option **--fill** {{DT_BOOL}} to control whether polygons are filled by default
     or not. #1858
   - Added option **--shapefile.fill** {{DT_STR}} to override the fill state when importing
@@ -272,9 +272,9 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
 - MESO-GUI
   - It is now possible to select individual vehicles, to examine
     their parameters, track them and show their route just like for
-    [SUMO-GUI](../SUMO-GUI.md). #1932
+    [sumo-gui](../sumo-gui.md). #1932
   - Vehicles can now be located as in
-    [SUMO-GUI](../SUMO-GUI.md). #1487
+    [sumo-gui](../sumo-gui.md). #1487
 
 - Tools
   - [traceExporter.py](../Tools/TraceExporter.md) now supports
@@ -303,7 +303,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
   - Online documentation of
     [TraCI4J](http://github.com/egueli/TraCI4J) can now be found at
     [traci4j-javadoc](http://sumo.dlr.de/daily/javadoc/traci4j/)
-  - The section on [Additional NETCONVERT outputs was completely rewritten](../Networks/Further_Outputs.md#further_outputs).
+  - The section on [Additional netconvert outputs was completely rewritten](../Networks/Further_Outputs.md#further_outputs).
   - Added a [new page on XML Validation](../XMLValidation.md)
   - Added [documentation for the C++ TraCI API client](../TraCI/C++TraCIAPI.md)
   - Added documentation on [route probe detectors](../Simulation/Output/RouteProbe.md) (which was
@@ -318,7 +318,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
     them in line with naming conventions. Refer to the documentation
     for new attribute names.
 
-- NETCONVERT
+- netconvert
   - Network version is now **0.25**. New features that justify the
     version change are:
     - New linkstate *Z* and junction type *zipper* for zipper
@@ -335,7 +335,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
       0.23.0 due to the introduction of ships but this was
       forgotten.
 
-- SUMO-GUI
+- sumo-gui
   - The visualization options *Show internal edge name* and *Show
     crossing and walkingarea name* were moved from the *Streets*-tab
     to the *Junctions*-tab.

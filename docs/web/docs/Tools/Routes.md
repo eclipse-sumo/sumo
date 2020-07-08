@@ -35,7 +35,7 @@ vehicle.
 - No tests for dealing with networks that have internal edges
 
 # analyzePersonPlans.py
-Count the different types of person plans according to the sequence of used modes. Private rides are distinguished from public transport rides using the assumption that the name of the private vehicle will start with the name of the person (as happens for [DUAROUTER](../DUAROUTER.md)-generated person plans).
+Count the different types of person plans according to the sequence of used modes. Private rides are distinguished from public transport rides using the assumption that the name of the private vehicle will start with the name of the person (as happens for [duarouter](../duarouter.md)-generated person plans).
 ```
 tools\route\analyzePersonPlans.py -r routes.xml
 ```
@@ -95,7 +95,7 @@ This assumes the existence of a big scenario (*orig.net.xml* and
 network (*reduced.net.xml*) keeping all of the routes that pass through
 the reduced network. Output can be a route file or a trip file.
 Depending on the given options the new departure times can be computed
-from exitTimes (see [SUMO](../SUMO.md) option **--vehroute-output.exit-times**), extrapolated from
+from exitTimes (see [sumo](../sumo.md) option **--vehroute-output.exit-times**), extrapolated from
 the original network or simply copied from the original departure times.
 If the option **--big** is supplied, a slow but memory efficent algorithm is used
 for sorting the output by departure time. Example usage
@@ -124,7 +124,7 @@ differences) is generated instead.
 # route2poly.py
 
 Transform routes into polygons for visualization in
-[SUMO-GUI](../SUMO-GUI.md). Using the options **--hue, --saturation, --brightness** the colors can be
+[sumo-gui](../sumo-gui.md). Using the options **--hue, --saturation, --brightness** the colors can be
 controlled. Each of these options supports values from \[0, 1\] as well
 as the special value *random*.
 
@@ -136,8 +136,8 @@ as the special value *random*.
 
 Transform routes into an edge selection file which contains all edges
 used in any of the routes, trips or person plans. This file may be used
-for visualization in [SUMO-GUI](../SUMO-GUI.md) or pruning a
-network via [NETCONVERT](../NETCONVERT.md).
+for visualization in [sumo-gui](../sumo-gui.md) or pruning a
+network via [netconvert](../netconvert.md).
 
 ```
 <SUMO_HOME>/tools/route2sel.py myRoutes.rou.xml -o usedEdges.txt
@@ -176,9 +176,9 @@ route file.
 The option **--intermediate** may be used to include the total number of passing vehicles
 for each edge in the generated output.
 
-The generated file *result.xml* can be loaded in [SUMO-GUI to color
+The generated file *result.xml* can be loaded in [sumo-gui to color
 edges by number of departs, arrivals or total number of passing
-vehicles](../SUMO-GUI.md#visualizing_edge-related_data)
+vehicles](../sumo-gui.md#visualizing_edge-related_data)
 
 When investigating routes that pass a particular edge or intersection,
 the input routes may be filtered using the option **--subpart** {{DT_STR}}:

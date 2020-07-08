@@ -32,7 +32,7 @@ User-relevant changes:
     - Errors on default value usage patched
 - Documentation
   - trying to separate XML-code (green) from command line options (red)
-- Netconvert
+- netconvert
   - \--map-output <FILE\> builds a mapping that shows which edges have been removed while joining
   - guess-tls - options added
   - extended the FastLane-import by the -l parameter for the number of lanes

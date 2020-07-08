@@ -47,8 +47,8 @@ available.
 
 **2.** Some first steps towards making SUMO be aware of vehicle types
 have been done. It is now possible to allow/disallow vehicles by class
-to use certain lanes. This is now implemented in the NETCONVERT
-application and within DUAROUTER, but not yet in the simulation itself
+to use certain lanes. This is now implemented in the netconvert
+application and within duarouter, but not yet in the simulation itself
 and due to this not yet documented. But, as you can see, we are working
 towards making SUMO multi-modal...
 
@@ -71,7 +71,7 @@ The complete list of changes:
   - detector position may now be "friendly" (see
     [E1-Detectors (Induct Loops)](http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-output-detectors-e1))
   - documentation on variable speed signs added (see [Variable Speed Signs (VSS)](http://sumo.sourceforge.net/docs/gen/user_chp06.shtml#user_chp06-management-vss))
-- NETCONVERT
+- netconvert
   - Improved ArcView-import
   - Additional option for importing NavTeq-networks (using
     ArcView/Elmar/Elmar2): new navteq lane number information may be
@@ -81,7 +81,7 @@ The complete list of changes:
   - Vision import added (see [Importing VISUM-networks](http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-other_input-visum))
   - Positions of guessed TLS may now be saved as POIs (undocumented, yet)
   - The edge function can be given (undocumented, yet)
-- JTRROUTER
+- jtrrouter
   - default-percentages may now contain more than three items
   - Examples added
   - renamed "percentage" to probability

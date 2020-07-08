@@ -20,7 +20,7 @@ permalink: /Z/Changes_from_version_0.8.0_to_version_0.8.0.1/
   - Bug on repeatedly emitted vehicles patched
 - Simulation
   - Bug on repeatedly emitted vehicles patched
-- Netconvert
+- netconvert
   - Made the geometry of junctions pretty again
   - Too conservative right-of-way rules on importing vissim-networks was reworked
 - general implementation issues

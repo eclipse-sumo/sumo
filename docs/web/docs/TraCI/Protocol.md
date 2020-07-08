@@ -8,9 +8,9 @@ there for a general introduction.
 
 ## Basic Flow
 
-After starting [SUMO](../SUMO.md), clients connect to
-[SUMO](../SUMO.md) by setting up a TCP connection to the appointed
-[SUMO](../SUMO.md) port. TraCI supports multiple clients and
+After starting [sumo](../sumo.md), clients connect to
+[sumo](../sumo.md) by setting up a TCP connection to the appointed
+[sumo](../sumo.md) port. TraCI supports multiple clients and
 executes all commands of a client in a sequence until it issues the
 [TraCI/Control-related commands\#Command 0x02: Simulation
 Step](../TraCI/Control-related_commands.md#command_0x02_simulation_step)
@@ -32,14 +32,14 @@ all clients need to connect before the first simulation step.
 ![Image:traciConnect_sequence.png](../images/TraciConnect_sequence.png
 "Image:traciConnect_sequence.png")
 
-The client application sends commands to [SUMO](../SUMO.md) to
+The client application sends commands to [sumo](../sumo.md) to
 control the simulation run, to influence single vehicle's behavior or to
-ask for environmental details. [SUMO](../SUMO.md) answers with a
+ask for environmental details. [sumo](../sumo.md) answers with a
 <em>Status</em>-response to each command and additional results that
 depend on the given command.
 
 The client has to trigger each simulation step in
-[SUMO](../SUMO.md) using the [TraCI/Control-related
+[sumo](../sumo.md) using the [TraCI/Control-related
 commands\#Command 0x02: Simulation
 Step](../TraCI/Control-related_commands.md#command_0x02_simulation_step)
 command. If any
@@ -171,7 +171,7 @@ coordinates).
 <table style="border-collapse:collapse;border-spacing:0" class="tg"><tr><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:middle" colspan="8">ubyte</th><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">double</th><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">double</th><th style="font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">double</th></tr><tr><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:middle">0</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:middle">0</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:middle">0</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:middle">0</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">0</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">0</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">1</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">1</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">X</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">Y</td><td style="font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;text-align:center;vertical-align:top">Z</td></tr></table>
 
 **Road Map Position (*ubyte* identifier: 0x04)** Alternative position
-description that is also used by [SUMO](../SUMO.md) in most cases.
+description that is also used by [sumo](../sumo.md) in most cases.
 *RoadId* identifies a road segment (edge), *Pos* describes the position
 of the node in longitudinal direction (ranging from 0 to the road's
 length). *LaneId* identifies the driving lane on the road segment. Lanes

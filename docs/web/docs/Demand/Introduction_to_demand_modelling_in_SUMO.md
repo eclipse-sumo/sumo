@@ -4,15 +4,15 @@ permalink: /Demand/Introduction_to_demand_modelling_in_SUMO/
 ---
 
 After having generated a network, one could take a look at it using
-[SUMO-GUI](../SUMO-GUI.md), but no cars would be driving around.
+[sumo-gui](../sumo-gui.md), but no cars would be driving around.
 One still needs some kind of description about the vehicles. This is
 called the *traffic demand*. From now on we will use the following
 nomenclature: A **trip** is a vehicle movement from one place to another
 defined by the starting edge (street), the destination edge, and the
 departure time. A **route** is an expanded trip, that means, that a
 route definition contains not only the first and the last edge, but all
-edges the vehicle will pass. [SUMO](../SUMO.md) and
-[SUMO-GUI](../SUMO-GUI.md) need routes as input for vehicle
+edges the vehicle will pass. [sumo](../sumo.md) and
+[sumo-gui](../sumo-gui.md) need routes as input for vehicle
 movements. There are several ways to generate routes for SUMO. The
 choice depends on your available input data:
 
@@ -22,12 +22,12 @@ choice depends on your available input data:
   the ending edge and the departure time. This is useful for when you
   want to create *demand* by hand or when writing your own scripts to
   import custom data. You may either use
-  [DUAROUTER](../DUAROUTER.md) to turn your trips into routes.
+  [duarouter](../duarouter.md) to turn your trips into routes.
   See
   [Demand/Shortest_or_Optimal_Path_Routing](../Demand/Shortest_or_Optimal_Path_Routing.md)
   and
   [Demand/Dynamic_User_Assignment](../Demand/Dynamic_User_Assignment.md),
-  or you may load the trips directly into [SUMO](../SUMO.md)
+  or you may load the trips directly into [sumo](../sumo.md)
   [(more details)](../Demand/Automatic_Routing.md).
 
 - Using flow definitions
@@ -46,7 +46,7 @@ choice depends on your available input data:
 
   Origin-Destination-Matrices (or OD-matrices) are often available
   from traffic authorities. They have to be converted to trips using
-  [OD2TRIPS](../OD2TRIPS.md). See
+  [od2trips](../od2trips.md). See
   [Demand/Importing_O/D_Matrices](../Demand/Importing_O/D_Matrices.md),
   [Demand/Shortest_or_Optimal_Path_Routing](../Demand/Shortest_or_Optimal_Path_Routing.md)
   and
@@ -56,12 +56,12 @@ choice depends on your available input data:
 
   One may also leave out the destination edges for flows and use
   turning ratios at junctions instead. See
-  [JTRROUTER](../JTRROUTER.md).
+  [jtrrouter](../jtrrouter.md).
 
 - Using detector data (observation points)
 
   Induction loops and similar devices are commonly used by authorities
-  to measure traffic. Using [DFROUTER](../DFROUTER.md) you may
+  to measure traffic. Using [dfrouter](../dfrouter.md) you may
   uses this data to generate demand. See
   [Demand/Routes_from_Observation_Points](../Demand/Routes_from_Observation_Points.md).
 
@@ -72,7 +72,7 @@ choice depends on your available input data:
 
 - Using population statistics
 
-  The program [ACTIVITYGEN](../ACTIVITYGEN.md) can be used to
+  The program [activitygen](../activitygen.md) can be used to
   turn population statistics into traffic demand. See
   [Demand/Activity-based Demand
   Generation](../Demand/Activity-based_Demand_Generation.md).
@@ -82,14 +82,14 @@ choice depends on your available input data:
   see [SUMO_User_Documentation\#Demand_Modelling](../index.md#demand_modelling)
 
 By now, the SUMO-package contains four applications for generating
-routes. [DUAROUTER](../DUAROUTER.md) is responsible for importing
+routes. [duarouter](../duarouter.md) is responsible for importing
 routes or their definitions from other simulation packages and for
 computing routes using the shortest-path algorithm by Dijkstra.
 Additionally, in combination with the simulation, the
-[DUAROUTER](../DUAROUTER.md) can compute the dynamic user
-assignment formulated by C. Gawron. [JTRROUTER](../JTRROUTER.md)
+[duarouter](../duarouter.md) can compute the dynamic user
+assignment formulated by C. Gawron. [jtrrouter](../jtrrouter.md)
 may be used if you want to model traffic statistically, using flows and
-turning percentages at junctions. [OD2TRIPS](../OD2TRIPS.md) helps
+turning percentages at junctions. [od2trips](../od2trips.md) helps
 you to convert OD-matrices (origin/destination-matrices) into trips. The
-[DFROUTER](../DFROUTER.md) computes routes from given observation
+[dfrouter](../dfrouter.md) computes routes from given observation
 point measures.

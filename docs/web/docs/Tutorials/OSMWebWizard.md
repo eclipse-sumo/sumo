@@ -8,10 +8,10 @@ permalink: /Tutorials/OSMWebWizard/
 The OSM Web Wizard offers one of the easiest solutions to start with
 SUMO. Based on a selection of an openstreetmap map excerpt, you will be
 able to configure a randomized traffic demand and run and visualize the
-scenario in the [SUMO-GUI](../SUMO-GUI.md). This tutorial will
+scenario in the [sumo-gui](../sumo-gui.md). This tutorial will
 guide you step by step from the selection of the map excerpt over
 defining the traffic demand through running and visualizing the scenario
-in the SUMO-GUI.
+in the sumo-gui.
 
 # Requirements
 
@@ -101,7 +101,7 @@ The complete scenario will be generated automatically once *Generate
 Scenario* in the control panel has been clicked. The scenario generation
 takes a couple of seconds or minutes (depending, among others, on the
 size of the scenario). Once the scenario generation process has
-finished, the SUMO-GUI starts and the simulation can be started by
+finished, the sumo-gui starts and the simulation can be started by
 pressing the *Play* button.
 
 ![wz04.jpg](../images/Wz04.jpg "wz04.jpg")

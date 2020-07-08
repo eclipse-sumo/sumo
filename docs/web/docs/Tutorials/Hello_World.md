@@ -8,38 +8,38 @@ permalink: /Tutorials/Hello_World/
 
 ## Requirements
 
-- [SUMO](../SUMO.md) and [NETEDIT](../NETEDIT.md) version ≥ 1.4.0
+- [sumo-gui](../sumo-gui.md) and [netedit](../netedit.md) version ≥ 1.4.0
 
 ## Introduction
 
-This tutorial is for first-time [SUMO](../SUMO.md) users. We are going to build the
+This tutorial is for first-time SUMO users. We are going to build the
 simplest net possible and let a single car drive on it.
 
-In order to perform a very basic simulation in [SUMO](../SUMO.md), it is required to have at least the following elements (files):
+In order to perform a very basic simulation in SUMO, it is required to have at least the following elements (files):
 
 - Network
 - Route
 - SUMO configuration file
 
-In [SUMO](../SUMO.md) a street network consists of nodes
-(junctions) and edges (streets connecting the junctions). In this tutorial we will use [NETEDIT](../NETEDIT.md) to create our basic net.
+In SUMO a street network consists of nodes
+(junctions) and edges (streets connecting the junctions). In this tutorial we will use [netedit](../netedit.md) to create our basic net.
 
-Routes are defined by connecting edges and assigning Vehicles that pass through them. In this tutorial we will use [NETEDIT](../NETEDIT.md) to create this.
+Routes are defined by connecting edges and assigning Vehicles that pass through them. In this tutorial we will use [netedit](../netedit.md) to create this.
 
 The SUMO Configuration file is where certain options and all files (Network, Route, etc.) are being listed, so that SUMO can find and use them.
 
-## Creating the Network in NETEDIT
+## Creating the Network in netedit
 
-Open [NETEDIT](../NETEDIT.md) and create a new network by selecting *File-\>New Network* or using the shortcut `Ctrl + N`
+Open [netedit](../netedit.md) and create a new network by selecting *File-\>New Network* or using the shortcut `Ctrl + N`
 
 
 Make sure that **Network** is selected.
-![](../images/NeteditNetworkMode.png)
+![](../images/neteditNetworkMode.png)
 
 Enter **Edge Mode** by selecting *Edit-\>Edge mode*, using the shortcut `E` or by clicking on the ![](../images/ModeCreateEdge.gif) button.
 In Edge Mode, make sure that ***Chain*** is selected. This will facilitate creating multiple nodes and their connecting edges with fewer clicks.
 
-![](../images/NeteditChainSelected.png)
+![](../images/neteditChainSelected.png)
 
 Nodes are created by clicking on empty spaces (when in Edge Mode). Insert 3 nodes (aka Junctions) by clicking on three different places at the white blank space.
 After inserting the last Node, press <ESC\> to unselect that last node.
@@ -47,7 +47,7 @@ After inserting the last Node, press <ESC\> to unselect that last node.
 ![](../images/HelloWorld_1.gif)
 
 !!! note "Tip"
-    In NETEDIT you can use Ctrl + Z to undo
+    In netedit you can use Ctrl + Z to undo
 
 
 Now we want to rename our recently inserted Junctions and Edges (which get arbitrary id's when created) and also make our simple network prettier, by aligning all nodes.
@@ -68,17 +68,17 @@ Replace the position (**pos**) of the nodes with the following values:
 
 Our very basic network is done! We just need to save it ![](../images/Save.gif). Use *File -\> Save Network* (Ctrl + S) or *File -\> Save Network As* (Ctrl + Shift + S) and give it a proper name (such as `helloWorld.net.xml`).
 
-Do not close NETEDIT yet, the demand still needs to be generated.
+Do not close netedit yet, the demand still needs to be generated.
 
 !!! note
     In SUMO, Networks must have the following file extension -> **.net.xml** (example: *myNetwork.net.xml*)
 
 
 
-## Demand Generation in NETEDIT
+## Demand Generation in netedit
 
-Now, select the **Demand** supermode in NETEDIT.
-![](../images/NeteditDemandMode.png)
+Now, select the **Demand** supermode in netedit.
+![](../images/neteditDemandMode.png)
 
 ### Creating a Route
 
@@ -103,7 +103,7 @@ To insert a Vehicle, just click on the beginning of the route. A car will appear
 Now save the Demand (route + vehicle) file ![](../images/Save.gif).
 Use *File -\> Demand elements -\> Save demand elements* (Ctrl + Shift + D) or *File -\> Demand elements -\> Save demand elements as* and give it a proper name (such as `helloWorld.rou.xml`).
 
-Do not close NETEDIT yet.
+Do not close netedit yet.
 
 !!! note
     This demand element file **must** have the **.rou.xml** file extension!
@@ -111,14 +111,14 @@ Do not close NETEDIT yet.
 !!! caution "Important"
     Save all simulation related files (Network, Demand and SUMO Configuration file) in the same directory.
 
-## Visualizing in SUMO-GUI
+## Visualizing in sumo-gui
 
-We will open SUMO-GUI from NETEDIT. To do so, go to *Edit -\> Open in SUMO-GUI* (Ctrl + T). This will open SUMO-GUI and load our recently created network and demand files.
+We will open sumo-gui from netedit. To do so, go to *Edit -\> Open in sumo-gui* (Ctrl + T). This will open sumo-gui and load our recently created network and demand files.
 
-As soon as SUMO-GUI opens, let's save the SUMO configuration file (that relates the network and demand files) ![](../images/Save.gif).
+As soon as sumo-gui opens, let's save the SUMO configuration file (that relates the network and demand files) ![](../images/Save.gif).
 *File -\> Save Configuration* (Ctrl + Shift + S). Give it a proper name (such as `helloWorld.sumocfg`).
 
-Now you can close NETEDIT if you wish.
+Now you can close netedit if you wish.
 
 !!! note
     SUMO Configuration files have the following file extension -> **.sumocfg** (example: *myScenario.sumocfg*)
@@ -129,12 +129,12 @@ Click on Run ![](../images/Play.gif) (Ctrl + A) to start the simulation.
 
 ![](../images/HelloWorld_5.gif)
 
-From now on, if we want to run this scenario again we only have to open the SUMO Configuration file (*.sumocfg) in SUMO-GUI or SUMO.
+From now on, if we want to run this scenario again we only have to open the SUMO Configuration file (*.sumocfg) in [sumo-gui](../sumo-gui.md) or [sumo](../sumo.md).
 
 That's it! You have your first simulation scenario in SUMO :)
 
 ## Further Reading
 
-Do you want to do this exercise again, but using a text editor instead of the NETEDIT graphic interface? Visit [this tutorial](../Tutorials/Hello_Sumo.md).
+Do you want to do this exercise again, but using a text editor instead of the netedit graphic interface? Visit [this tutorial](../Tutorials/Hello_SUMO.md).
 
 More [Tutorials](../Tutorials.md).

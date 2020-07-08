@@ -1,12 +1,12 @@
 ---
-title: JTRROUTER
-permalink: /JTRROUTER/
+title: jtrrouter
+permalink: /jtrrouter/
 ---
 
 # From 30.000 feet
 
-**JTRROUTER** computes routes that may be used by
-[SUMO](SUMO.md) based on traffic volumes and junction turning
+**jtrrouter** computes routes that may be used by
+[sumo](sumo.md) based on traffic volumes and junction turning
 ratios.
 
 - **Purpose:** Building vehicle routes from demand definitions using
@@ -15,8 +15,8 @@ junction turning percentages
   - **Input (mandatory):**
 
     A) a road network as generated via
-    [NETCONVERT](NETCONVERT.md) or
-    [NETGENERATE](NETGENERATE.md), see [Building
+    [netconvert](netconvert.md) or
+    [netgenerate](netgenerate.md), see [Building
     Networks](index.md#network_building)
 
     B) a demand definition, see [Demand
@@ -26,17 +26,17 @@ junction turning percentages
 
 - **Output:** [Definition of Vehicles, Vehicle Types, and
 Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-usable by [SUMO](SUMO.md)
+usable by [sumo](sumo.md)
 - **Programming Language:** C++
 
 # Usage Description
 
-JTRROUTER is made for [routing based on
+jtrrouter is made for [routing based on
 turn-ratios](Demand/Routing_by_Turn_Probabilities.md).
 
 ## Options
 
-You may use a XML schema definition file for setting up a JTRROUTER
+You may use a XML schema definition file for setting up a jtrrouter
 configuration:
 [jtrrouterConfiguration.xsd](http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd).
 

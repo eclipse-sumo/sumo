@@ -9,7 +9,7 @@ permalink: /Tools/Trip/
 (option **-n**). It does so by choosing source and destination edge either
 uniformly at random or with a modified distribution as described below.
 The resulting trips are stored in an XML file (option **-o**, default
-trips.trips.xml) suitable for [DUAROUTER](../DUAROUTER.md) which is
+trips.trips.xml) suitable for [duarouter](../duarouter.md) which is
 called automatically if the  option (with a filename for the resulting
 route file) is given. The trips are distributed evenly in an interval
 defined by begin (option **-b**, default 0) and end time (option **-e**, default
@@ -85,7 +85,7 @@ To let *n* vehicles depart between times *t0* and *t1* set the options
 
 When using the option **--route-file**, an output file with valid vehicle routes will be
 generated. This works by automatically calling
-[DUAROUTER](../DUAROUTER.md) in the background to turn the random
+[duarouter](../duarouter.md) in the background to turn the random
 trips into routes and automatically discard disconnected trips. It may
 be necessary to increase the number of generated random trips to account
 for a fraction disconnected, discarded trips.
@@ -214,8 +214,8 @@ which contain the used edge probabilities.
 
 ### Visualization
 
-Any of these files can be loaded in [SUMO-GUI for
-visualization](../SUMO-GUI.md#visualizing_edge-related_data)
+Any of these files can be loaded in [sumo-gui for
+visualization](../sumo-gui.md#visualizing_edge-related_data)
 
 ### Loading
 

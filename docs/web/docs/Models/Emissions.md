@@ -116,8 +116,8 @@ modeled using the HBEFA3 based model).
 # Outputs
 
 Pollutants emitted by the simulated vehicles can be visualised using
-[SUMO-GUI](../SUMO-GUI.md) or be written into output files, both by
-[SUMO](../SUMO.md) and [SUMO-GUI](../SUMO-GUI.md). The
+[sumo-gui](../sumo-gui.md) or be written into output files, both by
+[sumo](../sumo.md) and [sumo-gui](../sumo-gui.md). The
 following output can be used:
 
 - [trip information](../Simulation/Output/TripInfo.md): In
@@ -134,11 +134,11 @@ following output can be used:
 - [emission-output](../Simulation/Output/EmissionOutput.md):
   Unaggregated emission values for every vehicle and time step
 - [Color vehicles by
-  emissions](../SUMO-GUI.md#vehicle_visualisation_settings): This
+  emissions](../sumo-gui.md#vehicle_visualisation_settings): This
   can be used to show the emissions for each vehicle during each
   simulation step
 - [Color lanes/edges by
-  emissions](../SUMO-GUI.md#edgelane_visualisation_settings):
+  emissions](../sumo-gui.md#edgelane_visualisation_settings):
   This can be used to show the emissions for all vehicles on a lane
   during each simulation step (or for the whole edge in
   [Simulation/Meso](../Simulation/Meso.md)).

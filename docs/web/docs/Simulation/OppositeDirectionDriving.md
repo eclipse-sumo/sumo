@@ -18,7 +18,7 @@ options for including this information are described below.
 
 ## Heuristically
 
-By setting the [NETCONVERT](../NETCONVERT.md) option **--opposites.guess** {{DT_BOOL}}, opposite
+By setting the [netconvert](../netconvert.md) option **--opposites.guess** {{DT_BOOL}}, opposite
 edges are identified heuristically.
 
 ## Explicitly

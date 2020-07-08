@@ -30,6 +30,6 @@ permalink: /Z/Changes_from_version_0.9.9_to_version_0.9.10/
   - patched dua-iterate.py - **--move-on-short** does no longer
       exist
 
-- DUAROUTER
+- duarouter
   - patched behaviour on missing files
   - debugged [bug 2042630 remove-loops breaks application](http://sourceforge.net/tracker/index.php?func=detail&aid=2042630&group_id=45607&atid=443421)

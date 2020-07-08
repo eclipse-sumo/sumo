@@ -25,10 +25,10 @@ used.
 
 # Importing the Road Network
 
-[NETCONVERT](../../NETCONVERT.md) can import OSM-files natively. The
+[netconvert](../../netconvert.md) can import OSM-files natively. The
 according option is named **--osm-files** {{DT_FILE}}\[,{{DT_FILE}}\]\* or **--osm** {{DT_FILE}}\[,{{DT_FILE}}\]\* for short.
 
-The following call to [NETCONVERT](../../NETCONVERT.md) imports the
+The following call to [netconvert](../../netconvert.md) imports the
 road network stored in "berlin.osm.xml" and stores the SUMO-network
 generated from this data into "berlin.net.xml":
 
@@ -39,15 +39,15 @@ netconvert --osm-files berlin.osm.xml -o berlin.net.xml
 OSM-data has always WGS84 geo coordinates which will be automatically
 UTM transformed by netconvert (since sumo 0.11.1). Thus you need
 explicit projection parameters only if you need a different projection.
-Refer to the [NETCONVERT](../../NETCONVERT.md) documentation for other
+Refer to the [netconvert](../../netconvert.md) documentation for other
 conversion options.
 
 !!! note
-    Several aspects of the imported network may have to be modified to suit your needs. Some of the relevant [NETCONVERT](../../NETCONVERT.md) options are described below. For more flexible alterations see [Tutorials/ScenarioGuide#Modifying_the_Network](../../Tutorials/ScenarioGuide.md#modifying_the_network).
+    Several aspects of the imported network may have to be modified to suit your needs. Some of the relevant [netconvert](../../netconvert.md) options are described below. For more flexible alterations see [Tutorials/ScenarioGuide#Modifying_the_Network](../../Tutorials/ScenarioGuide.md#modifying_the_network).
 
 The number of tiles given in both calls must match.
 
-### Recommended [NETCONVERT](../../NETCONVERT.md) Options
+### Recommended [netconvert](../../netconvert.md) Options
 
 ```
  --geometry.remove --ramps.guess --junctions.join --tls.guess-signals --tls.discard-simple --tls.join --tls.default-type actuated
@@ -109,7 +109,7 @@ below.
 
 OSM-data not only contains the road network but also a wide range of
 additional polygons such as buildings and rivers. These polygons can be
-imported using [POLYCONVERT](../../POLYCONVERT.md) and then added to a
+imported using [polyconvert](../../polyconvert.md) and then added to a
 `sumo-gui`-configuration.
 
 To interpret the OSM-data an additional *typemap*-file is required (the
@@ -159,7 +159,7 @@ example below is identical to {{SUMO}}/data/typemap/osmPolyconvert.typ.xml):
 ```
 
 Using the typemap file *typemap.xml* the following call to
-[POLYCONVERT](../../POLYCONVERT.md) imports polygons from OSM-data and
+[polyconvert](../../polyconvert.md) imports polygons from OSM-data and
 produces a Sumo-polygon file.
 
 ```
@@ -209,11 +209,11 @@ vehicles.
 
 When using the option **--type-file** an additional output file with polygons of rivers
 and buildings as well as Points of Interest (POIs) will be generated.
-This can be loaded in [SUMO-GUI](../../SUMO-GUI.md) for additional
+This can be loaded in [sumo-gui](../../sumo-gui.md) for additional
 visualization. Useful type files can be found at {{SUMO}}/data/typemap/.
 
-Additional options for [NETCONVERT](../../NETCONVERT.md) and
-[POLYCONVERT](../../POLYCONVERT.md) can be supplied using the options **--netconvert-options**
+Additional options for [netconvert](../../netconvert.md) and
+[polyconvert](../../polyconvert.md) can be supplied using the options **--netconvert-options**
 and **-polyconvert-options**
 
 !!! note
@@ -268,9 +268,9 @@ junctions instead of one. To merge such junctions into a single
 junction, one can define which nodes to merge. See [Networks/Building
 Networks from own XML-descriptions\#Joining
 Nodes](../../Networks/PlainXML.md#joining_nodes)
-and [NETCONVERT](../../NETCONVERT.md) documentation for usage details.
+and [netconvert](../../netconvert.md) documentation for usage details.
 
-The [NETCONVERT](../../NETCONVERT.md) option **--junctions.join** applies a heuristic to
+The [netconvert](../../netconvert.md) option **--junctions.join** applies a heuristic to
 join these junction clusters automatically and is used by default when
 using the *osmBuild.py* script described above. However, some junction
 clusters are too complex for the heuristic and should be checked
@@ -289,7 +289,7 @@ junction clusters.
 
 ### Interpreting traffic light information in OSM
 
-[NETCONVERT](../../NETCONVERT.md) prefers each intersection to be
+[netconvert](../../netconvert.md) prefers each intersection to be
 represented by a single node with a single traffic light controller. To
 achieve the former, see [\#Junctions](#junctions). To achieve
 the latter some extra options are recommended. OSM often uses nodes
@@ -318,23 +318,23 @@ nodes](#node_descriptions).
 Occasionally intersections that should be TLS-controlled are set to
 uncontrolled in the exported *.net.xml*-file. This may either be due to
 lack of data in OSM, or due to the invalid interpretation of that data
-by [NETCONVERT](../../NETCONVERT.md). Either of the following steps
+by [netconvert](../../netconvert.md). Either of the following steps
 may be useful to diagnose the problem:
 
-- run [NETCONVERT](../../NETCONVERT.md) **without** the options **--tls.discard-loaded --tls.discard-simple**
-- run [POLYCONVERT](../../POLYCONVERT.md) with a type-file that
+- run [netconvert](../../netconvert.md) **without** the options **--tls.discard-loaded --tls.discard-simple**
+- run [polyconvert](../../polyconvert.md) with a type-file that
   contains `<polygonType id="highway" name="highway"` and then look at the generated POIs in
-  [SUMO-GUI](../../SUMO-GUI.md#loading_shapes_and_pois). They should
+  [sumo-gui](../../sumo-gui.md#loading_shapes_and_pois). They should
   include all traffic light locations defined in the OSM file.
 
 ### Overriding the traffic light information
 
 If the traffic light information embedded in the OSM file does not fit
 your needs, you can strip it with **--osm.discard-tls** option in
-[NETCONVERT](../../NETCONVERT.md) and then provide your own definition
+[netconvert](../../netconvert.md) and then provide your own definition
 in a separate
 [\*.nod.xml](../../Networks/PlainXML.md#node_descriptions)
-file in a second run of [NETCONVERT](../../NETCONVERT.md):
+file in a second run of [netconvert](../../netconvert.md):
 
 ```
 # 1. Import the OSM file to SUMO, discarding TLS information.
@@ -354,7 +354,7 @@ and new node type.
 ## Highway On- and Off-Ramps
 
 OSM networks often lack additional lanes for highway on- and off-ramps.
-They can be guessed via [NETCONVERT](../../NETCONVERT.md) using the **--guess-ramps**
+They can be guessed via [netconvert](../../netconvert.md) using the **--guess-ramps**
 option.
 
 ## Roundabouts
@@ -410,11 +410,11 @@ java -jar osmosis.jar --read-xml file="orginal.osm.xml" --way-key-value \
     --used-node --write-xml file="filtered.osm.xml"
 ```
 
-# NETCONVERT Details
+# netconvert Details
 
 ## Road Types
 
-When importing road networks, [NETCONVERT](../../NETCONVERT.md)
+When importing road networks, [netconvert](../../netconvert.md)
 searches for the street type, encoded in OSM as a key/value-pair where
 the key is either "*highway*", "*railway*" or "*waterway*". Only if such
 a key occurs in the edge definition, the edge is imported (see also
@@ -450,7 +450,7 @@ one-way edge.
 In most cases, tracks and edges which not may be crossed by motorised
 traffic are not interesting for road traffic research. It is possible to
 exclude these edges from being imported using the
-[NETCONVERT](../../NETCONVERT.md)-option **--remove-edges.by-vclass** {{DT_STR}}\[,{{DT_STR}}\]\*.
+[netconvert](../../netconvert.md)-option **--remove-edges.by-vclass** {{DT_STR}}\[,{{DT_STR}}\]\*.
 
 For removing all edges which can not be used by passenger vehicles the
 call must be extended by:
@@ -505,7 +505,7 @@ may be issued during OSM import.
 | Warning: Direction of restriction relation could not be determined         | Some data is missing within the OSM file.                                    | Ignore, because this relation most likely falls outside the boundaries of the road network.     |
 
 [Additional warnings are described
-here](../../NETCONVERT.md#warnings_during_import).
+here](../../netconvert.md#warnings_during_import).
 
 # Importing large Networks
 
@@ -532,7 +532,7 @@ whole of Scotland) but some precautions should be taken:
 
 # Importing Public Transport Data
 
-Netconvert and further SUMO tools can be used to import public transpot
+netconvert and further SUMO tools can be used to import public transpot
 data from OSM. The easiest way to do this is by using the
 [OSM-Web-Wizard tool](../../Tutorials/OSMWebWizard.md). Performing the
 import without the wizard is explained in

@@ -1,31 +1,31 @@
 ---
-title: MAROUTER
-permalink: /MAROUTER/
+title: marouter
+permalink: /marouter/
 ---
 
 # From 30.000 feet
 
-**MAROUTER** computes a macroscopic [user
+**marouter** computes a macroscopic [user
 assignment](Demand/Dynamic_User_Assignment.md#introduction)
-(routes) to be loaded into [SUMO](SUMO.md) from various inputs
+(routes) to be loaded into [sumo](sumo.md) from various inputs
 (Origin-Destination-Matrices, trip files or route files).
 
 - **Purpose:** Macroscopic route assignment
 - **System:** portable (Linux/Windows is tested); runs on command line
 - **Input (mandatory):**
   - A) a road network as generated via
-      [NETCONVERT](NETCONVERT.md) or
-      [NETGENERATE](NETGENERATE.md), see [Building
+      [netconvert](netconvert.md) or
+      [netgenerate](netgenerate.md), see [Building
       Networks](index.md#network_building)
   - B) O/D matrix
 - **Output:** [Definition of Vehicles, Vehicle Types, and
   Routes](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md)
-  usable by [SUMO](SUMO.md)
+  usable by [sumo](sumo.md)
 - **Programming Language:** C++
 
 # Usage Description
 
-MAROUTER computes a user assignment (routes) with a configurable
+marouter computes a user assignment (routes) with a configurable
 assignment method (using option **assignment-method**):
 
 - **incremental**
@@ -36,26 +36,26 @@ assignment method (using option **assignment-method**):
 
 - **SUE**: stochastic user equilibrium
 
-MAROUTER uses a hard-coded capacity-constraint function based on speed
+marouter uses a hard-coded capacity-constraint function based on speed
 limit, lane number and edge priority to compute traveltimes and flows
 based on density. For details, see functions
 *capacityConstraintFunction* and *getCapacity* in [{{SUMO}}/src/marouter/ROMAAssignments.cpp]({{Source}}src/marouter/ROMAAssignments.cpp).
 
-MAROUTER reads OD matrices and creates route files. These route files
+marouter reads OD matrices and creates route files. These route files
 contain route distributions between traffic assignment zones. Each route
 in the distribution is a fully specified list of network edges.
 
 ## Microscopic Outputs
 
-One of the main usages of MAROUTER is to compute a
+One of the main usages of marouter is to compute a
 [Demand/Dynamic_User_Assignment](Demand/Dynamic_User_Assignment.md).
 To this end it generates `<flow>` definitions with fully specified routes that
-can be loaded into [SUMO](SUMO.md) and
-[SUMO-GUI](SUMO-GUI.md).
+can be loaded into [sumo](sumo.md) and
+[sumo-gui](sumo-gui.md).
 
 ## Macroscopic Outputs
 
-MAROUTER can create macroscopic traffic data for all network edges by
+marouter can create macroscopic traffic data for all network edges by
 using the option **--netload-output**. This data contains *travelTime, speed*, *entered*
 (the number of vehicles that entered the edge) and *flowCapacityRatio*
 (the proportion of total capacity used). These values can either be
@@ -63,12 +63,12 @@ written aggregated for the whole day (default) or split into intervals
 according to the time-granularity of the input data (**--aggregation-interval**).
 
 This output can [visualized in
-SUMO-GUI](SUMO-GUI.md#visualizing_edge-related_data) to
+sumo-gui](sumo-gui.md#visualizing_edge-related_data) to
 understand how the different traffic measures change over time.
 
 ## Options
 
-You may use a XML schema definition file for setting up a MAROUTER
+You may use a XML schema definition file for setting up a marouter
 configuration:
 [marouterConfiguration.xsd](http://sumo.dlr.de/xsd/marouterConfiguration.xsd).
 

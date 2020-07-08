@@ -3,12 +3,12 @@ title: Developer/Network Building Process
 permalink: /Developer/Network_Building_Process/
 ---
 
-[NETCONVERT](../NETCONVERT.md),
-[NETGENERATE](../NETGENERATE.md), and [NETEDIT](../NETEDIT.md)
+[netconvert](../netconvert.md),
+[netgenerate](../netgenerate.md), and [netedit](../netedit.md)
 share the same process of building networks which is started as soon as
-data are read (in [NETCONVERT](../NETCONVERT.md)) or after an
+data are read (in [netconvert](../netconvert.md)) or after an
 internal description is generated (in
-[NETGENERATE](../NETGENERATE.md)).
+[netgenerate](../netgenerate.md)).
 
 The process requires that at least nodes and edges are given, optionally
 also connections between edges and/or lanes and other optional

@@ -54,13 +54,13 @@ classes. This definition is either
   [OpenStreetMap](../Networks/Import/OpenStreetMap.md) according
   to a [customizable
   heuristic](../Networks/Import/OpenStreetMap.md#recommended_typemaps).
-- or set via [NETEDIT](../NETEDIT.md#inspect). Convenience
+- or set via [netedit](../netedit.md#inspect). Convenience
   features exist [for adding bicycle lanes, bus lanes and
-  sidewalks](../NETEDIT.md#restricted_lanes).
+  sidewalks](../netedit.md#restricted_lanes).
 
 For visualizing access permissions, either
-[SUMO-GUI](../SUMO-GUI.md#road_access_permissions) or
-[NETEDIT](../NETEDIT.md#correcting_road_access_permissions) may be
+[sumo-gui](../sumo-gui.md#road_access_permissions) or
+[netedit](../netedit.md#correcting_road_access_permissions) may be
 used.
 
 # Special cases

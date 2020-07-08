@@ -93,7 +93,7 @@ found in [{{SUMO}}/data/typemap/osmNetconvertPedestrians.typ.xml]({{Source}}data
 
 A third option which can be used if no edge types are available is a
 heuristic based on edge speed. It adds a sidewalk for all edges within a
-given speed range. This is controlled by using the following [NETCONVERT](../NETCONVERT.md) options:
+given speed range. This is controlled by using the following [netconvert](../netconvert.md) options:
 
 | Option                                 | Description                                                                       |
 |----------------------------------------|-----------------------------------------------------------------------------------|
@@ -109,9 +109,9 @@ Option **--sidewalks.guess.from-permissons** {{DT_BOOL}} is suitable for network
 sidewalk for all edges which allow pedestrians on any of their lanes.
 The option **--sidewalks.guess.exclude** {{DT_IDList}}[,{{DT_IDList}}\]\* applies here as well.
 
-### Adding sidewalks with [NETEDIT](../NETEDIT.md)
+### Adding sidewalks with [netedit](../netedit.md)
 
-To add sidewalks to a set of edges in [NETEDIT](../NETEDIT.md)
+To add sidewalks to a set of edges in [netedit](../netedit.md)
 select these and right click on them. From the context-menu select *lane operations->add restricted lane->Sidewalks*.
 
 ### Non-exclusive sidewalks
@@ -147,10 +147,10 @@ pedestrian traffic.
 
 Crossings may be defined explicitly in plain XML input when describing
 [connections (plain.con.xml) using the XML element `crossings`](../Networks/PlainXML.md#pedestrian_crossings).
-They can also be placed with [NETEDIT](../NETEDIT.md#crossings).
+They can also be placed with [netedit](../netedit.md#crossings).
 
 The second available method for adding crossing information to a network
-is with the [NETCONVERT](../NETCONVERT.md) option **--crossings.guess** {{DT_BOOL}}. This enables a heuristic which adds crossings
+is with the [netconvert](../netconvert.md) option **--crossings.guess** {{DT_BOOL}}. This enables a heuristic which adds crossings
 wherever sidewalks with similar angle are separated by lanes which
 forbid pedestrians. If the edges to be crossed have sufficient distance
 between them or vary a by a sufficient angle, two crossings with an
@@ -168,7 +168,7 @@ for the network.
 At every junction corner multiple sidewalks footpaths and pedestrian
 crossings may meet. The connectivity between these elements is modeled
 with a *walkingarea*. These walkingareas are generated automatically as
-long as the [NETCONVERT](../NETCONVERT.md) option **--crossings.guess** is set or there is at least one user-defined
+long as the [netconvert](../netconvert.md) option **--crossings.guess** is set or there is at least one user-defined
 crossing in the network. If no crossings are wanted in the network it is
 also possible to enable the creation of walkingareas by setting the
 option **--walkingareas**.
@@ -208,7 +208,7 @@ the option **--persontrips**.
 
 ## OD-Based
 
-The [OD2TRIPS](../OD2TRIPS.md) application generates pedestrian
+The [od2trips](../od2trips.md) application generates pedestrian
 demand when setting the option **--pedestrians**. Alternative it generates intermodal
 demand by setting option **--persontrips**.
 
@@ -290,7 +290,7 @@ pedestrian will be routed according to the fastest path along the road
 edges. This is usually also the shortest path since edges typically have
 no speed restraints that are relevant to pedestrians. This type of
 routing may happen before the simulation starts (using
-[DUAROUTER](../DUAROUTER.md)) or it may be done at insertion time
+[duarouter](../duarouter.md)) or it may be done at insertion time
 when loading only origin and destination into the simulation. Routes may
 later be influenced via [TraCI](../TraCI/Change_Person_State.md).
 

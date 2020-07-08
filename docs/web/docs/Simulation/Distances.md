@@ -22,7 +22,7 @@ However, lenghts of edges and lanes can be different from the euclidean
 distance (referred to as a **length-geometry-mismtach**) are there are several reasons why this occurs.
 
 
-[SUMO-GUI](../SUMO-GUI.md/#edgelane_visualisation_settings) and [NETEDIT](../NETEDIT.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
+[sumo-gui](../sumo-gui.md/#edgelane_visualisation_settings) and [netedit](../netedit.md) can be configured to color lanes by ''by given length/geometrical length'' which highlights the mismatch between both distance values.
 
 ## Lane curvature
 By design, all lanes of an edge are assigned the same length value (corresponding to driving distance and maximum lanePosition).
@@ -36,12 +36,12 @@ intersections](Intersections.md#internal_links).
 This discontinuity obviously introduces a mismatch between driving distance and
 x,y coordinates.
 
-When the network was built with [NETCONVERT option](../NETCONVERT) **--no-internal-links** then all edges in the network are made artificially longer to ensure that the total driving distance through the network matches the euclidean distance (averaged over the whole route). As a consequence, each edge has a length-geometry mismatch
+When the network was built with [netconvert option](../netconvert.md) **--no-internal-links** then all edges in the network are made artificially longer to ensure that the total driving distance through the network matches the euclidean distance (averaged over the whole route). As a consequence, each edge has a length-geometry mismatch
 
 ## Abstract networks
 In some types of simulation it is beneficial to define edges with
 length-geometry-mismatch. For example, railway networks with switches and parallel tracks are much easier to understand when the
 geometrical lengths are reduced. To keep the driving-lengths at their realistic values, each edge is given a custom length value the mismatch.
 
-# Vehicle lengths in SUMO-GUI
+# Vehicle lengths in sumo-gui
 By default, vehicle lengths are not affected by length-geometry-mismatch. This means, vehicles may seem to violate minimum gaps or even collide if they are driving on an edge where the (driving) length is longer than the geometrical (euclidean) length.

@@ -1,11 +1,11 @@
 ---
-title: NETGENERATE
-permalink: /NETGENERATE/
+title: netgenerate
+permalink: /netgenerate/
 ---
 
 # From 30.000 feet
 
-**NETGENERATE** generates abstract road networks that may be used by
+**netgenerate** generates abstract road networks that may be used by
 other SUMO-applications.
 
 - **Purpose:** Abstract road network generation
@@ -22,7 +22,7 @@ The usage is described at
 
 ## Options
 
-You may use a XML schema definition file for setting up a NETGENERATE
+You may use a XML schema definition file for setting up a netgenerate
 configuration:
 [netgenerateConfiguration.xsd](http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd).
 
@@ -120,8 +120,8 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 ### Processing
 
-Normally, both [NETCONVERT](NETCONVERT.md) and
-[NETGENERATE](NETGENERATE.md) translate the read network so that
+Normally, both [netconvert](netconvert.md) and
+[netgenerate](netgenerate.md) translate the read network so that
 the left- and down-most node are at coordinate (0,0). The options
 --offset.x and --offset.y allow to disable this and to apply different
 offsets for both the x- and the y-axis. If there are explicit offsets
@@ -139,7 +139,7 @@ the offsets given).
 | **--numerical-ids** {{DT_BOOL}} | Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers; *default:* **false** |
 | **--numerical-ids.node-start** {{DT_INT}} | Remaps IDs of nodes to integers starting at INT; *default:* **2147483647** |
 | **--numerical-ids.edge-start** {{DT_INT}} | Remaps IDs of edges to integers starting at INT; *default:* **2147483647** |
-| **--reserved-ids** {{DT_FILE}} | Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) |
+| **--reserved-ids** {{DT_FILE}} | Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) |
 | **--geometry.max-grade** {{DT_FLOAT}} | Warn about edge geometries with a grade in % above FLOAT.; *default:* **10** |
 | **--geometry.max-grade.fix** {{DT_BOOL}} | Smooth edge edge geometries with a grade in above the warning threshold.; *default:* **true** |
 | **--offset.disable-normalization** {{DT_BOOL}} | Turn off normalizing node positions; *default:* **false** |
@@ -215,8 +215,8 @@ the offsets given).
 | **--keep-edges.min-speed** {{DT_FLOAT}} | Only keep edges with speed in meters/second > FLOAT; *default:* **-1** |
 | **--remove-edges.explicit** {{DT_STR[]}} | Remove edges in STR[] |
 | **--keep-edges.explicit** {{DT_STR[]}} | Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options |
-| **--keep-edges.input-file** {{DT_FILE}} | Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options |
-| **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported) |
+| **--keep-edges.input-file** {{DT_FILE}} | Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options |
+| **--remove-edges.input-file** {{DT_FILE}} | Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) |
 | **--keep-edges.in-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates <xmin,ymin,xmax,ymax> or as polygon <x0,y0,x1,y1,...>) |
 | **--keep-edges.in-geo-boundary** {{DT_STR[]}} | Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates <lon-min,lat-min,lon-max,lat-max> or as polygon <lon0,lat0,lon1,lat1,...>) |
 

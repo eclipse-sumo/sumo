@@ -1,7 +1,7 @@
 <hTitles >SUMO User Documentation<hr style="border: 0.5px solid #338033;"></hTitles>
 
 !!! conference "User Conference 2020"
-    The [SUMO User Conference 2020](http://sumo.dlr.de/2020/) takes place **October 26-28, 2020**. This year's conference is going to be **virtual** and the    participation will be **free** of charge.
+    The [SUMO User Conference 2020](http://sumo.dlr.de/2020/) takes place **October 26-28, 2020**. This year's conference is going to be **virtual** and the participation will be **free** of charge.
 
 "**S**imulation of **U**rban **MO**bility" (SUMO) is an open source, highly portable, microscopic and continuous traffic simulation package designed to handle large networks. It allows for intermodal simulation including pedestrians and comes with a large set of tools for scenario creation. It is mainly developed by employees of the [Institute of Transportation Systems](https://www.dlr.de/ts) at the [German Aerospace Center](https://www.dlr.de). SUMO is licensed under the [EPL 2.0](https://eclipse.org/legal/epl-v20.html).
 
@@ -13,17 +13,14 @@ If You use SUMO, please tell us about your
 !!! note
     When citing SUMO in general please use our current reference publication: ["Microscopic Traffic Simulation using SUMO"](https://elib.dlr.de/127994/); Pablo Alvarez Lopez, Michael Behrisch, Laura Bieker-Walz, Jakob Erdmann, Yun-Pang Flötteröd, Robert Hilbrich, Leonhard Lücken, Johannes Rummel, Peter Wagner, and Evamarie Wießner. IEEE Intelligent Transportation Systems Conference (ITSC), 2018.
 
-Any help is appreciated - corrections and contributions to the
-documentation, submission of code, or other results.
-
-The content of this Documentation is freely editable according to the [wiki style](https://en.wikipedia.org/wiki/Wiki). That means, whenever you find a solution to a problem mentioned on the [mailing lists](Contact.md), feel free to add an article to this Documentation or an entry to the [frequently asked questions](FAQ.md). Write access is restricted. In order to edit this Documentation, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
+The content of this Documentation is freely editable according to the [wiki style](https://en.wikipedia.org/wiki/Wiki). In order to edit this Documentation, click on the "Edit on GitHub" button on the upper right corner and submit a Pull Request.
 Here is a short help on [editing articles](Editing_Articles.md).
 
 This Documentation is continuously updated and always refers to the latest development version. Documentation for a specific release version of SUMO is included in the download of that version.
 
 # Introduction
 
-- [The traffic simulation SUMO](Sumo_at_a_Glance.md)
+- [The traffic simulation SUMO](SUMO_at_a_Glance.md)
 
 # Basic Usage
 
@@ -39,7 +36,7 @@ This Documentation is continuously updated and always refers to the latest devel
 
 - Introduction to [SUMO Road Networks](Networks/SUMO_Road_Networks.md)
 - [Abstract networks generation](Networks/Abstract_Network_Generation.md)
-- Importing networks with [NETCONVERT](NETCONVERT.md)
+- Importing networks with [netconvert](netconvert.md)
   - [Defining own networks using XML](Networks/PlainXML.md)
   - [Importing non-SUMO networks](Networks/Import.md)
     - [from OpenStreetMap](Networks/Import/OpenStreetMap.md)
@@ -54,9 +51,9 @@ This Documentation is continuously updated and always refers to the latest devel
   - [Importing SUMO networks](Networks/Import/SUMO_Road_Networks.md)
   - [Building networks for motorway simulation](Simulation/Motorways.md#building_a_network_for_motorway_simulation)
   - [Building networks for pedestrian simulation](Simulation/Pedestrians.md#building_a_network_for_pedestrian_simulation)
-  - [Further NETCONVERT options](Networks/Further_Options.md)
+  - [Further netconvert options](Networks/Further_Options.md)
   - [Additional output](Networks/Further_Outputs.md)
-- [Creating and modifying networks with NETEDIT](NETEDIT.md)
+- [Creating and modifying networks with netedit](netedit.md)
 - [Including elevation data](Networks/Elevation.md)
 - [Geo-Coordinates](Geo-Coordinates.md)
 
@@ -154,11 +151,11 @@ For an index of all tools see
 
 - [Tool index](Tools.md)
 
-In addition to the [main applications (SUMO, SUMO-GUI, NETCONVERT, etc.)](Sumo_at_a_Glance.md#included_applications), there are
+In addition to the [main applications (sumo, sumo-gui, netedit, netconvert, etc.)](SUMO_at_a_Glance.md#included_applications), there are
 over 150 additional tools. They cover topics from traffic network
 analysis, demand generation, demand modification to output analysis.
 Most of them are written in [python](https://www.python.org/). All tools
-can be found in the SUMO-distribution under <SUMO_HOME\>/tools.
+can be found in the SUMO-distribution under {{SUMO}}/tools.
 
 Below are links to some of the most important tools:
 
@@ -176,20 +173,20 @@ Below are links to some of the most important tools:
 
 # Application Manuals
 
-- [SUMO](SUMO.md)
-- [SUMO-GUI](SUMO-GUI.md)
-- [NETCONVERT](NETCONVERT.md)
-- [NETEDIT](NETEDIT.md)
-- [NETGENERATE](NETGENERATE.md)
-- [OD2TRIPS](OD2TRIPS.md)
-- [DUAROUTER](DUAROUTER.md)
-- [JTRROUTER](JTRROUTER.md)
-- [DFROUTER](DFROUTER.md)
-- [MAROUTER](MAROUTER.md)
-- [POLYCONVERT](POLYCONVERT.md)
-- [ACTIVITYGEN](ACTIVITYGEN.md)
-- [EMISSIONSMAP](Tools/Emissions.md)
-- [EMISSIONSDRIVINGCYCLE](Tools/Emissions.md#emissionsdrivingcycle)
+- [sumo](sumo.md)
+- [sumo-gui](sumo-gui.md)
+- [netconvert](netconvert.md)
+- [netedit](netedit.md)
+- [netgenerate](netgenerate.md)
+- [od2trips](od2trips.md)
+- [duarouter](duarouter.md)
+- [jtrrouter](jtrrouter.md)
+- [dfrouter](dfrouter.md)
+- [marouter](marouter.md)
+- [polyconvert](polyconvert.md)
+- [activitygen](activitygen.md)
+- [emissionsMap](Tools/Emissions.md#emissionsmap)
+- [emissionsDrivingCycle](Tools/Emissions.md#emissionsdrivingcycle)
 
 # Appendices
 

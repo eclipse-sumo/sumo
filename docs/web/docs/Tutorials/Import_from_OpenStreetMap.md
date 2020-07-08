@@ -169,7 +169,7 @@ above) and puts it out in the SUMO network file (see the image of
 below). During this process, it adds some assumptions about the traffic
 lights and the connections between lanes at junctions. You can read
 further information on this process in
-[NETCONVERT](../NETCONVERT.md),
+[netconvert](../netconvert.md),
 [Networks/Import/OpenStreetMap](../Networks/Import/OpenStreetMap.md)
 and [SUMO Road Networks](../Networks/SUMO_Road_Networks.md).
 

@@ -47,9 +47,9 @@ permalink: /Z/Changes_from_Version_0.10.3_to_Version_0.11.0/
       now additionally writes per-vehicle values
   - fixed re-emission check for edges with multiple waiting vehicles
 
-- GUISIM
+- sumo-gui
   - Added the possibility to load view settings and
-    [decals](../SUMO-GUI.md#using_decals_within_sumo-gui) from
+    [decals](../sumo-gui.md#using_decals_within_sumo-gui) from
     a configuration file (implemented [request 2168007: add possibility to load view settings file with start of gui](http://sourceforge.net/tracker/?func=detail&aid=2168007&group_id=45607&atid=443424)).
     Added the possibility to generate snapshots on startup, defined
     in a configuration file.
@@ -65,29 +65,29 @@ permalink: /Z/Changes_from_Version_0.10.3_to_Version_0.11.0/
     agentbased and actuated traffic lights from within NETGEN will
     no longer be supported.
 
-- NETCONVERT
+- netconvert
   - Nodes which have same or almost same positions are no longer
     joined per default.
   - Type descriptions allow a certain edge type to be discarded from
     being imported using the `discard="x"` attribute.
-  - NETCONVERT can guess roundabouts; force using **--guess-roundabouts**
+  - netconvert can guess roundabouts; force using **--guess-roundabouts**
   - corrected usage of the `spread_type` attribute in edges; was: [defect 111 correct usage of the spread_type attribute](https://github.com/eclipse/sumo/issues/111)
   - patching problems with RoboCup Rescue League import
 
-- OD2TRIPS
+- od2trips
   - The default departure/arrival behaviour can be controlled on the
     command line, now. The following options were introduced for
     this purpose: **--departlane**, **--departpos**, **--departspeed**, **--arrivallane**, **--arrivalpos**, **--arrivalspeed**. See also
     [Specification](../Specification.md)
-  - solved [defect 67: false interpretation of the second time field (OD2TRIPS)](https://github.com/eclipse/sumo/issues/67)
+  - solved [defect 67: false interpretation of the second time field (od2trips)](https://github.com/eclipse/sumo/issues/67)
 
-- DUAROUTER
+- duarouter
   - The default departure/arrival behaviour can be controlled on the
     command line, now. The following options were introduced for
     this purpose: **--departlane**, **--departpos**, **--departspeed**, **--arrivallane**, **--arrivalpos**, **--arrivalspeed**. See also
     [Specification](../Specification.md)
 
-- JTRROUTER
+- jtrrouter
   - The default departure/arrival behaviour can be controlled on the
     command line, now. The following options were introduced for
     this purpose: **--departlane**, **--departpos**, **--departspeed**, **--arrivallane**, **--arrivalpos**, **--arrivalspeed**. See also

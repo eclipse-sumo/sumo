@@ -4,7 +4,7 @@ permalink: /Simulation/Basic_Definition/
 ---
 
 In the following, the inputs needed by the simulation modules
-[SUMO](../SUMO.md) and [SUMO-GUI](../SUMO-GUI.md) are
+[sumo](../sumo.md) and [sumo-gui](../sumo-gui.md) are
 described.
 
 # Input Files
@@ -14,8 +14,8 @@ described.
 For a simulation, a [SUMO Road
 Network](../Networks/SUMO_Road_Networks.md) must be given using the
 option **--net-file** {{DT_NET}} (or **-n** {{DT_NET}}). The network is normally built using
-[NETCONVERT](../NETCONVERT.md) or
-[NETGENERATE](../NETGENERATE.md).
+[netconvert](../netconvert.md) or
+[netgenerate](../netgenerate.md).
 
 ## Traffic Demand (Routes)
 
@@ -32,13 +32,13 @@ only possible if you do not keep all routes in memory. All files given
 as parameter to **--route-files** {{DT_Routes}}\[,{{DT_Routes}}]\* are read step-wise. Starting at the begin time step,
 new routes are loaded every n time steps for the next n time steps. n
 may be controlled using the **--route-steps** {{DT_INT}} where <=0 forces
-[SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md) to load the file
+[sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) to load the file
 completely. Fetching routes for the next steps only implies that the
 vehicle types - or maybe "global" routes - must be given in prior to the
 routes that use them.
 
 You may also give routes including vehicle definitions as {{AdditionalFile}} to
-[SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md).
+[sumo](../sumo.md)/[sumo-gui](../sumo-gui.md).
 
 ## Additional Files
 
@@ -80,8 +80,8 @@ what is loaded when. The order is as follows:
 # Defining the Time Period to Simulate
 
 Each simulation requires the definition about the time period to be
-simulated. This is given to [SUMO](../SUMO.md) or
-[SUMO-GUI](../SUMO-GUI.md) using the options **--begin** {{DT_TIME}} (or **-b** {{DT_TIME}} for short) and **--end** {{DT_TIME}}
+simulated. This is given to [sumo](../sumo.md) or
+[sumo-gui](../sumo-gui.md) using the options **--begin** {{DT_TIME}} (or **-b** {{DT_TIME}} for short) and **--end** {{DT_TIME}}
 (**-e** {{DT_TIME}}). Please note that whether the option **--end** was given influences the
 simulation's behavior. The details are described below.
 
@@ -104,7 +104,7 @@ The simulation ends in the following cases:
 
 # Defining the Time Step Length
 
-[SUMO](../SUMO.md)/[SUMO-GUI](../SUMO-GUI.md) use a time step
+[sumo](../sumo.md)/[sumo-gui](../sumo-gui.md) use a time step
 of one second per default. You may override this using the **--step-length** {{DT_TIME}} option. {{DT_TIME}} is
 here given in seconds, but you may enter a real number. In conclusion
 giving **--step-length 0.01** will run the simulation using time steps of 10ms.

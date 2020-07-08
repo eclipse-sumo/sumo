@@ -16,7 +16,7 @@ The most important configuration aspect is whether the dynamics within
 an intersection shall be modelled or not. This is configured using the
 following options
 
-## [NETCONVERT](../NETCONVERT.md)-option **--no-internal-links**
+## [netconvert](../netconvert.md)-option **--no-internal-links**
 
 When set to **true**, the network will not contain *internal lanes*,
 that is lanes within an intersection. Instead, vehicles will *jump*
@@ -27,7 +27,7 @@ between junction centers without changing their appearance. When set to
 intersections on which vehicles will drive just as on normal lanes,
 albeit subject to some blocking constraints.
 
-## [SUMO](../SUMO.md)-option **--no-internal-links**
+## [sumo](../sumo.md)-option **--no-internal-links**
 
 When set to **true**, lanes within intersections are ignored. This
 option is not needed when the network does not contain them in the first
@@ -64,8 +64,8 @@ several factors explained below.
 ## Lane Shape
 
 Usually the lane ends exactly where the intersection shape starts. One
-way to customize the exact position for each lane is to [edit the intersection shape](../NETEDIT.md#junction). An alternative method
-is to [set a custom endpoint for an edge](../NETEDIT.md#specifying_the_complete_geometry_of_an_edge_including_endpoints).
+way to customize the exact position for each lane is to [edit the intersection shape](../netedit.md#junction). An alternative method
+is to [set a custom endpoint for an edge](../netedit.md#specifying_the_complete_geometry_of_an_edge_including_endpoints).
 
 Another possibility is the set the *endOffset* attribute for either the `<edge>`
 or `<lane>` element. This will shorten the edge/lane by a set amount.
@@ -98,7 +98,7 @@ up to the end of the first part despite approaching foe vehicles. They
 are not permitted to enter the intersection if it is blocked by vehicles
 already on the intersection or if there is a red traffic light.
 
-When building networks, [NETCONVERT](../NETCONVERT.md)
+When building networks, [netconvert](../netconvert.md)
 automatically recognizes common cases for waiting within the
 intersection and creates internal junctions as necessary. At
 intersections which are controlled by a traffic light, internal
@@ -130,7 +130,7 @@ Additionally, the computed speed will never be higher than the average
 speed of source and destination lane for that particular connection.
 
 The speed can be overruled by [setting the connection speed explicitly in the XML input](../Networks/PlainXML.md#explicitly_setting_which_edge_lane_is_connected_to_which)
-or via [NETEDIT](../NETEDIT.md#inspect).
+or via [netedit](../netedit.md#inspect).
 
 # Junction Blocking
 
@@ -148,7 +148,7 @@ simulation network ahead of the simulation.
 !!! note
     Junction blocking cannot occur when using option **--no-internal-links**
 
-## [NETCONVERT](../NETCONVERT.md) options for allowing drivers to drive onto an intersections
+## [netconvert](../netconvert.md) options for allowing drivers to drive onto an intersections
 
 - setting option **--default.junctions.keep-clear *false* ** (default *true*) will cause the
   **no-block-heuristic** to be disabled for all intersections.
@@ -169,7 +169,7 @@ seconds).
 When vehicles in SUMO are unable to move for some time they will be
 [teleported](../Simulation/Why_Vehicles_are_teleporting.md#waiting_too_long.2c_aka_grid-locks)
 to resolve dead-lock. If this is not desired,
-[SUMO](../SUMO.md)-option **--ignore-junction-blocker** {{DT_TIME}} may be used to ignore vehicles which are
+[sumo](../sumo.md)-option **--ignore-junction-blocker** {{DT_TIME}} may be used to ignore vehicles which are
 blocking the intersection on an intersecting lane after the specified
 time. This can be used to model the real-life behaviour of eventually
 finding a way around the offending vehicle that is blocking the

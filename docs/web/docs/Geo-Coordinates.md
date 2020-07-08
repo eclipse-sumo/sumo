@@ -26,7 +26,7 @@ origin shifted to so that the lower left corner of the network is at
 
 # Checking Geo-Coordinates
 
-In [SUMO-GUI](SUMO-GUI.md) when right-clicking anywhere in a
+In [sumo-gui](sumo-gui.md) when right-clicking anywhere in a
 geo-referenced network, the option *copy cursor geo-position to
 clipboard* is available. The resulting *lat,lon* coordinates are
 suitable for pasting into any map engine such as \[maps.google.com\] or

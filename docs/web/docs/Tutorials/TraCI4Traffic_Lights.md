@@ -13,7 +13,7 @@ simulation state from the server and then sends instructions back.
 
 It is assumed that road network building and routes definition is known
 from other tutorials, as [Tutorials/Hello
-Sumo](../Tutorials/Hello_Sumo.md), [Tutorials/quick
+SUMO](../Tutorials/Hello_SUMO.md), [Tutorials/quick
 start](../Tutorials/quick_start.md) or [Tutorials/Quick Start old
 style](../Tutorials/Quick_Start_old_style.md).
 
@@ -69,9 +69,9 @@ documentation](http://sumo.dlr.de/daily/pydoc/traci.html).
 
 The main program is implemented in the script *runner.py*. There, we
 first generate the routes as described above. Then `traci.start` is used
-to start [SUMO-GUI](../SUMO-GUI.md) with the config file
+to start [sumo-gui](../sumo-gui.md) with the config file
 `cross.sumocfg`. The start call also connects our script with the
-[SUMO-GUI](../SUMO-GUI.md) running as a server.
+[sumo-gui](../sumo-gui.md) running as a server.
 
 Then we start to control the simulation. We let the server simulate one
 simulation step, read the induction loop and switch the phase of the

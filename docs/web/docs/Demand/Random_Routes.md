@@ -3,13 +3,13 @@ title: Demand/Random Routes
 permalink: /Demand/Random_Routes/
 ---
 
-[DUAROUTER](../DUAROUTER.md) and [JTRROUTER](../JTRROUTER.md)
+[duarouter](../duarouter.md) and [jtrrouter](../jtrrouter.md)
 used to generate random routes for a given road network with the option
 **--random-per-second** {{DT_FLOAT}} (or **-R** {{DT_FLOAT}} for short). Due to a number of bugs in this feature and because
 those routes are highly unrealistic, this behavior was replaced with a
 python [random trip generation](../Tools/Trip.md#randomtripspy)
 script which can also produce a route set employing the
-[DUAROUTER](../DUAROUTER.md).
+[duarouter](../duarouter.md).
 
 # See Also
 

@@ -10,5 +10,5 @@ User-relevant changes:
   - emission of vehicles on multi-lane source edges debugged (now all lanes are used)
   - Debugged the problem of vehicles stopping before the route is over (reported by Jonathan Davies)
   - setting tls-offsets debugged
-- Netconvert
+- netconvert
   - Computation of left-movers debugged

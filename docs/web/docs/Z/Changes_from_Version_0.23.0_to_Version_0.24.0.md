@@ -26,19 +26,19 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
   - Fixed bug that resulted in invalid routes when routing at
     simulation time (at intersections where a required connection
     originates from a prohibited lane). #1861
-- SUMO-GUI
+- sumo-gui
   - Fixed centering of names on objects (a large mismatch was
     visible for persons).
   - Polygons are no longer drawn when setting their
     size-exaggeration to 0.
-- DUAROUTER
+- duarouter
   - Custom car following model specification is now preserved in the
     route output. #1832
   - Fixed bug when using option **--remove-loops** where the start/destination edge
     changed needlessly.
   - Vehicles may now depart/arrive at any *TAZ* regardless of their
     vehicle class.
-- NETCONVERT
+- netconvert
   - When adding crossings to a *.net.xml* without internal links,
     the output network will be built with internal links. #1729
   - Fixed bug where duplicate crossings between the same pair of
@@ -70,7 +70,7 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
   - Fixed screenshots for Linux. #1341
   - The close command returns now a little later to have more data
     written to files (still not completely flushed though, see #1816)
-- NETEDIT
+- netedit
   - Fixed bug where unselected objects were wrongly selected after
     undoing deletion.
   - No longer creating invalid network when loading and saving a
@@ -103,8 +103,8 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
     insertion get discarded when **--ignore-route-errors** is given. #1825
   - **--vehroute-output** now includes the route length. #1790
 
-- SUMO-GUI
-  - The view can now be moved and zoomed via [keyboard shortcuts](../SUMO-GUI.md#keyboard_shortcuts). #298
+- sumo-gui
+  - The view can now be moved and zoomed via [keyboard shortcuts](../sumo-gui.md#keyboard_shortcuts). #298
   - Lanes which disallow passenger cars (i.e. paths and service
     roads) now have a distinct shade of grey. The color can be
     customized in the gui-settings dialog.
@@ -116,7 +116,7 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
     dialog. #1617
   - The GUI asks at simulation end whether all files and windows
     should be closed
-- NETCONVERT
+- netconvert
   - added option **--remove-edges.input-file** {{DT_FILE}} which works as an analogue to **--keep-edges.input-file**. Giving either
     option a selection file (where edge ids are prefixed with
     **edge:** as argument is now supported.
@@ -147,7 +147,7 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
   - Additional attributes are now supported to specify the node that
     is generated when [splitting an edge](../Networks/PlainXML.md#road_segment_refining). #1843
 
-- DUAROUTER
+- duarouter
   - option **--ignore-errors** now also applies if no input trips/routes are loaded.
   - Added option **--bulk-routing** {{DT_BOOL}} to improve routing speed when many (similar)
     vehicles depart at the same time from the same location. The
@@ -178,21 +178,21 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
   - extended method *traci.vehicle.setStop(...)* to optionally
     include the startPos of a stop.
 
-- POLYCONVERT
+- polyconvert
   - When importing OSM data, POIs are now raised above the layer of
     polygons and roads by default to make them always visible. #1771
   - Added option **--poi-layer-offset** {{DT_FLOAT}} to control the layer of pois relative to polygons
     (especially in cases where they have the same type).
   - **--offset** {{DT_FLOAT}} options are now respeced even when used together with a network.
 
-- NETEDIT
-  - The view can now be moved and zoomed via [keyboard shortcuts](../SUMO-GUI.md#keyboard_shortcuts).
+- netedit
+  - The view can now be moved and zoomed via [keyboard shortcuts](../sumo-gui.md#keyboard_shortcuts).
   - Added menu option for replacing junctions by geometry points. #1754
   - Geometry points of parallel edges can now be moved
     simultaneously when both edges are selected.
   - option **--gui-settings-file** is now supported.
 
-- OD2TRIPS
+- od2trips
   - can now choose only differing sources and sinks #1837
 
 <!-- end list -->
@@ -239,7 +239,7 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
   - An updated version of the [TAPASCologne scenario](../Data/Scenarios/TAPASCologne.md) can be found
     on [the sourceforge download page](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/TAPASCologne).
     This updates the network to the latest OSM data and
-    [NETCONVERT](../NETCONVERT.md) version.
+    [netconvert](../netconvert.md) version.
   - An updated version of the [Bologna scenarios](../Data/Scenarios.md#bologna) can be found on
     [the sourceforge download page](https://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna_small/).
     This contains minor network fixes and contains a new pedestrian

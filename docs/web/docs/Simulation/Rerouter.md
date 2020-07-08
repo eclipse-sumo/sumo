@@ -183,7 +183,7 @@ first applicable value is used):
 - subjective edge costs for the current vehicle if set via[TraCI
    command *change edge travel time
    information*](../TraCI/Change_Vehicle_State.md#change_edge_travel_time_information_0x58)
-- edge weights loaded via the [SUMO](../SUMO.md) option **--weight-files**
+- edge weights loaded via the [sumo](../sumo.md) option **--weight-files**
 - travel times in the empty network
 
 The attributes used within a dest_prob_reroute are:

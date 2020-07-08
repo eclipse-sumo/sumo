@@ -21,7 +21,7 @@ permalink: /Z/Changes_from_Version_0.12.2_to_Version_0.12.3/
   - improving vehicle routes output
 - TraCI
   - please note that the encoding of a vehicle's angle has changed
-- SUMO-GUI
+- sumo-gui
   - corrected vehicle's angle (was
     [ticket\#430](http://sourceforge.net/apps/trac/sumo/ticket/430))
   - Clipboard works under Linux

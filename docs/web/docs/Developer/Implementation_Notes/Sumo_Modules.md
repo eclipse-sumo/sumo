@@ -12,7 +12,7 @@ permalink: /Developer/Implementation_Notes/Sumo_Modules/
 |                | *fontstash*       |               | draws text in openGL                                                                 |
 |                | *rtree*           |               | rtree implementation                                                                 |
 |                | *tcpip*           |               | portable socket implementation                                                       |
-| *gui*          |                   |               | [SUMO-GUI](../../SUMO-GUI.md)-specific windows and threads                         |
+| *gui*          |                   |               | [sumo-gui](../../sumo-gui.md)-specific windows and threads                         |
 | *guinetload*   |                   |               | derived from netload, these classes build guisim-classes instead of microsim-classes |
 | *guisim*       |                   |               | classes derived from microsim, extended by visualization and interaction methods     |
 | *icons*        |                   |               | application icons (MS Windows)                                                       |

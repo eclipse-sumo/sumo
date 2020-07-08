@@ -9,7 +9,7 @@ permalink: /Simulation/Shapes/
 ![tol1_with_polys.gif](../images/Tol1_with_polys.gif "Example of using polygons and POIs; from Traffic Online, area#1")
 
 Definitions of colored polygons and POIs (points of interest) can be
-loaded within an [*additional-file*](../SUMO.md#format_of_additional_files). These shapes are currently meant to improve a
+loaded within an [*additional-file*](../sumo.md#format_of_additional_files). These shapes are currently meant to improve a
 simulation's appearance and to allow an easier debugging. No special
 interaction with them is implemented, yet.
 
@@ -19,14 +19,14 @@ number. The network itself is drawn as layer 0. An additional file may
 contain definitions for both points of interest and polygons.
 
 Geometrical objects may either be defined "by hand" or imported using
-[POLYCONVERT](../POLYCONVERT.md). A valid geometry-file can be
-given to [SUMO](../SUMO.md) as one of the additional files (option:
+[polyconvert](../polyconvert.md). A valid geometry-file can be
+given to [sumo](../sumo.md) as one of the additional files (option:
 **--additional-files <FILE\>**). For usage within
-[SUMO-GUI](../SUMO-GUI.md), you have to add it to the list of
+[sumo-gui](../sumo-gui.md), you have to add it to the list of
 additional files to load within the used [configuration
 file](../Basics/Using_the_Command_Line_Applications.md#configuration_files)
 or load the additional file interactively through the
-[GUI](../SUMO-GUI.md#loading_shapes_and_pois).
+[GUI](../sumo-gui.md#loading_shapes_and_pois).
 
 # Definitions
 
@@ -85,11 +85,11 @@ position on this lane. So, the attributes have the following meanings:
 
 # See Also
 
-- See the description of [POLYCONVERT](../POLYCONVERT.md) in
+- See the description of [polyconvert](../polyconvert.md) in
   order to know how polygons/POIs can be imported from other sources
 - [Developer/Implementation Notes/Drawing in
   sumo-gui](../Developer/Implementation_Notes/Drawing_in_sumo-gui.md)
-  describes how [SUMO-GUI](../SUMO-GUI.md) renders loaded
+  describes how [sumo-gui](../sumo-gui.md) renders loaded
   structures (for developers)
 - You can [read variables of loaded
   PoIs](../TraCI/POI_Value_Retrieval.md) and [read variables of

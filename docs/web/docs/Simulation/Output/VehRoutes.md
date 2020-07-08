@@ -19,7 +19,7 @@ new information.
 
 This output is enabled for a simulation using the option **--vehroute-output** {{DT_FILE}} or **--vehroutes** {{DT_FILE}}. Further
 options affecting this output are listed at
-[SUMO\#Output](../../SUMO.md#output).
+[SUMO\#Output](../../sumo.md#output).
 
 ## Generated Output
 

@@ -6,20 +6,20 @@ permalink: /Tutorials/ScenarioGuide/
 # Introduction
 
 This Tutorial is meant to serve as a high-level guide for building a
-[SUMO](../SUMO.md) scenario. It provides an outline of the typical
+[sumo](../sumo.md) scenario. It provides an outline of the typical
 steps when building a scenario and lists the recommended wiki pages for
 each step.
 
 !!! note
-    This tutorial assumes familiarity with [Tutorials/Hello Sumo](../Tutorials/Hello_Sumo.md), [Tutorials/quick start](../Tutorials/quick_start.md) or [Tutorials/Quick Start old style](../Tutorials/Quick_Start_old_style.md).
+    This tutorial assumes familiarity with [Tutorials/Hello SUMO](../Tutorials/Hello_SUMO.md), [Tutorials/quick start](../Tutorials/quick_start.md) or [Tutorials/Quick Start old style](../Tutorials/Quick_Start_old_style.md).
 
 # Build the road network
 
 Every simulation requires a road network. The application
-[NETCONVERT](../NETCONVERT.md) is used to create a network which
-can be used by the simulation [SUMO](../SUMO.md). It is also
+[netconvert](../netconvert.md) is used to create a network which
+can be used by the simulation [sumo](../sumo.md). It is also
 possible to build/modify a simulation network by hand with use of
-[NETEDIT](../NETEDIT.md), which provides a graphical user
+[netedit](../netedit.md), which provides a graphical user
 interface.
 
 ## If you already have some network data
@@ -27,7 +27,7 @@ interface.
 Check whether a direct import is possible:
 [Networks/Import](../Networks/Import.md). Otherwise you will need
 to convert the data to a simple XML-format which can be read by
-[NETCONVERT](../NETCONVERT.md). Read this page:
+[netconvert](../netconvert.md). Read this page:
 [Networks/Import](../Networks/Import.md).
 
 ## If you do not yet have any network data
@@ -63,14 +63,14 @@ lights. The recommended ways to perform the necessary changes include:
     [Networks/Building_Networks_from_own_XML-descriptions](../Networks/PlainXML.md).
     Most XML-attributes are optional so you only need to set the values
     you would like to change.
-2.  patch your network using [NETCONVERT](../NETCONVERT.md) by
+2.  patch your network using [netconvert](../netconvert.md) by
     loading the net.xml along with the plain-xml files. You can even use
     this during the initial import (i.e. load an OSM-file along with
     your plain-xml files)
 3.  directly adjust your network with GUI: after opening the program
-    [NETEDIT](../NETEDIT.md) you load the network file
+    [netedit](../netedit.md) you load the network file
     (\*.net.xml)that needs to be modified. Then you choose the
-    respective funtions in NETEDIT to modify e.g. the number of lanes,
+    respective funtions in netedit to modify e.g. the number of lanes,
     road shapes, traffic signal plans, intersection geometries, and to
     combine intersections or edges.
 
@@ -137,7 +137,7 @@ netconvert --edge-files yourplain.edg.xml --node-files yourplain.nod.xml --
 ```
 
 !!! note
-    When working with networks based on OSM input, the .edg.xml file will contain information on the OSM-type of an edge (i.e. *highway.residential*. When loading such an .edg.xml file with [NETCONVERT](../NETCONVERT.md) you need to supply the option **--ignore-errors.edge-type** or load a type-file to prevent errors of the form *Type ... not defined*.
+    When working with networks based on OSM input, the .edg.xml file will contain information on the OSM-type of an edge (i.e. *highway.residential*. When loading such an .edg.xml file with [netconvert](../netconvert.md) you need to supply the option **--ignore-errors.edge-type** or load a type-file to prevent errors of the form *Type ... not defined*.
 
 ### Modifying node positions with the help of *sumolib*
 
@@ -148,17 +148,17 @@ positions with a few lines of python code.
 ## Traffic Light Programs
 
 In almost all cases the traffic light programs will have been guessed by
-[NETCONVERT](../NETCONVERT.md) and turn out different from the real
+[netconvert](../netconvert.md) and turn out different from the real
 traffic lights. A simple way to improve traffic lights programs is
 making them start their program cycle at a different time. Experiment
 with the option **--tls.half-offset** and all the other **--tls.\*** options of
-[NETCONVERT](../NETCONVERT.md).
+[netconvert](../netconvert.md).
 
 A more practical and efficient way to improve your traffic lights is to
 [give the program explicitly with a *tls.xml*
 file](../Networks/PlainXML.md#traffic_light_program_definition).
 
-At this time [NETCONVERT](../NETCONVERT.md) only supports the
+At this time [netconvert](../netconvert.md) only supports the
 creation of static traffic light programs. For dynamic traffic lights
 see
 [Tutorials/TraCI4Traffic_Lights](../Tutorials/TraCI4Traffic_Lights.md).

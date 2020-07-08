@@ -60,8 +60,8 @@ extra:
     Version: 1.6.0
     ReleaseDate: 28.04.2020
 
-    AdditionalFile: '[*additional-file*](/docs/SUMO.html#format_of_additional_files)'
-    AdditionalFiles: '[*additional-files*](/docs/SUMO.html#format_of_additional_files)'
+    AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
+    AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'
     DT_2DBoundingBox: '[*&lt;2D-BOUNDING_BOX&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_2DPosition: '[*&lt;2D-POSITION&gt;*](/docs/Basics/Notation.html#referenced_data_types)'
     DT_BOOL: '[*&lt;BOOL&gt;*](/docs/Basics/Notation.html#referenced_data_types)'

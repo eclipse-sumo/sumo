@@ -5,7 +5,7 @@ permalink: /Demand/Further_Ways_to_import_Vissim_Demand_Definitions/
 
 Besides using [OD-matrices which can be
 imported](../Demand/Importing_O/D_Matrices.md) using
-[OD2TRIPS](../OD2TRIPS.md) as VISUM does, Vissim also allows to
+[od2trips](../od2trips.md) as VISUM does, Vissim also allows to
 define vehicle flows as a combination of in-flows and route decisions.
 The following tool allows to import these. The file needs to be in
 German. For tips on conversion, see [Networks/Import/Vissim\#Converting

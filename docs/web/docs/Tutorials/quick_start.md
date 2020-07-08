@@ -51,13 +51,13 @@ specifications given in Table 1.2\!)
 | 5         | \+2000.0     | \+1000.0     |
 | 6         | \+1000.0     | \+1000.0     |
 
-## Network Editing with NETEDIT
+## Network Editing with netedit
 
 Based on the coordinate data in Table 1.2 and the node-link-based
 network layout in Figure 1.1, the intersections, origins, and
 destinations are coded, respectively, as nodes 1-6 and nodes 91-94 by
-giving the respective x- and y-coordinates with the program NETEDIT.
-Open NETEDIT, which you can find in the bin directory of the
+giving the respective x- and y-coordinates with the program netedit.
+Open netedit, which you can find in the bin directory of the
 SUMO-package. First, create a new network ("File" -\> "New Network...").
 
 - Then choose the Edit mode, which is possible in two ways:
@@ -181,7 +181,7 @@ on the chosen edge. As you can see on the left side of the following
 picture, the different meanings of the dyed edges are shown in the
 Legend. ![con1.png](../images/Con1.png "con1.png")
 For further information and a deeper sight, please go to
-[NETEDIT](../NETEDIT.md).
+[netedit](../netedit.md).
 
   - Another topic is the priority of each edge. In our example, the
     priority is 1 by default. To change the priority, please select the
@@ -354,15 +354,15 @@ use of the following command:
 sumo –c quickstart.sumocfg
 ```
 
-### SUMO-GUI
+### sumo-gui
 
-The application of [SUMO-GUI](../SUMO-GUI.md) is the other way to
+The application of [sumo-gui](../sumo-gui.md) is the other way to
 execute the traffic simulation with SUMO. During the execution, each
 vehicular movement and the traffic progression can be observed and the
 possible bottlenecks can be visually identified. A configuration file
 for all execution actions, e.g. the one in Listing 1.7, is required for
-[SUMO-GUI](../SUMO-GUI.md). Double-click on the Program
-*sumo-gui.exe* and a [SUMO-GUI](../SUMO-GUI.md) work window will
+[sumo-gui](../sumo-gui.md). Double-click on the Program
+*sumo-gui.exe* and a [sumo-gui](../sumo-gui.md) work window will
 automatically open. The investigated network can be activated by opening
 the corresponding configuration file under the File-Menu of the menu
 bar. Traffic simulation can then be performed by pressing the green
@@ -373,9 +373,9 @@ up. An illustration example is given in Figure 1.9.
 
 ![Image:image009.jpg](../images/Image009.jpg "Image:image009.jpg")
 
-**Figure 1.9. Illustration of the example network in SUMO-GUI**
+**Figure 1.9. Illustration of the example network in sumo-gui**
 
 !!! note
-    If you start the tutorial with [SUMO-GUI](../SUMO-GUI.md), the whole network is visible at first but no vehicles can be seen because the view is zoomed out very far. You need to zoom in by holding the right mouse button and moving the mouse to be able to see any vehicles. Furthermore, you need not set the delay value to something greater than 0. Otherwise, the simulation may be over very quickly and you do not get to see vehicle movements.
+    If you start the tutorial with [sumo-gui](../sumo-gui.md), the whole network is visible at first but no vehicles can be seen because the view is zoomed out very far. You need to zoom in by holding the right mouse button and moving the mouse to be able to see any vehicles. Furthermore, you need not set the delay value to something greater than 0. Otherwise, the simulation may be over very quickly and you do not get to see vehicle movements.
 
 Back to [Tutorials](../Tutorials.md)

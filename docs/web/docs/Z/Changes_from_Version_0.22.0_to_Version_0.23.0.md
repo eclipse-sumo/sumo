@@ -43,7 +43,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
     with unused phase states. #1641
   - fixed crash when specifying duplicate person ids. #1650
 
-- NETCONVERT
+- netconvert
   - when adding sidewalks via
     [type-map](../SUMO_edge_type_file.md) and a sidewalk
     already exists, the edge now remains unchanged.
@@ -111,7 +111,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
   - fixed bug leading to exaggerated emissions. #1504
   - vehicles are now drawn correctly on curving lanes. #758
   - vehicle size exaggeration now working. #1406
-- SUMO-GUI
+- sumo-gui
   - Fixed crash when using a vehicle parameter window while the
     vehicle disappears. #1534
   - Coloring by loaded edge weight now correctly reflects changes
@@ -129,7 +129,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
     can now be used to toggle the visualization style of railways.
   - The edge width exaggeration factor is now properly saved to and
     loaded from a
-    [gui-settings-file](../SUMO-GUI.md#configuration_files).
+    [gui-settings-file](../sumo-gui.md#configuration_files).
   - fixed gui glitch when zooming with transparent lanes in view.
   - now drawing vehicles on transparent lanes.
   - Selecting the *Center* action from a popup-menu immediately
@@ -138,7 +138,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
   - when an error occurs during the initial route loading, reloading
     the simulation will now work after the user corrects the error
     in the input files. #1508
-- DUAROUTER
+- duarouter
   - no longer building invalid routes when the connectivity among
     edges differs between vClasses. #303
   - fixed bug that caused unreasonable detours in pedestrian routes
@@ -183,7 +183,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
   - Added option **--device.rerouting.output** {{DT_FILE}} to export the travel times which are used for
     dynamic rerouting during every adaptation interval. #1663
 
-- SUMO-GUI
+- sumo-gui
   - Can now color and scale lanes *by average speed* and by *by
     average relative speed* (relative to the speed limit).
   - Added option for drawing the path across the current walkingarea
@@ -210,7 +210,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
     number of nodes and edges as well as the total road length. #1367
   - Added guiShape `ship`.
   - Now drawing waterways (lanes with `allow="ship"`) in a distinct style.
-  - Added menu option for loading an [*additional-file*](../SUMO.md#format_of_additional_files) with
+  - Added menu option for loading an [*additional-file*](../sumo.md#format_of_additional_files) with
     [shapes](../Simulation/Shapes.md).
   - Improved gui shapes for two-wheeled vehicles.
   - Markings for bike lanes are now drawn at road intersections
@@ -218,7 +218,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
   - Added options for saving the current viewport and simulation
     delay along with the current visualisation settings. #1625
 
-- NETCONVERT
+- netconvert
   - read heightmaps from GeoTIFFs for instance [SRTM data](http://opendem.info/download_srtm.html) #1495
   - when adding sidewalks via
     [typemap](../SUMO_edge_type_file.md) or **--sidewalks.guess**, permissions on
@@ -241,15 +241,15 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
   - right-turning road vehicles will now wait within the
     intersection when yielding to straight-going bicycles. #1255
 
-- NETGENERATE
+- netgenerate
   - can now generate networks with unregulated intersections. #1558
 
-- POLYCONVERT
+- polyconvert
   - added option **--output.plain-geo** {{DT_BOOL}} for writing POIs and polygons with
     geo-coordinates. #1608
 
-- NETEDIT
-  - can now visualize railways the same way as SUMO-GUI. #1542
+- netedit
+  - can now visualize railways the same way as sumo-gui. #1542
   - can now disable drawing of junction shapes via gui-settings.
   - can now load all types of shapes from the menu.
   - can now undo/redo bulk selection/deselection of objects. #1614
@@ -305,7 +305,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
   - consolidated the message IDs for ArealDetectors
   - TraCI version is now 9
 - Miscellaneous
-  - NETCONVERT option **--map-output** was removed since it was neither working nor
+  - netconvert option **--map-output** was removed since it was neither working nor
     deemed useful enough to repair it.
   - added warning about invalid geo-coordinates in netconvert and
     polyconvert input

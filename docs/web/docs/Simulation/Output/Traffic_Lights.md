@@ -12,7 +12,7 @@ algorithms. We will now describe these outputs.
 ### Instantiating within the Simulation
 
 To enable writing tls state information you have to add the following
-definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+definition into one of your [*additional-files*](../../sumo.md#format_of_additional_files):
 
 `<timedEvent type="SaveTLSStates" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
 
@@ -59,7 +59,7 @@ This output contains information about the green light phases of links
 (lane-to-lane connections). Each green light phase is describes by its
 begin, end and duration. An entry is written into the file as soon a
 green phase of a link ends. To enable writing tls switch information you
-have to add the following definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+have to add the following definition into one of your [*additional-files*](../../sumo.md#format_of_additional_files):
 
 `<timedEvent type="SaveTLSSwitchTimes" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
 
@@ -105,7 +105,7 @@ meanings:
 This output saves tls-states as the TLS States - output does but not
 every second but only at times the phases or the program (see also
 "Adding new Programs") change. The output is instantiated by adding the
-following definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+following definition into one of your [*additional-files*](../../sumo.md#format_of_additional_files):
 
 `<timedEvent type="SaveTLSSwitchStates" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
 
@@ -137,7 +137,7 @@ meaning as those in the
 ### Instantiating within the Simulation
 
 To enable writing tls state information you have to add the following
-definition into one of your [*additional-files*](../../SUMO.md#format_of_additional_files):
+definition into one of your [*additional-files*](../../sumo.md#format_of_additional_files):
 
 `<timedEvent type="SaveTLSProgram" source="<TLS_ID>" dest="<OUTPUT_FILE>"/>`
 

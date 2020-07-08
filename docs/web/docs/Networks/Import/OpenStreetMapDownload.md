@@ -222,7 +222,7 @@ to download or open a file containing the OSM-data for your city.
 A large amount of pre-packaged areas are available at
 <http://www.geofabrik.de/data/download.html>. Many of these are quite
 large and will probably require filtering before they can be reasonably
-processed. Importing the whole of Germany with \[NETCONVERT\] takes
+processed. Importing the whole of Germany with \[netconvert\] takes
 about 60GB of RAM\!
 
 ## Custom Areas

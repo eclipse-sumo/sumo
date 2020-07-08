@@ -3,8 +3,8 @@ title: Simulation/Output/Binary
 permalink: /Simulation/Output/Binary/
 ---
 
-All [SUMO applications](../../index.md#application_manuals)
-([SUMO](../../SUMO.md), [NETCONVERT](../../NETCONVERT.md),...) can
+All [SUMO Applications](../../index.md#application_manuals)
+([sumo](../../sumo.md), [netconvert](../../netconvert.md),...) can
 save all its outputs including networks and routes in SUMO Binary XML
 (.sbx) and also read the corresponding files as input. This output
 format is used automatically whenever an output file name with extension

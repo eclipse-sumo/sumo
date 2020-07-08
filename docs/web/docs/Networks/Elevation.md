@@ -12,11 +12,11 @@ Elevation data can be imported from the following sources
   - from [OpenDRIVE](../Networks/Import/OpenDRIVE.md) or [Shapefile](../Networks/Import/ArcView.md)
 
 - by applying extra data from supplemental files
-  - from a shapefile mesh by using the [NETCONVERT](../NETCONVERT.md) option **--heightmap.shapefiles**
-  - from a greyscale height-map using [NETCONVERT](../NETCONVERT.md) option **--heightmap.geotiff**.
+  - from a shapefile mesh by using the [netconvert](../netconvert.md) option **--heightmap.shapefiles**
+  - from a greyscale height-map using [netconvert](../netconvert.md) option **--heightmap.geotiff**.
   - from [*edg.xml files*](../Networks/PlainXML.md#edge_descriptions) as part of the shape specification
 
-- by shifting geometry points and junctions along the z-axis in [NETEDIT move mode](../NETEDIT.md#changing_elevation).
+- by shifting geometry points and junctions along the z-axis in [netedit move mode](../netedit.md#changing_elevation).
 
 # Related Topics
 
@@ -26,7 +26,7 @@ Current 3D-Position can be retrieved for persons and vehicles.
 
 ## Visualizing Elevation data
 
-[SUMO-GUI](../SUMO-GUI.md) and [NETEDIT](../NETEDIT.md) allow
+[sumo-gui](../sumo-gui.md) and [netedit](../netedit.md) allow
 coloring edges by:
 
 - elevation at the start of the edge
@@ -37,7 +37,7 @@ each edge
 
 To calibrate the color range to the elevations found in the network, the *Recalibrate Rainbow* within the gui settings dialog button may be used.
 
-Furthermore, [SUMO-GUI](../SUMO-GUI.md) is [available with support for 3D-Visualization](https://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip) which can be used to visualize elevation profiles as well. 
+Furthermore, [sumo-gui](../sumo-gui.md) is [available with support for 3D-Visualization](https://sumo.dlr.de/daily/sumo-msvc12extrax64-git.zip) which can be used to visualize elevation profiles as well. 
 
 ## Models that use Elevation Data
 

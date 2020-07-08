@@ -4,13 +4,13 @@ permalink: /Networks/Import/OpenDRIVE/
 ---
 
 For reading [OpenDRIVE networks](http://www.opendrive.org/), give
-[NETCONVERT](../../NETCONVERT.md) the option **--opendrive-files** {{DT_FILE}}\[,{{DT_FILE}}\]\* or **--opendrive** {{DT_FILE}}\[,{{DT_FILE}}\]\* for short.
+[netconvert](../../netconvert.md) the option **--opendrive-files** {{DT_FILE}}\[,{{DT_FILE}}\]\* or **--opendrive** {{DT_FILE}}\[,{{DT_FILE}}\]\* for short.
 
 ```
 netconvert --opendrive myOpenDriveNetwork.xodr -o mySUMOnetwork.net.xml
 ```
 
-[NETCONVERT](../../NETCONVERT.md) can also [write OpenDrive
+[netconvert](../../netconvert.md) can also [write OpenDrive
 networks](../../Networks/Further_Outputs.md#opendrive_road_networks).
 
 # User Options
@@ -20,7 +20,7 @@ networks](../../Networks/Further_Outputs.md#opendrive_road_networks).
 OpenDRIVE allows to assign a lane to an abstract (not pre-defined)
 class. Some of the lanes can be used by vehicles, some represent
 non-usable building structures, such as curbs. When reading OpenDRIVE
-files, [NETCONVERT](../../NETCONVERT.md) determines whether and how a
+files, [netconvert](../../netconvert.md) determines whether and how a
 lane shall be imported by looking into pre-defined and/or loaded [edge
 types](../../Networks/PlainXML.md#type_descriptions).
 Several known lane types are pre-defined, and shown in the following
@@ -36,7 +36,7 @@ if not set explicitly by the lane within the read OpenDRIVE file:
 
 <center>
 
-**Lane types [NETCONVERT](../../NETCONVERT.md) interprets as driving
+**Lane types [netconvert](../../netconvert.md) interprets as driving
 lanes**
 
 </center>

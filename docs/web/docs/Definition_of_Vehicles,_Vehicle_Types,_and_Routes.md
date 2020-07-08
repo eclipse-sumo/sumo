@@ -40,8 +40,8 @@ Initially, we will define a vehicle with a route owned by him only:
 </routes>
 ```
 
-By giving such a route definition to [SUMO](SUMO.md) (or
-[SUMO-GUI](SUMO-GUI.md)), [SUMO](SUMO.md) will build a
+By giving such a route definition to [sumo](sumo.md) (or
+[sumo-gui](sumo-gui.md)), [sumo](sumo.md) will build a
 red (color=1,0,0) vehicle of type "type1" named "0" which starts at time
 0. The vehicle will drive along the streets "beg", "middle", "end", and
 as soon as it has approached the edge "rend" it will be removed from the
@@ -90,7 +90,7 @@ A vehicle may be defined using the following attributes:
 | arrivalPosLat   | float(m)/string ("left", "right", "center")                                   | The lateral position on the arrival lane at which the vehicle shall arrive; see [Simulation/SublaneModel](Simulation/SublaneModel.md). by default the vehicle does not care about lateral arrival position                                               |
 
 !!! caution
-    Any vehicle types or routes referenced by the attributes **type** or **route** must be defined **before** they are used. [Loading order is described here.](SUMO.md#loading_order_of_input_files)
+    Any vehicle types or routes referenced by the attributes **type** or **route** must be defined **before** they are used. [Loading order is described here.](sumo.md#loading_order_of_input_files)
 
 ## Repeated vehicles (Flows)
 
@@ -173,7 +173,7 @@ the simulation performs fastest-path routing based on the traffic
 conditions found in the network at the time of departure/flow begin.
 Optionally, a list of intermediate edges can be specified with the `via`
 attribute. The input format is exactly the same as that for the
-[DUAROUTER](DUAROUTER.md) application [and can be found here](Demand/Shortest_or_Optimal_Path_Routing.md).
+[duarouter](duarouter.md) application [and can be found here](Demand/Shortest_or_Optimal_Path_Routing.md).
 
 ```
 <routes>
@@ -195,9 +195,9 @@ It is also possible to let vehicles depart and arrive at [traffic assignment zon
 This allows the departure and arrival edges to be selected from a
 predefined list of edges. Those edges are used which minimize the travel
 time from origin TAZ to destination TAZ. When loading trips into
-[DUAROUTER](DUAROUTER.md) the loaded travel times are used (with
+[duarouter](duarouter.md) the loaded travel times are used (with
 empty-network travel times as default). When loading trips into
-[SUMO](SUMO.md), the current travel times in the network are
+[sumo](sumo.md), the current travel times in the network are
 used as determined by the [rerouting
 device](Demand/Automatic_Routing.md).
 
@@ -215,14 +215,14 @@ device](Demand/Automatic_Routing.md).
 ```
 
 !!! note
-    When used in [DUAROUTER](DUAROUTER.md) or [SUMO](SUMO.md), edge weights within TAZ are ignored.
+    When used in [duarouter](duarouter.md) or [sumo](sumo.md), edge weights within TAZ are ignored.
 
-When loading `<taz>` in [SUMO-GUI](SUMO-GUI.md) the optional attribute `shape`
+When loading `<taz>` in [sumo-gui](sumo-gui.md) the optional attribute `shape`
 can be used to draw an arbitrary polygon border for visualizing the
 traffic assignment zone.
 
 !!! caution
-    When using TAZ with [SUMO](SUMO.md) and [DUAROUTER](DUAROUTER.md), their edges will be selected to minimize travel time. This is different from TAZ usage in [OD2TRIPS](OD2TRIPS.md) where edges are selected according to a probability distribution.
+    When using TAZ with [sumo](sumo.md) and [duarouter](duarouter.md), their edges will be selected to minimize travel time. This is different from TAZ usage in [od2trips](od2trips.md) where edges are selected according to a probability distribution.
     
 ### Routing between Junctions
 Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the SUMO option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
@@ -444,7 +444,7 @@ When defining a vehicle type with a *vClass*, the following default speed-deviat
 ### Global Configuration
 
 Instead of configuring speed distributions in a `<vType>` definition (as
-explained below), the [SUMO](SUMO.md)-option **--default.speeddev** {{DT_FLOAT}} can be used to set
+explained below), the [sumo](sumo.md)-option **--default.speeddev** {{DT_FLOAT}} can be used to set
 a global default. Seeting this value to 0 restores pre-1.0.0 behavior.
 
 ### Defining speed limit violations explicitly
@@ -527,7 +527,7 @@ where the rightmost may only be used by "taxis" or "buses". The default
 vehicle class is **passenger** (denoting normal passenger cars).
 
 !!! caution
-    Routing or insertion may fail due to a mismatch between a vehicles `vClass` and the [road permissions](Simulation/VehiclePermissions.md#network_definition). This can be diagnosed in [SUMO-GUI buy highlighting edges according to their permissions](SUMO-GUI.md#road_access_permissions).
+    Routing or insertion may fail due to a mismatch between a vehicles `vClass` and the [road permissions](Simulation/VehiclePermissions.md#network_definition). This can be diagnosed in [sumo-gui buy highlighting edges according to their permissions](sumo-gui.md#road_access_permissions).
 
 The following vehicle classes exist:
 
@@ -539,7 +539,7 @@ The following vehicle classes exist:
 | authority      | 2                      |                                                                                                                                                                   |
 | army           | 3                      |                                                                                                                                                                   |
 | vip            | 4                      |                                                                                                                                                                   |
-| pedestrian     | 5                      | lanes which only allow this class are considered to be 'sidewalks' in [NETCONVERT](NETCONVERT.md)                                                         |
+| pedestrian     | 5                      | lanes which only allow this class are considered to be 'sidewalks' in [netconvert](netconvert.md)                                                         |
 | **passenger**  | 6                      | This is the default vehicle class and denotes regular passenger traffic                                                                                           |
 | hov            | 7                      | [High-occupancy vehicle](https://en.wikipedia.org/wiki/High-occupancy_vehicle_lane)                                                                               |
 | taxi           | 8                      |                                                                                                                                                                   |
@@ -802,7 +802,7 @@ listed below.
 | Attribute              | Value Type                           | Default    | Description                               |
 | ---------------------- | ------------------------------------ | ---------- | ----------------------------------------- |
 | jmCrossingGap          | float \>= 0 (m)                      | 10         | Minimum distance to pedestrians that are walking towards the conflict point with the ego vehicle. If the pedestrians are further away the vehicle may drive across the pedestrian crossing.                                                                                                                                                                                                                                                 |
-| jmIgnoreKeepClearTime  | float (s)                            | \-1        | The accumulated waiting time (see Option [**--waiting-time-memory**](SUMO.md#processing)) after which a vehicle will [drive onto an intersection even though this might cause jamming](Simulation/Intersections.md#junction_blocking). For negative values, the vehicle will always try to keep the junction clear.                                                                                                                          |
+| jmIgnoreKeepClearTime  | float (s)                            | \-1        | The accumulated waiting time (see Option [**--waiting-time-memory**](sumo.md#processing)) after which a vehicle will [drive onto an intersection even though this might cause jamming](Simulation/Intersections.md#junction_blocking). For negative values, the vehicle will always try to keep the junction clear.                                                                                                                          |
 | jmDriveAfterRedTime    | float (s)                            | \-1        | This value causes vehicles to violate a red light if the duration of the red phase is lower than the given threshold. When set to 0, vehicles will always drive at yellow but will try to brake at red. If this behavior causes a vehicle to drive so fast that stopping is not possible any more it will not attempt to stop. This value also applies to [the default pedestrian model](Simulation/Pedestrians.md#model_striping). |
 | jmDriveAfterYellowTime | float (s)                            | \-1        | This value causes vehicles to violate a yellow light if the duration of the yellow phase is lower than the given threshold. Vehicles that are too fast to brake always drive at yellow..                                                                                                                                                                                                                                                    |
 | jmDriveRedSpeed        | float (m/s)                          | *maxSpeed* | This value causes vehicles affected by *jmDriveAfterRedTime* to slow down when violating a red light. The given speed will not be exceeded when entering the intersection.                                                                                                                                                                                                                                                                  |
@@ -856,7 +856,7 @@ defined. So it should always be at the top of the very first route file.
 # Route and vehicle type distributions
 
 Instead of defining routes and vTypes explicitly for a vehicle
-[SUMO](SUMO.md) can choose them at runtime from a given
+[sumo](sumo.md) can choose them at runtime from a given
 distribution. In order to use this feature just define distributions as
 following:
 
@@ -911,7 +911,7 @@ A distribution can be used just as using individual types and routes:
 ```
 
 !!! caution
-    When using [DUAROUTER](DUAROUTER.md) with input files containing distributions, the output files will contain a fixed route and type for each vehicle and the distributions will be gone. This is to ensure that the each vehicles route will fit its sampled `vClass` when using the input files with [SUMO](SUMO.md)
+    When using [duarouter](duarouter.md) with input files containing distributions, the output files will contain a fixed route and type for each vehicle and the distributions will be gone. This is to ensure that the each vehicles route will fit its sampled `vClass` when using the input files with [sumo](sumo.md)
 
 # Stops
 
@@ -995,7 +995,7 @@ in a vehicle, route or vType.
 ```
 
 In the default visualization settings the vehicle color will be used if
-define, otherwise the type and finally the route color. [These settings can be changed.](SUMO-GUI.md#vehicle_visualisation_settings)
+define, otherwise the type and finally the route color. [These settings can be changed.](sumo-gui.md#vehicle_visualisation_settings)
 
 By default color components should be given as integers in the range of
 (0,255) but other definitions are also supported:
@@ -1006,7 +1006,7 @@ color="#FF0000"
 color="red"
 ```
 
-The transparency value (alpha) only [takes effect](SUMO-GUI.md#transparency) when also using the vType
+The transparency value (alpha) only [takes effect](sumo-gui.md#transparency) when also using the vType
 attribute *imgFile*.
 
 # Devices

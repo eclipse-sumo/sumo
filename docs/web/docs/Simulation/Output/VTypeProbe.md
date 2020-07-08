@@ -33,7 +33,7 @@ Example:
 </additional>
 ```
 
-This file is then loaded in [SUMO](../../SUMO.md) using the option **--additional-files**
+This file is then loaded in [sumo](../../sumo.md) using the option **--additional-files**
 
 ## Generated Output
 

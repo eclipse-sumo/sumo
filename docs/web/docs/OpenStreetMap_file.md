@@ -73,7 +73,7 @@ networks](Networks/Import/OpenStreetMap.md#editing_osm_networks)).
 
 To use the map in the OpenStreetMap file with SUMO, you must convert it
 in a [SUMO network file](Networks/SUMO_Road_Networks.md).
-Typically you do this with **[NETCONVERT](NETCONVERT.md)** (see
+Typically you do this with **[netconvert](netconvert.md)** (see
 also [Tutorials/Import from
 OpenStreetMap](Tutorials/Import_from_OpenStreetMap.md) and
 [Networks/Import/OpenStreetMap](Networks/Import/OpenStreetMap.md)).
