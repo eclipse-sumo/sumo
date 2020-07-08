@@ -832,6 +832,9 @@ TRACI_CONST int VAR_SLOPE = 0x36;
 // speed (get: vehicle)
 TRACI_CONST int VAR_SPEED = 0x40;
 
+// adapt previous speed (set: vehicle)
+TRACI_CONST int VAR_PREV_SPEED = 0x3c;
+
 // lateral speed (get: vehicle)
 TRACI_CONST int VAR_SPEED_LAT = 0x32;
 

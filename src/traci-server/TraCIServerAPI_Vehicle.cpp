@@ -417,7 +417,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
             && variable != libsumo::VAR_APPARENT_DECEL && variable != libsumo::VAR_EMERGENCY_DECEL
             && variable != libsumo::VAR_ACTIONSTEPLENGTH
             && variable != libsumo::VAR_TAU && variable != libsumo::VAR_LANECHANGE_MODE
-            && variable != libsumo::VAR_SPEED && variable != libsumo::VAR_SPEEDSETMODE && variable != libsumo::VAR_COLOR
+            && variable != libsumo::VAR_SPEED && variable != libsumo::VAR_PREV_SPEED && variable != libsumo::VAR_SPEEDSETMODE && variable != libsumo::VAR_COLOR
             && variable != libsumo::ADD && variable != libsumo::ADD_FULL && variable != libsumo::REMOVE
             && variable != libsumo::VAR_HEIGHT
             && variable != libsumo::VAR_ROUTING_MODE
@@ -886,6 +886,14 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting speed requires a double.", outputStorage);
                 }
                 libsumo::Vehicle::setSpeed(id, speed);
+            }
+            break;
+            case libsumo::VAR_PREV_SPEED: {
+                double prevspeed = 0;
+                if (!server.readTypeCheckingDouble(inputStorage, prevspeed)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "Setting previous speed requires a double.", outputStorage);
+                }
+                libsumo::Vehicle::setPreviousSpeed(id, prevspeed);
             }
             break;
             case libsumo::VAR_SPEEDSETMODE: {
