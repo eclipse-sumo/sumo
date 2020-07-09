@@ -53,7 +53,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
         GeoConvHelper::getFinal().cartesian2geo(myGeoShape[i]);
     }
     // update geometry
-    myPolygonGeometry.updateGeometry(myShape);
+    updateGeometry();
 }
 
 

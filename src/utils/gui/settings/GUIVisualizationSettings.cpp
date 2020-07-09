@@ -176,7 +176,7 @@ const double GUIVisualizationDetailSettings::laneTextures(20); // originally 10
 const double GUIVisualizationDetailSettings::lockIcon(30);
 const double GUIVisualizationDetailSettings::additionalTextures(20); // originally 10
 const double GUIVisualizationDetailSettings::geometryPointsDetails(10);
-const double GUIVisualizationDetailSettings::geometryPointsText(30);
+const double GUIVisualizationDetailSettings::geometryPointsText(20);
 const double GUIVisualizationDetailSettings::stoppingPlaceDetails(10);
 const double GUIVisualizationDetailSettings::stoppingPlaceText(10);
 const double GUIVisualizationDetailSettings::detectorDetails(10);

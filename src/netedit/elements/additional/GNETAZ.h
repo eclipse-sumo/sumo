@@ -161,6 +161,9 @@ protected:
     /// @brief flag for block shape
     bool myBlockShape;
 
+    /// @brief geometry for lenghts/rotations
+    GNEGeometry::Geometry myTAZGeometry;
+
 private:
     /// @brief hint size of vertex
     static const double myHintSize;
