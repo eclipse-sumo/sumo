@@ -375,18 +375,28 @@ GNEGeometry::DottedGeometry::DottedGeometry(const GUIVisualizationSettings& s,
     const DottedGeometry &topDottedGeometry, const bool drawFirstExtrem, 
     const DottedGeometry &botDottedGeometry, const bool drawLastExtrem) :
     myWidth(s.dottedContourSettings.segmentWidth) {
-    // add extremes
-    if (drawFirstExtrem) {
-        myDottedGeometrySegments.push_back(Segment({
-            topDottedGeometry.myDottedGeometrySegments.front().shape.front(), 
-            botDottedGeometry.myDottedGeometrySegments.front().shape.front()}));
-    }
-    if (drawLastExtrem) {
-        myDottedGeometrySegments.push_back(Segment({
-            topDottedGeometry.myDottedGeometrySegments.back().shape.back(), 
-            botDottedGeometry.myDottedGeometrySegments.back().shape.back()}));
-        // invert offset of second dotted geometry
-        myDottedGeometrySegments.back().offset *= -1;
+    // check size of both geometries
+    if ((topDottedGeometry.myDottedGeometrySegments.size() > 0) &&
+        (botDottedGeometry.myDottedGeometrySegments.size() > 0)) {
+        // add extremes
+        if (drawFirstExtrem &&
+            (topDottedGeometry.myDottedGeometrySegments.front().shape.size() > 0) &&
+            (botDottedGeometry.myDottedGeometrySegments.front().shape.size() > 0)) {
+            // add first extreme
+            myDottedGeometrySegments.push_back(Segment({
+                topDottedGeometry.myDottedGeometrySegments.front().shape.front(), 
+                botDottedGeometry.myDottedGeometrySegments.front().shape.front()}));
+        }
+        if (drawLastExtrem &&
+            (topDottedGeometry.myDottedGeometrySegments.back().shape.size() > 0) &&
+            (botDottedGeometry.myDottedGeometrySegments.back().shape.size() > 0)) {
+            // add last extreme
+            myDottedGeometrySegments.push_back(Segment({
+                topDottedGeometry.myDottedGeometrySegments.back().shape.back(), 
+                botDottedGeometry.myDottedGeometrySegments.back().shape.back()}));
+            // invert offset of second dotted geometry
+            myDottedGeometrySegments.back().offset *= -1;
+        }
     }
     // resample
     for (auto &segment : myDottedGeometrySegments) {
