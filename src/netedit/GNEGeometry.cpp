@@ -1168,7 +1168,8 @@ GNEGeometry::drawGeometryPoints(const GUIVisualizationSettings& s, const GNEView
     const double exaggeratedRadioSquared = (exaggeratedRadio * exaggeratedRadio);
     // iterate over shape
     for (const auto& vertex : geometry.getShape()) {
-        if (!s.drawForRectangleSelection || (mousePosition.distanceSquaredTo2D(vertex) <= exaggeratedRadioSquared)) {
+        // if drawForPositionSelection is enabled, check distance between mouse and vertex 
+        if (!s.drawForPositionSelection || (mousePosition.distanceSquaredTo2D(vertex) <= exaggeratedRadioSquared)) {
             // push geometry point matrix
             glPushMatrix();
             // move to vertex

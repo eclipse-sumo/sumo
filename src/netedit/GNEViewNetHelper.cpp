@@ -691,11 +691,12 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
     // assign clicked poly to polyToMove
     myPolyToMove = myViewNet->myObjectsUnderCursor.getPolyFront();
     // calculate polyShapeOffset
-    double polyShapeOffset = myPolyToMove->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-    // if polyShapeOffset is -1, then we clicked over
+    const double polyShapeOffset = myPolyToMove->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+    // calculate distance to shape
+    const double distanceToShape = myPolyToMove->getShape().distance2D(myViewNet->getPositionInformation());
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
-        // check if in the clicked position a geometry point exist
+        // check if we clicked over a vertex index
         if (myPolyToMove->getPolyVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
             // start geometry moving
             myPolyToMove->startPolyShapeGeometryMoving(polyShapeOffset);
@@ -707,11 +708,16 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
             // poly values wasn't calculated, then return false
             return false;
         }
-    } else {
+    } else if ((distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius) || myPolyToMove->isPolygonBlocked()) {
         // start geometry moving
         myPolyToMove->startPolyShapeGeometryMoving(polyShapeOffset);
         // poly values sucesfully calculated, then return true
         return true;
+    } else {
+        // stop poly moving
+        myPolyToMove = nullptr;
+        // poly values wasn't calculated, then return false
+        return false;
     }
 }
 
