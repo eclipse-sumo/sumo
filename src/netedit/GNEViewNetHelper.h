@@ -176,7 +176,7 @@ struct GNEViewNetHelper {
         ObjectsUnderCursor();
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
-        void updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects, GNEPoly* editedPolyShape);
+        void updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects);
 
         /// @brief swap lane to edge
         void swapLane2Edge();
@@ -1143,8 +1143,8 @@ struct GNEViewNetHelper {
         /// @brief save edited shape
         void saveEditedShape();
 
-        /// @brief polygon used for edit shapes
-        GNEPoly* editedShapePoly;
+        /// @brief pointer to edited network element
+        GNENetworkElement* editedNetworkElement;
 
         /// @brief flag to edit network element shapes
         bool editingNetworkElementShapes;
@@ -1155,6 +1155,9 @@ struct GNEViewNetHelper {
 
         /// @brief pointer to net
         GNEViewNet* myViewNet;
+
+        /// @brief original shape
+        PositionVector myOriginalShape;
     };
 
     /// @brief get scaled rainbow colors

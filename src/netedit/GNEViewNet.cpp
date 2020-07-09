@@ -769,10 +769,10 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     // interpret object under cursor
     if (makeCurrent()) {
         // fill objects under cursor
-        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapes.editedShapePoly);
+        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
         // if grid is enabled, fill objects under gripped cursor
         if (myVisualizationSettings->showGrid) {
-            myObjectsUnderGrippedCursor.updateObjectUnderCursor(getGUIGlObjectsUnderGrippedCursor(), myEditShapes.editedShapePoly);
+            myObjectsUnderGrippedCursor.updateObjectUnderCursor(getGUIGlObjectsUnderGrippedCursor());
         }
         // process left button press function depending of supermode
         if (myEditModes.isCurrentSupermodeNetwork()) {
@@ -1016,7 +1016,7 @@ GNEViewNet::hotkeyEnter() {
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
             myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
-        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditShapes.editedShapePoly != nullptr)) {
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditShapes.editedNetworkElement != nullptr)) {
             myEditShapes.saveEditedShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) {
             if (myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
@@ -1607,44 +1607,32 @@ GNEViewNet::onCmdResetLength(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSimplifyShape(FXObject*, FXSelector, void*) {
-    if (myEditShapes.editedShapePoly != nullptr) {
-        myEditShapes.editedShapePoly->simplifyShape(false);
-        updateViewNet();
-    } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
-        if (polygonUnderMouse) {
-            polygonUnderMouse->simplifyShape();
-        }
+    GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    if (polygonUnderMouse) {
+        polygonUnderMouse->simplifyShape();
     }
+    updateViewNet();
     return 1;
 }
 
 
 long
 GNEViewNet::onCmdDeleteGeometryPoint(FXObject*, FXSelector, void*) {
-    if (myEditShapes.editedShapePoly != nullptr) {
-        myEditShapes.editedShapePoly->deleteGeometryPoint(getPopupPosition(), false);
-        updateViewNet();
-    } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
-        if (polygonUnderMouse) {
-            polygonUnderMouse->deleteGeometryPoint(getPopupPosition());
-        }
+    GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    if (polygonUnderMouse) {
+        polygonUnderMouse->deleteGeometryPoint(getPopupPosition());
     }
+    updateViewNet();
     return 1;
 }
 
 
 long
 GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
-    if (myEditShapes.editedShapePoly != nullptr) {
-        myEditShapes.editedShapePoly->closePolygon(false);
+    GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    if (polygonUnderMouse) {
+        polygonUnderMouse->closePolygon();
         updateViewNet();
-    } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
-        if (polygonUnderMouse) {
-            polygonUnderMouse->closePolygon();
-        }
     }
     return 1;
 }
@@ -1652,14 +1640,10 @@ GNEViewNet::onCmdClosePolygon(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
-    if (myEditShapes.editedShapePoly != nullptr) {
-        myEditShapes.editedShapePoly->openPolygon(false);
+    GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    if (polygonUnderMouse) {
+        polygonUnderMouse->openPolygon();
         updateViewNet();
-    } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
-        if (polygonUnderMouse) {
-            polygonUnderMouse->openPolygon();
-        }
     }
     return 1;
 }
@@ -1667,15 +1651,12 @@ GNEViewNet::onCmdOpenPolygon(FXObject*, FXSelector, void*) {
 
 long
 GNEViewNet::onCmdSetFirstGeometryPoint(FXObject*, FXSelector, void*) {
-    if (myEditShapes.editedShapePoly != nullptr) {
-        myEditShapes.editedShapePoly->changeFirstGeometryPoint(myEditShapes.editedShapePoly->getPolyVertexIndex(getPopupPosition(), false), false);
+    GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
+    if (polygonUnderMouse) {
+        polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(getPopupPosition(), false));
         updateViewNet();
-    } else {
-        GNEPoly* polygonUnderMouse = getPolygonAtPopupPosition();
-        if (polygonUnderMouse) {
-            polygonUnderMouse->changeFirstGeometryPoint(polygonUnderMouse->getVertexIndex(getPopupPosition(), false));
-        }
     }
+
     return 1;
 }
 
@@ -2165,18 +2146,13 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
     // Obtain junction under mouse
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction) {
-        if (!OptionsCont::getOptions().getBool("lefthand")) {
-            // for lefthand networks, the shape is already computed in GNELoadThread::run()
-            // computing it here does not work because the network needs to be
-            // mirrored before and after
-            junction->getNBNode()->computeNodeShape(-1);
-        } else if (junction->getNBNode()->getShape().size() == 0) {
+        // check if network has to be updated
+        if (junction->getNBNode()->getShape().size() == 0) {
             // recompute the whole network
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
         }
-        PositionVector nodeShape = junction->getNBNode()->getShape();
-        nodeShape.closePolygon();
-        myEditShapes.startEditCustomShape(junction, nodeShape, true);
+        // start edit custom shape
+        myEditShapes.startEditCustomShape(junction, junction->getNBNode()->getShape(), true);
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -3811,7 +3787,7 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
             // obtain objects under cursor
             if (makeCurrent()) {
                 // update objects under cursor again
-                myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor(), myEditShapes.editedShapePoly);
+                myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
                 makeNonCurrent();
             }
             // check if there is a lane in objects under cursor

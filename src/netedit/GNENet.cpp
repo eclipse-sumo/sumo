@@ -2873,36 +2873,6 @@ GNENet::retrieveShapes(bool onlySelected) const {
 }
 
 
-GNEPoly*
-GNENet::addPolygonForEditShapes(GNENetworkElement* networkElement, const PositionVector& shape, bool fill, RGBColor col) {
-    if (shape.size() > 0) {
-        // create poly for edit shapes
-        GNEPoly* shapePoly = new GNEPoly(this, "edit_shape", "edit_shape", shape, false, fill, 0.3, col, GLO_POLYGON, 0, "", false, false, false);
-        shapePoly->setShapeEditedElement(networkElement);
-        myGrid.addAdditionalGLObject(shapePoly);
-        myViewNet->updateViewNet();
-        return shapePoly;
-    } else {
-        throw ProcessError("shape cannot be empty");
-    }
-}
-
-
-void
-GNENet::removePolygonForEditShapes(GNEPoly* polygon) {
-    if (polygon) {
-        // remove it from Inspector Frame and AttributeCarrierHierarchy
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(polygon);
-        myViewNet->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(polygon);
-        // Remove from grid
-        myGrid.removeAdditionalGLObject(polygon);
-        myViewNet->updateViewNet();
-    } else {
-        throw ProcessError("Polygon for edit shapes has to be inicializated");
-    }
-}
-
-
 std::string
 GNENet::generateShapeID(SumoXMLTag tag) const {
     int counter = 0;

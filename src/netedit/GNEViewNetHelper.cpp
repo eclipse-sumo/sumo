@@ -62,7 +62,7 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor() :
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects, GNEPoly* editedPolyShape) {
+GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects) {
     // reset flag
     mySwapLane2edge = false;
     // first clear all containers
@@ -100,132 +100,126 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
                 // add it in myAttributeCarrierLanes and myAttributeCarrierEdges
                 myAttributeCarrierLanes.push_back(AC);
                 myAttributeCarrierEdges.push_back(AC);
-                // If we're editing a shape, ignore rest of elements (including other polygons)
-                if (editedPolyShape != nullptr && AC == editedPolyShape) {
-                    // cast Poly from attribute carrier
-                    myPolys.push_back(dynamic_cast<GNEPoly*>(AC));
-                } else {
-                    // cast specific network elemetns
-                    if (AC->getTagProperty().isNetworkElement()) {
-                        // cast specific network element
-                        switch (GUIGlObject->getType()) {
-                            case GLO_JUNCTION: {
-                                // cast Junction
-                                GNEJunction* junction = dynamic_cast<GNEJunction*>(AC);
-                                if (junction) {
-                                    myJunctions.push_back(junction);
-                                    // add it in network containers
-                                    myNetworkElementLanes.push_back(junction);
-                                    myNetworkElementEdges.push_back(junction);
-                                } else {
-                                    throw ProcessError("invalid cast");
-                                }
-                                break;
+                // cast specific network elemetns
+                if (AC->getTagProperty().isNetworkElement()) {
+                    // cast specific network element
+                    switch (GUIGlObject->getType()) {
+                        case GLO_JUNCTION: {
+                            // cast Junction
+                            GNEJunction* junction = dynamic_cast<GNEJunction*>(AC);
+                            if (junction) {
+                                myJunctions.push_back(junction);
+                                // add it in network containers
+                                myNetworkElementLanes.push_back(junction);
+                                myNetworkElementEdges.push_back(junction);
+                            } else {
+                                throw ProcessError("invalid cast");
                             }
-                            case GLO_EDGE: {
-                                // cast Edge
-                                GNEEdge* edge = dynamic_cast<GNEEdge*>(AC);
-                                if (edge) {
-                                    myEdges.push_back(edge);
-                                    // add it in network containers
-                                    myNetworkElementLanes.push_back(edge);
-                                    myNetworkElementEdges.push_back(edge);
-                                } else {
-                                    throw ProcessError("invalid cast");
-                                }
-                                break;
-                            }
-                            case GLO_LANE: {
-                                // cast Lane
-                                GNELane* lane = dynamic_cast<GNELane*>(AC);
-                                if (lane) {
-                                    myLanes.push_back(lane);
-                                    myEdges.push_back(lane->getParentEdge());
-                                    // add it in network containers
-                                    myNetworkElementLanes.push_back(lane);
-                                    myNetworkElementEdges.push_back(lane->getParentEdge());
-                                    // change last inserted attribute carrier
-                                    myAttributeCarrierEdges.pop_back();
-                                    myAttributeCarrierEdges.push_back(lane->getParentEdge());
-                                } else {
-                                    throw ProcessError("invalid cast");
-                                }
-                                break;
-                            }
-                            case GLO_CROSSING: {
-                                // cast Crossing
-                                GNECrossing* crossing = dynamic_cast<GNECrossing*>(AC);
-                                if (crossing) {
-                                    myCrossings.push_back(crossing);
-                                    // add it in network containers
-                                    myNetworkElementLanes.push_back(crossing);
-                                    myNetworkElementEdges.push_back(crossing);
-                                } else {
-                                    throw ProcessError("invalid cast");
-                                }
-                                break;
-                            }
-                            case GLO_CONNECTION: {
-                                // cast Connection
-                                GNEConnection* connection = dynamic_cast<GNEConnection*>(AC);
-                                if (connection) {
-                                    myConnections.push_back(connection);
-                                    // add it in network containers
-                                    myNetworkElementLanes.push_back(connection);
-                                    myNetworkElementEdges.push_back(connection);
-                                } else {
-                                    throw ProcessError("invalid cast");
-                                }
-                                break;
-                            }
-                            default:
-                                break;
+                            break;
                         }
-                    } else if (AC->getTagProperty().isAdditionalElement()) {
-                        // cast additional element from attribute carrier
-                        myAdditionals.push_back(dynamic_cast<GNEAdditional*>(AC));
-                    } else if (AC->getTagProperty().isTAZElement()) {
-                        // cast TAZ element from attribute carrier
-                        myTAZElements.push_back(dynamic_cast<GNETAZElement*>(AC));
-                        // cast specific TAZ
-                        switch (GUIGlObject->getType()) {
-                            case GLO_TAZ:
-                                myTAZs.push_back(dynamic_cast<GNETAZ*>(AC));
-                                break;
-                            default:
-                                break;
+                        case GLO_EDGE: {
+                            // cast Edge
+                            GNEEdge* edge = dynamic_cast<GNEEdge*>(AC);
+                            if (edge) {
+                                myEdges.push_back(edge);
+                                // add it in network containers
+                                myNetworkElementLanes.push_back(edge);
+                                myNetworkElementEdges.push_back(edge);
+                            } else {
+                                throw ProcessError("invalid cast");
+                            }
+                            break;
                         }
-                    } else if (AC->getTagProperty().isShape()) {
-                        // cast shape element from attribute carrier
-                        myShapes.push_back(dynamic_cast<GNEShape*>(AC));
-                        // cast specific shape
-                        switch (GUIGlObject->getType()) {
-                            case GLO_POI:
-                                myPOIs.push_back(dynamic_cast<GNEPOI*>(AC));
-                                break;
-                            case GLO_POLYGON:
-                                myPolys.push_back(dynamic_cast<GNEPoly*>(AC));
-                                break;
-                            default:
-                                break;
+                        case GLO_LANE: {
+                            // cast Lane
+                            GNELane* lane = dynamic_cast<GNELane*>(AC);
+                            if (lane) {
+                                myLanes.push_back(lane);
+                                myEdges.push_back(lane->getParentEdge());
+                                // add it in network containers
+                                myNetworkElementLanes.push_back(lane);
+                                myNetworkElementEdges.push_back(lane->getParentEdge());
+                                // change last inserted attribute carrier
+                                myAttributeCarrierEdges.pop_back();
+                                myAttributeCarrierEdges.push_back(lane->getParentEdge());
+                            } else {
+                                throw ProcessError("invalid cast");
+                            }
+                            break;
                         }
-                    } else if (AC->getTagProperty().isDemandElement()) {
-                        // cast demand element from attribute carrier
-                        myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(AC));
-                    } else if (AC->getTagProperty().isGenericData()) {
-                        // cast generic data from attribute carrier
-                        myGenericDatas.push_back(dynamic_cast<GNEGenericData*>(AC));
-                        // cast specific generic data
-                        switch (GUIGlObject->getType()) {
-                            case GLO_EDGEDATA:
-                                myEdgeDatas.push_back(dynamic_cast<GNEEdgeData*>(AC));
-                                break;
-                            case GLO_EDGERELDATA:
-                                myEdgeRelDatas.push_back(dynamic_cast<GNEEdgeRelData*>(AC));
-                                break;
-                            default:
-                                break;
+                        case GLO_CROSSING: {
+                            // cast Crossing
+                            GNECrossing* crossing = dynamic_cast<GNECrossing*>(AC);
+                            if (crossing) {
+                                myCrossings.push_back(crossing);
+                                // add it in network containers
+                                myNetworkElementLanes.push_back(crossing);
+                                myNetworkElementEdges.push_back(crossing);
+                            } else {
+                                throw ProcessError("invalid cast");
+                            }
+                            break;
                         }
+                        case GLO_CONNECTION: {
+                            // cast Connection
+                            GNEConnection* connection = dynamic_cast<GNEConnection*>(AC);
+                            if (connection) {
+                                myConnections.push_back(connection);
+                                // add it in network containers
+                                myNetworkElementLanes.push_back(connection);
+                                myNetworkElementEdges.push_back(connection);
+                            } else {
+                                throw ProcessError("invalid cast");
+                            }
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                } else if (AC->getTagProperty().isAdditionalElement()) {
+                    // cast additional element from attribute carrier
+                    myAdditionals.push_back(dynamic_cast<GNEAdditional*>(AC));
+                } else if (AC->getTagProperty().isTAZElement()) {
+                    // cast TAZ element from attribute carrier
+                    myTAZElements.push_back(dynamic_cast<GNETAZElement*>(AC));
+                    // cast specific TAZ
+                    switch (GUIGlObject->getType()) {
+                        case GLO_TAZ:
+                            myTAZs.push_back(dynamic_cast<GNETAZ*>(AC));
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (AC->getTagProperty().isShape()) {
+                    // cast shape element from attribute carrier
+                    myShapes.push_back(dynamic_cast<GNEShape*>(AC));
+                    // cast specific shape
+                    switch (GUIGlObject->getType()) {
+                        case GLO_POI:
+                            myPOIs.push_back(dynamic_cast<GNEPOI*>(AC));
+                            break;
+                        case GLO_POLYGON:
+                            myPolys.push_back(dynamic_cast<GNEPoly*>(AC));
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (AC->getTagProperty().isDemandElement()) {
+                    // cast demand element from attribute carrier
+                    myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(AC));
+                } else if (AC->getTagProperty().isGenericData()) {
+                    // cast generic data from attribute carrier
+                    myGenericDatas.push_back(dynamic_cast<GNEGenericData*>(AC));
+                    // cast specific generic data
+                    switch (GUIGlObject->getType()) {
+                        case GLO_EDGEDATA:
+                            myEdgeDatas.push_back(dynamic_cast<GNEEdgeData*>(AC));
+                            break;
+                        case GLO_EDGERELDATA:
+                            myEdgeRelDatas.push_back(dynamic_cast<GNEEdgeRelData*>(AC));
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -2810,7 +2804,7 @@ GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::EditShapes::EditShapes(GNEViewNet* viewNet) :
-    editedShapePoly(nullptr),
+    editedNetworkElement(nullptr),
     editingNetworkElementShapes(false),
     myPreviousNetworkEditMode(NetworkEditMode::NETWORK_NONE),
     myViewNet(viewNet) {
@@ -2819,7 +2813,7 @@ GNEViewNetHelper::EditShapes::EditShapes(GNEViewNet* viewNet) :
 
 void
 GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, const PositionVector& shape, bool fill) {
-    if ((editedShapePoly == nullptr) && (element != nullptr) && (shape.size() > 1)) {
+    if ((editedNetworkElement == nullptr) && (element != nullptr) && (shape.size() > 1)) {
         // save current edit mode before starting
         myPreviousNetworkEditMode = myViewNet->myEditModes.networkEditMode;
         if ((element->getTagProperty().getTag() == SUMO_TAG_CONNECTION) || (element->getTagProperty().getTag() == SUMO_TAG_CROSSING)) {
@@ -2831,7 +2825,12 @@ GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, c
         myViewNet->myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_MOVE);
         // add special GNEPoly fo edit shapes (color is taken from junction color settings)
         RGBColor col = myViewNet->getVisualisationSettings().junctionColorer.getSchemes()[0].getColor(3);
-        editedShapePoly = myViewNet->myNet->addPolygonForEditShapes(element, shape, fill, col);
+        //set editedNetworkElement
+        editedNetworkElement = element;
+        // get original shape
+        myOriginalShape = shape;
+        // enable shape edited flag
+        editedNetworkElement->setShapeEdited(true);
         // update view net to show the new editedShapePoly
         myViewNet->updateViewNet();
     }
@@ -2841,9 +2840,11 @@ GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, c
 void
 GNEViewNetHelper::EditShapes::stopEditCustomShape() {
     // stop edit shape junction deleting editedShapePoly
-    if (editedShapePoly != nullptr) {
-        myViewNet->myNet->removePolygonForEditShapes(editedShapePoly);
-        editedShapePoly = nullptr;
+    if (editedNetworkElement != nullptr) {
+        // disable shape edited flag
+        editedNetworkElement->setShapeEdited(false);
+        // reset editedNetworkElement
+        editedNetworkElement = nullptr;
         // restore previous edit mode
         if (myViewNet->myEditModes.networkEditMode != myPreviousNetworkEditMode) {
             myViewNet->myEditModes.setNetworkEditMode(myPreviousNetworkEditMode);
@@ -2855,13 +2856,15 @@ GNEViewNetHelper::EditShapes::stopEditCustomShape() {
 void
 GNEViewNetHelper::EditShapes::saveEditedShape() {
     // save edited junction's shape
-    if (editedShapePoly != nullptr) {
-        myViewNet->myUndoList->p_begin("custom " + editedShapePoly->getShapeEditedElement()->getTagStr() + " shape");
+    if (editedNetworkElement != nullptr) {
+        myViewNet->myUndoList->p_begin("custom " + editedNetworkElement->getTagStr() + " shape");
         SumoXMLAttr attr = SUMO_ATTR_SHAPE;
-        if (editedShapePoly->getShapeEditedElement()->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
+        if (editedNetworkElement->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
             attr = SUMO_ATTR_CUSTOMSHAPE;
         }
-        editedShapePoly->getShapeEditedElement()->setAttribute(attr, toString(editedShapePoly->getShape()), myViewNet->myUndoList);
+/* 
+        editedNetworkElement->getShapeEditedElement()->setAttribute(attr, toString(editedShapePoly->getShape()), myViewNet->myUndoList);
+*/
         myViewNet->myUndoList->p_end();
         stopEditCustomShape();
     }

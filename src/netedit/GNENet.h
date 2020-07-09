@@ -638,19 +638,6 @@ public:
      */
     std::vector<GNEShape*> retrieveShapes(bool onlySelected = false) const;
 
-    /**@brief Builds a special polygon used for edit Junctions's shapes
-     * @param[in] networkElement GNENetworkElement to be edited
-     * @param[in] shape shape to be edited
-     * @param[in] fill enable or disable fill polygon
-     * @param[in] col The color for drawing the polygon
-     * @throw processError if shape is empty
-     * @return created GNEPoly
-     */
-    GNEPoly* addPolygonForEditShapes(GNENetworkElement* networkElement, const PositionVector& shape, bool fill, RGBColor col);
-
-    /// @brief remove Polygon for edit shapes
-    void removePolygonForEditShapes(GNEPoly* polygon);
-
     /// @brief generate Shape ID
     std::string generateShapeID(SumoXMLTag shapeTag) const;
 
