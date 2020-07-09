@@ -216,8 +216,8 @@ struct GUIVisualizationCandidateColorSettings {
 /// @brief struct for connection settings
 struct GUIVisualizationNeteditSizeSettings {
 
-    /// @brief geometry point radius
-    static const double geometryPointRadius;
+    /// @brief movinggeometry point radius
+    static const double movingGeometryPointRadius;
 
     /// @brief polygon contour width
     static const double polygonContourWidth;
@@ -530,6 +530,9 @@ public:
 
     /// @brief check if dotted contour can be drawn
     bool drawDottedContour() const;
+
+    /// @brief check if moving geometry point can be draw
+    bool drawMovingGeometryPoint(double exaggeration) const;
 
     /// @brief The name of this setting
     std::string name;

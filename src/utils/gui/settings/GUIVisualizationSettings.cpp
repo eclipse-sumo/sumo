@@ -84,7 +84,7 @@ const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255
 // Netedit size values
 // -------------------------------------------------------------------------
 
-const double GUIVisualizationNeteditSizeSettings::geometryPointRadius(1.2);
+const double GUIVisualizationNeteditSizeSettings::movingGeometryPointRadius(1.2);
 const double GUIVisualizationNeteditSizeSettings::polygonContourWidth(0.3);
 const double GUIVisualizationNeteditSizeSettings::polylineWidth(1);
 
@@ -1915,6 +1915,12 @@ GUIVisualizationSettings::drawDottedContour() const {
     } else {
         return forceDrawDottedContour;
     }
+}
+
+
+bool 
+GUIVisualizationSettings::drawMovingGeometryPoint(const double exaggeration) const {
+    return (scale * neteditSizeSettings.movingGeometryPointRadius * exaggeration > 10);
 }
 
 /****************************************************************************/
