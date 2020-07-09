@@ -216,7 +216,10 @@ struct GUIVisualizationCandidateColorSettings {
 /// @brief struct for connection settings
 struct GUIVisualizationNeteditSizeSettings {
 
-    /// @brief movinggeometry point radius
+    /// @brief junction buuble radius
+    static const double junctionBubbleRadius;
+
+    /// @brief moving geometry point radius
     static const double movingGeometryPointRadius;
 
     /// @brief polygon contour width

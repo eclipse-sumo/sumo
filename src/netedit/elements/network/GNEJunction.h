@@ -48,9 +48,6 @@ class GNEJunction : public GNENetworkElement {
     friend class GNEChange_Crossing;
 
 public:
-    /// @brief constant values for drawing buubles
-    static const double BUBBLE_RADIUS;
-
     /**@brief Constructor
      * @param[in] net The net to inform about gui updates
      * @param[in] nbn The represented node
@@ -285,7 +282,7 @@ private:
     std::map<SumoXMLTag, std::vector<GNEGenericData*> > myPathGenericDatas;
 
     /// @brief The maximum size (in either x-, or y-dimension) for determining whether to draw or not
-    double myMaxSize;
+    double myMaxDrawingSize;
 
     /// @brief whether this junction is the first junction for a newly creatededge
     /// @see GNEApplicationWindow::createEdgeSource)
@@ -310,7 +307,7 @@ private:
     void drawTLSIcon(const GUIVisualizationSettings& s) const;
 
     /// @brief draw junction childs
-    void drawJunctionChilds(const GUIVisualizationSettings& s) const;
+    void drawJunctionChildren(const GUIVisualizationSettings& s) const;
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);

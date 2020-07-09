@@ -391,7 +391,8 @@ GNEEdge::commitEdgeShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
     PositionVector innerShapeToCommit = myNBEdge->getInnerGeometry();
     // first check if second and penultimate isn't in Junction's buubles
-    double buubleRadius = GNEJunction::BUBBLE_RADIUS * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
+    double buubleRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius * 
+            myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
     if (myNBEdge->getGeometry().size() > 2 && myNBEdge->getGeometry()[0].distanceTo2D(myNBEdge->getGeometry()[1]) < buubleRadius) {
         innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
     }

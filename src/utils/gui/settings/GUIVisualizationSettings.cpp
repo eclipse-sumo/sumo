@@ -84,6 +84,7 @@ const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255
 // Netedit size values
 // -------------------------------------------------------------------------
 
+const double GUIVisualizationNeteditSizeSettings::junctionBubbleRadius(4);
 const double GUIVisualizationNeteditSizeSettings::movingGeometryPointRadius(1.2);
 const double GUIVisualizationNeteditSizeSettings::polygonContourWidth(0.3);
 const double GUIVisualizationNeteditSizeSettings::polylineWidth(1);
