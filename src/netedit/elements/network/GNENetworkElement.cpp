@@ -51,7 +51,8 @@ GNENetworkElement::GNENetworkElement(GNENet* net, const std::string& id, GUIGlOb
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
-    myMovingGeometryBoundary() {
+    myMovingGeometryBoundary(),
+    myShapeEdited(false) {
 }
 
 
@@ -67,6 +68,18 @@ GNENetworkElement::getID() const {
 GUIGlObject*
 GNENetworkElement::getGUIGlObject() {
     return this;
+}
+
+
+void 
+GNENetworkElement::setShapeEdited(const bool value) {
+    myShapeEdited = value;
+}
+
+
+bool 
+GNENetworkElement::isShapeEdited() const {
+    return myShapeEdited;
 }
 
 

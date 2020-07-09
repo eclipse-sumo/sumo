@@ -90,6 +90,12 @@ public:
     /// @brief get GUIGlObject associated with this AttributeCarrier
     GUIGlObject* getGUIGlObject();
 
+    /// @brief set shape edited
+    void setShapeEdited(const bool value);
+
+    /// @brief check if shape is being edited
+    bool isShapeEdited() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
@@ -184,6 +190,9 @@ protected:
 
     /// @brief position used during moving
     Position myMovingPosition;
+
+    /// @brief flag to check if element shape is being edited
+    bool myShapeEdited;
 
 private:
     /// @brief set attribute after validation
