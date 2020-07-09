@@ -40,7 +40,6 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
     GNEShape(net, SUMO_TAG_POLY, movementBlocked,
         {}, {}, {}, {}, {}, {}, {}, {},     // Parents
         {}, {}, {}, {}, {}, {}, {}, {}),    // Childrens
-    myNetworkElementShapeEdited(nullptr),
     myBlockShape(shapeBlocked),
     mySimplifiedShape(false) {
     // check if imgFile is valid
@@ -238,11 +237,7 @@ GNEPoly::getGlID() const {
 
 std::string
 GNEPoly::getParentName() const {
-    if (myNetworkElementShapeEdited != nullptr) {
-        return myNetworkElementShapeEdited->getID();
-    } else {
-        return myNet->getMicrosimID();
-    }
+    return myNet->getMicrosimID();
 }
 
 
@@ -260,13 +255,10 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     if (mySimplifiedShape || myShape.size() <= 2) {
         simplifyShape->disable();
     }
-    // create open or close polygon's shape only if myNetworkElementShapeEdited is nullptr
-    if (myNetworkElementShapeEdited == nullptr) {
-        if (myShape.isClosed()) {
-            new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
-        } else {
-            new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
-        }
+    if (myShape.isClosed()) {
+        new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
+    } else {
+        new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
     }
     // create a extra FXMenuCommand if mouse is over a vertex
     int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
@@ -449,22 +441,6 @@ GNEPoly::isPolygonBlocked() const {
 bool
 GNEPoly::isPolygonClosed() const {
     return myShape.isClosed();
-}
-
-
-void
-GNEPoly::setShapeEditedElement(GNENetworkElement* element) {
-    if (element) {
-        myNetworkElementShapeEdited = element;
-    } else {
-        throw InvalidArgument("Junction cannot be nullptr");
-    }
-}
-
-
-GNENetworkElement*
-GNEPoly::getShapeEditedElement() const {
-    return myNetworkElementShapeEdited;
 }
 
 
@@ -770,10 +746,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // disable simplified shape flag
             mySimplifiedShape = false;
-            // update geometry of shape edited element
-            if (myNetworkElementShapeEdited) {
-                myNetworkElementShapeEdited->updateGeometry();
-            }
             // update geometry
             updateGeometry();
             break;
@@ -788,10 +760,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             // disable simplified shape flag
             mySimplifiedShape = false;
-            // update geometry of shape edited element
-            if (myNetworkElementShapeEdited) {
-                myNetworkElementShapeEdited->updateGeometry();
-            }
             // update geometry
             updateGeometry();
             break;

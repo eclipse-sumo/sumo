@@ -206,12 +206,6 @@ public:
     /// @brief check if polygon is closed
     bool isPolygonClosed() const;
 
-    /// @brief retrieve the networkElement of which the shape is being edited
-    void setShapeEditedElement(GNENetworkElement* element);
-
-    /// @brief retrieve the junction of which the shape is being edited
-    GNENetworkElement* getShapeEditedElement() const;
-
     /// @brief open polygon
     void openPolygon(bool allowUndo = true);
 
@@ -225,9 +219,6 @@ public:
     void simplifyShape(bool allowUndo = true);
 
 protected:
-    /// @brief junction of which the shape is being edited (optional)
-    GNENetworkElement* myNetworkElementShapeEdited;
-
     /// @brief Latitude of Polygon
     PositionVector myGeoShape;
 
