@@ -558,15 +558,16 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         // calculate TAZ movement values (can be entire shape or single geometry points)
         return calculateTAZValues();
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
-        /*
-        // set junction moved object
-        myJunctionToMove = myViewNet->myObjectsUnderCursor.getJunctionFront();
-        // start junction geometry moving
-        myJunctionToMove->startGeometryMoving();
-        // there is moved items, then return true
-        return true;
-        */
-        return calculateJunctionValues();
+        if (myViewNet->myObjectsUnderCursor.getJunctionFront()->isShapeEdited()) {
+            return calculateJunctionValues();
+        } else {
+            // set junction moved object
+            myJunctionToMove = myViewNet->myObjectsUnderCursor.getJunctionFront();
+            // start junction geometry moving
+            myJunctionToMove->startGeometryMoving();
+            // there is moved items, then return true
+            return true;
+        }
     } else if (myViewNet->myObjectsUnderCursor.getEdgeFront() || myViewNet->myObjectsUnderCursor.getLaneFront()) {
         // calculate Edge movement values (can be entire shape, single geometry points, altitude, etc.)
         return calculateEdgeValues();
@@ -617,12 +618,13 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
         // Move POI's geometry without commiting changes
         myPOIToMove->movePOIGeometry(offsetMovement);
     } else if (myJunctionToMove) {
-    /*
-        // Move Junction's geometry without commiting changes
-        myJunctionToMove->moveGeometry(offsetMovement);
-    */
-        // move edge's geometry without commiting changes
-        myJunctionToMove->moveShape(offsetMovement);
+        if (myJunctionToMove->isShapeEdited()) {
+            // move edge's geometry without commiting changes
+            myJunctionToMove->moveShape(offsetMovement);
+        } else {
+            // Move Junction's geometry without commiting changes
+            myJunctionToMove->moveGeometry(offsetMovement);
+        }
     } else if (myEdgeToMove) {
         // check if we're moving the start or end position, or a geometry point
         if (myMovingStartPos) {
@@ -656,11 +658,9 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myPOIToMove = nullptr;
     } else if (myJunctionToMove) {
         // check if in the moved position there is another Junction and it will be merged
-        /*
-        if (!myViewNet->mergeJunctions(myJunctionToMove)) {
+        if (!myJunctionToMove->isShapeEdited() && !myViewNet->mergeJunctions(myJunctionToMove)) {
             myJunctionToMove->commitGeometryMoving(myViewNet->getUndoList());
         }
-        */
         myJunctionToMove->commitGeometryMoving(myViewNet->getUndoList());
         myJunctionToMove = nullptr;
     } else if (myEdgeToMove) {
@@ -686,6 +686,42 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
     } else if (myTAZElementToMove) {
         myTAZElementToMove->commitTAZShapeChange(myViewNet->getUndoList());
         myTAZElementToMove = nullptr;
+    }
+}
+
+
+bool
+GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues() {
+    // assign clicked junction to junctionToMove
+    myJunctionToMove = myViewNet->myObjectsUnderCursor.getJunctionFront();
+    // calculate junctionShapeOffset
+    const double junctionShapeOffset = myJunctionToMove->getNBNode()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+    // calculate distance to shape
+    const double distanceToShape = myJunctionToMove->getNBNode()->getShape().distance2D(myViewNet->getPositionInformation());
+    // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
+    if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
+        // check if we clicked over a vertex index
+        if (myJunctionToMove->getShapeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
+            // start geometry moving
+            myJunctionToMove->startShapeGeometryMoving(junctionShapeOffset);
+            // junction values sucesfully calculated, then return true
+            return true;
+        } else {
+            // stop junction moving
+            myJunctionToMove = nullptr;
+            // junction values wasn't calculated, then return false
+            return false;
+        }
+    } else if (/*distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius*/ true) {
+        // start geometry moving
+        myJunctionToMove->startShapeGeometryMoving(junctionShapeOffset);
+        // junction values sucesfully calculated, then return true
+        return true;
+    } else {
+        // stop junction moving
+        myJunctionToMove = nullptr;
+        // junction values wasn't calculated, then return false
+        return false;
     }
 }
 
@@ -775,42 +811,6 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
                 return true;
             }
         }
-    }
-}
-
-
-bool
-GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues() {
-    // assign clicked junction to junctionToMove
-    myJunctionToMove = myViewNet->myObjectsUnderCursor.getJunctionFront();
-    // calculate junctionShapeOffset
-    const double junctionShapeOffset = myJunctionToMove->getNBNode()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-    // calculate distance to shape
-    const double distanceToShape = myJunctionToMove->getNBNode()->getShape().distance2D(myViewNet->getPositionInformation());
-    // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-    if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
-        // check if we clicked over a vertex index
-        if (myJunctionToMove->getShapeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
-            // start geometry moving
-            myJunctionToMove->startShapeGeometryMoving(junctionShapeOffset);
-            // junction values sucesfully calculated, then return true
-            return true;
-        } else {
-            // stop junction moving
-            myJunctionToMove = nullptr;
-            // junction values wasn't calculated, then return false
-            return false;
-        }
-    } else if (/*distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius*/ true) {
-        // start geometry moving
-        myJunctionToMove->startShapeGeometryMoving(junctionShapeOffset);
-        // junction values sucesfully calculated, then return true
-        return true;
-    } else {
-        // stop junction moving
-        myJunctionToMove = nullptr;
-        // junction values wasn't calculated, then return false
-        return false;
     }
 }
 

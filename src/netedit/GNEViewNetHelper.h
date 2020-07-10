@@ -766,14 +766,14 @@ struct GNEViewNetHelper {
         void finishMoveSingleElement();
 
     private:
+        /// calculate network element movement values (Position, Index, etc.)
+        bool calculateJunctionValues();
+
         /// calculate Poly movement values (Position, Index, etc.)
         bool calculatePolyValues();
 
         /// calculate Edge movement values (Position, Index, etc.)
         bool calculateEdgeValues();
-
-        /// calculate junction movement values (Position, Index, etc.)
-        bool calculateJunctionValues();
 
         /// calculate TAZ movement values (Position, Index, etc.)
         bool calculateTAZValues();
