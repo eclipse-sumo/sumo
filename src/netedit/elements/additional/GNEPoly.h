@@ -85,10 +85,10 @@ public:
 
     /// @name functions for edit geometry
     /// @{
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void startPolyShapeGeometryMoving(const double shapeOffset);
 
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void endPolyShapeGeometryMoving();
 
     /**@brief return index of geometry point placed in given position, or -1 if no exist

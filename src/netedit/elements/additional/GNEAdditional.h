@@ -177,10 +177,10 @@ public:
 
     /// @name Functions related with geometry of element
     /// @{
-    /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with GL Tree)
     void startGeometryMoving();
 
-    /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with GL Tree)
     void endGeometryMoving();
 
     /**@brief change the position of the element geometry without saving in undoList

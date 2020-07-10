@@ -103,10 +103,10 @@ public:
 
     /// @name functions for edit geometry
     /// @{
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void startPOIGeometryMoving();
 
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void endPOIGeometryMoving();
 
     /**@brief change the position of the element geometry without saving in undoList
