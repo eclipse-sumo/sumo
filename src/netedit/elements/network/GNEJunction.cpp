@@ -113,6 +113,116 @@ GNEJunction::getPositionInView() const {
 
 
 void
+GNEJunction::startJunctionShapeGeometryMoving(const double shapeOffset) {
+    // save current centering boundary
+    myMovingGeometryBoundary = getCenteringBoundary();
+    // start move shape depending of block shape
+    startMoveShape(myNBNode->getShape(), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius);
+}
+
+
+void
+GNEJunction::endJunctionShapeGeometryMoving() {
+    // check that endGeometryMoving was called only once
+    if (myMovingGeometryBoundary.isInitialised()) {
+        // Remove object from net
+        myNet->removeGLObjectFromGrid(this);
+        // reset myMovingGeometryBoundary
+        myMovingGeometryBoundary.reset();
+        // add object into grid again (using the new centering boundary)
+        myNet->addGLObjectIntoGrid(this);
+    }
+}
+
+
+int
+GNEJunction::getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) const {
+    // get shape
+    const PositionVector &shape = myNBNode->getShape();
+    // check if position has to be snapped to grid
+    if (snapToGrid) {
+        pos = myNet->getViewNet()->snapToActiveGrid(pos);
+    }
+    const double offset = shape.nearest_offset_to_point2D(pos, true);
+    if (offset == GeomHelper::INVALID_OFFSET) {
+        return -1;
+    }
+    Position newPos = shape.positionAtOffset2D(offset);
+    // first check if vertex already exists in the inner geometry
+    for (int i = 0; i < (int)shape.size(); i++) {
+        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius) {
+            // index refers to inner geometry
+            if (i == 0 || i == (int)(shape.size() - 1)) {
+                return -1;
+            }
+            return i;
+        }
+    }
+    return -1;
+}
+
+
+void
+GNEJunction::moveJunctionShape(const Position& offset) {
+    // first obtain a copy of shapeBeforeMoving
+    PositionVector newShape = getShapeBeforeMoving();
+    if (moveEntireShape()) {
+        // move entire shape
+        newShape.add(offset);
+    } else {
+        int geometryPointIndex = getGeometryPointIndex();
+        // if geometryPoint is -1, then we have to create a new geometry point
+        if (geometryPointIndex == -1) {
+            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
+        }
+        // get last index
+        const int lastIndex = (int)newShape.size() - 1;
+        // check if we have to move first and last postion
+        if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
+            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+            // move first and last position in newShape
+            newShape[0].add(offset);
+            newShape[lastIndex] = newShape[0];
+        } else {
+            // move geometry point within newShape
+            newShape[geometryPointIndex].add(offset);
+        }
+    }
+    // set new shape
+    myNBNode->setCustomShape(newShape);
+    // update geometry
+    updateGeometry();
+}
+
+
+void
+GNEJunction::commitJunctionShapeChange(GNEUndoList* undoList) {
+    // get visualisation settings
+    auto &s = myNet->getViewNet()->getVisualisationSettings();
+    // restore original shape into shapeToCommit
+    PositionVector shapeToCommit = parse<PositionVector>(getAttribute(SUMO_ATTR_SHAPE));
+    // get geometryPoint radius
+    const double geometryPointRadius = s.neteditSizeSettings.movingGeometryPointRadius * s.polySize.getExaggeration(s, this);
+    // remove double points
+    shapeToCommit.removeDoublePoints(geometryPointRadius);
+    // check if we have to merge start and end points
+    if ((shapeToCommit.front() != shapeToCommit.back()) && (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < geometryPointRadius)) {
+        shapeToCommit[0] = shapeToCommit.back();
+    }
+    // update geometry
+    updateGeometry();
+    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
+    myNBNode->setCustomShape(getShapeBeforeMoving());
+    // finish geometry moving
+    endJunctionShapeGeometryMoving();
+    // commit new shape
+    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
+    undoList->p_end();
+}
+
+
+void
 GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
     // rebuild GNECrossings only if create crossings and walkingAreas in net is enabled
     if (myNet->getNetBuilder()->haveNetworkCrossings()) {

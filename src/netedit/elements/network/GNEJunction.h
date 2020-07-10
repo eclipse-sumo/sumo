@@ -74,6 +74,32 @@ public:
     Position getPositionInView() const;
     /// @}
 
+    /// @name functions for edit shape
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
+    void startJunctionShapeGeometryMoving(const double shapeOffset);
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
+    void endJunctionShapeGeometryMoving();
+
+    /**@brief return index of geometry point placed in given position, or -1 if no exist
+    * @param pos position of new/existent vertex
+    * @param snapToGrid enable or disable snapToActiveGrid
+    * @return index of position vector
+    */
+    int getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) const;
+
+    /**@brief move shape
+    * @param[in] offset the offset of movement
+    */
+    void moveJunctionShape(const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void commitJunctionShapeChange(GNEUndoList* undoList);
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu
@@ -144,10 +170,10 @@ public:
     /// @name functions related with geometry movement
     /// @{
 
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void startGeometryMoving(bool extendToNeighbors = true);
 
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void endGeometryMoving(bool extendToNeighbors = true);
 
     /// @brief change the position of the element geometry without saving in undoList

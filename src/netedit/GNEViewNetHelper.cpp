@@ -620,7 +620,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
     } else if (myJunctionToMove) {
         if (myJunctionToMove->isShapeEdited()) {
             // move edge's geometry without commiting changes
-            myJunctionToMove->moveShape(offsetMovement);
+            myJunctionToMove->moveJunctionShape(offsetMovement);
         } else {
             // Move Junction's geometry without commiting changes
             myJunctionToMove->moveGeometry(offsetMovement);
@@ -701,9 +701,9 @@ GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues() {
     // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
     if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
         // check if we clicked over a vertex index
-        if (myJunctionToMove->getShapeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
+        if (myJunctionToMove->getJunctionShapeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
             // start geometry moving
-            myJunctionToMove->startShapeGeometryMoving(junctionShapeOffset);
+            myJunctionToMove->startJunctionShapeGeometryMoving(junctionShapeOffset);
             // junction values sucesfully calculated, then return true
             return true;
         } else {
@@ -714,7 +714,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues() {
         }
     } else if (/*distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius*/ true) {
         // start geometry moving
-        myJunctionToMove->startShapeGeometryMoving(junctionShapeOffset);
+        myJunctionToMove->startJunctionShapeGeometryMoving(junctionShapeOffset);
         // junction values sucesfully calculated, then return true
         return true;
     } else {

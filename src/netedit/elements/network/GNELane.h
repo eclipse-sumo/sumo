@@ -105,6 +105,32 @@ public:
     Position getPositionInView() const;
     /// @}
 
+    /// @name functions for edit shape
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
+    void startLaneShapeGeometryMoving(const double shapeOffset);
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
+    void endLaneShapeGeometryMoving();
+
+    /**@brief return index of geometry point placed in given position, or -1 if no exist
+    * @param pos position of new/existent vertex
+    * @param snapToGrid enable or disable snapToActiveGrid
+    * @return index of position vector
+    */
+    int getLaneShapeVertexIndex(Position pos, const bool snapToGrid) const;
+
+    /**@brief move shape
+    * @param[in] offset the offset of movement
+    */
+    void moveLaneShape(const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void commitLaneShapeChange(GNEUndoList* undoList);
+    /// @}
+
     /// @brief Returns underlying parent edge
     GNEEdge* getParentEdge() const;
 
@@ -122,10 +148,10 @@ public:
 
     /// @name functions for edit geometry
     /// @{
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void startGeometryMoving();
 
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void endGeometryMoving();
     /// @}
 

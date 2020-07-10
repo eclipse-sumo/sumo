@@ -112,7 +112,7 @@ public:
      */
     int getEdgeVertexIndex(Position pos, const bool snapToGrid) const;
 
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
     void startEdgeGeometryMoving(const double shapeOffset, const bool invertOffset);
 
     /**@brief move shape
