@@ -464,6 +464,16 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         // draw shape with high detail
                         GLHelper::drawFilledPolyTesselated(junctionShape, true);
                     }
+                    // draw shape points only in Network supemode
+                    if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                        // color
+                        const RGBColor invertedColor = junctionShapeColor.invertedColor();
+                        const RGBColor darkerColor = junctionShapeColor.changedBrightness(-10);
+                        // draw geometry points
+                        GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), junctionShape, darkerColor, darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, junctionExaggeration);
+                        // draw moving hint
+                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), junctionShape, darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, junctionExaggeration);
+                    }
                 }
             }
             // check if bubble has to be drawn

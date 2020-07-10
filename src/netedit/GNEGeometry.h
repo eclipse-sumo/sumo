@@ -123,9 +123,6 @@ struct GNEGeometry {
         /// @brief The lengths of the single shape parts
         const std::vector<double>& getShapeLengths() const;
 
-        /// @brief check if position is over a shape geometry point
-        int getGeometryPointIndex(const Position& position, const double radius) const;
-
     private:
         /// @brief clear geometry
         void clearGeometry();
@@ -497,11 +494,11 @@ struct GNEGeometry {
     static void drawGeometry(const GNEViewNet* viewNet, const Geometry& geometry, const double width);
 
     /// @brief draw geometry points
-    static void drawGeometryPoints(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const Geometry& geometry, 
+    static void drawGeometryPoints(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape, 
         const RGBColor &geometryPointColor, const RGBColor &textColor, const double radius, const double exaggeration);
 
     /// @brief draw moving hint
-    static void drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const Geometry& geometry, 
+    static void drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet* viewNet, const PositionVector& shape, 
         const RGBColor &hintColor, const double radius, const double exaggeration);
 
     /// @brief draw geometry segment

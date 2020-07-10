@@ -357,10 +357,10 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // draw shape points only in Network supemode
             if (s.drawMovingGeometryPoint(polyExaggeration) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry, darkerColor, invertedColor, s.neteditSizeSettings.movingGeometryPointRadius, polyExaggeration);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.movingGeometryPointRadius, polyExaggeration);
                 // draw moving hint points
                 if (myBlockMovement == false) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry, invertedColor, s.neteditSizeSettings.movingGeometryPointRadius, polyExaggeration);
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry.getShape(), invertedColor, s.neteditSizeSettings.movingGeometryPointRadius, polyExaggeration);
                 }
             }
         }
