@@ -147,6 +147,9 @@ OptionsIO::getRoot(const std::string& filename) {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         XERCES_CPP_NAMESPACE::XMLPScanToken token;
+        if (!FileHelpers::isReadable(filename)) {
+            throw ProcessError("Could not open '" + filename + "'.");
+        }
 #ifdef HAVE_ZLIB
         zstr::ifstream istream(filename.c_str(), std::fstream::in | std::fstream::binary);
         IStreamInputSource inputStream(istream);
