@@ -2152,7 +2152,7 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
         }
         // start edit custom shape
-        myEditShapes.startEditCustomShape(junction, junction->getNBNode()->getShape(), true);
+        myEditShapes.startEditCustomShape(junction, junction->getNBNode()->getShape());
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -2316,7 +2316,7 @@ GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
     // Obtain connection under mouse
     GNEConnection* connection = getConnectionAtPopupPosition();
     if (connection) {
-        myEditShapes.startEditCustomShape(connection, connection->getConnectionShape(), false);
+        myEditShapes.startEditCustomShape(connection, connection->getConnectionShape());
     }
     // destroy pop-up and update view Net
     destroyPopup();
@@ -2332,7 +2332,7 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
     if (crossing) {
         // due crossings haven two shapes, check what has to be edited
         PositionVector shape = crossing->getNBCrossing()->customShape.size() > 0 ? crossing->getNBCrossing()->customShape : crossing->getNBCrossing()->shape;
-        myEditShapes.startEditCustomShape(crossing, shape, false);
+        myEditShapes.startEditCustomShape(crossing, shape);
     }
     // destroy pop-up and update view Net
     destroyPopup();

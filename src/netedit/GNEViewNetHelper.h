@@ -772,6 +772,9 @@ struct GNEViewNetHelper {
         /// calculate Edge movement values (Position, Index, etc.)
         bool calculateEdgeValues();
 
+        /// calculate junction movement values (Position, Index, etc.)
+        bool calculateJunctionValues();
+
         /// calculate TAZ movement values (Position, Index, etc.)
         bool calculateTAZValues();
 
@@ -1135,7 +1138,7 @@ struct GNEViewNetHelper {
         EditShapes(GNEViewNet* viewNet);
 
         /// @brief start edit custom shape
-        void startEditCustomShape(GNENetworkElement* element, const PositionVector& shape, bool fill);
+        void startEditCustomShape(GNENetworkElement* element, const PositionVector& shape);
 
         /// @brief edit edit shape
         void stopEditCustomShape();
@@ -1145,9 +1148,6 @@ struct GNEViewNetHelper {
 
         /// @brief pointer to edited network element
         GNENetworkElement* editedNetworkElement;
-
-        /// @brief flag to edit network element shapes
-        bool editingNetworkElementShapes;
 
     private:
         /// @brief the previous edit mode before edit NetworkElement's shapes

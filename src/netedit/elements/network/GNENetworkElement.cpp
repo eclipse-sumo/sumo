@@ -162,7 +162,7 @@ GNENetworkElement::moveShape(const Position& offset) {
         }
     }
     // set new shape
-    setAttribute(SUMO_ATTR_SHAPE, toString(getShapeBeforeMoving()));
+    setAttribute(SUMO_ATTR_SHAPE, toString(newShape));
     // update geometry
     updateGeometry();
 }

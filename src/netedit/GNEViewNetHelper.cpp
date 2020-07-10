@@ -558,12 +558,15 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         // calculate TAZ movement values (can be entire shape or single geometry points)
         return calculateTAZValues();
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
+        /*
         // set junction moved object
         myJunctionToMove = myViewNet->myObjectsUnderCursor.getJunctionFront();
         // start junction geometry moving
         myJunctionToMove->startGeometryMoving();
         // there is moved items, then return true
         return true;
+        */
+        return calculateJunctionValues();
     } else if (myViewNet->myObjectsUnderCursor.getEdgeFront() || myViewNet->myObjectsUnderCursor.getLaneFront()) {
         // calculate Edge movement values (can be entire shape, single geometry points, altitude, etc.)
         return calculateEdgeValues();
@@ -614,8 +617,12 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
         // Move POI's geometry without commiting changes
         myPOIToMove->movePOIGeometry(offsetMovement);
     } else if (myJunctionToMove) {
+    /*
         // Move Junction's geometry without commiting changes
         myJunctionToMove->moveGeometry(offsetMovement);
+    */
+        // move edge's geometry without commiting changes
+        myJunctionToMove->moveShape(offsetMovement);
     } else if (myEdgeToMove) {
         // check if we're moving the start or end position, or a geometry point
         if (myMovingStartPos) {
@@ -649,9 +656,12 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myPOIToMove = nullptr;
     } else if (myJunctionToMove) {
         // check if in the moved position there is another Junction and it will be merged
+        /*
         if (!myViewNet->mergeJunctions(myJunctionToMove)) {
             myJunctionToMove->commitGeometryMoving(myViewNet->getUndoList());
         }
+        */
+        myJunctionToMove->commitGeometryMoving(myViewNet->getUndoList());
         myJunctionToMove = nullptr;
     } else if (myEdgeToMove) {
         // commit change depending of what was moved
@@ -765,6 +775,42 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
                 return true;
             }
         }
+    }
+}
+
+
+bool
+GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues() {
+    // assign clicked junction to junctionToMove
+    myJunctionToMove = myViewNet->myObjectsUnderCursor.getJunctionFront();
+    // calculate junctionShapeOffset
+    const double junctionShapeOffset = myJunctionToMove->getNBNode()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+    // calculate distance to shape
+    const double distanceToShape = myJunctionToMove->getNBNode()->getShape().distance2D(myViewNet->getPositionInformation());
+    // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
+    if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
+        // check if we clicked over a vertex index
+        if (myJunctionToMove->getShapeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
+            // start geometry moving
+            myJunctionToMove->startShapeGeometryMoving(junctionShapeOffset);
+            // junction values sucesfully calculated, then return true
+            return true;
+        } else {
+            // stop junction moving
+            myJunctionToMove = nullptr;
+            // junction values wasn't calculated, then return false
+            return false;
+        }
+    } else if (/*distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius*/ true) {
+        // start geometry moving
+        myJunctionToMove->startShapeGeometryMoving(junctionShapeOffset);
+        // junction values sucesfully calculated, then return true
+        return true;
+    } else {
+        // stop junction moving
+        myJunctionToMove = nullptr;
+        // junction values wasn't calculated, then return false
+        return false;
     }
 }
 
@@ -2805,22 +2851,16 @@ GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
 
 GNEViewNetHelper::EditShapes::EditShapes(GNEViewNet* viewNet) :
     editedNetworkElement(nullptr),
-    editingNetworkElementShapes(false),
     myPreviousNetworkEditMode(NetworkEditMode::NETWORK_NONE),
     myViewNet(viewNet) {
 }
 
 
 void
-GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, const PositionVector& shape, bool fill) {
+GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, const PositionVector& shape) {
     if ((editedNetworkElement == nullptr) && (element != nullptr) && (shape.size() > 1)) {
         // save current edit mode before starting
         myPreviousNetworkEditMode = myViewNet->myEditModes.networkEditMode;
-        if ((element->getTagProperty().getTag() == SUMO_TAG_CONNECTION) || (element->getTagProperty().getTag() == SUMO_TAG_CROSSING)) {
-            editingNetworkElementShapes = true;
-        } else {
-            editingNetworkElementShapes = false;
-        }
         // set move mode
         myViewNet->myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_MOVE);
         // add special GNEPoly fo edit shapes (color is taken from junction color settings)
