@@ -60,4 +60,10 @@ private:
 
     /// @brief move entire shape
     bool myMoveEntireShape;
+
+    /// @brief Invalidated copy constructor.
+    GNEMoveShape(const GNEMoveShape&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEMoveShape& operator=(const GNEMoveShape&) = delete;
 };
