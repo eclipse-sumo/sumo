@@ -1728,8 +1728,6 @@ void
 GNEVehicle::drawStackLabel(const GUIVisualizationSettings& /*s*/, const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
     // declare contour width
     const double contourWidth = 0.05;
-    // check if we have to mirror text
-    const bool mirrorText = (vehicleRotation < 0);
     // Push matrix
     glPushMatrix();
     // Traslate to vehicle top
@@ -1754,8 +1752,6 @@ void
 GNEVehicle::drawFlowLabel(const GUIVisualizationSettings& /*s*/, const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
     // declare contour width
     const double contourWidth = 0.05;
-    // check if we have to mirror text
-    const bool mirrorText = (vehicleRotation < 0);
     // Push matrix
     glPushMatrix();
     // Traslate to vehicle bot

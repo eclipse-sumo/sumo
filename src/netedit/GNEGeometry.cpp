@@ -1222,12 +1222,10 @@ GNEGeometry::drawMovingHint(const GUIVisualizationSettings& s, const GNEViewNet*
         const Position mousePosition = viewNet->getPositionInformation();
         // get exaggeratedRadio
         const double exaggeratedRadio = (radius * exaggeration);
-        // get radius squared
-        const double exaggeratedRadioSquared = (exaggeratedRadio * exaggeratedRadio);
         // obtain distance to shape
         const double distanceToShape = geometry.getShape().distance2D(mousePosition);
         // continue depending of distance to shape
-        if ((distanceToShape < (exaggeratedRadio)) && (geometry.getGeometryPointIndex(mousePosition, (radius*exaggeration)) == -1)) {
+        if ((distanceToShape < exaggeratedRadio) && (geometry.getGeometryPointIndex(mousePosition, (radius*exaggeration)) == -1)) {
             // obtain position over lane
             const Position positionOverLane = geometry.getShape().positionAtOffset2D(geometry.getShape().nearest_offset_to_point2D(mousePosition));
             // calculate hintPos
