@@ -1062,7 +1062,6 @@ GNELane::setSpecialColor(const RGBColor* color, double colorValue) {
     mySpecialColorValue = colorValue;
 }
 
-
 // ===========================================================================
 // private
 // ===========================================================================

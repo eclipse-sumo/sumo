@@ -22,7 +22,6 @@
 #include "GNENetworkElement.h"
 
 #include <netbuild/NBEdge.h>
-#include <netedit/GNEMoveShape.h>
 #include <netedit/elements/GNECandidateElement.h>
 
 
@@ -45,7 +44,7 @@ class GNECrossing;
  *
  * @see MSEdge
  */
-class GNEEdge : public GNENetworkElement, public GNECandidateElement, protected GNEMoveShape {
+class GNEEdge : public GNENetworkElement, public GNECandidateElement {
 
     /// @brief Friend class
     friend class GNEChange_Lane;
@@ -349,7 +348,7 @@ private:
         const std::vector<GNEDemandElement*>& getDemandElements() const;
     };
 
-    /// @brif flag to enable/disable update geomtetry of lanes (used mainly by setNumLanes)
+    /// @brif flag to enable/disable update geometry of lanes (used mainly by setNumLanes)
     bool myUpdateGeometry;
 
     /// @brief set attribute after validation

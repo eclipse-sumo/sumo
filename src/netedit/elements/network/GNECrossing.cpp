@@ -255,6 +255,7 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
             return toString(crossing->customTLIndex);
         case SUMO_ATTR_TLLINKINDEX2:
             return toString(crossing->customTLIndex2);
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(crossing->customShape);
         case GNE_ATTR_SELECTED:
@@ -424,6 +425,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
             // make new value visible immediately
             crossing->tlLinkIndex2 = crossing->customTLIndex2;
             break;
+        case SUMO_ATTR_SHAPE:
         case SUMO_ATTR_CUSTOMSHAPE: {
             // set custom shape
             crossing->customShape = parse<PositionVector>(value);

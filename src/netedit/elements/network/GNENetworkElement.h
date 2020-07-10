@@ -23,6 +23,7 @@
 #include <netedit/elements/GNEHierarchicalParentElements.h>
 #include <netedit/elements/GNEHierarchicalChildElements.h>
 #include <netedit/GNEGeometry.h>
+#include <netedit/GNEMoveShape.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 
@@ -38,7 +39,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNENetworkElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNENetworkElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements, protected GNEMoveShape {
 
 public:
     /**@brief Constructor.
@@ -103,6 +104,32 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;
+    /// @}
+
+    /// @name functions for edit shape
+    /// @{
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void startShapeGeometryMoving(const double shapeOffset);
+
+    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with problems with GL Tree)
+    void endShapeGeometryMoving();
+
+    /**@brief return index of geometry point placed in given position, or -1 if no exist
+     * @param pos position of new/existent vertex
+     * @param snapToGrid enable or disable snapToActiveGrid
+     * @return index of position vector
+     */
+    int getShapeVertexIndex(Position pos, const bool snapToGrid) const;
+
+    /**@brief move shape
+     * @param[in] offset the offset of movement
+     */
+    void moveShape(const Position& offset);
+
+    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void commitShapeChange(GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GUIGlObject
