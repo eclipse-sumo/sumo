@@ -658,10 +658,11 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myPOIToMove = nullptr;
     } else if (myJunctionToMove) {
         // check if in the moved position there is another Junction and it will be merged
-        if (!myJunctionToMove->isShapeEdited() && !myViewNet->mergeJunctions(myJunctionToMove)) {
+        if (myJunctionToMove->isShapeEdited()) {
+            myJunctionToMove->commitJunctionShapeChange(myViewNet->getUndoList());
+        } else if (!myViewNet->mergeJunctions(myJunctionToMove)) {
             myJunctionToMove->commitGeometryMoving(myViewNet->getUndoList());
         }
-        myJunctionToMove->commitGeometryMoving(myViewNet->getUndoList());
         myJunctionToMove = nullptr;
     } else if (myEdgeToMove) {
         // commit change depending of what was moved
