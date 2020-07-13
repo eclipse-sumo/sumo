@@ -107,6 +107,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"person",              GLO_PERSON},
     {"personFlow",          GLO_PERSONFLOW},
     //
+    {"textName",            GLO_TEXTNAME},
+    {"frontElement",        GLO_FRONTELEMENT},
     {"dottedContour",       GLO_DOTTEDCONTOUR},
     {"temporalShape",       GLO_TEMPORALSHAPE},
     {"rectangleSelection",  GLO_RECTANGLESELECTION},
