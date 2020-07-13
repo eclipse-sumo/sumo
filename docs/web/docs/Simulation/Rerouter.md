@@ -80,6 +80,8 @@ like this:
 Note, that the name of the root-level element (`<rerouter>` in this case) is
 arbitrary.
 
+All the following examples use the separate file syntax.
+
 ## Closing a Street
 
 A "closingReroute" forces the rerouter to close the edge <EDGE_ID\>.
