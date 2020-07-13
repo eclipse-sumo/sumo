@@ -147,7 +147,7 @@ GNEConnection::startConnectionShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
-    startMoveShape(getNBEdgeConnection().customShape, shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius);
+    startMoveShape(getConnectionShape(), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius);
 }
 
 
@@ -168,7 +168,7 @@ GNEConnection::endConnectionShapeGeometryMoving() {
 int
 GNEConnection::getConnectionShapeVertexIndex(Position pos, const bool snapToGrid) const {
     // get shape
-    const PositionVector &shape = getNBEdgeConnection().customShape;
+    const PositionVector shape = getConnectionShape();
     // check if position has to be snapped to grid
     if (snapToGrid) {
         pos = myNet->getViewNet()->snapToActiveGrid(pos);
@@ -220,6 +220,7 @@ GNEConnection::moveConnectionShape(const Position& offset) {
     }
     // set new shape
     getNBEdgeConnection().customShape = newShape;
+    myShapeDeprecated = true;
     // update geometry
     updateGeometry();
 }
@@ -230,7 +231,7 @@ GNEConnection::commitConnectionShapeChange(GNEUndoList* undoList) {
     // get visualisation settings
     auto &s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
-    PositionVector shapeToCommit = parse<PositionVector>(getAttribute(SUMO_ATTR_SHAPE));
+    PositionVector shapeToCommit = getNBEdgeConnection().customShape;
     // get geometryPoint radius
     const double geometryPointRadius = s.neteditSizeSettings.movingGeometryPointRadius * s.polySize.getExaggeration(s, this);
     // remove double points
@@ -393,30 +394,36 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     } else {
         drawConnection = false;
     }
+
+    drawConnection = true;
+
     // Check if connection must be drawed
     if (drawConnection) {
         // draw connection checking whether it is not too small if isn't being drawn for selecting
         const double selectionScale = isAttributeCarrierSelected() ? s.selectionScale : 1;
+        // get color
+        RGBColor connectionColor;
+        if (drawUsingSelectColor()) {
+            // override with special colors (unless the color scheme is based on selection)
+            connectionColor = s.colorSettings.selectedConnectionColor;
+        } else if (mySpecialColor != nullptr) {
+            connectionColor = *mySpecialColor;
+        } else {
+            // Set color depending of the link state
+            connectionColor = GNEInternalLane::colorForLinksState(getLinkState());
+        }
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getBoundary());
         }
-        // Push draw matrix 1
-        glPushMatrix();
         // Push name
         glPushName(getGlID());
+        // Push layer matrix
+        glPushMatrix();
         // Traslate matrix
-        glTranslated(0, 0, GLO_JUNCTION + 0.1); // must draw on top of junction
+        glTranslated(0, 0, GLO_CONNECTION);
         // Set color
-        if (drawUsingSelectColor()) {
-            // override with special colors (unless the color scheme is based on selection)
-            GLHelper::setColor(s.colorSettings.selectedConnectionColor);
-        } else if (mySpecialColor != nullptr) {
-            GLHelper::setColor(*mySpecialColor);
-        } else {
-            // Set color depending of the link state
-            GLHelper::setColor(GNEInternalLane::colorForLinksState(getLinkState()));
-        }
+        GLHelper::setColor(connectionColor);
         if ((s.scale * selectionScale < 5.) && !s.drawForRectangleSelection) {
             // If it's small, draw a simple line
             GLHelper::drawLine(myConnectionGeometry.getShape());
@@ -434,7 +441,17 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             if (myInternalJunctionMarker.size() > 0) {
                 GLHelper::drawLine(myInternalJunctionMarker);
             }
-            // Pop draw matrix 1
+            // draw shape points only in Network supemode
+            if (myShapeEdited && s.drawMovingGeometryPoint(1) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                // color
+                const RGBColor invertedColor = connectionColor.invertedColor();
+                const RGBColor darkerColor = connectionColor.changedBrightness(-10);
+                // draw geometry points
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, 1);
+                // draw moving hint
+                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, 1);
+            }
+            // Pop layer matrix
             glPopMatrix();
             // check if edge value has to be shown
             if (s.edgeValue.show) {

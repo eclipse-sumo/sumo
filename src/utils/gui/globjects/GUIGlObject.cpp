@@ -50,8 +50,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"edge",                GLO_EDGE},
     {"lane",                GLO_LANE},
     {"junction",            GLO_JUNCTION},
-    {"crossing",            GLO_CROSSING},
     {"connection",          GLO_CONNECTION},
+    {"crossing",            GLO_CROSSING},
     {"tlLogic",             GLO_TLLOGIC},
     //
     {"edgeData",            GLO_EDGEDATA},

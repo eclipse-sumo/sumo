@@ -772,6 +772,9 @@ struct GNEViewNetHelper {
         /// @brief calculate crossing element movement values (Position, Index, etc.)
         bool calculateCrossingValues();
 
+        /// @brief calculate connection element movement values (Position, Index, etc.)
+        bool calculateConnectionValues();
+
         /// @brief calculate Poly movement values (Position, Index, etc.)
         bool calculatePolyValues();
 
@@ -798,6 +801,9 @@ struct GNEViewNetHelper {
 
         /// @brief the crossing to be moved.
         GNECrossing* myCrossingToMove;
+
+        /// @brief the connection to be moved.
+        GNEConnection* myConnectionToMove;
 
         /// @brief the edge of which geometry is being moved
         GNEEdge* myEdgeToMove;

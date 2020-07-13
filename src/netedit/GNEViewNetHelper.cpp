@@ -524,6 +524,7 @@ GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* v
     myMovingEndPos(false),
     myJunctionToMove(nullptr),
     myCrossingToMove(nullptr),
+    myConnectionToMove(nullptr),
     myEdgeToMove(nullptr),
     myPolyToMove(nullptr),
     myPOIToMove(nullptr),
@@ -563,6 +564,13 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             return calculateCrossingValues();
         } else {
             // crossing cannot be moved
+            return false;
+        }
+    } else if (myViewNet->myObjectsUnderCursor.getConnectionFront()) {
+        if (myViewNet->myObjectsUnderCursor.getConnectionFront()->isShapeEdited()) {
+            return calculateConnectionValues();
+        } else {
+            // connection cannot be moved
             return false;
         }
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
@@ -638,6 +646,11 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             // move crossing's geometry without commiting changes
             myCrossingToMove->moveCrossingShape(offsetMovement);
         }
+    } else if (myConnectionToMove) {
+        if (myConnectionToMove->isShapeEdited()) {
+            // move connection's geometry without commiting changes
+            myConnectionToMove->moveConnectionShape(offsetMovement);
+        }
     } else if (myEdgeToMove) {
         // check if we're moving the start or end position, or a geometry point
         if (myMovingStartPos) {
@@ -678,11 +691,17 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         }
         myJunctionToMove = nullptr;
     } else if (myCrossingToMove) {
-        // check if in the moved position there is another Crossing and it will be merged
+        // check if in the moved position there is another crossing and it will be merged
         if (myCrossingToMove->isShapeEdited()) {
             myCrossingToMove->commitCrossingShapeChange(myViewNet->getUndoList());
         }
         myCrossingToMove = nullptr;
+    } else if (myConnectionToMove) {
+        // check if in the moved position there is another connection and it will be merged
+        if (myConnectionToMove->isShapeEdited()) {
+            myConnectionToMove->commitConnectionShapeChange(myViewNet->getUndoList());
+        }
+        myConnectionToMove = nullptr;
     } else if (myEdgeToMove) {
         // commit change depending of what was moved
         if (myMovingStartPos) {
@@ -776,6 +795,42 @@ GNEViewNetHelper::MoveSingleElementValues::calculateCrossingValues() {
     } else {
         // stop crossing moving
         myCrossingToMove = nullptr;
+        // crossing values wasn't calculated, then return false
+        return false;
+    }
+}
+
+
+bool
+GNEViewNetHelper::MoveSingleElementValues::calculateConnectionValues() {
+    // assign clicked crossing to crossingToMove
+    myConnectionToMove = myViewNet->myObjectsUnderCursor.getConnectionFront();
+    // calculate crossingShapeOffset
+    const double crossingShapeOffset = myConnectionToMove->getConnectionShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+    // calculate distance to shape
+    const double distanceToShape = myConnectionToMove->getConnectionShape().distance2D(myViewNet->getPositionInformation());
+    // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
+    if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
+        // check if we clicked over a vertex index
+        if (myConnectionToMove->getConnectionShapeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
+            // start geometry moving
+            myConnectionToMove->startConnectionShapeGeometryMoving(crossingShapeOffset);
+            // crossing values sucesfully calculated, then return true
+            return true;
+        } else {
+            // stop crossing moving
+            myConnectionToMove = nullptr;
+            // crossing values wasn't calculated, then return false
+            return false;
+        }
+    } else if (/*distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius*/ true) {
+        // start geometry moving
+        myConnectionToMove->startConnectionShapeGeometryMoving(crossingShapeOffset);
+        // crossing values sucesfully calculated, then return true
+        return true;
+    } else {
+        // stop crossing moving
+        myConnectionToMove = nullptr;
         // crossing values wasn't calculated, then return false
         return false;
     }

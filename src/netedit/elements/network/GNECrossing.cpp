@@ -292,7 +292,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // pop rail matrix
                 glPopMatrix();
             }
-
             // draw shape points only in Network supemode
             if (myShapeEdited && s.drawMovingGeometryPoint(1) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // color
@@ -303,7 +302,6 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 // draw moving hint
                 GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, 1);
             }
-
             // pop layer matrix
             glPopMatrix();
             // pop name
