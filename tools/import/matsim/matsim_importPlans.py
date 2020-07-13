@@ -76,7 +76,10 @@ def main(options):
         outf = StringIO()
         vehIndex = 0
         plan = person.plan[0]
-        firstAct = plan.getChildList()[0]
+        try:
+            firstAct = plan.getChildList()[0]
+        except IndexError:
+            continue
         depart = firstAct.start_time
         if depart is None:
             depart = options.defaultStart
