@@ -1347,7 +1347,7 @@ GNEGeometry::drawDottedContourLane(const bool inspect, const GUIVisualizationSet
     // draw inspect or front dotted contour
     if (inspect) {
         // translate to front
-        glTranslated(0, 0, GLO_DOTTEDCONTOUR);
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
         // draw top dotted geometry
         topDottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
         // reset color
@@ -1360,7 +1360,7 @@ GNEGeometry::drawDottedContourLane(const bool inspect, const GUIVisualizationSet
         extremes.drawInspectedDottedGeometry(dottedGeometryColor);
     } else {
         // translate to front
-        glTranslated(0, 0, GLO_FRONTELEMENT);
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
         // draw top dotted geometry
         topDottedGeometry.drawFrontDottedGeometry(dottedGeometryColor);
         // reset color
@@ -1403,7 +1403,7 @@ GNEGeometry::drawDottedContourEdge(const bool inspect, const GUIVisualizationSet
         // draw inspect or front dotted contour
         if (inspect) {
             // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR);
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
             // draw top dotted geometry
             dottedGeometryTop.drawInspectedDottedGeometry(dottedGeometryColor);
             // reset color
@@ -1416,7 +1416,7 @@ GNEGeometry::drawDottedContourEdge(const bool inspect, const GUIVisualizationSet
             extremes.drawInspectedDottedGeometry(dottedGeometryColor);
         } else {
             // translate to front
-            glTranslated(0, 0, GLO_FRONTELEMENT);
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
             // draw top dotted geometry
             dottedGeometryTop.drawFrontDottedGeometry(dottedGeometryColor);
             // reset color
@@ -1450,12 +1450,12 @@ GNEGeometry::drawDottedContourClosedShape(const bool inspect, const GUIVisualiza
         // draw inspect or front dotted contour
         if (inspect) {
             // translate to front
-            glTranslated(0, 0, GLO_DOTTEDCONTOUR);
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_INSPECTED);
             // draw dotted geometry
             dottedGeometry.drawInspectedDottedGeometry(dottedGeometryColor);
         } else {
             // translate to front
-            glTranslated(0, 0, GLO_FRONTELEMENT);
+            glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
             // draw dotted geometry
             dottedGeometry.drawFrontDottedGeometry(dottedGeometryColor);
         }
