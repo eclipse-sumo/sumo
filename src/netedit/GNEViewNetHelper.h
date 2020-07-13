@@ -766,16 +766,19 @@ struct GNEViewNetHelper {
         void finishMoveSingleElement();
 
     private:
-        /// calculate network element movement values (Position, Index, etc.)
+        /// @brief calculate network element movement values (Position, Index, etc.)
         bool calculateJunctionValues();
 
-        /// calculate Poly movement values (Position, Index, etc.)
+        /// @brief calculate crossing element movement values (Position, Index, etc.)
+        bool calculateCrossingValues();
+
+        /// @brief calculate Poly movement values (Position, Index, etc.)
         bool calculatePolyValues();
 
-        /// calculate Edge movement values (Position, Index, etc.)
+        /// @brief calculate Edge movement values (Position, Index, etc.)
         bool calculateEdgeValues();
 
-        /// calculate TAZ movement values (Position, Index, etc.)
+        /// @brief calculate TAZ movement values (Position, Index, etc.)
         bool calculateTAZValues();
 
         /// @brief pointer to net
@@ -790,8 +793,11 @@ struct GNEViewNetHelper {
         /// @brief bool to indicate that end pos of an edge is being moved
         bool myMovingEndPos;
 
-        /// @brief the Junction to be moved.
+        /// @brief the junction to be moved
         GNEJunction* myJunctionToMove;
+
+        /// @brief the crossing to be moved.
+        GNECrossing* myCrossingToMove;
 
         /// @brief the edge of which geometry is being moved
         GNEEdge* myEdgeToMove;

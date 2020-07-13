@@ -2332,6 +2332,12 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
     if (crossing) {
         // due crossings haven two shapes, check what has to be edited
         PositionVector shape = crossing->getNBCrossing()->customShape.size() > 0 ? crossing->getNBCrossing()->customShape : crossing->getNBCrossing()->shape;
+        // check if network has to be updated
+        if (crossing->getParentJunction()->getNBNode()->getShape().size() == 0) {
+            // recompute the whole network
+            myNet->computeAndUpdate(OptionsCont::getOptions(), false);
+        }
+        // start edit custom shape
         myEditShapes.startEditCustomShape(crossing, shape);
     }
     // destroy pop-up and update view Net

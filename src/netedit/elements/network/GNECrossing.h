@@ -171,7 +171,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief draw TLS Link Number
-    void drawTLSLinkNo(const GUIVisualizationSettings& s) const;
+    void drawTLSLinkNo(const GUIVisualizationSettings& s, const NBNode::Crossing* crossing) const;
 
     /// @brief Invalidated copy constructor.
     GNECrossing(const GNECrossing&) = delete;
