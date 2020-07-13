@@ -210,7 +210,7 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myVehicleTypeOptions(this),
     mySaveElements(this),
     mySelectingArea(this),
-    myEditShapes(this),
+    myEditNetworkElementShapes(this),
     myViewParent(viewParent),
     myNet(net),
     myCurrentFrame(nullptr),
@@ -495,9 +495,9 @@ GNEViewNet::getKeyPressed() const {
 }
 
 
-const GNEViewNetHelper::EditShapes&
-GNEViewNet::getEditShapes() const {
-    return myEditShapes;
+const GNEViewNetHelper::EditNetworkElementShapes&
+GNEViewNet::getEditNetworkElementShapes() const {
+    return myEditNetworkElementShapes;
 }
 
 
@@ -599,7 +599,7 @@ GNEViewNet::GNEViewNet() :
     myVehicleTypeOptions(this),
     mySaveElements(this),
     mySelectingArea(this),
-    myEditShapes(this),
+    myEditNetworkElementShapes(this),
     myViewParent(nullptr),
     myNet(nullptr),
     myCurrentFrame(nullptr),
@@ -926,7 +926,7 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
             myViewParent->getTLSEditorFrame()->onCmdCancel(nullptr, 0, nullptr);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) {
-            myEditShapes.stopEditCustomShape();
+            myEditNetworkElementShapes.stopEditCustomShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) {
             // abort current drawing
             myViewParent->getPolygonFrame()->getDrawingShapeModul()->abortDrawing();
@@ -1016,8 +1016,8 @@ GNEViewNet::hotkeyEnter() {
             myViewParent->getConnectorFrame()->getConnectionModifications()->onCmdSaveModifications(0, 0, 0);
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TLS) {
             myViewParent->getTLSEditorFrame()->onCmdOK(nullptr, 0, nullptr);
-        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditShapes.editedNetworkElement != nullptr)) {
-            myEditShapes.saveEditedShape();
+        } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myEditNetworkElementShapes.getEditedNetworkElement() != nullptr)) {
+            myEditNetworkElementShapes.commitEditedShape();
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) {
             if (myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
                 // stop current drawing
@@ -2152,7 +2152,7 @@ GNEViewNet::onCmdEditJunctionShape(FXObject*, FXSelector, void*) {
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
         }
         // start edit custom shape
-        myEditShapes.startEditCustomShape(junction, junction->getNBNode()->getShape());
+        myEditNetworkElementShapes.startEditCustomShape(junction);
     }
     // destroy pop-up and set focus in view net
     destroyPopup();
@@ -2316,7 +2316,7 @@ GNEViewNet::onCmdEditConnectionShape(FXObject*, FXSelector, void*) {
     // Obtain connection under mouse
     GNEConnection* connection = getConnectionAtPopupPosition();
     if (connection) {
-        myEditShapes.startEditCustomShape(connection, connection->getConnectionShape());
+        myEditNetworkElementShapes.startEditCustomShape(connection);
     }
     // destroy pop-up and update view Net
     destroyPopup();
@@ -2338,7 +2338,7 @@ GNEViewNet::onCmdEditCrossingShape(FXObject*, FXSelector, void*) {
             myNet->computeAndUpdate(OptionsCont::getOptions(), false);
         }
         // start edit custom shape
-        myEditShapes.startEditCustomShape(crossing, shape);
+        myEditNetworkElementShapes.startEditCustomShape(crossing);
     }
     // destroy pop-up and update view Net
     destroyPopup();
@@ -3644,23 +3644,32 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_MOVE: {
-            // allways swap lane to edges in movement mode
-            myObjectsUnderCursor.swapLane2Edge();
-            // check that AC under cursor isn't a demand element
-            if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
-                // check if we're moving a set of selected items
-                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                    // move selected ACs
-                    myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
-                    // update view
-                    updateViewNet();
-                } else if (!myMoveSingleElementValues.beginMoveSingleElementNetworkMode()) {
+            // check if we're editing a shape
+            if (myEditNetworkElementShapes.getEditedNetworkElement()) {
+                // biegn move network element shape
+                if (!myMoveSingleElementValues.beginMoveNetworkElementShape()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)
                     processClick(eventData);
                 }
             } else {
-                // process click  if there isn't movable elements (to move camera using drag an drop)
-                processClick(eventData);
+                // allways swap lane to edges in movement mode
+                myObjectsUnderCursor.swapLane2Edge();
+                // check that AC under cursor isn't a demand element
+                if (myObjectsUnderCursor.getAttributeCarrierFront() && !myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isDemandElement()) {
+                    // check if we're moving a set of selected items
+                    if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                        // move selected ACs
+                        myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
+                        // update view
+                        updateViewNet();
+                    } else if (!myMoveSingleElementValues.beginMoveSingleElementNetworkMode()) {
+                        // process click  if there isn't movable elements (to move camera using drag an drop)
+                        processClick(eventData);
+                    }
+                } else {
+                    // process click  if there isn't movable elements (to move camera using drag an drop)
+                    processClick(eventData);
+                }
             }
             break;
         }

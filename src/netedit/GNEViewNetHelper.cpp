@@ -535,6 +535,29 @@ GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* v
 
 
 bool
+GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
+    // first obtain moving reference (common for all)
+    myRelativeClickedPosition = myViewNet->getPositionInformation();
+    // get edited element
+    const GNENetworkElement* editedElement = myViewNet->myEditNetworkElementShapes.getEditedNetworkElement();
+    // check what type of AC will be moved
+    if (myViewNet->myObjectsUnderCursor.getCrossingFront() && 
+        (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
+        return calculateCrossingValues();
+    } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() && 
+        (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
+            return calculateConnectionValues();
+    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && 
+        (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
+        return calculateJunctionValues();
+    } else {
+        // there isn't moved items, then return false
+        return false;
+    }
+}
+
+
+bool
 GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
@@ -559,23 +582,9 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     } else if (myViewNet->myObjectsUnderCursor.getTAZFront()) {
         // calculate TAZ movement values (can be entire shape or single geometry points)
         return calculateTAZValues();
-    } else if (myViewNet->myObjectsUnderCursor.getCrossingFront()) {
-        if (myViewNet->myObjectsUnderCursor.getCrossingFront()->isShapeEdited()) {
-            return calculateCrossingValues();
-        } else {
-            // crossing cannot be moved
-            return false;
-        }
-    } else if (myViewNet->myObjectsUnderCursor.getConnectionFront()) {
-        if (myViewNet->myObjectsUnderCursor.getConnectionFront()->isShapeEdited()) {
-            return calculateConnectionValues();
-        } else {
-            // connection cannot be moved
-            return false;
-        }
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
         if (myViewNet->myObjectsUnderCursor.getJunctionFront()->isShapeEdited()) {
-            return calculateJunctionValues();
+            return false;
         } else {
             // set junction moved object
             myJunctionToMove = myViewNet->myObjectsUnderCursor.getJunctionFront();
@@ -751,7 +760,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues() {
             // junction values wasn't calculated, then return false
             return false;
         }
-    } else if (/*distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius*/ true) {
+    } else if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
         // start geometry moving
         myJunctionToMove->startJunctionShapeGeometryMoving(junctionShapeOffset);
         // junction values sucesfully calculated, then return true
@@ -787,7 +796,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateCrossingValues() {
             // crossing values wasn't calculated, then return false
             return false;
         }
-    } else if (/*distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius*/ true) {
+    } else if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
         // start geometry moving
         myCrossingToMove->startCrossingShapeGeometryMoving(crossingShapeOffset);
         // crossing values sucesfully calculated, then return true
@@ -823,7 +832,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculateConnectionValues() {
             // crossing values wasn't calculated, then return false
             return false;
         }
-    } else if (/*distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius*/ true) {
+    } else if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius) {
         // start geometry moving
         myConnectionToMove->startConnectionShapeGeometryMoving(crossingShapeOffset);
         // crossing values sucesfully calculated, then return true
@@ -859,7 +868,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
             // poly values wasn't calculated, then return false
             return false;
         }
-    } else if ((distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius) || myPolyToMove->isPolygonBlocked()) {
+    } else if ((distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) || myPolyToMove->isPolygonBlocked()) {
         // start geometry moving
         myPolyToMove->startPolyShapeGeometryMoving(polyShapeOffset);
         // poly values sucesfully calculated, then return true
@@ -1578,7 +1587,7 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, const bool
         myViewNet->setStatusBarText("");
         myViewNet->abortOperation(false);
         // stop editing of custom shapes
-        myViewNet->myEditShapes.stopEditCustomShape();
+        myViewNet->myEditNetworkElementShapes.stopEditCustomShape();
         // set new Network mode
         networkEditMode = mode;
         // for common modes (Inspect/Delete/Select/move) change also the other supermode
@@ -1622,7 +1631,7 @@ GNEViewNetHelper::EditModes::setDemandEditMode(DemandEditMode mode, const bool f
         myViewNet->setStatusBarText("");
         myViewNet->abortOperation(false);
         // stop editing of custom shapes
-        myViewNet->myEditShapes.stopEditCustomShape();
+        myViewNet->myEditNetworkElementShapes.stopEditCustomShape();
         // set new Demand mode
         demandEditMode = mode;
         // for common modes (Inspect/Delete/Select/Move) change also the other supermode
@@ -1659,7 +1668,7 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
         myViewNet->setStatusBarText("");
         myViewNet->abortOperation(false);
         // stop editing of custom shapes
-        myViewNet->myEditShapes.stopEditCustomShape();
+        myViewNet->myEditNetworkElementShapes.stopEditCustomShape();
         // set new Data mode
         dataEditMode = mode;
         // for common modes (Inspect/Delete/Select/Move) change also the other supermode
@@ -2957,31 +2966,27 @@ GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
 }
 
 // ---------------------------------------------------------------------------
-// GNEViewNetHelper::EditShapes - methods
+// GNEViewNetHelper::EditNetworkElementShapes - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::EditShapes::EditShapes(GNEViewNet* viewNet) :
-    editedNetworkElement(nullptr),
+GNEViewNetHelper::EditNetworkElementShapes::EditNetworkElementShapes(GNEViewNet* viewNet) :
+    myEditedNetworkElement(nullptr),
     myPreviousNetworkEditMode(NetworkEditMode::NETWORK_NONE),
     myViewNet(viewNet) {
 }
 
 
 void
-GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, const PositionVector& shape) {
-    if ((editedNetworkElement == nullptr) && (element != nullptr) && (shape.size() > 1)) {
+GNEViewNetHelper::EditNetworkElementShapes::startEditCustomShape(GNENetworkElement* element) {
+    if (element && (myEditedNetworkElement == nullptr)) {
         // save current edit mode before starting
         myPreviousNetworkEditMode = myViewNet->myEditModes.networkEditMode;
         // set move mode
         myViewNet->myEditModes.setNetworkEditMode(NetworkEditMode::NETWORK_MOVE);
-        // add special GNEPoly fo edit shapes (color is taken from junction color settings)
-        RGBColor col = myViewNet->getVisualisationSettings().junctionColorer.getSchemes()[0].getColor(3);
         //set editedNetworkElement
-        editedNetworkElement = element;
-        // get original shape
-        myOriginalShape = shape;
+        myEditedNetworkElement = element;
         // enable shape edited flag
-        editedNetworkElement->setShapeEdited(true);
+        myEditedNetworkElement->setShapeEdited(true);
         // update view net to show the new editedShapePoly
         myViewNet->updateViewNet();
     }
@@ -2989,13 +2994,13 @@ GNEViewNetHelper::EditShapes::startEditCustomShape(GNENetworkElement* element, c
 
 
 void
-GNEViewNetHelper::EditShapes::stopEditCustomShape() {
+GNEViewNetHelper::EditNetworkElementShapes::stopEditCustomShape() {
     // stop edit shape junction deleting editedShapePoly
-    if (editedNetworkElement != nullptr) {
+    if (myEditedNetworkElement != nullptr) {
         // disable shape edited flag
-        editedNetworkElement->setShapeEdited(false);
+        myEditedNetworkElement->setShapeEdited(false);
         // reset editedNetworkElement
-        editedNetworkElement = nullptr;
+        myEditedNetworkElement = nullptr;
         // restore previous edit mode
         if (myViewNet->myEditModes.networkEditMode != myPreviousNetworkEditMode) {
             myViewNet->myEditModes.setNetworkEditMode(myPreviousNetworkEditMode);
@@ -3005,22 +3010,26 @@ GNEViewNetHelper::EditShapes::stopEditCustomShape() {
 
 
 void
-GNEViewNetHelper::EditShapes::saveEditedShape() {
+GNEViewNetHelper::EditNetworkElementShapes::commitEditedShape() {
     // save edited junction's shape
-    if (editedNetworkElement != nullptr) {
-        myViewNet->myUndoList->p_begin("custom " + editedNetworkElement->getTagStr() + " shape");
-        SumoXMLAttr attr = SUMO_ATTR_SHAPE;
-        if (editedNetworkElement->getTagProperty().hasAttribute(SUMO_ATTR_CUSTOMSHAPE)) {
-            attr = SUMO_ATTR_CUSTOMSHAPE;
-        }
-/* 
-        editedNetworkElement->getShapeEditedElement()->setAttribute(attr, toString(editedShapePoly->getShape()), myViewNet->myUndoList);
-*/
-        myViewNet->myUndoList->p_end();
+    if (myEditedNetworkElement != nullptr) {
+
+        /* */
+
+        // stop edit custom shape
         stopEditCustomShape();
     }
 }
 
+
+GNENetworkElement* 
+GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
+    return myEditedNetworkElement;
+}
+
+// ---------------------------------------------------------------------------
+// GNEViewNetHelper - methods
+// ---------------------------------------------------------------------------
 
 const std::vector<RGBColor>& 
 GNEViewNetHelper::getRainbowScaledColors() {

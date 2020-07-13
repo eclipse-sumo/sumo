@@ -85,7 +85,11 @@ const RGBColor GUIVisualizationCandidateColorSettings::conflict(255, 255, 0, 255
 // -------------------------------------------------------------------------
 
 const double GUIVisualizationNeteditSizeSettings::junctionBubbleRadius(4);
-const double GUIVisualizationNeteditSizeSettings::movingGeometryPointRadius(1.2);
+const double GUIVisualizationNeteditSizeSettings::junctionGeometryPointRadius(1);
+const double GUIVisualizationNeteditSizeSettings::edgeGeometryPointRadius(1.2);
+const double GUIVisualizationNeteditSizeSettings::connectionGeometryPointRadius(0.8);
+const double GUIVisualizationNeteditSizeSettings::crossingGeometryPointRadius(1);
+const double GUIVisualizationNeteditSizeSettings::polygonGeometryPointRadius(1.2);
 const double GUIVisualizationNeteditSizeSettings::polygonContourWidth(0.3);
 const double GUIVisualizationNeteditSizeSettings::polylineWidth(1);
 
@@ -1920,8 +1924,8 @@ GUIVisualizationSettings::drawDottedContour() const {
 
 
 bool 
-GUIVisualizationSettings::drawMovingGeometryPoint(const double exaggeration) const {
-    return (scale * neteditSizeSettings.movingGeometryPointRadius * exaggeration > 10);
+GUIVisualizationSettings::drawMovingGeometryPoint(const double exaggeration, const double radius) const {
+    return (scale * radius * exaggeration > 10);
 }
 
 /****************************************************************************/

@@ -219,8 +219,20 @@ struct GUIVisualizationNeteditSizeSettings {
     /// @brief junction buuble radius
     static const double junctionBubbleRadius;
 
+    /// @brief moving junction geometry point radius
+    static const double junctionGeometryPointRadius;
+
+    /// @brief moving edge geometry point radius
+    static const double edgeGeometryPointRadius;
+
+    /// @brief moving connection geometry point radius
+    static const double connectionGeometryPointRadius;
+
+    /// @brief moving crossing geometry point radius
+    static const double crossingGeometryPointRadius;
+
     /// @brief moving geometry point radius
-    static const double movingGeometryPointRadius;
+    static const double polygonGeometryPointRadius;
 
     /// @brief polygon contour width
     static const double polygonContourWidth;
@@ -535,7 +547,7 @@ public:
     bool drawDottedContour() const;
 
     /// @brief check if moving geometry point can be draw
-    bool drawMovingGeometryPoint(double exaggeration) const;
+    bool drawMovingGeometryPoint(const double exaggeration, const double radius) const;
 
     /// @brief The name of this setting
     std::string name;

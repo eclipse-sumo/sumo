@@ -83,7 +83,8 @@ GNECrossing::startCrossingShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
-    startMoveShape(crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape, shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius);
+    startMoveShape(getCrossingShape(), shapeOffset, 
+        myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
 }
 
 
@@ -118,7 +119,7 @@ GNECrossing::getCrossingShapeVertexIndex(Position pos, const bool snapToGrid) co
     Position newPos = shape.positionAtOffset2D(offset);
     // first check if vertex already exists in the inner geometry
     for (int i = 0; i < (int)shape.size(); i++) {
-        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius) {
+        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
             // index refers to inner geometry
             if (i == 0 || i == (int)(shape.size() - 1)) {
                 return -1;
@@ -172,7 +173,7 @@ GNECrossing::commitCrossingShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = parse<PositionVector>(getAttribute(SUMO_ATTR_CUSTOMSHAPE));
     // get geometryPoint radius
-    const double geometryPointRadius = s.neteditSizeSettings.movingGeometryPointRadius * s.polySize.getExaggeration(s, this);
+    const double geometryPointRadius = s.neteditSizeSettings.crossingGeometryPointRadius * s.polySize.getExaggeration(s, this);
     // remove double points
     shapeToCommit.removeDoublePoints(geometryPointRadius);
     // check if we have to merge start and end points
@@ -293,14 +294,14 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
             // draw shape points only in Network supemode
-            if (myShapeEdited && s.drawMovingGeometryPoint(1) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // color
                 const RGBColor invertedColor = crossingColor.invertedColor();
                 const RGBColor darkerColor = crossingColor.changedBrightness(-10);
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, 1);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, 1);
                 // draw moving hint
-                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, 1);
+                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, 1);
             }
             // pop layer matrix
             glPopMatrix();

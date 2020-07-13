@@ -753,6 +753,9 @@ struct GNEViewNetHelper {
         /// @brief constructor
         MoveSingleElementValues(GNEViewNet* viewNet);
 
+        /// @brief begin move network elementshape
+        bool beginMoveNetworkElementShape();
+
         /// @brief begin move single element in Network mode
         bool beginMoveSingleElementNetworkMode();
 
@@ -1144,32 +1147,32 @@ struct GNEViewNetHelper {
     };
 
     /// @brief struct used to group all variables related with edit shapes of NetworkElements
-    struct EditShapes {
+    struct EditNetworkElementShapes {
 
         /// @brief default constructor
-        EditShapes(GNEViewNet* viewNet);
+        EditNetworkElementShapes(GNEViewNet* viewNet);
 
         /// @brief start edit custom shape
-        void startEditCustomShape(GNENetworkElement* element, const PositionVector& shape);
+        void startEditCustomShape(GNENetworkElement* element);
 
         /// @brief edit edit shape
         void stopEditCustomShape();
 
         /// @brief save edited shape
-        void saveEditedShape();
+        void commitEditedShape();
 
         /// @brief pointer to edited network element
-        GNENetworkElement* editedNetworkElement;
+        GNENetworkElement* getEditedNetworkElement() const;
 
     private:
-        /// @brief the previous edit mode before edit NetworkElement's shapes
-        NetworkEditMode myPreviousNetworkEditMode;
-
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
-        /// @brief original shape
-        PositionVector myOriginalShape;
+        /// @brief the previous edit mode before edit NetworkElement's shapes
+        NetworkEditMode myPreviousNetworkEditMode;
+
+        /// @brief pointer to edited network element
+        GNENetworkElement* myEditedNetworkElement;
     };
 
     /// @brief get scaled rainbow colors

@@ -307,12 +307,12 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             // pop contour matrix
             glPopMatrix();
             // draw shape points only in Network supemode
-            if (s.drawMovingGeometryPoint(TAZExaggeration) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            if (s.drawMovingGeometryPoint(TAZExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.movingGeometryPointRadius, TAZExaggeration);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 // draw moving hint points
                 if (myBlockMovement == false) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry.getShape(), invertedColor, s.neteditSizeSettings.movingGeometryPointRadius, TAZExaggeration);
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, TAZExaggeration);
                 }
             }
         }

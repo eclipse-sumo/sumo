@@ -117,7 +117,7 @@ GNEJunction::startJunctionShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
-    startMoveShape(myNBNode->getShape(), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius);
+    startMoveShape(myNBNode->getShape(), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius);
 }
 
 
@@ -150,7 +150,7 @@ GNEJunction::getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) co
     Position newPos = shape.positionAtOffset2D(offset);
     // first check if vertex already exists in the inner geometry
     for (int i = 0; i < (int)shape.size(); i++) {
-        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius) {
+        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
             // index refers to inner geometry
             if (i == 0 || i == (int)(shape.size() - 1)) {
                 return -1;
@@ -202,7 +202,7 @@ GNEJunction::commitJunctionShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = parse<PositionVector>(getAttribute(SUMO_ATTR_SHAPE));
     // get geometryPoint radius
-    const double geometryPointRadius = s.neteditSizeSettings.movingGeometryPointRadius * s.polySize.getExaggeration(s, this);
+    const double geometryPointRadius = s.neteditSizeSettings.junctionGeometryPointRadius * s.polySize.getExaggeration(s, this);
     // remove double points
     shapeToCommit.removeDoublePoints(geometryPointRadius);
     // check if we have to merge start and end points
@@ -465,14 +465,14 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         GLHelper::drawFilledPolyTesselated(junctionShape, true);
                     }
                     // draw shape points only in Network supemode
-                    if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+                    if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                         // color
                         const RGBColor invertedColor = junctionShapeColor.invertedColor();
                         const RGBColor darkerColor = junctionShapeColor.changedBrightness(-10);
                         // draw geometry points
-                        GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), junctionShape, darkerColor, darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, junctionExaggeration);
+                        GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), junctionShape, darkerColor, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
                         // draw moving hint
-                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), junctionShape, darkerColor, s.neteditSizeSettings.movingGeometryPointRadius, junctionExaggeration);
+                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), junctionShape, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
                     }
                 }
             }

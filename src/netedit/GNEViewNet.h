@@ -118,7 +118,7 @@ public:
     const GNEViewNetHelper::KeyPressed& getKeyPressed() const;
 
     /// @brief get Edit Shape modul
-    const GNEViewNetHelper::EditShapes& getEditShapes() const;
+    const GNEViewNetHelper::EditNetworkElementShapes& getEditNetworkElementShapes() const;
 
     /// @name overloaded handlers
     /// @{
@@ -493,7 +493,7 @@ private:
     GNEViewNetHelper::SelectingArea mySelectingArea;
 
     /// @brief struct for grouping all variables related with edit shapes
-    GNEViewNetHelper::EditShapes myEditShapes;
+    GNEViewNetHelper::EditNetworkElementShapes myEditNetworkElementShapes;
 
     /// @brief view parent
     GNEViewParent* myViewParent;

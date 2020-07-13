@@ -225,7 +225,7 @@ GNELane::startLaneShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
-    startMoveShape(myParentEdge->getNBEdge()->getLaneShape(myIndex), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius);
+    startMoveShape(myParentEdge->getNBEdge()->getLaneShape(myIndex), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius);
 }
 
 
@@ -258,7 +258,7 @@ GNELane::getLaneShapeVertexIndex(Position pos, const bool snapToGrid) const {
     Position newPos = shape.positionAtOffset2D(offset);
     // first check if vertex already exists in the inner geometry
     for (int i = 0; i < (int)shape.size(); i++) {
-        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius) {
+        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius) {
             // index refers to inner geometry
             if (i == 0 || i == (int)(shape.size() - 1)) {
                 return -1;
@@ -310,7 +310,7 @@ GNELane::commitLaneShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = myParentEdge->getNBEdge()->getLaneShape(myIndex);
     // get geometryPoint radius
-    const double geometryPointRadius = s.neteditSizeSettings.movingGeometryPointRadius * s.polySize.getExaggeration(s, this);
+    const double geometryPointRadius = s.neteditSizeSettings.edgeGeometryPointRadius * s.polySize.getExaggeration(s, this);
     // remove double points
     shapeToCommit.removeDoublePoints(geometryPointRadius);
     // check if we have to merge start and end points

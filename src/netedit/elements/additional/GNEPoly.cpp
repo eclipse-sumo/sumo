@@ -93,9 +93,9 @@ GNEPoly::startPolyShapeGeometryMoving(const double shapeOffset) {
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
     if (myBlockShape) {
-        startMoveShape(myShape, -1, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius);
+        startMoveShape(myShape, -1, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius);
     } else {
-        startMoveShape(myShape, shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius);
+        startMoveShape(myShape, shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius);
     }
 }
 
@@ -127,7 +127,7 @@ GNEPoly::getPolyVertexIndex(Position pos, const bool snapToGrid) const {
     Position newPos = myShape.positionAtOffset2D(offset);
     // first check if vertex already exists in the inner geometry
     for (int i = 0; i < (int)myShape.size(); i++) {
-        if (myShape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius) {
+        if (myShape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) {
             // index refers to inner geometry
             if (i == 0 || i == (int)(myShape.size() - 1)) {
                 return -1;
@@ -179,7 +179,7 @@ GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = myShape;
     // get geometryPoint radius
-    const double geometryPointRadius = s.neteditSizeSettings.movingGeometryPointRadius * s.polySize.getExaggeration(s, this);
+    const double geometryPointRadius = s.neteditSizeSettings.polygonGeometryPointRadius * s.polySize.getExaggeration(s, this);
     // remove double points
     shapeToCommit.removeDoublePoints(geometryPointRadius);
     // check if we have to merge start and end points
@@ -355,12 +355,12 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
             // pop contour matrix
             glPopMatrix();
             // draw shape points only in Network supemode
-            if (s.drawMovingGeometryPoint(polyExaggeration) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            if (s.drawMovingGeometryPoint(polyExaggeration, s.neteditSizeSettings.polygonGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.movingGeometryPointRadius, polyExaggeration);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), scaledGeometry.getShape(), darkerColor, invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 // draw moving hint points
                 if (myBlockMovement == false) {
-                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry.getShape(), invertedColor, s.neteditSizeSettings.movingGeometryPointRadius, polyExaggeration);
+                    GNEGeometry::drawMovingHint(s, myNet->getViewNet(), scaledGeometry.getShape(), invertedColor, s.neteditSizeSettings.polygonGeometryPointRadius, polyExaggeration);
                 }
             }
         }
@@ -389,7 +389,7 @@ GNEPoly::getVertexIndex(Position pos, bool snapToGrid) {
     }
     // first check if vertex already exists
     for (const auto &shapePosition : myShape) {
-        if (shapePosition.distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.movingGeometryPointRadius) {
+        if (shapePosition.distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) {
             return myShape.indexOfClosest(shapePosition);
         }
     }
