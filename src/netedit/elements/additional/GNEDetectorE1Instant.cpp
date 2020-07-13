@@ -219,7 +219,7 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedSquaredShape(s, myAdditionalGeometry.getPosition(), 2, 1, myAdditionalGeometry.getRotation() + 90, E1InstantExaggeration);
+            GNEGeometry::drawDottedSquaredShape(true, s, myAdditionalGeometry.getPosition(), 2, 1, myAdditionalGeometry.getRotation() + 90, E1InstantExaggeration);
         }
         glPopName();
     }

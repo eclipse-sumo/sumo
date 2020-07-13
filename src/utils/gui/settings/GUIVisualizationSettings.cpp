@@ -159,8 +159,10 @@ const RGBColor GUIVisualizationStoppingPlaceSettings::parkingSpaceColor(255, 200
 
 const double GUIVisualizationDottedContourSettings::segmentWidth(0.2);
 const double GUIVisualizationDottedContourSettings::segmentLength(2);
-const RGBColor GUIVisualizationDottedContourSettings::firstColor(235, 235, 235);
-const RGBColor GUIVisualizationDottedContourSettings::secondColor(20, 20, 20);
+const RGBColor GUIVisualizationDottedContourSettings::firstInspectedColor(235, 235, 235);
+const RGBColor GUIVisualizationDottedContourSettings::secondInspectedColor(20, 20, 20);
+const RGBColor GUIVisualizationDottedContourSettings::firstFrontColor(0, 0, 235);
+const RGBColor GUIVisualizationDottedContourSettings::secondFrontColor(0, 255, 0);
 
 // -------------------------------------------------------------------------
 // widths of certain NETEDIT objects

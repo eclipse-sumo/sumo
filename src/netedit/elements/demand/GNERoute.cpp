@@ -356,13 +356,13 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
                     // draw partial segment
                     if (firstLane == lane) {
                         // draw front dotted contour
-                        GNEGeometry::drawDottedContourLane(s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), routeWidth, true, false);
+                        GNEGeometry::drawDottedContourLane(true, s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), routeWidth, true, false);
                     } else if (lastLane == lane) {
                         // draw back dotted contour
-                        GNEGeometry::drawDottedContourLane(s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), routeWidth, false, true);
+                        GNEGeometry::drawDottedContourLane(true, s, GNEGeometry::DottedGeometry(s, segment.getShape(), false), routeWidth, false, true);
                     } else {
                         // draw dotted contour
-                        GNEGeometry::drawDottedContourLane(s, lane->getDottedLaneGeometry(), routeWidth, false, false);
+                        GNEGeometry::drawDottedContourLane(true, s, lane->getDottedLaneGeometry(), routeWidth, false, false);
                     }
                 }
             }
@@ -402,7 +402,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             // draw lane2lane dotted geometry
             if (fromLane->getLane2laneConnections().exist(toLane)) {
-                GNEGeometry::drawDottedContourLane(s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), width, false, false);
+                GNEGeometry::drawDottedContourLane(true, s, fromLane->getLane2laneConnections().getLane2laneDottedGeometry(toLane), width, false, false);
             }
         }
     }

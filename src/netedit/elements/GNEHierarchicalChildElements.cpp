@@ -729,7 +729,7 @@ GNEHierarchicalChildElements::ChildConnections::drawDottedConnection(const GUIVi
         // change default width
         dottedGeometry.setWidth(0.1);
         // use drawDottedContourLane to draw it
-        GNEGeometry::drawDottedContourLane(s, dottedGeometry, exaggeration * 0.1, false, false);
+        GNEGeometry::drawDottedContourLane(true, s, dottedGeometry, exaggeration * 0.1, false, false);
     }
 }
 

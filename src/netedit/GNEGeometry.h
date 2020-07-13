@@ -162,8 +162,11 @@ struct GNEGeometry {
         /// @brief constructor
         DottedGeometryColor(const GUIVisualizationSettings& settings);
 
-        /// @brief get color (and change flag)
-        const RGBColor &getColor();
+        /// @brief get inspected color (and change flag)
+        const RGBColor &getInspectedColor();
+
+        /// @brief get front color (and change flag)
+        const RGBColor &getFrontColor();
 
         /// @brief change color
         void changeColor();
@@ -224,8 +227,11 @@ struct GNEGeometry {
         /// @brief update DottedGeometry (using shape)
         void updateDottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape);
 
-        /// @brief draw dottedShape
-        void drawDottedGeometry(DottedGeometryColor &dottedGeometryColor) const;
+        /// @brief draw inspected dottedShape
+        void drawInspectedDottedGeometry(DottedGeometryColor &dottedGeometryColor) const;
+
+        /// @brief draw front inspected dottedShape
+        void drawFrontDottedGeometry(DottedGeometryColor &dottedGeometryColor) const;
 
         /// @brief move shape to side
         void moveShapeToSide(const double value);
@@ -505,22 +511,22 @@ struct GNEGeometry {
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
 
     /// @brief draw dotted contour for the given dottedGeometry (used by lanes, routes, etc.)
-    static void drawDottedContourLane(const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
+    static void drawDottedContourLane(const bool inspect, const GUIVisualizationSettings& s, const DottedGeometry &dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
-    static void drawDottedContourEdge(const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme);
+    static void drawDottedContourEdge(const bool inspect, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme);
 
     /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
-    static void drawDottedContourClosedShape(const GUIVisualizationSettings& s, const PositionVector &shape, const double exaggeration);
+    static void drawDottedContourClosedShape(const bool inspect, const GUIVisualizationSettings& s, const PositionVector &shape, const double exaggeration);
 
     /// @brief draw dotted contour for the given shape (used by additionals)
-    static void drawDottedContourShape(const GUIVisualizationSettings& s, const PositionVector &shape, const double width, const double exaggeration);
+    static void drawDottedContourShape(const bool inspect, const GUIVisualizationSettings& s, const PositionVector &shape, const double width, const double exaggeration);
 
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
-    static void drawDottedContourCircle(const GUIVisualizationSettings& s, const Position &pos, const double radius, const double exaggeration);
+    static void drawDottedContourCircle(const bool inspect, const GUIVisualizationSettings& s, const Position &pos, const double radius, const double exaggeration);
 
     /// @brief draw dotted squared contour (used by additionals and demand elements)
-    static void drawDottedSquaredShape(const GUIVisualizationSettings& s, const Position &pos, const double width, const double height, const double rot, const double exaggeration);
+    static void drawDottedSquaredShape(const bool inspect, const GUIVisualizationSettings& s, const Position &pos, const double width, const double height, const double rot, const double exaggeration);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

@@ -541,7 +541,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw dotted contour
     if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-        GNEGeometry::drawDottedContourEdge(s, this, true, true);
+        GNEGeometry::drawDottedContourEdge(true, s, this, true, true);
     }
 }
 

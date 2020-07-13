@@ -390,11 +390,17 @@ struct GUIVisualizationDottedContourSettings {
     /// @brief length of dotted contour segments
     static const double segmentLength;
 
-    /// @brief first color of dotted contour
-    static const RGBColor firstColor;
+    /// @brief first color of dotted inspected contour
+    static const RGBColor firstInspectedColor;
 
-    /// @brief second color of dotted contour
-    static const RGBColor secondColor;
+    /// @brief second color of dotted inspectedcontour
+    static const RGBColor secondInspectedColor;
+
+    /// @brief first color of dotted front contour
+    static const RGBColor firstFrontColor;
+
+    /// @brief second color of dotted front contour
+    static const RGBColor secondFrontColor;
 };
 
 

@@ -170,7 +170,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
             // move to position
             shape.add(myPosition);
             // draw using drawDottedContourClosedShape
-            GNEGeometry::drawDottedContourClosedShape(s, shape, 1);
+            GNEGeometry::drawDottedContourClosedShape(true, s, shape, 1);
         }
         // pop name
         glPopName();

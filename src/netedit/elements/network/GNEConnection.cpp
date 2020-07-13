@@ -474,7 +474,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::DottedGeometry dottedConnectionGeometry(s, myConnectionGeometry.getShape(), false);
                 dottedConnectionGeometry.setWidth(0.1);
                 // use drawDottedContourLane to draw it
-                GNEGeometry::drawDottedContourLane(s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+                GNEGeometry::drawDottedContourLane(true, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
             }
         }
     }

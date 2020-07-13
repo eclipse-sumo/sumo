@@ -322,9 +322,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             // draw depending if is closed
             if (getFill() || scaledGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(s, scaledGeometry.getShape(), 1);
+                GNEGeometry::drawDottedContourClosedShape(true, s, scaledGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
+                GNEGeometry::drawDottedContourShape(true, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, TAZExaggeration);
             }
         }
         // pop name

@@ -522,10 +522,10 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn
             if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
                 if (drawShape) {
-                    GNEGeometry::drawDottedContourClosedShape(s, myNBNode->getShape(), junctionExaggeration);
+                    GNEGeometry::drawDottedContourClosedShape(true, s, myNBNode->getShape(), junctionExaggeration);
                 }
                 if (drawBubble) {
-                    GNEGeometry::drawDottedContourCircle(s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration);
+                    GNEGeometry::drawDottedContourCircle(true, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration);
                 }
             }
         }
