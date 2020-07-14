@@ -79,109 +79,61 @@ GNEChargingStation::getCenteringBoundary() const {
 
 void
 GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
-    // Get exaggeration
+    // Obtain exaggeration of the draw
     const double chargingStationExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
     if (s.drawAdditionals(chargingStationExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // Push name
-        glPushName(getGlID());
-        // Push base matrix
-        glPushMatrix();
-        // Traslate matrix
-        glTranslated(0, 0, getType());
-        // Set Color
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+        // declare colors
+        RGBColor baseColor, signColor;
+        // set colors
+        if (mySpecialColor) {
+            baseColor = *mySpecialColor;
+            signColor = baseColor.changedBrightness(-32);
+        } else if (drawUsingSelectColor()) {
+            baseColor = s.colorSettings.selectedAdditionalColor;
+            signColor = baseColor.changedBrightness(-32);
         } else {
-            GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
+            baseColor = s.stoppingPlaceSettings.chargingStationColor;
+            signColor = s.stoppingPlaceSettings.chargingStationColorSign;
         }
-        // Draw base
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add a draw matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CHARGING_STATION);
+        // set base color
+        GLHelper::setColor(baseColor);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
         GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.chargingStationWidth * chargingStationExaggeration);
-        // Check if the distance is enought to draw details and if is being drawn for selecting
-        if (s.drawForRectangleSelection) {
-            // only draw circle depending of distance between sign and mouse cursor
-            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
-                // Add a draw matrix for details
-                glPushMatrix();
-                // Start drawing sign traslating matrix to signal position
-                glTranslated(mySignPos.x(), mySignPos.y(), 0);
-                // scale matrix depending of the exaggeration
-                glScaled(chargingStationExaggeration, chargingStationExaggeration, 1);
-                // set color
-                GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
-                // Draw circle
-                GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-                // pop draw matrix
-                glPopMatrix();
-            }
-        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
-            // Push matrix for details
-            glPushMatrix();
-            // draw power depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, chargingStationExaggeration) && !s.drawForPositionSelection) {
-                // push a new matrix for charging power
-                glPushMatrix();
-                // draw line with a color depending of the selection status
-                if (drawUsingSelectColor()) {
-                    GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.colorSettings.selectionColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
-                } else {
-                    GLHelper::drawText((toString(myChargingPower) + " W").c_str(), mySignPos + Position(1.2, 0), .1, 1.f, s.stoppingPlaceSettings.chargingStationColor, myBlockIcon.rotation, FONS_ALIGN_LEFT);
-                }
-                // pop matrix for charging power
-                glPopMatrix();
-            }
-            // Set position over sign
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            // Scale matrix
-            glScaled(chargingStationExaggeration, chargingStationExaggeration, 1);
-            // Set base color
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-            } else {
-                GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColor);
-            }
-            // Draw extern
-            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-            // Move to top
-            glTranslated(0, 0, .1);
-            // Set sign color
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectionColor);
-            } else {
-                GLHelper::setColor(s.stoppingPlaceSettings.chargingStationColorSign);
-            }
-            // Draw internt sign
-            GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-            // Draw sign 'C' depending of detail settings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, chargingStationExaggeration) && !s.drawForPositionSelection) {
-                if (drawUsingSelectColor()) {
-                    GLHelper::drawText("C", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
-                } else {
-                    GLHelper::drawText("C", Position(), .1, myCircleInText, s.stoppingPlaceSettings.chargingStationColor, myBlockIcon.rotation);
-                }
-            }
-            // Pop sign matrix
-            glPopMatrix();
-            // Draw icon
+        // draw detail
+        if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
+            // draw charging power and efficiency
+            drawLines(s, {toString(myChargingPower) + " (" + toString(myEfficiency) + ")"}, baseColor);
+            // draw sign
+            drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
+            // draw lock icon
             myBlockIcon.drawIcon(s, chargingStationExaggeration);
         }
-        // Pop base matrix
+        // pop draw matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
         drawName(getPositionInView(), s.scale, s.addName);
-        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
-        }
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+        // Pop name
+        glPopName();
+        // draw additional name
+        drawAdditionalName(s, mySignPos);
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration);
         }
-        // Pop name matrix
-        glPopName();
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(false, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.chargingStationWidth, chargingStationExaggeration);
+        }
         // draw child demand elements
-        for (const auto& i : getChildDemandElements()) {
-            if (!i->getTagProperty().isPlacedInRTree()) {
-                i->drawGL(s);
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
             }
         }
     }

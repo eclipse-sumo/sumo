@@ -400,6 +400,9 @@ protected:
 
     /// @}
 
+    /// @brief draw additional name
+    void drawAdditionalName(const GUIVisualizationSettings& s, const Position &pos) const;
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class

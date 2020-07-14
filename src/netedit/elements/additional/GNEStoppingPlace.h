@@ -188,6 +188,13 @@ protected:
     /// @brief get end position over lane that is applicable to the shape
     double getEndGeometryPositionOverLane() const;
 
+    /// @brief draw lines
+    void drawLines(const GUIVisualizationSettings& s, const std::vector<std::string> &lines, const RGBColor &color) const;
+
+    /// @brief draw sign
+    void drawSign(const GUIVisualizationSettings& s, const double exaggeration, 
+        const RGBColor &baseColor, const RGBColor &signColor, const std::string &word) const;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

@@ -99,118 +99,59 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     const double busStopExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
     if (s.drawAdditionals(busStopExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // declare colors
+        RGBColor baseColor, signColor;
+        // set colors
+        if (mySpecialColor) {
+            baseColor = *mySpecialColor;
+            signColor = baseColor.changedBrightness(-32);
+        } else if (drawUsingSelectColor()) {
+            baseColor = s.colorSettings.selectedAdditionalColor;
+            signColor = baseColor.changedBrightness(-32);
+        } else {
+            baseColor = s.stoppingPlaceSettings.busStopColor;
+            signColor = s.stoppingPlaceSettings.busStopColorSign;
+        }
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
-        // Set color of the base
-        if (mySpecialColor) {
-            GLHelper::setColor(*mySpecialColor);
-        } else if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
-            GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
-        }
+        // set base color
+        GLHelper::setColor(baseColor);
         // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
         GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.stoppingPlaceSettings.busStopWidth * busStopExaggeration);
-        // Check if the distance is enought to draw details and if is being drawn for selecting
-        if (s.drawForRectangleSelection) {
-            // only draw circle depending of distance between sign and mouse cursor
-            if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
-                // Add a draw matrix for details
-                glPushMatrix();
-                // Start drawing sign traslating matrix to signal position
-                glTranslated(mySignPos.x(), mySignPos.y(), 0);
-                // scale matrix depending of the exaggeration
-                glScaled(busStopExaggeration, busStopExaggeration, 1);
-                // set color
-                GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
-                // Draw circle
-                GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-                // pop draw matrix
-                glPopMatrix();
-            }
-        } else if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
-            // draw lines between BusStops and Acces
-            for (auto i : getChildAdditionals()) {
-                GLHelper::drawBoxLine(i->getAdditionalGeometry().getPosition(),
-                                      RAD2DEG(mySignPos.angleTo2D(i->getAdditionalGeometry().getPosition())) - 90, mySignPos.distanceTo2D(i->getAdditionalGeometry().getPosition()), .05);
-            }
-            // Add a draw matrix for details
-            glPushMatrix();
-            // draw lines depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, busStopExaggeration) && !s.drawForPositionSelection) {
-                // Iterate over every line
-                for (int i = 0; i < (int)myLines.size(); ++i) {
-                    // push a new matrix for every line
-                    glPushMatrix();
-                    // Rotate and traslaste
-                    glTranslated(mySignPos.x(), mySignPos.y(), 0);
-                    glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
-                    // draw line with a color depending of the selection status
-                    if (drawUsingSelectColor()) {
-                        GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.colorSettings.selectionColor, 0, FONS_ALIGN_LEFT);
-                    } else {
-                        GLHelper::drawText(myLines[i].c_str(), Position(1.2, (double)i), .1, 1.f, s.stoppingPlaceSettings.busStopColor, 0, FONS_ALIGN_LEFT);
-                    }
-                    // pop matrix for every line
-                    glPopMatrix();
-                }
-            }
-            // Start drawing sign traslating matrix to signal position
-            glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            // scale matrix depending of the exaggeration
-            glScaled(busStopExaggeration, busStopExaggeration, 1);
-            // Set color of the externe circle
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-            } else {
-                GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
-            }
-            // Draw circle
-            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
-            // Traslate to front
-            glTranslated(0, 0, .1);
-            // Set color of the interne circle
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectionColor);
-            } else {
-                GLHelper::setColor(s.stoppingPlaceSettings.busStopColorSign);
-            }
-            // draw another circle in the same position, but a little bit more small
-            GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
-            // draw H depending of detailSettings
-            if (s.drawDetail(s.detailSettings.stoppingPlaceText, busStopExaggeration) && !s.drawForPositionSelection) {
-                if (drawUsingSelectColor()) {
-                    GLHelper::drawText("H", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
-                } else {
-                    GLHelper::drawText("H", Position(), .1, myCircleInText, s.stoppingPlaceSettings.busStopColor, myBlockIcon.rotation);
-                }
-            }
-            // pop draw matrix
-            glPopMatrix();
-            // Show Lock icon depending of the Edit mode
+        // draw detail
+        if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, busStopExaggeration)) {
+            // draw lines
+            drawLines(s, myLines, baseColor);
+            // draw sign
+            drawSign(s, busStopExaggeration, baseColor, signColor, "H");
+            // draw lock icon
             myBlockIcon.drawIcon(s, busStopExaggeration);
         }
         // pop draw matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting
         drawName(getPositionInView(), s.scale, s.addName);
-        if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
-        }
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.busStopWidth, busStopExaggeration);
-        }
         // Pop name
         glPopName();
+        // draw connection betwen access
+        drawConnectionAccess(s, baseColor);
+        // draw additional name
+        drawAdditionalName(s, mySignPos);
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.busStopWidth, busStopExaggeration);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(false, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.busStopWidth, busStopExaggeration);
+        }
         // draw child demand elements
-        for (const auto& i : getChildDemandElements()) {
-            if (!i->getTagProperty().isPlacedInRTree()) {
-                i->drawGL(s);
+        for (const auto& demandElement : getChildDemandElements()) {
+            if (!demandElement->getTagProperty().isPlacedInRTree()) {
+                demandElement->drawGL(s);
             }
         }
     }
@@ -402,5 +343,23 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+void 
+GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor &color) const {
+    if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
+        // Add a draw matrix for details
+        glPushMatrix();
+        // set color
+        GLHelper::setColor(color);
+        // draw lines between BusStops and Access
+        for (const auto &access : getChildAdditionals()) {
+            GLHelper::drawBoxLine(access->getAdditionalGeometry().getPosition(),
+                RAD2DEG(mySignPos.angleTo2D(access->getAdditionalGeometry().getPosition())) - 90, 
+                mySignPos.distanceTo2D(access->getAdditionalGeometry().getPosition()), .05);
+        }
+        // pop draw matrix
+        glPopMatrix();
+    }
+}
 
 /****************************************************************************/

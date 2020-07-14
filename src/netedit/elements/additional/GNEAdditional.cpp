@@ -614,6 +614,14 @@ GNEAdditional::isValidDetectorID(const std::string& newID) const {
 
 
 void
+GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s, const Position &pos) const {
+    if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
+    }
+}
+
+
+void
 GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }

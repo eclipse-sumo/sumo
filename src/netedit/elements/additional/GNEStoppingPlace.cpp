@@ -21,8 +21,11 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/vehicle/SUMORouteHandler.h>
+#include <foreign/fontstash/fontstash.h>
 
 #include "GNEStoppingPlace.h"
 
@@ -366,5 +369,74 @@ GNEStoppingPlace::getHierarchyName() const {
     return getTagStr();
 }
 
+
+void 
+GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector<std::string> &lines, const RGBColor &color) const {
+    if (!s.drawForPositionSelection) {
+        // Iterate over every line
+        for (int i = 0; i < (int)lines.size(); ++i) {
+            // push a new matrix for every line
+            glPushMatrix();
+            // translate and rotate
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
+            // draw line with a color depending of the selection status
+            if (drawUsingSelectColor()) {
+                GLHelper::drawText(lines[i].c_str(), Position(1.2, (double)i), .1, 1.f, color, 0, FONS_ALIGN_LEFT);
+            } else {
+                GLHelper::drawText(lines[i].c_str(), Position(1.2, (double)i), .1, 1.f, color, 0, FONS_ALIGN_LEFT);
+            }
+            // pop matrix for every line
+            glPopMatrix();
+        }
+    }
+}
+
+
+void 
+GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exaggeration, 
+    const RGBColor &baseColor, const RGBColor &signColor, const std::string &word) const {
+    if (s.drawForPositionSelection) {
+        // only draw circle depending of distance between sign and mouse cursor
+        if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
+            // Add a draw matrix for details
+            glPushMatrix();
+            // Start drawing sign traslating matrix to signal position
+            glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // scale matrix depending of the exaggeration
+            glScaled(exaggeration, exaggeration, 1);
+            // set color
+            GLHelper::setColor(baseColor);
+            // Draw circle
+            GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+            // pop draw matrix
+            glPopMatrix();
+        }
+    } else {
+        // push matrix
+        glPushMatrix();
+        // Start drawing sign traslating matrix to signal position
+        glTranslated(mySignPos.x(), mySignPos.y(), 0);
+        // scale matrix depending of the exaggeration
+        glScaled(exaggeration, exaggeration, 1);
+        // set color
+        GLHelper::setColor(baseColor);
+        // Draw circle
+        GLHelper::drawFilledCircle(myCircleWidth, s.getCircleResolution());
+        // continue depending of rectangle selection
+        if (!s.drawForRectangleSelection) {
+            // Traslate to front
+            glTranslated(0, 0, .1);
+            // set color
+            GLHelper::setColor(signColor);
+            // draw another circle in the same position, but a little bit more small
+            GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
+            // draw H depending of detailSettings
+            GLHelper::drawText(word, Position(), .1, myCircleInText, baseColor, myBlockIcon.rotation);
+        }
+        // pop draw matrix
+        glPopMatrix();
+    }
+}
 
 /****************************************************************************/
