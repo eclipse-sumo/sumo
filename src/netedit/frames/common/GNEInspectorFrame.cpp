@@ -43,8 +43,9 @@ FXDEFMAP(GNEInspectorFrame) GNEInspectorFrameMap[] = {
 };
 
 FXDEFMAP(GNEInspectorFrame::NeteditAttributesEditor) NeteditAttributesEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,  GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp)
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_MARKFRONTELEMENT,   GNEInspectorFrame::NeteditAttributesEditor::onCmdMarkFrontElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,                   GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp)
 };
 
 FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
@@ -72,7 +73,8 @@ FXIMPLEMENT(GNEInspectorFrame::TemplateEditor,              FXGroupBox,         
 GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet):
     GNEFrame(horizontalFrameParent, viewNet, "Inspector"),
     myPreviousElementInspect(nullptr),
-    myPreviousElementDelete(nullptr) {
+    myPreviousElementDelete(nullptr),
+    myPreviousElementDeleteWasMarked(false) {
 
     // Create back button
     myBackButton = new FXButton(myHeaderLeftFrame, "", GUIIconSubSys::getIcon(GUIIcon::BIGARROWLEFT), this, MID_GNE_INSPECTORFRAME_GOBACK, GUIDesignButtonIconRectangular);
@@ -450,6 +452,9 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     FXGroupBox(inspectorFrameParent->myContentFrame, "Netedit attributes", GUIDesignGroupBoxFrame),
     myInspectorFrameParent(inspectorFrameParent) {
 
+    // Create mark as front element button
+    myMarkFrontElementButton = new FXButton(this, "Mark as front element", nullptr, this, MID_GNE_MARKFRONTELEMENT, GUIDesignButton);
+
     // Create elements for parent additional
     myHorizontalFrameParentAdditional = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myLabelParentAdditional = new FXLabel(myHorizontalFrameParentAdditional, "Block move", nullptr, GUIDesignLabelAttribute);
@@ -480,25 +485,43 @@ GNEInspectorFrame::NeteditAttributesEditor::~NeteditAttributesEditor() {}
 
 void
 GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
-    if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() > 0) {
+    // get edited ACS
+    const auto &editedACs = myInspectorFrameParent->myAttributesEditor->getEditedACs();
+    // continue if there is edited ACs
+    if (editedACs.size() > 0) {
         // enable all editable elements
         myTextFieldParentAdditional->enable();
         myCheckBoxBlockMovement->enable();
         myCheckBoxBlockShape->enable();
         myCheckBoxCloseShape->enable();
         // obtain tag property (only for improve code legibility)
-        const auto& tagValue = myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty();
+        const auto& tagValue = editedACs.front()->getTagProperty();
+        // check if item can be mark as front elmenet
+        if (editedACs.size() == 1) {
+            // show NeteditAttributesEditor
+            show();
+            // show button
+            myMarkFrontElementButton->show();
+            // enable or disable
+            if (myInspectorFrameParent->getViewNet()->getFrontAttributeCarrier() == editedACs.front()) {
+                myMarkFrontElementButton->disable();
+            } else {
+                myMarkFrontElementButton->enable();
+            }
+        }
         // Check if item can be moved
         if (tagValue.canBlockMovement()) {
             // show NeteditAttributesEditor
             show();
             // Iterate over AC to obtain values
             bool value = true;
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
+            for (const auto& i : editedACs) {
                 value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_MOVEMENT));
             }
             // show block movement frame
             myHorizontalFrameBlockMovement->show();
+            // show help button
+            myHelpButton->show();
             // set check box value and update label
             if (value) {
                 myCheckBoxBlockMovement->setCheck(true);
@@ -514,11 +537,13 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             show();
             // Iterate over AC to obtain values
             bool value = true;
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
+            for (const auto& i : editedACs) {
                 value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_BLOCK_SHAPE));
             }
             // show block shape frame
             myHorizontalFrameBlockShape->show();
+            // show help button
+            myHelpButton->show();
             // set check box value and update label
             if (value) {
                 myCheckBoxBlockShape->setCheck(true);
@@ -534,11 +559,13 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             show();
             // Iterate over AC to obtain values
             bool value = true;
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
+            for (const auto& i : editedACs) {
                 value &= GNEAttributeCarrier::parse<bool>(i->getAttribute(GNE_ATTR_CLOSE_SHAPE));
             }
             // show close shape frame
             myHorizontalFrameCloseShape->show();
+            // show help button
+            myHelpButton->show();
             // set check box value and update label
             if (value) {
                 myCheckBoxCloseShape->setCheck(true);
@@ -554,17 +581,19 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             show();
             // obtain additional Parent
             std::set<std::string> parents;
-            for (const auto& i : myInspectorFrameParent->myAttributesEditor->getEditedACs()) {
+            for (const auto& i : editedACs) {
                 parents.insert(i->getAttribute(GNE_ATTR_PARENT));
             }
             // show parent additional frame
             myHorizontalFrameParentAdditional->show();
+            // show help button
+            myHelpButton->show();
             // set Label and TextField with the Tag and ID of parent
-            myLabelParentAdditional->setText((toString(myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getParentTag()) + " parent").c_str());
+            myLabelParentAdditional->setText((toString(editedACs.front()->getTagProperty().getParentTag()) + " parent").c_str());
             myTextFieldParentAdditional->setText(toString(parents).c_str());
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
-        if (GNEFrameAttributesModuls::isSupermodeValid(myInspectorFrameParent->getViewNet(), myInspectorFrameParent->myAttributesEditor->getEditedACs().front()) == false) {
+        if (GNEFrameAttributesModuls::isSupermodeValid(myInspectorFrameParent->getViewNet(), editedACs.front()) == false) {
             myTextFieldParentAdditional->disable();
             myCheckBoxBlockMovement->disable();
             myCheckBoxBlockShape->disable();
@@ -581,6 +610,8 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
     myHorizontalFrameBlockMovement->hide();
     myHorizontalFrameBlockShape->hide();
     myHorizontalFrameCloseShape->hide();
+    myMarkFrontElementButton->hide();
+    myHelpButton->hide();
     // hide groupbox
     hide();
 }
@@ -707,6 +738,19 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
         // force refresh values of AttributesEditor and GEOAttributesEditor
         myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
         myInspectorFrameParent->myGEOAttributesEditor->refreshGEOAttributesEditor(true);
+    }
+    return 1;
+}
+
+
+long
+GNEInspectorFrame::NeteditAttributesEditor::onCmdMarkFrontElement(FXObject* obj, FXSelector, void*) {
+    // check number of elements
+    if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() == 1) {
+        // mark AC as front elemnet
+        myInspectorFrameParent->getViewNet()->setFrontAttributeCarrier(myInspectorFrameParent->myAttributesEditor->getEditedACs().front());
+        // disable button
+        myMarkFrontElementButton->disable();
     }
     return 1;
 }

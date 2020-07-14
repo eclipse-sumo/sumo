@@ -63,6 +63,9 @@ public:
         /// @brief Called when user change the current GEO Attribute
         long onCmdSetNeteditAttribute(FXObject*, FXSelector, void*);
 
+        /// @brief Called when user press button "Mark front element"
+        long onCmdMarkFrontElement(FXObject*, FXSelector, void*);
+
         /// @brief Called when user press the help button
         long onCmdNeteditAttributeHelp(FXObject*, FXSelector, void*);
         /// @}
@@ -109,6 +112,9 @@ public:
 
         /// @brief pointer to check box "Block movement"
         FXCheckButton* myCheckBoxCloseShape;
+
+        /// @brief button for set element as front button
+        FXButton* myMarkFrontElementButton;
 
         /// @brief button for help
         FXButton* myHelpButton;

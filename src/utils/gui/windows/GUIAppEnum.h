@@ -757,6 +757,10 @@ enum {
     MID_GNE_OVERLAPPED_SHOWLIST,
     /// @brief list item selected in overlapped modul
     MID_GNE_OVERLAPPED_ITEMSELECTED,
+    /// @brief mark item as front element
+    MID_GNE_MARKFRONTELEMENT,
+    /// @brief clear item as front element
+    MID_GNE_CLEARFRONTELEMENT,
     /// @}
 
     /// @name GNESelectorFrame messages
