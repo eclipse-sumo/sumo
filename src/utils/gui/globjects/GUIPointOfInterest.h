@@ -117,5 +117,5 @@ protected:
     bool checkDraw(const GUIVisualizationSettings& s) const;
 
     /// @brief draw inner POI (before pushName() )
-    void drawInnerPOI(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
+    void drawInnerPOI(const GUIVisualizationSettings& s, const bool disableSelectionColor, const double layer) const;
 };

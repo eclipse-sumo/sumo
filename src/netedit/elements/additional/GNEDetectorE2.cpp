@@ -323,8 +323,8 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // Add a draw matrix
         glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
         // Set color of the base
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
@@ -349,8 +349,10 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
                 // Push matrix
                 glPushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
                 // Traslate to center of detector
-                glTranslated(myAdditionalGeometry.getShape().getLineCenter().x(), myAdditionalGeometry.getShape().getLineCenter().y(), getType() + 0.1);
+                glTranslated(myAdditionalGeometry.getShape().getLineCenter().x(), myAdditionalGeometry.getShape().getLineCenter().y(), 0.1);
                 // Rotate depending of myBlockIcon.rotation
                 glRotated(myBlockIcon.rotation, 0, 0, -1);
                 // move to logo position
@@ -366,8 +368,10 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 // Push matrix
                 glPushMatrix();
+                // translate to front
+                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
                 // Traslate to center of detector
-                glTranslated(myBlockIcon.position.x(), myBlockIcon.position.y(), getType() + 0.1);
+                glTranslated(myBlockIcon.position.x(), myBlockIcon.position.y(), 0.1);
                 // Rotate depending of myBlockIcon.rotation
                 glRotated(myBlockIcon.rotation, 0, 0, -1);
                 //move to logo position

@@ -371,7 +371,7 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
         // set Color
         GLHelper::setColor(stopColor);
         // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
         // draw depending of details
         if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && getParentLanes().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
@@ -383,8 +383,10 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // Add a draw matrix
             glPushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // move to geometry front
-            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), getType());
+            glTranslated(myDemandElementGeometry.getShape().back().x(), myDemandElementGeometry.getShape().back().y(), 0);
             glRotated(myDemandElementGeometry.getShapeRotations().back(), 0, 0, 1);
             // draw front of Stop depending if it's placed over a lane or over a stoppingPlace
             if (getParentLanes().size() > 0) {

@@ -363,7 +363,7 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
         // set Color
         GLHelper::setColor(stopColor);
         // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
         // draw depending of details
         if (s.drawDetail(s.detailSettings.stopsDetails, exaggeration) && getParentLanes().size() > 0) {
             // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration

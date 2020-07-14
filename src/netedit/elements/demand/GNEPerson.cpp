@@ -418,8 +418,10 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             glPushName(getGlID());
             // push draw matrix
             glPushMatrix();
+            // Start with the drawing of the area traslating matrix to origin
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
             // translate and rotate
-            glTranslated(personPosition.x(), personPosition.y(), getType());
+            glTranslated(personPosition.x(), personPosition.y(), 0);
             glRotated(90, 0, 0, 1);
             // set person color
             setColor(s);

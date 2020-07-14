@@ -117,8 +117,8 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // Push base matrix
         glPushMatrix();
-        // Traslate matrix
-        glTranslated(0, 0, getType());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_AREA);
         // Set Color
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);

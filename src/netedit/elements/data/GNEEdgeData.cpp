@@ -171,7 +171,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
     // Add a draw matrix
     glPushMatrix();
     // Start with the drawing of the area traslating matrix to origin
-    glTranslated(0, 0, getType() + offsetFront);
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGEDATA, offsetFront);
     // Set orange color
     GLHelper::setColor(RGBColor::BLACK);
     // draw box lines

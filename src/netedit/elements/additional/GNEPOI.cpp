@@ -247,7 +247,11 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             // push name (needed for getGUIGlObjectsUnderCursor(...)
             glPushName(getGlID());
             // draw inner polygon
-            drawInnerPOI(s, drawUsingSelectColor());
+            if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                drawInnerPOI(s, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT);
+            } else {
+                drawInnerPOI(s, drawUsingSelectColor(), getShapeLayer());
+            }
             // draw an orange square mode if there is an image(see #4036)
             if (!getShapeImgFile().empty() && myNet->getViewNet()->getTestingMode().isTestingEnabled()) {
                 // Add a draw matrix for drawing logo

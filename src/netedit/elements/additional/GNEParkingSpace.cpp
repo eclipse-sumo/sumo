@@ -128,8 +128,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // push name and matrix
         glPushName(getGlID());
         glPushMatrix();
-        // Traslate matrix and draw green contour
-        glTranslated(myPosition.x(), myPosition.y(), getType() + 0.1);
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
         glRotated(myAngle, 0, 0, 1);
         // only drawn small box if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {

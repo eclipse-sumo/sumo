@@ -92,7 +92,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPOI(s, false);
+        drawInnerPOI(s, false, getShapeLayer());
         // pop name
         glPopName();
     }
@@ -127,11 +127,11 @@ GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
+GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const bool disableSelectionColor, const double layer) const {
     const double exaggeration = s.poiSize.getExaggeration(s, this);
     glPushMatrix();
     setColor(s, disableSelectionColor);
-    glTranslated(x(), y(), getShapeLayer());
+    glTranslated(x(), y(), layer);
     glRotated(-getShapeNaviDegree(), 0, 0, 1);
     // check if has to be drawn as a circle or with an image
     if (getShapeImgFile() != DEFAULT_IMG_FILE) {

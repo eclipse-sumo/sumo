@@ -85,8 +85,8 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // Add a draw matrix
         glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CONTAINER_STOP);
         // Set color of the base
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);

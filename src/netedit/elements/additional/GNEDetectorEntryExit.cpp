@@ -139,7 +139,8 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // Push detector matrix
         glPushMatrix();
-        glTranslated(0, 0, getType());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_DET_ENTRY);
         // Set color
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);

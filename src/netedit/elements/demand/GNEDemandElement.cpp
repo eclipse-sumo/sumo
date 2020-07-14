@@ -459,7 +459,7 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront);
         // iterate over segments
         for (const auto& segment : myDemandElementSegmentGeometry) {
             // draw partial segment
@@ -505,8 +505,10 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
                 if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(arrivalPos) <= (circleWidthSquared + 2))) {
                     // push draw matrix
                     glPushMatrix();
+                    // Start with the drawing of the area traslating matrix to origin
+                    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                     // translate to pos and move to upper using GLO_PERSONTRIP (to avoid overlapping)
-                    glTranslated(arrivalPos.x(), arrivalPos.y(), getType() + 0.01);
+                    glTranslated(arrivalPos.x(), arrivalPos.y(), 0);
                     // Set person plan color
                     GLHelper::setColor(color);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
@@ -580,7 +582,7 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         // push a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType() + offsetFront);
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType(), offsetFront);
         // check if draw lane2lane connection or a red line
         if (fromLane->getLane2laneConnections().exist(toLane)) {
             // obtain lane2lane geometry

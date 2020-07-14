@@ -141,7 +141,10 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // Add a draw matrix for drawing logo
         glPushMatrix();
-        glTranslated(myPosition.x(), myPosition.y(), getType());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
+        // translate to position
+        glTranslated(myPosition.x(), myPosition.y(), 0);
         // scale
         glScaled(rerouterExaggeration, rerouterExaggeration, 1);
         // Draw icon depending of detector is selected and if isn't being drawn for selecting

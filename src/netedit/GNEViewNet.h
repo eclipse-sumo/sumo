@@ -386,6 +386,9 @@ public:
     /// @brief set front attributeCarrier
     void setFrontAttributeCarrier(const GNEAttributeCarrier* AC);
 
+    /// @brief draw front attributeCarrier
+    void drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, GUIGlObjectType objectType, const double extraOffset = 0);
+
     /// @brief check if lock icon should be visible
     bool showLockIcon() const;
 

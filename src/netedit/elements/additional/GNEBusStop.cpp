@@ -103,8 +103,8 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // Add a draw matrix
         glPushMatrix();
-        // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, getType());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_BUS_STOP);
         // Set color of the base
         if (mySpecialColor) {
             GLHelper::setColor(*mySpecialColor);

@@ -133,6 +133,8 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
         const double scaledWidth = s.detectorSettings.E1InstantWidth * 0.5 * s.scale;
         // start drawing
         glPushName(getGlID());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
         glLineWidth(1.0);
         // set color
         if (drawUsingSelectColor()) {
@@ -142,7 +144,6 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw shape
         glPushMatrix();
-        glTranslated(0, 0, getType());
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
         glScaled(E1InstantExaggeration, E1InstantExaggeration, 1);

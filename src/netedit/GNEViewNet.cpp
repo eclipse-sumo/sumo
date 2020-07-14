@@ -1150,6 +1150,16 @@ GNEViewNet::setFrontAttributeCarrier(const GNEAttributeCarrier* AC) {
 }
 
 
+void 
+GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, GUIGlObjectType objectType, const double extraOffset) {
+    if (myFrontAttributeCarrier == AC) {
+        glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT);
+    } else {
+        glTranslated(0, 0, objectType + extraOffset);
+    }
+}
+
+
 bool
 GNEViewNet::showLockIcon() const {
     return (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE || myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT || myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL);

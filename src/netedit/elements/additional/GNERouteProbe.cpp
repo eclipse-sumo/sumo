@@ -138,7 +138,8 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         }
         // draw shape
         glPushMatrix();
-        glTranslated(0, 0, getType());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ROUTEPROBE);
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
         glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
         glScaled(routeProbeExaggeration, routeProbeExaggeration, 1);

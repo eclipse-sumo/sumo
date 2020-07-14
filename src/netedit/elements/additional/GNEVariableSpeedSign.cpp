@@ -136,7 +136,10 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // Add a draw matrix for drawing logo
         glPushMatrix();
-        glTranslated(myPosition.x(), myPosition.y(), getType());
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VSS);
+        // translate to position
+        glTranslated(myPosition.x(), myPosition.y(), 0);
         // scale
         glScaled(VSSExaggeration, VSSExaggeration, 1);
         // Draw icon depending of variable speed sign is or if isn't being drawn for selecting

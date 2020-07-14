@@ -259,8 +259,8 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             glPushName(getGlID());
             // push layer matrix
             glPushMatrix();
-            // must draw on top of junction
-            glTranslated(0, 0, GLO_CROSSING);
+            // translate to front
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CROSSING);
             // set color
             GLHelper::setColor(crossingColor);
             // draw depending of selection

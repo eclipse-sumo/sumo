@@ -165,13 +165,15 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // push matrix
         glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ACCESS);
         // set color depending of selection
         if (drawUsingSelectColor()) {
             GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
         } else {
             GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         }
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), GLO_ACCESS);
+        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
         // draw circle
         if (s.drawForRectangleSelection) {
             GLHelper::drawFilledCircle(0.5 * exaggeration, 8);

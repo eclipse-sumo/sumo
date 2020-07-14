@@ -310,8 +310,8 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         glPushName(getGlID());
         // push layer matrix
         glPushMatrix();
-        // translate to GLO_POLYGON
-        glTranslated(0, 0, GLO_POLYGON);    // getShapeLayer()
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_POLYGON);
         // check if we're drawing a polygon or a polyline
         if (getFill()) {
             if (s.drawForPositionSelection) {

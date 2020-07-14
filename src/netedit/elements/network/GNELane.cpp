@@ -339,7 +339,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
     }
     // draw all links
     glPushMatrix();
-    glTranslated(0, 0, GLO_JUNCTION + 0.5);
+    glTranslated(0, 0, GLO_EDGE + 0.5);
     double w = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
     double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
     for (int i = noLinks; --i >= 0;) {
@@ -362,7 +362,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
     }
     // draw all links
     glPushMatrix();
-    glTranslated(0, 0, GLO_JUNCTION + 0.5);
+    glTranslated(0, 0, GLO_EDGE + 0.5);
     double w = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
     double x1 = myParentEdge->getNBEdge()->getLaneWidth(myIndex) / 2;
     for (int i = noLinks; --i >= 0;) {
@@ -388,7 +388,7 @@ GNELane::drawArrows(const GUIVisualizationSettings& s) const {
     const double rot = GNEGeometry::calculateRotation(begin, end);
     glPushMatrix();
     glPushName(0);
-    glTranslated(0, 0, GLO_JUNCTION + .1); // must draw on top of junction shape
+    glTranslated(0, 0, GLO_EDGE + .1); // must draw on top of junction shape
     glColor3d(1, 1, 1);
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
@@ -454,7 +454,7 @@ void
 GNELane::drawLane2LaneConnections() const {
     glPushMatrix();
     glPushName(0);
-    glTranslated(0, 0, GLO_JUNCTION + .1); // must draw on top of junction shape
+    glTranslated(0, 0, GLO_EDGE + .1); // must draw on top of junction shape
     std::vector<NBEdge::Connection> connections = myParentEdge->getNBEdge()->getConnectionsFromLane(myIndex);
     NBNode* node = myParentEdge->getNBEdge()->getToNode();
     const Position& startPos = myLaneGeometry.getShape()[-1];
@@ -511,7 +511,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     // Push name
     glPushName(getGlID());
     // Traslate to front
-    glTranslated(0, 0, myParentEdge->getNBEdge()->getLength() < 1 ? GLO_JUNCTION + 1 : getType());
+    glTranslated(0, 0, myParentEdge->getNBEdge()->getLength() < 1 ? GLO_EDGE + 1 : getType());
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // recognize full transparency and simply don't draw
@@ -1466,7 +1466,7 @@ GNELane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) con
                               * (spreadSuperposed ? 0.4 : 1)));
     const double sideOffset = spreadSuperposed ? width * -0.5 : 0;
     glPushMatrix();
-    glTranslated(0, 0, GLO_JUNCTION + 0.1);
+    glTranslated(0, 0, GLO_EDGE + 0.1);
     int e = (int) myLaneGeometry.getShape().size() - 1;
     for (int i = 0; i < e; ++i) {
         glPushMatrix();
@@ -1554,7 +1554,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
     // draw s depending of detail
     if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
         glPushMatrix();
-        glTranslated(customShape.front().x(), customShape.front().y(), GLO_JUNCTION + 0.01);
+        glTranslated(customShape.front().x(), customShape.front().y(), GLO_EDGE + 0.01);
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
         if (!s.drawForPositionSelection) {
             glTranslated(0, 0, 0.01);
@@ -1564,14 +1564,14 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
     }
     // draw line between Junction and point
     glPushMatrix();
-    glTranslated(0, 0, GLO_JUNCTION - 0.01);
+    glTranslated(0, 0, GLO_EDGE - 0.01);
     glLineWidth(4);
     GLHelper::drawLine(customShape.front(), myParentEdge->getFirstParentJunction()->getPositionInView());
     glPopMatrix();
     // draw "e" depending of detail
     if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
         glPushMatrix();
-        glTranslated(customShape.back().x(), customShape.back().y(), GLO_JUNCTION + 0.01);
+        glTranslated(customShape.back().x(), customShape.back().y(), GLO_EDGE + 0.01);
         GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
         if (!s.drawForPositionSelection) {
             glTranslated(0, 0, 0.01);
@@ -1581,7 +1581,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
     }
     // draw line between Junction and point
     glPushMatrix();
-    glTranslated(0, 0, GLO_JUNCTION - 0.01);
+    glTranslated(0, 0, GLO_EDGE - 0.01);
     glLineWidth(4);
     GLHelper::drawLine(customShape.back(), myParentEdge->getSecondParentJunction()->getPositionInView());
     glPopMatrix();
