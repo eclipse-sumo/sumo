@@ -215,7 +215,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet(net),
     myCurrentFrame(nullptr),
     myUndoList(undoList),
-    myInspectedAttributeCarrier(nullptr) {
+    myInspectedAttributeCarrier(nullptr),
+    myFrontAttributeCarrier(nullptr) {
     // view must be the final member of actualParent
     reparent(actualParent);
     // Build edit modes
@@ -604,7 +605,8 @@ GNEViewNet::GNEViewNet() :
     myNet(nullptr),
     myCurrentFrame(nullptr),
     myUndoList(nullptr),
-    myInspectedAttributeCarrier(nullptr) {
+    myInspectedAttributeCarrier(nullptr),
+    myFrontAttributeCarrier(nullptr) {
 }
 
 
@@ -1131,6 +1133,18 @@ GNEViewNet::getInspectedAttributeCarrier() const {
 void
 GNEViewNet::setInspectedAttributeCarrier(const GNEAttributeCarrier* AC) {
     myInspectedAttributeCarrier = AC;
+}
+
+
+const GNEAttributeCarrier*
+GNEViewNet::getFrontAttributeCarrier() const {
+    return myFrontAttributeCarrier;
+}
+
+
+void
+GNEViewNet::setFrontAttributeCarrier(const GNEAttributeCarrier* AC) {
+    myFrontAttributeCarrier = AC;
 }
 
 
@@ -2259,9 +2273,13 @@ long
 GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
-        if (myInspectedAttributeCarrier != nullptr && myInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
-            // make sure we do not inspect the connection will it is being deleted
+        // make sure we do not inspect the connection will it is being deleted
+        if (myInspectedAttributeCarrier != nullptr && (myInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
+        }
+        // make sure that connections isn't the front attribute
+        if (myFrontAttributeCarrier != nullptr && (myFrontAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+            myFrontAttributeCarrier = nullptr;
         }
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
@@ -2287,9 +2305,13 @@ long
 GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
+        // make sure we do not inspect the connection will it is being deleted
         if (myInspectedAttributeCarrier != nullptr && myInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
-            // make sure we do not inspect the connection will it is being deleted
             myViewParent->getInspectorFrame()->clearInspectedAC();
+        }
+        // make sure that connections isn't the front attribute
+        if (myFrontAttributeCarrier != nullptr && (myFrontAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+            myFrontAttributeCarrier = nullptr;
         }
         // check if we're handling a selection
         if (junction->isAttributeCarrierSelected()) {
