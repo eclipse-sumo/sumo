@@ -54,18 +54,18 @@ public class SumoCommand {
     int output_type;
 
     //Get Statements
-    public SumoCommand(Object input1, Object input2, Object input3, Object response, Object output_type) {
+    public SumoCommand(int input1, int input2, Object input3, int response, int output_type) {
 
-        this.cmd = new Command((Integer) input1);
-        cmd.content().writeUnsignedByte((Integer) input2);
+        this.cmd = new Command(input1);
+        cmd.content().writeUnsignedByte(input2);
         cmd.content().writeStringASCII(String.valueOf(input3));
 
-        this.input1 = (Integer) input1;
-        this.input2 = (Integer) input2;
+        this.input1 = input1;
+        this.input2 = input2;
         this.input3 = String.valueOf(input3);
 
-        this.response = (Integer) response;
-        this.output_type = (Integer) output_type;
+        this.response = response;
+        this.output_type = output_type;
 
         this.raw = new LinkedList<Object>();
         this.raw.add(input1);
@@ -77,19 +77,19 @@ public class SumoCommand {
     }
 
     //Get Statements
-    public SumoCommand(Object input1, Object input2, Object input3, Object response, Object output_type, String info) {
+    public SumoCommand(int input1, int input2, Object input3, int response, int output_type, String info) {
 
-        this.cmd = new Command((Integer) input1);
-        cmd.content().writeUnsignedByte((Integer) input2);
+        this.cmd = new Command(input1);
+        cmd.content().writeUnsignedByte(input2);
         cmd.content().writeStringASCII(String.valueOf(input3));
 
-        this.input1 = (Integer) input1;
-        this.input2 = (Integer) input2;
+        this.input1 = input1;
+        this.input2 = input2;
         this.input3 = String.valueOf(input3);
         this.info = info;
 
-        this.response = (Integer) response;
-        this.output_type = (Integer) output_type;
+        this.response = response;
+        this.output_type = output_type;
 
         this.raw = new LinkedList<Object>();
         this.raw.add(input1);
@@ -101,10 +101,10 @@ public class SumoCommand {
     }
 
 
-    public SumoCommand(Object input1, Object input2, Object input3, Object[] array, Object response, Object output_type) {
+    public SumoCommand(int input1, int input2, Object input3, Object[] array, int response, int output_type) {
 
-        this.cmd = new Command((Integer) input1);
-        cmd.content().writeUnsignedByte((Integer) input2);
+        this.cmd = new Command(input1);
+        cmd.content().writeUnsignedByte(input2);
         cmd.content().writeStringASCII(String.valueOf(input3));
 
         if (array.length == 1) {
@@ -113,7 +113,7 @@ public class SumoCommand {
         } else {
 
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
-            if ((Integer) input1 == Constants.CMD_GET_VEHICLE_VARIABLE && (Integer) input2 == Constants.DISTANCE_REQUEST) {
+            if (input1 == Constants.CMD_GET_VEHICLE_VARIABLE && input2 == Constants.DISTANCE_REQUEST) {
 
                 cmd.content().writeInt(2);
 
@@ -130,7 +130,7 @@ public class SumoCommand {
 
                 cmd.content().writeUnsignedByte(Constants.REQUEST_DRIVINGDIST);
 
-            } else if ((Integer) input1 == Constants.CMD_GET_SIM_VARIABLE && (Integer) input2 == Constants.POSITION_CONVERSION) {
+            } else if (input1 == Constants.CMD_GET_SIM_VARIABLE && input2 == Constants.POSITION_CONVERSION) {
 
                 if ((Integer)output_type == Constants.POSITION_ROADMAP) {
                     cmd.content().writeInt(3);
@@ -164,12 +164,12 @@ public class SumoCommand {
             }
         }
 
-        this.input1 = (Integer) input1;
-        this.input2 = (Integer) input2;
+        this.input1 = input1;
+        this.input2 = input2;
         this.input3 = String.valueOf(input3);
 
-        this.response = (Integer) response;
-        this.output_type = (Integer) output_type;
+        this.response = response;
+        this.output_type = output_type;
 
         this.raw = new LinkedList<Object>();
         this.raw.add(input1);
@@ -180,37 +180,37 @@ public class SumoCommand {
 
     }
 
-    public SumoCommand(Object input1, Object input3) {
+    public SumoCommand(int input1, int input2) {
 
-        this.input1 = (Integer) input1;
-        this.input2 = (Integer) input3;
+        this.input1 = input1;
+        this.input2 = input2;
 
-        this.cmd = new Command((Integer) input1);
-        this.add_variable(input3);
+        this.cmd = new Command(input1);
+        this.add_variable(input2);
 
         this.raw = new LinkedList<Object>();
         this.raw.add(input1);
-        this.raw.add(input3);
+        this.raw.add(input2);
 
     }
 
-    public SumoCommand(Object input1, Object input2, Object input3, Object[] array) {
+    public SumoCommand(int input1, int input2, Object input3, Object[] array) {
 
-        this.cmd = new Command((Integer) input1);
-        this.input1 = (Integer) input1;
-        this.input2 = (Integer) input2;
+        this.cmd = new Command(input1);
+        this.input1 = input1;
+        this.input2 = input2;
 
-        cmd.content().writeUnsignedByte((Integer) input2);
+        cmd.content().writeUnsignedByte(input2);
         cmd.content().writeStringASCII(String.valueOf(input3));
 
-        if ((Integer) input2 == Constants.VAR_COLOR) {
+        if (input2 == Constants.VAR_COLOR) {
             cmd.content().writeUnsignedByte(Constants.TYPE_COLOR);
             for (int i = 0; i < array.length; i++) {
                 add_variable(array[i]);
             }
         }
 
-        else if ((Integer) input2 == Constants.VAR_ROUTE) {
+        else if (input2 == Constants.VAR_ROUTE) {
 
             cmd.content().writeUnsignedByte(Constants.TYPE_STRINGLIST);
             SumoStringList sl = (SumoStringList) array[0];
@@ -219,17 +219,17 @@ public class SumoCommand {
                 cmd.content().writeStringASCII(s);
             }
 
-        } else if ((Integer) input2 == Constants.CMD_REROUTE_EFFORT || (Integer) input2 == Constants.CMD_REROUTE_TRAVELTIME || (Integer) input2 == Constants.CMD_RESUME) {
+        } else if (input2 == Constants.CMD_REROUTE_EFFORT || input2 == Constants.CMD_REROUTE_TRAVELTIME || input2 == Constants.CMD_RESUME) {
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
             cmd.content().writeInt(0);
-        } else if ((Integer) input2 == Constants.VAR_VIEW_OFFSET) {
+        } else if (input2 == Constants.VAR_VIEW_OFFSET) {
 
             cmd.content().writeUnsignedByte(Constants.POSITION_2D);
             for (int i = 0; i < array.length; i++) {
                 add_variable(array[i]);
             }
 
-        } else if ((Integer) input1 == Constants.CMD_SET_POLYGON_VARIABLE && (Integer) input2 == Constants.ADD) {
+        } else if (input1 == Constants.CMD_SET_POLYGON_VARIABLE && input2 == Constants.ADD) {
 
 
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
@@ -254,13 +254,13 @@ public class SumoCommand {
             add_type(array[0]);
             add_variable(array[0]);
 
-        } else if ((Integer) input1 == Constants.CMD_SET_POI_VARIABLE && (Integer) input2 == Constants.VAR_POSITION) {
+        } else if (input1 == Constants.CMD_SET_POI_VARIABLE && input2 == Constants.VAR_POSITION) {
 
             cmd.content().writeUnsignedByte(Constants.POSITION_2D);
             add_variable(array[0]);
             add_variable(array[1]);
 
-        } else if ((Integer) input1 == Constants.CMD_SET_POI_VARIABLE && (Integer) input2 == Constants.ADD) {
+        } else if (input1 == Constants.CMD_SET_POI_VARIABLE && input2 == Constants.ADD) {
 
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
             cmd.content().writeInt(4);
@@ -303,13 +303,13 @@ public class SumoCommand {
 
     }
 
-    public SumoCommand(Object input1, Object input2, Object input3, Object input) {
+    public SumoCommand(int input1, int input2, Object input3, Object input) {
 
-        this.cmd = new Command((Integer) input1);
-        this.input1 = (Integer) input1;
-        this.input2 = (Integer) input2;
+        this.cmd = new Command(input1);
+        this.input1 = input1;
+        this.input2 = input2;
 
-        cmd.content().writeUnsignedByte((Integer) input2);
+        cmd.content().writeUnsignedByte(input2);
         cmd.content().writeStringASCII(String.valueOf(input3));
 
         if (input.getClass().equals(StringList.class)) {
@@ -376,16 +376,16 @@ public class SumoCommand {
 
     }
 
-    public SumoCommand(Object input1, Object input2, Object[] array, Object response, Object output_type) {
+    public SumoCommand(int input1, int input2, Object[] array, int response, int output_type) {
 
-        this.cmd = new Command((Integer) input1);
-        this.input1 = (Integer) input1;
-        this.input2 = (Integer) input2;
+        this.cmd = new Command(input1);
+        this.input1 = input1;
+        this.input2 = input2;
 
-        cmd.content().writeUnsignedByte((Integer) input2);
+        cmd.content().writeUnsignedByte(input2);
         cmd.content().writeStringASCII("");
 
-        if ((Integer) input1 == Constants.CMD_GET_SIM_VARIABLE && (Integer) input2 == Constants.DISTANCE_REQUEST && array.length == 4) {
+        if (input1 == Constants.CMD_GET_SIM_VARIABLE && input2 == Constants.DISTANCE_REQUEST && array.length == 4) {
 
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
             cmd.content().writeInt(3);
@@ -415,7 +415,7 @@ public class SumoCommand {
                 this.cmd.content().writeUnsignedByte(Constants.REQUEST_AIRDIST);
             }
 
-        } else if ((Integer) input1 == Constants.CMD_GET_SIM_VARIABLE && (Integer) input2 == Constants.DISTANCE_REQUEST && array.length == 5) {
+        } else if (input1 == Constants.CMD_GET_SIM_VARIABLE && input2 == Constants.DISTANCE_REQUEST && array.length == 5) {
 
             cmd.content().writeUnsignedByte(Constants.TYPE_COMPOUND);
             cmd.content().writeInt(3);
@@ -443,8 +443,8 @@ public class SumoCommand {
 
         }
 
-        this.response = (Integer) response;
-        this.output_type = (Integer) output_type;
+        this.response = response;
+        this.output_type = output_type;
 
         this.raw = new LinkedList<Object>();
         this.raw.add(input1);
