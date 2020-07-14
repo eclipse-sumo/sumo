@@ -128,6 +128,8 @@
 #include "bigarrowleft.xpm"
 #include "bigarrowright.xpm"
 
+#include "frontelement.xpm"
+
 #include "lanebike.xpm"
 #include "lanebus.xpm"
 #include "lanepedestrian.xpm"
@@ -417,8 +419,9 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LOCK] = new FXXPMIcon(a, lock_xpm);
     myIcons[GUIIcon::ADD] = new FXXPMIcon(a, add_xpm);
     myIcons[GUIIcon::REMOVE] = new FXXPMIcon(a, remove_xpm);
-    myIcons[GUIIcon::BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xmp);
-    myIcons[GUIIcon::BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xmp);
+    myIcons[GUIIcon::BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xpm);
+    myIcons[GUIIcon::BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xpm);
+    myIcons[GUIIcon::FRONTELEMENT] = new FXXPMIcon(a, frontelement_xpm);
 
     myIcons[GUIIcon::ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
     myIcons[GUIIcon::ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);

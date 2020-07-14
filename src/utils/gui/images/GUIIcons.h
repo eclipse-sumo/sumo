@@ -183,6 +183,7 @@ enum class GUIIcon {
     REMOVE,
     BIGARROWLEFT,
     BIGARROWRIGHT,
+    FRONTELEMENT,
     /// @}
 
     /// @name arrows
