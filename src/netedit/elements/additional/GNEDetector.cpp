@@ -22,6 +22,8 @@
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEDetector.h"
 
@@ -142,5 +144,90 @@ GNEDetector::getHierarchyName() const {
     return getTagStr();
 }
 
+
+void 
+GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
+    const RGBColor &mainColor, const RGBColor &secondColor) const {
+    // push matrix
+    glPushMatrix();
+    // set line width
+    glLineWidth(1.0);
+    // translate to center geometry
+    glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+    // rotate
+    glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
+    // scale
+    glScaled(exaggeration, exaggeration, 1);
+    // set main color
+    GLHelper::setColor(mainColor);
+    // begin draw square
+    glBegin(GL_QUADS);
+    // draw square
+    glVertex2d(-1.0,  2);
+    glVertex2d(-1.0, -2);
+    glVertex2d(1.0, -2);
+    glVertex2d(1.0,  2);
+    // end draw square
+    glEnd();
+    // move top
+    glTranslated(0, 0, .01);
+    // begin draw line
+    glBegin(GL_LINES);
+    // draw lines
+    glVertex2d(0, 2 - .1);
+    glVertex2d(0, -2 + .1);
+    // end draw line
+    glEnd();
+    // outline if isn't being drawn for selecting
+    if ((scaledWidth * exaggeration > 1) && !s.drawForRectangleSelection) {
+        // set main color
+        GLHelper::setColor(secondColor);
+        // set polygon mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        // begin draw square
+        glBegin(GL_QUADS);
+        // draw square
+        glVertex2f(-1.0,  2);
+        glVertex2f(-1.0, -2);
+        glVertex2f(1.0, -2);
+        glVertex2f(1.0,  2);
+        // end draw square
+        glEnd();
+        // rotate 90º
+        glRotated(90, 0, 0, -1);
+        //set polygon mode
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+        // begin draw line
+        glBegin(GL_LINES);
+        // draw line
+        glVertex2d(0, 1.7);
+        glVertex2d(0, -1.7);
+        // end draw line
+        glEnd();
+    }
+    // pop matrix
+    glPopMatrix();
+}
+
+
+void 
+GNEDetector::drawE1Logo(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &textColor) const {
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        // Push matrix
+        glPushMatrix();
+        // translate to center geometry
+        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+        // rotate
+        glRotated(myAdditionalGeometry.getRotation() + 90, 0, 0, 1);
+        // move
+        glTranslated(-1, 0, 0);
+        // scale text
+        glScaled(exaggeration, exaggeration, 1);
+        // draw E1 logo
+        GLHelper::drawText("E1", Position(), .1, 1.5, textColor);
+        // pop matrix
+        glPopMatrix();
+    }
+}
 
 /****************************************************************************/

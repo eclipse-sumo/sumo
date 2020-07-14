@@ -540,7 +540,7 @@ GNEAdditional::BlockIcon::drawIcon(const GUIVisualizationSettings& s, const doub
         // Start pushing matrix
         glPushMatrix();
         // Traslate to middle of shape
-        glTranslated(position.x(), position.y(), myAdditional->getType() + 0.1);
+        glTranslated(position.x(), position.y(), 0.1);
         // Set draw color
         glColor3d(1, 1, 1);
         // Rotate depending of rotation
@@ -614,9 +614,9 @@ GNEAdditional::isValidDetectorID(const std::string& newID) const {
 
 
 void
-GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s, const Position &pos) const {
+GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-        GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
+        GLHelper::drawText(myAdditionalName, myBlockIcon.position, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
     }
 }
 

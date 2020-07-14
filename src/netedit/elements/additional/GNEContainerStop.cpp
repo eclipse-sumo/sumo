@@ -120,7 +120,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         // Pop name
         glPopName();
         // draw additional name
-        drawAdditionalName(s, mySignPos);
+        drawAdditionalName(s);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), s.stoppingPlaceSettings.containerStopWidth, containerStopExaggeration);

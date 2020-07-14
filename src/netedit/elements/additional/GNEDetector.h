@@ -182,6 +182,13 @@ protected:
     /// @brief Flag for friendly position
     bool myFriendlyPosition;
 
+    /// @brief draw E1 shape
+    void drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
+        const RGBColor &mainColor, const RGBColor &secondColor) const;
+
+    /// @brief draw E1 Logo
+    void drawE1Logo(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &textColor) const;
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

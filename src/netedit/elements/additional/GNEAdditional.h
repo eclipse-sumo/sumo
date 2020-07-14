@@ -401,7 +401,7 @@ protected:
     /// @}
 
     /// @brief draw additional name
-    void drawAdditionalName(const GUIVisualizationSettings& s, const Position &pos) const;
+    void drawAdditionalName(const GUIVisualizationSettings& s) const;
 
 private:
     /**@brief check restriction with the number of children

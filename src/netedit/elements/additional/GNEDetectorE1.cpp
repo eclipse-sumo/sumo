@@ -113,13 +113,13 @@ GNEDetectorE1::updateGeometry() {
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
 
     // Set block icon position
-    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
+    myBlockIcon.position = myAdditionalGeometry.getPosition();
 
     // Set offset of the block icon
     myBlockIcon.offset = Position(-1, 0);
 
-    // Set block icon rotation, and using their rotation for logo
-    myBlockIcon.setRotation(getParentLanes().front());
+    // set rotation
+    myBlockIcon.rotation = myAdditionalGeometry.getRotation() + 90;
 }
 
 
@@ -131,99 +131,48 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawAdditionals(E1Exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // obtain scaledSize
         const double scaledWidth = s.detectorSettings.E1Width * 0.5 * s.scale;
-        // start drawing
-        glPushName(getGlID());
-        // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR);
-        glLineWidth(1.0);
+        // declare colors
+        RGBColor mainColor, secondColor, textColor;
         // set color
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            mainColor = s.colorSettings.selectedAdditionalColor;
+            secondColor = mainColor.changedBrightness(-32);
+            textColor = mainColor.changedBrightness(32);
         } else {
-            GLHelper::setColor(s.detectorSettings.E1Color);
+            mainColor = s.detectorSettings.E1Color;
+            secondColor = RGBColor::WHITE;
+            textColor = RGBColor::BLACK;
         }
-        // draw shape
+        // start drawing
+        glPushName(getGlID());
+        // push layer matrix
         glPushMatrix();
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
-        glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glScaled(E1Exaggeration, E1Exaggeration, 1);
-        glBegin(GL_QUADS);
-        glVertex2d(-1.0,  2);
-        glVertex2d(-1.0, -2);
-        glVertex2d(1.0, -2);
-        glVertex2d(1.0,  2);
-        glEnd();
-        glTranslated(0, 0, .01);
-        glBegin(GL_LINES);
-        glVertex2d(0, 2 - .1);
-        glVertex2d(0, -2 + .1);
-        glEnd();
-        // outline if isn't being drawn for selecting
-        if ((scaledWidth * E1Exaggeration > 1) && !s.drawForRectangleSelection) {
-            // set color
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectionColor);
-            } else {
-                GLHelper::setColor(RGBColor::WHITE);
-            }
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            glBegin(GL_QUADS);
-            glVertex2f(-1.0,  2);
-            glVertex2f(-1.0, -2);
-            glVertex2f(1.0, -2);
-            glVertex2f(1.0,  2);
-            glEnd();
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-        }
-        // position indicator if isn't being drawn for selecting
-        if ((scaledWidth * E1Exaggeration > 1) && !s.drawForRectangleSelection) {
-            // set color
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectionColor);
-            } else {
-                GLHelper::setColor(RGBColor::WHITE);
-            }
-            glRotated(90, 0, 0, -1);
-            glBegin(GL_LINES);
-            glVertex2d(0, 1.7);
-            glVertex2d(0, -1.7);
-            glEnd();
-        }
-        // Pop shape matrix
-        glPopMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR);
+        // draw E1 shape
+        drawE1Shape(s, E1Exaggeration, scaledWidth, mainColor, secondColor);
         // Check if the distance is enought to draw details and isn't being drawn for selecting
-        if ((s.drawDetail(s.detailSettings.detectorDetails, E1Exaggeration)) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            // Push matrix
-            glPushMatrix();
-            // Traslate to center of detector
-            glTranslated(myAdditionalGeometry.getShape().getLineCenter().x(), myAdditionalGeometry.getShape().getLineCenter().y(), getType() + 0.1);
-            // Rotate depending of myBlockIcon.rotation
-            glRotated(myBlockIcon.rotation, 0, 0, -1);
-            //move to logo position
-            glTranslated(-1, 0, 0);
-            // scale text
-            glScaled(E1Exaggeration, E1Exaggeration, 1);
-            // draw E1 logo
-            if (drawUsingSelectColor()) {
-                GLHelper::drawText("E1", Position(), .1, 1.5, s.colorSettings.selectionColor);
-            } else {
-                GLHelper::drawText("E1", Position(), .1, 1.5, RGBColor::BLACK);
-            }
-            // pop matrix
-            glPopMatrix();
+        if (s.drawDetail(s.detailSettings.detectorDetails, E1Exaggeration)) {
+            // draw E1 Logo
+            drawE1Logo(s, E1Exaggeration, textColor);
             // Show Lock icon depending of the Edit mode
             myBlockIcon.drawIcon(s, E1Exaggeration);
         }
-        // Finish draw if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getPositionInView(), s.scale, s.addName);
-        }
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+        // pop layer matrix
+        glPopMatrix();
+        // Draw name if isn't being drawn for selecting
+        drawName(getPositionInView(), s.scale, s.addName);
+        // Pop name
+        glPopName();
+        // draw additional name
+        drawAdditionalName(s);
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             GNEGeometry::drawDottedSquaredShape(true, s, myAdditionalGeometry.getPosition(), 2, 1, myAdditionalGeometry.getRotation() + 90, E1Exaggeration);
         }
-        // pop name
-        glPopName();
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GNEGeometry::drawDottedSquaredShape(false, s, myAdditionalGeometry.getPosition(), 2, 1, myAdditionalGeometry.getRotation() + 90, E1Exaggeration);
+        }
     }
 }
 
