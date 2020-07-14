@@ -173,7 +173,7 @@ jobs:
         path: sumo/bin
         
   ###################
-  # BUILDING ON OSX
+  # BUILDING ON macOS
   ###################
   build-osx:
     runs-on: macos-latest
@@ -230,5 +230,5 @@ jobs:
     - name: Uploading artifacts (SUMO binaries)
       uses: actions/upload-artifact@v1
       with:
-        name: MacOS
+        name: macOS
         path: sumo/bin
