@@ -1145,6 +1145,8 @@ GNEViewNet::getFrontAttributeCarrier() const {
 void
 GNEViewNet::setFrontAttributeCarrier(const GNEAttributeCarrier* AC) {
     myFrontAttributeCarrier = AC;
+    // update view
+    updateViewNet();
 }
 
 

@@ -152,6 +152,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onUpdRedo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,        GNEApplicationWindow::onCmdToogleGrid),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,        GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARFRONTELEMENT,                      GNEApplicationWindow::onCmdClearFrontElement),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_CLEARFRONTELEMENT,                      GNEApplicationWindow::onUpdNeedsFrontElement),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
@@ -1751,6 +1753,15 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
 
 
 long
+GNEApplicationWindow::onCmdClearFrontElement(FXObject* /*obj*/, FXSelector /*sel*/, void* /*ptr*/) {
+    if (myViewNet) {
+        myViewNet->setFrontAttributeCarrier(nullptr);
+    }
+    return 1;
+}
+
+
+long
 GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void* /* ptr */) {
     // first check that we have a ViewNet
     if (myViewNet) {
@@ -2019,7 +2030,24 @@ GNEApplicationWindow::onCmdSaveJoined(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onUpdNeedsNetwork(FXObject* sender, FXSelector, void*) {
-    sender->handle(this, myNet == nullptr ? FXSEL(SEL_COMMAND, ID_DISABLE) : FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    // check if net exist
+    if (myNet) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
+    return 1;
+}
+
+
+long
+GNEApplicationWindow::onUpdNeedsFrontElement(FXObject* sender, FXSelector, void*) {
+    // check if net, viewnet and front attribute exist
+    if (myNet && myViewNet && myViewNet->getFrontAttributeCarrier()) {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_ENABLE), nullptr);
+    } else {
+        sender->handle(this, FXSEL(SEL_COMMAND, ID_DISABLE), nullptr);
+    }
     return 1;
 }
 

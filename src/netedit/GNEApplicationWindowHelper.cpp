@@ -528,6 +528,7 @@ GNEApplicationWindowHelper::EditMenuCommands::EditMenuCommands(GNEApplicationWin
     editViewScheme(nullptr),
     editViewPort(nullptr),
     toogleGrid(nullptr),
+    clearFrontElement(nullptr),
     loadAdditionalsInSUMOGUI(nullptr),
     loadDemandInSUMOGUI(nullptr),
     openInSUMOGUI(nullptr) {
@@ -547,27 +548,34 @@ GNEApplicationWindowHelper::EditMenuCommands::buildEditMenuCommands(FXMenuPane* 
     dataMenuCommands.hideDataMenuCommands();
     // build rest of menu commands
     editViewScheme = new FXMenuCommand(editMenu,
-                                       "Edit Visualisation\tF9\tOpens a dialog for editing visualization settings.",
-                                       nullptr, myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
+        "Edit Visualisation\tF9\tOpens a dialog for editing visualization settings.",
+        nullptr, myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     editViewPort = new FXMenuCommand(editMenu,
-                                     "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
-                                     nullptr, myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
+        "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
+        nullptr, myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     toogleGrid = new FXMenuCommand(editMenu,
-                                   "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
-                                   nullptr, myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
-    // add open in sumo options
+        "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
+        nullptr, myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
+    // add separator
     new FXMenuSeparator(editMenu);
+    // add clear front element
+    clearFrontElement = new FXMenuCommand(editMenu,
+        "Clear front element\t\tClear current front element",
+        nullptr, myGNEApp, MID_GNE_CLEARFRONTELEMENT);
+    // add separator
+    new FXMenuSeparator(editMenu);
+    // add open in sumo options
     loadAdditionalsInSUMOGUI = new FXMenuCheck(editMenu,
-            "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui.",
-            myGNEApp, MID_GNE_TOOLBAREDIT_LOADADDITIONALS);
+        "Load additionals in sumo-gui\t\tLoad additionals in sumo-gui.",
+        myGNEApp, MID_GNE_TOOLBAREDIT_LOADADDITIONALS);
     loadAdditionalsInSUMOGUI->setCheck(TRUE);
     loadDemandInSUMOGUI = new FXMenuCheck(editMenu,
-                                          "Load demand in sumo-gui\t\tLoad demand in sumo-gui.",
-                                          myGNEApp, MID_GNE_TOOLBAREDIT_LOADDEMAND);
+        "Load demand in sumo-gui\t\tLoad demand in sumo-gui.",
+        myGNEApp, MID_GNE_TOOLBAREDIT_LOADDEMAND);
     loadDemandInSUMOGUI->setCheck(TRUE);
     openInSUMOGUI = new FXMenuCommand(editMenu,
-                                      "Open in sumo-gui\tCtrl+T\tOpens the sumo-gui application with the current network.",
-                                      GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
+        "Open in sumo-gui\tCtrl+T\tOpens the sumo-gui application with the current network.",
+        GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), myGNEApp, MID_HOTKEY_CTRL_T_OPENSUMONETEDIT);
 }
 
 // ---------------------------------------------------------------------------

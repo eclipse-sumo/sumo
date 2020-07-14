@@ -175,6 +175,9 @@ public:
     /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
 
+    /// @brief called when the update/FXCall needs front element is executed
+    long onUpdNeedsFrontElement(FXObject*, FXSelector, void*);
+
     /// @brief called when the update/FXCall reload is executed
     long onUpdReload(FXObject*, FXSelector, void*);
 
@@ -266,6 +269,9 @@ public:
 
     /// @brief called if the user press key combination Ctrl + G to toogle grid
     long onCmdToogleGrid(FXObject*, FXSelector, void*);
+
+    /// @brief called if the user call clear front element
+    long onCmdClearFrontElement(FXObject*, FXSelector, void*);
 
     /// @brief called if the user press key combination Alt + <0-9>
     long onCmdToogleEditOptions(FXObject*, FXSelector, void*);

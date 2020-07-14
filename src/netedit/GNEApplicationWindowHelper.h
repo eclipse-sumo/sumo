@@ -341,6 +341,9 @@ struct GNEApplicationWindowHelper {
         /// @brief FXMenuCommand for toogle grid
         FXMenuCommand* toogleGrid;
 
+        /// @brief FXMenuCommand for clear Front element
+        FXMenuCommand* clearFrontElement;
+
         /// @brief menu check for load additionals in SUMO GUI
         FXMenuCheck* loadAdditionalsInSUMOGUI;
 
