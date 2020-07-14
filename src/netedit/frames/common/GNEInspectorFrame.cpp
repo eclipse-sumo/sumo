@@ -453,7 +453,7 @@ GNEInspectorFrame::NeteditAttributesEditor::NeteditAttributesEditor(GNEInspector
     myInspectorFrameParent(inspectorFrameParent) {
 
     // Create mark as front element button
-    myMarkFrontElementButton = new FXButton(this, "Mark as front element", nullptr, this, MID_GNE_MARKFRONTELEMENT, GUIDesignButton);
+    myMarkFrontElementButton = new FXButton(this, "Mark as front element", GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), this, MID_GNE_MARKFRONTELEMENT, GUIDesignButton);
 
     // Create elements for parent additional
     myHorizontalFrameParentAdditional = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
