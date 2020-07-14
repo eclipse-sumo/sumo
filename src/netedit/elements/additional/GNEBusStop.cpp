@@ -349,13 +349,15 @@ GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBCol
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // Add a draw matrix for details
         glPushMatrix();
+        // move to GLO_BUS_STOP
+        glTranslated(0, 0, GLO_BUS_STOP);
         // set color
         GLHelper::setColor(color);
         // draw lines between BusStops and Access
         for (const auto &access : getChildAdditionals()) {
             GLHelper::drawBoxLine(access->getAdditionalGeometry().getPosition(),
-                RAD2DEG(mySignPos.angleTo2D(access->getAdditionalGeometry().getPosition())) - 90, 
-                mySignPos.distanceTo2D(access->getAdditionalGeometry().getPosition()), .05);
+                RAD2DEG(myBlockIcon.position.angleTo2D(access->getAdditionalGeometry().getPosition())) - 90, 
+                myBlockIcon.position.distanceTo2D(access->getAdditionalGeometry().getPosition()), .05);
         }
         // pop draw matrix
         glPopMatrix();

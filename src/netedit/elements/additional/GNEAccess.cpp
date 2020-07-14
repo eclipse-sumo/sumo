@@ -157,10 +157,14 @@ GNEAccess::getParentName() const {
 
 void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
-    // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
+    // Obtain exaggeration
+    const double accessExaggeration = s.addSize.getExaggeration(s, this);
+    // get mouse position
+    const Position &mousePosition = myNet->getViewNet()->getPositionInformation();
+    // declare width
+    const double radius = 0.5;
     // first check if additional has to be drawn
-    if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+    if (s.drawAdditionals(accessExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // push matrix
@@ -173,12 +177,13 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         } else {
             GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         }
+        // translate to geometry position
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
         // draw circle
         if (s.drawForRectangleSelection) {
-            GLHelper::drawFilledCircle(0.5 * exaggeration, 8);
+            GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
         } else {
-            GLHelper::drawFilledCircle(0.5 * exaggeration, 16);
+            GLHelper::drawFilledCircle(radius * accessExaggeration, 16);
         }
         // pop matrix
         glPopMatrix();
@@ -186,10 +191,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourCircle(true, s, myAdditionalGeometry.getPosition(), 0.5, exaggeration);
+            GNEGeometry::drawDottedContourCircle(true, s, myAdditionalGeometry.getPosition(), 0.5, accessExaggeration);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourCircle(false, s, myAdditionalGeometry.getPosition(), 0.5, exaggeration);
+            GNEGeometry::drawDottedContourCircle(false, s, myAdditionalGeometry.getPosition(), 0.5, accessExaggeration);
         }
     }
 }

@@ -109,7 +109,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
         // draw detail
         if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, chargingStationExaggeration)) {
             // draw charging power and efficiency
-            drawLines(s, {toString(myChargingPower) + " (" + toString(myEfficiency) + ")"}, baseColor);
+            drawLines(s, {toString(myChargingPower)}, baseColor);
             // draw sign
             drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
             // draw lock icon
