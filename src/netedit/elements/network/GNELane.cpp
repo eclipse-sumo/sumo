@@ -667,135 +667,167 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop Lane Name
         glPopName();
-        // draw parents
-        for (const auto& VSS : getParentAdditionals()) {
-            if (VSS->getTagProperty().getTag() == SUMO_TAG_VSS) {
-                // draw VSS Symbol
-                drawVSSSymbol(s, VSS);
+        // Pop layer matrix
+        glPopMatrix();
+        // Pop Lane Name
+        glPopName();
+        // draw children
+        drawChildren(s);
+        // draw path additional elements
+        drawPathAdditionalElements(s);
+        // draw path demand elements
+        drawPathDemandElements(s);
+        // draw path generic dataelements
+        drawPathGenericDataElements(s);
+    }
+}
+
+
+void 
+GNELane::drawChildren(const GUIVisualizationSettings& s) const {
+    // draw parents
+    for (const auto& VSS : getParentAdditionals()) {
+        if (VSS->getTagProperty().getTag() == SUMO_TAG_VSS) {
+            // draw VSS Symbol
+            drawVSSSymbol(s, VSS);
+        }
+    }
+    // draw child shapes
+    for (const auto& POILane : getChildShapes()) {
+        POILane->drawGL(s);
+    }
+    // draw child additional
+    for (const auto& additional : getChildAdditionals()) {
+        if (!additional->getTagProperty().isPlacedInRTree()) {
+            // check that ParkingAreas aren't draw two times
+            additional->drawGL(s);
+        }
+    }
+    // draw child demand elements
+    for (const auto& demandElement : getChildDemandElements()) {
+        if (!demandElement->getTagProperty().isPlacedInRTree()) {
+            demandElement->drawGL(s);
+        }
+    }
+}
+
+
+void 
+GNELane::drawPathAdditionalElements(const GUIVisualizationSettings& s) const {
+    // draw child path additionals
+    for (const auto &tag : myPathAdditionalElements) {
+        // search first selected element
+        const GNEAdditional* selectedElement = nullptr;
+        for (const GNEAdditional* const element : tag.second) {
+            if (element->isAttributeCarrierSelected()) {
+                selectedElement = element;
+                break;
             }
         }
-        // draw child shapes
-        for (const auto& POILane : getChildShapes()) {
-            POILane->drawGL(s);
-        }
-        // draw child additional
-        for (const auto& additional : getChildAdditionals()) {
-            if (!additional->getTagProperty().isPlacedInRTree()) {
-                // check that ParkingAreas aren't draw two times
-                additional->drawGL(s);
-            }
-        }
-        // draw child demand elements
-        for (const auto& demandElement : getChildDemandElements()) {
-            if (!demandElement->getTagProperty().isPlacedInRTree()) {
-                demandElement->drawGL(s);
-            }
-        }
-        // draw child path additionals
-        for (const auto &tag : myPathAdditionalElements) {
-            // search first selected element
-            const GNEAdditional* selectedElement = nullptr;
-            for (const GNEAdditional* const element : tag.second) {
-                if (element->isAttributeCarrierSelected()) {
-                    selectedElement = element;
-                    break;
-                }
-            }
-            // continue depending of selectedElement
-            if (selectedElement != nullptr) {
-                // draw selected element with offset
-                selectedElement->drawLanePathChildren(s, this, 0.1);
-                // if we're drawing for position or rectangle selection, then draw all elements
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    for (const GNEAdditional* const element : tag.second) {
-                        if (element != selectedElement) {
-                            element->drawLanePathChildren(s, this, 0);
-                        }
-                    }
-                }
-            } else {
-                // if we're drawing for position or rectangle selection, then draw all elements
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    for (const GNEAdditional* const element : tag.second) {
+        // continue depending of selectedElement
+        if (selectedElement != nullptr) {
+            // draw selected element with offset
+            selectedElement->drawLanePathChildren(s, this, 0.1);
+            // if we're drawing for position or rectangle selection, then draw all elements
+            if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                for (const GNEAdditional* const element : tag.second) {
+                    if (element != selectedElement) {
                         element->drawLanePathChildren(s, this, 0);
                     }
-                } else if (tag.second.size() > 0)  {
-                    tag.second.front()->drawLanePathChildren(s, this, 0);
                 }
+            }
+        } else {
+            // if we're drawing for position or rectangle selection, then draw all elements
+            if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                for (const GNEAdditional* const element : tag.second) {
+                    element->drawLanePathChildren(s, this, 0);
+                }
+            } else if (tag.second.size() > 0)  {
+                tag.second.front()->drawLanePathChildren(s, this, 0);
             }
         }
-        // draw child path demand elements
-        for (const auto &tag : myPathDemandElements) {
-            // search first selected element
-            const GNEDemandElement* selectedElement = nullptr;
-            for (const GNEDemandElement* const element : tag.second) {
-                if (element->isAttributeCarrierSelected()) {
-                    selectedElement = element;
-                    break;
-                }
-            }
-            // continue depending of selectedElement
-            if (selectedElement) {
-                // draw selected element with offset
-                selectedElement->drawLanePathChildren(s, this, 0.1);
-                // if we're drawing for position or rectangle selection, then draw all elements
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    for (const GNEDemandElement* const element : tag.second) {
-                        if (element != selectedElement) {
-                            element->drawLanePathChildren(s, this, 0);
-                        }
-                    }
-                }
-            } else {
-                // if we're drawing for position or rectangle selection, then draw all elements
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    for (const GNEDemandElement* const element : tag.second) {
-                        element->drawLanePathChildren(s, this, 0);
-                    }
-                } else if (tag.second.size() > 0) {
-                    tag.second.front()->drawLanePathChildren(s, this, 0);
-                }
+    }
+}
+
+
+void 
+GNELane::drawPathDemandElements(const GUIVisualizationSettings& s) const {
+    // draw child path demand elements
+    for (const auto &tag : myPathDemandElements) {
+        // search first selected element
+        const GNEDemandElement* selectedElement = nullptr;
+        for (const GNEDemandElement* const element : tag.second) {
+            if (element->isAttributeCarrierSelected()) {
+                selectedElement = element;
+                break;
             }
         }
-        // draw child path generic datas
-        for (const auto &tag : myPathGenericDatas) {
-            // filter visible generic datas
-            std::vector<GNEGenericData*> visibleGenericDatas;
-            visibleGenericDatas.reserve(tag.second.size());
-            for (const auto & genericData : tag.second) {
-                if (genericData->isGenericDataVisible()) {
-                    visibleGenericDatas.push_back(genericData);
-                }
-            }
-            // search first selected element
-            const GNEGenericData* selectedElement = nullptr;
-            for (const GNEGenericData* const element : visibleGenericDatas) {
-                if (element->isAttributeCarrierSelected()) {
-                    selectedElement = element;
-                    break;
-                }
-            }
-            // continue depending of selectedElement
-            if (selectedElement) {
-                // draw selected element with offset
-                selectedElement->drawLanePathChildren(s, this, 0.1);
-                // if we're drawing for position or rectangle selection, then draw all elements
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    for (const GNEGenericData* const element : visibleGenericDatas) {
-                        if (element != selectedElement) {
-                            element->drawLanePathChildren(s, this, 0);
-                        }
-                    }
-                }
-            } else {
-                // if we're drawing for position or rectangle selection, then draw all elements
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    for (const GNEGenericData* const element : visibleGenericDatas) {
+        // continue depending of selectedElement
+        if (selectedElement) {
+            // draw selected element with offset
+            selectedElement->drawLanePathChildren(s, this, 0.1);
+            // if we're drawing for position or rectangle selection, then draw all elements
+            if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                for (const GNEDemandElement* const element : tag.second) {
+                    if (element != selectedElement) {
                         element->drawLanePathChildren(s, this, 0);
                     }
-                } else if (visibleGenericDatas.size() > 0)  {
-                    visibleGenericDatas.front()->drawLanePathChildren(s, this, 0);
                 }
+            }
+        } else {
+            // if we're drawing for position or rectangle selection, then draw all elements
+            if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                for (const GNEDemandElement* const element : tag.second) {
+                    element->drawLanePathChildren(s, this, 0);
+                }
+            } else if (tag.second.size() > 0) {
+                tag.second.front()->drawLanePathChildren(s, this, 0);
+            }
+        }
+    }
+}
+
+
+void 
+GNELane::drawPathGenericDataElements(const GUIVisualizationSettings& s) const {
+    // draw child path generic datas
+    for (const auto &tag : myPathGenericDatas) {
+        // filter visible generic datas
+        std::vector<GNEGenericData*> visibleGenericDatas;
+        visibleGenericDatas.reserve(tag.second.size());
+        for (const auto & genericData : tag.second) {
+            if (genericData->isGenericDataVisible()) {
+                visibleGenericDatas.push_back(genericData);
+            }
+        }
+        // search first selected element
+        const GNEGenericData* selectedElement = nullptr;
+        for (const GNEGenericData* const element : visibleGenericDatas) {
+            if (element->isAttributeCarrierSelected()) {
+                selectedElement = element;
+                break;
+            }
+        }
+        // continue depending of selectedElement
+        if (selectedElement) {
+            // draw selected element with offset
+            selectedElement->drawLanePathChildren(s, this, 0.1);
+            // if we're drawing for position or rectangle selection, then draw all elements
+            if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                for (const GNEGenericData* const element : visibleGenericDatas) {
+                    if (element != selectedElement) {
+                        element->drawLanePathChildren(s, this, 0);
+                    }
+                }
+            }
+        } else {
+            // if we're drawing for position or rectangle selection, then draw all elements
+            if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+                for (const GNEGenericData* const element : visibleGenericDatas) {
+                    element->drawLanePathChildren(s, this, 0);
+                }
+            } else if (visibleGenericDatas.size() > 0)  {
+                visibleGenericDatas.front()->drawLanePathChildren(s, this, 0);
             }
         }
     }

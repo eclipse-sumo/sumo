@@ -324,6 +324,14 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    void drawChildren(const GUIVisualizationSettings& s) const;
+
+    void drawPathAdditionalElements(const GUIVisualizationSettings& s) const;
+
+    void drawPathDemandElements(const GUIVisualizationSettings& s) const;
+
+    void drawPathGenericDataElements(const GUIVisualizationSettings& s) const;
+
     /// @brief draw lane markings
     void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
 
