@@ -125,11 +125,15 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
-        // push name and matrix
+        // push name
         glPushName(getGlID());
+        // push later matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_PARKING_SPACE);
+        // translate to position
+        glTranslated(myPosition.x(), myPosition.y(), 0);
+        // rotate
         glRotated(myAngle, 0, 0, 1);
         // only drawn small box if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
@@ -154,26 +158,33 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         glTranslated(0, lengthExaggeration * 0.5 , 0.1);
         // draw lock icon
         myBlockIcon.drawIcon(s, parkingAreaExaggeration);
-        // pop draw matrix
+        // pop layer matrix
         glPopMatrix();
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            // calculate shape
-            PositionVector shape;
-            // make rectangle
-            shape.push_back(Position((widthExaggeration * -0.5), 0));
-            shape.push_back(Position((widthExaggeration * +0.5), 0));
-            shape.push_back(Position((widthExaggeration * +0.5), lengthExaggeration));
-            shape.push_back(Position((widthExaggeration * -0.5), lengthExaggeration));
-            // rotate shape
-            shape.rotate2D(DEG2RAD(myAngle));
-            // move to position
-            shape.add(myPosition);
-            // draw using drawDottedContourClosedShape
-            GNEGeometry::drawDottedContourClosedShape(true, s, shape, 1);
-        }
         // pop name
         glPopName();
+        // draw additional name
+        drawAdditionalName(s);
+        // calculate special shape
+        // calculate shape
+        PositionVector contourShape;
+        // make rectangle
+        contourShape.push_back(Position((widthExaggeration * -0.5), 0));
+        contourShape.push_back(Position((widthExaggeration * +0.5), 0));
+        contourShape.push_back(Position((widthExaggeration * +0.5), lengthExaggeration));
+        contourShape.push_back(Position((widthExaggeration * -0.5), lengthExaggeration));
+        // rotate shape
+        contourShape.rotate2D(DEG2RAD(myAngle));
+        // move to position
+        contourShape.add(myPosition);
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            // draw using drawDottedContourClosedShape
+            GNEGeometry::drawDottedContourClosedShape(true, s, contourShape, 1);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            // draw using drawDottedContourClosedShape
+            GNEGeometry::drawDottedContourClosedShape(false, s, contourShape, 1);
+        }
     }
 }
 
