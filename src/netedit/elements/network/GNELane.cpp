@@ -506,12 +506,13 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     LaneDrawingConstants laneDrawingConstants(s, this);
     // get lane color
     const RGBColor color = setLaneColor(s);
-    // Push draw matrix 1
-    glPushMatrix();
     // Push name
     glPushName(getGlID());
-    // Traslate to front
-    glTranslated(0, 0, myParentEdge->getNBEdge()->getLength() < 1 ? GLO_EDGE + 1 : getType());
+    // Push layer matrix
+    glPushMatrix();
+
+    // translate to front
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_LANE);
     // XXX apply usefull scale values
     //exaggeration *= s.laneScaler.getScheme().getColor(getScaleValue(s.laneScaler.getActive()));
     // recognize full transparency and simply don't draw
@@ -561,32 +562,7 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge->getNBEdge()->isBidiRail();
         // Check if lane has to be draw as railway and if isn't being drawn for selecting
         if (drawAsRailway(s) && (!s.drawForRectangleSelection || spreadSuperposed)) {
-            PositionVector shape = myLaneGeometry.getShape();
-            const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex);
-            // draw as railway: assume standard gauge of 1435mm when lane width is not set
-            // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
-            // assume crosstie length of 181% gauge (2600mm for standard gauge)
-            double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * laneDrawingConstants.exaggeration;
-            if (spreadSuperposed) {
-                shape.move2side(halfGauge * 0.8);
-                halfGauge *= 0.4;
-                //std::cout << "spreadSuperposed " << getID() << " old=" << myLaneGeometry.getShape() << " new=" << shape << "\n";
-            }
-            const double halfInnerFeetWidth = halfGauge - 0.039 * laneDrawingConstants.exaggeration;
-            const double halfRailWidth = halfInnerFeetWidth + 0.15 * laneDrawingConstants.exaggeration;
-            const double halfCrossTieWidth = halfGauge * 1.81;
-            // Draw lane geometry
-            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
-            // Save current color
-            RGBColor current = GLHelper::getColor();
-            // Draw gray on top with reduced width (the area between the two tracks)
-            glColor3d(0.8, 0.8, 0.8);
-            glTranslated(0, 0, .1);
-            GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
-            // Set current color back
-            GLHelper::setColor(current);
-            // Draw crossties
-            GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * laneDrawingConstants.exaggeration, 0.6 * laneDrawingConstants.exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
+            drawLaneAsRailway(s, laneDrawingConstants);
         } else {
             GNEGeometry::drawLaneGeometry(myNet->getViewNet(), myLaneGeometry.getShape(), myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, laneDrawingConstants.halfWidth);
         }
@@ -629,42 +605,10 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawTLSLinkNo(s);
             }
         }
-        // If there are texture of restricted lanes to draw, check if icons can be drawn
-        if (!s.drawForRectangleSelection && !s.drawForPositionSelection && !s.disableLaneIcons &&
-                (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, laneDrawingConstants.exaggeration)) {
-            // Declare default width of icon (3)
-            double iconWidth = 1;
-            // Obtain width of icon, if width of lane is different
-            if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).width != -1) {
-                iconWidth = myParentEdge->getNBEdge()->getLaneStruct(myIndex).width / 3;
-            }
-            // Draw list of icons
-            for (int i = 0; i < (int)myLaneRestrictedTexturePositions.size(); i++) {
-                // Push draw matrix 2
-                glPushMatrix();
-                // Set white color
-                glColor3d(1, 1, 1);
-                // Traslate matrix 2
-                glTranslated(myLaneRestrictedTexturePositions.at(i).x(), myLaneRestrictedTexturePositions.at(i).y(), getType() + 0.1);
-                // Rotate matrix 2
-                glRotated(myLaneRestrictedTextureRotations.at(i), 0, 0, -1);
-                glRotated(90, 0, 0, 1);
-                // draw texture box depending of type of restriction
-                if (isRestricted(SVC_PEDESTRIAN)) {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
-                } else if (isRestricted(SVC_BICYCLE)) {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBIKE), iconWidth);
-                } else if (isRestricted(SVC_BUS)) {
-                    GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBUS), iconWidth);
-                }
-                // Pop draw matrix 2
-                glPopMatrix();
-            }
-        }
-        // draw a Start/endPoints if lane has a custom shape
-        if (!s.drawForRectangleSelection && (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
-            drawStartEndShapePoints(s);
-        }
+        // draw lane textures
+        drawTextures(s, laneDrawingConstants);
+        // draw start end shape points
+        drawStartEndShapePoints(s);
         // Pop Lane Name
         glPopName();
         // Pop layer matrix
@@ -1570,53 +1514,128 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) co
 }
 
 
+void 
+GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants &laneDrawingConstants) const {
+    // we draw the lanes with reduced width so that the lane markings below are visible
+    // (this avoids artifacts at geometry corners without having to
+    const bool spreadSuperposed = s.spreadSuperposed && drawAsRailway(s) && myParentEdge->getNBEdge()->isBidiRail();
+
+    PositionVector shape = myLaneGeometry.getShape();
+    const double width = myParentEdge->getNBEdge()->getLaneWidth(myIndex);
+    // draw as railway: assume standard gauge of 1435mm when lane width is not set
+    // draw foot width 150mm, assume that distance between rail feet inner sides is reduced on both sides by 39mm with regard to the gauge
+    // assume crosstie length of 181% gauge (2600mm for standard gauge)
+    double halfGauge = 0.5 * (width == SUMO_const_laneWidth ?  1.4350 : width) * laneDrawingConstants.exaggeration;
+    if (spreadSuperposed) {
+        shape.move2side(halfGauge * 0.8);
+        halfGauge *= 0.4;
+        //std::cout << "spreadSuperposed " << getID() << " old=" << myLaneGeometry.getShape() << " new=" << shape << "\n";
+    }
+    const double halfInnerFeetWidth = halfGauge - 0.039 * laneDrawingConstants.exaggeration;
+    const double halfRailWidth = halfInnerFeetWidth + 0.15 * laneDrawingConstants.exaggeration;
+    const double halfCrossTieWidth = halfGauge * 1.81;
+    // Draw lane geometry
+    GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), myShapeColors, halfRailWidth);
+    // Save current color
+    RGBColor current = GLHelper::getColor();
+    // Draw gray on top with reduced width (the area between the two tracks)
+    glColor3d(0.8, 0.8, 0.8);
+    glTranslated(0, 0, .1);
+    GNEGeometry::drawLaneGeometry(myNet->getViewNet(), shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), {}, halfInnerFeetWidth);
+    // Set current color back
+    GLHelper::setColor(current);
+    // Draw crossties
+    GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * laneDrawingConstants.exaggeration, 0.6 * laneDrawingConstants.exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
+}
+
+
+void 
+GNELane::drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants &laneDrawingConstants) const {
+    // If there are texture of restricted lanes to draw, check if icons can be drawn
+    if (!s.drawForRectangleSelection && !s.drawForPositionSelection && !s.disableLaneIcons &&
+        (myLaneRestrictedTexturePositions.size() > 0) && s.drawDetail(s.detailSettings.laneTextures, laneDrawingConstants.exaggeration)) {
+        // Declare default width of icon (3)
+        double iconWidth = 1;
+        // Obtain width of icon, if width of lane is different
+        if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).width != -1) {
+            iconWidth = myParentEdge->getNBEdge()->getLaneStruct(myIndex).width / 3;
+        }
+        // Draw list of icons
+        for (int i = 0; i < (int)myLaneRestrictedTexturePositions.size(); i++) {
+            // Push draw matrix 2
+            glPushMatrix();
+            // Set white color
+            glColor3d(1, 1, 1);
+            // Traslate matrix 2
+            glTranslated(myLaneRestrictedTexturePositions.at(i).x(), myLaneRestrictedTexturePositions.at(i).y(), getType() + 0.1);
+            // Rotate matrix 2
+            glRotated(myLaneRestrictedTextureRotations.at(i), 0, 0, -1);
+            glRotated(90, 0, 0, 1);
+            // draw texture box depending of type of restriction
+            if (isRestricted(SVC_PEDESTRIAN)) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEPEDESTRIAN), iconWidth);
+            } else if (isRestricted(SVC_BICYCLE)) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBIKE), iconWidth);
+            } else if (isRestricted(SVC_BUS)) {
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LANEBUS), iconWidth);
+            }
+            // Pop draw matrix 2
+            glPopMatrix();
+        }
+    }
+}
+
+
 void
 GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
-    GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
-    if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
-        // override with special colors (unless the color scheme is based on selection)
-        GLHelper::setColor(s.colorSettings.selectedEdgeColor.changedBrightness(-20));
-    }
-    // obtain circle width and resolution
-    double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
-    // Obtain exaggeration of the draw
-    const double exaggeration = s.addSize.getExaggeration(s, this);
-    // obtain custom shape
-    const PositionVector& customShape = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape;
-    // draw s depending of detail
-    if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-        glPushMatrix();
-        glTranslated(customShape.front().x(), customShape.front().y(), GLO_EDGE + 0.01);
-        GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-        if (!s.drawForPositionSelection) {
-            glTranslated(0, 0, 0.01);
-            GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+    // draw a Start/endPoints if lane has a custom shape
+    if (!s.drawForRectangleSelection && (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() > 1)) {
+        GLHelper::setColor(s.junctionColorer.getSchemes()[0].getColor(2));
+        if (drawUsingSelectColor() && s.laneColorer.getActive() != 1) {
+            // override with special colors (unless the color scheme is based on selection)
+            GLHelper::setColor(s.colorSettings.selectedEdgeColor.changedBrightness(-20));
         }
+        // obtain circle width and resolution
+        double circleWidth = GNEEdge::SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) / 2;
+        // Obtain exaggeration of the draw
+        const double exaggeration = s.addSize.getExaggeration(s, this);
+        // obtain custom shape
+        const PositionVector& customShape = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape;
+        // draw s depending of detail
+        if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+            glPushMatrix();
+            glTranslated(customShape.front().x(), customShape.front().y(), GLO_EDGE + 0.01);
+            GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+            if (!s.drawForPositionSelection) {
+                glTranslated(0, 0, 0.01);
+                GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
+            }
+            glPopMatrix();
+        }
+        // draw line between Junction and point
+        glPushMatrix();
+        glTranslated(0, 0, GLO_EDGE - 0.01);
+        glLineWidth(4);
+        GLHelper::drawLine(customShape.front(), myParentEdge->getFirstParentJunction()->getPositionInView());
+        glPopMatrix();
+        // draw "e" depending of detail
+        if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
+            glPushMatrix();
+            glTranslated(customShape.back().x(), customShape.back().y(), GLO_EDGE + 0.01);
+            GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
+            if (!s.drawForPositionSelection) {
+                glTranslated(0, 0, 0.01);
+                GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
+            }
+            glPopMatrix();
+        }
+        // draw line between Junction and point
+        glPushMatrix();
+        glTranslated(0, 0, GLO_EDGE - 0.01);
+        glLineWidth(4);
+        GLHelper::drawLine(customShape.back(), myParentEdge->getSecondParentJunction()->getPositionInView());
         glPopMatrix();
     }
-    // draw line between Junction and point
-    glPushMatrix();
-    glTranslated(0, 0, GLO_EDGE - 0.01);
-    glLineWidth(4);
-    GLHelper::drawLine(customShape.front(), myParentEdge->getFirstParentJunction()->getPositionInView());
-    glPopMatrix();
-    // draw "e" depending of detail
-    if (s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
-        glPushMatrix();
-        glTranslated(customShape.back().x(), customShape.back().y(), GLO_EDGE + 0.01);
-        GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
-        if (!s.drawForPositionSelection) {
-            glTranslated(0, 0, 0.01);
-            GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
-        }
-        glPopMatrix();
-    }
-    // draw line between Junction and point
-    glPushMatrix();
-    glTranslated(0, 0, GLO_EDGE - 0.01);
-    glLineWidth(4);
-    GLHelper::drawLine(customShape.back(), myParentEdge->getSecondParentJunction()->getPositionInView());
-    glPopMatrix();
 }
 
 

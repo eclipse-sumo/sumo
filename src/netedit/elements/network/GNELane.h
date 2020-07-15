@@ -365,6 +365,12 @@ private:
     /// @brief draw VSS symbol
     void drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) const;
 
+    /// @brief draw lane as railway
+    void drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants &laneDrawingConstants) const;
+
+    /// @brief draw lane textures
+    void drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants &laneDrawingConstants) const;
+
     /// @brief draw start and end shape points
     void drawStartEndShapePoints(const GUIVisualizationSettings& s) const;
 
