@@ -69,11 +69,8 @@ GNEParkingArea::updateGeometry() {
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
 
-    // Set block icon position
-    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
-
-    // Set block icon rotation, and using their rotation for sign
-    myBlockIcon.setRotation(getParentLanes().front());
+    // update block icon position
+    myBlockIcon.updatePositionAndRotation();
 
     // last step is to check if object has to be added into grid (SUMOTree) again
     if (!myMove.movingGeometryBoundary.isInitialised()) {
@@ -172,9 +169,9 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // Draw sign 'C'
             if (s.drawDetail(s.detailSettings.stoppingPlaceText, parkingAreaExaggeration) && !s.drawForPositionSelection) {
                 if (drawUsingSelectColor()) {
-                    GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.rotation);
+                    GLHelper::drawText("P", Position(), .1, myCircleInText, s.colorSettings.selectedAdditionalColor, myBlockIcon.getRotation());
                 } else {
-                    GLHelper::drawText("P", Position(), .1, myCircleInText, s.stoppingPlaceSettings.parkingAreaColor, myBlockIcon.rotation);
+                    GLHelper::drawText("P", Position(), .1, myCircleInText, s.stoppingPlaceSettings.parkingAreaColor, myBlockIcon.getRotation());
                 }
             }
             // Pop sign matrix
@@ -187,7 +184,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // Draw name if isn't being drawn for selecting
         drawName(getPositionInView(), s.scale, s.addName);
         if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
+            GLHelper::drawText(myAdditionalName, mySignPos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.getRotation());
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {

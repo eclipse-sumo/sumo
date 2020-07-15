@@ -275,13 +275,10 @@ GNEDetectorE2::updateGeometry() {
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
         myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), startPosFixed * getParentLanes().front()->getLengthGeometryFactor(), endPosFixed * getParentLanes().back()->getLengthGeometryFactor());
-        // Set block icon position
-        myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
+        // update block icon position
+        myBlockIcon.updatePositionAndRotation();
         // Set offset of the block icon
-        myBlockIcon.offset = Position(-0.75, 0);
-        // Set block icon rotation, and using their rotation for draw logo
-        myBlockIcon.setRotation(getParentLanes().front());
-
+        myBlockIcon.setOffset(1, 0);
     }
 }
 
@@ -319,98 +316,48 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
     const double E2Exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
     if ((myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) && s.drawAdditionals(E2Exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // declare color
+        RGBColor E2Color, textColor;
+        // set color
+        if (drawUsingSelectColor()) {
+            E2Color = s.colorSettings.selectedAdditionalColor;
+            textColor = E2Color.changedBrightness(-32);
+        } else if (myE2valid) {
+            E2Color = s.detectorSettings.E2Color;
+            textColor = RGBColor::BLACK;
+        }
         // Start drawing adding an gl identificator
         glPushName(getGlID());
-        // Add a draw matrix
+        // push layer matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
-        // Set color of the base
-        if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
-        } else {
-            // set color depending if is or isn't valid
-            if (myE2valid) {
-                GLHelper::setColor(s.detectorSettings.E2Color);
-            } else {
-                GLHelper::setColor(RGBColor::RED);
-            }
-        }
-        // check if we have to drawn a E2 single lane or a E2 multiLane
-        if (myAdditionalGeometry.getShape().size() > 0) {
-            // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
-            GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
-        }
-        // Pop last matrix
-        glPopMatrix();
-        // Check if the distance is enougth to draw details and isn't being drawn for selecting
-        if ((s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-            // draw logo depending if this is an Multilane E2 detector
-            if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR) {
-                // Push matrix
-                glPushMatrix();
-                // translate to front
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
-                // Traslate to center of detector
-                glTranslated(myAdditionalGeometry.getShape().getLineCenter().x(), myAdditionalGeometry.getShape().getLineCenter().y(), 0.1);
-                // Rotate depending of myBlockIcon.rotation
-                glRotated(myBlockIcon.rotation, 0, 0, -1);
-                // move to logo position
-                glTranslated(-0.75, 0, 0);
-                // scale text
-                glScaled(E2Exaggeration, E2Exaggeration, 1);
-                // draw E2 logo
-                if (drawUsingSelectColor()) {
-                    GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
-                } else {
-                    GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
-                }
-            } else {
-                // Push matrix
-                glPushMatrix();
-                // translate to front
-                myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E2DETECTOR);
-                // Traslate to center of detector
-                glTranslated(myBlockIcon.position.x(), myBlockIcon.position.y(), 0.1);
-                // Rotate depending of myBlockIcon.rotation
-                glRotated(myBlockIcon.rotation, 0, 0, -1);
-                //move to logo position
-                glTranslated(-1.5, 0, 0);
-                // scale text
-                glScaled(E2Exaggeration, E2Exaggeration, 1);
-                // draw E2 logo
-                if (drawUsingSelectColor()) {
-                    GLHelper::drawText("E2", Position(), .1, 1.5, s.colorSettings.selectionColor);
-                } else {
-                    GLHelper::drawText("E2", Position(), .1, 1.5, RGBColor::BLACK);
-                }
-                //move to logo position
-                glTranslated(1.2, 0, 0);
-                // Rotate depending of myBlockIcon.rotation
-                glRotated(90, 0, 0, 1);
-                if (drawUsingSelectColor()) {
-                    GLHelper::drawText("multi", Position(), .1, 0.9, s.colorSettings.selectedAdditionalColor);
-                } else {
-                    GLHelper::drawText("multi", Position(), .1, 0.9, RGBColor::BLACK);
-                }
-            }
-            // pop matrix
-            glPopMatrix();
+        // set color
+        GLHelper::setColor(E2Color);
+        // draw geometry
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, s.detectorSettings.E2Width * E2Exaggeration);
+        // Check if the distance is enought to draw details
+        if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
+            // draw E2 Logo
+            drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
             // Show Lock icon depending of the Edit mode
             myBlockIcon.drawIcon(s, E2Exaggeration);
         }
+        // pop layer matrix
+        glPopMatrix();
         // Draw name if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getPositionInView(), s.scale, s.addName);
-        }
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            if (myAdditionalGeometry.getShape().size() > 0) {
-                GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
-            }
-        }
+        drawName(getPositionInView(), s.scale, s.addName);
         // Pop name
         glPopName();
+        // draw additional name
+        drawAdditionalName(s);
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(false, s, myAdditionalGeometry.getShape(), s.detectorSettings.E2Width, E2Exaggeration);
+        }
     }
 }
 

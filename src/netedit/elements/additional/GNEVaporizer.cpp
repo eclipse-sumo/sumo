@@ -56,14 +56,11 @@ GNEVaporizer::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(firstLane, offset);
 
-    // Set block icon position
-    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
+    // update block icon position
+    myBlockIcon.updatePositionAndRotation();
 
     // Set offset of the block icon
-    myBlockIcon.offset = Position(1.1, (-3.06));
-
-    // Set block icon rotation, and using their rotation for logo
-    myBlockIcon.setRotation(firstLane);
+    myBlockIcon.setOffset(1.1, (-3.06));
 }
 
 

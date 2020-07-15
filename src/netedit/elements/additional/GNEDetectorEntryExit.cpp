@@ -115,14 +115,11 @@ GNEDetectorEntryExit::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
 
-    // Set block icon position
-    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
+    // update block icon position
+    myBlockIcon.updatePositionAndRotation();
 
     // Set offset of the block icon
-    myBlockIcon.offset = Position(-1, 0);
-
-    // Set block icon rotation, and using their rotation for logo
-    myBlockIcon.setRotation(getParentLanes().front());
+    myBlockIcon.setOffset(1, 0);
 
     // update E3 parent children
     getParentAdditionals().at(0)->updateChildConnections();
@@ -196,7 +193,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // Traslate to center of detector
             glTranslated(myAdditionalGeometry.getShape().getLineCenter().x(), myAdditionalGeometry.getShape().getLineCenter().y(), getType() + 0.1);
             // Rotate depending of myBlockIcon.rotation
-            glRotated(myBlockIcon.rotation, 0, 0, -1);
+            glRotated(myBlockIcon.getRotation(), 0, 0, -1);
             //move to logo position
             glTranslated(1.9, 0, 0);
             // scale

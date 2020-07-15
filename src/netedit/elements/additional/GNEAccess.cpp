@@ -86,12 +86,8 @@ GNEAccess::updateGeometry() {
     }
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
-    // Set block icon position
-    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
-    // Set offset of the block icon
-    myBlockIcon.offset = Position(-1, 0);
-    // Set block icon rotation, and using their rotation for logo
-    myBlockIcon.setRotation(getParentLanes().front());
+    // update block icon position
+    myBlockIcon.updatePositionAndRotation();
 }
 
 

@@ -112,14 +112,11 @@ GNEDetectorE1::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
 
-    // Set block icon position
-    myBlockIcon.position = myAdditionalGeometry.getPosition();
+    // update block icon position
+    myBlockIcon.updatePositionAndRotation();
 
     // Set offset of the block icon
-    myBlockIcon.offset = Position(-1, 0);
-
-    // set rotation
-    myBlockIcon.rotation = myAdditionalGeometry.getRotation() + 90;
+    myBlockIcon.setOffset(1, 0);
 }
 
 
@@ -151,10 +148,10 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR);
         // draw E1 shape
         drawE1Shape(s, E1Exaggeration, scaledWidth, mainColor, secondColor);
-        // Check if the distance is enought to draw details and isn't being drawn for selecting
+        // Check if the distance is enought to draw details
         if (s.drawDetail(s.detailSettings.detectorDetails, E1Exaggeration)) {
             // draw E1 Logo
-            drawE1Logo(s, E1Exaggeration, textColor);
+            drawDetectorLogo(s, E1Exaggeration, "E1", textColor);
             // Show Lock icon depending of the Edit mode
             myBlockIcon.drawIcon(s, E1Exaggeration);
         }
@@ -168,10 +165,10 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
-            GNEGeometry::drawDottedSquaredShape(true, s, myAdditionalGeometry.getPosition(), 2, 1, myAdditionalGeometry.getRotation() + 90, E1Exaggeration);
+            GNEGeometry::drawDottedSquaredShape(true, s, myAdditionalGeometry.getPosition(), 2, 1, myAdditionalGeometry.getRotation(), E1Exaggeration);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedSquaredShape(false, s, myAdditionalGeometry.getPosition(), 2, 1, myAdditionalGeometry.getRotation() + 90, E1Exaggeration);
+            GNEGeometry::drawDottedSquaredShape(false, s, myAdditionalGeometry.getPosition(), 2, 1, myAdditionalGeometry.getRotation(), E1Exaggeration);
         }
     }
 }

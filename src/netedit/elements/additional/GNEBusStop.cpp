@@ -51,7 +51,7 @@ GNEBusStop::updateGeometry() {
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
     // Update common geometry of stopping place
-    setStoppingPlaceGeometry(getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) / 2);
+    setStoppingPlaceGeometry(getParentLanes().front()->getParentEdge()->getNBEdge()->getLaneWidth(getParentLanes().front()->getIndex()) * 0.5);
 
     // Obtain a copy of the shape
     PositionVector tmpShape = myAdditionalGeometry.getShape();
@@ -62,11 +62,8 @@ GNEBusStop::updateGeometry() {
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
 
-    // Set block icon position
-    myBlockIcon.position = myAdditionalGeometry.getShape().getLineCenter();
-
-    // Set block icon rotation, and using their rotation for sign
-    myBlockIcon.setRotation(getParentLanes().front());
+    // update block icon position
+    myBlockIcon.updatePositionAndRotation();
 
     // update child demand elements geometry
     for (const auto& i : getChildDemandElements()) {
@@ -356,8 +353,8 @@ GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBCol
         // draw lines between BusStops and Access
         for (const auto &access : getChildAdditionals()) {
             GLHelper::drawBoxLine(access->getAdditionalGeometry().getPosition(),
-                RAD2DEG(myBlockIcon.position.angleTo2D(access->getAdditionalGeometry().getPosition())) - 90, 
-                myBlockIcon.position.distanceTo2D(access->getAdditionalGeometry().getPosition()), .05);
+                RAD2DEG(myBlockIcon.getPosition().angleTo2D(access->getAdditionalGeometry().getPosition())) - 90, 
+                myBlockIcon.getPosition().distanceTo2D(access->getAdditionalGeometry().getPosition()), .05);
         }
         // pop draw matrix
         glPopMatrix();

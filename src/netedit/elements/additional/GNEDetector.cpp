@@ -155,7 +155,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
     // translate to center geometry
     glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
     // rotate
-    glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
+    glRotated((myBlockIcon.getRotation() * -1), 0, 0, 1);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set main color
@@ -211,20 +211,20 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
 
 
 void 
-GNEDetector::drawE1Logo(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &textColor) const {
+GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string &logo, const RGBColor &textColor) const {
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // Push matrix
         glPushMatrix();
         // translate to center geometry
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+        glTranslated(myBlockIcon.getPosition().x(), myBlockIcon.getPosition().y(), 0);
         // rotate
-        glRotated(myAdditionalGeometry.getRotation() + 90, 0, 0, 1);
+        glRotated((myBlockIcon.getRotation() * -1) + 90, 0, 0, 1);
         // move
         glTranslated(-1, 0, 0);
         // scale text
         glScaled(exaggeration, exaggeration, 1);
         // draw E1 logo
-        GLHelper::drawText("E1", Position(), .1, 1.5, textColor);
+        GLHelper::drawText(logo, Position(), .1, 1.5, textColor);
         // pop matrix
         glPopMatrix();
     }

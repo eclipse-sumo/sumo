@@ -51,14 +51,14 @@ GNEDetectorE3::~GNEDetectorE3() {}
 
 void
 GNEDetectorE3::updateGeometry() {
-    // Set block icon position
-    myBlockIcon.position = myPosition;
+    // update additional geometry
+    myAdditionalGeometry.updateGeometry(myPosition, 0);
+
+    // update block icon position
+    myBlockIcon.updatePositionAndRotation();
 
     // Set block icon offset
-    myBlockIcon.offset = Position(-0.5, -0.5);
-
-    // Set block icon rotation, and using their rotation for draw logo
-    myBlockIcon.setRotation();
+    myBlockIcon.setOffset(-0.5, -0.5);
 
     // Update connection's geometry
     myChildConnections.update();

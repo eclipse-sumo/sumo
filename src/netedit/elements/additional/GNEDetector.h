@@ -186,8 +186,8 @@ protected:
     void drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
         const RGBColor &mainColor, const RGBColor &secondColor) const;
 
-    /// @brief draw E1 Logo
-    void drawE1Logo(const GUIVisualizationSettings& s, const double exaggeration, const RGBColor &textColor) const;
+    /// @brief draw detector Logo
+    void drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string &logo, const RGBColor &textColor) const;
 
 private:
     /// @brief set attribute after validation

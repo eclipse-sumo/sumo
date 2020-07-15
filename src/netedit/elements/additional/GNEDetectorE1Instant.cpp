@@ -112,14 +112,11 @@ GNEDetectorE1Instant::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
 
-    // Set block icon position
-    myBlockIcon.position = myAdditionalGeometry.getPosition();
+    // update block icon position
+    myBlockIcon.updatePositionAndRotation();
 
     // Set offset of the block icon
-    myBlockIcon.offset = Position(-1, 0);
-
-    // set rotation
-    myBlockIcon.rotation = myAdditionalGeometry.getRotation() + 90;
+    myBlockIcon.setOffset(1, 0);
 }
 
 
@@ -151,10 +148,10 @@ GNEDetectorE1Instant::drawGL(const GUIVisualizationSettings& s) const {
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E1DETECTOR_INSTANT);
         // draw E1Instant shape
         drawE1Shape(s, E1InstantExaggeration, scaledWidth, mainColor, secondColor);
-        // Check if the distance is enought to draw details and isn't being drawn for selecting
+        // Check if the distance is enought to draw details
         if (s.drawDetail(s.detailSettings.detectorDetails, E1InstantExaggeration)) {
-            // draw E1Instant Logo
-            drawE1Logo(s, E1InstantExaggeration, textColor);
+            // draw E1 Logo
+            drawDetectorLogo(s, E1InstantExaggeration, "E1", textColor);
             // Show Lock icon depending of the Edit mode
             myBlockIcon.drawIcon(s, E1InstantExaggeration);
         }

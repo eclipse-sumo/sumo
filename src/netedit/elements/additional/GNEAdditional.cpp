@@ -513,69 +513,94 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
 // ---------------------------------------------------------------------------
 
 GNEAdditional::BlockIcon::BlockIcon(GNEAdditional* additional) :
-    rotation(0.),
+    myRotation(0),
     myAdditional(additional) {}
 
 
 void
-GNEAdditional::BlockIcon::setRotation(GNELane* additionalLane) {
-    if (myAdditional->myAdditionalGeometry.getShape().size() > 0 && myAdditional->myAdditionalGeometry.getShape().length() != 0) {
-        // If length of the shape is distint to 0, Obtain rotation of center of shape
-        rotation = myAdditional->myAdditionalGeometry.getShape().rotationDegreeAtOffset((myAdditional->myAdditionalGeometry.getShape().length() / 2.)) - 90;
-    } else if (additionalLane) {
-        // If additional is over a lane, set rotation in the position over lane
-        double posOverLane = additionalLane->getLaneShape().nearest_offset_to_point2D(myAdditional->getPositionInView());
-        rotation = additionalLane->getLaneShape().rotationDegreeAtOffset(posOverLane) - 90;
+GNEAdditional::BlockIcon::updatePositionAndRotation() {
+    if (myAdditional->getAdditionalGeometry().getShape().size() > 1) {
+        const double middlePos = myAdditional->getAdditionalGeometry().getShape().length2D() * 0.5;
+        // calculate position and rotation
+        myPosition = myAdditional->getAdditionalGeometry().getShape().positionAtOffset2D(middlePos);
+        myRotation = myAdditional->getAdditionalGeometry().getShape().rotationDegreeAtOffset(middlePos);
     } else {
-        // In other case, rotation is 0
-        rotation = 0;
+        // get position and rotation of additional geometry
+        myPosition = myAdditional->getAdditionalGeometry().getPosition();
+        myRotation = myAdditional->getAdditionalGeometry().getRotation();
     }
+}
+
+
+void 
+GNEAdditional::BlockIcon::setOffset(const double x, const double y) {
+    myOffset.setx(x);
+    myOffset.sety(y);
 }
 
 
 void
 GNEAdditional::BlockIcon::drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size) const {
     // check if block icon can be draw
-    if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.lockIcon, exaggeration) && myAdditional->myNet->getViewNet()->showLockIcon()) {
-        // Start pushing matrix
-        glPushMatrix();
-        // Traslate to middle of shape
-        glTranslated(position.x(), position.y(), 0.1);
-        // Set draw color
-        glColor3d(1, 1, 1);
-        // Rotate depending of rotation
-        glRotated(rotation, 0, 0, -1);
-        // Rotate 180 degrees
-        glRotated(180, 0, 0, 1);
-        // Traslate depending of the offset
-        glTranslated(offset.x(), offset.y(), 0);
+    if ((myPosition != Position::INVALID) &&
+        !s.drawForPositionSelection && !s.drawForRectangleSelection && 
+        s.drawDetail(s.detailSettings.lockIcon, exaggeration) && 
+        myAdditional->myNet->getViewNet()->showLockIcon()) {
+        // get texture
+        GUIGlID lockTexture = 0;
         // Draw icon depending of the state of additional
         if (myAdditional->drawUsingSelectColor()) {
             if (!myAdditional->getTagProperty().canBlockMovement()) {
                 // Draw not movable texture if additional isn't movable and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED), size);
+                lockTexture = GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED);
             } else if (myAdditional->myBlockMovement) {
                 // Draw lock texture if additional is movable, is blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED), size);
+                lockTexture = GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED);
             } else {
                 // Draw empty texture if additional is movable, isn't blocked and is selected
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED), size);
+                lockTexture = GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED);
             }
         } else {
             if (!myAdditional->getTagProperty().canBlockMovement()) {
                 // Draw not movable texture if additional isn't movable
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING), size);
+                lockTexture = GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING);
             } else if (myAdditional->myBlockMovement) {
                 // Draw lock texture if additional is movable and is blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_LOCK), size);
+                lockTexture = GUITextureSubSys::getTexture(GNETEXTURE_LOCK);
             } else {
                 // Draw empty texture if additional is movable and isn't blocked
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_EMPTY), size);
+                lockTexture = GUITextureSubSys::getTexture(GNETEXTURE_EMPTY);
             }
         }
+        // Start pushing matrix
+        glPushMatrix();
+        // Traslate to middle of shape
+        glTranslated(myPosition.x(), myPosition.y(), 0.1);
+        // Set draw color
+        glColor3d(1, 1, 1);
+        // Rotate depending of rotation
+        glRotated((myRotation * -1) + 90, 0, 0, 1);
+        // Traslate depending of the offset
+        glTranslated(myOffset.x(), myOffset.y(), 0);
+        // Rotate again
+        glRotated(180, 0, 0, 1);
+        // Draw lock icon
+        GUITexturesHelper::drawTexturedBox(lockTexture, size);
         // Pop matrix
         glPopMatrix();
     }
+}
+
+
+const Position&
+GNEAdditional::BlockIcon::getPosition() const {
+    return myPosition;
+}
+
+
+double 
+GNEAdditional::BlockIcon::getRotation() const {
+    return myRotation;
 }
 
 // ---------------------------------------------------------------------------
@@ -616,7 +641,7 @@ GNEAdditional::isValidDetectorID(const std::string& newID) const {
 void
 GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
     if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
-        GLHelper::drawText(myAdditionalName, myBlockIcon.position, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.rotation);
+        GLHelper::drawText(myAdditionalName, myBlockIcon.getPosition(), GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, myBlockIcon.getRotation());
     }
 }
 

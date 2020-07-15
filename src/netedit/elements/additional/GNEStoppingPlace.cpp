@@ -379,7 +379,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
             glPushMatrix();
             // translate and rotate
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated(-1 * myBlockIcon.rotation, 0, 0, 1);
+            glRotated((myBlockIcon.getRotation() * -1) + 90, 0, 0, 1);
             // draw line with a color depending of the selection status
             if (drawUsingSelectColor()) {
                 GLHelper::drawText(lines[i].c_str(), Position(1.2, (double)i), .1, 1.f, color, 0, FONS_ALIGN_LEFT);
@@ -399,10 +399,12 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
     if (s.drawForPositionSelection) {
         // only draw circle depending of distance between sign and mouse cursor
         if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
-            // Add a draw matrix for details
+            // push matrix
             glPushMatrix();
             // Start drawing sign traslating matrix to signal position
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
+            // rotate
+            glRotated((myBlockIcon.getRotation() * -1) + 90, 0, 0, 1);
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
@@ -417,6 +419,8 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
         glPushMatrix();
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
+        // rotate
+        glRotated((myBlockIcon.getRotation() * -1) + 90, 0, 0, 1);
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
         // set color
@@ -432,7 +436,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
             // draw another circle in the same position, but a little bit more small
             GLHelper::drawFilledCircle(myCircleInWidth, s.getCircleResolution());
             // draw H depending of detailSettings
-            GLHelper::drawText(word, Position(), .1, myCircleInText, baseColor, myBlockIcon.rotation);
+            GLHelper::drawText(word, Position(), .1, myCircleInText, baseColor);
         }
         // pop draw matrix
         glPopMatrix();
