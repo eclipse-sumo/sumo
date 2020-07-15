@@ -146,13 +146,13 @@ GNEGeometry::Geometry::updateGeometry(const GNELane* lane, const double posOverL
     // calculate position and rotation
     if (posOverLane < 0) {
         myPosition = lane->getLaneShape().positionAtOffset(0);
-        myRotation = (lane->getLaneShape().rotationDegreeAtOffset(0) * -1);
+        myRotation = lane->getLaneShape().rotationDegreeAtOffset(0);
     } else if (posOverLane > laneLength) {
         myPosition = lane->getLaneShape().positionAtOffset(laneLength);
-        myRotation = (lane->getLaneShape().rotationDegreeAtOffset(laneLength) * -1);
+        myRotation = lane->getLaneShape().rotationDegreeAtOffset(laneLength);
     } else {
         myPosition = lane->getLaneShape().positionAtOffset(posOverLane);
-        myRotation = (lane->getLaneShape().rotationDegreeAtOffset(posOverLane) * -1);
+        myRotation = lane->getLaneShape().rotationDegreeAtOffset(posOverLane);
     }
 }
 
