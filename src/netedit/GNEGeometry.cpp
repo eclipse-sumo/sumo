@@ -1495,7 +1495,7 @@ GNEGeometry::drawDottedSquaredShape(const bool inspect, const GUIVisualizationSe
     shape.push_back(Position(0 - width, 0 - height));
     shape.push_back(Position(0 - width, 0 + height));
     // rotate shape
-    shape.rotate2D(DEG2RAD(rot));
+    shape.rotate2D(DEG2RAD((rot * -1) + 90));
     // move to position
     shape.add(pos);
     // draw using drawDottedContourClosedShape
