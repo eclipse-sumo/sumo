@@ -451,7 +451,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                             // push matrix
                             glPushMatrix();
                             // move to mouse position
-                            glTranslated(mousePosition.x(), mousePosition.y(), 1);
+                            glTranslated(mousePosition.x(), mousePosition.y(), 0.1);
                             // draw a simple circle
                             GLHelper::drawFilledCircle(1, s.getCircleResolution());
                             // pop matrix
@@ -486,12 +486,16 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     const bool mouseInBubble = (mousePosition.distanceSquaredTo2D(myNBNode->getPosition()) <= (bubbleRadius * bubbleRadius));
                     // only draw filled circle if we aren't in draw for selecting mode, or if distance to center is enough)
                     if (!s.drawForPositionSelection || mouseInBubble) {
+                        // push matrix
+                        glPushMatrix();
                         // set color
                         GLHelper::setColor(bubbleColor);
                         // move matrix junction center
-                        glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 1);
+                        glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
                         // draw filled circle
                         GLHelper::drawFilledCircle(bubbleRadius, s.getCircleResolution());
+                        // pop matrix
+                        glPopMatrix();
                     }
                 }
             }
@@ -508,7 +512,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                 glPushMatrix();
                 // Translate to center of junction
-                glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 1);
+                glTranslated(myNBNode->getPosition().x(), myNBNode->getPosition().y(), 0.1);
                 // draw Z value
                 GLHelper::drawText(toString(myNBNode->getPosition().z()), Position(), GLO_MAX - 5, s.junctionID.scaledSize(s.scale), s.junctionID.color);
                 glPopMatrix();
@@ -1456,7 +1460,7 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
             (myNBNode->isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
         glPushMatrix();
         Position pos = myNBNode->getPosition();
-        glTranslated(pos.x(), pos.y(), 2);
+        glTranslated(pos.x(), pos.y(), 0.1);
         glColor3d(1, 1, 1);
         const double halfWidth = 32 / s.scale;
         const double halfHeight = 64 / s.scale;

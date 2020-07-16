@@ -1916,12 +1916,16 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
     if (color.alpha() > 0) {
         // push name
         glPushName(getGlID());
+        // add layer matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_EDGE);
         // draw geometry points expect initial and final
         for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
             Position pos = myNBEdge->getGeometry()[i];
             if (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(pos) <= (circleWidthSquared + 2))) {
                 glPushMatrix();
-                glTranslated(pos.x(), pos.y(), GLO_EDGE - 0.01);
+                glTranslated(pos.x(), pos.y(), 0.1);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
@@ -1929,7 +1933,7 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                 if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                     glPushMatrix();
                     // Translate to geometry point
-                    glTranslated(pos.x(), pos.y(), GLO_EDGE);
+                    glTranslated(pos.x(), pos.y(), 0.2);
                     // draw Z value
                     GLHelper::drawText(toString(pos.z()), Position(), GLO_MAX - 5, s.edgeValue.scaledSize(s.scale) / 2, s.edgeValue.color);
                     glPopMatrix();
@@ -1941,19 +1945,19 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
             if ((myNBEdge->getGeometry().front() != getFirstParentJunction()->getPositionInView()) &&
                     (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
-                glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), GLO_EDGE + 0.01);
+                glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
                 // draw a "s" over last point depending of drawForRectangleSelection
                 if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                     glPushMatrix();
-                    glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), GLO_EDGE + 0.02);
+                    glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.2);
                     GLHelper::drawText("S", Position(), 0, circleWidth, RGBColor::WHITE);
                     glPopMatrix();
                     // draw line between Junction and point
                     glPushMatrix();
-                    glTranslated(0, 0, GLO_EDGE - 0.01);
+                    glTranslated(0, 0, 0.1);
                     glLineWidth(4);
                     GLHelper::drawLine(myNBEdge->getGeometry().front(), getFirstParentJunction()->getPositionInView());
                     // draw line between begin point of last lane shape and the first edge shape point
@@ -1964,19 +1968,19 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
             if ((myNBEdge->getGeometry().back() != getSecondParentJunction()->getPositionInView()) &&
                     (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
                 glPushMatrix();
-                glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), GLO_EDGE + 0.01);
+                glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
                 // resolution of drawn circle depending of the zoom (To improve smothness)
                 GLHelper::drawFilledCircle(circleWidth, s.getCircleResolution());
                 glPopMatrix();
                 // draw a "e" over last point depending of drawForRectangleSelection
                 if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.geometryPointsText, exaggeration)) {
                     glPushMatrix();
-                    glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), GLO_EDGE + 0.02);
+                    glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.2);
                     GLHelper::drawText("E", Position(), 0, circleWidth, RGBColor::WHITE);
                     glPopMatrix();
                     // draw line between Junction and point
                     glPushMatrix();
-                    glTranslated(0, 0, GLO_EDGE - 0.01);
+                    glTranslated(0, 0, 0.1);
                     glLineWidth(4);
                     GLHelper::drawLine(myNBEdge->getGeometry().back(), getSecondParentJunction()->getPositionInView());
                     // draw line between last point of first lane shape and the last edge shape point
@@ -1985,6 +1989,8 @@ GNEEdge::drawGeometryPoints(const GUIVisualizationSettings& s) const {
                 }
             }
         }
+        // pop layer matrix
+        glPopMatrix();
         // pop name
         glPopName();
     }
@@ -2059,7 +2065,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
             const double laneRot = rerouter->getChildRotation(j);
             // draw rerouter symbol
             glPushMatrix();
-            glTranslated(lanePos.x(), lanePos.y(), rerouter->getType());
+            glTranslated(lanePos.x(), lanePos.y(), GLO_REROUTER);
             glRotated(-1 * laneRot, 0, 0, 1);
             glScaled(rerouteExaggeration, rerouteExaggeration, 1);
             // mode
