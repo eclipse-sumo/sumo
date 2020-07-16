@@ -57,8 +57,10 @@ std::vector<RGBColor> GNEViewNetHelper::myRainbowScaledColors;
 // GNEViewNetHelper::ObjectsUnderCursor - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor() :
-    mySwapLane2edge(false) {}
+GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor(GNEViewNet* viewNet) :
+    myViewNet(viewNet),
+    mySwapLane2edge(false) {
+}
 
 
 void
@@ -478,6 +480,12 @@ GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjectsByAltitude(const std::vect
             myGUIGlObjectLanes.push_back(j);
         }
     }
+}
+
+
+GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor() :
+    myViewNet(nullptr),
+    mySwapLane2edge(false) {
 }
 
 // ---------------------------------------------------------------------------

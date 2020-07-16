@@ -196,6 +196,8 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     GUISUMOAbstractView(tmpParent, app, viewParent, net->getGrid(), glVis, share),
     myEditModes(this),
     myTestingMode(this),
+    myObjectsUnderCursor(this),
+    myObjectsUnderGrippedCursor(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -586,6 +588,8 @@ GNEViewNet::showJunctionAsBubbles() const {
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
+    myObjectsUnderCursor(this),
+    myObjectsUnderGrippedCursor(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),

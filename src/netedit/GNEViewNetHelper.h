@@ -173,7 +173,7 @@ struct GNEViewNetHelper {
     class ObjectsUnderCursor {
     public:
         /// @brief constructor
-        ObjectsUnderCursor();
+        ObjectsUnderCursor(GNEViewNet* viewNet);
 
         /// @brief update objects under cursor (Called only in onLeftBtnPress(...) function)
         void updateObjectUnderCursor(const std::vector<GUIGlObject*>& GUIGlObjects);
@@ -241,7 +241,10 @@ struct GNEViewNetHelper {
         /// @brief get vector with clicked ACs
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
-    private:
+    protected:
+        /// @brief pointer to viewNet
+        const GNEViewNet* myViewNet;
+
         /// @brief vector with the clicked GUIGlObjects
         std::vector<GUIGlObject*> myGUIGlObjectLanes, myGUIGlObjectEdges;
 
@@ -299,8 +302,12 @@ struct GNEViewNetHelper {
         /// @brief flag to enable/disable swap lane to edge
         bool mySwapLane2edge;
 
+    private:
         /// @brief invert GUIGlObjects
         void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects);
+
+        /// @brief default constructor
+        ObjectsUnderCursor();
 
         /// @brief Invalidated copy constructor.
         ObjectsUnderCursor(const ObjectsUnderCursor&) = delete;
