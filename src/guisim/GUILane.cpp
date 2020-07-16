@@ -711,7 +711,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
 void
 GUILane::drawMarkings(const GUIVisualizationSettings& s, double scale) const {
     glPushMatrix();
-    glTranslated(0, 0, GLO_EDGE);
+    glTranslated(0, 0, GLO_LANE);
     setColor(s);
     // optionally draw inverse markings
     if (myIndex > 0 && (myEdge->getLanes()[myIndex - 1]->getPermissions() & myPermissions) != 0) {
@@ -778,7 +778,7 @@ GUILane::drawBikeMarkings() const {
 void
 GUILane::drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const {
     glPushMatrix();
-    glTranslated(0, 0, GLO_EDGE);
+    glTranslated(0, 0, GLO_LANE);
     int e = (int) getShape().size() - 1;
     const double widthFactor = spreadSuperposed ? 0.4 : 1;
     const double w = MAX2(POSITION_EPS, myWidth * widthFactor);

@@ -47,8 +47,8 @@ StringBijection<GUIGlObjectType>::Entry GUIGlObject::GUIGlObjectTypeNamesInitial
     {"network",             GLO_NETWORK},
     //
     {"networkElement",      GLO_NETWORKELEMENT},
-    {"edge",                GLO_EDGE},
     {"lane",                GLO_LANE},
+    {"edge",                GLO_EDGE},
     {"junction",            GLO_JUNCTION},
     {"connection",          GLO_CONNECTION},
     {"crossing",            GLO_CROSSING},
