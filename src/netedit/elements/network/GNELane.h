@@ -333,7 +333,7 @@ private:
     void drawPathGenericDataElements(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
-    void drawMarkings(const GUIVisualizationSettings& s, double scale) const;
+    void drawMarkings(const GUIVisualizationSettings& s, const double exaggeration, const bool drawRailway) const;
 
     /// @brief draw link Number
     void drawLinkNo(const GUIVisualizationSettings& s) const;
@@ -360,7 +360,7 @@ private:
     bool drawAsWaterway(const GUIVisualizationSettings& s) const;
 
     /// @brief direction indicators for lanes
-    void drawDirectionIndicators(double exaggeration, bool spreadSuperposed) const;
+    void drawDirectionIndicators(const GUIVisualizationSettings& s, double exaggeration, const bool drawAsRailway, const bool spreadSuperposed) const;
 
     /// @brief draw VSS symbol
     void drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) const;
