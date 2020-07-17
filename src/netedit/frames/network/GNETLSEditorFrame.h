@@ -460,7 +460,7 @@ private:
     void cleanup();
 
     /// @brief builds internal lanes for the given tlDef
-    void buildIinternalLanes(NBTrafficLightDefinition* tlDef);
+    void buildInternalLanes(NBTrafficLightDefinition* tlDef);
 
     /// @brief the phase of the current traffic light
     const std::vector<NBTrafficLightLogic::PhaseDefinition>& getPhases();

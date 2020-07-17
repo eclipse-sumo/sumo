@@ -342,7 +342,7 @@ GNETLSEditorFrame::onCmdDefSwitch(FXObject*, FXSelector, void*) {
     NBTrafficLightLogic* tllogic = tllCont.getLogic(tlDef->getID(), tlDef->getProgramID());
     if (tllogic != nullptr) {
         // now we can be sure that the tlDef is up to date (i.e. re-guessed)
-        buildIinternalLanes(tlDef);
+        buildInternalLanes(tlDef);
         // create working copy from original def
         delete myEditedDef;
         myEditedDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
@@ -566,7 +566,7 @@ GNETLSEditorFrame::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
 long
 GNETLSEditorFrame::onCmdCleanup(FXObject*, FXSelector, void*) {
     myTLSModifications->setHaveModifications(myEditedDef->cleanupStates());
-    buildIinternalLanes(myEditedDef);
+    buildInternalLanes(myEditedDef);
     myTLSPhases->initPhaseTable(0);
     myTLSPhases->getPhaseTable()->setFocus();
     myTLSModifications->setHaveModifications(true);
@@ -589,7 +589,7 @@ long
 GNETLSEditorFrame::onCmdGroupStates(FXObject*, FXSelector, void*) {
     myEditedDef->groupSignals();
     myTLSModifications->setHaveModifications(true);
-    buildIinternalLanes(myEditedDef);
+    buildInternalLanes(myEditedDef);
     myTLSPhases->initPhaseTable(0);
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
@@ -601,7 +601,7 @@ GNETLSEditorFrame::onCmdUngroupStates(FXObject*, FXSelector, void*) {
     myEditedDef->setParticipantsInformation();
     myEditedDef->ungroupSignals();
     myTLSModifications->setHaveModifications(true);
-    buildIinternalLanes(myEditedDef);
+    buildInternalLanes(myEditedDef);
     myTLSPhases->initPhaseTable(0);
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
@@ -738,73 +738,78 @@ GNETLSEditorFrame::cleanup() {
     myTLSModifications->setHaveModifications(false);
     delete myEditedDef;
     myEditedDef = nullptr;
-    buildIinternalLanes(nullptr); // only clears
+    // clear internal lanes
+    buildInternalLanes(nullptr);
     // clean up controls
     myTLSAttributes->clearTLSAttributes();
-    myTLSPhases->initPhaseTable(); // only clears when there are no definitions
+    // only clears when there are no definitions
+    myTLSPhases->initPhaseTable();
     myTLSPhases->hideCycleDuration();
     myTLSJunction->updateJunctionDescription();
 }
 
 
 void
-GNETLSEditorFrame::buildIinternalLanes(NBTrafficLightDefinition* tlDef) {
-    // clean up previous objects
-    for (auto it : myInternalLanes) {
-        for (auto it_intLanes : it.second) {
-            // due GNEInternalLane aren't attribute carriers, we need to use the net grid
-            myViewNet->getNet()->getGrid().removeAdditionalGLObject(it_intLanes);
-            delete it_intLanes;
+GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
+    // clean up previous internal lanes
+    for (const auto &internalLanes : myInternalLanes) {
+        for (const auto &internalLane : internalLanes.second) {
+            // remove internal lane from grid
+            myViewNet->getNet()->getGrid().removeAdditionalGLObject(internalLane);
+            // delete internal lane
+            delete internalLane;
         }
     }
+    // clear container
     myInternalLanes.clear();
     // create new internal lanes
     if (tlDef != nullptr) {
         const int NUM_POINTS = 10;
-        assert(myTLSJunction->getCurrentJunction());
-        NBNode* nbnCurrentJunction = myTLSJunction->getCurrentJunction()->getNBNode();
-        std::string innerID = ":" + nbnCurrentJunction->getID(); // see NWWriter_SUMO::writeInternalEdges
+        const NBNode* nbnCurrentJunction = myTLSJunction->getCurrentJunction()->getNBNode();
+        // get innerID NWWriter_SUMO::writeInternalEdges
+        const std::string innerID = ":" + nbnCurrentJunction->getID();
         const NBConnectionVector& links = tlDef->getControlledLinks();
-        for (auto it : links) {
-            int tlIndex = it.getTLIndex();
-            PositionVector shape = it.getFrom()->getToNode()->computeInternalLaneShape(it.getFrom(), NBEdge::Connection(it.getFromLane(),
-                                   it.getTo(), it.getToLane()), NUM_POINTS);
+        // iterate over links
+        for (const auto &link : links) {
+            int tlIndex = link.getTLIndex();
+            PositionVector shape = link.getFrom()->getToNode()->computeInternalLaneShape(link.getFrom(), NBEdge::Connection(link.getFromLane(),
+                link.getTo(), link.getToLane()), NUM_POINTS);
             if (shape.length() < 2) {
                 // enlarge shape to ensure visibility
                 shape.clear();
-                PositionVector laneShapeFrom = it.getFrom()->getLaneShape(it.getFromLane());
-                PositionVector laneShapeTo = it.getTo()->getLaneShape(it.getToLane());
+                const PositionVector laneShapeFrom = link.getFrom()->getLaneShape(link.getFromLane());
+                const PositionVector laneShapeTo = link.getTo()->getLaneShape(link.getToLane());
                 shape.push_back(laneShapeFrom.positionAtOffset(MAX2(0.0, laneShapeFrom.length() - 1)));
                 shape.push_back(laneShapeTo.positionAtOffset(MIN2(1.0, laneShapeFrom.length())));
             }
-            GNEInternalLane* ilane = new GNEInternalLane(this, innerID + '_' + toString(tlIndex),  shape, tlIndex);
+            GNEInternalLane* internalLane = new GNEInternalLane(this, myTLSJunction->getCurrentJunction(), innerID + '_' + toString(tlIndex),  shape, tlIndex);
             // due GNEInternalLane aren't attribute carriers, we need to use the net grid
-            myViewNet->getNet()->getGrid().addAdditionalGLObject(ilane);
-            myInternalLanes[tlIndex].push_back(ilane);
+            myViewNet->getNet()->getGrid().addAdditionalGLObject(internalLane);
+            myInternalLanes[tlIndex].push_back(internalLane);
         }
-        for (NBNode* nbn : tlDef->getNodes()) {
-            for (auto c : nbn->getCrossings()) {
-                if (c->tlLinkIndex2 > 0 && c->tlLinkIndex2 != c->tlLinkIndex) {
+        // iterate over crossings
+        for (const auto &nbn : tlDef->getNodes()) {
+            for (const auto &crossing : nbn->getCrossings()) {
+                if (crossing->tlLinkIndex2 > 0 && crossing->tlLinkIndex2 != crossing->tlLinkIndex) {
                     // draw both directions
-                    PositionVector forward = c->shape;
-                    forward.move2side(c->width / 4);
-                    GNEInternalLane* ilane = new GNEInternalLane(this, c->id, forward, c->tlLinkIndex);
+                    PositionVector forward = crossing->shape;
+                    forward.move2side(crossing->width / 4);
+                    GNEInternalLane* internalLane = new GNEInternalLane(this, myTLSJunction->getCurrentJunction(), crossing->id, forward, crossing->tlLinkIndex);
                     // due GNEInternalLane aren't attribute carriers, we need to use the net grid
-                    myViewNet->getNet()->getGrid().addAdditionalGLObject(ilane);
-                    myInternalLanes[c->tlLinkIndex].push_back(ilane);
-
-                    PositionVector backward = c->shape.reverse();
-                    backward.move2side(c->width / 4);
-                    GNEInternalLane* ilane2 = new GNEInternalLane(this, c->id + "_r", backward, c->tlLinkIndex2);
+                    myViewNet->getNet()->getGrid().addAdditionalGLObject(internalLane);
+                    myInternalLanes[crossing->tlLinkIndex].push_back(internalLane);
+                    PositionVector backward = crossing->shape.reverse();
+                    backward.move2side(crossing->width / 4);
+                    GNEInternalLane* internalLaneReverse = new GNEInternalLane(this, myTLSJunction->getCurrentJunction(), crossing->id + "_r", backward, crossing->tlLinkIndex2);
                     // due GNEInternalLane aren't attribute carriers, we need to use the net grid
-                    myViewNet->getNet()->getGrid().addAdditionalGLObject(ilane2);
-                    myInternalLanes[c->tlLinkIndex2].push_back(ilane2);
+                    myViewNet->getNet()->getGrid().addAdditionalGLObject(internalLaneReverse);
+                    myInternalLanes[crossing->tlLinkIndex2].push_back(internalLaneReverse);
                 } else {
                     // draw only one lane for both directions
-                    GNEInternalLane* ilane = new GNEInternalLane(this, c->id, c->shape, c->tlLinkIndex);
+                    GNEInternalLane* internalLane = new GNEInternalLane(this, myTLSJunction->getCurrentJunction(), crossing->id, crossing->shape, crossing->tlLinkIndex);
                     // due GNEInternalLane aren't attribute carriers, we need to use the net grid
-                    myViewNet->getNet()->getGrid().addAdditionalGLObject(ilane);
-                    myInternalLanes[c->tlLinkIndex].push_back(ilane);
+                    myViewNet->getNet()->getGrid().addAdditionalGLObject(internalLane);
+                    myInternalLanes[crossing->tlLinkIndex].push_back(internalLane);
                 }
             }
         }

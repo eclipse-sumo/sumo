@@ -27,19 +27,11 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 
 #include "GNEInternalLane.h"
+#include "GNEJunction.h"
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-/// @note: msvc10 does not approve of allocating empty arrays
-/*
-FXDEFMAP(GNEInternalLane) GNEInternalLaneMap[]= {
-    //FXMAPFUNC(SEL_COMMAND,  MID_GNE_TLSFRAME_PHASE_DURATION,     GNETLSEditorFrame::onDefault),
-};
-*/
-
-// Object implementation
-//FXIMPLEMENT(GNEInternalLane, FXDelegator, GNEInternalLaneMap, ARRAYNUMBER(GNEInternalLaneMap))
 FXIMPLEMENT(GNEInternalLane, FXDelegator, 0, 0)
 
 // ===========================================================================
@@ -47,15 +39,15 @@ FXIMPLEMENT(GNEInternalLane, FXDelegator, 0, 0)
 // ===========================================================================
 
 StringBijection<FXuint>::Entry GNEInternalLane::linkStateNamesValues[] = {
-    { "Green-Major", LINKSTATE_TL_GREEN_MAJOR },
-    { "Green-Minor", LINKSTATE_TL_GREEN_MINOR },
-    { "Yellow-Major", LINKSTATE_TL_YELLOW_MAJOR },
-    { "Yellow-Minor", LINKSTATE_TL_YELLOW_MINOR },
-    { "Red", LINKSTATE_TL_RED },
-    { "Red-Yellow", LINKSTATE_TL_REDYELLOW },
-    { "Stop", LINKSTATE_STOP },
-    { "Off", LINKSTATE_TL_OFF_NOSIGNAL },
-    { "Off-Blinking", LINKSTATE_TL_OFF_BLINKING },
+    { "Green-Major",    LINKSTATE_TL_GREEN_MAJOR },
+    { "Green-Minor",    LINKSTATE_TL_GREEN_MINOR },
+    { "Yellow-Major",   LINKSTATE_TL_YELLOW_MAJOR },
+    { "Yellow-Minor",   LINKSTATE_TL_YELLOW_MINOR },
+    { "Red",            LINKSTATE_TL_RED },
+    { "Red-Yellow",     LINKSTATE_TL_REDYELLOW },
+    { "Stop",           LINKSTATE_STOP },
+    { "Off",            LINKSTATE_TL_OFF_NOSIGNAL },
+    { "Off-Blinking",   LINKSTATE_TL_OFF_BLINKING },
 };
 
 const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
@@ -64,8 +56,10 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
+GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent, 
+    const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GUIGlObject(editor == nullptr ? GLO_JUNCTION : GLO_TLLOGIC, id),
+    myJunctionParent(junctionParent),
     myState(state),
     myStateTarget(myState),
     myEditor(editor),
@@ -77,8 +71,12 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const std::string& i
 
 
 GNEInternalLane::GNEInternalLane() :
-    GUIGlObject(GLO_TLLOGIC, "dummyInternalLane") {
-    assert(false);
+    GUIGlObject(GLO_TLLOGIC, "dummyInternalLane"),
+    myJunctionParent(nullptr),
+    myState(0),
+    myEditor(0),
+    myTlIndex(0),
+    myPopup(nullptr) {
 }
 
 
@@ -107,19 +105,24 @@ GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
 
 void
 GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
-    glPushMatrix();
+    // push name
     glPushName(getGlID());
-    glTranslated(0, 0, GLO_JUNCTION + 0.1); // must draw on top of junction
+    // push layer matrix
+    glPushMatrix();
+    // translate to front
+    myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+    // set color
     GLHelper::setColor(colorForLinksState(myState));
-    // draw lane
-    // check whether it is not too small
+    // draw lane checking whether it is not too small
     if (s.scale < 1.) {
         GLHelper::drawLine(myInternalLaneGeometry.getShape());
     } else {
         GNEGeometry::drawGeometry(myEditor->getViewNet(), myInternalLaneGeometry, 0.2);
     }
-    glPopName();
+    // pop layer matrix
     glPopMatrix();
+    // pop name
+    glPopName();
 }
 
 

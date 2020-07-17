@@ -44,14 +44,15 @@ public:
 
     /**@brief Constructor
      * @param[in] editor The editor to notify about changes
+     * @param[in] junctionParent junction parent
      * @param[in] id The id of this internal lane
      * @param[in] shape The shape of the lane
      * @param[in] tlIndex The tl-index of the lane
      */
-    GNEInternalLane(GNETLSEditorFrame* editor, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
+    GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent, const std::string& id, const PositionVector& shape, int tlIndex, LinkState state = LINKSTATE_DEADEND);
 
     /// @brief Destructor
-    virtual ~GNEInternalLane();
+    ~GNEInternalLane();
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -110,6 +111,9 @@ protected:
     GNEInternalLane();
 
 private:
+    /// @brief pointer to junction parent
+    const GNEJunction* myJunctionParent;
+
     /// @brief internal lane geometry
     GNEGeometry::Geometry myInternalLaneGeometry;
 
@@ -140,8 +144,8 @@ private:
     static const std::string& longNameForLinkState(FXuint state);
 
     /// @brief Invalidated copy constructor.
-    GNEInternalLane(const GNEInternalLane&);
+    GNEInternalLane(const GNEInternalLane&) = delete;
 
     /// @brief Invalidated assignment operator.
-    GNEInternalLane& operator=(const GNEInternalLane&);
+    GNEInternalLane& operator=(const GNEInternalLane&) = delete;
 };
