@@ -302,10 +302,38 @@ struct GNEViewNetHelper {
         /// @brief flag to enable/disable swap lane to edge
         bool mySwapLane2edge;
 
-    private:
+    protected:
+        /// @brief clear elements
+        void clearElements();
+
         /// @brief invert GUIGlObjects
         void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects);
 
+        /// @brief update attribute carrier elements
+        void updateAttributeCarriers(GNEAttributeCarrier* AC);
+
+        /// @brief update network elements
+        void updateNetworkElements(GNEAttributeCarrier* AC);
+
+        /// @brief update additional elements
+        void updateAdditionalElements(GNEAttributeCarrier* AC);
+
+        /// @brief update TAZ elements
+        void updateTAZElements(GNEAttributeCarrier* AC);
+
+        /// @brief update shape elements
+        void updateShapeElements(GNEAttributeCarrier* AC);
+
+        /// @brief update demand elements
+        void updateDemandElements(GNEAttributeCarrier* AC);
+
+        /// @brief update generic data elements
+        void updateGenericDataElements(GNEAttributeCarrier* AC);
+    
+        /// @brief update GUIGlObject for edges
+        void updateGUIGlObjectEdges(GNEAttributeCarrier* AC);
+
+    private:
         /// @brief default constructor
         ObjectsUnderCursor();
 
