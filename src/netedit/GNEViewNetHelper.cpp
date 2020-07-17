@@ -68,41 +68,67 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     // reset flag
     mySwapLane2edge = false;
     // clear elements
-    clearElements();
+    myEdgeObjects.clearElements();
+    myLaneObjects.clearElements();
     // set GUIGlObject in myGUIGlObjectLanes
-    sortGUIGlObjectsByAltitude(GUIGlObjects);
-    // iterate over GUIGlObjects
-    for (const auto& glObject : myGUIGlObjectLanes) {
-        // only continue if isn't GLO_NETWORKELEMENT (0)
-        if (glObject->getType() != GLO_NETWORKELEMENT) {
-            // cast attribute carrier from glObject
-            GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(glObject);
-            // only continue if attributeCarrier isn't nullptr;
-            if (AC) {
-                // update attribute carrier
-                updateAttributeCarriers(AC);
-                // cast specific network elemetns
-                if (AC->getTagProperty().isNetworkElement()) {
-                    // update network elements
-                    updateNetworkElements(AC);
-                } else if (AC->getTagProperty().isAdditionalElement()) {
-                    // update additional elements
-                    updateAdditionalElements(AC);
-                } else if (AC->getTagProperty().isTAZElement()) {
-                    // update TAZ elements
-                    updateTAZElements(AC);
-                } else if (AC->getTagProperty().isShape()) {
-                    // update shape elements
-                    updateShapeElements(AC);
-                } else if (AC->getTagProperty().isDemandElement()) {
-                    // update demand elements
-                    updateDemandElements(AC);
-                } else if (AC->getTagProperty().isGenericData()) {
-                    // update generic datas
-                    updateGenericDataElements(AC);
-                }
-                // update GUIGlObjects edges (note: Must be the last call)
-                updateGUIGlObjectEdges(AC);
+    sortAndUpdateGUIGlObjects(GUIGlObjects);
+    // iterate over myGUIGlObjectLanes
+    for (const auto& glObject : myEdgeObjects.GUIGlObjects) {
+        // cast attribute carrier from glObject
+        GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(glObject);
+        // only continue if attributeCarrier isn't nullptr;
+        if (AC) {
+            // update attribute carrier
+            updateAttributeCarriers(myEdgeObjects, AC);
+            // cast specific network elemetns
+            if (AC->getTagProperty().isNetworkElement()) {
+                // update network elements
+                updateNetworkElements(myEdgeObjects, AC);
+            } else if (AC->getTagProperty().isAdditionalElement()) {
+                // update additional elements
+                updateAdditionalElements(myEdgeObjects, AC);
+            } else if (AC->getTagProperty().isTAZElement()) {
+                // update TAZ elements
+                updateTAZElements(myEdgeObjects, AC);
+            } else if (AC->getTagProperty().isShape()) {
+                // update shape elements
+                updateShapeElements(myEdgeObjects, AC);
+            } else if (AC->getTagProperty().isDemandElement()) {
+                // update demand elements
+                updateDemandElements(myEdgeObjects, AC);
+            } else if (AC->getTagProperty().isGenericData()) {
+                // update generic datas
+                updateGenericDataElements(myEdgeObjects, AC);
+            }
+        }
+    }
+    // iterate over myGUIGlObjectLanes
+    for (const auto& glObject : myLaneObjects.GUIGlObjects) {
+        // cast attribute carrier from glObject
+        GNEAttributeCarrier* AC = dynamic_cast<GNEAttributeCarrier*>(glObject);
+        // only continue if attributeCarrier isn't nullptr;
+        if (AC) {
+            // update attribute carrier
+            updateAttributeCarriers(myLaneObjects, AC);
+            // cast specific network elemetns
+            if (AC->getTagProperty().isNetworkElement()) {
+                // update network elements
+                updateNetworkElements(myLaneObjects, AC);
+            } else if (AC->getTagProperty().isAdditionalElement()) {
+                // update additional elements
+                updateAdditionalElements(myLaneObjects, AC);
+            } else if (AC->getTagProperty().isTAZElement()) {
+                // update TAZ elements
+                updateTAZElements(myLaneObjects, AC);
+            } else if (AC->getTagProperty().isShape()) {
+                // update shape elements
+                updateShapeElements(myLaneObjects, AC);
+            } else if (AC->getTagProperty().isDemandElement()) {
+                // update demand elements
+                updateDemandElements(myLaneObjects, AC);
+            } else if (AC->getTagProperty().isGenericData()) {
+                // update generic datas
+                updateGenericDataElements(myLaneObjects, AC);
             }
         }
     }
@@ -119,15 +145,17 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
 GUIGlID
 GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
     if (mySwapLane2edge) {
-        if (myGUIGlObjectEdges.size() > 0) {
-            return myGUIGlObjectEdges.front()->getGlID();
+        if (myEdgeObjects.GUIGlObjects.size() > 0) {
+            return myEdgeObjects.GUIGlObjects.front()->getGlID();
         } else {
             return 0;
         }
-    } else if (myGUIGlObjectLanes.size() > 0) {
-        return myGUIGlObjectLanes.front()->getGlID();
     } else {
-        return 0;
+        if (myLaneObjects.GUIGlObjects.size() > 0) {
+            return myLaneObjects.GUIGlObjects.front()->getGlID();
+        } else {
+            return 0;
+        }
     }
 }
 
@@ -135,15 +163,17 @@ GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
 GUIGlObjectType
 GNEViewNetHelper::ObjectsUnderCursor::getGlTypeFront() const {
     if (mySwapLane2edge) {
-        if (myGUIGlObjectEdges.size() > 0) {
-            return myGUIGlObjectEdges.front()->getType();
+        if (myEdgeObjects.GUIGlObjects.size() > 0) {
+            return myEdgeObjects.GUIGlObjects.front()->getType();
         } else {
             return GLO_NETWORK;
         }
-    } else if (myGUIGlObjectLanes.size() > 0) {
-        return myGUIGlObjectLanes.front()->getType();
     } else {
-        return GLO_NETWORK;
+        if (myLaneObjects.GUIGlObjects.size() > 0) {
+            return myLaneObjects.GUIGlObjects.front()->getType();
+        } else {
+            return GLO_NETWORK;
+        }
     }
 }
 
@@ -151,15 +181,17 @@ GNEViewNetHelper::ObjectsUnderCursor::getGlTypeFront() const {
 GNEAttributeCarrier*
 GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
     if (mySwapLane2edge) {
-        if (myAttributeCarrierEdges.size() > 0) {
-            return myAttributeCarrierEdges.front();
+        if (myEdgeObjects.attributeCarriers.size() > 0) {
+            return myEdgeObjects.attributeCarriers.front();
         } else {
             return nullptr;
         }
-    } else if (myAttributeCarrierLanes.size() > 0) {
-        return myAttributeCarrierLanes.front();
     } else {
-        return nullptr;
+        if (myLaneObjects.attributeCarriers.size() > 0) {
+            return myLaneObjects.attributeCarriers.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
@@ -167,165 +199,287 @@ GNEViewNetHelper::ObjectsUnderCursor::getAttributeCarrierFront() const {
 GNENetworkElement*
 GNEViewNetHelper::ObjectsUnderCursor::getNetworkElementFront() const {
     if (mySwapLane2edge) {
-        if (myNetworkElementEdges.size() > 0) {
-            return myNetworkElementEdges.front();
+        if (myEdgeObjects.networkElements.size() > 0) {
+            return myEdgeObjects.networkElements.front();
         } else {
             return nullptr;
         }
-    } else if (myNetworkElementLanes.size() > 0) {
-        return myNetworkElementLanes.front();
     } else {
-        return nullptr;
+        if (myLaneObjects.networkElements.size() > 0) {
+            return myLaneObjects.networkElements.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEAdditional*
 GNEViewNetHelper::ObjectsUnderCursor::getAdditionalFront() const {
-    if (myAdditionals.size() > 0) {
-        return myAdditionals.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.additionals.size() > 0) {
+            return myEdgeObjects.additionals.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.additionals.size() > 0) {
+            return myLaneObjects.additionals.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEShape*
 GNEViewNetHelper::ObjectsUnderCursor::getShapeFront() const {
-    if (myShapes.size() > 0) {
-        return myShapes.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.shapes.size() > 0) {
+            return myEdgeObjects.shapes.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.shapes.size() > 0) {
+            return myLaneObjects.shapes.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNETAZElement*
 GNEViewNetHelper::ObjectsUnderCursor::getTAZElementFront() const {
-    if (myTAZElements.size() > 0) {
-        return myTAZElements.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.TAZElements.size() > 0) {
+            return myEdgeObjects.TAZElements.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.TAZElements.size() > 0) {
+            return myLaneObjects.TAZElements.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEDemandElement*
 GNEViewNetHelper::ObjectsUnderCursor::getDemandElementFront() const {
-    if (myDemandElements.size() > 0) {
-        return myDemandElements.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.demandElements.size() > 0) {
+            return myEdgeObjects.demandElements.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.demandElements.size() > 0) {
+            return myLaneObjects.demandElements.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEGenericData*
 GNEViewNetHelper::ObjectsUnderCursor::getGenericDataElementFront() const {
-    if (myGenericDatas.size() > 0) {
-        return myGenericDatas.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.genericDatas.size() > 0) {
+            return myEdgeObjects.genericDatas.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.genericDatas.size() > 0) {
+            return myLaneObjects.genericDatas.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEJunction*
 GNEViewNetHelper::ObjectsUnderCursor::getJunctionFront() const {
-    if (myJunctions.size() > 0) {
-        return myJunctions.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.junctions.size() > 0) {
+            return myEdgeObjects.junctions.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.junctions.size() > 0) {
+            return myLaneObjects.junctions.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEEdge*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeFront() const {
-    if (myEdges.size() > 0) {
-        return myEdges.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.edges.size() > 0) {
+            return myEdgeObjects.edges.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.edges.size() > 0) {
+            return myLaneObjects.edges.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNELane*
 GNEViewNetHelper::ObjectsUnderCursor::getLaneFront() const {
-    if (myLanes.size() > 0) {
-        return myLanes.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.lanes.size() > 0) {
+            return myEdgeObjects.lanes.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.lanes.size() > 0) {
+            return myLaneObjects.lanes.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNECrossing*
 GNEViewNetHelper::ObjectsUnderCursor::getCrossingFront() const {
-    if (myCrossings.size() > 0) {
-        return myCrossings.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.crossings.size() > 0) {
+            return myEdgeObjects.crossings.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.crossings.size() > 0) {
+            return myLaneObjects.crossings.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEConnection*
 GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
-    if (myConnections.size() > 0) {
-        return myConnections.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.connections.size() > 0) {
+            return myEdgeObjects.connections.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.connections.size() > 0) {
+            return myLaneObjects.connections.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEPOI*
 GNEViewNetHelper::ObjectsUnderCursor::getPOIFront() const {
-    if (myPOIs.size() > 0) {
-        return myPOIs.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.POIs.size() > 0) {
+            return myEdgeObjects.POIs.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.POIs.size() > 0) {
+            return myLaneObjects.POIs.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEPoly*
 GNEViewNetHelper::ObjectsUnderCursor::getPolyFront() const {
-    if (myPolys.size() > 0) {
-        return myPolys.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.polys.size() > 0) {
+            return myEdgeObjects.polys.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.polys.size() > 0) {
+            return myLaneObjects.polys.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNETAZ*
 GNEViewNetHelper::ObjectsUnderCursor::getTAZFront() const {
-    if (myTAZs.size() > 0) {
-        return myTAZs.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.TAZs.size() > 0) {
+            return myEdgeObjects.TAZs.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.TAZs.size() > 0) {
+            return myLaneObjects.TAZs.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEEdgeData*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeDataElementFront() const {
-    if (myEdgeDatas.size() > 0) {
-        return myEdgeDatas.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.edgeDatas.size() > 0) {
+            return myEdgeObjects.edgeDatas.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.edgeDatas.size() > 0) {
+            return myLaneObjects.edgeDatas.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
 
 GNEEdgeRelData*
 GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
-    if (myEdgeRelDatas.size() > 0) {
-        return myEdgeRelDatas.front();
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.edgeRelDatas.size() > 0) {
+            return myEdgeObjects.edgeRelDatas.front();
+        } else {
+            return nullptr;
+        }
     } else {
-        return nullptr;
+        if (myLaneObjects.edgeRelDatas.size() > 0) {
+            return myLaneObjects.edgeRelDatas.front();
+        } else {
+            return nullptr;
+        }
     }
 }
 
@@ -333,187 +487,149 @@ GNEViewNetHelper::ObjectsUnderCursor::getEdgeRelDataElementFront() const {
 const std::vector<GNEAttributeCarrier*>&
 GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {
     if (mySwapLane2edge) {
-        return myAttributeCarrierEdges;
+        return myEdgeObjects.attributeCarriers;
     } else {
-        return myAttributeCarrierLanes;
+        return myLaneObjects.attributeCarriers;
     }
 }
 
+ 
+GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::ObjectsContainer() {}
+
 
 void 
-GNEViewNetHelper::ObjectsUnderCursor::clearElements() {
-    // first clear all containers
-    myGUIGlObjectLanes.clear();
-    myGUIGlObjectEdges.clear();
-    myAttributeCarrierLanes.clear();
-    myAttributeCarrierEdges.clear();
-    myNetworkElementLanes.clear();
-    myNetworkElementEdges.clear();
-    myAdditionals.clear();
-    myShapes.clear();
-    myTAZElements.clear();
-    myDemandElements.clear();
-    myJunctions.clear();
-    myEdges.clear();
-    myLanes.clear();
-    myCrossings.clear();
-    myConnections.clear();
-    myTAZs.clear();
-    myPOIs.clear();
-    myPolys.clear();
-    myGenericDatas.clear();
-    myEdgeDatas.clear();
-    myEdgeRelDatas.clear();
+GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
+    // just clear all containers
+    GUIGlObjects.clear();
+    attributeCarriers.clear();
+    networkElements.clear();
+    additionals.clear();
+    shapes.clear();
+    TAZElements.clear();
+    demandElements.clear();
+    junctions.clear();
+    edges.clear();
+    lanes.clear();
+    crossings.clear();
+    connections.clear();
+    TAZs.clear();
+    POIs.clear();
+    polys.clear();
+    genericDatas.clear();
+    edgeDatas.clear();
+    edgeRelDatas.clear();
 }
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects) {
+GNEViewNetHelper::ObjectsUnderCursor::sortAndUpdateGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects) {
     // declare a map to save GUIGlObjects sorted by GLO_TYPE
     std::map<GUIGlObjectType, std::vector<GUIGlObject*> > mySortedGUIGlObjects;
+    // iterate over set
     for (const auto& GLObject : GUIGlObjects) {
         mySortedGUIGlObjects[GLObject->getType()].push_back(GLObject);
     }
     // move sorted GUIGlObjects into myGUIGlObjectLanes using a reverse iterator
     for (std::map<GUIGlObjectType, std::vector<GUIGlObject*> >::reverse_iterator i = mySortedGUIGlObjects.rbegin(); i != mySortedGUIGlObjects.rend(); i++) {
         for (const auto& GLObject : i->second) {
-            myGUIGlObjectLanes.push_back(GLObject);
+            // avoid GLO_NETWORKELEMENT
+            if (GLObject->getType() != GLO_NETWORKELEMENT) {
+                // add it in GUIGlObject splitting by edge/lanes
+                if (GLObject->getType() == GLO_EDGE) {
+                    myEdgeObjects.GUIGlObjects.push_back(GLObject);
+                } else if (GLObject->getType() == GLO_LANE) {
+                    myLaneObjects.GUIGlObjects.push_back(GLObject);
+                } else {
+                    myEdgeObjects.GUIGlObjects.push_back(GLObject);
+                    myLaneObjects.GUIGlObjects.push_back(GLObject);
+                }
+            }
         }
     }
 }
 
 
 void 
-GNEViewNetHelper::ObjectsUnderCursor::updateAttributeCarriers(GNEAttributeCarrier* AC) {
+GNEViewNetHelper::ObjectsUnderCursor::updateAttributeCarriers(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
     // add it in myAttributeCarrierLanes and myAttributeCarrierEdges
     if (AC == frontAC) {
         // insert at front
-        myAttributeCarrierLanes.insert(myAttributeCarrierLanes.begin(), AC);
-        myAttributeCarrierEdges.insert(myAttributeCarrierLanes.end(), AC);
+        container.attributeCarriers.insert(container.attributeCarriers.begin(), AC);
     } else {
         // insert at back
-        myAttributeCarrierLanes.push_back(AC);
-        myAttributeCarrierEdges.push_back(AC);
+        container.attributeCarriers.push_back(AC);
     }
 }
 
 
 void 
-GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(GNEAttributeCarrier* AC) {
+GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
+    // check front element
+    if (AC == frontAC) {
+        // insert at front
+        container.networkElements.insert(container.networkElements.begin(), dynamic_cast<GNENetworkElement*>(AC));
+    } else {
+        // insert at back
+        container.networkElements.push_back(dynamic_cast<GNENetworkElement*>(AC));
+    }
     // cast specific network element
     switch (AC->getGUIGlObject()->getType()) {
         case GLO_JUNCTION: {
-            // cast Junction
-            GNEJunction* junction = dynamic_cast<GNEJunction*>(AC);
-            if (junction) {
-                myJunctions.push_back(junction);
-                // add it in network containers
-                if (AC == frontAC) {
-                    // insert at front
-                    myNetworkElementLanes.insert(myNetworkElementLanes.begin(), junction);
-                    myNetworkElementEdges.insert(myNetworkElementEdges.begin(), junction);
-                } else {
-                    // insert at back
-                    myNetworkElementLanes.push_back(junction);
-                    myNetworkElementEdges.push_back(junction);
-                }
+            // check front element
+            if (AC == frontAC) {
+                // insert at front
+                container.junctions.insert(container.junctions.begin(), dynamic_cast<GNEJunction*>(AC));
             } else {
-                throw ProcessError("invalid cast");
+                // insert at back
+                container.junctions.push_back(dynamic_cast<GNEJunction*>(AC));
             }
             break;
         }
         case GLO_EDGE: {
-            // cast Edge
-            GNEEdge* edge = dynamic_cast<GNEEdge*>(AC);
-            if (edge) {
-                myEdges.push_back(edge);
-                // add it in network containers
-                if (AC == frontAC) {
-                    // insert at front
-                    myNetworkElementLanes.insert(myNetworkElementLanes.begin(), edge);
-                    myNetworkElementEdges.insert(myNetworkElementEdges.begin(), edge);
-                } else {
-                    // insert at back
-                    myNetworkElementLanes.push_back(edge);
-                    myNetworkElementEdges.push_back(edge);
-                }
+            // check front element
+            if (AC == frontAC) {
+                // insert at front
+                container.edges.insert(container.edges.begin(), dynamic_cast<GNEEdge*>(AC));
             } else {
-                throw ProcessError("invalid cast");
+                // insert at back
+                container.edges.push_back(dynamic_cast<GNEEdge*>(AC));
             }
             break;
         }
         case GLO_LANE: {
-            // cast Lane
-            GNELane* lane = dynamic_cast<GNELane*>(AC);
-            if (lane) {
-                myLanes.push_back(lane);
-                myEdges.push_back(lane->getParentEdge());
-                // add it in network containers
-                if (AC == frontAC) {
-                    // insert at front
-                    myNetworkElementLanes.insert(myNetworkElementLanes.begin(), lane);
-                    myNetworkElementEdges.insert(myNetworkElementEdges.begin(), lane);
-                } else {
-                    // insert at back
-                    myNetworkElementLanes.push_back(lane);
-                    myNetworkElementEdges.push_back(lane->getParentEdge());
-                }
-                // change last inserted attribute carrier
-                if (AC == frontAC) {
-                    // insert at front
-                    myAttributeCarrierEdges.erase(myAttributeCarrierEdges.begin());
-                    myAttributeCarrierEdges.insert(myAttributeCarrierEdges.begin(), lane->getParentEdge());
-                } else {
-                    // insert at back
-                    myAttributeCarrierEdges.pop_back();
-                    myAttributeCarrierEdges.push_back(lane->getParentEdge());
-                }
+            // check front element
+            if (AC == frontAC) {
+                // insert at front
+                container.lanes.insert(container.lanes.begin(), dynamic_cast<GNELane*>(AC));
             } else {
-                throw ProcessError("invalid cast");
+                // insert at back
+                container.lanes.push_back(dynamic_cast<GNELane*>(AC));
             }
             break;
         }
         case GLO_CROSSING: {
-            // cast Crossing
-            GNECrossing* crossing = dynamic_cast<GNECrossing*>(AC);
-            if (crossing) {
-                myCrossings.push_back(crossing);
-                // add it in network containers
-                if (AC == frontAC) {
-                    // insert at front
-                    myNetworkElementLanes.insert(myNetworkElementLanes.begin(), crossing);
-                    myNetworkElementEdges.insert(myNetworkElementEdges.begin(), crossing);
-                } else {
-                    // insert at back
-                    myNetworkElementLanes.push_back(crossing);
-                    myNetworkElementEdges.push_back(crossing);
-                }
+            // check front element
+            if (AC == frontAC) {
+                // insert at front
+                container.crossings.insert(container.crossings.begin(), dynamic_cast<GNECrossing*>(AC));
             } else {
-                throw ProcessError("invalid cast");
+                // insert at back
+                container.crossings.push_back(dynamic_cast<GNECrossing*>(AC));
             }
             break;
         }
         case GLO_CONNECTION: {
-            // cast Connection
-            GNEConnection* connection = dynamic_cast<GNEConnection*>(AC);
-            if (connection) {
-                myConnections.push_back(connection);
-                // add it in network containers
-                if (AC == frontAC) {
-                    // insert at front
-                    myNetworkElementLanes.insert(myNetworkElementLanes.begin(), connection);
-                    myNetworkElementEdges.insert(myNetworkElementEdges.begin(), connection);
-                } else {
-                    // insert at back
-                    myNetworkElementLanes.push_back(connection);
-                    myNetworkElementEdges.push_back(connection);
-                }
+            // check front element
+            if (AC == frontAC) {
+                // insert at front
+                container.connections.insert(container.connections.begin(), dynamic_cast<GNEConnection*>(AC));
             } else {
-                throw ProcessError("invalid cast");
+                // insert at back
+                container.connections.push_back(dynamic_cast<GNEConnection*>(AC));
             }
             break;
         }
@@ -524,41 +640,42 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(GNEAttributeCarrier*
 
 
 void 
-GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(GNEAttributeCarrier* AC) {
+GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
     // cast additional element from attribute carrier
     if (AC == frontAC) {
         // insert at front
-        myAdditionals.insert(myAdditionals.begin(), dynamic_cast<GNEAdditional*>(AC));
+        container.additionals.insert(container.additionals.begin(), dynamic_cast<GNEAdditional*>(AC));
     } else {
         // insert at back
-        myAdditionals.push_back(dynamic_cast<GNEAdditional*>(AC));
+        container.additionals.push_back(dynamic_cast<GNEAdditional*>(AC));
     }
 }
 
 
 void 
-GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(GNEAttributeCarrier* AC) {
+GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
     // cast TAZ element from attribute carrier
     if (AC == frontAC) {
         // insert at front
-        myTAZElements.insert(myTAZElements.begin(), dynamic_cast<GNETAZElement*>(AC));
+        container.TAZElements.insert(container.TAZElements.begin(), dynamic_cast<GNETAZElement*>(AC));
     } else {
         // insert at back
-        myTAZElements.push_back(dynamic_cast<GNETAZElement*>(AC));
+        container.TAZElements.push_back(dynamic_cast<GNETAZElement*>(AC));
     }
     // cast specific TAZ
     switch (AC->getGUIGlObject()->getType()) {
         case GLO_TAZ:
+            // check front element
             if (AC == frontAC) {
                 // insert at front
-                myTAZs.insert(myTAZs.begin(), dynamic_cast<GNETAZ*>(AC));
+                container.TAZs.insert(container.TAZs.begin(), dynamic_cast<GNETAZ*>(AC));
             } else {
                 // insert at back
-                myTAZs.push_back(dynamic_cast<GNETAZ*>(AC));
+                container.TAZs.push_back(dynamic_cast<GNETAZ*>(AC));
             }
             break;
         default:
@@ -568,35 +685,37 @@ GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(GNEAttributeCarrier* AC)
 
 
 void 
-GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(GNEAttributeCarrier* AC) {
+GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
     // cast shape element from attribute carrier
     if (AC == frontAC) {
         // insert at front
-        myShapes.insert(myShapes.begin(), dynamic_cast<GNEShape*>(AC));
+        container.shapes.insert(container.shapes.begin(), dynamic_cast<GNEShape*>(AC));
     } else {
         // insert at back
-        myShapes.push_back(dynamic_cast<GNEShape*>(AC));
+        container.shapes.push_back(dynamic_cast<GNEShape*>(AC));
     }
     // cast specific shape
     switch (AC->getGUIGlObject()->getType()) {
         case GLO_POI:
+            // check front element
             if (AC == frontAC) {
                 // insert at front
-                myPOIs.insert(myPOIs.begin(), dynamic_cast<GNEPOI*>(AC));
+                container.POIs.insert(container.POIs.begin(), dynamic_cast<GNEPOI*>(AC));
             } else {
                 // insert at back
-                myPOIs.push_back(dynamic_cast<GNEPOI*>(AC));
+                container.POIs.push_back(dynamic_cast<GNEPOI*>(AC));
             }
             break;
         case GLO_POLYGON:
+            // check front element
             if (AC == frontAC) {
                 // insert at front
-                myPolys.insert(myPolys.begin(), dynamic_cast<GNEPoly*>(AC));
+                container.polys.insert(container.polys.begin(), dynamic_cast<GNEPoly*>(AC));
             } else {
                 // insert at back
-                myPolys.push_back(dynamic_cast<GNEPoly*>(AC));
+                container.polys.push_back(dynamic_cast<GNEPoly*>(AC));
             }
             break;
         default:
@@ -606,79 +725,56 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(GNEAttributeCarrier* A
 
 
 void 
-GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(GNEAttributeCarrier* AC) {
+GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
     // cast demand element from attribute carrier
     if (AC == frontAC) {
         // insert at front
-        myDemandElements.insert(myDemandElements.begin(), dynamic_cast<GNEDemandElement*>(AC));
+        container.demandElements.insert(container.demandElements.begin(), dynamic_cast<GNEDemandElement*>(AC));
     } else {
         // insert at back
-        myDemandElements.push_back(dynamic_cast<GNEDemandElement*>(AC));
+        container.demandElements.push_back(dynamic_cast<GNEDemandElement*>(AC));
     }
 }
 
 
 void 
-GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(GNEAttributeCarrier* AC) {
+GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
     // cast generic data from attribute carrier
     if (AC == frontAC) {
         // insert at front
-        myGenericDatas.insert(myGenericDatas.begin(), dynamic_cast<GNEGenericData*>(AC));
+        container.genericDatas.insert(container.genericDatas.begin(), dynamic_cast<GNEGenericData*>(AC));
     } else {
         // insert at back
-        myGenericDatas.push_back(dynamic_cast<GNEGenericData*>(AC));
+        container.genericDatas.push_back(dynamic_cast<GNEGenericData*>(AC));
     }
     // cast specific generic data
     switch (AC->getGUIGlObject()->getType()) {
         case GLO_EDGEDATA:
+            // check front element
             if (AC == frontAC) {
                 // insert at front
-                myEdgeDatas.insert(myEdgeDatas.begin(), dynamic_cast<GNEEdgeData*>(AC));
+                container.edgeDatas.insert(container.edgeDatas.begin(), dynamic_cast<GNEEdgeData*>(AC));
             } else {
                 // insert at back
-                myEdgeDatas.push_back(dynamic_cast<GNEEdgeData*>(AC));
+                container.edgeDatas.push_back(dynamic_cast<GNEEdgeData*>(AC));
             }
             break;
         case GLO_EDGERELDATA:
+            // check front element
             if (AC == frontAC) {
                 // insert at front
-                myEdgeRelDatas.insert(myEdgeRelDatas.begin(), dynamic_cast<GNEEdgeRelData*>(AC));
+                container.edgeRelDatas.insert(container.edgeRelDatas.begin(), dynamic_cast<GNEEdgeRelData*>(AC));
             } else {
                 // insert at back
-                myEdgeRelDatas.push_back(dynamic_cast<GNEEdgeRelData*>(AC));
+                container.edgeRelDatas.push_back(dynamic_cast<GNEEdgeRelData*>(AC));
             }
             break;
         default:
             break;
-    }
-}
-
-
-void 
-GNEViewNetHelper::ObjectsUnderCursor::updateGUIGlObjectEdges(GNEAttributeCarrier* AC) {
-    // get front AC
-    const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
-    // fill myGUIGlObjectEdges
-    if (AC->getTagProperty().getTag() == SUMO_TAG_LANE) {
-        if (AC == frontAC) {
-            // insert at front
-            myGUIGlObjectEdges.insert(myGUIGlObjectEdges.begin(), myLanes.back()->getParentEdge());
-        } else {
-            // insert at back
-            myGUIGlObjectEdges.push_back(myLanes.back()->getParentEdge());
-        }
-    } else {
-        if (AC == frontAC) {
-            // insert at front
-            myGUIGlObjectEdges.insert(myGUIGlObjectEdges.begin(), AC->getGUIGlObject());
-        } else {
-            // insert at back
-            myGUIGlObjectEdges.push_back(AC->getGUIGlObject());
-        }
     }
 }
 

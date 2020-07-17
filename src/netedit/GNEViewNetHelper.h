@@ -171,6 +171,7 @@ struct GNEViewNetHelper {
 
     /// @brief class used to group all variables related with objects under cursor after a click over view
     class ObjectsUnderCursor {
+
     public:
         /// @brief constructor
         ObjectsUnderCursor(GNEViewNet* viewNet);
@@ -242,98 +243,115 @@ struct GNEViewNetHelper {
         const std::vector<GNEAttributeCarrier*>& getClickedAttributeCarriers() const;
 
     protected:
+        /// @brief objects container
+        class ObjectsContainer {
+        
+        public:
+            /// @brief constructor
+            ObjectsContainer();
+
+            /// @brief clear elements
+            void clearElements();
+
+            /// @brief vector with the clicked GUIGlObjects
+            std::vector<GUIGlObject*> GUIGlObjects;
+
+            /// @brief vector with the clicked attribute carriers
+            std::vector<GNEAttributeCarrier*> attributeCarriers;
+
+            /// @brief vector with the clicked network elements
+            std::vector<GNENetworkElement*> networkElements;
+
+            /// @brief vector with the clicked additional elements
+            std::vector<GNEAdditional*> additionals;
+
+            /// @brief vector with the clicked shape elements (Poly and POIs)
+            std::vector<GNEShape*> shapes;
+
+            /// @brief vector with the clicked TAZ elements
+            std::vector<GNETAZElement*> TAZElements;
+
+            /// @brief vector with the clicked demand elements
+            std::vector<GNEDemandElement*> demandElements;
+
+            /// @brief vector with the clicked generic datas
+            std::vector<GNEGenericData*> genericDatas;
+
+            /// @brief vector with the clicked junctions
+            std::vector<GNEJunction*> junctions;
+
+            /// @brief vector with the clicked edges
+            std::vector<GNEEdge*> edges;
+
+            /// @brief vector with the clicked lanes
+            std::vector<GNELane*> lanes;
+
+            /// @brief vector with the clicked crossings
+            std::vector<GNECrossing*> crossings;
+
+            /// @brief vector with the clicked connections
+            std::vector<GNEConnection*> connections;
+
+            /// @brief vector with the clicked TAZ elements
+            std::vector<GNETAZ*> TAZs;
+
+            /// @brief vector with the clicked POIs
+            std::vector<GNEPOI*> POIs;
+
+            /// @brief vector with the clicked polys
+            std::vector<GNEPoly*> polys;
+
+            /// @brief vector with the clicked edge datas
+            std::vector<GNEEdgeData*> edgeDatas;
+
+            /// @brief vector with the clicked edge relation datas
+            std::vector<GNEEdgeRelData*> edgeRelDatas;
+
+        private:
+            /// @brief Invalidated copy constructor.
+            ObjectsContainer(const ObjectsContainer&) = delete;
+
+            /// @brief Invalidated assignment operator.
+            ObjectsContainer& operator=(const ObjectsContainer&) = delete;
+        };
+
         /// @brief pointer to viewNet
         const GNEViewNet* myViewNet;
 
-        /// @brief vector with the clicked GUIGlObjects
-        std::vector<GUIGlObject*> myGUIGlObjectLanes, myGUIGlObjectEdges;
-
-        /// @brief vector with the clicked attribute carriers
-        std::vector<GNEAttributeCarrier*> myAttributeCarrierLanes, myAttributeCarrierEdges;
-
-        /// @brief vector with the clicked network elements
-        std::vector<GNENetworkElement*> myNetworkElementLanes, myNetworkElementEdges;
-
-        /// @brief vector with the clicked additional elements
-        std::vector<GNEAdditional*> myAdditionals;
-
-        /// @brief vector with the clicked shape elements (Poly and POIs)
-        std::vector<GNEShape*> myShapes;
-
-        /// @brief vector with the clicked TAZ elements
-        std::vector<GNETAZElement*> myTAZElements;
-
-        /// @brief vector with the clicked demand elements
-        std::vector<GNEDemandElement*> myDemandElements;
-
-        /// @brief vector with the clicked generic datas
-        std::vector<GNEGenericData*> myGenericDatas;
-
-        /// @brief vector with the clicked junctions
-        std::vector<GNEJunction*> myJunctions;
-
-        /// @brief vector with the clicked edges
-        std::vector<GNEEdge*> myEdges;
-
-        /// @brief vector with the clicked lanes
-        std::vector<GNELane*> myLanes;
-
-        /// @brief vector with the clicked crossings
-        std::vector<GNECrossing*> myCrossings;
-
-        /// @brief vector with the clicked connections
-        std::vector<GNEConnection*> myConnections;
-
-        /// @brief vector with the clicked TAZ elements
-        std::vector<GNETAZ*> myTAZs;
-
-        /// @brief vector with the clicked POIs
-        std::vector<GNEPOI*> myPOIs;
-
-        /// @brief vector with the clicked Polys
-        std::vector<GNEPoly*> myPolys;
-
-        /// @brief vector with the clicked edge datas
-        std::vector<GNEEdgeData*> myEdgeDatas;
-
-        /// @brief vector with the clicked edge relation datas
-        std::vector<GNEEdgeRelData*> myEdgeRelDatas;
+        /// @brief objectContainer for objects selecting edges
+        ObjectsContainer myEdgeObjects;
+        
+        /// @brief objectContainer for objects selecting lanes
+        ObjectsContainer myLaneObjects;
 
         /// @brief flag to enable/disable swap lane to edge
         bool mySwapLane2edge;
 
-    protected:
-        /// @brief clear elements
-        void clearElements();
-
-        /// @brief invert GUIGlObjects
-        void sortGUIGlObjectsByAltitude(const std::vector<GUIGlObject*>& GUIGlObjects);
+    private:
+        /// @brief sort by altitude and update GUIGlObjects
+        void sortAndUpdateGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects);
 
         /// @brief update attribute carrier elements
-        void updateAttributeCarriers(GNEAttributeCarrier* AC);
+        void updateAttributeCarriers(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
         /// @brief update network elements
-        void updateNetworkElements(GNEAttributeCarrier* AC);
+        void updateNetworkElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
         /// @brief update additional elements
-        void updateAdditionalElements(GNEAttributeCarrier* AC);
+        void updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
         /// @brief update TAZ elements
-        void updateTAZElements(GNEAttributeCarrier* AC);
+        void updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
         /// @brief update shape elements
-        void updateShapeElements(GNEAttributeCarrier* AC);
+        void updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
         /// @brief update demand elements
-        void updateDemandElements(GNEAttributeCarrier* AC);
+        void updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
         /// @brief update generic data elements
-        void updateGenericDataElements(GNEAttributeCarrier* AC);
-    
-        /// @brief update GUIGlObject for edges
-        void updateGUIGlObjectEdges(GNEAttributeCarrier* AC);
+        void updateGenericDataElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
 
-    private:
         /// @brief default constructor
         ObjectsUnderCursor();
 
