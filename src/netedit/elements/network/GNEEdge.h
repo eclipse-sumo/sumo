@@ -294,6 +294,9 @@ public:
     // @brief update vehicle geometries
     void updateVehicleStackLabels();
 
+    /// @brief draw edge geometry points (note: This function is called by GNELane::drawGL(...)
+    void drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane *lane) const;
+
 protected:
     /// @brief the underlying NBEdge
     NBEdge* myNBEdge;
@@ -385,9 +388,6 @@ private:
 
     /// @brief get vehicles a that start over this edge
     const std::map<const GNELane*, std::vector<GNEDemandElement*> > getVehiclesOverEdgeMap() const;
-
-    /// @brief draw geometry points
-    void drawGeometryPoints(const GUIVisualizationSettings& s) const;
 
     /// @brief draw edge name
     void drawEdgeName(const GUIVisualizationSettings& s) const;

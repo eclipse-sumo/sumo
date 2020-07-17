@@ -545,7 +545,9 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
     const bool drawRailway = drawAsRailway(s);
     // we draw the lanes with reduced width so that the lane markings below are visible (this avoids artifacts at geometry corners without having to)
     const bool spreadSuperposed = s.spreadSuperposed && drawRailway && myParentEdge->getNBEdge()->isBidiRail();
-    // Push name
+    // Push edge parent name
+    glPushName(myParentEdge->getGlID());
+    // Push lane name
     glPushName(getGlID());
     // Push layer matrix
     glPushMatrix();
@@ -607,10 +609,14 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
             drawTextures(s, laneDrawingConstants);
             // draw start end shape points
             drawStartEndShapePoints(s);
+            // draw edge geometry points
+            myParentEdge->drawEdgeGeometryPoints(s, this);
         }
         // Pop layer matrix
         glPopMatrix();
-        // Pop Lane Name
+        // Pop lane Name
+        glPopName();
+        // Pop edge Name
         glPopName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
