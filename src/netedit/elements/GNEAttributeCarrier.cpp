@@ -3162,7 +3162,7 @@ GNEAttributeCarrier::fillPersonElements() {
         fillCommonPersonAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag, true);
+        fillCommonFlowAttributes(currentTag, false);
     }
 }
 

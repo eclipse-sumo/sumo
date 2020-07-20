@@ -1778,7 +1778,12 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* 
         attr = SUMO_ATTR_NUMBER;
         value = myValueNumberTextField->getText().text();
     } else if (obj == myValueVehsPerHourTextField) {
-        attr = SUMO_ATTR_VEHSPERHOUR;
+        // check attribute
+        if (myAttributesEditorParent->getEditedACs().front()->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+            attr = SUMO_ATTR_VEHSPERHOUR;
+        } else {
+            attr = SUMO_ATTR_PERSONSPERHOUR;
+        }
         value = myValueVehsPerHourTextField->getText().text();
     } else if (obj == myValuePeriodTextField) {
         attr = SUMO_ATTR_PERIOD;
@@ -1932,16 +1937,24 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
 
 void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
-    // first we need to check if all attributes are enabled or disabled
+    // declare attribute
+    SumoXMLAttr attr = SUMO_ATTR_VEHSPERHOUR;
+    // first change attribute
+    if (myAttributesEditorParent->getEditedACs().front()->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
+        attr = SUMO_ATTR_PERSONSPERHOUR;
+    }
+    // update radio button
+    myAttributeVehsPerHourRadioButton->setText(toString(attr).c_str());
+    // we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
     for (const auto& i : myAttributesEditorParent->getEditedACs()) {
-        allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR);
+        allAttributesEnabledOrDisabled += i->isAttributeEnabled(attr);
     }
     if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
         for (const auto& values : myAttributesEditorParent->getEditedACs()) {
-            occuringValues.insert(values->getAttribute(SUMO_ATTR_VEHSPERHOUR));
+            occuringValues.insert(values->getAttribute(attr));
         }
         // get current value
         std::ostringstream vehsPerHourValues;
@@ -1962,7 +1975,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
         if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
             myValueVehsPerHourTextField->setText("Different flow attributes");
         } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
-            myValueVehsPerHourTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_VEHSPERHOUR).c_str());
+            myValueVehsPerHourTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(attr).c_str());
         } else {
             myValueVehsPerHourTextField->setText("");
         }
