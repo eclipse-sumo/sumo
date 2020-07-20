@@ -39,7 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
-    GNEChange(demandElement, demandElement, forward, demandElement->isAttributeCarrierSelected()),
+    GNEChange(demandElement, forward, demandElement->isAttributeCarrierSelected()),
     myDemandElement(demandElement),
     myPath(demandElement->getPath()) {
     myDemandElement->incRef("GNEChange_DemandElement");

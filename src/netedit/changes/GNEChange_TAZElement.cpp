@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_TAZElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_TAZElement::GNEChange_TAZElement(GNETAZElement* TAZElement, bool forward) :
-    GNEChange(TAZElement, TAZElement, forward, TAZElement->isAttributeCarrierSelected()),
+    GNEChange(TAZElement, forward, TAZElement->isAttributeCarrierSelected()),
     myTAZElement(TAZElement) {
     myTAZElement->incRef("GNEChange_TAZElement");
 }

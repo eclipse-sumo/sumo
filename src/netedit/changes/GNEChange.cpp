@@ -65,23 +65,23 @@ GNEChange::GNEChange(bool forward, const bool selectedElement) :
     myChildGenericDatas(myEmptyGenericDatas) {}
 
 
-GNEChange::GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* childs, bool forward, const bool selectedElement) :
+GNEChange::GNEChange(GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
     myForward(forward),
     mySelectedElement(selectedElement),
-    myParentEdges(parents->getParentEdges()),
-    myParentLanes(parents->getParentLanes()),
-    myParentAdditionals(parents->getParentAdditionals()),
-    myParentShapes(parents->getParentShapes()),
-    myParentTAZElements(parents->getParentTAZElements()),
-    myParentDemandElements(parents->getParentDemandElements()),
-    myParentGenericDatas(parents->getParentGenericDatas()),
-    myChildEdges(childs->getChildEdges()),
-    myChildLanes(childs->getChildLanes()),
-    myChildAdditionals(childs->getChildAdditionals()),
-    myChildShapes(childs->getChildShapes()),
-    myChildTAZElements(childs->getChildTAZElements()),
-    myChildDemandElements(childs->getChildDemandElements()),
-    myChildGenericDatas(childs->getChildGenericDatas()) {}
+    myParentEdges(hierarchicalElement->getParentEdges()),
+    myParentLanes(hierarchicalElement->getParentLanes()),
+    myParentAdditionals(hierarchicalElement->getParentAdditionals()),
+    myParentShapes(hierarchicalElement->getParentShapes()),
+    myParentTAZElements(hierarchicalElement->getParentTAZElements()),
+    myParentDemandElements(hierarchicalElement->getParentDemandElements()),
+    myParentGenericDatas(hierarchicalElement->getParentGenericDatas()),
+    myChildEdges(hierarchicalElement->getChildEdges()),
+    myChildLanes(hierarchicalElement->getChildLanes()),
+    myChildAdditionals(hierarchicalElement->getChildAdditionals()),
+    myChildShapes(hierarchicalElement->getChildShapes()),
+    myChildTAZElements(hierarchicalElement->getChildTAZElements()),
+    myChildDemandElements(hierarchicalElement->getChildDemandElements()),
+    myChildGenericDatas(hierarchicalElement->getChildGenericDatas()) {}
 
 
 GNEChange::~GNEChange() {}

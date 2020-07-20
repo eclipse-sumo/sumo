@@ -20,8 +20,7 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEHierarchicalParentElements.h>
-#include <netedit/elements/GNEHierarchicalChildElements.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/GNEGeometry.h>
 #include <netedit/GNEMoveShape.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -39,7 +38,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNENetworkElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements, protected GNEMoveShape {
+class GNENetworkElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElement, protected GNEMoveShape {
 
 public:
     /**@brief Constructor.

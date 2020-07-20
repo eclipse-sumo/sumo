@@ -34,7 +34,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Shape, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Shape::GNEChange_Shape(GNEShape* shape, bool forward) :
-    GNEChange(shape, shape, forward, shape->isAttributeCarrierSelected()),
+    GNEChange(shape, forward, shape->isAttributeCarrierSelected()),
     myShape(shape) {
     myShape->incRef("GNEChange_Shape");
 }

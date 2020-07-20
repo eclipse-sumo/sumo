@@ -39,6 +39,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GNEHierarchicalElement;
 class GNEAttributeCarrier;
 class GNEAdditional;
 class GNEDataSet;
@@ -51,8 +52,6 @@ class GNEShape;
 class GNETAZElement;
 class GNENet;
 class GNEViewNet;
-class GNEHierarchicalChildElements;
-class GNEHierarchicalParentElements;
 
 // ===========================================================================
 // class definitions
@@ -72,12 +71,11 @@ public:
     GNEChange(bool forward, const bool selectedElement);
 
     /**@brief Constructor
-     * @param[in] parents hierarchical parent elements
-     * @param[in] children hierarchical children elements
+     * @param[in] element hierarchical element
      * @param[in] forward The direction of this change
      * @param[in] selectedElement flag to mark if element is selected
      */
-    GNEChange(GNEHierarchicalParentElements* parents, GNEHierarchicalChildElements* children, bool forward, const bool selectedElement);
+    GNEChange(GNEHierarchicalElement* element, bool forward, const bool selectedElement);
 
     /// @brief Destructor
     ~GNEChange();

@@ -62,8 +62,8 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
     GUIGlObject(type, dataIntervalParent->getID()),
     GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
     Parameterised(ParameterisedAttrType::DOUBLE, parameters),
-    GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents,
+        junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
     GNEPathElements(this),
     myDataIntervalParent(dataIntervalParent) {
 }

@@ -20,15 +20,14 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEHierarchicalParentElements.h>
-#include <netedit/elements/GNEHierarchicalChildElements.h>
+#include <netedit/elements/GNEHierarchicalElement.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalParentElements, public GNEHierarchicalChildElements {
+class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalElement {
 
 public:
     /**@brief Constructor.

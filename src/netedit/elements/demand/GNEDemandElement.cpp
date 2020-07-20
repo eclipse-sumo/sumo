@@ -61,8 +61,8 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
-    GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents,
+        junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
     GNEPathElements(this),
     myStackedLabelNumber(0) {
 }
@@ -87,8 +87,8 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, demandElementParent->getID() + "_" + toString(tag)),
     GNEAttributeCarrier(tag, net),
-    GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents,
+        junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
     GNEPathElements(this),
     myStackedLabelNumber(0) {
 }

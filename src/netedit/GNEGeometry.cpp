@@ -17,6 +17,7 @@
 ///
 // File for geometry classes and functions
 /****************************************************************************/
+#include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNELane.h>
@@ -857,7 +858,7 @@ GNEGeometry::Lane2laneConnection::Lane2laneConnection() :
 // GNEHierarchicalParentElements::ParentConnections - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::ParentConnections::ParentConnections(GNEHierarchicalParentElements* hierarchicalElement) :
+GNEGeometry::ParentConnections::ParentConnections(GNEHierarchicalElement* hierarchicalElement) :
     myHierarchicalElement(hierarchicalElement) {}
 
 

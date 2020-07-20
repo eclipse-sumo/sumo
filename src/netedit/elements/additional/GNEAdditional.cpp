@@ -53,8 +53,8 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
-    GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents,
+        junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
     GNEPathElements(this),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -82,8 +82,8 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNENet* net, GUIGl
         const std::vector<GNEGenericData*>& genericDataChildren) :
     GUIGlObject(type, additionalParent->generateAdditionalChildID(tag)),
     GNEAttributeCarrier(tag, net),
-    GNEHierarchicalParentElements(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
-    GNEHierarchicalChildElements(this, junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents,
+        junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
     GNEPathElements(this),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),

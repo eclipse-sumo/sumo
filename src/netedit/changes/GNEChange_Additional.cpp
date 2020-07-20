@@ -35,7 +35,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_Additional, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_Additional::GNEChange_Additional(GNEAdditional* additional, bool forward) :
-    GNEChange(additional, additional, forward, additional->isAttributeCarrierSelected()),
+    GNEChange(additional, forward, additional->isAttributeCarrierSelected()),
     myAdditional(additional),
     myPath(additional->getPath()) {
     myAdditional->incRef("GNEChange_Additional");
