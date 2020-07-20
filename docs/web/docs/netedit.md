@@ -478,6 +478,11 @@ parallel
   - When dragging the edge, the edge will move locally and the
     junction will move in parallel
 
+#### Moving Polygons and TAZs
+
+- When clicking over an Polygon/TAZ edge or vertex, contour will be moved
+- If Polygon/TAZ is inspected an option "block shape" is enabled, then entire shape will be moved
+    
 ## Network specific modes
 
 ### Create Edges
