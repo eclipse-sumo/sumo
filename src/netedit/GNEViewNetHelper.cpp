@@ -71,7 +71,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
     myEdgeObjects.clearElements();
     myLaneObjects.clearElements();
     // set GUIGlObject in myGUIGlObjectLanes
-    sortAndUpdateGUIGlObjects(GUIGlObjects);
+    sortGUIGlObjects(GUIGlObjects);
     // iterate over myGUIGlObjectLanes
     for (const auto& glObject : myEdgeObjects.GUIGlObjects) {
         // cast attribute carrier from glObject
@@ -102,6 +102,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             }
         }
     }
+    // update GUIGlObjects (due front element)
+    updateGUIGlObjects(myEdgeObjects);
     // iterate over myGUIGlObjectLanes
     for (const auto& glObject : myLaneObjects.GUIGlObjects) {
         // cast attribute carrier from glObject
@@ -132,6 +134,8 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
             }
         }
     }
+    // update GUIGlObjects (due front element)
+    updateGUIGlObjects(myLaneObjects);
 }
 
 
@@ -144,35 +148,37 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
 
 GUIGlID
 GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
-    if (mySwapLane2edge) {
-        if (myEdgeObjects.GUIGlObjects.size() > 0) {
-            return myEdgeObjects.GUIGlObjects.front()->getGlID();
-        } else {
-            return 0;
-        }
+    if (getGUIGlObjectFront()) {
+        return getGUIGlObjectFront()->getGlID();
     } else {
-        if (myLaneObjects.GUIGlObjects.size() > 0) {
-            return myLaneObjects.GUIGlObjects.front()->getGlID();
-        } else {
-            return 0;
-        }
+        return 0;
     }
 }
 
 
 GUIGlObjectType
 GNEViewNetHelper::ObjectsUnderCursor::getGlTypeFront() const {
+    if (getGUIGlObjectFront()) {
+        return getGUIGlObjectFront()->getType();
+    } else {
+        return GLO_NETWORK;
+    }
+}
+
+
+GUIGlObject*
+GNEViewNetHelper::ObjectsUnderCursor::getGUIGlObjectFront() const {
     if (mySwapLane2edge) {
-        if (myEdgeObjects.GUIGlObjects.size() > 0) {
-            return myEdgeObjects.GUIGlObjects.front()->getType();
+        if (myEdgeObjects.attributeCarriers.size() > 0) {
+            return myEdgeObjects.GUIGlObjects.front();
         } else {
-            return GLO_NETWORK;
+            return nullptr;
         }
     } else {
-        if (myLaneObjects.GUIGlObjects.size() > 0) {
-            return myLaneObjects.GUIGlObjects.front()->getType();
+        if (myLaneObjects.attributeCarriers.size() > 0) {
+            return myLaneObjects.GUIGlObjects.front();
         } else {
-            return GLO_NETWORK;
+            return nullptr;
         }
     }
 }
@@ -522,7 +528,7 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
 
 
 void
-GNEViewNetHelper::ObjectsUnderCursor::sortAndUpdateGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects) {
+GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects) {
     // declare a map to save GUIGlObjects sorted by GLO_TYPE
     std::map<GUIGlObjectType, std::vector<GUIGlObject*> > mySortedGUIGlObjects;
     // iterate over set
@@ -531,17 +537,17 @@ GNEViewNetHelper::ObjectsUnderCursor::sortAndUpdateGUIGlObjects(const std::vecto
     }
     // move sorted GUIGlObjects into myGUIGlObjectLanes using a reverse iterator
     for (std::map<GUIGlObjectType, std::vector<GUIGlObject*> >::reverse_iterator i = mySortedGUIGlObjects.rbegin(); i != mySortedGUIGlObjects.rend(); i++) {
-        for (const auto& GLObject : i->second) {
+        for (const auto& GlObject : i->second) {
             // avoid GLO_NETWORKELEMENT
-            if (GLObject->getType() != GLO_NETWORKELEMENT) {
+            if (GlObject->getType() != GLO_NETWORKELEMENT) {
                 // add it in GUIGlObject splitting by edge/lanes
-                if (GLObject->getType() == GLO_EDGE) {
-                    myEdgeObjects.GUIGlObjects.push_back(GLObject);
-                } else if (GLObject->getType() == GLO_LANE) {
-                    myLaneObjects.GUIGlObjects.push_back(GLObject);
+                if (GlObject->getType() == GLO_EDGE) {
+                    myEdgeObjects.GUIGlObjects.push_back(GlObject);
+                } else if (GlObject->getType() == GLO_LANE) {
+                    myLaneObjects.GUIGlObjects.push_back(GlObject);
                 } else {
-                    myEdgeObjects.GUIGlObjects.push_back(GLObject);
-                    myLaneObjects.GUIGlObjects.push_back(GLObject);
+                    myEdgeObjects.GUIGlObjects.push_back(GlObject);
+                    myLaneObjects.GUIGlObjects.push_back(GlObject);
                 }
             }
         }
@@ -553,13 +559,25 @@ void
 GNEViewNetHelper::ObjectsUnderCursor::updateAttributeCarriers(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
-    // add it in myAttributeCarrierLanes and myAttributeCarrierEdges
-    if (AC == frontAC) {
-        // insert at front
-        container.attributeCarriers.insert(container.attributeCarriers.begin(), AC);
+    // special case for edges and lanes
+    if (frontAC && (frontAC->getTagProperty().getTag() == SUMO_TAG_EDGE) && (AC->getTagProperty().getTag() == SUMO_TAG_LANE)) {
+        // compare IDs
+        if (AC->getAttribute(GNE_ATTR_PARENT) == frontAC->getID()) {
+            // insert at front
+            container.attributeCarriers.insert(container.attributeCarriers.begin(), AC);
+        } else {
+            // insert at back
+            container.attributeCarriers.push_back(AC);
+        }
     } else {
-        // insert at back
-        container.attributeCarriers.push_back(AC);
+        // add it in attributeCarriers
+        if (AC == frontAC) {
+            // insert at front
+            container.attributeCarriers.insert(container.attributeCarriers.begin(), AC);
+        } else {
+            // insert at back
+            container.attributeCarriers.push_back(AC);
+        }
     }
 }
 
@@ -775,6 +793,20 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer
             break;
         default:
             break;
+    }
+}
+
+
+void 
+GNEViewNetHelper::ObjectsUnderCursor::updateGUIGlObjects(ObjectsContainer& container) {
+    // first clear GUIGlObjects
+    container.GUIGlObjects.clear();
+    // reserve
+    container.GUIGlObjects.reserve(container.attributeCarriers.size());
+    // iterate over atribute carriers
+    for (const auto &attributeCarrrier : container.attributeCarriers) {
+        // add GUIGlObject in GUIGlObjects container
+        container.GUIGlObjects.push_back(attributeCarrrier->getGUIGlObject());
     }
 }
 

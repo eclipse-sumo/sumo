@@ -189,6 +189,9 @@ struct GNEViewNetHelper {
         GUIGlObjectType getGlTypeFront() const;
 
         /// @brief get front attribute carrier or a pointer to nullptr
+        GUIGlObject* getGUIGlObjectFront() const;
+
+        /// @brief get front attribute carrier or a pointer to nullptr
         GNEAttributeCarrier* getAttributeCarrierFront() const;
 
         /// @brief get front network element or a pointer to nullptr
@@ -329,7 +332,7 @@ struct GNEViewNetHelper {
 
     private:
         /// @brief sort by altitude and update GUIGlObjects
-        void sortAndUpdateGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects);
+        void sortGUIGlObjects(const std::vector<GUIGlObject*>& GUIGlObjects);
 
         /// @brief update attribute carrier elements
         void updateAttributeCarriers(ObjectsContainer& container, GNEAttributeCarrier* AC);
@@ -351,6 +354,9 @@ struct GNEViewNetHelper {
 
         /// @brief update generic data elements
         void updateGenericDataElements(ObjectsContainer& container, GNEAttributeCarrier* AC);
+
+        /// @brief updateGUIGlObjects
+        void updateGUIGlObjects(ObjectsContainer& container);
 
         /// @brief default constructor
         ObjectsUnderCursor();

@@ -982,6 +982,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return toString(edge->getLaneStruct(myIndex).customShape);
         case SUMO_ATTR_INDEX:
             return toString(myIndex);
+        case GNE_ATTR_PARENT:
+            return myParentEdge->getID();
         case GNE_ATTR_SELECTED:
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:

@@ -400,20 +400,18 @@ GNEViewNet::openObjectDialog() {
     if (!isEnabled() || !myAmInitialised) {
         return;
     }
+    // make network current
     if (makeCurrent()) {
-        // initialise the select mode
-        int id = getObjectUnderCursor();
-        GUIGlObject* o = nullptr;
+        // fill objects under cursor
+        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
+        // get GUIGLObject front
+        GUIGlObject* o = myObjectsUnderCursor.getGUIGlObjectFront();
         // we need to check if we're inspecting a overlapping element
         if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
                 myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
                 myViewParent->getInspectorFrame()->getAttributesEditor()->getEditedACs().size() > 0) {
             o = dynamic_cast<GUIGlObject*>(myViewParent->getInspectorFrame()->getAttributesEditor()->getEditedACs().front());
-        } else if (id != 0) {
-            o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
-        } else {
-            o = GUIGlObjectStorage::gIDStorage.getNetObject();
-        }
+        } 
         // check if open popup menu can be opened
         if (o != nullptr) {
             myPopup = o->getPopUpMenu(*myApp, *this);
@@ -426,7 +424,6 @@ GNEViewNet::openObjectDialog() {
             myPopup->show();
             myPopupPosition = getPositionInformation();
             myChanger->onRightBtnRelease(nullptr);
-            GUIGlObjectStorage::gIDStorage.unblockObject(id);
             setFocus();
         }
         makeNonCurrent();
