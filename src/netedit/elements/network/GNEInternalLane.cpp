@@ -111,6 +111,8 @@ GNEInternalLane::drawGL(const GUIVisualizationSettings& s) const {
     glPushMatrix();
     // translate to front
     myEditor->getViewNet()->drawTranslateFrontAttributeCarrier(myJunctionParent, GLO_TLLOGIC);
+    // move front again
+    glTranslated(0, 0, 0.5);
     // set color
     GLHelper::setColor(colorForLinksState(myState));
     // draw lane checking whether it is not too small

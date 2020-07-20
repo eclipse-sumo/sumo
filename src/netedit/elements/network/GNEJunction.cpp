@@ -532,6 +532,15 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     GNEGeometry::drawDottedContourCircle(true, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration);
                 }
             }
+            // check if dotted contour has to be drawn
+            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+                if (drawShape) {
+                    GNEGeometry::drawDottedContourClosedShape(false, s, myNBNode->getShape(), junctionExaggeration);
+                }
+                if (drawBubble) {
+                    GNEGeometry::drawDottedContourCircle(false, s, myNBNode->getCenter(), s.neteditSizeSettings.junctionBubbleRadius, junctionExaggeration);
+                }
+            }
         }
     }
 }
