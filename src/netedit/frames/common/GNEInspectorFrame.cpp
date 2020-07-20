@@ -758,7 +758,39 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdMarkFrontElement(FXObject* obj,
 
 long
 GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp(FXObject*, FXSelector, void*) {
-    return 0;
+    // Create dialog box
+    FXDialogBox* additionalNeteditAttributesHelpDialog = new FXDialogBox(this, "Netedit Attributes Help", GUIDesignDialogBox);
+    additionalNeteditAttributesHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL));
+    // set help text
+    std::ostringstream help;
+    help
+        << "- Mark as front element: Mark element as front element (Will be drawn over all other elements)\n"
+        << "- Block movement: disable movement in move mode\n"
+        << "- Block shape: Disable moving of shape's vertices and edges. Entire shape can be moved'.\n"
+        << "- Close shape: Add or remove the last vertex with the same position of first edge'.";
+    // Create label with the help text
+    new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
+    // Create horizontal separator
+    new FXHorizontalSeparator(additionalNeteditAttributesHelpDialog, GUIDesignHorizontalSeparator);
+    // Create frame for OK Button
+    FXHorizontalFrame* myHorizontalFrameOKButton = new FXHorizontalFrame(additionalNeteditAttributesHelpDialog, GUIDesignAuxiliarHorizontalFrame);
+    // Create Button Close (And two more horizontal frames to center it)
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    new FXButton(myHorizontalFrameOKButton, "OK\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), additionalNeteditAttributesHelpDialog, FXDialogBox::ID_ACCEPT, GUIDesignButtonOK);
+    new FXHorizontalFrame(myHorizontalFrameOKButton, GUIDesignAuxiliarHorizontalFrame);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Opening NeteditAttributesEditor help dialog");
+    // create Dialog
+    additionalNeteditAttributesHelpDialog->create();
+    // show in the given position
+    additionalNeteditAttributesHelpDialog->show(PLACEMENT_CURSOR);
+    // refresh APP
+    getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    getApp()->runModalFor(additionalNeteditAttributesHelpDialog);
+    // Write Warning in console if we're in testing mode
+    WRITE_DEBUG("Closing NeteditAttributesEditor help dialog");
+    return 1;
 }
 
 // ---------------------------------------------------------------------------
