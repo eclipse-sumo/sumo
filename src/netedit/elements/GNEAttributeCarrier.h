@@ -403,7 +403,7 @@ private:
     static void fillCommonVehicleAttributes(SumoXMLTag currentTag);
 
     /// @brief fill common flow attributes (used by flows, routeFlows and personFlows)
-    static void fillCommonFlowAttributes(SumoXMLTag currentTag);
+    static void fillCommonFlowAttributes(SumoXMLTag currentTag, const bool forVehicles);
 
     /// @brief fill Car Following Model of Vehicle/Person Types
     static void fillCarFollowingModelAttributes(SumoXMLTag currentTag);

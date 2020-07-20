@@ -1439,7 +1439,8 @@ GNERouteHandler::setFlowParameters(const SumoXMLAttr attribute, int& parameters)
             parameters ^= VEHPARS_END_SET;
             parameters |= VEHPARS_NUMBER_SET;
             break;
-        case SUMO_ATTR_VEHSPERHOUR: {
+        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR: {
             // give more priority to end
             if ((parameters & VEHPARS_END_SET) && (parameters & VEHPARS_NUMBER_SET)) {
                 parameters = VEHPARS_END_SET;

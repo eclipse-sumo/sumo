@@ -650,7 +650,7 @@ GNEFrameAttributesModuls::AttributesCreator::showAttributesCreatorModul(const GN
     recalc();
     // check if flow editor has to be shown
     if (showFlowEditor) {
-        myAttributesCreatorFlow->showAttributesCreatorFlowModul();
+        myAttributesCreatorFlow->showAttributesCreatorFlowModul(tagProperties.hasAttribute(SUMO_ATTR_PERSONSPERHOUR));
     } else {
         myAttributesCreatorFlow->hideAttributesCreatorFlowModul();
     }
@@ -807,7 +807,12 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::~AttributesCreatorFlow() {}
 
 
 void
-GNEFrameAttributesModuls::AttributesCreatorFlow::showAttributesCreatorFlowModul() {
+GNEFrameAttributesModuls::AttributesCreatorFlow::showAttributesCreatorFlowModul(const bool persons) {
+    if (persons) {
+        myAttributeVehsPerHourRadioButton->setText(toString(SUMO_ATTR_PERSONSPERHOUR).c_str());
+    } else {
+        myAttributeVehsPerHourRadioButton->setText(toString(SUMO_ATTR_VEHSPERHOUR).c_str());
+    }
     // show
     show();
 }
@@ -868,7 +873,11 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::setFlowParameters(std::map<Sumo
         parameters[SUMO_ATTR_NUMBER] = myValueNumberTextField->getText().text();
     }
     if (myFlowParameters & VEHPARS_VPH_SET) {
-        parameters[SUMO_ATTR_VEHSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+        if (myAttributeVehsPerHourRadioButton->getText().text() == toString(SUMO_ATTR_VEHSPERHOUR)) {
+            parameters[SUMO_ATTR_VEHSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+        } else {
+            parameters[SUMO_ATTR_PERSONSPERHOUR] = myValueVehsPerHourTextField->getText().text();
+        }
     }
     if (myFlowParameters & VEHPARS_PERIOD_SET) {
         parameters[SUMO_ATTR_PERIOD] = myValuePeriodTextField->getText().text();
@@ -996,7 +1005,11 @@ GNEFrameAttributesModuls::AttributesCreatorFlow::onCmdSelectFlowRadioButton(FXOb
     } else if (obj == myAttributeNumberRadioButton) {
         GNERouteHandler::setFlowParameters(SUMO_ATTR_NUMBER, myFlowParameters);
     } else if (obj == myAttributeVehsPerHourRadioButton) {
-        GNERouteHandler::setFlowParameters(SUMO_ATTR_VEHSPERHOUR, myFlowParameters);
+        if (myAttributeVehsPerHourRadioButton->getText().text() == toString(SUMO_ATTR_VEHSPERHOUR)) {
+            GNERouteHandler::setFlowParameters(SUMO_ATTR_VEHSPERHOUR, myFlowParameters);
+        } else {
+            GNERouteHandler::setFlowParameters(SUMO_ATTR_PERSONSPERHOUR, myFlowParameters);
+        }
     } else if (obj == myAttributePeriodRadioButton) {
         GNERouteHandler::setFlowParameters(SUMO_ATTR_PERIOD, myFlowParameters);
     } else if (obj == myAttributeProbabilityRadioButton) {

@@ -227,7 +227,7 @@ public:
         ~AttributesCreatorFlow();
 
         /// @brief show AttributesCreatorFlow modul
-        void showAttributesCreatorFlowModul();
+        void showAttributesCreatorFlowModul(const bool persons);
 
         /// @brief hide group box
         void hideAttributesCreatorFlowModul();

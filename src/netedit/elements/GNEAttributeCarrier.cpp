@@ -411,17 +411,24 @@ GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) c
         }
         // flows
         case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
             if (myTagProperty.hasAttribute(key) && myTagProperty.getAttributeProperties(key).isFlowDefinition()) {
-                if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
+                if (myTagProperty.hasAttribute(SUMO_ATTR_VEHSPERHOUR) && isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
                     if (isAttributeEnabled(SUMO_ATTR_END)) {
                         return "not together with number and period or probability";
                     } else {
                         return "not together with end and period or probability";
                     }
+                } else if (myTagProperty.hasAttribute(SUMO_ATTR_PERSONSPERHOUR) && isAttributeEnabled(SUMO_ATTR_PERSONSPERHOUR)) {
+                        if (isAttributeEnabled(SUMO_ATTR_END)) {
+                            return "not together with number and period or probability";
+                        } else {
+                            return "not together with end and period or probability";
+                        }
                 } else if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
                     if (isAttributeEnabled(SUMO_ATTR_END)) {
                         return "not together with number and vehsPerHour or probability";
@@ -2890,7 +2897,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         fillCommonVehicleAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag);
+        fillCommonFlowAttributes(currentTag, true);
     }
     currentTag = GNE_TAG_FLOW_WITHROUTE;
     {
@@ -2915,7 +2922,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         fillCommonVehicleAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag);
+        fillCommonFlowAttributes(currentTag, true);
     }
     currentTag = SUMO_TAG_TRIP;
     {
@@ -2998,7 +3005,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         fillCommonVehicleAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag);
+        fillCommonFlowAttributes(currentTag, true);
     }
     /* currently disabled. See #5259
     currentTag = SUMO_TAG_TRIP_TAZ;
@@ -3155,7 +3162,7 @@ GNEAttributeCarrier::fillPersonElements() {
         fillCommonPersonAttributes(currentTag);
 
         // add flow attributes
-        fillCommonFlowAttributes(currentTag);
+        fillCommonFlowAttributes(currentTag, true);
     }
 }
 
@@ -3660,7 +3667,7 @@ GNEAttributeCarrier::fillCommonVehicleAttributes(SumoXMLTag currentTag) {
 
 
 void
-GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag) {
+GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag, const bool forVehicles) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
@@ -3682,7 +3689,7 @@ GNEAttributeCarrier::fillCommonFlowAttributes(SumoXMLTag currentTag) {
             "1800");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_VEHSPERHOUR,
+    attrProperty = GNEAttributeProperties(forVehicles? SUMO_ATTR_VEHSPERHOUR : SUMO_ATTR_PERSONSPERHOUR,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL | GNEAttributeProperties::FLOWDEFINITION,
             "Number of " + toString(currentTag) + "s per hour, equally spaced (not together with period or probability)",
             "1800");

@@ -216,8 +216,8 @@ GNEPerson::writeDemandElement(OutputDevice& device) const {
         if (isAttributeEnabled(SUMO_ATTR_NUMBER)) {
             device.writeAttr(SUMO_ATTR_NUMBER, repetitionNumber);
         }
-        if (isAttributeEnabled(SUMO_ATTR_VEHSPERHOUR)) {
-            device.writeAttr(SUMO_ATTR_VEHSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
+        if (isAttributeEnabled(SUMO_ATTR_PERSONSPERHOUR)) {
+            device.writeAttr(SUMO_ATTR_PERSONSPERHOUR, 3600. / STEPS2TIME(repetitionOffset));
         }
         if (isAttributeEnabled(SUMO_ATTR_PERIOD)) {
             device.writeAttr(SUMO_ATTR_PERIOD, time2string(repetitionOffset));
@@ -495,7 +495,7 @@ GNEPerson::getAttribute(SumoXMLAttr key) const {
             return time2string(depart);
         case SUMO_ATTR_END:
             return time2string(repetitionEnd);
-        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
             return toString(3600 / STEPS2TIME(repetitionOffset));
         case SUMO_ATTR_PERIOD:
             return time2string(repetitionOffset);
@@ -545,7 +545,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case SUMO_ATTR_NUMBER:
-        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
         case SUMO_ATTR_PERIOD:
         case SUMO_ATTR_PROB:
         //
@@ -607,7 +607,7 @@ GNEPerson::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return false;
             }
-        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
             if (value.empty()) {
                 return true;
             } else if (canParse<double>(value)) {
@@ -672,7 +672,7 @@ GNEPerson::isAttributeEnabled(SumoXMLAttr key) const {
             return (parametersSet & VEHPARS_END_SET) != 0;
         case SUMO_ATTR_NUMBER:
             return (parametersSet & VEHPARS_NUMBER_SET) != 0;
-        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
             return (parametersSet & VEHPARS_VPH_SET) != 0;
         case SUMO_ATTR_PERIOD:
             return (parametersSet & VEHPARS_PERIOD_SET) != 0;
@@ -849,7 +849,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_END:
             repetitionEnd = string2time(value);
             break;
-        case SUMO_ATTR_VEHSPERHOUR:
+        case SUMO_ATTR_PERSONSPERHOUR:
             repetitionOffset = TIME2STEPS(3600 / parse<double>(value));
             break;
         case SUMO_ATTR_PERIOD:
