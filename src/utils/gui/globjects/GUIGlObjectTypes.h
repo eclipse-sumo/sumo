@@ -43,10 +43,10 @@ enum GUIGlObjectType {
 
     /// @brief reserved GLO type to pack all network elements
     GLO_NETWORKELEMENT = 1,
-    /// @brief a lane
-    GLO_LANE = 2,
     /// @brief an edge
-    GLO_EDGE = 3,
+    GLO_EDGE = 2,
+    /// @brief a lane
+    GLO_LANE = 3,
     /// @brief a junction
     GLO_JUNCTION = 4,
     /// @brief a connection

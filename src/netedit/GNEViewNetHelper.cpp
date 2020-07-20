@@ -541,9 +541,7 @@ GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjects(const std::vector<GUIGlOb
             // avoid GLO_NETWORKELEMENT
             if (GlObject->getType() != GLO_NETWORKELEMENT) {
                 // add it in GUIGlObject splitting by edge/lanes
-                if (GlObject->getType() == GLO_EDGE) {
-                    myEdgeObjects.GUIGlObjects.push_back(GlObject);
-                } else if (GlObject->getType() == GLO_LANE) {
+                if (GlObject->getType() == GLO_LANE) {
                     myLaneObjects.GUIGlObjects.push_back(GlObject);
                 } else {
                     myEdgeObjects.GUIGlObjects.push_back(GlObject);
