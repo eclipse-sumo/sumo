@@ -616,6 +616,18 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
 }
 
 
+void 
+GNEDemandElement::replaceDemandParentEdges(const std::string &value) {
+    replaceParentEdges(this, parse<std::vector<GNEEdge*> >(getNet(), value));
+}
+
+
+void 
+GNEDemandElement::replaceDemandParentLanes(const std::string &value) {
+    replaceParentLanes(this, parse<std::vector<GNELane*> >(getNet(), value));
+}
+
+
 bool
 GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)

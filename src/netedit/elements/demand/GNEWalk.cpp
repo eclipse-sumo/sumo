@@ -626,7 +626,7 @@ GNEWalk::setAttribute(SumoXMLAttr key, const std::string& value) {
             computePath();
             break;
         case SUMO_ATTR_EDGES:
-            replaceParentEdges(this, value);
+            replaceDemandParentEdges(value);
             updateGeometry();
             break;
         case SUMO_ATTR_ROUTE:

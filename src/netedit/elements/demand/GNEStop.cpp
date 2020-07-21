@@ -971,7 +971,7 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         // specific of Stops over lanes
         case SUMO_ATTR_LANE:
-            replaceParentLanes(this, value);
+            replaceDemandParentLanes(value);
             updateGeometry();
             break;
         case SUMO_ATTR_STARTPOS:

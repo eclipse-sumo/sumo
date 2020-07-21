@@ -391,6 +391,12 @@ protected:
 
     /// @}
 
+    /// @brief replace demand parent edges
+    void replaceDemandParentEdges(const std::string &value);
+
+    /// @brief replace demand parent lanes
+    void replaceDemandParentLanes(const std::string &value);
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class
