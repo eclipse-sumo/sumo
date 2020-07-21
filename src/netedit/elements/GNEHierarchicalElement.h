@@ -132,13 +132,26 @@ public:
     const std::vector<GNEGenericData*>& getChildGenericDatas() const;
     /// @}
     
-    /// @brief remove child
+    /// @name generic add/remove functions
+    /// @{
+
+    /// @brief add parent element
     template<typename T>
     void addParentElement(T* element);
 
-    /// @brief remove child
+    /// @brief remove parent elmeent
     template<typename T>
     void removeParentElement(T* element);
+
+    /// @brief add child element
+    template<typename T>
+    void addChildElement(T* element);
+
+    /// @brief remove child element
+    template<typename T>
+    void removeChildElement(T* element);
+
+    /// @}
 
     /// @brief get front parent junction
     GNEJunction* getFirstParentJunction() const;
@@ -175,14 +188,6 @@ public:
 
     /// @brief Draw dotted connections between parent and children
     void drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-    /// @brief add child
-    template<typename T>
-    void addChildElement(T* element);
-
-    /// @brief remove child
-    template<typename T>
-    void removeChildElement(T* element);
 
     /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
     void sortChildAdditionals();
