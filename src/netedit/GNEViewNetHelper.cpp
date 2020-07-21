@@ -141,8 +141,15 @@ GNEViewNetHelper::ObjectsUnderCursor::updateObjectUnderCursor(const std::vector<
 
 void
 GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
-    // change flag
+    // enable flag
     mySwapLane2edge = true;
+}
+
+
+void
+GNEViewNetHelper::ObjectsUnderCursor::swapEdge2Lane() {
+    // disable flag
+    mySwapLane2edge = false;
 }
 
 

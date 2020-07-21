@@ -3709,6 +3709,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_CONNECT: {
+            // always swap edge2lane in connection mode
+            myObjectsUnderCursor.swapEdge2Lane();
+            // check if we're clicked over a lane
             if (myObjectsUnderCursor.getLaneFront()) {
                 // Handle laneclick (shift key may pass connections, Control key allow conflicts)
                 myViewParent->getConnectorFrame()->handleLaneClick(myObjectsUnderCursor);
