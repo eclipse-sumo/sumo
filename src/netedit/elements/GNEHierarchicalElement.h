@@ -11,31 +11,16 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEHierarchicalElements.h
+/// @file    GNEHierarchicalElementHelper.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2020
 ///
 // A abstract class for representation of hierarchical elements
 /****************************************************************************/
 #pragma once
-#include <config.h>
 
-#include <netedit/GNEGeometry.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/geom/Position.h>
+#include "GNEHierarchicalElementHelper.h"
 
-#include "GNEAttributeCarrier.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
-class GNENetworkElement;
-class GNEAdditional;
-class GNETAZElement;
-class GNEShape;
-class GNEDemandElement;
-class GNEGenericData;
 
 // ===========================================================================
 // class definitions
@@ -100,16 +85,9 @@ public:
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;
     /// @}
-    
-    /* parent */
 
-    /// @brief add child
-    template<typename T>
-    void addParentElement(T* element);
-
-    /// @brief remove child
-    template<typename T>
-    void removeParentElement(T* element);
+    /// @name get functions
+    /// @{
 
     /// @brief get parent edges
     const std::vector<GNEEdge*>& getParentEdges() const;
@@ -131,6 +109,36 @@ public:
 
     /// @brief get parent demand elements
     const std::vector<GNEGenericData*>& getParentGenericDatas() const;
+
+    /// @brief get child edges
+    const std::vector<GNEEdge*>& getChildEdges() const;
+
+    /// @brief get child lanes
+    const std::vector<GNELane*>& getChildLanes() const;
+
+    /// @brief return child additionals
+    const std::vector<GNEAdditional*>& getChildAdditionals() const;
+
+    /// @brief get child shapes
+    const std::vector<GNEShape*>& getChildShapes() const;
+
+    /// @brief get child TAZElements
+    const std::vector<GNETAZElement*>& getChildTAZElements() const;
+
+    /// @brief return child demand elements
+    const std::vector<GNEDemandElement*>& getChildDemandElements() const;
+
+    /// @brief return child generic data elements
+    const std::vector<GNEGenericData*>& getChildGenericDatas() const;
+    /// @}
+    
+    /// @brief remove child
+    template<typename T>
+    void addParentElement(T* element);
+
+    /// @brief remove child
+    template<typename T>
+    void removeParentElement(T* element);
 
     /// @brief get front parent junction
     GNEJunction* getFirstParentJunction() const;
@@ -175,27 +183,6 @@ public:
     /// @brief remove child
     template<typename T>
     void removeChildElement(T* element);
-
-    /// @brief get child edges
-    const std::vector<GNEEdge*>& getChildEdges() const;
-
-    /// @brief get child lanes
-    const std::vector<GNELane*>& getChildLanes() const;
-
-    /// @brief return child additionals
-    const std::vector<GNEAdditional*>& getChildAdditionals() const;
-
-    /// @brief get child shapes
-    const std::vector<GNEShape*>& getChildShapes() const;
-
-    /// @brief get child TAZElements
-    const std::vector<GNETAZElement*>& getChildTAZElements() const;
-
-    /// @brief return child demand elements
-    const std::vector<GNEDemandElement*>& getChildDemandElements() const;
-
-    /// @brief return child generic data elements
-    const std::vector<GNEGenericData*>& getChildGenericDatas() const;
 
     /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
     void sortChildAdditionals();
@@ -319,67 +306,6 @@ protected:
     /// @brief variable ParentConnections
     GNEGeometry::ParentConnections myParentConnections;
 
-    /* children */
-
-
-    /// @brief class to pack all variables and functions relative to connections between hierarchical element and their children
-    class ChildConnections {
-
-    private:
-        /// @brief connection geometry
-        class ConnectionGeometry {
-
-        public:
-            /// @brief parameter constructor
-            ConnectionGeometry(GNELane* lane);
-
-            /// @brief get lane
-            const GNELane* getLane() const;
-
-            /// @brief get position
-            const Position &getPosition() const;
-
-            /// @brief get rotation
-            double getRotation() const;
-
-        private:
-            /// @brief lane
-            GNELane* myLane;
-
-            /// @brief position
-            Position myPosition;
-
-            /// @brief rotation
-            double myRotation;
-
-            /// @brief default constructor
-            ConnectionGeometry();
-        };
-
-    public:
-        /// @brief constructor
-        ChildConnections(GNEHierarchicalElement* hierarchicalElement);
-
-        /// @brief update Connection's geometry
-        void update();
-
-        /// @brief draw connections between Parent and childrens
-        void drawConnection(const GUIVisualizationSettings& s, const GUIGlObjectType parentType, const double exaggeration) const;
-
-        /// @brief draw dotted connections between Parent and childrens
-        void drawDottedConnection(const GUIVisualizationSettings& s, const double exaggeration) const;
-
-        /// @brief position and rotation of every symbol over lane
-        std::vector<ConnectionGeometry> symbolsPositionAndRotation;
-
-        /// @brief geometry connections between parents an their children
-        std::vector<GNEGeometry::Geometry> connectionsGeometries;
-
-    private:
-        /// @brief pointer to hierarchical element parent
-        GNEHierarchicalElement* myHierarchicalElement;
-    };
-
     /// @brief change child edges of an additional
     void changeChildEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
@@ -387,65 +313,14 @@ protected:
     void changeChildLanes(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
     /// @brief variable ChildConnections
-    ChildConnections myChildConnections;
+    GNEHierarchicalElementHelper::ChildConnections myChildConnections;
 
 private:
-    /* parent */
-
-    /// @brief vector of junction parents
-    std::vector<GNEJunction*> myParentJunctions;
-
-    /// @brief vector of edge parents
-    std::vector<GNEEdge*> myParentEdges;
-
-    /// @brief vector of lane parents
-    std::vector<GNELane*> myParentLanes;
-
-    /// @brief vector of additional parents
-    std::vector<GNEAdditional*> myParentAdditionals;
-
-    /// @brief vector of shape parents
-    std::vector<GNEShape*> myParentShapes;
-
-    /// @brief vector of TAZElement parents
-    std::vector<GNETAZElement*> myParentTAZElements;
-
-    /// @brief vector of demand elements parents
-    std::vector<GNEDemandElement*> myParentDemandElements;
-
-    /// @brief vector of generic datas parents
-    std::vector<GNEGenericData*> myParentGenericDatas;
-
-    /* children */
-
-    /// @brief vector with the child junctions
-    std::vector<GNEJunction*> myChildJunctions;
-
-    /// @brief vector with the child edges
-    std::vector<GNEEdge*> myChildEdges;
-
-    /// @brief vector with the child lanes
-    std::vector<GNELane*> myChildLanes;
-
-    /// @brief vector with the child additionas
-    std::vector<GNEAdditional*> myChildAdditionals;
-
-    /// @brief vector with the child lanes
-    std::vector<GNEShape*> myChildShapes;
-
-    /// @brief vector with the child TAZ Elements
-    std::vector<GNETAZElement*> myChildTAZElements;
-
-    /// @brief vector with the demand elements children
-    std::vector<GNEDemandElement*> myChildDemandElements;
-
-    /// @brief vector with the generic data elements children
-    std::vector<GNEGenericData*> myChildGenericDataElements;
+    /// @brief container with parents and children
+    GNEHierarchicalElementHelper::Container myContainer;
 
     /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
     std::map<SumoXMLTag, std::vector<GNEDemandElement* >> myDemandElementsByType;
-
-    /* */
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     const GNEAttributeCarrier* myAC;

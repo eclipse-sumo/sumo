@@ -61,8 +61,14 @@ GNEChange_Children::GNEChange_Children(GNEDemandElement* demandElementParent, GN
 
 
 GNEChange_Children::~GNEChange_Children() {
-    assert(myParentDemandElement);
     myParentDemandElement->decRef("GNEChange_Children");
+    // remove if is unreferenced
+    if (myParentDemandElement->unreferenced()) {
+        // show extra information for tests
+        WRITE_DEBUG("Deleting unreferenced " + myParentDemandElement->getTagStr() + " '" + myParentDemandElement->getID() + "' in GNEChange_Children");
+        // delete AC
+        delete myParentDemandElement;
+    }
 }
 
 
@@ -74,12 +80,12 @@ GNEChange_Children::undo() {
             // show extra information for tests
             WRITE_DEBUG("Moving front " + myChildDemandElement->getTagStr() + " within demandElement parent '" + myParentDemandElement->getID() + "' in GNEChange_Children");
             // restore child demand element original vector in myChildDemandElement
-            myParentDemandElement->myChildDemandElements = myOriginalChildElements;
+//          myParentDemandElement->myChildDemandElements = myOriginalChildElements;
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
             // show extra information for tests
             WRITE_DEBUG("Moving back " + myChildDemandElement->getTagStr() + " within demandElement parent '" + myParentDemandElement->getID() + "' in GNEChange_Children");
             // restore child demand element original vector in myChildDemandElement
-            myParentDemandElement->myChildDemandElements = myOriginalChildElements;
+//          myParentDemandElement->myChildDemandElements = myOriginalChildElements;
         }
     } else {
         // continue depending of myOperation
@@ -87,12 +93,12 @@ GNEChange_Children::undo() {
             // show extra information for tests
             WRITE_DEBUG("Moving front " + myChildDemandElement->getTagStr() + " within demandElement parent '" + myParentDemandElement->getID() + "' in GNEChange_Children");
             // set child demand element edited vector in myChildDemandElement
-            myParentDemandElement->myChildDemandElements = myEditedChildElements;
+//          myParentDemandElement- myChildDemandElements = myEditedChildElements;
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
             // show extra information for tests
             WRITE_DEBUG("Moving back " + myChildDemandElement->getTagStr() + " within demandElement parent '" + myParentDemandElement->getID() + "' in GNEChange_Children");
             // set child demand element edited vector in myChildDemandElement
-            myParentDemandElement->myChildDemandElements = myEditedChildElements;
+//          myParentDemandElement->myChildDemandElements = myEditedChildElements;
         }
     }
     // Requiere always save children
@@ -108,12 +114,12 @@ GNEChange_Children::redo() {
             // show extra information for tests
             WRITE_DEBUG("Moving front " + myChildDemandElement->getTagStr() + " within demandElement parent '" + myParentDemandElement->getID() + "' in GNEChange_Children");
             // set child demand element edited vector in myChildDemandElement
-            myParentDemandElement->myChildDemandElements = myEditedChildElements;
+//          myParentDemandElement->myChildDemandElements = myEditedChildElements;
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
             // show extra information for tests
             WRITE_DEBUG("Moving back " + myChildDemandElement->getTagStr() + " within demandElement parent '" + myParentDemandElement->getID() + "' in GNEChange_Children");
             // set child demand element edited vector in myChildDemandElement
-            myParentDemandElement->myChildDemandElements = myEditedChildElements;
+//          myParentDemandElement->myChildDemandElements = myEditedChildElements;
         }
     } else {
         // continue depending of myOperation
@@ -121,12 +127,12 @@ GNEChange_Children::redo() {
             // show extra information for tests
             WRITE_DEBUG("Moving front " + myChildDemandElement->getTagStr() + " within demandElement parent '" + myParentDemandElement->getID() + "' in GNEChange_Children");
             // restore child demand element original vector in myChildDemandElement
-            myParentDemandElement->myChildDemandElements = myOriginalChildElements;
+//          myParentDemandElement->myChildDemandElements = myOriginalChildElements;
         } else if (myOperation == GNEChange_Children::Operation::MOVE_BACK) {
             // show extra information for tests
             WRITE_DEBUG("Moving back " + myChildDemandElement->getTagStr() + " within demandElement parent '" + myParentDemandElement->getID() + "' in GNEChange_Children");
             // restore child demand element original vector in myChildDemandElement
-            myParentDemandElement->myChildDemandElements = myOriginalChildElements;
+//          myParentDemandElement->myChildDemandElements = myOriginalChildElements;
         }
     }
     // Requiere always save children
