@@ -646,6 +646,18 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
 }
 
 
+void 
+GNEAdditional::replaceAdditionalParentEdges(const std::string &value) {
+    replaceParentEdges(this, parse<std::vector<GNEEdge*> >(getNet(), value));
+}
+
+
+void 
+GNEAdditional::replaceAdditionalParentLanes(const std::string &value) {
+    replaceParentLanes(this, parse<std::vector<GNELane*> >(getNet(), value));
+}
+
+
 void
 GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //

@@ -320,7 +320,7 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_EDGE:
-            replaceParentEdges(this, value);
+            replaceAdditionalParentEdges(value);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;

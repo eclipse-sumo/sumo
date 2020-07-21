@@ -410,6 +410,12 @@ protected:
     /// @brief draw additional name
     void drawAdditionalName(const GUIVisualizationSettings& s) const;
 
+    /// @brief replace additional parent edges
+    void replaceAdditionalParentEdges(const std::string &value);
+
+    /// @brief replace additional parent lanes
+    void replaceAdditionalParentLanes(const std::string &value);
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class

@@ -286,7 +286,7 @@ GNEDetectorE1::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANE:
-            replaceParentLanes(this, value);
+            replaceAdditionalParentLanes(value);
             break;
         case SUMO_ATTR_POSITION:
             myPositionOverLane = parse<double>(value);

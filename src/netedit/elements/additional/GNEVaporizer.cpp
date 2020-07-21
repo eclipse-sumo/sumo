@@ -311,7 +311,7 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGE:
             myNet->getAttributeCarriers()->updateID(this, value);
-            replaceParentEdges(this, value);
+            replaceAdditionalParentEdges(value);
             break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<SUMOTime>(value);
