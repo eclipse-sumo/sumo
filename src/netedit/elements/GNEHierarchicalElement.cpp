@@ -527,14 +527,6 @@ GNEHierarchicalElement::getNextChildDemandElement(const GNEDemandElement* demand
 }
 
 
-
-
-
-
-XXXXXXXXXXXXXXXXXXXXXX;
-
-
-
 void 
 GNEHierarchicalElement::updateFirstParentJunction(GNEJunction* junction) {
     if (myContainer.parentJunctions.size() > 0) {
@@ -759,106 +751,6 @@ GNEHierarchicalElement::changeChildLanes(GNEAdditional* elementChild, const std:
 // ---------------------------------------------------------------------------
 
 void
-GNEHierarchicalElement::replaceParentEdges(GNEShape* elementChild, const std::string& newEdgeIDs) {
-    // remove additional of parent edges
-    for (const auto& edge : myContainer.parentEdges) {
-        edge->removeChildElement(elementChild);
-    }
-    // obtain new parent edges
-    myContainer.parentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getNet(), newEdgeIDs);
-    // check that lane parets aren't empty
-    if (myContainer.parentEdges.empty()) {
-        throw InvalidArgument("New list of parent edges cannot be empty");
-    } else {
-        // add additional into parent edges
-        for (const auto& edge : myContainer.parentEdges) {
-            edge->addChildElement(elementChild);
-        }
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs) {
-    // remove additional of parent edges
-    for (const auto& edge : myContainer.parentEdges) {
-        edge->removeChildElement(elementChild);
-    }
-    // obtain new parent edges
-    myContainer.parentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getNet(), newEdgeIDs);
-    // check that lane parets aren't empty
-    if (myContainer.parentEdges.empty()) {
-        throw InvalidArgument("New list of parent edges cannot be empty");
-    } else {
-        // add additional into parent edges
-        for (const auto& edge : myContainer.parentEdges) {
-            edge->addChildElement(elementChild);
-        }
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentEdges(GNEDemandElement* elementChild, const std::string& newEdgeIDs) {
-    // remove demandElement of parent edges
-    for (const auto& edge : myContainer.parentEdges) {
-        edge->removeChildElement(elementChild);
-    }
-    // obtain new parent edges
-    myContainer.parentEdges = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(elementChild->getNet(), newEdgeIDs);
-    // check that lane parets aren't empty
-    if (myContainer.parentEdges.empty()) {
-        throw InvalidArgument("New list of parent edges cannot be empty");
-    } else {
-        // add demandElement into parent edges
-        for (const auto& edge : myContainer.parentEdges) {
-            edge->addChildElement(elementChild);
-        }
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges) {
-    // remove demandElement of parent edges
-    for (const auto& edge : myContainer.parentEdges) {
-        edge->removeChildElement(elementChild);
-    }
-    // set new edges
-    myContainer.parentEdges = newEdges;
-    // check that lane parets aren't empty
-    if (myContainer.parentEdges.empty()) {
-        throw InvalidArgument("New list of parent edges cannot be empty");
-    } else {
-        // add demandElement into parent edges
-        for (const auto& edge : myContainer.parentEdges) {
-            edge->addChildElement(elementChild);
-        }
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentEdges(GNEGenericData* elementChild, const std::vector<GNEEdge*>& newEdges) {
-    // remove genericData of parent edges
-    for (const auto& edge : myContainer.parentEdges) {
-        edge->removeChildElement(elementChild);
-    }
-    // set new edges
-    myContainer.parentEdges = newEdges;
-    // check that lane parets aren't empty
-    if (myContainer.parentEdges.empty()) {
-        throw InvalidArgument("New list of parent edges cannot be empty");
-    } else {
-        // add genericData into parent edges
-        for (const auto& edge : myContainer.parentEdges) {
-            edge->addChildElement(elementChild);
-        }
-    }
-}
-
-
-void
 GNEHierarchicalElement::replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge) {
     // first check that at least there is two edges
     if (myContainer.parentEdges.size() < 1) {
@@ -945,66 +837,6 @@ GNEHierarchicalElement::replaceLastParentEdge(GNEGenericData* elementChild, GNEE
         myContainer.parentEdges.push_back(newLastEdge);
         // add generic data into parent edges
         myContainer.parentEdges.back()->addChildElement(elementChild);
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentLanes(GNEAdditional* elementChild, const std::string& newLaneIDs) {
-    // remove additional of parent edges
-    for (const auto& lane : myContainer.parentLanes) {
-        lane->removeChildElement(elementChild);
-    }
-    // obtain new parent edges
-    myContainer.parentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getNet(), newLaneIDs);
-    // check that lane parets aren't empty
-    if (myContainer.parentLanes.empty()) {
-        throw InvalidArgument("New list of parent lanes cannot be empty");
-    } else {
-        // add additional into parent edges
-        for (const auto& lane : myContainer.parentLanes) {
-            lane->addChildElement(elementChild);
-        }
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentLanes(GNEDemandElement* elementChild, const std::string& newLaneIDs) {
-    // remove demandElement of parent edges
-    for (const auto& lane : myContainer.parentLanes) {
-        lane->removeChildElement(elementChild);
-    }
-    // obtain new parent edges
-    myContainer.parentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getNet(), newLaneIDs);
-    // check that lane parets aren't empty
-    if (myContainer.parentLanes.empty()) {
-        throw InvalidArgument("New list of parent lanes cannot be empty");
-    } else {
-        // add demandElement into parent edges
-        for (const auto& lane : myContainer.parentLanes) {
-            lane->addChildElement(elementChild);
-        }
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentLanes(GNEShape* elementChild, const std::string& newLaneIDs) {
-    // remove demandElement of parent edges
-    for (const auto& lane : myContainer.parentLanes) {
-        lane->removeChildElement(elementChild);
-    }
-    // obtain new parent edges
-    myContainer.parentLanes = GNEAttributeCarrier::parse<std::vector<GNELane*> >(elementChild->getNet(), newLaneIDs);
-    // check that lane parets aren't empty
-    if (myContainer.parentLanes.empty()) {
-        throw InvalidArgument("New list of parent lanes cannot be empty");
-    } else {
-        // add demandElement into parent edges
-        for (const auto& lane : myContainer.parentLanes) {
-            lane->addChildElement(elementChild);
-        }
     }
 }
 

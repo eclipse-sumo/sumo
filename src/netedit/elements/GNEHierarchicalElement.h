@@ -181,7 +181,6 @@ public:
 
     /// @brief get next child demand element to the given demand element
     GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
-
     /// @}
 
     /// @brief update front parent junction
@@ -218,26 +217,47 @@ public:
     virtual void updateParentDemandElement();
 
 protected:
+    /// @name replace edges functions
+    /// @{
 
-    /* parent */
+    /// @brief replace parent edges
+    template<typename T>
+    void replaceParentEdges(T* elementChild, const std::vector<GNEEdge*>& newParentEdges) {
+        // remove elementChild from parents
+        for (const auto& edge : myContainer.parentEdges) {
+            edge->removeChildElement(elementChild);
+        }
+        // set new parents edges
+        myContainer.parentEdges = newParentEdges;
+        // add elementChild into new parents
+        for (const auto& edge : myContainer.parentEdges) {
+            edge->addChildElement(elementChild);
+        }
+    }
+
+    /// @}
+
+    /// @name replace parent lanes functions
+    /// @{
+
+    /// @brief replace parent lanes
+    template<typename T>
+    void replaceParentLanes(T* elementChild, const std::vector<GNELane*>& newParentLanes) {
+        // remove elementChild from parents
+        for (const auto& lane : myContainer.parentLanes) {
+            lane->removeChildElement(elementChild);
+        }
+        // set new parents lanes
+        myContainer.parentLanes = newParentLanes;
+        // add elementChild into new parents
+        for (const auto& lane : myContainer.parentLanes) {
+            lane->addChildElement(elementChild);
+        }
+    }
+    /// @}
 
     /// @name members and functions relative to changing parents
     /// @{
-
-    /// @brief replace the parent edges of a shape
-    void replaceParentEdges(GNEShape* elementChild, const std::string& newEdgeIDs);
-
-    /// @brief replace the parent edges of an additional
-    void replaceParentEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs);
-
-    /// @brief replace the parent edges of a demandElement
-    void replaceParentEdges(GNEDemandElement* elementChild, const std::string& newEdgeIDs);
-
-    /// @brief replace the parent edges of a demandElement (GNEEdge version)
-    void replaceParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newEdges);
-
-    /// @brief replace the parent edges of a generic data (GNEEdge version)
-    void replaceParentEdges(GNEGenericData* elementChild, const std::vector<GNEEdge*>& newEdges);
 
     /// @brief replace the first parent edge (used by demand elements)
     void replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge);
@@ -253,15 +273,6 @@ protected:
 
     /// @brief replace the last parent edge (used by generic data elements)
     void replaceLastParentEdge(GNEGenericData* elementChild, GNEEdge* newLastEdge);
-
-    /// @brief replace the parent edges of a shape
-    void replaceParentLanes(GNEShape* elementChild, const std::string& newLaneIDs);
-
-    /// @brief replace the parent edges of an additional
-    void replaceParentLanes(GNEAdditional* elementChild, const std::string& newLaneIDs);
-
-    /// @brief replace the parent edges of a demandElement
-    void replaceParentLanes(GNEDemandElement* elementChild, const std::string& newLaneIDs);
 
     /**@brief replace the parent additional of a shape
      * @throw exception if this shape doesn't have previously a defined Additional parent
