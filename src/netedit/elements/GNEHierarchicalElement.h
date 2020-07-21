@@ -86,7 +86,7 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @name get functions
+    /// @name common get functions
     /// @{
 
     /// @brief get parent edges
@@ -132,7 +132,7 @@ public:
     const std::vector<GNEGenericData*>& getChildGenericDatas() const;
     /// @}
     
-    /// @name generic add/remove functions
+    /// @name common generic add/remove functions
     /// @{
 
     /// @brief add parent element
@@ -150,20 +150,16 @@ public:
     /// @brief remove child element
     template<typename T>
     void removeChildElement(T* element);
-
     /// @}
+
+    /// @name specific get functions
+    /// @{
 
     /// @brief get front parent junction
     GNEJunction* getFirstParentJunction() const;
 
     /// @brief remove parent junction
-    GNEJunction* getSecondParentJunction()const ;
-
-    /// @brief update front parent junction
-    void updateFirstParentJunction(GNEJunction* junction);
-
-    /// @brief update last parent junction
-    void updateSecondParentJunction(GNEJunction* junction);
+    GNEJunction* getSecondParentJunction()const;
 
     /// @brief get middle (via) parent edges
     std::vector<GNEEdge*> getMiddleParentEdges() const;
@@ -171,14 +167,28 @@ public:
     /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
     std::string getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const;
 
-    /* Children */
-
+    /// @brief return child demand elements by type
+    const std::vector<GNEDemandElement*>& getChildDemandElementsByType(SumoXMLTag tag) const;
 
     /// @brief get child position calculated in ChildConnections
     const Position& getChildPosition(const GNELane* lane);
 
     /// @brief get child rotation calculated in ChildConnections
     double getChildRotation(const GNELane* lane);
+
+    /// @brief get previous child demand element to the given demand element
+    GNEDemandElement* getPreviousChildDemandElement(const GNEDemandElement* demandElement) const;
+
+    /// @brief get next child demand element to the given demand element
+    GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
+
+    /// @}
+
+    /// @brief update front parent junction
+    void updateFirstParentJunction(GNEJunction* junction);
+
+    /// @brief update last parent junction
+    void updateSecondParentJunction(GNEJunction* junction);
 
     /// @brief update child connections
     void updateChildConnections();
@@ -195,22 +205,11 @@ public:
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
 
-    /// @brief return child demand elements by type
-    const std::vector<GNEDemandElement*>& getChildDemandElementsByType(SumoXMLTag tag) const;
-
     /// @brief sort child demand elements
     void sortChildDemandElements();
 
     /// @brief check if childs demand elements are overlapped
     bool checkChildDemandElementsOverlapping() const;
-
-    /// @brief get previous child demand element to the given demand element
-    GNEDemandElement* getPreviousChildDemandElement(const GNEDemandElement* demandElement) const;
-
-    /// @brief get next child demand element to the given demand element
-    GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
-
-    /// @}
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
     virtual void updateParentAdditional();

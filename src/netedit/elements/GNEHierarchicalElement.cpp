@@ -391,9 +391,46 @@ GNEHierarchicalElement::removeChildElement(GNEDemandElement* demandElement) {
     }
 }
 
+
 template <> void
 GNEHierarchicalElement::removeChildElement(GNEGenericData* genericDataElement) {
     myContainer.removeChildElement(myAC, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, genericDataElement);
+}
+
+
+GNEJunction*
+GNEHierarchicalElement::getFirstParentJunction() const {
+    if (myContainer.parentJunctions.size() > 0) {
+        return myContainer.parentJunctions.at(0);
+    } else {
+        throw InvalidArgument("Invalid number of parent junctions (0)");
+    }
+}
+
+
+GNEJunction*
+GNEHierarchicalElement::getSecondParentJunction()const {
+    if (myContainer.parentJunctions.size() > 1) {
+        return myContainer.parentJunctions.at(1);
+    } else {
+        throw InvalidArgument("Invalid number of parent junctions (<1)");
+    }
+}
+
+
+std::vector<GNEEdge*>
+GNEHierarchicalElement::getMiddleParentEdges() const {
+    std::vector<GNEEdge*> middleEdges;
+    // there are only middle edges if there is more than two edges
+    if (myContainer.parentEdges.size() > 2) {
+        // reserve middleEdges
+        middleEdges.reserve(myContainer.parentEdges.size() - 2);
+        // iterate over second and previous last parent edge
+        for (auto i = (myContainer.parentEdges.begin() + 1); i != (myContainer.parentEdges.end() - 1); i++) {
+            middleEdges.push_back(*i);
+        }
+    }
+    return middleEdges;
 }
 
 
@@ -432,59 +469,9 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
 }
 
 
-GNEJunction*
-GNEHierarchicalElement::getFirstParentJunction() const {
-    if (myContainer.parentJunctions.size() > 0) {
-        return myContainer.parentJunctions.at(0);
-    } else {
-        throw InvalidArgument("Invalid number of parent junctions (0)");
-    }
-}
-
-
-GNEJunction*
-GNEHierarchicalElement::getSecondParentJunction()const {
-    if (myContainer.parentJunctions.size() > 1) {
-        return myContainer.parentJunctions.at(1);
-    } else {
-        throw InvalidArgument("Invalid number of parent junctions (<1)");
-    }
-}
-
-
-void 
-GNEHierarchicalElement::updateFirstParentJunction(GNEJunction* junction) {
-    if (myContainer.parentJunctions.size() > 0) {
-        myContainer.parentJunctions.at(0) = junction;
-    } else {
-        throw InvalidArgument("Invalid number of parent junctions (0)");
-    }
-}
-
-
-void 
-GNEHierarchicalElement::updateSecondParentJunction(GNEJunction* junction) {
-    if (myContainer.parentJunctions.size() > 1) {
-        myContainer.parentJunctions.at(1) = junction;
-    } else {
-        throw InvalidArgument("Invalid number of parent junctions (<1)");
-    }
-}
-
-
-std::vector<GNEEdge*>
-GNEHierarchicalElement::getMiddleParentEdges() const {
-    std::vector<GNEEdge*> middleEdges;
-    // there are only middle edges if there is more than two edges
-    if (myContainer.parentEdges.size() > 2) {
-        // reserve middleEdges
-        middleEdges.reserve(myContainer.parentEdges.size() - 2);
-        // iterate over second and previous last parent edge
-        for (auto i = (myContainer.parentEdges.begin() + 1); i != (myContainer.parentEdges.end() - 1); i++) {
-            middleEdges.push_back(*i);
-        }
-    }
-    return middleEdges;
+const std::vector<GNEDemandElement*>&
+GNEHierarchicalElement::getChildDemandElementsByType(SumoXMLTag tag) const {
+    return myDemandElementsByType.at(tag);
 }
 
 
@@ -507,6 +494,64 @@ GNEHierarchicalElement::getChildRotation(const GNELane* lane) {
         }
     }
     throw ProcessError("Lane doesn't exist");
+}
+
+
+GNEDemandElement*
+GNEHierarchicalElement::getPreviousChildDemandElement(const GNEDemandElement* demandElement) const {
+    // find child demand element
+    auto it = std::find(myContainer.childDemandElements.begin(), myContainer.childDemandElements.end(), demandElement);
+    // return element or null depending of iterator
+    if (it == myContainer.childDemandElements.end()) {
+        return nullptr;
+    } else if (it == myContainer.childDemandElements.begin()) {
+        return nullptr;
+    } else {
+        return *(it - 1);
+    }
+}
+
+
+GNEDemandElement*
+GNEHierarchicalElement::getNextChildDemandElement(const GNEDemandElement* demandElement) const {
+    // find child demand element
+    auto it = std::find(myContainer.childDemandElements.begin(), myContainer.childDemandElements.end(), demandElement);
+    // return element or null depending of iterator
+    if (it == myContainer.childDemandElements.end()) {
+        return nullptr;
+    } else if (it == (myContainer.childDemandElements.end() - 1)) {
+        return nullptr;
+    } else {
+        return *(it + 1);
+    }
+}
+
+
+
+
+
+
+XXXXXXXXXXXXXXXXXXXXXX;
+
+
+
+void 
+GNEHierarchicalElement::updateFirstParentJunction(GNEJunction* junction) {
+    if (myContainer.parentJunctions.size() > 0) {
+        myContainer.parentJunctions.at(0) = junction;
+    } else {
+        throw InvalidArgument("Invalid number of parent junctions (0)");
+    }
+}
+
+
+void 
+GNEHierarchicalElement::updateSecondParentJunction(GNEJunction* junction) {
+    if (myContainer.parentJunctions.size() > 1) {
+        myContainer.parentJunctions.at(1) = junction;
+    } else {
+        throw InvalidArgument("Invalid number of parent junctions (<1)");
+    }
 }
 
 
@@ -653,12 +698,6 @@ GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
 }
 
 
-const std::vector<GNEDemandElement*>&
-GNEHierarchicalElement::getChildDemandElementsByType(SumoXMLTag tag) const {
-    return myDemandElementsByType.at(tag);
-}
-
-
 void
 GNEHierarchicalElement::sortChildDemandElements() {
     // by default empty
@@ -668,36 +707,6 @@ GNEHierarchicalElement::sortChildDemandElements() {
 bool
 GNEHierarchicalElement::checkChildDemandElementsOverlapping() const {
     return true;
-}
-
-
-GNEDemandElement*
-GNEHierarchicalElement::getPreviousChildDemandElement(const GNEDemandElement* demandElement) const {
-    // find child demand element
-    auto it = std::find(myContainer.childDemandElements.begin(), myContainer.childDemandElements.end(), demandElement);
-    // return element or null depending of iterator
-    if (it == myContainer.childDemandElements.end()) {
-        return nullptr;
-    } else if (it == myContainer.childDemandElements.begin()) {
-        return nullptr;
-    } else {
-        return *(it - 1);
-    }
-}
-
-
-GNEDemandElement*
-GNEHierarchicalElement::getNextChildDemandElement(const GNEDemandElement* demandElement) const {
-    // find child demand element
-    auto it = std::find(myContainer.childDemandElements.begin(), myContainer.childDemandElements.end(), demandElement);
-    // return element or null depending of iterator
-    if (it == myContainer.childDemandElements.end()) {
-        return nullptr;
-    } else if (it == (myContainer.childDemandElements.end() - 1)) {
-        return nullptr;
-    } else {
-        return *(it + 1);
-    }
 }
 
 
