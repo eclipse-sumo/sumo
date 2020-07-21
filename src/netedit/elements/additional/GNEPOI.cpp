@@ -446,7 +446,7 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_LANE:
             myLane = value;
-            replaceParentLanes(this, value);
+            replaceShapeParentLanes(value);
             break;
         case SUMO_ATTR_POSITION: {
             if (getParentLanes().size() > 0) {

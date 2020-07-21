@@ -200,6 +200,9 @@ protected:
     /// @brief flag to block movement
     bool myBlockMovement;
 
+    /// @brief replace shape parent lanes
+    void replaceShapeParentLanes(const std::string &value);
+
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
