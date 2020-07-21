@@ -195,10 +195,10 @@ bindings are included when downloading a sumo-build.
 
 ### Interfaces by Programming Language
 
-- <span style="background: #ccffcc;"> Python: [the package
+- Python: [the package
   tools/traci](TraCI/Interfacing_TraCI_from_Python.md) allows
   to interact with [sumo](sumo.md) using Python (This library
-  is tested daily and supports all TraCI commands)</span>
+  is tested daily and supports all TraCI commands).
 - C++: [The C++ TraCIAPI](TraCI/C++TraCIAPI.md) is client
   library that is part of the [sumo](sumo.md)-source tree (API
   coverage is almost complete).
@@ -214,17 +214,17 @@ bindings are included when downloading a sumo-build.
   [TraCI4Matlab](http://www.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab).
   The client is included as part of each SUMO release in
   {{SUMO}}*/tools/contributed/traci4matlab*
-  <span style="background: #ffcccc;">Not all TraCI commands have been
-  implemented</span>
+  Not all TraCI commands have been
+  implemented.
 - Java: [TraaS](TraCI/TraaS.md#java_client) provides a client
   library that is part of the [sumo](sumo.md)-source tree (API
-  coverage is almost complete)
+  coverage is almost complete).
 - Others: Any language that can access webservies using
   [SOAP](https://en.wikipedia.org/wiki/SOAP) can access SUMO using the
   [TraaS Webservice](TraCI/TraaS.md#webservice). A [Java
   webservice client](TraCI/TraaS.md#webservice_client) is also
-  included with TraaS. <span style="background: #ffcccc;">API lags
-  behind the python client</span>
+  included with TraaS. API lags
+  behind the python client.
 
 ### V2X simulation
 
