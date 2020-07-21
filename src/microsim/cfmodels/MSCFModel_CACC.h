@@ -127,6 +127,26 @@ public:
     double interactionGap(const MSVehicle* const, double vL) const;
 
 
+    /**
+     * @brief try to get the given parameter for this carFollowingModel
+     *
+     * @param[in] veh the vehicle from which the parameter must be retrieved
+     * @param[in] key the key of the parameter
+     * @return the value of the requested parameter
+     */
+    virtual std::string getParameter(const MSVehicle* veh, const std::string& key) const;
+
+
+    /**
+     * @brief try to set the given parameter for this carFollowingModel
+     *
+     * @param[in] veh the vehicle for which the parameter must be set
+     * @param[in] key the key of the parameter
+     * @param[in] value the value to be set for the given parameter
+     */
+    virtual void setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const;
+
+
     /** @brief Returns the model's name
     * @return The model's name
     * @see MSCFModel::getModelName
@@ -147,6 +167,7 @@ public:
     virtual MSCFModel::VehicleVariables* createVehicleVariables() const {
         CACCVehicleVariables* ret = new CACCVehicleVariables();
         ret->CACC_ControlMode = 0;
+        ret->CACC_ControlModeOverride = 0;
         ret->lastUpdateTime = 0;
         return ret;
     }
@@ -155,9 +176,10 @@ public:
 private:
     class CACCVehicleVariables : public MSCFModel::VehicleVariables {
     public:
-        CACCVehicleVariables() : CACC_ControlMode(0) {}
+        CACCVehicleVariables() : CACC_ControlMode(0), CACC_ControlModeOverride(0) {}
         /// @brief The vehicle's CACC  precious time step gap error
         int    CACC_ControlMode;
+        int    CACC_ControlModeOverride;
         SUMOTime lastUpdateTime;
     };
 
