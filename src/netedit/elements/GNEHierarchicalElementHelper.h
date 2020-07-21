@@ -64,10 +64,25 @@ struct GNEHierarchicalElementHelper {
             const std::vector<GNEShape*>& childShapes,
             const std::vector<GNETAZElement*>& childTAZElements,
             const std::vector<GNEDemandElement*>& childDemandElements,
-            const std::vector<GNEGenericData*>& childGenericDataElements);
+            const std::vector<GNEGenericData*>& childGenericDatas);
 
         /// @brief add parent element
         void addParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction, GNEEdge* edge, GNELane* lane, 
+            GNEAdditional* additional, GNEShape* shape, GNETAZElement* TAZElement, 
+            GNEDemandElement* demandElement, GNEGenericData* genericData);
+
+        /// @brief remove parent element
+        void removeParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction, GNEEdge* edge, GNELane* lane, 
+            GNEAdditional* additional, GNEShape* shape, GNETAZElement* TAZElement, 
+            GNEDemandElement* demandElement, GNEGenericData* genericData);
+
+        /// @brief add child element
+        void addChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction, GNEEdge* edge, GNELane* lane, 
+            GNEAdditional* additional, GNEShape* shape, GNETAZElement* TAZElement, 
+            GNEDemandElement* demandElement, GNEGenericData* genericData);
+
+        /// @brief remove child element
+        void removeChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction, GNEEdge* edge, GNELane* lane, 
             GNEAdditional* additional, GNEShape* shape, GNETAZElement* TAZElement, 
             GNEDemandElement* demandElement, GNEGenericData* genericData);
 
@@ -117,7 +132,7 @@ struct GNEHierarchicalElementHelper {
         std::vector<GNEDemandElement*> childDemandElements;
 
         /// @brief vector with the generic data elements children
-        std::vector<GNEGenericData*> childGenericDataElements;
+        std::vector<GNEGenericData*> childGenericDatas;
 	};
 
     /// @brief class to pack all variables and functions relative to connections between hierarchical element and their children

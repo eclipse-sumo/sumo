@@ -54,7 +54,7 @@ GNEHierarchicalElementHelper::Container::Container(
 	const std::vector<GNEShape*>& _childShapes,
 	const std::vector<GNETAZElement*>& _childTAZElements,
 	const std::vector<GNEDemandElement*>& _childDemandElements,
-	const std::vector<GNEGenericData*>& _childGenericDataElements):
+	const std::vector<GNEGenericData*>& _childGenericDatas):
 	parentJunctions(_parentJunctions),
 	parentEdges(_parentEdges),
 	parentLanes(_parentLanes),
@@ -70,7 +70,7 @@ GNEHierarchicalElementHelper::Container::Container(
 	childShapes(_childShapes),
 	childTAZElements(_childTAZElements),
 	childDemandElements(_childDemandElements),
-	childGenericDataElements(_childGenericDataElements) {
+    childGenericDatas(_childGenericDatas) {
 }
 
 
@@ -141,6 +141,238 @@ GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarr
             throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
         } else {
             parentGenericDatas.push_back(genericData);
+        }
+    }
+}
+
+
+void 
+GNEHierarchicalElementHelper::Container::removeParentElement(const GNEAttributeCarrier* AC,
+    GNEJunction* junction, GNEEdge* edge, GNELane* lane, GNEAdditional* additional, 
+    GNEShape* shape, GNETAZElement* TAZElement, GNEDemandElement* demandElement, 
+    GNEGenericData* genericData) {
+    // check junction
+    if (junction) {
+        auto it = std::find(parentJunctions.begin(), parentJunctions.end(), junction);
+        if (it == parentJunctions.end()) {
+            throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            parentJunctions.erase(it);
+        }
+    }
+    // check edge
+    if (edge) {
+        auto it = std::find(parentEdges.begin(), parentEdges.end(), edge);
+        if (it == parentEdges.end()) {
+            throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            parentEdges.erase(it);
+        }
+    }
+    // check lane
+    if (lane) {
+        auto it = std::find(parentLanes.begin(), parentLanes.end(), lane);
+        if (it == parentLanes.end()) {
+            throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            parentLanes.erase(it);
+        }
+    }
+    // check additional
+    if (additional) {
+        auto it = std::find(parentAdditionals.begin(), parentAdditionals.end(), additional);
+        if (it == parentAdditionals.end()) {
+            throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            parentAdditionals.erase(it);
+        }
+    }
+    // check shape
+    if (shape) {
+        auto it = std::find(parentShapes.begin(), parentShapes.end(), shape);
+        if (it == parentShapes.end()) {
+            throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            parentShapes.erase(it);
+        }
+    }
+    // check TAZElement
+    if (TAZElement) {
+        auto it = std::find(parentTAZElements.begin(), parentTAZElements.end(), TAZElement);
+        if (it == parentTAZElements.end()) {
+            throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            parentTAZElements.erase(it);
+        }
+    }
+    // check TAZElement
+    if (demandElement) {
+        auto it = std::find(parentDemandElements.begin(), parentDemandElements.end(), demandElement);
+        if (it == parentDemandElements.end()) {
+            throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            parentDemandElements.erase(it);
+        }
+    }
+    // check generic data
+    if (genericData) {
+        auto it = std::find(parentGenericDatas.begin(), parentGenericDatas.end(), genericData);
+        if (it == parentGenericDatas.end()) {
+            throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            parentGenericDatas.erase(it);
+        }
+    }
+}
+
+
+void 
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC,
+    GNEJunction* junction, GNEEdge* edge, GNELane* lane, GNEAdditional* additional, 
+    GNEShape* shape, GNETAZElement* TAZElement, GNEDemandElement* demandElement, 
+    GNEGenericData* genericData) {
+    // check junction
+    if (junction) {
+        if (std::find(childJunctions.begin(), childJunctions.end(), junction) != childJunctions.end()) {
+            throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childJunctions.push_back(junction);
+        }
+    }
+    // check edge
+    if (edge) {
+        if (std::find(childEdges.begin(), childEdges.end(), edge) != childEdges.end()) {
+            throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childEdges.push_back(edge);
+        }
+    }
+    // check lane
+    if (lane) {
+        if (std::find(childLanes.begin(), childLanes.end(), lane) != childLanes.end()) {
+            throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childLanes.push_back(lane);
+        }
+    }
+    // check additional
+    if (additional) {
+        if (std::find(childAdditionals.begin(), childAdditionals.end(), additional) != childAdditionals.end()) {
+            throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childAdditionals.push_back(additional);
+        }
+    }
+    // check shape
+    if (shape) {
+        if (std::find(childShapes.begin(), childShapes.end(), shape) != childShapes.end()) {
+            throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childShapes.push_back(shape);
+        }
+    }
+    // check TAZElement
+    if (TAZElement) {
+        if (std::find(childTAZElements.begin(), childTAZElements.end(), TAZElement) != childTAZElements.end()) {
+            throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childTAZElements.push_back(TAZElement);
+        }
+    }
+    // check TAZElement
+    if (demandElement) {
+        if (std::find(childDemandElements.begin(), childDemandElements.end(), demandElement) != childDemandElements.end()) {
+            throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childDemandElements.push_back(demandElement);
+        }
+    }
+    // check generic data
+    if (genericData) {
+        if (std::find(childGenericDatas.begin(), childGenericDatas.end(), genericData) != childGenericDatas.end()) {
+            throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childGenericDatas.push_back(genericData);
+        }
+    }
+}
+
+
+void 
+GNEHierarchicalElementHelper::Container::removeChildElement(const GNEAttributeCarrier* AC,
+    GNEJunction* junction, GNEEdge* edge, GNELane* lane, GNEAdditional* additional, 
+    GNEShape* shape, GNETAZElement* TAZElement, GNEDemandElement* demandElement, 
+    GNEGenericData* genericData) {
+    // check junction
+    if (junction) {
+        auto it = std::find(childJunctions.begin(), childJunctions.end(), junction);
+        if (it == childJunctions.end()) {
+            throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childJunctions.erase(it);
+        }
+    }
+    // check edge
+    if (edge) {
+        auto it = std::find(childEdges.begin(), childEdges.end(), edge);
+        if (it == childEdges.end()) {
+            throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childEdges.erase(it);
+        }
+    }
+    // check lane
+    if (lane) {
+        auto it = std::find(childLanes.begin(), childLanes.end(), lane);
+        if (it == childLanes.end()) {
+            throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childLanes.erase(it);
+        }
+    }
+    // check additional
+    if (additional) {
+        auto it = std::find(childAdditionals.begin(), childAdditionals.end(), additional);
+        if (it == childAdditionals.end()) {
+            throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childAdditionals.erase(it);
+        }
+    }
+    // check shape
+    if (shape) {
+        auto it = std::find(childShapes.begin(), childShapes.end(), shape);
+        if (it == childShapes.end()) {
+            throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childShapes.erase(it);
+        }
+    }
+    // check TAZElement
+    if (TAZElement) {
+        auto it = std::find(childTAZElements.begin(), childTAZElements.end(), TAZElement);
+        if (it == childTAZElements.end()) {
+            throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childTAZElements.erase(it);
+        }
+    }
+    // check TAZElement
+    if (demandElement) {
+        auto it = std::find(childDemandElements.begin(), childDemandElements.end(), demandElement);
+        if (it == childDemandElements.end()) {
+            throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childDemandElements.erase(it);
+        }
+    }
+    // check generic data
+    if (genericData) {
+        auto it = std::find(childGenericDatas.begin(), childGenericDatas.end(), genericData);
+        if (it == childGenericDatas.end()) {
+            throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+        } else {
+            childGenericDatas.erase(it);
         }
     }
 }
