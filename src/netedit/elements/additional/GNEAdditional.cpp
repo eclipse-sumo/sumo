@@ -672,13 +672,19 @@ GNEAdditional::replaceAdditionalChildLanes(const std::string &value) {
 
 void
 GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
-    replaceParentAdditional(this, myNet->retrieveAdditional(tag, value), parentIndex);
+    std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
+    parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
+    // replace parent additionals
+    replaceParentAdditionals(this, parentAdditionals);
 }
 
 
 void
 GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
-    replaceParentDemandElement(this, myNet->retrieveDemandElement(tag, value), parentIndex);
+    std::vector<GNEDemandElement*> parentDemandElements = getParentDemandElements();
+    parentDemandElements[parentIndex] = myNet->retrieveDemandElement(tag, value);
+    // replace parent demand elements
+    replaceParentDemandElements(this, parentDemandElements);
 }
 
 

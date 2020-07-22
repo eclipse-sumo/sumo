@@ -439,12 +439,12 @@ GNEEdgeRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM: {
             // change first edge
-            replaceFirstParentEdge(this, myNet->retrieveEdge(value));
+            replaceFirstParentEdge(value);
             break;
         }
         case SUMO_ATTR_TO: {
             // change last edge
-            replaceLastParentEdge(this, myNet->retrieveEdge(value));
+            replaceLastParentEdge(value);
             break;
         }
         case GNE_ATTR_SELECTED:

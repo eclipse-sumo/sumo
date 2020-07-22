@@ -223,4 +223,39 @@ GNEGenericData::isVisibleInspectDeleteSelect() const {
     return draw;
 }
 
+void
+GNEGenericData::replaceFirstParentEdge(const std::string &value) {
+    std::vector<GNEEdge*> parentEdges = getParentEdges();
+    parentEdges[0] = myNet->retrieveEdge(value);
+    // replace parent edges
+    replaceParentEdges(this, parentEdges);
+}
+
+
+void
+GNEGenericData::replaceLastParentEdge(const std::string &value) {
+    std::vector<GNEEdge*> parentEdges = getParentEdges();
+    parentEdges[(int)parentEdges.size() -1] = myNet->retrieveEdge(value);
+    // replace parent edges
+    replaceParentEdges(this, parentEdges);
+}
+
+
+void
+GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string &value) {
+    std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
+    parentTAZElements[0] = myNet->retrieveTAZElement(tag, value);
+    // replace parent TAZElements
+    replaceParentTAZElements(this, parentTAZElements);
+}
+
+
+void
+GNEGenericData::replaceLastParentTAZElement(SumoXMLTag tag, const std::string &value) {
+    std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
+    parentTAZElements[(int)parentTAZElements.size() -1] = myNet->retrieveTAZElement(tag, value);
+    // replace parent TAZElements
+    replaceParentTAZElements(this, parentTAZElements);
+}
+
 /****************************************************************************/

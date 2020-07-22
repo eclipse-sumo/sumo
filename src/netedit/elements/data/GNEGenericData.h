@@ -247,6 +247,18 @@ protected:
     /// @brief check if attribute is visible in inspect, delete or select mode
     bool isVisibleInspectDeleteSelect() const;
 
+    /// @brief replace the first parent edge
+    void replaceFirstParentEdge(const std::string &value);
+
+    /// @brief replace the last parent edge
+    void replaceLastParentEdge(const std::string &value);
+
+    /// @brief replace the first parent TAZElement
+    void replaceFirstParentTAZElement(SumoXMLTag tag, const std::string &value);
+
+    /// @brief replace the last parent TAZElement
+    void replaceLastParentTAZElement(SumoXMLTag tag, const std::string &value);
+
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;

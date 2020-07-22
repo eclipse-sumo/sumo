@@ -265,12 +265,12 @@ GNETAZRelData::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_FROM: {
             // change first TAZ
-            replaceFirstParentTAZElement(this, myNet->retrieveTAZElement(SUMO_TAG_TAZ, value));
+            replaceFirstParentTAZElement(SUMO_TAG_TAZ, value);
             break;
         }
         case SUMO_ATTR_TO: {
             // change last TAZ
-            replaceLastParentTAZElement(this, myNet->retrieveTAZElement(SUMO_TAG_TAZ, value));
+            replaceLastParentTAZElement(SUMO_TAG_TAZ, value);
             break;
         }
         case GNE_ATTR_SELECTED:

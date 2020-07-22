@@ -36,6 +36,7 @@ public:
 
     /// @brief declare GNEChange_Children as friend class
     friend class GNEChange_Children;
+    friend class GNEDemandElement;
 
     /**@brief Constructor
      * @param[in] AC Attribute carrier
@@ -217,7 +218,7 @@ public:
     virtual void updateParentDemandElement();
 
 protected:
-    /// @name replace edges functions
+    /// @name replace parent elements
     /// @{
 
     /// @brief replace parent edges
@@ -235,25 +236,6 @@ protected:
         }
     }
 
-    /// @brief replace child edges
-    template<typename T>
-    void replaceChildEdges(T* elementChild, const std::vector<GNEEdge*>& newChildEdges) {
-        // remove elementChild from childs
-        for (const auto& edge : myContainer.childEdges) {
-            edge->removeChildElement(elementChild);
-        }
-        // set new childs edges
-        myContainer.childEdges = newChildEdges;
-        // add elementChild into new childs
-        for (const auto& edge : myContainer.childEdges) {
-            edge->addChildElement(elementChild);
-        }
-    }
-    /// @}
-
-    /// @name replace parent lanes functions
-    /// @{
-
     /// @brief replace parent lanes
     template<typename T>
     void replaceParentLanes(T* elementChild, const std::vector<GNELane*>& newParentLanes) {
@@ -266,6 +248,70 @@ protected:
         // add elementChild into new parents
         for (const auto& lane : myContainer.parentLanes) {
             lane->addChildElement(elementChild);
+        }
+    }
+
+    /// @brief replace parent additionals
+    template<typename T>
+    void replaceParentAdditionals(T* elementChild, const std::vector<GNEAdditional*>& newParentAdditionals) {
+        // remove elementChild from parents
+        for (const auto& additional : myContainer.parentAdditionals) {
+            additional->removeChildElement(elementChild);
+        }
+        // set new parents additionals
+        myContainer.parentAdditionals = newParentAdditionals;
+        // add elementChild into new parents
+        for (const auto& additional : myContainer.parentAdditionals) {
+            additional->addChildElement(elementChild);
+        }
+    }
+
+    /// @brief replace parent demand elements
+    template<typename T>
+    void replaceParentDemandElements(T* elementChild, const std::vector<GNEDemandElement*>& newParentDemandElements) {
+        // remove elementChild from parents
+        for (const auto& demandElement : myContainer.parentDemandElements) {
+            demandElement->removeChildElement(elementChild);
+        }
+        // set new parents demandElements
+        myContainer.parentDemandElements = newParentDemandElements;
+        // add elementChild into new parents
+        for (const auto& demandElement : myContainer.parentDemandElements) {
+            demandElement->addChildElement(elementChild);
+        }
+    }
+
+    /// @brief replace parent TAZElements
+    template<typename T>
+    void replaceParentTAZElements(T* elementChild, const std::vector<GNETAZElement*>& newParentTAZElements) {
+        // remove elementChild from parents
+        for (const auto& TAZElement : myContainer.parentTAZElements) {
+            TAZElement->removeChildElement(elementChild);
+        }
+        // set new parents TAZElements
+        myContainer.parentTAZElements = newParentTAZElements;
+        // add elementChild into new parents
+        for (const auto& TAZElement : myContainer.parentTAZElements) {
+            TAZElement->addChildElement(elementChild);
+        }
+    }
+    /// @}
+
+    /// @name replace child elements
+    /// @{
+
+    /// @brief replace child edges
+    template<typename T>
+    void replaceChildEdges(T* elementChild, const std::vector<GNEEdge*>& newChildEdges) {
+        // remove elementChild from childs
+        for (const auto& edge : myContainer.childEdges) {
+            edge->removeChildElement(elementChild);
+        }
+        // set new childs edges
+        myContainer.childEdges = newChildEdges;
+        // add elementChild into new childs
+        for (const auto& edge : myContainer.childEdges) {
+            edge->addChildElement(elementChild);
         }
     }
 
@@ -285,74 +331,16 @@ protected:
     }
     /// @}
 
-    /// @brief replace parent additional
-    template<typename T>
-    void replaceParentAdditional(T* elementChild, GNEAdditional* newAdditional, const int index) {
-        // remove elementChild from parents
-        for (const auto& additional : myContainer.parentAdditionals) {
-            additional->removeChildElement(elementChild);
-        }
-        // set new parent additional
-        if (myContainer.parentAdditionals.size() < index) {
-            throw ProcessError("Invalid index");
-        } else {
-            myContainer.parentAdditionals.at(index) = newAdditional;
-        }
-        // add elementChild into new parents
-        for (const auto& additional : myContainer.parentAdditionals) {
-            additional->addChildElement(elementChild);
-        }
-    }
-
-    /// @brief replace parent demand element
-    template<typename T>
-    void replaceParentDemandElement(T* elementChild, GNEDemandElement* newDemandElement, const int index) {
-        // remove elementChild from parents
-        for (const auto& demandElement : myContainer.parentDemandElements) {
-            demandElement->removeChildElement(elementChild);
-        }
-        // set new parent demandElement
-        if (myContainer.parentDemandElements.size() < index) {
-            throw ProcessError("Invalid index");
-        } else {
-            myContainer.parentDemandElements.at(index) = newDemandElement;
-        }
-        // add elementChild into new parents
-        for (const auto& demandElement : myContainer.parentDemandElements) {
-            demandElement->addChildElement(elementChild);
-        }
-    }
-
-    /// @}
-
-    /// @name members and functions relative to changing parents
-    /// @{
-
-    /// @brief replace the first parent edge (used by generic data elements)
-    void replaceFirstParentEdge(GNEGenericData* elementChild, GNEEdge* newFirstEdge);
-
-    /// @brief replace the last parent edge (used by generic data elements)
-    void replaceLastParentEdge(GNEGenericData* elementChild, GNEEdge* newLastEdge);
-
-    /// @brief replace the first parent TAZElement (used by generic data elements)
-    void replaceFirstParentTAZElement(GNEGenericData* elementChild, GNETAZElement* newFirstTAZElement);
-
-    /// @brief replace the last parent TAZElement (used by demand elements)
-    void replaceLastParentTAZElement(GNEGenericData* elementChild, GNETAZElement* newLastTAZElement);
-
-    /// @}
-
     /// @brief variable ParentConnections
     GNEGeometry::ParentConnections myParentConnections;
 
     /// @brief variable ChildConnections
     GNEHierarchicalElementHelper::ChildConnections myChildConnections;
 
-public: //private:
+private:
     /// @brief container with parents and children
     GNEHierarchicalElementHelper::Container myContainer;
 
-private:
     /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
     std::map<SumoXMLTag, std::vector<GNEDemandElement* >> myDemandElementsByType;
 
