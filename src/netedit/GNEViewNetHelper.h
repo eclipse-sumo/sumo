@@ -182,9 +182,6 @@ struct GNEViewNetHelper {
         /// @brief swap lane to edge
         void swapLane2Edge();
 
-        /// @brief swap edge to lane
-        void swapEdge2Lane();
-
         /// @brief get front GUI GL ID or a pointer to nullptr
         GUIGlID getGlIDFront() const;
 

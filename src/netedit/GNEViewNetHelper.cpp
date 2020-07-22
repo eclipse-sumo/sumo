@@ -146,13 +146,6 @@ GNEViewNetHelper::ObjectsUnderCursor::swapLane2Edge() {
 }
 
 
-void
-GNEViewNetHelper::ObjectsUnderCursor::swapEdge2Lane() {
-    // disable flag
-    mySwapLane2edge = false;
-}
-
-
 GUIGlID
 GNEViewNetHelper::ObjectsUnderCursor::getGlIDFront() const {
     if (getGUIGlObjectFront()) {

@@ -3598,13 +3598,13 @@ GNEViewNet::drawTemporalDrawShape() const {
 
 void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
-    // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-    if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
-        myObjectsUnderCursor.swapLane2Edge();
-    }
     // decide what to do based on mode
     switch (myEditModes.networkEditMode) {
         case NetworkEditMode::NETWORK_INSPECT: {
+            // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
+            if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+                myObjectsUnderCursor.swapLane2Edge();
+            }
             // process left click in Inspector Frame
             myViewParent->getInspectorFrame()->processNetworkSupermodeClick(getPositionInformation(), myObjectsUnderCursor);
             // process click
@@ -3612,6 +3612,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_DELETE: {
+            // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
+            if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+                myObjectsUnderCursor.swapLane2Edge();
+            }
             // check that we have clicked over an non-demand element
             if (myObjectsUnderCursor.getAttributeCarrierFront() &&
                 (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement() || 
@@ -3638,6 +3642,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_SELECT:
+            // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
+            if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+                myObjectsUnderCursor.swapLane2Edge();
+            }
             // avoid to select if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
@@ -3679,6 +3687,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_MOVE: {
+            // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
+            if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+                myObjectsUnderCursor.swapLane2Edge();
+            }
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // biegn move network element shape
@@ -3709,8 +3721,6 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_CONNECT: {
-            // always swap edge2lane in connection mode
-            myObjectsUnderCursor.swapEdge2Lane();
             // check if we're clicked over a lane
             if (myObjectsUnderCursor.getLaneFront()) {
                 // Handle laneclick (shift key may pass connections, Control key allow conflicts)
@@ -3761,10 +3771,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         }
         case NetworkEditMode::NETWORK_TAZ: {
+            // swap lanes to edges in TAZ Mode
+            myObjectsUnderCursor.swapLane2Edge();
             // avoid create TAZs if control key is pressed
             if (!myKeyPressed.controlKeyPressed()) {
-                // swap laness to edges in TAZ Mode
-                myObjectsUnderCursor.swapLane2Edge();
                 // check if we want to create a rect for selecting edges
                 if (myKeyPressed.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
                     // begin rectangle selection
