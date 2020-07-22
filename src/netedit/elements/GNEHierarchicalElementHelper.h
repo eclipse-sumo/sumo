@@ -47,7 +47,10 @@ struct GNEHierarchicalElementHelper {
 	class Container {
 
     public:
-        /// @brief constructor
+        /// @brief default constructor
+        Container();
+
+        /// @brief parameter constructor
         Container(
             const std::vector<GNEJunction*>& parentJunctions,
             const std::vector<GNEEdge*>& parentEdges,

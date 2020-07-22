@@ -69,6 +69,12 @@ GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
 GNEHierarchicalElement::~GNEHierarchicalElement() {}
 
 
+const GNEHierarchicalElementHelper::Container&
+GNEHierarchicalElement::getContainer() const {
+    return myContainer;
+}
+
+
 const std::vector<GNEEdge*>&
 GNEHierarchicalElement::getParentEdges() const {
     return myContainer.parentEdges;

@@ -87,6 +87,9 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
+    /// @brief get container with parents and children
+    const GNEHierarchicalElementHelper::Container &getContainer() const;
+
     /// @name common get functions
     /// @{
 

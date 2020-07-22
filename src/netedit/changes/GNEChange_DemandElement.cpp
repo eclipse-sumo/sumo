@@ -109,8 +109,8 @@ GNEChange_DemandElement::undo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // update stack labels
-    if (myParentEdges.size() > 0) {
-        myParentEdges.front()->updateVehicleStackLabels();
+    if (myContainer.parentEdges.size() > 0) {
+        myContainer.parentEdges.front()->updateVehicleStackLabels();
     }
     // Requiere always save elements
     myDemandElement->getNet()->requireSaveDemandElements(true);
@@ -156,8 +156,8 @@ GNEChange_DemandElement::redo() {
         myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
     // update stack labels
-    if (myParentEdges.size() > 0) {
-        myParentEdges.front()->updateVehicleStackLabels();
+    if (myContainer.parentEdges.size() > 0) {
+        myContainer.parentEdges.front()->updateVehicleStackLabels();
     }
     // Requiere always save elements
     myDemandElement->getNet()->requireSaveDemandElements(true);

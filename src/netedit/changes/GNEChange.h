@@ -24,6 +24,7 @@
 #include <fx.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
+#include <netedit/elements/GNEHierarchicalElementHelper.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/additional/GNEAdditional.h>
@@ -100,47 +101,47 @@ protected:
     template<typename T>
     void addElementInParentsAndChildren(T* element) {
         // add element in parents
-        for (const auto& edge : myParentEdges) {
+        for (const auto& edge : myContainer.parentEdges) {
             edge->addChildElement(element);
         }
-        for (const auto& lane : myParentLanes) {
+        for (const auto& lane : myContainer.parentLanes) {
             lane->addChildElement(element);
         }
-        for (const auto& additional : myParentAdditionals) {
+        for (const auto& additional : myContainer.parentAdditionals) {
             additional->addChildElement(element);
         }
-        for (const auto& shape : myParentShapes) {
+        for (const auto& shape : myContainer.parentShapes) {
             shape->addChildElement(element);
         }
-        for (const auto& TAZElement : myParentTAZElements) {
+        for (const auto& TAZElement : myContainer.parentTAZElements) {
             TAZElement->addChildElement(element);
         }
-        for (const auto& demandElement : myParentDemandElements) {
+        for (const auto& demandElement : myContainer.parentDemandElements) {
             demandElement->addChildElement(element);
         }
-        for (const auto& genericData : myParentGenericDatas) {
+        for (const auto& genericData : myContainer.parentGenericDatas) {
             genericData->addChildElement(element);
         }
         // add element in children
-        for (const auto& edge : myChildEdges) {
+        for (const auto& edge : myContainer.childEdges) {
             edge->addParentElement(element);
         }
-        for (const auto& lane : myChildLanes) {
+        for (const auto& lane : myContainer.childLanes) {
             lane->addParentElement(element);
         }
-        for (const auto& additional : myChildAdditionals) {
+        for (const auto& additional : myContainer.childAdditionals) {
             additional->addParentElement(element);
         }
-        for (const auto& shape : myChildShapes) {
+        for (const auto& shape : myContainer.childShapes) {
             shape->addParentElement(element);
         }
-        for (const auto& TAZElement : myChildTAZElements) {
+        for (const auto& TAZElement : myContainer.childTAZElements) {
             TAZElement->addParentElement(element);
         }
-        for (const auto& demandElement : myChildDemandElements) {
+        for (const auto& demandElement : myContainer.childDemandElements) {
             demandElement->addParentElement(element);
         }
-        for (const auto& genericData : myChildGenericDatas) {
+        for (const auto& genericData : myContainer.childGenericDatas) {
             genericData->addParentElement(element);
         }
     }
@@ -148,47 +149,47 @@ protected:
     template<typename T>
     void removeElementFromParentsAndChildren(T* element) {
         // Remove element from parents
-        for (const auto& edge : myParentEdges) {
+        for (const auto& edge : myContainer.parentEdges) {
             edge->removeChildElement(element);
         }
-        for (const auto& lane : myParentLanes) {
+        for (const auto& lane : myContainer.parentLanes) {
             lane->removeChildElement(element);
         }
-        for (const auto& additional : myParentAdditionals) {
+        for (const auto& additional : myContainer.parentAdditionals) {
             additional->removeChildElement(element);
         }
-        for (const auto& shape : myParentShapes) {
+        for (const auto& shape : myContainer.parentShapes) {
             shape->removeChildElement(element);
         }
-        for (const auto& TAZElement : myParentTAZElements) {
+        for (const auto& TAZElement : myContainer.parentTAZElements) {
             TAZElement->removeChildElement(element);
         }
-        for (const auto& demandElement : myParentDemandElements) {
+        for (const auto& demandElement : myContainer.parentDemandElements) {
             demandElement->removeChildElement(element);
         }
-        for (const auto& genericData : myParentGenericDatas) {
+        for (const auto& genericData : myContainer.parentGenericDatas) {
             genericData->removeChildElement(element);
         }
         // Remove element from children
-        for (const auto& edge : myChildEdges) {
+        for (const auto& edge : myContainer.childEdges) {
             edge->removeParentElement(element);
         }
-        for (const auto& lane : myChildLanes) {
+        for (const auto& lane : myContainer.childLanes) {
             lane->removeParentElement(element);
         }
-        for (const auto& additional : myChildAdditionals) {
+        for (const auto& additional : myContainer.childAdditionals) {
             additional->removeParentElement(element);
         }
-        for (const auto& shape : myChildShapes) {
+        for (const auto& shape : myContainer.childShapes) {
             shape->removeParentElement(element);
         }
-        for (const auto& TAZElement : myChildTAZElements) {
+        for (const auto& TAZElement : myContainer.childTAZElements) {
             TAZElement->removeParentElement(element);
         }
-        for (const auto& demandElement : myChildDemandElements) {
+        for (const auto& demandElement : myContainer.childDemandElements) {
             demandElement->removeParentElement(element);
         }
-        for (const auto& genericData : myChildGenericDatas) {
+        for (const auto& genericData : myContainer.childGenericDatas) {
             genericData->removeParentElement(element);
         }
     }
@@ -200,68 +201,7 @@ protected:
 
     /// @brief flag for check if element is selected
     const bool mySelectedElement;
-
-    /// @brief reference to vector of parent edges
-    const std::vector<GNEEdge*>& myParentEdges;
-
-    /// @brief reference to vector of parent lanes
-    const std::vector<GNELane*>& myParentLanes;
-
-    /// @brief reference to vector of parent additionals
-    const std::vector<GNEAdditional*>& myParentAdditionals;
-
-    /// @brief reference to vector of parent shapes
-    const std::vector<GNEShape*>& myParentShapes;
-
-    /// @brief reference to vector of parent TAZElements
-    const std::vector<GNETAZElement*>& myParentTAZElements;
-
-    /// @brief reference to vector of parent demand elements
-    const std::vector<GNEDemandElement*>& myParentDemandElements;
-
-    /// @brief reference to vector of parent generic datas
-    const std::vector<GNEGenericData*>& myParentGenericDatas;
-
-    /// @brief reference to vector of child edges
-    const std::vector<GNEEdge*>& myChildEdges;
-
-    /// @brief reference to vector of child lanes
-    const std::vector<GNELane*>& myChildLanes;
-
-    /// @brief reference to vector of child additional
-    const std::vector<GNEAdditional*>& myChildAdditionals;
-
-    /// @brief reference to vector of child shapes
-    const std::vector<GNEShape*>& myChildShapes;
-
-    /// @brief reference to vector of child TAZElements
-    const std::vector<GNETAZElement*>& myChildTAZElements;
-
-    /// @brief reference to vector of child demand elements
-    const std::vector<GNEDemandElement*>& myChildDemandElements;
-
-    /// @brief reference to vector of child generic datas
-    const std::vector<GNEGenericData*>& myChildGenericDatas;
-
-private:
-    /// @brief vector of empty edges
-    static const std::vector<GNEEdge*> myEmptyEdges;
-
-    /// @brief vector of empty lanes
-    static const std::vector<GNELane*> myEmptyLanes;
-
-    /// @brief vector of empty additionals
-    static const std::vector<GNEAdditional*> myEmptyAdditionals;
-
-    /// @brief vector of empty shapes
-    static const std::vector<GNEShape*> myEmptyShapes;
-
-    /// @brief vector of empty TAZ Elements
-    static const std::vector<GNETAZElement*> myEmptyTAZElements;
-
-    /// @brief vector of empty demand elements
-    static const std::vector<GNEDemandElement*> myEmptyDemandElements;
-
-    /// @brief vector of empty generic datas
-    static const std::vector<GNEGenericData*> myEmptyGenericDatas;
+    
+    /// @brief container with parent and children
+    GNEHierarchicalElementHelper::Container myContainer;
 };

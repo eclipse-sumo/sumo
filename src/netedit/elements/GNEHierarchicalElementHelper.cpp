@@ -38,6 +38,14 @@
 // member method definitions
 // ===========================================================================
 
+GNEHierarchicalElementHelper::Container::Container() {
+    // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
+    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
+    for (const auto& tag : listOfTags) {
+        myDemandElementsByType[tag] = {};
+    }
+}
+
 GNEHierarchicalElementHelper::Container::Container(
 	const std::vector<GNEJunction*>& _parentJunctions,
 	const std::vector<GNEEdge*>& _parentEdges,
