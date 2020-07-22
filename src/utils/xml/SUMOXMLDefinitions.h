@@ -359,6 +359,12 @@ enum SumoXMLTag {
     /// @brief parameters
     AGEN_TAG_PARAM,
 
+    /// @name NETEDIT internal elements
+    /// @{
+    /// @brief internal lane
+    GNE_TAG_INTERNAL_LANE,
+    /// @}
+
     /// @name Persons plans (used by Netedit)
     /// @{
     /// @brief description of a vehicle with an embedded route (used in NETEDIT)

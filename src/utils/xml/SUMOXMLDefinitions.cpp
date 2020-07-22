@@ -229,6 +229,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "entrance",                       AGEN_TAG_ENTRANCE },
     { "parameters",                     AGEN_TAG_PARAM },
     // NETEDIT
+    { "internalLane",                   GNE_TAG_INTERNAL_LANE },
     { "vehicleWithRoute",               GNE_TAG_VEHICLE_WITHROUTE },
     { "routeEmbedded",                  GNE_TAG_ROUTE_EMBEDDED },
     { "flowRoute",                      GNE_TAG_FLOW_ROUTE },
