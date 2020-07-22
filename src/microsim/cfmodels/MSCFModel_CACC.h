@@ -167,21 +167,21 @@ public:
     virtual MSCFModel::VehicleVariables* createVehicleVariables() const {
         CACCVehicleVariables* ret = new CACCVehicleVariables();
         ret->CACC_ControlMode = 0;
-        ret->CACC_ControlModeOverride = 0;
+        ret->CACC_CommunicationsOverrideMode = CACC_NO_OVERRIDE;
         ret->lastUpdateTime = 0;
         return ret;
     }
 
 
 private:
-    class CACCVehicleVariables : public MSCFModel::VehicleVariables {
-    public:
-        CACCVehicleVariables() : CACC_ControlMode(0), CACC_ControlModeOverride(0) {}
-        /// @brief The vehicle's CACC  precious time step gap error
-        int    CACC_ControlMode;
-        int    CACC_ControlModeOverride;
-        SUMOTime lastUpdateTime;
+    enum CommunicationsOverrideMode {
+        CACC_NO_OVERRIDE = 0,
+        CACC_MODE_NO_LEADER = 1,
+        CACC_MODE_LEADER_NO_CAV = 2,
+        CACC_MODE_LEADER_CAV = 3
     };
+
+    static std::map<std::string, CommunicationsOverrideMode> CommunicationsOverrideModeMap;
 
     /// @brief Vehicle mode (default is CACC)
     /// Switch to ACC mode if CACC_ControlMode = 1 (gap control mode) _and_ leader's CFModel != CACC
@@ -192,6 +192,15 @@ private:
 
     /// @brief Vehicle mode name map
     static std::map<VehicleMode, std::string> VehicleModeNames;
+
+    class CACCVehicleVariables : public MSCFModel::VehicleVariables {
+    public:
+        CACCVehicleVariables() : CACC_ControlMode(0), CACC_CommunicationsOverrideMode(CACC_NO_OVERRIDE) {}
+        /// @brief The vehicle's CACC  precious time step gap error
+        int    CACC_ControlMode;
+        CommunicationsOverrideMode CACC_CommunicationsOverrideMode;
+        SUMOTime lastUpdateTime;
+    };
 
 private:
     double _v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double mySpeed,

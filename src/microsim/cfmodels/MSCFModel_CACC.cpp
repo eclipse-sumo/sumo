@@ -65,6 +65,13 @@
 // override followSpeed when deemed unsafe by the given margin (the value was selected to reduce the number of necessary interventions)
 #define DEFAULT_EMERGENCY_OVERRIDE_THRESHOLD 2.0
 
+std::map<std::string, MSCFModel_CACC::CommunicationsOverrideMode> MSCFModel_CACC::CommunicationsOverrideModeMap = {
+    {"0", CACC_NO_OVERRIDE},
+    {"1", CACC_MODE_NO_LEADER},
+    {"2", CACC_MODE_LEADER_NO_CAV},
+    {"3", CACC_MODE_LEADER_CAV}
+};
+
 std::map<MSCFModel_CACC::VehicleMode, std::string> MSCFModel_CACC::VehicleModeNames = {
     {ACC_MODE, "ACC"},
     {CACC_MODE, "CACC"}
@@ -208,8 +215,8 @@ std::string
 MSCFModel_CACC::getParameter(const MSVehicle* veh, const std::string& key) const {
     CACCVehicleVariables* vars = (CACCVehicleVariables*) veh->getCarFollowVariables();
 
-    if (key.compare("caccControlModeOverride") == 0) {
-        return toString(vars->CACC_ControlModeOverride);
+    if (key.compare("caccCommunicationsOverrideMode") == 0) {
+        return toString(vars->CACC_CommunicationsOverrideMode);
     }
 
     return "";
@@ -221,8 +228,8 @@ MSCFModel_CACC::setParameter(MSVehicle* veh, const std::string& key, const std::
     CACCVehicleVariables* vars = (CACCVehicleVariables*) veh->getCarFollowVariables();
 
     try {
-        if (key.compare("caccControlModeOverride") == 0) {
-            vars->CACC_ControlModeOverride = StringUtils::toInt(value);
+        if (key.compare("caccCommunicationsOverrideMode") == 0) {
+            vars->CACC_CommunicationsOverrideMode = CommunicationsOverrideModeMap[value];
         }
     } catch (NumberFormatException&) {
         throw InvalidArgument("Invalid value '" + value + "' for parameter '" + key + "' for vehicle '" + veh->getID() + "'");
@@ -245,7 +252,7 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
     double newSpeed = 0.0;
 
     CACCVehicleVariables* vars = (CACCVehicleVariables*) veh->getCarFollowVariables();
-    int override = vars->CACC_ControlModeOverride;
+    CommunicationsOverrideMode commMode = vars->CACC_CommunicationsOverrideMode;
 
 #if DEBUG_CACC == 1
     if (pred == nullptr) {
@@ -255,7 +262,7 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
     }
 #endif
 
-    if (override == 0) { // old CACC logic
+    if (commMode == CACC_NO_OVERRIDE) {  // old CACC logic
         if (pred != nullptr) {
             if (pred->getCarFollowModel().getModelID() != SUMO_TAG_CF_CACC) {
                 vehMode = ACC_MODE;
@@ -315,12 +322,12 @@ double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double 
 #endif
             newSpeed = speedSpeedControl(speed, vErr, vehMode);
         }
-    } else if (override == 1) { //no leader
+    } else if (commMode == CACC_MODE_NO_LEADER) {  // no leader
         newSpeed = speedSpeedControl(speed, vErr, vehMode);
-    } else if (override == 2) { //leader is not CAV or CV or crucialCAV
+    } else if (commMode == CACC_MODE_LEADER_NO_CAV) {  // leader is not CAV or CV or crucialCAV
         vehMode = ACC_MODE;
         newSpeed = acc_CFM._v(veh, gap2pred, speed, predSpeed, desSpeed, true);
-    } else if (override == 3) { //leader is CAV or CV or crucialCAV
+    } else if (commMode == CACC_MODE_LEADER_CAV) {  // leader is CAV or CV or crucialCAV
         vehMode = CACC_MODE;
 
         double desSpacing = myHeadwayTime * speed;
@@ -396,15 +403,15 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred, vehMode);
         // Set cl to vehicle parameters
         if (setControlMode) {
-            int override = vars->CACC_ControlModeOverride;
+            CommunicationsOverrideMode commMode = vars->CACC_CommunicationsOverrideMode;
 
-            if (override == 0) {  // old code
+            if (commMode == CACC_NO_OVERRIDE) {  // old code
                 vars->CACC_ControlMode = 1;
-            } else if (override == 1) {
+            } else if (commMode == CACC_MODE_NO_LEADER) {
                 vars->CACC_ControlMode = 1;
-            } else if (override == 2) {
+            } else if (commMode == CACC_MODE_LEADER_NO_CAV) {
                 vars->CACC_ControlMode = 0;
-            } else if (override == 3) {
+            } else if (commMode == CACC_MODE_LEADER_CAV) {
                 vars->CACC_ControlMode = 1;
             }
 
