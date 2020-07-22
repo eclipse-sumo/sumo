@@ -67,24 +67,20 @@ struct GNEHierarchicalElementHelper {
             const std::vector<GNEGenericData*>& childGenericDatas);
 
         /// @brief add parent element
-        void addParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction, GNEEdge* edge, GNELane* lane, 
-            GNEAdditional* additional, GNEShape* shape, GNETAZElement* TAZElement, 
-            GNEDemandElement* demandElement, GNEGenericData* genericData);
+        template<typename T>
+        void addParentElement(const GNEAttributeCarrier* AC, T* element);
 
         /// @brief remove parent element
-        void removeParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction, GNEEdge* edge, GNELane* lane, 
-            GNEAdditional* additional, GNEShape* shape, GNETAZElement* TAZElement, 
-            GNEDemandElement* demandElement, GNEGenericData* genericData);
+        template<typename T>
+        void removeParentElement(const GNEAttributeCarrier* AC, T* element);
 
         /// @brief add child element
-        void addChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction, GNEEdge* edge, GNELane* lane, 
-            GNEAdditional* additional, GNEShape* shape, GNETAZElement* TAZElement, 
-            GNEDemandElement* demandElement, GNEGenericData* genericData);
+        template<typename T>
+        void addChildElement(const GNEAttributeCarrier* AC, T* element);
 
         /// @brief remove child element
-        void removeChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction, GNEEdge* edge, GNELane* lane, 
-            GNEAdditional* additional, GNEShape* shape, GNETAZElement* TAZElement, 
-            GNEDemandElement* demandElement, GNEGenericData* genericData);
+        template<typename T>
+        void removeChildElement(const GNEAttributeCarrier* AC, T* element);
 
         /// @brief vector of junction parents
         std::vector<GNEJunction*> parentJunctions;

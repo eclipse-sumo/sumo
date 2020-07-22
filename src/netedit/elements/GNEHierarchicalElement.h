@@ -138,19 +138,35 @@ public:
 
     /// @brief add parent element
     template<typename T>
-    void addParentElement(T* element);
+    void addParentElement(T* element) {
+        // add paernt element into container
+        myContainer.addChildElement(myAC, element);
+    }
 
     /// @brief remove parent elmeent
     template<typename T>
-    void removeParentElement(T* element);
+    void removeParentElement(T* element) {
+        // remove parent element from container
+        myContainer.removeChildElement(myAC, element);
+    }
 
     /// @brief add child element
     template<typename T>
-    void addChildElement(T* element);
+    void addChildElement(T* element) {
+        // add child element into container
+        myContainer.addChildElement(myAC, element);
+        // update connections geometry
+        myParentConnections.update();
+    }
 
     /// @brief remove child element
     template<typename T>
-    void removeChildElement(T* element);
+    void removeChildElement(T* element) {
+        // remove child element from container
+        myContainer.removeChildElement(myAC, element);
+        // update connections geometry
+        myParentConnections.update();
+    }
     /// @}
 
     /// @name specific get functions
