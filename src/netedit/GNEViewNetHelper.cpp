@@ -30,6 +30,7 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNEInternalLane.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
@@ -400,6 +401,24 @@ GNEViewNetHelper::ObjectsUnderCursor::getConnectionFront() const {
 }
 
 
+GNEInternalLane*
+GNEViewNetHelper::ObjectsUnderCursor::getInternalLaneFront() const {
+    if (mySwapLane2edge) {
+        if (myEdgeObjects.internalLanes.size() > 0) {
+            return myEdgeObjects.internalLanes.front();
+        } else {
+            return nullptr;
+        }
+    } else {
+        if (myLaneObjects.internalLanes.size() > 0) {
+            return myLaneObjects.internalLanes.front();
+        } else {
+            return nullptr;
+        }
+    }
+}
+
+
 GNEPOI*
 GNEViewNetHelper::ObjectsUnderCursor::getPOIFront() const {
     if (mySwapLane2edge) {
@@ -518,6 +537,7 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
     lanes.clear();
     crossings.clear();
     connections.clear();
+    internalLanes.clear();
     TAZs.clear();
     POIs.clear();
     polys.clear();
@@ -646,6 +666,17 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
             } else {
                 // insert at back
                 container.connections.push_back(dynamic_cast<GNEConnection*>(AC));
+            }
+            break;
+        }
+        case GLO_TLLOGIC: {
+            // check front element
+            if (AC == frontAC) {
+                // insert at front
+                container.internalLanes.insert(container.internalLanes.begin(), dynamic_cast<GNEInternalLane*>(AC));
+            } else {
+                // insert at back
+                container.internalLanes.push_back(dynamic_cast<GNEInternalLane*>(AC));
             }
             break;
         }

@@ -36,7 +36,7 @@ class PositionVector;
  * a popup menu. Messages are routeted to an internal dataTarget and to the
  * editor (hence inheritance from FXDelegator)
  */
-class GNEInternalLane : public GUIGlObject, public FXDelegator {
+class GNEInternalLane : public GNENetworkElement, public FXDelegator {
     /// @brief FOX-declaration
     FXDECLARE(GNEInternalLane)
 
@@ -53,6 +53,15 @@ public:
 
     /// @brief Destructor
     ~GNEInternalLane();
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief Returns position of hierarchical element in view
+    Position getPositionInView() const;
+    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
@@ -106,6 +115,34 @@ public:
     /// @brief return the color for each linkstate
     static RGBColor colorForLinksState(FXuint state);
 
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
+    */
+    std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for checking if the key and their conrrespond attribute are valids
+    * @param[in] key The attribute key
+    * @param[in] value The value asociated to key key
+    * @return true if the value is valid, false in other case
+    */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /* @brief method for check if the value for certain attribute is set
+    * @param[in] key The attribute key
+    */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+    /// @}
+
 protected:
     /// @brief FOX needs this
     GNEInternalLane();
@@ -140,8 +177,8 @@ private:
     static StringBijection<FXuint>::Entry linkStateNamesValues[];
 
 private:
-    /// @brief return the color for each linkstate
-    static const std::string& longNameForLinkState(FXuint state);
+    /// @brief set attribute after validation
+    void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief Invalidated copy constructor.
     GNEInternalLane(const GNEInternalLane&) = delete;

@@ -1106,6 +1106,15 @@ GNEAttributeCarrier::fillNetworkElements() {
             "link state for this connection (computed)");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_INTERNAL_LANE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+            GNETagProperties::NETWORKELEMENT,
+            GNETagProperties::DRAWABLE,
+            GUIIcon::JUNCTION, SUMO_TAG_JUNCTION);
+        //  internal lanes don't have attributes
+    }
 }
 
 

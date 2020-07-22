@@ -227,6 +227,9 @@ struct GNEViewNetHelper {
         /// @brief get front connection or a pointer to nullptr
         GNEConnection* getConnectionFront() const;
 
+        /// @brief get front internal lane or a pointer to nullptr
+        GNEInternalLane* getInternalLaneFront() const;
+
         /// @brief get front TAZ or a pointer to nullptr
         GNETAZ* getTAZFront() const;
 
@@ -294,6 +297,9 @@ struct GNEViewNetHelper {
 
             /// @brief vector with the clicked connections
             std::vector<GNEConnection*> connections;
+
+            /// @brief vector with the clicked internal lanes
+            std::vector<GNEInternalLane*> internalLanes;
 
             /// @brief vector with the clicked TAZ elements
             std::vector<GNETAZ*> TAZs;
