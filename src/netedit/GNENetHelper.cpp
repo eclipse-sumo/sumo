@@ -25,18 +25,12 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Shape.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
-#include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
 #include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/router/DijkstraRouter.h>
 

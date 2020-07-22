@@ -18,12 +18,9 @@
 // Abstract Base class for gui objects which carry attributes
 /****************************************************************************/
 #include <netedit/GNENet.h>
-#include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/emissions/PollutantsInterface.h>

@@ -19,18 +19,11 @@
 // A view on the network being edited (adapted from GUIViewTraffic)
 /****************************************************************************/
 #include <netbuild/NBEdgeCont.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
-#include <netedit/elements/additional/GNETAZ.h>
-#include <netedit/elements/data/GNEDataSet.h>
-#include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/common/GNESelectorFrame.h>

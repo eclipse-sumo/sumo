@@ -19,9 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/GNENet.h>
 
