@@ -63,11 +63,6 @@ GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
     myChildConnections(this),
     myParentConnections(this),
     myAC(AC) {
-    // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
-    for (const auto& tag : listOfTags) {
-        myDemandElementsByType[tag] = {};
-    }
 }
 
 
@@ -157,24 +152,6 @@ GNEHierarchicalElement::getChildGenericDatas() const {
     return myContainer.childGenericDatas;
 }
 
-/*
-template <> void
-GNEHierarchicalElement::removeChildElement(GNEDemandElement* demandElement) {
-    // get it by type
-    auto itByType = std::find(myDemandElementsByType.at(demandElement->getTagProperty().getTag()).begin(), myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end(), demandElement);
-    const bool singleElement = std::count(myContainer.childDemandElements.begin(), myContainer.childDemandElements.end(), demandElement) == 1;
-    // remove it from container
-    myContainer.removeChildElement(myAC, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, demandElement, nullptr);
-    // only remove it from mySortedChildDemandElementsByType if is a single element
-    if (singleElement && (itByType != myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end())) {
-        myDemandElementsByType.at(demandElement->getTagProperty().getTag()).erase(itByType);
-    }
-    // Check if children has to be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildDemandElements();
-    }
-}
-*/
 
 GNEJunction*
 GNEHierarchicalElement::getFirstParentJunction() const {
@@ -249,7 +226,7 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
 
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalElement::getChildDemandElementsByType(SumoXMLTag tag) const {
-    return myDemandElementsByType.at(tag);
+    return myContainer.myDemandElementsByType.at(tag);
 }
 
 

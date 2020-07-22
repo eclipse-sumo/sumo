@@ -139,7 +139,7 @@ public:
     /// @brief add parent element
     template<typename T>
     void addParentElement(T* element) {
-        // add paernt element into container
+        // add parent element into container
         myContainer.addChildElement(myAC, element);
     }
 
@@ -157,6 +157,10 @@ public:
         myContainer.addChildElement(myAC, element);
         // update connections geometry
         myParentConnections.update();
+        // Check if children must be sorted automatically
+        if (myAC->getTagProperty().canAutomaticSortChildren()) {
+            sortChildDemandElements();
+        }
     }
 
     /// @brief remove child element
@@ -166,6 +170,10 @@ public:
         myContainer.removeChildElement(myAC, element);
         // update connections geometry
         myParentConnections.update();
+        // Check if children must be sorted automatically
+        if (myAC->getTagProperty().canAutomaticSortChildren()) {
+            sortChildDemandElements();
+        }
     }
     /// @}
 
@@ -356,9 +364,6 @@ protected:
 private:
     /// @brief container with parents and children
     GNEHierarchicalElementHelper::Container myContainer;
-
-    /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
-    std::map<SumoXMLTag, std::vector<GNEDemandElement* >> myDemandElementsByType;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     const GNEAttributeCarrier* myAC;
