@@ -628,11 +628,55 @@ GNEDemandElement::replaceDemandParentLanes(const std::string &value) {
 }
 
 
+void
+GNEDemandElement::replaceFirstParentEdge(const std::string &value) {
+    std::vector<GNEEdge*> parentEdges = getParentEdges();
+    parentEdges[0] = myNet->retrieveEdge(value);
+    // replace parent edges
+    replaceParentEdges(this, parentEdges);
+}
+
+
+void
+GNEDemandElement::replaceMiddleParentEdges(const std::string &value, const bool updateChildReferences) {
+    std::vector<GNEEdge*> middleEdges = parse<std::vector<GNEEdge*> >(getNet(), value);
+    middleEdges.insert(middleEdges.begin(), getParentEdges().front());
+    middleEdges.push_back(getParentEdges().back());
+    // check if we have to update references in all childs, or simply update parent edges vector
+    if (updateChildReferences) {
+        // replace parent edges
+        replaceParentEdges(this, middleEdges);
+    } else {
+        myContainer.parentEdges = middleEdges;
+    }
+}
+
+
+void
+GNEDemandElement::replaceLastParentEdge(const std::string &value) {
+    std::vector<GNEEdge*> parentEdges = getParentEdges();
+    parentEdges[(int)parentEdges.size() -1] = myNet->retrieveEdge(value);
+    // replace parent edges
+    replaceParentEdges(this, parentEdges);
+}
+
+
+void
+GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
+    replaceParentAdditional(this, myNet->retrieveAdditional(tag, value), parentIndex);
+}
+
+
+void
+GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
+    replaceParentDemandElement(this, myNet->retrieveDemandElement(tag, value), parentIndex);
+}
+
+
 bool
 GNEDemandElement::checkChildDemandElementRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)
     throw ProcessError("Calling non-implemented function checkChildDemandElementRestriction during saving of " + getTagStr() + ". It muss be reimplemented in child class");
 }
-
 
 /****************************************************************************/

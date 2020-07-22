@@ -677,7 +677,7 @@ GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string &value,
 
 
 void
-GNEAdditional::replaceDemandElementParent(SumoXMLTag tag,const std::string &value, const int parentIndex) {
+GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
     replaceParentDemandElement(this, myNet->retrieveDemandElement(tag, value), parentIndex);
 }
 

@@ -802,7 +802,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_TYPE:
-            replaceParentDemandElement(this, value, 0);
+            replaceDemandElementParent(SUMO_TAG_PTYPE, value, 0);
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;

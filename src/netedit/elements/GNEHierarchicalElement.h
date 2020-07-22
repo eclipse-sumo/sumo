@@ -328,50 +328,17 @@ protected:
     /// @name members and functions relative to changing parents
     /// @{
 
-    /// @brief replace the first parent edge (used by demand elements)
-    void replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge);
-
     /// @brief replace the first parent edge (used by generic data elements)
     void replaceFirstParentEdge(GNEGenericData* elementChild, GNEEdge* newFirstEdge);
 
-    /// @brief replace middle (via) parent edges
-    void replaceMiddleParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences);
-
-    /// @brief replace the last parent edge (used by demand elements)
-    void replaceLastParentEdge(GNEDemandElement* elementChild, GNEEdge* newLastEdge);
-
     /// @brief replace the last parent edge (used by generic data elements)
     void replaceLastParentEdge(GNEGenericData* elementChild, GNEEdge* newLastEdge);
-
-    /**@brief replace the parent additional of a shape
-     * @throw exception if this shape doesn't have previously a defined Additional parent
-     * @throw exception if shape with ID newParentAdditionalID doesn't exist
-     */
-    void replaceParentAdditional(GNEShape* shapeTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex);
-
-    /**@brief replace the parent additional of a demand element
-     * @throw exception if this additional doesn't have previously a defined Additional parent
-     * @throw exception if additional with ID newParentAdditionalID doesn't exist
-     */
-    void replaceParentAdditional(GNEDemandElement* demandElementTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex);
 
     /// @brief replace the first parent TAZElement (used by generic data elements)
     void replaceFirstParentTAZElement(GNEGenericData* elementChild, GNETAZElement* newFirstTAZElement);
 
     /// @brief replace the last parent TAZElement (used by demand elements)
     void replaceLastParentTAZElement(GNEGenericData* elementChild, GNETAZElement* newLastTAZElement);
-
-    /**@brief replace the parent demand element of a shape
-     * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-     * @throw exception if demand element with ID newParentDemandElementID doesn't exist
-     */
-    void replaceParentDemandElement(GNEShape* shapeTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex);
-
-    /**@brief change first parent demand element of demandElement
-     * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-     * @throw exception if demand element with ID newParentDemandElementID doesn't exist
-     */
-    void replaceParentDemandElement(GNEDemandElement* demandElementTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex);
 
     /// @}
 
@@ -381,10 +348,11 @@ protected:
     /// @brief variable ChildConnections
     GNEHierarchicalElementHelper::ChildConnections myChildConnections;
 
-private:
+public: //private:
     /// @brief container with parents and children
     GNEHierarchicalElementHelper::Container myContainer;
 
+private:
     /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
     std::map<SumoXMLTag, std::vector<GNEDemandElement* >> myDemandElementsByType;
 

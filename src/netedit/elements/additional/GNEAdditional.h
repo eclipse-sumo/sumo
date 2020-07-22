@@ -422,7 +422,7 @@ protected:
     /// @brief replace additional child lanes
     void replaceAdditionalChildLanes(const std::string &value);
 
-    /// @brief replace additionalparent
+    /// @brief replace additional parent
     void replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex);
 
     /// @brief replace demand element parent

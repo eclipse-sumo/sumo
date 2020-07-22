@@ -290,7 +290,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Children
     SUMOVehicleParameter() {
     // set via parameter without updating references
-    replaceMiddleParentEdges(this, via, false);
+    replaceMiddleParentEdges(toString(via), false);
     // compute vehicle
     computePath();
 }
@@ -303,7 +303,7 @@ GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEEdge* from
         {}, {}, {}, {}, {}, {}, {}, {}),                            // Children
     SUMOVehicleParameter(vehicleParameters) {
     // set via parameter without updating references
-    replaceMiddleParentEdges(this, via, false);
+    replaceMiddleParentEdges(toString(via), false);
     // compute vehicle
     computePath();
 }
@@ -1458,7 +1458,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             id = value;
             break;
         case SUMO_ATTR_TYPE:
-            replaceParentDemandElement(this, value, 0);
+            replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
             // set manually vtypeID (needed for saving)
             vtypeid = value;
             break;
@@ -1629,7 +1629,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_ROUTE:
             if (getParentDemandElements().size() == 2) {
-                replaceParentDemandElement(this, value, 1);
+                replaceDemandElementParent(SUMO_TAG_ROUTE, value, 1);
             }
             updateGeometry();
             updateSpreadStackGeometry = true;
@@ -1637,7 +1637,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         // Specific of Trips and flow
         case SUMO_ATTR_FROM: {
             // change first edge
-            replaceFirstParentEdge(this, myNet->retrieveEdge(value));
+            replaceFirstParentEdge(value);
             // compute vehicle
             computePath();
             updateSpreadStackGeometry = true;
@@ -1645,7 +1645,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         case SUMO_ATTR_TO: {
             // change last edge
-            replaceLastParentEdge(this, myNet->retrieveEdge(value));
+            replaceLastParentEdge(value);
             // compute vehicle
             computePath();
             updateSpreadStackGeometry = true;
@@ -1664,7 +1664,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
                 parametersSet &= ~VEHPARS_VIA_SET;
             }
             // update via
-            replaceMiddleParentEdges(this, parse<std::vector<GNEEdge*> >(myNet, value), true);
+            replaceMiddleParentEdges(value, true);
             // compute vehicle
             computePath();
             updateSpreadStackGeometry = true;

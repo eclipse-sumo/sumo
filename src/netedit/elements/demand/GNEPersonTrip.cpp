@@ -547,27 +547,27 @@ GNEPersonTrip::setAttribute(SumoXMLAttr key, const std::string& value) {
         // Common person plan attributes
         case SUMO_ATTR_FROM:
             // change first edge
-            replaceFirstParentEdge(this, myNet->retrieveEdge(value));
+            replaceFirstParentEdge(value);
             // compute person trip
             computePath();
             break;
         case SUMO_ATTR_TO:
             // change last edge
-            replaceLastParentEdge(this, myNet->retrieveEdge(value));
+            replaceLastParentEdge(value);
             // compute person trip
             computePath();
             break;
         case GNE_ATTR_FROM_BUSSTOP:
-            replaceParentAdditional(this, value, 0);
+            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
             // compute person trip
             computePath();
             break;
         case GNE_ATTR_TO_BUSSTOP:
             // -> check this
             if (getParentAdditionals().size() > 1) {
-                replaceParentAdditional(this, value, 1);
+                replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 1);
             } else {
-                replaceParentAdditional(this, value, 0);
+                replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
             }
             // compute person trip
             computePath();

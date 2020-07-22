@@ -717,22 +717,6 @@ GNEHierarchicalElement::updateParentDemandElement() {
 // ---------------------------------------------------------------------------
 
 void
-GNEHierarchicalElement::replaceFirstParentEdge(GNEDemandElement* elementChild, GNEEdge* newFirstEdge) {
-    // first check that at least there is two edges
-    if (myContainer.parentEdges.size() < 1) {
-        throw InvalidArgument("Invalid minimum number of edges");
-    } else {
-        // remove demandElement of parent edges
-        myContainer.parentEdges.front()->removeChildElement(elementChild);
-        // replace first edge
-        myContainer.parentEdges[0] = newFirstEdge;
-        // add demandElement into parent edges
-        myContainer.parentEdges.front()->addChildElement(elementChild);
-    }
-}
-
-
-void
 GNEHierarchicalElement::replaceFirstParentEdge(GNEGenericData* elementChild, GNEEdge* newFirstEdge) {
     // first check that at least there is two edges
     if (myContainer.parentEdges.size() < 1) {
@@ -744,48 +728,6 @@ GNEHierarchicalElement::replaceFirstParentEdge(GNEGenericData* elementChild, GNE
         myContainer.parentEdges[0] = newFirstEdge;
         // add generic data into parent edges
         myContainer.parentEdges.front()->addChildElement(elementChild);
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceMiddleParentEdges(GNEDemandElement* elementChild, const std::vector<GNEEdge*>& newMiddleEdges, const bool updateChildReferences) {
-    // declare a vector for new parent edges
-    std::vector<GNEEdge*> newEdges;
-    // check if add first edge
-    if (myContainer.parentEdges.size() > 0) {
-        newEdges.push_back(myContainer.parentEdges.front());
-    }
-    // add newMiddleEdges
-    for (const auto& edge : newMiddleEdges) {
-        newEdges.push_back(edge);
-    }
-    // check if add last edge
-    if (myContainer.parentEdges.size() > 1) {
-        newEdges.push_back(myContainer.parentEdges.back());
-    }
-    // check if we have to update references in all childs, or simply update parent edges vector
-    if (updateChildReferences) {
-        replaceParentEdges(elementChild, newEdges);
-    } else {
-        myContainer.parentEdges = newEdges;
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceLastParentEdge(GNEDemandElement* elementChild, GNEEdge* newLastEdge) {
-    // first check that at least there is two edges
-    if (myContainer.parentEdges.size() < 2) {
-        throw InvalidArgument("Invalid minimum number of edges");
-    } else {
-        // remove demandElement of parent edges
-        myContainer.parentEdges.back()->removeChildElement(elementChild);
-        // replace last edge
-        myContainer.parentEdges.pop_back();
-        myContainer.parentEdges.push_back(newLastEdge);
-        // add demandElement into parent edges
-        myContainer.parentEdges.back()->addChildElement(elementChild);
     }
 }
 
@@ -803,40 +745,6 @@ GNEHierarchicalElement::replaceLastParentEdge(GNEGenericData* elementChild, GNEE
         myContainer.parentEdges.push_back(newLastEdge);
         // add generic data into parent edges
         myContainer.parentEdges.back()->addChildElement(elementChild);
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentAdditional(GNEShape* shapeTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex) {
-    if ((int)myContainer.parentAdditionals.size() < additionalParentIndex) {
-        throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " parent additionals");
-    } else {
-        // remove additional of the children of parent additional
-        myContainer.parentAdditionals.at(additionalParentIndex)->removeChildElement(shapeTobeChanged);
-        // set new parent additional
-        myContainer.parentAdditionals.at(additionalParentIndex) = shapeTobeChanged->getNet()->retrieveAdditional(myContainer.parentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
-        // add additional int the children of parent additional
-        myContainer.parentAdditionals.at(additionalParentIndex)->addChildElement(shapeTobeChanged);
-        // update geometry after inserting
-        shapeTobeChanged->updateGeometry();
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentAdditional(GNEDemandElement* demandElementTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex) {
-    if ((int)myContainer.parentAdditionals.size() < additionalParentIndex) {
-        throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(additionalParentIndex) + " parent additionals");
-    } else {
-        // remove demand element of the children of parent additional
-        myContainer.parentAdditionals.at(additionalParentIndex)->removeChildElement(demandElementTobeChanged);
-        // set new parent demand element
-        myContainer.parentAdditionals.at(additionalParentIndex) = demandElementTobeChanged->getNet()->retrieveAdditional(myContainer.parentAdditionals.at(additionalParentIndex)->getTagProperty().getTag(), newParentAdditionalID);
-        // add demand element int the children of parent additional
-        myContainer.parentAdditionals.at(additionalParentIndex)->removeChildElement(demandElementTobeChanged);
-        // update geometry after inserting
-        demandElementTobeChanged->updateGeometry();
     }
 }
 
@@ -870,40 +778,6 @@ GNEHierarchicalElement::replaceLastParentTAZElement(GNEGenericData* elementChild
         myContainer.parentTAZElements.push_back(newLastTAZElement);
         // add demandElement into parent TAZElements
         myContainer.parentTAZElements.back()->addChildElement(elementChild);
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentDemandElement(GNEShape* shapeTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex) {
-    if ((int)myContainer.parentDemandElements.size() < demandElementParentIndex) {
-        throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " parent demand elements");
-    } else {
-        // remove demand element of the children of parent additional
-        myContainer.parentDemandElements.at(demandElementParentIndex)->removeChildElement(shapeTobeChanged);
-        // set new parent demand element
-        myContainer.parentDemandElements.at(demandElementParentIndex) = shapeTobeChanged->getNet()->retrieveDemandElement(myContainer.parentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
-        // add demand element int the children of parent additional
-        myContainer.parentDemandElements.at(demandElementParentIndex)->addChildElement(shapeTobeChanged);
-        // update geometry after inserting
-        shapeTobeChanged->updateGeometry();
-    }
-}
-
-
-void
-GNEHierarchicalElement::replaceParentDemandElement(GNEDemandElement* demandElementTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex) {
-    if ((int)myContainer.parentDemandElements.size() < demandElementParentIndex) {
-        throw InvalidArgument(myAC->getTagStr() + " with ID '" + myAC->getID() + "' doesn't have " + toString(demandElementParentIndex) + " parent demand elements");
-    } else {
-        // remove additional of the children of parent additional
-        myContainer.parentDemandElements.at(demandElementParentIndex)->removeChildElement(demandElementTobeChanged);
-        // set new parent additional
-        myContainer.parentDemandElements.at(demandElementParentIndex) = demandElementTobeChanged->getNet()->retrieveDemandElement(myContainer.parentDemandElements.at(demandElementParentIndex)->getTagProperty().getTag(), newParentDemandElementID);
-        // add additional int the children of parent additional
-        myContainer.parentDemandElements.at(demandElementParentIndex)->addChildElement(demandElementTobeChanged);
-        // update geometry after inserting
-        demandElementTobeChanged->updateGeometry();
     }
 }
 

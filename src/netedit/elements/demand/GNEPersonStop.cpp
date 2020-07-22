@@ -976,7 +976,7 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CONTAINER_STOP:
         case SUMO_ATTR_CHARGING_STATION:
         case SUMO_ATTR_PARKING_AREA:
-            replaceParentAdditional(this, value, 0);
+            replaceAdditionalParent(SUMO_TAG_BUS_STOP, value, 0);
             updateGeometry();
             break;
         // specific of Stops over lanes
