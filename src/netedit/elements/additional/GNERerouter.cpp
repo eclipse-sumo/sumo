@@ -322,7 +322,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_EDGES:
-            changeChildEdges(this, value);
+            replaceAdditionalChildEdges(value);
             break;
         case SUMO_ATTR_POSITION:
             myNet->removeGLObjectFromGrid(this);

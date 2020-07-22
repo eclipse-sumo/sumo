@@ -658,6 +658,30 @@ GNEAdditional::replaceAdditionalParentLanes(const std::string &value) {
 }
 
 
+void 
+GNEAdditional::replaceAdditionalChildEdges(const std::string &value) {
+    replaceChildEdges(this, parse<std::vector<GNEEdge*> >(getNet(), value));
+}
+
+
+void 
+GNEAdditional::replaceAdditionalChildLanes(const std::string &value) {
+    replaceChildLanes(this, parse<std::vector<GNELane*> >(getNet(), value));
+}
+
+
+void
+GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
+    replaceParentAdditional(this, myNet->retrieveAdditional(tag, value), parentIndex);
+}
+
+
+void
+GNEAdditional::replaceDemandElementParent(SumoXMLTag tag,const std::string &value, const int parentIndex) {
+    replaceParentDemandElement(this, myNet->retrieveDemandElement(tag, value), parentIndex);
+}
+
+
 void
 GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //

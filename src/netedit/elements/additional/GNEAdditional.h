@@ -416,6 +416,18 @@ protected:
     /// @brief replace additional parent lanes
     void replaceAdditionalParentLanes(const std::string &value);
 
+    /// @brief replace additional child edges
+    void replaceAdditionalChildEdges(const std::string &value);
+
+    /// @brief replace additional child lanes
+    void replaceAdditionalChildLanes(const std::string &value);
+
+    /// @brief replace additionalparent
+    void replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex);
+
+    /// @brief replace demand element parent
+    void replaceDemandElementParent(SumoXMLTag tag, const std::string &value, const int parentIndex);
+
 private:
     /**@brief check restriction with the number of children
      * @throw ProcessError if itis called without be reimplemented in child class

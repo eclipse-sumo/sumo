@@ -235,6 +235,20 @@ protected:
         }
     }
 
+    /// @brief replace child edges
+    template<typename T>
+    void replaceChildEdges(T* elementChild, const std::vector<GNEEdge*>& newChildEdges) {
+        // remove elementChild from childs
+        for (const auto& edge : myContainer.childEdges) {
+            edge->removeChildElement(elementChild);
+        }
+        // set new childs edges
+        myContainer.childEdges = newChildEdges;
+        // add elementChild into new childs
+        for (const auto& edge : myContainer.childEdges) {
+            edge->addChildElement(elementChild);
+        }
+    }
     /// @}
 
     /// @name replace parent lanes functions
@@ -254,6 +268,61 @@ protected:
             lane->addChildElement(elementChild);
         }
     }
+
+    /// @brief replace child lanes
+    template<typename T>
+    void replaceChildLanes(T* elementChild, const std::vector<GNELane*>& newChildLanes) {
+        // remove elementChild from childs
+        for (const auto& lane : myContainer.childLanes) {
+            lane->removeChildElement(elementChild);
+        }
+        // set new childs lanes
+        myContainer.childLanes = newChildLanes;
+        // add elementChild into new childs
+        for (const auto& lane : myContainer.childLanes) {
+            lane->addChildElement(elementChild);
+        }
+    }
+    /// @}
+
+    /// @brief replace parent additional
+    template<typename T>
+    void replaceParentAdditional(T* elementChild, GNEAdditional* newAdditional, const int index) {
+        // remove elementChild from parents
+        for (const auto& additional : myContainer.parentAdditionals) {
+            additional->removeChildElement(elementChild);
+        }
+        // set new parent additional
+        if (myContainer.parentAdditionals.size() < index) {
+            throw ProcessError("Invalid index");
+        } else {
+            myContainer.parentAdditionals.at(index) = newAdditional;
+        }
+        // add elementChild into new parents
+        for (const auto& additional : myContainer.parentAdditionals) {
+            additional->addChildElement(elementChild);
+        }
+    }
+
+    /// @brief replace parent demand element
+    template<typename T>
+    void replaceParentDemandElement(T* elementChild, GNEDemandElement* newDemandElement, const int index) {
+        // remove elementChild from parents
+        for (const auto& demandElement : myContainer.parentDemandElements) {
+            demandElement->removeChildElement(elementChild);
+        }
+        // set new parent demandElement
+        if (myContainer.parentDemandElements.size() < index) {
+            throw ProcessError("Invalid index");
+        } else {
+            myContainer.parentDemandElements.at(index) = newDemandElement;
+        }
+        // add elementChild into new parents
+        for (const auto& demandElement : myContainer.parentDemandElements) {
+            demandElement->addChildElement(elementChild);
+        }
+    }
+
     /// @}
 
     /// @name members and functions relative to changing parents
@@ -280,12 +349,6 @@ protected:
      */
     void replaceParentAdditional(GNEShape* shapeTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex);
 
-    /**@brief replace the parent additional of an additional
-     * @throw exception if this additional doesn't have previously a defined Additional parent
-     * @throw exception if additional with ID newParentAdditionalID doesn't exist
-     */
-    void replaceParentAdditional(GNEAdditional* additionalTobeChanged, const std::string& newParentAdditionalID, int additionalParentIndex);
-
     /**@brief replace the parent additional of a demand element
      * @throw exception if this additional doesn't have previously a defined Additional parent
      * @throw exception if additional with ID newParentAdditionalID doesn't exist
@@ -304,12 +367,6 @@ protected:
      */
     void replaceParentDemandElement(GNEShape* shapeTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex);
 
-    /**@brief replace the parent demand element of an additional
-     * @throw exception if this demand element doesn't have previously a defined DemandElement parent
-     * @throw exception if demand element with ID newParentDemandElementID doesn't exist
-     */
-    void replaceParentDemandElement(GNEAdditional* additionalTobeChanged, const std::string& newParentDemandElementID, int demandElementParentIndex);
-
     /**@brief change first parent demand element of demandElement
      * @throw exception if this demand element doesn't have previously a defined DemandElement parent
      * @throw exception if demand element with ID newParentDemandElementID doesn't exist
@@ -320,12 +377,6 @@ protected:
 
     /// @brief variable ParentConnections
     GNEGeometry::ParentConnections myParentConnections;
-
-    /// @brief change child edges of an additional
-    void changeChildEdges(GNEAdditional* elementChild, const std::string& newEdgeIDs);
-
-    /// @brief change child edges of an additional
-    void changeChildLanes(GNEAdditional* elementChild, const std::string& newEdgeIDs);
 
     /// @brief variable ChildConnections
     GNEHierarchicalElementHelper::ChildConnections myChildConnections;

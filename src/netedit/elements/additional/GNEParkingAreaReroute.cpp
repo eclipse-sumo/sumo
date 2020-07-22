@@ -195,7 +195,7 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_PARKING:
-            replaceParentAdditional(this, value, 1);
+            replaceAdditionalParent(SUMO_TAG_PARKING_AREA, value, 1);
             break;
         case SUMO_ATTR_PROB:
             myProbability = parse<double>(value);

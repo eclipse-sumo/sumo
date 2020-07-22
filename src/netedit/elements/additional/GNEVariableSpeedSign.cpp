@@ -290,7 +290,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_LANES:
-            changeChildLanes(this, value);
+            replaceAdditionalChildLanes(value);
             break;
         case SUMO_ATTR_POSITION:
             myNet->removeGLObjectFromGrid(this);
