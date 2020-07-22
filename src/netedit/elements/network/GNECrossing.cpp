@@ -78,8 +78,6 @@ GNECrossing::getPositionInView() const {
 
 void
 GNECrossing::startCrossingShapeGeometryMoving(const double shapeOffset) {
-    // get crossing
-    const auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape

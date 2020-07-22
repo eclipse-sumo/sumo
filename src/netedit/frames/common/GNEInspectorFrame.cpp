@@ -744,7 +744,7 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdSetNeteditAttribute(FXObject* o
 
 
 long
-GNEInspectorFrame::NeteditAttributesEditor::onCmdMarkFrontElement(FXObject* obj, FXSelector, void*) {
+GNEInspectorFrame::NeteditAttributesEditor::onCmdMarkFrontElement(FXObject*, FXSelector, void*) {
     // check number of elements
     if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() == 1) {
         // mark AC as front elemnet

@@ -155,8 +155,6 @@ void
 GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration
     const double accessExaggeration = s.addSize.getExaggeration(s, this);
-    // get mouse position
-    const Position &mousePosition = myNet->getViewNet()->getPositionInformation();
     // declare width
     const double radius = 0.5;
     // first check if additional has to be drawn
