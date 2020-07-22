@@ -397,24 +397,27 @@ void
 GNEViewNet::openObjectDialog() {
     // reimplemented from GUISUMOAbstractView due OverlappedInspection
     ungrab();
-    if (!isEnabled() || !myAmInitialised) {
-        return;
-    }
     // make network current
-    if (makeCurrent()) {
+    if (isEnabled() && myAmInitialised && makeCurrent()) {
         // fill objects under cursor
         myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
         // get GUIGLObject front
-        GUIGlObject* o = myObjectsUnderCursor.getGUIGlObjectFront();
+        GUIGlObject* GlObject = myObjectsUnderCursor.getGUIGlObjectFront();
         // we need to check if we're inspecting a overlapping element
         if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
                 myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
                 myViewParent->getInspectorFrame()->getAttributesEditor()->getEditedACs().size() > 0) {
-            o = dynamic_cast<GUIGlObject*>(myViewParent->getInspectorFrame()->getAttributesEditor()->getEditedACs().front());
-        } 
+            GlObject = dynamic_cast<GUIGlObject*>(myViewParent->getInspectorFrame()->getAttributesEditor()->getEditedACs().front());
+        }
+        // if GlObject is null, use net
+        if (GlObject == nullptr) {
+            GlObject = myNet;
+        }
         // check if open popup menu can be opened
-        if (o != nullptr) {
-            myPopup = o->getPopUpMenu(*myApp, *this);
+        if (GlObject != nullptr) {
+            // get popup menu
+            myPopup = GlObject->getPopUpMenu(*myApp, *this);
+            // create popup
             int x, y;
             FXuint b;
             myApp->getCursorPosition(x, y, b);
@@ -423,9 +426,12 @@ GNEViewNet::openObjectDialog() {
             myPopup->create();
             myPopup->show();
             myPopupPosition = getPositionInformation();
+            // call onRightBtnRelease 
             myChanger->onRightBtnRelease(nullptr);
+            // set focus in viewNet
             setFocus();
         }
+        // make network non current
         makeNonCurrent();
     }
 }
