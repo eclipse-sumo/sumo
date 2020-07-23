@@ -20,13 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEGeometry.h>
+#include <fx.h>
 #include <netedit/GNEReferenceCounter.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/Parameterised.h>
-#include <utils/common/ToString.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/gui/settings/GUIVisualizationSettings.h>
 
 #include "GNETagProperties.h"
 
@@ -36,6 +31,7 @@
 // ===========================================================================
 class GNENet;
 class GNEUndoList;
+class GUIGlObject;
 class GNELane;
 class GNEEdge;
 

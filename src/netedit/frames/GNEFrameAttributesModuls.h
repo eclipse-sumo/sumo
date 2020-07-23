@@ -22,6 +22,7 @@
 
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNetHelper.h>
+#include <utils/common/Parameterised.h>
 
 // ===========================================================================
 // class declaration
