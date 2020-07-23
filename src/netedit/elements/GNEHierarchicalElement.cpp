@@ -20,6 +20,15 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/additional/GNEAdditional.h>
+#include <netedit/elements/additional/GNEShape.h>
+#include <netedit/elements/additional/GNETAZElement.h>
+#include <netedit/elements/demand/GNEDemandElement.h>
+#include <netedit/elements/data/GNEGenericData.h>
+
 
 #include "GNEHierarchicalElement.h"
 
@@ -62,6 +71,69 @@ GNEHierarchicalElement::~GNEHierarchicalElement() {}
 const GNEHierarchicalElementHelper::Container&
 GNEHierarchicalElement::getContainer() const {
     return myContainer;
+}
+
+
+void
+GNEHierarchicalElement::setContainer(const GNEHierarchicalElementHelper::Container &container) {
+    myContainer = container;
+}
+
+
+std::vector<GNEHierarchicalElement*> 
+GNEHierarchicalElement::getAllHierarchicalElements() const {
+    std::vector<GNEHierarchicalElement*> result;
+    // add parent elements
+    for (const auto &element : myContainer.parentJunctions) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.parentEdges) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.parentLanes) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.parentAdditionals) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.parentShapes) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.parentTAZElements) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.parentDemandElements) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.parentGenericDatas) {
+        result.push_back(element);
+    }
+    // add child elements
+    for (const auto &element : myContainer.childJunctions) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.childEdges) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.childLanes) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.childAdditionals) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.childShapes) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.childTAZElements) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.childDemandElements) {
+        result.push_back(element);
+    }
+    for (const auto &element : myContainer.childGenericDatas) {
+        result.push_back(element);
+    }
+    return result;
 }
 
 

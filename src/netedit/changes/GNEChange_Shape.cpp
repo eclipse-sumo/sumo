@@ -70,8 +70,8 @@ GNEChange_Shape::undo() {
         }
         // remove shape from net
         myShape->getNet()->getAttributeCarriers()->deleteShape(myShape);
-        // Remove element from parents and children
-        removeElementFromParentsAndChildren(myShape);
+        // restore container
+        restoreHierarchicalContainers();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myShape->getTagStr() + " '" + myShape->getID() + "' into viewNet");
@@ -81,8 +81,8 @@ GNEChange_Shape::undo() {
         }
         // Add shape in net
         myShape->getNet()->getAttributeCarriers()->insertShape(myShape);
-        // Add element in parents and children
-        addElementInParentsAndChildren(myShape);
+        // restore container
+        restoreHierarchicalContainers();
     }
 }
 

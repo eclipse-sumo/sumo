@@ -97,8 +97,8 @@ GNEChange_GenericData::undo() {
                 pathElement.getJunction()->removePathGenericData(myGenericData);
             }
         }
-        // remove genericData from parents and children
-        removeElementFromParentsAndChildren(myGenericData);
+        // restore container
+        restoreHierarchicalContainers();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "' in GNEChange_GenericData");
@@ -108,8 +108,8 @@ GNEChange_GenericData::undo() {
         }
         // insert generic data into interval parent
         myDataIntervalParent->addGenericDataChild(myGenericData);
-        // add genericData in parents and children
-        addElementInParentsAndChildren(myGenericData);
+        // restore container
+        restoreHierarchicalContainers();
     }
     // Requiere always save elements
     myGenericData->getNet()->requireSaveDataElements(true);

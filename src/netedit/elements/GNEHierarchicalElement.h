@@ -90,8 +90,14 @@ public:
     /// @brief get container with parents and children
     const GNEHierarchicalElementHelper::Container &getContainer() const;
 
+    /// @brief set container
+    void setContainer(const GNEHierarchicalElementHelper::Container &container);
+
     /// @name common get functions
     /// @{
+
+    /// @brief get all parents and children
+    std::vector<GNEHierarchicalElement*> getAllHierarchicalElements() const;
 
     /// @brief get parent edges
     const std::vector<GNEEdge*>& getParentEdges() const;

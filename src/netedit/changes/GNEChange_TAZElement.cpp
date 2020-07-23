@@ -70,8 +70,8 @@ GNEChange_TAZElement::undo() {
         }
         // remove TAZElement from net
         myTAZElement->getNet()->getAttributeCarriers()->deleteTAZElement(myTAZElement);
-        // Remove element from parents and children
-        removeElementFromParentsAndChildren(myTAZElement);
+        // restore container
+        restoreHierarchicalContainers();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' into viewNet");
@@ -81,8 +81,8 @@ GNEChange_TAZElement::undo() {
         }
         // Add TAZElement in net
         myTAZElement->getNet()->getAttributeCarriers()->insertTAZElement(myTAZElement);
-        // Add element in parents and children
-        addElementInParentsAndChildren(myTAZElement);
+        // restore container
+        restoreHierarchicalContainers();
     }
 }
 

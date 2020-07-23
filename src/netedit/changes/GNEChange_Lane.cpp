@@ -92,8 +92,8 @@ GNEChange_Lane::undo() {
             if (mySelectedElement) {
                 myLane->unselectAttributeCarrier();
             }
-            // remove lane from parents and children
-            removeElementFromParentsAndChildren(myLane);
+            // restore container
+            restoreHierarchicalContainers();
         } else {
             WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }
@@ -107,8 +107,8 @@ GNEChange_Lane::undo() {
             if (mySelectedElement) {
                 myLane->selectAttributeCarrier();
             }
-            // add lane into parents and children
-            addElementInParentsAndChildren(myLane);
+            // restore container
+            restoreHierarchicalContainers();
         } else {
             WRITE_DEBUG("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
         }

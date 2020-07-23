@@ -83,8 +83,8 @@ GNEChange_Edge::undo() {
         if (mySelectedElement) {
             myEdge->unselectAttributeCarrier();
         }
-        // remove edge from parents and children
-        removeElementFromParentsAndChildren(myEdge);
+        // restore container
+        restoreHierarchicalContainers();
         // remove edge lanes from parents and children
         removeEdgeLanes();
         // delete edge from net
@@ -98,8 +98,8 @@ GNEChange_Edge::undo() {
         }
         // insert edge into net
         myEdge->getNet()->getAttributeCarriers()->insertEdge(myEdge);
-        // add edge into parents and children
-        addElementInParentsAndChildren(myEdge);
+        // restore container
+        restoreHierarchicalContainers();
         // add edge lanes into parents and children
         addEdgeLanes();
     }

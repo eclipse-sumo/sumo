@@ -88,8 +88,8 @@ GNEChange_DemandElement::undo() {
                 pathElement.getJunction()->removePathDemandElement(myDemandElement);
             }
         }
-        // remove demand element from parents and children
-        removeElementFromParentsAndChildren(myDemandElement);
+        // restore container
+        restoreHierarchicalContainers();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
@@ -101,8 +101,8 @@ GNEChange_DemandElement::undo() {
         myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
         // compute demand element path
         myDemandElement->computePath();
-        // add demand element in parents and children
-        addElementInParentsAndChildren(myDemandElement);
+        // restore container
+        restoreHierarchicalContainers();
     }
     // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
     if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {

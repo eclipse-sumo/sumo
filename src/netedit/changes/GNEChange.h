@@ -97,7 +97,10 @@ public:
     virtual void redo();
 
 protected:
-    /// @brief add given element into parents and children
+    /// @brief restore container (only use in undo() function)
+    void restoreHierarchicalContainers();
+
+    /// @brief add given element into parents and children (only use in redo() function)
     template<typename T>
     void addElementInParentsAndChildren(T* element) {
         // add element in parents
@@ -146,6 +149,7 @@ protected:
         }
     }
 
+    /// @brief remove given element from parents and children (only use in redo() function)
     template<typename T>
     void removeElementFromParentsAndChildren(T* element) {
         // Remove element from parents
@@ -201,7 +205,10 @@ protected:
 
     /// @brief flag for check if element is selected
     const bool mySelectedElement;
-    
+
     /// @brief container with parent and children
-    GNEHierarchicalElementHelper::Container myContainer;
+    const GNEHierarchicalElementHelper::Container myContainer;
+
+    /// @brief map with container of all parent and children hierarchical elements
+    std::map<GNEHierarchicalElement*, GNEHierarchicalElementHelper::Container> myParentsAndChildrenContainer;
 };
