@@ -71,7 +71,7 @@ struct GNEHierarchicalElementHelper {
 
         /// @brief add parent element
         template<typename T>
-        void addParentElement(const GNEAttributeCarrier* AC, T* element);
+        void addParentElement(const GNEAttributeCarrier* AC, T* element, const int position);
 
         /// @brief remove parent element
         template<typename T>
@@ -79,7 +79,7 @@ struct GNEHierarchicalElementHelper {
 
         /// @brief add child element
         template<typename T>
-        void addChildElement(const GNEAttributeCarrier* AC, T* element);
+        void addChildElement(const GNEAttributeCarrier* AC, T* element, const int position);
 
         /// @brief remove child element
         template<typename T>

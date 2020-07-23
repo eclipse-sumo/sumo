@@ -79,10 +79,12 @@ GNEHierarchicalElementHelper::Container::Container(
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
+GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction, const int position) {
     // check junction
     if (std::find(parentJunctions.begin(), parentJunctions.end(), junction) != parentJunctions.end()) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        parentJunctions.insert(parentJunctions.begin() + position, junction);
     } else {
         parentJunctions.push_back(junction);
     }
@@ -90,10 +92,12 @@ GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarr
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
+GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEEdge* edge, const int position) {
     // check edge
     if (std::find(parentEdges.begin(), parentEdges.end(), edge) != parentEdges.end()) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        parentEdges.insert(parentEdges.begin() + position, edge);
     } else {
         parentEdges.push_back(edge);
     }
@@ -101,10 +105,12 @@ GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarr
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNELane* lane) {
+GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNELane* lane, const int position) {
     // check lane
     if (std::find(parentLanes.begin(), parentLanes.end(), lane) != parentLanes.end()) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        parentLanes.insert(parentLanes.begin() + position, lane);
     } else {
         parentLanes.push_back(lane);
     }
@@ -112,10 +118,12 @@ GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarr
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
+GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEAdditional* additional, const int position) {
     // check additional
     if (std::find(parentAdditionals.begin(), parentAdditionals.end(), additional) != parentAdditionals.end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        parentAdditionals.insert(parentAdditionals.begin() + position, additional);
     } else {
         parentAdditionals.push_back(additional);
     }
@@ -123,10 +131,12 @@ GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarr
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
+GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEShape* shape, const int position) {
     // check shape
     if (std::find(parentShapes.begin(), parentShapes.end(), shape) != parentShapes.end()) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        parentShapes.insert(parentShapes.begin() + position, shape);
     } else {
         parentShapes.push_back(shape);
     }
@@ -134,10 +144,12 @@ GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarr
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
+GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement, const int position) {
     // check TAZElement
     if (std::find(parentTAZElements.begin(), parentTAZElements.end(), TAZElement) != parentTAZElements.end()) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        parentTAZElements.insert(parentTAZElements.begin() + position, TAZElement);
     } else {
         parentTAZElements.push_back(TAZElement);
     }
@@ -145,10 +157,12 @@ GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarr
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
+GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement, const int position) {
     // check TAZElement
     if (std::find(parentDemandElements.begin(), parentDemandElements.end(), demandElement) != parentDemandElements.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        parentDemandElements.insert(parentDemandElements.begin() + position, demandElement);
     } else {
         parentDemandElements.push_back(demandElement);
     }
@@ -156,10 +170,12 @@ GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarr
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
+GNEHierarchicalElementHelper::Container::addParentElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData, const int position) {
     // check generic data
     if (std::find(parentGenericDatas.begin(), parentGenericDatas.end(), genericData) != parentGenericDatas.end()) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        parentGenericDatas.insert(parentGenericDatas.begin() + position, genericData);
     } else {
         parentGenericDatas.push_back(genericData);
     }
@@ -263,10 +279,12 @@ GNEHierarchicalElementHelper::Container::removeParentElement(const GNEAttributeC
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction, const int position) {
     // check junction
     if (std::find(childJunctions.begin(), childJunctions.end(), junction) != childJunctions.end()) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        childJunctions.insert(childJunctions.begin() + position, junction);
     } else {
         childJunctions.push_back(junction);
     }
@@ -274,10 +292,12 @@ GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarri
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEEdge* edge, const int position) {
     // check edge
     if (std::find(childEdges.begin(), childEdges.end(), edge) != childEdges.end()) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        childEdges.insert(childEdges.begin() + position, edge);
     } else {
         childEdges.push_back(edge);
     }
@@ -285,10 +305,12 @@ GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarri
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNELane* lane) {
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNELane* lane, const int position) {
     // check lane
     if (std::find(childLanes.begin(), childLanes.end(), lane) != childLanes.end()) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        childLanes.insert(childLanes.begin() + position, lane);
     } else {
         childLanes.push_back(lane);
     }
@@ -296,10 +318,12 @@ GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarri
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEAdditional* additional, const int position) {
     // check additional
     if (std::find(childAdditionals.begin(), childAdditionals.end(), additional) != childAdditionals.end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        childAdditionals.insert(childAdditionals.begin() + position, additional);
     } else {
         childAdditionals.push_back(additional);
     }
@@ -307,10 +331,12 @@ GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarri
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEShape* shape, const int position) {
     // check shape
     if (std::find(childShapes.begin(), childShapes.end(), shape) != childShapes.end()) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        childShapes.insert(childShapes.begin() + position, shape);
     } else {
         childShapes.push_back(shape);
     }
@@ -318,10 +344,12 @@ GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarri
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement, const int position) {
     // check TAZElement
     if (std::find(childTAZElements.begin(), childTAZElements.end(), TAZElement) != childTAZElements.end()) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        childTAZElements.insert(childTAZElements.begin() + position, TAZElement);
     } else {
         childTAZElements.push_back(TAZElement);
     }
@@ -329,12 +357,16 @@ GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarri
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement, const int position) {
     // check TAZElement
     if (std::find(childDemandElements.begin(), childDemandElements.end(), demandElement) != childDemandElements.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
     } else {
-        childDemandElements.push_back(demandElement);
+        if (position != 0) {
+            childDemandElements.insert(childDemandElements.begin() + position, demandElement);
+        } else {
+            childDemandElements.push_back(demandElement);
+        }
         // add it also in SortedChildDemandElementsByType container
         myDemandElementsByType.at(demandElement->getTagProperty().getTag()).push_back(demandElement);
     }
@@ -342,10 +374,12 @@ GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarri
 
 
 template <> void
-GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
+GNEHierarchicalElementHelper::Container::addChildElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData, const int position) {
     // check generic data
     if (std::find(childGenericDatas.begin(), childGenericDatas.end(), genericData) != childGenericDatas.end()) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
+    } else if (position != 0) {
+        childGenericDatas.insert(childGenericDatas.begin() + position, genericData);
     } else {
         childGenericDatas.push_back(genericData);
     }

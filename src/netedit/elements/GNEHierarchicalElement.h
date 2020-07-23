@@ -141,9 +141,9 @@ public:
 
     /// @brief add parent element
     template<typename T>
-    void addParentElement(T* element) {
+    void addParentElement(T* element, const int position = -1) {
         // add parent element into container
-        myContainer.addChildElement(myAC, element);
+        myContainer.addChildElement(myAC, element, position);
     }
 
     /// @brief remove parent elmeent
@@ -155,9 +155,9 @@ public:
 
     /// @brief add child element
     template<typename T>
-    void addChildElement(T* element) {
+    void addChildElement(T* element, const int position = -1) {
         // add child element into container
-        myContainer.addChildElement(myAC, element);
+        myContainer.addChildElement(myAC, element, position);
         // update connections geometry
         myParentConnections.update();
         // Check if children must be sorted automatically
