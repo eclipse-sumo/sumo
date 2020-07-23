@@ -647,7 +647,7 @@ GNEDemandElement::replaceMiddleParentEdges(const std::string &value, const bool 
         // replace parent edges
         replaceParentEdges(this, middleEdges);
     } else {
-        myContainer.parentEdges = middleEdges;
+        myHierarchicalContainer.parentEdges = middleEdges;
     }
 }
 

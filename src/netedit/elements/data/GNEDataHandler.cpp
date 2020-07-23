@@ -27,6 +27,7 @@
 #include <netedit/changes/GNEChange_DataInterval.h>
 #include <netedit/changes/GNEChange_GenericData.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
+#include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/data/GNETAZRelData.h>
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/GNEViewNet.h>

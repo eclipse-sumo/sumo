@@ -39,12 +39,12 @@ GNEChange::GNEChange(bool forward, const bool selectedElement) :
 GNEChange::GNEChange(GNEHierarchicalElement* hierarchicalElement, bool forward, const bool selectedElement) :
     myForward(forward),
     mySelectedElement(selectedElement),
-    myContainer(hierarchicalElement->getContainer()) {
+    myOriginalHierarchicalContainer(hierarchicalElement->getHierarchicalContainer()) {
     // get all hierarchical elements (Parents and children)
     const auto hierarchicalElements = hierarchicalElement->getAllHierarchicalElements();
-    // save all containers
+    // save all hierarchical containers
     for (const auto &element : hierarchicalElements) {
-        myParentsAndChildrenContainer[element] = element->getContainer();
+        myHierarchicalContainers[element] = element->getHierarchicalContainer();
     }   
 }
 
@@ -81,8 +81,8 @@ GNEChange::redo() {}
 void
 GNEChange::restoreHierarchicalContainers() {
     // iterate over all parents and children container and restore it
-    for (const auto &container : myParentsAndChildrenContainer) {
-        container.first->setContainer(container.second);
+    for (const auto &container : myHierarchicalContainers) {
+        container.first->restoreHierarchicalContainer(container.second);
     }
 }
 

@@ -25,13 +25,14 @@
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
 #include <netedit/elements/GNEHierarchicalElementHelper.h>
-#include <netedit/elements/network/GNELane.h>
+#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEEdge.h>
+#include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEShape.h>
 #include <netedit/elements/additional/GNETAZElement.h>
 #include <netedit/elements/demand/GNEDemandElement.h>
-#include <netedit/elements/data/GNEEdgeData.h>
+#include <netedit/elements/data/GNEGenericData.h>
 #include <utils/foxtools/fxexdefs.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -104,47 +105,53 @@ protected:
     template<typename T>
     void addElementInParentsAndChildren(T* element) {
         // add element in parents
-        for (const auto& edge : myContainer.parentEdges) {
+        for (const auto& junction : myOriginalHierarchicalContainer.parentJunctions) {
+            junction->addChildElement(element);
+        }
+        for (const auto& edge : myOriginalHierarchicalContainer.parentEdges) {
             edge->addChildElement(element);
         }
-        for (const auto& lane : myContainer.parentLanes) {
+        for (const auto& lane : myOriginalHierarchicalContainer.parentLanes) {
             lane->addChildElement(element);
         }
-        for (const auto& additional : myContainer.parentAdditionals) {
+        for (const auto& additional : myOriginalHierarchicalContainer.parentAdditionals) {
             additional->addChildElement(element);
         }
-        for (const auto& shape : myContainer.parentShapes) {
+        for (const auto& shape : myOriginalHierarchicalContainer.parentShapes) {
             shape->addChildElement(element);
         }
-        for (const auto& TAZElement : myContainer.parentTAZElements) {
+        for (const auto& TAZElement : myOriginalHierarchicalContainer.parentTAZElements) {
             TAZElement->addChildElement(element);
         }
-        for (const auto& demandElement : myContainer.parentDemandElements) {
+        for (const auto& demandElement : myOriginalHierarchicalContainer.parentDemandElements) {
             demandElement->addChildElement(element);
         }
-        for (const auto& genericData : myContainer.parentGenericDatas) {
+        for (const auto& genericData : myOriginalHierarchicalContainer.parentGenericDatas) {
             genericData->addChildElement(element);
         }
         // add element in children
-        for (const auto& edge : myContainer.childEdges) {
+        for (const auto& junction : myOriginalHierarchicalContainer.childJunctions) {
+            junction->addParentElement(element);
+        }
+        for (const auto& edge : myOriginalHierarchicalContainer.childEdges) {
             edge->addParentElement(element);
         }
-        for (const auto& lane : myContainer.childLanes) {
+        for (const auto& lane : myOriginalHierarchicalContainer.childLanes) {
             lane->addParentElement(element);
         }
-        for (const auto& additional : myContainer.childAdditionals) {
+        for (const auto& additional : myOriginalHierarchicalContainer.childAdditionals) {
             additional->addParentElement(element);
         }
-        for (const auto& shape : myContainer.childShapes) {
+        for (const auto& shape : myOriginalHierarchicalContainer.childShapes) {
             shape->addParentElement(element);
         }
-        for (const auto& TAZElement : myContainer.childTAZElements) {
+        for (const auto& TAZElement : myOriginalHierarchicalContainer.childTAZElements) {
             TAZElement->addParentElement(element);
         }
-        for (const auto& demandElement : myContainer.childDemandElements) {
+        for (const auto& demandElement : myOriginalHierarchicalContainer.childDemandElements) {
             demandElement->addParentElement(element);
         }
-        for (const auto& genericData : myContainer.childGenericDatas) {
+        for (const auto& genericData : myOriginalHierarchicalContainer.childGenericDatas) {
             genericData->addParentElement(element);
         }
     }
@@ -153,47 +160,53 @@ protected:
     template<typename T>
     void removeElementFromParentsAndChildren(T* element) {
         // Remove element from parents
-        for (const auto& edge : myContainer.parentEdges) {
+        for (const auto& junction : myOriginalHierarchicalContainer.parentJunctions) {
+            junction->removeChildElement(element);
+        }
+        for (const auto& edge : myOriginalHierarchicalContainer.parentEdges) {
             edge->removeChildElement(element);
         }
-        for (const auto& lane : myContainer.parentLanes) {
+        for (const auto& lane : myOriginalHierarchicalContainer.parentLanes) {
             lane->removeChildElement(element);
         }
-        for (const auto& additional : myContainer.parentAdditionals) {
+        for (const auto& additional : myOriginalHierarchicalContainer.parentAdditionals) {
             additional->removeChildElement(element);
         }
-        for (const auto& shape : myContainer.parentShapes) {
+        for (const auto& shape : myOriginalHierarchicalContainer.parentShapes) {
             shape->removeChildElement(element);
         }
-        for (const auto& TAZElement : myContainer.parentTAZElements) {
+        for (const auto& TAZElement : myOriginalHierarchicalContainer.parentTAZElements) {
             TAZElement->removeChildElement(element);
         }
-        for (const auto& demandElement : myContainer.parentDemandElements) {
+        for (const auto& demandElement : myOriginalHierarchicalContainer.parentDemandElements) {
             demandElement->removeChildElement(element);
         }
-        for (const auto& genericData : myContainer.parentGenericDatas) {
+        for (const auto& genericData : myOriginalHierarchicalContainer.parentGenericDatas) {
             genericData->removeChildElement(element);
         }
         // Remove element from children
-        for (const auto& edge : myContainer.childEdges) {
+        for (const auto& junction : myOriginalHierarchicalContainer.childJunctions) {
+            junction->removeParentElement(element);
+        }
+        for (const auto& edge : myOriginalHierarchicalContainer.childEdges) {
             edge->removeParentElement(element);
         }
-        for (const auto& lane : myContainer.childLanes) {
+        for (const auto& lane : myOriginalHierarchicalContainer.childLanes) {
             lane->removeParentElement(element);
         }
-        for (const auto& additional : myContainer.childAdditionals) {
+        for (const auto& additional : myOriginalHierarchicalContainer.childAdditionals) {
             additional->removeParentElement(element);
         }
-        for (const auto& shape : myContainer.childShapes) {
+        for (const auto& shape : myOriginalHierarchicalContainer.childShapes) {
             shape->removeParentElement(element);
         }
-        for (const auto& TAZElement : myContainer.childTAZElements) {
+        for (const auto& TAZElement : myOriginalHierarchicalContainer.childTAZElements) {
             TAZElement->removeParentElement(element);
         }
-        for (const auto& demandElement : myContainer.childDemandElements) {
+        for (const auto& demandElement : myOriginalHierarchicalContainer.childDemandElements) {
             demandElement->removeParentElement(element);
         }
-        for (const auto& genericData : myContainer.childGenericDatas) {
+        for (const auto& genericData : myOriginalHierarchicalContainer.childGenericDatas) {
             genericData->removeParentElement(element);
         }
     }
@@ -206,9 +219,9 @@ protected:
     /// @brief flag for check if element is selected
     const bool mySelectedElement;
 
-    /// @brief container with parent and children
-    const GNEHierarchicalElementHelper::Container myContainer;
+    /// @brief Hierarchical container with parent and children
+    const GNEHierarchicalElementHelper::HierarchicalContainer myOriginalHierarchicalContainer;
 
-    /// @brief map with container of all parent and children hierarchical elements
-    std::map<GNEHierarchicalElement*, GNEHierarchicalElementHelper::Container> myParentsAndChildrenContainer;
+    /// @brief map with hierarchical container of all parent and children elements
+    std::map<GNEHierarchicalElement*, GNEHierarchicalElementHelper::HierarchicalContainer> myHierarchicalContainers;
 };

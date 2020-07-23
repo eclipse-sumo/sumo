@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/GNEGeometry.h>
 #include <netedit/GNEMoveShape.h>

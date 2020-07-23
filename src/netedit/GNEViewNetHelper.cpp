@@ -23,6 +23,7 @@
 #include <netedit/elements/additional/GNETAZ.h>
 #include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEEdgeRelData.h>
+#include <netedit/elements/data/GNEEdgeData.h>
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEInternalLane.h>
