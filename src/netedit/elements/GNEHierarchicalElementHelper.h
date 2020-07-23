@@ -21,21 +21,22 @@
 #include <config.h>
 
 #include <netedit/GNEGeometry.h>
-#include <utils/gui/globjects/GUIGlObjectTypes.h>
-#include <utils/geom/Position.h>
-
-#include "GNEAttributeCarrier.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 
+class GNEAttributeCarrier;
 class GNENetworkElement;
+class GNEJunction;
+class GNEEdge;
+class GNELane;
 class GNEAdditional;
-class GNETAZElement;
 class GNEShape;
+class GNETAZElement;
 class GNEDemandElement;
 class GNEGenericData;
+class GNEHierarchicalElement;
 
 // ===========================================================================
 // class definitions
@@ -44,14 +45,15 @@ class GNEGenericData;
 // @struct GNEHierarchicalElementHelper
 struct GNEHierarchicalElementHelper {
 
-	class Container {
+    /// @brief Hierarchical container (used for keep parent and children
+	class HierarchicalContainer {
 
     public:
         /// @brief default constructor
-        Container();
+        HierarchicalContainer();
 
         /// @brief parameter constructor
-        Container(
+        HierarchicalContainer(
             const std::vector<GNEJunction*>& parentJunctions,
             const std::vector<GNEEdge*>& parentEdges,
             const std::vector<GNELane*>& parentLanes,
@@ -69,9 +71,12 @@ struct GNEHierarchicalElementHelper {
             const std::vector<GNEDemandElement*>& childDemandElements,
             const std::vector<GNEGenericData*>& childGenericDatas);
 
+        /// @brief get container size
+        size_t getContainerSize() const;
+
         /// @brief add parent element
         template<typename T>
-        void addParentElement(const GNEAttributeCarrier* AC, T* element, const int position);
+        void addParentElement(const GNEAttributeCarrier* AC, T* element);
 
         /// @brief remove parent element
         template<typename T>
@@ -79,7 +84,7 @@ struct GNEHierarchicalElementHelper {
 
         /// @brief add child element
         template<typename T>
-        void addChildElement(const GNEAttributeCarrier* AC, T* element, const int position);
+        void addChildElement(const GNEAttributeCarrier* AC, T* element);
 
         /// @brief remove child element
         template<typename T>

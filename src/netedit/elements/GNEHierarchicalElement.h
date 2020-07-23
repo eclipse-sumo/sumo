@@ -87,11 +87,11 @@ public:
     virtual Position getPositionInView() const = 0;
     /// @}
 
-    /// @brief get container with parents and children
-    const GNEHierarchicalElementHelper::Container &getContainer() const;
+    /// @brief get hierarchicalcontainer with parents and children
+    const GNEHierarchicalElementHelper::HierarchicalContainer &getHierarchicalContainer() const;
 
-    /// @brief set container
-    void setContainer(const GNEHierarchicalElementHelper::Container &container);
+    /// @brief restore hierarchical container
+    void restoreHierarchicalContainer(const GNEHierarchicalElementHelper::HierarchicalContainer &container);
 
     /// @name common get functions
     /// @{
@@ -147,23 +147,23 @@ public:
 
     /// @brief add parent element
     template<typename T>
-    void addParentElement(T* element, const int position = -1) {
+    void addParentElement(T* element) {
         // add parent element into container
-        myContainer.addChildElement(myAC, element, position);
+        myHierarchicalContainer.addChildElement(myAC, element);
     }
 
     /// @brief remove parent elmeent
     template<typename T>
     void removeParentElement(T* element) {
         // remove parent element from container
-        myContainer.removeChildElement(myAC, element);
+        myHierarchicalContainer.removeChildElement(myAC, element);
     }
 
     /// @brief add child element
     template<typename T>
-    void addChildElement(T* element, const int position = -1) {
+    void addChildElement(T* element) {
         // add child element into container
-        myContainer.addChildElement(myAC, element, position);
+        myHierarchicalContainer.addChildElement(myAC, element);
         // update connections geometry
         myParentConnections.update();
         // Check if children must be sorted automatically
@@ -176,7 +176,7 @@ public:
     template<typename T>
     void removeChildElement(T* element) {
         // remove child element from container
-        myContainer.removeChildElement(myAC, element);
+        myHierarchicalContainer.removeChildElement(myAC, element);
         // update connections geometry
         myParentConnections.update();
         // Check if children must be sorted automatically
@@ -258,13 +258,13 @@ protected:
     template<typename T>
     void replaceParentEdges(T* elementChild, const std::vector<GNEEdge*>& newParentEdges) {
         // remove elementChild from parents
-        for (const auto& edge : myContainer.parentEdges) {
+        for (const auto& edge : myHierarchicalContainer.parentEdges) {
             edge->removeChildElement(elementChild);
         }
         // set new parents edges
-        myContainer.parentEdges = newParentEdges;
+        myHierarchicalContainer.parentEdges = newParentEdges;
         // add elementChild into new parents
-        for (const auto& edge : myContainer.parentEdges) {
+        for (const auto& edge : myHierarchicalContainer.parentEdges) {
             edge->addChildElement(elementChild);
         }
     }
@@ -273,13 +273,13 @@ protected:
     template<typename T>
     void replaceParentLanes(T* elementChild, const std::vector<GNELane*>& newParentLanes) {
         // remove elementChild from parents
-        for (const auto& lane : myContainer.parentLanes) {
+        for (const auto& lane : myHierarchicalContainer.parentLanes) {
             lane->removeChildElement(elementChild);
         }
         // set new parents lanes
-        myContainer.parentLanes = newParentLanes;
+        myHierarchicalContainer.parentLanes = newParentLanes;
         // add elementChild into new parents
-        for (const auto& lane : myContainer.parentLanes) {
+        for (const auto& lane : myHierarchicalContainer.parentLanes) {
             lane->addChildElement(elementChild);
         }
     }
@@ -288,13 +288,13 @@ protected:
     template<typename T>
     void replaceParentAdditionals(T* elementChild, const std::vector<GNEAdditional*>& newParentAdditionals) {
         // remove elementChild from parents
-        for (const auto& additional : myContainer.parentAdditionals) {
+        for (const auto& additional : myHierarchicalContainer.parentAdditionals) {
             additional->removeChildElement(elementChild);
         }
         // set new parents additionals
-        myContainer.parentAdditionals = newParentAdditionals;
+        myHierarchicalContainer.parentAdditionals = newParentAdditionals;
         // add elementChild into new parents
-        for (const auto& additional : myContainer.parentAdditionals) {
+        for (const auto& additional : myHierarchicalContainer.parentAdditionals) {
             additional->addChildElement(elementChild);
         }
     }
@@ -303,13 +303,13 @@ protected:
     template<typename T>
     void replaceParentDemandElements(T* elementChild, const std::vector<GNEDemandElement*>& newParentDemandElements) {
         // remove elementChild from parents
-        for (const auto& demandElement : myContainer.parentDemandElements) {
+        for (const auto& demandElement : myHierarchicalContainer.parentDemandElements) {
             demandElement->removeChildElement(elementChild);
         }
         // set new parents demandElements
-        myContainer.parentDemandElements = newParentDemandElements;
+        myHierarchicalContainer.parentDemandElements = newParentDemandElements;
         // add elementChild into new parents
-        for (const auto& demandElement : myContainer.parentDemandElements) {
+        for (const auto& demandElement : myHierarchicalContainer.parentDemandElements) {
             demandElement->addChildElement(elementChild);
         }
     }
@@ -318,13 +318,13 @@ protected:
     template<typename T>
     void replaceParentTAZElements(T* elementChild, const std::vector<GNETAZElement*>& newParentTAZElements) {
         // remove elementChild from parents
-        for (const auto& TAZElement : myContainer.parentTAZElements) {
+        for (const auto& TAZElement : myHierarchicalContainer.parentTAZElements) {
             TAZElement->removeChildElement(elementChild);
         }
         // set new parents TAZElements
-        myContainer.parentTAZElements = newParentTAZElements;
+        myHierarchicalContainer.parentTAZElements = newParentTAZElements;
         // add elementChild into new parents
-        for (const auto& TAZElement : myContainer.parentTAZElements) {
+        for (const auto& TAZElement : myHierarchicalContainer.parentTAZElements) {
             TAZElement->addChildElement(elementChild);
         }
     }
@@ -337,13 +337,13 @@ protected:
     template<typename T>
     void replaceChildEdges(T* elementChild, const std::vector<GNEEdge*>& newChildEdges) {
         // remove elementChild from childs
-        for (const auto& edge : myContainer.childEdges) {
+        for (const auto& edge : myHierarchicalContainer.childEdges) {
             edge->removeChildElement(elementChild);
         }
         // set new childs edges
-        myContainer.childEdges = newChildEdges;
+        myHierarchicalContainer.childEdges = newChildEdges;
         // add elementChild into new childs
-        for (const auto& edge : myContainer.childEdges) {
+        for (const auto& edge : myHierarchicalContainer.childEdges) {
             edge->addChildElement(elementChild);
         }
     }
@@ -352,13 +352,13 @@ protected:
     template<typename T>
     void replaceChildLanes(T* elementChild, const std::vector<GNELane*>& newChildLanes) {
         // remove elementChild from childs
-        for (const auto& lane : myContainer.childLanes) {
+        for (const auto& lane : myHierarchicalContainer.childLanes) {
             lane->removeChildElement(elementChild);
         }
         // set new childs lanes
-        myContainer.childLanes = newChildLanes;
+        myHierarchicalContainer.childLanes = newChildLanes;
         // add elementChild into new childs
-        for (const auto& lane : myContainer.childLanes) {
+        for (const auto& lane : myHierarchicalContainer.childLanes) {
             lane->addChildElement(elementChild);
         }
     }
@@ -371,8 +371,8 @@ protected:
     GNEHierarchicalElementHelper::ChildConnections myChildConnections;
 
 private:
-    /// @brief container with parents and children
-    GNEHierarchicalElementHelper::Container myContainer;
+    /// @brief hierarchical container with parents and children
+    GNEHierarchicalElementHelper::HierarchicalContainer myHierarchicalContainer;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     const GNEAttributeCarrier* myAC;
