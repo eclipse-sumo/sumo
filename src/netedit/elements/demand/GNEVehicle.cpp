@@ -577,7 +577,7 @@ GNEVehicle::computePath() {
         calculatePathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
-            getMiddleParentEdges());
+            getViaEdges());
     }
     // update geometry
     updateGeometry();
@@ -591,7 +591,7 @@ GNEVehicle::invalidatePath() {
         resetPathLanes(getVClass(), true, 
             getFirstAllowedVehicleLane(), 
             getLastAllowedVehicleLane(), 
-            getMiddleParentEdges());
+            getViaEdges());
     }
     // update geometry
     updateGeometry();

@@ -140,6 +140,12 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
 }
 
 
+const std::vector<GNEJunction*>&
+GNEHierarchicalElement::getParentJunctions() const {
+    return myHierarchicalContainer.parentJunctions;
+}
+
+
 const std::vector<GNEEdge*>&
 GNEHierarchicalElement::getParentEdges() const {
     return myHierarchicalContainer.parentEdges;
@@ -224,42 +230,6 @@ GNEHierarchicalElement::getChildGenericDatas() const {
 }
 
 
-GNEJunction*
-GNEHierarchicalElement::getFirstParentJunction() const {
-    if (myHierarchicalContainer.parentJunctions.size() > 0) {
-        return myHierarchicalContainer.parentJunctions.at(0);
-    } else {
-        throw InvalidArgument("Invalid number of parent junctions (0)");
-    }
-}
-
-
-GNEJunction*
-GNEHierarchicalElement::getSecondParentJunction()const {
-    if (myHierarchicalContainer.parentJunctions.size() > 1) {
-        return myHierarchicalContainer.parentJunctions.at(1);
-    } else {
-        throw InvalidArgument("Invalid number of parent junctions (<1)");
-    }
-}
-
-
-std::vector<GNEEdge*>
-GNEHierarchicalElement::getMiddleParentEdges() const {
-    std::vector<GNEEdge*> middleEdges;
-    // there are only middle edges if there is more than two edges
-    if (myHierarchicalContainer.parentEdges.size() > 2) {
-        // reserve middleEdges
-        middleEdges.reserve(myHierarchicalContainer.parentEdges.size() - 2);
-        // iterate over second and previous last parent edge
-        for (auto i = (myHierarchicalContainer.parentEdges.begin() + 1); i != (myHierarchicalContainer.parentEdges.end() - 1); i++) {
-            middleEdges.push_back(*i);
-        }
-    }
-    return middleEdges;
-}
-
-
 std::string
 GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const {
     std::vector<std::string> solution;
@@ -314,56 +284,6 @@ GNEHierarchicalElement::getChildRotation(const GNELane* lane) {
         }
     }
     throw ProcessError("Lane doesn't exist");
-}
-
-
-GNEDemandElement*
-GNEHierarchicalElement::getPreviousChildDemandElement(const GNEDemandElement* demandElement) const {
-    // find child demand element
-    auto it = std::find(myHierarchicalContainer.childDemandElements.begin(), myHierarchicalContainer.childDemandElements.end(), demandElement);
-    // return element or null depending of iterator
-    if (it == myHierarchicalContainer.childDemandElements.end()) {
-        return nullptr;
-    } else if (it == myHierarchicalContainer.childDemandElements.begin()) {
-        return nullptr;
-    } else {
-        return *(it - 1);
-    }
-}
-
-
-GNEDemandElement*
-GNEHierarchicalElement::getNextChildDemandElement(const GNEDemandElement* demandElement) const {
-    // find child demand element
-    auto it = std::find(myHierarchicalContainer.childDemandElements.begin(), myHierarchicalContainer.childDemandElements.end(), demandElement);
-    // return element or null depending of iterator
-    if (it == myHierarchicalContainer.childDemandElements.end()) {
-        return nullptr;
-    } else if (it == (myHierarchicalContainer.childDemandElements.end() - 1)) {
-        return nullptr;
-    } else {
-        return *(it + 1);
-    }
-}
-
-
-void 
-GNEHierarchicalElement::updateFirstParentJunction(GNEJunction* junction) {
-    if (myHierarchicalContainer.parentJunctions.size() > 0) {
-        myHierarchicalContainer.parentJunctions.at(0) = junction;
-    } else {
-        throw InvalidArgument("Invalid number of parent junctions (0)");
-    }
-}
-
-
-void 
-GNEHierarchicalElement::updateSecondParentJunction(GNEJunction* junction) {
-    if (myHierarchicalContainer.parentJunctions.size() > 1) {
-        myHierarchicalContainer.parentJunctions.at(1) = junction;
-    } else {
-        throw InvalidArgument("Invalid number of parent junctions (<1)");
-    }
 }
 
 

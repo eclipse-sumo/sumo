@@ -121,6 +121,52 @@ GNEDemandElement::getDemandElementSegmentGeometry() const {
 }
 
 
+GNEDemandElement*
+GNEDemandElement::getPreviousChildDemandElement(const GNEDemandElement* demandElement) const {
+    // find child demand element
+    auto it = std::find(myHierarchicalContainer.childDemandElements.begin(), myHierarchicalContainer.childDemandElements.end(), demandElement);
+    // return element or null depending of iterator
+    if (it == myHierarchicalContainer.childDemandElements.end()) {
+        return nullptr;
+    } else if (it == myHierarchicalContainer.childDemandElements.begin()) {
+        return nullptr;
+    } else {
+        return *(it - 1);
+    }
+}
+
+
+GNEDemandElement*
+GNEDemandElement::getNextChildDemandElement(const GNEDemandElement* demandElement) const {
+    // find child demand element
+    auto it = std::find(myHierarchicalContainer.childDemandElements.begin(), myHierarchicalContainer.childDemandElements.end(), demandElement);
+    // return element or null depending of iterator
+    if (it == myHierarchicalContainer.childDemandElements.end()) {
+        return nullptr;
+    } else if (it == (myHierarchicalContainer.childDemandElements.end() - 1)) {
+        return nullptr;
+    } else {
+        return *(it + 1);
+    }
+}
+
+
+std::vector<GNEEdge*>
+GNEDemandElement::getViaEdges() const {
+    std::vector<GNEEdge*> middleEdges;
+    // there are only middle edges if there is more than two edges
+    if (myHierarchicalContainer.parentEdges.size() > 2) {
+        // reserve middleEdges
+        middleEdges.reserve(myHierarchicalContainer.parentEdges.size() - 2);
+        // iterate over second and previous last parent edge
+        for (auto i = (myHierarchicalContainer.parentEdges.begin() + 1); i != (myHierarchicalContainer.parentEdges.end() - 1); i++) {
+            middleEdges.push_back(*i);
+        }
+    }
+    return middleEdges;
+}
+
+
 void
 GNEDemandElement::updateDemandElementGeometry(const GNELane* lane, const double posOverLane) {
     myDemandElementGeometry.updateGeometry(lane, posOverLane);

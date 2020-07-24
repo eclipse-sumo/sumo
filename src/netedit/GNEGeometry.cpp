@@ -624,7 +624,7 @@ GNEGeometry::SegmentGeometry::Segment::getLane() const {
 
 const GNEJunction* 
 GNEGeometry::SegmentGeometry::Segment::getJunction() const {
-    return myLane->getParentEdge()->getSecondParentJunction();
+    return myLane->getParentEdge()->getParentJunctions().back();
 }
 
 
@@ -799,7 +799,7 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
     // clear connectionsMap
     myConnectionsMap.clear();
     // iterate over outgoingEdge's lanes
-    for (const auto& outgoingEdge : myFromLane->getParentEdge()->getSecondParentJunction()->getGNEOutgoingEdges()) {
+    for (const auto& outgoingEdge : myFromLane->getParentEdge()->getParentJunctions().back()->getGNEOutgoingEdges()) {
         for (const auto& outgoingLane : outgoingEdge->getLanes()) {
             // get NBEdges from and to
             const NBEdge* NBEdgeFrom = myFromLane->getParentEdge()->getNBEdge();

@@ -526,7 +526,7 @@ GNERoute::isRouteValid(const std::vector<GNEEdge*>& edges) {
                 return ("consecutive duplicated edges (" + currentEdge->getID() + ") aren't allowed in a route");
             }
             // obtain outgoing edges of currentEdge
-            const std::vector<GNEEdge*>& outgoingEdges = currentEdge->getSecondParentJunction()->getGNEOutgoingEdges();
+            const std::vector<GNEEdge*>& outgoingEdges = currentEdge->getParentJunctions().back()->getGNEOutgoingEdges();
             // check if nextEdge is in outgoingEdges
             if (std::find(outgoingEdges.begin(), outgoingEdges.end(), nextEdge) == outgoingEdges.end()) {
                 return ("Edges '" + currentEdge->getID() + "' and '" + nextEdge->getID() + "' aren't consecutives");

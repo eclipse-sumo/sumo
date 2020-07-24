@@ -365,6 +365,12 @@ private:
      */
     void setNumLanes(int numLanes, GNEUndoList* undoList);
 
+    /// @brief update front parent junction
+    void updateFirstParentJunction(const std::string &value);
+
+    /// @brief update last parent junction
+    void updateSecondParentJunction(const std::string &value);
+
     /// @brief@brief increase number of lanes by one use the given attributes and restore the GNELane
     void addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections);
 

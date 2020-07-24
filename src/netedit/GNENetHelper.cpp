@@ -206,8 +206,8 @@ GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
     // add edge into grid
     myNet->addGLObjectIntoGrid(edge);
     // Add references into GNEJunctions
-    edge->getFirstParentJunction()->addOutgoingGNEEdge(edge);
-    edge->getSecondParentJunction()->addIncomingGNEEdge(edge);
+    edge->getParentJunctions().front()->addOutgoingGNEEdge(edge);
+    edge->getParentJunctions().back()->addIncomingGNEEdge(edge);
     return edge;
 }
 
@@ -537,8 +537,8 @@ GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
     edge->decRef("GNENet::deleteSingleEdge");
     edge->setResponsible(true);
     // Remove refrences from GNEJunctions
-    edge->getFirstParentJunction()->removeOutgoingGNEEdge(edge);
-    edge->getSecondParentJunction()->removeIncomingGNEEdge(edge);
+    edge->getParentJunctions().front()->removeOutgoingGNEEdge(edge);
+    edge->getParentJunctions().back()->removeIncomingGNEEdge(edge);
 }
 
 
@@ -1093,7 +1093,7 @@ GNENetHelper::PathCalculator::calculateReachability(const SUMOVehicleClass vClas
         traveltime += edge->getNBEdge()->getLength() / MIN2(edge->getNBEdge()->getSpeed(), defaultMaxSpeed);
         std::vector<GNEEdge*> sucessors;
         // get sucessor edges
-        for (const auto& sucessorEdge : edge->getSecondParentJunction()->getGNEOutgoingEdges()) {
+        for (const auto& sucessorEdge : edge->getParentJunctions().back()->getGNEOutgoingEdges()) {
             // check if edge is connected with sucessor edge
             if (consecutiveEdgesConnected(vClass, edge, sucessorEdge)) {
                 sucessors.push_back(sucessorEdge);

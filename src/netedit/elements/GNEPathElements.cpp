@@ -48,7 +48,7 @@ GNEPathElements::PathElement::updateNextLane(GNELane* lane) {
 GNEJunction* 
 GNEPathElements::PathElement::getJunction() const {
     if (myNextLane) {
-        return myLane->getParentEdge()->getSecondParentJunction();
+        return myLane->getParentEdge()->getParentJunctions().back();
     } else {
         return nullptr;
     }

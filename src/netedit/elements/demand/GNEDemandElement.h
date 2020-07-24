@@ -162,6 +162,15 @@ public:
     /// @brief get demand element segment geometry (stacked)
     const GNEGeometry::SegmentGeometry& getDemandElementSegmentGeometry() const;
 
+    /// @brief get previous child demand element to the given demand element
+    GNEDemandElement* getPreviousChildDemandElement(const GNEDemandElement* demandElement) const;
+
+    /// @brief get next child demand element to the given demand element
+    GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
+
+    /// @brief get middle (via) parent edges
+    std::vector<GNEEdge*> getViaEdges() const;
+
     /// @brief update element stacked geometry (stacked)
     void updateDemandElementGeometry(const GNELane* lane, const double posOverLane);
 

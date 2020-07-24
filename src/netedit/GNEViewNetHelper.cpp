@@ -1352,8 +1352,8 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
         for (const auto& edge : junction->getGNEEdges()) {
             // if both junction are selected, then move shape
             if (edge->isAttributeCarrierSelected() &&
-                    edge->getFirstParentJunction()->isAttributeCarrierSelected() &&
-                    edge->getSecondParentJunction()->isAttributeCarrierSelected()) {
+                    edge->getParentJunctions().front()->isAttributeCarrierSelected() &&
+                    edge->getParentJunctions().back()->isAttributeCarrierSelected()) {
                 myMovedEdges.insert(edge);
             }
         }
@@ -1683,19 +1683,19 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
             // iterate over extracted edges
             for (auto i : edgesToSelect) {
                 // select junction source and all their connections and crossings
-                ACToSelect.push_back(i->getFirstParentJunction());
-                for (auto j : i->getFirstParentJunction()->getGNEConnections()) {
+                ACToSelect.push_back(i->getParentJunctions().front());
+                for (auto j : i->getParentJunctions().front()->getGNEConnections()) {
                     ACToSelect.push_back(j);
                 }
-                for (auto j : i->getFirstParentJunction()->getGNECrossings()) {
+                for (auto j : i->getParentJunctions().front()->getGNECrossings()) {
                     ACToSelect.push_back(j);
                 }
                 // select junction destiny and all their connections crossings
-                ACToSelect.push_back(i->getSecondParentJunction());
-                for (auto j : i->getSecondParentJunction()->getGNEConnections()) {
+                ACToSelect.push_back(i->getParentJunctions().back());
+                for (auto j : i->getParentJunctions().back()->getGNEConnections()) {
                     ACToSelect.push_back(j);
                 }
-                for (auto j : i->getSecondParentJunction()->getGNECrossings()) {
+                for (auto j : i->getParentJunctions().back()->getGNECrossings()) {
                     ACToSelect.push_back(j);
                 }
             }

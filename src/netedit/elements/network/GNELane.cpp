@@ -411,7 +411,7 @@ GNELane::drawLinkRules(const GUIVisualizationSettings& /*s*/) const {
 
 void
 GNELane::drawArrows(const GUIVisualizationSettings& s) const {
-    if (s.showLinkDecals && myParentEdge->getSecondParentJunction()->isLogicValid() && s.scale > 3) {
+    if (s.showLinkDecals && myParentEdge->getParentJunctions().back()->isLogicValid() && s.scale > 3) {
         // calculate begin, end and rotation
         const Position& begin = myLaneGeometry.getShape()[-2];
         const Position& end = myLaneGeometry.getShape().back();
@@ -1681,7 +1681,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // set line width
         glLineWidth(4);
         // draw line
-        GLHelper::drawLine(customShape.front(), myParentEdge->getFirstParentJunction()->getPositionInView());
+        GLHelper::drawLine(customShape.front(), myParentEdge->getParentJunctions().front()->getPositionInView());
         // pop line matrix
         glPopMatrix();
         // draw "e" depending of detail
@@ -1709,7 +1709,7 @@ GNELane::drawStartEndShapePoints(const GUIVisualizationSettings& s) const {
         // set line width
         glLineWidth(4);
         // draw line
-        GLHelper::drawLine(customShape.back(), myParentEdge->getSecondParentJunction()->getPositionInView());
+        GLHelper::drawLine(customShape.back(), myParentEdge->getParentJunctions().back()->getPositionInView());
         // pop line matrix
         glPopMatrix();
     }
@@ -1740,7 +1740,7 @@ GNELane::getGNEIncomingConnections() {
     // Declare a vector to save incoming connections
     std::vector<GNEConnection*> incomingConnections;
     // Obtain incoming edges if junction source was already created
-    GNEJunction* junctionSource =  myParentEdge->getFirstParentJunction();
+    GNEJunction* junctionSource =  myParentEdge->getParentJunctions().front();
     if (junctionSource) {
         // Iterate over incoming GNEEdges of junction
         for (auto i : junctionSource->getGNEIncomingEdges()) {

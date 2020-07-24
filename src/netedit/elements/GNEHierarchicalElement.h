@@ -99,6 +99,9 @@ public:
     /// @brief get all parents and children
     std::vector<GNEHierarchicalElement*> getAllHierarchicalElements() const;
 
+    /// @brief get parent junctions
+    const std::vector<GNEJunction*>& getParentJunctions() const;
+
     /// @brief get parent edges
     const std::vector<GNEEdge*>& getParentEdges() const;
 
@@ -189,15 +192,6 @@ public:
     /// @name specific get functions
     /// @{
 
-    /// @brief get front parent junction
-    GNEJunction* getFirstParentJunction() const;
-
-    /// @brief remove parent junction
-    GNEJunction* getSecondParentJunction()const;
-
-    /// @brief get middle (via) parent edges
-    std::vector<GNEEdge*> getMiddleParentEdges() const;
-
     /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
     std::string getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const;
 
@@ -207,18 +201,7 @@ public:
     /// @brief get child rotation calculated in ChildConnections
     double getChildRotation(const GNELane* lane);
 
-    /// @brief get previous child demand element to the given demand element
-    GNEDemandElement* getPreviousChildDemandElement(const GNEDemandElement* demandElement) const;
-
-    /// @brief get next child demand element to the given demand element
-    GNEDemandElement* getNextChildDemandElement(const GNEDemandElement* demandElement) const;
     /// @}
-
-    /// @brief update front parent junction
-    void updateFirstParentJunction(GNEJunction* junction);
-
-    /// @brief update last parent junction
-    void updateSecondParentJunction(GNEJunction* junction);
 
     /// @brief update child connections
     void updateChildConnections();
@@ -250,6 +233,21 @@ public:
 protected:
     /// @name replace parent elements
     /// @{
+
+    /// @brief replace parent junctions
+    template<typename T>
+    void replaceParentJunctions(T* elementChild, const std::vector<GNEJunction*>& newParentJunctions) {
+        // remove elementChild from parents
+        for (const auto& junction : myHierarchicalContainer.parentJunctions) {
+            junction->removeChildElement(elementChild);
+        }
+        // set new parents junctions
+        myHierarchicalContainer.parentJunctions = newParentJunctions;
+        // add elementChild into new parents
+        for (const auto& junction : myHierarchicalContainer.parentJunctions) {
+            junction->addChildElement(elementChild);
+        }
+    }
 
     /// @brief replace parent edges
     template<typename T>

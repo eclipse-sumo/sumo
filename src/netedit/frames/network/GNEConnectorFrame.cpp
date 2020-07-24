@@ -415,7 +415,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, 
         myNumChanges = 0;
         myViewNet->getUndoList()->p_begin("modify " + toString(SUMO_TAG_CONNECTION) + "s");
     } else if (myPotentialTargets.count(lane)
-               || (allowConflict && lane->getParentEdge()->getFirstParentJunction() == myCurrentEditedLane->getParentEdge()->getSecondParentJunction())) {
+               || (allowConflict && lane->getParentEdge()->getParentJunctions().front() == myCurrentEditedLane->getParentEdge()->getParentJunctions().back())) {
         const int fromIndex = myCurrentEditedLane->getIndex();
         GNEEdge* srcEdge = myCurrentEditedLane->getParentEdge();
         GNEEdge* destEdge = lane->getParentEdge();
@@ -447,7 +447,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, 
                     } else {
                         lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.target);
                     }
-                    srcEdge->getSecondParentJunction()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
+                    srcEdge->getParentJunctions().back()->invalidateTLS(myViewNet->getUndoList(), NBConnection::InvalidConnection, newNBCon);
                 }
                 break;
             case LaneStatus::CONNECTED:
@@ -485,7 +485,7 @@ GNEConnectorFrame::buildConnection(GNELane* lane, const bool mayDefinitelyPass, 
 void
 GNEConnectorFrame::initTargets() {
     // gather potential targets
-    NBNode* nbn = myCurrentEditedLane->getParentEdge()->getSecondParentJunction()->getNBNode();
+    NBNode* nbn = myCurrentEditedLane->getParentEdge()->getParentJunctions().back()->getNBNode();
     // get potencial targets
     for (const auto &NBEEdge : nbn->getOutgoingEdges()) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(NBEEdge->getID());
