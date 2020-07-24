@@ -468,6 +468,67 @@ struct GNEGeometry {
         GNEHierarchicalElement* myHierarchicalElement;
     };
 
+/******************************/
+
+    /// @brief class to pack all variables and functions relative to connections between hierarchical element and their children
+    class ChildConnections {
+
+    private:
+        /// @brief connection geometry
+        class ConnectionGeometry {
+
+        public:
+            /// @brief parameter constructor
+            ConnectionGeometry(GNELane* lane);
+
+            /// @brief get lane
+            const GNELane* getLane() const;
+
+            /// @brief get position
+            const Position &getPosition() const;
+
+            /// @brief get rotation
+            double getRotation() const;
+
+        private:
+            /// @brief lane
+            GNELane* myLane;
+
+            /// @brief position
+            Position myPosition;
+
+            /// @brief rotation
+            double myRotation;
+
+            /// @brief default constructor
+            ConnectionGeometry();
+        };
+
+    public:
+        /// @brief constructor
+        ChildConnections(GNEHierarchicalElement* hierarchicalElement);
+
+        /// @brief update Connection's geometry
+        void update();
+
+        /// @brief draw connections between Parent and childrens
+        void drawConnection(const GUIVisualizationSettings& s, const GUIGlObjectType parentType, const double exaggeration) const;
+
+        /// @brief draw dotted connections between Parent and childrens
+        void drawDottedConnection(const GUIVisualizationSettings& s, const double exaggeration) const;
+
+        /// @brief position and rotation of every symbol over lane
+        std::vector<ConnectionGeometry> symbolsPositionAndRotation;
+
+        /// @brief geometry connections between parents an their children
+        std::vector<GNEGeometry::Geometry> connectionsGeometries;
+
+    private:
+        /// @brief pointer to hierarchical element parent
+        GNEHierarchicalElement* myHierarchicalElement;
+    };
+
+ /******************************/
     /// @brief return angle between two points (used in geometric calculations)
     static double calculateRotation(const Position& first, const Position& second);
 

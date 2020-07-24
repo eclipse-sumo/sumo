@@ -33,7 +33,6 @@
 class GNEHierarchicalElement {
 
 public:
-
     /// @brief declare GNEChange_Children as friend class
     friend class GNEChange_Children;
     friend class GNEDemandElement;
@@ -153,6 +152,8 @@ public:
     void addParentElement(T* element) {
         // add parent element into container
         myHierarchicalContainer.addChildElement(myAC, element);
+        // update connections geometry
+        myHierarchicalConnections.update();
     }
 
     /// @brief remove parent elmeent
@@ -160,6 +161,8 @@ public:
     void removeParentElement(T* element) {
         // remove parent element from container
         myHierarchicalContainer.removeChildElement(myAC, element);
+        // update connections geometry
+        myHierarchicalConnections.update();
     }
 
     /// @brief add child element
@@ -168,7 +171,7 @@ public:
         // add child element into container
         myHierarchicalContainer.addChildElement(myAC, element);
         // update connections geometry
-        myParentConnections.update();
+        myHierarchicalConnections.update();
         // Check if children must be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChildren()) {
             sortChildDemandElements();
@@ -181,7 +184,7 @@ public:
         // remove child element from container
         myHierarchicalContainer.removeChildElement(myAC, element);
         // update connections geometry
-        myParentConnections.update();
+        myHierarchicalConnections.update();
         // Check if children must be sorted automatically
         if (myAC->getTagProperty().canAutomaticSortChildren()) {
             sortChildDemandElements();
@@ -194,12 +197,6 @@ public:
 
     /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
     std::string getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const;
-
-    /// @brief get child position calculated in ChildConnections
-    const Position& getChildPosition(const GNELane* lane);
-
-    /// @brief get child rotation calculated in ChildConnections
-    double getChildRotation(const GNELane* lane);
 
     /// @}
 
@@ -226,9 +223,6 @@ public:
 
     /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
     virtual void updateParentAdditional();
-
-    /// @brief update parent after add or remove a child (can be reimplemented, for example used for statistics)
-    virtual void updateParentDemandElement();
 
 protected:
     /// @name replace parent elements
@@ -359,11 +353,8 @@ protected:
     }
     /// @}
 
-    /// @brief variable ParentConnections
-    GNEGeometry::ParentConnections myParentConnections;
-
-    /// @brief variable ChildConnections
-    GNEHierarchicalElementHelper::ChildConnections myChildConnections;
+    /// @brief hierarchical connections
+    GNEGeometry::ParentConnections myHierarchicalConnections;
 
 private:
     /// @brief hierarchical container with parents and children

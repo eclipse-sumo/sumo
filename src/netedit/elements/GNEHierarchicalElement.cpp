@@ -59,8 +59,7 @@ GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
         const std::vector<GNEGenericData*>& childGenericDataElements) :
     myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas,
         childJunctions, childEdges, childLanes, childAdditionals, childShapes, childTAZElements, childDemandElements, childGenericDataElements),
-    myChildConnections(this),
-    myParentConnections(this),
+    myHierarchicalConnections(this),
     myAC(AC) {
 }
 
@@ -265,49 +264,31 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
 }
 
 
-const Position&
-GNEHierarchicalElement::getChildPosition(const GNELane* lane) {
-    for (const auto& childConnection : myChildConnections.symbolsPositionAndRotation) {
-        if (childConnection.getLane() == lane) {
-            return childConnection.getPosition();
-        }
-    }
-    throw ProcessError("Lane doesn't exist");
-}
-
-
-double
-GNEHierarchicalElement::getChildRotation(const GNELane* lane) {
-    for (const auto& childConnection : myChildConnections.symbolsPositionAndRotation) {
-        if (childConnection.getLane() == lane) {
-            return childConnection.getRotation();
-        }
-    }
-    throw ProcessError("Lane doesn't exist");
-}
-
-
 void
 GNEHierarchicalElement::updateChildConnections() {
-    myChildConnections.update();
+    myHierarchicalConnections.update();
 }
 
 
 void
 GNEHierarchicalElement::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const {
+    /*
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection && (exaggeration > 0)) {
         myChildConnections.drawConnection(s, GLTypeParent, exaggeration);
     }
+    */
 }
 
 
 void 
 GNEHierarchicalElement::drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const {
+/*
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection && (exaggeration > 0)) {
         myChildConnections.drawDottedConnection(s, exaggeration);
     }
+*/
 }
 
 
@@ -444,11 +425,6 @@ GNEHierarchicalElement::checkChildDemandElementsOverlapping() const {
 
 void
 GNEHierarchicalElement::updateParentAdditional() {
-    // by default nothing to do
-}
-
-void
-GNEHierarchicalElement::updateParentDemandElement() {
     // by default nothing to do
 }
 
