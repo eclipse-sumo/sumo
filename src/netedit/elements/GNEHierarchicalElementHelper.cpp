@@ -29,13 +29,8 @@
 // member method definitions
 // ===========================================================================
 
-GNEHierarchicalElementHelper::HierarchicalContainer::HierarchicalContainer() {
-    // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
-    for (const auto& tag : listOfTags) {
-        myDemandElementsByType[tag] = {};
-    }
-}
+GNEHierarchicalElementHelper::HierarchicalContainer::HierarchicalContainer() {}
+
 
 GNEHierarchicalElementHelper::HierarchicalContainer::HierarchicalContainer(
 	const std::vector<GNEJunction*>& _parentJunctions,
@@ -70,11 +65,6 @@ GNEHierarchicalElementHelper::HierarchicalContainer::HierarchicalContainer(
 	childTAZElements(_childTAZElements),
 	childDemandElements(_childDemandElements),
     childGenericDatas(_childGenericDatas) {
-    // fill SortedChildDemandElementsByType with all demand element tags (it's needed because getChildDemandElementsSortedByType(...) function is constant
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
-    for (const auto& tag : listOfTags) {
-        myDemandElementsByType[tag] = {};
-    }
 }
 
 
@@ -353,13 +343,11 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 template <> void
 GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
-    // check TAZElement
+    // check demand element
     if (std::find(childDemandElements.begin(), childDemandElements.end(), demandElement) != childDemandElements.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
     } else {
         childDemandElements.push_back(demandElement);
-        // add it also in SortedChildDemandElementsByType container
-        myDemandElementsByType.at(demandElement->getTagProperty().getTag()).push_back(demandElement);
     }
 }
 
@@ -449,18 +437,12 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 template <> void
 GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
-    // check TAZElement
+    // check demand element
     auto it = std::find(childDemandElements.begin(), childDemandElements.end(), demandElement);
-    auto itByType = std::find(myDemandElementsByType.at(demandElement->getTagProperty().getTag()).begin(), myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end(), demandElement);
     if (it == childDemandElements.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
     } else {
         childDemandElements.erase(it);
-        // only remove it from mySortedChildDemandElementsByType if is a single element
-        if ((std::count(childDemandElements.begin(), childDemandElements.end(), demandElement) == 1) && 
-            (itByType != myDemandElementsByType.at(demandElement->getTagProperty().getTag()).end())) {
-            myDemandElementsByType.at(demandElement->getTagProperty().getTag()).erase(itByType);
-        }
     }
 }
 

@@ -295,12 +295,6 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
 }
 
 
-const std::vector<GNEDemandElement*>&
-GNEHierarchicalElement::getChildDemandElementsByType(SumoXMLTag tag) const {
-    return myHierarchicalContainer.myDemandElementsByType.at(tag);
-}
-
-
 const Position&
 GNEHierarchicalElement::getChildPosition(const GNELane* lane) {
     for (const auto& childConnection : myChildConnections.symbolsPositionAndRotation) {

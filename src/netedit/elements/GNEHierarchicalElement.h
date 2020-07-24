@@ -201,9 +201,6 @@ public:
     /// @brief if use edge/parent lanes as a list of consecutive elements, obtain a list of IDs of elements after insert a new element
     std::string getNewListOfParents(const GNENetworkElement* currentElement, const GNENetworkElement* newNextElement) const;
 
-    /// @brief return child demand elements by type
-    const std::vector<GNEDemandElement*>& getChildDemandElementsByType(SumoXMLTag tag) const;
-
     /// @brief get child position calculated in ChildConnections
     const Position& getChildPosition(const GNELane* lane);
 

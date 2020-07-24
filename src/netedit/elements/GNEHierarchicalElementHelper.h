@@ -137,9 +137,6 @@ struct GNEHierarchicalElementHelper {
 
         /// @brief vector with the generic data elements children
         std::vector<GNEGenericData*> childGenericDatas;
-
-        /// @brief vector with the demand elements children sorted by type and filtered (to avoid duplicated
-        std::map<SumoXMLTag, std::vector<GNEDemandElement* >> myDemandElementsByType;
 	};
 
     /// @brief class to pack all variables and functions relative to connections between hierarchical element and their children

@@ -1333,6 +1333,11 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                     for (const auto& i : edge->getChildTAZElements()) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
+                    // insert child demand elements
+                    for (const auto& i : edge->getChildDemandElements()) {
+                        showAttributeCarrierChildren(i, edgeItem);
+                    }
+                    /*
                     // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
                     for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_ROUTE)) {
                         showAttributeCarrierChildren(i, edgeItem);
@@ -1343,6 +1348,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                     for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_FLOW)) {
                         showAttributeCarrierChildren(i, edgeItem);
                     }
+                    */
                     // show data elements
                     for (const auto& i : edge->getChildGenericDatas()) {
                         showAttributeCarrierChildren(i, edgeItem);
