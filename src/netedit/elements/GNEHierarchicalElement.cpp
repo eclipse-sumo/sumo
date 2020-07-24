@@ -265,13 +265,13 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
 
 
 void
-GNEHierarchicalElement::updateChildConnections() {
+GNEHierarchicalElement::updateHierarchicalConnections() {
     myHierarchicalConnections.update();
 }
 
 
 void
-GNEHierarchicalElement::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const {
+GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const {
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection && (exaggeration > 0)) {
         myHierarchicalConnections.drawConnection(s, GLTypeParent, exaggeration);

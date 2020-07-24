@@ -201,10 +201,10 @@ public:
     /// @}
 
     /// @brief update child connections
-    void updateChildConnections();
+    void updateHierarchicalConnections();
 
     /// @brief Draw connections between parent and children
-    void drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const;
+    void drawHierarchicalConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const;
 
     /// @brief Draw dotted connections between parent and children
     void drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const;
@@ -354,7 +354,7 @@ protected:
     /// @}
 
     /// @brief hierarchical connections
-    GNEGeometry::ChildConnections myHierarchicalConnections;
+    GNEGeometry::HierarchicalConnections myHierarchicalConnections;
 
 private:
     /// @brief hierarchical container with parents and children

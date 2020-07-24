@@ -445,7 +445,7 @@ struct GNEGeometry {
     };
 
     /// @brief class to pack all variables and functions relative to connections between hierarchical element and their children
-    class ChildConnections {
+    class HierarchicalConnections {
 
     private:
         /// @brief connection geometry
@@ -480,7 +480,7 @@ struct GNEGeometry {
 
     public:
         /// @brief constructor
-        ChildConnections(GNEHierarchicalElement* hierarchicalElement);
+        HierarchicalConnections(GNEHierarchicalElement* hierarchicalElement);
 
         /// @brief update Connection's geometry
         void update();

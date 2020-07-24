@@ -2087,8 +2087,8 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
         glPushName(rerouter->getGlID());
         // draw rerouter symbol over all lanes
         for (const auto& j : myLanes) {
-            const Position& lanePos = rerouter->getChildPosition(j);
-            const double laneRot = rerouter->getChildRotation(j);
+            const Position& lanePos = j->getLaneShape().positionAtOffset(j->getLaneShape().length());
+            const double laneRot = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length());
             // draw rerouter symbol
             glPushMatrix();
             glTranslated(lanePos.x(), lanePos.y(), GLO_REROUTER);
@@ -2123,7 +2123,7 @@ GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* re
         // Pop name
         glPopName();
         // Draw connections
-        rerouter->drawChildConnections(s, getType(), rerouteExaggeration);
+        rerouter->drawHierarchicalConnections(s, getType(), rerouteExaggeration);
     }
 }
 

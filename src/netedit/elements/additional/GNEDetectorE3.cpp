@@ -167,7 +167,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         // draw additional name
         drawAdditionalName(s);
         // Draw child connections
-        drawChildConnections(s, getType(), E3Exaggeration);
+        drawHierarchicalConnections(s, getType(), E3Exaggeration);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             GNEGeometry::drawDottedSquaredShape(true, s, myPosition, s.detectorSettings.E3Size, s.detectorSettings.E3Size, 0, E3Exaggeration);

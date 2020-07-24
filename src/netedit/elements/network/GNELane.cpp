@@ -1559,7 +1559,7 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) co
             // GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
         }
         // Draw connections
-        vss->drawChildConnections(s, getType(), VSSExaggeration);
+        vss->drawHierarchicalConnections(s, getType(), VSSExaggeration);
     }
 }
 

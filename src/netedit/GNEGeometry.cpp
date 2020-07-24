@@ -852,10 +852,10 @@ GNEGeometry::Lane2laneConnection::Lane2laneConnection() :
 }
 
 // ---------------------------------------------------------------------------
-// GNEGeometry::ChildConnections - methods
+// GNEGeometry::HierarchicalConnections - methods
 // ---------------------------------------------------------------------------
 
-GNEGeometry::ChildConnections::ConnectionGeometry::ConnectionGeometry(GNELane* lane) :
+GNEGeometry::HierarchicalConnections::ConnectionGeometry::ConnectionGeometry(GNELane* lane) :
     myLane(lane),
     myRotation(0) {
     // set position and length depending of shape's lengt
@@ -870,35 +870,35 @@ GNEGeometry::ChildConnections::ConnectionGeometry::ConnectionGeometry(GNELane* l
 
 
 const GNELane*
-GNEGeometry::ChildConnections::ConnectionGeometry::getLane() const {
+GNEGeometry::HierarchicalConnections::ConnectionGeometry::getLane() const {
     return myLane;
 }
 
 
 const Position&
-GNEGeometry::ChildConnections::ConnectionGeometry::getPosition() const {
+GNEGeometry::HierarchicalConnections::ConnectionGeometry::getPosition() const {
     return myPosition;
 }
 
 
 double
-GNEGeometry::ChildConnections::ConnectionGeometry::getRotation() const {
+GNEGeometry::HierarchicalConnections::ConnectionGeometry::getRotation() const {
     return myRotation;
 }
 
 
-GNEGeometry::ChildConnections::ConnectionGeometry::ConnectionGeometry() :
+GNEGeometry::HierarchicalConnections::ConnectionGeometry::ConnectionGeometry() :
     myLane(nullptr),
     myRotation(0) {
 }
 
 
-GNEGeometry::ChildConnections::ChildConnections(GNEHierarchicalElement* hierarchicalElement) :
+GNEGeometry::HierarchicalConnections::HierarchicalConnections(GNEHierarchicalElement* hierarchicalElement) :
     myHierarchicalElement(hierarchicalElement) {}
 
 
 void
-GNEGeometry::ChildConnections::update() {
+GNEGeometry::HierarchicalConnections::update() {
     // first clear containers
     connectionsGeometries.clear();
     symbolsPositionAndRotation.clear();
@@ -977,7 +977,7 @@ GNEGeometry::ChildConnections::update() {
 
 
 void
-GNEGeometry::ChildConnections::drawConnection(const GUIVisualizationSettings& s, const GUIGlObjectType parentType, const double exaggeration) const {
+GNEGeometry::HierarchicalConnections::drawConnection(const GUIVisualizationSettings& s, const GUIGlObjectType parentType, const double exaggeration) const {
     // Iterate over myConnectionPositions
     for (const auto& connectionGeometry : connectionsGeometries) {
         // Add a draw matrix
@@ -995,7 +995,7 @@ GNEGeometry::ChildConnections::drawConnection(const GUIVisualizationSettings& s,
 
 
 void
-GNEGeometry::ChildConnections::drawDottedConnection(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEGeometry::HierarchicalConnections::drawDottedConnection(const GUIVisualizationSettings& s, const double exaggeration) const {
     // Iterate over myConnectionPositions
     for (const auto& connectionGeometry : connectionsGeometries) {
         // calculate dotted geometry

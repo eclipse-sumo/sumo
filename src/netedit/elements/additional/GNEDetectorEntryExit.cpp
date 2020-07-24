@@ -122,7 +122,7 @@ GNEDetectorEntryExit::updateGeometry() {
     myBlockIcon.setOffset(1, 0);
 
     // update E3 parent children
-    getParentAdditionals().at(0)->updateChildConnections();
+    getParentAdditionals().at(0)->updateHierarchicalConnections();
 }
 
 

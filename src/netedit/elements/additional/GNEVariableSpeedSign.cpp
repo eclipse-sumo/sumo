@@ -160,7 +160,7 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         // Show Lock icon
         myBlockIcon.drawIcon(s, VSSExaggeration, 0.4);
         // Draw child connections
-        drawChildConnections(s, getType(), VSSExaggeration);
+        drawHierarchicalConnections(s, getType(), VSSExaggeration);
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getPositionInView(), s.scale, s.addName);
