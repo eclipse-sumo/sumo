@@ -354,7 +354,7 @@ protected:
     /// @}
 
     /// @brief hierarchical connections
-    GNEGeometry::ParentConnections myHierarchicalConnections;
+    GNEGeometry::ChildConnections myHierarchicalConnections;
 
 private:
     /// @brief hierarchical container with parents and children

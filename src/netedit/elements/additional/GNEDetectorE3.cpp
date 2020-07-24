@@ -60,8 +60,8 @@ GNEDetectorE3::updateGeometry() {
     // Set block icon offset
     myBlockIcon.setOffset(-0.5, -0.5);
 
-    // Update connection's geometry
-    myChildConnections.update();
+    // Update Hierarchical connections geometry
+    myHierarchicalConnections.update();
 }
 
 
@@ -325,12 +325,6 @@ GNEDetectorE3::getPopUpID() const {
 std::string
 GNEDetectorE3::getHierarchyName() const {
     return getTagStr();
-}
-
-
-void
-GNEDetectorE3::updateParentAdditional() {
-    myChildConnections.update();
 }
 
 // ===========================================================================

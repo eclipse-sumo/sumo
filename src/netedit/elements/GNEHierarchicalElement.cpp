@@ -272,23 +272,19 @@ GNEHierarchicalElement::updateChildConnections() {
 
 void
 GNEHierarchicalElement::drawChildConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const {
-    /*
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection && (exaggeration > 0)) {
-        myChildConnections.drawConnection(s, GLTypeParent, exaggeration);
+        myHierarchicalConnections.drawConnection(s, GLTypeParent, exaggeration);
     }
-    */
 }
 
 
 void 
 GNEHierarchicalElement::drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const {
-/*
     // first check if connections can be drawn
     if (!s.drawForRectangleSelection && (exaggeration > 0)) {
-        myChildConnections.drawDottedConnection(s, exaggeration);
+        myHierarchicalConnections.drawDottedConnection(s, exaggeration);
     }
-*/
 }
 
 

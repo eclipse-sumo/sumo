@@ -126,12 +126,6 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
-    /// @name inherited from GNEHierarchicalChildElements
-    /// @{
-    /// @brief update parent after add or remove a child
-    void updateParentAdditional();
-    /// @}
-
 protected:
     /// @brief position of E3 in view
     Position myPosition;

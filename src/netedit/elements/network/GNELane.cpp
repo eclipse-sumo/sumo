@@ -1517,9 +1517,10 @@ GNELane::drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) co
     const double VSSExaggeration = s.addSize.getExaggeration(s, vss);
     // first check if additional has to be drawn
     if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
+        // calulate position and rotation
         // obtain lanePos and route
-        const Position& lanePos = vss->getChildPosition(this);
-        const double laneRot = vss->getChildRotation(this);
+        const Position& lanePos = getLaneShape().positionAtOffset(getLaneShape().length());
+        const double laneRot = getLaneShape().rotationDegreeAtOffset(getLaneShape().length());
         // Start drawing adding an VSS gl identificator (used to identify element after clicking)
         glPushName(vss->getGlID());
         // start drawing symbol

@@ -63,8 +63,8 @@ GNERerouter::updateGeometry() {
     // Set block icon offset
     myBlockIcon.setOffset(-0.5, -0.5);
 
-    // update connection positions
-    myChildConnections.update();
+    // Update Hierarchical connections geometry
+    myHierarchicalConnections.update();
 }
 
 

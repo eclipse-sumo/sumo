@@ -58,8 +58,8 @@ GNEVariableSpeedSign::updateGeometry() {
     // Set block icon offset
     myBlockIcon.setOffset(-0.5, -0.5);
 
-    // update child connections
-    myChildConnections.update();
+    // Update Hierarchical connections geometry
+    myHierarchicalConnections.update();
 }
 
 

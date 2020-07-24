@@ -444,32 +444,6 @@ struct GNEGeometry {
         Lane2laneConnection& operator=(const Lane2laneConnection& other) = delete;
     };
 
-    /// @brief struct for pack all variables and functions relative to connections between hierarchical element and their children
-    struct ParentConnections {
-        ParentConnections() {}
-
-        /// @brief constructor
-        ParentConnections(GNEHierarchicalElement* hierarchicalElement);
-
-        /// @brief update Connection's geometry
-        void update();
-
-        /// @brief draw connections between Parent and childrens
-        void draw(const GUIVisualizationSettings& s, const GUIGlObjectType parentType) const;
-
-        /// @brief position and rotation of every symbol over lane
-        std::vector<std::pair<Position, double> > symbolsPositionAndRotation;
-
-        /// @brief Matrix with the Vertex's positions of connections between parents an their children
-        std::vector<PositionVector> connectionPositions;
-
-    private:
-        /// @brief pointer to hierarchical element parent
-        GNEHierarchicalElement* myHierarchicalElement;
-    };
-
-/******************************/
-
     /// @brief class to pack all variables and functions relative to connections between hierarchical element and their children
     class ChildConnections {
 
@@ -528,7 +502,6 @@ struct GNEGeometry {
         GNEHierarchicalElement* myHierarchicalElement;
     };
 
- /******************************/
     /// @brief return angle between two points (used in geometric calculations)
     static double calculateRotation(const Position& first, const Position& second);
 
