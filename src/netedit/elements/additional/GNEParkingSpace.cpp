@@ -32,9 +32,8 @@
 // ===========================================================================
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement) :
-    GNEAdditional(parkingAreaParent, net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement,
-        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {},    // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                    // Children
+    GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement,
+        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}),
     myPosition(pos),
     myWidth(width),
     myLength(length),
@@ -165,7 +164,6 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // draw additional name
         drawAdditionalName(s);
         // calculate special shape
-        // calculate shape
         PositionVector contourShape;
         // make rectangle
         contourShape.push_back(Position((widthExaggeration * -0.5), 0));
@@ -228,7 +226,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_WIDTH:
         case SUMO_ATTR_LENGTH:
@@ -248,8 +245,6 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndo
 bool
 GNEParkingSpace::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_WIDTH:
@@ -296,9 +291,6 @@ GNEParkingSpace::getHierarchyName() const {
 void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            break;
         case SUMO_ATTR_POSITION:
             myNet->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);

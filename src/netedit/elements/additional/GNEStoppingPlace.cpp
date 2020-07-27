@@ -46,12 +46,11 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
     GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name,
     bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, blockMovement,
-        {}, {}, {lane}, {}, {}, {}, {}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),    // Children
-myStartPosition(startPos),
-myEndPosition(endPos),
-myParametersSet(parametersSet),
-myFriendlyPosition(friendlyPosition) {
+        {}, {}, {lane}, {}, {}, {}, {}, {}),
+    myStartPosition(startPos),
+    myEndPosition(endPos),
+    myParametersSet(parametersSet),
+    myFriendlyPosition(friendlyPosition) {
 }
 
 

@@ -32,9 +32,8 @@
 // ===========================================================================
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNEAdditional(variableSpeedSignDialog->getEditedAdditional(), variableSpeedSignDialog->getEditedAdditional()->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-        {}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                                                // Children
+    GNEAdditional(variableSpeedSignDialog->getEditedAdditional()->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
+        {}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}),                                         // Children
     myTime(0),
     mySpeed(0) {
     // fill VSS Step with default values
@@ -49,9 +48,8 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
 
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
-    GNEAdditional(variableSpeedSignParent, variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                        // Children
+    GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
+        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
     myTime(time),
     mySpeed(speed) {
 }
@@ -150,7 +148,6 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
         case SUMO_ATTR_TIME:
         case SUMO_ATTR_SPEED:
         case GNE_ATTR_PARAMETERS:
@@ -165,8 +162,6 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
 bool
 GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
         case SUMO_ATTR_TIME:
             if (canParse<double>(value)) {
                 // Check that
@@ -220,9 +215,6 @@ GNEVariableSpeedSignStep::getHierarchyName() const {
 void
 GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            break;
         case SUMO_ATTR_TIME:
             myTime = parse<double>(value);
             break;

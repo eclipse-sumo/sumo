@@ -34,9 +34,8 @@
 // ===========================================================================
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const std::string& length, bool friendlyPos, bool blockMovement) :
-    GNEAdditional(busStop, net, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
-        {}, {}, {lane}, {busStop}, {}, {}, {}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),            // Children
+    GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
+        {}, {}, {lane}, {busStop}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myLength(length),
     myFriendlyPosition(friendlyPos) {
@@ -198,7 +197,7 @@ std::string
 GNEAccess::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getParentAdditionals().front()->getID();
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
@@ -233,7 +232,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_LENGTH:
@@ -252,8 +250,6 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* 
 bool
 GNEAccess::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
         case SUMO_ATTR_LANE: {
             GNELane* lane = myNet->retrieveLane(value, false);
             if (lane != nullptr) {
@@ -316,9 +312,6 @@ GNEAccess::getHierarchyName() const {
 void
 GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            break;
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);
             break;

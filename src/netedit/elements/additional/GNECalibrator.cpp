@@ -35,8 +35,7 @@
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency,
     const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false,
-        {}, {edge}, {}, {}, {}, {}, {}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),    // Children
+        {}, {edge}, {}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),
@@ -47,8 +46,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency,
                              const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false,
-        {}, {}, {lane}, {}, {}, {}, {}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),    // Children
+        {}, {}, {lane}, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFrequency(frequency),
     myOutput(output),

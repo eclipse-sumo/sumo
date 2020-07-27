@@ -212,15 +212,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoL
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID: {
-            // change ID of Entry
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change IDs of all parking Spaces
-            for (const auto &parkingSpace : getChildAdditionals()) {
-                parkingSpace->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_PARKING_SPACE), undoList);
-            }
-            break;
-        }
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_STARTPOS:
         case SUMO_ATTR_ENDPOS:
@@ -307,6 +299,10 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
+            // Change IDs of all parking Spaces
+            for (const auto &parkingSpace : getChildAdditionals()) {
+                parkingSpace->setMicrosimID(getID());
+            }
             break;
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);

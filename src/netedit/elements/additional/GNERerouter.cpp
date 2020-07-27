@@ -37,8 +37,7 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos
         const std::vector<GNEEdge*>& edges, const std::string& name, const std::string& filename,
         double probability, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, edges, {}, {}, {}, {}, {}, {}), // Children
+        {}, {edges}, {}, {}, {}, {}, {}, {}),
     myPosition(pos),
     myFilename(filename),
     myProbability(probability),
@@ -225,15 +224,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID: {
-            // change ID of Rerouter Interval
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change Ids of all interval children
-            for (const auto &interval : getChildAdditionals()) {
-                interval->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_INTERVAL), undoList);
-            }
-            break;
-        }
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_EDGES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:

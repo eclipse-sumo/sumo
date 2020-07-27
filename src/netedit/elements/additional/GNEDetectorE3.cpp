@@ -35,8 +35,7 @@
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename,
         const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),    // Children
+        {}, {}, {}, {}, {}, {}, {}, {}),
     myPosition(pos),
     myFreq(freq),
     myFilename(filename),
@@ -224,15 +223,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID: {
-            // change ID of Entry
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change IDs of all Entry/Exits children
-            for (const auto &entryExit : getChildAdditionals()) {
-                entryExit->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(entryExit->getTagProperty().getTag()), undoList);
-            }
-            break;
-        }
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_FREQUENCY:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
@@ -336,6 +327,10 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
+            // Change IDs of all Entry/Exits children
+            for (const auto &entryExit : getChildAdditionals()) {
+                entryExit->setMicrosimID(getID());
+            }
             break;
         case SUMO_ATTR_POSITION:
             myNet->removeGLObjectFromGrid(this);

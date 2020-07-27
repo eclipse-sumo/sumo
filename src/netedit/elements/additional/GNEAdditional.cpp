@@ -42,19 +42,11 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
         const std::vector<GNEShape*>& shapeParents,
         const std::vector<GNETAZElement*>& TAZElementParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEJunction*>& junctionChildren,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNETAZElement*>& TAZElementChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren) :
+        const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents,
-        junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+        {}, {}, {}, {}, {}, {}, {}, {}),
     GNEPathElements(this),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -63,7 +55,7 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
 }
 
 
-GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
+GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
         const std::vector<GNEJunction*>& junctionParents,
         const std::vector<GNEEdge*>& edgeParents,
         const std::vector<GNELane*>& laneParents,
@@ -71,19 +63,11 @@ GNEAdditional::GNEAdditional(GNEAdditional* additionalParent, GNENet* net, GUIGl
         const std::vector<GNEShape*>& shapeParents,
         const std::vector<GNETAZElement*>& TAZElementParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEJunction*>& junctionChildren,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNETAZElement*>& TAZElementChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren) :
-    GUIGlObject(type, additionalParent->generateAdditionalChildID(tag)),
+        const std::vector<GNEGenericData*>& genericDataParents) :
+    GUIGlObject(type, additionalParents.front()->getID()),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents,
-        junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+        {}, {}, {}, {}, {}, {}, {}, {}),
     GNEPathElements(this),
     myAdditionalName(additionalName),
     myBlockMovement(blockMovement),
@@ -104,16 +88,6 @@ GNEAdditional::getID() const {
 GUIGlObject*
 GNEAdditional::getGUIGlObject() {
     return this;
-}
-
-
-std::string
-GNEAdditional::generateAdditionalChildID(SumoXMLTag childTag) {
-    int counter = (int)getChildAdditionals().size();
-    while (myNet->retrieveAdditional(childTag, getID() + toString(childTag) + toString(counter), false) != nullptr) {
-        counter++;
-    }
-    return (getID() + toString(childTag) + toString(counter));
 }
 
 

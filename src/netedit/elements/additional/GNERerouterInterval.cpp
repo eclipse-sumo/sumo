@@ -31,9 +31,8 @@
 // ===========================================================================
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
-    GNEAdditional(rerouterDialog->getEditedAdditional(), rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {},    // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                                        // Children
+    GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
+        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}),
     myBegin(0),
     myEnd(0) {
     // fill reroute interval with default values
@@ -42,9 +41,8 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
-    GNEAdditional(rerouterParent, rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-        {}, {}, {}, {rerouterParent}, {}, {}, {}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                // Children
+    GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
+        {}, {}, {}, {rerouterParent}, {}, {}, {}, {}),
     myBegin(begin),
     myEnd(end) {
 }
@@ -104,7 +102,7 @@ std::string
 GNERerouterInterval::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getParentAdditionals().front()->getID();
         case SUMO_ATTR_BEGIN:
             return time2string(myBegin);
         case SUMO_ATTR_END:
@@ -138,15 +136,6 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID: {
-            // change ID of Rerouter Interval
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change Ids of all intervals
-            for (const auto &interval : getChildAdditionals()) {
-                interval->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(interval->getTagProperty().getTag()), undoList);
-            }
-            break;
-        }
         case SUMO_ATTR_BEGIN:
         case SUMO_ATTR_END:
         case GNE_ATTR_PARAMETERS:
@@ -161,8 +150,6 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value, GNE
 bool
 GNERerouterInterval::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
         case SUMO_ATTR_BEGIN:
             return canParse<SUMOTime>(value) && (parse<SUMOTime>(value) < myEnd);
         case SUMO_ATTR_END:
@@ -199,9 +186,6 @@ GNERerouterInterval::getHierarchyName() const {
 void
 GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            break;
         case SUMO_ATTR_BEGIN:
             myBegin = parse<SUMOTime>(value);
             break;

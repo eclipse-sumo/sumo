@@ -37,8 +37,7 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name, blockMovement,
-    {}, {}, {}, {}, {}, {}, {}, {},     // Parents
-    {}, {}, lanes, {}, {}, {}, {}, {}), // Children
+    {}, {}, lanes, {}, {}, {}, {}, {}),
     myPosition(pos) {
 }
 
@@ -212,15 +211,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID: {
-            // change ID of Rerouter Interval
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
-            // Change IDs of all steps
-            for (const auto &step : getChildAdditionals()) {
-                step->setAttribute(SUMO_ATTR_ID, generateAdditionalChildID(SUMO_TAG_STEP), undoList);
-            }
-            break;
-        }
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_LANES:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:

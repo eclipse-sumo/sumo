@@ -253,7 +253,7 @@ std::string
 GNEDetectorEntryExit::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getParentAdditionals().front()->getID();
         case SUMO_ATTR_LANE:
             return getParentLanes().front()->getID();
         case SUMO_ATTR_POSITION:
@@ -280,7 +280,6 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value, GN
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
         case SUMO_ATTR_LANE:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_FRIENDLY_POS:
@@ -299,8 +298,6 @@ GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value, GN
 bool
 GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidAdditionalID(value);
         case SUMO_ATTR_LANE:
             return (myNet->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
@@ -330,9 +327,6 @@ GNEDetectorEntryExit::isAttributeEnabled(SumoXMLAttr /* key */) const {
 void
 GNEDetectorEntryExit::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            break;
         case SUMO_ATTR_LANE:
             replaceAdditionalParentLanes(value);
             break;
