@@ -94,6 +94,14 @@ GNETagProperties::checkTagIntegrity() const {
     if (!hasTagSynonym() && (myTagSynonym != SUMO_TAG_NOTHING)) {
         throw FormatException("Tag doesn't support synonyms");
     }
+    // check that parent tag isn't nothing
+    if (hasParent() && (myParentTag == SUMO_TAG_NOTHING)) {
+        throw FormatException("Parent tag cannot be nothing");
+    }
+    // check that parent was defined
+    if (!hasParent() && (myParentTag != SUMO_TAG_NOTHING)) {
+        throw FormatException("Tag doesn't support parents");
+    }
     // check integrity of all attributes
     for (auto attributeProperty : myAttributeProperties) {
         attributeProperty.checkAttributeIntegrity();
