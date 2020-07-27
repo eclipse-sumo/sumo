@@ -230,6 +230,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "parameters",                     AGEN_TAG_PARAM },
     // NETEDIT
     { "internalLane",                   GNE_TAG_INTERNAL_LANE },
+    { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
     { "vehicleWithRoute",               GNE_TAG_VEHICLE_WITHROUTE },
     { "routeEmbedded",                  GNE_TAG_ROUTE_EMBEDDED },

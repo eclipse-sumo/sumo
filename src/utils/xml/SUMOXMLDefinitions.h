@@ -363,6 +363,8 @@ enum SumoXMLTag {
     /// @{
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
+    /// @brief Rerouter Symbol
+    GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol
     GNE_TAG_VSS_SYMBOL,
     /// @}
