@@ -53,6 +53,8 @@ set(netedit_elements_additional_SRCS
    GNECalibratorFlow.cpp
    GNEVariableSpeedSign.h
    GNEVariableSpeedSign.cpp
+   GNEVariableSpeedSignSymbol.h
+   GNEVariableSpeedSignSymbol.cpp
    GNEVariableSpeedSignStep.h
    GNEVariableSpeedSignStep.cpp
    GNEClosingLaneReroute.h
