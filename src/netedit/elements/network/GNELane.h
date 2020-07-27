@@ -362,9 +362,6 @@ private:
     /// @brief direction indicators for lanes
     void drawDirectionIndicators(const GUIVisualizationSettings& s, double exaggeration, const bool drawAsRailway, const bool spreadSuperposed) const;
 
-    /// @brief draw VSS symbol
-    void drawVSSSymbol(const GUIVisualizationSettings& s, GNEAdditional* vss) const;
-
     /// @brief draw lane as railway
     void drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants &laneDrawingConstants) const;
 

@@ -505,13 +505,6 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     for (const auto& lane : myLanes) {
         lane->drawGL(s);
     }
-    // draw parent additionals
-    for (const auto& additional : getParentAdditionals()) {
-        if (additional->getTagProperty().getTag() == SUMO_TAG_REROUTER) {
-            // draw rerouter symbol
-            drawRerouterSymbol(s, additional);
-        }
-    }
     // draw child additional
     for (const auto& additional : getChildAdditionals()) {
         additional->drawGL(s);
@@ -2073,57 +2066,6 @@ GNEEdge::drawEdgeName(const GUIVisualizationSettings& s) const {
                 }
             }
         }
-    }
-}
-
-
-void
-GNEEdge::drawRerouterSymbol(const GUIVisualizationSettings& s, GNEAdditional* rerouter) const {
-    // Obtain exaggeration of the draw
-    const double rerouteExaggeration = s.addSize.getExaggeration(s, rerouter);
-    // first check if additional has to be drawn
-    if (s.drawAdditionals(rerouteExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // Start drawing adding an gl identificator
-        glPushName(rerouter->getGlID());
-        // draw rerouter symbol over all lanes
-        for (const auto& j : myLanes) {
-            const Position& lanePos = j->getLaneShape().positionAtOffset(j->getLaneShape().length());
-            const double laneRot = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length());
-            // draw rerouter symbol
-            glPushMatrix();
-            glTranslated(lanePos.x(), lanePos.y(), GLO_REROUTER);
-            glRotated(-1 * laneRot, 0, 0, 1);
-            glScaled(rerouteExaggeration, rerouteExaggeration, 1);
-            // mode
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            glBegin(GL_TRIANGLES);
-            glColor3d(1, .8f, 0);
-            // base
-            glVertex2d(0 - 1.4, 0);
-            glVertex2d(0 - 1.4, 6);
-            glVertex2d(0 + 1.4, 6);
-            glVertex2d(0 + 1.4, 0);
-            glVertex2d(0 - 1.4, 0);
-            glVertex2d(0 + 1.4, 6);
-            glEnd();
-            // draw "U"
-            if (!s.drawForRectangleSelection) {
-                GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
-                double probability = parse<double>(rerouter->getAttribute(SUMO_ATTR_PROB)) * 100;
-                // draw Probability
-                GLHelper::drawText((toString(probability) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
-            }
-            // finish draw
-            glPopMatrix();
-            // draw contour if is selected
-            if (myNet->getViewNet()->getInspectedAttributeCarrier() == rerouter) {
-                // GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
-            }
-        }
-        // Pop name
-        glPopName();
-        // Draw connections
-        rerouter->drawHierarchicalConnections(s, getType(), rerouteExaggeration);
     }
 }
 
