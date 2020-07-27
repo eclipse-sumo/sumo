@@ -51,7 +51,7 @@ GNEChange_Additional::~GNEChange_Additional() {
         if (myAdditional->getNet()->getAttributeCarriers()->additionalExist(myAdditional)) {
             // delete additional from net
             myAdditional->getNet()->getAttributeCarriers()->deleteAdditional(myAdditional);
-            // remove element from path
+            // remove element from path (used by E2 multilane detectors)
             for (const auto& pathElement : myPath) {
                 pathElement.getLane()->removePathAdditionalElement(myAdditional);
                 if (pathElement.getJunction()) {
