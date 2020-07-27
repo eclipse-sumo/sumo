@@ -38,9 +38,9 @@ public:
     /**@brief Constructor
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] rerouterParent Rerouter of this rerouter Symbol belongs
-     * @param[in] lane GNELane of this rerouter Symbol belongs
+     * @param[in] edge GNEEdge of this rerouter Symbol belongs
      */
-    GNERerouterSymbol(GNEAdditional* rerouterParent, GNELane* lane);
+    GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge);
 
     /// @brief Destructor
     ~GNERerouterSymbol();

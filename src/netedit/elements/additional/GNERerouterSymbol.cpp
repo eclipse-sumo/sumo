@@ -33,9 +33,9 @@
 // member method definitions
 // ===========================================================================
 
-GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNELane* lane) :
+GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "", false,
-        {}, {}, {lane}, {rerouterParent}, {}, {}, {}, {}) {             
+        {}, {edge}, {}, {rerouterParent}, {}, {}, {}, {}) {             
 }
 
 
@@ -63,7 +63,8 @@ GNERerouterSymbol::updateGeometry() {
 
 Position
 GNERerouterSymbol::getPositionInView() const {
-    return getParentLanes().front()->getLaneShape().positionAtOffset(getParentLanes().front()->getLaneShape().length());
+    const GNELane* firstLane = getParentEdges().front()->getLanes().at(0);
+    return firstLane->getLaneShape().positionAtOffset(firstLane->getLaneShape().length());
 }
 
 
@@ -95,9 +96,10 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // Start drawing adding an gl identificator
         glPushName(getParentAdditionals().front()->getGlID());
         // draw rerouter symbol over all lanes
-        for (const auto& j : getParentLanes()) {
-            const Position& lanePos = j->getLaneShape().positionAtOffset(j->getLaneShape().length());
-            const double laneRot = j->getLaneShape().rotationDegreeAtOffset(j->getLaneShape().length());
+        for (const auto& lane : getParentEdges().front()->getLanes()) {
+            // calculate lane position and rotation
+            const Position& lanePos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length());
+            const double laneRot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length());
             // draw rerouter symbol
             glPushMatrix();
             glTranslated(lanePos.x(), lanePos.y(), GLO_REROUTER);

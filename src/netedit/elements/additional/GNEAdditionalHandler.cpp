@@ -45,6 +45,7 @@
 #include "GNEParkingArea.h"
 #include "GNEParkingSpace.h"
 #include "GNERerouter.h"
+#include "GNERerouterSymbol.h"
 #include "GNERerouterInterval.h"
 #include "GNERouteProbReroute.h"
 #include "GNEParkingAreaReroute.h"
@@ -596,16 +597,26 @@ GNEAdditionalHandler::buildCalibratorFlow(GNENet* net, bool allowUndoRedo, GNEAd
 GNEAdditional*
 GNEAdditionalHandler::buildRerouter(GNENet* net, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNEEdge*>& edges, double prob, const std::string& name, const std::string& file, bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_REROUTER, id, false) == nullptr) {
-        GNEAdditional* rerouter = new GNERerouter(id, net, pos, edges, name, file, prob, off, timeThreshold, vTypes, blockMovement);
+        // create reroute
+        GNEAdditional* rerouter = new GNERerouter(id, net, pos, name, file, prob, off, timeThreshold, vTypes, blockMovement);
+        // create rerouter Symbols
+        std::vector<GNEAdditional*> rerouterSymbols;
+        for (const auto &edge : edges) {
+            rerouterSymbols.push_back(new GNERerouterSymbol(rerouter, edge));
+        }
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_REROUTER));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
+            for (const auto &rerouterSymbol : rerouterSymbols) {
+                net->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterSymbol, true), true);
+            }
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(rerouter);
-            // add this rerouter as parent of all edges
-            for (const auto &edge : edges) {
-                edge->addParentElement(rerouter);
+            // add symbols
+            for (int i = 0; i < (int)edges.size(); i++) {
+                edges.at(i)->addChildElement(rerouterSymbols.at(i));
+                rerouterSymbols.at(i)->incRef("buildRerouterSymbol");
             }
             rerouter->incRef("buildRerouter");
         }
@@ -780,11 +791,10 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNENet* net, bool allowUndoRedo, co
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(variableSpeedSign);
-
-            // add parent elements
+            // add symbols
             for (int i = 0; i < (int)lanes.size(); i++) {
                 lanes.at(i)->addChildElement(VSSSymbols.at(i));
-                VSSSymbols.at(i)->incRef("buildVariableSpeedSign");
+                VSSSymbols.at(i)->incRef("buildVariableSpeedSignSymbol");
             }
             variableSpeedSign->incRef("buildVariableSpeedSign");
         }
