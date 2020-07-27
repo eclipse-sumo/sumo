@@ -41,11 +41,10 @@ public:
      * @param[in] id The storage of gl-ids to get the one for this lane representation from
      * @param[in] net pointer to GNENet of this additional element belongs
      * @param[in] pos position (center) of the variable speed sign in the map
-     * @param[in] lanes vector with the lanes of variable speed signal
      * @param[in] name VSS name
      * @param[in] block movement enable or disable additional movement
      */
-    GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement);
+    GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name, bool blockMovement);
 
     /// @brief Destructor
     ~GNEVariableSpeedSign();

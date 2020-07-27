@@ -35,9 +35,9 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) :
+GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name, bool blockMovement) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name, blockMovement,
-    {}, {}, lanes, {}, {}, {}, {}, {}),
+    {}, {}, {}, {}, {}, {}, {}, {}),
     myPosition(pos) {
 }
 

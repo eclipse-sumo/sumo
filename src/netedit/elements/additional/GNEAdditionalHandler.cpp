@@ -51,6 +51,7 @@
 #include "GNERouteProbe.h"
 #include "GNEVaporizer.h"
 #include "GNEVariableSpeedSign.h"
+#include "GNEVariableSpeedSignSymbol.h"
 #include "GNEVariableSpeedSignStep.h"
 #include "GNETAZ.h"
 #include "GNETAZSourceSink.h"
@@ -763,16 +764,27 @@ GNEAdditionalHandler::buildRouteProbe(GNENet* net, bool allowUndoRedo, const std
 GNEAdditional*
 GNEAdditionalHandler::buildVariableSpeedSign(GNENet* net, bool allowUndoRedo, const std::string& id, Position pos, const std::vector<GNELane*>& lanes, const std::string& name, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_VSS, id, false) == nullptr) {
-        GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, net, pos, lanes, name, blockMovement);
+        // create VSS
+        GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, net, pos, name, blockMovement);
+        // create VSS Symbols
+        std::vector<GNEAdditional*> VSSSymbols;
+        for (const auto &lane : lanes) {
+            VSSSymbols.push_back(new GNEVariableSpeedSignSymbol(variableSpeedSign, lane));
+        }
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
+            for (const auto &VSSSymbol : VSSSymbols) {
+                net->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
+            }
             net->getViewNet()->getUndoList()->p_end();
         } else {
             net->getAttributeCarriers()->insertAdditional(variableSpeedSign);
-            // add this VSS as parent of all edges
-            for (const auto &lane : lanes) {
-                lane->addParentElement(variableSpeedSign);
+
+            // add parent elements
+            for (int i = 0; i < (int)lanes.size(); i++) {
+                lanes.at(i)->addChildElement(VSSSymbols.at(i));
+                VSSSymbols.at(i)->incRef("buildVariableSpeedSign");
             }
             variableSpeedSign->incRef("buildVariableSpeedSign");
         }
