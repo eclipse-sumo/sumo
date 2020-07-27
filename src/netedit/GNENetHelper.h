@@ -265,7 +265,7 @@ struct GNENetHelper {
         /// @{
 
         /// @brief return true if given additional exist
-        bool additionalExist(GNEAdditional* additional) const;
+        bool additionalExist(const GNEAdditional* additional) const;
 
         /**@brief Insert a additional element int GNENet container.
          * @throw processError if route was already inserted
@@ -275,7 +275,7 @@ struct GNENetHelper {
         /**@brief delete additional element of GNENet container
          * @throw processError if additional wasn't previously inserted
          */
-        bool deleteAdditional(GNEAdditional* additional);
+        void deleteAdditional(GNEAdditional* additional);
 
         /// @brief update additional ID in container
         void updateAdditionalID(GNEAttributeCarrier* AC, const std::string& newID);
@@ -286,7 +286,7 @@ struct GNENetHelper {
         /// @{
 
         /// @brief return true if given shape exist
-        bool shapeExist(GNEShape* shape) const;
+        bool shapeExist(const GNEShape* shape) const;
 
         /**@brief Insert a shape element int GNENet container.
          * @throw processError if route was already inserted
@@ -296,7 +296,7 @@ struct GNENetHelper {
         /**@brief delete shape element of GNENet container
          * @throw processError if shape wasn't previously inserted
          */
-        bool deleteShape(GNEShape* shape);
+        void deleteShape(GNEShape* shape);
 
         /// @brief update shape ID in container
         void updateShapeID(GNEAttributeCarrier* AC, const std::string& newID);
@@ -305,7 +305,7 @@ struct GNENetHelper {
         /// @{
 
         /// @brief return true if given TAZElement exist
-        bool TAZElementExist(GNETAZElement* TAZElement) const;
+        bool TAZElementExist(const GNETAZElement* TAZElement) const;
 
         /**@brief Insert a TAZElement element int GNENet container.
          * @throw processError if route was already inserted
@@ -315,7 +315,7 @@ struct GNENetHelper {
         /**@brief delete TAZElement element of GNENet container
          * @throw processError if TAZElement wasn't previously inserted
          */
-        bool deleteTAZElement(GNETAZElement* TAZElement);
+        void deleteTAZElement(GNETAZElement* TAZElement);
 
         /// @brief update TAZElement ID in container
         void updateTAZElementID(GNEAttributeCarrier* AC, const std::string& newID);
@@ -326,7 +326,7 @@ struct GNENetHelper {
         /// @{
 
         /// @brief return true if given demand element exist
-        bool demandElementExist(GNEDemandElement* demandElement) const;
+        bool demandElementExist(const GNEDemandElement* demandElement) const;
 
         /**@brief Insert a demand element element int GNENet container.
          * @throw processError if route was already inserted
@@ -336,7 +336,7 @@ struct GNENetHelper {
         /**@brief delete demand element element of GNENet container
          * @throw processError if demand element wasn't previously inserted
          */
-        bool deleteDemandElement(GNEDemandElement* demandElement);
+        void deleteDemandElement(GNEDemandElement* demandElement);
 
         /// @brief update demand element ID in container
         void updateDemandElementID(GNEAttributeCarrier* AC, const std::string& newID);
@@ -347,7 +347,7 @@ struct GNENetHelper {
         /// @{
 
         /// @brief return true if given demand element exist
-        bool dataSetExist(GNEDataSet* dataSet) const;
+        bool dataSetExist(const GNEDataSet* dataSet) const;
 
         /**@brief Insert a demand element element int GNENet container.
          * @throw processError if route was already inserted
@@ -357,7 +357,7 @@ struct GNENetHelper {
         /**@brief delete demand element element of GNENet container
          * @throw processError if demand element wasn't previously inserted
          */
-        bool deleteDataSet(GNEDataSet* dataSet);
+        void deleteDataSet(GNEDataSet* dataSet);
 
         /// @brief update data element ID in container
         void updateDataSetID(GNEAttributeCarrier* AC, const std::string& newID);

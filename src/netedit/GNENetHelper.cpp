@@ -570,7 +570,7 @@ GNENetHelper::AttributeCarriers::updateEdgeID(GNEAttributeCarrier* AC, const std
 
 
 bool
-GNENetHelper::AttributeCarriers::additionalExist(GNEAdditional* additional) const {
+GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional) const {
     // first check that additional pointer is valid
     if (additional) {
         return myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID()) !=
@@ -583,42 +583,51 @@ GNENetHelper::AttributeCarriers::additionalExist(GNEAdditional* additional) cons
 
 void
 GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
-    // Check if additional element exists before insertion
-    if (!additionalExist(additional)) {
-        myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
-        // add element in grid
-        myNet->addGLObjectIntoGrid(additional);
-        // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
-        if (myNet->isUpdateGeometryEnabled()) {
-            additional->updateGeometry();
+    // check if additional owns a parent
+    if (!additional->getTagProperty().hasParent()) {
+        // check if previously was inserted
+        if (!additionalExist(additional)) {
+            // insert additional
+            myAdditionals.at(additional->getTagProperty().getTag()).insert(std::make_pair(additional->getID(), additional));
+        } else {
+            throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
         }
-        // additionals has to be saved
-        myNet->requireSaveAdditionals(true);
-    } else {
-        throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' already exist");
     }
+    // add element in grid
+    if (additional->getTagProperty().isPlacedInRTree()) {
+        myNet->addGLObjectIntoGrid(additional);
+    }
+    // update geometry after insertion of additionals if myUpdateGeometryEnabled is enabled
+    if (myNet->isUpdateGeometryEnabled()) {
+        additional->updateGeometry();
+    }
+    // additionals has to be saved
+    myNet->requireSaveAdditionals(true);
 }
 
 
-bool
+void
 GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
-    // first check that additional pointer is valid
-    if (additionalExist(additional)) {
-        // remove it from Inspector Frame and AttributeCarrierHierarchy
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(additional);
-        // obtain demand element and erase it from container
-        auto it = myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID());
-        myAdditionals.at(additional->getTagProperty().getTag()).erase(it);
-        // remove element from grid
-        myNet->removeGLObjectFromGrid(additional);
-        // additionals has to be saved
-        myNet->requireSaveAdditionals(true);
-        // additional removed, then return true
-        return true;
-    } else {
-        throw ProcessError("Invalid additional pointer");
+    // check if additional owns a parent
+    if (!additional->getTagProperty().hasParent()) {
+        // check if previously was inserted
+        if (additionalExist(additional)) {
+            // remove it from Inspector Frame and AttributeCarrierHierarchy
+            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
+            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(additional);
+            // obtain additional iterator and erase it from container
+            auto it = myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID());
+            myAdditionals.at(additional->getTagProperty().getTag()).erase(it);
+        } else {
+            throw ProcessError("Invalid additional pointer");
+        }
     }
+    // remove element from grid
+    if (additional->getTagProperty().isPlacedInRTree()) {
+        myNet->removeGLObjectFromGrid(additional);
+    }
+    // additionals has to be saved
+    myNet->requireSaveAdditionals(true);
 }
 
 
@@ -644,7 +653,7 @@ GNENetHelper::AttributeCarriers::updateAdditionalID(GNEAttributeCarrier* AC, con
 
 
 bool
-GNENetHelper::AttributeCarriers::shapeExist(GNEShape* shape) const {
+GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
     // first check that shape pointer is valid
     if (shape) {
         return myShapes.at(shape->getTagProperty().getTag()).find(shape->getID()) !=
@@ -674,7 +683,7 @@ GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
 }
 
 
-bool
+void
 GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
     // first check that shape pointer is valid
     if (shapeExist(shape)) {
@@ -688,8 +697,6 @@ GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
         myNet->removeGLObjectFromGrid(shape);
         // shapes has to be saved
         myNet->requireSaveAdditionals(true);
-        // shape removed, then return true
-        return true;
     } else {
         throw ProcessError("Invalid shape pointer");
     }
@@ -718,7 +725,7 @@ GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const st
 
 
 bool
-GNENetHelper::AttributeCarriers::TAZElementExist(GNETAZElement* TAZElement) const {
+GNENetHelper::AttributeCarriers::TAZElementExist(const GNETAZElement* TAZElement) const {
     // first check that TAZElement pointer is valid
     if (TAZElement) {
         return myTAZElements.at(TAZElement->getTagProperty().getTag()).find(TAZElement->getID()) !=
@@ -748,7 +755,7 @@ GNENetHelper::AttributeCarriers::insertTAZElement(GNETAZElement* TAZElement) {
 }
 
 
-bool
+void
 GNENetHelper::AttributeCarriers::deleteTAZElement(GNETAZElement* TAZElement) {
     // first check that TAZElement pointer is valid
     if (TAZElementExist(TAZElement)) {
@@ -762,8 +769,6 @@ GNENetHelper::AttributeCarriers::deleteTAZElement(GNETAZElement* TAZElement) {
         myNet->removeGLObjectFromGrid(TAZElement);
         // TAZElements has to be saved
         myNet->requireSaveAdditionals(true);
-        // TAZElement removed, then return true
-        return true;
     } else {
         throw ProcessError("Invalid TAZElement pointer");
     }
@@ -792,7 +797,7 @@ GNENetHelper::AttributeCarriers::updateTAZElementID(GNEAttributeCarrier* AC, con
 
 
 bool
-GNENetHelper::AttributeCarriers::demandElementExist(GNEDemandElement* demandElement) const {
+GNENetHelper::AttributeCarriers::demandElementExist(const GNEDemandElement* demandElement) const {
     // first check that demandElement pointer is valid
     if (demandElement) {
         return myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID()) !=
@@ -831,7 +836,7 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
 }
 
 
-bool
+void
 GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement) {
     // first check that demandElement pointer is valid
     if (demandElementExist(demandElement)) {
@@ -853,8 +858,6 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
         myNet->removeGLObjectFromGrid(demandElement);
         // demandElements has to be saved
         myNet->requireSaveDemandElements(true);
-        // demandElement removed, then return true
-        return true;
     } else {
         throw ProcessError("Invalid demandElement pointer");
     }
@@ -910,7 +913,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
 
 
 bool
-GNENetHelper::AttributeCarriers::dataSetExist(GNEDataSet* dataSet) const {
+GNENetHelper::AttributeCarriers::dataSetExist(const GNEDataSet* dataSet) const {
     // first check that dataSet pointer is valid
     if (dataSet) {
         for (const auto &dataset : myDataSets) {
@@ -941,7 +944,7 @@ GNENetHelper::AttributeCarriers::insertDataSet(GNEDataSet* dataSet) {
 }
 
 
-bool
+void
 GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     // first check that dataSet pointer is valid
     if (dataSetExist(dataSet)) {
@@ -954,8 +957,6 @@ GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
         myNet->requireSaveDataElements(true);
         // update interval toolbar
         myNet->getViewNet()->getIntervalBar().updateIntervalBar();
-        // dataSet removed, then return true
-        return true;
     } else {
         throw ProcessError("Invalid dataSet pointer");
     }
