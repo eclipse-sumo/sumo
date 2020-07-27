@@ -2015,6 +2015,14 @@ GNEAttributeCarrier::fillAdditionals() {
             "0");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_REROUTER_SYMBOL;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+            GNETagProperties::ADDITIONALELEMENT,
+            GNETagProperties::DRAWABLE | GNETagProperties::PARENT,
+            GUIIcon::REROUTER, GNE_TAG_REROUTER_SYMBOL);
+    }
     currentTag = SUMO_TAG_INTERVAL;
     {
         // set values of tag
