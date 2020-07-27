@@ -1797,6 +1797,14 @@ GNEAttributeCarrier::fillAdditionals() {
             "Name of " + toString(currentTag));
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
+    currentTag = GNE_TAG_VSS_SYMBOL;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+            GNETagProperties::ADDITIONALELEMENT,
+            GNETagProperties::DRAWABLE | GNETagProperties::PARENT,
+            GUIIcon::VARIABLESPEEDSIGN, SUMO_TAG_VSS);
+    }
     currentTag = SUMO_TAG_STEP;
     {
         // set values of tag
