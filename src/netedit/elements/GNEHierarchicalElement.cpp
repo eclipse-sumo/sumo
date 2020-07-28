@@ -86,53 +86,53 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
     // reserve
     result.reserve(myHierarchicalContainer.getContainerSize());
     // add parent elements
-    for (const auto &element : myHierarchicalContainer.parentJunctions) {
+    for (const auto &element : getParentJunctions()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.parentEdges) {
+    for (const auto &element : getParentEdges()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.parentLanes) {
+    for (const auto &element : getParentLanes()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.parentAdditionals) {
+    for (const auto &element : getParentAdditionals()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.parentShapes) {
+    for (const auto &element : getParentShapes()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.parentTAZElements) {
+    for (const auto &element : getParentTAZElements()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.parentDemandElements) {
+    for (const auto &element : getParentDemandElements()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.parentGenericDatas) {
+    for (const auto &element : getParentGenericDatas()) {
         result.push_back(element);
     }
     // add child elements
-    for (const auto &element : myHierarchicalContainer.childJunctions) {
+    for (const auto &element : getChildJunctions()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.childEdges) {
+    for (const auto &element : getChildEdges()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.childLanes) {
+    for (const auto &element : getChildLanes()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.childAdditionals) {
+    for (const auto &element : getChildAdditionals()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.childShapes) {
+    for (const auto &element : getChildShapes()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.childTAZElements) {
+    for (const auto &element : getChildTAZElements()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.childDemandElements) {
+    for (const auto &element : getChildDemandElements()) {
         result.push_back(element);
     }
-    for (const auto &element : myHierarchicalContainer.childGenericDatas) {
+    for (const auto &element : getChildGenericDatas()) {
         result.push_back(element);
     }
     return result;
@@ -141,125 +141,125 @@ GNEHierarchicalElement::getAllHierarchicalElements() const {
 
 const std::vector<GNEJunction*>&
 GNEHierarchicalElement::getParentJunctions() const {
-    return myHierarchicalContainer.parentJunctions;
+    return myHierarchicalContainer.getParents<std::vector<GNEJunction*> >();
 }
 
 
 const std::vector<GNEEdge*>&
 GNEHierarchicalElement::getParentEdges() const {
-    return myHierarchicalContainer.parentEdges;
+    return myHierarchicalContainer.getParents<std::vector<GNEEdge*> >();
 }
 
 
 const std::vector<GNELane*>&
 GNEHierarchicalElement::getParentLanes() const {
-    return myHierarchicalContainer.parentLanes;
+    return myHierarchicalContainer.getParents<std::vector<GNELane*> >();
 }
 
 
 const std::vector<GNEAdditional*>&
 GNEHierarchicalElement::getParentAdditionals() const {
-    return myHierarchicalContainer.parentAdditionals;
+    return myHierarchicalContainer.getParents<std::vector<GNEAdditional*> >();
 }
 
 
 const std::vector<GNEShape*>&
 GNEHierarchicalElement::getParentShapes() const {
-    return myHierarchicalContainer.parentShapes;
+    return myHierarchicalContainer.getParents<std::vector<GNEShape*> >();
 }
 
 
 const std::vector<GNETAZElement*>&
 GNEHierarchicalElement::getParentTAZElements() const {
-    return myHierarchicalContainer.parentTAZElements;
+    return myHierarchicalContainer.getParents<std::vector<GNETAZElement*> >();
 }
 
 
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalElement::getParentDemandElements() const {
-    return myHierarchicalContainer.parentDemandElements;
+    return myHierarchicalContainer.getParents<std::vector<GNEDemandElement*> >();
 }
 
 
 const std::vector<GNEGenericData*>&
 GNEHierarchicalElement::getParentGenericDatas() const {
-    return myHierarchicalContainer.parentGenericDatas;
+    return myHierarchicalContainer.getParents<std::vector<GNEGenericData*> >();
 }
 
 
 const std::vector<GNEJunction*>&
 GNEHierarchicalElement::getChildJunctions() const {
-    return myHierarchicalContainer.childJunctions;
+    return myHierarchicalContainer.getChildren<std::vector<GNEJunction*> >();
 }
 
 
 const std::vector<GNEEdge*>&
 GNEHierarchicalElement::getChildEdges() const {
-    return myHierarchicalContainer.childEdges;
+    return myHierarchicalContainer.getChildren<std::vector<GNEEdge*> >();
 }
 
 
 const std::vector<GNELane*>&
 GNEHierarchicalElement::getChildLanes() const {
-    return myHierarchicalContainer.childLanes;
+    return myHierarchicalContainer.getChildren<std::vector<GNELane*> >();
 }
 
 
 const std::vector<GNEAdditional*>&
 GNEHierarchicalElement::getChildAdditionals() const {
-    return myHierarchicalContainer.childAdditionals;
+    return myHierarchicalContainer.getChildren<std::vector<GNEAdditional*> >();
 }
 
 
 const std::vector<GNEShape*>&
 GNEHierarchicalElement::getChildShapes() const {
-    return myHierarchicalContainer.childShapes;
+    return myHierarchicalContainer.getChildren<std::vector<GNEShape*> >();
 }
 
 
 const std::vector<GNETAZElement*>&
 GNEHierarchicalElement::getChildTAZElements() const {
-    return myHierarchicalContainer.childTAZElements;
+    return myHierarchicalContainer.getChildren<std::vector<GNETAZElement*> >();
 }
 
 
 const std::vector<GNEDemandElement*>&
 GNEHierarchicalElement::getChildDemandElements() const {
-    return myHierarchicalContainer.childDemandElements;
+    return myHierarchicalContainer.getChildren<std::vector<GNEDemandElement*> >();
 }
 
 
 const std::vector<GNEGenericData*>&
 GNEHierarchicalElement::getChildGenericDatas() const {
-    return myHierarchicalContainer.childGenericDatas;
+    return myHierarchicalContainer.getChildren<std::vector<GNEGenericData*> >();
 }
 
 
 template<> void 
 GNEHierarchicalElement::addParentElement(GNEJunction* element) {
     // add parent element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::addParentElement(GNEEdge* element) {
     // add parent element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::addParentElement(GNELane* element) {
     // add parent element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
     // add parent element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addParentElement(myAC, element);
     // update connections geometry
     myHierarchicalConnections.update();
 }
@@ -268,56 +268,56 @@ GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
 template<> void 
 GNEHierarchicalElement::addParentElement(GNEShape* element) {
     // add parent element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::addParentElement(GNETAZElement* element) {
     // add parent element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::addParentElement(GNEDemandElement* element) {
     // add parent element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::addParentElement(GNEGenericData* element) {
     // add parent element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::removeParentElement(GNEJunction* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::removeParentElement(GNEEdge* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::removeParentElement(GNELane* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(myAC, element);
     // update connections geometry
     myHierarchicalConnections.update();
 }
@@ -326,28 +326,28 @@ GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
 template<> void 
 GNEHierarchicalElement::removeParentElement(GNEShape* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::removeParentElement(GNETAZElement* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::removeParentElement(GNEDemandElement* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(myAC, element);
 }
 
 
 template<> void 
 GNEHierarchicalElement::removeParentElement(GNEGenericData* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(myAC, element);
 }
 
 
@@ -492,9 +492,9 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
     std::vector<std::string> solution;
     if ((currentElement->getTagProperty().getTag() == SUMO_TAG_EDGE) && (newNextElement->getTagProperty().getTag() == SUMO_TAG_EDGE)) {
         // reserve solution
-        solution.reserve(myHierarchicalContainer.parentEdges.size());
+        solution.reserve(getParentEdges().size());
         // iterate over edges
-        for (const auto& edge : myHierarchicalContainer.parentEdges) {
+        for (const auto& edge : getParentEdges()) {
             // add edge ID
             solution.push_back(edge->getID());
             // if current edge is the current element, then insert newNextElement ID
@@ -504,9 +504,9 @@ GNEHierarchicalElement::getNewListOfParents(const GNENetworkElement* currentElem
         }
     } else if ((currentElement->getTagProperty().getTag() == SUMO_TAG_LANE) && (newNextElement->getTagProperty().getTag() == SUMO_TAG_LANE)) {
         // reserve solution
-        solution.reserve(myHierarchicalContainer.parentLanes.size());
+        solution.reserve(getParentLanes().size());
         // iterate over lanes
-        for (const auto& lane : myHierarchicalContainer.parentLanes) {
+        for (const auto& lane : getParentLanes()) {
             // add lane ID
             solution.push_back(lane->getID());
             // if current lane is the current element, then insert newNextElement ID
@@ -552,20 +552,20 @@ GNEHierarchicalElement::sortChildAdditionals() {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedEntryExits;
         // obtain all entrys
-        for (const auto& additional : myHierarchicalContainer.childAdditionals) {
+        for (const auto& additional : getChildAdditionals()) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
                 sortedEntryExits.push_back(additional);
             }
         }
         // obtain all exits
-        for (const auto& additional : myHierarchicalContainer.childAdditionals) {
+        for (const auto& additional : getChildAdditionals()) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
                 sortedEntryExits.push_back(additional);
             }
         }
-        // change myHierarchicalContainer.childAdditionals for sortedEntryExits
-        if (sortedEntryExits.size() == myHierarchicalContainer.childAdditionals.size()) {
-            myHierarchicalContainer.childAdditionals = sortedEntryExits;
+        // change getChildAdditionals() for sortedEntryExits
+        if (sortedEntryExits.size() == getChildAdditionals().size()) {
+            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(sortedEntryExits);
         } else {
             throw ProcessError("Some child additional were lost during sorting");
         }
@@ -573,20 +573,20 @@ GNEHierarchicalElement::sortChildAdditionals() {
         // we need to sort Entry/Exits due additional.xds model
         std::vector<GNEAdditional*> sortedTAZSourceSink;
         // obtain all TAZSources
-        for (const auto& additional : myHierarchicalContainer.childAdditionals) {
+        for (const auto& additional : getChildAdditionals()) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
                 sortedTAZSourceSink.push_back(additional);
             }
         }
         // obtain all TAZSinks
-        for (const auto& additional : myHierarchicalContainer.childAdditionals) {
+        for (const auto& additional : getChildAdditionals()) {
             if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
                 sortedTAZSourceSink.push_back(additional);
             }
         }
-        // change myHierarchicalContainer.childAdditionals for sortedEntryExits
-        if (sortedTAZSourceSink.size() == myHierarchicalContainer.childAdditionals.size()) {
-            myHierarchicalContainer.childAdditionals = sortedTAZSourceSink;
+        // change getChildAdditionals() for sortedEntryExits
+        if (sortedTAZSourceSink.size() == getChildAdditionals().size()) {
+            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(sortedTAZSourceSink);
         } else {
             throw ProcessError("Some child additional were lost during sorting");
         }
@@ -594,7 +594,7 @@ GNEHierarchicalElement::sortChildAdditionals() {
         // declare a vector to keep sorted children
         std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
         // iterate over child additional
-        for (const auto& additional : myHierarchicalContainer.childAdditionals) {
+        for (const auto& additional : getChildAdditionals()) {
             sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
             // set begin/start attribute
             if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
@@ -612,11 +612,12 @@ GNEHierarchicalElement::sortChildAdditionals() {
         // sort children
         std::sort(sortedChildren.begin(), sortedChildren.end());
         // make sure that number of sorted children is the same as the child additional
-        if (sortedChildren.size() == myHierarchicalContainer.childAdditionals.size()) {
-            myHierarchicalContainer.childAdditionals.clear();
+        if (sortedChildren.size() == getChildAdditionals().size()) {
+            std::vector<GNEAdditional*> additionals;
             for (auto i : sortedChildren) {
-                myHierarchicalContainer.childAdditionals.push_back(i.second);
+                additionals.push_back(i.second);
             }
+            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(additionals);
         } else {
             throw ProcessError("Some child additional were lost during sorting");
         }
@@ -629,7 +630,7 @@ GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
     // declare a vector to keep sorted children
     std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
     // iterate over child additional
-    for (const auto& additional : myHierarchicalContainer.childAdditionals) {
+    for (const auto& additional : getChildAdditionals()) {
         sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
         // set begin/start attribute
         if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
@@ -647,7 +648,7 @@ GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
     // sort children
     std::sort(sortedChildren.begin(), sortedChildren.end());
     // make sure that number of sorted children is the same as the child additional
-    if (sortedChildren.size() == myHierarchicalContainer.childAdditionals.size()) {
+    if (sortedChildren.size() == getChildAdditionals().size()) {
         if (sortedChildren.size() <= 1) {
             return true;
         } else {

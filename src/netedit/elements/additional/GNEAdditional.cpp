@@ -625,25 +625,25 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
 
 void 
 GNEAdditional::replaceAdditionalParentEdges(const std::string &value) {
-    replaceParentEdges(this, parse<std::vector<GNEEdge*> >(getNet(), value));
+    replaceParentElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
 }
 
 
 void 
 GNEAdditional::replaceAdditionalParentLanes(const std::string &value) {
-    replaceParentLanes(this, parse<std::vector<GNELane*> >(getNet(), value));
+    replaceParentElements(this, parse<std::vector<GNELane*> >(getNet(), value));
 }
 
 
 void 
 GNEAdditional::replaceAdditionalChildEdges(const std::string &value) {
-    replaceChildEdges(this, parse<std::vector<GNEEdge*> >(getNet(), value));
+    replaceChildElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
 }
 
 
 void 
 GNEAdditional::replaceAdditionalChildLanes(const std::string &value) {
-    replaceChildLanes(this, parse<std::vector<GNELane*> >(getNet(), value));
+    replaceChildElements(this, parse<std::vector<GNELane*> >(getNet(), value));
 }
 
 
@@ -652,7 +652,7 @@ GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string &value,
     std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
     parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
     // replace parent additionals
-    replaceParentAdditionals(this, parentAdditionals);
+    replaceParentElements(this, parentAdditionals);
 }
 
 
@@ -661,7 +661,7 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string &val
     std::vector<GNEDemandElement*> parentDemandElements = getParentDemandElements();
     parentDemandElements[parentIndex] = myNet->retrieveDemandElement(tag, value);
     // replace parent demand elements
-    replaceParentDemandElements(this, parentDemandElements);
+    replaceParentElements(this, parentDemandElements);
 }
 
 

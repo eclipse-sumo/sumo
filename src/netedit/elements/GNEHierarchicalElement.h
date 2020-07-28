@@ -200,133 +200,35 @@ public:
     virtual void updateParentAdditional();
 
 protected:
-    /// @name replace parent elements
-    /// @{
-
-    /// @brief replace parent junctions
-    template<typename T>
-    void replaceParentJunctions(T* elementChild, const std::vector<GNEJunction*>& newParentJunctions) {
+    /// @brief replace parent elements
+    template<typename T, typename U>
+    void replaceParentElements(T* elementChild, const U &newParents) {
         // remove elementChild from parents
-        for (const auto& junction : myHierarchicalContainer.parentJunctions) {
-            junction->removeChildElement(elementChild);
+        for (const auto& parent : myHierarchicalContainer.getParents<U>()) {
+            parent->removeChildElement(elementChild);
         }
         // set new parents junctions
-        myHierarchicalContainer.parentJunctions = newParentJunctions;
+        myHierarchicalContainer.setParents(newParents);
         // add elementChild into new parents
-        for (const auto& junction : myHierarchicalContainer.parentJunctions) {
-            junction->addChildElement(elementChild);
+        for (const auto& parent : myHierarchicalContainer.getParents<U>()) {
+            parent->addChildElement(elementChild);
         }
     }
 
-    /// @brief replace parent edges
-    template<typename T>
-    void replaceParentEdges(T* elementChild, const std::vector<GNEEdge*>& newParentEdges) {
-        // remove elementChild from parents
-        for (const auto& edge : myHierarchicalContainer.parentEdges) {
-            edge->removeChildElement(elementChild);
-        }
-        // set new parents edges
-        myHierarchicalContainer.parentEdges = newParentEdges;
-        // add elementChild into new parents
-        for (const auto& edge : myHierarchicalContainer.parentEdges) {
-            edge->addChildElement(elementChild);
-        }
-    }
-
-    /// @brief replace parent lanes
-    template<typename T>
-    void replaceParentLanes(T* elementChild, const std::vector<GNELane*>& newParentLanes) {
-        // remove elementChild from parents
-        for (const auto& lane : myHierarchicalContainer.parentLanes) {
-            lane->removeChildElement(elementChild);
-        }
-        // set new parents lanes
-        myHierarchicalContainer.parentLanes = newParentLanes;
-        // add elementChild into new parents
-        for (const auto& lane : myHierarchicalContainer.parentLanes) {
-            lane->addChildElement(elementChild);
-        }
-    }
-
-    /// @brief replace parent additionals
-    template<typename T>
-    void replaceParentAdditionals(T* elementChild, const std::vector<GNEAdditional*>& newParentAdditionals) {
-        // remove elementChild from parents
-        for (const auto& additional : myHierarchicalContainer.parentAdditionals) {
-            additional->removeChildElement(elementChild);
-        }
-        // set new parents additionals
-        myHierarchicalContainer.parentAdditionals = newParentAdditionals;
-        // add elementChild into new parents
-        for (const auto& additional : myHierarchicalContainer.parentAdditionals) {
-            additional->addChildElement(elementChild);
-        }
-    }
-
-    /// @brief replace parent demand elements
-    template<typename T>
-    void replaceParentDemandElements(T* elementChild, const std::vector<GNEDemandElement*>& newParentDemandElements) {
-        // remove elementChild from parents
-        for (const auto& demandElement : myHierarchicalContainer.parentDemandElements) {
-            demandElement->removeChildElement(elementChild);
-        }
-        // set new parents demandElements
-        myHierarchicalContainer.parentDemandElements = newParentDemandElements;
-        // add elementChild into new parents
-        for (const auto& demandElement : myHierarchicalContainer.parentDemandElements) {
-            demandElement->addChildElement(elementChild);
-        }
-    }
-
-    /// @brief replace parent TAZElements
-    template<typename T>
-    void replaceParentTAZElements(T* elementChild, const std::vector<GNETAZElement*>& newParentTAZElements) {
-        // remove elementChild from parents
-        for (const auto& TAZElement : myHierarchicalContainer.parentTAZElements) {
-            TAZElement->removeChildElement(elementChild);
-        }
-        // set new parents TAZElements
-        myHierarchicalContainer.parentTAZElements = newParentTAZElements;
-        // add elementChild into new parents
-        for (const auto& TAZElement : myHierarchicalContainer.parentTAZElements) {
-            TAZElement->addChildElement(elementChild);
-        }
-    }
-    /// @}
-
-    /// @name replace child elements
-    /// @{
-
-    /// @brief replace child edges
-    template<typename T>
-    void replaceChildEdges(T* elementChild, const std::vector<GNEEdge*>& newChildEdges) {
+    /// @brief replace child elements
+    template<typename T, typename U>
+    void replaceChildElements(T* elementChild, const U &newChildren) {
         // remove elementChild from childs
-        for (const auto& edge : myHierarchicalContainer.childEdges) {
-            edge->removeChildElement(elementChild);
+        for (const auto& child : myHierarchicalContainer.getChildren<U>()) {
+            child->removeChildElement(elementChild);
         }
-        // set new childs edges
-        myHierarchicalContainer.childEdges = newChildEdges;
+        // set new childs junctions
+        myHierarchicalContainer.setChildren(newChildren);
         // add elementChild into new childs
-        for (const auto& edge : myHierarchicalContainer.childEdges) {
-            edge->addChildElement(elementChild);
+        for (const auto& child : myHierarchicalContainer.getChildren<U>()) {
+            child->addChildElement(elementChild);
         }
     }
-
-    /// @brief replace child lanes
-    template<typename T>
-    void replaceChildLanes(T* elementChild, const std::vector<GNELane*>& newChildLanes) {
-        // remove elementChild from childs
-        for (const auto& lane : myHierarchicalContainer.childLanes) {
-            lane->removeChildElement(elementChild);
-        }
-        // set new childs lanes
-        myHierarchicalContainer.childLanes = newChildLanes;
-        // add elementChild into new childs
-        for (const auto& lane : myHierarchicalContainer.childLanes) {
-            lane->addChildElement(elementChild);
-        }
-    }
-    /// @}
 
     /// @brief hierarchical connections
     GNEGeometry::HierarchicalConnections myHierarchicalConnections;

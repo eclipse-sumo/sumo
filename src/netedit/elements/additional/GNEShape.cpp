@@ -125,7 +125,7 @@ GNEShape::getHierarchyName() const {
 
 void 
 GNEShape::replaceShapeParentLanes(const std::string &value) {
-    replaceParentLanes(this, parse<std::vector<GNELane*> >(getNet(), value));
+    replaceParentElements(this, parse<std::vector<GNELane*> >(getNet(), value));
 }
 
 

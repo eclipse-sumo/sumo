@@ -1550,7 +1550,7 @@ GNEEdge::updateFirstParentJunction(const std::string &value) {
     std::vector<GNEJunction*> parentJunctions = getParentJunctions();
     parentJunctions[0] = myNet->retrieveJunction(value);
     // replace parent junctions
-    replaceParentJunctions(this, parentJunctions);
+    replaceParentElements(this, parentJunctions);
 }
 
 
@@ -1559,7 +1559,7 @@ GNEEdge::updateSecondParentJunction(const std::string &value) {
     std::vector<GNEJunction*> parentJunctions = getParentJunctions();
     parentJunctions[1] = myNet->retrieveJunction(value);
     // replace parent junctions
-    replaceParentJunctions(this, parentJunctions);
+    replaceParentElements(this, parentJunctions);
 }
 
 

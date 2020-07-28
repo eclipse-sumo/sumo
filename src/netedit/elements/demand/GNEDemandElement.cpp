@@ -124,11 +124,11 @@ GNEDemandElement::getDemandElementSegmentGeometry() const {
 GNEDemandElement*
 GNEDemandElement::getPreviousChildDemandElement(const GNEDemandElement* demandElement) const {
     // find child demand element
-    auto it = std::find(myHierarchicalContainer.childDemandElements.begin(), myHierarchicalContainer.childDemandElements.end(), demandElement);
+    auto it = std::find(getChildDemandElements().begin(), getChildDemandElements().end(), demandElement);
     // return element or null depending of iterator
-    if (it == myHierarchicalContainer.childDemandElements.end()) {
+    if (it == getChildDemandElements().end()) {
         return nullptr;
-    } else if (it == myHierarchicalContainer.childDemandElements.begin()) {
+    } else if (it == getChildDemandElements().begin()) {
         return nullptr;
     } else {
         return *(it - 1);
@@ -139,11 +139,11 @@ GNEDemandElement::getPreviousChildDemandElement(const GNEDemandElement* demandEl
 GNEDemandElement*
 GNEDemandElement::getNextChildDemandElement(const GNEDemandElement* demandElement) const {
     // find child demand element
-    auto it = std::find(myHierarchicalContainer.childDemandElements.begin(), myHierarchicalContainer.childDemandElements.end(), demandElement);
+    auto it = std::find(getChildDemandElements().begin(), getChildDemandElements().end(), demandElement);
     // return element or null depending of iterator
-    if (it == myHierarchicalContainer.childDemandElements.end()) {
+    if (it == getChildDemandElements().end()) {
         return nullptr;
-    } else if (it == (myHierarchicalContainer.childDemandElements.end() - 1)) {
+    } else if (it == (getChildDemandElements().end() - 1)) {
         return nullptr;
     } else {
         return *(it + 1);
@@ -155,11 +155,11 @@ std::vector<GNEEdge*>
 GNEDemandElement::getViaEdges() const {
     std::vector<GNEEdge*> middleEdges;
     // there are only middle edges if there is more than two edges
-    if (myHierarchicalContainer.parentEdges.size() > 2) {
+    if (getParentEdges().size() > 2) {
         // reserve middleEdges
-        middleEdges.reserve(myHierarchicalContainer.parentEdges.size() - 2);
+        middleEdges.reserve(getParentEdges().size() - 2);
         // iterate over second and previous last parent edge
-        for (auto i = (myHierarchicalContainer.parentEdges.begin() + 1); i != (myHierarchicalContainer.parentEdges.end() - 1); i++) {
+        for (auto i = (getParentEdges().begin() + 1); i != (getParentEdges().end() - 1); i++) {
             middleEdges.push_back(*i);
         }
     }
@@ -664,13 +664,13 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
 
 void 
 GNEDemandElement::replaceDemandParentEdges(const std::string &value) {
-    replaceParentEdges(this, parse<std::vector<GNEEdge*> >(getNet(), value));
+    replaceParentElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
 }
 
 
 void 
 GNEDemandElement::replaceDemandParentLanes(const std::string &value) {
-    replaceParentLanes(this, parse<std::vector<GNELane*> >(getNet(), value));
+    replaceParentElements(this, parse<std::vector<GNELane*> >(getNet(), value));
 }
 
 
@@ -679,7 +679,7 @@ GNEDemandElement::replaceFirstParentEdge(const std::string &value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
     parentEdges[0] = myNet->retrieveEdge(value);
     // replace parent edges
-    replaceParentEdges(this, parentEdges);
+    replaceParentElements(this, parentEdges);
 }
 
 
@@ -691,9 +691,9 @@ GNEDemandElement::replaceMiddleParentEdges(const std::string &value, const bool 
     // check if we have to update references in all childs, or simply update parent edges vector
     if (updateChildReferences) {
         // replace parent edges
-        replaceParentEdges(this, middleEdges);
+        replaceParentElements(this, middleEdges);
     } else {
-        myHierarchicalContainer.parentEdges = middleEdges;
+        myHierarchicalContainer.setParents<std::vector<GNEEdge*> >(middleEdges);
     }
 }
 
@@ -703,7 +703,7 @@ GNEDemandElement::replaceLastParentEdge(const std::string &value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
     parentEdges[(int)parentEdges.size() -1] = myNet->retrieveEdge(value);
     // replace parent edges
-    replaceParentEdges(this, parentEdges);
+    replaceParentElements(this, parentEdges);
 }
 
 
@@ -712,7 +712,7 @@ GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string &val
     std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
     parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
     // replace parent additionals
-    replaceParentAdditionals(this, parentAdditionals);
+    replaceParentElements(this, parentAdditionals);
 }
 
 
@@ -721,7 +721,7 @@ GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string &
     std::vector<GNEDemandElement*> parentDemandElements = getParentDemandElements();
     parentDemandElements[parentIndex] = myNet->retrieveDemandElement(tag, value);
     // replace parent demand elements
-    replaceParentDemandElements(this, parentDemandElements);
+    replaceParentElements(this, parentDemandElements);
 }
 
 

@@ -228,7 +228,7 @@ GNEGenericData::replaceFirstParentEdge(const std::string &value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
     parentEdges[0] = myNet->retrieveEdge(value);
     // replace parent edges
-    replaceParentEdges(this, parentEdges);
+    replaceParentElements(this, parentEdges);
 }
 
 
@@ -237,7 +237,7 @@ GNEGenericData::replaceLastParentEdge(const std::string &value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
     parentEdges[(int)parentEdges.size() -1] = myNet->retrieveEdge(value);
     // replace parent edges
-    replaceParentEdges(this, parentEdges);
+    replaceParentElements(this, parentEdges);
 }
 
 
@@ -246,7 +246,7 @@ GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string &
     std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
     parentTAZElements[0] = myNet->retrieveTAZElement(tag, value);
     // replace parent TAZElements
-    replaceParentTAZElements(this, parentTAZElements);
+    replaceParentElements(this, parentTAZElements);
 }
 
 
@@ -255,7 +255,7 @@ GNEGenericData::replaceLastParentTAZElement(SumoXMLTag tag, const std::string &v
     std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
     parentTAZElements[(int)parentTAZElements.size() -1] = myNet->retrieveTAZElement(tag, value);
     // replace parent TAZElements
-    replaceParentTAZElements(this, parentTAZElements);
+    replaceParentElements(this, parentTAZElements);
 }
 
 /****************************************************************************/
