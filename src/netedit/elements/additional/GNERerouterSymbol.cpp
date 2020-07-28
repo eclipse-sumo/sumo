@@ -140,8 +140,13 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNERerouterSymbol::getAttribute(SumoXMLAttr /*key*/) const {
-    throw InvalidArgument("Symbols cannot be edited");
+GNERerouterSymbol::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_EDGE:
+            return getParentEdges().front()->getID();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 

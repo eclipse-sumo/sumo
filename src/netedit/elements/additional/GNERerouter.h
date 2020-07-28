@@ -156,6 +156,9 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    /// @brief rebuild Rerouter Symbols
+    void rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoList);
+
     /// @brief Invalidated copy constructor.
     GNERerouter(const GNERerouter&) = delete;
 

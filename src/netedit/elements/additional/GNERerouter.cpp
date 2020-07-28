@@ -20,6 +20,7 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <utils/gui/div/GLHelper.h>
@@ -27,6 +28,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNERerouter.h"
+#include "GNERerouterSymbol.h"
 
 
 // ===========================================================================
@@ -184,8 +186,13 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
-        case SUMO_ATTR_EDGES:
-            return parseIDs(getChildEdges());
+        case SUMO_ATTR_EDGES: {
+            std::vector<std::string> edges;
+            for (const auto &rerouterSymbol : getChildAdditionals()) {
+                edges.push_back(rerouterSymbol->getAttribute(SUMO_ATTR_EDGE));
+            }
+            return toString(edges);
+        }
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_NAME:
@@ -224,8 +231,12 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
+        // special case  for lanes due rerouter Symbols
         case SUMO_ATTR_EDGES:
+            // rebuild rerouter Symbols
+            rebuildRerouterSymbols(value, undoList);
+            break;
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
@@ -250,11 +261,7 @@ GNERerouter::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             return isValidAdditionalID(value);
         case SUMO_ATTR_EDGES:
-            if (value.empty()) {
-                return false;
-            } else {
-                return canParse<std::vector<GNEEdge*> >(myNet, value, false);
-            }
+            return canParse<std::vector<GNEEdge*> >(myNet, value, false);
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_NAME:
@@ -309,11 +316,10 @@ GNERerouter::getHierarchyName() const {
 void
 GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_EDGES:
+            throw InvalidArgument(getTagStr() + " cannot be edited");
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
-            break;
-        case SUMO_ATTR_EDGES:
-            replaceAdditionalChildEdges(value);
             break;
         case SUMO_ATTR_POSITION:
             myNet->removeGLObjectFromGrid(this);
@@ -354,6 +360,26 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoList) {
+    undoList->p_begin(("change " + getTagStr() + " attribute").c_str());
+    // drop all additional children
+    while (getChildAdditionals().size() > 0) {
+        undoList->add(new GNEChange_Additional(getChildAdditionals().front(), false), true);
+    }
+    // get edge vector
+    const std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value);
+    // create new VSS Symbols
+    for (const auto &edge : edges) {
+        // create VSS Symbol
+        GNEAdditional* VSSSymbol = new GNERerouterSymbol(this, edge);
+        // add it using GNEChange_Additional
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
+    }
+    undoList->p_end();
 }
 
 
