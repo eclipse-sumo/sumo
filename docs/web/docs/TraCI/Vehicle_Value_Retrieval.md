@@ -628,7 +628,7 @@ Each value is a bitset with the following meaning:
 - 2^9: blocked by left leader
 - 2^10: blocked by left follower
 - 2^11: blocked by right leader
-- 2^12: bloecked by right follower
+- 2^12: blocked by right follower
 - 2^13: overlapping
 - 2^14: insufficient space
 - 2^15: sublane
