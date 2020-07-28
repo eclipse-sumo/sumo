@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/GNEGeometry.h>
 
 // ===========================================================================
 // class declarations

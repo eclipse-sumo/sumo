@@ -24,7 +24,7 @@
 #include <fx.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBNode.h>
-#include <netedit/elements/GNEHierarchicalElementHelper.h>
+#include <netedit/elements/GNEHierarchicalContainer.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>

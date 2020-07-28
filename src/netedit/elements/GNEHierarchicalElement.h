@@ -19,7 +19,9 @@
 /****************************************************************************/
 #pragma once
 
-#include "GNEHierarchicalElementHelper.h"
+#include <netedit/GNEGeometry.h>
+
+#include "GNEHierarchicalContainer.h"
 
 
 // ===========================================================================
