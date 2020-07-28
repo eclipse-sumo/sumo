@@ -32,12 +32,6 @@
  */
 class AbstractPoly {
 public:
-    /// @brief constructor
-    AbstractPoly() { }
-
-    /// @brief copy constructor
-    AbstractPoly(const AbstractPoly&) { }
-
     /// @brief destructor
     virtual ~AbstractPoly() { }
 
