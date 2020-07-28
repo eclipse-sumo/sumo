@@ -458,4 +458,196 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
     }
 }
 
+
+template<> const std::vector<GNEJunction*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+    return parentJunctions;
+}
+
+
+template<> const std::vector<GNEEdge*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+    return parentEdges;
+}
+
+
+template<> const std::vector<GNELane*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+    return parentLanes;
+}
+
+
+template<> const std::vector<GNEAdditional*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+    return parentAdditionals;
+}
+
+
+template<> const std::vector<GNEShape*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+    return parentShapes;
+}
+
+
+template<> const std::vector<GNETAZElement*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+    return parentTAZElements;
+}
+
+
+template<> const std::vector<GNEDemandElement*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+    return parentDemandElements;
+}
+
+
+template<> const std::vector<GNEGenericData*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+    return parentGenericDatas;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEJunction*>& newParents) {
+    parentJunctions = newParents;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEEdge*>& newParents) {
+     parentEdges = newParents;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNELane*>& newParents) {
+     parentLanes = newParents;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEAdditional*>& newParents) {
+     parentAdditionals = newParents;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEShape*>& newParents) {
+     parentShapes = newParents;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNETAZElement*>& newParents) {
+     parentTAZElements = newParents;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEDemandElement*>& newParents) {
+     parentDemandElements = newParents;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEGenericData*>& newParents) {
+     parentGenericDatas = newParents;
+}
+
+
+template<> const std::vector<GNEJunction*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+    return childJunctions;
+}
+
+
+template<> const std::vector<GNEEdge*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+    return childEdges;
+}
+
+
+template<> const std::vector<GNELane*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+    return childLanes;
+}
+
+
+template<> const std::vector<GNEAdditional*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+    return childAdditionals;
+}
+
+
+template<> const std::vector<GNEShape*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+    return childShapes;
+}
+
+
+template<> const std::vector<GNETAZElement*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+    return childTAZElements;
+}
+
+
+template<> const std::vector<GNEDemandElement*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+    return childDemandElements;
+}
+
+
+template<> const std::vector<GNEGenericData*>&
+GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+    return childGenericDatas;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEJunction*>& newChildren) {
+    childJunctions = newChildren;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEEdge*>& newChildren) {
+    childEdges = newChildren;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNELane*>& newChildren) {
+    childLanes = newChildren;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEAdditional*>& newChildren) {
+    childAdditionals = newChildren;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEShape*>& newChildren) {
+    childShapes = newChildren;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNETAZElement*>& newChildren) {
+    childTAZElements = newChildren;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEDemandElement*>& newChildren) {
+    childDemandElements = newChildren;
+}
+
+
+template<> void
+GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEGenericData*>& newChildren) {
+    childGenericDatas = newChildren;
+}
+
 /****************************************************************************/

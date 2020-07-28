@@ -90,6 +90,23 @@ struct GNEHierarchicalElementHelper {
         template<typename T>
         void removeChildElement(const GNEAttributeCarrier* AC, T* element);
 
+        /// @brief get parents
+        template<typename T>
+        const T& getParents() const;
+
+        /// @brief getParents
+        template<typename T>
+        void setParents(const T &newParents);
+
+        /// @brief get childrens
+        template<typename T>
+        const T& getChildren() const;
+
+        /// @brief setChildrens
+        template<typename T>
+        void setChildren(const T &newChildren);
+
+    private:
         /// @brief vector of junction parents
         std::vector<GNEJunction*> parentJunctions;
 
