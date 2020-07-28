@@ -218,8 +218,8 @@ protected:
     const bool mySelectedElement;
 
     /// @brief Hierarchical container with parent and children
-    const GNEHierarchicalElementHelper::HierarchicalContainer myOriginalHierarchicalContainer;
+    const GNEHierarchicalContainer myOriginalHierarchicalContainer;
 
     /// @brief map with hierarchical container of all parent and children elements
-    std::map<GNEHierarchicalElement*, GNEHierarchicalElementHelper::HierarchicalContainer> myHierarchicalContainers;
+    std::map<GNEHierarchicalElement*, GNEHierarchicalContainer> myHierarchicalContainers;
 };

@@ -87,10 +87,10 @@ public:
     /// @}
 
     /// @brief get hierarchicalcontainer with parents and children
-    const GNEHierarchicalElementHelper::HierarchicalContainer &getHierarchicalContainer() const;
+    const GNEHierarchicalContainer &getHierarchicalContainer() const;
 
     /// @brief restore hierarchical container
-    void restoreHierarchicalContainer(const GNEHierarchicalElementHelper::HierarchicalContainer &container);
+    void restoreHierarchicalContainer(const GNEHierarchicalContainer &container);
 
     /// @name common get functions
     /// @{
@@ -235,7 +235,7 @@ protected:
 
 private:
     /// @brief hierarchical container with parents and children
-    GNEHierarchicalElementHelper::HierarchicalContainer myHierarchicalContainer;
+    GNEHierarchicalContainer myHierarchicalContainer;
 
     /// @brief pointer to AC (needed to avoid diamond problem)
     const GNEAttributeCarrier* myAC;

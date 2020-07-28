@@ -15,7 +15,7 @@
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2020
 ///
-// Helper class for GNEHierarchicalElements
+// Container for GNEHierarchicalElements
 /****************************************************************************/
 #include <config.h>
 
@@ -29,10 +29,10 @@
 // member method definitions
 // ===========================================================================
 
-GNEHierarchicalElementHelper::HierarchicalContainer::HierarchicalContainer() {}
+GNEHierarchicalContainer::GNEHierarchicalContainer() {}
 
 
-GNEHierarchicalElementHelper::HierarchicalContainer::HierarchicalContainer(
+GNEHierarchicalContainer::GNEHierarchicalContainer(
     const std::vector<GNEJunction*>& parentJunctions,
     const std::vector<GNEEdge*>& parentEdges,
     const std::vector<GNELane*>& parentLanes,
@@ -69,7 +69,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::HierarchicalContainer(
 
 
 size_t 
-GNEHierarchicalElementHelper::HierarchicalContainer::getContainerSize() const {
+GNEHierarchicalContainer::getContainerSize() const {
     return (
         myParentJunctions.size() + 
         myParentEdges.size() + 
@@ -92,7 +92,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::getContainerSize() const {
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
+GNEHierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
     // check junction
     if (std::find(myParentJunctions.begin(), myParentJunctions.end(), junction) != myParentJunctions.end()) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -103,7 +103,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEA
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
+GNEHierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
     // check edge
     if (std::find(myParentEdges.begin(), myParentEdges.end(), edge) != myParentEdges.end()) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -114,7 +114,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEA
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNELane* lane) {
+GNEHierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNELane* lane) {
     // check lane
     if (std::find(myParentLanes.begin(), myParentLanes.end(), lane) != myParentLanes.end()) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -125,7 +125,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEA
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
+GNEHierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
     // check additional
     if (std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional) != myParentAdditionals.end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -136,7 +136,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEA
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
+GNEHierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
     // check shape
     if (std::find(myParentShapes.begin(), myParentShapes.end(), shape) != myParentShapes.end()) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -147,7 +147,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEA
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
+GNEHierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
     // check TAZElement
     if (std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement) != myParentTAZElements.end()) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -158,7 +158,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEA
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
+GNEHierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
     // check TAZElement
     if (std::find(myParentDemandElements.begin(), myParentDemandElements.end(), demandElement) != myParentDemandElements.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -169,7 +169,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEA
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
+GNEHierarchicalContainer::addParentElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
     // check generic data
     if (std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData) != myParentGenericDatas.end()) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -180,7 +180,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addParentElement(const GNEA
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
+GNEHierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
     // check junction
     auto it = std::find(myParentJunctions.begin(), myParentJunctions.end(), junction);
     if (it == myParentJunctions.end()) {
@@ -192,7 +192,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const G
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
+GNEHierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
     // check edge
     auto it = std::find(myParentEdges.begin(), myParentEdges.end(), edge);
     if (it == myParentEdges.end()) {
@@ -204,7 +204,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const G
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNELane* lane) {
+GNEHierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNELane* lane) {
     // check lane
     auto it = std::find(myParentLanes.begin(), myParentLanes.end(), lane);
     if (it == myParentLanes.end()) {
@@ -216,7 +216,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const G
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
+GNEHierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
     // check additional
     auto it = std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional);
     if (it == myParentAdditionals.end()) {
@@ -228,7 +228,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const G
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
+GNEHierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
     // check shape
     auto it = std::find(myParentShapes.begin(), myParentShapes.end(), shape);
     if (it == myParentShapes.end()) {
@@ -240,7 +240,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const G
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
+GNEHierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
     // check TAZElement
     auto it = std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement);
     if (it == myParentTAZElements.end()) {
@@ -252,7 +252,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const G
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
+GNEHierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
     // check TAZElement
     auto it = std::find(myParentDemandElements.begin(), myParentDemandElements.end(), demandElement);
     if (it == myParentDemandElements.end()) {
@@ -264,7 +264,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const G
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
+GNEHierarchicalContainer::removeParentElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
     // check generic data
     auto it = std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData);
     if (it == myParentGenericDatas.end()) {
@@ -276,7 +276,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeParentElement(const G
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
+GNEHierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
     // check junction
     if (std::find(myChildJunctions.begin(), myChildJunctions.end(), junction) != myChildJunctions.end()) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -287,7 +287,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
+GNEHierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
     // check edge
     if (std::find(myChildEdges.begin(), myChildEdges.end(), edge) != myChildEdges.end()) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -298,7 +298,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNELane* lane) {
+GNEHierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNELane* lane) {
     // check lane
     if (std::find(myChildLanes.begin(), myChildLanes.end(), lane) != myChildLanes.end()) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -309,7 +309,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
+GNEHierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
     // check additional
     if (std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional) != myChildAdditionals.end()) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -320,7 +320,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
+GNEHierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
     // check shape
     if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end()) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -331,7 +331,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
+GNEHierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
     // check TAZElement
     if (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) != myChildTAZElements.end()) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -342,7 +342,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
+GNEHierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
     // check demand element
     if (std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) != myChildDemandElements.end()) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -353,7 +353,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
+GNEHierarchicalContainer::addChildElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
     // check generic data
     if (std::find(myChildGenericDatas.begin(), myChildGenericDatas.end(), genericData) != myChildGenericDatas.end()) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + AC->getTagStr() + " with ID='" + AC->getID() + "'");
@@ -364,7 +364,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::addChildElement(const GNEAt
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
+GNEHierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEJunction* junction) {
     // check junction
     auto it = std::find(myChildJunctions.begin(), myChildJunctions.end(), junction);
     if (it == myChildJunctions.end()) {
@@ -376,7 +376,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
+GNEHierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEEdge* edge) {
     // check edge
     auto it = std::find(myChildEdges.begin(), myChildEdges.end(), edge);
     if (it == myChildEdges.end()) {
@@ -388,7 +388,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNELane* lane) {
+GNEHierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNELane* lane) {
     // check lane
     auto it = std::find(myChildLanes.begin(), myChildLanes.end(), lane);
     if (it == myChildLanes.end()) {
@@ -400,7 +400,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
+GNEHierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEAdditional* additional) {
     // check additional
     auto it = std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional);
     if (it == myChildAdditionals.end()) {
@@ -412,7 +412,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
+GNEHierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEShape* shape) {
     // check shape
     auto it = std::find(myChildShapes.begin(), myChildShapes.end(), shape);
     if (it == myChildShapes.end()) {
@@ -424,7 +424,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
+GNEHierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNETAZElement* TAZElement) {
     // check TAZElement
     auto it = std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement);
     if (it == myChildTAZElements.end()) {
@@ -436,7 +436,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
+GNEHierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEDemandElement* demandElement) {
     // check demand element
     auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
     if (it == myChildDemandElements.end()) {
@@ -448,7 +448,7 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 
 template <> void
-GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
+GNEHierarchicalContainer::removeChildElement(const GNEAttributeCarrier* AC, GNEGenericData* genericData) {
     // check generic data
     auto it = std::find(myChildGenericDatas.begin(), myChildGenericDatas.end(), genericData);
     if (it == myChildGenericDatas.end()) {
@@ -460,193 +460,193 @@ GNEHierarchicalElementHelper::HierarchicalContainer::removeChildElement(const GN
 
 
 template<> const std::vector<GNEJunction*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+GNEHierarchicalContainer::getParents() const {
     return myParentJunctions;
 }
 
 
 template<> const std::vector<GNEEdge*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+GNEHierarchicalContainer::getParents() const {
     return myParentEdges;
 }
 
 
 template<> const std::vector<GNELane*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+GNEHierarchicalContainer::getParents() const {
     return myParentLanes;
 }
 
 
 template<> const std::vector<GNEAdditional*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+GNEHierarchicalContainer::getParents() const {
     return myParentAdditionals;
 }
 
 
 template<> const std::vector<GNEShape*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+GNEHierarchicalContainer::getParents() const {
     return myParentShapes;
 }
 
 
 template<> const std::vector<GNETAZElement*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+GNEHierarchicalContainer::getParents() const {
     return myParentTAZElements;
 }
 
 
 template<> const std::vector<GNEDemandElement*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+GNEHierarchicalContainer::getParents() const {
     return myParentDemandElements;
 }
 
 
 template<> const std::vector<GNEGenericData*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getParents() const {
+GNEHierarchicalContainer::getParents() const {
     return myParentGenericDatas;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEJunction*>& newParents) {
+GNEHierarchicalContainer::setParents(const std::vector<GNEJunction*>& newParents) {
     myParentJunctions = newParents;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEEdge*>& newParents) {
+GNEHierarchicalContainer::setParents(const std::vector<GNEEdge*>& newParents) {
      myParentEdges = newParents;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNELane*>& newParents) {
+GNEHierarchicalContainer::setParents(const std::vector<GNELane*>& newParents) {
      myParentLanes = newParents;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEAdditional*>& newParents) {
+GNEHierarchicalContainer::setParents(const std::vector<GNEAdditional*>& newParents) {
      myParentAdditionals = newParents;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEShape*>& newParents) {
+GNEHierarchicalContainer::setParents(const std::vector<GNEShape*>& newParents) {
      myParentShapes = newParents;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNETAZElement*>& newParents) {
+GNEHierarchicalContainer::setParents(const std::vector<GNETAZElement*>& newParents) {
      myParentTAZElements = newParents;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEDemandElement*>& newParents) {
+GNEHierarchicalContainer::setParents(const std::vector<GNEDemandElement*>& newParents) {
      myParentDemandElements = newParents;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setParents(const std::vector<GNEGenericData*>& newParents) {
+GNEHierarchicalContainer::setParents(const std::vector<GNEGenericData*>& newParents) {
      myParentGenericDatas = newParents;
 }
 
 
 template<> const std::vector<GNEJunction*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+GNEHierarchicalContainer::getChildren() const {
     return myChildJunctions;
 }
 
 
 template<> const std::vector<GNEEdge*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+GNEHierarchicalContainer::getChildren() const {
     return myChildEdges;
 }
 
 
 template<> const std::vector<GNELane*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+GNEHierarchicalContainer::getChildren() const {
     return myChildLanes;
 }
 
 
 template<> const std::vector<GNEAdditional*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+GNEHierarchicalContainer::getChildren() const {
     return myChildAdditionals;
 }
 
 
 template<> const std::vector<GNEShape*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+GNEHierarchicalContainer::getChildren() const {
     return myChildShapes;
 }
 
 
 template<> const std::vector<GNETAZElement*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+GNEHierarchicalContainer::getChildren() const {
     return myChildTAZElements;
 }
 
 
 template<> const std::vector<GNEDemandElement*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+GNEHierarchicalContainer::getChildren() const {
     return myChildDemandElements;
 }
 
 
 template<> const std::vector<GNEGenericData*>&
-GNEHierarchicalElementHelper::HierarchicalContainer::getChildren() const {
+GNEHierarchicalContainer::getChildren() const {
     return myChildGenericDatas;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEJunction*>& newChildren) {
+GNEHierarchicalContainer::setChildren(const std::vector<GNEJunction*>& newChildren) {
     myChildJunctions = newChildren;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEEdge*>& newChildren) {
+GNEHierarchicalContainer::setChildren(const std::vector<GNEEdge*>& newChildren) {
     myChildEdges = newChildren;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNELane*>& newChildren) {
+GNEHierarchicalContainer::setChildren(const std::vector<GNELane*>& newChildren) {
     myChildLanes = newChildren;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEAdditional*>& newChildren) {
+GNEHierarchicalContainer::setChildren(const std::vector<GNEAdditional*>& newChildren) {
     myChildAdditionals = newChildren;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEShape*>& newChildren) {
+GNEHierarchicalContainer::setChildren(const std::vector<GNEShape*>& newChildren) {
     myChildShapes = newChildren;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNETAZElement*>& newChildren) {
+GNEHierarchicalContainer::setChildren(const std::vector<GNETAZElement*>& newChildren) {
     myChildTAZElements = newChildren;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEDemandElement*>& newChildren) {
+GNEHierarchicalContainer::setChildren(const std::vector<GNEDemandElement*>& newChildren) {
     myChildDemandElements = newChildren;
 }
 
 
 template<> void
-GNEHierarchicalElementHelper::HierarchicalContainer::setChildren(const std::vector<GNEGenericData*>& newChildren) {
+GNEHierarchicalContainer::setChildren(const std::vector<GNEGenericData*>& newChildren) {
     myChildGenericDatas = newChildren;
 }
 

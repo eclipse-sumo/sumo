@@ -67,14 +67,14 @@ GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
 GNEHierarchicalElement::~GNEHierarchicalElement() {}
 
 
-const GNEHierarchicalElementHelper::HierarchicalContainer&
+const GNEHierarchicalContainer&
 GNEHierarchicalElement::getHierarchicalContainer() const {
     return myHierarchicalContainer;
 }
 
 
 void
-GNEHierarchicalElement::restoreHierarchicalContainer(const GNEHierarchicalElementHelper::HierarchicalContainer &container) {
+GNEHierarchicalElement::restoreHierarchicalContainer(const GNEHierarchicalContainer &container) {
     myHierarchicalContainer = container;
 }
 
