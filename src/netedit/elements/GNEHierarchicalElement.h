@@ -122,6 +122,9 @@ public:
     /// @brief get parent demand elements
     const std::vector<GNEGenericData*>& getParentGenericDatas() const;
 
+    /// @brief get child junctions
+    const std::vector<GNEJunction*>& getChildJunctions() const;
+
     /// @brief get child edges
     const std::vector<GNEEdge*>& getChildEdges() const;
 
@@ -149,47 +152,19 @@ public:
 
     /// @brief add parent element
     template<typename T>
-    void addParentElement(T* element) {
-        // add parent element into container
-        myHierarchicalContainer.addChildElement(myAC, element);
-        // update connections geometry
-        myHierarchicalConnections.update();
-    }
+    void addParentElement(T* element);
 
-    /// @brief remove parent elmeent
+    /// @brief remove parent element
     template<typename T>
-    void removeParentElement(T* element) {
-        // remove parent element from container
-        myHierarchicalContainer.removeChildElement(myAC, element);
-        // update connections geometry
-        myHierarchicalConnections.update();
-    }
+    void removeParentElement(T* element);
 
     /// @brief add child element
     template<typename T>
-    void addChildElement(T* element) {
-        // add child element into container
-        myHierarchicalContainer.addChildElement(myAC, element);
-        // update connections geometry
-        myHierarchicalConnections.update();
-        // Check if children must be sorted automatically
-        if (myAC->getTagProperty().canAutomaticSortChildren()) {
-            sortChildDemandElements();
-        }
-    }
+    void addChildElement(T* element);
 
     /// @brief remove child element
     template<typename T>
-    void removeChildElement(T* element) {
-        // remove child element from container
-        myHierarchicalContainer.removeChildElement(myAC, element);
-        // update connections geometry
-        myHierarchicalConnections.update();
-        // Check if children must be sorted automatically
-        if (myAC->getTagProperty().canAutomaticSortChildren()) {
-            sortChildDemandElements();
-        }
-    }
+    void removeChildElement(T* element);
     /// @}
 
     /// @name specific get functions

@@ -187,6 +187,12 @@ GNEHierarchicalElement::getParentGenericDatas() const {
 }
 
 
+const std::vector<GNEJunction*>&
+GNEHierarchicalElement::getChildJunctions() const {
+    return myHierarchicalContainer.childJunctions;
+}
+
+
 const std::vector<GNEEdge*>&
 GNEHierarchicalElement::getChildEdges() const {
     return myHierarchicalContainer.childEdges;
@@ -226,6 +232,258 @@ GNEHierarchicalElement::getChildDemandElements() const {
 const std::vector<GNEGenericData*>&
 GNEHierarchicalElement::getChildGenericDatas() const {
     return myHierarchicalContainer.childGenericDatas;
+}
+
+
+template<> void 
+GNEHierarchicalElement::addParentElement(GNEJunction* element) {
+    // add parent element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addParentElement(GNEEdge* element) {
+    // add parent element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addParentElement(GNELane* element) {
+    // add parent element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
+    // add parent element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+    // update connections geometry
+    myHierarchicalConnections.update();
+}
+
+
+template<> void 
+GNEHierarchicalElement::addParentElement(GNEShape* element) {
+    // add parent element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addParentElement(GNETAZElement* element) {
+    // add parent element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addParentElement(GNEDemandElement* element) {
+    // add parent element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addParentElement(GNEGenericData* element) {
+    // add parent element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeParentElement(GNEJunction* element) {
+    // remove parent element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeParentElement(GNEEdge* element) {
+    // remove parent element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeParentElement(GNELane* element) {
+    // remove parent element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
+    // remove parent element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+    // update connections geometry
+    myHierarchicalConnections.update();
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeParentElement(GNEShape* element) {
+    // remove parent element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeParentElement(GNETAZElement* element) {
+    // remove parent element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeParentElement(GNEDemandElement* element) {
+    // remove parent element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeParentElement(GNEGenericData* element) {
+    // remove parent element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addChildElement(GNEJunction* element) {
+    // add child element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addChildElement(GNEEdge* element) {
+    // add child element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addChildElement(GNELane* element) {
+    // add child element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
+    // add child element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+    // update connections geometry
+    if (element->getTagProperty().hasParent()) {
+        myHierarchicalConnections.update();
+    }
+    // Check if children must be sorted automatically
+    if (myAC->getTagProperty().canAutomaticSortChildren()) {
+        sortChildAdditionals();
+    }
+}
+
+
+template<> void 
+GNEHierarchicalElement::addChildElement(GNEShape* element) {
+    // add child element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addChildElement(GNETAZElement* element) {
+    // add child element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::addChildElement(GNEDemandElement* element) {
+    // add child element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+    // Check if children must be sorted automatically
+    if (myAC->getTagProperty().canAutomaticSortChildren()) {
+        sortChildDemandElements();
+    }
+}
+
+
+template<> void 
+GNEHierarchicalElement::addChildElement(GNEGenericData* element) {
+    // add child element into container
+    myHierarchicalContainer.addChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeChildElement(GNEJunction* element) {
+    // remove child element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeChildElement(GNEEdge* element) {
+    // remove child element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeChildElement(GNELane* element) {
+    // remove child element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
+    // remove child element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+    // update connections geometry
+    if (element->getTagProperty().hasParent()) {
+        myHierarchicalConnections.update();
+    }
+    // Check if children must be sorted automatically
+    if (myAC->getTagProperty().canAutomaticSortChildren()) {
+        sortChildAdditionals();
+    }
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeChildElement(GNEShape* element) {
+    // remove child element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeChildElement(GNETAZElement* element) {
+    // remove child element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeChildElement(GNEDemandElement* element) {
+    // remove child element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
+    // Check if children must be sorted automatically
+    if (myAC->getTagProperty().canAutomaticSortChildren()) {
+        sortChildDemandElements();
+    }
+}
+
+
+template<> void 
+GNEHierarchicalElement::removeChildElement(GNEGenericData* element) {
+    // remove child element from container
+    myHierarchicalContainer.removeChildElement(myAC, element);
 }
 
 
