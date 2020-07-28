@@ -76,7 +76,6 @@ jobs:
         cd sumo
         python tools\build\setup-sumolib.py bdist_wheel sdist
         python tools\build\setup-traci.py bdist_wheel sdist
-        python -c "import sys; print('[bdist_wheel]\npython_tag=cp%s%s' % sys.version_info[0:2], file=open('setup.cfg', 'w'))"
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
     - name: Building Traas

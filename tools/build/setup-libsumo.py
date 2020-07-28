@@ -30,6 +30,11 @@ for f in sorted(glob.glob(os.path.join(os.path.dirname(package_dir), 'bin', '*.d
     if not f.endswith("d.dll") or f[:-5] + ".dll" not in data_files:
         data_files.append(f)
 
+class BinaryDistribution(Distribution):
+    """Distribution which always forces a binary package with platform name"""
+    def has_ext_modules(foo):
+        return True
+
 setup(
     name='libsumo',
     version=SUMO_VERSION,
@@ -53,4 +58,5 @@ setup(
     package_data={'libsumo': ['*.pyd', '*.so', '*.dylib']},
     data_files=[("", data_files)],
     install_requires=['traci>='+SUMO_VERSION],
+    distclass=BinaryDistribution
 )
