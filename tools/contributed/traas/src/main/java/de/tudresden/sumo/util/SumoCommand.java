@@ -132,7 +132,7 @@ public class SumoCommand {
 
             } else if (input1 == Constants.CMD_GET_SIM_VARIABLE && input2 == Constants.POSITION_CONVERSION) {
 
-                if ((Integer)output_type == Constants.POSITION_ROADMAP) {
+                if (output_type == Constants.POSITION_ROADMAP) {
                     cmd.content().writeInt(3);
                     cmd.content().writeUnsignedByte((byte) array[0]);
                     cmd.content().writeDouble((double) array[1]);
