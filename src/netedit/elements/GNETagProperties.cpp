@@ -350,6 +350,12 @@ GNETagProperties::isGenericData() const {
 
 
 bool
+GNETagProperties::isSymbol() const {
+    return (myTagType & SYMBOL) != 0;
+}
+
+
+bool
 GNETagProperties::isDrawable() const {
     return (myTagProperty & DRAWABLE) != 0;
 }

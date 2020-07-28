@@ -61,6 +61,8 @@ public:
         PERSONSTOP =        1 << 17, // Person stops
         // sub data elements
         GENERICDATA =       1 << 18, // Generic data (GNEEdgeData, GNELaneData...)
+        // other
+        SYMBOL =            1 << 19, // Symbol elements (VSSSymbols, RerouterSymbols...)
     };
 
     enum TagProperty {
@@ -199,6 +201,9 @@ public:
 
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;
+
+    /// @brief return true if tag correspond to a symbol element
+    bool isSymbol() const;
 
     /// @brief return true if tag correspond to a drawable element
     bool isDrawable() const;

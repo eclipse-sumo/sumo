@@ -1801,7 +1801,7 @@ GNEAttributeCarrier::fillAdditionals() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-            GNETagProperties::ADDITIONALELEMENT,
+            GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SYMBOL,
             GNETagProperties::DRAWABLE | GNETagProperties::PARENT,
             GUIIcon::VARIABLESPEEDSIGN, SUMO_TAG_VSS);
     }
@@ -2019,7 +2019,7 @@ GNEAttributeCarrier::fillAdditionals() {
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
-            GNETagProperties::ADDITIONALELEMENT,
+            GNETagProperties::ADDITIONALELEMENT | GNETagProperties::SYMBOL,
             GNETagProperties::DRAWABLE | GNETagProperties::PARENT,
             GUIIcon::REROUTER, GNE_TAG_REROUTER_SYMBOL);
     }
