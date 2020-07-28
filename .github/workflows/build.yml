@@ -107,10 +107,10 @@ jobs:
   # BUILDING ON LINUX
   ###########################
   build-linux:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
     strategy:
       # Allow all other matrix-jobs to continue running, even if one of the jobs fails
-      fail-fast: false   
+      fail-fast: false
       matrix:
         build_type: [full, minimal]
         compiler: [gcc, clang]
@@ -171,7 +171,32 @@ jobs:
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin
-        
+
+  ###################
+  # BUILDING wheels
+  ###################
+  build-manylinux-wheels:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+
+    - name: Fetching SUMO tags
+      run: |
+        git fetch --prune --unshallow
+
+    - name: Building Python wheels
+      uses: docker://quay.io/pypa/manylinux2014_x86_64
+      with:
+        entrypoint: build/docker/build_wheels.sh
+
+    - name: Uploading artifacts (Python wheels)
+      uses: actions/upload-artifact@v1
+      with:
+        name: manylinux-wheels
+        path: wheelhouse
+
   ###################
   # BUILDING ON macOS
   ###################
