@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2020 German Aerospace Center (DLR) and others.
+# Copyright (C) 2020-2020 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License 2.0 which is available at
 # https://www.eclipse.org/legal/epl-2.0/
@@ -11,52 +11,45 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    setup-sumolib.py
-# @author  Dominik Buse
+# @file    setup-sumo.py
 # @author  Michael Behrisch
-# @date    2017-01-26
-
-
-from setuptools import setup, find_packages
-import os
+# @date    2020-07-28
+from skbuild import setup
 import version
 
 SUMO_VERSION = version.get_digit_version()
-package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
-
 setup(
-    name='sumolib',
+    name='sumo',
     version=SUMO_VERSION,
-    url='https://sumo.dlr.de/docs/Tools/Sumolib.html',
+    url='https://sumo.dlr.de/',
     download_url='https://sumo.dlr.de/download',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',
-    description=("Python helper modules to read networks, parse output data and " +
-                 "do other useful stuff related to the traffic simulation SUMO"),
+    description=("A microscopic, multi-modal traffic simulation package"),
 
     classifiers=[
         'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'Intended Audience :: Science/Research',
         'License :: OSI Approved :: Eclipse Public License 2.0 (EPL-2.0)',
+        'Programming Language :: C++',
         'Programming Language :: Python :: 2',
-        'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.3',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Programming Language :: Python :: 3.7',
-        'Programming Language :: Python :: 3.8',
     ],
     keywords='traffic simulation traci sumo',
 
-    packages=find_packages(package_dir, include=["sumolib", "sumolib.*"]),
-    package_dir={'': package_dir},
+    cmake_install_dir='sumo',
 
-    # TODO: add extra dependencies for testing
-    extras_require={
-        'visualization': ['matplotlib'],
-    }
+    entry_points={
+        'console_scripts': [
+            'dfrouter=sumo:dfrouter',
+            'duarouter=sumo:duarouter',
+            'jtrrouter=sumo:jtrrouter',
+            'netconvert=sumo:netconvert',
+            'netedit=sumo:netedit',
+            'sumo=sumo:sumo',
+#            'sumo-gui=sumo:sumo-gui',
+        ]
+    },
 )

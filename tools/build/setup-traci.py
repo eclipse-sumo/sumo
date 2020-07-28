@@ -28,6 +28,7 @@ setup(
     name='traci',
     version=SUMO_VERSION,
     url='https://sumo.dlr.de/docs/TraCI/Interfacing_TraCI_from_Python.html',
+    download_url='https://sumo.dlr.de/download',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',
