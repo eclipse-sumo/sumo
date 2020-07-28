@@ -20,9 +20,6 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 
 
 // ===========================================================================

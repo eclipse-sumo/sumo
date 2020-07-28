@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/GNENet.h>
 
 #include "GNEPathElements.h"

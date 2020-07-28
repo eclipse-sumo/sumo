@@ -20,14 +20,6 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEShape.h>
-#include <netedit/elements/additional/GNETAZElement.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
-#include <netedit/elements/data/GNEGenericData.h>
 
 
 #include "GNEHierarchicalElement.h"
