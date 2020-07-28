@@ -139,6 +139,9 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    /// @brief rebuild VSS Symbols
+    void rebuildVSSSymbols(const std::string& value, GNEUndoList* undoList);
+
     /// @brief Invalidated copy constructor.
     GNEVariableSpeedSign(const GNEVariableSpeedSign&) = delete;
 

@@ -21,6 +21,7 @@
 
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/div/GLHelper.h>
+#include <netedit/changes/GNEChange_Additional.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/GNEViewNet.h>
@@ -29,6 +30,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 
 #include "GNEVariableSpeedSign.h"
+#include "GNEVariableSpeedSignSymbol.h"
 
 
 // ===========================================================================
@@ -181,8 +183,13 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
-        case SUMO_ATTR_LANES:
-            return parseIDs(getChildLanes());
+        case SUMO_ATTR_LANES: {
+            std::vector<std::string> lanes;
+            for (const auto &VSSSymbol : getChildAdditionals()) {
+                lanes.push_back(VSSSymbol->getAttribute(SUMO_ATTR_LANE));
+            }
+            return toString(lanes);
+        }
         case SUMO_ATTR_POSITION:
             return toString(myPosition);
         case SUMO_ATTR_NAME:
@@ -211,8 +218,12 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value, GN
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
+        // special case  for lanes due VSS Symbols
         case SUMO_ATTR_LANES:
+            // rebuild VSS Symbols
+            rebuildVSSSymbols(value, undoList);
+            break;
+        case SUMO_ATTR_ID:
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_NAME:
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -234,11 +245,7 @@ GNEVariableSpeedSign::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_POSITION:
             return canParse<Position>(value);
         case SUMO_ATTR_LANES:
-            if (value.empty()) {
-                return false;
-            } else {
-                return canParse<std::vector<GNELane*> >(myNet, value, false);
-            }
+            return canParse<std::vector<GNELane*> >(myNet, value, false);
         case SUMO_ATTR_NAME:
             return SUMOXMLDefinitions::isValidAttribute(value);
         case GNE_ATTR_BLOCK_MOVEMENT:
@@ -277,11 +284,10 @@ GNEVariableSpeedSign::getHierarchyName() const {
 void
 GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
+        case SUMO_ATTR_LANES:
+            throw InvalidArgument(getTagStr() + " cannot be edited");
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
-            break;
-        case SUMO_ATTR_LANES:
-            replaceAdditionalChildLanes(value);
             break;
         case SUMO_ATTR_POSITION:
             myNet->removeGLObjectFromGrid(this);
@@ -309,5 +315,24 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+void 
+GNEVariableSpeedSign::rebuildVSSSymbols(const std::string& value, GNEUndoList* undoList) {
+    undoList->p_begin(("change " + getTagStr() + " attribute").c_str());
+    // drop all additional children
+    while (getChildAdditionals().size() > 0) {
+        undoList->add(new GNEChange_Additional(getChildAdditionals().front(), false), true);
+    }
+    // get lane vector
+    const std::vector<GNELane*> lanes = parse<std::vector<GNELane*> >(myNet, value);
+    // create new VSS Symbols
+    for (const auto &lane : lanes) {
+        // create VSS Symbol
+        GNEAdditional*VSSSymbol = new GNEVariableSpeedSignSymbol(this, lane);
+        // add it using GNEChange_Additional
+        myNet->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
+    }
+    undoList->p_end();
+}
 
 /****************************************************************************/

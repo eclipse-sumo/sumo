@@ -140,8 +140,13 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
 
 
 std::string
-GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr /*key*/) const {
-    throw InvalidArgument("Symbols cannot be edited");
+GNEVariableSpeedSignSymbol::getAttribute(SumoXMLAttr key) const {
+    switch (key) {
+        case SUMO_ATTR_LANE:
+            return getParentLanes().front()->getID();
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
 }
 
 
