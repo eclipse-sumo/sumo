@@ -45,8 +45,8 @@ class GNEHierarchicalElement;
 // @struct GNEHierarchicalElementHelper
 struct GNEHierarchicalElementHelper {
 
-    /// @brief Hierarchical container (used for keep parent and children
-	class HierarchicalContainer {
+    /// @brief Hierarchical container (used for keep myParent and myChildren
+    class HierarchicalContainer {
 
     public:
         /// @brief default constructor
@@ -94,66 +94,66 @@ struct GNEHierarchicalElementHelper {
         template<typename T>
         const T& getParents() const;
 
-        /// @brief getParents
+        /// @brief set parents
         template<typename T>
         void setParents(const T &newParents);
 
-        /// @brief get childrens
+        /// @brief get children
         template<typename T>
         const T& getChildren() const;
 
-        /// @brief setChildrens
+        /// @brief set children
         template<typename T>
         void setChildren(const T &newChildren);
 
     private:
-        /// @brief vector of junction parents
-        std::vector<GNEJunction*> parentJunctions;
+        /// @brief vector of parent junctions
+        std::vector<GNEJunction*> myParentJunctions;
 
-        /// @brief vector of edge parents
-        std::vector<GNEEdge*> parentEdges;
+        /// @brief vector of parent edges
+        std::vector<GNEEdge*> myParentEdges;
 
-        /// @brief vector of lane parents
-        std::vector<GNELane*> parentLanes;
+        /// @brief vector of parent lanes
+        std::vector<GNELane*> myParentLanes;
 
-        /// @brief vector of additional parents
-        std::vector<GNEAdditional*> parentAdditionals;
+        /// @brief vector of parent additionals
+        std::vector<GNEAdditional*> myParentAdditionals;
 
-        /// @brief vector of shape parents
-        std::vector<GNEShape*> parentShapes;
+        /// @brief vector of parent shapes
+        std::vector<GNEShape*> myParentShapes;
 
-        /// @brief vector of TAZElement parents
-        std::vector<GNETAZElement*> parentTAZElements;
+        /// @brief vector of parent TAZElements
+        std::vector<GNETAZElement*> myParentTAZElements;
 
-        /// @brief vector of demand elements parents
-        std::vector<GNEDemandElement*> parentDemandElements;
+        /// @brief vector of parent demand elements
+        std::vector<GNEDemandElement*> myParentDemandElements;
 
-        /// @brief vector of generic datas parents
-        std::vector<GNEGenericData*> parentGenericDatas;
+        /// @brief vector of parent generic datas
+        std::vector<GNEGenericData*> myParentGenericDatas;
 
         /// @brief vector with the child junctions
-        std::vector<GNEJunction*> childJunctions;
+        std::vector<GNEJunction*> myChildJunctions;
 
         /// @brief vector with the child edges
-        std::vector<GNEEdge*> childEdges;
+        std::vector<GNEEdge*> myChildEdges;
 
         /// @brief vector with the child lanes
-        std::vector<GNELane*> childLanes;
+        std::vector<GNELane*> myChildLanes;
 
-        /// @brief vector with the child additionas
-        std::vector<GNEAdditional*> childAdditionals;
+        /// @brief vector with the child additional
+        std::vector<GNEAdditional*> myChildAdditionals;
 
         /// @brief vector with the child lanes
-        std::vector<GNEShape*> childShapes;
+        std::vector<GNEShape*> myChildShapes;
 
         /// @brief vector with the child TAZ Elements
-        std::vector<GNETAZElement*> childTAZElements;
+        std::vector<GNETAZElement*> myChildTAZElements;
 
-        /// @brief vector with the demand elements children
-        std::vector<GNEDemandElement*> childDemandElements;
+        /// @brief vector with the child demand elements
+        std::vector<GNEDemandElement*> myChildDemandElements;
 
-        /// @brief vector with the generic data elements children
-        std::vector<GNEGenericData*> childGenericDatas;
-	};
+        /// @brief vector with the generic child data elements
+        std::vector<GNEGenericData*> myChildGenericDatas;
+    };
 };
 
