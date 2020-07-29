@@ -1527,7 +1527,8 @@ GNEGeometry::drawDottedContourCircle(const bool inspect, const GUIVisualizationS
 
 
 void 
-GNEGeometry::drawDottedSquaredShape(const bool inspect, const GUIVisualizationSettings& s, const Position &pos, const double width, const double height, const double rot, const double exaggeration) {
+GNEGeometry::drawDottedSquaredShape(const bool inspect, const GUIVisualizationSettings& s, const Position &pos, 
+    const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration) {
     // create shape
     PositionVector shape;
     // make rectangle
@@ -1535,6 +1536,8 @@ GNEGeometry::drawDottedSquaredShape(const bool inspect, const GUIVisualizationSe
     shape.push_back(Position(0 + width, 0 - height));
     shape.push_back(Position(0 - width, 0 - height));
     shape.push_back(Position(0 - width, 0 + height));
+    // move shape
+    shape.add(offsetX, offsetY, 0);
     // rotate shape
     shape.rotate2D(DEG2RAD((rot * -1) + 90));
     // move to position

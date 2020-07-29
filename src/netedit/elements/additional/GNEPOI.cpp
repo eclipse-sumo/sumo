@@ -266,7 +266,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
                 if (getShapeImgFile().empty()) {
                     GNEGeometry::drawDottedContourCircle(true, s, *this, 1.3, POIExaggeration);
                 } else {
-                    GNEGeometry::drawDottedSquaredShape(true, s, *this, getWidth(), getHeight(), getShapeNaviDegree(), POIExaggeration);
+                    GNEGeometry::drawDottedSquaredShape(true, s, *this, getWidth(), getHeight(), 0, 0, getShapeNaviDegree(), POIExaggeration);
                 }
             }
             // pop name

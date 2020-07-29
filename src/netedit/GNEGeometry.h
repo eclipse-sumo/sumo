@@ -562,7 +562,8 @@ struct GNEGeometry {
     static void drawDottedContourCircle(const bool inspect, const GUIVisualizationSettings& s, const Position &pos, const double radius, const double exaggeration);
 
     /// @brief draw dotted squared contour (used by additionals and demand elements)
-    static void drawDottedSquaredShape(const bool inspect, const GUIVisualizationSettings& s, const Position &pos, const double width, const double height, const double rot, const double exaggeration);
+    static void drawDottedSquaredShape(const bool inspect, const GUIVisualizationSettings& s, const Position &pos, 
+        const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration);
 
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);

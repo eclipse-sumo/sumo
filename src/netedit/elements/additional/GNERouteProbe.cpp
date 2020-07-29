@@ -194,7 +194,7 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedSquaredShape(true, s, myAdditionalGeometry.getPosition(), 1, 1, myAdditionalGeometry.getRotation(), routeProbeExaggeration);
+            GNEGeometry::drawDottedSquaredShape(true, s, myAdditionalGeometry.getPosition(), 1, 1, myAdditionalGeometry.getRotation(), 0, 0, routeProbeExaggeration);
         }
     }
 }

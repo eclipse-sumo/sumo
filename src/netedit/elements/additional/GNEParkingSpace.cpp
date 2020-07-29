@@ -163,25 +163,14 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // draw additional name
         drawAdditionalName(s);
-        // calculate special shape
-        PositionVector contourShape;
-        // make rectangle
-        contourShape.push_back(Position((widthExaggeration * -0.5), 0));
-        contourShape.push_back(Position((widthExaggeration * +0.5), 0));
-        contourShape.push_back(Position((widthExaggeration * +0.5), lengthExaggeration));
-        contourShape.push_back(Position((widthExaggeration * -0.5), lengthExaggeration));
-        // rotate shape
-        contourShape.rotate2D(DEG2RAD(myAngle));
-        // move to position
-        contourShape.add(myPosition);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
             // draw using drawDottedContourClosedShape
-            GNEGeometry::drawDottedContourClosedShape(true, s, contourShape, 1);
+            GNEGeometry::drawDottedSquaredShape(true, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
             // draw using drawDottedContourClosedShape
-            GNEGeometry::drawDottedContourClosedShape(false, s, contourShape, 1);
+            GNEGeometry::drawDottedSquaredShape(false, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
         }
     }
 }
