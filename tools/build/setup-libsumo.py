@@ -18,8 +18,10 @@
 
 
 from setuptools import setup
+from setuptools.dist import Distribution
 import os
 import glob
+
 import version
 
 SUMO_VERSION = version.get_digit_version()
