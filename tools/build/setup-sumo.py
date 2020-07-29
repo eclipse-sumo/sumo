@@ -41,17 +41,24 @@ setup(
     keywords='traffic simulation traci sumo',
 
     packages=['sumo'],
-    package_dir={'': 'tools'},
+    package_dir={'': 'tools/build'},
 
-    cmake_install_dir='sumo',
+    cmake_install_dir='tools/build/sumo',
 
     entry_points={
         'console_scripts': [
+            'activitygen=sumo:activitygen',
             'dfrouter=sumo:dfrouter',
             'duarouter=sumo:duarouter',
+            'emissionsDrivingCycle=sumo:emissionsDrivingCycle',
+            'emissionsMap=sumo:emissionsMap',
             'jtrrouter=sumo:jtrrouter',
+            'marouter=sumo:marouter',
             'netconvert=sumo:netconvert',
             'netedit=sumo:netedit',
+            'netgenerate=sumo:netgenerate',
+            'od2trips=sumo:od2trips',
+            'polyconvert=sumo:polyconvert',
             'sumo=sumo:sumo',
             'sumo-gui=sumo:sumo_gui',
         ]

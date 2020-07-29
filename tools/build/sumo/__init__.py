@@ -7,7 +7,7 @@ SUMO_HOME = os.path.dirname(__file__)
 
 
 def _makefunc(app):
-    return lambda: raise SystemExit(subprocess.call([os.path.join(SUMO_HOME, 'bin', app)] + sys.argv[1:]))
+    return lambda: sys.exit(subprocess.call([os.path.join(SUMO_HOME, 'bin', app)] + sys.argv[1:]))
 
 
 activitygen = _makefunc("activitygen")
