@@ -977,13 +977,11 @@ GNEGeometry::HierarchicalConnections::update() {
 
 
 void
-GNEGeometry::HierarchicalConnections::drawConnection(const GUIVisualizationSettings& s, const GUIGlObjectType parentType, const double exaggeration) const {
+GNEGeometry::HierarchicalConnections::drawConnection(const GUIVisualizationSettings& s, const double exaggeration) const {
     // Iterate over myConnectionPositions
     for (const auto& connectionGeometry : connectionsGeometries) {
         // Add a draw matrix
         glPushMatrix();
-        // traslate in the Z axis
-        glTranslated(0, 0, parentType - 0.01);
         // Set color of the base
         GLHelper::setColor(s.colorSettings.childConnections);
         // Draw box lines
@@ -995,15 +993,25 @@ GNEGeometry::HierarchicalConnections::drawConnection(const GUIVisualizationSetti
 
 
 void
-GNEGeometry::HierarchicalConnections::drawDottedConnection(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEGeometry::HierarchicalConnections::drawDottedConnection(const bool inspect, const GUIVisualizationSettings& s, const double exaggeration) const {
     // Iterate over myConnectionPositions
     for (const auto& connectionGeometry : connectionsGeometries) {
         // calculate dotted geometry
         GNEGeometry::DottedGeometry dottedGeometry(s, connectionGeometry.getShape(), false);
+        // Add a draw matrix
+        glPushMatrix();
+        // traslate back
+        if (inspect) {
+            glTranslated(0, 0, (-1 * GLO_DOTTEDCONTOUR_INSPECTED) - 0.01);
+        } else {
+            glTranslated(0, 0, (-1 * GLO_DOTTEDCONTOUR_FRONT) - 0.01);
+        }
         // change default width
         dottedGeometry.setWidth(0.1);
         // use drawDottedContourLane to draw it
-        GNEGeometry::drawDottedContourLane(true, s, dottedGeometry, exaggeration * 0.1, false, false);
+        GNEGeometry::drawDottedContourLane(inspect, s, dottedGeometry, exaggeration * 0.1, false, false);
+        // Pop draw matrix
+        glPopMatrix();
     }
 }
 

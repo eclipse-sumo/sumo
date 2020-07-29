@@ -180,11 +180,8 @@ public:
     /// @brief update child connections
     void updateHierarchicalConnections();
 
-    /// @brief Draw connections between parent and children
-    void drawHierarchicalConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const;
-
-    /// @brief Draw dotted connections between parent and children
-    void drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const;
+    /// @brief Draw hierarchical connections between parent and children
+    void drawHierarchicalConnections(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const;
 
     /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
     void sortChildAdditionals();

@@ -486,10 +486,10 @@ struct GNEGeometry {
         void update();
 
         /// @brief draw connections between Parent and childrens
-        void drawConnection(const GUIVisualizationSettings& s, const GUIGlObjectType parentType, const double exaggeration) const;
+        void drawConnection(const GUIVisualizationSettings& s, const double exaggeration) const;
 
         /// @brief draw dotted connections between Parent and childrens
-        void drawDottedConnection(const GUIVisualizationSettings& s, const double exaggeration) const;
+        void drawDottedConnection(const bool inspect, const GUIVisualizationSettings& s, const double exaggeration) const;
 
         /// @brief position and rotation of every symbol over lane
         std::vector<ConnectionGeometry> symbolsPositionAndRotation;

@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
 
 
 #include "GNEHierarchicalElement.h"
@@ -521,19 +522,18 @@ GNEHierarchicalElement::updateHierarchicalConnections() {
 
 
 void
-GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettings& s, const GUIGlObjectType GLTypeParent, const double exaggeration) const {
+GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const {
     // first check if connections can be drawn
-    if (!s.drawForRectangleSelection && (exaggeration > 0)) {
-        myHierarchicalConnections.drawConnection(s, GLTypeParent, exaggeration);
-    }
-}
-
-
-void 
-GNEHierarchicalElement::drawChildDottedConnections(const GUIVisualizationSettings& s, const double exaggeration) const {
-    // first check if connections can be drawn
-    if (!s.drawForRectangleSelection && (exaggeration > 0)) {
-        myHierarchicalConnections.drawDottedConnection(s, exaggeration);
+    if (!s.drawForPositionSelection && !s.drawForRectangleSelection && (exaggeration > 0)) {
+        myHierarchicalConnections.drawConnection(s, exaggeration);
+        // check if we have to draw dotted inspect contour
+        if (s.drawDottedContour() || (AC->getNet()->getViewNet()->getInspectedAttributeCarrier() == AC)) {
+            myHierarchicalConnections.drawDottedConnection(true, s, exaggeration);
+        }
+        // check if we have to draw dotted fronto contour
+        if (s.drawDottedContour() || (AC->getNet()->getViewNet()->getFrontAttributeCarrier() == AC)) {
+            myHierarchicalConnections.drawDottedConnection(false, s, exaggeration);
+        }
     }
 }
 

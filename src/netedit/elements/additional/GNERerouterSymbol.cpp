@@ -136,7 +136,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             glVertex2d(0 + 1.4, 6);
             glEnd();
             // draw "U"
-            if (!s.drawForRectangleSelection) {
+            if (!s.drawForPositionSelection) {
                 // set text color
                 RGBColor textColor;
                 if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
@@ -155,7 +155,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
         }
         // pop layer matrix
-        glPushMatrix();
+        glPopMatrix();
         // Pop name
         glPopName();
         // check if dotted contour has to be drawn
@@ -171,8 +171,6 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
                 GNEGeometry::drawDottedSquaredShape(false, s, symbolGeometry.getPosition(), 1, 3, 0, 3, symbolGeometry.getRotation() + 90, rerouteExaggeration);
             }
         }
-        // Draw connections
-        getParentAdditionals().front()->drawHierarchicalConnections(s, getType(), rerouteExaggeration);
     }
 }
 

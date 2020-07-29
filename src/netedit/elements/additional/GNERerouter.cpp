@@ -138,9 +138,9 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
-        // Start drawing adding an gl identificator
+        // push name
         glPushName(getGlID());
-        // Add a draw matrix for drawing logo
+        // push layer matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
@@ -149,34 +149,46 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         // scale
         glScaled(rerouterExaggeration, rerouterExaggeration, 1);
         // Draw icon depending of detector is selected and if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, rerouterExaggeration)) {
+        if (!s.drawForPositionSelection) {
+            // set White color
             glColor3d(1, 1, 1);
+            // rotate
             glRotated(180, 0, 0, 1);
+            // draw texture depending of selection
             if (drawUsingSelectColor()) {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTERSELECTED), s.additionalSettings.rerouterSize);
             } else {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_REROUTER), s.additionalSettings.rerouterSize);
             }
         } else {
+            // set redcolor
             GLHelper::setColor(RGBColor::RED);
+            // just draw a square
             GLHelper::drawBoxLine(Position(0, s.additionalSettings.rerouterSize), 0, 2 * s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize);
         }
-        // Pop draw matrix
-        glPopMatrix();
-        // Show Lock icon
+        // draw Lock icon
         myBlockIcon.drawIcon(s, rerouterExaggeration, 0.4);
+        // Pop layer matrix
+        glPopMatrix();
+        // Pop name
+        glPopName();
+        // push connection matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER, -0.1);
         // Draw child connections
-        drawHierarchicalConnections(s, getType(), rerouterExaggeration);
+        drawHierarchicalConnections(s, this, rerouterExaggeration);
+        // Pop connection matrix
+        glPopMatrix();
+        // draw additional name
+        drawAdditionalName(s);
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             GNEGeometry::drawDottedSquaredShape(true, s, myPosition, s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize, 0, 0, 0, rerouterExaggeration);
-            // draw shape dotte contour aroud alld connections between child and parents
-            drawChildDottedConnections(s, rerouterExaggeration);
         }
-        // Draw name
-        drawName(getPositionInView(), s.scale, s.addName);
-        // Pop name
-        glPopName();
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedSquaredShape(false, s, myPosition, s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize, 0, 0, 0, rerouterExaggeration);
+        }
     }
 }
 

@@ -115,7 +115,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // draw circle
         GLHelper::drawFilledCircle((double) 1.3, s.getCircleResolution());
         // draw details
-        if (!s.drawForRectangleSelection && (s.scale >= 5)) {
+        if (!s.forceDrawForPositionSelection && (s.scale >= 5)) {
             // move to front
             glTranslated(0, 0, 0.1);
             // set color
@@ -146,8 +146,6 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
             GNEGeometry::drawDottedContourCircle(false, s, myAdditionalGeometry.getPosition(), 1.3, VSSExaggeration);
         }
-        // Draw connections
-        getParentAdditionals().front()->drawHierarchicalConnections(s, getType(), VSSExaggeration);
     }
 }
 

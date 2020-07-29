@@ -133,9 +133,9 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawBoundaries) {
             GLHelper::drawBoundary(getCenteringBoundary());
         }
-        // Start drawing adding an gl identificator
+        // push name
         glPushName(getGlID());
-        // Add a draw matrix for drawing logo
+        // push layer matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VSS);
@@ -145,35 +145,45 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         glScaled(VSSExaggeration, VSSExaggeration, 1);
         // Draw icon depending of variable speed sign is or if isn't being drawn for selecting
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, VSSExaggeration)) {
+            // set white color
             glColor3d(1, 1, 1);
+            // rotate
             glRotated(180, 0, 0, 1);
+            // draw texture
             if (drawUsingSelectColor()) {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGNSELECTED), s.additionalSettings.VSSSize);
             } else {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VARIABLESPEEDSIGN), s.additionalSettings.VSSSize);
             }
         } else {
+            // set white color
             GLHelper::setColor(RGBColor::WHITE);
+            // just draw a withe square
             GLHelper::drawBoxLine(Position(0, s.additionalSettings.VSSSize), 0, 2 * s.additionalSettings.VSSSize, s.additionalSettings.VSSSize);
         }
-        // Pop draw icon matrix
-        glPopMatrix();
         // Show Lock icon
         myBlockIcon.drawIcon(s, VSSExaggeration, 0.4);
+        // Pop layer matrix
+        glPopMatrix();
+        // Pop name
+        glPopName();
+        // push connection matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VSS, -0.1);
         // Draw child connections
-        drawHierarchicalConnections(s, getType(), VSSExaggeration);
-        // Draw name if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getPositionInView(), s.scale, s.addName);
-        }
+        drawHierarchicalConnections(s, this, VSSExaggeration);
+        // Pop connection matrix
+        glPopMatrix();
+        // draw additional name
+        drawAdditionalName(s);
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             GNEGeometry::drawDottedSquaredShape(true, s, myPosition, s.additionalSettings.VSSSize, s.additionalSettings.VSSSize, 0, 0, 0, VSSExaggeration);
-            // draw shape dotte contour aroud alld connections between child and parents
-            drawChildDottedConnections(s, VSSExaggeration);
         }
-        // Pop name
-        glPopName();
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedSquaredShape(false, s, myPosition, s.additionalSettings.VSSSize, s.additionalSettings.VSSSize, 0, 0, 0, VSSExaggeration);
+        }
     }
 }
 
