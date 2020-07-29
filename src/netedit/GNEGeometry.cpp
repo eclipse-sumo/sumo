@@ -977,13 +977,17 @@ GNEGeometry::HierarchicalConnections::update() {
 
 
 void
-GNEGeometry::HierarchicalConnections::drawConnection(const GUIVisualizationSettings& s, const double exaggeration) const {
+GNEGeometry::HierarchicalConnections::drawConnection(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const {
     // Iterate over myConnectionPositions
     for (const auto& connectionGeometry : connectionsGeometries) {
         // Add a draw matrix
         glPushMatrix();
-        // Set color of the base
-        GLHelper::setColor(s.colorSettings.childConnections);
+        // Set color
+        if (AC->isAttributeCarrierSelected()) {
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor.changedBrightness(-32));
+        } else {
+            GLHelper::setColor(s.colorSettings.childConnections);
+        }
         // Draw box lines
         GLHelper::drawBoxLines(connectionGeometry.getShape(), connectionGeometry.getShapeRotations(), connectionGeometry.getShapeLengths(), exaggeration * 0.1);
         // Pop draw matrix

@@ -525,7 +525,7 @@ void
 GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const {
     // first check if connections can be drawn
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection && (exaggeration > 0)) {
-        myHierarchicalConnections.drawConnection(s, exaggeration);
+        myHierarchicalConnections.drawConnection(s, AC, exaggeration);
         // check if we have to draw dotted inspect contour
         if (s.drawDottedContour() || (AC->getNet()->getViewNet()->getInspectedAttributeCarrier() == AC)) {
             myHierarchicalConnections.drawDottedConnection(true, s, exaggeration);

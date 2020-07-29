@@ -486,7 +486,7 @@ struct GNEGeometry {
         void update();
 
         /// @brief draw connections between Parent and childrens
-        void drawConnection(const GUIVisualizationSettings& s, const double exaggeration) const;
+        void drawConnection(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const;
 
         /// @brief draw dotted connections between Parent and childrens
         void drawDottedConnection(const bool inspect, const GUIVisualizationSettings& s, const double exaggeration) const;
