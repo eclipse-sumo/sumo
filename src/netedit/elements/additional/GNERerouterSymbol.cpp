@@ -57,14 +57,23 @@ GNERerouterSymbol::commitGeometryMoving(GNEUndoList* /*undoList*/) {
 
 void
 GNERerouterSymbol::updateGeometry() {
-
+    // clear geometries
+    mySymbolGeometries.clear();
+    // draw rerouter symbol over all lanes
+    for (const auto& lane : getParentEdges().front()->getLanes()) {
+        GNEGeometry::Geometry symbolGeometry;
+        symbolGeometry.updateGeometry(lane, lane->getLaneShape().length2D() - 6);
+        mySymbolGeometries.push_back(symbolGeometry);
+    }
+    // update connections
+    getParentAdditionals().front()->updateHierarchicalConnections();
 }
 
 
 Position
 GNERerouterSymbol::getPositionInView() const {
-    const GNELane* firstLane = getParentEdges().front()->getLanes().at(0);
-    return firstLane->getLaneShape().positionAtOffset(firstLane->getLaneShape().length());
+    // get middle geometry
+    return mySymbolGeometries.at(int(mySymbolGeometries.size() * 0.5)).getPosition();
 }
 
 
@@ -95,20 +104,29 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawAdditionals(rerouteExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding an gl identificator
         glPushName(getParentAdditionals().front()->getGlID());
+        // push layer matrix
+        glPushMatrix();
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_REROUTER);
         // draw rerouter symbol over all lanes
-        for (const auto& lane : getParentEdges().front()->getLanes()) {
-            // calculate lane position and rotation
-            const Position& lanePos = lane->getLaneShape().positionAtOffset(lane->getLaneShape().length());
-            const double laneRot = lane->getLaneShape().rotationDegreeAtOffset(lane->getLaneShape().length());
-            // draw rerouter symbol
+        for (const auto& symbolGeometry : mySymbolGeometries) {
+            // push symbol matrix
             glPushMatrix();
-            glTranslated(lanePos.x(), lanePos.y(), GLO_REROUTER);
-            glRotated(-1 * laneRot, 0, 0, 1);
+            // translate to position
+            glTranslated(symbolGeometry.getPosition().x(), symbolGeometry.getPosition().y(), 0);
+            // rotate
+            glRotated(-1 * symbolGeometry.getRotation(), 0, 0, 1);
+            // scale
             glScaled(rerouteExaggeration, rerouteExaggeration, 1);
-            // mode
+            // set color
+            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            } else {
+                glColor3d(1, .8f, 0);
+            }
+            // set draw mode
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             glBegin(GL_TRIANGLES);
-            glColor3d(1, .8f, 0);
             // base
             glVertex2d(0 - 1.4, 0);
             glVertex2d(0 - 1.4, 6);
@@ -119,20 +137,40 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             glEnd();
             // draw "U"
             if (!s.drawForRectangleSelection) {
-                GLHelper::drawText("U", Position(0, 2), .1, 3, RGBColor::BLACK, 180);
-                double probability = parse<double>(getParentAdditionals().front()->getAttribute(SUMO_ATTR_PROB)) * 100;
+                // set text color
+                RGBColor textColor;
+                if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                    textColor = s.colorSettings.selectedAdditionalColor.changedBrightness(-32);
+                } else {
+                    textColor = RGBColor::BLACK;
+                }
+                // get probability
+                const std::string probability = toString(getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_PROB) * 100) + "%";
+                // draw U
+                GLHelper::drawText("U", Position(0, 2), .1, 3, textColor, 180);
                 // draw Probability
-                GLHelper::drawText((toString(probability) + "%").c_str(), Position(0, 4), .1, 0.7, RGBColor::BLACK, 180);
+                GLHelper::drawText(probability.c_str(), Position(0, 4), .1, 0.7, textColor, 180);
             }
-            // finish draw
+            // pop symbol matrix
             glPopMatrix();
-            // draw contour if is selected
-            if (myNet->getViewNet()->getInspectedAttributeCarrier() == getParentAdditionals().front()) {
-                // GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.8, 6, -1 * laneRot, 0, 3);
-            }
         }
+        // pop layer matrix
+        glPushMatrix();
         // Pop name
         glPopName();
+        // check if dotted contour has to be drawn
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == getParentAdditionals().front())) {
+            // iterate over symbol geometries
+            for (const auto& symbolGeometry : mySymbolGeometries) {
+                GNEGeometry::drawDottedSquaredShape(true, s, symbolGeometry.getPosition(), 1, 3, 0, 3, symbolGeometry.getRotation() + 90, rerouteExaggeration);
+            }
+        }
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
+            // iterate over symbol geometries
+            for (const auto& symbolGeometry : mySymbolGeometries) {
+                GNEGeometry::drawDottedSquaredShape(false, s, symbolGeometry.getPosition(), 1, 3, 0, 3, symbolGeometry.getRotation() + 90, rerouteExaggeration);
+            }
+        }
         // Draw connections
         getParentAdditionals().front()->drawHierarchicalConnections(s, getType(), rerouteExaggeration);
     }

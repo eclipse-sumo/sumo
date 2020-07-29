@@ -123,6 +123,10 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+protected:
+    /// @brief symbols geometries
+    std::vector<GNEGeometry::Geometry> mySymbolGeometries;
+
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
