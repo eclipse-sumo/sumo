@@ -247,8 +247,7 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::onCmdTransform(FXObject* obj, FXSelect
 
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEDemandElement* route) :
     GNEDemandElement(vehicleID, net, (tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, tag,
-        {}, {}, {}, {}, {}, {}, {vehicleType, route}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                    // Children
+        {}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
     SUMOVehicleParameter() {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleID;
@@ -259,8 +258,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElement* route, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_FLOW_ROUTE) ? GLO_ROUTEFLOW : GLO_VEHICLE, vehicleParameters.tag,
-        {}, {}, {}, {}, {}, {}, {vehicleType, route}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                    // Children
+        {}, {}, {}, {}, {}, {}, {vehicleType, route}, {}),
     SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
@@ -271,8 +269,7 @@ GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEDemandElem
 
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == GNE_TAG_VEHICLE_WITHROUTE) ? GLO_VEHICLE : GLO_ROUTEFLOW, vehicleParameters.tag,
-        {}, {}, {}, {}, {}, {}, {vehicleType}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),            // Children
+        {}, {}, {}, {}, {}, {}, {vehicleType}, {}),
     SUMOVehicleParameter(vehicleParameters) {
     // SUMOVehicleParameter ID has to be set manually
     id = vehicleParameters.id;
@@ -286,8 +283,7 @@ GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, const SUMOVeh
 GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge,
         const std::vector<GNEEdge*>& via) :
     GNEDemandElement(vehicleID, net, (tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, tag,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                            // Children
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
     SUMOVehicleParameter() {
     // set via parameter without updating references
     replaceMiddleParentEdges(toString(via), false);
@@ -299,8 +295,7 @@ GNEVehicle::GNEVehicle(SumoXMLTag tag, GNENet* net, const std::string& vehicleID
 GNEVehicle::GNEVehicle(GNENet* net, GNEDemandElement* vehicleType, GNEEdge* fromEdge, GNEEdge* toEdge, const std::vector<GNEEdge*>& via,
         const SUMOVehicleParameter& vehicleParameters) :
     GNEDemandElement(vehicleParameters.id, net, (vehicleParameters.tag == SUMO_TAG_FLOW) ? GLO_FLOW : GLO_TRIP, vehicleParameters.tag,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                            // Children
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {vehicleType}, {}),
     SUMOVehicleParameter(vehicleParameters) {
     // set via parameter without updating references
     replaceMiddleParentEdges(toString(via), false);

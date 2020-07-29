@@ -36,8 +36,7 @@
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
         double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(net->generateDemandElementID(GNE_TAG_PERSONTRIP_EDGE_EDGE), net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE_EDGE,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                            // Childrens
+        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
@@ -49,8 +48,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
     double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(net->generateDemandElementID(GNE_TAG_PERSONTRIP_EDGE_BUSSTOP), net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
-        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {},    // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
+        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
@@ -61,8 +59,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdg
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
     double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(net->generateDemandElementID(GNE_TAG_PERSONTRIP_BUSSTOP_EDGE), net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP_EDGE,
-        {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {},    // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                                // Childrens
+        {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {
@@ -74,8 +71,7 @@ GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdd
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
     double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(net->generateDemandElementID(GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP), net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
-        {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                                    // Childrens
+        {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myVTypes(types),
     myModes(modes) {

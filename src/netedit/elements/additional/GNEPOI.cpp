@@ -41,8 +41,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
         bool relativePath, double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POI, movementBlocked,
-        {}, {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}) {   // Children
+        {}, {}, {}, {}, {}, {}, {}, {}) {
     // set GEO Position
     myGEOPosition = pos;
     GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
@@ -54,8 +53,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
         double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POILANE, movementBlocked,
-        {}, {}, {lane}, {}, {}, {}, {}, {}, // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}) { // Children
+        {}, {}, {lane}, {}, {}, {}, {}, {}) {
 }
 
 

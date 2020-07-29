@@ -37,15 +37,7 @@ GNEHierarchicalContainer::GNEHierarchicalContainer(
     const std::vector<GNEShape*>& parentShapes,
     const std::vector<GNETAZElement*>& parentTAZElements,
     const std::vector<GNEDemandElement*>& ParentDemandElements,
-    const std::vector<GNEGenericData*>& parentGenericDatas,
-    const std::vector<GNEJunction*>& childJunctions,
-    const std::vector<GNEEdge*>& childEdges,
-    const std::vector<GNELane*>& childLanes,
-    const std::vector<GNEAdditional*>& childAdditionals,
-    const std::vector<GNEShape*>& childShapes,
-    const std::vector<GNETAZElement*>& childTAZElements,
-    const std::vector<GNEDemandElement*>& childDemandElements,
-    const std::vector<GNEGenericData*>& childGenericDatas):
+    const std::vector<GNEGenericData*>& parentGenericDatas):
     myParentJunctions(parentJunctions),
     myParentEdges(parentEdges),
     myParentLanes(parentLanes),
@@ -53,15 +45,7 @@ GNEHierarchicalContainer::GNEHierarchicalContainer(
     myParentShapes(parentShapes),
     myParentTAZElements(parentTAZElements),
     myParentDemandElements(ParentDemandElements),
-    myParentGenericDatas(parentGenericDatas),
-    myChildJunctions(childJunctions),
-    myChildEdges(childEdges),
-    myChildLanes(childLanes),
-    myChildAdditionals(childAdditionals),
-    myChildShapes(childShapes),
-    myChildTAZElements(childTAZElements),
-    myChildDemandElements(childDemandElements),
-    myChildGenericDatas(childGenericDatas) {
+    myParentGenericDatas(parentGenericDatas) {
 }
 
 

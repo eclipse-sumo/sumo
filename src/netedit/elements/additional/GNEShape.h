@@ -43,14 +43,6 @@ public:
      * @param[in] TAZElementParents vector of TAZElement parents
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
-     * @param[in] junctionChildren vector of junction children
-     * @param[in] edgeChildren vector of edge children
-     * @param[in] laneChildren vector of lane children
-     * @param[in] additionalChildren vector of additional children
-     * @param[in] shapeChildren vector of shape children
-     * @param[in] TAZElementChildren vector of TAZElement children
-     * @param[in] demandElementChildren vector of demandElement children
-     * @param[in] genericDataChildren vector of genericData children
      */
     GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
         const std::vector<GNEJunction*>& junctionParents,
@@ -60,15 +52,7 @@ public:
         const std::vector<GNEShape*>& shapeParents,
         const std::vector<GNETAZElement*>& TAZElementParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEJunction*>& junctionChildren,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNETAZElement*>& TAZElementChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren);
+        const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNEShape();

@@ -35,16 +35,14 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag,
-        {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {},  // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                        // Childrens
+        {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE,
-        {}, {}, {lane}, {}, {}, {}, {stopParent}, {},   // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),                // Childrens
+        {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
     SUMOVehicleParameter::Stop(stopParameter) {
 }
 

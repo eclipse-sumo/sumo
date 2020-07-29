@@ -49,14 +49,6 @@ public:
      * @param[in] parentTAZElements vector of parent TAZs
      * @param[in] parentDemandElements vector of parent demand elements
      * @param[in] parentGenericData vector of parent generic data elements
-     * @param[in] childJunctions vector of child junctions
-     * @param[in] childEdges vector of child edges
-     * @param[in] childLanes vector of child lanes
-     * @param[in] childAdditionals vector of child additional
-     * @param[in] childShapes vector of child shapes
-     * @param[in] childTAZElements vector of child TAZs
-     * @param[in] childDemandElements vector of child demand elements
-     * @param[in] childGenericDataElements vector of child generic data elements
      */
     GNEHierarchicalElement(const GNEAttributeCarrier* AC,
         const std::vector<GNEJunction*>& parentJunctions,
@@ -66,15 +58,7 @@ public:
         const std::vector<GNEShape*>& parentShapes,
         const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& parentDemandElements,
-        const std::vector<GNEGenericData*>& parentGenericDatas,
-        const std::vector<GNEJunction*>& childJunctions,
-        const std::vector<GNEEdge*>& childEdges,
-        const std::vector<GNELane*>& childLanes,
-        const std::vector<GNEAdditional*>& childAdditionals,
-        const std::vector<GNEShape*>& childShapes,
-        const std::vector<GNETAZElement*>& childTAZElements,
-        const std::vector<GNEDemandElement*>& childDemandElements,
-        const std::vector<GNEGenericData*>& childGenericDataElements);
+        const std::vector<GNEGenericData*>& parentGenericDatas);
 
     /// @brief Destructor
     ~GNEHierarchicalElement();

@@ -40,8 +40,7 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),    // Children
+        {}, {}, {}, {}, {}, {}, {}, {}),
     GUIPolygon(id, "", color, shape, false, false, 1),
     myBlockShape(false),
     myMaxWeightSource(0),

@@ -53,8 +53,7 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-        {}, {}, {}, {}, {}, {}, {}, {},     // Parents
-        {}, {}, {}, {}, {}, {}, {}, {}),    // Children
+        {}, {}, {}, {}, {}, {}, {}, {}),
     myNBNode(nbn),
     myMaxDrawingSize(1),
     myAmCreateEdgeSource(false),

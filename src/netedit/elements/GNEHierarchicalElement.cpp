@@ -41,17 +41,8 @@ GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
         const std::vector<GNEShape*>& parentShapes,
         const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
-        const std::vector<GNEGenericData*>& parentGenericDatas,
-        const std::vector<GNEJunction*>& childJunctions,
-        const std::vector<GNEEdge*>& childEdges,
-        const std::vector<GNELane*>& childLanes,
-        const std::vector<GNEAdditional*>& childAdditionals,
-        const std::vector<GNEShape*>& childShapes,
-        const std::vector<GNETAZElement*>& childTAZElements,
-        const std::vector<GNEDemandElement*>& childDemandElements,
-        const std::vector<GNEGenericData*>& childGenericDataElements) :
-    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas,
-        childJunctions, childEdges, childLanes, childAdditionals, childShapes, childTAZElements, childDemandElements, childGenericDataElements),
+        const std::vector<GNEGenericData*>& parentGenericDatas) :
+    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas),
     myHierarchicalConnections(this),
     myAC(AC) {
 }

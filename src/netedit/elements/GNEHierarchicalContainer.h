@@ -57,15 +57,7 @@ public:
         const std::vector<GNEShape*>& parentShapes,
         const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
-        const std::vector<GNEGenericData*>& parentGenericDatas,
-        const std::vector<GNEJunction*>& childJunctions,
-        const std::vector<GNEEdge*>& childEdges,
-        const std::vector<GNELane*>& childLanes,
-        const std::vector<GNEAdditional*>& childAdditionals,
-        const std::vector<GNEShape*>& childShapes,
-        const std::vector<GNETAZElement*>& childTAZElements,
-        const std::vector<GNEDemandElement*>& childDemandElements,
-        const std::vector<GNEGenericData*>& childGenericDatas);
+        const std::vector<GNEGenericData*>& parentGenericDatas);
 
     /// @brief get container size
     size_t getContainerSize() const;

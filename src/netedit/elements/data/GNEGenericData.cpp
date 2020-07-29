@@ -50,20 +50,11 @@ GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type,
         const std::vector<GNEShape*>& shapeParents,
         const std::vector<GNETAZElement*>& TAZElementParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents,
-        const std::vector<GNEJunction*>& junctionChildren,
-        const std::vector<GNEEdge*>& edgeChildren,
-        const std::vector<GNELane*>& laneChildren,
-        const std::vector<GNEAdditional*>& additionalChildren,
-        const std::vector<GNEShape*>& shapeChildren,
-        const std::vector<GNETAZElement*>& TAZElementChildren,
-        const std::vector<GNEDemandElement*>& demandElementChildren,
-        const std::vector<GNEGenericData*>& genericDataChildren) :
+        const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, dataIntervalParent->getID()),
     GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
     Parameterised(ParameterisedAttrType::DOUBLE, parameters),
-    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents,
-        junctionChildren, edgeChildren, laneChildren, additionalChildren, shapeChildren, TAZElementChildren, demandElementChildren, genericDataChildren),
+    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathElements(this),
     myDataIntervalParent(dataIntervalParent) {
 }
