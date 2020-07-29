@@ -72,10 +72,12 @@ def writeLeg(outf, options, idveh, leg, startLink, endLink):
 
 def main(options):
     persons = []  # (depart, xmlsnippet)
-    for person in sumolib.output.parse(options.planfile, 'person'):
+    for person in sumolib.xml.parse(options.planfile, 'person'):
         outf = StringIO()
         vehIndex = 0
         plan = person.plan[0]
+        if len(plan.getChildList()) == 0:
+            continue
         firstAct = plan.getChildList()[0]
         depart = firstAct.start_time
         if depart is None:
