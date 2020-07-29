@@ -57,13 +57,15 @@ GNEVariableSpeedSignSymbol::commitGeometryMoving(GNEUndoList* /*undoList*/) {
 
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
-
+    myAdditionalGeometry.updateGeometry(getParentLanes().front(), 1.5);
+    // update connections
+    getParentAdditionals().front()->updateHierarchicalConnections();
 }
 
 
 Position
 GNEVariableSpeedSignSymbol::getPositionInView() const {
-    return getParentLanes().front()->getLaneShape().positionAtOffset(getParentLanes().front()->getLaneShape().length());
+    return myAdditionalGeometry.getPosition();
 }
 
 
@@ -92,46 +94,57 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     const double VSSExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
     if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // calulate position and rotation
-        // obtain lanePos and route
-        const Position& lanePos = getParentLanes().front()->getLaneShape().positionAtOffset(getParentLanes().front()->getLaneShape().length());
-        const double laneRot = getParentLanes().front()->getLaneShape().rotationDegreeAtOffset(getParentLanes().front()->getLaneShape().length());
         // Start drawing adding an VSS gl identificator (used to identify element after clicking)
         glPushName(getParentAdditionals().front()->getGlID());
         // start drawing symbol
         glPushMatrix();
-        glTranslated(lanePos.x(), lanePos.y(), GLO_VSS);
-        glRotated(-1 * laneRot, 0, 0, 1);
-        glTranslated(0, -1.5, 0);
+        // translate to front
+        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
+        // translate to position
+        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+        // rotate
+        glRotated(-1 * myAdditionalGeometry.getRotation(), 0, 0, 1);
+        // scale
         glScaled(VSSExaggeration, VSSExaggeration, 1);
-        // draw circle
-        int noPoints = 9;
-        if (s.scale > 25) {
-            noPoints = (int)(9.0 + s.scale / 10.0);
-            if (noPoints > 36) {
-                noPoints = 36;
-            }
+        // set color
+        if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+        } else {
+            GLHelper::setColor(RGBColor::RED);
         }
-        glColor3d(1, 0, 0);
-        GLHelper::drawFilledCircle((double) 1.3, noPoints);
+        // draw circle
+        GLHelper::drawFilledCircle((double) 1.3, s.getCircleResolution());
+        // draw details
         if (!s.drawForRectangleSelection && (s.scale >= 5)) {
+            // move to front
             glTranslated(0, 0, 0.1);
-            glColor3d(0, 0, 0);
-            GLHelper::drawFilledCircle((double) 1.1, noPoints);
-            // draw the speed string
-            glColor3d(1, 1, 0);
+            // set color
+            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                GLHelper::setColor(s.colorSettings.selectedAdditionalColor.changedBrightness(-32));
+            } else {
+                GLHelper::setColor(RGBColor::BLACK);
+            }
+            // draw another circle
+            GLHelper::drawFilledCircle((double) 1.1, s.getCircleResolution());
+            // move to front
             glTranslated(0, 0, 0.1);
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            // draw last value string
-            GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
+            // draw speed
+            if (getParentAdditionals().front()->isAttributeCarrierSelected()) {
+                GLHelper::drawText("S", Position(0, 0), .1, 1.2, s.colorSettings.selectedAdditionalColor, 180);
+            } else {
+                GLHelper::drawText("S", Position(0, 0), .1, 1.2, RGBColor::YELLOW, 180);
+            }
         }
         // Pop symbol matrix
         glPopMatrix();
         // Pop VSS name
         glPopName();
         // check if dotted contour has to be drawn
-        if (myNet->getViewNet()->getInspectedAttributeCarrier() == getParentAdditionals().front()) {
-            // GLHelper::drawShapeDottedContourRectangle(s, getType(), lanePos, 2.6, 2.6, -1 * laneRot, 0, -1.5);
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == getParentAdditionals().front())) {
+            GNEGeometry::drawDottedContourCircle(true, s, myAdditionalGeometry.getPosition(), 1.3, VSSExaggeration);
+        }
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
+            GNEGeometry::drawDottedContourCircle(false, s, myAdditionalGeometry.getPosition(), 1.3, VSSExaggeration);
         }
         // Draw connections
         getParentAdditionals().front()->drawHierarchicalConnections(s, getType(), VSSExaggeration);
