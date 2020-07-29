@@ -188,7 +188,7 @@ jobs:
     - name: Building Python wheels
       uses: docker://quay.io/pypa/manylinux2014_x86_64
       with:
-        entrypoint: build/docker/build_wheels.sh
+        entrypoint: tools/build/build_wheels.sh
 
     - name: Uploading artifacts (Python wheels)
       uses: actions/upload-artifact@v1

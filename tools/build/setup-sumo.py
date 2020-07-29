@@ -14,6 +14,7 @@
 # @file    setup-sumo.py
 # @author  Michael Behrisch
 # @date    2020-07-28
+import os
 from skbuild import setup
 import version
 
@@ -39,6 +40,9 @@ setup(
     ],
     keywords='traffic simulation traci sumo',
 
+    packages=['sumo'],
+    package_dir={'': 'tools'},
+
     cmake_install_dir='sumo',
 
     entry_points={
@@ -49,7 +53,7 @@ setup(
             'netconvert=sumo:netconvert',
             'netedit=sumo:netedit',
             'sumo=sumo:sumo',
-#            'sumo-gui=sumo:sumo-gui',
+            'sumo-gui=sumo:sumo_gui',
         ]
     },
 )
