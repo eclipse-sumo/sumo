@@ -67,13 +67,6 @@ RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, u
     : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha) {}
 
 
-RGBColor::RGBColor(const RGBColor& col)
-    : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue), myAlpha(col.myAlpha) {}
-
-
-RGBColor::~RGBColor() {}
-
-
 void
 RGBColor::set(unsigned char r, unsigned char g, unsigned char b, unsigned char a) {
     myRed = r;

@@ -46,12 +46,6 @@ public:
      */
     RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha = 255);
 
-    /// @brief Copy constructor
-    RGBColor(const RGBColor& col);
-
-    /// @brief Destructor
-    ~RGBColor();
-
     /** @brief Returns the red-amount of the color
      * @return The red component's value
      */
