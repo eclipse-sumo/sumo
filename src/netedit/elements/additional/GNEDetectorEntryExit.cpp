@@ -150,7 +150,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         // Push polygon matrix
         glPushMatrix();
         glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
-        glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
+        glRotated((myBlockIcon.getRotation() * -1), 0, 0, 1);
         glScaled(entryExitExaggeration, entryExitExaggeration, 1);
         // draw details if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
