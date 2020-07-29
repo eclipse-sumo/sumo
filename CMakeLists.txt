@@ -11,6 +11,7 @@ option(SUMO_UTILS "Enable generation of a shared library for the utility functio
 option(FMI "Enable generation of an FMI library for SUMO" false)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
+set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support")
 
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -27,6 +28,12 @@ endif ()
 project(SUMO)
 set(PACKAGE_VERSION "git")
 cmake_minimum_required(VERSION 3.1)
+
+find_program(CCACHE_FOUND "ccache")
+if (CCACHE_FOUND AND CCACHE_SUPPORT)
+  message(STATUS "Enabling ccache")
+  set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "ccache")
+endif()
 
 set(CMAKE_COLOR_MAKEFILE ON)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/build/cmake_modules/")
