@@ -94,8 +94,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
     const double VSSExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
     if (s.drawAdditionals(VSSExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // Start drawing adding an VSS gl identificator (used to identify element after clicking)
-        glPushName(getParentAdditionals().front()->getGlID());
+        // Start drawing adding an gl identificator (except in Move mode)
+        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
+            glPushName(getParentAdditionals().front()->getGlID());
+        }
         // start drawing symbol
         glPushMatrix();
         // translate to front
@@ -138,7 +140,9 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // Pop symbol matrix
         glPopMatrix();
         // Pop VSS name
-        glPopName();
+        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
+            glPopName();
+        }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == getParentAdditionals().front())) {
             GNEGeometry::drawDottedContourCircle(true, s, myAdditionalGeometry.getPosition(), 1.3, VSSExaggeration);

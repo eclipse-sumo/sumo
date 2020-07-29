@@ -102,8 +102,10 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
     const double rerouteExaggeration = s.addSize.getExaggeration(s, getParentAdditionals().front());
     // first check if additional has to be drawn
     if (s.drawAdditionals(rerouteExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // Start drawing adding an gl identificator
-        glPushName(getParentAdditionals().front()->getGlID());
+        // Start drawing adding an gl identificator (except in Move mode)
+        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
+            glPushName(getParentAdditionals().front()->getGlID());
+        }
         // push layer matrix
         glPushMatrix();
         // translate to front
@@ -157,7 +159,9 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // pop layer matrix
         glPopMatrix();
         // Pop name
-        glPopName();
+        if (myNet->getViewNet()->getEditModes().networkEditMode != NetworkEditMode::NETWORK_MOVE) {
+            glPopName();
+        }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == getParentAdditionals().front())) {
             // iterate over symbol geometries
