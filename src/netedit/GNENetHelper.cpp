@@ -810,57 +810,64 @@ GNENetHelper::AttributeCarriers::demandElementExist(const GNEDemandElement* dema
 
 void
 GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandElement) {
-    // Check if demandElement element exists before insertion
-    if (!demandElementExist(demandElement)) {
-        // insert in demandElements container
-        myDemandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
-        // also insert in vehicleDepartures container if it's either a vehicle or a person
-        if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
-            if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
-                throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' already inserted");
-            } else {
-                myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+    // check if demandElement is a slave
+    if (!demandElement->getTagProperty().isSlave()) {
+        // Check if demandElement element exists before insertion
+        if (!demandElementExist(demandElement)) {
+            // insert in demandElements container
+            myDemandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
+            // also insert in vehicleDepartures container if it's either a vehicle or a person
+            if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
+                if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
+                    throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' already inserted");
+                } else {
+                    myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
+                }
             }
+        } else {
+            throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
         }
-        // add element in grid
-        myNet->addGLObjectIntoGrid(demandElement);
-        // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
-        if (myNet->isUpdateGeometryEnabled()) {
-            demandElement->updateGeometry();
-        }
-        // demandElements has to be saved
-        myNet->requireSaveDemandElements(true);
-    } else {
-        throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
     }
+    // add element in grid
+    myNet->addGLObjectIntoGrid(demandElement);
+    // update geometry after insertion of demandElements if myUpdateGeometryEnabled is enabled
+    if (myNet->isUpdateGeometryEnabled()) {
+        demandElement->updateGeometry();
+    }
+    // demandElements has to be saved
+    myNet->requireSaveDemandElements(true);
+
 }
 
 
 void
 GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandElement) {
-    // first check that demandElement pointer is valid
-    if (demandElementExist(demandElement)) {
-        // remove it from Inspector Frame and AttributeCarrierHierarchy
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(demandElement);
-        // obtain demand element and erase it from container
-        auto it = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID());
-        myDemandElements.at(demandElement->getTagProperty().getTag()).erase(it);
-        // also remove fromvehicleDepartures container if it's either a vehicle or a person
-        if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
-            if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
-                throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
-            } else {
-                myVehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
+    // check if demandElement is a slave
+    if (!demandElement->getTagProperty().isSlave()) {
+        // first check that demandElement pointer is valid
+        if (demandElementExist(demandElement)) {
+            // remove it from Inspector Frame and AttributeCarrierHierarchy
+            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
+            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(demandElement);
+            // obtain demand element and erase it from container
+            auto it = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID());
+            myDemandElements.at(demandElement->getTagProperty().getTag()).erase(it);
+            // also remove fromvehicleDepartures container if it's either a vehicle or a person
+            if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
+                if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
+                    throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
+                } else {
+                    myVehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
+                }
             }
+        } else {
+            throw ProcessError("Invalid demandElement pointer");
         }
-        // remove element from grid
-        myNet->removeGLObjectFromGrid(demandElement);
-        // demandElements has to be saved
-        myNet->requireSaveDemandElements(true);
-    } else {
-        throw ProcessError("Invalid demandElement pointer");
     }
+    // remove element from grid
+    myNet->removeGLObjectFromGrid(demandElement);
+    // demandElements has to be saved
+    myNet->requireSaveDemandElements(true);
 }
 
 
