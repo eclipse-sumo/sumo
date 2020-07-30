@@ -1349,7 +1349,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
         // start geometry moving
         junction->startGeometryMoving();
         // interate over junction edges
-        for (const auto& edge : junction->getGNEEdges()) {
+        for (const auto& edge : junction->getChildEdges()) {
             // if both junction are selected, then move shape
             if (edge->isAttributeCarrierSelected() &&
                     edge->getParentJunctions().front()->isAttributeCarrierSelected() &&

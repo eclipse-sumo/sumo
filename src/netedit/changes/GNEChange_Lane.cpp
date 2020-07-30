@@ -64,8 +64,6 @@ GNEChange_Lane::~GNEChange_Lane() {
     if (myEdge->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' in GNEChange_Lane");
-        // remove edge from parents and children
-        removeElementFromParentsAndChildren(myEdge);
         delete myEdge;
     }
     if (myLane) {
@@ -73,8 +71,6 @@ GNEChange_Lane::~GNEChange_Lane() {
         if (myLane->unreferenced()) {
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + myLane->getTagStr() + " '" + myLane->getID() + "' in GNEChange_Lane");
-            // remove lane from parents and children
-            removeElementFromParentsAndChildren(myLane);
             // delete lane
             delete myLane;
         }

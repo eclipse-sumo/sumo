@@ -62,8 +62,6 @@ GNEChange_DemandElement::~GNEChange_DemandElement() {
                     pathElement.getJunction()->removePathDemandElement(myDemandElement);
                 }
             }
-            // remove demand element from parents and children
-            removeElementFromParentsAndChildren(myDemandElement);
         }
         delete myDemandElement;
     }

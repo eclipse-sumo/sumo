@@ -49,8 +49,6 @@ GNEChange_Shape::~GNEChange_Shape() {
             WRITE_DEBUG("Removing " + myShape->getTagStr() + " '" + myShape->getID() + "' from net in ~GNEChange_Shape()");
             // remove polygon from AttributeCarreirs
             myShape->getNet()->getAttributeCarriers()->deleteShape(myShape);
-            // Remove element from parents and children
-            removeElementFromParentsAndChildren(myShape);
         }
         // show extra information for tests
         WRITE_DEBUG("delete " + myShape->getTagStr() + " '" + myShape->getID() + "' in ~GNEChange_Shape()");

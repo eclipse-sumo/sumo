@@ -143,9 +143,6 @@ public:
     /// @brief remove outgoing GNEEdge
     void removeOutgoingGNEEdge(GNEEdge* edge);
 
-    /// @brief Returns all GNEEdges vinculated with this Junction
-    const std::vector<GNEEdge*>& getGNEEdges() const;
-
     /// @brief Returns incoming GNEEdges
     const std::vector<GNEEdge*>& getGNEIncomingEdges() const;
 
@@ -286,13 +283,10 @@ private:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
 
-    /// @brief vector with the GNEEdges vinculated with this junction
-    std::vector<GNEEdge*> myGNEEdges;
-
-    /// @brief vector with the incomings GNEEdges vinculated with this junction
+    /// @brief vector with the (child) incomings GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEIncomingEdges;
 
-    /// @brief vector with the outgoings GNEEdges vinculated with this junction
+    /// @brief vector with the (child) outgoings GNEEdges vinculated with this junction
     std::vector<GNEEdge*> myGNEOutgoingEdges;
 
     /// @brief the built crossing objects

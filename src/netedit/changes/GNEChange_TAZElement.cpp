@@ -49,8 +49,6 @@ GNEChange_TAZElement::~GNEChange_TAZElement() {
             WRITE_DEBUG("Removing " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' from net in ~GNEChange_TAZElement()");
             // remove TAZElement from AttributeCarreirs
             myTAZElement->getNet()->getAttributeCarriers()->deleteTAZElement(myTAZElement);
-            // Remove element from parents and children
-            removeElementFromParentsAndChildren(myTAZElement);
         }
         // show extra information for tests
         WRITE_DEBUG("delete " + myTAZElement->getTagStr() + " '" + myTAZElement->getID() + "' in ~GNEChange_TAZElement()");

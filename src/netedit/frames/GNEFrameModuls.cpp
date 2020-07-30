@@ -1301,7 +1301,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                     // insert junction item
                     FXTreeItem* junctionItem = addListItem(AC, itemParent);
                     // insert edges
-                    for (auto i : junction->getGNEEdges()) {
+                    for (auto i : junction->getChildEdges()) {
                         showAttributeCarrierChildren(i, junctionItem);
                     }
                     // insert crossings

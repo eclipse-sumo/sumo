@@ -1603,11 +1603,11 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     // Remake connections for this edge and all edges that target this lane
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (auto i : getParentJunctions().front()->getGNEEdges()) {
+    for (auto i : getParentJunctions().front()->getChildEdges()) {
         i->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (auto i : getParentJunctions().back()->getGNEEdges()) {
+    for (auto i : getParentJunctions().back()->getChildEdges()) {
         i->remakeGNEConnections();
     }
     // add object again
@@ -1657,11 +1657,11 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     // Remake connections of this edge
     remakeGNEConnections();
     // remake connections of all edges of junction source and destiny
-    for (auto i : getParentJunctions().front()->getGNEEdges()) {
+    for (auto i : getParentJunctions().front()->getChildEdges()) {
         i->remakeGNEConnections();
     }
     // remake connections of all edges of junction source and destiny
-    for (auto i : getParentJunctions().back()->getGNEEdges()) {
+    for (auto i : getParentJunctions().back()->getChildEdges()) {
         i->remakeGNEConnections();
     }
     // add object again

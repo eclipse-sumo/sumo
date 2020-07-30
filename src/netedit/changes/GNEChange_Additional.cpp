@@ -58,8 +58,6 @@ GNEChange_Additional::~GNEChange_Additional() {
                     pathElement.getJunction()->removePathAdditionalElement(myAdditional);
                 }
             }
-            // remove additional from parents and children
-            removeElementFromParentsAndChildren(myAdditional);
         }
         delete myAdditional;
     }

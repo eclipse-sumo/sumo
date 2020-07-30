@@ -70,8 +70,6 @@ GNEChange_GenericData::~GNEChange_GenericData() {
                     pathElement.getJunction()->removePathGenericData(myGenericData);
                 }
             }
-            // remove genericData from parents and children
-            removeElementFromParentsAndChildren(myGenericData);
         }
         // delete generic data
         delete myGenericData;

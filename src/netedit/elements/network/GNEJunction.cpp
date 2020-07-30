@@ -319,7 +319,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             }
             const std::string menuEntry = "Convert to roundabout (using junction radius " + toString(radius) + ")";
             FXMenuCommand* mcRoundabout = new FXMenuCommand(ret, menuEntry.c_str(), nullptr, &parent, MID_GNE_JUNCTION_CONVERT_ROUNDABOUT);
-            if (myGNEEdges.size() < 2 ||
+            if (getChildEdges().size() < 2 ||
                     (myGNEIncomingEdges.size() == 1
                      && myGNEOutgoingEdges.size() == 1
                      && myGNEIncomingEdges[0]->getParentJunctions().front() == myGNEOutgoingEdges[0]->getParentJunctions().back())) {
@@ -574,7 +574,6 @@ GNEJunction::addIncomingGNEEdge(GNEEdge* edge) {
     } else {
         // Add edge into containers
         myGNEIncomingEdges.push_back(edge);
-        myGNEEdges.push_back(edge);
     }
 }
 
@@ -589,7 +588,6 @@ GNEJunction::addOutgoingGNEEdge(GNEEdge* edge) {
     } else {
         // Add edge into containers
         myGNEOutgoingEdges.push_back(edge);
-        myGNEEdges.push_back(edge);
     }
 }
 
@@ -603,7 +601,6 @@ GNEJunction::removeIncomingGNEEdge(GNEEdge* edge) {
     } else {
         // remove edge from containers
         myGNEIncomingEdges.erase(i);
-        myGNEEdges.erase(std::find(myGNEEdges.begin(), myGNEEdges.end(), edge));
     }
 }
 
@@ -617,14 +614,7 @@ GNEJunction::removeOutgoingGNEEdge(GNEEdge* edge) {
     } else {
         // remove edge from containers
         myGNEOutgoingEdges.erase(i);
-        myGNEEdges.erase(std::find(myGNEEdges.begin(), myGNEEdges.end(), edge));
     }
-}
-
-
-const std::vector<GNEEdge*>&
-GNEJunction::getGNEEdges() const {
-    return myGNEEdges;
 }
 
 
@@ -686,16 +676,16 @@ GNEJunction::startGeometryMoving(bool extendToNeighbors) {
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
     // Iterate over GNEEdges
-    for (const auto& edge : myGNEEdges) {
+    for (const auto& edge : getChildEdges()) {
         // Add source and destiny junctions
         affectedJunctions.insert(edge->getParentJunctions().front());
         affectedJunctions.insert(edge->getParentJunctions().back());
         // Obtain neighbors of Junction source
-        for (const auto& junctionSourceEdge : edge->getParentJunctions().front()->getGNEEdges()) {
+        for (const auto& junctionSourceEdge : edge->getParentJunctions().front()->getChildEdges()) {
             affectedEdges.insert(junctionSourceEdge);
         }
         // Obtain neighbors of Junction destiny
-        for (const auto& junctionDestinyEdge : edge->getParentJunctions().back()->getGNEEdges()) {
+        for (const auto& junctionDestinyEdge : edge->getParentJunctions().back()->getChildEdges()) {
             affectedEdges.insert(junctionDestinyEdge);
         }
     }
@@ -729,16 +719,16 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
         std::set<GNEJunction*> affectedJunctions;
         std::set<GNEEdge*> affectedEdges;
         // Iterate over GNEEdges
-        for (const auto& edge : myGNEEdges) {
+        for (const auto& edge : getChildEdges()) {
             // Add source and destiny junctions
             affectedJunctions.insert(edge->getParentJunctions().front());
             affectedJunctions.insert(edge->getParentJunctions().back());
             // Obtain neighbors of Junction source
-            for (const auto& junctionSourceEdge : edge->getParentJunctions().front()->getGNEEdges()) {
+            for (const auto& junctionSourceEdge : edge->getParentJunctions().front()->getChildEdges()) {
                 affectedEdges.insert(junctionSourceEdge);
             }
             // Obtain neighbors of Junction destiny
-            for (const auto& junctionDestinyEdge : edge->getParentJunctions().back()->getGNEEdges()) {
+            for (const auto& junctionDestinyEdge : edge->getParentJunctions().back()->getChildEdges()) {
                 affectedEdges.insert(junctionDestinyEdge);
             }
         }
@@ -754,8 +744,10 @@ GNEJunction::endGeometryMoving(bool extendToNeighbors) {
         }
         // Iterate over affected Edges
         for (const auto& affectedEdge : affectedEdges) {
-            // end geometry moving in edges
-            affectedEdge->endEdgeGeometryMoving();
+            if (!affectedEdge->isAttributeCarrierSelected()) {
+                // end geometry moving in edges
+                affectedEdge->endEdgeGeometryMoving();
+            }
         }
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
@@ -1774,16 +1766,16 @@ GNEJunction::moveJunctionGeometry(const Position& pos) {
     std::set<GNEJunction*> affectedJunctions;
     std::set<GNEEdge*> affectedEdges;
     // Iterate over GNEEdges
-    for (const auto& edge : myGNEEdges) {
+    for (const auto& edge : getChildEdges()) {
         // Add source and destiny junctions
         affectedJunctions.insert(edge->getParentJunctions().front());
         affectedJunctions.insert(edge->getParentJunctions().back());
         // Obtain neighbors of Junction source
-        for (const auto& junctionSourceEdge : edge->getParentJunctions().front()->getGNEEdges()) {
+        for (const auto& junctionSourceEdge : edge->getParentJunctions().front()->getChildEdges()) {
             affectedEdges.insert(junctionSourceEdge);
         }
         // Obtain neighbors of Junction destiny
-        for (const auto& junctionDestinyEdge : edge->getParentJunctions().back()->getGNEEdges()) {
+        for (const auto& junctionDestinyEdge : edge->getParentJunctions().back()->getChildEdges()) {
             affectedEdges.insert(junctionDestinyEdge);
         }
     }

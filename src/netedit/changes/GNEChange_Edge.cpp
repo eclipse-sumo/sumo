@@ -64,10 +64,6 @@ GNEChange_Edge::~GNEChange_Edge() {
     if (myEdge->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myEdge->getTagStr() + " '" + myEdge->getID() + "' GNEChange_Edge");
-        // remove edge from parents and children
-        removeElementFromParentsAndChildren(myEdge);
-        // remove edge lanes from parents and children
-        removeEdgeLanes();
         // delete edge
         delete myEdge;
     }

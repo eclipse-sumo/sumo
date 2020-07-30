@@ -289,7 +289,7 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
         // iterate over crossing of neighbour juntion
         for (const auto &crossing : junction->getGNECrossings()) {
             // if at least one of the edges of junction to remove belongs to a crossing of the neighbour junction, delete it
-            if (crossing->checkEdgeBelong(junction->getGNEEdges())) {
+            if (crossing->checkEdgeBelong(junction->getChildEdges())) {
                 crossingsToRemove.push_back(crossing);
             }
         }
@@ -3003,29 +3003,31 @@ GNENet::initJunctionsAndEdges() {
         NBNode* nbn = nodeContainer.retrieve(name_it);
         myAttributeCarriers->registerJunction(new GNEJunction(this, nbn, true));
     }
-
     // init edges
     NBEdgeCont& ec = myNetBuilder->getEdgeCont();
     for (auto name_it : ec.getAllNames()) {
-        NBEdge* nbe = ec.retrieve(name_it);
-        myAttributeCarriers->registerEdge(new GNEEdge(this, nbe, false, true));
+        // create edge using NBEdge
+        GNEEdge *edge = new GNEEdge(this, ec.retrieve(name_it), false, true);
+        // register edge
+        myAttributeCarriers->registerEdge(edge);
+        // add manually child references due initJunctionsAndEdges doesn't use undo-redo
+        edge->getParentJunctions().front()->addChildElement(edge);
+        edge->getParentJunctions().back()->addChildElement(edge);
+        // check grid
         if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
             throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
         }
     }
-
     // make sure myGrid is initialized even for an empty net
     if (myAttributeCarriers->getEdges().size() == 0) {
         myGrid.add(Boundary(0, 0, 100, 100));
     }
-
     // recalculate all lane2lane connections
     for (const auto& edge : myAttributeCarriers->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
             lane->updateGeometry();
         }
     }
-
     // sort nodes edges so that arrows can be drawn correctly
     NBNodesEdgesSorter::sortNodesEdges(nodeContainer);
 }

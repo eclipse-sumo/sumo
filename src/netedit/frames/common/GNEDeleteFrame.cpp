@@ -297,7 +297,7 @@ GNEDeleteFrame::getDeleteOptions() const {
 GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEJunction* junction) :
     SubordinatedElements(junction, junction->getNet()->getViewNet(), junction) {
     // add the number of subodinated elements of child edges
-    for (const auto& edge : junction->getGNEEdges()) {
+    for (const auto& edge : junction->getChildEdges()) {
         addValuesFromSubordinatedElements(this, edge);
     }
 }
