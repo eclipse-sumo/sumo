@@ -671,7 +671,7 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
         // Check if item has another item as parent (Currently only for single Additionals)
         if (myHorizontalFrameParentAdditional->shown() && ((myTextFieldParentAdditional->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
             // set Label and TextField with the Tag and ID of parent
-            myLabelParentAdditional->setText((toString(myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getMasterTag()) + " parent").c_str());
+            myLabelParentAdditional->setText((toString(myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getMasterTags().front()) + " parent").c_str());
             myTextFieldParentAdditional->setText(myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getAttribute(GNE_ATTR_PARENT).c_str());
         }
     }

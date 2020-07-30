@@ -98,7 +98,7 @@ public:
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, SumoXMLTag master_tag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+    GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag> &master_tag = {}, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
     /// @brief destructor
     ~GNETagProperties();
@@ -136,8 +136,8 @@ public:
     /// @brief get GUI icon associated to this Tag
     GUIIcon getGUIIcon() const;
 
-    /// @brief if tag is a slave, return master tag
-    SumoXMLTag getMasterTag() const;
+    /// @brief get master tags
+    const std::vector<SumoXMLTag> &getMasterTags() const;
 
     /// @brief get tag synonym
     SumoXMLTag getTagSynonym() const;
@@ -305,8 +305,8 @@ private:
     /// @brief icon associated to this Tag
     GUIIcon myIcon;
 
-    /// @brief master tag (used by slave elements)
-    SumoXMLTag myMasterTag;
+    /// @brief vector with master tags (used by slave elements)
+    std::vector<SumoXMLTag> myMasterTags;
 
     /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tag name will be written)
     SumoXMLTag myTagSynonym;

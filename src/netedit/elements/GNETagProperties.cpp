@@ -41,18 +41,17 @@ GNETagProperties::GNETagProperties() :
     myTagType(0),
     myTagProperty(0),
     myIcon(GUIIcon::EMPTY),
-    myMasterTag(SUMO_TAG_NOTHING),
     myTagSynonym(SUMO_TAG_NOTHING) {
 }
 
 
-GNETagProperties::GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, SumoXMLTag masterTag, SumoXMLTag tagSynonym) :
+GNETagProperties::GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag> &masterTags, SumoXMLTag tagSynonym) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myIcon(icon),
-    myMasterTag(masterTag),
+    myMasterTags(masterTags),
     myTagSynonym(tagSynonym) {
 }
 
@@ -95,12 +94,12 @@ GNETagProperties::checkTagIntegrity() const {
         throw FormatException("Tag doesn't support synonyms");
     }
     // check that master tag is valid
-    if (isSlave() && (myMasterTag == SUMO_TAG_NOTHING)) {
-        throw FormatException("Master tag cannot be nothing");
+    if (isSlave() && myMasterTags.empty()) {
+        throw FormatException("Master tags cannot be empty");
     }
     // check that master was defined
-    if (!isSlave() && (myMasterTag != SUMO_TAG_NOTHING)) {
-        throw FormatException("Tag doesn't support master element");
+    if (!isSlave() && !myMasterTags.empty()) {
+        throw FormatException("Tag doesn't support master elements");
     }
     // check integrity of all attributes
     for (auto attributeProperty : myAttributeProperties) {
@@ -205,13 +204,9 @@ GNETagProperties::getGUIIcon() const {
 }
 
 
-SumoXMLTag
-GNETagProperties::getMasterTag() const {
-    if (isSlave()) {
-        return myMasterTag;
-    } else {
-        throw ProcessError("Tag isn't a slave");
-    }
+const std::vector<SumoXMLTag>&
+GNETagProperties::getMasterTags() const {
+    return myMasterTags;
 }
 
 

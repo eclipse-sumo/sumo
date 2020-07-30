@@ -187,7 +187,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                 // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                 if (additionalChild->getParentAdditionals().size() < 1) {
                     additionalChild->writeAdditional(deviceChildren);
-                } else if (myTagProperty.getTag() == additionalChild->getTagProperty().getMasterTag()) {
+                } else if (myTagProperty.getTag() == additionalChild->getTagProperty().getMasterTags().front()) {
                     additionalChild->writeAdditional(deviceChildren);
                 }
             }
@@ -199,7 +199,7 @@ GNEAdditional::writeAdditional(OutputDevice& device) const {
                     // avoid to write two times additionals that haben two parents (Only write as child of first parent)
                     if (additionalChild->getParentAdditionals().size() < 2) {
                         additionalChild->writeAdditional(device);
-                    } else if (myTagProperty.getTag() == additionalChild->getTagProperty().getMasterTag()) {
+                    } else if (myTagProperty.getTag() == additionalChild->getTagProperty().getMasterTags().front()) {
                         additionalChild->writeAdditional(device);
                     }
                 }

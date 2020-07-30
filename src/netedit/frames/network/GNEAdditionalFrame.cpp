@@ -694,7 +694,7 @@ GNEAdditionalFrame::tagSelected() {
         myNeteditAttributes->showNeteditAttributesModul(myAdditionalTagSelector->getCurrentTagProperties());
         // Show myAdditionalFrameParent if we're adding an slave element
         if (myAdditionalTagSelector->getCurrentTagProperties().isSlave()) {
-            myParentAdditional->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getMasterTag());
+            myParentAdditional->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getMasterTags().front());
         } else {
             myParentAdditional->hideSelectorParentModul();
         }
@@ -707,7 +707,7 @@ GNEAdditionalFrame::tagSelected() {
         // Show SelectorChildLanes or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
         if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_LANES)) {
             if (myAdditionalTagSelector->getCurrentTagProperties().isSlave() &&
-                    (myAdditionalTagSelector->getCurrentTagProperties().getMasterTag() == SUMO_TAG_LANE)) {
+                    (myAdditionalTagSelector->getCurrentTagProperties().getMasterTags().front() == SUMO_TAG_LANE)) {
                 // show selector parent lane and hide selector child lane
                 mySelectorParentLanes->showSelectorParentLanesModul();
                 mySelectorChildLanes->hideSelectorChildLanesModul();
@@ -762,7 +762,7 @@ GNEAdditionalFrame::generateID(GNENetworkElement* networkElement) const {
 bool
 GNEAdditionalFrame::buildSlaveAdditional(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* additionalParent, const GNETagProperties& tagValues) {
     // if user click over an additional element parent, mark int in ParentAdditionalSelector
-    if (additionalParent && (additionalParent->getTagProperty().getTag() == tagValues.getMasterTag())) {
+    if (additionalParent && (additionalParent->getTagProperty().getTag() == tagValues.getMasterTags().front())) {
         valuesMap[GNE_ATTR_PARENT] = additionalParent->getID();
         myParentAdditional->setIDSelected(additionalParent->getID());
     }
@@ -770,7 +770,7 @@ GNEAdditionalFrame::buildSlaveAdditional(std::map<SumoXMLAttr, std::string>& val
     if (myParentAdditional->getIdSelected() != "") {
         valuesMap[GNE_ATTR_PARENT] = myParentAdditional->getIdSelected();
     } else {
-        myAdditionalAttributes->showWarningMessage("A " + toString(tagValues.getMasterTag()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
+        myAdditionalAttributes->showWarningMessage("A " + toString(tagValues.getMasterTags().front()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
         return false;
     }
     return true;
