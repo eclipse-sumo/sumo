@@ -52,7 +52,7 @@ GNEDetectorEntryExit::isAdditionalValid() const {
     if (myFriendlyPosition) {
         return true;
     } else {
-        return fabs(myPositionOverLane) <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        return fabs(myPositionOverLane) <= getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
     }
 }
 
@@ -61,7 +61,7 @@ std::string
 GNEDetectorEntryExit::getAdditionalProblem() const {
     // declare variable for error position
     std::string errorPosition;
-    const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    const double len = getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
     // check positions over lane
     if (myPositionOverLane < -len) {
         errorPosition = (toString(SUMO_ATTR_POSITION) + " < 0");
@@ -78,7 +78,7 @@ GNEDetectorEntryExit::fixAdditionalProblem() {
     // declare new position
     double newPositionOverLane = myPositionOverLane;
     // fix pos and length  checkAndFixDetectorPosition
-    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), true);
+    GNEAdditionalHandler::checkAndFixDetectorPosition(newPositionOverLane, getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength(), true);
     // set new position
     setAttribute(SUMO_ATTR_POSITION, toString(newPositionOverLane), myNet->getViewNet()->getUndoList());
 }
@@ -94,7 +94,7 @@ GNEDetectorEntryExit::moveGeometry(const Position& offset) {
     const bool storeNegative = myPositionOverLane < 0;
     myPositionOverLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
     if (storeNegative) {
-        myPositionOverLane -= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        myPositionOverLane -= getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
     }
     // Update geometry
     updateGeometry();
@@ -301,7 +301,7 @@ GNEDetectorEntryExit::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_LANE:
             return (myNet->retrieveLane(value, false) != nullptr);
         case SUMO_ATTR_POSITION:
-            return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+            return canParse<double>(value) && fabs(parse<double>(value)) < getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
         case SUMO_ATTR_FRIENDLY_POS:
             return canParse<bool>(value);
         case GNE_ATTR_BLOCK_MOVEMENT:

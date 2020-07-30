@@ -651,7 +651,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
 const Position
 GNEEdge::getFrontUpShapePosition() const {
     PositionVector laneShape = myLanes.front()->getLaneShape();
-    laneShape.move2side(myLanes.front()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.front()->getIndex()) / 2);
+    laneShape.move2side(myLanes.front()->getParentEdges().front()->getNBEdge()->getLaneWidth(myLanes.front()->getIndex()) / 2);
     return laneShape.front();
 }
 
@@ -659,7 +659,7 @@ GNEEdge::getFrontUpShapePosition() const {
 const Position
 GNEEdge::getFrontDownShapePosition() const {
     PositionVector laneShape = myLanes.back()->getLaneShape();
-    laneShape.move2side(-1 * myLanes.back()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.back()->getIndex()) / 2);
+    laneShape.move2side(-1 * myLanes.back()->getParentEdges().front()->getNBEdge()->getLaneWidth(myLanes.back()->getIndex()) / 2);
     return laneShape.front();
 }
 
@@ -667,7 +667,7 @@ GNEEdge::getFrontDownShapePosition() const {
 const Position
 GNEEdge::getBackUpShapePosition() const {
     PositionVector laneShape = myLanes.front()->getLaneShape();
-    laneShape.move2side(myLanes.front()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.front()->getIndex()) / 2);
+    laneShape.move2side(myLanes.front()->getParentEdges().front()->getNBEdge()->getLaneWidth(myLanes.front()->getIndex()) / 2);
     return laneShape.back();
 }
 
@@ -675,7 +675,7 @@ GNEEdge::getBackUpShapePosition() const {
 const Position
 GNEEdge::getBackDownShapePosition() const {
     PositionVector laneShape = myLanes.back()->getLaneShape();
-    laneShape.move2side(-1 * myLanes.back()->getParentEdge()->getNBEdge()->getLaneWidth(myLanes.back()->getIndex()) / 2);
+    laneShape.move2side(-1 * myLanes.back()->getParentEdges().front()->getNBEdge()->getLaneWidth(myLanes.back()->getIndex()) / 2);
     return laneShape.back();
 }
 

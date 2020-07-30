@@ -512,7 +512,7 @@ GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
         case GNE_TAG_PERSONSTOP_BUSSTOP:
-            return lastPersonPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdge();
+            return lastPersonPlan->getParentAdditionals().back()->getParentLanes().front()->getParentEdges().front();
         case GNE_TAG_WALK_ROUTE:
             return lastPersonPlan->getParentDemandElements().back()->getParentEdges().back();
         default:
@@ -914,7 +914,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
                 GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(myAC->getID(), false);
                 if (lane) {
                     // obtain parent edge
-                    GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
+                    GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdges().front()->getID());
                     //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
                     FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getParentJunctions().front()->getHierarchyName() + " origin").c_str(), edge->getParentJunctions().front()->getIcon(), edge->getParentJunctions().front()->getIcon());
                     FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getParentJunctions().front()->getHierarchyName() + " destiny").c_str(), edge->getParentJunctions().front()->getIcon(), edge->getParentJunctions().front()->getIcon());
@@ -982,7 +982,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             // obtain parent lane
             GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getParentLanes().at(0)->getID());
             // obtain parent edge
-            GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
+            GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdges().front()->getID());
             //inser Junctions of lane of edge in tree (Pararell because a edge has always two Junctions)
             FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getParentJunctions().front()->getHierarchyName() + " origin").c_str(), edge->getParentJunctions().front()->getIcon(), edge->getParentJunctions().front()->getIcon());
             FXTreeItem* junctionDestinyItem = myTreelist->insertItem(nullptr, nullptr, (edge->getParentJunctions().front()->getHierarchyName() + " destiny").c_str(), edge->getParentJunctions().front()->getIcon(), edge->getParentJunctions().front()->getIcon());
@@ -2775,7 +2775,7 @@ GNEFrameModuls::PathCreator::recalculatePath() {
     } else {
         // add from stopping place edge
         if (myFromStoppingPlace) {
-            edges.push_back(myFromStoppingPlace->getParentLanes().front()->getParentEdge());
+            edges.push_back(myFromStoppingPlace->getParentLanes().front()->getParentEdges().front());
         }
         // add selected edges
         for (const auto &edge : mySelectedEdges) {
@@ -2783,7 +2783,7 @@ GNEFrameModuls::PathCreator::recalculatePath() {
         }
         // add to stopping place edge
         if (myToStoppingPlace) {
-            edges.push_back(myToStoppingPlace->getParentLanes().front()->getParentEdge());
+            edges.push_back(myToStoppingPlace->getParentLanes().front()->getParentEdges().front());
         }
     }
     // fill paths
@@ -2806,8 +2806,8 @@ GNEFrameModuls::PathCreator::setSpecialCandidates(GNEEdge* originEdge) {
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
             if (lane->getReachability() > 0) {
-                lane->getParentEdge()->resetCandidateFlags();
-                lane->getParentEdge()->setSpecialCandidate(true);
+                lane->getParentEdges().front()->resetCandidateFlags();
+                lane->getParentEdges().front()->setSpecialCandidate(true);
             }
         }
     }
@@ -2821,8 +2821,8 @@ GNEFrameModuls::PathCreator::setPossibleCandidates(GNEEdge* originEdge, const SU
     for (const auto& edge : myFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
         for (const auto& lane : edge.second->getLanes()) {
             if (lane->getReachability() > 0) {
-                lane->getParentEdge()->resetCandidateFlags();
-                lane->getParentEdge()->setPossibleCandidate(true);
+                lane->getParentEdges().front()->resetCandidateFlags();
+                lane->getParentEdges().front()->setPossibleCandidate(true);
             }
         }
     }

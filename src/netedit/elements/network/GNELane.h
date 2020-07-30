@@ -131,9 +131,6 @@ public:
     void commitLaneShapeChange(GNEUndoList* undoList);
     /// @}
 
-    /// @brief Returns underlying parent edge
-    GNEEdge* getParentEdge() const;
-
     /// @brief returns a vector with the incoming GNEConnections of this lane
     std::vector<GNEConnection*> getGNEIncomingConnections();
 
@@ -278,9 +275,6 @@ protected:
     GNELane();
 
 private:
-    /// @brief The Edge that to which this lane belongs
-    GNEEdge* myParentEdge;
-
     /// @brief The index of this lane
     int myIndex;
 

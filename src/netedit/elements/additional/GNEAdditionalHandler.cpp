@@ -270,8 +270,8 @@ GNEAdditionalHandler::buildAccess(GNENet* net, bool allowUndoRedo, GNEAdditional
         throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " in netedit; " +  toString(SUMO_TAG_LANE) + " doesn't exist.");
     } else if (busStop == nullptr) {
         throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " in netedit; " +  toString(SUMO_TAG_BUS_STOP) + " parent doesn't exist.");
-    } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
-        throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " in netedit; " +  toString(SUMO_TAG_BUS_STOP) + " parent already owns a Acces in the edge '" + lane->getParentEdge()->getID() + "'");
+    } else if (!accessCanBeCreated(busStop, lane->getParentEdges().front())) {
+        throw ProcessError("Could not build " + toString(SUMO_TAG_ACCESS) + " in netedit; " +  toString(SUMO_TAG_BUS_STOP) + " parent already owns a Acces in the edge '" + lane->getParentEdges().front()->getID() + "'");
     } else {
         GNEAdditional* access = new GNEAccess(busStop, lane, net, pos, length, friendlyPos, blockMovement);
         if (allowUndoRedo) {
@@ -1725,7 +1725,7 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNENet* net, bool allowUndoRedo, cons
         } else {
             // declare variables for start and end position
             double startPosDouble = 0;
-            double endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
+            double endPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength();
             const double stoppingPlaceLength = (endPosDouble - startPosDouble);
             int parametersSet = 0;
             // check if startPos and endPos were defined
@@ -1738,14 +1738,14 @@ GNEAdditionalHandler::parseAndBuildBusStop(GNENet* net, bool allowUndoRedo, cons
                 parametersSet |= STOPPINGPLACE_ENDPOS_SET;
             }
             // check if stoppingPlace has to be adjusted
-            SUMORouteHandler::StopPos checkStopPosResult = SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition);
+            SUMORouteHandler::StopPos checkStopPosResult = SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition);
             // update start and end positions depending of checkStopPosResult
             if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_STARTPOS) {
                 startPosDouble = 0;
                 endPosDouble = stoppingPlaceLength;
             } else if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_ENDPOS) {
-                startPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength() - stoppingPlaceLength;
-                endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
+                startPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength() - stoppingPlaceLength;
+                endPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength();
             } else if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_LANELENGTH) {
                 // Write error if position isn't valid
                 WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_BUS_STOP) + " with ID = '" + id + "'.");
@@ -1794,7 +1794,7 @@ GNEAdditionalHandler::parseAndBuildContainerStop(GNENet* net, bool allowUndoRedo
         } else {
             // declare variables for start and end position
             double startPosDouble = 0;
-            double endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
+            double endPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength();
             const double stoppingPlaceLength = (endPosDouble - startPosDouble);
             int parametersSet = 0;
             // check if startPos and endPos were defined
@@ -1807,14 +1807,14 @@ GNEAdditionalHandler::parseAndBuildContainerStop(GNENet* net, bool allowUndoRedo
                 parametersSet |= STOPPINGPLACE_ENDPOS_SET;
             }
             // check if stoppingPlace has to be adjusted
-            SUMORouteHandler::StopPos checkStopPosResult = SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition);
+            SUMORouteHandler::StopPos checkStopPosResult = SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition);
             // update start and end positions depending of checkStopPosResult
             if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_STARTPOS) {
                 startPosDouble = 0;
                 endPosDouble = stoppingPlaceLength;
             } else if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_ENDPOS) {
-                startPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength() - stoppingPlaceLength;
-                endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
+                startPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength() - stoppingPlaceLength;
+                endPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength();
             } else if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_LANELENGTH) {
                 // Write error if position isn't valid
                 WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_CONTAINER_STOP) + " with ID = '" + id + "'.");
@@ -1867,8 +1867,8 @@ GNEAdditionalHandler::parseAndBuildAccess(GNENet* net, bool allowUndoRedo, const
             WRITE_WARNING("A " + toString(SUMO_TAG_ACCESS) + " must be declared within the definition of a " + toString(SUMO_TAG_BUS_STOP) + ".");
         } else if (!checkAndFixDetectorPosition(posDouble, lane->getLaneShapeLength(), friendlyPos)) {
             WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_ACCESS) + ".");
-        } else if (!accessCanBeCreated(busStop, lane->getParentEdge())) {
-            WRITE_WARNING("Edge '" + lane->getParentEdge()->getID() + "' already has an Access for busStop '" + busStop->getID() + "'");
+        } else if (!accessCanBeCreated(busStop, lane->getParentEdges().front())) {
+            WRITE_WARNING("Edge '" + lane->getParentEdges().front()->getID() + "' already has an Access for busStop '" + busStop->getID() + "'");
         } else {
             // save ID of last created element
             GNEAdditional* additionalCreated = buildAccess(net, allowUndoRedo, busStop, lane, posDouble, length, friendlyPos, blockMovement);
@@ -1915,7 +1915,7 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNENet* net, bool allowUndoRe
         } else {
             // declare variables for start and end position
             double startPosDouble = 0;
-            double endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
+            double endPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength();
             const double stoppingPlaceLength = (endPosDouble - startPosDouble);
             int parametersSet = 0;
             // check if startPos and endPos were defined
@@ -1928,14 +1928,14 @@ GNEAdditionalHandler::parseAndBuildChargingStation(GNENet* net, bool allowUndoRe
                 parametersSet |= STOPPINGPLACE_ENDPOS_SET;
             }
             // check if stoppingPlace has to be adjusted
-            SUMORouteHandler::StopPos checkStopPosResult = SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition);
+            SUMORouteHandler::StopPos checkStopPosResult = SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition);
             // update start and end positions depending of checkStopPosResult
             if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_STARTPOS) {
                 startPosDouble = 0;
                 endPosDouble = stoppingPlaceLength;
             } else if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_ENDPOS) {
-                startPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength() - stoppingPlaceLength;
-                endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
+                startPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength() - stoppingPlaceLength;
+                endPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength();
             } else if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_LANELENGTH) {
                 // Write error if position isn't valid
                 WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_CHARGING_STATION) + " with ID = '" + id + "'.");
@@ -1988,7 +1988,7 @@ GNEAdditionalHandler::parseAndBuildParkingArea(GNENet* net, bool allowUndoRedo, 
         } else {
             // declare variables for start and end position
             double startPosDouble = 0;
-            double endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
+            double endPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength();
             const double stoppingPlaceLength = (endPosDouble - startPosDouble);
             int parametersSet = 0;
             // check if startPos and endPos were defined
@@ -2001,14 +2001,14 @@ GNEAdditionalHandler::parseAndBuildParkingArea(GNENet* net, bool allowUndoRedo, 
                 parametersSet |= STOPPINGPLACE_ENDPOS_SET;
             }
             // check if stoppingPlace has to be adjusted
-            SUMORouteHandler::StopPos checkStopPosResult = SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition);
+            SUMORouteHandler::StopPos checkStopPosResult = SUMORouteHandler::checkStopPos(startPosDouble, endPosDouble, lane->getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, friendlyPosition);
             // update start and end positions depending of checkStopPosResult
             if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_STARTPOS) {
                 startPosDouble = 0;
                 endPosDouble = stoppingPlaceLength;
             } else if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_ENDPOS) {
-                startPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength() - stoppingPlaceLength;
-                endPosDouble = lane->getParentEdge()->getNBEdge()->getFinalLength();
+                startPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength() - stoppingPlaceLength;
+                endPosDouble = lane->getParentEdges().front()->getNBEdge()->getFinalLength();
             } else if (checkStopPosResult == SUMORouteHandler::StopPos::STOPPOS_INVALID_LANELENGTH) {
                 // Write error if position isn't valid
                 WRITE_WARNING("Invalid position for " + toString(SUMO_TAG_PARKING_AREA) + " with ID = '" + id + "'.");
@@ -2242,11 +2242,11 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet* net, bool allowUndoRedo, c
                 WRITE_WARNING("The list of lanes '" + laneIds + "' to use within the " + toString(E2Tag) + " '" + id + "' isn't valid.");
             } else if (!lanes.empty() && !laneConsecutives) {
                 WRITE_WARNING("The lanes '" + laneIds + "' to use within the " + toString(E2Tag) + " '" + id + "' aren't consecutives.");
-            } else if (lane && !fixE2DetectorPosition(position, length, lane->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+            } else if (lane && !fixE2DetectorPosition(position, length, lane->getParentEdges().front()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 WRITE_WARNING("Invalid position for " + toString(E2Tag) + " with ID = '" + id + "'.");
-            } else if (!lanes.empty() && !fixE2DetectorPosition(position, length, lanes.front()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+            } else if (!lanes.empty() && !fixE2DetectorPosition(position, length, lanes.front()->getParentEdges().front()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 WRITE_WARNING("Invalid position for " + toString(E2Tag) + " with ID = '" + id + "'.");
-            } else if (!lanes.empty() && !fixE2DetectorPosition(endPos, length, lanes.back()->getParentEdge()->getNBEdge()->getFinalLength(), friendlyPos)) {
+            } else if (!lanes.empty() && !fixE2DetectorPosition(endPos, length, lanes.back()->getParentEdges().front()->getNBEdge()->getFinalLength(), friendlyPos)) {
                 WRITE_WARNING("Invalid end position for " + toString(E2Tag) + " with ID = '" + id + "'.");
             } else if (lane) {
                 // save ID of last created element

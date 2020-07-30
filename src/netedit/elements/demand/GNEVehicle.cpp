@@ -556,7 +556,7 @@ GNEVehicle::updateGeometry() {
         }
         // update start pos geometry
         myDemandElementGeometry.updateGeometry(firstLane, extremeGeometry.laneStartPosition);
-        firstLane->getParentEdge()->updateVehicleStackLabels();
+        firstLane->getParentEdges().front()->updateVehicleStackLabels();
     }
     // update child demand elementss
     for (const auto& i : getChildDemandElements()) {
@@ -1110,7 +1110,7 @@ GNEVehicle::isValid(SumoXMLAttr key, const std::string& value) {
                 } else if (dummyDepartLaneProcedure != DepartLaneDefinition::GIVEN) {
                     return true;
                 } else {
-                    return dummyDepartLane < (int)lane->getParentEdge()->getLanes().size();
+                    return dummyDepartLane < (int)lane->getParentEdges().front()->getLanes().size();
                 }
             } else {
                 return false;

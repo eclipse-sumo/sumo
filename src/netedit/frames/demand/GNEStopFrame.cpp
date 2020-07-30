@@ -219,7 +219,7 @@ GNEStopFrame::getStopParameter(SUMOVehicleParameter::Stop& stop, const SumoXMLTa
         }
     } else if (stopTag == GNE_TAG_PERSONSTOP_EDGE) {
         if (lane) {
-            stop.edge = lane->getParentEdge()->getID();
+            stop.edge = lane->getParentEdges().front()->getID();
         } else {
             WRITE_WARNING("Click over a " + toString(SUMO_TAG_EDGE) + " to create a stop placed in a " + toString(SUMO_TAG_EDGE));
             return false;

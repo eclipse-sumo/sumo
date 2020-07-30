@@ -125,7 +125,7 @@ GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void 
 GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // get lane width
-    const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
+    const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdges().front()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
     // Start drawing adding an gl identificator
     glPushName(getGlID());
     // Add a draw matrix
@@ -156,7 +156,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
     }
     // draw dotted contour
     if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-        if (getParentEdges().front() == lane->getParentEdge()) {
+        if (getParentEdges().front() == lane->getParentEdges().front()) {
             GNEGeometry::drawDottedContourEdge(true, s, getParentEdges().front(), true, false);
         } else {
             GNEGeometry::drawDottedContourEdge(true, s, getParentEdges().back(), false, true);
@@ -167,21 +167,21 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 
 void
 GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
-    if ((fromLane->getParentEdge() == getParentEdges().front()) && (toLane->getParentEdge() == getParentEdges().back()) &&
+    if ((fromLane->getParentEdges().front() == getParentEdges().front()) && (toLane->getParentEdges().front() == getParentEdges().back()) &&
         (getParentEdges().front() != getParentEdges().back())) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // draw lanes
-        const auto fromLanes = fromLane->getParentEdge()->getLanes();
-        const auto toLanes = toLane->getParentEdge()->getLanes();
+        const auto fromLanes = fromLane->getParentEdges().front()->getLanes();
+        const auto toLanes = toLane->getParentEdges().front()->getLanes();
         size_t index = 0;
         while ((index < fromLanes.size()) || (index < toLanes.size())) {
             // get lanes
             const GNELane *from = (index < fromLanes.size())? fromLanes.at(index) : fromLanes.back();
             const GNELane *to = (index < toLanes.size())? toLanes.at(index) : toLanes.back();
             // get lane widths
-            const double laneWidthFrom = s.addSize.getExaggeration(s, from) * (from->getParentEdge()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
-            const double laneWidthTo = s.addSize.getExaggeration(s, to) * (to->getParentEdge()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
+            const double laneWidthFrom = s.addSize.getExaggeration(s, from) * (from->getParentEdges().front()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
+            const double laneWidthTo = s.addSize.getExaggeration(s, to) * (to->getParentEdges().front()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
             const double laneWidth = laneWidthFrom < laneWidthTo? laneWidthFrom : laneWidthTo;
             // Add a draw matrix
             glPushMatrix();

@@ -64,7 +64,7 @@ GNEStoppingPlace::isAdditionalValid() const {
         return true;
     } else {
         // obtain lane length
-        double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
+        double laneLength = getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
         // calculate start and end positions
         double startPos = (myParametersSet & STOPPINGPLACE_STARTPOS_SET) ? myStartPosition : 0;
         double endPos = (myParametersSet & STOPPINGPLACE_ENDPOS_SET) ? myEndPosition : laneLength;
@@ -79,11 +79,11 @@ GNEStoppingPlace::isAdditionalValid() const {
         if (myParametersSet == 0) {
             return true;
         } else if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) == 0) {
-            return (endPos <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+            return (endPos <= getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength());
         } else if ((myParametersSet & STOPPINGPLACE_ENDPOS_SET) == 0) {
             return (startPos >= 0);
         } else {
-            return ((startPos >= 0) && (endPos <= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) && ((endPos - startPos) >= POSITION_EPS));
+            return ((startPos >= 0) && (endPos <= getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength()) && ((endPos - startPos) >= POSITION_EPS));
         }
     }
 }
@@ -93,9 +93,9 @@ std::string
 GNEStoppingPlace::getAdditionalProblem() const {
     // calculate start and end positions
     double startPos = (myParametersSet & STOPPINGPLACE_STARTPOS_SET) ? myStartPosition : 0;
-    double endPos = (myParametersSet & STOPPINGPLACE_ENDPOS_SET) ? myEndPosition : getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    double endPos = (myParametersSet & STOPPINGPLACE_ENDPOS_SET) ? myEndPosition : getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
     // obtain lane length
-    double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    double laneLength = getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
     // check if position has to be fixed
     if (startPos < 0) {
         startPos += laneLength;
@@ -108,12 +108,12 @@ GNEStoppingPlace::getAdditionalProblem() const {
     // check positions over lane
     if (startPos < 0) {
         errorStart = (toString(SUMO_ATTR_STARTPOS) + " < 0");
-    } else if (startPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+    } else if (startPos > getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength()) {
         errorStart = (toString(SUMO_ATTR_STARTPOS) + " > lanes's length");
     }
     if (endPos < 0) {
         errorEnd = (toString(SUMO_ATTR_ENDPOS) + " < 0");
-    } else if (endPos > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
+    } else if (endPos > getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength()) {
         errorEnd = (toString(SUMO_ATTR_ENDPOS) + " > lanes's length");
     }
     // check separator
@@ -130,7 +130,7 @@ GNEStoppingPlace::fixAdditionalProblem() {
     double newStartPos = myStartPosition;
     double newEndPos = myEndPosition;
     // fix start and end positions using fixStoppingPlacePosition
-    SUMORouteHandler::checkStopPos(newStartPos, newEndPos, getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength(), POSITION_EPS, true);
+    SUMORouteHandler::checkStopPos(newStartPos, newEndPos, getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength(), POSITION_EPS, true);
     // set new start and end positions
     setAttribute(SUMO_ATTR_STARTPOS, toString(newStartPos), myNet->getViewNet()->getUndoList());
     setAttribute(SUMO_ATTR_ENDPOS, toString(newEndPos), myNet->getViewNet()->getUndoList());
@@ -141,7 +141,7 @@ Position
 GNEStoppingPlace::getPositionInView() const {
     // calculate start and end positions as absolute values
     double startPos = fabs((myParametersSet & STOPPINGPLACE_STARTPOS_SET) ? myStartPosition : 0);
-    double endPos = fabs((myParametersSet & STOPPINGPLACE_ENDPOS_SET) ? myEndPosition : getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
+    double endPos = fabs((myParametersSet & STOPPINGPLACE_ENDPOS_SET) ? myEndPosition : getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength());
     // obtain position in view depending if both positions are defined
     if (myParametersSet == 0) {
         return getParentLanes().front()->getLaneShape().positionAtOffset(getParentLanes().front()->getLaneShape().length() / 2);
@@ -213,7 +213,7 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
         if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) && (myParametersSet & STOPPINGPLACE_ENDPOS_SET)) {
             // calculate stoppingPlace length and lane length (After apply geometry factor)
             double stoppingPlaceLength = fabs(parse<double>(myMove.secondOriginalPosition) - parse<double>(myMove.firstOriginalLanePosition));
-            double laneLengt = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
+            double laneLengt = getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength() * getParentLanes().front()->getLengthGeometryFactor();
             // avoid changing stopping place's length
             if ((parse<double>(myMove.firstOriginalLanePosition) + offsetLane) < 0) {
                 myStartPosition = 0;
@@ -303,7 +303,7 @@ double
 GNEStoppingPlace::getStartGeometryPositionOverLane() const {
     if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
         double fixedPos = myStartPosition;
-        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        const double len = getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
         if (fixedPos < 0) {
             fixedPos += len;
         }
@@ -318,13 +318,13 @@ double
 GNEStoppingPlace::getEndGeometryPositionOverLane() const {
     if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
         double fixedPos = myEndPosition;
-        const double len = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        const double len = getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
         if (fixedPos < 0) {
             fixedPos += len;
         }
         return fixedPos * getParentLanes().front()->getLengthGeometryFactor();
     } else {
-        return getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+        return getParentLanes().front()->getParentEdges().front()->getNBEdge()->getFinalLength();
     }
 }
 

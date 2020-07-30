@@ -387,12 +387,12 @@ GNEDemandElement::getFirstPersonPlanEdge() const {
         case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
-            return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+            return getParentAdditionals().front()->getParentLanes().front()->getParentEdges().front();
             // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
-            return getParentAdditionals().front()->getParentLanes().front()->getParentEdge();
+            return getParentAdditionals().front()->getParentLanes().front()->getParentEdges().front();
         case GNE_TAG_PERSONSTOP_EDGE:
-            return getParentLanes().front()->getParentEdge();
+            return getParentLanes().front()->getParentEdges().front();
         default:
             return nullptr;
     }
@@ -570,7 +570,7 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
         }
     }
     // draw person parent if this is the edge first edge and this is the first plan
-    if ((getFirstPersonPlanEdge() == lane->getParentEdge()) && (personParent->getChildDemandElements().front() == this)) {
+    if ((getFirstPersonPlanEdge() == lane->getParentEdges().front()) && (personParent->getChildDemandElements().front() == this)) {
         personParent->drawGL(s);
     }
 }
