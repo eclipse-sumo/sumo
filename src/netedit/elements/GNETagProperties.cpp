@@ -41,18 +41,18 @@ GNETagProperties::GNETagProperties() :
     myTagType(0),
     myTagProperty(0),
     myIcon(GUIIcon::EMPTY),
-    myParentTag(SUMO_TAG_NOTHING),
+    myMasterTag(SUMO_TAG_NOTHING),
     myTagSynonym(SUMO_TAG_NOTHING) {
 }
 
 
-GNETagProperties::GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, SumoXMLTag parentTag, SumoXMLTag tagSynonym) :
+GNETagProperties::GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, SumoXMLTag masterTag, SumoXMLTag tagSynonym) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
     myTagProperty(tagProperty),
     myIcon(icon),
-    myParentTag(parentTag),
+    myMasterTag(masterTag),
     myTagSynonym(tagSynonym) {
 }
 
@@ -94,13 +94,13 @@ GNETagProperties::checkTagIntegrity() const {
     if (!hasTagSynonym() && (myTagSynonym != SUMO_TAG_NOTHING)) {
         throw FormatException("Tag doesn't support synonyms");
     }
-    // check that parent tag isn't nothing
-    if (hasParent() && (myParentTag == SUMO_TAG_NOTHING)) {
-        throw FormatException("Parent tag cannot be nothing");
+    // check that master tag is valid
+    if (isSlave() && (myMasterTag == SUMO_TAG_NOTHING)) {
+        throw FormatException("Master tag cannot be nothing");
     }
-    // check that parent was defined
-    if (!hasParent() && (myParentTag != SUMO_TAG_NOTHING)) {
-        throw FormatException("Tag doesn't support parents");
+    // check that master was defined
+    if (!isSlave() && (myMasterTag != SUMO_TAG_NOTHING)) {
+        throw FormatException("Tag doesn't support master element");
     }
     // check integrity of all attributes
     for (auto attributeProperty : myAttributeProperties) {
@@ -206,11 +206,11 @@ GNETagProperties::getGUIIcon() const {
 
 
 SumoXMLTag
-GNETagProperties::getParentTag() const {
-    if (hasParent()) {
-        return myParentTag;
+GNETagProperties::getMasterTag() const {
+    if (isSlave()) {
+        return myMasterTag;
     } else {
-        throw ProcessError("Tag doesn't have parent");
+        throw ProcessError("Tag isn't a slave");
     }
 }
 
@@ -350,6 +350,12 @@ GNETagProperties::isGenericData() const {
 
 
 bool
+GNETagProperties::isSlave() const {
+    return (myTagProperty & SLAVE) != 0;
+}
+
+
+bool
 GNETagProperties::isSymbol() const {
     return (myTagType & SYMBOL) != 0;
 }
@@ -394,12 +400,6 @@ GNETagProperties::hasGEOPosition() const {
 bool
 GNETagProperties::hasGEOShape() const {
     return (myTagProperty & GEOSHAPE) != 0;
-}
-
-
-bool
-GNETagProperties::hasParent() const {
-    return (myTagProperty & PARENT) != 0;
 }
 
 

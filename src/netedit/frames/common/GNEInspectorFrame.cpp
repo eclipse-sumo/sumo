@@ -576,7 +576,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             }
         }
         // Check if item has another item as parent and can be reparemt
-        if (tagValue.hasParent() && tagValue.canBeReparent()) {
+        if (tagValue.isSlave() && tagValue.canBeReparent()) {
             // show NeteditAttributesEditor
             show();
             // obtain additional Parent
@@ -589,7 +589,7 @@ GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
             // show help button
             myHelpButton->show();
             // set Label and TextField with the Tag and ID of parent
-            myLabelParentAdditional->setText((toString(editedACs.front()->getTagProperty().getParentTag()) + " parent").c_str());
+            myLabelParentAdditional->setText((toString(editedACs.front()->getTagProperty().isSlave()) + " parent").c_str());
             myTextFieldParentAdditional->setText(toString(parents).c_str());
         }
         // disable all editable elements if we're in demand mode and inspected AC isn't a demand element
@@ -671,7 +671,7 @@ GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool 
         // Check if item has another item as parent (Currently only for single Additionals)
         if (myHorizontalFrameParentAdditional->shown() && ((myTextFieldParentAdditional->getTextColor() == FXRGB(0, 0, 0)) || forceRefresh)) {
             // set Label and TextField with the Tag and ID of parent
-            myLabelParentAdditional->setText((toString(myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getParentTag()) + " parent").c_str());
+            myLabelParentAdditional->setText((toString(myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getTagProperty().getMasterTag()) + " parent").c_str());
             myTextFieldParentAdditional->setText(myInspectorFrameParent->myAttributesEditor->getEditedACs().front()->getAttribute(GNE_ATTR_PARENT).c_str());
         }
     }

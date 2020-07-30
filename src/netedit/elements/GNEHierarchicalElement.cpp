@@ -361,7 +361,7 @@ GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
     // add child element into container
     myHierarchicalContainer.addChildElement(myAC, element);
     // update connections geometry
-    if (element->getTagProperty().hasParent()) {
+    if (element->getTagProperty().isSlave()) {
         myHierarchicalConnections.update();
     }
     // Check if children must be sorted automatically
@@ -429,7 +429,7 @@ GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
     // remove child element from container
     myHierarchicalContainer.removeChildElement(myAC, element);
     // update connections geometry
-    if (element->getTagProperty().hasParent()) {
+    if (element->getTagProperty().isSlave()) {
         myHierarchicalConnections.update();
     }
     // Check if children must be sorted automatically

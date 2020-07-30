@@ -591,7 +591,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_CLOSE_SHAPE).c_str());
         }
         // check if item can have parent
-        if (tagValue.hasParent()) {
+        if (tagValue.isSlave()) {
             myMatchAttrComboBox->appendItem(toString(GNE_ATTR_PARENT).c_str());
         }
         // @ToDo: Here can be placed a button to set the default value
@@ -653,7 +653,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
         tagPropertiesCopy.addAttribute(extraAttrProperty);
     }
     // add extra attribute if item can have parent
-    if (tagValue.hasParent()) {
+    if (tagValue.isSlave()) {
         // add an extra AttributeValues to allow select ACs using as criterium "parent"
         extraAttrProperty = GNEAttributeProperties(GNE_ATTR_PARENT,
                             GNEAttributeProperties::AttrProperty::STRING,

@@ -73,7 +73,7 @@ public:
         GEOPOSITION =               1 << 4,     // Element's position can be defined using a GEO position
         GEOSHAPE =                  1 << 5,     // Element's shape acn be defined using a GEO Shape
         DIALOG =                    1 << 6,     // Element can be edited using a dialog (GNECalibratorDialog, GNERerouterDialog...)
-        PARENT =                    1 << 7,     // Element will be writed in XML as child of another element (E3Entry -> E3Detector...)
+        SLAVE =                     1 << 7,     // Element is slave and will be writed in XML without id as child of another element (E3Entry -> E3Detector...)
         MINIMUMCHILDREN =           1 << 8,     // Element will be only writed in XML if has a minimum number of children
         REPARENT =                  1 << 9,     // Element can be reparent
         SYNONYM =                   1 << 10,    // Element will be written with a different name in der XML
@@ -98,7 +98,7 @@ public:
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, SumoXMLTag parentTag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+    GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, SumoXMLTag master_tag = SUMO_TAG_NOTHING, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
     /// @brief destructor
     ~GNETagProperties();
@@ -136,8 +136,8 @@ public:
     /// @brief get GUI icon associated to this Tag
     GUIIcon getGUIIcon() const;
 
-    /// @brief if Tag owns a parent, return parent tag
-    SumoXMLTag getParentTag() const;
+    /// @brief if tag is a slave, return master tag
+    SumoXMLTag getMasterTag() const;
 
     /// @brief get tag synonym
     SumoXMLTag getTagSynonym() const;
@@ -202,6 +202,9 @@ public:
     /// @brief return true if tag correspond to a generic data element
     bool isGenericData() const;
 
+    /// @brief return true if tag correspond to an element slave of another element (I.e. doesn't have their own ID)
+    bool isSlave() const;
+
     /// @brief return true if tag correspond to a symbol element
     bool isSymbol() const;
 
@@ -225,9 +228,6 @@ public:
 
     /// @brief return true if tag correspond to an element that can use a geo shape
     bool hasGEOShape() const;
-
-    /// @brief return true if tag correspond to an element that can had another element as parent
-    bool hasParent() const;
 
     /// @brief return true if tag correspond to an element that will be written in XML with another tag
     bool hasTagSynonym() const;
@@ -305,8 +305,8 @@ private:
     /// @brief icon associated to this Tag
     GUIIcon myIcon;
 
-    /// @brief parent tag
-    SumoXMLTag myParentTag;
+    /// @brief master tag (used by slave elements)
+    SumoXMLTag myMasterTag;
 
     /// @brief Tag written in XML (If is SUMO_TAG_NOTHING), original Tag name will be written)
     SumoXMLTag myTagSynonym;

@@ -583,8 +583,8 @@ GNENetHelper::AttributeCarriers::additionalExist(const GNEAdditional* additional
 
 void
 GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
-    // check if additional owns a parent
-    if (!additional->getTagProperty().hasParent()) {
+    // check if additional is a slave
+    if (!additional->getTagProperty().isSlave()) {
         // check if previously was inserted
         if (!additionalExist(additional)) {
             // insert additional
@@ -608,8 +608,8 @@ GNENetHelper::AttributeCarriers::insertAdditional(GNEAdditional* additional) {
 
 void
 GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
-    // check if additional owns a parent
-    if (!additional->getTagProperty().hasParent()) {
+    // check if additional is a slave
+    if (!additional->getTagProperty().isSlave()) {
         // check if previously was inserted
         if (additionalExist(additional)) {
             // remove it from Inspector Frame and AttributeCarrierHierarchy

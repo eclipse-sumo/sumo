@@ -280,8 +280,8 @@ private:
     /// @brief build common additional attributes
     bool buildAdditionalCommonAttributes(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues);
 
-    /// @brief build additional with Parent
-    bool buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* parent, const GNETagProperties& tagValues);
+    /// @brief build slave additional
+    bool buildSlaveAdditional(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* parent, const GNETagProperties& tagValues);
 
     /// @brief build additional over an edge (parent of lane)
     bool buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);

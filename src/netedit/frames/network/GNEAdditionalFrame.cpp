@@ -651,8 +651,8 @@ GNEAdditionalFrame::addAdditional(const GNEViewNetHelper::ObjectsUnderCursor& ob
     if (!myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, objectsUnderCursor.getLaneFront())) {
         return false;
     }
-    // If element owns an parent additional, get id of parent from ParentAdditionalSelector
-    if (tagValues.hasParent() && !buildAdditionalWithParent(valuesMap, objectsUnderCursor.getAdditionalFront(), tagValues)) {
+    // If element is a slave additional, get id of parent from ParentAdditionalSelector
+    if (tagValues.isSlave() && !buildSlaveAdditional(valuesMap, objectsUnderCursor.getAdditionalFront(), tagValues)) {
         return false;
     }
     // If consecutive Lane Selector is enabled, it means that either we're selecting lanes or we're finished or we'rent started
@@ -692,9 +692,9 @@ GNEAdditionalFrame::tagSelected() {
         myAdditionalAttributes->showAttributesCreatorModul(myAdditionalTagSelector->getCurrentTagProperties(), {});
         // show netedit attributes
         myNeteditAttributes->showNeteditAttributesModul(myAdditionalTagSelector->getCurrentTagProperties());
-        // Show myAdditionalFrameParent if we're adding a additional with parent
-        if (myAdditionalTagSelector->getCurrentTagProperties().hasParent()) {
-            myParentAdditional->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getParentTag());
+        // Show myAdditionalFrameParent if we're adding an slave element
+        if (myAdditionalTagSelector->getCurrentTagProperties().isSlave()) {
+            myParentAdditional->showSelectorParentModul(myAdditionalTagSelector->getCurrentTagProperties().getMasterTag());
         } else {
             myParentAdditional->hideSelectorParentModul();
         }
@@ -706,8 +706,8 @@ GNEAdditionalFrame::tagSelected() {
         }
         // Show SelectorChildLanes or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
         if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_LANES)) {
-            if (myAdditionalTagSelector->getCurrentTagProperties().hasParent() &&
-                    (myAdditionalTagSelector->getCurrentTagProperties().getParentTag() == SUMO_TAG_LANE)) {
+            if (myAdditionalTagSelector->getCurrentTagProperties().isSlave() &&
+                    (myAdditionalTagSelector->getCurrentTagProperties().getMasterTag() == SUMO_TAG_LANE)) {
                 // show selector parent lane and hide selector child lane
                 mySelectorParentLanes->showSelectorParentLanesModul();
                 mySelectorChildLanes->hideSelectorChildLanesModul();
@@ -760,9 +760,9 @@ GNEAdditionalFrame::generateID(GNENetworkElement* networkElement) const {
 
 
 bool
-GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* additionalParent, const GNETagProperties& tagValues) {
+GNEAdditionalFrame::buildSlaveAdditional(std::map<SumoXMLAttr, std::string>& valuesMap, GNEAdditional* additionalParent, const GNETagProperties& tagValues) {
     // if user click over an additional element parent, mark int in ParentAdditionalSelector
-    if (additionalParent && (additionalParent->getTagProperty().getTag() == tagValues.getParentTag())) {
+    if (additionalParent && (additionalParent->getTagProperty().getTag() == tagValues.getMasterTag())) {
         valuesMap[GNE_ATTR_PARENT] = additionalParent->getID();
         myParentAdditional->setIDSelected(additionalParent->getID());
     }
@@ -770,7 +770,7 @@ GNEAdditionalFrame::buildAdditionalWithParent(std::map<SumoXMLAttr, std::string>
     if (myParentAdditional->getIdSelected() != "") {
         valuesMap[GNE_ATTR_PARENT] = myParentAdditional->getIdSelected();
     } else {
-        myAdditionalAttributes->showWarningMessage("A " + toString(tagValues.getParentTag()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
+        myAdditionalAttributes->showWarningMessage("A " + toString(tagValues.getMasterTag()) + " must be selected before insertion of " + myAdditionalTagSelector->getCurrentTagProperties().getTagStr() + ".");
         return false;
     }
     return true;
