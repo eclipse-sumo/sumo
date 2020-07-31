@@ -301,10 +301,10 @@ private:
         /// @brief list of edges
         std::vector<GNEEdge*> edges;
 
-        /// @brief busStop
+        /// @brief from busStop
         GNEAdditional* fromBusStop;
 
-        /// @brief busStop
+        /// @brief to busStop
         GNEAdditional* toBusStop;
 
         /// @brief arrival route
@@ -327,6 +327,21 @@ private:
 
         /// @brief stop parameters
         SUMOVehicleParameter::Stop stopParameters;
+
+        /// @brief bus stop (stop)
+        GNEAdditional* busStop;
+
+        /// @brief container stop (stop)
+        GNEAdditional* containerStop;
+
+        /// @brief charging station (stop)
+        GNEAdditional* chargingStation;
+
+        /// @brief parking area (stop)
+        GNEAdditional* parkingArea;
+
+        /// @brief lane (stop)
+        GNELane *lane;
 
     private:
         /// @brief Invalidated copy constructor.

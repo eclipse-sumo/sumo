@@ -1772,8 +1772,11 @@ GNERouteHandler::closePerson() {
                                 personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
-                        // stops
-                        /* */
+                        case GNE_TAG_PERSONSTOP_BUSSTOP:
+                        case GNE_TAG_PERSONSTOP_EDGE: {
+                            buildStop(myNet, true, personPlanValue.stopParameters, person);
+                            break;
+                        }
                         default:
                             throw InvalidArgument("Invalid person plan tag");
                     }
@@ -1847,8 +1850,7 @@ GNERouteHandler::closeTrip() {
 
 
 void
-GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
-/*
+GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     // declare a personStop
     PersonPlansValues stop;
     std::string errorSuffix;
@@ -1865,7 +1867,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
     // try to parse the assigned bus stop
     if (stop.stopParameters.busstop != "") {
         // ok, we have a busStop
-        GNEBusStop* bs = dynamic_cast<GNEBusStop*>(myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, stop.stopParameters.busstop, false));
+        GNEAdditional* bs = myNet->retrieveAdditional(SUMO_TAG_BUS_STOP, stop.stopParameters.busstop, false);
         if (bs == nullptr) {
             WRITE_ERROR(toString(SUMO_TAG_BUS_STOP) + " '" + stop.stopParameters.busstop + "' is not known" + errorSuffix);
             return;
@@ -1887,7 +1889,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
             return;
         }
         // ok, we have a containerStop
-        GNEContainerStop* cs = dynamic_cast<GNEContainerStop*>(myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stop.stopParameters.containerstop, false));
+        GNEAdditional* cs = myNet->retrieveAdditional(SUMO_TAG_CONTAINER_STOP, stop.stopParameters.containerstop, false);
         if (cs == nullptr) {
             WRITE_ERROR(toString(SUMO_TAG_CONTAINER_STOP) + " '" + stop.stopParameters.containerstop + "' is not known" + errorSuffix);
             return;
@@ -1906,7 +1908,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
             return;
         }
         // ok, we have a chargingStation
-        GNEChargingStation* cs = dynamic_cast<GNEChargingStation*>(myNet->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stop.stopParameters.chargingStation, false));
+        GNEAdditional* cs = myNet->retrieveAdditional(SUMO_TAG_CHARGING_STATION, stop.stopParameters.chargingStation, false);
         if (cs == nullptr) {
             WRITE_ERROR(toString(SUMO_TAG_CHARGING_STATION) + " '" + stop.stopParameters.chargingStation + "' is not known" + errorSuffix);
             return;
@@ -1924,7 +1926,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
             return;
         }
         // ok, we have a parkingArea
-        GNEParkingArea* pa = dynamic_cast<GNEParkingArea*>(myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, stop.stopParameters.parkingarea, false));
+        GNEAdditional* pa = myNet->retrieveAdditional(SUMO_TAG_PARKING_AREA, stop.stopParameters.parkingarea, false);
         if (pa == nullptr) {
             WRITE_ERROR(toString(SUMO_TAG_PARKING_AREA) + " '" + stop.stopParameters.parkingarea + "' is not known" + errorSuffix);
             return;
@@ -1939,10 +1941,10 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
         // no, the lane and the position should be given
         // get the lane
         stop.stopParameters.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, myAbort, "");
-        stop.laneStop = myNet->retrieveLane(stop.stopParameters.lane, false);
+        stop.lane = myNet->retrieveLane(stop.stopParameters.lane, false);
         // check if lane is valid
         if (myAbort && stop.stopParameters.lane != "") {
-            if (stop.laneStop == nullptr) {
+            if (stop.lane == nullptr) {
                 WRITE_ERROR("The lane '" + stop.stopParameters.lane + "' for a stop is not known" + errorSuffix);
                 return;
             }
@@ -1952,14 +1954,14 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
             return;
         }
         // calculate start and end position
-        stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, myAbort, stop.laneStop->getLaneParametricLength());
+        stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, myAbort, stop.lane->getLaneParametricLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
             WRITE_ERROR("Deprecated attribute 'pos' in description of stop" + errorSuffix);
             stop.stopParameters.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, myAbort, stop.stopParameters.endPos);
         }
         stop.stopParameters.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, myAbort, MAX2(0., stop.stopParameters.endPos - 2 * POSITION_EPS));
         stop.stopParameters.friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, myAbort, false);
-        if (!myAbort || (checkStopPos(stop.stopParameters.startPos, stop.stopParameters.endPos, stop.laneStop->getLaneParametricLength(), POSITION_EPS, stop.stopParameters.friendlyPos) != STOPPOS_VALID)) {
+        if (!myAbort || (checkStopPos(stop.stopParameters.startPos, stop.stopParameters.endPos, stop.lane->getLaneParametricLength(), POSITION_EPS, stop.stopParameters.friendlyPos) != STOPPOS_VALID)) {
             WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.stopParameters.lane + "'" + errorSuffix);
             return;
         }
@@ -1967,7 +1969,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
         stop.tag = SUMO_TAG_STOP_LANE;
         // special case for persons
         if ((myVehicleParameter != nullptr) && ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
-            stop.tag = GNE_TAG_PERSONSTOP_LANE;
+            stop.tag = GNE_TAG_PERSONSTOP_EDGE;
         }
     }
     // now create or store stop
@@ -1975,14 +1977,12 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& /* attrs */) {
         buildStop(myNet, true, stop.stopParameters, myLoadedVehicleWithEmbebbedRoute);
     } else if (myVehicleParameter != nullptr) {
         if ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW)) {
-            myPersonPlanValues.push_back(stop);
-        } else {
+            myPersonValues.myPersonPlanValues.push_back(stop);
             myVehicleParameter->stops.push_back(stop.stopParameters);
         }
     } else {
         myActiveRouteStops.push_back(stop.stopParameters);
     }
-    */
 }
 
 
@@ -2042,7 +2042,12 @@ GNERouteHandler::PersonPlansValues::PersonPlansValues() :
     toBusStop(nullptr),
     route(nullptr),
     arrivalPos(-1),
-    edgeStop(nullptr) {
+    edgeStop(nullptr),
+    busStop(nullptr),
+    containerStop(nullptr),
+    chargingStation(nullptr),
+    parkingArea(nullptr),
+    lane(nullptr) {
 }
 
 
@@ -2091,9 +2096,11 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
     } else if (route) {
         // walk route
         tag = GNE_TAG_WALK_EDGES;
-    } else if (edgeStop) {
+    } else if (edgeStop || lane) {
         // person stop lane
         tag = GNE_TAG_PERSONSTOP_EDGE;
+    } else {
+        throw ProcessError("invalid combination");
     }
 }
 
@@ -2349,10 +2356,6 @@ GNERouteHandler::PersonValue::addPersonValue(GNENet *net, SumoXMLTag tag, const 
             }
         }
     }
-/*
-    /// @brief stop parameters
-    SUMOVehicleParameter::Stop stopParameters;
-*/
     // add personPlansValuesLoaded in myPersonPlanValues
     myPersonPlanValues.push_back(personPlansValuesLoaded);
     return true;
@@ -2384,6 +2387,12 @@ GNERouteHandler::PersonValue::checkPersonPlanValues() {
                 currentPlan.fromEdge = previousPlan.edges.back();
             } else if (previousPlan.route) {
                 currentPlan.fromEdge = previousPlan.route->getParentEdges().back();
+            } else if (previousPlan.edgeStop) {
+                currentPlan.fromEdge = previousPlan.edgeStop;
+            } else if (previousPlan.lane) {
+                currentPlan.fromEdge = previousPlan.lane->getParentEdges().front();
+            } else if (previousPlan.busStop) {
+                currentPlan.fromBusStop = previousPlan.busStop;
             }
             // update GNETag
             currentPlan.updateGNETag();

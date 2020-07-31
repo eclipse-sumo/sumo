@@ -411,7 +411,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
         if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
             // get arrival position
             endLanePosPreviousLane = previousPersonPlan->getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-        } else {
+        } else if (previousPersonPlan->getTagProperty().personPlanEndBusStop()) {
             // get arrival pos (end busStop shape)
             endLanePosPreviousLane = previousPersonPlan->getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_ENDPOS);
             extremeGeometry.viewStartPos = previousPersonPlan->getParentAdditionals().back()->getAdditionalGeometry().getShape().back();
