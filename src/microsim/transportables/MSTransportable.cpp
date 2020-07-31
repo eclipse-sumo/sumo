@@ -333,7 +333,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             const MSStage* const futureStage = *it;
             MSStage* const prevStage = *(it - 1);
             if (futureStage->getStageType() == MSStageType::DRIVING) {
-                const MSStageDriving* const ds = static_cast<const MSStageDriving* const>(futureStage);
+                const MSStageDriving* const ds = static_cast<const MSStageDriving*>(futureStage);
                 if (ds->getLines() == stage->getLines()
                         && prevStage->getDestination() == &orig->getLane().getEdge()) {
                     if (prevStage->getStageType() == MSStageType::TRIP) {

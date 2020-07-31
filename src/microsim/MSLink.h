@@ -137,7 +137,7 @@ public:
 
     private:
         /// invalidated assignment operator
-        ApproachingVehicleInformation& operator=(const ApproachingVehicleInformation& s);
+        ApproachingVehicleInformation& operator=(const ApproachingVehicleInformation& s) = delete;
 
     };
 

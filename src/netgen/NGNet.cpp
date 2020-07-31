@@ -222,7 +222,7 @@ NGNet::getDistribution(const std::string& option) {
     std::string val = OptionsCont::getOptions().getString(option);
     try {
         return Distribution_Parameterized("peturb", 0, StringUtils::toDouble(val));
-    } catch (NumberFormatException) {
+    } catch (NumberFormatException&) {
         Distribution_Parameterized result("perturb", 0, 0);
         result.parse(val, true);
         return result;

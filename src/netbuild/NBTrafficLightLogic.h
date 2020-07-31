@@ -261,6 +261,6 @@ private:
 
 private:
     /// @brief Invalidated assignment operator
-    NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s);
+    NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s) = delete;
 
 };

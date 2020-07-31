@@ -466,7 +466,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // draw shape points only in Network supemode
                     if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                         // color
-                        const RGBColor invertedColor = junctionShapeColor.invertedColor();
                         const RGBColor darkerColor = junctionShapeColor.changedBrightness(-10);
                         // draw geometry points
                         GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), junctionShape, darkerColor, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);

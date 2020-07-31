@@ -42,8 +42,8 @@ GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
         const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas) :
-    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas),
     myHierarchicalConnections(this),
+    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas),
     myAC(AC) {
 }
 

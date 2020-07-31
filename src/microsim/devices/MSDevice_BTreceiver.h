@@ -158,7 +158,7 @@ public:
 
     private:
         /// @brief Invalidated assignment operator.
-        MeetingPoint& operator=(const MeetingPoint&);
+        MeetingPoint& operator=(const MeetingPoint&) = delete;
 
     };
 
