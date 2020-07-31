@@ -444,8 +444,6 @@ GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /* 
 std::string
 GNEStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
-        case SUMO_ATTR_ID:
-            return getID();
         case SUMO_ATTR_DURATION:
             if (parametersSet & STOP_DURATION_SET) {
                 return time2string(duration);
@@ -569,7 +567,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
@@ -606,8 +603,6 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidDemandElementID(value);
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
@@ -875,9 +870,6 @@ GNEStop::getEndGeometryPositionOverLane() const {
 void
 GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            break;
         case SUMO_ATTR_DURATION:
             if (value.empty()) {
                 parametersSet &= ~STOP_DURATION_SET;

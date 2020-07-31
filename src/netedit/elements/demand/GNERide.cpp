@@ -34,7 +34,7 @@
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
     double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_RIDE_EDGE_EDGE), net, GLO_RIDE, GNE_TAG_RIDE_EDGE_EDGE,
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
@@ -45,7 +45,7 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
     double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_RIDE_EDGE_BUSSTOP), net, GLO_RIDE, GNE_TAG_RIDE_EDGE_BUSSTOP,
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_EDGE_BUSSTOP,
         {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
@@ -55,7 +55,7 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
     double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_RIDE_BUSSTOP_EDGE), net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP_EDGE,
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP_EDGE,
         {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
@@ -66,7 +66,7 @@ GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fro
 
 GNERide::GNERide(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
     double arrivalPosition, const std::vector<std::string>& lines) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_RIDE_BUSSTOP_BUSSTOP), net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP_BUSSTOP,
+    GNEDemandElement(personParent, net, GLO_RIDE, GNE_TAG_RIDE_BUSSTOP_BUSSTOP,
         {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition),
     myLines(lines) {
@@ -374,7 +374,7 @@ GNERide::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         // Common person plan attributes
         case SUMO_ATTR_ID:
-            return getID();
+            return getParentDemandElements().front()->getID();
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_TO:

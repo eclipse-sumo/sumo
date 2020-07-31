@@ -455,7 +455,7 @@ std::string
 GNEPersonStop::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return getParentDemandElements().front()->getID();
         case SUMO_ATTR_DURATION:
             if (parametersSet & STOP_DURATION_SET) {
                 return time2string(duration);
@@ -579,7 +579,6 @@ GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         return; //avoid needless changes, later logic relies on the fact that attributes have changed
     }
     switch (key) {
-        case SUMO_ATTR_ID:
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
@@ -616,8 +615,6 @@ GNEPersonStop::isValid(SumoXMLAttr key, const std::string& value) {
     // declare string error
     std::string error;
     switch (key) {
-        case SUMO_ATTR_ID:
-            return isValidDemandElementID(value);
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
@@ -885,9 +882,6 @@ GNEPersonStop::getEndGeometryPositionOverLane() const {
 void
 GNEPersonStop::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            break;
         case SUMO_ATTR_DURATION:
             if (value.empty()) {
                 parametersSet &= ~STOP_DURATION_SET;

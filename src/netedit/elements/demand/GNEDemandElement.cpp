@@ -68,7 +68,7 @@ GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet
         const std::vector<GNETAZElement*>& TAZElementParents,
         const std::vector<GNEDemandElement*>& demandElementParents,
         const std::vector<GNEGenericData*>& genericDataParents) :
-    GUIGlObject(type, demandElementParent->getID() + "_" + toString(tag)),
+    GUIGlObject(type, demandElementParent->getID()),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     GNEPathElements(this),

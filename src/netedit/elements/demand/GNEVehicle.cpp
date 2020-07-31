@@ -309,13 +309,8 @@ GNEVehicle::~GNEVehicle() {}
 
 std::string
 GNEVehicle::getBegin() const {
-    // obtain depart depending if is a Vehicle, trip or routeFlow
-    std::string departStr;
-    if ((myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
-        departStr = toString(depart);
-    } else {
-        departStr = getDepart();
-    }
+    // obtain depart
+    std::string departStr = time2string(depart);
     // we need to handle depart as a tuple of 20 numbers (format: 000000...00<departTime>)
     departStr.reserve(20 - departStr.size());
     // add 0s at the beginning of departStr until we have 20 numbers
@@ -1451,6 +1446,10 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             // set manually vehicle ID (needed for saving)
             id = value;
+            // Change IDs of all person plans children (stops, embedded routes...)
+            for (const auto &childDemandElement : getChildDemandElements()) {
+                childDemandElement->setMicrosimID(getID());
+            }
             break;
         case SUMO_ATTR_TYPE:
             replaceDemandElementParent(SUMO_TAG_VTYPE, value, 0);
@@ -1617,9 +1616,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         // Specific of vehicles
         case SUMO_ATTR_DEPART: {
-            std::string oldDepart = getBegin();
             parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
-            myNet->getAttributeCarriers()->updateDemandElementBegin(oldDepart, this);
             break;
         }
         case SUMO_ATTR_ROUTE:
@@ -1667,9 +1664,7 @@ GNEVehicle::setAttribute(SumoXMLAttr key, const std::string& value) {
         }
         // Specific of routeFlows
         case SUMO_ATTR_BEGIN: {
-            std::string oldBegin = getBegin();
             depart = string2time(value);
-            myNet->getAttributeCarriers()->updateDemandElementBegin(oldBegin, this);
             break;
         }
         case SUMO_ATTR_END:

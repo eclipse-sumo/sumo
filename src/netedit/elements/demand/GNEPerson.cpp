@@ -799,6 +799,10 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
+            // Change IDs of all person plans children
+            for (const auto &personPlans : getChildDemandElements()) {
+                personPlans->setMicrosimID(getID());
+            }
             break;
         case SUMO_ATTR_TYPE:
             replaceDemandElementParent(SUMO_TAG_PTYPE, value, 0);
@@ -833,16 +837,12 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         // Specific of persons
         case SUMO_ATTR_DEPART: {
-            std::string oldDepart = getBegin();
             parseDepart(value, toString(SUMO_TAG_VEHICLE), id, depart, departProcedure, error);
-            myNet->getAttributeCarriers()->updateDemandElementBegin(oldDepart, this);
             break;
         }
         // Specific of personFlows
         case SUMO_ATTR_BEGIN: {
-            std::string oldBegin = getBegin();
             depart = string2time(value);
-            myNet->getAttributeCarriers()->updateDemandElementBegin(oldBegin, this);
             break;
         }
         case SUMO_ATTR_END:

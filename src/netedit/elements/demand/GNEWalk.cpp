@@ -34,7 +34,7 @@
 // ===========================================================================
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_EDGE_EDGE), net, GLO_WALK, GNE_TAG_WALK_EDGE_EDGE,
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE_EDGE,
         {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
     // compute walk
@@ -43,7 +43,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_EDGE_BUSSTOP), net, GLO_WALK, GNE_TAG_WALK_EDGE_BUSSTOP,
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE_BUSSTOP,
         {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
     // compute walk
@@ -51,7 +51,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 }
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_BUSSTOP_EDGE), net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_EDGE,
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_EDGE,
         {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
     // compute walk
@@ -60,7 +60,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fro
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_BUSSTOP_BUSSTOP), net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_BUSSTOP,
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_BUSSTOP,
         {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
     // compute walk
@@ -69,7 +69,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fro
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_EDGES), net, GLO_WALK, GNE_TAG_WALK_EDGES,
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES,
         {}, {edges}, {}, {}, {}, {}, {personParent}, {}),
     myArrivalPosition(arrivalPosition) {
     // compute walk
@@ -78,7 +78,7 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdg
 
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_WALK_ROUTE), net, GLO_WALK, GNE_TAG_WALK_ROUTE,
+    GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE,
         {}, {}, {}, {}, {}, {}, {personParent, route}, {}),
     myArrivalPosition(arrivalPosition) {
     // compute walk
@@ -426,7 +426,7 @@ GNEWalk::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         // Common person plan attributes
         case SUMO_ATTR_ID:
-            return getID();
+            return getParentDemandElements().front()->getID();
         case SUMO_ATTR_FROM:
             return getParentEdges().front()->getID();
         case SUMO_ATTR_TO:
