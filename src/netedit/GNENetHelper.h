@@ -201,19 +201,11 @@ struct GNENetHelper {
         /// @brief get demand elements
         const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >& getDemandElements() const;
 
-        /// @brief get vehicle departures
-        const std::map<std::string, GNEDemandElement*>& getVehicleDepartures() const;
-
         /// @brief clear demand elements
         void clearDemandElements();
 
         /// @brief add default VTypes
         void addDefaultVTypes();
-
-        /**@brief update demand element begin in container
-         * @note this function is automatically called when user changes the begin/departure of an demand element
-         */
-        void updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement);
 
         /// @}
 
@@ -382,9 +374,6 @@ struct GNENetHelper {
 
         /// @brief map with the ID and pointer to demand elements of net
         std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > myDemandElements;
-
-        /// @brief special map used for saving Demand Elements of type "Vehicle" (Vehicles, routeFlows, etc.) sorted by depart time
-        std::map<std::string, GNEDemandElement*> myVehicleDepartures;
 
         /// @brief map with the ID and pointer to data sets of net
         std::map<std::string, GNEDataSet*> myDataSets;

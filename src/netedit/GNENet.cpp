@@ -2817,9 +2817,21 @@ GNENet::saveDemandElementsConfirmed(const std::string& filename) {
     for (auto i : myAttributeCarriers->getDemandElements().at(SUMO_TAG_ROUTE)) {
         i.second->writeDemandElement(device);
     }
+    // sort vehicles/persons by depart
+    std::map<double, std::vector<GNEDemandElement*> > vehiclesSortedByDepart;
+    for (const auto &demandElementTag : myAttributeCarriers->getDemandElements()) {
+        for (const auto &demandElement : demandElementTag.second) {
+            if (demandElement.second->getTagProperty().isPerson() || demandElement.second->getTagProperty().isVehicle()) {
+                // save it in myVehiclesSortedByDepart
+                vehiclesSortedByDepart[GNEAttributeCarrier::parse<double>(demandElement.second->getBegin())].push_back(demandElement.second);
+            }
+        }
+    }
     // finally write all vehicles and persons sorted by depart time (and their associated stops, personPlans, etc.)
-    for (auto i : myAttributeCarriers->getVehicleDepartures()) {
-        i.second->writeDemandElement(device);
+    for (const auto &vehicleTag : vehiclesSortedByDepart) {
+        for (const auto &vehicle : vehicleTag.second) {
+            vehicle->writeDemandElement(device);
+        }
     }
     device.close();
 }

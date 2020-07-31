@@ -370,12 +370,6 @@ GNENetHelper::AttributeCarriers::getDemandElements() const {
 }
 
 
-const std::map<std::string, GNEDemandElement*>&
-GNENetHelper::AttributeCarriers::getVehicleDepartures() const {
-    return myVehicleDepartures;
-}
-
-
 void
 GNENetHelper::AttributeCarriers::clearDemandElements() {
     // clear elements in grid
@@ -407,20 +401,6 @@ GNENetHelper::AttributeCarriers::addDefaultVTypes() {
     GNEVehicleType* defaultPersonType = new GNEVehicleType(myNet, DEFAULT_PEDTYPE_ID, SVC_PEDESTRIAN, SUMO_TAG_PTYPE);
     myDemandElements.at(defaultPersonType->getTagProperty().getTag()).insert(std::make_pair(defaultPersonType->getID(), defaultPersonType));
     defaultPersonType->incRef("GNENet::DEFAULT_PEDTYPE_ID");
-}
-
-
-void
-GNENetHelper::AttributeCarriers::updateDemandElementBegin(const std::string& oldBegin, GNEDemandElement* demandElement) {
-    if (myVehicleDepartures.count(oldBegin + "_" + demandElement->getID()) == 0) {
-        throw ProcessError(demandElement->getTagStr() + " with old begin='" + oldBegin + "' doesn't exist");
-    } else {
-        // remove an insert demand element again into vehicleDepartures container
-        if (demandElement->getTagProperty().isVehicle()) {
-            myVehicleDepartures.erase(oldBegin + "_" + demandElement->getID());
-            myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
-        }
-    }
 }
 
 
@@ -816,14 +796,6 @@ GNENetHelper::AttributeCarriers::insertDemandElement(GNEDemandElement* demandEle
         if (!demandElementExist(demandElement)) {
             // insert in demandElements container
             myDemandElements.at(demandElement->getTagProperty().getTag()).insert(std::make_pair(demandElement->getID(), demandElement));
-            // also insert in vehicleDepartures container if it's either a vehicle or a person
-            if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
-                if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) != 0) {
-                    throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' already inserted");
-                } else {
-                    myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
-                }
-            }
         } else {
             throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' already exist");
         }
@@ -852,14 +824,6 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
             // obtain demand element and erase it from container
             auto it = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID());
             myDemandElements.at(demandElement->getTagProperty().getTag()).erase(it);
-            // also remove fromvehicleDepartures container if it's either a vehicle or a person
-            if (demandElement->getTagProperty().isVehicle() || demandElement->getTagProperty().isPerson()) {
-                if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
-                    throw ProcessError(demandElement->getTagStr() + " with departure ='" + demandElement->getBegin() + "_" + demandElement->getID() + "' doesn't exist");
-                } else {
-                    myVehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
-                }
-            }
         } else {
             throw ProcessError("Invalid demandElement pointer");
         }
@@ -891,14 +855,6 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
         if (embebbedRoute) {
             myDemandElements.at(GNE_TAG_ROUTE_EMBEDDED).erase(embebbedRoute->getID());
         }
-        // if is vehicle, remove it from vehicleDepartures
-        if (demandElement->getTagProperty().isVehicle()) {
-            if (myVehicleDepartures.count(demandElement->getBegin() + "_" + demandElement->getID()) == 0) {
-                throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in AttributeCarriers.vehicleDepartures");
-            } else {
-                myVehicleDepartures.erase(demandElement->getBegin() + "_" + demandElement->getID());
-            }
-        }
         // set new ID in demand
         demandElement->setMicrosimID(newID);
         // insert demand again in container
@@ -908,10 +864,6 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
             // set new microsim ID
             embebbedRoute->setMicrosimID(embebbedRoute->getID());
             myDemandElements.at(GNE_TAG_ROUTE_EMBEDDED).insert(std::make_pair(embebbedRoute->getID(), embebbedRoute));
-        }
-        // if is vehicle, add it into vehicleDepartures
-        if (demandElement->getTagProperty().isVehicle()) {
-            myVehicleDepartures.insert(std::make_pair(demandElement->getBegin() + "_" + demandElement->getID(), demandElement));
         }
         // myDemandElements has to be saved
         myNet->requireSaveDemandElements(true);
