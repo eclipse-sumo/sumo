@@ -93,7 +93,7 @@ GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routePara
 
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
-    GNEDemandElement(net->generateDemandElementID(GNE_TAG_ROUTE_EMBEDDED), net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
+    GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
         {}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}),
     Parameterised(routeParameters.parameters),
     myColor(routeParameters.color),
@@ -104,7 +104,7 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteH
 
 
 GNERoute::GNERoute(GNEDemandElement* route) :
-    GNEDemandElement(route->getNet()->generateDemandElementID(SUMO_TAG_ROUTE), route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
+    GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
         {}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
     Parameterised(),
     myColor(route->getColor()),
