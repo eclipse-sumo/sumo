@@ -488,8 +488,8 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
 // ---------------------------------------------------------------------------
 
 GNEAdditional::BlockIcon::BlockIcon(GNEAdditional* additional) :
-    myRotation(0),
-    myAdditional(additional) {}
+    myAdditional(additional),
+    myRotation(0) {}
 
 
 void

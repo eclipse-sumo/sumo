@@ -3330,9 +3330,9 @@ GNEViewNetHelper::DataCheckableButtons::updateDataCheckableButtons() {
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::EditNetworkElementShapes::EditNetworkElementShapes(GNEViewNet* viewNet) :
+    myViewNet(viewNet),
     myEditedNetworkElement(nullptr),
-    myPreviousNetworkEditMode(NetworkEditMode::NETWORK_NONE),
-    myViewNet(viewNet) {
+    myPreviousNetworkEditMode(NetworkEditMode::NETWORK_NONE) {
 }
 
 

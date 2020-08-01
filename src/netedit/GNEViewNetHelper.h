@@ -1233,11 +1233,12 @@ struct GNEViewNetHelper {
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
+        /// @brief pointer to edited network element
+        GNENetworkElement* myEditedNetworkElement;
+
         /// @brief the previous edit mode before edit NetworkElement's shapes
         NetworkEditMode myPreviousNetworkEditMode;
 
-        /// @brief pointer to edited network element
-        GNENetworkElement* myEditedNetworkElement;
     };
 
     /// @brief get scaled rainbow colors
