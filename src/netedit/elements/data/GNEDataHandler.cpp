@@ -332,13 +332,13 @@ GNEDataHandler::parseAndBuildEdgeData(GNENet* net, bool allowUndoRedo, const SUM
         } else {
             // check if there is already a edge data for the given edge in the given interval
             for (const auto& genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) && 
-                    (genericData->getParentEdges().front() == edge)) {
-                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" + 
-                        edge->getID() + "' in interval " + 
-                        insertedDatas->getLastInsertedDataInterval()->getID() + " [" + 
-                        insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-                        insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_END) + "]");
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) &&
+                        (genericData->getParentEdges().front() == edge)) {
+                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " in edge '" +
+                                  edge->getID() + "' in interval " +
+                                  insertedDatas->getLastInsertedDataInterval()->getID() + " [" +
+                                  insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                                  insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_END) + "]");
                     return false;
                 }
             }
@@ -389,14 +389,14 @@ GNEDataHandler::parseAndBuildEdgeRelationData(GNENet* net, bool allowUndoRedo, c
         } else {
             // check if there is already a edge data for the given edge in the interval
             for (const auto& genericData : insertedDatas->getLastInsertedDataInterval()->getGenericDataChildren()) {
-                if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) && 
-                    (genericData->getParentEdges().front() == fromEdge) && 
-                    (genericData->getParentEdges().back() == toEdge)) {
-                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " for edges '" + 
-                        fromEdge->getID() + "'->'" + toEdge->getID() + "' in interval " + 
-                        insertedDatas->getLastInsertedDataInterval()->getID() + " [" + 
-                        insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
-                        insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_END) + "]");
+                if ((genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) &&
+                        (genericData->getParentEdges().front() == fromEdge) &&
+                        (genericData->getParentEdges().back() == toEdge)) {
+                    WRITE_WARNING("There is already a " + genericData->getTagStr() + " for edges '" +
+                                  fromEdge->getID() + "'->'" + toEdge->getID() + "' in interval " +
+                                  insertedDatas->getLastInsertedDataInterval()->getID() + " [" +
+                                  insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_BEGIN) + ", " +
+                                  insertedDatas->getLastInsertedDataInterval()->getAttribute(SUMO_ATTR_END) + "]");
                     return false;
                 }
             }
@@ -458,7 +458,7 @@ GNEDataHandler::parseAndBuildTAZRelationData(GNENet* net, bool allowUndoRedo, co
             }
             // save ID of last created element
             GNEGenericData* dataCreated = buildTAZRelationData(net, allowUndoRedo, insertedDatas->getLastInsertedDataInterval(),
-                fromTAZ, toTAZ, parameters);
+                                          fromTAZ, toTAZ, parameters);
             // check if insertion has to be commited
             if (insertedDatas) {
                 insertedDatas->commitGenericDataInsertion(dataCreated);

@@ -130,7 +130,7 @@ bool
 GNERouteHandler::isVehicleIdDuplicated(GNENet* net, const std::string& id) {
     // declare vehicle tags vector
     std::vector<SumoXMLTag> vehicleTags = {SUMO_TAG_VEHICLE, GNE_TAG_VEHICLE_WITHROUTE, SUMO_TAG_TRIP, GNE_TAG_FLOW_ROUTE, GNE_TAG_FLOW_WITHROUTE, SUMO_TAG_FLOW};
-    for (const auto &vehicleTag : vehicleTags) {
+    for (const auto& vehicleTag : vehicleTags) {
         if (net->retrieveDemandElement(vehicleTag, id, false) != nullptr) {
             WRITE_ERROR("There is another " + toString(vehicleTag) + " with the same ID='" + id + "'.");
             return true;
@@ -153,7 +153,7 @@ GNERouteHandler::isPersonIdDuplicated(GNENet* net, const std::string& id) {
 
 
 void
-GNERouteHandler::buildRoute(GNENet* net, bool undoDemandElements, const RouteParameter &routeParameters, const std::vector<SUMOVehicleParameter::Stop> &activeStops) {
+GNERouteHandler::buildRoute(GNENet* net, bool undoDemandElements, const RouteParameter& routeParameters, const std::vector<SUMOVehicleParameter::Stop>& activeStops) {
     // create GNERoute
     GNEDemandElement* route = new GNERoute(net, routeParameters);
     if (undoDemandElements) {
@@ -609,8 +609,8 @@ GNERouteHandler::buildPersonFlow(GNENet* net, bool undoDemandElements, const SUM
 }
 
 
-bool 
-GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, GNEFrameModuls::PathCreator* pathCreator) {
+bool
+GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent, GNEFrameAttributesModuls::AttributesCreator* personPlanAttributes, GNEFrameModuls::PathCreator* pathCreator) {
     // get view net
     GNEViewNet* viewNet = personParent->getNet()->getViewNet();
     // Declare map to keep attributes from myPersonPlanAttributes
@@ -619,24 +619,24 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
     const std::vector<std::string> types = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_VTYPES]);
     const std::vector<std::string> modes = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_MODES]);
     const std::vector<std::string> lines = GNEAttributeCarrier::parse<std::vector<std::string> >(valuesMap[SUMO_ATTR_LINES]);
-    const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0)? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
+    const double arrivalPos = (valuesMap.count(SUMO_ATTR_ARRIVALPOS) > 0) ? GNEAttributeCarrier::parse<double>(valuesMap[SUMO_ATTR_ARRIVALPOS]) : 0;
     // get stop parameters
     SUMOVehicleParameter::Stop stopParameters;
     // get edges
-    GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().front() : nullptr;
-    GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0)? pathCreator->getSelectedEdges().back() : nullptr;
+    GNEEdge* fromEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().front() : nullptr;
+    GNEEdge* toEdge = (pathCreator->getSelectedEdges().size() > 0) ? pathCreator->getSelectedEdges().back() : nullptr;
     // get busStops
-    GNEAdditional *fromBusStop = pathCreator->getFromStoppingPlace(SUMO_TAG_BUS_STOP);
-    GNEAdditional *toBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
+    GNEAdditional* fromBusStop = pathCreator->getFromStoppingPlace(SUMO_TAG_BUS_STOP);
+    GNEAdditional* toBusStop = pathCreator->getToStoppingPlace(SUMO_TAG_BUS_STOP);
     // get path edges
     std::vector<GNEEdge*> edges;
-    for (const auto &path : pathCreator->getPath()) {
-        for (const auto &edge : path.getSubPath()) {
+    for (const auto& path : pathCreator->getPath()) {
+        for (const auto& edge : path.getSubPath()) {
             edges.push_back(edge);
         }
     }
     // get route
-    GNEDemandElement *route = pathCreator->getRoute();
+    GNEDemandElement* route = pathCreator->getRoute();
     // check what PersonPlan we're creating
     switch (tag) {
         // Person Trips
@@ -811,9 +811,9 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement *personParent,
 }
 
 
-void 
-GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-    GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
+void
+GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                                 GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& types, const std::vector<std::string>& modes) {
     // declare person trip
     GNEDemandElement* personTrip = nullptr;
     // create person trip depending of parameters
@@ -826,7 +826,7 @@ GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemand
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert person trip 
+            // insert person trip
             net->getAttributeCarriers()->insertDemandElement(personTrip);
             // set references in children
             personParent->addChildElement(personTrip);
@@ -844,7 +844,7 @@ GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemand
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert person trip 
+            // insert person trip
             net->getAttributeCarriers()->insertDemandElement(personTrip);
             // set references in children
             personParent->addChildElement(personTrip);
@@ -862,7 +862,7 @@ GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemand
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert person trip 
+            // insert person trip
             net->getAttributeCarriers()->insertDemandElement(personTrip);
             // set references in children
             personParent->addChildElement(personTrip);
@@ -880,7 +880,7 @@ GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemand
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personTrip, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert person trip 
+            // insert person trip
             net->getAttributeCarriers()->insertDemandElement(personTrip);
             // set references in children
             personParent->addChildElement(personTrip);
@@ -895,9 +895,9 @@ GNERouteHandler::buildPersonTrip(GNENet* net, bool undoDemandElements, GNEDemand
 }
 
 
-void 
-GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-    GNEAdditional* busStopFrom, GNEAdditional* busStopTo, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos) {
+void
+GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                           GNEAdditional* busStopFrom, GNEAdditional* busStopTo, const std::vector<GNEEdge*>& edges, GNEDemandElement* route, double arrivalPos) {
     // declare walk
     GNEDemandElement* walk = nullptr;
     // create walk depending of parameters
@@ -910,7 +910,7 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert walk 
+            // insert walk
             net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
             personParent->addChildElement(walk);
@@ -928,7 +928,7 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert walk 
+            // insert walk
             net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
             personParent->addChildElement(walk);
@@ -946,7 +946,7 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert walk 
+            // insert walk
             net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
             personParent->addChildElement(walk);
@@ -964,7 +964,7 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert walk 
+            // insert walk
             net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
             personParent->addChildElement(walk);
@@ -982,11 +982,11 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert walk 
+            // insert walk
             net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
             personParent->addChildElement(walk);
-            for (const auto &edge : edges) {
+            for (const auto& edge : edges) {
                 edge->addChildElement(walk);
             }
             // include reference
@@ -1001,7 +1001,7 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(walk, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert walk 
+            // insert walk
             net->getAttributeCarriers()->insertDemandElement(walk);
             // set references in children
             personParent->addChildElement(walk);
@@ -1015,9 +1015,9 @@ GNERouteHandler::buildWalk(GNENet* net, bool undoDemandElements, GNEDemandElemen
 }
 
 
-void 
-GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, 
-    GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& lines) {
+void
+GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
+                           GNEAdditional* busStopFrom, GNEAdditional* busStopTo, double arrivalPos, const std::vector<std::string>& lines) {
     // declare ride
     GNEDemandElement* ride = nullptr;
     // create ride depending of parameters
@@ -1030,7 +1030,7 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert ride 
+            // insert ride
             net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
             personParent->addChildElement(ride);
@@ -1048,7 +1048,7 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert ride 
+            // insert ride
             net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
             personParent->addChildElement(ride);
@@ -1066,7 +1066,7 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert ride 
+            // insert ride
             net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
             personParent->addChildElement(ride);
@@ -1084,7 +1084,7 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(ride, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert ride 
+            // insert ride
             net->getAttributeCarriers()->insertDemandElement(ride);
             // set references in children
             personParent->addChildElement(ride);
@@ -1099,7 +1099,7 @@ GNERouteHandler::buildRide(GNENet* net, bool undoDemandElements, GNEDemandElemen
 }
 
 
-void 
+void
 GNERouteHandler::buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemandElement* personParent, GNEEdge* edge, GNEAdditional* busStop, const SUMOVehicleParameter::Stop& stopParameters) {
     // declare personStop
     GNEDemandElement* personStop = nullptr;
@@ -1113,7 +1113,7 @@ GNERouteHandler::buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemand
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personStop, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert personStop 
+            // insert personStop
             net->getAttributeCarriers()->insertDemandElement(personStop);
             // set references in children
             personParent->addChildElement(personStop);
@@ -1130,7 +1130,7 @@ GNERouteHandler::buildPersonStop(GNENet* net, bool undoDemandElements, GNEDemand
             net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(personStop, true), true);
             net->getViewNet()->getUndoList()->p_end();
         } else {
-            // insert personStop 
+            // insert personStop
             net->getAttributeCarriers()->insertDemandElement(personStop);
             // set references in children
             personParent->addChildElement(personStop);
@@ -1149,7 +1149,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
     // get original vehicle tag
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
-    GNENet *net = originalVehicle->getNet();
+    GNENet* net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // declare route parameters
@@ -1167,7 +1167,7 @@ GNERouteHandler::transformToVehicle(GNEVehicle* originalVehicle, bool createEmbe
         routeParameters.edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
         // calculate path using from-via-to edges
-        routeParameters.edges = originalVehicle->getNet()->getPathCalculator()->calculatePath(originalVehicle->getVClass(),originalVehicle->getParentEdges());
+        routeParameters.edges = originalVehicle->getNet()->getPathCalculator()->calculatePath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
     // only continue if edges are valid
     if (routeParameters.edges.empty()) {
@@ -1215,7 +1215,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
     // get original vehicle tag
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
-    GNENet *net = originalVehicle->getNet();
+    GNENet* net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // declare route parameters
@@ -1233,7 +1233,7 @@ GNERouteHandler::transformToRouteFlow(GNEVehicle* originalVehicle, bool createEm
         routeParameters.edges = originalVehicle->getChildDemandElements().front()->getParentEdges();
     } else if ((tag == SUMO_TAG_TRIP) || (tag == SUMO_TAG_FLOW)) {
         // calculate path using from-via-to edges
-        routeParameters.edges = originalVehicle->getNet()->getPathCalculator()->calculatePath(originalVehicle->getVClass(),originalVehicle->getParentEdges());
+        routeParameters.edges = originalVehicle->getNet()->getPathCalculator()->calculatePath(originalVehicle->getVClass(), originalVehicle->getParentEdges());
     }
     // only continue if edges are valid
     if (routeParameters.edges.empty()) {
@@ -1294,11 +1294,11 @@ GNERouteHandler::transformToTrip(GNEVehicle* originalVehicle) {
     // get original vehicle tag
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
-    GNENet *net = originalVehicle->getNet();
+    GNENet* net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // get route
-    GNEDemandElement *route = nullptr;
+    GNEDemandElement* route = nullptr;
     // declare edges
     std::vector<GNEEdge*> edges;
     // obtain edges depending of tag
@@ -1350,11 +1350,11 @@ GNERouteHandler::transformToFlow(GNEVehicle* originalVehicle) {
     // get original vehicle tag
     SumoXMLTag tag = originalVehicle->getTagProperty().getTag();
     // get pointer to net
-    GNENet *net = originalVehicle->getNet();
+    GNENet* net = originalVehicle->getNet();
     // obtain vehicle parameters
     SUMOVehicleParameter vehicleParameters = *originalVehicle;
     // declare route
-    GNEDemandElement *route = nullptr;
+    GNEDemandElement* route = nullptr;
     // declare edges
     std::vector<GNEEdge*> edges;
     // obtain edges depending of tag
@@ -1697,79 +1697,79 @@ GNERouteHandler::closePerson() {
                 // add person
                 myNet->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(person, true), true);
                 // iterate over all personplan children and add it
-                for (const auto &personPlanValue : myPersonValues.myPersonPlanValues) {
+                for (const auto& personPlanValue : myPersonValues.myPersonPlanValues) {
                     switch (personPlanValue.tag) {
                         // Person Trips
                         case GNE_TAG_PERSONTRIP_EDGE_EDGE: {
-                            buildPersonTrip(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, 
-                                personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
+                            buildPersonTrip(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr,
+                                            personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
                             break;
                         }
                         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP: {
-                            buildPersonTrip(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, 
-                                personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
+                            buildPersonTrip(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop,
+                                            personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
                             break;
                         }
                         case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE: {
-                            buildPersonTrip(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, 
-                                personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
+                            buildPersonTrip(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr,
+                                            personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
                             break;
                         }
                         case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP: {
-                            buildPersonTrip(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, 
-                                personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
+                            buildPersonTrip(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop,
+                                            personPlanValue.arrivalPos, personPlanValue.vTypes, personPlanValue.modes);
                             break;
                         }
                         // Walks
                         case GNE_TAG_WALK_EDGE_EDGE: {
-                            buildWalk(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, {}, nullptr, 
-                                personPlanValue.arrivalPos);
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, {}, nullptr,
+                                      personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_EDGE_BUSSTOP: {
-                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, {}, nullptr, 
-                                personPlanValue.arrivalPos);
+                            buildWalk(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, {}, nullptr,
+                                      personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_BUSSTOP_EDGE: {
-                            buildWalk(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, {}, nullptr, 
-                                personPlanValue.arrivalPos);
+                            buildWalk(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, {}, nullptr,
+                                      personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_BUSSTOP_BUSSTOP: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, {}, nullptr, 
-                                personPlanValue.arrivalPos);
+                            buildWalk(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, {}, nullptr,
+                                      personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_EDGES: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, personPlanValue.edges, nullptr, 
-                                personPlanValue.arrivalPos);
+                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, personPlanValue.edges, nullptr,
+                                      personPlanValue.arrivalPos);
                             break;
                         }
                         case GNE_TAG_WALK_ROUTE: {
-                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, {}, personPlanValue.route, 
-                                personPlanValue.arrivalPos);
+                            buildWalk(myNet, true, person, nullptr, nullptr, nullptr, nullptr, {}, personPlanValue.route,
+                                      personPlanValue.arrivalPos);
                             break;
                         }
                         // Rides
                         case GNE_TAG_RIDE_EDGE_EDGE: {
-                            buildRide(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr, 
-                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            buildRide(myNet, true, person, personPlanValue.fromEdge, personPlanValue.toEdge, nullptr, nullptr,
+                                      personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
                         case GNE_TAG_RIDE_EDGE_BUSSTOP: {
-                            buildRide(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop, 
-                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            buildRide(myNet, true, person, personPlanValue.fromEdge, nullptr, nullptr, personPlanValue.toBusStop,
+                                      personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
                         case GNE_TAG_RIDE_BUSSTOP_EDGE: {
-                            buildRide(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr, 
-                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            buildRide(myNet, true, person, nullptr, personPlanValue.toEdge, personPlanValue.fromBusStop, nullptr,
+                                      personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
                         case GNE_TAG_RIDE_BUSSTOP_BUSSTOP: {
-                            buildRide(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop, 
-                                personPlanValue.arrivalPos, personPlanValue.lines);
+                            buildRide(myNet, true, person, nullptr, nullptr, personPlanValue.fromBusStop, personPlanValue.toBusStop,
+                                      personPlanValue.arrivalPos, personPlanValue.lines);
                             break;
                         }
                         case GNE_TAG_PERSONSTOP_BUSSTOP:
@@ -2051,7 +2051,7 @@ GNERouteHandler::PersonPlansValues::PersonPlansValues() :
 }
 
 
-void 
+void
 GNERouteHandler::PersonPlansValues::updateGNETag() {
     // set GNE Tag depending of parameters
     if (fromEdge && toEdge) {
@@ -2105,7 +2105,7 @@ GNERouteHandler::PersonPlansValues::updateGNETag() {
 }
 
 
-bool 
+bool
 GNERouteHandler::PersonPlansValues::checkIntegrity() const {
     bool correct = false;
     // edge->edge
@@ -2164,7 +2164,7 @@ GNERouteHandler::PersonPlansValues::checkIntegrity() const {
 }
 
 
-bool 
+bool
 GNERouteHandler::PersonPlansValues::isFirstPersonPlan() const {
     // edge->edge
     if (fromEdge && toEdge) {
@@ -2221,7 +2221,7 @@ GNERouteHandler::PersonPlansValues::getLastEdge() const {
 
 
 bool
-GNERouteHandler::PersonValue::addPersonValue(GNENet *net, SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
+GNERouteHandler::PersonValue::addPersonValue(GNENet* net, SumoXMLTag tag, const SUMOSAXAttributes& attrs) {
     // change abort flag
     bool abort = false;
     // declare person plan values
@@ -2321,7 +2321,7 @@ GNERouteHandler::PersonValue::addPersonValue(GNENet *net, SumoXMLTag tag, const 
         const std::string modes = attrs.get<std::string>(SUMO_ATTR_MODES, "", abort, false);
         if (!abort) {
             personPlansValuesLoaded.modes = GNEAttributeCarrier::parse<std::vector<std::string> >(modes);
-/* check modes */
+            /* check modes */
         }
     }
     // get lines
@@ -2347,7 +2347,7 @@ GNERouteHandler::PersonValue::addPersonValue(GNENet *net, SumoXMLTag tag, const 
             return false;
         } else {
             // retrieve lane
-            const GNELane *lane = net->retrieveLane(laneStr, false);
+            const GNELane* lane = net->retrieveLane(laneStr, false);
             if (lane) {
                 // get parent edge
                 personPlansValuesLoaded.edgeStop = lane->getParentEdges().front();
@@ -2376,8 +2376,8 @@ GNERouteHandler::PersonValue::checkPersonPlanValues() {
         // set tags and update person plan values
         for (int i = 1; i < (int)myPersonPlanValues.size(); i++) {
             // get current and previous plan
-            PersonPlansValues &previousPlan = myPersonPlanValues.at(i-1);
-            PersonPlansValues &currentPlan = myPersonPlanValues.at(i);
+            PersonPlansValues& previousPlan = myPersonPlanValues.at(i - 1);
+            PersonPlansValues& currentPlan = myPersonPlanValues.at(i);
             // set previous element in current plan
             if (previousPlan.toEdge) {
                 currentPlan.fromEdge = previousPlan.toEdge;

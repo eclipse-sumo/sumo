@@ -33,10 +33,9 @@
 // ===========================================================================
 
 GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-        double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
-        const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
-    GNEAdditional(id, net, type, tag, name, blockMovement,
-        {}, {}, parentLanes, {}, {}, {}, {}, {}),
+                         double pos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
+                         const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
+    GNEAdditional(id, net, type, tag, name, blockMovement, {}, {}, parentLanes, {}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFreq(freq),
     myFilename(filename),
@@ -46,10 +45,9 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
 
 
 GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-        double pos, SUMOTime freq, const std::string& filename, const std::string& name, bool friendlyPos,
-        bool blockMovement, const std::vector<GNELane*>& parentLanes) :
-    GNEAdditional(net, type, tag, name, blockMovement,
-        {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {}),
+                         double pos, SUMOTime freq, const std::string& filename, const std::string& name, bool friendlyPos,
+                         bool blockMovement, const std::vector<GNELane*>& parentLanes) :
+    GNEAdditional(net, type, tag, name, blockMovement, {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {}),
     myPositionOverLane(pos),
     myFreq(freq),
     myFilename(filename),
@@ -89,7 +87,8 @@ GNEDetector::getCenteringBoundary() const {
 
 
 void
-GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
+GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
+                               const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
         // obtain new list of E2 lanes
@@ -143,9 +142,9 @@ GNEDetector::getHierarchyName() const {
 }
 
 
-void 
+void
 GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exaggeration, const double scaledWidth,
-    const RGBColor &mainColor, const RGBColor &secondColor) const {
+                         const RGBColor& mainColor, const RGBColor& secondColor) const {
     // push matrix
     glPushMatrix();
     // set line width
@@ -153,7 +152,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
     // translate to center geometry
     glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
     // rotate
-    glRotated((myBlockIcon.getRotation() * -1), 0, 0, 1);
+    glRotated(-myBlockIcon.getRotation(), 0, 0, 1);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set main color
@@ -191,7 +190,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
         glVertex2f(1.0,  2);
         // end draw square
         glEnd();
-        // rotate 90º
+        // rotate 90 degrees
         glRotated(90, 0, 0, -1);
         //set polygon mode
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -208,8 +207,9 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
 }
 
 
-void 
-GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration, const std::string &logo, const RGBColor &textColor) const {
+void
+GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
+                              const std::string& logo, const RGBColor& textColor) const {
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // Push matrix
         glPushMatrix();
@@ -227,5 +227,6 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         glPopMatrix();
     }
 }
+
 
 /****************************************************************************/

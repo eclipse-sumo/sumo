@@ -35,7 +35,7 @@
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "", false,
-        {}, {edge}, {}, {rerouterParent}, {}, {}, {}, {}) {             
+{}, {edge}, {}, {rerouterParent}, {}, {}, {}, {}) {
 }
 
 
@@ -83,9 +83,9 @@ GNERerouterSymbol::getCenteringBoundary() const {
 }
 
 
-void 
-GNERerouterSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, 
-    const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+void
+GNERerouterSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/,
+                                     const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // nothing to split
 }
 

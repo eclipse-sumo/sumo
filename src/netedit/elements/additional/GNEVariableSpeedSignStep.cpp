@@ -33,9 +33,9 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
     GNEAdditional(variableSpeedSignDialog->getEditedAdditional()->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-        {}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}),                                         // Children
-    myTime(0),
-    mySpeed(0) {
+{}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}),                                         // Children
+myTime(0),
+mySpeed(0) {
     // fill VSS Step with default values
     setDefaultValues();
     // set time Attribute manually
@@ -49,9 +49,9 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* v
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
-    myTime(time),
-    mySpeed(speed) {
+{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
+myTime(time),
+mySpeed(speed) {
 }
 
 

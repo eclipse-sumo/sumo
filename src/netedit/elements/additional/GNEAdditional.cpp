@@ -35,14 +35,14 @@
 // ===========================================================================
 
 GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents) :
+                             const std::vector<GNEJunction*>& junctionParents,
+                             const std::vector<GNEEdge*>& edgeParents,
+                             const std::vector<GNELane*>& laneParents,
+                             const std::vector<GNEAdditional*>& additionalParents,
+                             const std::vector<GNEShape*>& shapeParents,
+                             const std::vector<GNETAZElement*>& TAZElementParents,
+                             const std::vector<GNEDemandElement*>& demandElementParents,
+                             const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
@@ -55,14 +55,14 @@ GNEAdditional::GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType
 
 
 GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents) :
+                             const std::vector<GNEJunction*>& junctionParents,
+                             const std::vector<GNEEdge*>& edgeParents,
+                             const std::vector<GNELane*>& laneParents,
+                             const std::vector<GNEAdditional*>& additionalParents,
+                             const std::vector<GNEShape*>& shapeParents,
+                             const std::vector<GNETAZElement*>& TAZElementParents,
+                             const std::vector<GNEDemandElement*>& demandElementParents,
+                             const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, additionalParents.front()->getID()),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
@@ -299,7 +299,7 @@ GNEAdditional::isAdditionalBlocked() const {
 }
 
 
-void 
+void
 GNEAdditional::updatePartialGeometry(const GNELane* lane) {
     // currently only for E2 Multilane Detectors
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
@@ -387,14 +387,14 @@ GNEAdditional::getOptionalAdditionalName() const {
 }
 
 
-void 
+void
 GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, lane);
     // check if E2 can be drawn
     if (s.drawAdditionals(E2DetectorWidth) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // obtain color
-        const RGBColor routeColor = drawUsingSelectColor()? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
+        const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedAdditionalColor : s.detectorSettings.E2Color;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -442,7 +442,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
 }
 
 
-void 
+void
 GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
     // calculate E2Detector width
     const double E2DetectorWidth = s.addSize.getExaggeration(s, fromLane);
@@ -467,7 +467,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* f
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
             // draw line between end of first shape and first position of second shape
-            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5*E2DetectorWidth));
+            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5 * E2DetectorWidth));
         }
         // Pop last matrix
         glPopMatrix();
@@ -507,7 +507,7 @@ GNEAdditional::BlockIcon::updatePositionAndRotation() {
 }
 
 
-void 
+void
 GNEAdditional::BlockIcon::setOffset(const double x, const double y) {
     myOffset.setx(x);
     myOffset.sety(y);
@@ -518,9 +518,9 @@ void
 GNEAdditional::BlockIcon::drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size) const {
     // check if block icon can be draw
     if ((myPosition != Position::INVALID) &&
-        !s.drawForPositionSelection && !s.drawForRectangleSelection && 
-        s.drawDetail(s.detailSettings.lockIcon, exaggeration) && 
-        myAdditional->myNet->getViewNet()->showLockIcon()) {
+            !s.drawForPositionSelection && !s.drawForRectangleSelection &&
+            s.drawDetail(s.detailSettings.lockIcon, exaggeration) &&
+            myAdditional->myNet->getViewNet()->showLockIcon()) {
         // get texture
         GUIGlID lockTexture = 0;
         // Draw icon depending of the state of additional
@@ -573,7 +573,7 @@ GNEAdditional::BlockIcon::getPosition() const {
 }
 
 
-double 
+double
 GNEAdditional::BlockIcon::getRotation() const {
     return myRotation;
 }
@@ -621,32 +621,32 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
-GNEAdditional::replaceAdditionalParentEdges(const std::string &value) {
+void
+GNEAdditional::replaceAdditionalParentEdges(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
 }
 
 
-void 
-GNEAdditional::replaceAdditionalParentLanes(const std::string &value) {
+void
+GNEAdditional::replaceAdditionalParentLanes(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNELane*> >(getNet(), value));
 }
 
 
-void 
-GNEAdditional::replaceAdditionalChildEdges(const std::string &value) {
+void
+GNEAdditional::replaceAdditionalChildEdges(const std::string& value) {
     replaceChildElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
 }
 
 
-void 
-GNEAdditional::replaceAdditionalChildLanes(const std::string &value) {
+void
+GNEAdditional::replaceAdditionalChildLanes(const std::string& value) {
     replaceChildElements(this, parse<std::vector<GNELane*> >(getNet(), value));
 }
 
 
 void
-GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
+GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
     std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
     parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
     // replace parent additionals
@@ -655,7 +655,7 @@ GNEAdditional::replaceAdditionalParent(SumoXMLTag tag, const std::string &value,
 
 
 void
-GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
+GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
     std::vector<GNEDemandElement*> parentDemandElements = getParentDemandElements();
     parentDemandElements[parentIndex] = myNet->retrieveDemandElement(tag, value);
     // replace parent demand elements

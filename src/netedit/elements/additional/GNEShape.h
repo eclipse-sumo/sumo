@@ -45,14 +45,14 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      */
     GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+             const std::vector<GNEJunction*>& junctionParents,
+             const std::vector<GNEEdge*>& edgeParents,
+             const std::vector<GNELane*>& laneParents,
+             const std::vector<GNEAdditional*>& additionalParents,
+             const std::vector<GNEShape*>& shapeParents,
+             const std::vector<GNETAZElement*>& TAZElementParents,
+             const std::vector<GNEDemandElement*>& demandElementParents,
+             const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNEShape();
@@ -186,7 +186,7 @@ protected:
     bool myBlockMovement;
 
     /// @brief replace shape parent lanes
-    void replaceShapeParentLanes(const std::string &value);
+    void replaceShapeParentLanes(const std::string& value);
 
 private:
     /// @brief set attribute after validation

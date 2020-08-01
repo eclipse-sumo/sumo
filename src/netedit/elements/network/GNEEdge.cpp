@@ -53,15 +53,16 @@ const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 // ===========================================================================
 
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE,
-        {net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())},
-            {}, {}, {}, {}, {}, {}, {}),
-    myNBEdge(nbe),
-    myLanes(0),
-    myAmResponsible(false),
-    myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
+    net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())
+},
+{}, {}, {}, {}, {}, {}, {}),
+myNBEdge(nbe),
+myLanes(0),
+myAmResponsible(false),
+myWasSplit(wasSplit),
+myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -390,8 +391,8 @@ GNEEdge::commitEdgeShapeChange(GNEUndoList* undoList) {
     // restore original shape into shapeToCommit
     PositionVector innerShapeToCommit = myNBEdge->getInnerGeometry();
     // first check if second and penultimate isn't in Junction's buubles
-    double buubleRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius * 
-            myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
+    double buubleRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius *
+                          myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
     if (myNBEdge->getGeometry().size() > 2 && myNBEdge->getGeometry()[0].distanceTo2D(myNBEdge->getGeometry()[1]) < buubleRadius) {
         innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
     }
@@ -510,7 +511,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     }
     // draw person stops
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements()) {
-        for (const auto &personStopEdge : getChildDemandElements()) {
+        for (const auto& personStopEdge : getChildDemandElements()) {
             if (personStopEdge->getTagProperty().getTag() == GNE_TAG_PERSONSTOP_EDGE) {
                 personStopEdge->drawGL(s);
             }
@@ -1242,14 +1243,14 @@ GNEEdge::updateVehicleStackLabels() {
 
 
 void
-GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane *lane) const {
+GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane* lane) const {
     // first check conditions
     if ((lane == myLanes.back()) && (s.scale > 8.0) && !myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
         // obtain circle width
         bool drawBig = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE ||
-            myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE);
+                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE);
         double circleWidth = drawBig ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
         double circleWidthSquared = circleWidth * circleWidth;
         // obtain color
@@ -1288,7 +1289,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
             if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
                 if ((myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView()) &&
-                    (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
+                        (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
                     glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
@@ -1311,7 +1312,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                     }
                 }
                 if ((myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView()) &&
-                    (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
+                        (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
                     glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
                     // resolution of drawn circle depending of the zoom (To improve smothness)
@@ -1544,8 +1545,8 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
 }
 
 
-void 
-GNEEdge::updateFirstParentJunction(const std::string &value) {
+void
+GNEEdge::updateFirstParentJunction(const std::string& value) {
     std::vector<GNEJunction*> parentJunctions = getParentJunctions();
     parentJunctions[0] = myNet->retrieveJunction(value);
     // replace parent junctions
@@ -1553,8 +1554,8 @@ GNEEdge::updateFirstParentJunction(const std::string &value) {
 }
 
 
-void 
-GNEEdge::updateSecondParentJunction(const std::string &value) {
+void
+GNEEdge::updateSecondParentJunction(const std::string& value) {
     std::vector<GNEJunction*> parentJunctions = getParentJunctions();
     parentJunctions[1] = myNet->retrieveJunction(value);
     // replace parent junctions

@@ -35,7 +35,7 @@
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
     GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, "", false,
-        {}, {}, {lane}, {VSSParent}, {}, {}, {}, {}) {             
+{}, {}, {lane}, {VSSParent}, {}, {}, {}, {}) {
 }
 
 
@@ -75,9 +75,9 @@ GNEVariableSpeedSignSymbol::getCenteringBoundary() const {
 }
 
 
-void 
-GNEVariableSpeedSignSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, 
-    const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
+void
+GNEVariableSpeedSignSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/,
+        const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // nothing to split
 }
 

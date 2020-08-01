@@ -45,7 +45,7 @@ GNETagProperties::GNETagProperties() :
 }
 
 
-GNETagProperties::GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag> &masterTags, SumoXMLTag tagSynonym) :
+GNETagProperties::GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag>& masterTags, SumoXMLTag tagSynonym) :
     myTag(tag),
     myTagStr(toString(tag)),
     myTagType(tagType),
@@ -477,13 +477,13 @@ GNETagProperties::canCenterCameraAfterCreation() const {
 }
 
 
-bool 
+bool
 GNETagProperties::personPlanStartEdge() const {
     return (myTagProperty & PERSONPLAN_START_EDGE) != 0;
 }
 
 
-bool 
+bool
 GNETagProperties::personPlanEndEdge() const {
     return (myTagProperty & PERSONPLAN_END_EDGE) != 0;
 }
@@ -495,13 +495,13 @@ GNETagProperties::personPlanStartBusStop() const {
 }
 
 
-bool 
+bool
 GNETagProperties::personPlanEndBusStop() const {
     return (myTagProperty & PERSONPLAN_END_BUSSTOP) != 0;
 }
 
 
-bool 
+bool
 GNETagProperties::embebbedRoute() const {
     return (myTagProperty & EMBEDDED_ROUTE) != 0;
 }

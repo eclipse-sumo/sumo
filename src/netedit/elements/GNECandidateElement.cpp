@@ -52,7 +52,7 @@ GNECandidateElement::resetCandidateFlags() {
 }
 
 
-bool 
+bool
 GNECandidateElement::isPossibleCandidate() const {
     return myPossibleCandidate;
 }
@@ -65,19 +65,19 @@ GNECandidateElement::isSourceCandidate() const {
 }
 
 
-bool 
+bool
 GNECandidateElement::isTargetCandidate() const {
     return myTargetCandidate;
 }
 
 
-bool 
+bool
 GNECandidateElement::isSpecialCandidate() const {
     return mySpecialCandidate;
 }
 
 
-bool 
+bool
 GNECandidateElement::isConflictedCandidate() const {
     return myConflictedCandidate;
 }
@@ -107,7 +107,7 @@ GNECandidateElement::setSpecialCandidate(const bool value) {
 }
 
 
-void 
+void
 GNECandidateElement::setConflictedCandidate(const bool value) {
     myConflictedCandidate = value;
 }
@@ -119,13 +119,13 @@ GNECandidateElement::getReachability() const {
 }
 
 
-void 
+void
 GNECandidateElement::setReachability(const double reachability) {
     myReachability = reachability;
 }
 
 
-void 
+void
 GNECandidateElement::resetReachability() {
     myReachability = -1;
 }

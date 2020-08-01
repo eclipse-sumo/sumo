@@ -62,10 +62,10 @@ public:
     void updateAttributeColors();
 
     /// @brief all attribute colors
-    const GNEDataSet::AttributeColors &getAllAttributeColors() const;
+    const GNEDataSet::AttributeColors& getAllAttributeColors() const;
 
     /// @brief specific attribute colors
-    const std::map<SumoXMLTag, GNEDataSet::AttributeColors> &getSpecificAttributeColors() const;
+    const std::map<SumoXMLTag, GNEDataSet::AttributeColors>& getSpecificAttributeColors() const;
 
     /// @brief get ID
     const std::string& getID() const;

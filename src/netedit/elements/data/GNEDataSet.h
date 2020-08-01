@@ -49,16 +49,16 @@ public:
         AttributeColors();
 
         /// @brief update value for an specific attribute
-        void updateValues(const std::string &attribute, const double value);
+        void updateValues(const std::string& attribute, const double value);
 
         /// @brief update value for all attributes
-        void updateAllValues(const AttributeColors &attributeColors);
+        void updateAllValues(const AttributeColors& attributeColors);
 
         /// @brief get minimum value
-        double getMinValue(const std::string &attribute) const;
+        double getMinValue(const std::string& attribute) const;
 
         /// @brief get maximum value
-        double getMaxValue(const std::string &attribute) const;
+        double getMaxValue(const std::string& attribute) const;
 
         /// @brief clear AttributeColors
         void clear();
@@ -92,10 +92,10 @@ public:
     void updateAttributeColors();
 
     /// @brief all attribute colors
-    const GNEDataSet::AttributeColors &getAllAttributeColors() const;
+    const GNEDataSet::AttributeColors& getAllAttributeColors() const;
 
     /// @brief specific attribute colors
-    const std::map<SumoXMLTag, GNEDataSet::AttributeColors> &getSpecificAttributeColors() const;
+    const std::map<SumoXMLTag, GNEDataSet::AttributeColors>& getSpecificAttributeColors() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();

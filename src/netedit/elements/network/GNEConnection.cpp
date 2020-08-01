@@ -50,12 +50,12 @@ int NUM_POINTS = 5;
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(),
                       GLO_CONNECTION, SUMO_TAG_CONNECTION,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    myFromLane(from),
-    myToLane(to),
-    myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-    mySpecialColor(nullptr),
-    myShapeDeprecated(true) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myFromLane(from),
+myToLane(to),
+myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
+mySpecialColor(nullptr),
+myShapeDeprecated(true) {
 }
 
 
@@ -208,7 +208,7 @@ GNEConnection::moveConnectionShape(const Position& offset) {
         const int lastIndex = (int)newShape.size() - 1;
         // check if we have to move first and last postion
         if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
-            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
             // move first and last position in newShape
             newShape[0].add(offset);
             newShape[lastIndex] = newShape[0];
@@ -228,7 +228,7 @@ GNEConnection::moveConnectionShape(const Position& offset) {
 void
 GNEConnection::commitConnectionShapeChange(GNEUndoList* undoList) {
     // get visualisation settings
-    auto &s = myNet->getViewNet()->getVisualisationSettings();
+    auto& s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = getNBEdgeConnection().customShape;
     // get geometryPoint radius
@@ -459,8 +459,8 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
                 if (value != "") {
                     int shapeIndex = (int)myConnectionGeometry.getShape().size() / 2;
                     Position p = (myConnectionGeometry.getShape().size() == 2
-                        ? (myConnectionGeometry.getShape().front() * 0.67 + myConnectionGeometry.getShape().back() * 0.33)
-                        : myConnectionGeometry.getShape()[shapeIndex]);
+                                  ? (myConnectionGeometry.getShape().front() * 0.67 + myConnectionGeometry.getShape().back() * 0.33)
+                                  : myConnectionGeometry.getShape()[shapeIndex]);
                     GLHelper::drawTextSettings(s.edgeValue, value, p, s.scale, 0);
                 }
             }

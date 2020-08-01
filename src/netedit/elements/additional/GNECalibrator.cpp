@@ -33,24 +33,24 @@
 // ===========================================================================
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency,
-    const std::string& name, const std::string& output, const std::string& routeprobe) :
+                             const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false,
-        {}, {edge}, {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe) {
+{}, {edge}, {}, {}, {}, {}, {}, {}),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myRouteProbe(routeprobe) {
 }
 
 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency,
                              const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false,
-        {}, {}, {lane}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe) {
+{}, {}, {lane}, {}, {}, {}, {}, {}),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myRouteProbe(routeprobe) {
 }
 
 

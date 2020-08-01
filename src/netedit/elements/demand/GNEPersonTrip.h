@@ -45,7 +45,7 @@ public:
      * @param[in] modes list of possible traffic modes
      */
     GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /**@brief parameter constructor for person edge->busStop
     * @param[in] viewNet view in which this PersonTrip is placed
@@ -57,7 +57,7 @@ public:
     * @param[in] modes list of possible traffic modes
     */
     GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
-        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /**@brief parameter constructor for person edge->edge
     * @param[in] viewNet view in which this PersonTrip is placed
@@ -69,7 +69,7 @@ public:
     * @param[in] modes list of possible traffic modes
     */
     GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
-        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /**@brief parameter constructor for person edge->edge
     * @param[in] viewNet view in which this PersonTrip is placed
@@ -81,7 +81,7 @@ public:
     * @param[in] modes list of possible traffic modes
     */
     GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
-        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
+                  double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes);
 
     /// @brief destructor
     ~GNEPersonTrip();

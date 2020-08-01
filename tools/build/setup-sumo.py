@@ -14,7 +14,7 @@
 # @file    setup-sumo.py
 # @author  Michael Behrisch
 # @date    2020-07-28
-import os
+
 from skbuild import setup
 import version
 

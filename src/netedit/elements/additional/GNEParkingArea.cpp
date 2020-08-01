@@ -300,7 +300,7 @@ GNEParkingArea::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
             // Change IDs of all parking Spaces
-            for (const auto &parkingSpace : getChildAdditionals()) {
+            for (const auto& parkingSpace : getChildAdditionals()) {
                 parkingSpace->setMicrosimID(getID());
             }
             break;

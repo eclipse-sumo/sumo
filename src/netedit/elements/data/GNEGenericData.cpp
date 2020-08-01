@@ -42,15 +42,15 @@
 // ---------------------------------------------------------------------------
 
 GNEGenericData::GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-        const std::map<std::string, std::string>& parameters,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents) :
+                               const std::map<std::string, std::string>& parameters,
+                               const std::vector<GNEJunction*>& junctionParents,
+                               const std::vector<GNEEdge*>& edgeParents,
+                               const std::vector<GNELane*>& laneParents,
+                               const std::vector<GNEAdditional*>& additionalParents,
+                               const std::vector<GNEShape*>& shapeParents,
+                               const std::vector<GNETAZElement*>& TAZElementParents,
+                               const std::vector<GNEDemandElement*>& demandElementParents,
+                               const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, dataIntervalParent->getID()),
     GNEAttributeCarrier(tag, dataIntervalParent->getNet()),
     Parameterised(ParameterisedAttrType::DOUBLE, parameters),
@@ -169,8 +169,8 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
-void 
-GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector &laneShape, const std::string &attribute) const {
+void
+GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute) const {
     if (getParametersMap().count(attribute) > 0) {
         const Position pos = laneShape.positionAtOffset2D(laneShape.length2D() * 0.5);
         const double rot = laneShape.rotationDegreeAtOffset(laneShape.length2D() * 0.5);
@@ -184,7 +184,7 @@ GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const P
 }
 
 
-bool 
+bool
 GNEGenericData::isVisibleInspectDeleteSelect() const {
     // get toolbar
     const GNEViewNetHelper::IntervalBar& toolBar = myNet->getViewNet()->getIntervalBar();
@@ -215,7 +215,7 @@ GNEGenericData::isVisibleInspectDeleteSelect() const {
 }
 
 void
-GNEGenericData::replaceFirstParentEdge(const std::string &value) {
+GNEGenericData::replaceFirstParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
     parentEdges[0] = myNet->retrieveEdge(value);
     // replace parent edges
@@ -224,16 +224,16 @@ GNEGenericData::replaceFirstParentEdge(const std::string &value) {
 
 
 void
-GNEGenericData::replaceLastParentEdge(const std::string &value) {
+GNEGenericData::replaceLastParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
-    parentEdges[(int)parentEdges.size() -1] = myNet->retrieveEdge(value);
+    parentEdges[(int)parentEdges.size() - 1] = myNet->retrieveEdge(value);
     // replace parent edges
     replaceParentElements(this, parentEdges);
 }
 
 
 void
-GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string &value) {
+GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& value) {
     std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
     parentTAZElements[0] = myNet->retrieveTAZElement(tag, value);
     // replace parent TAZElements
@@ -242,9 +242,9 @@ GNEGenericData::replaceFirstParentTAZElement(SumoXMLTag tag, const std::string &
 
 
 void
-GNEGenericData::replaceLastParentTAZElement(SumoXMLTag tag, const std::string &value) {
+GNEGenericData::replaceLastParentTAZElement(SumoXMLTag tag, const std::string& value) {
     std::vector<GNETAZElement*> parentTAZElements = getParentTAZElements();
-    parentTAZElements[(int)parentTAZElements.size() -1] = myNet->retrieveTAZElement(tag, value);
+    parentTAZElements[(int)parentTAZElements.size() - 1] = myNet->retrieveTAZElement(tag, value);
     // replace parent TAZElements
     replaceParentElements(this, parentTAZElements);
 }

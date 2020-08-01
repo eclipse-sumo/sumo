@@ -98,7 +98,7 @@ public:
     GNETagProperties();
 
     /// @brief parameter constructor
-    GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag> &master_tag = {}, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
+    GNETagProperties(SumoXMLTag tag, int tagType, int tagProperty, GUIIcon icon, const std::vector<SumoXMLTag>& master_tag = {}, SumoXMLTag tagSynonym = SUMO_TAG_NOTHING);
 
     /// @brief destructor
     ~GNETagProperties();
@@ -137,7 +137,7 @@ public:
     GUIIcon getGUIIcon() const;
 
     /// @brief get master tags
-    const std::vector<SumoXMLTag> &getMasterTags() const;
+    const std::vector<SumoXMLTag>& getMasterTags() const;
 
     /// @brief get tag synonym
     SumoXMLTag getTagSynonym() const;
@@ -274,7 +274,7 @@ public:
     /// @brief return true if tag correspond to a person plan that starts in an edge
     bool personPlanEndEdge() const;
 
-    /// @brief return true if tag correspond to a person plan that starts in a busStop 
+    /// @brief return true if tag correspond to a person plan that starts in a busStop
     bool personPlanStartBusStop() const;
 
     /// @brief return true if tag correspond to a person plan that starts in a busStop

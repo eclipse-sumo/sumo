@@ -106,7 +106,7 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief draw connections between busStops and access
-    void drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor &color) const;
+    void drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor& color) const;
 
     /// @brief Invalidated copy constructor.
     GNEBusStop(const GNEBusStop&) = delete;

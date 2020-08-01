@@ -36,15 +36,15 @@
 
 GNEPersonStop::GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(personParent, net, GLO_PERSONSTOP, GNE_TAG_PERSONSTOP_BUSSTOP,
-        {}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {}, {stoppingPlace}, {}, {}, {personParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
-GNEPersonStop::GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdge *edge, const SUMOVehicleParameter::Stop& stopParameter) :
+GNEPersonStop::GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter) :
     GNEDemandElement(personParent, net, GLO_PERSONSTOP, GNE_TAG_PERSONSTOP_EDGE,
-        {}, {edge}, {}, {}, {}, {}, {personParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {edge}, {}, {}, {}, {}, {personParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -238,10 +238,10 @@ void
 GNEPersonStop::updateGeometry() {
     // only update Stops over lanes, because other uses the geometry of stopping place parent
     if (getParentEdges().size() > 0) {
-    /*
-        // Cut shape using as delimitators fixed start position and fixed end position
-        myDemandElementGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
-    */
+        /*
+            // Cut shape using as delimitators fixed start position and fixed end position
+            myDemandElementGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), getStartGeometryPositionOverLane(), getEndGeometryPositionOverLane());
+        */
     } else if (getParentAdditionals().size() > 0) {
         // use geometry of additional (busStop)
         myDemandElementGeometry.updateGeometry(getParentAdditionals().at(0));
@@ -439,13 +439,13 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GNEPersonStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
     // personStops don't use drawPartialGL
 }
 
 
-void 
+void
 GNEPersonStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const double /*offsetFront*/) const {
     // personStops don't use drawPartialGL
 }

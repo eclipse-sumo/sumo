@@ -48,7 +48,7 @@ GNEDataSet::AttributeColors::AttributeColors() {
 
 
 void
-GNEDataSet::AttributeColors::updateValues(const std::string &attribute, const double value) {
+GNEDataSet::AttributeColors::updateValues(const std::string& attribute, const double value) {
     // check if exist
     if (myMinMaxValue.count(attribute) == 0) {
         myMinMaxValue[attribute] = std::make_pair(value, value);
@@ -65,10 +65,10 @@ GNEDataSet::AttributeColors::updateValues(const std::string &attribute, const do
 }
 
 
-void 
-GNEDataSet::AttributeColors::updateAllValues(const AttributeColors &attributeColors) {
+void
+GNEDataSet::AttributeColors::updateAllValues(const AttributeColors& attributeColors) {
     // iterate over map
-    for (const auto &attributeColor : attributeColors.myMinMaxValue) {
+    for (const auto& attributeColor : attributeColors.myMinMaxValue) {
         if (myMinMaxValue.count(attributeColor.first) == 0) {
             myMinMaxValue[attributeColor.first] = attributeColor.second;
         } else {
@@ -85,19 +85,19 @@ GNEDataSet::AttributeColors::updateAllValues(const AttributeColors &attributeCol
 }
 
 
-double 
-GNEDataSet::AttributeColors::getMinValue(const std::string &attribute) const {
+double
+GNEDataSet::AttributeColors::getMinValue(const std::string& attribute) const {
     return myMinMaxValue.at(attribute).first;
 }
 
 
-double 
-GNEDataSet::AttributeColors::getMaxValue(const std::string &attribute) const {
+double
+GNEDataSet::AttributeColors::getMaxValue(const std::string& attribute) const {
     return myMinMaxValue.at(attribute).second;
 }
 
 
-void 
+void
 GNEDataSet::AttributeColors::clear() {
     myMinMaxValue.clear();
 }
@@ -153,7 +153,7 @@ GNEDataSet::updateAttributeColors() {
     }
     // iterate over specificdata interval children
     for (const auto& interval : myDataIntervalChildren) {
-        for (const auto &specificAttributeColor : interval.second->getSpecificAttributeColors()) {
+        for (const auto& specificAttributeColor : interval.second->getSpecificAttributeColors()) {
             mySpecificAttributeColors[specificAttributeColor.first].updateAllValues(specificAttributeColor.second);
         }
     }

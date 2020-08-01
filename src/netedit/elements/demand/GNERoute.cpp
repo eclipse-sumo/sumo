@@ -72,10 +72,10 @@ GNERoute::GNERoutePopupMenu::onCmdApplyDistance(FXObject*, FXSelector, void*) {
 
 GNERoute::GNERoute(GNENet* net) :
     GNEDemandElement(net->generateDemandElementID(SUMO_TAG_ROUTE), net, GLO_ROUTE, SUMO_TAG_ROUTE,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(RGBColor::YELLOW),
-    myVClass(SVC_PASSENGER) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(RGBColor::YELLOW),
+myVClass(SVC_PASSENGER) {
     // compute route
     computePath();
 }
@@ -83,10 +83,10 @@ GNERoute::GNERoute(GNENet* net) :
 
 GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(routeParameters.routeID, net, GLO_ROUTE, SUMO_TAG_ROUTE,
-    {}, routeParameters.edges, {}, {}, {}, {}, {}, {}),
-    Parameterised(routeParameters.parameters),
-    myColor(routeParameters.color),
-    myVClass(routeParameters.vClass) {
+{}, routeParameters.edges, {}, {}, {}, {}, {}, {}),
+Parameterised(routeParameters.parameters),
+myColor(routeParameters.color),
+myVClass(routeParameters.vClass) {
     // compute route
     computePath();
 }
@@ -94,10 +94,10 @@ GNERoute::GNERoute(GNENet* net, const GNERouteHandler::RouteParameter& routePara
 
 GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteHandler::RouteParameter& routeParameters) :
     GNEDemandElement(vehicleParent, net, GLO_ROUTE, GNE_TAG_ROUTE_EMBEDDED,
-        {}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}),
-    Parameterised(routeParameters.parameters),
-    myColor(routeParameters.color),
-    myVClass(routeParameters.vClass) {
+{}, routeParameters.edges, {}, {}, {}, {}, {vehicleParent}, {}),
+Parameterised(routeParameters.parameters),
+myColor(routeParameters.color),
+myVClass(routeParameters.vClass) {
     // compute route
     computePath();
 }
@@ -105,10 +105,10 @@ GNERoute::GNERoute(GNENet* net, GNEDemandElement* vehicleParent, const GNERouteH
 
 GNERoute::GNERoute(GNEDemandElement* route) :
     GNEDemandElement(route, route->getNet(), GLO_ROUTE, SUMO_TAG_ROUTE,
-        {}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
-    Parameterised(),
-    myColor(route->getColor()),
-    myVClass(route->getVClass()) {
+{}, route->getParentEdges(), {}, {}, {}, {}, {}, {}),
+Parameterised(),
+myColor(route->getColor()),
+myVClass(route->getVClass()) {
     // compute route
     computePath();
 }
@@ -310,13 +310,13 @@ GNERoute::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // check if route can be drawn
-    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && 
-        myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-        myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+    if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() &&
+            myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
+            myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // get route width
         const double routeWidth = s.addSize.getExaggeration(s, lane) * s.widthSettings.route;
         // obtain color
-        const RGBColor routeColor = drawUsingSelectColor()? s.colorSettings.selectedRouteColor : getColor();
+        const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -367,15 +367,15 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
 }
 
 
-void 
+void
 GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
     // only drawn in super mode demand
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
-        fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
+            fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // calculate width
         const double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.route;
         // obtain lane2lane geometry
-        const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+        const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix

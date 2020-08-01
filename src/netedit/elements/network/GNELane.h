@@ -96,7 +96,7 @@ public:
     const std::vector<double>& getShapeLengths() const;
 
     /// @brief get dotted lane geometry
-    const GNEGeometry::DottedGeometry &getDottedLaneGeometry() const;
+    const GNEGeometry::DottedGeometry& getDottedLaneGeometry() const;
 
     /// @brief update pre-computed geometry information
     void updateGeometry();
@@ -357,10 +357,10 @@ private:
     void drawDirectionIndicators(const GUIVisualizationSettings& s, double exaggeration, const bool drawAsRailway, const bool spreadSuperposed) const;
 
     /// @brief draw lane as railway
-    void drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants &laneDrawingConstants) const;
+    void drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief draw lane textures
-    void drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants &laneDrawingConstants) const;
+    void drawTextures(const GUIVisualizationSettings& s, const LaneDrawingConstants& laneDrawingConstants) const;
 
     /// @brief draw start and end shape points
     void drawStartEndShapePoints(const GUIVisualizationSettings& s) const;

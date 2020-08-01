@@ -421,8 +421,8 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, 
         } else {
             net->getAttributeCarriers()->insertAdditional(detectorE2);
             // use to avoid LNK2019
-            GNEAdditional *detectorE2Additional = detectorE2;
-            for (const auto &lane : lanes) {
+            GNEAdditional* detectorE2Additional = detectorE2;
+            for (const auto& lane : lanes) {
                 lane->addChildElement(detectorE2Additional);
             }
             detectorE2->incRef("buildDetectorE2Multilane");
@@ -601,13 +601,13 @@ GNEAdditionalHandler::buildRerouter(GNENet* net, bool allowUndoRedo, const std::
         GNEAdditional* rerouter = new GNERerouter(id, net, pos, name, file, prob, off, timeThreshold, vTypes, blockMovement);
         // create rerouter Symbols
         std::vector<GNEAdditional*> rerouterSymbols;
-        for (const auto &edge : edges) {
+        for (const auto& edge : edges) {
             rerouterSymbols.push_back(new GNERerouterSymbol(rerouter, edge));
         }
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_REROUTER));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouter, true), true);
-            for (const auto &rerouterSymbol : rerouterSymbols) {
+            for (const auto& rerouterSymbol : rerouterSymbols) {
                 net->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterSymbol, true), true);
             }
             net->getViewNet()->getUndoList()->p_end();
@@ -779,13 +779,13 @@ GNEAdditionalHandler::buildVariableSpeedSign(GNENet* net, bool allowUndoRedo, co
         GNEAdditional* variableSpeedSign = new GNEVariableSpeedSign(id, net, pos, name, blockMovement);
         // create VSS Symbols
         std::vector<GNEAdditional*> VSSSymbols;
-        for (const auto &lane : lanes) {
+        for (const auto& lane : lanes) {
             VSSSymbols.push_back(new GNEVariableSpeedSignSymbol(variableSpeedSign, lane));
         }
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_VSS));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(variableSpeedSign, true), true);
-            for (const auto &VSSSymbol : VSSSymbols) {
+            for (const auto& VSSSymbol : VSSSymbols) {
                 net->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSSymbol, true), true);
             }
             net->getViewNet()->getUndoList()->p_end();
@@ -851,7 +851,7 @@ GNEAdditionalHandler::buildTAZ(GNENet* net, bool allowUndoRedo, const std::strin
         net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_TAZ));
         net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZ, true), true);
         // create TAZEdges
-        for (const auto &edge : edges) {
+        for (const auto& edge : edges) {
             // create TAZ Source using GNEChange_Additional
             GNETAZElement* TAZSource = new GNETAZSourceSink(SUMO_TAG_TAZSOURCE, TAZ, edge, 1);
             net->getViewNet()->getUndoList()->add(new GNEChange_TAZElement(TAZSource, true), true);
@@ -887,7 +887,7 @@ GNETAZElement*
 GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElement* TAZ, GNEEdge* edge, double departWeight) {
     GNETAZElement* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (const auto & TAZElement : TAZ->getChildTAZElements()) {
+    for (const auto& TAZElement : TAZ->getChildTAZElements()) {
         if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSink = TAZElement;
         }
@@ -908,7 +908,7 @@ GNEAdditionalHandler::buildTAZSource(GNENet* net, bool allowUndoRedo, GNETAZElem
     // now check check if TAZSource exist
     GNETAZElement* TAZSource = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (const auto &TAZElement : TAZ->getChildTAZElements()) {
+    for (const auto& TAZElement : TAZ->getChildTAZElements()) {
         if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSource = TAZElement;
         }
@@ -964,7 +964,7 @@ GNEAdditionalHandler::buildTAZSink(GNENet* net, bool allowUndoRedo, GNETAZElemen
     }
     GNETAZElement* TAZSink = nullptr;
     // first check if a TAZSink in the same edge for the same TAZ
-    for (const auto &TAZElement : TAZ->getChildTAZElements()) {
+    for (const auto& TAZElement : TAZ->getChildTAZElements()) {
         if ((TAZElement->getTagProperty().getTag() == SUMO_TAG_TAZSINK) && (TAZElement->getAttribute(SUMO_ATTR_EDGE) == edge->getID())) {
             TAZSink = TAZElement;
         }

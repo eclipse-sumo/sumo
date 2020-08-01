@@ -33,15 +33,15 @@
 // ===========================================================================
 
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename,
-        const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
+                             const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myPosition(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myPosition(pos),
+myFreq(freq),
+myFilename(filename),
+myVehicleTypes(vehicleTypes),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold) {
 }
 
 
@@ -141,7 +141,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         glColor3d(1, 1, 1);
         // rotate
         glRotated(180, 0, 0, 1);
-        // draw depending 
+        // draw depending
         if (s.drawForRectangleSelection || !s.drawDetail(s.detailSettings.laneTextures, E3Exaggeration)) {
             // set color
             GLHelper::setColor(RGBColor::GREY);
@@ -332,7 +332,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
             // Change IDs of all Entry/Exits children
-            for (const auto &entryExit : getChildAdditionals()) {
+            for (const auto& entryExit : getChildAdditionals()) {
                 entryExit->setMicrosimID(getID());
             }
             break;

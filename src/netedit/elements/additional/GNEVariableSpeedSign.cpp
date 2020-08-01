@@ -39,8 +39,8 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name, bool blockMovement) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name, blockMovement,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    myPosition(pos) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myPosition(pos) {
 }
 
 
@@ -195,7 +195,7 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
             return getID();
         case SUMO_ATTR_LANES: {
             std::vector<std::string> lanes;
-            for (const auto &VSSSymbol : getChildAdditionals()) {
+            for (const auto& VSSSymbol : getChildAdditionals()) {
                 lanes.push_back(VSSSymbol->getAttribute(SUMO_ATTR_LANE));
             }
             return toString(lanes);
@@ -326,7 +326,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::rebuildVSSSymbols(const std::string& value, GNEUndoList* undoList) {
     undoList->p_begin(("change " + getTagStr() + " attribute").c_str());
     // drop all additional children
@@ -336,7 +336,7 @@ GNEVariableSpeedSign::rebuildVSSSymbols(const std::string& value, GNEUndoList* u
     // get lane vector
     const std::vector<GNELane*> lanes = parse<std::vector<GNELane*> >(myNet, value);
     // create new VSS Symbols
-    for (const auto &lane : lanes) {
+    for (const auto& lane : lanes) {
         // create VSS Symbol
         GNEAdditional* VSSSymbol = new GNEVariableSpeedSignSymbol(this, lane);
         // add it using GNEChange_Additional

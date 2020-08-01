@@ -33,16 +33,19 @@ for f in sorted(glob.glob(os.path.join(os.path.dirname(package_dir), 'bin', '*.d
     if not f.endswith("d.dll") or f[:-5] + ".dll" not in data_files:
         data_files.append(f)
 
+
 class InstallPlatlib(install):
     def finalize_options(self):
         install.finalize_options(self)
         if self.distribution.has_ext_modules():
             self.install_lib = self.install_platlib
 
+
 class BinaryDistribution(Distribution):
     """Distribution which always forces a binary package with platform name"""
     def has_ext_modules(foo):
         return True
+
 
 setup(
     name='libsumo',

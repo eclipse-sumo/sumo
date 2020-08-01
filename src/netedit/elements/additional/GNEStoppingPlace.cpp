@@ -43,14 +43,14 @@ const double GNEStoppingPlace::myCircleInText = 1.6;
 // ===========================================================================
 
 GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-    GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name,
-    bool friendlyPosition, bool blockMovement) :
+                                   GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name,
+                                   bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, blockMovement,
-        {}, {}, {lane}, {}, {}, {}, {}, {}),
-    myStartPosition(startPos),
-    myEndPosition(endPos),
-    myParametersSet(parametersSet),
-    myFriendlyPosition(friendlyPosition) {
+{}, {}, {lane}, {}, {}, {}, {}, {}),
+myStartPosition(startPos),
+myEndPosition(endPos),
+myParametersSet(parametersSet),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -369,8 +369,8 @@ GNEStoppingPlace::getHierarchyName() const {
 }
 
 
-void 
-GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector<std::string> &lines, const RGBColor &color) const {
+void
+GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector<std::string>& lines, const RGBColor& color) const {
     if (!s.drawForPositionSelection) {
         // Iterate over every line
         for (int i = 0; i < (int)lines.size(); ++i) {
@@ -392,9 +392,9 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
 }
 
 
-void 
-GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exaggeration, 
-    const RGBColor &baseColor, const RGBColor &signColor, const std::string &word) const {
+void
+GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exaggeration,
+                           const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const {
     if (s.drawForPositionSelection) {
         // only draw circle depending of distance between sign and mouse cursor
         if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {

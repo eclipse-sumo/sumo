@@ -161,8 +161,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::onCmdTransform(FXObject* obj, FXSelector
 
 GNEPerson::GNEPerson(SumoXMLTag tag, GNENet* net, GNEDemandElement* pType, const SUMOVehicleParameter& personparameters) :
     GNEDemandElement(personparameters.id, net, (tag == SUMO_TAG_PERSONFLOW) ? GLO_PERSONFLOW : GLO_PERSON, tag,
-        {}, {}, {}, {}, {}, {}, {pType}, {}),
-    SUMOVehicleParameter(personparameters) {
+{}, {}, {}, {}, {}, {}, {pType}, {}),
+SUMOVehicleParameter(personparameters) {
     // set manually vtypeID (needed for saving)
     vtypeid = pType->getID();
 }
@@ -453,13 +453,13 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
 
 
-void 
+void
 GNEPerson::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
@@ -800,7 +800,7 @@ GNEPerson::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
             // Change IDs of all person plans children
-            for (const auto &personPlans : getChildDemandElements()) {
+            for (const auto& personPlans : getChildDemandElements()) {
                 personPlans->setMicrosimID(getID());
             }
             break;

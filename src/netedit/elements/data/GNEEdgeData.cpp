@@ -47,18 +47,18 @@
 
 GNEEdgeData::GNEEdgeData(GNEDataInterval* dataIntervalParent, GNEEdge* edgeParent, const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_MEANDATA_EDGE, GLO_EDGEDATA, dataIntervalParent, parameters,
-        {}, {edgeParent}, {}, {}, {}, {}, {}, {}) {
+{}, {edgeParent}, {}, {}, {}, {}, {}, {}) {
 }
 
 
 GNEEdgeData::~GNEEdgeData() {}
 
 
-const RGBColor& 
+const RGBColor&
 GNEEdgeData::getColor() const {
     if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGEDATA) {
         // get selected data interval and filtered attribute
-        const GNEDataInterval *dataInterval = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval();
+        const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval();
         const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute();
         // continue if there is a selected data interval and filtered attribute
         if (dataInterval && (filteredAttribute.size() > 0)) {
@@ -76,7 +76,7 @@ GNEEdgeData::getColor() const {
 }
 
 
-bool 
+bool
 GNEEdgeData::isGenericDataVisible() const {
     // first check if we're in supermode data
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
@@ -89,7 +89,7 @@ GNEEdgeData::isGenericDataVisible() const {
         return isVisibleInspectDeleteSelect();
     } else if (myDataIntervalParent->getNet()->getViewNet()->getViewParent()->getEdgeDataFrame()->shown()) {
         // get selected data interval and filtered attribute
-        const GNEDataInterval *dataInterval = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval();
+        const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getIntervalSelector()->getDataInterval();
         const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute();
         // check interval
         if ((dataInterval != nullptr) && (dataInterval != myDataIntervalParent)) {
@@ -155,13 +155,13 @@ GNEEdgeData::fixGenericDataProblem() {
 }
 
 
-void 
+void
 GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Nothing to draw
 }
 
 
-void 
+void
 GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // get lane width
     const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdges().front()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);

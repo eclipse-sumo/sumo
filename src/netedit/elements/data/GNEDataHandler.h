@@ -154,7 +154,7 @@ public:
      * @exception InvalidArgument If the edgeData can not be added to the net
      */
     static GNEGenericData* buildEdgeData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
-                                      GNEEdge* edge, const std::map<std::string, std::string>& parameters);
+                                         GNEEdge* edge, const std::map<std::string, std::string>& parameters);
 
     /**@brief Builds edgeRelationData
      * @param[in] net GNENet in which element will be inserted
@@ -178,7 +178,7 @@ public:
      * @exception InvalidArgument If the TAZRelationData can not be added to the net
      */
     static GNEGenericData* buildTAZRelationData(GNENet* net, bool allowUndoRedo, GNEDataInterval* dataIntervalParent,
-        GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters);
+            GNETAZElement* fromTAZ, GNETAZElement* toTAZ, const std::map<std::string, std::string>& parameters);
 
 protected:
     /// @name parsing methods

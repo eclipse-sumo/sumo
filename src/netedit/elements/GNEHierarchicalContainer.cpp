@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEHierarchicalElementHelper.cpp
+/// @file    GNEHierarchicalContainer.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2020
 ///
@@ -49,26 +49,26 @@ GNEHierarchicalContainer::GNEHierarchicalContainer(
 }
 
 
-size_t 
+size_t
 GNEHierarchicalContainer::getContainerSize() const {
     return (
-        myParentJunctions.size() + 
-        myParentEdges.size() + 
-        myParentLanes.size() + 
-        myParentAdditionals.size() + 
-        myParentShapes.size() + 
-        myParentTAZElements.size() + 
-        myParentDemandElements.size() + 
-        myParentGenericDatas.size() + 
-        myChildJunctions.size() + 
-        myChildEdges.size() + 
-        myChildLanes.size() + 
-        myChildAdditionals.size() + 
-        myChildShapes.size() + 
-        myChildTAZElements.size() + 
-        myChildDemandElements.size() + 
-        myChildGenericDatas.size()
-    );
+               myParentJunctions.size() +
+               myParentEdges.size() +
+               myParentLanes.size() +
+               myParentAdditionals.size() +
+               myParentShapes.size() +
+               myParentTAZElements.size() +
+               myParentDemandElements.size() +
+               myParentGenericDatas.size() +
+               myChildJunctions.size() +
+               myChildEdges.size() +
+               myChildLanes.size() +
+               myChildAdditionals.size() +
+               myChildShapes.size() +
+               myChildTAZElements.size() +
+               myChildDemandElements.size() +
+               myChildGenericDatas.size()
+           );
 }
 
 
@@ -496,43 +496,43 @@ GNEHierarchicalContainer::setParents(const std::vector<GNEJunction*>& newParents
 
 template<> void
 GNEHierarchicalContainer::setParents(const std::vector<GNEEdge*>& newParents) {
-     myParentEdges = newParents;
+    myParentEdges = newParents;
 }
 
 
 template<> void
 GNEHierarchicalContainer::setParents(const std::vector<GNELane*>& newParents) {
-     myParentLanes = newParents;
+    myParentLanes = newParents;
 }
 
 
 template<> void
 GNEHierarchicalContainer::setParents(const std::vector<GNEAdditional*>& newParents) {
-     myParentAdditionals = newParents;
+    myParentAdditionals = newParents;
 }
 
 
 template<> void
 GNEHierarchicalContainer::setParents(const std::vector<GNEShape*>& newParents) {
-     myParentShapes = newParents;
+    myParentShapes = newParents;
 }
 
 
 template<> void
 GNEHierarchicalContainer::setParents(const std::vector<GNETAZElement*>& newParents) {
-     myParentTAZElements = newParents;
+    myParentTAZElements = newParents;
 }
 
 
 template<> void
 GNEHierarchicalContainer::setParents(const std::vector<GNEDemandElement*>& newParents) {
-     myParentDemandElements = newParents;
+    myParentDemandElements = newParents;
 }
 
 
 template<> void
 GNEHierarchicalContainer::setParents(const std::vector<GNEGenericData*>& newParents) {
-     myParentGenericDatas = newParents;
+    myParentGenericDatas = newParents;
 }
 
 

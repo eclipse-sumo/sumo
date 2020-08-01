@@ -44,22 +44,22 @@
 // ---------------------------------------------------------------------------
 
 GNETAZRelData::GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
-        const std::map<std::string, std::string>& parameters) :
+                             const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_TAZREL, GLO_TAZRELDATA, dataIntervalParent, parameters,
-        {}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}) {
+{}, {}, {}, {}, {}, {fromTAZ, toTAZ}, {}, {}) {
 }
 
 
 GNETAZRelData::~GNETAZRelData() {}
 
 
-const RGBColor& 
+const RGBColor&
 GNETAZRelData::getColor() const {
     return RGBColor::ORANGE;
 }
 
 
-bool 
+bool
 GNETAZRelData::isGenericDataVisible() const {
     // first check if we're in supermode data
     if (!myNet->getViewNet()->getEditModes().isCurrentSupermodeData()) {
@@ -75,12 +75,12 @@ GNETAZRelData::isGenericDataVisible() const {
     } else if (TAZRelDataFrame->shown()) {
         // check interval
         if ((TAZRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
-            (TAZRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+                (TAZRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
             return false;
         }
         // check attribute
         if ((TAZRelDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-            (getParametersMap().count(TAZRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+                (getParametersMap().count(TAZRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
             return false;
         }
         // all checks ok, then return true
@@ -140,19 +140,19 @@ GNETAZRelData::fixGenericDataProblem() {
 }
 
 
-void 
+void
 GNETAZRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Nothing to draw
 }
 
 
-void 
+void
 GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
     //
 }
 
 
-void 
+void
 GNETAZRelData::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*fromLane*/, const GNELane* /*toLane*/, const double /*offsetFront*/) const {
     //
 }

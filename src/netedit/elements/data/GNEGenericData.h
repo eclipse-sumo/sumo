@@ -68,15 +68,15 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      */
     GNEGenericData(const SumoXMLTag tag, const GUIGlObjectType type, GNEDataInterval* dataIntervalParent,
-        const std::map<std::string, std::string>& parameters,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+                   const std::map<std::string, std::string>& parameters,
+                   const std::vector<GNEJunction*>& junctionParents,
+                   const std::vector<GNEEdge*>& edgeParents,
+                   const std::vector<GNELane*>& laneParents,
+                   const std::vector<GNEAdditional*>& additionalParents,
+                   const std::vector<GNEShape*>& shapeParents,
+                   const std::vector<GNETAZElement*>& TAZElementParents,
+                   const std::vector<GNEDemandElement*>& demandElementParents,
+                   const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNEGenericData();
@@ -226,22 +226,22 @@ protected:
     GNEDataInterval* myDataIntervalParent;
 
     /// @brief draw filtered attribute
-    void drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector &laneShape, const std::string &attribute) const;
+    void drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute) const;
 
     /// @brief check if attribute is visible in inspect, delete or select mode
     bool isVisibleInspectDeleteSelect() const;
 
     /// @brief replace the first parent edge
-    void replaceFirstParentEdge(const std::string &value);
+    void replaceFirstParentEdge(const std::string& value);
 
     /// @brief replace the last parent edge
-    void replaceLastParentEdge(const std::string &value);
+    void replaceLastParentEdge(const std::string& value);
 
     /// @brief replace the first parent TAZElement
-    void replaceFirstParentTAZElement(SumoXMLTag tag, const std::string &value);
+    void replaceFirstParentTAZElement(SumoXMLTag tag, const std::string& value);
 
     /// @brief replace the last parent TAZElement
-    void replaceLastParentTAZElement(SumoXMLTag tag, const std::string &value);
+    void replaceLastParentTAZElement(SumoXMLTag tag, const std::string& value);
 
 private:
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)

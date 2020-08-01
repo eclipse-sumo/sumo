@@ -40,15 +40,15 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    GUIPolygon(id, "", color, shape, false, false, 1),
-    myBlockShape(false),
-    myMaxWeightSource(0),
-    myMinWeightSource(0),
-    myAverageWeightSource(0),
-    myMaxWeightSink(0),
-    myMinWeightSink(0),
-    myAverageWeightSink(0) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+GUIPolygon(id, "", color, shape, false, false, 1),
+myBlockShape(false),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
     // update geometry
     updateGeometry();
 }
@@ -56,13 +56,13 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColo
 
 GNETAZ::~GNETAZ() {}
 
-const PositionVector& 
+const PositionVector&
 GNETAZ::getTAZElementShape() const {
     return myShape;
 }
 
 
-void 
+void
 GNETAZ::writeTAZElement(OutputDevice& device) const {
     // first open TAZ tag
     device.openTag(SUMO_TAG_TAZ);
@@ -71,7 +71,7 @@ GNETAZ::writeTAZElement(OutputDevice& device) const {
     device.writeAttr(SUMO_ATTR_SHAPE, myShape);
     device.writeAttr(SUMO_ATTR_COLOR, getShapeColor());
     // write all TAZ Source/sinks
-    for (const auto &sourceSink : getChildTAZElements()) {
+    for (const auto& sourceSink : getChildTAZElements()) {
         sourceSink->writeTAZElement(device);
     }
     // close TAZ tag
@@ -182,7 +182,7 @@ GNETAZ::moveTAZShape(const Position& offset) {
         const int lastIndex = (int)newShape.size() - 1;
         // check if we have to move first and last postion
         if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
-            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
             // move first and last position in newShape
             newShape[0].add(offset);
             newShape[lastIndex] = newShape[0];
@@ -242,14 +242,14 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && 
-        myNet->getViewNet()->getDataViewOptions().showShapes() &&
-        checkDraw(s)) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
+            myNet->getViewNet()->getDataViewOptions().showShapes() &&
+            checkDraw(s)) {
         // Obtain constants
         const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // get colors
-        const RGBColor color = isAttributeCarrierSelected()? s.colorSettings.selectionColor : getShapeColor();
+        const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
         // obtain scaled geometry
@@ -328,9 +328,9 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         }
         // pop name
         glPopName();
-/* temporal */
+        /* temporal */
         // draw TAZRel datas
-        for (const auto &TAZRel : getChildGenericDatas()) {
+        for (const auto& TAZRel : getChildGenericDatas()) {
             // only draw for the first TAZ
             if ((TAZRel->getTagProperty().getTag() == SUMO_TAG_TAZREL) && (TAZRel->getParentTAZElements().front() == this)) {
                 // push name (needed for getGUIGlObjectsUnderCursor(...)
@@ -351,7 +351,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
             }
         }
     }
-/* temporal */
+    /* temporal */
 }
 
 

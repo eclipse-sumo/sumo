@@ -57,14 +57,14 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      */
     GNENetworkElement(GNENet* net, const std::string& id, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+                      const std::vector<GNEJunction*>& junctionParents,
+                      const std::vector<GNEEdge*>& edgeParents,
+                      const std::vector<GNELane*>& laneParents,
+                      const std::vector<GNEAdditional*>& additionalParents,
+                      const std::vector<GNEShape*>& shapeParents,
+                      const std::vector<GNETAZElement*>& TAZElementParents,
+                      const std::vector<GNEDemandElement*>& demandElementParents,
+                      const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNENetworkElement();

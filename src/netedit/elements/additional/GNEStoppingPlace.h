@@ -189,11 +189,11 @@ protected:
     double getEndGeometryPositionOverLane() const;
 
     /// @brief draw lines
-    void drawLines(const GUIVisualizationSettings& s, const std::vector<std::string> &lines, const RGBColor &color) const;
+    void drawLines(const GUIVisualizationSettings& s, const std::vector<std::string>& lines, const RGBColor& color) const;
 
     /// @brief draw sign
-    void drawSign(const GUIVisualizationSettings& s, const double exaggeration, 
-        const RGBColor &baseColor, const RGBColor &signColor, const std::string &word) const;
+    void drawSign(const GUIVisualizationSettings& s, const double exaggeration,
+                  const RGBColor& baseColor, const RGBColor& signColor, const std::string& word) const;
 
 private:
     /// @brief set attribute after validation

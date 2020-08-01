@@ -70,14 +70,14 @@ GNEDataInterval::updateGenericDataIDs() {
 }
 
 
-void 
+void
 GNEDataInterval::updateAttributeColors() {
     // first clear both container
     myAllAttributeColors.clear();
     mySpecificAttributeColors.clear();
     // iterate over generic data children
-    for (const auto &genericData : myGenericDataChildren) {
-        for (const auto &param : genericData->getParametersMap()) {
+    for (const auto& genericData : myGenericDataChildren) {
+        for (const auto& param : genericData->getParametersMap()) {
             // check if value can be parsed
             if (canParse<double>(param.second)) {
                 // parse param value

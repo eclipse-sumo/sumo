@@ -64,14 +64,14 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      */
     GNEAdditional(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+                  const std::vector<GNEJunction*>& junctionParents,
+                  const std::vector<GNEEdge*>& edgeParents,
+                  const std::vector<GNELane*>& laneParents,
+                  const std::vector<GNEAdditional*>& additionalParents,
+                  const std::vector<GNEShape*>& shapeParents,
+                  const std::vector<GNETAZElement*>& TAZElementParents,
+                  const std::vector<GNEDemandElement*>& demandElementParents,
+                  const std::vector<GNEGenericData*>& genericDataParents);
 
     /**@brief Constructor for additional with parents
      * @param[in] net pointer to GNENet of this additional element belongs
@@ -89,14 +89,14 @@ public:
      * @param[in] genericDataParents vector of generic data parents
     */
     GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, std::string additionalName, bool blockMovement,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+                  const std::vector<GNEJunction*>& junctionParents,
+                  const std::vector<GNEEdge*>& edgeParents,
+                  const std::vector<GNELane*>& laneParents,
+                  const std::vector<GNEAdditional*>& additionalParents,
+                  const std::vector<GNEShape*>& shapeParents,
+                  const std::vector<GNETAZElement*>& TAZElementParents,
+                  const std::vector<GNEDemandElement*>& demandElementParents,
+                  const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNEAdditional();
@@ -315,7 +315,7 @@ protected:
         void drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size = 0.5) const;
 
         /// @brief get position of the block icon
-        const Position &getPosition() const;
+        const Position& getPosition() const;
 
         /// @brief get rotation of the block icon
         double getRotation() const;
@@ -376,22 +376,22 @@ protected:
     void drawAdditionalName(const GUIVisualizationSettings& s) const;
 
     /// @brief replace additional parent edges
-    void replaceAdditionalParentEdges(const std::string &value);
+    void replaceAdditionalParentEdges(const std::string& value);
 
     /// @brief replace additional parent lanes
-    void replaceAdditionalParentLanes(const std::string &value);
+    void replaceAdditionalParentLanes(const std::string& value);
 
     /// @brief replace additional child edges
-    void replaceAdditionalChildEdges(const std::string &value);
+    void replaceAdditionalChildEdges(const std::string& value);
 
     /// @brief replace additional child lanes
-    void replaceAdditionalChildLanes(const std::string &value);
+    void replaceAdditionalChildLanes(const std::string& value);
 
     /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex);
+    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
     /// @brief replace demand element parent
-    void replaceDemandElementParent(SumoXMLTag tag, const std::string &value, const int parentIndex);
+    void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
 private:
     /**@brief check restriction with the number of children

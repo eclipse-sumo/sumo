@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEHierarchicalElementHelper.h
+/// @file    GNEHierarchicalElement.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2020
 ///
@@ -51,14 +51,14 @@ public:
      * @param[in] parentGenericData vector of parent generic data elements
      */
     GNEHierarchicalElement(const GNEAttributeCarrier* AC,
-        const std::vector<GNEJunction*>& parentJunctions,
-        const std::vector<GNEEdge*>& parentEdges,
-        const std::vector<GNELane*>& parentLanes,
-        const std::vector<GNEAdditional*>& parentAdditionals,
-        const std::vector<GNEShape*>& parentShapes,
-        const std::vector<GNETAZElement*>& parentTAZElements,
-        const std::vector<GNEDemandElement*>& parentDemandElements,
-        const std::vector<GNEGenericData*>& parentGenericDatas);
+                           const std::vector<GNEJunction*>& parentJunctions,
+                           const std::vector<GNEEdge*>& parentEdges,
+                           const std::vector<GNELane*>& parentLanes,
+                           const std::vector<GNEAdditional*>& parentAdditionals,
+                           const std::vector<GNEShape*>& parentShapes,
+                           const std::vector<GNETAZElement*>& parentTAZElements,
+                           const std::vector<GNEDemandElement*>& parentDemandElements,
+                           const std::vector<GNEGenericData*>& parentGenericDatas);
 
     /// @brief Destructor
     ~GNEHierarchicalElement();
@@ -73,10 +73,10 @@ public:
     /// @}
 
     /// @brief get hierarchicalcontainer with parents and children
-    const GNEHierarchicalContainer &getHierarchicalContainer() const;
+    const GNEHierarchicalContainer& getHierarchicalContainer() const;
 
     /// @brief restore hierarchical container
-    void restoreHierarchicalContainer(const GNEHierarchicalContainer &container);
+    void restoreHierarchicalContainer(const GNEHierarchicalContainer& container);
 
     /// @name common get functions
     /// @{
@@ -132,7 +132,7 @@ public:
     /// @brief return child generic data elements
     const std::vector<GNEGenericData*>& getChildGenericDatas() const;
     /// @}
-    
+
     /// @name common generic add/remove functions
     /// @{
 
@@ -185,7 +185,7 @@ public:
 protected:
     /// @brief replace parent elements
     template<typename T, typename U>
-    void replaceParentElements(T* elementChild, const U &newParents) {
+    void replaceParentElements(T* elementChild, const U& newParents) {
         // remove elementChild from parents
         for (const auto& parent : myHierarchicalContainer.getParents<U>()) {
             parent->removeChildElement(elementChild);
@@ -200,7 +200,7 @@ protected:
 
     /// @brief replace child elements
     template<typename T, typename U>
-    void replaceChildElements(T* elementChild, const U &newChildren) {
+    void replaceChildElements(T* elementChild, const U& newChildren) {
         // remove elementChild from childs
         for (const auto& child : myHierarchicalContainer.getChildren<U>()) {
             child->removeChildElement(elementChild);

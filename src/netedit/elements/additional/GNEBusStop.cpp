@@ -280,7 +280,7 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
             // Change IDs of all access children
-            for (const auto &access : getChildAdditionals()) {
+            for (const auto& access : getChildAdditionals()) {
                 access->setMicrosimID(getID());
             }
             break;
@@ -337,8 +337,8 @@ GNEBusStop::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
-GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor &color) const {
+void
+GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBColor& color) const {
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection) {
         // Add a draw matrix for details
         glPushMatrix();
@@ -347,10 +347,10 @@ GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBCol
         // set color
         GLHelper::setColor(color);
         // draw lines between BusStops and Access
-        for (const auto &access : getChildAdditionals()) {
+        for (const auto& access : getChildAdditionals()) {
             GLHelper::drawBoxLine(access->getAdditionalGeometry().getPosition(),
-                RAD2DEG(myBlockIcon.getPosition().angleTo2D(access->getAdditionalGeometry().getPosition())) - 90, 
-                myBlockIcon.getPosition().distanceTo2D(access->getAdditionalGeometry().getPosition()), .05);
+                                  RAD2DEG(myBlockIcon.getPosition().angleTo2D(access->getAdditionalGeometry().getPosition())) - 90,
+                                  myBlockIcon.getPosition().distanceTo2D(access->getAdditionalGeometry().getPosition()), .05);
         }
         // pop draw matrix
         glPopMatrix();

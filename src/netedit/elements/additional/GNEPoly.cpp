@@ -35,12 +35,12 @@
 // method definitions
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
-        const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
+                 const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, movementBlocked,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myBlockShape(shapeBlocked),
-    mySimplifiedShape(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myBlockShape(shapeBlocked),
+mySimplifiedShape(false) {
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -174,7 +174,7 @@ GNEPoly::movePolyShape(const Position& offset) {
 void
 GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
     // get visualisation settings
-    auto &s = myNet->getViewNet()->getVisualisationSettings();
+    auto& s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = myShape;
     // get geometryPoint radius
@@ -290,14 +290,14 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         GLHelper::drawBoundary(getCenteringBoundary());
     }
     // first check if poly can be drawn
-    if (myNet->getViewNet()->getDemandViewOptions().showShapes() && 
-        myNet->getViewNet()->getDataViewOptions().showShapes() &&
-        checkDraw(s)) {
+    if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
+            myNet->getViewNet()->getDataViewOptions().showShapes() &&
+            checkDraw(s)) {
         // Obtain constants
         const double polyExaggeration = s.polySize.getExaggeration(s, this);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
         // get colors
-        const RGBColor color = isAttributeCarrierSelected()? s.colorSettings.selectionColor : getShapeColor();
+        const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
         // obtain scaled geometry
@@ -387,7 +387,7 @@ GNEPoly::getVertexIndex(Position pos, bool snapToGrid) {
         pos = myNet->getViewNet()->snapToActiveGrid(pos);
     }
     // first check if vertex already exists
-    for (const auto &shapePosition : myShape) {
+    for (const auto& shapePosition : myShape) {
         if (shapePosition.distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) {
             return myShape.indexOfClosest(shapePosition);
         }

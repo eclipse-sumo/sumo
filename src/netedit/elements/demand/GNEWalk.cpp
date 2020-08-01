@@ -35,8 +35,8 @@
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE_EDGE,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition) {
     // compute walk
     computePath();
 }
@@ -44,16 +44,16 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge,
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGE_BUSSTOP,
-        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
+{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition) {
     // compute walk
     computePath();
 }
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_EDGE,
-        {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
+{}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition) {
     // compute walk
     computePath();
 }
@@ -61,8 +61,8 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fro
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_BUSSTOP_BUSSTOP,
-        {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
+{}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition) {
     // compute walk
     computePath();
 }
@@ -70,8 +70,8 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fro
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdge*> edges, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_EDGES,
-        {}, {edges}, {}, {}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition) {
+{}, {edges}, {}, {}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition) {
     // compute walk
     computePath();
 }
@@ -79,8 +79,8 @@ GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, std::vector<GNEEdg
 
 GNEWalk::GNEWalk(GNENet* net, GNEDemandElement* personParent, GNEDemandElement* route, double arrivalPosition) :
     GNEDemandElement(personParent, net, GLO_WALK, GNE_TAG_WALK_ROUTE,
-        {}, {}, {}, {}, {}, {}, {personParent, route}, {}),
-    myArrivalPosition(arrivalPosition) {
+{}, {}, {}, {}, {}, {}, {personParent, route}, {}),
+myArrivalPosition(arrivalPosition) {
     // compute walk
     computePath();
 }
@@ -289,33 +289,33 @@ void
 GNEWalk::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
-        calculatePathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getLastAllowedVehicleLane(), 
-            {});
+        calculatePathLanes(getVClass(), true,
+                           getFirstAllowedVehicleLane(),
+                           getLastAllowedVehicleLane(),
+                           {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
-        calculatePathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getParentAdditionals().back()->getParentLanes().front(), 
-            {});
+        calculatePathLanes(getVClass(), true,
+                           getFirstAllowedVehicleLane(),
+                           getParentAdditionals().back()->getParentLanes().front(),
+                           {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
-        calculatePathLanes(getVClass(), true, 
-            getParentAdditionals().front()->getParentLanes().front(), 
-            getLastAllowedVehicleLane(),
-            {});
+        calculatePathLanes(getVClass(), true,
+                           getParentAdditionals().front()->getParentLanes().front(),
+                           getLastAllowedVehicleLane(),
+                           {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
-        calculatePathLanes(getVClass(), true, 
-            getParentAdditionals().front()->getParentLanes().front(), 
-            getParentAdditionals().back()->getParentLanes().front(), 
-            {});
+        calculatePathLanes(getVClass(), true,
+                           getParentAdditionals().front()->getParentLanes().front(),
+                           getParentAdditionals().back()->getParentLanes().front(),
+                           {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
         // calculate consecutive path using parent edges
         calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        calculatePathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getLastAllowedVehicleLane(), 
-            getParentDemandElements().back()->getParentEdges());
+        calculatePathLanes(getVClass(), true,
+                           getFirstAllowedVehicleLane(),
+                           getLastAllowedVehicleLane(),
+                           getParentDemandElements().back()->getParentEdges());
     }
     // update geometry
     updateGeometry();
@@ -326,33 +326,33 @@ void
 GNEWalk::invalidatePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_EDGE) {
-        resetPathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getLastAllowedVehicleLane(), 
-            {});
+        resetPathLanes(getVClass(), true,
+                       getFirstAllowedVehicleLane(),
+                       getLastAllowedVehicleLane(),
+                       {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGE_BUSSTOP) {
-        resetPathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getParentAdditionals().back()->getParentLanes().front(), 
-            {});
+        resetPathLanes(getVClass(), true,
+                       getFirstAllowedVehicleLane(),
+                       getParentAdditionals().back()->getParentLanes().front(),
+                       {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_EDGE) {
-        resetPathLanes(getVClass(), true, 
-            getParentAdditionals().front()->getParentLanes().front(), 
-            getLastAllowedVehicleLane(),
-            {});
+        resetPathLanes(getVClass(), true,
+                       getParentAdditionals().front()->getParentLanes().front(),
+                       getLastAllowedVehicleLane(),
+                       {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_BUSSTOP_BUSSTOP) {
-        resetPathLanes(getVClass(), true, 
-            getParentAdditionals().front()->getParentLanes().front(), 
-            getParentAdditionals().back()->getParentLanes().front(), 
-            {});
+        resetPathLanes(getVClass(), true,
+                       getParentAdditionals().front()->getParentLanes().front(),
+                       getParentAdditionals().back()->getParentLanes().front(),
+                       {});
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_EDGES) {
         // due walk edges don't need to calculate a dijkstra path, just calculate consecutive path lanes again
         calculateConsecutivePathLanes(getVClass(), true, getParentEdges());
     } else if (myTagProperty.getTag() == GNE_TAG_WALK_ROUTE) {
-        resetPathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getLastAllowedVehicleLane(), 
-            getParentDemandElements().back()->getParentEdges());
+        resetPathLanes(getVClass(), true,
+                       getFirstAllowedVehicleLane(),
+                       getLastAllowedVehicleLane(),
+                       getParentDemandElements().back()->getParentEdges());
     }
     // update geometry
     updateGeometry();
@@ -407,14 +407,14 @@ GNEWalk::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-void 
+void
 GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // draw person plan over lane
     drawPersonPlanPartialLane(s, lane, offsetFront, s.widthSettings.walk, s.colorSettings.walk);
 }
 
 
-void 
+void
 GNEWalk::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
     // draw person plan over junction
     drawPersonPlanPartialJunction(s, fromLane, toLane, offsetFront, s.widthSettings.walk, s.colorSettings.walk);

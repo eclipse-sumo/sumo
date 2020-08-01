@@ -35,15 +35,15 @@
 
 GNEStop::GNEStop(SumoXMLTag tag, GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNEAdditional* stoppingPlace, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, tag,
-        {}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {}, {stoppingPlace}, {}, {}, {stopParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
 GNEStop::GNEStop(GNENet* net, const SUMOVehicleParameter::Stop& stopParameter, GNELane* lane, GNEDemandElement* stopParent) :
     GNEDemandElement(stopParent, net, GLO_STOP, SUMO_TAG_STOP_LANE,
-        {}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
-    SUMOVehicleParameter::Stop(stopParameter) {
+{}, {}, {lane}, {}, {}, {}, {stopParent}, {}),
+SUMOVehicleParameter::Stop(stopParameter) {
 }
 
 
@@ -429,13 +429,13 @@ GNEStop::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-void 
+void
 GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /*lane*/, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }
 
 
-void 
+void
 GNEStop::drawPartialGL(const GUIVisualizationSettings& /*s*/, const GNELane* /* fromLane */, const GNELane* /* toLane */, const double /*offsetFront*/) const {
     // Stops don't use drawPartialGL
 }

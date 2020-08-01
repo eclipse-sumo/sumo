@@ -43,14 +43,14 @@ const double GNEDemandElement::myPersonPlanArrivalPositionDiameter = SUMO_const_
 // ---------------------------------------------------------------------------
 
 GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents) :
+                                   const std::vector<GNEJunction*>& junctionParents,
+                                   const std::vector<GNEEdge*>& edgeParents,
+                                   const std::vector<GNELane*>& laneParents,
+                                   const std::vector<GNEAdditional*>& additionalParents,
+                                   const std::vector<GNEShape*>& shapeParents,
+                                   const std::vector<GNETAZElement*>& TAZElementParents,
+                                   const std::vector<GNEDemandElement*>& demandElementParents,
+                                   const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
@@ -60,14 +60,14 @@ GNEDemandElement::GNEDemandElement(const std::string& id, GNENet* net, GUIGlObje
 
 
 GNEDemandElement::GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents) :
+                                   const std::vector<GNEJunction*>& junctionParents,
+                                   const std::vector<GNEEdge*>& edgeParents,
+                                   const std::vector<GNELane*>& laneParents,
+                                   const std::vector<GNEAdditional*>& additionalParents,
+                                   const std::vector<GNEShape*>& shapeParents,
+                                   const std::vector<GNETAZElement*>& TAZElementParents,
+                                   const std::vector<GNEDemandElement*>& demandElementParents,
+                                   const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, demandElementParent->getID()),
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
@@ -167,7 +167,7 @@ GNEDemandElement::updateDemandElementSpreadGeometry(const GNELane* lane, const d
 }
 
 
-void 
+void
 GNEDemandElement::updatePartialGeometry(const GNELane* lane) {
     // declare extreme geometry
     GNEGeometry::ExtremeGeometry extremeGeometry;
@@ -361,34 +361,34 @@ GNEDemandElement::getLastAllowedVehicleLane() const {
 }
 
 
-const GNEEdge* 
+const GNEEdge*
 GNEDemandElement::getFirstPersonPlanEdge() const {
     // set specific mode depending of tag
     switch (myTagProperty.getTag()) {
         // route
         case GNE_TAG_WALK_ROUTE:
             return getParentDemandElements().at(1)->getParentEdges().front();
-            // edges
+        // edges
         case GNE_TAG_WALK_EDGES:
-            // edge->edge
+        // edge->edge
         case GNE_TAG_PERSONTRIP_EDGE_EDGE:
         case GNE_TAG_WALK_EDGE_EDGE:
         case GNE_TAG_RIDE_EDGE_EDGE:
-            // edge->busStop
+        // edge->busStop
         case GNE_TAG_PERSONTRIP_EDGE_BUSSTOP:
         case GNE_TAG_WALK_EDGE_BUSSTOP:
         case GNE_TAG_RIDE_EDGE_BUSSTOP:
             return getParentEdges().front();
-            // busStop->edge
+        // busStop->edge
         case GNE_TAG_PERSONTRIP_BUSSTOP_EDGE:
         case GNE_TAG_WALK_BUSSTOP_EDGE:
         case GNE_TAG_RIDE_BUSSTOP_EDGE:
-            // busStop->busStop
+        // busStop->busStop
         case GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP:
         case GNE_TAG_WALK_BUSSTOP_BUSSTOP:
         case GNE_TAG_RIDE_BUSSTOP_BUSSTOP:
             return getParentAdditionals().front()->getParentLanes().front()->getParentEdges().front();
-            // stops
+        // stops
         case GNE_TAG_PERSONSTOP_BUSSTOP:
             return getParentAdditionals().front()->getParentLanes().front()->getParentEdges().front();
         case GNE_TAG_PERSONSTOP_EDGE:
@@ -406,7 +406,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
     // get previous person Plan
     const GNEDemandElement* previousPersonPlan = getParentDemandElements().at(0)->getPreviousChildDemandElement(this);
     double endLanePosPreviousLane = 0;
-    // obtain previous plan 
+    // obtain previous plan
     if (previousPersonPlan) {
         if (previousPersonPlan->getTagProperty().personPlanEndEdge()) {
             // get arrival position
@@ -423,7 +423,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
             // use as startLanePos the endLanePosPreviousLane
             extremeGeometry.laneStartPosition = endLanePosPreviousLane;
             // obtain last allowed vehicle lane of previous person plan
-            const GNELane *lastAllowedLanePrevious = previousPersonPlan->getLastAllowedVehicleLane();
+            const GNELane* lastAllowedLanePrevious = previousPersonPlan->getLastAllowedVehicleLane();
             // check if both plans start in the same lane
             if (lastAllowedLanePrevious) {
                 extremeGeometry.viewStartPos = lastAllowedLanePrevious->getLaneShape().positionAtOffset(extremeGeometry.laneStartPosition);
@@ -432,7 +432,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
             // return pedestrian departPos
             extremeGeometry.laneStartPosition = getParentDemandElements().front()->getAttributeDouble(SUMO_ATTR_DEPARTPOS);
         }
-    } else if (myTagProperty.personPlanStartBusStop()) { 
+    } else if (myTagProperty.personPlanStartBusStop()) {
         // use as startLanePos the busStop end position
         extremeGeometry.laneStartPosition = getParentAdditionals().front()->getAttributeDouble(SUMO_ATTR_ENDPOS);
         // use as extraEndPosition the end of first busStop shape
@@ -442,7 +442,7 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
     if (myTagProperty.personPlanEndEdge()) {
         // use as endLane Position the arrival position
         extremeGeometry.laneEndPosition = getAttributeDouble(SUMO_ATTR_ARRIVALPOS);
-    } else if (myTagProperty.personPlanEndBusStop()) { 
+    } else if (myTagProperty.personPlanEndBusStop()) {
         // use as endLanePosition the busStop start position
         extremeGeometry.laneEndPosition = getParentAdditionals().back()->getAttributeDouble(SUMO_ATTR_STARTPOS);
         // use as extraEndPosition the begin of last busStop shape
@@ -453,9 +453,9 @@ GNEDemandElement::calculatePersonPlanLaneStartEndPos() const {
 }
 
 
-void 
-GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane, 
-    const double offsetFront, const double personPlanWidth, const RGBColor &personPlanColor) const {
+void
+GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane,
+        const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected person plan
     const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getInspectedAttributeCarrier();
     const GNEDemandElement* personParent = getParentDemandElements().front();
@@ -481,7 +481,7 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
         // get segment widtsh
         const double segmentWidth = s.addSize.getExaggeration(s, lane) * personPlanWidth;
         // get color
-        const RGBColor &color = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : personPlanColor;
+        const RGBColor& color = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -497,10 +497,10 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
                 // draw segment depending of duplicateWidth
                 if (duplicateWidth) {
                     // draw segment geometry
-                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2*segmentWidth));
+                    GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2 * segmentWidth));
                     // check if shape dotted contour has to be drawn
                     if (personPlanInspected == this) {
-                        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2*segmentWidth));
+                        GNEGeometry::drawSegmentGeometry(myNet->getViewNet(), segment, (2 * segmentWidth));
                     }
                 } else {
                     // draw segment geometry
@@ -576,9 +576,9 @@ GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, c
 }
 
 
-void 
-GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, 
-    const double offsetFront, const double personPlanWidth, const RGBColor &personPlanColor) const {
+void
+GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane,
+        const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected person plan
     const GNEAttributeCarrier* personPlanInspected = myNet->getViewNet()->getInspectedAttributeCarrier();
     const GNEDemandElement* personParent = getParentDemandElements().front();
@@ -604,7 +604,7 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         // get segment widtsh
         const double segmentWidth = s.addSize.getExaggeration(s, fromLane) * personPlanWidth;
         // get color
-        const RGBColor &color = drawUsingSelectColor()? s.colorSettings.selectedPersonPlanColor : personPlanColor;
+        const RGBColor& color = drawUsingSelectColor() ? s.colorSettings.selectedPersonPlanColor : personPlanColor;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // push a draw matrix
@@ -614,12 +614,12 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
         // check if draw lane2lane connection or a red line
         if (fromLane->getLane2laneConnections().exist(toLane)) {
             // obtain lane2lane geometry
-            const GNEGeometry::Geometry &lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
+            const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
             // Set person plan color
             GLHelper::setColor(color);
             // draw lane2lane
             if (duplicateWidth) {
-                GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, (2*segmentWidth));
+                GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, (2 * segmentWidth));
             } else {
                 GNEGeometry::drawGeometry(myNet->getViewNet(), lane2laneGeometry, segmentWidth);
             }
@@ -627,7 +627,7 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
             // Set invalid person plan color
             GLHelper::setColor(RGBColor::RED);
             // draw line between end of first shape and first position of second shape
-            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5*segmentWidth));
+            GLHelper::drawBoxLines({fromLane->getLaneShape().back(), toLane->getLaneShape().front()}, (0.5 * segmentWidth));
         }
         // Pop last matrix
         glPopMatrix();
@@ -644,20 +644,20 @@ GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& 
 }
 
 
-void 
-GNEDemandElement::replaceDemandParentEdges(const std::string &value) {
+void
+GNEDemandElement::replaceDemandParentEdges(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNEEdge*> >(getNet(), value));
 }
 
 
-void 
-GNEDemandElement::replaceDemandParentLanes(const std::string &value) {
+void
+GNEDemandElement::replaceDemandParentLanes(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNELane*> >(getNet(), value));
 }
 
 
 void
-GNEDemandElement::replaceFirstParentEdge(const std::string &value) {
+GNEDemandElement::replaceFirstParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
     parentEdges[0] = myNet->retrieveEdge(value);
     // replace parent edges
@@ -666,7 +666,7 @@ GNEDemandElement::replaceFirstParentEdge(const std::string &value) {
 
 
 void
-GNEDemandElement::replaceMiddleParentEdges(const std::string &value, const bool updateChildReferences) {
+GNEDemandElement::replaceMiddleParentEdges(const std::string& value, const bool updateChildReferences) {
     std::vector<GNEEdge*> middleEdges = parse<std::vector<GNEEdge*> >(getNet(), value);
     middleEdges.insert(middleEdges.begin(), getParentEdges().front());
     middleEdges.push_back(getParentEdges().back());
@@ -681,16 +681,16 @@ GNEDemandElement::replaceMiddleParentEdges(const std::string &value, const bool 
 
 
 void
-GNEDemandElement::replaceLastParentEdge(const std::string &value) {
+GNEDemandElement::replaceLastParentEdge(const std::string& value) {
     std::vector<GNEEdge*> parentEdges = getParentEdges();
-    parentEdges[(int)parentEdges.size() -1] = myNet->retrieveEdge(value);
+    parentEdges[(int)parentEdges.size() - 1] = myNet->retrieveEdge(value);
     // replace parent edges
     replaceParentElements(this, parentEdges);
 }
 
 
 void
-GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
+GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
     std::vector<GNEAdditional*> parentAdditionals = getParentAdditionals();
     parentAdditionals[parentIndex] = myNet->retrieveAdditional(tag, value);
     // replace parent additionals
@@ -699,7 +699,7 @@ GNEDemandElement::replaceAdditionalParent(SumoXMLTag tag, const std::string &val
 
 
 void
-GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string &value, const int parentIndex) {
+GNEDemandElement::replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex) {
     std::vector<GNEDemandElement*> parentDemandElements = getParentDemandElements();
     parentDemandElements[parentIndex] = myNet->retrieveDemandElement(tag, value);
     // replace parent demand elements

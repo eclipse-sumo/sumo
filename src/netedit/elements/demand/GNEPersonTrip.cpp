@@ -34,47 +34,47 @@
 // ===========================================================================
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-        double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE_EDGE,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myVTypes(types),
-    myModes(modes) {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myVTypes(types),
+myModes(modes) {
     // compute person trip
     computePath();
 }
 
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEEdge* fromEdge, GNEAdditional* toBusStop,
-    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_EDGE_BUSSTOP,
-        {}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myVTypes(types),
-    myModes(modes) {
+{}, {fromEdge}, {}, {toBusStop}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myVTypes(types),
+myModes(modes) {
     // compute person trip
     computePath();
 }
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEEdge* toEdge,
-    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP_EDGE,
-        {}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myVTypes(types),
-    myModes(modes) {
+{}, {toEdge}, {}, {fromBusStop}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myVTypes(types),
+myModes(modes) {
     // compute person trip
     computePath();
 }
 
 
 GNEPersonTrip::GNEPersonTrip(GNENet* net, GNEDemandElement* personParent, GNEAdditional* fromBusStop, GNEAdditional* toBusStop,
-    double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
+                             double arrivalPosition, const std::vector<std::string>& types, const std::vector<std::string>& modes) :
     GNEDemandElement(personParent, net, GLO_PERSONTRIP, GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP,
-        {}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {}),
-    myArrivalPosition(arrivalPosition),
-    myVTypes(types),
-    myModes(modes) {
+{}, {}, {}, {fromBusStop, toBusStop}, {}, {}, {personParent}, {}),
+myArrivalPosition(arrivalPosition),
+myVTypes(types),
+myModes(modes) {
     // compute person trip
     computePath();
 }
@@ -268,25 +268,25 @@ void
 GNEPersonTrip::computePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_EDGE) {
-        calculatePathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getLastAllowedVehicleLane(), 
-            {});
+        calculatePathLanes(getVClass(), true,
+                           getFirstAllowedVehicleLane(),
+                           getLastAllowedVehicleLane(),
+                           {});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) {
-        calculatePathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getParentAdditionals().back()->getParentLanes().front(), 
-            {});
+        calculatePathLanes(getVClass(), true,
+                           getFirstAllowedVehicleLane(),
+                           getParentAdditionals().back()->getParentLanes().front(),
+                           {});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_EDGE) {
-        calculatePathLanes(getVClass(), true, 
-            getParentAdditionals().front()->getParentLanes().front(), 
-            getLastAllowedVehicleLane(),
-            {});
+        calculatePathLanes(getVClass(), true,
+                           getParentAdditionals().front()->getParentLanes().front(),
+                           getLastAllowedVehicleLane(),
+                           {});
     } else if (myTagProperty.getTag() == GNE_TAG_PERSONTRIP_BUSSTOP_BUSSTOP) {
-        calculatePathLanes(getVClass(), true, 
-            getParentAdditionals().front()->getParentLanes().front(), 
-            getParentAdditionals().back()->getParentLanes().front(), 
-            {});
+        calculatePathLanes(getVClass(), true,
+                           getParentAdditionals().front()->getParentLanes().front(),
+                           getParentAdditionals().back()->getParentLanes().front(),
+                           {});
     }
     // update geometry
     updateGeometry();
@@ -297,25 +297,25 @@ void
 GNEPersonTrip::invalidatePath() {
     // update lanes depending of walk tag
     if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_EDGE) {
-        resetPathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getLastAllowedVehicleLane(), 
-            {});
+        resetPathLanes(getVClass(), true,
+                       getFirstAllowedVehicleLane(),
+                       getLastAllowedVehicleLane(),
+                       {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_EDGE_BUSSTOP) {
-        resetPathLanes(getVClass(), true, 
-            getFirstAllowedVehicleLane(), 
-            getParentAdditionals().back()->getParentLanes().front(), 
-            {});
+        resetPathLanes(getVClass(), true,
+                       getFirstAllowedVehicleLane(),
+                       getParentAdditionals().back()->getParentLanes().front(),
+                       {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_EDGE) {
-        resetPathLanes(getVClass(), true, 
-            getParentAdditionals().front()->getParentLanes().front(), 
-            getLastAllowedVehicleLane(),
-            {});
+        resetPathLanes(getVClass(), true,
+                       getParentAdditionals().front()->getParentLanes().front(),
+                       getLastAllowedVehicleLane(),
+                       {});
     } else if (myTagProperty.getTag() == GNE_TAG_RIDE_BUSSTOP_BUSSTOP) {
-        resetPathLanes(getVClass(), true, 
-            getParentAdditionals().front()->getParentLanes().front(), 
-            getParentAdditionals().back()->getParentLanes().front(), 
-            {});
+        resetPathLanes(getVClass(), true,
+                       getParentAdditionals().front()->getParentLanes().front(),
+                       getParentAdditionals().back()->getParentLanes().front(),
+                       {});
     }
     // update geometry
     updateGeometry();
@@ -362,14 +362,14 @@ GNEPersonTrip::drawGL(const GUIVisualizationSettings& /*s*/) const {
 }
 
 
-void 
+void
 GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // draw person plan over lane
     drawPersonPlanPartialLane(s, lane, offsetFront, s.widthSettings.personTrip, s.colorSettings.personTrip);
 }
 
 
-void 
+void
 GNEPersonTrip::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
     // draw person plan over junction
     drawPersonPlanPartialJunction(s, fromLane, toLane, offsetFront, s.widthSettings.personTrip, s.colorSettings.personTrip);

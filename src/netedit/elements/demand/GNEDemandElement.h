@@ -82,14 +82,14 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      */
     GNEDemandElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+                     const std::vector<GNEJunction*>& junctionParents,
+                     const std::vector<GNEEdge*>& edgeParents,
+                     const std::vector<GNELane*>& laneParents,
+                     const std::vector<GNEAdditional*>& additionalParents,
+                     const std::vector<GNEShape*>& shapeParents,
+                     const std::vector<GNETAZElement*>& TAZElementParents,
+                     const std::vector<GNEDemandElement*>& demandElementParents,
+                     const std::vector<GNEGenericData*>& genericDataParents);
 
     /**@brief Constructor
      * @param[in] demandElementParent pointer to parent demand element pointer (used to generate an ID)
@@ -106,14 +106,14 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      */
     GNEDemandElement(GNEDemandElement* demandElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+                     const std::vector<GNEJunction*>& junctionParents,
+                     const std::vector<GNEEdge*>& edgeParents,
+                     const std::vector<GNELane*>& laneParents,
+                     const std::vector<GNEAdditional*>& additionalParents,
+                     const std::vector<GNEShape*>& shapeParents,
+                     const std::vector<GNETAZElement*>& TAZElementParents,
+                     const std::vector<GNEDemandElement*>& demandElementParents,
+                     const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNEDemandElement();
@@ -348,7 +348,7 @@ protected:
     bool isValidDemandElementID(const std::string& newID) const;
 
     /// @brief get first person plan edge
-    const GNEEdge *getFirstPersonPlanEdge() const;
+    const GNEEdge* getFirstPersonPlanEdge() const;
 
     /// @name Only for person plans
     /// @{
@@ -357,12 +357,12 @@ protected:
     GNEGeometry::ExtremeGeometry calculatePersonPlanLaneStartEndPos() const;
 
     /// @brief draw person plan partial lane
-    void drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane, 
-        const double offsetFront, const double personPlanWidth, const RGBColor &personPlanColor) const;
+    void drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane,
+                                   const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief draw person plan partial junction
-    void drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, 
-        const double offsetFront, const double personPlanWidth, const RGBColor &personPlanColor) const;
+    void drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane,
+                                       const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const;
 
     /// @brief person plans arrival position radius
     static const double myPersonPlanArrivalPositionDiameter;
@@ -370,25 +370,25 @@ protected:
     /// @}
 
     /// @brief replace demand parent edges
-    void replaceDemandParentEdges(const std::string &value);
+    void replaceDemandParentEdges(const std::string& value);
 
     /// @brief replace demand parent lanes
-    void replaceDemandParentLanes(const std::string &value);
+    void replaceDemandParentLanes(const std::string& value);
 
     /// @brief replace the first parent edge
-    void replaceFirstParentEdge(const std::string &value);
+    void replaceFirstParentEdge(const std::string& value);
 
     /// @brief replace middle (via) parent edges
-    void replaceMiddleParentEdges(const std::string &value, const bool updateChildReferences);
+    void replaceMiddleParentEdges(const std::string& value, const bool updateChildReferences);
 
     /// @brief replace the last parent edge
-    void replaceLastParentEdge(const std::string &value);
+    void replaceLastParentEdge(const std::string& value);
 
     /// @brief replace additional parent
-    void replaceAdditionalParent(SumoXMLTag tag, const std::string &value, const int parentIndex);
+    void replaceAdditionalParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
     /// @brief replace demand element parent
-    void replaceDemandElementParent(SumoXMLTag tag, const std::string &value, const int parentIndex);
+    void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
 
 private:
     /**@brief check restriction with the number of children

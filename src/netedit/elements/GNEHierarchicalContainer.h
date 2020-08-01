@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEHierarchicalElements.h
+/// @file    GNEHierarchicalContainer.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2020
 ///
@@ -84,7 +84,7 @@ public:
 
     /// @brief set parents
     template<typename T>
-    void setParents(const T &newParents);
+    void setParents(const T& newParents);
 
     /// @brief get children
     template<typename T>
@@ -92,7 +92,7 @@ public:
 
     /// @brief set children
     template<typename T>
-    void setChildren(const T &newChildren);
+    void setChildren(const T& newChildren);
 
 private:
     /// @brief vector of parent junctions

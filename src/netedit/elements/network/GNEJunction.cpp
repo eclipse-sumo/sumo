@@ -53,15 +53,15 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myNBNode(nbn),
-    myMaxDrawingSize(1),
-    myAmCreateEdgeSource(false),
-    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myAmResponsible(false),
-    myHasValidLogic(loaded),
-    myAmTLSSelected(false),
-    myColorForMissingConnections(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myNBNode(nbn),
+myMaxDrawingSize(1),
+myAmCreateEdgeSource(false),
+myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myAmResponsible(false),
+myHasValidLogic(loaded),
+myAmTLSSelected(false),
+myColorForMissingConnections(false) {
 }
 
 
@@ -137,7 +137,7 @@ GNEJunction::endJunctionShapeGeometryMoving() {
 int
 GNEJunction::getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) const {
     // get shape
-    const PositionVector &shape = myNBNode->getShape();
+    const PositionVector& shape = myNBNode->getShape();
     // check if position has to be snapped to grid
     if (snapToGrid) {
         pos = myNet->getViewNet()->snapToActiveGrid(pos);
@@ -178,7 +178,7 @@ GNEJunction::moveJunctionShape(const Position& offset) {
         const int lastIndex = (int)newShape.size() - 1;
         // check if we have to move first and last postion
         if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
-            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
             // move first and last position in newShape
             newShape[0].add(offset);
             newShape[lastIndex] = newShape[0];
@@ -197,7 +197,7 @@ GNEJunction::moveJunctionShape(const Position& offset) {
 void
 GNEJunction::commitJunctionShapeChange(GNEUndoList* undoList) {
     // get visualisation settings
-    auto &s = myNet->getViewNet()->getVisualisationSettings();
+    auto& s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = parse<PositionVector>(getAttribute(SUMO_ATTR_SHAPE));
     // get geometryPoint radius
@@ -1493,7 +1493,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
     // declare JunctionPathElementMarker
     GNEPathElements::JunctionPathElementMarker junctionPathElementMarker;
     // draw child path additionals
-    for (const auto &tag : myPathAdditionalElements) {
+    for (const auto& tag : myPathAdditionalElements) {
         // search first selected element
         const GNEAdditional* selectedElement = nullptr;
         for (const GNEAdditional* const element : tag.second) {
@@ -1520,7 +1520,7 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
         }
     }
     // draw child path demand elements
-    for (const auto &tag : myPathDemandElements) {
+    for (const auto& tag : myPathDemandElements) {
         // search first selected element
         const GNEDemandElement* selectedElement = nullptr;
         for (const GNEDemandElement* const element : tag.second) {
@@ -1547,11 +1547,11 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
         }
     }
     // draw child path generic datas
-    for (const auto &tag : myPathGenericDatas) {
+    for (const auto& tag : myPathGenericDatas) {
         // filter visible generic datas
         std::vector<GNEGenericData*> visibleGenericDatas;
         visibleGenericDatas.reserve(tag.second.size());
-        for (const auto & genericData : tag.second) {
+        for (const auto& genericData : tag.second) {
             if (genericData->isGenericDataVisible()) {
                 visibleGenericDatas.push_back(genericData);
             }

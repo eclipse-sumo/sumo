@@ -20,11 +20,20 @@ Splits a list of route files (e.g. coming from the duarouter)
 by start time and by edges which contain detectors from an optional
 detector file.
 """
-import os, sys, re, random, glob, pickle, tempfile, shutil, bisect, ctypes
+from __future__ import print_function
+import os
+import sys
+import re
+import random
+import glob
+import pickle
+import bisect
+import ctypes
 
 from xml.sax import make_parser, handler
 from collections import defaultdict
 from optparse import OptionParser
+
 
 def getFreeSpace(folder):
     """ Return folder/drive free space (in bytes)
@@ -37,11 +46,13 @@ def getFreeSpace(folder):
         ctypes.windll.kernel32.GetDiskFreeSpaceExW(ctypes.c_wchar_p(folder), None, None, ctypes.pointer(free_bytes))
         return free_bytes.value
 
+
 def checkDirOpen(path, mode='w'):
     dirName = os.path.dirname(path)
     if dirName != '' and not os.path.exists(dirName):
         os.makedirs(dirName)
     return open(path, mode)
+
 
 class RouteReader(handler.ContentHandler):
 
@@ -49,13 +60,13 @@ class RouteReader(handler.ContentHandler):
         """when parsing, collects all routes with their multiplicities in _routeOccurences.
         when closeAll() is called the edge distributions are created"""
         handler.ContentHandler.__init__(self)
-        self._routeOccurences = defaultdict(lambda:0) # listOfEdges -> count
+        self._routeOccurences = defaultdict(lambda: 0)  # listOfEdges -> count
         self._vehID = None
         self._routeString = ''
         self._routeDistributions = {}
         self._routeIDs = []
         self._calibRoutes = checkDirOpen(collectFile)
-        print >> self._calibRoutes, "<routes>"
+        print("<routes>", file=self._calibRoutes)
         self._edgeCountFile = edgeCountFile
         self._pythonEdgeFile = pythonEdgeFile
         self._collectAll = collectAll
@@ -66,7 +77,7 @@ class RouteReader(handler.ContentHandler):
             dirName = edge[:2]
             if edge[0] == "-":
                 dirName = edge[1:3]
-        fileName = os.path.join(os.path.dirname(self._calibRoutes.name),dirName,edge)
+        fileName = os.path.join(os.path.dirname(self._calibRoutes.name), dirName, edge)
         f = checkDirOpen(fileName)
         f.write('    <routeDistribution id="routedist_%s" ' % edge)
         f.close()
@@ -75,7 +86,7 @@ class RouteReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'route':
             self._routeString = ''
-            if attrs.has_key('edges'):
+            if 'edges' in attrs:
                 self._routeString = attrs['edges']
 
     def characters(self, content):
@@ -89,59 +100,59 @@ class RouteReader(handler.ContentHandler):
         """build edge distributions from self._routeOccurences"""
         # build distributions
         # edge -> (route -> prob)
-        edgeCount = defaultdict(lambda:0)
+        edgeCount = defaultdict(lambda: 0)
         routeProbs = defaultdict(dict)
         numRoutesTotal = 0
-        for index, (edgeString, count) in enumerate(self._routeOccurences.iteritems()):
+        for index, (edgeString, count) in enumerate(self._routeOccurences.items()):
             edges = edgeString.split()
             routeID = 'r%s' % index
             numRoutesTotal += count
-            print >> self._calibRoutes, '    <route id="%s" edges="%s"/>' % (routeID, ' '.join(edges))
+            print('    <route id="%s" edges="%s"/>' % (routeID, ' '.join(edges)), file=self._calibRoutes)
             for edge in edges:
                 edgeCount[edge] += count
-                if self._collectAll and not edge in self._routeDistributions:
+                if self._collectAll and edge not in self._routeDistributions:
                     self.addEdge(edge)
                 if edge in self._routeDistributions:
                     routeProbs[edge][routeID] = count
-        print "writing distributions for %s routes (%s unique)" % (
-                numRoutesTotal, len(self._routeOccurences))
+        print(("writing distributions for %s routes (%s unique)" % (
+            numRoutesTotal, len(self._routeOccurences))))
         # write distributions
-        for edge, filename in self._routeDistributions.iteritems():
+        for edge, filename in self._routeDistributions.items():
             if edge in routeProbs:
                 with open(filename, 'a') as f:
-                    print >> f, ('routes="%s" probabilities="%s"/>' % (
+                    print(('routes="%s" probabilities="%s"/>' % (
                         ' '.join(routeProbs[edge].keys()),
-                        ' '.join(map(str, routeProbs[edge].values()))))
+                        ' '.join(map(str, routeProbs[edge].values())))), file=f)
             else:
-                print >> sys.stderr, "Warning! No routes for %s." % edge
+                print("Warning! No routes for %s." % edge, file=sys.stderr)
                 os.remove(filename)
-        print >> self._calibRoutes, "</routes>"
+        print("</routes>", file=self._calibRoutes)
         self._calibRoutes.close()
 
         if self._edgeCountFile:
             edgeCountOut = checkDirOpen(self._edgeCountFile)
-            print >> edgeCountOut, "<netstats>"
-            print >> edgeCountOut, '   <interval begin="0" end="%s">' % (24*3600)
-            for edge, weight in edgeCount.iteritems():
-                print >> edgeCountOut, '      <edge id="%s" traveltime="%s"/>' % (edge, weight)
-            print >> edgeCountOut, '   </interval>'
-            print >> edgeCountOut, "</netstats>"
+            print("<netstats>", file=edgeCountOut)
+            print('   <interval begin="0" end="%s">' % (24*3600), file=edgeCountOut)
+            for edge, weight in edgeCount.items():
+                print('      <edge id="%s" traveltime="%s"/>' % (edge, weight), file=edgeCountOut)
+            print('   </interval>', file=edgeCountOut)
+            print("</netstats>", file=edgeCountOut)
             edgeCountOut.close()
         if self._pythonEdgeFile:
             pythonOut = checkDirOpen(self._pythonEdgeFile, 'wb')
-            pickle.dump(set(edgeCount.iterkeys()), pythonOut)
+            pickle.dump(set(edgeCount.keys()), pythonOut)
             pythonOut.close()
 
 
 def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
                safactor, sufactor):
     if verbose:
-        print "Writing types to file", os.path.basename(typesFile)
-        print "... in dir", os.path.dirname(typesFile), "TEXTTEST_IGNORE"
+        print("Writing types to file", os.path.basename(typesFile))
+        print("... in dir", os.path.dirname(typesFile), "TEXTTEST_IGNORE")
     vtypes = checkDirOpen(typesFile)
-    print >> vtypes, """<vtypes>
+    print("""<vtypes>
    <vType id="PKW" accel="2.6" decel="4.5" sigma="0.5" length="7" maxspeed="41.6" color="0,1,0"/>
-   <vType id="LKW" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="25" color="1,0,0"/>"""
+   <vType id="LKW" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="25" color="1,0,0"/>""", file=vtypes)
     currentTime = 0
     out = {"mofr": None, "sa": None, "so": None}
     prefix = {"mofr": routesPrefix, "sa": None, "so": None}
@@ -153,10 +164,10 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
     files = []
     sortedDeparts = []
     pattern = re.compile('depart="([^"]+)"')
-    #pattern = re.compile('<vehicle.*depart="([0-9]+(\.[0-9]*)?)"')
+    # pattern = re.compile('<vehicle.*depart="([0-9]+(\.[0-9]*)?)"')
     for routesIn in routeFiles:
         if verbose:
-            print "Reading routes from", routesIn
+            print("Reading routes from", routesIn)
         f = open(routesIn, 'rb')
         while True:
             pos = f.tell()
@@ -168,45 +179,45 @@ def splitFiles(routeFiles, typesFile, routesPrefix, step, verbose, modifyID,
                 entry = (float(match.group(1)), len(files), pos)
                 sortedDeparts.insert(bisect.bisect(sortedDeparts, entry), entry)
             elif '<vtype' in line:
-                print "Warning. Route files use outdated tag 'vtype'"
-                print >> vtypes, line
+                print("Warning. Route files use outdated tag 'vtype'")
+                print(line, file=vtypes)
             elif '<vType' in line:
-                print >> vtypes, line
+                print(line, file=vtypes)
         files.append(f)
     for depart, idx, pos in sortedDeparts:
         f = files[idx]
         f.seek(pos)
         line = f.readline().rstrip()
         while depart >= currentTime or not out["mofr"]:
-            for day in out.iterkeys():
+            for day in out.keys():
                 if out[day]:
-                    print >> out[day], "</routes>"
+                    print("</routes>", file=out[day])
                     out[day].close()
                 if prefix[day]:
                     routeFilename = prefix[day] + "%s.rou.xml" % currentTime
                     if verbose:
-                        print "Writing file", os.path.basename(routeFilename)
-                        print "... in dir", os.path.dirname(routeFilename), "TEXTTEST_IGNORE"
+                        print("Writing file", os.path.basename(routeFilename))
+                        print("... in dir", os.path.dirname(routeFilename), "TEXTTEST_IGNORE")
                     out[day] = checkDirOpen(routeFilename)
-                    print >> out[day], "<routes>"
+                    print("<routes>", file=out[day])
             currentTime += step
         if modifyID:
             line = re.sub('id="([^"]*)"', 'id="\\1_%s"' % idx, line)
         nextLine = ""
-        while not "</vehicle>" in nextLine:
+        while "</vehicle>" not in nextLine:
             nextLine = f.readline().rstrip()
             if nextLine.strip():
-                line += os.linesep + nextLine 
-        for day in out.iterkeys():
+                line += os.linesep + nextLine
+        for day in out.keys():
             if out[day] and random.random() < factor[day]:
-                print >> out[day], line
-    for day in out.iterkeys():
+                print(line, file=out[day])
+    for day in out.keys():
         if out[day]:
-            print >> out[day], "</routes>"
+            print("</routes>", file=out[day])
             out[day].close()
-    print >> vtypes, "</vtypes>"
+    print("</vtypes>", file=vtypes)
     vtypes.close()
-    
+
 
 class DepartChanger(handler.ContentHandler):
     def __init__(self, prefix, beg):
@@ -218,23 +229,22 @@ class DepartChanger(handler.ContentHandler):
         parser.parse("%s%s.rou.xml" % (prefix, beg))
         self._ofile.close()
 
-
     def startElement(self, name, attrs):
-         print >> self._ofile, "%s<%s" % (self._indent, name),
-         for attr in attrs.keys():
-              if attr=="depart":
-                  print >> self._ofile, '%s="%s"' % (attr, float(attrs[attr])+self._offset),
-              else:
-                  print >> self._ofile, '%s="%s"' % (attr, attrs[attr]),
-         print >> self._ofile, ">"
-         self._indent += "    "
-        
+        print("%s<%s" % (self._indent, name), end=' ', file=self._ofile)
+        for attr in attrs.keys():
+            if attr == "depart":
+                print('%s="%s"' % (attr, float(attrs[attr])+self._offset), end=' ', file=self._ofile)
+            else:
+                print('%s="%s"' % (attr, attrs[attr]), end=' ', file=self._ofile)
+        print(">", file=self._ofile)
+        self._indent += "    "
+
     def endElement(self, name):
-         self._indent = self._indent[:-4]
-         print >> self._ofile, "%s</%s>" % (self._indent, name)
-        
+        self._indent = self._indent[:-4]
+        print("%s</%s>" % (self._indent, name), file=self._ofile)
+
     def characters(self, chars):
-         self._ofile.write(chars)
+        self._ofile.write(chars)
 
 
 def main(args=None):
@@ -282,15 +292,15 @@ def main(args=None):
         if not options.collectfile:
             options.collectfile = "calibrator_routes.rou.xml",
         if options.verbose:
-            print "Reading detectors"
+            print("Reading detectors")
         reader = RouteReader(options.collectfile, options.edgecount, options.pythonedge)
         conn = None
         if options.detconn:
             import MySQLdb
             from detector import readDetectorDB
             dbargs = options.detconn.split(":")
-            conn = MySQLdb.connect(host = dbargs[2], user = dbargs[0],
-                                   passwd = dbargs[1], db = dbargs[3])
+            conn = MySQLdb.connect(host=dbargs[2], user=dbargs[0],
+                                   passwd=dbargs[1], db=dbargs[3])
             detReader = readDetectorDB(conn)
             conn.close()
         else:
@@ -310,8 +320,8 @@ def main(args=None):
             routeFilename = tempPrefix+"%s.rou.xml" % time
             if os.path.exists(routeFilename):
                 if options.verbose:
-                    print "Parsing file", os.path.basename(routeFilename)
-                    print "... in dir", os.path.dirname(routeFilename), "TEXTTEST_IGNORE"
+                    print("Parsing file", os.path.basename(routeFilename))
+                    print("... in dir", os.path.dirname(routeFilename), "TEXTTEST_IGNORE")
                 parser.parse(routeFilename)
         reader.closeAll()
     for i in range(0, options.nextday, options.step):

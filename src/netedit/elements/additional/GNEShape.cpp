@@ -32,14 +32,14 @@
 // ===========================================================================
 
 GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents) :
+                   const std::vector<GNEJunction*>& junctionParents,
+                   const std::vector<GNEEdge*>& edgeParents,
+                   const std::vector<GNELane*>& laneParents,
+                   const std::vector<GNEAdditional*>& additionalParents,
+                   const std::vector<GNEShape*>& shapeParents,
+                   const std::vector<GNETAZElement*>& TAZElementParents,
+                   const std::vector<GNEDemandElement*>& demandElementParents,
+                   const std::vector<GNEGenericData*>& genericDataParents) :
     GNEAttributeCarrier(tag, net),
     GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     myBlockMovement(movementBlocked) {
@@ -114,8 +114,8 @@ GNEShape::getHierarchyName() const {
 }
 
 
-void 
-GNEShape::replaceShapeParentLanes(const std::string &value) {
+void
+GNEShape::replaceShapeParentLanes(const std::string& value) {
     replaceParentElements(this, parse<std::vector<GNELane*> >(getNet(), value));
 }
 

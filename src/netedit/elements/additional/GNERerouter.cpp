@@ -36,16 +36,16 @@
 // ===========================================================================
 
 GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos,
-        const std::string& name, const std::string& filename, double probability, 
-        bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
+                         const std::string& name, const std::string& filename, double probability,
+                         bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myPosition(pos),
-    myFilename(filename),
-    myProbability(probability),
-    myOff(off),
-    myTimeThreshold(timeThreshold),
-    myVTypes(vTypes) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myPosition(pos),
+myFilename(filename),
+myProbability(probability),
+myOff(off),
+myTimeThreshold(timeThreshold),
+myVTypes(vTypes) {
 }
 
 
@@ -200,7 +200,7 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
             return getID();
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edges;
-            for (const auto &rerouterSymbol : getChildAdditionals()) {
+            for (const auto& rerouterSymbol : getChildAdditionals()) {
                 edges.push_back(rerouterSymbol->getAttribute(SUMO_ATTR_EDGE));
             }
             return toString(edges);
@@ -380,7 +380,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoList) {
     undoList->p_begin(("change " + getTagStr() + " attribute").c_str());
     // drop all additional children
@@ -390,7 +390,7 @@ GNERerouter::rebuildRerouterSymbols(const std::string& value, GNEUndoList* undoL
     // get edge vector
     const std::vector<GNEEdge*> edges = parse<std::vector<GNEEdge*> >(myNet, value);
     // create new VSS Symbols
-    for (const auto &edge : edges) {
+    for (const auto& edge : edges) {
         // create VSS Symbol
         GNEAdditional* VSSSymbol = new GNERerouterSymbol(this, edge);
         // add it using GNEChange_Additional

@@ -61,14 +61,14 @@ public:
      * @param[in] genericDataParents vector of generic data parents
      */
     GNETAZElement(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool blockMovement,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+                  const std::vector<GNEJunction*>& junctionParents,
+                  const std::vector<GNEEdge*>& edgeParents,
+                  const std::vector<GNELane*>& laneParents,
+                  const std::vector<GNEAdditional*>& additionalParents,
+                  const std::vector<GNEShape*>& shapeParents,
+                  const std::vector<GNETAZElement*>& TAZElementParents,
+                  const std::vector<GNEDemandElement*>& demandElementParents,
+                  const std::vector<GNEGenericData*>& genericDataParents);
 
     /**@brief Constructor used by TAZElements that have two TAZElements as parent
      * @param[in] TAZElementParent pointer to parent TAZElement pointer (used to generate an ID)
@@ -86,14 +86,14 @@ public:
      * @param[in] genericDataParents vector of generic data parents
     */
     GNETAZElement(GNETAZElement* TAZElementParent, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool blockMovement,
-        const std::vector<GNEJunction*>& junctionParents,
-        const std::vector<GNEEdge*>& edgeParents,
-        const std::vector<GNELane*>& laneParents,
-        const std::vector<GNEAdditional*>& additionalParents,
-        const std::vector<GNEShape*>& shapeParents,
-        const std::vector<GNETAZElement*>& TAZElementParents,
-        const std::vector<GNEDemandElement*>& demandElementParents,
-        const std::vector<GNEGenericData*>& genericDataParents);
+                  const std::vector<GNEJunction*>& junctionParents,
+                  const std::vector<GNEEdge*>& edgeParents,
+                  const std::vector<GNELane*>& laneParents,
+                  const std::vector<GNEAdditional*>& additionalParents,
+                  const std::vector<GNEShape*>& shapeParents,
+                  const std::vector<GNETAZElement*>& TAZElementParents,
+                  const std::vector<GNEDemandElement*>& demandElementParents,
+                  const std::vector<GNEGenericData*>& genericDataParents);
 
     /// @brief Destructor
     virtual ~GNETAZElement();
@@ -108,7 +108,7 @@ public:
     std::string generateChildID(SumoXMLTag childTag);
 
     /// @brief get TAZ Shape
-    virtual const PositionVector &getTAZElementShape() const = 0;
+    virtual const PositionVector& getTAZElementShape() const = 0;
 
     /**@brief writte TAZElement element into a xml file
      * @param[in] device device in which write parameters of TAZElement element

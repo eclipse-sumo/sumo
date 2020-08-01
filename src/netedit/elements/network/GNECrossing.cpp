@@ -38,10 +38,10 @@
 // ===========================================================================
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id,
-        GLO_CROSSING, SUMO_TAG_CROSSING,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myParentJunction(parentJunction),
-    myCrossingEdges(crossingEdges) {
+                      GLO_CROSSING, SUMO_TAG_CROSSING,
+{}, {}, {}, {}, {}, {}, {}, {}),
+myParentJunction(parentJunction),
+myCrossingEdges(crossingEdges) {
 }
 
 
@@ -80,8 +80,8 @@ GNECrossing::startCrossingShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
-    startMoveShape(getCrossingShape(), shapeOffset, 
-        myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
+    startMoveShape(getCrossingShape(), shapeOffset,
+                   myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
 }
 
 
@@ -145,7 +145,7 @@ GNECrossing::moveCrossingShape(const Position& offset) {
         const int lastIndex = (int)newShape.size() - 1;
         // check if we have to move first and last postion
         if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
-            ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
+                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
             // move first and last position in newShape
             newShape[0].add(offset);
             newShape[lastIndex] = newShape[0];
@@ -166,7 +166,7 @@ GNECrossing::commitCrossingShapeChange(GNEUndoList* undoList) {
     // get crossing
     const auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // get visualisation settings
-    auto &s = myNet->getViewNet()->getVisualisationSettings();
+    auto& s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
     PositionVector shapeToCommit = parse<PositionVector>(getAttribute(SUMO_ATTR_CUSTOMSHAPE));
     // get geometryPoint radius

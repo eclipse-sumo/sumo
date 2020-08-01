@@ -35,7 +35,7 @@ public:
     GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEAdditional* stoppingPlace, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief constructor used for stops over lanes
-    GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdge *edge, const SUMOVehicleParameter::Stop& stopParameter);
+    GNEPersonStop(GNENet* net, GNEDemandElement* personParent, GNEEdge* edge, const SUMOVehicleParameter::Stop& stopParameter);
 
     /// @brief destructor
     ~GNEPersonStop();

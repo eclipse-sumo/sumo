@@ -93,7 +93,7 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitTAZShapeChange(GNEUndoList* undoList);
-  
+
     /// @brief return true if Shape TAZ is blocked
     bool isShapeBlocked() const;
     /// @}

@@ -57,16 +57,16 @@ const StringBijection<FXuint> GNEInternalLane::LinkStateNames(
 // method definitions
 // ===========================================================================
 
-GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent, 
-    const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
+GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* junctionParent,
+                                 const std::string& id, const PositionVector& shape, int tlIndex, LinkState state) :
     GNENetworkElement(junctionParent->getNet(), id, GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myJunctionParent(junctionParent),
-    myState(state),
-    myStateTarget(myState),
-    myEditor(editor),
-    myTlIndex(tlIndex),
-    myPopup(nullptr) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myJunctionParent(junctionParent),
+myState(state),
+myStateTarget(myState),
+myEditor(editor),
+myTlIndex(tlIndex),
+myPopup(nullptr) {
     // calculate internal lane geometry
     myInternalLaneGeometry.updateGeometry(shape);
 }
@@ -74,25 +74,25 @@ GNEInternalLane::GNEInternalLane(GNETLSEditorFrame* editor, const GNEJunction* j
 
 GNEInternalLane::GNEInternalLane() :
     GNENetworkElement(nullptr, "dummyInternalLane", GLO_TLLOGIC, GNE_TAG_INTERNAL_LANE,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myJunctionParent(nullptr),
-    myState(0),
-    myEditor(0),
-    myTlIndex(0),
-    myPopup(nullptr) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myJunctionParent(nullptr),
+myState(0),
+myEditor(0),
+myTlIndex(0),
+myPopup(nullptr) {
 }
 
 
 GNEInternalLane::~GNEInternalLane() {}
 
 
-void 
+void
 GNEInternalLane::updateGeometry() {
     // nothing to update
 }
 
 
-Position 
+Position
 GNEInternalLane::getPositionInView() const {
     return myJunctionParent->getPositionInView();
 }
@@ -214,31 +214,31 @@ GNEInternalLane::colorForLinksState(FXuint state) {
 }
 
 
-std::string 
+std::string
 GNEInternalLane::getAttribute(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }
 
 
-void 
+void
 GNEInternalLane::setAttribute(SumoXMLAttr key, const std::string& /*value*/, GNEUndoList* /*undoList*/) {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }
 
 
-bool 
+bool
 GNEInternalLane::isValid(SumoXMLAttr key, const std::string& /*value*/) {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }
 
 
-bool 
+bool
 GNEInternalLane::isAttributeEnabled(SumoXMLAttr key) const {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }
 
 
-void 
+void
 GNEInternalLane::setAttribute(SumoXMLAttr key, const std::string& /*value*/) {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
 }

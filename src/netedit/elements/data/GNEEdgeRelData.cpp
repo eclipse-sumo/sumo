@@ -46,20 +46,20 @@
 // ---------------------------------------------------------------------------
 
 GNEEdgeRelData::GNEEdgeRelData(GNEDataInterval* dataIntervalParent, GNEEdge* fromEdge, GNEEdge* toEdge,
-        const std::map<std::string, std::string>& parameters) :
+                               const std::map<std::string, std::string>& parameters) :
     GNEGenericData(SUMO_TAG_EDGEREL, GLO_EDGERELDATA, dataIntervalParent, parameters,
-        {}, {fromEdge, toEdge}, {}, {}, {}, {}, {}, {}) {
+{}, {fromEdge, toEdge}, {}, {}, {}, {}, {}, {}) {
 }
 
 
 GNEEdgeRelData::~GNEEdgeRelData() {}
 
 
-const RGBColor& 
+const RGBColor&
 GNEEdgeRelData::getColor() const {
     if (myNet->getViewNet()->getEditModes().dataEditMode == DataEditMode::DATA_EDGERELDATA) {
         // get selected data interval and filtered attribute
-        const GNEDataInterval *dataInterval = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval();
+        const GNEDataInterval* dataInterval = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getIntervalSelector()->getDataInterval();
         const std::string filteredAttribute = myNet->getViewNet()->getViewParent()->getEdgeRelDataFrame()->getAttributeSelector()->getFilteredAttribute();
         // continue if there is a selected data interval and filtered attribute
         if (dataInterval && (filteredAttribute.size() > 0)) {
@@ -92,12 +92,12 @@ GNEEdgeRelData::isGenericDataVisible() const {
     } else if (edgeRelDataFrame->shown()) {
         // check interval
         if ((edgeRelDataFrame->getIntervalSelector()->getDataInterval() != nullptr) &&
-            (edgeRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
+                (edgeRelDataFrame->getIntervalSelector()->getDataInterval() != myDataIntervalParent)) {
             return false;
         }
         // check attribute
         if ((edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute().size() > 0) &&
-            (getParametersMap().count(edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
+                (getParametersMap().count(edgeRelDataFrame->getAttributeSelector()->getFilteredAttribute()) == 0)) {
             return false;
         }
         // all checks ok, then return true
@@ -116,13 +116,13 @@ GNEEdgeRelData::updateGeometry() {
 }
 
 
-void 
+void
 GNEEdgeRelData::drawGL(const GUIVisualizationSettings& /*s*/) const {
     // Nothing to draw
 }
 
 
-void 
+void
 GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // get lane width
     const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdges().front()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
@@ -168,7 +168,7 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
 void
 GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane, const double offsetFront) const {
     if ((fromLane->getParentEdges().front() == getParentEdges().front()) && (toLane->getParentEdges().front() == getParentEdges().back()) &&
-        (getParentEdges().front() != getParentEdges().back())) {
+            (getParentEdges().front() != getParentEdges().back())) {
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // draw lanes
@@ -177,12 +177,12 @@ GNEEdgeRelData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* 
         size_t index = 0;
         while ((index < fromLanes.size()) || (index < toLanes.size())) {
             // get lanes
-            const GNELane *from = (index < fromLanes.size())? fromLanes.at(index) : fromLanes.back();
-            const GNELane *to = (index < toLanes.size())? toLanes.at(index) : toLanes.back();
+            const GNELane* from = (index < fromLanes.size()) ? fromLanes.at(index) : fromLanes.back();
+            const GNELane* to = (index < toLanes.size()) ? toLanes.at(index) : toLanes.back();
             // get lane widths
             const double laneWidthFrom = s.addSize.getExaggeration(s, from) * (from->getParentEdges().front()->getNBEdge()->getLaneWidth(from->getIndex()) * 0.5);
             const double laneWidthTo = s.addSize.getExaggeration(s, to) * (to->getParentEdges().front()->getNBEdge()->getLaneWidth(to->getIndex()) * 0.5);
-            const double laneWidth = laneWidthFrom < laneWidthTo? laneWidthFrom : laneWidthTo;
+            const double laneWidth = laneWidthFrom < laneWidthTo ? laneWidthFrom : laneWidthTo;
             // Add a draw matrix
             glPushMatrix();
             // translate to GLO

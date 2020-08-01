@@ -44,7 +44,7 @@ public:
      * @param[in] parameters parameters map
      */
     GNETAZRelData(GNEDataInterval* dataIntervalParent, GNETAZElement* fromTAZ, GNETAZElement* toTAZ,
-                   const std::map<std::string, std::string>& parameters);
+                  const std::map<std::string, std::string>& parameters);
 
     /// @brief Destructor
     ~GNETAZRelData();
