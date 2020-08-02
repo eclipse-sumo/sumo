@@ -2315,7 +2315,7 @@ GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, 
     // continue depending of number of selected eges
     if (mySelectedEdges.size() > 0) {
         // check double edges
-        if ((mySelectedEdges.back() == edge)) {
+        if (mySelectedEdges.back() == edge) {
             // Write warning
             WRITE_WARNING("Double edges aren't allowed");
             // abort add edge

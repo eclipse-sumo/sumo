@@ -2769,7 +2769,7 @@ GNEAttributeCarrier::fillDemandElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::VTYPE,
                                       GNETagProperties::SYNONYM,
-                                      GUIIcon::PTYPE, {}, {SUMO_TAG_VTYPE});
+                                      GUIIcon::PTYPE, {}, SUMO_TAG_VTYPE);
 
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2868,7 +2868,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SYNONYM | GNETagProperties::EMBEDDED_ROUTE,
-                                      GUIIcon::VEHICLE, {}, {SUMO_TAG_VEHICLE});
+                                      GUIIcon::VEHICLE, {}, SUMO_TAG_VEHICLE);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -2896,7 +2896,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SYNONYM,
-                                      GUIIcon::ROUTEFLOW, {}, {SUMO_TAG_FLOW});
+                                      GUIIcon::ROUTEFLOW, {}, SUMO_TAG_FLOW);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,
@@ -2926,7 +2926,7 @@ GNEAttributeCarrier::fillVehicleElements() {
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::VEHICLE,
                                       GNETagProperties::DRAWABLE | GNETagProperties::SELECTABLE | GNETagProperties::SYNONYM | GNETagProperties::EMBEDDED_ROUTE,
-                                      GUIIcon::ROUTEFLOW, {}, {SUMO_TAG_FLOW});
+                                      GUIIcon::ROUTEFLOW, {}, SUMO_TAG_FLOW);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
                                               GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE,

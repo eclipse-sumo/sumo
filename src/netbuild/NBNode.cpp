@@ -230,6 +230,9 @@ NBNode::ApproachingDivider::spread(const std::vector<int>& approachingLanes, int
 }
 
 
+/* -------------------------------------------------------------------------
+ * NBNode::Crossing-methods
+ * ----------------------------------------------------------------------- */
 NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double _width, bool _priority, int _customTLIndex, int _customTLIndex2, const PositionVector& _customShape) :
     Parameterised(),
     node(_node),
@@ -244,6 +247,7 @@ NBNode::Crossing::Crossing(const NBNode* _node, const EdgeVector& _edges, double
     customTLIndex2(_customTLIndex2),
     valid(true) {
 }
+
 
 /* -------------------------------------------------------------------------
  * NBNode-methods

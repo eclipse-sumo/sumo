@@ -898,7 +898,6 @@ NBNodeShapeComputer::computeNodeShapeSmall() {
     }
 #endif
     PositionVector ret;
-    EdgeVector::const_iterator i;
     for (NBEdge* e : myNode.getEdges()) {
         // compute crossing with normal
         PositionVector edgebound1 = e->getCCWBoundaryLine(myNode).getSubpartByIndex(0, 2);
