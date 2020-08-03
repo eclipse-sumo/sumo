@@ -492,6 +492,17 @@ deviation. When using this style, capping cannot be controlled and will
 always default to 20% and 200%. Thus the above example can also be
 defined as **speedFactor**="1" **speedDev**="0.1".
 
+### Different distributions for cars and trucks
+The center of the speed distribution is defined relative to the road speed limit. On some roads, different speed limits may apply to cars and trucks.
+To model this, [vClass-specific speed limits may be defined either in the network](Networks/PlainXML.md#vehicle-class_specific_speed_limits) or directly in an additional file:
+
+Note, that the given type id refers to an edge type rather than a vehicle type. The edge type may be [set to an arbitrary value in the network file](netedit.md#inspect).
+```
+<type id="a" priority="3" numLanes="3" speed="38.89"/>
+   <restriction vClass="truck" speed="27.89"/>
+</type>
+```
+
 ### Additional remarks on speed distributions
 
 !!! note
