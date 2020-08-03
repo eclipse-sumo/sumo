@@ -651,16 +651,9 @@ public:
     double getVehicleMaxSpeed(const SUMOTrafficObject* const veh) const;
 
 
-    virtual void addPerson(MSTransportable* p) const {
-        myPersons.insert(p);
-    }
+    virtual void addPerson(MSTransportable* p) const;
 
-    virtual void removePerson(MSTransportable* p) const {
-        std::set<MSTransportable*>::iterator i = myPersons.find(p);
-        if (i != myPersons.end()) {
-            myPersons.erase(i);
-        }
-    }
+    virtual void removePerson(MSTransportable* p) const;
 
     /// @brief Add a container to myContainers
     virtual void addContainer(MSTransportable* container) const {

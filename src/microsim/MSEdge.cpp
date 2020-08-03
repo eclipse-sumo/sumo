@@ -927,6 +927,18 @@ MSEdge::setMaxSpeed(double val) const {
 }
 
 
+void
+MSEdge::addPerson(MSTransportable* p) const {
+    myPersons.insert(p);
+}
+
+void
+MSEdge::removePerson(MSTransportable* p) const {
+    std::set<MSTransportable*>::iterator i = myPersons.find(p);
+    if (i != myPersons.end()) {
+        myPersons.erase(i);
+    }
+}
 
 std::vector<MSTransportable*>
 MSEdge::getSortedPersons(SUMOTime timestep, bool includeRiding) const {
