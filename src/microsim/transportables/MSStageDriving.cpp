@@ -80,6 +80,9 @@ MSStageDriving::getEdge() const {
         }
         return myVehicle->getEdge();
     }
+    if (myArrived) {
+        return myDestination;
+    }
     return myWaitingEdge;
 }
 
@@ -277,7 +280,7 @@ MSStageDriving::isWaitingFor(const SUMOVehicle* vehicle) const {
 
 bool
 MSStageDriving::isWaiting4Vehicle() const {
-    return myVehicle == nullptr;
+    return myVehicle == nullptr && myArrived < 0;
 }
 
 
@@ -327,6 +330,7 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
         myVehicleDistance = -1.;
         myTimeLoss = -1;
     }
+    myVehicle = nullptr; // avoid dangling pointer after vehicle arrival
     return "";
 }
 
@@ -355,9 +359,9 @@ MSStageDriving::abort(MSTransportable* t) {
     if (myVehicle != nullptr) {
         // jumping out of a moving vehicle!
         myVehicle->removeTransportable(t);
-        myVehicleDistance = myVehicle->getOdometer() - myVehicleDistance;
-        myTimeLoss = myVehicle->getTimeLoss() - myTimeLoss;
-        myArrivalPos = myVehicle->getPositionOnLane();
+        myDestination = myVehicle->getLane() == nullptr ? myVehicle->getEdge() : &myVehicle->getLane()->getEdge();
+        myDestinationStop = nullptr;
+        // myVehicleDistance and myTimeLoss are updated in subsequent call to setArrived
     } else {
         MSTransportableControl& tc = (t->isPerson() ?
                                       MSNet::getInstance()->getPersonControl() :
