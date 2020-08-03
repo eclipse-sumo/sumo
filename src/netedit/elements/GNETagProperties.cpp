@@ -502,6 +502,18 @@ GNETagProperties::personPlanEndBusStop() const {
 
 
 bool
+GNETagProperties::personPlanStartStop() const {
+    return (myTagProperty & PERSONPLAN_START_STOP) != 0;
+}
+
+
+bool
+GNETagProperties::personPlanEndStop() const {
+    return (myTagProperty & PERSONPLAN_END_STOP) != 0;
+}
+
+
+bool
 GNETagProperties::embebbedRoute() const {
     return (myTagProperty & EMBEDDED_ROUTE) != 0;
 }

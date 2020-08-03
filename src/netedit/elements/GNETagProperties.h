@@ -91,7 +91,9 @@ public:
         PERSONPLAN_END_EDGE =       1 << 22,    // Person plan ends in an edge
         PERSONPLAN_START_BUSSTOP =  1 << 23,    // Person plan starts in a busStop
         PERSONPLAN_END_BUSSTOP =    1 << 24,    // Person plan ends in a busStop
-        EMBEDDED_ROUTE =            1 << 25,    // Element has an ebebbed route
+        PERSONPLAN_START_STOP =     1 << 25,    // Person plan starts in a stop
+        PERSONPLAN_END_STOP =       1 << 26,    // Person plan ends in a stop
+        EMBEDDED_ROUTE =            1 << 27,    // Element has an ebebbed route
     };
 
     /// @brief default constructor
@@ -279,6 +281,12 @@ public:
 
     /// @brief return true if tag correspond to a person plan that starts in a busStop
     bool personPlanEndBusStop() const;
+
+    /// @brief return true if tag correspond to a person plan that starts in a Stop
+    bool personPlanStartStop() const;
+
+    /// @brief return true if tag correspond to a person plan that starts in a Stop
+    bool personPlanEndStop() const;
 
     /// @brief return true if tag correspond to an element that owns a embebbed route
     bool embebbedRoute() const;
