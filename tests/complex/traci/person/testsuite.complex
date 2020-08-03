@@ -3,3 +3,6 @@ moveToXY
 
 # Tests the person API
 person
+
+# retrieve prior stage information
+priorStage
