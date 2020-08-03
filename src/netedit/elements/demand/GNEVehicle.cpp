@@ -669,7 +669,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to drawing position
                 glTranslated(vehiclePosition.x(), vehiclePosition.y(), 0);
-                glRotated(vehicleRotation, 0, 0, 1);
+                glRotated(vehicleRotation, 0, 0, -1);
                 // extra translation needed to draw vehicle over edge (to avoid selecting problems)
                 glTranslated(0, (-1) * length, 0);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
@@ -683,7 +683,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, getType());
                 // translate to drawing position
                 glTranslated(vehiclePosition.x(), vehiclePosition.y(), 0);
-                glRotated(vehicleRotation, 0, 0, 1);
+                glRotated(vehicleRotation, 0, 0, -1);
                 // extra translation needed to draw vehicle over edge (to avoid selecting problems)
                 glTranslated(0, (-1) * length, 0);
                 // set lane color
@@ -735,7 +735,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                     // drawing name at GLO_MAX fails unless translating z
                     glTranslated(0, MIN2(length / 2, double(5)), -getType());
                     glScaled(1 / exaggeration, 1 / upscaleLength, 1);
-                    glRotated(-1 * vehicleRotation, 0, 0, 1);
+                    glRotated(vehicleRotation, 0, 0, -1);
                     drawName(Position(0, 0), s.scale, getParentDemandElements().at(0)->getAttribute(SUMO_ATTR_GUISHAPE) == "pedestrian" ? s.personName : s.vehicleName, s.angle);
                     // draw line
                     if (s.vehicleName.show && line != "") {
@@ -753,9 +753,14 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
                     drawFlowLabel(s, vehiclePosition, vehicleRotation, width, length);
                 }
-                // check if dotted contour has to be drawn
-                if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-                    // GLHelper::drawShapeDottedContourRectangle(s, getType(), vehiclePosition, width, length, vehicleRotation, 0, length / (-2));
+                // check if dotted contours has to be drawn
+                if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+                    // draw using drawDottedContourClosedShape
+                    GNEGeometry::drawDottedSquaredShape(true, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
+                }
+                if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                    // draw using drawDottedContourClosedShape
+                    GNEGeometry::drawDottedSquaredShape(false, s, vehiclePosition, length * 0.5, width * 0.5, length * -0.5, 0, vehicleRotation, exaggeration);
                 }
             }
             // pop name
@@ -1726,7 +1731,7 @@ GNEVehicle::drawStackLabel(const GUIVisualizationSettings& /*s*/, const Position
     glPushMatrix();
     // Traslate to vehicle top
     glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
-    glRotated(vehicleRotation, 0, 0, 1);
+    glRotated(vehicleRotation, 0, 0, -1);
     glTranslated((width / 2.0) + 0.35, 0, 0);
     // draw external box
     GLHelper::setColor(RGBColor::GREY);
@@ -1750,7 +1755,7 @@ GNEVehicle::drawFlowLabel(const GUIVisualizationSettings& /*s*/, const Position&
     glPushMatrix();
     // Traslate to vehicle bot
     glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
-    glRotated(vehicleRotation, 0, 0, 1);
+    glRotated(vehicleRotation, 0, 0, -1);
     glTranslated(-1 * ((width / 2.0) + 0.35), 0, 0);
     // draw external box
     GLHelper::setColor(RGBColor::GREY);
