@@ -383,8 +383,14 @@ private:
     /// @brief fill person elements
     static void fillPersonElements();
 
-    /// @brief fill person plan elements
-    static void fillPersonPlanElements();
+    /// @brief fill person plan trips
+    static void fillPersonPlanTrips();
+
+    /// @brief fill person plan walks
+    static void fillPersonPlanWalks();
+
+    /// @brief fill person plan rides
+    static void fillPersonPlanRides();
 
     /// @brief fill person plan edge -> edge
     static void fillPersonPlanEdgeEdge(SumoXMLTag currentTag);
