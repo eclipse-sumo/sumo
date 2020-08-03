@@ -436,18 +436,24 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             glPopMatrix();
+            // pop name
+            glPopName();
+            // draw name
             drawName(personPosition, s.scale, s.personName, s.angle);
             if (s.personValue.show) {
                 Position personValuePosition = personPosition + Position(0, 0.6 * s.personName.scaledSize(s.scale));
                 const double value = getColorValue(s, s.personColorer.getActive());
                 GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
-            // check if dotted contour has to be drawn
-            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-                // GLHelper::drawShapeDottedContourRectangle(s, getType(), personPosition, exaggeration, exaggeration);
+            // check if dotted contours has to be drawn
+            if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+                // draw using drawDottedSquaredShape
+                GNEGeometry::drawDottedSquaredShape(true, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
-            // pop name
-            glPopName();
+            if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+                // draw using drawDottedSquaredShape
+                GNEGeometry::drawDottedSquaredShape(false, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
+            }
         }
     }
 }
