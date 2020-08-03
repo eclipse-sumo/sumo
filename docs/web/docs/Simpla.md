@@ -7,7 +7,7 @@ permalink: /Simpla/
     simpla is written for SUMO versions > 0.30.0. We strongly recommend regularly updating to the newest SUMO version if possible. [Nightly snapshots can be found here](Downloads.md#nightly_snapshots).
     <br><br>
     As simpla uses TraCI's [StepListener](TraCI/Interfacing_TraCI_from_Python.md#adding_a_steplistener) interface, it cannot be combined with controlling several sumo instances from the same client. 
-
+    
 # Intro
 
 simpla is a configurable, platooning plugin for the [TraCI
@@ -47,6 +47,9 @@ corresponding to the catch-up mode will use the solitary mode if no
 separate catch-up mode is specified. The situations corresponding to the
 catch-up follower mode will use the follower mode if no separate
 catch-up follower mode is specified.
+
+!!! note
+    Simpla currently does not support lane-changing to join a platoon. Vehicles that are already in a platoon will try to change their lane if the platoon leader changes it's lane though.
 
 # Configuration
 
