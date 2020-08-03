@@ -51,7 +51,7 @@ from a list of potential destinations.
 # Travel-time values for routing
 
 By default, the route with the least travel time is chosen. The travel
-time depends on the current routinng mode (configurable via
+time depends on the current routing mode (configurable via
 *traci.vehicle.setRoutingMode*) or via the explicit *routingMode*
 argument to *traci.simulation.findRoute*.
 
