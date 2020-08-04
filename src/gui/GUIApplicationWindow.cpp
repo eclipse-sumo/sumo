@@ -168,6 +168,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUIApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUIApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,   GUIApplicationWindow::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATECONTAINER, GUIApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUIApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUIApplicationWindow::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUIApplicationWindow::onCmdLocate),
@@ -176,6 +177,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEEDGE,     GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEVEHICLE,  GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPERSON,   GUIApplicationWindow::onUpdNeedsSimulation),
+    FXMAPFUNC(SEL_UPDATE,   MID_LOCATECONTAINER, GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATETLS,      GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEADD,      GUIApplicationWindow::onUpdNeedsSimulation),
     FXMAPFUNC(SEL_UPDATE,   MID_LOCATEPOI,      GUIApplicationWindow::onUpdNeedsSimulation),
@@ -476,6 +478,9 @@ GUIApplicationWindow::fillMenuBar() {
     new FXMenuCommand(myLocatorMenu,
                       "Locate &Persons\t\tOpen a Dialog for Locating a Person.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), this, MID_LOCATEPERSON);
+    new FXMenuCommand(myLocatorMenu,
+                      "Locate &Container\t\tOpen a Dialog for Locating a Container.",
+                      GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), this, MID_LOCATECONTAINER);
     new FXMenuCommand(myLocatorMenu,
                       "Locate &TLS\t\tOpen a Dialog for Locating a Traffic Light.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), this, MID_LOCATETLS);

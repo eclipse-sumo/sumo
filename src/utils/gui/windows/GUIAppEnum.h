@@ -331,6 +331,8 @@ enum {
     MID_LOCATESTOP,
     /// @brief Locate person - button
     MID_LOCATEPERSON,
+    /// @brief Locate container - button
+    MID_LOCATECONTAINER,
     /// @brief Locate TLS - button
     MID_LOCATETLS,
     /// @brief Locate addtional structure - button

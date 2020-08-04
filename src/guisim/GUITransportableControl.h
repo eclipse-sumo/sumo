@@ -62,5 +62,9 @@ public:
      * @param[fill] into The list to fill with vehicle ids
      * @todo Well, what about concurrent modifications?
      */
-    void insertPersonIDs(std::vector<GUIGlID>& into);
+    void insertIDs(std::vector<GUIGlID>& into);
+
+protected:
+
+    const bool myIsPerson;
 };

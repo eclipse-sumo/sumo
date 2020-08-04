@@ -132,8 +132,15 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow* v) {
     // for persons
     if (!MSGlobals::gUseMesoSim) { // there are no persons in mesosim (yet)
         new FXButton(v->getLocatorPopup(),
-                     "\tLocate Vehicle\tLocate a person within the network.",
+                     "\tLocate Person\tLocate a person within the network.",
                      GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
+                     ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
+    }
+    // for containers
+    if (!MSGlobals::gUseMesoSim) { // there are no containers in mesosim (yet)
+        new FXButton(v->getLocatorPopup(),
+                     "\tLocate Container\tLocate a container within the network.",
+                     GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), v, MID_LOCATECONTAINER,
                      ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     }
 

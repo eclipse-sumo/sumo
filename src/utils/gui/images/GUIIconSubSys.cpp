@@ -55,6 +55,7 @@
 #include "locate_route.xpm"
 #include "locate_stop.xpm"
 #include "locate_person.xpm"
+#include "locate_container.xpm"
 #include "locate_tls.xpm"
 #include "locate_add.xpm"
 #include "locate_poi.xpm"
@@ -360,6 +361,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::LOCATEROUTE] = new FXXPMIcon(a, locate_route_xpm);
     myIcons[GUIIcon::LOCATESTOP] = new FXXPMIcon(a, locate_stop_xpm);
     myIcons[GUIIcon::LOCATEPERSON] = new FXXPMIcon(a, locate_person_xpm);
+    myIcons[GUIIcon::LOCATECONTAINER] = new FXXPMIcon(a, locate_container_xpm);
     myIcons[GUIIcon::LOCATETLS] = new FXXPMIcon(a, locate_tls_xpm);
     myIcons[GUIIcon::LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
     myIcons[GUIIcon::LOCATEPOI] = new FXXPMIcon(a, locate_poi_xpm);

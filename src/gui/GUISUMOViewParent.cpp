@@ -74,6 +74,7 @@ FXDEFMAP(GUISUMOViewParent) GUISUMOViewParentMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEEDGE,     GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEVEHICLE,  GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPERSON,   GUISUMOViewParent::onCmdLocate),
+    FXMAPFUNC(SEL_COMMAND,  MID_LOCATECONTAINER, GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATETLS,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEADD,      GUISUMOViewParent::onCmdLocate),
     FXMAPFUNC(SEL_COMMAND,  MID_LOCATEPOI,      GUISUMOViewParent::onCmdLocate),
@@ -210,9 +211,14 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             chooserTitle = "Vehicle Chooser";
             break;
         case MID_LOCATEPERSON:
-            static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertPersonIDs(ids);
+            static_cast<GUITransportableControl&>(MSNet::getInstance()->getPersonControl()).insertIDs(ids);
             icon = GUIIcon::LOCATEPERSON;
             chooserTitle = "Person Chooser";
+            break;
+        case MID_LOCATECONTAINER:
+            static_cast<GUITransportableControl&>(MSNet::getInstance()->getContainerControl()).insertIDs(ids);
+            icon = GUIIcon::LOCATECONTAINER;
+            chooserTitle = "Container Chooser";
             break;
         case MID_LOCATETLS:
             ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();
