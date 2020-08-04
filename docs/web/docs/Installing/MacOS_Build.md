@@ -59,7 +59,7 @@ The output of the CMake configuration process will show you which libraries have
 The build process can now be triggered with the following command
 ```
 cd $SUMO_HOME/build/cmake-build
-cmake --build . --parallel
+cmake --build . --parallel $(sysctl -n hw.ncpu)
 ```
 ## Optional Steps
 
