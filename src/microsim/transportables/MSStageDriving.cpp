@@ -79,11 +79,11 @@ MSStageDriving::getEdge() const {
             return &myVehicle->getLane()->getEdge();
         }
         return myVehicle->getEdge();
-    }
-    if (myArrived) {
+    } else if (myArrived >= 0) {
         return myDestination;
+    } else {
+        return myWaitingEdge;
     }
-    return myWaitingEdge;
 }
 
 
@@ -97,9 +97,12 @@ double
 MSStageDriving::getEdgePos(SUMOTime /* now */) const {
     if (isWaiting4Vehicle()) {
         return myWaitingPos;
+    } else if (myArrived >= 0) {
+        return myArrivalPos;
+    } else {
+        // vehicle may already have passed the lane (check whether this is correct)
+        return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
     }
-    // vehicle may already have passed the lane (check whether this is correct)
-    return MIN2(myVehicle->getPositionOnLane(), getEdge()->getLength());
 }
 
 
@@ -111,14 +114,22 @@ MSStageDriving::getPosition(SUMOTime /* now */) const {
         }
         return getEdgePosition(myWaitingEdge, myWaitingPos,
                                ROADSIDE_OFFSET * (MSGlobals::gLefthand ? -1 : 1));
+    } else if (myArrived >= 0) {
+        return getEdgePosition(myDestination, myArrivalPos,
+                               ROADSIDE_OFFSET * (MSGlobals::gLefthand ? -1 : 1));
+    } else {
+        return myVehicle->getPosition();
     }
-    return myVehicle->getPosition();
 }
 
 
 double
 MSStageDriving::getAngle(SUMOTime /* now */) const {
-    if (!isWaiting4Vehicle()) {
+    if (isWaiting4Vehicle()) {
+        return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2. * (MSGlobals::gLefthand ? -1 : 1);
+    } else if (myArrived >= 0) {
+        return getEdgeAngle(myDestination, myArrivalPos) + M_PI / 2. * (MSGlobals::gLefthand ? -1 : 1);
+    } else {
         MSVehicle* veh = dynamic_cast<MSVehicle*>(myVehicle);
         if (veh != nullptr) {
             return veh->getAngle();
@@ -126,7 +137,6 @@ MSStageDriving::getAngle(SUMOTime /* now */) const {
             return 0;
         }
     }
-    return getEdgeAngle(myWaitingEdge, myWaitingPos) + M_PI / 2. * (MSGlobals::gLefthand ? -1 : 1);
 }
 
 
@@ -292,7 +302,7 @@ MSStageDriving::getWaitingTime(SUMOTime now) const {
 
 double
 MSStageDriving::getSpeed() const {
-    return isWaiting4Vehicle() ? 0 : myVehicle->getSpeed();
+    return myVehicle == nullptr ? 0 : myVehicle->getSpeed();
 }
 
 
@@ -321,10 +331,10 @@ MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime 
         // distance was previously set to driven distance upon embarking
         myVehicleDistance = myVehicle->getOdometer() - myVehicleDistance;
         myTimeLoss = myVehicle->getTimeLoss() - myTimeLoss;
-        if (myVehicle->isStopped()) {
-            myArrivalPos = myVehicle->getPositionOnLane();
-        } else {
+        if (myVehicle->hasArrived()) {
             myArrivalPos = myVehicle->getArrivalPos();
+        } else {
+            myArrivalPos = myVehicle->getPositionOnLane();
         }
     } else {
         myVehicleDistance = -1.;
