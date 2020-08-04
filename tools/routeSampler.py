@@ -18,6 +18,7 @@
 """
 Samples routes from a given set to fullfill specified counting data (edge counts or turn counts)
 """
+
 from __future__ import absolute_import
 from __future__ import print_function
 
@@ -25,6 +26,7 @@ import os
 import sys
 import random
 from collections import defaultdict
+
 try:
     from StringIO import StringIO
 except ImportError:
@@ -34,6 +36,28 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import parseTime  # noqa
+
+# multiprocessing imports
+import multiprocessing
+import numpy as np
+
+
+def _run_func(args):
+    func, interval, kwargs, num = args
+    return num, func(interval=interval, **kwargs)
+
+
+def multi_process(cpu_num, interval_list, func, write_obj, **kwargs):
+    cpu_count = min(cpu_num, multiprocessing.cpu_count()-1)
+    interval_split = np.array_split(interval_list, cpu_count)
+    # pool = multiprocessing.Pool(processes=cpu_count)
+    with multiprocessing.get_context("spawn").Pool() as pool:
+        results = pool.map(_run_func, [(func, interval, kwargs, i) for i, interval in enumerate(interval_split)])
+        #pool.close()
+        results = sorted(results, key=lambda x: x[0])
+        for _, result in results:
+            write_obj.write("".join(result[-1]))
+        return results
 
 
 def get_options(args=None):
@@ -81,6 +105,10 @@ def get_options(args=None):
                         help="tell me what you are doing")
     parser.add_argument("-V", "--verbose.histograms", dest="verboseHistogram", action="store_true", default=False,
                         help="print histograms of edge numbers and detector passing count")
+    parser.add_argument("--cpu-num", dest="cpuNum", type=int, default=1,
+                        help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then "
+                             "your machines CPUs if you want to utilize all CPUs (Default is 1)"
+                        )
 
     options = parser.parse_args(args=args)
     if (options.routeFiles is None or
@@ -122,22 +150,24 @@ def get_options(args=None):
 
 
 class CountData:
-    def __init__(self, count, edgeTuple, allRoutes, isOD):
+    def __init__(self, count, edgeTuple, allRoutes, isOD, options):
         self.origCount = count
         self.count = count
         self.edgeTuple = edgeTuple
         self.isOD = isOD
+        self.options = options  # added options because multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
-            if self.routePasses(edges):
+            if self.routePasses(edges,):
                 self.routeSet.add(routeIndex)
 
     def routePasses(self, edges):
+
         if self.isOD:
             return edges[0] == self.edgeTuple[0] and edges[-1] == self.edgeTuple[-1]
         try:
             i = edges.index(self.edgeTuple[0])
-            maxDelta = sumolib.options.getOptions().turnMaxGap + 1
+            maxDelta = self.options.turnMaxGap + 1
             for edge in self.edgeTuple[1:]:
                 i2 = edges.index(edge, i)
                 if i2 - i > maxDelta:
@@ -154,7 +184,7 @@ class CountData:
 
     def sampleOpen(self, openRoutes, routeCounts):
         cands = list(self.routeSet.intersection(openRoutes))
-        assert(cands)
+        assert (cands)
         probs = [routeCounts[i] for i in cands]
         x = random.random() * sum(probs)
         seen = 0
@@ -162,7 +192,7 @@ class CountData:
             seen += prob
             if seen >= x:
                 return route
-        assert(False)
+        assert (False)
 
 
 def getIntervals(options):
@@ -209,7 +239,7 @@ def parseEdgeCounts(interval, attr):
         yield (edge.id,), getattr(edge, attr)
 
 
-def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, isOD=False, warn=False):
+def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, options, isOD=False, warn=False):
     locations = {}  # edges -> CountData
     result = []
     for fname in fnames:
@@ -226,7 +256,7 @@ def parseDataIntervals(parseFun, fnames, begin, end, allRoutes, attr, isOD=False
                                   (attr, fname, ' '.join(edges)), file=sys.stderr)
                         continue
                     if edges not in locations:
-                        result.append(CountData(0, edges, allRoutes, isOD))
+                        result.append(CountData(0, edges, allRoutes, isOD, options))
                         locations[edges] = result[-1]
                     elif isOD != locations[edges].isOD:
                         print("Warning: Edge relation '%s' occurs as turn relation and also as OD-relation" %
@@ -404,11 +434,11 @@ def main(options):
     b = intervals[0][0]
     e = intervals[-1][-1]
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, b, e,
-                                    routes, options.turnAttr, warn=True) +
+                                    routes, options.turnAttr, options=options, warn=True) +
                  parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, b, e,
-                                    routes, options.edgeDataAttr, warn=True) +
+                                    routes, options.edgeDataAttr, options=options, warn=True) +
                  parseDataIntervals(parseTurnCounts, options.odFiles, b, e,
-                                    routes, options.turnAttr, True, warn=True))
+                                    routes, options.turnAttr, options=options, isOD=True, warn=True))
     routeUsage = getRouteUsage(routes, countData)
 
     for cd in countData:
@@ -439,12 +469,23 @@ def main(options):
 
     with open(options.out, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
-        for begin, end in intervals:
-            intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
-            uFlow, oFlow, gehOK = solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf)
-            underflowSummary.add(uFlow, begin)
-            overflowSummary.add(oFlow, begin)
-            gehSummary.add(gehOK, begin)
+        if options.cpuNum > 1:
+            # call the multiprocessing function
+            results = multi_process(options.cpuNum, intervals, _solveIntervalMP, outf, options=options, routes=routes,
+                                    mismatchf=mismatchf)
+            # handle the uFlow, oFlow and GEH
+            for _, result in results:
+                for i, begin in enumerate(result[0]):
+                    underflowSummary.add(result[1][i], begin)
+                    overflowSummary.add(result[2][i], begin)
+                    gehSummary.add(result[3][i], begin)
+        else:
+            for begin, end in intervals:
+                intervalPrefix = "" if len(intervals) == 1 else "%s_" % int(begin)
+                uFlow, oFlow, gehOK, _ = solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf)
+                underflowSummary.add(uFlow, begin)
+                overflowSummary.add(oFlow, begin)
+                gehSummary.add(gehOK, begin)
         outf.write('</routes>\n')
 
     if options.mismatchOut:
@@ -462,11 +503,28 @@ def _sample(sampleSet):
     return population[(int)(random.random() * len(population))]
 
 
+def _solveIntervalMP(options, routes, interval, mismatchf):
+    output_list = []
+    for begin, end in interval:
+        local_outf = StringIO()
+        intervalPrefix = "%s_" % int(begin)
+        uFlow, oFlow, gehOKNum, local_outf = solveInterval(options, routes, begin, end, intervalPrefix, local_outf, mismatchf)
+        output_list.append([begin, uFlow, oFlow, gehOKNum, local_outf.getvalue()])
+    output_lst = list(zip(*output_list))
+    return output_lst[0], output_lst[1], output_lst[2], output_lst[3], output_lst[4]
+
+
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
     # store which routes are passing each counting location (using route index)
-    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr)
-                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes, options.edgeDataAttr)
-                 + parseDataIntervals(parseTurnCounts, options.odFiles, begin, end, routes, options.turnAttr, True))
+    countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr,
+                                    options=options)
+                 + parseDataIntervals(parseEdgeCounts, options.edgeDataFiles, begin, end, routes,
+                                      options.edgeDataAttr,
+                                      options=options)
+                 + parseDataIntervals(parseTurnCounts, options.odFiles, begin, end, routes, options.turnAttr,
+                                      isOD=True,
+                                      options=options)
+                 )
 
     routeUsage = getRouteUsage(routes, countData)
 
@@ -640,7 +698,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
                       file=sys.stderr)
         mismatchf.write('    </interval>\n')
 
-    return sum(underflow.values), sum(overflow.values), gehOKNum
+    return sum(underflow.values), sum(overflow.values), gehOKNum, outf
 
 
 if __name__ == "__main__":
