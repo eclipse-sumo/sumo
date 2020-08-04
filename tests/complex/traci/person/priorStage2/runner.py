@@ -46,11 +46,11 @@ def print_prior_plan(personID, comment=""):
 
 
 traci.start([sumolib.checkBinary('sumo'),
-    "-n", "input_net2.net.xml",
-    "-r", "input_routes.rou.xml",
-    "--tripinfo-output", "tripinfo.xml",
-    #"--vehroute-output", "vehroutes.xml",
-    "--no-step-log"])
+             "-n", "input_net2.net.xml",
+             "-r", "input_routes.rou.xml",
+             "--tripinfo-output", "tripinfo.xml",
+             # "--vehroute-output", "vehroutes.xml",
+             "--no-step-log"])
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
