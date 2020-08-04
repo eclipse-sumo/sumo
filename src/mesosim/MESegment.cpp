@@ -481,7 +481,7 @@ void
 MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason) {
     Queue& q = myQueues[veh->getQueIndex()];
     assert(isInvalid(next) || time >= q.getBlockTime());
-    MSLink* link = getLink(veh);
+    MSLink* const link = getLink(veh);
     if (link != nullptr) {
         link->removeApproaching(veh);
     }
@@ -494,11 +494,11 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
             : (nextFree ? myTau_jf : TIME2STEPS(myA * q.size() + myB)));
         myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap());
         if (myTLSPenalty) {
-            const MSLink* const link = getLink(veh, true);
-            if (link != nullptr) {
-                assert(link->isTLSControlled());
-                assert(link->getGreenFraction() > 0);
-                myLastHeadway = (SUMOTime)(myLastHeadway / link->getGreenFraction());
+            const MSLink* const tllink = getLink(veh, true);
+            if (tllink != nullptr) {
+                assert(tllink->isTLSControlled());
+                assert(tllink->getGreenFraction() > 0);
+                myLastHeadway = (SUMOTime)(myLastHeadway / tllink->getGreenFraction());
             }
         }
         q.setBlockTime(q.getBlockTime() + myLastHeadway);
