@@ -1,0 +1,11 @@
+<routes>
+    <route id="A" edges="A"/>
+    <route id="B" edges="B"/>
+    <route id="C" edges="C"/>
+    <route id="D" edges="D"/>
+
+    <vehicle id="a" type="t0" route="A" depart="0" departLane="1"/>
+    <vehicle id="b" type="t0" route="B" depart="0" departLane="1"/>
+    <vehicle id="c" type="t0" route="C" depart="0" departLane="1"/>
+    <vehicle id="d" type="t0" route="D" depart="0" departLane="1"/>
+</routes>
