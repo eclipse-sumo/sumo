@@ -5,3 +5,6 @@ keepRight2
 default_model_subsecond
 SL2015
 SL2015_subsecond
+
+# test time for changing to the right on am empty road at different speed limits
+empty_roads
