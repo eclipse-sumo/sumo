@@ -185,8 +185,8 @@ GUIOverheadWire::drawGL(const GUIVisualizationSettings& s) const {
     Node* node = NULL;
     double voltage = 0;
 
-    if (myCircuitStartNode_pos != NULL) {
-        voltage = myCircuitStartNode_pos->getVoltage();
+    if (myCircuitStartNodePos != NULL) {
+        voltage = myCircuitStartNodePos->getVoltage();
         GLHelper::setColor(scheme.getColor(MAX2(0.0, voltage - 400)));
     }
 

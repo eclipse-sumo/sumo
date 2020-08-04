@@ -122,31 +122,31 @@ public:
 
     Circuit* getCircuit() const;
 
-    void setCircuitStartNode_pos(Node* node) {
-        myCircuitStartNode_pos = node;
+    void setCircuitStartNodePos(Node* node) {
+        myCircuitStartNodePos = node;
     }
 
-    void setCircuitEndNode_pos(Node* node) {
-        myCircuitEndNode_pos = node;
+    void setCircuitEndNodePos(Node* node) {
+        myCircuitEndNodePos = node;
     }
 
-    void setCircuitElement_pos(Element* element) {
-        myCircuitElement_pos = element;
+    void setCircuitElementPos(Element* element) {
+        myCircuitElementPos = element;
     }
 
-    Node* getCircuitStartNode_pos() {
-        return myCircuitStartNode_pos;
+    Node* getCircuitStartNodePos() const {
+        return myCircuitStartNodePos;
     }
 
-    Node* getCircuitEndNode_pos() {
-        return myCircuitEndNode_pos;
+    Node* getCircuitEndNodePos() const {
+        return myCircuitEndNodePos;
     }
 
-    Element* getCircuitElement_pos() {
-        return myCircuitElement_pos;
+    Element* getCircuitElementPos() const {
+        return myCircuitElementPos;
     }
 
-    bool isThereVoltageSource() {
+    bool isThereVoltageSource() const {
         return myVoltageSource;
     }
 
@@ -227,9 +227,9 @@ protected:
 
     bool myVoltageSource;
 
-    Element* myCircuitElement_pos;
-    Node* myCircuitStartNode_pos;
-    Node* myCircuitEndNode_pos;
+    Element* myCircuitElementPos;
+    Node* myCircuitStartNodePos;
+    Node* myCircuitEndNodePos;
 
 private:
     /// @brief Invalidated copy constructor.
