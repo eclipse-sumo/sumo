@@ -48,7 +48,7 @@ def _run_func(args):
     return num, func(interval=interval, **kwargs)
 
 
-def multi_process(cpu_num, seed, interval_list, func, write_obj, **kwargs):
+def multi_process(cpu_num, seed, interval_list, func, outf, mismatchf, **kwargs):
     cpu_count = min(cpu_num, multiprocessing.cpu_count()-1)
     interval_split = np.array_split(interval_list, cpu_count)
     # pool = multiprocessing.Pool(processes=cpu_count)
@@ -57,7 +57,9 @@ def multi_process(cpu_num, seed, interval_list, func, write_obj, **kwargs):
         #pool.close()
         results = sorted(results, key=lambda x: x[0])
         for _, result in results:
-            write_obj.write("".join(result[-1]))
+            outf.write("".join(result[-2]))
+            if mismatchf is not None:
+                mismatchf.write("".join(result[-1]))
         return results
 
 
@@ -476,8 +478,8 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
         if options.cpuNum > 1:
             # call the multiprocessing function
-            results = multi_process(options.cpuNum, options.seed, intervals, _solveIntervalMP, outf, options=options, routes=routes,
-                                    mismatchf=mismatchf)
+            results = multi_process(options.cpuNum, options.seed, intervals,
+                    _solveIntervalMP, outf, mismatchf, options=options, routes=routes)
             # handle the uFlow, oFlow and GEH
             for _, result in results:
                 for i, begin in enumerate(result[0]):
@@ -508,16 +510,18 @@ def _sample(sampleSet, rng):
     return population[(int)(rng.random() * len(population))]
 
 
-def _solveIntervalMP(options, routes, interval, mismatchf, cpuIndex):
+def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
     rng = np.random.RandomState(options.seed + cpuIndex)
     for begin, end in interval:
         local_outf = StringIO()
+        local_mismatch_outf = StringIO() if options.mismatchOut else None
         intervalPrefix = "%s_" % int(begin)
-        uFlow, oFlow, gehOKNum, local_outf = solveInterval(options, routes, begin, end, intervalPrefix, local_outf, mismatchf, rng=rng)
-        output_list.append([begin, uFlow, oFlow, gehOKNum, local_outf.getvalue()])
+        uFlow, oFlow, gehOKNum, local_outf = solveInterval(options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng=rng)
+        output_list.append([begin, uFlow, oFlow, gehOKNum, local_outf.getvalue(),
+            local_mismatch_outf.getvalue() if options.mismatchOut else None])
     output_lst = list(zip(*output_list))
-    return output_lst[0], output_lst[1], output_lst[2], output_lst[3], output_lst[4]
+    return output_lst
 
 
 def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng=random):
