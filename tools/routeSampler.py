@@ -44,10 +44,11 @@ import numpy as np
 
 def _run_func(args):
     func, interval, kwargs, num = args
+    kwargs["cpuIndex"] = num
     return num, func(interval=interval, **kwargs)
 
 
-def multi_process(cpu_num, interval_list, func, write_obj, **kwargs):
+def multi_process(cpu_num, seed, interval_list, func, write_obj, **kwargs):
     cpu_count = min(cpu_num, multiprocessing.cpu_count()-1)
     interval_split = np.array_split(interval_list, cpu_count)
     # pool = multiprocessing.Pool(processes=cpu_count)
@@ -186,11 +187,11 @@ class CountData:
         self.count += count
         self.origCount += count
 
-    def sampleOpen(self, openRoutes, routeCounts):
+    def sampleOpen(self, rng, openRoutes, routeCounts):
         cands = list(self.routeSet.intersection(openRoutes))
         assert (cands)
         probs = [routeCounts[i] for i in cands]
-        x = random.random() * sum(probs)
+        x = rng.random() * sum(probs)
         seen = 0
         for route, prob in zip(cands, probs):
             seen += prob
@@ -475,7 +476,7 @@ def main(options):
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
         if options.cpuNum > 1:
             # call the multiprocessing function
-            results = multi_process(options.cpuNum, intervals, _solveIntervalMP, outf, options=options, routes=routes,
+            results = multi_process(options.cpuNum, options.seed, intervals, _solveIntervalMP, outf, options=options, routes=routes,
                                     mismatchf=mismatchf)
             # handle the uFlow, oFlow and GEH
             for _, result in results:
@@ -502,23 +503,24 @@ def main(options):
         print(gehSummary)
 
 
-def _sample(sampleSet):
+def _sample(sampleSet, rng):
     population = tuple(sampleSet)
-    return population[(int)(random.random() * len(population))]
+    return population[(int)(rng.random() * len(population))]
 
 
-def _solveIntervalMP(options, routes, interval, mismatchf):
+def _solveIntervalMP(options, routes, interval, mismatchf, cpuIndex):
     output_list = []
+    rng = np.random.RandomState(options.seed + cpuIndex)
     for begin, end in interval:
         local_outf = StringIO()
         intervalPrefix = "%s_" % int(begin)
-        uFlow, oFlow, gehOKNum, local_outf = solveInterval(options, routes, begin, end, intervalPrefix, local_outf, mismatchf)
+        uFlow, oFlow, gehOKNum, local_outf = solveInterval(options, routes, begin, end, intervalPrefix, local_outf, mismatchf, rng=rng)
         output_list.append([begin, uFlow, oFlow, gehOKNum, local_outf.getvalue()])
     output_lst = list(zip(*output_list))
     return output_lst[0], output_lst[1], output_lst[2], output_lst[3], output_lst[4]
 
 
-def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
+def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, rng=random):
     # store which routes are passing each counting location (using route index)
     countData = (parseDataIntervals(parseTurnCounts, options.turnFiles, begin, end, routes, options.turnAttr,
                                     options=options)
@@ -545,8 +547,8 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
         resetCounts(usedRoutes, routeUsage, countData)
     else:
         while openCounts:
-            cd = countData[_sample(openCounts)]
-            routeIndex = _sample(cd.routeSet.intersection(openRoutes))
+            cd = countData[_sample(openCounts, rng)]
+            routeIndex = _sample(cd.routeSet.intersection(openRoutes), rng)
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].count -= 1
@@ -561,7 +563,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
         optimize(options, countData, routes, usedRoutes, routeUsage)
         resetCounts(usedRoutes, routeUsage, countData)
     # avoid bias from sampling order / optimization
-    random.shuffle(usedRoutes, random.random)
+    random.shuffle(usedRoutes, rng.random)
 
     if usedRoutes:
         outf.write('<!-- begin="%s" end="%s" -->\n' % (begin, end))
@@ -687,6 +689,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf):
         print("Warning: %s (total %s)" % (underflow, sum(underflow.values)))
     if overflow.count() > 0:
         print("Warning: %s (total %s)" % (overflow, sum(overflow.values)))
+    sys.stdout.flush() #  needed for multiprocessing
 
     if mismatchf:
         mismatchf.write('    <interval id="deficit" begin="%s" end="%s">\n' % (begin, end))
