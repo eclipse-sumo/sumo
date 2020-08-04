@@ -1,5 +1,5 @@
 -r input_routes.rou.xml -d input_edgedata.xml -o out.rou.xml 
 --edgedata-attribute count
 -f number -I
---cpu-num 2
+--threads 2
 --mismatch-output edgedata.xml

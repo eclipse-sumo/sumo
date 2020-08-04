@@ -2,4 +2,4 @@
 --edgedata-attribute count
 --write-route-ids
 --write-flows number
---cpu-num 2
+--threads 2

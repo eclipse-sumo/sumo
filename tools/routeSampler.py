@@ -108,7 +108,7 @@ def get_options(args=None):
                         help="tell me what you are doing")
     parser.add_argument("-V", "--verbose.histograms", dest="verboseHistogram", action="store_true", default=False,
                         help="print histograms of edge numbers and detector passing count")
-    parser.add_argument("--cpu-num", dest="cpuNum", type=int, default=1,
+    parser.add_argument("--threads", dest="threads", type=int, default=1,
                         help="If parallelization is desired, enter the number of CPUs to use. Set to a value >> then "
                              "your machines CPUs if you want to utilize all CPUs (Default is 1)"
                         )
@@ -149,7 +149,7 @@ def get_options(args=None):
         print("Option --optimize-input requires an integer argument for --optimize", file=sys.stderr)
         sys.exit(1)
 
-    if options.cpuNum > 1 and sys.version_info[0] < 3:
+    if options.threads > 1 and sys.version_info[0] < 3:
         print("Using multiple cpus is only supported for python 3", file=sys.stderr)
         sys.exit(1)
 
@@ -476,9 +476,9 @@ def main(options):
 
     with open(options.out, 'w') as outf:
         sumolib.writeXMLHeader(outf, "$Id$", "routes")  # noqa
-        if options.cpuNum > 1:
+        if options.threads > 1:
             # call the multiprocessing function
-            results = multi_process(options.cpuNum, options.seed, intervals,
+            results = multi_process(options.threads, options.seed, intervals,
                     _solveIntervalMP, outf, mismatchf, options=options, routes=routes)
             # handle the uFlow, oFlow and GEH
             for _, result in results:
