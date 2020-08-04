@@ -234,7 +234,7 @@ public:
      */
     CHRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation operation,
              const SUMOVehicleClass svc,
-             const typename CHBuilder<E, V>::Hierarchy* hierarchy,
+             typename CHBuilder<E, V>::Hierarchy* hierarchy,
              const bool havePermissions, const bool haveRestrictions) :
         SUMOAbstractRouter<E, V>("CHRouterClone", unbuildIsWarning, operation, nullptr, havePermissions, haveRestrictions),
         myEdges(edges),
@@ -266,6 +266,20 @@ public:
                                   mySVC, myWeightPeriod, this->myHavePermissions, this->myHaveRestrictions);
     }
 
+    /// trigger hierarchy rebuild
+    virtual void reset(const V* const vehicle) {
+        if (myValidUntil == 0) {
+            myValidUntil = myWeightPeriod;
+        }
+        typename CHBuilder<E, V>::Hierarchy* newHierarchy = myHierarchyBuilder->buildContractionHierarchy(myValidUntil - myWeightPeriod, vehicle, this);
+        if (myHierarchy == nullptr) {
+            myHierarchy = newHierarchy;
+        } else {
+            *myHierarchy = *newHierarchy;
+            delete newHierarchy;
+        }
+    }
+
     /** @brief Builds the route between the given edges using the minimum traveltime in the contracted graph
      * @note: since the contracted graph is static (weights averaged over time)
      * the computed routes only approximated shortest paths in the real graph
@@ -280,8 +294,7 @@ public:
             while (msTime >= myValidUntil) {
                 myValidUntil += myWeightPeriod;
             }
-            delete myHierarchy;
-            myHierarchy = myHierarchyBuilder->buildContractionHierarchy(myValidUntil - myWeightPeriod, vehicle, this);
+            this->reset(vehicle);
         }
         // ready for routing
         this->startQuery();
@@ -377,7 +390,7 @@ private:
     Unidirectional myBackwardSearch;
 
     CHBuilder<E, V>* myHierarchyBuilder;
-    const typename CHBuilder<E, V>::Hierarchy* myHierarchy;
+    typename CHBuilder<E, V>::Hierarchy* myHierarchy;
 
     /// @brief the validity duration of one weight interval
     const SUMOTime myWeightPeriod;

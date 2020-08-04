@@ -105,7 +105,7 @@ public:
     }
 
 
-    const Hierarchy* buildContractionHierarchy(SUMOTime time, const V* const vehicle, const SUMOAbstractRouter<E, V>* effortProvider) {
+    Hierarchy* buildContractionHierarchy(SUMOTime time, const V* const vehicle, const SUMOAbstractRouter<E, V>* effortProvider) {
         Hierarchy* result = new Hierarchy();
         const int numEdges = (int)myCHInfos.size();
         const std::string vClass = (mySPTree->validatePermissions() ?

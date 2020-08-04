@@ -135,6 +135,11 @@ public:
 
     virtual SUMOAbstractRouter* clone() = 0;
 
+    /// reset internal caches, used by CHRouter
+    virtual void reset(const V* const vehicle) {
+        UNUSED_PARAMETER(vehicle);
+    }
+
     const std::string& getType() const {
         return myType;
     }
@@ -248,6 +253,7 @@ public:
         }
         return effort;
     }
+
 
     inline double recomputeCosts(const std::vector<const E*>& edges, const V* const v, double fromPos, double toPos, SUMOTime msTime, double* lengthp = nullptr) const {
         double effort = recomputeCosts(edges, v, msTime, lengthp);

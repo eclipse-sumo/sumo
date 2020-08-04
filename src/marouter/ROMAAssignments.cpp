@@ -331,6 +331,7 @@ ROMAAssignments::incremental(const int numIter, const bool verbose) {
                     edge->addTravelTime(travelTime, STEPS2TIME(begin), STEPS2TIME(end));
                 }
             }
+            myRouter.reset(myDefaultVehicle);
         }
         lastBegin = intervalStart;
     }
