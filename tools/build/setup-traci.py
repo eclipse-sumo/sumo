@@ -21,7 +21,7 @@ from setuptools import setup
 import os
 import version
 
-SUMO_VERSION = version.get_digit_version()
+SUMO_VERSION = version.get_pep440_version()
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 
 setup(

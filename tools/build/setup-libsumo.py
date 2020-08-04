@@ -25,7 +25,7 @@ import glob
 
 import version
 
-SUMO_VERSION = version.get_digit_version()
+SUMO_VERSION = version.get_pep440_version()
 package_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 data_files = []
 for f in sorted(glob.glob(os.path.join(os.path.dirname(package_dir), 'bin', '*.dll'))):

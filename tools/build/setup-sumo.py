@@ -18,7 +18,7 @@
 from skbuild import setup
 import version
 
-SUMO_VERSION = version.get_digit_version()
+SUMO_VERSION = version.get_pep440_version()
 setup(
     name='sumo',
     version=SUMO_VERSION,

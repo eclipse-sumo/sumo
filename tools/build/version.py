@@ -42,16 +42,15 @@ def get_version(padZero=True):
     return sumolib.version.gitDescribe(gitDir=join(SUMO_ROOT, ".git"), padZero=padZero)
 
 
-def get_digit_version():
-    v = get_version(padZero=False)[1:-11].replace("_", ".").replace("+", ".")
+def get_pep440_version():
+    v = get_version(padZero=False)[1:-11].replace("_", ".").replace("+", ".post")
     vs = v.split(".")
-    if len(vs) == 4 and vs[3] == "0":
-        v = v[:-2]
+    if len(vs) == 4 and vs[3] == "post0":
+        return v[:-6]
     return v
 
 
-def create_version_file(versionFile, revision, vcsFile):
-    print('generating %s from revision in %s' % (versionFile, vcsFile))
+def create_version_file(versionFile, revision):
     with open(versionFile, 'w') as f:
         print('#define VERSION_STRING "%s"' % revision, file=f)
 
@@ -72,13 +71,15 @@ def main():
         if not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
             # vcsFile is newer. lets update the revision number
             try:
-                create_version_file(versionFile, get_version(), vcsFile)
+                print('generating %s from revision in %s' % (versionFile, vcsFile))
+                create_version_file(versionFile, get_version())
             except Exception as e:
                 print("Error creating", versionFile, e)
     else:
-        print("unknown revision - version control file '%s' not found" % vcsFile)
+        print("version control file '%s' not found" % vcsFile)
     if not exists(versionFile):
-        create_version_file(versionFile, sumolib.version.UNKNOWN_REVISION, "<None>")
+        print('trying to generate version file %s from existing header' % versionFile)
+        create_version_file(versionFile, sumolib.version.fromVersionHeader())
 
 
 if __name__ == "__main__":
