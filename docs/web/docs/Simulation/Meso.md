@@ -39,6 +39,17 @@ model was focused on motorway traffic. The current implementation
 contains significant extensions to support the simulation of
 heterogeneous urban traffic as well.
 
+## Used vType parameters
+Only a few vType parameters affect the mesoscopic simulation. They are listed below
+
+- vClass
+- length
+- minGap
+- maxSpeed
+- speedFactor, speedDev (see [Further Congestion Effects](#further_congestion_effects))
+- [impatience](#impatience)
+- accel,decel (only for computing junction passing time when the [microscopic junction model](#junction_model) is active)
+
 ## Longitudinal Model
 
 Vehicles are placed in traffic queues with a maximum length specified by
