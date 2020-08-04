@@ -696,7 +696,6 @@ GNEAttributeCarrier::fillNetworkElements() {
     std::vector<std::string> nodeTypes = SUMOXMLDefinitions::NodeTypes.getStrings();
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::DEAD_END_DEPRECATED)));
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::DEAD_END)));
-    nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::NOJUNCTION)));
     nodeTypes.erase(std::find(nodeTypes.begin(), nodeTypes.end(), toString(SumoXMLNodeType::INTERNAL)));
     // fill networkElement ACs
     SumoXMLTag currentTag = SUMO_TAG_EDGE;
