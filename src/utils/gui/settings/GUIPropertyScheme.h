@@ -187,7 +187,11 @@ public:
             dev.openTag(SUMO_TAG_ENTRY);
             dev.writeAttr(SUMO_ATTR_COLOR, *colIt);
             if (!myIsFixed) {
-                dev.writeAttr(SUMO_ATTR_THRESHOLD, *threshIt);
+                if ((*threshIt) == std::numeric_limits<double>::max()) {
+                    dev.writeAttr(SUMO_ATTR_THRESHOLD, "max");
+                } else {
+                    dev.writeAttr(SUMO_ATTR_THRESHOLD, *threshIt);
+                }
             }
             if ((*nameIt) != "") {
                 dev.writeAttr(SUMO_ATTR_NAME, *nameIt);

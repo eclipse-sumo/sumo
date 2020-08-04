@@ -341,6 +341,9 @@ StringUtils::toDouble(const std::string& sData) {
     if (sData.size() == 0) {
         throw EmptyData();
     }
+    if (sData == "max") {
+        return std::numeric_limits<double>::max();
+    }
     try {
         size_t idx = 0;
         const double result = std::stod(sData, &idx);
