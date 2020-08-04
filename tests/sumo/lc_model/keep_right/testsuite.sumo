@@ -8,3 +8,6 @@ SL2015_subsecond
 
 # test time for changing to the right on am empty road at different speed limits
 empty_roads
+
+# test time for changing to the right when the right lane has a medium amount of traffic
+medium_traffic
