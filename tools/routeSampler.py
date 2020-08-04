@@ -146,6 +146,10 @@ def get_options(args=None):
         print("Option --optimize-input requires an integer argument for --optimize", file=sys.stderr)
         sys.exit(1)
 
+    if options.cpuNum > 1 and sys.version_info[0] < 3:
+        print("Using multiple cpus is only supported for python 3", file=sys.stderr)
+        sys.exit(1)
+
     return options
 
 
