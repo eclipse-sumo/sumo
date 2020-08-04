@@ -381,6 +381,7 @@ set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "CMake")
 
 # installation
 include(GNUInstallDirs)
+install(DIRECTORY bin/ DESTINATION bin FILES_MATCHING PATTERN "*.dll")
 install(DIRECTORY data/ DESTINATION share/sumo/data)
 install(DIRECTORY tools/ DESTINATION share/sumo/tools
         USE_SOURCE_PERMISSIONS
@@ -390,6 +391,8 @@ install(DIRECTORY tools/ DESTINATION share/sumo/tools
         PATTERN "sumolib4matlab/src" EXCLUDE
         PATTERN "traas" EXCLUDE
         PATTERN "traci4matlab/src" EXCLUDE
+        PATTERN "__pycache__" EXCLUDE
+        PATTERN "*.pyc" EXCLUDE
         PATTERN ".git" EXCLUDE)
 install(CODE "execute_process(COMMAND ${CMAKE_COMMAND} -E create_symlink ../../bin \$ENV{DESTDIR}${CMAKE_INSTALL_PREFIX}/share/sumo/bin)")
 
