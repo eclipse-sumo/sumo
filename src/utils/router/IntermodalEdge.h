@@ -88,13 +88,6 @@ public:
                 ++it;
             }
         }
-        for (auto it = myFollowingViaEdges.begin(); it != myFollowingViaEdges.end();) {
-            if (it->first == edge) {
-                it = myFollowingViaEdges.erase(it);
-            } else {
-                ++it;
-            }
-        }
         return true;
     }
 
