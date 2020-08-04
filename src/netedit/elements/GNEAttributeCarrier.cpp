@@ -3474,7 +3474,7 @@ GNEAttributeCarrier::fillPersonPlanEdgeBusStop(SumoXMLTag currentTag) {
 
 
 void 
-GNEAttributeCarrier::fillPersonPlanEdgeStop(SumoXMLTag currentTag) {
+GNEAttributeCarrier::fillPersonPlanEdgeStop(SumoXMLTag /* currentTag */) {
     //
 }
 
