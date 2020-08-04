@@ -1184,6 +1184,14 @@ class VehicleDomain(Domain):
         """
         self._setCmd(tc.VAR_SPEED, vehID, "d", speed)
 
+    def setPreviousSpeed(self, vehID, speed):
+        """setPreviousSpeed(string, double) -> None
+
+        Sets the previous speed in m/s for the named vehicle wich will be used for 
+        calculations in the current step.
+        """
+        self._setCmd(tc.VAR_PREV_SPEED, vehID, "d", speed)
+
     def setColor(self, vehID, color):
         """setColor(string, (integer, integer, integer, integer)) -> None
 
