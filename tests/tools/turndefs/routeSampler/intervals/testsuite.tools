@@ -1,6 +1,7 @@
 # test output style options
 # 
 output-styles
+multiprocessing
 
 # handle count input with multiple data intervals
 2_intervals
