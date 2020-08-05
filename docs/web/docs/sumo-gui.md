@@ -839,7 +839,7 @@ Simulation](Simulation/Shapes.md)
 - To show the route(s) of a vehicle in the simulation, right-click and
   select *Show Current Route* or *Show all Routes*. 
   - To show only the remaining portion of the current route, select *Show Future Route*.
-  - The upcoming stops and their planned timing is automtically shown along the route. To show only the next round of a cyclic route (i.e. for public transport), disable the checkbox 'show looped route'
+  - The upcoming stops and their planned timing (or trigger condition) is automatically shown along the route. To show only the next round of a cyclic route (i.e. for public transport), disable the checkbox 'show looped route'
   - Direction reversal of rail vehicles will be shown along the route with the text 'reverse' and an index.
   - To show the index of each edge along the route, the vehicle visualization option 'Show route index' can be activated
 - Thow show the route of person, right click and select *Show Current
