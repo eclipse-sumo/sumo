@@ -309,6 +309,9 @@ public:
     /// @brief get AttributesEditor
     GNEFrameAttributesModuls::AttributesEditor* getAttributesEditor() const;
 
+    /// @brief get Netedit Attributes editor
+    GNEInspectorFrame::NeteditAttributesEditor* getNeteditAttributesEditor() const;
+
     /// @brief get template editor
     TemplateEditor* getTemplateEditor() const;
 

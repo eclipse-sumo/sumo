@@ -152,8 +152,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_Y_REDO,                         GNEApplicationWindow::onUpdRedo),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,        GNEApplicationWindow::onCmdToogleGrid),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,        GNEApplicationWindow::onUpdNeedsNetwork),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CLEARFRONTELEMENT,                      GNEApplicationWindow::onCmdClearFrontElement),
-    FXMAPFUNC(SEL_UPDATE,   MID_GNE_CLEARFRONTELEMENT,                      GNEApplicationWindow::onUpdNeedsFrontElement),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F11_FRONTELEMENT,                    GNEApplicationWindow::onCmdSetFrontElement),
+    FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_F11_FRONTELEMENT,                    GNEApplicationWindow::onUpdNeedsFrontElement),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBAREDIT_LOADADDITIONALS,            GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBAREDIT_LOADDEMAND,                 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI),
@@ -1753,9 +1753,22 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
 
 
 long
-GNEApplicationWindow::onCmdClearFrontElement(FXObject* /*obj*/, FXSelector /*sel*/, void* /*ptr*/) {
+GNEApplicationWindow::onCmdSetFrontElement(FXObject* /*obj*/, FXSelector /*sel*/, void* /*ptr*/) {
     if (myViewNet) {
-        myViewNet->setFrontAttributeCarrier(nullptr);
+        if (myViewNet->getViewParent()->getInspectorFrame()->shown()) {
+            // get inspected AC
+            const GNEAttributeCarrier *inspectedAC = (myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs().size() == 1)?
+                myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs().front() : nullptr;
+            // set or clear front attribute
+            if (myViewNet->getFrontAttributeCarrier() == inspectedAC) {
+                myViewNet->setFrontAttributeCarrier(nullptr);
+            } else {
+                myViewNet->setFrontAttributeCarrier(inspectedAC);
+            }
+            myViewNet->getViewParent()->getInspectorFrame()->getNeteditAttributesEditor()->refreshNeteditAttributesEditor(true);
+        } else {
+            myViewNet->setFrontAttributeCarrier(nullptr);
+        }
     }
     return 1;
 }

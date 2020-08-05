@@ -364,6 +364,12 @@ GNEInspectorFrame::getAttributesEditor() const {
 }
 
 
+GNEInspectorFrame::NeteditAttributesEditor*
+GNEInspectorFrame::getNeteditAttributesEditor() const {
+    return myNeteditAttributesEditor;
+}
+
+
 GNEInspectorFrame::TemplateEditor*
 GNEInspectorFrame::getTemplateEditor() const {
     return myTemplateEditor;
@@ -620,6 +626,12 @@ GNEInspectorFrame::NeteditAttributesEditor::hideNeteditAttributesEditor() {
 void
 GNEInspectorFrame::NeteditAttributesEditor::refreshNeteditAttributesEditor(bool forceRefresh) {
     if (myInspectorFrameParent->myAttributesEditor->getEditedACs().size() > 0) {
+        // enable or disable mark front element button
+        if (myInspectorFrameParent->getViewNet()->getFrontAttributeCarrier() == myInspectorFrameParent->myAttributesEditor->getEditedACs().front()) {
+            myMarkFrontElementButton->disable();
+        } else {
+            myMarkFrontElementButton->enable();
+        }
         // refresh block movement
         if (myHorizontalFrameBlockMovement->shown()) {
             // Iterate over AC to obtain values

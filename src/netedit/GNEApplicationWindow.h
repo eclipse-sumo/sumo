@@ -270,8 +270,8 @@ public:
     /// @brief called if the user press key combination Ctrl + G to toogle grid
     long onCmdToogleGrid(FXObject*, FXSelector, void*);
 
-    /// @brief called if the user call clear front element
-    long onCmdClearFrontElement(FXObject*, FXSelector, void*);
+    /// @brief called if the user call set front element
+    long onCmdSetFrontElement(FXObject*, FXSelector, void*);
 
     /// @brief called if the user press key combination Alt + <0-9>
     long onCmdToogleEditOptions(FXObject*, FXSelector, void*);

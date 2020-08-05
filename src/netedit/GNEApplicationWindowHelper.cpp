@@ -560,8 +560,8 @@ GNEApplicationWindowHelper::EditMenuCommands::buildEditMenuCommands(FXMenuPane* 
     new FXMenuSeparator(editMenu);
     // add clear front element
     clearFrontElement = new FXMenuCommand(editMenu,
-        "Clear front element\t\tClear current front element",
-        GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), myGNEApp, MID_GNE_CLEARFRONTELEMENT);
+        "Clear front element\tF11\tClear current front element",
+        GUIIconSubSys::getIcon(GUIIcon::FRONTELEMENT), myGNEApp, MID_HOTKEY_F11_FRONTELEMENT);
     // add separator
     new FXMenuSeparator(editMenu);
     // add open in sumo options
