@@ -26,6 +26,9 @@ import os
 import sys
 import random
 from collections import defaultdict
+# multiprocessing imports
+import multiprocessing
+import numpy as np
 
 try:
     from StringIO import StringIO
@@ -36,10 +39,6 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import parseTime  # noqa
-
-# multiprocessing imports
-import multiprocessing
-import numpy as np
 
 
 def _run_func(args):
@@ -54,7 +53,7 @@ def multi_process(cpu_num, seed, interval_list, func, outf, mismatchf, **kwargs)
     # pool = multiprocessing.Pool(processes=cpu_count)
     with multiprocessing.get_context("spawn").Pool() as pool:
         results = pool.map(_run_func, [(func, interval, kwargs, i) for i, interval in enumerate(interval_split)])
-        #pool.close()
+        # pool.close()
         results = sorted(results, key=lambda x: x[0])
         for _, result in results:
             outf.write("".join(result[-2]))
@@ -162,7 +161,7 @@ class CountData:
         self.count = count
         self.edgeTuple = edgeTuple
         self.isOD = isOD
-        self.options = options  # added options because multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
+        self.options = options  # multiprocessing had issue with sumolib.options.getOptions().turnMaxGap
         self.routeSet = set()
         for routeIndex, edges in enumerate(allRoutes.unique):
             if self.routePasses(edges,):
@@ -479,7 +478,7 @@ def main(options):
         if options.threads > 1:
             # call the multiprocessing function
             results = multi_process(options.threads, options.seed, intervals,
-                    _solveIntervalMP, outf, mismatchf, options=options, routes=routes)
+                                    _solveIntervalMP, outf, mismatchf, options=options, routes=routes)
             # handle the uFlow, oFlow and GEH
             for _, result in results:
                 for i, begin in enumerate(result[0]):
@@ -517,9 +516,10 @@ def _solveIntervalMP(options, routes, interval, cpuIndex):
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
         intervalPrefix = "%s_" % int(begin)
-        uFlow, oFlow, gehOKNum, local_outf = solveInterval(options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng=rng)
+        uFlow, oFlow, gehOKNum, local_outf = solveInterval(
+            options, routes, begin, end, intervalPrefix, local_outf, local_mismatch_outf, rng=rng)
         output_list.append([begin, uFlow, oFlow, gehOKNum, local_outf.getvalue(),
-            local_mismatch_outf.getvalue() if options.mismatchOut else None])
+                            local_mismatch_outf.getvalue() if options.mismatchOut else None])
     output_lst = list(zip(*output_list))
     return output_lst
 
@@ -693,7 +693,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         print("Warning: %s (total %s)" % (underflow, sum(underflow.values)))
     if overflow.count() > 0:
         print("Warning: %s (total %s)" % (overflow, sum(overflow.values)))
-    sys.stdout.flush() #  needed for multiprocessing
+    sys.stdout.flush()  # needed for multiprocessing
 
     if mismatchf:
         mismatchf.write('    <interval id="deficit" begin="%s" end="%s">\n' % (begin, end))
