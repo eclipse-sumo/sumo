@@ -282,6 +282,7 @@ public:
      * @param[in] pos position of the detector on the lane
      * @param[in[ length length of the detector
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
      * @param[in] name E2 detector name
@@ -293,8 +294,9 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static GNEAdditional* buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, SUMOTime freq, const std::string& filename,
-            const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+    static GNEAdditional* buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, const std::string &freq, const std::string &trafficLight, 
+                                                    const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, 
+                                                    double jamThreshold, bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a multi-lane Area Detector (E2)
      * @param[in] net net in which element will be inserted
@@ -304,6 +306,7 @@ public:
      * @param[in] pos position of the detector on the first lane
      * @param[in] endPos position of the detector on the last lane
      * @param[in] freq the aggregation period the values the detector collects shall be summed up.
+     * @param[in] trafficLight The traffic light that triggers aggregation when switching.
      * @param[in] filename The path to the output file.
      * @param[in] vtypes list of vehicle types to be reported
      * @param[in] name E2 detector name
@@ -315,8 +318,9 @@ public:
      * @return true if was sucesfully created, false in other case
      * @exception InvalidArgument If the detector can not be added to the net (is duplicate)
      */
-    static GNEAdditional* buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, SUMOTime freq, const std::string& filename,
-            const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement);
+    static GNEAdditional* buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, const std::string &freq, const std::string &trafficLight,
+                                                   const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, 
+                                                   bool friendlyPos, bool blockMovement);
 
     /**@brief Builds a multi entry exit detector (E3)
      * @param[in] net net in which element will be inserted

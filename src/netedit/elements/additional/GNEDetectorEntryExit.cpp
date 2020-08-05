@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, 0, "", "", friendlyPos, blockMovement, {
+    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, "", "", "", friendlyPos, blockMovement, {
     lane
 }) {
     //check that this is a TAZ Source OR a TAZ Sink

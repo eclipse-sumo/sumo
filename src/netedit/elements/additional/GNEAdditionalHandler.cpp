@@ -389,10 +389,10 @@ GNEAdditionalHandler::buildDetectorE1(GNENet* net, bool allowUndoRedo, const std
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, SUMOTime freq, const std::string& filename,
-        const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
+GNEAdditionalHandler::buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, const std::string &freq, const std::string &trafficLight, 
+        const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) {
-        GNEAdditional* detectorE2 = new GNEDetectorE2(id, lane, net, pos, length, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
+        GNEAdditional* detectorE2 = new GNEDetectorE2(id, lane, net, pos, length, freq, trafficLight, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
@@ -410,10 +410,10 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo,
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, SUMOTime freq, const std::string& filename,
-        const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
+GNEAdditionalHandler::buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, const std::string &freq, const std::string &trafficLight,
+        const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr) {
-        GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lanes, net, pos, endPos, freq, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
+        GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lanes, net, pos, endPos, freq, trafficLight, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
         if (allowUndoRedo) {
             net->getViewNet()->getUndoList()->p_begin("add " + toString(SUMO_TAG_E2DETECTOR_MULTILANE));
             net->getViewNet()->getUndoList()->add(new GNEChange_Additional(detectorE2, true), true);
@@ -2196,7 +2196,8 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet* net, bool allowUndoRedo, c
     double endPos = (E2Tag == SUMO_TAG_E2DETECTOR_MULTILANE) ? GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_ENDPOS, abort) : 0;
     // parse common attributes
     double position = GNEAttributeCarrier::parseAttributeFromXML<double>(attrs, id, E2Tag, SUMO_ATTR_POSITION, abort);
-    SUMOTime frequency = GNEAttributeCarrier::parseAttributeFromXML<SUMOTime>(attrs, id, E2Tag, SUMO_ATTR_FREQUENCY, abort);
+    std::string frequency = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_FREQUENCY, abort);
+    const std::string trafficLight = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_TLID, abort);
     std::string file = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_FILE, abort);
     std::string vehicleTypes = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_VTYPES, abort);
     std::string name = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, id, E2Tag, SUMO_ATTR_NAME, abort);
@@ -2216,7 +2217,13 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet* net, bool allowUndoRedo, c
         // check if at leas lane or laneIDS are defined
         if (laneId.empty() && laneIds.empty()) {
             WRITE_WARNING("A " + toString(E2Tag) + " needs at least a lane or a list of lanes.");
+        } else if (!frequency.empty() && !trafficLight.empty()) {
+            WRITE_WARNING("Frecuency and TL cannot be defined at the same time.");
         } else {
+            // update frequency (temporal)
+            if (frequency.empty() && trafficLight.empty()) {
+                frequency = "900.00";
+            }
             // get pointer to lane
             GNELane* lane = net->retrieveLane(laneId, false, true);
             // get list of lanes
@@ -2250,7 +2257,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet* net, bool allowUndoRedo, c
                 WRITE_WARNING("Invalid end position for " + toString(E2Tag) + " with ID = '" + id + "'.");
             } else if (lane) {
                 // save ID of last created element
-                GNEAdditional* additionalCreated = buildSingleLaneDetectorE2(net, allowUndoRedo, id, lane, position, length, frequency, file, vehicleTypes,
+                GNEAdditional* additionalCreated = buildSingleLaneDetectorE2(net, allowUndoRedo, id, lane, position, length, frequency, trafficLight, file, vehicleTypes,
                                                    name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, blockMovement);
                 // check if insertion has to be commited
                 if (insertedAdditionals) {
@@ -2259,7 +2266,7 @@ GNEAdditionalHandler::parseAndBuildDetectorE2(GNENet* net, bool allowUndoRedo, c
                 return true;
             } else {
                 // save ID of last created element
-                GNEAdditional* additionalCreated = buildMultiLaneDetectorE2(net, allowUndoRedo, id, lanes, position, endPos, frequency, file, vehicleTypes,
+                GNEAdditional* additionalCreated = buildMultiLaneDetectorE2(net, allowUndoRedo, id, lanes, position, endPos, frequency, trafficLight, file, vehicleTypes,
                                                    name, haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold, friendlyPos, blockMovement);
                 // check if insertion has to be commited
                 if (insertedAdditionals) {

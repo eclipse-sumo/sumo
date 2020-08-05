@@ -34,24 +34,24 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
-                             const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {
-    lane
-}),
-myLength(length),
-myEndPositionOverLane(0.),
-myTimeThreshold(timeThreshold),
-mySpeedThreshold(speedThreshold),
-myJamThreshold(jamThreshold),
-myE2valid(true) {
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const std::string &freq, const std::string &trafficLight, const std::string& filename, 
+                             const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}),
+    myLength(length),
+    myTrafficLight(trafficLight),
+    myEndPositionOverLane(0.),
+    myTimeThreshold(timeThreshold),
+    mySpeedThreshold(speedThreshold),
+    myJamThreshold(jamThreshold),
+    myE2valid(true) {
 }
 
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, SUMOTime freq, const std::string& filename, const std::string& vehicleTypes,
-                             const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
+GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const std::string &freq, const std::string &trafficLight, const std::string& filename, 
+                             const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR_MULTILANE, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, lanes),
     myLength(0),
+    myTrafficLight(trafficLight),
     myEndPositionOverLane(endPos),
     myTimeThreshold(timeThreshold),
     mySpeedThreshold(speedThreshold),
@@ -375,7 +375,9 @@ GNEDetectorE2::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ENDPOS:
             return toString(myEndPositionOverLane);
         case SUMO_ATTR_FREQUENCY:
-            return time2string(myFreq);
+            return myFreq;
+        case SUMO_ATTR_TLID:
+            return myTrafficLight;
         case SUMO_ATTR_LENGTH:
             return toString(myLength);
         case SUMO_ATTR_NAME:
@@ -416,6 +418,7 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoLi
         case SUMO_ATTR_POSITION:
         case SUMO_ATTR_ENDPOS:
         case SUMO_ATTR_FREQUENCY:
+        case SUMO_ATTR_TLID:
         case SUMO_ATTR_LENGTH:
         case SUMO_ATTR_NAME:
         case SUMO_ATTR_FILE:
@@ -460,7 +463,10 @@ GNEDetectorE2::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_ENDPOS:
             return canParse<double>(value);
         case SUMO_ATTR_FREQUENCY:
-            return (canParse<double>(value) && (parse<double>(value) >= 0));
+            return value.empty() || (canParse<double>(value) && (parse<double>(value) >= 0));
+        case SUMO_ATTR_TLID:
+            /* temporal */
+            return true;
         case SUMO_ATTR_LENGTH:
             return (canParse<double>(value) && (parse<double>(value) >= 0));
         case SUMO_ATTR_NAME:
@@ -520,7 +526,10 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
             myEndPositionOverLane = parse<double>(value);
             break;
         case SUMO_ATTR_FREQUENCY:
-            myFreq = parse<SUMOTime>(value);
+            myFreq = value;
+            break;
+        case SUMO_ATTR_TLID:
+            myTrafficLight = value;
             break;
         case SUMO_ATTR_LENGTH:
             myLength = parse<double>(value);
