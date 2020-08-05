@@ -759,6 +759,7 @@ GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorW
         std::vector<FXRealSpinner*>::const_iterator threshEnd,
         std::vector<FXButton*>::const_iterator buttonIt,
         GUIColorScheme& scheme) {
+    UNUSED_PARAMETER(threshEnd);
     int pos = 0;
     while (colIt != colEnd) {
         if (scheme.isFixed()) {
@@ -768,18 +769,6 @@ GUIDialog_ViewSettings::updateColorRanges(FXObject* sender, std::vector<FXColorW
         } else {
             if (sender == *threshIt) {
                 const double val = (*threshIt)->getValue();
-                double lo, hi;
-                if (pos != 0) {
-                    threshIt--;
-                    (*threshIt)->getRange(lo, hi);
-                    (*threshIt)->setRange(lo, val);
-                    threshIt++;
-                }
-                threshIt++;
-                if (threshIt != threshEnd) {
-                    (*threshIt)->getRange(lo, hi);
-                    (*threshIt)->setRange(val, hi);
-                }
                 scheme.setThreshold(pos, val);
                 return false;
             }
