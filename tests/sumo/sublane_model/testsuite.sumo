@@ -57,5 +57,8 @@ rescueLane
 # vehicle behavior on a single edge with cars and mopeds
 lane_discipline
 
+# use calibrator to change vehicle alignment
+calibrate_alignment
+
 # tests for various tickets
 bugs
