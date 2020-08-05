@@ -64,3 +64,9 @@ getNextStops
 
 # set rerouting device parameter period
 setReroutingPeriod
+
+# test timing of slowDown command
+slowDown
+
+# test timing of slowDown command
+slowDown_subsecond
