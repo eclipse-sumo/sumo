@@ -921,28 +921,30 @@ bool
 GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
+    // get front AC
+    const GNEAttributeCarrier *frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
     // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getPolyFront()) {
+    if (myViewNet->myObjectsUnderCursor.getPolyFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPolyFront())) {
         // calculate poly movement values (can be entire shape, single geometry points, altitude, etc.)
         return calculatePolyValues();
-    } else if (myViewNet->myObjectsUnderCursor.getPOIFront()) {
+    } else if (myViewNet->myObjectsUnderCursor.getPOIFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPOIFront())) {
         // set POI moved object
         myPOIToMove = myViewNet->myObjectsUnderCursor.getPOIFront();
         // start POI geometry moving
         myPOIToMove->startPOIGeometryMoving();
         // there is moved items, then return true
         return true;
-    } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront()) {
+    } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront() && (frontAC == myViewNet->myObjectsUnderCursor.getAdditionalFront())) {
         // set additionals moved object
         myAdditionalToMove = myViewNet->myObjectsUnderCursor.getAdditionalFront();
         // start additional geometry moving
         myAdditionalToMove->startGeometryMoving();
         // there is moved items, then return true
         return true;
-    } else if (myViewNet->myObjectsUnderCursor.getTAZFront()) {
+    } else if (myViewNet->myObjectsUnderCursor.getTAZFront() && (frontAC == myViewNet->myObjectsUnderCursor.getTAZFront())) {
         // calculate TAZ movement values (can be entire shape or single geometry points)
         return calculateTAZValues();
-    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
+    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (frontAC == myViewNet->myObjectsUnderCursor.getJunctionFront())) {
         if (myViewNet->myObjectsUnderCursor.getJunctionFront()->isShapeEdited()) {
             return false;
         } else {
@@ -953,7 +955,8 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             // there is moved items, then return true
             return true;
         }
-    } else if (myViewNet->myObjectsUnderCursor.getEdgeFront() || myViewNet->myObjectsUnderCursor.getLaneFront()) {
+    } else if ((myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) || 
+               (myViewNet->myObjectsUnderCursor.getLaneFront() && (frontAC == myViewNet->myObjectsUnderCursor.getLaneFront()))) {
         // calculate Edge movement values (can be entire shape, single geometry points, altitude, etc.)
         return calculateEdgeValues();
     } else {
@@ -968,7 +971,8 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getDemandElementFront()) {
+    if (myViewNet->myObjectsUnderCursor.getDemandElementFront() && 
+        (myViewNet->myObjectsUnderCursor.getAttributeCarrierFront() == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
         // set additionals moved object
         myDemandElementToMove = myViewNet->myObjectsUnderCursor.getDemandElementFront();
         // start demand element geometry moving
