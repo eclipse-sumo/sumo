@@ -181,6 +181,8 @@ enum {
     MID_HOTKEY_F9_EDIT_VIEWSCHEME,
     /// @brief open options menu
     MID_HOTKEY_F10_OPTIONSMENU,
+    /// @brief set/clear front element
+    MID_HOTKEY_F11_FRONTELEMENT,
     /// @brief open about dialog
     MID_HOTKEY_F12_ABOUT,
     /// @}
@@ -761,8 +763,6 @@ enum {
     MID_GNE_OVERLAPPED_ITEMSELECTED,
     /// @brief mark item as front element
     MID_GNE_MARKFRONTELEMENT,
-    /// @brief clear item as front element
-    MID_GNE_CLEARFRONTELEMENT,
     /// @}
 
     /// @name GNESelectorFrame messages
