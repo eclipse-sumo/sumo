@@ -3473,8 +3473,19 @@ GNEAttributeCarrier::fillPersonPlanEdgeBusStop(SumoXMLTag currentTag) {
 
 
 void 
-GNEAttributeCarrier::fillPersonPlanEdgeStop(SumoXMLTag /* currentTag */) {
-    //
+GNEAttributeCarrier::fillPersonPlanEdgeStop(SumoXMLTag currentTag) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+    // from edge
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_FROM,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "The name of the edge the " + toString(currentTag) + " starts at");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    // to stop
+    attrProperty = GNEAttributeProperties(GNE_ATTR_TO_STOP,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "Destination " + toString(SUMO_TAG_STOP));
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
@@ -3519,26 +3530,76 @@ GNEAttributeCarrier::fillPersonPlanBusStopBusStop(SumoXMLTag currentTag) {
 
 
 void 
-GNEAttributeCarrier::fillPersonPlanBusStopStop(SumoXMLTag /*currentTag*/) {
-    //
+GNEAttributeCarrier::fillPersonPlanBusStopStop(SumoXMLTag currentTag) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+    // from busStop
+    attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_BUSSTOP,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "Id of the origin " + toString(SUMO_TAG_BUS_STOP));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    // to stop
+    attrProperty = GNEAttributeProperties(GNE_ATTR_TO_STOP,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "Destination " + toString(SUMO_TAG_STOP));
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
 void 
-GNEAttributeCarrier::fillPersonPlanStopEdge(SumoXMLTag /*currentTag*/) {
-    //
+GNEAttributeCarrier::fillPersonPlanStopEdge(SumoXMLTag currentTag) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+    // from busStop
+    attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_STOP,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "Origin " + toString(SUMO_TAG_STOP));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    // to edge
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_TO,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "The name of the edge the " + toString(currentTag) + " ends at");
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    // arrival position
+    attrProperty = GNEAttributeProperties(SUMO_ATTR_ARRIVALPOS,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
+        "arrival position on the destination edge",
+        "-1");
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
 void 
-GNEAttributeCarrier::fillPersonPlanStopBusStop(SumoXMLTag /*currentTag*/) {
-    //
+GNEAttributeCarrier::fillPersonPlanStopBusStop(SumoXMLTag currentTag) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+    // from busStop
+    attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_STOP,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "Origin " + toString(SUMO_TAG_STOP));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    // to busStop
+    attrProperty = GNEAttributeProperties(GNE_ATTR_TO_BUSSTOP,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "Id of the destination " + toString(SUMO_TAG_BUS_STOP));
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
 void 
-GNEAttributeCarrier::fillPersonPlanStopStop(SumoXMLTag /*currentTag*/) {
-    //
+GNEAttributeCarrier::fillPersonPlanStopStop(SumoXMLTag currentTag) {
+    // declare empty GNEAttributeProperties
+    GNEAttributeProperties attrProperty;
+    // from busStop
+    attrProperty = GNEAttributeProperties(GNE_ATTR_FROM_STOP,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "Origin " + toString(SUMO_TAG_STOP));
+    myTagProperties[currentTag].addAttribute(attrProperty);
+    // to stop
+    attrProperty = GNEAttributeProperties(GNE_ATTR_TO_STOP,
+        GNEAttributeProperties::STRING | GNEAttributeProperties::UNIQUE | GNEAttributeProperties::UPDATEGEOMETRY,
+        "Destination " + toString(SUMO_TAG_STOP));
+    myTagProperties[currentTag].addAttribute(attrProperty);
 }
 
 
