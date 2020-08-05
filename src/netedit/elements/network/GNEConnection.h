@@ -80,6 +80,9 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitConnectionShapeChange(GNEUndoList* undoList);
+
+    /// @brief delete geometry point
+    void deleteConnectionShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList);
     /// @}
 
     /// Returns the street's geometry

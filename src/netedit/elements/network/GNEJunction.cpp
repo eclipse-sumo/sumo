@@ -150,10 +150,6 @@ GNEJunction::getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) co
     // first check if vertex already exists in the inner geometry
     for (int i = 0; i < (int)shape.size(); i++) {
         if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
-            // index refers to inner geometry
-            if (i == 0 || i == (int)(shape.size() - 1)) {
-                return -1;
-            }
             return i;
         }
     }
@@ -218,6 +214,24 @@ GNEJunction::commitJunctionShapeChange(GNEUndoList* undoList) {
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
     undoList->p_end();
+}
+
+
+void 
+GNEJunction::deleteJunctionShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList) {
+    // get a copy of shape
+    PositionVector newShape = parse<PositionVector>(getAttribute(SUMO_ATTR_SHAPE));
+    // obtain index
+    const int index = getJunctionShapeVertexIndex(mousePosition, false);
+    // check index
+    if ((index != -1) && (newShape.size() > 2)) {
+        // remove geometry point
+        newShape.erase(newShape.begin() + index);
+        // set new shape
+        undoList->p_begin("delete geometry point of " + getTagStr());
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+        undoList->p_end();
+    }
 }
 
 

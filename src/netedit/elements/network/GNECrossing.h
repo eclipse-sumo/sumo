@@ -86,6 +86,9 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitCrossingShapeChange(GNEUndoList* undoList);
+
+    /// @brief delete geometry point
+    void deleteCrossingShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList);
     /// @}
 
     /// @brief get parent Junction

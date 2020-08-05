@@ -180,10 +180,6 @@ GNEConnection::getConnectionShapeVertexIndex(Position pos, const bool snapToGrid
     // first check if vertex already exists in the inner geometry
     for (int i = 0; i < (int)shape.size(); i++) {
         if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius) {
-            // index refers to inner geometry
-            if (i == 0 || i == (int)(shape.size() - 1)) {
-                return -1;
-            }
             return i;
         }
     }
@@ -251,6 +247,23 @@ GNEConnection::commitConnectionShapeChange(GNEUndoList* undoList) {
     undoList->p_end();
 }
 
+
+void 
+GNEConnection::deleteConnectionShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList) {
+    // get a copy of shape
+    PositionVector newShape = getNBEdgeConnection().customShape;
+    // obtain index
+    const int index = getConnectionShapeVertexIndex(mousePosition, false);
+    // check index
+    if ((index != -1) && (newShape.size() > 2)) {
+        // remove geometry point
+        newShape.erase(newShape.begin() + index);
+        // set new shape
+        undoList->p_begin("delete geometry point of " + getTagStr());
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(newShape)));
+        undoList->p_end();
+    }
+}
 
 Boundary
 GNEConnection::getBoundary() const {

@@ -98,6 +98,9 @@ public:
     * @param[in] undoList The undoList on which to register changes
     */
     void commitJunctionShapeChange(GNEUndoList* undoList);
+
+    /// @brief delete geometry point
+    void deleteJunctionShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GUIGlObject
