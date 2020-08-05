@@ -105,13 +105,24 @@ GNECrossing::getCrossingShapeVertexIndex(Position pos, const bool snapToGrid) co
     const auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // get shape
     const PositionVector shape = crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape;
+    // check shape size
+    if (shape.size() == 0) {
+        return -1;
+    }
     // check if position has to be snapped to grid
     if (snapToGrid) {
         pos = myNet->getViewNet()->snapToActiveGrid(pos);
     }
     const double offset = shape.nearest_offset_to_point2D(pos, true);
     if (offset == GeomHelper::INVALID_OFFSET) {
-        return -1;
+        // check if we clicked over start or end position
+        if (shape.front().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
+            return 0;
+        } else if (shape.back().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
+            return (shape.size() - 1);
+        } else {
+            return -1;
+        }
     }
     Position newPos = shape.positionAtOffset2D(offset);
     // first check if vertex already exists in the inner geometry

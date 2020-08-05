@@ -137,14 +137,25 @@ GNEJunction::endJunctionShapeGeometryMoving() {
 int
 GNEJunction::getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) const {
     // get shape
-    const PositionVector& shape = myNBNode->getShape();
+    const PositionVector shape = myNBNode->getShape();
+    // check shape size
+    if (shape.size() == 0) {
+        return -1;
+    }
     // check if position has to be snapped to grid
     if (snapToGrid) {
         pos = myNet->getViewNet()->snapToActiveGrid(pos);
     }
     const double offset = shape.nearest_offset_to_point2D(pos, true);
     if (offset == GeomHelper::INVALID_OFFSET) {
-        return -1;
+        // check if we clicked over start or end position
+        if (shape.front().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
+            return 0;
+        } else if (shape.back().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
+            return (shape.size() - 1);
+        } else {
+            return -1;
+        }
     }
     Position newPos = shape.positionAtOffset2D(offset);
     // first check if vertex already exists in the inner geometry
@@ -224,7 +235,7 @@ GNEJunction::deleteJunctionShapeGeometryPoint(const Position &mousePosition, GNE
     // obtain index
     const int index = getJunctionShapeVertexIndex(mousePosition, false);
     // check index
-    if ((index != -1) && (newShape.size() > 2)) {
+    if ((index != -1) && (newShape.size() > 3)) {
         // remove geometry point
         newShape.erase(newShape.begin() + index);
         // set new shape
@@ -450,17 +461,17 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // set color
                     GLHelper::setColor(junctionShapeColor);
                     // obtain junction Shape
-                    PositionVector junctionShape = myNBNode->getShape();
+                    PositionVector junctionClosedShape = myNBNode->getShape();
                     // close junction shape
-                    junctionShape.closePolygon();
+                    junctionClosedShape.closePolygon();
                     // adjust shape to exaggeration
                     if (junctionExaggeration > 1) {
-                        junctionShape.scaleRelative(junctionExaggeration);
+                        junctionClosedShape.scaleRelative(junctionExaggeration);
                     }
                     // first check if inner junction polygon can be drawn
                     if (s.drawForPositionSelection) {
                         // only draw a point if mouse is around shape
-                        if (junctionShape.around(mousePosition)) {
+                        if (junctionClosedShape.around(mousePosition)) {
                             // push matrix
                             glPushMatrix();
                             // move to mouse position
@@ -472,19 +483,33 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                         }
                     } else if ((s.scale * junctionExaggeration * myMaxDrawingSize) < 40.) {
                         // draw shape
-                        GLHelper::drawFilledPoly(junctionShape, true);
+                        GLHelper::drawFilledPoly(junctionClosedShape, true);
                     } else {
                         // draw shape with high detail
-                        GLHelper::drawFilledPolyTesselated(junctionShape, true);
+                        GLHelper::drawFilledPolyTesselated(junctionClosedShape, true);
                     }
                     // draw shape points only in Network supemode
                     if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
-                        // color
+                        // set color
                         const RGBColor darkerColor = junctionShapeColor.changedBrightness(-10);
+                        // calculate geometry
+                        GNEGeometry::Geometry junctionGeometry;
+                        // obtain junction Shape
+                        PositionVector junctionOpenShape = myNBNode->getShape();
+                        // adjust shape to exaggeration
+                        if (junctionExaggeration > 1) {
+                            junctionOpenShape.scaleRelative(junctionExaggeration);
+                        }
+                        // update geometry
+                        junctionGeometry.updateGeometry(junctionOpenShape);
+                        // set color
+                        GLHelper::setColor(darkerColor);
+                        // draw shape
+                        GNEGeometry::drawGeometry(myNet->getViewNet(), junctionGeometry, s.neteditSizeSettings.junctionGeometryPointRadius * 0.5);
                         // draw geometry points
-                        GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), junctionShape, darkerColor, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
+                        GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), junctionOpenShape, darkerColor, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
                         // draw moving hint
-                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), junctionShape, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
+                        GNEGeometry::drawMovingHint(s, myNet->getViewNet(), junctionOpenShape, darkerColor, s.neteditSizeSettings.junctionGeometryPointRadius, junctionExaggeration);
                     }
                 }
             }
