@@ -1180,6 +1180,10 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_BUSSTOP,
     /// @brief to busStop (used by personPlans)
     GNE_ATTR_TO_BUSSTOP,
+    /// @brief from stop (used by personPlans)
+    GNE_ATTR_FROM_STOP,
+    /// @brief to stop (used by personPlans)
+    GNE_ATTR_TO_STOP,
 
     // @}
 

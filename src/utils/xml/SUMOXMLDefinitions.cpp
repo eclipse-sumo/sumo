@@ -806,6 +806,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "centerAfterCreation",                GNE_ATTR_CENTER_AFTER_CREATION },
     { "fromBusStop",                        GNE_ATTR_FROM_BUSSTOP },
     { "toBusStop",                          GNE_ATTR_TO_BUSSTOP },
+    { "fromStop",                           GNE_ATTR_FROM_STOP },
+    { "toStop",                             GNE_ATTR_TO_STOP },
 
     { "carriageLength",     SUMO_ATTR_CARRIAGE_LENGTH },
     { "locomotiveLength",   SUMO_ATTR_LOCOMOTIVE_LENGTH },
