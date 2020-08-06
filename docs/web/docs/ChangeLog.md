@@ -32,6 +32,12 @@ permalink: /ChangeLog/
   - Fixed invalid followSpeed computation in carFollowModel 'W99'. Issue #7229
   - Fixed failing lane-changes when using carFollowModel 'W99'. Issue #7211
   - Fixed invalid SGAP and TGAP output from device.ssm when vehicles have different minGap values. Issue #7233
+  - Fixed invali error when doing parallel routing with algorithm 'astar'. Issue #7248
+  - Fixed invalid taxi states when two customers exit on the same edge. Issue #7257
+  - Fixed crash when using routing algorithm CH with taxis. Issue #7256
+  - Person rides with a specified arrivalPos now longer exit their vehicle prematurely. Issue #7258
+  - Person ride arrivalPos and stoppingPlace are now included in vehroute-output. Issue #7260, #7261
+  - Fixed invalid vehicle angle when using option **--lanechange-duration** with low values of 'maxSpeedLat'. Issue #7263
     
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
@@ -48,7 +54,8 @@ permalink: /ChangeLog/
   - Option **--geometry.avoid-overlap** is no longer lost on reloading a network. Issue #7033  
   - Fixed infinite loop when loading OSM data with 'NaN' values. Issue #7101
   - Fixed invalid 'neigh' lanes when editing network. Issue #7108
-  - Fixed bad node shapes at complex intersections with roads and footpaths. Issue #7042  
+  - Fixed bad node shapes at complex intersections with roads and footpaths. Issue #7042
+  - Fixed invalid keepClear state for intersections without cross-traffic. Issue #4437
   
 - sumo-gui
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
@@ -64,6 +71,10 @@ permalink: /ChangeLog/
   - Fixed invalid routes when on of it's edges. Issue #6986
   - Fixed invalid count of selected elements. Issue #7113
   - Fixed missing minDur and maxDur attributes after changing tlType. Issue #7188
+  - Selection coloring is now working in data mode. Issue #7066
+  
+- duarouter
+  - Person ride arrivalPos is now included in route-output. Issue #7260
   
 - Tools
   - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
@@ -82,6 +93,7 @@ permalink: /ChangeLog/
   - The python client now supports adding polygons with more than 255 shape points. Issue #7161
   - Vehicle type parameters can now be retrieved from vehicles with libsumo. Issue #7209
   - Fixed invalid electric vehicle parameters being used when calling 'traci.vehicle.getElectricityConsumption'. Issue #7196
+  - Constructor of traci.simulation.Stage now uses the same default arguments as libsumo.simulation.Stage and an be constructed without arguments. Issue #7265
   
 - All Applications
   - File names with a `%`-Sign can no be loaded. Issue #6574
@@ -98,7 +110,7 @@ permalink: /ChangeLog/
   - The distance at which vehicles react to device.bluelight can now be configured with option **--device.bluelight.reactiondist**. Issue #7112
   - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148  
   - Strategic lane-changes can now be disabled by setting 'lcStrategic="-1"`. Issue #7180
-  - Taxi pickup and drop-off location can now be restricted to public transport stops by setting **--persontrip.transfer.walk-taxi ptStops** and **--persontrip.transfer.taxi-walk ptStops**. Issue #7192
+  - Taxi pickup and drop-off location can now be restricted to public transport stops by setting **--persontrip.transfer.walk-taxi ptStops** and **--persontrip.transfer.taxi-walk ptStops**. Issue #7192  
   
 - netconvert
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
@@ -116,7 +128,8 @@ permalink: /ChangeLog/
   - In create-route-mode, edges can now be colored by reachability from the last selected edge. Issue #6995
   - Added junction context-menu option *select roundabout*. Issue #5606
   - Added junction context-menu option *convert to roundabout*. Issue #7030
-  - Vehicles and Flows with their own (unnamed) route can now be created directly. Issue #7103  
+  - Vehicles and Flows with their own (unnamed) route can now be created directly. Issue #7103
+  - Selection mode now supports Ctrl+click to strictly move the view. Issue #7239
 
 - sumo-gui
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
@@ -138,8 +151,11 @@ permalink: /ChangeLog/
   - Added new function *simulation.loadState* for quick-loading simulation a saved state. Issue #6201
   - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318. 
   - Added new optional 'limit' argument to *vehicle.getNextStops* to limit the numer of returned stops. Issue #7015
+  - When calling *vehicle.getNextStops*, a negative limit argument can be used to return past stops. Issue #7249
   - Added functionality for retrieving lane, position and stopped vehicles for traci domains 'busstop', 'parkingarea', 'chargingstation' and 'overheadwire'. Issue #5952, #7099
   - The python client now supports the optional argument 'traceFile' in function traci.start which records all traci commands to the given file (also works for libsumo.start). Issue#6604
+  - Added function 'vehicle.replaceStop' which replace the upcoming stop with the given index and automatically adapts the route to the new stop edge. Issue #7226
+  - Retrieval of prior person stages now includes departure time and travel time. Issue #7274  
   
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
@@ -154,6 +170,7 @@ permalink: /ChangeLog/
 ### Other
 - Simulation
   - Route attribute 'period' was renamed to 'cycleTime'. Issue #7168
+  - Total simulation running time is now in seconds rather than milliseconds. Issue #7255
 - netconvert
   - Roads of type 'highway.track' (aggricultural roads) are no longer accessible by cars when importing OSM data. Issue #7082
 
