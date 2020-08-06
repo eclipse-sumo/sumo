@@ -197,7 +197,7 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 
 GNEEdge*
 GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
-    edge->incRef("GNENet::registerEdge");
+    // edge isn't responsible
     edge->setResponsible(false);
     // add edge to internal container of GNENet
     myEdges[edge->getMicrosimID()] = edge;
@@ -495,11 +495,14 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const
 
 void
 GNENetHelper::AttributeCarriers::insertEdge(GNEEdge* edge) {
+    // obtain NBEdge
     NBEdge* nbe = edge->getNBEdge();
-    myNet->getNetBuilder()->getEdgeCont().insert(nbe); // should we ignore pruning double edges?
+    // insert NBEdge in NBEdge container
+    myNet->getNetBuilder()->getEdgeCont().insert(nbe);
     // if this edge was previouls extracted from the edgeContainer we have to rewire the nodes
     nbe->getFromNode()->addOutgoingEdge(nbe);
     nbe->getToNode()->addIncomingEdge(nbe);
+    // register edge
     registerEdge(edge);
 }
 
