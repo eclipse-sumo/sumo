@@ -1,3 +1,10 @@
+# call moveToXY directly after person.add
+after_creation
+
+# call moveToXY directly after person.add
+# Person only has a stop stage so a walk must be added
+after_creation_add_walk
+
 # move person within the current route
 within_route
 
