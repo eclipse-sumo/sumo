@@ -12,3 +12,6 @@ bt
 
 # test device for "one shot" in-simulation vehicle routing and periodic rerouting
 rerouting
+
+# tests for the taxi device
+taxi

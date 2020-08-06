@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_4_0+1029-d1b8be6105
+Eclipse SUMO jtrrouter Version v1_6_0+1428-688e592900
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
   junction turning ratios.
@@ -114,6 +114,8 @@ Report Options:
   -X, --xml-validation STR         Set schema validation scheme of XML inputs
                                      ("never", "auto" or "always")
   --xml-validation.net STR         Set schema validation scheme of SUMO network
+                                     inputs ("never", "auto" or "always")
+  --xml-validation.routes STR      Set schema validation scheme of SUMO route
                                      inputs ("never", "auto" or "always")
   -W, --no-warnings                Disables output of warnings
   --aggregate-warnings INT         Aggregate warnings of the same type whenever

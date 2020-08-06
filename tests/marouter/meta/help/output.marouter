@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_5_0+0891-eebab722dd
+Eclipse SUMO marouter Version v1_6_0+1428-688e592900
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
@@ -143,6 +143,8 @@ Report Options:
   --xml-validation.net STR           Set schema validation scheme of SUMO
                                        network inputs ("never", "auto" or
                                        "always")
+  --xml-validation.routes STR        Set schema validation scheme of SUMO route
+                                       inputs ("never", "auto" or "always")
   -W, --no-warnings                  Disables output of warnings
   --aggregate-warnings INT           Aggregate warnings of the same type
                                        whenever more than INT occur

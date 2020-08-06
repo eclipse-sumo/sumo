@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov  8 13:16:06 2019 by Eclipse SUMO dfrouter Version v1_3_1+0801-355be15e4b
+<!-- generated on Thu Aug  6 15:03:52 2020 by Eclipse SUMO dfrouter Version v1_6_0+1428-688e592900
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -212,6 +212,9 @@
 
         <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
+
+        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation.routes value="always" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
