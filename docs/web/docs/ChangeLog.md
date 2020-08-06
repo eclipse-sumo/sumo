@@ -61,6 +61,7 @@ permalink: /ChangeLog/
   - Corrected shape of laneAreaDetector when lanes have a length-geometry-mismatch. Issue #6627
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
   - Fixed crash in mesosim when keeping vehicle parameter window open. Issue #7194
+  - Fixed changes to neighboring values when setting color thresholds. Issue #7304
   
 - netedit
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
@@ -72,9 +73,16 @@ permalink: /ChangeLog/
   - Fixed invalid count of selected elements. Issue #7113
   - Fixed missing minDur and maxDur attributes after changing tlType. Issue #7188
   - Selection coloring is now working in data mode. Issue #7066
+  - Fixed crash when adding multiple busStops to a trip. Issue #7251
+  - Fixed invalid handling of stops loaded from route file. Issue #7191
+  - Added option "unregulated" to the list of permitted junction types. Issue #7359
+  - Fixed bug that caused inconsistent output when modifying the traffic light index of connections. Issue #7311  
   
 - duarouter
   - Person ride arrivalPos is now included in route-output. Issue #7260
+  
+- marouter
+  - Fixed crash when using routing algorithm 'CH'. Issue #6912, #6935
   
 - Tools
   - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
@@ -130,12 +138,15 @@ permalink: /ChangeLog/
   - Added junction context-menu option *convert to roundabout*. Issue #7030
   - Vehicles and Flows with their own (unnamed) route can now be created directly. Issue #7103
   - Selection mode now supports Ctrl+click to strictly move the view. Issue #7239
+  - Improving loading speed of polygons. Issue #7287
+  - Elements can now be marked as 'front element' (F11) to facilitate working with overlapped objects in move mode and traffic light mode. Issue #4903, #5781
 
 - sumo-gui
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
   - A color legend for vehicle colors can no be enabled via the 'Legend' tab. Issue #6930
   - Vehicles can now be stopped and stops can be aborted via context menu.
   - The hiding-treshold for edge coloring can now also hide edge color value labels (to avoid clutter from irrelevant numbers). Issue #7140
+  - Added locator menu entry for containers. Issue #7324
   
 - duarouter
   - Route attributes 'repeat' and 'cycleTime' are now supported. Issue #7165
@@ -155,7 +166,9 @@ permalink: /ChangeLog/
   - Added functionality for retrieving lane, position and stopped vehicles for traci domains 'busstop', 'parkingarea', 'chargingstation' and 'overheadwire'. Issue #5952, #7099
   - The python client now supports the optional argument 'traceFile' in function traci.start which records all traci commands to the given file (also works for libsumo.start). Issue#6604
   - Added function 'vehicle.replaceStop' which replace the upcoming stop with the given index and automatically adapts the route to the new stop edge. Issue #7226
-  - Retrieval of prior person stages now includes departure time and travel time. Issue #7274  
+  - Retrieval of prior person stages now includes departure time and travel time. Issue #7274
+  - Added 'simulation.getVersion' to libsumo and C++ client. Issue #7282
+  - Function 'person.moveToXY' can now be used while a person is stopped. Issue #7367
   
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
