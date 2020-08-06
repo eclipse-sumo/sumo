@@ -211,6 +211,9 @@ public:
     /// @brief return list of route indices for the remaining stops
     std::vector<std::pair<int, double> > getStopIndices() const;
 
+    /// @brief deletes the next stop at the given index if it exists
+    bool abortNextStop(int nextStopIndex = 0);
+
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap() const {
         return 0;
