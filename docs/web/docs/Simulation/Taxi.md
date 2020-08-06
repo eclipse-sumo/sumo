@@ -81,7 +81,7 @@ algorithms are available
 To make a taxi stay in the simulation it receives a stop with attribute ```triggered="person"``` after servicing a customer.
 It is recommended to also define such a stop in the xml input so that the taxi can wait for the first customer.
 
-By default, taxis will remain in the simulation until all persons have left. To make them leave the simulation at an erliert time, the end time can be defined using a generic parameter in their ```vType``` or ```vehicle```-definition:
+By default, taxis will remain in the simulation until all persons have left. To make them leave the simulation at an earlier time, the end time can be defined using a generic parameter in their ```vType``` or ```vehicle```-definition:
 
 ```
     <vType id="taxi" vClass="taxi">
