@@ -33,6 +33,7 @@
 #include "MSDispatch.h"
 #include "MSDispatch_Greedy.h"
 #include "MSDispatch_GreedyShared.h"
+#include "MSDispatch_RouteExtension.h"
 #include "MSDispatch_TraCI.h"
 #include "MSRoutingEngine.h"
 #include "MSDevice_Taxi.h"
@@ -108,6 +109,8 @@ MSDevice_Taxi::initDispatch() {
         myDispatcher = new MSDispatch_GreedyClosest(params.getParametersMap());
     } else if (algo == "greedyShared") {
         myDispatcher = new MSDispatch_GreedyShared(params.getParametersMap());
+    } else if (algo == "routeExtension") {
+        myDispatcher = new MSDispatch_RouteExtension(params.getParametersMap());
     } else if (algo == "traci") {
         myDispatcher = new MSDispatch_TraCI(params.getParametersMap());
     } else {
@@ -195,7 +198,7 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
 
 
 void
-MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*> reservations) {
+MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservations) {
     if (isEmpty()) {
         const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         myHolder.abortNextStop();
