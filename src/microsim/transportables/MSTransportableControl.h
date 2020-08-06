@@ -91,6 +91,9 @@ public:
     /// adds a transportable to the list of transportables waiting for a vehicle on the specified edge
     void addWaiting(const MSEdge* edge, MSTransportable* person);
 
+    /// register forced (traci) departure
+    void forceDeparture();
+
     /** @brief board any applicable persons
      * Boards any people who wait on that edge for the given vehicle and removes them from myWaiting
      * @param[in] the edge on which the boarding should take place
