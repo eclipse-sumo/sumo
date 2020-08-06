@@ -506,14 +506,14 @@ public:
     /** @brief Returns the origin node of the edge
      * @return The node this edge starts at
      */
-    NBNode* getFromNode() const {
+    inline NBNode* getFromNode() const {
         return myFrom;
     }
 
     /** @brief Returns the destination node of the edge
      * @return The node this edge ends at
      */
-    NBNode* getToNode() const {
+    inline NBNode* getToNode() const {
         return myTo;
     }
 

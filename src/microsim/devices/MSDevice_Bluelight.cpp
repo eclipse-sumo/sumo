@@ -115,13 +115,11 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     std::vector<const MSLane*> myUpcomingLanes = ego.getUpcomingLanesUntil(myReactionDist);
     std::vector<std::string> myUpcomingEdges;
     //get edgeIDs from Lanes
-    for (std::vector<const MSLane*>::iterator it = myUpcomingLanes.begin(); it != myUpcomingLanes.end(); ++it) {
-        MSEdge& edge = (*it)->getEdge();
-        std::string edgeID = edge.getID();
-        myUpcomingEdges.push_back(edgeID);
+    for (const MSLane* const l :  myUpcomingLanes) {
+        myUpcomingEdges.push_back(l->getEdge().getID());
     }
-    for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
-        MSVehicle* veh2 = dynamic_cast<MSVehicle*>(it->second);
+    for (MSVehicleControl::constVehIt vit = vc.loadedVehBegin(); vit != vc.loadedVehEnd(); ++vit) {
+        MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vit->second);
         assert(veh2 != nullptr);
         //Vehicle only from edge should react
         if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), veh2->getEdge()->getID()) != myUpcomingEdges.end()) { //currentEdgeID == veh2->getEdge()->getID()) {
