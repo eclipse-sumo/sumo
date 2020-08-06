@@ -339,7 +339,7 @@ GNELane::drawLinkNo(const GUIVisualizationSettings& s) const {
             // push link matrix
             glPushMatrix();
             // move front
-            glTranslated(0, 0, 0.1);
+            glTranslated(0, 0, GLO_TEXTNAME);
             // calculate width
             const double width = getParentEdges().front()->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
             // get X1
@@ -376,7 +376,7 @@ GNELane::drawTLSLinkNo(const GUIVisualizationSettings& s) const {
             // push link matrix
             glPushMatrix();
             // move t front
-            glTranslated(0, 0, 0.1);
+            glTranslated(0, 0, GLO_TEXTNAME);
             // calculate width
             const double w = getParentEdges().front()->getNBEdge()->getLaneWidth(myIndex) / (double) noLinks;
             // calculate x1
@@ -596,10 +596,6 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
                 drawArrows(s);
                 // Draw direction indicators
                 drawDirectionIndicators(s, laneDrawingConstants.exaggeration, drawRailway, spreadSuperposed);
-                // draw link number
-                drawLinkNo(s);
-                // draw TLS link number
-                drawTLSLinkNo(s);
             }
             // draw lane textures
             drawTextures(s, laneDrawingConstants);
@@ -614,6 +610,13 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // Pop edge Name
         glPopName();
+        // only draw links number depending of the scale and if isn't being drawn for selecting
+        if ((s.scale >= 10) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+            // draw link number
+            drawLinkNo(s);
+            // draw TLS link number
+            drawTLSLinkNo(s);
+        }
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
             GNEGeometry::drawDottedContourLane(true, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
