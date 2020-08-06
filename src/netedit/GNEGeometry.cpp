@@ -624,7 +624,7 @@ GNEGeometry::SegmentGeometry::Segment::getLane() const {
 
 const GNEJunction* 
 GNEGeometry::SegmentGeometry::Segment::getJunction() const {
-    return myLane->getParentEdges().front()->getParentJunctions().back();
+    return myLane->getParentEdge()->getParentJunctions().back();
 }
 
 
@@ -799,11 +799,11 @@ GNEGeometry::Lane2laneConnection::updateLane2laneConnection() {
     // clear connectionsMap
     myConnectionsMap.clear();
     // iterate over outgoingEdge's lanes
-    for (const auto& outgoingEdge : myFromLane->getParentEdges().front()->getParentJunctions().back()->getGNEOutgoingEdges()) {
+    for (const auto& outgoingEdge : myFromLane->getParentEdge()->getParentJunctions().back()->getGNEOutgoingEdges()) {
         for (const auto& outgoingLane : outgoingEdge->getLanes()) {
             // get NBEdges from and to
-            const NBEdge* NBEdgeFrom = myFromLane->getParentEdges().front()->getNBEdge();
-            const NBEdge* NBEdgeTo = outgoingLane->getParentEdges().front()->getNBEdge();
+            const NBEdge* NBEdgeFrom = myFromLane->getParentEdge()->getNBEdge();
+            const NBEdge* NBEdgeTo = outgoingLane->getParentEdge()->getNBEdge();
             // declare shape
             PositionVector shape;
             // only create smooth shapes if Edge From has as maximum 10 lanes

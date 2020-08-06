@@ -224,7 +224,7 @@ GNEAdditionalFrame::SelectorParentLanes::addSelectedLane(GNELane* lane, const Po
     // clear candidate lanes
     myCandidateLanes.clear();
     // fill candidate lanes
-    for (const auto &connection : lane->getParentEdges().front()->getGNEConnections()) {
+    for (const auto &connection : lane->getParentEdge()->getGNEConnections()) {
         // check that possible candidate lane isn't already selected
         if ((lane == connection->getLaneFrom()) && (!isLaneSelected(connection->getLaneTo()))) {
             // set candidate lane
@@ -825,10 +825,10 @@ GNEAdditionalFrame::buildAdditionalOverEdge(std::map<SumoXMLAttr, std::string>& 
     // check that edge exist
     if (lane) {
         // Get attribute lane's edge
-        valuesMap[SUMO_ATTR_EDGE] = lane->getParentEdges().front()->getID();
+        valuesMap[SUMO_ATTR_EDGE] = lane->getParentEdge()->getID();
         // Check if ID has to be generated
         if (valuesMap.count(SUMO_ATTR_ID) == 0) {
-            valuesMap[SUMO_ATTR_ID] = generateID(lane->getParentEdges().front());
+            valuesMap[SUMO_ATTR_ID] = generateID(lane->getParentEdge());
         }
     } else {
         return false;

@@ -447,7 +447,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
 
 void
 GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
-    GNEEdge* edge = lane->getParentEdges().front();
+    GNEEdge* edge = lane->getParentEdge();
     if (edge->getNBEdge()->getNumLanes() == 1) {
         // remove the whole edge instead
         deleteEdge(edge, undoList, recomputeConnections);
@@ -658,7 +658,7 @@ GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
 void
 GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
-    GNEEdge* edge = lane->getParentEdges().front();
+    GNEEdge* edge = lane->getParentEdge();
     const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
     if (recomputeConnections) {
         edge->getParentJunctions().front()->setLogicValid(false, undoList);
@@ -675,7 +675,7 @@ bool
 GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoList) {
     bool addRestriction = true;
     if (vclass == SVC_PEDESTRIAN) {
-        GNEEdge* edge = lane->getParentEdges().front();
+        GNEEdge* edge = lane->getParentEdge();
         for (const auto& edgeLane : edge->getLanes()) {
             if (edgeLane->isRestricted(SVC_PEDESTRIAN)) {
                 // prevent adding a 2nd sidewalk

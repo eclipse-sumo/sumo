@@ -84,6 +84,9 @@ public:
     /// @brief Destructor
     ~GNELane();
 
+    /// @brief get arent edge
+    GNEEdge *getParentEdge() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief get elements shape
@@ -275,6 +278,9 @@ protected:
     GNELane();
 
 private:
+    /// @brief parent edge (GNELanes cannot use hierarchical structures)
+    GNEEdge* myParentEdge;
+
     /// @brief The index of this lane
     int myIndex;
 

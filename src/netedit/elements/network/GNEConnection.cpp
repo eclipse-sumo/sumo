@@ -280,7 +280,7 @@ Boundary
 GNEConnection::getBoundary() const {
     if (myConnectionGeometry.getShape().size() == 0) {
         // we need to use the center of junction parent as boundary if shape is empty
-        Position junctionParentPosition = myFromLane->getParentEdges().front()->getParentJunctions().back()->getPositionInView();
+        Position junctionParentPosition = myFromLane->getParentEdge()->getParentJunctions().back()->getPositionInView();
         return Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
                         junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
     } else {
@@ -291,13 +291,13 @@ GNEConnection::getBoundary() const {
 
 GNEEdge*
 GNEConnection::getEdgeFrom() const {
-    return myFromLane->getParentEdges().front();
+    return myFromLane->getParentEdge();
 }
 
 
 GNEEdge*
 GNEConnection::getEdgeTo() const {
-    return myToLane->getParentEdges().front();
+    return myToLane->getParentEdge();
 }
 
 

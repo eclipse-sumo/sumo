@@ -1116,7 +1116,7 @@ GNENetHelper::PathCalculator::busStopConnected(const GNEAdditional* busStop, con
         return false;
     }
     // check if busstop is placed over a pedestrian lane
-    if ((busStop->getParentLanes().front()->getParentEdges().front() == edge) &&
+    if ((busStop->getParentLanes().front()->getParentEdge() == edge) &&
         (edge->getNBEdge()->getLaneStruct(busStop->getParentLanes().front()->getIndex()).permissions & SVC_PEDESTRIAN) != 0) {
         // busStop is placed over an lane that supports pedestrians, then return true 
         return true;
