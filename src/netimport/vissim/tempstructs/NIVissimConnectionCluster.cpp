@@ -386,13 +386,12 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
     // connections must cross
     bool crosses = false;
     for (std::vector<int>::const_iterator j1 = myConnections.begin(); j1 != myConnections.end() && !crosses; j1++) {
-        NIVissimConnection* c1 = NIVissimConnection::dictionary(*j1);
-        const PositionVector& g1 = c1->getGeometry();
-        for (std::vector<int>::const_iterator j2 = c2->myConnections.begin(); j2 != c2->myConnections.end() && !crosses; j2++) {
-            NIVissimConnection* c2 = NIVissimConnection::dictionary(*j2);
-            const PositionVector& g2 = c2->getGeometry();
+        const PositionVector& g1 = NIVissimConnection::dictionary(*j1)->getGeometry();
+        for (const int j2 : c2->myConnections) {
+            const PositionVector& g2 = NIVissimConnection::dictionary(j2)->getGeometry();
             if (g1.intersects(g2)) {
                 crosses = true;
+                break;
             }
         }
     }
