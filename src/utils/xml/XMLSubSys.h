@@ -82,15 +82,13 @@ public:
     * @param[in] validationScheme Whether validation of XML-documents against schemata shall be enabled
     * @param[in] netValidationScheme Whether validation of SUMO networks against schemata shall be enabled
     */
-    static void setValidation(const std::string& validationScheme, const std::string& netValidationScheme);
+    static void setValidation(const std::string& validationScheme, const std::string& netValidationScheme, const std::string& routeValidationScheme);
 
 
     /**
     * @brief Returns whether validation is enabled.
-    *
-    * @param[in] net Whether validation of SUMO networks is reported
     */
-    static bool isValidating(const bool net = false);
+    static bool isValidating();
 
 
     /**
@@ -141,10 +139,11 @@ public:
      * @param[in] handler The handler to assign to the built reader
      * @param[in] file    The file to run the parser at
      * @param[in] isNet   whether a network gets loaded
+     * @param[in] isRoute whether routes get loaded
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
-    static bool runParser(GenericSAXHandler& handler,
-                          const std::string& file, const bool isNet = false);
+    static bool runParser(GenericSAXHandler& handler, const std::string& file,
+                          const bool isNet = false, const bool isRoute = false);
 
 
 private:
@@ -159,5 +158,11 @@ private:
 
     /// @brief Information whether built reader/parser shall validate SUMO networks against schemata
     static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myNetValidationScheme;
+
+    /// @brief Information whether built reader/parser shall validate SUMO routes against schemata
+    static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myRouteValidationScheme;
+
+    /// @brief Schema cache to be used for grammars which are not declared
+    static XERCES_CPP_NAMESPACE::XMLGrammarPool* myGrammarPool;
 
 };

@@ -37,6 +37,8 @@ std::vector<SUMOSAXReader*> XMLSubSys::myReaders;
 int XMLSubSys::myNextFreeReader;
 XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes XMLSubSys::myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
 XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes XMLSubSys::myNetValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
+XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes XMLSubSys::myRouteValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
+XERCES_CPP_NAMESPACE::XMLGrammarPool* XMLSubSys::myGrammarPool = nullptr;
 
 
 // ===========================================================================
@@ -54,7 +56,7 @@ XMLSubSys::init() {
 
 
 void
-XMLSubSys::setValidation(const std::string& validationScheme, const std::string& netValidationScheme) {
+XMLSubSys::setValidation(const std::string& validationScheme, const std::string& netValidationScheme, const std::string& routeValidationScheme) {
     if (validationScheme == "never") {
         myValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
     } else if (validationScheme == "auto") {
@@ -73,14 +75,20 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
     } else {
         throw ProcessError("Unknown network validation scheme + '" + netValidationScheme + "'.");
     }
+    if (routeValidationScheme == "never") {
+        myRouteValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
+    } else if (routeValidationScheme == "auto") {
+        myRouteValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Auto;
+    } else if (routeValidationScheme == "always") {
+        myRouteValidationScheme = XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Always;
+    } else {
+        throw ProcessError("Unknown route validation scheme + '" + routeValidationScheme + "'.");
+    }
 }
 
 
 bool
-XMLSubSys::isValidating(const bool net) {
-    if (net) {
-        return myNetValidationScheme != XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
-    }
+XMLSubSys::isValidating() {
     return myValidationScheme != XERCES_CPP_NAMESPACE::SAX2XMLReader::Val_Never;
 }
 
@@ -108,11 +116,14 @@ XMLSubSys::setHandler(GenericSAXHandler& handler) {
 
 
 bool
-XMLSubSys::runParser(GenericSAXHandler& handler,
-                     const std::string& file, const bool isNet) {
+XMLSubSys::runParser(GenericSAXHandler& handler, const std::string& file,
+                     const bool isNet, const bool isRoute) {
     MsgHandler::getErrorInstance()->clear();
     try {
         XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme = isNet ? myNetValidationScheme : myValidationScheme;
+        if (isRoute) {
+            validationScheme = myRouteValidationScheme;
+        }
         if (myNextFreeReader == (int)myReaders.size()) {
             myReaders.push_back(new SUMOSAXReader(handler, validationScheme));
         } else {

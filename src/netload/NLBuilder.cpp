@@ -256,7 +256,7 @@ NLBuilder::init(const bool isLibsumo) {
         SystemFrame::close();
         return nullptr;
     }
-    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
     if (!MSFrame::checkOptions()) {
         throw ProcessError();
     }

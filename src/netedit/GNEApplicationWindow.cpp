@@ -571,7 +571,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto");
+        XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
         GNEAdditionalHandler additionalHandler(file, myNet);
         // begin undoList operation
@@ -584,7 +584,7 @@ GNEApplicationWindow::onCmdOpenAdditionals(FXObject*, FXSelector, void*) {
         myUndoList->p_end();
         update();
         // restore validation for additionals
-        XMLSubSys::setValidation("auto", "auto");
+        XMLSubSys::setValidation("auto", "auto", "auto");
     } else {
         // write debug information
         WRITE_DEBUG("Cancel additional dialog");
@@ -648,7 +648,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto");
+        XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
         GNERouteHandler demandHandler(file, myNet);
         // begin undoList operation
@@ -661,7 +661,7 @@ GNEApplicationWindow::onCmdOpenDemandElements(FXObject*, FXSelector, void*) {
         myUndoList->p_end();
         update();
         // restore validation for demand
-        XMLSubSys::setValidation("auto", "auto");
+        XMLSubSys::setValidation("auto", "auto", "auto");
     } else {
         // write debug information
         WRITE_DEBUG("Cancel demand element dialog");
@@ -689,7 +689,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // disable validation for additionals
-        XMLSubSys::setValidation("never", "auto");
+        XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
         GNEDataHandler dataHandler(file, myNet);
         // begin undoList operation
@@ -702,7 +702,7 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         myUndoList->p_end();
         update();
         // restore validation for data
-        XMLSubSys::setValidation("auto", "auto");
+        XMLSubSys::setValidation("auto", "auto", "auto");
     } else {
         // write debug information
         WRITE_DEBUG("Cancel data element dialog");
@@ -923,13 +923,13 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             WRITE_MESSAGE("Loading additionals and shapes from '" + additionalFile + "'");
             GNEAdditionalHandler additionalHandler(additionalFile, myNet);
             // disable validation for additionals
-            XMLSubSys::setValidation("never", "auto");
+            XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
             if (!XMLSubSys::runParser(additionalHandler, additionalFile, false)) {
                 WRITE_ERROR("Loading of " + additionalFile + " failed.");
             }
             // disable validation for additionals
-            XMLSubSys::setValidation("auto", "auto");
+            XMLSubSys::setValidation("auto", "auto", "auto");
         }
 
         myUndoList->p_end();
@@ -945,12 +945,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             WRITE_MESSAGE("Loading demand elements from '" + demandElementsFile + "'");
             GNERouteHandler routeHandler(demandElementsFile, myNet);
             // disable validation for demand elements
-            XMLSubSys::setValidation("never", "auto");
+            XMLSubSys::setValidation("never", "auto", "auto");
             if (!XMLSubSys::runParser(routeHandler, demandElementsFile, false)) {
                 WRITE_ERROR("Loading of " + demandElementsFile + " failed.");
             }
             // disable validation for demand elements
-            XMLSubSys::setValidation("auto", "auto");
+            XMLSubSys::setValidation("auto", "auto", "auto");
         }
 
         myUndoList->p_end();
@@ -968,12 +968,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
             GNEDataHandler dataHandler(dataElementsFile, myNet);
             // disable validation for data elements
-            XMLSubSys::setValidation("never", "auto");
+            XMLSubSys::setValidation("never", "auto", "auto");
             if (!XMLSubSys::runParser(dataHandler, dataElementsFile, false)) {
                 WRITE_ERROR("Loading of " + dataElementsFile + " failed.");
             }
             // disable validation for data elements
-            XMLSubSys::setValidation("auto", "auto");
+            XMLSubSys::setValidation("auto", "auto", "auto");
         }
         // enable interval bar update
         myViewNet->getIntervalBar().enableIntervalBarUpdate();

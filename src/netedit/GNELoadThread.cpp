@@ -105,7 +105,7 @@ GNELoadThread::run() {
         submitEndAndCleanup(net);
         return 0;
     }
-    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+    XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
     // check if Debug has to be enabled
     MsgHandler::enableDebugMessages(oc.getBool("gui-testing-debug"));
     // check if GL Debug has to be enabled

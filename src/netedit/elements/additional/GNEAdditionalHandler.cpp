@@ -627,13 +627,13 @@ GNEAdditionalHandler::buildRerouter(GNENet* net, bool allowUndoRedo, const std::
             // Create additional handler for parse rerouter values
             GNEAdditionalHandler rerouterValuesHandler(currentAdditionalFilename + file, net, rerouter);
             // disable validation for rerouters
-            XMLSubSys::setValidation("never", "auto");
+            XMLSubSys::setValidation("never", "auto", "auto");
             // Run parser
             if (!XMLSubSys::runParser(rerouterValuesHandler, currentAdditionalFilename + file, false)) {
                 WRITE_MESSAGE("Loading of " + file + " failed.");
             }
             // enable validation for rerouters
-            XMLSubSys::setValidation("auto", "auto");
+            XMLSubSys::setValidation("auto", "auto", "auto");
         }
         return rerouter;
     } else {
