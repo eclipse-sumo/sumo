@@ -446,7 +446,11 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
         // push layer matrix
         glPushMatrix();
         // translate to front
-        myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
+        if (myAmCreateEdgeSource) {
+            glTranslated(0, 0, GLO_TEMPORALSHAPE);
+        } else {
+            myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_JUNCTION);
+        }
         // push name
         if (s.scale * junctionExaggeration * myMaxDrawingSize < 1.) {
             // draw something simple so that selection still works

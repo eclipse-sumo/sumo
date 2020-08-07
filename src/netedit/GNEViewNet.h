@@ -606,8 +606,11 @@ private:
     /// @brief draw connections between lane candidates during selecting lane mode in Additional mode
     void drawLaneCandidates() const;
 
-    /// @brief draw temporal polygon  shape in Polygon Mode
+    /// @brief draw temporal polygon shape in Polygon Mode
     void drawTemporalDrawShape() const;
+
+    /// @brief draw temporal junction in create edge mode
+    void drawTemporalJunction() const;
     /// @}
 
     /// @brief mouse process functions

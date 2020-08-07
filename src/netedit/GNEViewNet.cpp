@@ -703,6 +703,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         }
         myNetworkViewOptions.menuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
     }
+    // draw temporal junction
+    drawTemporalJunction();
     // draw temporal elements
     if (!myVisualizationSettings->drawForRectangleSelection) {
         drawTemporalDrawShape();
@@ -3592,6 +3594,67 @@ GNEViewNet::drawTemporalDrawShape() const {
         }
         GLHelper::drawLine(temporalShape.back(), snapToActiveGrid(getPositionInformation()));
         glPopMatrix();
+    }
+}
+
+
+void
+GNEViewNet::drawTemporalJunction() const {
+    // first check if we're in correct mode
+    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
+        // get mouse position
+        const Position mousePosition = snapToActiveGrid(getPositionInformation());
+        // get buble color
+        RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1);
+        // change alpha
+        bubbleColor.setAlpha(200);
+        // push layer matrix
+        glPushMatrix();
+        // translate to temporal shape layer
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
+        // push junction matrix
+        glPushMatrix();
+        // move matrix junction center
+        glTranslated(mousePosition.x(), mousePosition.y(), 0.1);
+        // set color
+        GLHelper::setColor(bubbleColor);
+        // draw filled circle
+        GLHelper::drawFilledCircle(myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius, myVisualizationSettings->getCircleResolution());
+        // pop junction matrix
+        glPopMatrix();
+        // draw temporal edge
+        if (myViewParent->getCreateEdgeFrame()->getJunctionSource() && (mousePosition.distanceSquaredTo(myViewParent->getCreateEdgeFrame()->getJunctionSource()->getPositionInView()) > 1)) {
+            // set temporal edge color
+            RGBColor temporalEdgeColor = RGBColor::BLACK;
+            temporalEdgeColor.setAlpha(200);
+            // declare temporal edge geometry
+            GNEGeometry::Geometry temporalEdgeGeometery;
+            // calculate geometry between source junction and mouse position
+            PositionVector temporalEdge = {mousePosition, myViewParent->getCreateEdgeFrame()->getJunctionSource()->getPositionInView()};
+            // move temporal edge 2 side
+            temporalEdge.move2side(-1);
+            // update geometry
+            temporalEdgeGeometery.updateGeometry(temporalEdge);
+            // push temporal edge matrix
+            glPushMatrix();
+            // set color
+            GLHelper::setColor(temporalEdgeColor);
+            // draw temporal edge
+            GNEGeometry::drawGeometry(this, temporalEdgeGeometery, 0.75);
+            // check if we have to draw opposite edge
+            if (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE) {
+                // move temporal edge to opposite edge
+                temporalEdge.move2side(2);
+                // update geometry
+                temporalEdgeGeometery.updateGeometry(temporalEdge);
+                // draw temporal edge
+                GNEGeometry::drawGeometry(this, temporalEdgeGeometery, 0.75);
+            }
+            // pop temporal edge matrix
+            glPopMatrix();
+        }
+        // pop layer matrix
+        glPushMatrix();
     }
 }
 
