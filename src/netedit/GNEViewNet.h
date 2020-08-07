@@ -439,9 +439,6 @@ private:
 
     /// @brief variable use to save all pointers to objects under cursor after a click
     GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderCursor;
-
-    /// @brief variable use to save all pointers to objects under cursor after a click with grid enabled
-    GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderGrippedCursor;
     /// @}
 
     /// @name structs related with checkable buttons

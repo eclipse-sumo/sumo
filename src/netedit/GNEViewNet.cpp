@@ -190,7 +190,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModes(this),
     myTestingMode(this),
     myObjectsUnderCursor(this),
-    myObjectsUnderGrippedCursor(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -585,7 +584,6 @@ GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
     myObjectsUnderCursor(this),
-    myObjectsUnderGrippedCursor(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -772,10 +770,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     if (makeCurrent()) {
         // fill objects under cursor
         myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
-        // if grid is enabled, fill objects under gripped cursor
-        if (myVisualizationSettings->showGrid) {
-            myObjectsUnderGrippedCursor.updateObjectUnderCursor(getGUIGlObjectsUnderGrippedCursor());
-        }
         // process left button press function depending of supermode
         if (myEditModes.isCurrentSupermodeNetwork()) {
             processLeftButtonPressNetwork(eventData);
@@ -3684,7 +3678,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 // process left click in create edge frame Frame
                 myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(),
-                        myObjectsUnderCursor, myObjectsUnderGrippedCursor,
+                        myObjectsUnderCursor,
                         (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE),
                         (myNetworkViewOptions.menuCheckChainEdges->getCheck() == TRUE));
             }
