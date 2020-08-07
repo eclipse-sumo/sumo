@@ -461,7 +461,7 @@ GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnectio
         }
         // delete lane shape children
         while (lane->getChildShapes().size() > 0) {
-            undoList->add(new GNEChange_Shape(lane->getChildShapes().front(), false), true);
+            deleteShape(lane->getChildShapes().front(), undoList);
         }
         // delete lane demand element children
         while (lane->getChildDemandElements().size() > 0) {
