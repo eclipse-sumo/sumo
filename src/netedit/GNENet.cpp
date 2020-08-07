@@ -3027,13 +3027,11 @@ GNENet::initJunctionsAndEdges() {
     for (auto name_it : ec.getAllNames()) {
         // create edge using NBEdge
         GNEEdge *edge = new GNEEdge(this, ec.retrieve(name_it), false, true);
-        // due initJunctionsAndEdges doesn't use undoList, increase reference manually...
-        edge->incRef("GNEEdge::GNEEdge");
-        // ... and add manually junction references
-        edge->getParentJunctions().front()->addChildElement(edge);
-        edge->getParentJunctions().back()->addChildElement(edge);
         // register edge
         myAttributeCarriers->registerEdge(edge);
+        // add manually child references due initJunctionsAndEdges doesn't use undo-redo
+        edge->getParentJunctions().front()->addChildElement(edge);
+        edge->getParentJunctions().back()->addChildElement(edge);
         // check grid
         if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
             throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");
