@@ -305,6 +305,7 @@ MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         }
     }
     myIsStopped = myHolder.isStopped();
+    //(const_cast<SUMOVehicleParameter&>(myHolder.getParameter())).setParameter("taxiState", toString(myState));
     return true; // keep the device
 }
 
@@ -321,8 +322,11 @@ MSDevice_Taxi::notifyLeave(SUMOTrafficObject& /*veh*/, double /*lastPos*/, MSMov
 }
 
 void
-MSDevice_Taxi::customerEntered() {
-    myState = OCCUPIED;
+MSDevice_Taxi::customerEntered(const MSTransportable* /*t*/) {
+    myState |= OCCUPIED;
+    if (!hasFuturePickup()) {
+        myState &= ~PICKUP;
+    }
 }
 
 
@@ -331,9 +335,9 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
     myCustomersServed++;
     myCustomers.erase(person);
     if (myHolder.getPersonNumber() == 0) {
-        myState = EMPTY;
+        myState &= ~OCCUPIED;
         MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
-        if (veh->getStops().size() > 1) {
+        if (veh->getStops().size() > 1 && (myState & PICKUP) == 0) {
             WRITE_WARNINGF("All customers left vehicle '%' at time % but there are % remaining stops",
                            veh->getID(), time2string(MSNet::getInstance()->getCurrentTimeStep()), veh->getStops().size() - 1);
             while (veh->getStops().size() > 1) {
@@ -341,6 +345,20 @@ MSDevice_Taxi::customerArrived(const MSTransportable* person) {
             }
         }
     }
+}
+
+bool
+MSDevice_Taxi::hasFuturePickup() {
+    MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
+    for (const auto& stop : veh->getStops()) {
+        if (stop.reached) {
+            continue;
+        }
+        if (StringUtils::startsWith(stop.pars.actType, "pickup")) {
+            return true;
+        }
+    }
+    return false;
 }
 
 void

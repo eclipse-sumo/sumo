@@ -190,6 +190,10 @@ MSDevice_Transportable::addTransportable(MSTransportable* transportable) {
             MSStopOut::getInstance()->loadedPersons(&myHolder, 1);
         }
     }
+    MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(myHolder.getDevice(typeid(MSDevice_Taxi)));
+    if (taxiDevice != nullptr) {
+        taxiDevice->customerEntered(transportable);
+    }
 }
 
 

@@ -149,7 +149,7 @@ public:
     /// @brief whether the taxi is empty
     bool isEmpty();
 
-    TaxiState getState() const {
+    int getState() const {
         return myState;
     }
 
@@ -166,7 +166,7 @@ public:
     bool allowsBoarding(MSTransportable* t) const;
 
     /// @brief called by MSDevice_Transportable upon loading a person
-    void customerEntered();
+    void customerEntered(const MSTransportable* t);
 
     /// @brief called by MSDevice_Transportable upon unloading a person
     void customerArrived(const MSTransportable* person);
@@ -204,12 +204,15 @@ private:
     /// @brief determine stopping lane for taxi
     MSLane* getStopLane(const MSEdge* edge);
 
+    /// @brief whether the taxi has another pickup scheduled
+    bool hasFuturePickup();
+
     /// @brief initialize the dispatch algorithm
     static void initDispatch();
 
 private:
 
-    TaxiState myState = EMPTY;
+    int myState = EMPTY;
     /// @brief number of customers that were served
     int myCustomersServed = 0;
     /// @brief distance driven with customers
