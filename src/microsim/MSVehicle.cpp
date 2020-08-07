@@ -2486,19 +2486,18 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 && myStops.front().edge == myCurrEdge + view) {
             // we are approaching a stop on the edge; must not drive further
             const Stop& stop = *myStops.begin();
+            bool isWaypoint = stop.pars.speed > 0;
             double endPos = stop.getEndPos(*this) + NUMERICAL_EPS;
             if (stop.parkingarea != nullptr) {
                 // leave enough space so parking vehicles can exit
                 endPos = stop.parkingarea->getLastFreePosWithReservation(t, *this);
-            } else if (stop.pars.speed > 0 && !stop.reached) {
-                // waypoint mode
+            } else if (isWaypoint && !stop.reached) {
                 endPos = stop.pars.startPos;
             }
             myStopDist = seen + endPos - lane->getLength();
             // regular stops are not emergencies
             double stopSpeed;
-            if (stop.pars.speed > 0) {
-                // waypoint mode
+            if (isWaypoint) {
                 if (stop.reached) {
                     stopSpeed = stop.pars.speed;
                     if (myState.myPos >= stop.pars.endPos) {
@@ -2524,7 +2523,6 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 double dummyVLinkWait;
                 checkLinkLeaderCurrentAndParallel(*exitLink, lane, seen, lastLink, v, vLinkPass, dummyVLinkWait, dummySetRequest);
             }
-            lfLinks.push_back(DriveProcessItem(v, myStopDist));
 
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
@@ -2532,8 +2530,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
             }
 #endif
-
-            break;
+            if (!isWaypoint) {
+                lfLinks.push_back(DriveProcessItem(v, myStopDist));
+                break;
+            }
         }
 
         // move to next lane
@@ -4997,14 +4997,26 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
         myAmOnNet = false;
         myWaitingTime = 0;
     }
-    if (reason != MSMoveReminder::NOTIFICATION_PARKING && resumeFromStopping()) {
+    if (reason != MSMoveReminder::NOTIFICATION_PARKING && resumeFromStopping() && myPastStops.back().speed <= 0) {
         WRITE_WARNING("Vehicle '" + getID() + "' aborts stop.");
     }
     if (reason != MSMoveReminder::NOTIFICATION_PARKING && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
         while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()) {
-            WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID()
-                          + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
-            myStops.pop_front();
+            if (myStops.front().pars.speed <= 0) {
+                WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID()
+                        + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
+                    myStops.pop_front();
+            } else {
+                // passed waypoint at the end of the lane
+                if (!myStops.front().reached) {
+                    if (MSStopOut::active()) {
+                        MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), MSNet::getInstance()->getCurrentTimeStep());
+                    }
+                    myStops.front().reached = true;
+                }
+                resumeFromStopping();
+            }
+            myStopDist = std::numeric_limits<double>::max();
         }
     }
 }
@@ -5136,11 +5148,13 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     MSRouteIterator nextStopEdge = myRoute->end();
     const MSLane* nextStopLane = nullptr;
     double nextStopPos = 0;
+    bool nextStopIsWaypoint = false;
     if (!myStops.empty()) {
         const Stop& nextStop = myStops.front();
         nextStopLane = nextStop.lane;
         nextStopEdge = nextStop.edge;
         nextStopPos = nextStop.pars.startPos;
+        nextStopIsWaypoint = nextStop.pars.speed > 0;
     }
     if (myParameter->arrivalLaneProcedure == ArrivalLaneDefinition::GIVEN && nextStopEdge == myRoute->end()) {
         nextStopEdge = (myRoute->end() - 1);
@@ -5188,7 +5202,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         if (nextStopEdge == ce
                 // already past the stop edge
                 && !(ce == myCurrEdge && myLane != nullptr && myLane->isInternal())) {
-            if (!nextStopLane->isInternal()) {
+            if (!nextStopLane->isInternal() && !nextStopIsWaypoint) {
                 progress = false;
             }
             const MSLane* normalStopLane = nextStopLane->getNormalPredecessorLane();
