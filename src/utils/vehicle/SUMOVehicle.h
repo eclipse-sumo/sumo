@@ -273,6 +273,9 @@ public:
     /// @brief returns whether the vehicle serves a public transport line that serves the given stop
     virtual bool isLineStop(double position) const = 0;
 
+    /// @brief deletes the next stop at the given index if it exists
+    virtual bool abortNextStop(int nextStopIndex = 0) = 0;
+
 
     /**
     * returns the next imminent stop in the stop queue

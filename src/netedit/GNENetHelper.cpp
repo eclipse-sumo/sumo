@@ -197,7 +197,7 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 
 GNEEdge*
 GNENetHelper::AttributeCarriers::registerEdge(GNEEdge* edge) {
-    edge->incRef("GNENet::registerEdge");
+    // edge isn't responsible
     edge->setResponsible(false);
     // add edge to internal container of GNENet
     myEdges[edge->getMicrosimID()] = edge;
@@ -495,11 +495,14 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const
 
 void
 GNENetHelper::AttributeCarriers::insertEdge(GNEEdge* edge) {
+    // obtain NBEdge
     NBEdge* nbe = edge->getNBEdge();
-    myNet->getNetBuilder()->getEdgeCont().insert(nbe); // should we ignore pruning double edges?
+    // insert NBEdge in NBEdge container
+    myNet->getNetBuilder()->getEdgeCont().insert(nbe);
     // if this edge was previouls extracted from the edgeContainer we have to rewire the nodes
     nbe->getFromNode()->addOutgoingEdge(nbe);
     nbe->getToNode()->addIncomingEdge(nbe);
+    // register edge
     registerEdge(edge);
 }
 
@@ -1113,7 +1116,7 @@ GNENetHelper::PathCalculator::busStopConnected(const GNEAdditional* busStop, con
         return false;
     }
     // check if busstop is placed over a pedestrian lane
-    if ((busStop->getParentLanes().front()->getParentEdges().front() == edge) &&
+    if ((busStop->getParentLanes().front()->getParentEdge() == edge) &&
         (edge->getNBEdge()->getLaneStruct(busStop->getParentLanes().front()->getIndex()).permissions & SVC_PEDESTRIAN) != 0) {
         // busStop is placed over an lane that supports pedestrians, then return true 
         return true;

@@ -538,13 +538,6 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             }
             // draw TLS
             drawTLSIcon(s);
-            // (optional) draw name @todo expose this setting if isn't drawed if isn't being drawn for selecting
-            if (!s.drawForRectangleSelection) {
-                drawName(myNBNode->getPosition(), s.scale, s.junctionID);
-                if (s.junctionName.show && myNBNode->getName() != "") {
-                    GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
-                }
-            }
             // draw elevation
             if (!s.drawForRectangleSelection && myNet->getViewNet()->getNetworkViewOptions().editingElevation()) {
                 glPushMatrix();
@@ -558,6 +551,13 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             glPopMatrix();
             // pop junction name
             glPopName();
+            // draw name and ID
+            if (!s.drawForRectangleSelection) {
+                drawName(myNBNode->getPosition(), s.scale, s.junctionID);
+                if (s.junctionName.show && myNBNode->getName() != "") {
+                    GLHelper::drawTextSettings(s.junctionName, myNBNode->getName(), myNBNode->getPosition(), s.scale, s.angle);
+                }
+            }
             // draw Junction childs
             drawJunctionChildren(s);
             // check if dotted contour has to be drawn

@@ -47,7 +47,7 @@ GNEPathElements::PathElement::updateNextLane(GNELane* lane) {
 GNEJunction*
 GNEPathElements::PathElement::getJunction() const {
     if (myNextLane) {
-        return myLane->getParentEdges().front()->getParentJunctions().back();
+        return myLane->getParentEdge()->getParentJunctions().back();
     } else {
         return nullptr;
     }
@@ -427,11 +427,11 @@ GNEPathElements::calculateFromViaToEdges(GNELane* fromLane, GNELane* toLane, con
     // declare a edge vector
     std::vector<GNEEdge*> edges;
     // add from-via-edge lanes
-    edges.push_back(fromLane->getParentEdges().front());
+    edges.push_back(fromLane->getParentEdge());
     for (const auto& edge : viaEdges) {
         edges.push_back(edge);
     }
-    edges.push_back(toLane->getParentEdges().front());
+    edges.push_back(toLane->getParentEdge());
     // remove consecutive (adjacent) duplicates
     edges.erase(std::unique(edges.begin(), edges.end()), edges.end());
     // return edges

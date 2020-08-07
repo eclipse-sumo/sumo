@@ -33,6 +33,7 @@
 #include "MSDispatch.h"
 #include "MSDispatch_Greedy.h"
 #include "MSDispatch_GreedyShared.h"
+#include "MSDispatch_RouteExtension.h"
 #include "MSDispatch_TraCI.h"
 #include "MSRoutingEngine.h"
 #include "MSDevice_Taxi.h"
@@ -108,6 +109,8 @@ MSDevice_Taxi::initDispatch() {
         myDispatcher = new MSDispatch_GreedyClosest(params.getParametersMap());
     } else if (algo == "greedyShared") {
         myDispatcher = new MSDispatch_GreedyShared(params.getParametersMap());
+    } else if (algo == "routeExtension") {
+        myDispatcher = new MSDispatch_RouteExtension(params.getParametersMap());
     } else if (algo == "traci") {
         myDispatcher = new MSDispatch_TraCI(params.getParametersMap());
     } else {
@@ -195,17 +198,12 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
 
 
 void
-MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*> reservations) {
+MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservations) {
     if (isEmpty()) {
-        SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
-        if (MSGlobals::gUseMesoSim) {
-            throw ProcessError("Dispatch for meso not yet implemented");
-        }
-        MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
-        veh->abortNextStop();
-        ConstMSEdgeVector tmpEdges;
+        const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
+        myHolder.abortNextStop();
+        ConstMSEdgeVector tmpEdges({ myHolder.getEdge() });
         std::vector<SUMOVehicleParameter::Stop> stops;
-        tmpEdges.push_back(myHolder.getEdge());
         double lastPos = myHolder.getPositionOnLane();
         for (const Reservation* res : reservations) {
             bool isPickup = false;
@@ -225,8 +223,8 @@ MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*> reservations
             }
         }
         stops.back().triggered = true; // stay in the simulaton
-        veh->replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false);
-        for (auto stop : stops) {
+        myHolder.replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false);
+        for (SUMOVehicleParameter::Stop& stop : stops) {
             std::string error;
             myHolder.addStop(stop, error);
             if (error != "") {

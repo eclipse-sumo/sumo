@@ -280,7 +280,7 @@ Boundary
 GNEConnection::getBoundary() const {
     if (myConnectionGeometry.getShape().size() == 0) {
         // we need to use the center of junction parent as boundary if shape is empty
-        Position junctionParentPosition = myFromLane->getParentEdges().front()->getParentJunctions().back()->getPositionInView();
+        Position junctionParentPosition = myFromLane->getParentEdge()->getParentJunctions().back()->getPositionInView();
         return Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
                         junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
     } else {
@@ -291,13 +291,13 @@ GNEConnection::getBoundary() const {
 
 GNEEdge*
 GNEConnection::getEdgeFrom() const {
-    return myFromLane->getParentEdges().front();
+    return myFromLane->getParentEdge();
 }
 
 
 GNEEdge*
 GNEConnection::getEdgeTo() const {
-    return myToLane->getParentEdges().front();
+    return myToLane->getParentEdge();
 }
 
 
@@ -630,8 +630,9 @@ GNEConnection::changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndo
             NBLoadedSUMOTLDef* newDef = new NBLoadedSUMOTLDef(*tlDef, *tllogic);
             newDef->addConnection(getEdgeFrom()->getNBEdge(), getEdgeTo()->getNBEdge(),
                                   getLaneFrom()->getIndex(), getLaneTo()->getIndex(), tlIndex, tlIndex2, false);
-            // iterate over NBNodes
-            for (NBNode* node : tlDef->getNodes()) {
+            // make a copy
+            std::vector<NBNode*> nodes = tlDef->getNodes();
+            for (NBNode* node : nodes) {
                 GNEJunction* junction = getNet()->retrieveJunction(node->getID());
                 undoList->add(new GNEChange_TLS(junction, tlDef, false), true);
                 undoList->add(new GNEChange_TLS(junction, newDef, true), true);

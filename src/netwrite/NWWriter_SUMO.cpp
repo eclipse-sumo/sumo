@@ -692,9 +692,6 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
         if (c.contPos != NBEdge::UNSPECIFIED_CONTPOS) {
             into.writeAttr(SUMO_ATTR_CONTPOS, c.contPos);
         }
-        if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
-            into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
-        }
         if (c.permissions != SVC_UNSPECIFIED) {
             writePermissions(into, c.permissions);
         }
@@ -729,6 +726,8 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
                 into.writeAttr(SUMO_ATTR_TLLINKINDEX2, c.tlLinkIndex2);
             }
         }
+    }
+    if (style != TLL) {
         if (style == SUMONET) {
             // write the direction information
             LinkDirection dir = from.getToNode()->getDirection(&from, c.toEdge, OptionsCont::getOptions().getBool("lefthand"));
@@ -746,6 +745,9 @@ NWWriter_SUMO::writeConnection(OutputDevice& into, const NBEdge& from, const NBE
                     into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, visibilityDistance);
                 }
             }
+        }
+        if (c.visibility != NBEdge::UNSPECIFIED_VISIBILITY_DISTANCE) {
+            into.writeAttr(SUMO_ATTR_VISIBILITY_DISTANCE, c.visibility);
         }
     }
     c.writeParams(into);

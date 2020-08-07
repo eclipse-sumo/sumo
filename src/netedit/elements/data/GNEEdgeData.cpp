@@ -164,7 +164,7 @@ GNEEdgeData::drawGL(const GUIVisualizationSettings& /*s*/) const {
 void
 GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, const double offsetFront) const {
     // get lane width
-    const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdges().front()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
+    const double laneWidth = s.addSize.getExaggeration(s, lane) * (lane->getParentEdge()->getNBEdge()->getLaneWidth(lane->getIndex()) * 0.5);
     // Start drawing adding an gl identificator
     glPushName(getGlID());
     // Add a draw matrix
@@ -195,7 +195,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
     }
     // check if shape dotted contour has to be drawn
     if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-        GNEGeometry::drawDottedContourEdge(true, s, lane->getParentEdges().front(), true, true);
+        GNEGeometry::drawDottedContourEdge(true, s, lane->getParentEdge(), true, true);
     }
 }
 

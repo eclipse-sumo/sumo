@@ -447,7 +447,7 @@ GNENet::replaceIncomingEdge(GNEEdge* which, GNEEdge* by, GNEUndoList* undoList) 
 
 void
 GNENet::deleteLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
-    GNEEdge* edge = lane->getParentEdges().front();
+    GNEEdge* edge = lane->getParentEdge();
     if (edge->getNBEdge()->getNumLanes() == 1) {
         // remove the whole edge instead
         deleteEdge(edge, undoList, recomputeConnections);
@@ -658,7 +658,7 @@ GNENet::deleteGenericData(GNEGenericData* genericData, GNEUndoList* undoList) {
 void
 GNENet::duplicateLane(GNELane* lane, GNEUndoList* undoList, bool recomputeConnections) {
     undoList->p_begin("duplicate " + toString(SUMO_TAG_LANE));
-    GNEEdge* edge = lane->getParentEdges().front();
+    GNEEdge* edge = lane->getParentEdge();
     const NBEdge::Lane& laneAttrs = edge->getNBEdge()->getLaneStruct(lane->getIndex());
     if (recomputeConnections) {
         edge->getParentJunctions().front()->setLogicValid(false, undoList);
@@ -675,7 +675,7 @@ bool
 GNENet::restrictLane(SUMOVehicleClass vclass, GNELane* lane, GNEUndoList* undoList) {
     bool addRestriction = true;
     if (vclass == SVC_PEDESTRIAN) {
-        GNEEdge* edge = lane->getParentEdges().front();
+        GNEEdge* edge = lane->getParentEdge();
         for (const auto& edgeLane : edge->getLanes()) {
             if (edgeLane->isRestricted(SVC_PEDESTRIAN)) {
                 // prevent adding a 2nd sidewalk
@@ -3020,11 +3020,13 @@ GNENet::initJunctionsAndEdges() {
     for (auto name_it : ec.getAllNames()) {
         // create edge using NBEdge
         GNEEdge *edge = new GNEEdge(this, ec.retrieve(name_it), false, true);
-        // register edge
-        myAttributeCarriers->registerEdge(edge);
-        // add manually child references due initJunctionsAndEdges doesn't use undo-redo
+        // due initJunctionsAndEdges doesn't use undoList, increase reference manually...
+        edge->incRef("GNEEdge::GNEEdge");
+        // ... and add manually junction references
         edge->getParentJunctions().front()->addChildElement(edge);
         edge->getParentJunctions().back()->addChildElement(edge);
+        // register edge
+        myAttributeCarriers->registerEdge(edge);
         // check grid
         if (myGrid.getWidth() > 10e16 || myGrid.getHeight() > 10e16) {
             throw ProcessError("Network size exceeds 1 Lightyear. Please reconsider your inputs.\n");

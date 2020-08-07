@@ -170,6 +170,10 @@ MSTransportableControl::checkWaiting(MSNet* net, const SUMOTime time) {
     }
 }
 
+void
+MSTransportableControl::forceDeparture() {
+    myRunningNumber++;
+}
 
 void
 MSTransportableControl::addWaiting(const MSEdge* const edge, MSTransportable* transportable) {

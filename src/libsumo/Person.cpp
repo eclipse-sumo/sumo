@@ -850,12 +850,27 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         }
         switch (p->getStageType(0)) {
             case MSStageType::WALKING: {
-                Helper::setRemoteControlled(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
+                break;
+            }
+            case MSStageType::WAITING_FOR_DEPART: 
+                MSNet::getInstance()->getPersonControl().forceDeparture();
+                FALLTHROUGH;
+            case MSStageType::WAITING: {
+                if (p->getNumRemainingStages() == 0 || p->getStageType(1) != MSStageType::WALKING) {
+                    // insert walking stage after the current stage
+                    ConstMSEdgeVector route({p->getEdge()});
+                    const double departPos = p->getCurrentStage()->getArrivalPos();
+                    p->appendStage(new MSPerson::MSPersonStage_Walking(p->getID(), route, nullptr, -1, -1, departPos, departPos, 0), 1);
+                }
+                // abort waiting stage and proceed to walking stage
+                p->removeStage(0);
+                assert(p->getStageType(0) == MSStageType::WALKING);
                 break;
             }
             default:
                 throw TraCIException("Command moveToXY is not supported for person '" + personID + "' while " + p->getCurrentStageDescription() + ".");
         }
+        Helper::setRemoteControlled(p, pos, lane, lanePos, lanePosLat, angle, routeOffset, edges, MSNet::getInstance()->getCurrentTimeStep());
     } else {
         if (lane == nullptr) {
             throw TraCIException("Could not map person '" + personID + "' no road found within " + toString(maxRouteDistance) + "m.");

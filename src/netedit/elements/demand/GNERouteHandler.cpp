@@ -2205,9 +2205,9 @@ GNERouteHandler::PersonPlansValues::getLastEdge() const {
     } else if (toEdge) {
         return toEdge;
     } else if (fromBusStop) {
-        return fromBusStop->getParentLanes().front()->getParentEdges().front();
+        return fromBusStop->getParentLanes().front()->getParentEdge();
     } else if (toBusStop) {
-        return toBusStop->getParentLanes().front()->getParentEdges().front();
+        return toBusStop->getParentLanes().front()->getParentEdge();
     } else if (route) {
         return route->getParentEdges().back();
     } else if (edges.size() > 0) {
@@ -2350,7 +2350,7 @@ GNERouteHandler::PersonValue::addPersonValue(GNENet* net, SumoXMLTag tag, const 
             const GNELane* lane = net->retrieveLane(laneStr, false);
             if (lane) {
                 // get parent edge
-                personPlansValuesLoaded.edgeStop = lane->getParentEdges().front();
+                personPlansValuesLoaded.edgeStop = lane->getParentEdge();
             } else {
                 return false;
             }
@@ -2390,7 +2390,7 @@ GNERouteHandler::PersonValue::checkPersonPlanValues() {
             } else if (previousPlan.edgeStop) {
                 currentPlan.fromEdge = previousPlan.edgeStop;
             } else if (previousPlan.lane) {
-                currentPlan.fromEdge = previousPlan.lane->getParentEdges().front();
+                currentPlan.fromEdge = previousPlan.lane->getParentEdge();
             } else if (previousPlan.busStop) {
                 currentPlan.fromBusStop = previousPlan.busStop;
             }

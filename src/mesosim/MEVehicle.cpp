@@ -309,6 +309,24 @@ MEVehicle::getStopIndices() const {
     return result;
 }
 
+
+bool
+MEVehicle::abortNextStop(int nextStopIndex) {
+    if (!myStops.empty() && nextStopIndex < (int)myStops.size()) {
+        if (nextStopIndex == 0 && isStopped()) {
+            // resumeFromStopping();
+        } else {
+            auto stopIt = myStopEdges.begin();
+            std::advance(stopIt, nextStopIndex);
+            myStopEdges.erase(stopIt);
+        }
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 void
 MEVehicle::processStop() {
     assert(isStopped());

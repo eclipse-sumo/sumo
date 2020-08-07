@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar  5 08:15:47 2020 by Eclipse SUMO netconvert Version v1_5_0+0491-0627401
+<!-- generated on Thu Aug  6 12:59:05 2020 by Eclipse SUMO netconvert Version v1_6_0+1429-e369bc3108
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -178,10 +178,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="CN" to="NC" fromLane="1" toLane="1" via=":N_0_0" dir="t" state="M"/>
     <connection from="CS" to="SC" fromLane="1" toLane="1" via=":S_0_0" dir="t" state="M"/>
     <connection from="CW" to="WC" fromLane="1" toLane="1" via=":W_0_0" dir="t" state="M"/>
-    <connection from="EC" to="CN" fromLane="0" toLane="0" visibility="40.00" via=":C_4_0" dir="r" state="m"/>
-    <connection from="EC" to="CW" fromLane="0" toLane="0" visibility="40.00" via=":C_5_0" dir="s" state="m"/>
-    <connection from="EC" to="CW" fromLane="1" toLane="1" visibility="40.00" via=":C_5_1" dir="s" state="m"/>
-    <connection from="EC" to="CS" fromLane="1" toLane="1" visibility="40.00" via=":C_7_0" dir="l" state="m"/>
+    <connection from="EC" to="CN" fromLane="0" toLane="0" via=":C_4_0" dir="r" state="m" visibility="40.00"/>
+    <connection from="EC" to="CW" fromLane="0" toLane="0" via=":C_5_0" dir="s" state="m" visibility="40.00"/>
+    <connection from="EC" to="CW" fromLane="1" toLane="1" via=":C_5_1" dir="s" state="m" visibility="40.00"/>
+    <connection from="EC" to="CS" fromLane="1" toLane="1" via=":C_7_0" dir="l" state="m" visibility="40.00"/>
     <connection from="NC" to="CW" fromLane="0" toLane="0" speed="5.00" via=":C_0_0" dir="r" state="M"/>
     <connection from="NC" to="CS" fromLane="0" toLane="0" speed="42.00" via=":C_1_0" dir="s" state="M"/>
     <connection from="NC" to="CS" fromLane="1" toLane="1" shape="98.35,108.05 103.00,100.00 98.35,91.95" via=":C_1_1" dir="s" state="M"/>
