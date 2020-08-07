@@ -1,2 +1,4 @@
---xml-validation never --write-license
+--xml-validation never
+--xml-validation.routes never
+--write-license
 --default.speeddev 0
