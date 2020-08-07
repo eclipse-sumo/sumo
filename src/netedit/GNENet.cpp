@@ -2162,16 +2162,23 @@ GNENet::getSelectedAttributeCarriers(bool ignoreCurrentSupermode) {
     std::vector<GNEAttributeCarrier*> result;
     result.reserve(gSelected.getSelected().size());
     // iterate over all elements of global selection
-    for (auto i : gSelected.getSelected()) {
+    for (const auto &glID : gSelected.getSelected()) {
         // obtain AC
-        GNEAttributeCarrier* AC = retrieveAttributeCarrier(i, false);
+        GNEAttributeCarrier* AC = retrieveAttributeCarrier(glID, false);
         // check if attribute carrier exist and is selected
         if (AC && AC->isAttributeCarrierSelected()) {
-            // now check if selected supermode is correct
-            if (ignoreCurrentSupermode ||
-                    ((myViewNet->getEditModes().isCurrentSupermodeNetwork()) && !AC->getTagProperty().isDemandElement()) ||
-                    ((myViewNet->getEditModes().isCurrentSupermodeDemand()) && AC->getTagProperty().isDemandElement())) {
-                // add it into result vector
+            bool insert = false;
+            if (ignoreCurrentSupermode) {
+                insert = true;
+            } else if (myViewNet->getEditModes().isCurrentSupermodeNetwork() && (AC->getTagProperty().isNetworkElement() || 
+                AC->getTagProperty().isAdditionalElement() || AC->getTagProperty().isShape() || AC->getTagProperty().isTAZElement())) {
+                insert = true;
+            } else if (myViewNet->getEditModes().isCurrentSupermodeDemand() && AC->getTagProperty().isDemandElement()) {
+                insert = true;
+            } else if (myViewNet->getEditModes().isCurrentSupermodeData() && AC->getTagProperty().isDataElement()) {
+                insert = true;
+            }
+            if (insert) {
                 result.push_back(AC);
             }
         }
