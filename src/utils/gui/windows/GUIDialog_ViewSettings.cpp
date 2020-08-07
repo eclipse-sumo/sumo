@@ -1681,13 +1681,11 @@ void
 GUIDialog_ViewSettings::updateVehicleParams() {
     myVehicleParamKey->clearItems();
     myVehicleTextParamKey->clearItems();
+    myVehicleParamKey->appendItem(mySettings->vehicleParam.c_str());
+    myVehicleTextParamKey->appendItem(mySettings->vehicleTextParam.c_str());
     for (const std::string& attr : myParent->getVehicleParamKeys(false)) {
         myVehicleParamKey->appendItem(attr.c_str());
         myVehicleTextParamKey->appendItem(attr.c_str());
-    }
-    if (myVehicleTextParamKey->getNumItems() == 0) {
-        myVehicleParamKey->appendItem(mySettings->vehicleParam.c_str());
-        myVehicleTextParamKey->appendItem(mySettings->vehicleTextParam.c_str());
     }
     myVehicleParamKey->setNumVisible(myVehicleParamKey->getNumItems());
     myVehicleTextParamKey->setNumVisible(myVehicleTextParamKey->getNumItems());
