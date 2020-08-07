@@ -57,7 +57,7 @@ PCNetProjectionLoader::load(const std::string& file, double scale) {
     // build handler and parser
     PCNetProjectionLoader handler(scale);
     handler.setFileName(file);
-    SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler);
+    SUMOSAXReader* parser = XMLSubSys::getSAXReader(handler, true);
     const long before = PROGRESS_BEGIN_TIME_MESSAGE("Parsing network projection from '" + file + "'");
     if (!parser->parseFirst(file)) {
         delete parser;
