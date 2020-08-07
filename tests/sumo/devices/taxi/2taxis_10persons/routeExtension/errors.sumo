@@ -1,4 +1,2 @@
-Warning: All customers left vehicle 'trip_0' at time 155.00 but there are 2 remaining stops
-Warning: Person '1' aborted waiting for taxi at edge 'B2B1'.
 Warning: Vehicle 'trip_0' aborted waiting for a person or container that will never come.
 Warning: Vehicle 'trip_1' aborted waiting for a person or container that will never come.
