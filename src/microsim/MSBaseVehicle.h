@@ -102,6 +102,9 @@ public:
      */
     const SUMOVehicleParameter& getParameter() const;
 
+    /// @brief retrieve parameters of devices, models and the vehicle itself
+    std::string getPrefixedParameter(const std::string& key, std::string& error) const;
+
     /** @brief Returns the vehicle's emission model parameter
      *
      * @return The vehicle's emission parameters

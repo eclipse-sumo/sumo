@@ -42,6 +42,7 @@
 #include "devices/MSDevice.h"
 #include "devices/MSDevice_Routing.h"
 #include "devices/MSDevice_Battery.h"
+#include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSRoutingEngine.h>
 #include <microsim/devices/MSDevice_Transportable.h>
 #include <microsim/devices/MSDevice_Battery.h>
@@ -979,6 +980,56 @@ MSBaseVehicle::getRNG() const {
     }
 }
 
+std::string
+MSBaseVehicle::getPrefixedParameter(const std::string& key, std::string& error) const {
+    const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(this);
+    if (StringUtils::startsWith(key, "device.")) {
+        StringTokenizer tok(key, ".");
+        if (tok.size() < 3) {
+            error = "Invalid device parameter '" + key + "' for vehicle '" + getID() + "'.";
+            return "";
+        }
+        try {
+            return getDeviceParameter(tok.get(1), key.substr(tok.get(0).size() + tok.get(1).size() + 2));
+        } catch (InvalidArgument& e) {
+            error = "Vehicle '" + getID() + "' does not support device parameter '" + key + "' (" + e.what() + ").";
+            return "";
+        }
+    } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
+        if (microVeh == nullptr) {
+            error = "Meso Vehicle '" + getID() + "' does not support laneChangeModel parameters.";
+            return "";
+        }
+        const std::string attrName = key.substr(16);
+        try {
+            return microVeh->getLaneChangeModel().getParameter(attrName);
+        } catch (InvalidArgument& e) {
+            error = "Vehicle '" + getID() + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").";
+            return "";
+        }
+    } else if (StringUtils::startsWith(key, "carFollowModel.")) {
+        if (microVeh == nullptr) {
+            error = "Meso Vehicle '" + getID() + "' does not support carFollowModel parameters.";
+            return "";
+        }
+        const std::string attrName = key.substr(15);
+        try {
+            return microVeh->getCarFollowModel().getParameter(microVeh, attrName);
+        } catch (InvalidArgument& e) {
+            error = "Vehicle '" + getID() + "' does not support carFollowModel parameter '" + key + "' (" + e.what() + ").";
+            return "";
+        }
+    } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
+        StringTokenizer tok(key, ".");
+        if (tok.size() != 3) {
+            error = "Invalid check for device. Expected format is 'has.DEVICENAME.device'.";
+            return "";
+        }
+        return hasDevice(tok.get(1)) ? "true" : "false";
+    } else {
+        return getParameter().getParameter(key, "");
+    }
+}
 
 #ifdef _DEBUG
 void
