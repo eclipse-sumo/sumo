@@ -377,7 +377,7 @@ MSDevice_Taxi::getParameter(const std::string& key) const {
         return toString(myCustomersServed);
     } else if (key == "occupiedDistance") {
         return toString(myOccupiedDistance);
-    } else if (key == "occupiedtime") {
+    } else if (key == "occupiedTime") {
         return toString(STEPS2TIME(myOccupiedTime));
     } else if (key == "state") {
         return toString(myState);
