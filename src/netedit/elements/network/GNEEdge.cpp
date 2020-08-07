@@ -117,29 +117,18 @@ GNEEdge::updateGeometry() {
                 connection->updateGeometry();
             }
         }
-        // Update geometry of parent additionals that have this edge as parent
-        for (const auto& additionalParent : getParentAdditionals()) {
-            additionalParent->updateGeometry();
-        }
         // Update geometry of additionals children vinculated to this edge
         for (const auto& childAdditionals : getChildAdditionals()) {
             childAdditionals->updateGeometry();
         }
-        // Update geometry of parent demand elements that have this edge as parent
-        for (const auto& additionalParent : getParentDemandElements()) {
-            additionalParent->updateGeometry();
-        }
         // Update geometry of additionals demand elements vinculated to this edge
-        for (const auto& childAdditionals : getChildDemandElements()) {
-            childAdditionals->updateGeometry();
-        }
-        // Update geometry of parent generic datas that have this edge as parent
-        for (const auto& additionalParent : getParentGenericDatas()) {
-            additionalParent->updateGeometry();
+        for (const auto& childDemandElements : getChildDemandElements()) {
+            childDemandElements->computePath();
+            childDemandElements->updateGeometry();
         }
         // Update geometry of additionals generic datas vinculated to this edge
-        for (const auto& childAdditionals : getChildGenericDatas()) {
-            childAdditionals->updateGeometry();
+        for (const auto& childGenericData : getChildGenericDatas()) {
+            childGenericData->updateGeometry();
         }
     }
     // update vehicle geometry
