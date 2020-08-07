@@ -964,7 +964,14 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myViewParent->getPersonPlanFrame()->getPathCreator()->abortPathCreation();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
-        if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
+        // abort operation depending of current mode
+        if (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) {
+            mySelectingArea.selectingUsingRectangle = false;
+            // check if current selection has to be cleaned
+            if (clearSelection) {
+                myViewParent->getSelectorFrame()->clearCurrentSelection();
+            }
+        } else if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
             myViewParent->getEdgeRelDataFrame()->getPathCreator()->abortPathCreation();
         } else if (myEditModes.dataEditMode == DataEditMode::DATA_TAZRELDATA) {
             myViewParent->getTAZRelDataFrame()->clearTAZSelection();

@@ -1783,11 +1783,6 @@ GNESelectorFrame::clearCurrentSelection() const {
                         route.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                     }
                 }
-                for (const auto& embeddedRoute : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_ROUTE_EMBEDDED)) {
-                    if (embeddedRoute.second->isAttributeCarrierSelected()) {
-                        embeddedRoute.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-                    }
-                }
             }
             // select vehicles
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_VEHICLE)) {
@@ -1799,6 +1794,11 @@ GNESelectorFrame::clearCurrentSelection() const {
                 for (const auto& vehicle : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_VEHICLE_WITHROUTE)) {
                     if (vehicle.second->isAttributeCarrierSelected()) {
                         vehicle.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                    for (const auto& embeddedRoute : vehicle.second->getChildDemandElements()) {
+                        if (embeddedRoute->isAttributeCarrierSelected()) {
+                            embeddedRoute->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
                     }
                 }
             }
@@ -1828,6 +1828,11 @@ GNESelectorFrame::clearCurrentSelection() const {
                 for (const auto& routeFlow : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_WITHROUTE)) {
                     if (routeFlow.second->isAttributeCarrierSelected()) {
                         routeFlow.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                    for (const auto& embeddedRoute : routeFlow.second->getChildDemandElements()) {
+                        if (embeddedRoute->isAttributeCarrierSelected()) {
+                            embeddedRoute->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                        }
                     }
                 }
             }
@@ -1936,11 +1941,8 @@ GNESelectorFrame::clearCurrentSelection() const {
             for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
-                        if ((!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGEDATA) && (genericData->getType() == GLO_EDGEDATA)) ||
-                                (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_EDGERELDATA) && (genericData->getType() == GLO_EDGERELDATA))) {
-                            if (genericData->isAttributeCarrierSelected()) {
-                                genericData->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
-                            }
+                        if (genericData->isAttributeCarrierSelected()) {
+                            genericData->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
                         }
                     }
                 }
