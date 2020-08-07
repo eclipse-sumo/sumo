@@ -277,6 +277,20 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
             headerString = "Additional: ";
         } else if (ACs.front()->getTagProperty().isShape()) {
             headerString = "Shape: ";
+        } else if (ACs.front()->getTagProperty().isTAZElement()) {
+            headerString = "TAZ: ";
+        } else if (ACs.front()->getTagProperty().isVehicle()) {
+            headerString = "Vehicle: ";
+        } else if (ACs.front()->getTagProperty().isRoute()) {
+            headerString = "Route: ";
+        } else if (ACs.front()->getTagProperty().isPerson()) {
+            headerString = "Person: ";
+        } else if (ACs.front()->getTagProperty().isPersonPlan()) {
+            headerString = "PersonPlan: ";
+        } else if (ACs.front()->getTagProperty().isStop()) {
+            headerString = "Stop: ";
+        } else if (ACs.front()->getTagProperty().isDataElement()) {
+            headerString = "Data: ";
         }
         if (ACs.size() > 1) {
             headerString += toString(ACs.size()) + " ";
