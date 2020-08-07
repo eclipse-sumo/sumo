@@ -491,7 +491,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
                     // draw shape points only in Network supemode
                     if (myShapeEdited && s.drawMovingGeometryPoint(junctionExaggeration, s.neteditSizeSettings.junctionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                         // set color
-                        const RGBColor darkerColor = junctionShapeColor.changedBrightness(-10);
+                        const RGBColor darkerColor = junctionShapeColor.changedBrightness(-32);
                         // calculate geometry
                         GNEGeometry::Geometry junctionGeometry;
                         // obtain junction Shape
@@ -1829,6 +1829,10 @@ RGBColor
 GNEJunction::setColor(const GUIVisualizationSettings& s, bool bubble) const {
     // get active scheme
     const int scheme = s.junctionColorer.getActive();
+    // first check if we're editing shape
+    if (myShapeEdited) {
+        return s.colorSettings.editShape;
+    }
     // set default color
     RGBColor color = s.junctionColorer.getScheme().getColor(getColorValue(s, scheme));
     // set special bubble color

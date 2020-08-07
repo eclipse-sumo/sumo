@@ -165,6 +165,9 @@ struct GUIVisualizationColorSettings {
     /// @brief color for child connections between parents and child elements
     static const RGBColor childConnections;
 
+    /// @brief color for edited shapes (Junctions, crossings and connections)
+    static const RGBColor editShape;
+
     /// @brief color for crossings
     static const RGBColor crossing;
 

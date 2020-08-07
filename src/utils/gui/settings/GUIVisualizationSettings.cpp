@@ -60,6 +60,7 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 
 const RGBColor GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW(255, 0, 255);
 const RGBColor GUIVisualizationColorSettings::childConnections(255, 235, 0);
+const RGBColor GUIVisualizationColorSettings::editShape(0, 200, 0);
 const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
 const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
 const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
