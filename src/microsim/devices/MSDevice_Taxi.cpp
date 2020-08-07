@@ -305,7 +305,6 @@ MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         }
     }
     myIsStopped = myHolder.isStopped();
-    //(const_cast<SUMOVehicleParameter&>(myHolder.getParameter())).setParameter("taxiState", toString(myState));
     return true; // keep the device
 }
 
@@ -380,6 +379,8 @@ MSDevice_Taxi::getParameter(const std::string& key) const {
         return toString(myOccupiedDistance);
     } else if (key == "occupiedtime") {
         return toString(STEPS2TIME(myOccupiedTime));
+    } else if (key == "state") {
+        return toString(myState);
     }
     throw InvalidArgument("Parameter '" + key + "' is not supported for device of type '" + deviceName() + "'");
 }

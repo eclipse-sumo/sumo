@@ -559,7 +559,8 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         GLHelper::drawTextSettings(s.vehicleValue, toString(value), Position(0, 0), s.scale, s.angle);
     }
     if (s.vehicleText.show) {
-        const std::string& value = myVehicle.getParameter().getParameter(s.vehicleTextParam, "");
+        std::string error;
+        std::string value = myVehicle.getPrefixedParameter(s.vehicleTextParam, error);
         if (value != "") {
             auto lines = StringTokenizer(value, StringTokenizer::NEWLINE).getVector();
             glRotated(-s.angle, 0, 0, 1);
