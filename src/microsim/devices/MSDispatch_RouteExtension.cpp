@@ -32,11 +32,32 @@
 
 
 // ===========================================================================
-// MSDispatch_GreedyShared methods
+// method definitions
 // ===========================================================================
+void
+MSDispatch_RouteExtension::adaptSequence(std::vector<const Reservation*>& sequence, EdgePosVector& posSequence, ConstMSEdgeVector& route,
+                                         const Reservation* newRes, const MSEdge* newEdge, const double newPos) const {
+    std::vector<const Reservation*>::iterator resIt = sequence.begin();
+    EdgePosVector::iterator edgeIt = posSequence.begin();
+    for (const MSEdge* edge : route) {
+        while (edgeIt != posSequence.end() && edge == edgeIt->first) {
+            if (edge == newEdge && edgeIt->second > newPos) {
+                break;
+            }
+            resIt++;
+            edgeIt++;
+        }
+        if (edge == newEdge) {
+            break;
+        }
+    }
+    sequence.insert(resIt, newRes);
+    posSequence.insert(edgeIt, std::make_pair(newEdge, newPos));
+}
+
 
 int
-MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations) {
+MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUMOAbstractRouter<MSEdge, SUMOVehicle> & router, std::vector<Reservation*> & reservations) {
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND2(person)) {
         std::cout << SIMTIME << " dispatch taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << "\n";
@@ -46,7 +67,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOA
     int capacityLeft = taxi->getHolder().getVehicleType().getPersonCapacity() - (int)res->persons.size();
     std::vector<const Reservation*> sequence({ res, res });
     std::vector<Reservation*> toRemove({ res });
-    ConstMSEdgeVector edgeSequence({ res->from, res->to });
+    EdgePosVector posSequence({ std::make_pair(res->from, res->fromPos), std::make_pair(res->to, res->toPos) });
     const Reservation* first = sequence.front();
     const Reservation* last = sequence.back();
     ConstMSEdgeVector route;
@@ -61,56 +82,31 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOA
         ConstMSEdgeVector route2;
         // TODO It may be more efficient to check first whether from and to are already in the route
         router.compute(res2->from, res2->fromPos, res2->to, res2->toPos, &taxi->getHolder(), MAX2(now, res2->pickupTime), route2);
-        const bool pickup1 = std::find(route2.begin(), route2.end(), first->from) != route2.end();
-        const bool pickup2 = std::find(route.begin(), route.end(), res2->from) != route.end();
-        const bool dropoff1 = std::find(route2.begin(), route2.end(), last->to) != route2.end();
-        const bool dropoff2 = std::find(route.begin(), route.end(), res2->to) != route.end();
+        const bool pickup = std::find(route.begin(), route.end(), res2->from) != route.end();
+        const bool dropoff = std::find(route.begin(), route.end(), res2->to) != route.end();
 #ifdef DEBUG_DISPATCH
         if (DEBUG_COND2(person)) std::cout << "  consider sharing ride with " << toString(res2->persons)
             << " pickup1=" << pickup1 << " pickup2=" << pickup2
             << " dropoff1=" << dropoff1 << " dropoff2=" << dropoff2
             << "\n";
 #endif
-        if ((pickup1 || pickup2) && (dropoff1 || dropoff2)) {
-            if (pickup1) {
+        if ((pickup || std::find(route2.begin(), route2.end(), first->from) != route2.end()) &&
+            (dropoff || std::find(route2.begin(), route2.end(), last->to) != route2.end())) {
+            if (pickup) {
+                // new reservation gets picked up
+                adaptSequence(sequence, posSequence, route, res2, res2->from, res2->fromPos);
+            } else {
                 // new reservation starts first
                 sequence.insert(sequence.begin(), res2);
-                edgeSequence.insert(edgeSequence.begin(), res2->from);
-            } else {
-                // new reservation gets picked up
-                std::vector<const Reservation*>::iterator resIt = sequence.begin();
-                ConstMSEdgeVector::iterator edgeIt = edgeSequence.begin();
-                for (const MSEdge* edge : route) {
-                    while (edge == *edgeIt) {
-                        resIt++;
-                        edgeIt++;
-                    }
-                    if (edge == res2->from) {
-                        break;
-                    }
-                }
-                sequence.insert(resIt, res2);
-                edgeSequence.insert(edgeIt, res2->from);
+                posSequence.insert(posSequence.begin(), std::make_pair(res2->from, res2->fromPos));
             }
-            if (dropoff1) {
+            if (dropoff) {
+                // new reservation drops off and route continues
+                adaptSequence(sequence, posSequence, route, res2, res2->to, res2->toPos);
+            } else {
                 // new reservation ends last
                 sequence.push_back(res2);
-                edgeSequence.push_back(res2->to);
-            } else {
-                // new reservation drops off and route continues
-                std::vector<const Reservation*>::iterator resIt = sequence.begin();
-                ConstMSEdgeVector::iterator edgeIt = edgeSequence.begin();
-                for (const MSEdge* edge : route) {
-                    while (edge == *edgeIt) {
-                        resIt++;
-                        edgeIt++;
-                    }
-                    if (edge == res2->to) {
-                        break;
-                    }
-                }
-                sequence.insert(resIt, res2);
-                edgeSequence.insert(edgeIt, res2->to);
+                posSequence.push_back(std::make_pair(res2->to, res2->toPos));
             }
             toRemove.push_back(res2);
             // TODO we have more capacity if some pickup is after an earlier dropoff
