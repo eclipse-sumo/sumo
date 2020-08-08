@@ -71,7 +71,6 @@ fillOptions() {
     oc.addOptionSubTopic("Pruning");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
-    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
 
     // register options
@@ -145,6 +144,8 @@ fillOptions() {
     oc.addSynonyme("type-file", "typemap", true);
     oc.addDescription("type-file", "Input", "Reads types from FILE");
 
+    // need to do this here to be able to check for network and route input options
+    SystemFrame::addReportOptions(oc);
 
     // output
     oc.doRegister("output-file", 'o', new Option_FileName());
@@ -238,6 +239,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
+        SystemFrame::checkOptions();
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
         MsgHandler::initOutputOptions();
         // build the projection
@@ -332,7 +334,6 @@ main(int argc, char** argv) {
             }
             delete reader;
         }
-        SystemFrame::checkOptions();
         // read in the data
         PCLoaderXML::loadIfSet(oc, toFill, tm); // SUMO-XML
         PCLoaderOSM::loadIfSet(oc, toFill, tm); // OSM-XML

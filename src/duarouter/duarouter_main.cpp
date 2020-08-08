@@ -241,6 +241,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
+        SystemFrame::checkOptions();
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
 #ifdef HAVE_FOX
         if (oc.getInt("routing-threads") > 1) {
@@ -249,7 +250,7 @@ main(int argc, char** argv) {
         }
 #endif
         MsgHandler::initOutputOptions();
-        if (!(RODUAFrame::checkOptions() && SystemFrame::checkOptions())) {
+        if (!RODUAFrame::checkOptions()) {
             throw ProcessError();
         }
         RandHelper::initRandGlobal();

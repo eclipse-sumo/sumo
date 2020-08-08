@@ -58,8 +58,6 @@ class SUMOSAXReader;
  * In addition to initialisation and shutdown, this module allows to build
  *  SAXReaders and/or running a given handler on a given file without
  *  dealing with the reader at all.
- *
- * @todo make schema checking optional
  */
 class XMLSubSys {
 public:

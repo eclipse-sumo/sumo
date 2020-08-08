@@ -78,11 +78,15 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     oc.doRegister("xml-validation", 'X', new Option_String("auto"));
     oc.addDescription("xml-validation", "Report", "Set schema validation scheme of XML inputs (\"never\", \"auto\" or \"always\")");
 
-    oc.doRegister("xml-validation.net", new Option_String("never"));
-    oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"auto\" or \"always\")");
+    if (oc.exists("net-file")) {
+        oc.doRegister("xml-validation.net", new Option_String("never"));
+        oc.addDescription("xml-validation.net", "Report", "Set schema validation scheme of SUMO network inputs (\"never\", \"auto\" or \"always\")");
+    }
 
-    oc.doRegister("xml-validation.routes", new Option_String("always"));
-    oc.addDescription("xml-validation.routes", "Report", "Set schema validation scheme of SUMO route inputs (\"never\", \"auto\" or \"always\")");
+    if (oc.exists("route-files")) {
+        oc.doRegister("xml-validation.routes", new Option_String("always"));
+        oc.addDescription("xml-validation.routes", "Report", "Set schema validation scheme of SUMO route inputs (\"never\", \"auto\" or \"always\")");
+    }
 
     oc.doRegister("no-warnings", 'W', new Option_Bool(false));
     oc.addSynonyme("no-warnings", "suppress-warnings", true);
@@ -126,6 +130,9 @@ SystemFrame::checkOptions() {
     gHumanReadableTime = oc.getBool("human-readable-time");
     if (oc.exists("weights.random-factor")) {
         gWeightsRandomFactor = oc.getFloat("weights.random-factor");
+    }
+    if (oc.exists("xml-validation.routes") && oc.isDefault("xml-validation.routes") && !oc.isDefault("xml-validation")) {
+        oc.set("xml-validation.routes", oc.getString("xml-validation"));
     }
     return true;
 }

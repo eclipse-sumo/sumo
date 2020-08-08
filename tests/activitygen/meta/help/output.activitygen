@@ -1,4 +1,4 @@
-Eclipse SUMO activitygen Version v1_6_0+1428-688e592900
+Eclipse SUMO activitygen Version v1_6_0+1462-a775417066
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates trips of persons throughout a day for the microscopic, multi-modal
@@ -48,8 +48,6 @@ Report Options:
   -X, --xml-validation STR         Set schema validation scheme of XML inputs
                                      ("never", "auto" or "always")
   --xml-validation.net STR         Set schema validation scheme of SUMO network
-                                     inputs ("never", "auto" or "always")
-  --xml-validation.routes STR      Set schema validation scheme of SUMO route
                                      inputs ("never", "auto" or "always")
   -W, --no-warnings                Disables output of warnings
   --aggregate-warnings INT         Aggregate warnings of the same type whenever

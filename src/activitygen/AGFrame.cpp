@@ -54,8 +54,6 @@ void AGFrame::fillOptions() {
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Time");
-    SystemFrame::addReportOptions(oc);
-    RandHelper::insertRandOptions();
 
     // Insert options
     oc.doRegister("net-file", 'n', new Option_FileName());
@@ -64,6 +62,10 @@ void AGFrame::fillOptions() {
 
     oc.doRegister("stat-file", 's', new Option_FileName());
     oc.addDescription("stat-file", "Input", "Loads the SUMO-statistics FILE");
+
+    // need to do this here to be able to check for network and route input options
+    SystemFrame::addReportOptions(oc);
+    RandHelper::insertRandOptions();
 
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output", true);

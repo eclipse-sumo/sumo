@@ -70,7 +70,6 @@ fillOptions() {
     oc.addOptionSubTopic("Bicycle");
     oc.addOptionSubTopic("Railway");
     oc.addOptionSubTopic("Formats");
-    SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NIFrame::fillOptions();
     NBFrame::fillOptions(false);
@@ -108,7 +107,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         if (oc.isDefault("aggregate-warnings")) {
             oc.set("aggregate-warnings", "5");
         }

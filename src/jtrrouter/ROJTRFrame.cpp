@@ -51,7 +51,6 @@ ROJTRFrame::fillOptions() {
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Defaults");
     oc.addOptionSubTopic("Time");
-    SystemFrame::addReportOptions(oc); // fill this subtopic, too
 
     ROFrame::fillOptions(oc);
 

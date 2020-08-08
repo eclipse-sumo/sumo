@@ -53,8 +53,6 @@ RODFFrame::fillOptions() {
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Defaults");
     oc.addOptionSubTopic("Time");
-    SystemFrame::addReportOptions(oc); // fill this subtopic, too
-
 
     // register the options
     // register input-options
@@ -76,6 +74,8 @@ RODFFrame::fillOptions() {
     oc.addSynonyme("measure-files", "detector-flow-files", true);
     oc.addDescription("measure-files", "Input", "Loads detector flows from FILE(s)");
 
+    // need to do this here to be able to check for network and route input options
+    SystemFrame::addReportOptions(oc);
 
     // register output options
     oc.doRegister("routes-output", 'o', new Option_FileName());

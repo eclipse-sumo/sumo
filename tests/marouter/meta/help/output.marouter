@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_6_0+1428-688e592900
+Eclipse SUMO marouter Version v1_6_0+1462-a775417066
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
@@ -33,6 +33,14 @@ Input Options:
                                        attributes toJunction and fromJunction
 
 Output Options:
+  -o, --output-file FILE             Write flow definitions with route
+                                       distributions to FILE
+  --vtype-output FILE                Write used vehicle types into separate
+                                       FILE
+  --ignore-vehicle-type              Does not save vtype information
+  --netload-output FILE              Writes edge loads and final costs into
+                                       FILE
+  --all-pairs-output FILE            Writes complete distance matrix into FILE
   --write-license                    Include license info into every output
                                        file
   --output-prefix STR                Prefix which is applied to all output
@@ -45,14 +53,6 @@ Output Options:
   -H, --human-readable-time          Write time values as hour:minute:second or
                                        day:hour:minute:second rathern than
                                        seconds
-  -o, --output-file FILE             Write flow definitions with route
-                                       distributions to FILE
-  --vtype-output FILE                Write used vehicle types into separate
-                                       FILE
-  --ignore-vehicle-type              Does not save vtype information
-  --netload-output FILE              Writes edge loads and final costs into
-                                       FILE
-  --all-pairs-output FILE            Writes complete distance matrix into FILE
   --exit-times                       Write exit times (weights) for each edge
 
 Processing Options:
