@@ -240,7 +240,7 @@ main(int argc, char** argv) {
             return 0;
         }
         SystemFrame::checkOptions();
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
+        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), "never");
         MsgHandler::initOutputOptions();
         // build the projection
         double scale = 1.0;

@@ -114,12 +114,6 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
 }
 
 
-bool
-XMLSubSys::isValidating() {
-    return myValidationScheme != SAX2XMLReader::Val_Never;
-}
-
-
 void
 XMLSubSys::close() {
     for (std::vector<SUMOSAXReader*>::iterator i = myReaders.begin(); i != myReaders.end(); ++i) {

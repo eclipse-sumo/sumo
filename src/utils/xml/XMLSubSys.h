@@ -84,12 +84,6 @@ public:
 
 
     /**
-    * @brief Returns whether validation is enabled.
-    */
-    static bool isValidating();
-
-
-    /**
      * @brief Closes the xml-subsystem
      *
      * Deletes the built reader and calls XMLPlatformUtils::Terminate();

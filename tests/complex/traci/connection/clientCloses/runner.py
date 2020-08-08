@@ -57,7 +57,7 @@ def runSingle(traciEndTime, sumoEndTime=None):
 
 print("=========== long route ===========")
 fdo = open("input_routes.rou.xml", "w")
-print('<routes>"', file=fdo)
+print('<routes>', file=fdo)
 print(
     '   <route id="horizontal" edges="2fi 2si 1o 1fi 1si 3o 3fi 3si 4o 4fi 4si"/>', file=fdo)
 print('   <vehicle id="horiz" route="horizontal" depart="0"/>', file=fdo)
@@ -73,7 +73,7 @@ runSingle(99)
 
 print("=========== empty routes in SUMO ===========")
 fdo = open("input_routes.rou.xml", "w")
-print('<routes>"', file=fdo)
+print('<routes>', file=fdo)
 print('</routes>', file=fdo)
 fdo.close()
 print("----------- SUMO end time is smaller than TraCI's -----------")
@@ -86,7 +86,7 @@ runSingle(99)
 
 print("=========== vehicle leaves before TraCI ends ===========")
 fdo = open("input_routes.rou.xml", "w")
-print('<routes>"', file=fdo)
+print('<routes>', file=fdo)
 print('   <route id="horizontal" edges="2fi 2si"/>', file=fdo)
 print('   <vehicle id="horiz" route="horizontal" depart="0"/>', file=fdo)
 print('</routes>', file=fdo)

@@ -36,7 +36,7 @@
 // ===========================================================================
 
 SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& expectedRoot, const bool hardFail) :
-    SUMOSAXHandler(file, XMLSubSys::isValidating() ? expectedRoot : ""),
+    SUMOSAXHandler(file, expectedRoot),
     myHardFail(hardFail),
     myVehicleParameter(nullptr),
     myLastDepart(-1),
