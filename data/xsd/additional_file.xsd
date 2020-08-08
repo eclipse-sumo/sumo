@@ -47,6 +47,9 @@
             <xsd:element name="vehicle" type="vehicleType" minOccurs="0"/>
             <xsd:element name="flow" type="flowType" minOccurs="0"/>
             <xsd:element name="person" type="personType" minOccurs="0"/>
+            <xsd:element name="personFlow" type="personFlowType" minOccurs="0"/>
+            <xsd:element name="container" type="containerType" minOccurs="0"/>
+            <xsd:element name="interval" type="flowIntervalType" minOccurs="0"/>
 
             <xsd:element name="interval" type="intervalType" minOccurs="0"/>
 

@@ -18,6 +18,7 @@
             <xsd:element name="person" type="personType" minOccurs="0"/>
             <xsd:element name="personFlow" type="personFlowType" minOccurs="0"/>
             <xsd:element name="container" type="containerType" minOccurs="0"/>
+            <xsd:element name="interval" type="flowIntervalType" minOccurs="0"/>
             <xsd:element name="include" minOccurs="0">
                 <xsd:complexType>
                     <xsd:attribute name="href" type="xsd:string"/>

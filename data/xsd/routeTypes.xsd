@@ -481,6 +481,12 @@
         <xsd:attribute name="containerNumber" type="xsd:nonNegativeInteger"/>
     </xsd:complexType>
 
+    <xsd:complexType name="flowIntervalType">
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="flow" type="flowType" minOccurs="0"/>
+        </xsd:choice>
+    </xsd:complexType>
+
     <xsd:complexType name="flowCalibratorType">
         <xsd:complexContent>
             <xsd:extension base="flowWithoutIDType">
