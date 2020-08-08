@@ -80,7 +80,7 @@ SUMOSAXReader::setValidation(const SAX2XMLReader::ValSchemes validationScheme) {
             myXMLReader->setFeature(XMLUni::fgXercesSchema, true);
             myXMLReader->setFeature(XMLUni::fgSAX2CoreValidation, true);
             myXMLReader->setFeature(XMLUni::fgXercesDynamic, validationScheme == SAX2XMLReader::Val_Auto);
-            myXMLReader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, true);
+            myXMLReader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, myValidationScheme == SAX2XMLReader::Val_Always);
         }
     }
     myValidationScheme = validationScheme;
@@ -159,7 +159,7 @@ SUMOSAXReader::getSAXReader() {
         reader->setFeature(XMLUni::fgXercesSchema, true);
         reader->setFeature(XMLUni::fgSAX2CoreValidation, true);
         reader->setFeature(XMLUni::fgXercesDynamic, myValidationScheme == SAX2XMLReader::Val_Auto);
-        reader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, true);
+        reader->setFeature(XMLUni::fgXercesUseCachedGrammarInParse, myValidationScheme == SAX2XMLReader::Val_Always);
     }
     reader->setContentHandler(myHandler);
     reader->setErrorHandler(myHandler);
