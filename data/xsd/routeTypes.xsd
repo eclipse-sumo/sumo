@@ -485,6 +485,8 @@
         <xsd:choice maxOccurs="unbounded">
             <xsd:element name="flow" type="flowType" minOccurs="0"/>
         </xsd:choice>
+        <xsd:attribute name="begin" type="timeType"/>
+        <xsd:attribute name="end" type="timeType"/>
     </xsd:complexType>
 
     <xsd:complexType name="flowCalibratorType">
