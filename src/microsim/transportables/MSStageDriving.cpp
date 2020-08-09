@@ -260,7 +260,7 @@ MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool wi
         if (myDestinationStop->getMyName() != "") {
             comment = " <!-- " + StringUtils::escapeXML(myDestinationStop->getMyName(), true) + " -->";
         }
-    } else if (myArrivalPos != std::numeric_limits<double>::infinity()) {
+    } else if (!unspecifiedArrivalPos()) {
         os.writeAttr(SUMO_ATTR_ARRIVALPOS, myArrivalPos);
     }
     os.writeAttr(SUMO_ATTR_LINES, myLines);

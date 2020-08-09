@@ -35,12 +35,11 @@
 // method definitions
 // ===========================================================================
 void
-MSDispatch_RouteExtension::adaptSequence(std::vector<const Reservation*>& sequence, EdgePosVector& posSequence, ConstMSEdgeVector& route,
-                                         const Reservation* newRes, const MSEdge* newEdge, const double newPos) const {
-    std::vector<const Reservation*>::iterator resIt = sequence.begin();
-    EdgePosVector::iterator edgeIt = posSequence.begin();
+MSDispatch_RouteExtension::findInsertionPoint(std::vector<const Reservation*>::iterator& resIt, EdgePosVector::iterator& edgeIt,
+                                              const EdgePosVector::iterator& edgeEnd, ConstMSEdgeVector& route,
+                                              const MSEdge* newEdge, const double newPos) const {
     for (const MSEdge* edge : route) {
-        while (edgeIt != posSequence.end() && edge == edgeIt->first) {
+        while (edgeIt != edgeEnd && edge == edgeIt->first) {
             if (edge == newEdge && edgeIt->second > newPos) {
                 break;
             }
@@ -51,8 +50,6 @@ MSDispatch_RouteExtension::adaptSequence(std::vector<const Reservation*>& sequen
             break;
         }
     }
-    sequence.insert(resIt, newRes);
-    posSequence.insert(edgeIt, std::make_pair(newEdge, newPos));
 }
 
 
@@ -86,23 +83,25 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUM
         const bool dropoff = std::find(route.begin(), route.end(), res2->to) != route.end();
 #ifdef DEBUG_DISPATCH
         if (DEBUG_COND2(person)) std::cout << "  consider sharing ride with " << toString(res2->persons)
-            << " pickup1=" << pickup1 << " pickup2=" << pickup2
-            << " dropoff1=" << dropoff1 << " dropoff2=" << dropoff2
+            << " pickup=" << pickup << " startFirst=" << (std::find(route2.begin(), route2.end(), first->from) != route2.end())
+            << " dropoff=" << dropoff << " endLast=" << (std::find(route2.begin(), route2.end(), last->to) != route2.end())
             << "\n";
 #endif
         if ((pickup || std::find(route2.begin(), route2.end(), first->from) != route2.end()) &&
             (dropoff || std::find(route2.begin(), route2.end(), last->to) != route2.end())) {
+            std::vector<const Reservation*>::iterator resIt = sequence.begin();
+            EdgePosVector::iterator edgeIt = posSequence.begin();
             if (pickup) {
                 // new reservation gets picked up
-                adaptSequence(sequence, posSequence, route, res2, res2->from, res2->fromPos);
-            } else {
-                // new reservation starts first
-                sequence.insert(sequence.begin(), res2);
-                posSequence.insert(posSequence.begin(), std::make_pair(res2->from, res2->fromPos));
+                findInsertionPoint(resIt, edgeIt, posSequence.end(), route, res2->from, res2->fromPos);
             }
+            resIt = sequence.insert(resIt, res2) + 1;
+            edgeIt = posSequence.insert(edgeIt, std::make_pair(res2->from, res2->fromPos)) + 1;
             if (dropoff) {
                 // new reservation drops off and route continues
-                adaptSequence(sequence, posSequence, route, res2, res2->to, res2->toPos);
+                findInsertionPoint(resIt, edgeIt, posSequence.end(), route, res2->to, res2->toPos);
+                sequence.insert(resIt, res2);
+                posSequence.insert(edgeIt, std::make_pair(res2->from, res2->fromPos));
             } else {
                 // new reservation ends last
                 sequence.push_back(res2);
@@ -117,7 +116,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUM
             route.clear();
             first = sequence.front();
             last = sequence.back();
-            // TODO speed this up by reusing the route snippets from above
+            // TODO this is wrong for non linear networks! should be reusing the route snippets from above
             router.compute(first->from, first->fromPos, last->to, last->toPos, &taxi->getHolder(), MAX2(now, first->pickupTime), route);
         }
     }
@@ -134,7 +133,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUM
             myOutput->closeTag();
         }
 #ifdef DEBUG_DISPATCH
-        if (DEBUG_COND2(person)) std::cout << "  sharing ride with " << toString(res2->persons)
+        if (DEBUG_COND2(person)) std::cout << "  sharing ride with " << toString(sequence)
                                                << "\n";
 #endif
     } else {

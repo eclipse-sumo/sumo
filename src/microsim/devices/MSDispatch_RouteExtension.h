@@ -45,6 +45,7 @@ protected:
 
 private:
     typedef std::vector<std::pair<const MSEdge*, double> > EdgePosVector;
-    void adaptSequence(std::vector<const Reservation*>& sequence, EdgePosVector& posSequence, ConstMSEdgeVector& route,
-                       const Reservation* newRes, const MSEdge* newEdge, const double newPos) const;
+    void findInsertionPoint(std::vector<const Reservation*>::iterator& resIt, EdgePosVector::iterator& edgeIt,
+                            const EdgePosVector::iterator& edgeEnd, ConstMSEdgeVector& route,
+                            const MSEdge* newEdge, const double newPos) const;
 };
