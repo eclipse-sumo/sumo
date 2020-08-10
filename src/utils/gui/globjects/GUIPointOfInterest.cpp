@@ -21,6 +21,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -157,6 +158,24 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const bool d
         if (s.poiType.show) {
             const Position p = namePos + Position(0, -0.6 * s.poiType.size / s.scale);
             GLHelper::drawTextSettings(s.poiType, getShapeType(), p, s.scale, s.angle);
+        }
+        if (s.poiText.show) {
+            glPushMatrix();
+            glTranslated(x(), y(), 0);
+            std::string value = getParameter(s.poiTextParam, "");
+            if (value != "") {
+                auto lines = StringTokenizer(value, StringTokenizer::NEWLINE).getVector();
+                glRotated(-s.angle, 0, 0, 1);
+                glTranslated(0, 0.7 * s.poiText.scaledSize(s.scale) * lines.size(), 0);
+                glRotated(s.angle, 0, 0, 1);
+                for (std::string& line : lines) {
+                    GLHelper::drawTextSettings(s.poiText, line, Position(0, 0), s.scale, s.angle);
+                    glRotated(-s.angle, 0, 0, 1);
+                    glTranslated(0, -0.7 * s.poiText.scaledSize(s.scale), 0);
+                    glRotated(s.angle, 0, 0, 1);
+                }
+            }
+            glPopMatrix();
         }
     }
 }

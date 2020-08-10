@@ -448,10 +448,14 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(GUISUMOAbstractView* parent, GUIV
         FXMatrix* m61 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
         myPOINamePanel = new NamePanel(m61, this, "Show poi id", mySettings->poiName);
         myPOITypePanel = new NamePanel(m61, this, "Show poi type", mySettings->poiType);
+        myPOITextPanel = new NamePanel(m61, this, "Show poi text param", mySettings->poiText);
+        myPOITextParamKey = new FXComboBox(myPOITextPanel->myMatrix0, 1, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignComboBoxStatic);
+        myPOITextParamKey->setEditable(true);
         new FXHorizontalSeparator(frame6, GUIDesignHorizontalSeparator);
 
         FXMatrix* m62 = new FXMatrix(frame6, 2, GUIDesignMatrixViewSettings);
         myPOISizePanel = new SizePanel(m62, this, mySettings->poiSize);
+
 
     }
     {
@@ -585,6 +589,7 @@ GUIDialog_ViewSettings::~GUIDialog_ViewSettings() {
     delete myAddFullNamePanel;
     delete myPOINamePanel;
     delete myPOITypePanel;
+    delete myPOITextPanel;
     delete myPolyNamePanel;
     delete myPolyTypePanel;
     delete myEdgeNamePanel;
@@ -727,6 +732,7 @@ GUIDialog_ViewSettings::onCmdNameChange(FXObject*, FXSelector, void* data) {
 
     myPOINamePanel->update(mySettings->poiName);
     myPOITypePanel->update(mySettings->poiType);
+    myPOITextPanel->update(mySettings->poiText);
     myPOISizePanel->update(mySettings->poiSize);
 
     myPolyNamePanel->update(mySettings->polyName);
@@ -917,6 +923,10 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
         updateVehicleParams();
     } else if (sender == myVehicleTextParamKey) {
         tmpSettings.vehicleTextParam = myVehicleTextParamKey->getText().text();
+    } else if (sender == myPOITextPanel->myCheck) {
+        updatePOIParams();
+    } else if (sender == myPOITextParamKey) {
+        tmpSettings.poiTextParam = myPOITextParamKey->getText().text();
     }
     tmpSettings.edgeValueHideCheck = (myLaneColorRainbowCheck->getCheck() != FALSE);
     tmpSettings.edgeValueHideThreshold = myLaneColorRainbowThreshold->getValue();
@@ -966,6 +976,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject* sender, FXSelector, void* /*v
     tmpSettings.poiColorer.setActive(myPOIColorMode->getCurrentItem());
     tmpSettings.poiName = myPOINamePanel->getSettings();
     tmpSettings.poiType = myPOITypePanel->getSettings();
+    tmpSettings.poiText = myPOITextPanel->getSettings();
     tmpSettings.poiSize = myPOISizePanel->getSettings();
 
     tmpSettings.polyColorer.setActive(myPolyColorMode->getCurrentItem());
@@ -1689,6 +1700,16 @@ GUIDialog_ViewSettings::updateVehicleParams() {
     }
     myVehicleParamKey->setNumVisible(myVehicleParamKey->getNumItems());
     myVehicleTextParamKey->setNumVisible(myVehicleTextParamKey->getNumItems());
+}
+
+void
+GUIDialog_ViewSettings::updatePOIParams() {
+    myPOITextParamKey->clearItems();
+    myPOITextParamKey->appendItem(mySettings->poiTextParam.c_str());
+    for (const std::string& attr : myParent->getPOIParamKeys()) {
+        myPOITextParamKey->appendItem(attr.c_str());
+    }
+    myPOITextParamKey->setNumVisible(myPOITextParamKey->getNumItems());
 }
 
 long
