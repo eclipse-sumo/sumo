@@ -52,7 +52,7 @@ std::set<SumoXMLAttr> SUMOVehicleParserHelper::allowedJMAttrs;
 // ===========================================================================
 
 SUMOVehicleParameter*
-SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, const bool hardFail, const SUMOTime beginDefault, const SUMOTime endDefault, bool isPerson) {
+SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttributes& attrs, const bool hardFail, const SUMOTime beginDefault, const SUMOTime endDefault, bool isPerson) {
     bool ok = true;
     bool abortCreation = true;
     // first parse ID
@@ -62,7 +62,7 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         if (!SUMOXMLDefinitions::isValidVehicleID(id)) {
             return handleError(hardFail, abortCreation, "Invalid flow id '" + id + "'.");
         }
-
+        // declare flags
         const bool hasPeriod = attrs.hasAttribute(SUMO_ATTR_PERIOD);
         const bool hasVPH = attrs.hasAttribute(SUMO_ATTR_VEHSPERHOUR);
         const bool hasPPH = attrs.hasAttribute(SUMO_ATTR_PERSONSPERHOUR);
@@ -110,6 +110,9 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
             }
         }
         SUMOVehicleParameter* ret = new SUMOVehicleParameter();
+        // set tag
+        ret->tag = tag;
+        // set id
         ret->id = id;
         if (isPerson) {
             ret->vtypeid = DEFAULT_PEDTYPE_ID;
@@ -119,12 +122,6 @@ SUMOVehicleParserHelper::parseFlowAttributes(const SUMOSAXAttributes& attrs, con
         } catch (ProcessError&) {
             delete ret;
             throw;
-        }
-        // set tag
-        if (ret->routeid.empty()) {
-            ret->tag = SUMO_TAG_FLOW;
-        } else {
-            ret->tag = GNE_TAG_FLOW_ROUTE;
         }
         // parse repetition information
         if (hasPeriod) {
