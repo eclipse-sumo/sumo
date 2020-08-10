@@ -855,6 +855,8 @@ TraCITestClient::testAPI() {
     answerLog << "    getShapeClass: " << vehicle.getShapeClass("0") << "\n";
     std::pair<std::string, double> leader = vehicle.getLeader("1", 1000);
     answerLog << "    getLeader: " << leader.first << ", " << leader.second << "\n";
+    std::pair<std::string, double> follower = vehicle.getFollower("1", 1000);
+    answerLog << "    getFollower: " << follower.first << ", " << follower.second << "\n";
     std::pair<int, int> state = vehicle.getLaneChangeState("1", 1);
     answerLog << "    getLaneChangeState (left): " << state.first << ", " << state.second << "\n";
     state = vehicle.getLaneChangeState("1", -1);

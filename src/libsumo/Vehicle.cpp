@@ -294,6 +294,20 @@ Vehicle::getLeader(const std::string& vehicleID, double dist) {
 }
 
 
+std::pair<std::string, double>
+Vehicle::getFollower(const std::string& vehicleID, double dist) {
+    MSBaseVehicle* veh = Helper::getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        std::pair<const MSVehicle* const, double> leaderInfo = veh->getFollower(dist);
+        return std::make_pair(
+                   leaderInfo.first != nullptr ? leaderInfo.first->getID() : "",
+                   leaderInfo.second);
+    } else {
+        return std::make_pair("", -1);
+    }
+}
+
+
 double
 Vehicle::getWaitingTime(const std::string& vehicleID) {
     return STEPS2TIME(Helper::getVehicle(vehicleID)->getWaitingTime());
@@ -2253,6 +2267,19 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             TraCIRoadPosition rp;
             rp.edgeID = lead.first;
             rp.pos = lead.second;
+            return wrapper->wrapRoadPosition(objID, variable, rp);
+        }
+        case VAR_FOLLOWER: {
+            double dist = 0.;
+            // this fallback is needed since the very first call right on subscribing has no parameters set
+            if (wrapper->getParams() != nullptr) {
+                const std::vector<unsigned char>& param = *wrapper->getParams();
+                memcpy(&dist, param.data(), sizeof(dist));
+            }
+            const auto& follower = getFollower(objID, dist);
+            TraCIRoadPosition rp;
+            rp.edgeID = follower.first;
+            rp.pos = follower.second;
             return wrapper->wrapRoadPosition(objID, variable, rp);
         }
         case VAR_TAXI_FLEET:

@@ -54,6 +54,14 @@ def _readLeader(result):
         return None
     return vehicleID, dist
 
+def _readFollower(result):
+    # note: merge this with _readLeader once the default of _legacyGetLeader has
+    # been changed to False
+    assert result.read("!i")[0] == 2  # compound size
+    vehicleID = result.readTypedString()
+    dist = result.readTypedDouble()
+    return vehicleID, dist
+
 
 def _readNeighbors(result):
     """ result has structure:
@@ -104,6 +112,7 @@ def _readNextStops(result):
 _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[0]),
                       tc.VAR_BEST_LANES: _readBestLanes,
                       tc.VAR_LEADER: _readLeader,
+                      tc.VAR_FOLLOWER: _readFollower,
                       tc.VAR_NEIGHBORS: _readNeighbors,
                       tc.VAR_NEXT_TLS: _readNextTLS,
                       tc.VAR_NEXT_STOPS: _readNextStops,
@@ -601,6 +610,21 @@ class VehicleDomain(Domain):
         will only look on its current best lanes and not look beyond the end of its final route edge.
         """
         return self._getUniversal(tc.VAR_LEADER, vehID, "d", dist)
+
+    def getFollower(self, vehID, dist=0.):
+        """getFollower(string, double) -> (string, double)
+
+        Return the following vehicle id together with the distance. The distance
+        is measured from the front + minGap of the follower to the back of vehID, so it does not include the
+        minGap of the follower.
+        The dist parameter defines the minimum lookback, 0 calculates the
+        lookback distance from the braking distance at 4.5m/s^2 at 2*roadSpeedLimit.
+        Due to junctions and lane merges, there may be multiple followers.
+        In this case, the "critical" follower is returned. This is the follower
+        where the value of (getSecureGap - gap) is maximal.
+        Note that the returned follower may be further away than the given dist.
+        """
+        return self._getUniversal(tc.VAR_FOLLOWER, vehID, "d", dist)
 
     def getRightFollowers(self, vehID, blockingOnly=False):
         """ bool -> list(tuple(string, double))

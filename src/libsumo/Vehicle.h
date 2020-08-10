@@ -79,6 +79,7 @@ public:
     static int getPersonNumber(const std::string& vehicleID);
     static std::vector<std::string> getPersonIDList(const std::string& vehicleID);
     static std::pair<std::string, double> getLeader(const std::string& vehicleID, double dist = 0.);
+    static std::pair<std::string, double> getFollower(const std::string& vehicleID, double dist = 0.);
     static double getWaitingTime(const std::string& vehicleID);
     static double getAccumulatedWaitingTime(const std::string& vehicleID);
     static double getAdaptedTraveltime(const std::string& vehicleID, double time, const std::string& edgeID);

@@ -5659,6 +5659,18 @@ MSVehicle::getLeader(double dist) const {
 }
 
 
+std::pair<const MSVehicle* const, double>
+MSVehicle::getFollower(double dist) const {
+    if (myLane == nullptr) {
+        return std::make_pair(static_cast<const MSVehicle*>(nullptr), -1);
+    }
+    if (dist == 0) {
+        dist = getCarFollowModel().brakeGap(myLane->getEdge().getSpeedLimit() * 2, 4.5, 0);
+    }
+    return myLane->getFollower(this, getPositionOnLane(), dist, true);
+}
+
+
 double
 MSVehicle::getTimeGapOnLane() const {
     // calling getLeader with 0 would induce a dist calculation but we only want to look for the leaders on the current lane

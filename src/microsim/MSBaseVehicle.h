@@ -675,6 +675,20 @@ public:
         return std::make_pair(nullptr, -1);
     }
 
+    /** @brief Returns the follower of the vehicle looking for a fixed distance.
+     *
+     * If the distance is not given it is set to the value of MSCFModel::brakeGap(2*roadSpeed, 4.5, 0)
+     * The gap returned does not include the minGap.
+     * If there are multiple followers, the one that maximizes the term (getSecureGap - gap) is returned.
+     * @param dist    up to which distance to look at least for a leader
+     * @return The leading vehicle together with the gap; (0, -1) if no leader was found.
+     */
+    virtual std::pair<const MSVehicle* const, double> getFollower(double dist = 0) const {
+        UNUSED_PARAMETER(dist);
+        WRITE_WARNING("getFollwer not yet implemented for meso");
+        return std::make_pair(nullptr, -1);
+    }
+
 protected:
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
