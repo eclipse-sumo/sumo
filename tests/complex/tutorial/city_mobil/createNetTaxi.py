@@ -1,14 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    createNet.py
+# @file    createNetTaxi.py
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @author  Melanie Weber
@@ -18,17 +22,17 @@
 Create the XML input files for the generation of the SUMO network
 of the CityMobil parking lot.
 """
-#from __future__ import absolute_import
-#from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import print_function
 import random
 import subprocess
 import os
 import sys
-##Me: Wo kommen die constants her und was beinhalten sie??
 from constants import PREFIX, DOUBLE_ROWS, ROW_DIST, STOP_POS, SLOTS_PER_ROW, SLOT_WIDTH
 from constants import SLOT_LENGTH, SLOT_FOOT_LENGTH, CAR_CAPACITY, CYBER_CAPACITY, BUS_CAPACITY, TOTAL_CAPACITY
 from constants import CYBER_SPEED, CYBER_LENGTH, OCCUPATION_PROBABILITY
-
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib
 
 occupied = 0
 nodes = open("%s.nod.xml" % PREFIX, "w")
@@ -38,7 +42,7 @@ print("<edges>", file=edges)
 routes = open("%s.rou.xml" % PREFIX, "w")
 
 print(("""<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="car" length="3" minGap=".5" guiShape="passenger" maxSpeed="50" color="0.7,0.7,0.7"/>
+    <vType id="car" color="0.7,0.7,0.7"/>
     <vType id="ped_pedestrian" vClass="pedestrian" color="1,0.2,0.2"/>
     <vType id="cybercar" vClass="taxi" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s" color="green" emissionClass="HBEFA2/P_7_7" personCapacity="%s">
         <param key="has.taxi.device" value="true"/>
@@ -121,9 +125,7 @@ nodes.close()
 print("</edges>", file=edges)
 edges.close()
 
-NETCONVERT = os.environ.get(
-    "NETCONVERT_BINARY", os.path.join(os.environ["SUMO_HOME"], 'bin', 'netconvert'))
-subprocess.call([NETCONVERT,
+subprocess.call([sumolib.checkBinary('netconvert'),
                  '--no-internal-links',
                  '-n', '%s.nod.xml' % PREFIX,
                  '-e', '%s.edg.xml' % PREFIX,
@@ -206,7 +208,7 @@ for period in range(5, 50, 5):
         <additional-files value="%s.add.xml"/>
         <no-step-log value="True"/>
         <time-to-teleport value="0"/>
-        <device.taxi.dispatch-algorithm value="greedyShared"/>
+        <device.taxi.dispatch-algorithm value="routeExtension"/>
     </input>
 </configuration>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
     config.close()
