@@ -1817,6 +1817,8 @@ GNERouteHandler::closeFlow() {
     } else if (myVehicleParameter) {
         // check if we're creating a flow or a routeFlow over route
         if (!myVehicleParameter->routeid.empty()) {
+            // change tag
+            myVehicleParameter->tag = GNE_TAG_FLOW_ROUTE;
             // build flow over route
             buildFlowOverRoute(myNet, myUndoDemandElements, *myVehicleParameter);
         } else if (myRouteParameter.edges.size() > 1) {
