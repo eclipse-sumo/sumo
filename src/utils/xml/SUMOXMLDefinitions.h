@@ -1631,9 +1631,6 @@ public:
     /// @brief whether the given string is a valid key for a parameter
     static bool isValidParameterKey(const std::string& value);
 
-    /// @brief whether the given string is a valid value for a parameter
-    static bool isValidParameterValue(const std::string& value);
-
     /// @brief return the junction id when given an edge of type internal, crossing or WalkingArea
     static std::string getJunctionIDFromInternalEdge(const std::string internalEdge);
 

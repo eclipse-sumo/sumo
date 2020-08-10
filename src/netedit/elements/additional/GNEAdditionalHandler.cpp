@@ -2597,10 +2597,6 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
         }
         // circumventing empty string test
         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-        if (!SUMOXMLDefinitions::isValidParameterValue(val)) {
-            WRITE_WARNING("Error parsing value from shape parameter. Value contains invalid characters");
-            ok = false;
-        }
         // set parameter in last inserted additional
         if (ok) {
             WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into shape.");
@@ -2628,10 +2624,6 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
             }
             // circumventing empty string test
             const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-            if (!SUMOXMLDefinitions::isValidParameterValue(val)) {
-                WRITE_WARNING("Error parsing value from additional parameter. Value contains invalid characters");
-                ok = false;
-            }
             // check double values
             if (myLastInsertedElement->getLastInsertedAdditional()->getTagProperty().hasDoubleParameters() && !GNEAttributeCarrier::canParse<double>(val)) {
                 WRITE_WARNING("Error parsing value from additional float parameter. Value cannot be parsed to float");
@@ -2667,10 +2659,6 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
             }
             // circumventing empty string test
             const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-            if (!SUMOXMLDefinitions::isValidParameterValue(val)) {
-                WRITE_WARNING("Error parsing value from shape parameter. Value contains invalid characters");
-                ok = false;
-            }
             // check double values
             if (myLastInsertedElement->getLastInsertedShape()->getTagProperty().hasDoubleParameters() && !GNEAttributeCarrier::canParse<double>(val)) {
                 WRITE_WARNING("Error parsing value from shape float parameter. Value cannot be parsed to float");
