@@ -2587,7 +2587,7 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
                 WRITE_WARNING("Error parsing key from shape parameter. Key cannot be empty");
                 ok = false;
             }
-            if (!SUMOXMLDefinitions::isValidTypeID(key)) {
+            if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                 WRITE_WARNING("Error parsing key from shape parameter. Key contains invalid characters");
                 ok = false;
             }
@@ -2597,7 +2597,7 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
         }
         // circumventing empty string test
         const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-        if (!SUMOXMLDefinitions::isValidAttribute(val)) {
+        if (!SUMOXMLDefinitions::isValidParameterValue(val)) {
             WRITE_WARNING("Error parsing value from shape parameter. Value contains invalid characters");
             ok = false;
         }
@@ -2618,7 +2618,7 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
                     WRITE_WARNING("Error parsing key from additional parameter. Key cannot be empty");
                     ok = false;
                 }
-                if (!SUMOXMLDefinitions::isValidTypeID(key)) {
+                if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                     WRITE_WARNING("Error parsing key from additional parameter. Key contains invalid characters");
                     ok = false;
                 }
@@ -2628,7 +2628,7 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
             }
             // circumventing empty string test
             const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-            if (!SUMOXMLDefinitions::isValidAttribute(val)) {
+            if (!SUMOXMLDefinitions::isValidParameterValue(val)) {
                 WRITE_WARNING("Error parsing value from additional parameter. Value contains invalid characters");
                 ok = false;
             }
@@ -2657,7 +2657,7 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
                     WRITE_WARNING("Error parsing key from shape parameter. Key cannot be empty");
                     ok = false;
                 }
-                if (!SUMOXMLDefinitions::isValidTypeID(key)) {
+                if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
                     WRITE_WARNING("Error parsing key from shape parameter. Key contains invalid characters");
                     ok = false;
                 }
@@ -2667,7 +2667,7 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
             }
             // circumventing empty string test
             const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
-            if (!SUMOXMLDefinitions::isValidAttribute(val)) {
+            if (!SUMOXMLDefinitions::isValidParameterValue(val)) {
                 WRITE_WARNING("Error parsing value from shape parameter. Value contains invalid characters");
                 ok = false;
             }
