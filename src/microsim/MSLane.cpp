@@ -3643,9 +3643,9 @@ MSLane::getFollower(const MSVehicle* ego, double egoPos, double dist, bool ignor
         }
     }
     const double backOffset = egoPos - ego->getVehicleType().getLength();
-    //if (backOffset > dist) {
-    //    return std::make_pair(nullptr, -1);
-    //}
+    if (dist > 0 && backOffset > dist) {
+        return std::make_pair(nullptr, -1);
+    }
     CLeaderDist result = getFollowersOnConsecutive(ego, backOffset, true,  dist, ignoreMinorLinks)[0];
     return std::make_pair(const_cast<MSVehicle*>(result.first), result.first == nullptr ? -1 : result.second);
 }
