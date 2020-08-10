@@ -3654,7 +3654,7 @@ GNEViewNet::drawTemporalJunction() const {
             glPopMatrix();
         }
         // pop layer matrix
-        glPushMatrix();
+        glPopMatrix();
     }
 }
 
