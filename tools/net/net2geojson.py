@@ -42,6 +42,8 @@ def parse_args():
                            help="Export lane geometries instead of edge geometries")
     argParser.add_argument("-i", "--internal", action="store_true", default=False,
                            help="Export internal geometries")
+    argParser.add_argument("-j", "--junction-coordinates", dest="junctionCoords", action="store_true", default=False,
+                           help="Append junction coordinates to edge shapes")
     argParser.add_argument("--edgedata-timeline", action="store_true", default=False, dest="edgedataTimeline",
                            help="exports all time intervals (by default only the first is exported)")
 
@@ -59,7 +61,7 @@ def getGeometries(options, net):
             for lane in edge.getLanes():
                 yield lane.getID(), lane.getShape(), lane.getWidth()
         else:
-            yield edge.getID(), edge.getShape(), sum([l.getWidth() for l in edge.getLanes()])
+            yield edge.getID(), edge.getShape(options.junctionCoords), sum([l.getWidth() for l in edge.getLanes()])
 
 
 if __name__ == "__main__":
