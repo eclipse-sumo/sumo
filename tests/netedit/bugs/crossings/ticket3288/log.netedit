@@ -7,6 +7,7 @@ Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edge
 Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [4] (no walkingarea found).
 Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [4] (no walkingarea found).
 Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges [4] (no walkingarea found).
+Warning: There is already another crossing with the same edges in the junction; Duplicated crossing aren't allowed.
 Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges [4] (no walkingarea found).
-Warning: 14 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
-Warning: 15 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
+Warning: 18 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
+Warning: 13 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.
