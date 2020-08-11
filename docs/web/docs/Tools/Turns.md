@@ -84,7 +84,7 @@ By default, routeSampler will generate individual vehicles with embedded routes.
 ## Optimization
 By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values. At this point an ILP-Solver can be used to swap out routes and get closer to the target values or even reach the exact numbers.
 By setting option **--optimize <INT>**. The number of times that a route is used can be changed by up to **<INT>** times. This defines a trade-off between using routes in the same distribution as found in the input and optimizing the counts.
-When setting option **--optimze full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
+When setting option **--optimize full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
 
 ## Further Calibration
 It is possible to load the resulting output into routeSampler.py for another round of optimization. By setting the option **--optimize-input** the sampling step is skipped and the optimizer is run directly on the input route set.
