@@ -1338,6 +1338,9 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
                         showHierarchicalElementChildren(i, edgeItem);
                     }
                     /*
+
+                    CHECK THIS
+
                     // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
                     for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_ROUTE)) {
                         showHierarchicalElementChildren(i, edgeItem);
@@ -1410,98 +1413,32 @@ GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHier
             default:
                 break;
         }
-    } else if (HE->getTagProperty().isShape()) {
-        // insert shape item
-        addListItem(HE, itemParent);
-    } else if (HE->getTagProperty().isAdditionalElement()) {
+    } else if (HE->getTagProperty().isAdditionalElement() || HE->getTagProperty().isShape() || HE->getTagProperty().isTAZElement() || HE->getTagProperty().isDemandElement()) {
         // insert additional item
-        FXTreeItem* additionalItem = addListItem(HE, itemParent);
+        FXTreeItem* treeItem = addListItem(HE, itemParent);
         // insert child edges
         for (const auto& i : HE->getChildEdges()) {
-            showHierarchicalElementChildren(i, additionalItem);
+            showHierarchicalElementChildren(i, treeItem);
         }
         // insert child lanes
         for (const auto& i : HE->getChildLanes()) {
-            showHierarchicalElementChildren(i, additionalItem);
+            showHierarchicalElementChildren(i, treeItem);
         }
         // insert additional children
         for (const auto& i : HE->getChildAdditionals()) {
-            showHierarchicalElementChildren(i, additionalItem);
+            showHierarchicalElementChildren(i, treeItem);
         }
         // insert child shapes
         for (const auto& i : HE->getChildShapes()) {
-            showHierarchicalElementChildren(i, additionalItem);
+            showHierarchicalElementChildren(i, treeItem);
         }
         // insert TAZElements children
         for (const auto& i : HE->getChildTAZElements()) {
-            showHierarchicalElementChildren(i, additionalItem);
+            showHierarchicalElementChildren(i, treeItem);
         }
         // insert child demand elements
         for (const auto& i : HE->getChildDemandElements()) {
-            showHierarchicalElementChildren(i, additionalItem);
-        }
-    } else if (HE->getTagProperty().isTAZElement()) {
-        // retrieve TAZElement
-        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(HE->getTagProperty().getTag(), HE->getID(), false);
-        if (TAZElement) {
-            // insert TAZElement item
-            FXTreeItem* TAZElementItem = addListItem(HE, itemParent);
-            // insert child edges
-            for (const auto& i : TAZElement->getChildEdges()) {
-                showHierarchicalElementChildren(i, TAZElementItem);
-            }
-            // insert child lanes
-            for (const auto& i : TAZElement->getChildLanes()) {
-                showHierarchicalElementChildren(i, TAZElementItem);
-            }
-            // insert additional children
-            for (const auto& i : TAZElement->getChildAdditionals()) {
-                showHierarchicalElementChildren(i, TAZElementItem);
-            }
-            // insert child shapes
-            for (const auto& i : TAZElement->getChildShapes()) {
-                showHierarchicalElementChildren(i, TAZElementItem);
-            }
-            // insert TAZElements children
-            for (const auto& i : TAZElement->getChildTAZElements()) {
-                showHierarchicalElementChildren(i, TAZElementItem);
-            }
-            // insert child demand elements
-            for (const auto& i : TAZElement->getChildDemandElements()) {
-                showHierarchicalElementChildren(i, TAZElementItem);
-            }
-        }
-
-    } else if (HE->getTagProperty().isDemandElement()) {
-        // retrieve demandElement
-        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(HE->getTagProperty().getTag(), HE->getID(), false);
-        if (demandElement) {
-            // insert demandElement item
-            FXTreeItem* demandElementItem = addListItem(HE, itemParent);
-            // insert child edges
-            for (const auto& i : demandElement->getChildEdges()) {
-                showHierarchicalElementChildren(i, demandElementItem);
-            }
-            // insert child lanes
-            for (const auto& i : demandElement->getChildLanes()) {
-                showHierarchicalElementChildren(i, demandElementItem);
-            }
-            // insert additional children
-            for (const auto& i : demandElement->getChildAdditionals()) {
-                showHierarchicalElementChildren(i, demandElementItem);
-            }
-            // insert child shapes
-            for (const auto& i : demandElement->getChildShapes()) {
-                showHierarchicalElementChildren(i, demandElementItem);
-            }
-            // insert TAZElements children
-            for (const auto& i : demandElement->getChildTAZElements()) {
-                showHierarchicalElementChildren(i, demandElementItem);
-            }
-            // insert child demand elements
-            for (const auto& i : demandElement->getChildDemandElements()) {
-                showHierarchicalElementChildren(i, demandElementItem);
-            }
+            showHierarchicalElementChildren(i, treeItem);
         }
     } else if (HE->getTagProperty().isDataElement()) {
         // insert data item
