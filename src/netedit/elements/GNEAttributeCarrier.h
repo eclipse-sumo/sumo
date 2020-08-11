@@ -32,6 +32,7 @@
 class GNENet;
 class GNEUndoList;
 class GUIGlObject;
+class GNEHierarchicalElement;
 class GNELane;
 class GNEEdge;
 
