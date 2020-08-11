@@ -34,18 +34,12 @@ cmd = [
     "--no-step-log"]
 traci.start(cmd)
 
-
-def step():
-    s = traci.simulation.getTime()
-    traci.simulationStep()
-    return s
-
-
 p = "p0"
-for i in range(30):
-    s = step()
+while traci.simulation.getMinExpectedNumber() > 0:
+    t = traci.simulation.getTime()
     x, y = traci.person.getPosition(p)
-    print("s=%s x=%s y=%s" % (s, x, y))
+    print("s=%s x=%s y=%s" % (t, x, y))
     traci.person.moveToXY(p, "", x, y + 1, keepRoute=2)
-step()
+    traci.simulationStep()
+
 traci.close()

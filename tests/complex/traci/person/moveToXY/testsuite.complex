@@ -18,4 +18,10 @@ within_route_yaywalk
 outside_network
 
 # move person within the current route across a walkingarea and crossing
-within_route_junction
+keepRoute1_junction
+
+# move person within the current route across a walkingarea and crossing
+keepRoute2_junction
+
+# move person within the current route across a walkingarea and crossing
+keepRoute2_junction_offroad
