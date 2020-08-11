@@ -318,8 +318,8 @@ public:
     /// @brief get OverlappedInspection modul
     GNEFrameModuls::OverlappedInspection* getOverlappedInspection() const;
 
-    /// @brief get AttributeCarrierHierarchy modul
-    GNEFrameModuls::AttributeCarrierHierarchy* getAttributeCarrierHierarchy() const;
+    /// @brief get HierarchicalElementTree modul
+    GNEFrameModuls::HierarchicalElementTree* getHierarchicalElementTree() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -363,7 +363,7 @@ private:
     TemplateEditor* myTemplateEditor;
 
     /// @brief Attribute Carrier Hierarchy
-    GNEFrameModuls::AttributeCarrierHierarchy* myAttributeCarrierHierarchy;
+    GNEFrameModuls::HierarchicalElementTree* myHierarchicalElementTree;
 
     /// @brief back Button
     FXButton* myBackButton;

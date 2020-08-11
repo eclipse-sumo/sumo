@@ -99,8 +99,8 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     // Create Template editor modul
     myTemplateEditor = new TemplateEditor(this);
 
-    // Create AttributeCarrierHierarchy modul
-    myAttributeCarrierHierarchy = new GNEFrameModuls::AttributeCarrierHierarchy(this);
+    // Create HierarchicalElementTree modul
+    myHierarchicalElementTree = new GNEFrameModuls::HierarchicalElementTree(this);
 }
 
 
@@ -265,7 +265,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myGEOAttributesEditor->hideGEOAttributesEditor();
     myParametersEditor->hideParametersEditor();
     myTemplateEditor->hideTemplateEditor();
-    myAttributeCarrierHierarchy->hideAttributeCarrierHierarchy();
+    myHierarchicalElementTree->hideHierarchicalElementTree();
     myOverlappedInspection->hideOverlappedInspection();
     // If vector of attribute Carriers contain data
     if (ACs.size() > 0) {
@@ -323,7 +323,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
 
         // if we inspect a single Attribute carrier vector, show their children
         if (ACs.size() == 1) {
-            myAttributeCarrierHierarchy->showAttributeCarrierHierarchy(ACs.front());
+            myHierarchicalElementTree->showHierarchicalElementTree(ACs.front());
         }
     } else {
         getFrameHeaderLabel()->setText("Inspect");
@@ -396,9 +396,9 @@ GNEInspectorFrame::getOverlappedInspection() const {
 }
 
 
-GNEFrameModuls::AttributeCarrierHierarchy*
-GNEInspectorFrame::getAttributeCarrierHierarchy() const {
-    return myAttributeCarrierHierarchy;
+GNEFrameModuls::HierarchicalElementTree*
+GNEInspectorFrame::getHierarchicalElementTree() const {
+    return myHierarchicalElementTree;
 }
 
 
@@ -425,7 +425,7 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
     // refresh parametersEditor
     myParametersEditor->refreshParametersEditor();
     // refresh AC Hierarchy
-    myAttributeCarrierHierarchy->refreshAttributeCarrierHierarchy();
+    myHierarchicalElementTree->refreshHierarchicalElementTree();
 }
 
 

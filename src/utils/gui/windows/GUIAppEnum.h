@@ -741,11 +741,11 @@ enum {
     MID_GNE_EDGEPATH_REMOVELAST,
     /// @brief enable or disable show ppath candidates
     MID_GNE_EDGEPATH_SHOWCANDIDATES,
-    /// @brief In AttributeCarrierHierarchy list, show child menu
+    /// @brief In HierarchicalElementTree list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
-    /// @brief In AttributeCarrierHierarchy list, move element to up
+    /// @brief In HierarchicalElementTree list, move element to up
     MID_GNE_ACHIERARCHY_MOVEUP,
-    /// @brief In AttributeCarrierHierarchy list, move element to down
+    /// @brief In HierarchicalElementTree list, move element to down
     MID_GNE_ACHIERARCHY_MOVEDOWN,
     /// @brief start drawing polygon
     MID_GNE_STARTDRAWING,

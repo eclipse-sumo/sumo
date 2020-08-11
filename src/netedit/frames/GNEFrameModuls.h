@@ -170,31 +170,31 @@ public:
     };
 
     // ===========================================================================
-    // class AttributeCarrierHierarchy
+    // class HierarchicalElementTree
     // ===========================================================================
 
-    class AttributeCarrierHierarchy : private FXGroupBox {
+    class HierarchicalElementTree : private FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameModuls::AttributeCarrierHierarchy)
+        FXDECLARE(GNEFrameModuls::HierarchicalElementTree)
 
     public:
         /// @brief constructor
-        AttributeCarrierHierarchy(GNEFrame* frameParent);
+        HierarchicalElementTree(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~AttributeCarrierHierarchy();
+        ~HierarchicalElementTree();
 
-        /// @brief show AttributeCarrierHierarchy
-        void showAttributeCarrierHierarchy(GNEAttributeCarrier* AC);
+        /// @brief show HierarchicalElementTree
+        void showHierarchicalElementTree(GNEAttributeCarrier* AC);
 
-        /// @brief hide AttributeCarrierHierarchy
-        void hideAttributeCarrierHierarchy();
+        /// @brief hide HierarchicalElementTree
+        void hideHierarchicalElementTree();
 
-        /// @brief refresh AttributeCarrierHierarchy
-        void refreshAttributeCarrierHierarchy();
+        /// @brief refresh HierarchicalElementTree
+        void refreshHierarchicalElementTree();
 
-        /// @brief if given AttributeCarrier is the same of myAC, disable it
-        void removeCurrentEditedAttribute(const GNEAttributeCarrier* AC);
+        /// @brief if given AttributeCarrier is the same of myHE, set it as nullptr
+        void removeCurrentEditedAttributeCarrier(const GNEAttributeCarrier* HE);
 
         /// @name FOX-callbacks
         /// @{
@@ -218,7 +218,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(AttributeCarrierHierarchy)
+        FOX_CONSTRUCTOR(HierarchicalElementTree)
 
         // @brief create pop-up menu in the positions X-Y for the clicked attribute carrier
         void createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC);
@@ -226,20 +226,21 @@ public:
         /// @brief show child of current attributeCarrier
         FXTreeItem* showAttributeCarrierParents();
 
-        /// @brief show child of current attributeCarrier
-        void showAttributeCarrierChildren(GNEAttributeCarrier* AC, FXTreeItem* itemParent);
+        /// @brief show children of given hierarchical element
+        void showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent);
 
         /// @brief add item into list
         FXTreeItem* addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent = nullptr, std::string prefix = "", std::string sufix = "");
 
         /// @brief add item into list
         FXTreeItem* addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded);
+
     private:
-        /// @brief Frame Parent
+        /// @brief frame Parent
         GNEFrame* myFrameParent;
 
-        /// @brief Attribute carrier
-        GNEAttributeCarrier* myAC;
+        /// @brief hierarchical element
+        GNEHierarchicalElement* myHE;
 
         /// @brief pointer to current clicked Attribute Carrier
         GNEAttributeCarrier* myClickedAC;
@@ -283,7 +284,7 @@ public:
         /// @brief tree list to show the children of the element to erase
         FXTreeList* myTreelist;
 
-        /// @brief map used to save the Tree items with their AC
+        /// @brief map used to save the FXTreeItems items with their vinculated AC
         std::map<FXTreeItem*, GNEAttributeCarrier*> myTreeItemToACMap;
 
         /// @brief set used to save tree items without AC assigned, the Incoming/Outcoming connections

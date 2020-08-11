@@ -456,9 +456,9 @@ GNENetHelper::AttributeCarriers::insertJunction(GNEJunction* junction) {
 
 void
 GNENetHelper::AttributeCarriers::deleteSingleJunction(GNEJunction* junction) {
-    // remove it from Inspector Frame and AttributeCarrierHierarchy
+    // remove it from Inspector Frame and HierarchicalElementTree
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(junction);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(junction);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(junction);
     // Remove from grid and container
     myNet->removeGLObjectFromGrid(junction);
     myJunctions.erase(junction->getMicrosimID());
@@ -506,9 +506,9 @@ GNENetHelper::AttributeCarriers::insertEdge(GNEEdge* edge) {
 
 void
 GNENetHelper::AttributeCarriers::deleteSingleEdge(GNEEdge* edge) {
-    // remove it from Inspector Frame and AttributeCarrierHierarchy
+    // remove it from Inspector Frame and HierarchicalElementTree
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(edge);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(edge);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edge);
     // remove edge from visual grid and container
     myNet->removeGLObjectFromGrid(edge);
     myEdges.erase(edge->getMicrosimID());
@@ -592,9 +592,9 @@ GNENetHelper::AttributeCarriers::deleteAdditional(GNEAdditional* additional) {
     if (!additional->getTagProperty().isSlave()) {
         // check if previously was inserted
         if (additionalExist(additional)) {
-            // remove it from Inspector Frame and AttributeCarrierHierarchy
+            // remove it from Inspector Frame and HierarchicalElementTree
             myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(additional);
-            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(additional);
+            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(additional);
             // obtain additional iterator and erase it from container
             auto it = myAdditionals.at(additional->getTagProperty().getTag()).find(additional->getID());
             myAdditionals.at(additional->getTagProperty().getTag()).erase(it);
@@ -667,9 +667,9 @@ void
 GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
     // first check that shape pointer is valid
     if (shapeExist(shape)) {
-        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        // remove it from Inspector Frame and HierarchicalElementTree
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(shape);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(shape);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(shape);
         // obtain demand element and erase it from container
         auto it = myShapes.at(shape->getTagProperty().getTag()).find(shape->getID());
         myShapes.at(shape->getTagProperty().getTag()).erase(it);
@@ -739,9 +739,9 @@ void
 GNENetHelper::AttributeCarriers::deleteTAZElement(GNETAZElement* TAZElement) {
     // first check that TAZElement pointer is valid
     if (TAZElementExist(TAZElement)) {
-        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        // remove it from Inspector Frame and HierarchicalElementTree
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(TAZElement);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(TAZElement);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(TAZElement);
         // obtain demand element and erase it from container
         auto it = myTAZElements.at(TAZElement->getTagProperty().getTag()).find(TAZElement->getID());
         myTAZElements.at(TAZElement->getTagProperty().getTag()).erase(it);
@@ -818,9 +818,9 @@ GNENetHelper::AttributeCarriers::deleteDemandElement(GNEDemandElement* demandEle
     if (!demandElement->getTagProperty().isSlave()) {
         // first check that demandElement pointer is valid
         if (demandElementExist(demandElement)) {
-            // remove it from Inspector Frame and AttributeCarrierHierarchy
+            // remove it from Inspector Frame and HierarchicalElementTree
             myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(demandElement);
-            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(demandElement);
+            myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(demandElement);
             // obtain demand element and erase it from container
             auto it = myDemandElements.at(demandElement->getTagProperty().getTag()).find(demandElement->getID());
             myDemandElements.at(demandElement->getTagProperty().getTag()).erase(it);
@@ -907,9 +907,9 @@ void
 GNENetHelper::AttributeCarriers::deleteDataSet(GNEDataSet* dataSet) {
     // first check that dataSet pointer is valid
     if (dataSetExist(dataSet)) {
-        // remove it from Inspector Frame and AttributeCarrierHierarchy
+        // remove it from Inspector Frame and HierarchicalElementTree
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataSet);
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributeCarrierHierarchy()->removeCurrentEditedAttribute(dataSet);
+        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataSet);
         // obtain demand element and erase it from container
         myDataSets.erase(myDataSets.find(dataSet->getID()));
         // dataSets has to be saved

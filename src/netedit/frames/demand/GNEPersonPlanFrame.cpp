@@ -59,8 +59,8 @@ GNEPersonPlanFrame::GNEPersonPlanFrame(FXHorizontalFrame* horizontalFrameParent,
     // create myPathCreator Modul
     myPathCreator = new GNEFrameModuls::PathCreator(this);
 
-    // Create AttributeCarrierHierarchy modul
-    myPersonHierarchy = new GNEFrameModuls::AttributeCarrierHierarchy(this);
+    // Create HierarchicalElementTree modul
+    myPersonHierarchy = new GNEFrameModuls::HierarchicalElementTree(this);
 
     // set PersonPlan tag type in tag selector
     myPersonPlanTagSelector->setCurrentTagType(GNETagProperties::TagType::PERSONPLAN);
@@ -93,7 +93,7 @@ GNEPersonPlanFrame::show() {
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myPathCreator->hidePathCreatorModul();
-        myPersonHierarchy->hideAttributeCarrierHierarchy();
+        myPersonHierarchy->hideHierarchicalElementTree();
     }
     // show frame
     GNEFrame::show();
@@ -173,12 +173,12 @@ GNEPersonPlanFrame::tagSelected() {
             myPathCreator->showPathCreatorModul(personPlanTag, false, false);
         }
         // show person hierarchy
-        myPersonHierarchy->showAttributeCarrierHierarchy(myPersonSelector->getCurrentDemandElement());
+        myPersonHierarchy->showHierarchicalElementTree(myPersonSelector->getCurrentDemandElement());
     } else {
         // hide moduls if tag selecte isn't valid
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myPathCreator->hidePathCreatorModul();
-        myPersonHierarchy->hideAttributeCarrierHierarchy();
+        myPersonHierarchy->hideHierarchicalElementTree();
     }
 }
 
@@ -196,14 +196,14 @@ GNEPersonPlanFrame::demandElementSelected() {
         } else {
             myPersonPlanAttributes->hideAttributesCreatorModul();
             myPathCreator->hidePathCreatorModul();
-            myPersonHierarchy->hideAttributeCarrierHierarchy();
+            myPersonHierarchy->hideHierarchicalElementTree();
         }
     } else {
         // hide moduls if person selected isn't valid
         myPersonPlanTagSelector->hideTagSelector();
         myPersonPlanAttributes->hideAttributesCreatorModul();
         myPathCreator->hidePathCreatorModul();
-        myPersonHierarchy->hideAttributeCarrierHierarchy();
+        myPersonHierarchy->hideHierarchicalElementTree();
     }
 }
 
@@ -220,8 +220,8 @@ GNEPersonPlanFrame::createPath() {
                 myPersonSelector->getCurrentDemandElement(),
                 myPersonPlanAttributes,
                 myPathCreator)) {
-            // refresh AttributeCarrierHierarchy
-            myPersonHierarchy->refreshAttributeCarrierHierarchy();
+            // refresh HierarchicalElementTree
+            myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation
             myPathCreator->abortPathCreation();
             // refresh using tagSelected
