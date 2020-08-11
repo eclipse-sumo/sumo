@@ -191,28 +191,33 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, startEndEdgeMap=Non
                 newDepart = None
                 remaining = set()
                 newPlan = []
+                haveCut = False
                 for planItem in moving.getChildList():
                     if planItem.name == "walk":
                         disco = "keep" if options.disconnected_action == "keep.walk" else options.disconnected_action
                         routeParts = _cutEdgeList(areaEdges, oldDepart, None,
                                                   planItem.edges.split(), orig_net, options, stats, disco)
-                        if busStopEdges.get(planItem.busStop) not in areaEdges:
-                            planItem.busStop = None
                         walkEdges = []
                         for depart, edges in routeParts:
                             if newDepart is None:
                                 newDepart = depart
                             walkEdges += edges
                         if walkEdges:
+                            if walkEdges[-1] != planItem.edges.split()[-1]:
+                                planItem.busStop = None
+                                haveCut = True
                             remaining.update(walkEdges)
                             planItem.edges = " ".join(walkEdges)
                             newPlan.append(planItem)
+                        else:
+                            haveCut = True
                     elif planItem.name == "ride":
                         keep = True
                         if busStopEdges.get(planItem.busStop) not in areaEdges:
                             if planItem.lines in startEndEdgeMap:
                                 planItem.busStop = None
                                 planItem.setAttribute("to", startEndEdgeMap[planItem.lines][1])
+                                haveCut = True
                             else:
                                 keep = False
                         if planItem.attr_from and planItem.attr_from not in areaEdges:
@@ -225,10 +230,12 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, startEndEdgeMap=Non
                             planItem.lines = planItem.intended
                         if keep:
                             newPlan.append(planItem)
-                        if planItem.to:
-                            break
+                        else:
+                            haveCut = True
                     else:
                         newPlan.append(planItem)
+                    if haveCut and options.disconnected_action == "discard":
+                        break
                 moving.setChildList(newPlan)
                 cut_stops(moving, busStopEdges, remaining)
                 if not moving.getChildList():
