@@ -80,8 +80,13 @@ Boundary
 GNEDetector::getCenteringBoundary() const {
     if (getParentLanes().size() > 1) {
         return myAdditionalSegmentGeometry.getBoxBoundary().grow(10);
-    } else {
+    } else if (myAdditionalGeometry.getShape().size() > 0) {
         return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
+    } else {
+        Boundary b;
+        b.add(myAdditionalGeometry.getPosition());
+        b.grow(10);
+        return b;
     }
 }
 
