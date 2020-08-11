@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElements.h>
 #include <netedit/GNEGeometry.h>
@@ -49,7 +48,7 @@ class GNEJunction;
  * @class GNEDemandElement
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDemandElement : public GUIGlObject, public GNEAttributeCarrier, public GNEHierarchicalElement, public GNEPathElements {
+class GNEDemandElement : public GUIGlObject, public GNEHierarchicalElement, public GNEPathElements {
 
 public:
     /// @brief struct for pack all variables related with Demand Element moving

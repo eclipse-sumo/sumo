@@ -50,7 +50,7 @@ class GNEDataInterval;
  * @class GNEGenericData
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEGenericData : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElement, public GNEPathElements {
+class GNEGenericData : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathElements {
 
 public:
     /**@brief Constructor

@@ -40,8 +40,7 @@ GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
                    const std::vector<GNETAZElement*>& TAZElementParents,
                    const std::vector<GNEDemandElement*>& demandElementParents,
                    const std::vector<GNEGenericData*>& genericDataParents) :
-    GNEAttributeCarrier(tag, net),
-    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     myBlockMovement(movementBlocked) {
 }
 

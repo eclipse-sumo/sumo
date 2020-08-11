@@ -54,7 +54,6 @@ public:
 
     /**@brief Constructor
      * @param[in] tag SUMO Tag assigned to this type of object
-     * @param[in] icon GUIIcon associated to the type of object
      * @param[in] net GNENet in which this AttributeCarrier is stored
      */
     GNEAttributeCarrier(const SumoXMLTag tag, GNENet* net);

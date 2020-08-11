@@ -40,8 +40,7 @@ GNETAZElement::GNETAZElement(const std::string& id, GNENet* net, GUIGlObjectType
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, id),
-    GNEAttributeCarrier(tag, net),
-    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     myBlockMovement(blockMovement) {
 }
 
@@ -56,8 +55,7 @@ GNETAZElement::GNETAZElement(GNETAZElement* TAZElementParent, GNENet* net, GUIGl
                              const std::vector<GNEDemandElement*>& demandElementParents,
                              const std::vector<GNEGenericData*>& genericDataParents) :
     GUIGlObject(type, TAZElementParent->generateChildID(tag)),
-    GNEAttributeCarrier(tag, net),
-    GNEHierarchicalElement(this, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
+    GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     myBlockMovement(blockMovement) {
 }
 

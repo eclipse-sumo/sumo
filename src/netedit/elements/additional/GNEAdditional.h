@@ -20,7 +20,6 @@
 #pragma once
 #include <config.h>
 
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElements.h>
 #include <netedit/GNEGeometry.h>
@@ -44,7 +43,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public GNEAttributeCarrier, public Parameterised, public GNEHierarchicalElement, public GNEPathElements  {
+class GNEAdditional : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathElements  {
 
 public:
     /**@brief Constructor

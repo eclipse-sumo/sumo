@@ -33,7 +33,7 @@
 // GNEHierarchicalElement - methods
 // ---------------------------------------------------------------------------
 
-GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
+GNEHierarchicalElement::GNEHierarchicalElement(GNENet* net, SumoXMLTag tag,
         const std::vector<GNEJunction*>& parentJunctions,
         const std::vector<GNEEdge*>& parentEdges,
         const std::vector<GNELane*>& parentLanes,
@@ -42,9 +42,9 @@ GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
         const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas) :
+    GNEAttributeCarrier(tag, net),
     myHierarchicalConnections(this),
-    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas),
-    myAC(AC) {
+    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas) {
 }
 
 
@@ -222,28 +222,28 @@ GNEHierarchicalElement::getChildGenericDatas() const {
 template<> void
 GNEHierarchicalElement::addParentElement(GNEJunction* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEEdge* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNELane* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
     // update connections geometry
     myHierarchicalConnections.update();
 }
@@ -252,56 +252,56 @@ GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
 template<> void
 GNEHierarchicalElement::addParentElement(GNEShape* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNETAZElement* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEDemandElement* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEGenericData* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEJunction* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEEdge* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNELane* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
     // update connections geometry
     myHierarchicalConnections.update();
 }
@@ -310,56 +310,56 @@ GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEShape* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNETAZElement* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEDemandElement* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEGenericData* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEJunction* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEEdge* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNELane* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
     // update connections geometry
     if (element->getTagProperty().isSlave()) {
         myHierarchicalConnections.update();
@@ -370,56 +370,56 @@ GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
 template<> void
 GNEHierarchicalElement::addChildElement(GNEShape* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNETAZElement* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEDemandElement* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEGenericData* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEJunction* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEEdge* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNELane* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
     // update connections geometry
     if (element->getTagProperty().isSlave()) {
         myHierarchicalConnections.update();
@@ -430,28 +430,28 @@ GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEShape* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNETAZElement* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEDemandElement* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEGenericData* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
