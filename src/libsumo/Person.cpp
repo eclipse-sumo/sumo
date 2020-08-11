@@ -841,10 +841,10 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
         }
         assert((found && lane != 0) || (!found && lane == 0));
         if (angle == INVALID_DOUBLE_VALUE) {
-            if (lane != nullptr) {
+            if (lane != nullptr && !lane->getEdge().isWalkingArea()) {
                 angle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(lanePos));
             } else {
-                // compute angle outside road network from old and new position
+                // compute angle outside road network or on walkingarea from old and new position
                 angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
             }
         }

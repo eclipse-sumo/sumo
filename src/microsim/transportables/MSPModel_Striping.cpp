@@ -48,6 +48,7 @@
 #define DEBUGCOND(PED) ((PED).myPerson->isSelected())
 #define DEBUGCOND2(LANE) ((LANE)->isSelected())
 //#define LOG_ALL 1
+//#define DEBUG_MOVETOXY
 
 void MSPModel_Striping::DEBUG_PRINT(const Obstacles& obs) {
     for (int i = 0; i < (int)obs.size(); ++i) {
@@ -407,6 +408,47 @@ MSPModel_Striping::getArbitraryPath(const MSEdge* walkingArea) {
     }
     return &myWalkingAreaPaths.find(std::make_pair(lanes.front(), lanes.back()))->second;
 }
+
+const MSPModel_Striping::WalkingAreaPath*
+MSPModel_Striping::guessPath(const MSEdge* walkingArea, const MSEdge* before, const MSEdge* after) {
+    assert(walkingArea->isWalkingArea());
+    const MSLane* swBefore = getSidewalk<MSEdge, MSLane>(before);
+    const MSLane* swAfter = getSidewalk<MSEdge, MSLane>(after);
+    const MSEdgeVector& preds = walkingArea->getPredecessors();
+    bool useBefore = swBefore != nullptr && std::find(preds.begin(), preds.end(), before) != preds.end();
+    const MSEdgeVector& succs = walkingArea->getSuccessors();
+    bool useAfter = swAfter != nullptr && std::find(succs.begin(), succs.end(), after) != succs.end();
+    if (useBefore) {
+        if (useAfter) {
+            return getWalkingAreaPath(walkingArea, swBefore, swAfter);
+        } else {
+            // could also try to exploit direction
+            return getWalkingAreaPath(walkingArea, swBefore, getSidewalk<MSEdge, MSLane>(succs.front()));
+        }
+    } else if (useAfter) {
+        // could also try to exploit direction
+        return getWalkingAreaPath(walkingArea, getSidewalk<MSEdge, MSLane>(preds.front()), swAfter);
+    } else {
+        return getArbitraryPath(walkingArea);
+    }
+}
+
+
+const MSPModel_Striping::WalkingAreaPath*
+MSPModel_Striping::getWalkingAreaPath(const MSEdge* walkingArea, const MSLane* before, const MSLane* after) {
+    assert(walkingArea->isWalkingArea());
+    const auto pathIt = myWalkingAreaPaths.find(std::make_pair(before, after));
+    if (pathIt != myWalkingAreaPaths.end()) {
+        return &pathIt->second;
+    } else {
+        // this can happen in case of moveToXY where before can point anywhere
+        const MSEdge* const pred = walkingArea->getPredecessors().front();
+        const auto pathIt2 = myWalkingAreaPaths.find(std::make_pair(getSidewalk<MSEdge, MSLane>(pred), after));
+        assert(pathIt2 != myWalkingAreaPaths.end());
+        return &pathIt2->second;
+    }
+}
+
 
 
 MSPModel_Striping::NextLaneInfo
@@ -1509,16 +1551,7 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
             }
             if (myLane->getEdge().isWalkingArea()) {
                 if (myNLI.dir != UNDEFINED_DIRECTION) {
-                    const auto pathIt = myWalkingAreaPaths.find(std::make_pair(oldLane, myNLI.lane));
-                    if (pathIt != myWalkingAreaPaths.end()) {
-                        myWalkingAreaPath = &pathIt->second;
-                    } else {
-                        // this can happen in case of moveToXY where oldLane can point anywhere
-                        const MSEdge* const pred = myLane->getEdge().getPredecessors().front();
-                        const auto pathIt2 = myWalkingAreaPaths.find(std::make_pair(getSidewalk<MSEdge, MSLane>(pred), myNLI.lane));
-                        assert(pathIt2 != myWalkingAreaPaths.end());
-                        myWalkingAreaPath = &pathIt2->second;
-                    }
+                    myWalkingAreaPath = getWalkingAreaPath(&myLane->getEdge(), oldLane, myNLI.lane);
                     assert(myWalkingAreaPath->shape.size() >= 2);
                     if DEBUGCOND(*this) {
                         std::cout << "  mWAPath shape=" << myWalkingAreaPath->shape << " length=" << myWalkingAreaPath->length << "\n";
@@ -1592,7 +1625,6 @@ MSPModel_Striping::PState::moveToNextLane(SUMOTime currentTime) {
         return false;
     }
 }
-
 
 void
 MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
@@ -1886,44 +1918,79 @@ void
 MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                                     double lanePosLat, double angle, int routeOffset,
                                     const ConstMSEdgeVector& edges, SUMOTime t) {
-    UNUSED_PARAMETER(p);
+    MSPModel_Striping* pm = dynamic_cast<MSPModel_Striping*>(MSNet::getInstance()->getPersonControl().getMovementModel());
     assert(p == myPerson);
+    assert(pm != nullptr);
     myAngle = angle;
     myAngle = GeomHelper::fromNaviDegree(angle);
-    //std::cout << SIMTIME << " ped=" << p->getID()
-    //    << " moveToXY"
-    //    << " pos=" << pos
-    //    << " lane=" << lane->getID()
-    //    << " lanePos=" << lanePos
-    //    << " lanePosLat=" << lanePosLat
-    //    << " angle=" << angle
-    //    << " routeOffset=" << routeOffset
-    //    << " edges=" << toString(edges)
-    //    << "\n";
+#ifdef DEBUG_MOVETOXY
+    std::cout << SIMTIME << " ped=" << p->getID()
+        << " moveToXY"
+        << " pos=" << pos
+        << " lane=" << lane->getID()
+        << " lanePos=" << lanePos
+        << " lanePosLat=" << lanePosLat
+        << " angle=" << angle
+        << " routeOffset=" << routeOffset
+        << " edges=" << toString(edges)
+        << " oldLane=" << Named::getIDSecure(myLane)
+        << " path=" << (myWalkingAreaPath == nullptr ? "null" : (myWalkingAreaPath->from->getID() + "->" + myWalkingAreaPath->to->getID())) << "\n";
+#endif
+
+    if (lane != myLane) {
+        pm->remove(this);
+        pm->registerActive();
+    }
     if (lane != nullptr &&
             fabs(lanePosLat) < (0.5 * (lane->getWidth() + p->getVehicleType().getWidth()) + SIDEWALK_OFFSET)) {
         myRemoteXYPos = Position::INVALID;
-        const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&lane->getEdge());
-        if (lane != sidewalk) {
-            MSPModel_Striping* pm = dynamic_cast<MSPModel_Striping*>(MSNet::getInstance()->getPersonControl().getMovementModel());
-            assert(pm != nullptr);
-            // add a new active lane
-            pm->remove(this);
+        const MSEdge* old = myStage->getEdge();
+        const MSLane* oldLane = myLane;
+        if (lane != myLane) {
+            // implicitly adds new active lane if necessary
             pm->myActiveLanes[lane].push_back(this);
         }
         if (edges.empty()) {
             // map within route
             myStage->setRouteIndex(myPerson, routeOffset);
-            if (lane->getEdge().isInternal()) {
+            if (!lane->getEdge().isNormal()) {
                 myStage->moveToNextEdge(myPerson, t, &lane->getEdge());
             }
         } else {
             // map to new edge
         }
         myLane = lane;
-        myRelX = lanePos;
-        myRelY = (myLane->getWidth() - stripeWidth) * 0.5 - lanePosLat;
-        //std::cout << " newX=" << myRelX << " newY=" << myRelY << "\n";
+        if (&oldLane->getEdge() != &myLane->getEdge()) {
+            myNLI = getNextLane(*this, myLane, nullptr);
+        }
+        const double lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
+        if (lane->getEdge().isWalkingArea()) {
+            if (myWalkingAreaPath == nullptr || myWalkingAreaPath->lane != lane) {
+                // entered new walkingarea. Determine path
+                myWalkingAreaPath = guessPath(&lane->getEdge(), old, myStage->getNextRouteEdge());
+#ifdef DEBUG_MOVETOXY
+                std::cout << " guessPath old=" << old->getID() << " next=" << Named::getIDSecure(myStage->getNextRouteEdge())
+                    << " path=" << myWalkingAreaPath->from->getID() << "->" << myWalkingAreaPath->to->getID() << "\n";
+#endif 
+            }
+            // lanePos and lanePosLat are matched onto the circumference of the
+            // walkingarea. Use pos instead
+            const Position relPos = myWalkingAreaPath->shape.transformToVectorCoordinates(pos);
+            if (relPos == Position::INVALID) {
+                WRITE_WARNING("Could not map position " + toString(pos) + " onto lane '" + myLane->getID() + "'");
+                myRemoteXYPos = pos;
+            } else {
+                myRelX = relPos.x();
+                myRelY = lateral_offset + relPos.y();
+            }
+        } else {
+            myWalkingAreaPath = nullptr;
+            myRelX = lanePos;
+            myRelY = lateral_offset - lanePosLat;
+        }
+#ifdef DEBUG_MOVETOXY
+        std::cout << " newRelPos=" << Position(myRelX, myRelY) << " edge=" << myPerson->getEdge()->getID() << " newPos=" << myPerson->getPosition() << "\n";
+#endif
     } else {
         // map outside the network
         myRemoteXYPos = pos;

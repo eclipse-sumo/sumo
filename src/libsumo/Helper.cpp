@@ -1115,6 +1115,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                     SUMOVehicleClass vClass, bool setLateralPos,
                     double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle/person
+#ifdef DEBUG_MOVEXY
+        std::cout << SIMTIME << " moveToXYMap pos=" << pos << " angle=" << angle << " vClass=" << toString(vClass) << "\n";
+#endif
     const MSEdge* const currentRouteEdge = currentRoute[routePosition];
     std::set<const Named*> into;
     PositionVector shape;
@@ -1130,10 +1133,36 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
         bool onRoute = false;
         // the next if/the clause sets "onRoute", "prevEdge", and "nextEdge", depending on
         //  whether the currently seen edge is an internal one or a normal one
-        if (!e->isInternal()) {
+        if (e->isWalkingArea() || e->isCrossing()) {
+            // find current intersection along the route
+            const MSJunction* junction = e->getFromJunction();
+            for (int i = routePosition; i < (int)currentRoute.size(); i++) {
+                const MSEdge* cand = currentRoute[i];
+                if (cand->getToJunction() == junction) {
+                    onRoute = true;
+                    prevEdge = cand;
+                    if (i + 1 < (int)currentRoute.size()) {
+                        nextEdge = currentRoute[i + 1];
+                    }
+                    break;
+                }
+            }
+            if (onRoute == false) {
+                // search backward
+                for (int i = routePosition - 1; i >= 0; i--) {
+                    const MSEdge* cand = currentRoute[i];
+                    if (cand->getToJunction() == junction) {
+                        onRoute = true;
+                        prevEdge = cand;
+                        nextEdge = currentRoute[i + 1];
+                        break;
+                    }
+                }
+            }
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "Ego on normal" << std::endl;
+            std::cout << "walkingarea/crossing:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge) << "\n";
 #endif
+        } else if (e->isNormal()) {
             // a normal edge
             //
             // check whether the currently seen edge is in the vehicle's route
@@ -1152,16 +1181,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             prevEdge = e;
             nextEdge = !onRoute || edgePos == currentRoute.end() - 1 ? nullptr : *(edgePos + 1);
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "normal:" << e->getID() << " prev:" << prevEdge->getID() << " next:";
-            if (nextEdge != 0) {
-                std::cout << nextEdge->getID();
-            }
-            std::cout << std::endl;
+            std::cout << "normal:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge) << "\n";
 #endif
-        } else {
-#ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "Ego on internal" << std::endl;
-#endif
+        } else if (e->isInternal()) {
             // an internal edge
             // get the previous edge
             prevEdge = e;
@@ -1180,7 +1202,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                 onRoute = *(prevEdgePos + 1) == nextEdge;
             }
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "internal:" << e->getID() << " prev:" << prevEdge->getID() << " next:" << nextEdge->getID() << std::endl;
+            std::cout << "internal:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge) << "\n";
 #endif
         }
 
@@ -1207,7 +1229,8 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                 dist = l->getShape().distance2D(pos, perpendicular);
                 langle = GeomHelper::naviDegree(l->getShape().rotationAtOffset(off));
             }
-            bool sameEdge = onRoad && e == &currentLane->getEdge() && currentRouteEdge->getLength() > currentLanePos + SPEED2DIST(speed);
+            // cannot trust lanePos on walkingArea
+            bool sameEdge = onRoad && e == &currentLane->getEdge() && currentRouteEdge->getLength() > currentLanePos + SPEED2DIST(speed) && !e->isWalkingArea();
             /*
             const MSEdge* rNextEdge = nextEdge;
             while(rNextEdge==0&&lane->getEdge().getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -1230,7 +1253,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                       << " dist=" << dist
                       << " dist2=" << dist2
                       << "\n";
-            std::cout << l->getID() << " param=" << l->getParameter(SUMO_PARAM_ORIGID, lane->getID()) << " origID='" << origID << "\n";
+            std::cout << l->getID() << " param=" << l->getParameter(SUMO_PARAM_ORIGID, "") << " origID='" << origID << "\n";
 #endif
 
             bool origIDMatch = l->getParameter(SUMO_PARAM_ORIGID, l->getID()) == origID;
@@ -1341,6 +1364,9 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         const ConstMSEdgeVector& currentRoute, int routeIndex,
         SUMOVehicleClass vClass, bool setLateralPos,
         double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset) {
+#ifdef DEBUG_MOVEXY
+    std::cout << SIMTIME << " moveToXYMap_matchingRoutePosition pos=" << pos << " vClass=" << toString(vClass) << "\n";
+#endif
     //std::cout << "moveToXYMap_matchingRoutePosition pos=" << pos << "\n";
     routeOffset = 0;
     // routes may be looped which makes routeOffset ambiguous. We first try to
