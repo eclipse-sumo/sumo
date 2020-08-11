@@ -364,10 +364,6 @@ GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
     if (element->getTagProperty().isSlave()) {
         myHierarchicalConnections.update();
     }
-    // Check if children must be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildAdditionals();
-    }
 }
 
 
@@ -389,10 +385,6 @@ template<> void
 GNEHierarchicalElement::addChildElement(GNEDemandElement* element) {
     // add child element into container
     myHierarchicalContainer.addChildElement(myAC, element);
-    // Check if children must be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildDemandElements();
-    }
 }
 
 
@@ -432,10 +424,6 @@ GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
     if (element->getTagProperty().isSlave()) {
         myHierarchicalConnections.update();
     }
-    // Check if children must be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildAdditionals();
-    }
 }
 
 
@@ -457,10 +445,6 @@ template<> void
 GNEHierarchicalElement::removeChildElement(GNEDemandElement* element) {
     // remove child element from container
     myHierarchicalContainer.removeChildElement(myAC, element);
-    // Check if children must be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildDemandElements();
-    }
 }
 
 
@@ -529,85 +513,6 @@ GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettin
 }
 
 
-void
-GNEHierarchicalElement::sortChildAdditionals() {
-    if (myAC->getTagProperty().getTag() == SUMO_TAG_E3DETECTOR) {
-        // we need to sort Entry/Exits due additional.xds model
-        std::vector<GNEAdditional*> sortedEntryExits;
-        // obtain all entrys
-        for (const auto& additional : getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
-                sortedEntryExits.push_back(additional);
-            }
-        }
-        // obtain all exits
-        for (const auto& additional : getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
-                sortedEntryExits.push_back(additional);
-            }
-        }
-        // change getChildAdditionals() for sortedEntryExits
-        if (sortedEntryExits.size() == getChildAdditionals().size()) {
-            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(sortedEntryExits);
-        } else {
-            throw ProcessError("Some child additional were lost during sorting");
-        }
-    } else if (myAC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-        // we need to sort Entry/Exits due additional.xds model
-        std::vector<GNEAdditional*> sortedTAZSourceSink;
-        // obtain all TAZSources
-        for (const auto& additional : getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                sortedTAZSourceSink.push_back(additional);
-            }
-        }
-        // obtain all TAZSinks
-        for (const auto& additional : getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-                sortedTAZSourceSink.push_back(additional);
-            }
-        }
-        // change getChildAdditionals() for sortedEntryExits
-        if (sortedTAZSourceSink.size() == getChildAdditionals().size()) {
-            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(sortedTAZSourceSink);
-        } else {
-            throw ProcessError("Some child additional were lost during sorting");
-        }
-    } else {
-        // declare a vector to keep sorted children
-        std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
-        // iterate over child additional
-        for (const auto& additional : getChildAdditionals()) {
-            sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
-            // set begin/start attribute
-            if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
-                sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_TIME);
-            } else if (additional->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_BEGIN))) {
-                sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_BEGIN);
-            }
-            // set end attribute
-            if (additional->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_END))) {
-                sortedChildren.back().first.second = additional->getAttributeDouble(SUMO_ATTR_END);
-            } else {
-                sortedChildren.back().first.second = sortedChildren.back().first.first;
-            }
-        }
-        // sort children
-        std::sort(sortedChildren.begin(), sortedChildren.end());
-        // make sure that number of sorted children is the same as the child additional
-        if (sortedChildren.size() == getChildAdditionals().size()) {
-            std::vector<GNEAdditional*> additionals;
-            for (auto i : sortedChildren) {
-                additionals.push_back(i.second);
-            }
-            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(additionals);
-        } else {
-            throw ProcessError("Some child additional were lost during sorting");
-        }
-    }
-}
-
-
 bool
 GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
     // declare a vector to keep sorted children
@@ -646,12 +551,6 @@ GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
     } else {
         throw ProcessError("Some child additional were lost during sorting");
     }
-}
-
-
-void
-GNEHierarchicalElement::sortChildDemandElements() {
-    // by default empty
 }
 
 

@@ -167,14 +167,8 @@ public:
     /// @brief Draw hierarchical connections between parent and children
     void drawHierarchicalConnections(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const;
 
-    /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
-    void sortChildAdditionals();
-
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
-
-    /// @brief sort child demand elements
-    void sortChildDemandElements();
 
     /// @brief check if childs demand elements are overlapped
     bool checkChildDemandElementsOverlapping() const;

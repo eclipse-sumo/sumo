@@ -1630,7 +1630,7 @@ GNEAttributeCarrier::fillAdditionals() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::ADDITIONALELEMENT | GNETagProperties::DETECTOR,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MINIMUMCHILDREN | GNETagProperties::AUTOMATICSORTING,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::MINIMUMCHILDREN,
                                       GUIIcon::E3);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -2463,7 +2463,7 @@ GNEAttributeCarrier::fillTAZElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::TAZELEMENT,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::BLOCKSHAPE | GNETagProperties::AUTOMATICSORTING,
+                                      GNETagProperties::DRAWABLE | GNETagProperties::RTREE | GNETagProperties::SELECTABLE | GNETagProperties::BLOCKMOVEMENT | GNETagProperties::BLOCKSHAPE,
                                       GUIIcon::TAZ);
         // set values of attributes
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ID,
@@ -3205,7 +3205,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::PERSONTRIP_FROMTO, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanEdgeEdge(currentTag);
@@ -3216,7 +3216,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_BUSSTOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_BUSSTOP,
             GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanEdgeBusStop(currentTag);
@@ -3227,7 +3227,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_STOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_STOP,
             GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanEdgeStop(currentTag);
@@ -3238,7 +3238,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanBusStopEdge(currentTag);
@@ -3249,7 +3249,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
             GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanBusStopBusStop(currentTag);
@@ -3260,7 +3260,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_STOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_STOP,
             GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanBusStopStop(currentTag);
@@ -3271,7 +3271,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanStopEdge(currentTag);
@@ -3282,7 +3282,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
             GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanStopBusStop(currentTag);
@@ -3293,7 +3293,7 @@ GNEAttributeCarrier::fillPersonPlanTrips() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::PERSONTRIP,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_STOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_STOP | GNETagProperties::PERSONPLAN_END_STOP,
             GUIIcon::PERSONTRIP_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanStopStop(currentTag);
@@ -3312,7 +3312,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::WALK_EDGES, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // edges
         attrProperty = GNEAttributeProperties(SUMO_ATTR_EDGES,
@@ -3331,7 +3331,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::WALK_ROUTE, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // route
         attrProperty = GNEAttributeProperties(SUMO_ATTR_ROUTE,
@@ -3350,7 +3350,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::WALK_FROMTO, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanEdgeEdge(currentTag);
@@ -3360,7 +3360,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_BUSSTOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_BUSSTOP,
             GUIIcon::WALK_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanEdgeBusStop(currentTag);
@@ -3370,7 +3370,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::WALK_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanBusStopEdge(currentTag);
@@ -3380,7 +3380,7 @@ GNEAttributeCarrier::fillPersonPlanWalks() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::WALK,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
             GUIIcon::WALK_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanBusStopBusStop(currentTag);
@@ -3398,7 +3398,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::RIDE_FROMTO, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanEdgeEdge(currentTag);
@@ -3409,7 +3409,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_BUSSTOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_BUSSTOP,
             GUIIcon::RIDE_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanEdgeBusStop(currentTag);
@@ -3420,7 +3420,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_EDGE,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_EDGE,
             GUIIcon::RIDE_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanBusStopEdge(currentTag);
@@ -3431,7 +3431,7 @@ GNEAttributeCarrier::fillPersonPlanRides() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
             GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONPLAN | GNETagProperties::RIDE,
-            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
+            GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
             GUIIcon::RIDE_BUSSTOP, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
         // fill attributes
         fillPersonPlanBusStopBusStop(currentTag);
@@ -3651,7 +3651,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONSTOP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS |
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::NOPARAMETERS |
                                       GNETagProperties::PERSONPLAN_START_EDGE | GNETagProperties::PERSONPLAN_END_EDGE,
                                       GUIIcon::STOPELEMENT, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
 
@@ -3669,7 +3669,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DEMANDELEMENT | GNETagProperties::PERSONSTOP,
-                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::SORTINGCHILDREN | GNETagProperties::NOPARAMETERS |
+                                      GNETagProperties::DRAWABLE | GNETagProperties::SLAVE | GNETagProperties::SELECTABLE | GNETagProperties::NOPARAMETERS |
                                       GNETagProperties::PERSONPLAN_START_BUSSTOP | GNETagProperties::PERSONPLAN_END_BUSSTOP,
                                       GUIIcon::STOPELEMENT, {SUMO_TAG_PERSON, SUMO_TAG_PERSONFLOW});
 
@@ -4254,7 +4254,7 @@ GNEAttributeCarrier::fillDataElements() {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,
                                       GNETagProperties::DATAELEMENT,
-                                      GNETagProperties::AUTOMATICSORTING | GNETagProperties::NOPARAMETERS,
+                                      GNETagProperties::NOPARAMETERS,
                                       GUIIcon::DATASET);
 
         // set values of attributes

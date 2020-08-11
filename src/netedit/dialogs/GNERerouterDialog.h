@@ -64,9 +64,6 @@ public:
     /// @brief add new interval
     long onCmdAddInterval(FXObject*, FXSelector, void*);
 
-    /// @brief sort current intervals
-    long onCmdSortIntervals(FXObject*, FXSelector, void*);
-
     /// @brief remove or edit interval
     long onCmdClickedInterval(FXObject*, FXSelector, void*);
     /// @}

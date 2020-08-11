@@ -436,20 +436,8 @@ GNETagProperties::isPlacedInRTree() const {
 
 
 bool
-GNETagProperties::canBeSortedManually() const {
-    return (myTagProperty & SORTINGCHILDREN) != 0;
-}
-
-
-bool
 GNETagProperties::canBeReparent() const {
     return (myTagProperty & REPARENT) != 0;
-}
-
-
-bool
-GNETagProperties::canAutomaticSortChildren() const {
-    return (myTagProperty & AUTOMATICSORTING) != 0;
 }
 
 

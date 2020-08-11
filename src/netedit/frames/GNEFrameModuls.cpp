@@ -831,8 +831,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
         }
-        // now chec if given AC support manually moving of their item up and down (Currently only for demand elements
-        if (myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()) {
+        // now chec if given AC support manually moving of their item up and down (Currently only for certain demand elements)
+        if (false /*myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()*/) {
             // insert separator
             new FXMenuSeparator(pane);
             // create both moving menu commands
@@ -841,7 +841,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
             // check if both commands has to be disabled
             if (myClickedDemandElement->getTagProperty().isPersonStop()) {
                 moveUpMenuCommand->setText("Move up (Stops cannot be moved)");
-                moveDownMenuCommand->setText("Move diwb (Stops cannot be moved)");
+                moveDownMenuCommand->setText("Move down (Stops cannot be moved)");
                 moveUpMenuCommand->disable();
                 moveDownMenuCommand->disable();
             } else {
