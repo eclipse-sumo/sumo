@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.10.2019 14:47:28 by Eclipse SUMO netedit Version v1_3_1+0651-1321d97ba1
+<!-- generated on 11.08.2020 08:11:34 by Eclipse SUMO netedit Version v1_6_0+1489-ee01cde108
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_21Okt121108.1556\netedit.gui\netElements\edges\inspect_selected\numlanes\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_21Okt121108.1556\netedit.gui\netElements\edges\inspect_selected\numlanes\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,23 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_21Okt121108.1556\netedit.gui\netElements\edges\inspect_selected\numlanes\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_21Okt121108.1556\netedit.gui\netElements\edges\inspect_selected\numlanes\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_21Okt121108.1556\netedit.gui\netElements\edges\inspect_selected\numlanes\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_21Okt121108.1556\netedit.gui\netElements\edges\inspect_selected\numlanes\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_21Okt121108.1556\netedit.gui\netElements\edges\inspect_selected\numlanes\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.2_from_21Okt121108.1556\netedit.gui\netElements\edges\inspect_selected\numlanes\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.11Aug080925.9404\netedit.gui\netElements\edges\inspect_selected\numlanes\log.txt"/>
     </report>
 
 </configuration>
@@ -65,7 +70,7 @@
         <lane id=":gneJ0_2_0" index="0" speed="3.65" length="2.09" shape="3.20,1.60 2.00,0.80 1.71,0.22"/>
     </edge>
     <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.22 1.60,-0.00 2.00,-0.80 3.20,-1.60"/>
+        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.22 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
     </edge>
     <edge id=":gneJ1_0" function="internal">
         <lane id=":gneJ1_0_0" index="0" speed="3.86" length="2.50" shape="48.40,3.10 48.30,2.44 48.00,1.97 47.50,1.69 46.80,1.60"/>
@@ -181,20 +186,20 @@
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_2_0" dir="t" state="m"/>
     <connection from="gneE1" to="gneE9" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="r" state="M"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_2_0" dir="t" state="m"/>
-    <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" via=":gneJ3_4_0" dir="r" state="M"/>
+    <connection from="gneE2" to="gneE4" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_4_0" dir="r" state="M"/>
     <connection from="gneE2" to="gneE3" fromLane="3" toLane="3" via=":gneJ3_5_0" dir="t" state="m"/>
     <connection from="gneE3" to="gneE8" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="l" state="M"/>
     <connection from="gneE3" to="gneE2" fromLane="3" toLane="3" via=":gneJ2_1_0" dir="t" state="m"/>
     <connection from="gneE4" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" dir="r" state="M"/>
-    <connection from="gneE5" to="gneE3" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="l" state="M"/>
-    <connection from="gneE5" to="gneE3" fromLane="0" toLane="1" via=":gneJ3_1_0" dir="l" state="M"/>
-    <connection from="gneE5" to="gneE3" fromLane="0" toLane="2" via=":gneJ3_2_0" dir="l" state="M"/>
-    <connection from="gneE5" to="gneE3" fromLane="0" toLane="3" via=":gneJ3_3_0" dir="l" state="M"/>
+    <connection from="gneE5" to="gneE3" fromLane="0" toLane="0" keepClear="0" via=":gneJ3_0_0" dir="l" state="M"/>
+    <connection from="gneE5" to="gneE3" fromLane="0" toLane="1" keepClear="0" via=":gneJ3_1_0" dir="l" state="M"/>
+    <connection from="gneE5" to="gneE3" fromLane="0" toLane="2" keepClear="0" via=":gneJ3_2_0" dir="l" state="M"/>
+    <connection from="gneE5" to="gneE3" fromLane="0" toLane="3" keepClear="0" via=":gneJ3_3_0" dir="l" state="M"/>
     <connection from="gneE8" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="l" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="0" via=":gneJ2_2_0" dir="r" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" via=":gneJ2_3_0" dir="r" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="2" via=":gneJ2_4_0" dir="r" state="M"/>
-    <connection from="gneE9" to="gneE2" fromLane="0" toLane="3" via=":gneJ2_5_0" dir="r" state="M"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="0" keepClear="0" via=":gneJ2_2_0" dir="r" state="M"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="1" keepClear="0" via=":gneJ2_3_0" dir="r" state="M"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="2" keepClear="0" via=":gneJ2_4_0" dir="r" state="M"/>
+    <connection from="gneE9" to="gneE2" fromLane="0" toLane="3" keepClear="0" via=":gneJ2_5_0" dir="r" state="M"/>
 
     <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":gneJ0_1" to="gneE9" fromLane="0" toLane="0" dir="r" state="M"/>
