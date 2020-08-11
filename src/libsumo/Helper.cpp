@@ -1406,6 +1406,26 @@ Helper::moveToXYMap_matchingRoutePosition(const Position& pos, const std::string
         }
         next = cand;
     }
+    if (vClass == SVC_PEDESTRIAN) {
+        // consider all crossings and walkingareas along the route
+        std::map<const MSJunction*, int> routeJunctions;
+        for (int i = 0; i < (int)currentRoute.size() - 1; ++i) {
+            routeJunctions[currentRoute[i]->getToJunction()] = i;
+        }
+        std::set<const Named*> into;
+        PositionVector shape;
+        shape.push_back(pos);
+        collectObjectsInRange(libsumo::CMD_GET_LANE_VARIABLE, shape, 100, into);
+        for (const Named* named : into) {
+            const MSLane* cand = dynamic_cast<const MSLane*>(named);
+            if ((cand->getEdge().isWalkingArea() || cand->getEdge().isCrossing())
+                    && routeJunctions.count(cand->getEdge().getToJunction()) != 0) {
+                if (findCloserLane(&cand->getEdge(), pos, vClass, bestDistance, lane)) {
+                    routeOffset = routeJunctions[cand->getEdge().getToJunction()];
+                }
+            }
+        }
+    }
 
     assert(lane != 0);
     // quit if no solution was found, reporting a failure
