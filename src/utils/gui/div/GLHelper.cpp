@@ -531,13 +531,14 @@ GLHelper::drawTextSettings(
     const std::string& text, const Position& pos,
     const double scale,
     const double angle,
-    const double layer) {
+    const double layer,
+    const int align) {
     drawTextBox(text, pos, layer,
                 settings.scaledSize(scale),
                 settings.color,
                 settings.bgColor,
                 RGBColor::INVISIBLE,
-                angle, 0, 0.2);
+                angle, 0, 0.2, align);
 }
 
 
@@ -547,7 +548,8 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
                       const RGBColor& txtColor, const RGBColor& bgColor, const RGBColor& borderColor,
                       const double angle,
                       const double relBorder,
-                      const double relMargin) {
+                      const double relMargin,
+                      const int align) {
     if (!initFont()) {
         return;
     };
@@ -570,7 +572,7 @@ GLHelper::drawTextBox(const std::string& text, const Position& pos,
         drawBoxLine(left, boxAngle, boxWidth - 3 * borderWidth, boxHeight - 2 * borderWidth);
         glPopMatrix();
     }
-    drawText(text, pos, layer + 0.02, size, txtColor, angle);
+    drawText(text, pos, layer + 0.02, size, txtColor, angle, align);
 }
 
 

@@ -168,8 +168,12 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const bool d
                 glRotated(-s.angle, 0, 0, 1);
                 glTranslated(0, 0.7 * s.poiText.scaledSize(s.scale) * lines.size(), 0);
                 glRotated(s.angle, 0, 0, 1);
+                // FONS_ALIGN_LEFT = 1
+                // FONS_ALIGN_CENTER = 2
+                // FONS_ALIGN_MIDDLE = 16
+                const int align = (lines.size() > 1 ? 1 : 2) | 16;
                 for (std::string& line : lines) {
-                    GLHelper::drawTextSettings(s.poiText, line, Position(0, 0), s.scale, s.angle);
+                    GLHelper::drawTextSettings(s.poiText, line, Position(0, 0), s.scale, s.angle, GLO_MAX, align);
                     glRotated(-s.angle, 0, 0, 1);
                     glTranslated(0, -0.7 * s.poiText.scaledSize(s.scale), 0);
                     glRotated(s.angle, 0, 0, 1);
