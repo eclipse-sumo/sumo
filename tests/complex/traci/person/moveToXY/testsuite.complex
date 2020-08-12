@@ -28,3 +28,6 @@ keepRoute2_junction_offroad
 
 # move person to an edge not on it's route
 leaveRoute
+
+# move person accross a busy road between junctions
+leaveRoute_yaywalk

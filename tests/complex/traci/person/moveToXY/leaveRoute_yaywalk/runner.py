@@ -28,7 +28,7 @@ import sumolib  # noqa
 sumoBinary = sumolib.checkBinary('sumo')
 cmd = [
     sumoBinary,
-    "-n", "input_net4.net.xml",
+    "-n", "input_net3.net.xml",
     "-r", "input_routes.rou.xml",
     "--fcd-output", "fcd.xml",
     "--vehroute-output", "vehroutes.xml",
@@ -36,22 +36,25 @@ cmd = [
 traci.start(cmd)
 
 
-p = "p0"
-traci.simulationStep()
-x, y = traci.person.getPosition(p)
-for i in range(200):
-    traci.person.moveToXY(p, "", x, y, keepRoute=0)
+def step():
+    s = traci.simulation.getTime()
     traci.simulationStep()
-    print("t=%s requestPos=%s pos=%s edge=%s route=%s" % (
-        traci.simulation.getTime(), (x, y), 
-        traci.person.getPosition(p),
-        traci.person.getRoadID(p),
-        traci.person.getEdges(p)))
-    x += 1
-    y += 1
+    return s
 
-print("return to sumo control")
+def getLane():
+    x, y = traci.person.getPosition(p)
+    road, pos, lane = traci.simulation.convertRoad(x, y)
+    return "%s_%s" % (road, lane)
+
+
+p = "p0"
+x, y = traci.person.getPosition(p)
+while getLane() != "CS_0":
+    print("%s lane=%s" % (traci.simulation.getTime(), getLane()))
+    traci.person.moveToXY(p, "", x - 1, y, keepRoute=2+4)
+    traci.simulationStep()
+    x, y = traci.person.getPosition(p)
+
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
-
 traci.close()
