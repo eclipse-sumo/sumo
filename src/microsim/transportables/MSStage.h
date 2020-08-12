@@ -470,6 +470,8 @@ public:
     /// @brief place transportable on a previously passed edge
     virtual void setRouteIndex(MSTransportable* const transportable, int routeOffset);
 
+    virtual void replaceRoute(MSTransportable* const transportable, const ConstMSEdgeVector& edges, int routeOffset);
+
     inline const std::vector<const MSEdge*>& getRoute() const {
         return myRoute;
     }

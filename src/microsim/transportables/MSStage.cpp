@@ -585,5 +585,14 @@ MSStageMoving::setRouteIndex(MSTransportable* const transportable, int routeOffs
     getEdge()->addPerson(transportable);
 }
 
+void
+MSStageMoving::replaceRoute(MSTransportable* const transportable, const ConstMSEdgeVector& edges, int routeOffset) {
+    assert(routeOffset >= 0);
+    assert(routeOffset < (int)edges.size());
+    getEdge()->removePerson(transportable);
+    myRoute = edges;
+    myRouteStep = myRoute.begin() + routeOffset;
+    getEdge()->addPerson(transportable);
+}
 
 /****************************************************************************/
