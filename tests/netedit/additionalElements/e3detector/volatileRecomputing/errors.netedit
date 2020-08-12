@@ -13,16 +13,16 @@ Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -16.53,3.52,-6.53,13.52
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0detEntry1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit3' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 55.44,7.04,65.44,17.04
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1detEntry1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit2' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit3' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
@@ -40,18 +40,18 @@ GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,6
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit3'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit2'
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_1'
+Debug: Deleting unreferenced detExit 'e3Detector_1'
+Debug: Deleting unreferenced detEntry 'e3Detector_1'
+Debug: Deleting unreferenced detEntry 'e3Detector_1'
 Debug: Deleting unreferenced e3Detector 'e3Detector_1'
 GLDebug: 	Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 55.44,7.04,65.44,17.04
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit3'
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit2'
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry1'
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -16.53,3.52,-6.53,13.52
 GLDebug: initJunctionsAndEdges function called in computeAndUpdate(...) due recomputing with volatile options
@@ -65,16 +65,16 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,47
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -16.53,3.52,-6.53,13.52
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0detEntry1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit2' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit3' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 55.44,7.04,65.44,17.04
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1detEntry1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit2' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit3' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -10.00,-15.20,10.00,15.20
@@ -100,18 +100,18 @@ Debug: Created connection 'fromgneE0_1togneE1_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit3'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit2'
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_1'
+Debug: Deleting unreferenced detExit 'e3Detector_1'
+Debug: Deleting unreferenced detEntry 'e3Detector_1'
+Debug: Deleting unreferenced detEntry 'e3Detector_1'
 Debug: Deleting unreferenced e3Detector 'e3Detector_1'
 GLDebug: 	Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 55.44,7.04,65.44,17.04
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit3'
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit2'
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry1'
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -16.53,3.52,-6.53,13.52
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

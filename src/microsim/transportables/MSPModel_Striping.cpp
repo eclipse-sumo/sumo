@@ -1921,7 +1921,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
     MSPModel_Striping* pm = dynamic_cast<MSPModel_Striping*>(MSNet::getInstance()->getPersonControl().getMovementModel());
     assert(p == myPerson);
     assert(pm != nullptr);
-    myAngle = angle;
+    const double oldAngle = GeomHelper::naviDegree(getAngle(*myStage, t));
     myAngle = GeomHelper::fromNaviDegree(angle);
 #ifdef DEBUG_MOVETOXY
     std::cout << SIMTIME << " ped=" << p->getID()
@@ -1937,7 +1937,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         << " path=" << (myWalkingAreaPath == nullptr ? "null" : (myWalkingAreaPath->from->getID() + "->" + myWalkingAreaPath->to->getID())) << "\n";
 #endif
 
-    if (lane != myLane) {
+    if (lane != myLane && myLane != nullptr) {
         pm->remove(this);
         pm->registerActive();
     }
@@ -1953,14 +1953,15 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         if (edges.empty()) {
             // map within route
             myStage->setRouteIndex(myPerson, routeOffset);
-            if (!lane->getEdge().isNormal()) {
-                myStage->moveToNextEdge(myPerson, t, &lane->getEdge());
-            }
         } else {
-            // map to new edge
+            myStage->replaceRoute(myPerson, edges, routeOffset);
         }
+        if (!lane->getEdge().isNormal()) {
+            myStage->moveToNextEdge(myPerson, t, &lane->getEdge());
+        }
+
         myLane = lane;
-        if (&oldLane->getEdge() != &myLane->getEdge()) {
+        if (oldLane == nullptr || &oldLane->getEdge() != &myLane->getEdge()) {
             myNLI = getNextLane(*this, myLane, nullptr);
         }
         const double lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
@@ -1988,8 +1989,20 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
             myRelX = lanePos;
             myRelY = lateral_offset - lanePosLat;
         }
+        // guess direction
+        const double angleDiff = GeomHelper::getMinAngleDiff(angle, oldAngle);
+        if (angleDiff < 90) {
+            // keep direction
+            if (myDir == UNDEFINED_DIRECTION) {
+                myDir = FORWARD;
+            }
+        } else {
+            // change direction
+            myDir = (myDir == BACKWARD) ? FORWARD : BACKWARD;
+        }
 #ifdef DEBUG_MOVETOXY
-        std::cout << " newRelPos=" << Position(myRelX, myRelY) << " edge=" << myPerson->getEdge()->getID() << " newPos=" << myPerson->getPosition() << "\n";
+        std::cout << " newRelPos=" << Position(myRelX, myRelY) << " edge=" << myPerson->getEdge()->getID() << " newPos=" << myPerson->getPosition() 
+            << " oldAngle=" << oldAngle << " angleDiff=" << angleDiff << " newDir=" << myDir << "\n";
 #endif
     } else {
         // map outside the network

@@ -74,10 +74,12 @@ Debug: Created connection 'fromgneE5_0togneE10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()Debug: Setting new attribute selected 'true' into route 'route_3'
+Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
+Debug: Setting new attribute selected 'true' into route 'route_3'
 Debug: demand elements saving aborted
 Debug: Key DEL (delete) pressed
-Debug: Removing route 'route_3' in GNEChange_DemandElementDebug: demand elements saved
+Debug: Removing route 'route_3' in GNEChange_DemandElement
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 49.60,6.80,86.40,37.20

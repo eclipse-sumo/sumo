@@ -29,7 +29,8 @@ import pyperclip
 
 # define delay before every operation
 DELAY_KEY = 0.2
-DELAY_KEY_TAB = 0.01
+DELAY_KEY_TAB = 0.1
+DELAY_MOVE = 0.1
 DELAY_MOUSE = 0.5
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
@@ -174,8 +175,12 @@ def leftClick(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait
+    time.sleep(DELAY_MOVE)
+    # click over position
+    pyautogui.click(button='left')
     # wait after every operation
     time.sleep(DELAY_MOUSE)
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
@@ -191,8 +196,13 @@ def leftClickShift(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait
+    time.sleep(DELAY_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # show debug
     print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
     pyautogui.keyUp('shift')
@@ -210,8 +220,13 @@ def leftClickControl(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait
+    time.sleep(DELAY_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # show debug
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
     pyautogui.keyUp('ctrl')

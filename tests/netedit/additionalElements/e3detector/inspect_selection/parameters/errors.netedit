@@ -3,14 +3,14 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e3Detector 'e3Detector_A' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding detEntry 'e3Detector_AdetEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_AdetExit1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_A' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_A' in GNEChange_Additional
 Debug: Inserting parameter 'keyA1|valueA1' into additional e3Detector.
 Debug: Inserting parameter 'keyA2|valueA2' into additional e3Detector.
 Debug: Inserting parameter 'keyA3|valueA3' into additional e3Detector.
 Debug: Adding e3Detector 'e3Detector_B' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_BdetEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_BdetExit1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_B' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_B' in GNEChange_Additional
 Debug: Inserting parameter 'keyB1|valueB1' into additional e3Detector.
 Debug: Inserting parameter 'keyB2|valueB2' into additional e3Detector.
 Debug: Inserting parameter 'keyB3|valueB3' into additional e3Detector.
@@ -22,10 +22,6 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry0'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_BdetEntry0'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_AdetExit1'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit1'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_B'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into e3Detector 'e3Detector_A'
@@ -70,10 +66,6 @@ Debug: Setting previous attribute genericParameter 'keyB1=valueB1|keyB2=valueB2|
 Debug: Setting previous attribute genericParameter 'keyA1=valueA1|keyA2=valueA2|keyA3=valueA3' into e3Detector 'e3Detector_A'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_BdetExit1'
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_AdetExit1'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_BdetEntry0'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_AdetEntry0'
 Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_B'
 Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_A'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
@@ -88,10 +80,6 @@ Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_AdetEntry0'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_BdetEntry0'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_AdetExit1'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_BdetExit1'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into e3Detector 'e3Detector_A'
@@ -123,13 +111,13 @@ Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced detExit 'e3Detector_BdetExit1'
+Debug: Deleting unreferenced detExit 'e3Detector_B'
+Debug: Deleting unreferenced detEntry 'e3Detector_B'
+Debug: Deleting unreferenced e3Detector 'e3Detector_B'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced detEntry 'e3Detector_BdetEntry0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_B'
-Debug: Deleting unreferenced detExit 'e3Detector_AdetExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_AdetEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_A'
+Debug: Deleting unreferenced detEntry 'e3Detector_A'
 Debug: Deleting unreferenced e3Detector 'e3Detector_A'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

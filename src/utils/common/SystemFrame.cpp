@@ -84,7 +84,7 @@ SystemFrame::addReportOptions(OptionsCont& oc) {
     }
 
     if (oc.exists("route-files")) {
-        oc.doRegister("xml-validation.routes", new Option_String("always"));
+        oc.doRegister("xml-validation.routes", new Option_String("auto"));
         oc.addDescription("xml-validation.routes", "Report", "Set schema validation scheme of SUMO route inputs (\"never\", \"auto\" or \"always\")");
     }
 

@@ -9,8 +9,8 @@ Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_1 into SUMORTree with boundary 26.65,1.36,36.65,11.36
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
@@ -19,16 +19,16 @@ Debug: Selected item 'e3Detector' in TagSelector
 Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_2 into SUMORTree with boundary 12.00,2.00,22.00,12.00
 Debug: Selected item 'detEntry' in TagSelector
-Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Selected item 'detExit' in TagSelector
-Debug: Adding detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Invalid input parameter of detExit: A e3Detector must be selected before insertion of detExit.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
@@ -36,50 +36,50 @@ GLDebug: 	Removed object e3Detector:e3Detector_2 from SUMORTree with boundary 12
 Debug: Selected item 'detExit' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
 Debug: Deleting unreferenced e3Detector 'e3Detector_2'
-Debug: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
-Debug: Deleting unreferenced detExit 'e3Detector_2detExit1'
+Debug: Deleting unreferenced detEntry 'e3Detector_2'
+Debug: Deleting unreferenced detExit 'e3Detector_2'
 Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_2 into SUMORTree with boundary 12.00,2.00,22.00,12.00
 Debug: Selected item 'detEntry' in TagSelector
-Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Selected item 'detExit' in TagSelector
-Debug: Adding detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Invalid input parameter of detExit: A e3Detector must be selected before insertion of detExit.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Selected item 'detExit' in TagSelector
 Debug: Selected item 'detEntry' in TagSelector
-Debug: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
-Debug: Deleting unreferenced detExit 'e3Detector_2detExit1'
-Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Deleting unreferenced detEntry 'e3Detector_2'
+Debug: Deleting unreferenced detExit 'e3Detector_2'
+Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Selected item 'detExit' in TagSelector
-Debug: Adding detExit 'e3Detector_2detExit1' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_2detExit1' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_1detExit1' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_2' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_2' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding detExit 'e3Detector_1detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
@@ -90,22 +90,22 @@ Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_2 into SUMORTree with boundary 12.00,2.00,22.00,12.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing detExit 'e3Detector_1detExit1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_1' in GNEChange_Additional
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -121,14 +121,14 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced detExit 'e3Detector_2detExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_2'
+Debug: Deleting unreferenced detEntry 'e3Detector_2'
 Debug: Deleting unreferenced e3Detector 'e3Detector_2'
 GLDebug: 	Removed object e3Detector:e3Detector_2 from SUMORTree with boundary 12.00,2.00,22.00,12.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_1'
+Debug: Deleting unreferenced detEntry 'e3Detector_1'
 Debug: Deleting unreferenced e3Detector 'e3Detector_1'
 GLDebug: 	Removed object e3Detector:e3Detector_1 from SUMORTree with boundary 26.65,1.36,36.65,11.36
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

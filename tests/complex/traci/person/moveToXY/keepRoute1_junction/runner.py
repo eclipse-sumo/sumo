@@ -43,7 +43,7 @@ def step():
 
 p = "p0"
 s = step()
-while traci.simulation.getMinExpectedNumber() > 0:
+for i in range(80):
     x, y = traci.person.getPosition(p)
     print("s=%s x=%s y=%s" % (s, x, y))
     traci.person.moveToXY(p, "", x, y + 1, keepRoute=1)

@@ -1,7 +1,3 @@
 Warning: Could not map position 113.85,84.40 onto lane ':C_w2_0'
-Warning: Could not map position 113.79,106.39 onto lane ':C_w1_0'
-Warning: Could not map position 113.79,107.39 onto lane ':C_w1_0'
-Warning: Could not map position 113.74,113.62 onto lane ':C_w1_0'
-Warning: Could not map position 113.74,114.62 onto lane ':C_w1_0'
-Warning: Could not map position 113.74,115.62 onto lane ':C_w1_0'
-Warning: Person 'p0' was removed though being controlled by TraCI
+Warning: Could not map position 113.80,106.39 onto lane ':C_w1_0'
+Warning: Could not map position 113.80,107.39 onto lane ':C_w1_0'
