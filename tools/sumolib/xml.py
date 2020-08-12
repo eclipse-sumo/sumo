@@ -119,7 +119,7 @@ def compound_object(element_name, attrnames, warn=False):
             raise AttributeError
 
         def setAttribute(self, name, value):
-            if name not in self._fields:
+            if name not in self._original_fields:
                 self._original_fields.append(name)
                 self._fields.append(_prefix_keyword(name, warn))
             self.__dict__[name] = value
