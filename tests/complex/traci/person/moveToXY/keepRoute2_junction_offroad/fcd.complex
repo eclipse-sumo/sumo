@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 12 14:31:30 2020 by Eclipse SUMO sumo Version v1_6_0+1517-5df4688dbc
+<!-- generated on Wed Aug 12 16:49:06 2020 by Eclipse SUMO sumo Version v1_6_0+1535-a5b97afb4f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,7 +17,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="60481"/>
+        <remote-port value="33565"/>
     </traci_server>
 
 </configuration>
@@ -58,31 +58,31 @@
         <person id="p0" x="113.85" y="86.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
-        <person id="p0" x="113.85" y="87.40" angle="0.00" speed="1.25" pos="6.40" edge=":C_w2" slope="0.00"/>
+        <person id="p0" x="113.85" y="87.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
         <person id="p0" x="113.85" y="88.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
-        <person id="p0" x="113.85" y="89.40" angle="0.00" speed="1.27" pos="6.40" edge=":C_w2" slope="0.00"/>
+        <person id="p0" x="113.85" y="89.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
         <person id="p0" x="113.85" y="90.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <person id="p0" x="113.85" y="91.40" angle="0.00" speed="1.34" pos="6.40" edge=":C_w2" slope="0.00"/>
+        <person id="p0" x="113.85" y="91.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
         <person id="p0" x="113.85" y="92.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <person id="p0" x="113.85" y="93.40" angle="0.00" speed="1.39" pos="6.40" edge=":C_w2" slope="0.00"/>
+        <person id="p0" x="113.85" y="93.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <person id="p0" x="113.84" y="94.40" angle="81.23" speed="0.00" pos="9.28" edge=":C_31" slope="0.00"/>
+        <person id="p0" x="113.84" y="94.40" angle="0.00" speed="0.00" pos="9.28" edge=":C_31" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <person id="p0" x="113.79" y="95.39" angle="81.23" speed="1.21" pos="9.37" edge=":C_31" slope="0.00"/>
+        <person id="p0" x="113.79" y="95.39" angle="0.00" speed="1.21" pos="9.37" edge=":C_31" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
         <person id="p0" x="113.79" y="96.39" angle="0.00" speed="1.38" pos="4.04" edge=":C_c1" slope="0.00"/>
@@ -91,13 +91,13 @@
         <person id="p0" x="113.79" y="97.39" angle="0.00" speed="1.27" pos="5.04" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="22.00">
-        <person id="p0" x="113.79" y="98.39" angle="97.73" speed="1.46" pos="16.44" edge=":C_26" slope="0.00"/>
+        <person id="p0" x="113.79" y="98.39" angle="0.00" speed="1.46" pos="16.44" edge=":C_26" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
-        <person id="p0" x="113.80" y="99.39" angle="97.73" speed="1.32" pos="16.31" edge=":C_26" slope="0.00"/>
+        <person id="p0" x="113.80" y="99.39" angle="0.00" speed="1.32" pos="16.31" edge=":C_26" slope="0.00"/>
     </timestep>
     <timestep time="24.00">
-        <person id="p0" x="113.80" y="100.39" angle="97.73" speed="1.38" pos="16.18" edge=":C_26" slope="0.00"/>
+        <person id="p0" x="113.80" y="100.39" angle="0.00" speed="1.38" pos="16.18" edge=":C_26" slope="0.00"/>
     </timestep>
     <timestep time="25.00">
         <person id="p0" x="113.80" y="101.39" angle="0.00" speed="1.29" pos="9.04" edge=":C_c1" slope="0.00"/>

@@ -51,7 +51,7 @@ for i in range(10):
     s = step()
     x, y = traci.person.getPosition(p)
     print("s=%s x=%s y=%s" % (s, x, y))
-traci.person.moveToXY(p, "", x - 10, y, keepRoute=2)
+traci.person.moveToXY(p, "", x - 10, y, keepRoute=2, angle=0)
 for i in range(30):
     s = step()
     x, y = traci.person.getPosition(p)
