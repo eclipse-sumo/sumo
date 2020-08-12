@@ -172,7 +172,6 @@ SUMOSAXReader::LocalSchemaResolver::resolveEntity(const XMLCh* const /* publicId
     const std::string url = StringUtils::transcode(systemId);
     const std::string::size_type pos = url.find("/xsd/");
     if (pos != std::string::npos) {
-        myHandler->setSchemaSeen();
         const char* sumoPath = std::getenv("SUMO_HOME");
         if (sumoPath == nullptr) {
             // no need for a warning here, global preparsing should have done it.
