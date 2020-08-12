@@ -51,7 +51,7 @@ print("taxiFleet", fleet)
 reservations = traci.person.getTaxiReservations(0)
 print("reservations", reservations)
 
-reservation_ids = [r.destStop for r in reservations]
+reservation_ids = [r.id for r in reservations]
 a, b, c = reservation_ids
 # plan the following stops
 # pickup a
