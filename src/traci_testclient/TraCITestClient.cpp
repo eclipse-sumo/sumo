@@ -962,6 +962,7 @@ TraCITestClient::testAPI() {
     person.setType("p0", "stilts");
     answerLog << "    getIDList: " << joinToString(person.getIDList(), " ") << "\n";
     answerLog << "    getRoadID: " << person.getRoadID("p0") << "\n";
+    answerLog << "    getLaneID: " << person.getLaneID("p0") << "\n";
     answerLog << "    getTypeID: " << person.getTypeID("p0") << "\n";
     answerLog << "    getWaitingTime: " << person.getWaitingTime("p0") << "\n";
     answerLog << "    getNextEdge: " << person.getNextEdge("p0") << "\n";

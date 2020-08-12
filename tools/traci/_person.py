@@ -126,6 +126,14 @@ class PersonDomain(Domain):
         """
         return self._getUniversal(tc.VAR_ROAD_ID, personID)
 
+    def getLaneID(self, personID):
+        """getLaneID(string) -> string
+
+        Returns the id of the lane the named person was at within the last step.
+        If the current person stage does not provide a lane, "" is returned.
+        """
+        return self._getUniversal(tc.VAR_LANE_ID, personID)
+
     def getTypeID(self, personID):
         """getTypeID(string) -> string
 

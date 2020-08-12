@@ -105,6 +105,11 @@ public:
     /// returns the angle of the transportable
     virtual double getAngle(SUMOTime now) const = 0;
 
+    /// Returns the current lane (if applicable)
+    virtual const MSLane* getLane() const {
+        return nullptr;
+    }
+
     ///
     MSStageType getStageType() const {
         return myType;
@@ -439,6 +444,9 @@ public:
 
     /// Returns the current edge
     const MSEdge* getEdge() const;
+
+    /// Returns the current lane
+    const MSLane* getLane() const;
 
     /// Returns first edge of the containers route
     const MSEdge* getFromEdge() const;

@@ -272,8 +272,9 @@ protected:
         void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                       double lanePosLat, double angle, int routeOffset,
                       const ConstMSEdgeVector& edges, SUMOTime t);
-
+        /// @brief whether the transportable is jammed
         bool isJammed() const;
+        const MSLane* getLane() const;
         /// @}
 
         PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);

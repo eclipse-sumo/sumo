@@ -575,6 +575,10 @@ MSStageMoving::getSpeed() const {
     return myState == nullptr ? 0. : myState->getSpeed(*this);
 }
 
+const MSLane*
+MSStageMoving::getLane() const {
+    return myState == nullptr ? nullptr : myState->getLane();
+}
 
 void
 MSStageMoving::setRouteIndex(MSTransportable* const transportable, int routeOffset) {

@@ -157,6 +157,11 @@ public:
         return (*myStep)->getEdge();
     }
 
+    /// @brief Returns the current lane (may be nullptr)
+    const MSLane* getLane() const {
+        return (*myStep)->getLane();
+    }
+
     /// @brief Returns the departure edge
     const MSEdge* getFromEdge() const {
         return (*myStep)->getFromEdge();

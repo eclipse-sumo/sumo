@@ -2017,6 +2017,11 @@ MSPModel_Striping::PState::isJammed() const {
     return myAmJammed;
 }
 
+const MSLane*
+MSPModel_Striping::PState::getLane() const {
+    return myLane;
+}
+
 double
 MSPModel_Striping::PState::distanceTo(const Obstacle& obs, const bool includeMinGap) const {
     // check for overlap

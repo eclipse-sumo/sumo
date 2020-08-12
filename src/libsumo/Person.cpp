@@ -116,6 +116,12 @@ Person::getRoadID(const std::string& personID) {
 }
 
 
+std::string
+Person::getLaneID(const std::string& personID) {
+    return Named::getIDSecure(getPerson(personID)->getLane(), "");
+}
+
+
 double
 Person::getLanePosition(const std::string& personID) {
     return getPerson(personID)->getEdgePos();
@@ -1051,6 +1057,8 @@ Person::handleVariable(const std::string& objID, const int variable, VariableWra
             return wrapper->wrapDouble(objID, variable, getSpeed(objID));
         case VAR_ROAD_ID:
             return wrapper->wrapString(objID, variable, getRoadID(objID));
+        case VAR_LANE_ID:
+            return wrapper->wrapString(objID, variable, getLaneID(objID));
         case VAR_LANEPOSITION:
             return wrapper->wrapDouble(objID, variable, getLanePosition(objID));
         case VAR_COLOR:

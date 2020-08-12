@@ -857,6 +857,7 @@ public:
         libsumo::TraCIPosition getPosition(const std::string& personID) const;
         libsumo::TraCIPosition getPosition3D(const std::string& personID) const;
         std::string getRoadID(const std::string& personID) const;
+        std::string getLaneID(const std::string& personID) const;
         std::string getTypeID(const std::string& personID) const;
         double getWaitingTime(const std::string& personID) const;
         std::string getNextEdge(const std::string& personID) const;

@@ -3163,6 +3163,11 @@ TraCIAPI::PersonScope::getRoadID(const std::string& personID) const {
 }
 
 std::string
+TraCIAPI::PersonScope::getLaneID(const std::string& personID) const {
+    return getString(libsumo::VAR_LANE_ID, personID);
+}
+
+std::string
 TraCIAPI::PersonScope::getTypeID(const std::string& personID) const {
     return getString(libsumo::VAR_TYPE, personID);
 }
