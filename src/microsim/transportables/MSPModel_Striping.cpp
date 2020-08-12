@@ -1991,7 +1991,7 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         }
         // guess direction
         const double angleDiff = GeomHelper::getMinAngleDiff(angle, oldAngle);
-        if (angleDiff < 90) {
+        if (angleDiff <= 90) {
             // keep direction
             if (myDir == UNDEFINED_DIRECTION) {
                 myDir = FORWARD;

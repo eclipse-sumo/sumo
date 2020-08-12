@@ -846,16 +846,12 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
             pos = lane->geometryPositionAtOffset(lanePos, -lanePosLat);
         }
         assert((found && lane != 0) || (!found && lane == 0));
-        if (angle == INVALID_DOUBLE_VALUE) {
-            if (lane != nullptr && !lane->getEdge().isWalkingArea()) {
-                angle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(lanePos));
-            } else {
-                // compute angle outside road network or on walkingarea from old and new position
-                angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
-            }
-        }
         switch (p->getStageType(0)) {
             case MSStageType::WALKING: {
+                if (angle == INVALID_DOUBLE_VALUE) {
+                    // walking angle cannot be deduced from road angle so we always use the last pos
+                    angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
+                }
                 break;
             }
             case MSStageType::WAITING_FOR_DEPART: 
@@ -871,6 +867,14 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
                 // abort waiting stage and proceed to walking stage
                 p->removeStage(0);
                 assert(p->getStageType(0) == MSStageType::WALKING);
+                if (angle == INVALID_DOUBLE_VALUE) {
+                    if (lane != nullptr && !lane->getEdge().isWalkingArea()) {
+                        angle = GeomHelper::naviDegree(lane->getShape().rotationAtOffset(lanePos));
+                    } else {
+                        // compute angle outside road network or on walkingarea from old and new position
+                        angle = GeomHelper::naviDegree(p->getPosition().angleTo2D(pos));
+                    }
+                }
                 break;
             }
             default:
