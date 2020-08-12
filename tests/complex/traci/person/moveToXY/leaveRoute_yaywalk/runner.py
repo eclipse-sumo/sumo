@@ -41,16 +41,10 @@ def step():
     traci.simulationStep()
     return s
 
-def getLane():
-    x, y = traci.person.getPosition(p)
-    road, pos, lane = traci.simulation.convertRoad(x, y)
-    return "%s_%s" % (road, lane)
-
-
 p = "p0"
 x, y = traci.person.getPosition(p)
-while getLane() != "CS_0":
-    print("%s lane=%s" % (traci.simulation.getTime(), getLane()))
+while traci.person.getLaneID(p) != "CS_0":
+    print("%s lane=%s" % (traci.simulation.getTime(), traci.person.getLaneID(p)))
     traci.person.moveToXY(p, "", x - 1, y, keepRoute=2+4)
     traci.simulationStep()
     x, y = traci.person.getPosition(p)

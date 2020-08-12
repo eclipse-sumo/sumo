@@ -16,6 +16,7 @@ pos3D (759.1336009754515, 504.95000000000005, 0.0)
 angle 270.0
 slope 0.0
 road 2fi
+lane 2fi_0
 type pType2@horiz
 lanePos 240.866399025
 color (0, 0, 255, 255)
@@ -43,6 +44,7 @@ pos3D (755.303019221229, 504.95000000000005, 0.0)
 angle 270.0
 slope 0.0
 road 2fi
+lane 2fi_0
 type pType2@horiz
 lanePos 244.696980779
 color (0, 0, 255, 255)

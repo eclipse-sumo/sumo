@@ -1,5 +1,5 @@
  Retrying in 1 seconds
-0.0 lane=SC_0
+0.0 lane=
 1.0 lane=SC_0
 2.0 lane=SC_0
 3.0 lane=SC_0
@@ -13,7 +13,7 @@
 11.0 lane=SC_4
 12.0 lane=SC_4
 13.0 lane=SC_4
-14.0 lane=CS_4
+14.0 lane=SC_4
 15.0 lane=CS_4
 16.0 lane=CS_4
 17.0 lane=CS_4
