@@ -182,10 +182,7 @@ public:
     static std::vector<SumoXMLTag> allowedTags(const bool onlyDrawables);
 
     /// @brief get tags of all editable element types using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
-    static std::vector<SumoXMLTag> allowedTagsByCategory(const int tagPropertyCategory, const bool onlyDrawables);
-
-    /// @brief get tags of all editable element types in string format using TagProperty Type (NetworkEditMode::NETWORKELEMENT, ADDITIONALELEMENT, etc.)
-    static std::vector<std::string> allowedTagsByCategoryStr(const int tagPropertyCategory, const bool onlyDrawables);
+    static std::vector<std::pair<SumoXMLTag, const std::string> > getAllowedTagsByCategory(const int tagPropertyCategory, const bool onlyDrawables);
 
     /// @brief true if a value of type T can be parsed from string
     template<typename T>

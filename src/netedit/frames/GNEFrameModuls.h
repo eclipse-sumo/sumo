@@ -98,7 +98,7 @@ public:
         std::vector<std::pair<std::string, GNETagProperties::TagType> > myListOfTagTypes;
 
         /// @brief list of tags that will be shown in Match Box
-        std::vector<SumoXMLTag> myListOfTags;
+        std::vector<std::pair<SumoXMLTag, const std::string> > myListOfTags;
 
         /// @brief dummy tag properties used if user select an invalid tag
         GNETagProperties myInvalidTagProperty;

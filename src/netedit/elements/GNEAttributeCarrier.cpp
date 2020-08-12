@@ -514,9 +514,9 @@ GNEAttributeCarrier::allowedTags(const bool onlyDrawables) {
 }
 
 
-std::vector<SumoXMLTag>
-GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const bool onlyDrawables) {
-    std::vector<SumoXMLTag> allowedTags;
+std::vector<std::pair<SumoXMLTag, const std::string> >
+GNEAttributeCarrier::getAllowedTagsByCategory(const int tagPropertyCategory, const bool onlyDrawables) {
+    std::vector<std::pair<SumoXMLTag, const std::string> > allowedTags;
     // define on first access
     if (myTagProperties.size() == 0) {
         fillAttributeCarriers();
@@ -525,7 +525,7 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill networkElements tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isNetworkElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -533,7 +533,7 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill additional tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isAdditionalElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -541,7 +541,7 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill shape tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isShape() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -549,7 +549,7 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill taz tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isTAZElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -557,47 +557,49 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isDemandElement() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::ROUTE) {
-        // fill demand tags
+        // fill route tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isRoute() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::VEHICLE) {
-        // fill demand tags
-        for (const auto& tagProperty : myTagProperties) {
-            if (tagProperty.second.isVehicle() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
-            }
-        }
+        // fill vehicle tags (Special case)
+        allowedTags.push_back(std::make_pair(SUMO_TAG_TRIP,             "trip"));
+        allowedTags.push_back(std::make_pair(SUMO_TAG_VEHICLE,          "vehicle (over route)"));
+        allowedTags.push_back(std::make_pair(GNE_TAG_VEHICLE_WITHROUTE, "vehicle (embedded route)"));
+        allowedTags.push_back(std::make_pair(SUMO_TAG_FLOW,             "flow (from-to)"));
+        allowedTags.push_back(std::make_pair(GNE_TAG_FLOW_ROUTE,        "flow (over route)"));
+        allowedTags.push_back(std::make_pair(GNE_TAG_FLOW_WITHROUTE,    "flow (embedded route)"));
+
     }
     if (tagPropertyCategory & GNETagProperties::STOP) {
-        // fill demand tags
+        // fill stop tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isStop() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::PERSON) {
-        // fill demand tags
+        // fill person tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isPerson() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
     if (tagPropertyCategory & GNETagProperties::PERSONPLAN) {
-        // fill demand tags
+        // fill person plan tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isPersonPlan() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -605,7 +607,7 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isPersonTrip() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -613,7 +615,7 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isWalk() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -621,7 +623,7 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isRide() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -629,7 +631,7 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill demand tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isPersonStop() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
@@ -637,26 +639,11 @@ GNEAttributeCarrier::allowedTagsByCategory(const int tagPropertyCategory, const 
         // fill generic data tags
         for (const auto& tagProperty : myTagProperties) {
             if (tagProperty.second.isGenericData() && (!onlyDrawables || tagProperty.second.isDrawable())) {
-                allowedTags.push_back(tagProperty.first);
+                allowedTags.push_back(std::make_pair(tagProperty.first, toString(tagProperty.first)));
             }
         }
     }
     return allowedTags;
-}
-
-
-std::vector<std::string>
-GNEAttributeCarrier::allowedTagsByCategoryStr(const int tagPropertyCategory, const bool onlyDrawables) {
-    std::vector<std::string> solution;
-    // get tags
-    std::vector<SumoXMLTag> tags = allowedTagsByCategory(tagPropertyCategory, onlyDrawables);
-    // reserve
-    solution.reserve(tags.size());
-    // iterate over tags
-    for (const auto& tag : tags) {
-        solution.push_back(toString(tag));
-    }
-    return solution;
 }
 
 // ===========================================================================

@@ -171,15 +171,15 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
         // fill myListOfTags with personTrips (the first Tag Type)
-        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
+        myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
     } else {
         myTagTypesMatchBox->hide();
         // fill myListOfTags
-        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
+        myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(type, onlyDrawables);
     }
     // fill myTypeMatchBox with list of tags
-    for (const auto& i : myListOfTags) {
-        myTagsMatchBox->appendItem(toString(i).c_str());
+    for (const auto& tag : myListOfTags) {
+        myTagsMatchBox->appendItem(tag.second.c_str());
     }
     // Set visible items
     myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -218,12 +218,12 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
         if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
             myTagsMatchBox->setCurrentItem(i);
             // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, true);
+            myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, true);
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& j : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(j).c_str());
+            for (const auto& tag : myListOfTags) {
+                myTagsMatchBox->appendItem(tag.second.c_str());
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -265,13 +265,13 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
             // set color of myTagTypesMatchBox to black (valid)
             myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
             // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(i.second, true);
+            myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(i.second, true);
             // show and clear myTagsMatchBox
             myTagsMatchBox->show();
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& j : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(j).c_str());
+            for (const auto& tag : myListOfTags) {
+                myTagsMatchBox->appendItem(tag.second.c_str());
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -298,12 +298,12 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
 long
 GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myListOfTags) {
-        if (toString(i) == myTagsMatchBox->getText().text()) {
+    for (const auto& tag : myListOfTags) {
+        if (tag.second == myTagsMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(tag.first);
             // call tag selected function
             myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode
@@ -345,9 +345,11 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr) {
     // fill myDemandElementTags
-    for (const auto& i : tagTypes) {
-        auto tags = GNEAttributeCarrier::allowedTagsByCategory(i, false);
-        myDemandElementTags.insert(myDemandElementTags.end(), tags.begin(), tags.end());
+    for (const auto& tagType : tagTypes) {
+        const auto tagsByCategory = GNEAttributeCarrier::getAllowedTagsByCategory(tagType, false);
+        for (const auto &tagByCategory : tagsByCategory) {
+            myDemandElementTags.push_back(tagByCategory.first);
+        }
     }
     // Create FXComboBox
     myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
@@ -371,6 +373,7 @@ const std::vector<SumoXMLTag>&
 GNEFrameModuls::DemandElementSelector::getAllowedTags() const {
     return myDemandElementTags;
 }
+
 
 void
 GNEFrameModuls::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
@@ -1684,11 +1687,11 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
     // make sure that we're editing an additional tag
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
-    for (auto i : listOfTags) {
-        if (i == additionalType) {
+    const auto listOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
+    for (const auto tag : listOfTags) {
+        if (tag.first == additionalType) {
             myParentTag = additionalType;
-            myParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
+            myParentsLabel->setText(("Parent type: " + tag.second).c_str());
             refreshSelectorParentModul();
             show();
             return true;

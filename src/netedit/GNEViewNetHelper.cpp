@@ -2748,10 +2748,10 @@ GNEViewNetHelper::IntervalBar::updateIntervalBar() {
                 myGenericDataTypesComboBox->appendItem(myAllGenericDatas);
                 myDataSetsComboBox->appendItem(myAllDataSets);
                 // get all generic data types
-                const auto genericDataTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::GENERICDATA, false);
+                const auto genericDataTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::GENERICDATA, false);
                 // add all generic data types
                 for (const auto& dataTag : genericDataTags) {
-                    myGenericDataTypesComboBox->appendItem(toString(dataTag).c_str());
+                    myGenericDataTypesComboBox->appendItem(dataTag.second.c_str());
                 }
                 myGenericDataTypesComboBox->setNumVisible(myGenericDataTypesComboBox->getNumItems());
                 // add data sets
@@ -2839,12 +2839,14 @@ GNEViewNetHelper::IntervalBar::setGenericDataType() {
         myGenericDataTypesComboBox->setText(myAllGenericDatas);
     } else {
         // get all generic data types
-        const auto genericDataTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::GENERICDATA, false);
-        // convert all to strings
-        if (std::find(genericDataTags.begin(), genericDataTags.end(), myGenericDataTypesComboBox->getText().text()) != genericDataTags.end()) {
-            myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
-        } else {
-            myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
+        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::GENERICDATA, false);
+        // set invalid color
+        myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
+        // set valid color depending of myGenericDataTypesComboBox
+        for (const auto & genericDataTag : genericDataTags) {
+            if (genericDataTag.second == myGenericDataTypesComboBox->getText().text()) {
+                myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
+            }
         }
     }
     // update comboBox attributes

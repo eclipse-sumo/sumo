@@ -487,23 +487,23 @@ GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
     // Clear items of myMatchTagComboBox
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
-    std::vector<std::string> ACTags;
+    std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::NETWORKELEMENT, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::ADDITIONALELEMENT, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::SHAPE, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::TAZELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::TAZELEMENT, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategoryStr(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
         throw ProcessError("Invalid element set");
     }
     // fill combo box
     for (const auto& ACTag : ACTags) {
-        myMatchTagComboBox->appendItem(ACTag.c_str());
+        myMatchTagComboBox->appendItem(ACTag.second.c_str());
     }
     // set first item as current item
     myMatchTagComboBox->setCurrentItem(0);
@@ -543,24 +543,24 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // find current element tag
-    std::vector<SumoXMLTag> ACTags;
+    std::vector<std::pair<SumoXMLTag, const std::string> > ACTags;
     if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::NETWORKELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::NETWORKELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::ADDITIONALELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::SHAPE) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::TAZELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, true);
     } else if (mySelectorFrameParent->myElementSet->getElementSet() == ElementSet::Type::DEMANDELEMENT) {
-        ACTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
+        ACTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT | GNETagProperties::TagType::STOP, true);
     } else {
         throw ProcessError("Unkown set");
     }
     // fill myMatchTagComboBox
     for (const auto& ACTag : ACTags) {
-        if (toString(ACTag) == myMatchTagComboBox->getText().text()) {
-            myCurrentTag = ACTag;
+        if (ACTag.second == myMatchTagComboBox->getText().text()) {
+            myCurrentTag = ACTag.first;
         }
     }
     // check that typed-by-user value is correct
@@ -867,10 +867,10 @@ GNESelectorFrame::MatchGenericDataAttribute::enableMatchGenericDataAttribute() {
         myEnd->setText(toString(myIntervals.begin()->first.second).c_str());
         myEnd->setTextColor(FXRGB(0, 0, 0));
         // get generic datas
-        std::vector<SumoXMLTag> genericDataTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
+        const auto genericDataTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
         // fill combo box
         for (const auto& genericDataTag : genericDataTags) {
-            myMatchGenericDataTagComboBox->appendItem(toString(genericDataTag).c_str());
+            myMatchGenericDataTagComboBox->appendItem(genericDataTag.second.c_str());
         }
         // set first item as current item
         myMatchGenericDataTagComboBox->setCurrentItem(0);
@@ -987,11 +987,11 @@ GNESelectorFrame::MatchGenericDataAttribute::onCmdSelectTag(FXObject*, FXSelecto
     // First check what type of elementes is being selected
     myCurrentTag = SUMO_TAG_NOTHING;
     // get generic data tags
-    std::vector<SumoXMLTag> listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
+    const auto listOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::GENERICDATA, true);
     // fill myMatchGenericDataTagComboBox
     for (const auto& genericDataTag : listOfTags) {
-        if (toString(genericDataTag) == myMatchGenericDataTagComboBox->getText().text()) {
-            myCurrentTag = genericDataTag;
+        if (genericDataTag.second == myMatchGenericDataTagComboBox->getText().text()) {
+            myCurrentTag = genericDataTag.first;
         }
     }
     // check that typed-by-user value is correct

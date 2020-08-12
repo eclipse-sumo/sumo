@@ -44,28 +44,28 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
     myNet(net),
     myAllowUndoShapes(true) {
     // fill additionals with tags
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
-    for (const auto& additionalTag : listOfTags) {
-        myAdditionals.insert(std::make_pair(additionalTag, std::map<std::string, GNEAdditional*>()));
+    auto additionalTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
+    for (const auto& additionalTag : additionalTags) {
+        myAdditionals.insert(std::make_pair(additionalTag.first, std::map<std::string, GNEAdditional*>()));
     }
     // fill shapes with tags
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::SHAPE, false);
-    for (const auto& shapeTag : listOfTags) {
-        myShapes.insert(std::make_pair(shapeTag, std::map<std::string, GNEShape*>()));
+    auto shapeTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::SHAPE, false);
+    for (const auto& shapeTag : shapeTags) {
+        myShapes.insert(std::make_pair(shapeTag.first, std::map<std::string, GNEShape*>()));
     }
     // fill TAZElements with tags
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, false);
-    for (const auto& TAZElementTag : listOfTags) {
-        myTAZElements.insert(std::make_pair(TAZElementTag, std::map<std::string, GNETAZElement*>()));
+    auto TAZElementTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::TAZELEMENT, false);
+    for (const auto& TAZElementTag : TAZElementTags) {
+        myTAZElements.insert(std::make_pair(TAZElementTag.first, std::map<std::string, GNETAZElement*>()));
     }
     // fill demand elements with tags
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
-    for (const auto& demandTag : listOfTags) {
-        myDemandElements.insert(std::make_pair(demandTag, std::map<std::string, GNEDemandElement*>()));
+    auto demandElementTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::DEMANDELEMENT, false);
+    for (const auto& demandElementTag : demandElementTags) {
+        myDemandElements.insert(std::make_pair(demandElementTag.first, std::map<std::string, GNEDemandElement*>()));
     }
-    listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::STOP, false);
-    for (const auto& stopTag : listOfTags) {
-        myDemandElements.insert(std::make_pair(stopTag, std::map<std::string, GNEDemandElement*>()));
+    auto stopTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::STOP, false);
+    for (const auto& stopTag : stopTags) {
+        myDemandElements.insert(std::make_pair(stopTag.first, std::map<std::string, GNEDemandElement*>()));
     }
 }
 
