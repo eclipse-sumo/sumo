@@ -42,7 +42,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
 - extracted drawing of lane geometries
 - added projection information to the network
 - edge types may now store the edge function
-- removed the unneded slow lane changer
+- removed the unneeded slow lane changer
 - VISUM: lane connections for unsplitted lanes implemented, further
   refactoring
 - retrieval of microsim ids is now also done using getID() instead of
@@ -58,7 +58,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
 - got rid of the cell-to-meter conversions
 - began with the extraction of the car-following-model from MSVehicle
 - began the work on a network editor
-- added consective process messages
+- added consecutive process messages
 - debugged splitting of matrices
 - added the possibility to stretch/change the current phase and
   consecutive phases
@@ -69,7 +69,7 @@ permalink: /Z/Changes_from_version_0.9.5_to_version_0.9.6/
   dictionary; MSVehicle is completely scheduled by MSVehicleControl;
   new lanechanging algorithm
 - tls switches added
-- made the assertion that two consecutive edge geomtry points must not
+- made the assertion that two consecutive edge geometry points must not
   be same less aggressive
 - made MSVehicleControl completely responsible for vehicle handling\*
   MSVehicle has no longer a static dictionary
