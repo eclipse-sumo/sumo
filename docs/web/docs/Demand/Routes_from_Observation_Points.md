@@ -3,7 +3,7 @@ title: Demand/Routes from Observation Points
 permalink: /Demand/Routes_from_Observation_Points/
 ---
 # Introduction
-Traffic counts are a common form of traffic data. This data may be available from automated counting devices such as induction loops or radar detectors or it may be obtained from manual counts. The counts apply to a specifc time range and the data may cover multiple time slices. It is also possible to distinguish counts for differet types of vehicles.
+Traffic counts are a common form of traffic data. This data may be available from automated counting devices such as induction loops or radar detectors or it may be obtained from manual counts. The counts apply to a specific time range and the data may cover multiple time slices. It is also possible to distinguish counts for different types of vehicles.
 
 SUMO provides several tools to generate traffic demand from such counting data. The generated traffic demand typically describes vehicles and their routes through the network along with their departure time. Sometimes vehicles that use the same route are grouped into `<flow>`-definitions. 
 
@@ -19,8 +19,8 @@ The generated traffic should obviously match the counting data but this requirem
 The algorithms listed above where developed to solve different problems and may work badly when used on the wrong kind of problem.
 
 - dfrouter requires that all edges which are used as sources and sinks of traffic are provided with traffic count data. In contrast, flowrouter can infer traffic on those edges from measurements at intermediate locations.
-- dfrouter and jtcrouter have no capability for calibrating generated routes among the set of all routes that fit the measurment data. They can provide good results on motorway networks but produce implausible routes in highly meshed networks (i.e. cities).
-- flowrouter can use a blacklist to avoid implausible routes. The tool [implausibleRoutes.py](../Tools/Routes.md#implausibleroutespy) can be used to generate restrictions for routes that are implausible according to a configurable heuristic. When the set of implausible routes is very large (which is often the case due to a combinatorical explosion of possible routes), creating such a blacklist may be infeasible.
+- dfrouter and jtcrouter have no capability for calibrating generated routes among the set of all routes that fit the measurement data. They can provide good results on motorway networks but produce implausible routes in highly meshed networks (i.e. cities).
+- flowrouter can use a blacklist to avoid implausible routes. The tool [implausibleRoutes.py](../Tools/Routes.md#implausibleroutespy) can be used to generate restrictions for routes that are implausible according to a configurable heuristic. When the set of implausible routes is very large (which is often the case due to a combinatorial explosion of possible routes), creating such a blacklist may be infeasible.
 - routeSampler uses a whitelist to restrict the set of routes that can be used to construct a solution. Generating a sufficient set of plausible routes is easier than listing all implausible routes.
 - routeSampler is the only tool that can use edge-count data together with turn-count data
 
@@ -79,7 +79,7 @@ lane it is placed on, and a position on the lane. To be exact:
 Given a network and the list of detectors,
 [dfrouter](../dfrouter.md) assigns types to detectors and saves the
 so extended list into a file if the option **--detectors-output <DETECTOR_OUTPUT_FILE\>** is given. This list looks
-like the input described above except that an aditional attribute is
+like the input described above except that an additional attribute is
 given for each detector, "type", which may have one of the following
 values: "source", "sink", "between", and "discarded". You can also
 generate a list of points of interests (POIs) which can be read by
@@ -88,7 +88,7 @@ is colored by the detector type: green for source detectors, red for
 sink detectors, blue for in-between detectors, and black for discarded
 detectors. To force [dfrouter](../dfrouter.md) to do this, use **--detectors-poi-output <POI_FILENAME\>**.
 
-When wished, if for example other parameters chage, the extended
+When wished, if for example other parameters change, the extended
 <DETECTOR_OUTPUT_FILE\> can be fed back again into
 [dfrouter](../dfrouter.md) instead of the previous <DETECTOR_FILE\>.
 In this case the detector types do not have to be computed again. To

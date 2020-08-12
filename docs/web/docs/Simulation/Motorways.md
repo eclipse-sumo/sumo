@@ -25,7 +25,7 @@ off-ramps.
 Ramps usually merge into the main road via an acceleration lane. This acceleration lane opens up where the ramp enters the motorway and is modelled as a dead-end lane (no outgoing connection). This forces on-ramp vehicles to change lanes in order to continue their route.
 
 It may be useful to make acceleration lanes in SUMO somewhat longer than in reality.
-This compensates the cautious default behavior of SUMO drivers: Vehicles on the acceleration lane will decelerate when approaching the end of that lane since they cannot anticipate with certainty whether their lanechange will be successful. In contrast, human drivers are better ant predicting the future and may accelerate up to the nd of the acceleration lane (and then change into the anticipated gap at the last moment)
+This compensates the cautious default behavior of SUMO drivers: Vehicles on the acceleration lane will decelerate when approaching the end of that lane since they cannot anticipate with certainty whether their lanechange will be successful. In contrast, human drivers are better at predicting the future and may accelerate up to the end of the acceleration lane (and then change into the anticipated gap at the last moment)
 
 ### Reduction in the number of lanes
 

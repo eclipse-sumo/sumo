@@ -184,7 +184,7 @@ error and will yield in a program stop:
   This may cause collision if unsafe signal plans are used. Note, that
   collisions within the intersection will never be detected.
 - `priority_stop`: This works like a
-  *priority*-junction but vehicles on minor links alway have to stop
+  *priority*-junction but vehicles on minor links always have to stop
   before passing
 - `allway_stop`: This junction works like
   an [*All-way stop*](https://en.wikipedia.org/wiki/All-way_stop)

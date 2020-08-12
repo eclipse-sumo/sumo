@@ -207,7 +207,7 @@ The attributes of a lane are:
 | **index**  | running number (unsigned int) | A running number, starting with zero at the right-most lane   |
 | **speed**  | float                         | The maximum speed allowed on this lane \[m/s\]                |
 | **length** | float                         | The length of this lane \[m\]                                 |
-| **shape**  | position vector               | The geometry of the lane, given by a polyline that describes the lane's centre line; must not be empty or have less than two positions |
+| **shape**  | position vector               | The geometry of the lane, given by a polyline that describes the lane's center line; must not be empty or have less than two positions |
 
 It should be noted, that currently all lanes of an edge have the same
 length, even if it differs from the geometrical length of the shape.
@@ -328,11 +328,11 @@ The junction itself is described by the following attributes:
 | customShape  | bool              | Whether the shape was customized by the user (and should thus not be rebuilt by [netconvert](../netconvert.md) or [netedit](../netedit.md)), default *False* |
 
 Please note, that the x/y-positions of the junction describe the given,
-not the computed centre of the junction. It is allowed for two nodes to
+not the computed center of the junction. It is allowed for two nodes to
 have the same position.
 
 !!! caution
-    The maximum number of connections (links) per junction is limited to 256 since version 0.25.0. In earlier versions of sumoe the limit was 64.
+    The maximum number of connections (links) per junction is limited to 256 since version 0.25.0. In earlier versions of sumo the limit was 64.
 
 #### Requests
 

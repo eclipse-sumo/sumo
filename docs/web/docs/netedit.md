@@ -269,7 +269,7 @@ with multiple elements of the same type this mode behaves differently:
 #### Generic Parameters
 Most simulation objects support [Generic Parameters](Simulation/GenericParameters.md) to express custom user data and supplemental configurations. They can be edited with the 'Edit parameters' dialog which is accessible with the 'Edit parameters' button. 
 
-In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by netedit (though peritted by SUMO). 
+In inspect mode, a serialized form of the parameters is also given. In this form, all parameters are concatenated using the '=' sign between key and value and by using the '|' sign between parameters. Serialization of key value pars that use these separating characters in their key or value is currently not supported by netedit (though permitted by SUMO). 
 The serialized form is useful in select mode when selecting objects with a particular parameter.
 
 #### Edge template
@@ -397,7 +397,7 @@ comparison operator ('<', '\>', '=') and a number.
 - For string attributes the match expression must consist of a
 comparison operator ('', '=', '\!', '^') and a string.
   - *(no operator) matches if string is a substring of that
-    object'ts attribute.*
+    object's attribute.*
   - '=' matches if string is an exact match.
   - '\!' matches if string is not a substring.
   - '^' matches if string is not an exact match.
@@ -689,7 +689,7 @@ associated with certain weights for the inputs (Sources) and outputs
 (Sinks) (Similar to a [Flow
 Network](https://en.wikipedia.org/wiki/Flow_network)).
 
-The creation of TAZs requiere two steps:
+The creation of TAZs require two steps:
 
 1\) **Creation of the polygon (similar to a polygon shape):** Press
 *Start drawing* button (or alternatively press ENTER key) and click over
@@ -913,7 +913,7 @@ Person plans can be sorted clicking over person plan in hierarchy.
 
 ### Person plan mode
 
-Person plans can be extended using the PersonPlan frame. Once the Person plan frame is opened, a person or a personFlow has to be choosen. Then the last edge of the plan will be marked, and the new created person plans will start from there.
+Person plans can be extended using the PersonPlan frame. Once the Person plan frame is opened, a person or a personFlow has to be chosen. Then the last edge of the plan will be marked, and the new created person plans will start from there.
 
 ![](images/PersonPlanCreator1.png)Person_0 has only a trip, and the last edge of person's trip is marked (green)
 
@@ -1195,7 +1195,7 @@ normal traffic demand of the simulation does not reach the specified
 number of vehsPerHour. Furthermore, the defined edge speed will be
 adjusted to the specified speed similar of the operation of a variable
 speed sign. Calibrators will also remove vehicles if the traffic on
-their lane is jammend beyond the specified flow and speed. This ensures
+their lane is jammed beyond the specified flow and speed. This ensures
 that invalid jams do not grow upstream past a calibrator. A double click
 over the calibrator icon opens the values editor.
 
@@ -1265,7 +1265,7 @@ values editor.
 
 ## Edge and Lane
 
-- *Split edge here*: Split an edge into two differentes edges
+- *Split edge here*: Split an edge into two different edges
   connected with a junction.
 
 ![](images/neteditSplit1.png)Edge is splitted in the mouse cursor position
@@ -1274,7 +1274,7 @@ values editor.
 - *Split edge in both directions here*: Is similar to *Split edge
   here*, but generate splitted edges in both directions.
 - *Reverse edge*: Reverse the direction of an edge. If the ID of the
-  start and end junctions of edge are respectively A and B, afer this
+  start and end junctions of edge are respectively A and B, after this
   operation start and end junction will be B and A.
 - *Add reverse direction*: If don't exist, add a revere edge between
   two junctions
@@ -1498,7 +1498,7 @@ Assuming you have a regular intersection
 
 - **Visual example**
 
-![](images/RoundAbout1.png)We have a itersection(Junction) with four edges.
+![](images/RoundAbout1.png)We have a intersection (Junction) with four edges.
 ![](images/RoundAbout2.png)Split edges in both direction in every edge to
 create new junctions.
 

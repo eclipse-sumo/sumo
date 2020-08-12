@@ -78,7 +78,7 @@ form:
 
 ## Differentiated Probabilities
 
-To destinguish the set of source and sink edges (or their probabilities
+To distinguish the set of source and sink edges (or their probabilities
 respectively) use the following definition:
 
 ```
@@ -104,7 +104,7 @@ destination lists are normalized after loading.
 
 ## Creating TAZ files
 
-- TAZ definitions can be created direclty in
+- TAZ definitions can be created directly in
   [netedit](../../netedit.md#taz_traffic_analysis_zones)
 - TAZ definitions can be created by drawing polygons in
   [netedit](../../netedit.md#pois_and_polygons), then using the tool
@@ -275,7 +275,7 @@ separated by ','. Each time and probability field is made up of two
 values, an integer time being the simulation time in seconds and a
 floating point number describing the probability. These two values are
 separated using a ':'. At least two values must be supplied making the
-definition of a timeline in this case being decribeable by the following
+definition of a timeline in this case being describable by the following
 BNF-formula:
 
 ```

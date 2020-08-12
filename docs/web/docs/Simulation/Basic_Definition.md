@@ -44,7 +44,7 @@ You may also give routes including vehicle definitions as {{AdditionalFile}} to
 
 One ore more {{AdditionalFile}}(s) are used to load additional entities:
 
-- infrastructure relateded things: [traffic light
+- infrastructure related things: [traffic light
   programs](../Simulation/Traffic_Lights.md), [induction
   loops](../Simulation/Output/Induction_Loops_Detectors_(E1).md)
   and [bus stops](../Simulation/Public_Transport.md)

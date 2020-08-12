@@ -73,7 +73,7 @@ This device serves as an implementation example for custom devices.
 The suggested way for creating a new device is to create a new class by
 copying the files *src/microsim/devices/MSDevice_Example.{h,cpp}*.
 
-In ordert to compile the new class it must be added to
+In order to compile the new class it must be added to
 **src/microsim/devices/Makefile.am** (on Linux) or added to project
 **z_libmicrosim_devices** (on Windows).
 

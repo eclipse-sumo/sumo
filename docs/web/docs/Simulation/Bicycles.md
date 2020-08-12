@@ -29,7 +29,7 @@ type:
 
 Note, that that the `guiShape="bicycle"` along with [sensible default
 parameters](../Vehicle_Type_Parameter_Defaults.md) are
-automatically used when specifying `vClass="bicycle"`. By adapating [vType-parameters for
+automatically used when specifying `vClass="bicycle"`. By adapting [vType-parameters for
 acceleration,deceleration,maximumSpeed,etc..](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
 different cyclist types can be modelled.
 
@@ -56,7 +56,7 @@ script](../TraCI.md). This approach is described in [Integration of
 an external bicycle model in SUMO, Heather
 Twaddle 2016](https://www.researchgate.net/publication/302909195_Integration_of_an_External_Bicycle_Model_in_SUMO).
 
-## Bicyles as fast pedestrians
+## Bicycles as fast pedestrians
 
 In this case, persons walking at high speed are used.
 

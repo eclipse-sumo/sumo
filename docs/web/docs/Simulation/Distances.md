@@ -18,7 +18,7 @@ whereas the other systems are for visualization and output.
 By default, the length of a straight edge corresponds to the euclidean distance
 between its start and end positions (x,y). 
 
-However, lenghts of edges and lanes can be different from the euclidean
+However, lengths of edges and lanes can be different from the euclidean
 distance (referred to as a **length-geometry-mismtach**) are there are several reasons why this occurs.
 
 
@@ -31,7 +31,7 @@ lanes in a curve are longer than inner lanes.
 
 ## No-internal-links (meso)
 When running a simulation with option **--no-internal-links** or **--mesosim**
-(which implies **--no-internal-links**) then [vehicles will "jump" accross
+(which implies **--no-internal-links**) then [vehicles will "jump" across
 intersections](Intersections.md#internal_links).
 This discontinuity obviously introduces a mismatch between driving distance and
 x,y coordinates.

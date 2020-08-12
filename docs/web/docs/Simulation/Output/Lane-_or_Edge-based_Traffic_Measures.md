@@ -181,7 +181,7 @@ Sometimes one wants to know how many vehicles were on an edge. The exact
 definition of this value depends on how departed, arrived and
 lane-changing vehicles are counted. Each vehicle is either in *arrived*,
 *left* or *laneChangedFrom* and each vehicle is also either in
-*departed*, *entered* or *laneChangedTo*. Hoever, a vehicle may be
+*departed*, *entered* or *laneChangedTo*. However, a vehicle may be
 counted multiple times in *laneChangedFrom* and *laneChangedTo* if it
 performed back-and-forth lane changing.
 

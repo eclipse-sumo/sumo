@@ -161,7 +161,7 @@ sumo.exe test.sumocfg
 
 ## Naming Conventions for Configuration Files
 
-Depending on the targetted application, the configuration files have
+Depending on the targeted application, the configuration files have
 different extensions. It is highly recommended to follow this
 convention. For using simulation configurations with
 [sumo-gui](../sumo-gui.md) this is even required -

@@ -37,7 +37,7 @@ alternatives below.
   1.6.x. It is highly recommended to also install Proj to have support
   for geo-conversion and referencing. Another common requirement is
   network import from shapefile (arcgis). This requires the GDAL
-  libray. To compile you will need the devel versions of all packages.
+  library. To compile you will need the devel versions of all packages.
   For openSUSE this means installing libxerces-c-devel, libproj-devel,
   libgdal-devel, and fox16-devel. There are some [platform specific
   and manual build instructions for the

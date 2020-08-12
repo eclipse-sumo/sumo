@@ -84,13 +84,13 @@ old probability <img src="http://latex.codecogs.com/gif.latex?p_r" border="0" st
 
 ### Gawron (default)
 
-The Gawron algorithm computes probabilities for chosing from a set of
-alterantive routes for each driver. The following values are considered
+The Gawron algorithm computes probabilities for choosing from a set of
+alternative routes for each driver. The following values are considered
 to compute these probabilities:
 
 - the travel time along the used route in the previous simulation step
 - the sum of edge travel times for a set of alternative routes
-- the previous probability of chosing a route
+- the previous probability of choosing a route
 
 ### Logit
 
@@ -131,7 +131,7 @@ duaIterate.py -n ... -t ... -l ...
   duarouter--vtype-output dummy.xml
 ```
 
-Options preceeded by the string *duarouter--* are passed directly to
+Options preceded by the string *duarouter--* are passed directly to
 duarouter and the option *vtype-output dummy.xml* must be used to
 prevent duplicate definition of vehicle types in the generated output
 files.

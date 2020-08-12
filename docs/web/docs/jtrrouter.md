@@ -74,7 +74,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
-| **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; *default:* **false** |
+| **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | Write generated routes to FILE |
 | **--vtype-output** {{DT_FILE}} | Write used vehicle types into separate FILE |
 | **--keep-vtype-distributions** {{DT_BOOL}} | Keep vTypeDistribution ids when writing vehicles and their types; *default:* **false** |
@@ -97,7 +97,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--weights.minor-penalty** {{DT_FLOAT}} | Apply the given time penalty when computing routing costs for minor-link internal lanes; *default:* **1.5** |
 | **--with-taz** {{DT_BOOL}} | Use origin and destination zones (districts) for in- and output; *default:* **false** |
 | **--mapmatch.distance** {{DT_FLOAT}} | Maximum distance when mapping input coordinates (fromXY etc.) to the road network; *default:* **100** |
-| **--mapmatch.junctions** {{DT_BOOL}} | Match postions to junctions instead of edges; *default:* **false** |
+| **--mapmatch.junctions** {{DT_BOOL}} | Match positions to junctions instead of edges; *default:* **false** |
 | **--bulk-routing** {{DT_BOOL}} | Aggregate routing queries with the same origin; *default:* **false** |
 | **--routing-threads** {{DT_INT}} | The number of parallel execution threads used for routing; *default:* **0** |
 | **--restriction-params** {{DT_STR[]}} | Comma separated list of param keys to compare for additional restrictions |
@@ -108,7 +108,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **-i** {{DT_BOOL}}<br> **--ignore-vclasses** {{DT_BOOL}} | Ignore road restrictions based on vehicle class; *default:* **false** |
 | **--allow-loops** {{DT_BOOL}} | Allow to re-use a road; *default:* **false** |
 | **-S** {{DT_BOOL}}<br> **--sources-are-sinks** {{DT_BOOL}} | Use all source edges as sink edges.; *default:* **false** |
-| **-D** {{DT_BOOL}}<br> **--discount-sources** {{DT_BOOL}} | Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remainig part termines.; *default:* **false** |
+| **-D** {{DT_BOOL}}<br> **--discount-sources** {{DT_BOOL}} | Subtract upstream flow when inserting a new flow. When option --sources-are-sinks is set, the upstream flow is limited to the value of the source flow and the remaining part terminates.; *default:* **false** |
 
 ### Defaults
 

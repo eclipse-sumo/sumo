@@ -67,7 +67,7 @@ tricks for working with these is described.
 
 [VISUM](http://www.ptvag.com/traffic/software/visum/) does not work with
 the lane numbers of streets, instead, the streets' capacities are used.
-This means that under circumstances the informationabout the edges' lane
+This means that under circumstances the information about the edges' lane
 numbers are missing. Still, one can try to obtain the lane number from
 the given edges' capacities. An approximation is:
 

@@ -29,8 +29,8 @@ exclusively of [edges that allow
 only](../Networks/PlainXML.md#edge_descriptions)
 trains) within its simulation, it is not required to use rail signals.
 Instead one could choose all junctions withing this network to be of the
-type *priority*, which results, however, in an unrealistic behaviour of
-the rail traffic. To achieve a more realistic behaviour, one can make
+type *priority*, which results, however, in an unrealistic behavior of
+the rail traffic. To achieve a more realistic behavior, one can make
 use of rail signals. For that, one can split a longer rail section
 without any junctions in between into so called *blocks*, by choosing
 nodes within this section to have rail signals. Then, a *block* is the
@@ -50,11 +50,11 @@ depends on its adjacent rail signals (or rather the blocks between the
 adjacent rail signals and itself). For rail sections without
 junctions/railroad switches, one can split them into as many blocks as
 one desires, but a block length of a few hundred metres can be
-reasonable size. Too large block lengths can result in long waiting tims
+reasonable size. Too large block lengths can result in long waiting times
 for trains waiting to enter a block. Too short block lengths can result
 in trains following each other very closely.
 
-# Behaviour
+# Behavior
 
 Rail signals are essentially traffic lights, however their state does
 not depend on TLS-programs. Instead, the state of a rail signal depends
@@ -69,7 +69,7 @@ The logic of the rail signals shall guarantee the following points:
   of these trains gets a green signal and all other trains get a red
   signal, even before one of these trains has entered the targeted
   lane. This will avoid that trains approach a rail signal with high
-  velocity and receive suddently a red signal without having enough
+  velocity and receive suddenly a red signal without having enough
   space to break before the rail signal.
 
 A rail signal indicates green or red for each
@@ -98,8 +98,8 @@ signals for all connections in *C* are red. If the outgoing block of *c*
 is not occupied by a train and all blocks leading to *o* are not
 occupied, i.e. *|D|=0*, then the signals for all connections in *C* are
 green. If the outgoing block of *c* is not occupied by a train, and at
-least one block leading to *o* is occpuied by a train, i.e. *|D|\>0*,
-then exactly one connetion in *D* has a green signal and all other
+least one block leading to *o* is occupied by a train, i.e. *|D|\>0*,
+then exactly one connection in *D* has a green signal and all other
 connections in *C* have a red signal.
 
 ![](../images/Outgoing_rail.png "Fig. 1")

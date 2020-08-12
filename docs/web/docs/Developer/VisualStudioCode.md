@@ -20,7 +20,7 @@ The proprietary binaries for Visual Studio Code can be downloaded from [here](ht
 The standard installation of Visual Studio Code does provide only basic support for source code editing in C/C++ and Python. For this purpose, Visual Studio Code can be extended with plugins to provide additional functionality. We recommend (at least) the following plugins:
 
 * **C/C++** from Microsoft to simplify code browsing, enable code completion and debugging
-* **CMake Tools** from Microsoft to benfit from CMake build support 
+* **CMake Tools** from Microsoft to benefit from CMake build support 
 * **Python** by Microsoft to benefit from code browing, code completion and debugging in Python
 * **CMake** by twxs to have support for the CMake specification language when editing `CMakeLists.txt` files
 
@@ -47,11 +47,11 @@ You can now open the local SUMO git repository in Visual Studio Code with `File`
 
 ### CMake Configuration
 
-The CMake Tools plugin should automatically recognize the `CMakeLists.txt` file in the top-level SUMO directory and trigger a CMake configuration to find the compilers and available libaries. You can see the results of that process in the output window on the bottom.
+The CMake Tools plugin should automatically recognize the `CMakeLists.txt` file in the top-level SUMO directory and trigger a CMake configuration to find the compilers and available libraries. You can see the results of that process in the output window on the bottom.
 
 ![Visual Studio Code CMake Configuration Output](../images/VSCodeCmakeConfig.png)
 
-You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are refered to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (`Command+Shift+P` on macOS) and enter `CMake: Select a kit`. 
+You may have different C/C++ compilers installed on your machine. In CMake, these different compiler installations are referred to as compiler kits. The CMake Tools plugin allows you to switch between different compiler kits by opening the command palette (`Command+Shift+P` on macOS) and enter `CMake: Select a kit`. 
 
 SUMO provides certain features that may be enabled or disabled during compilation. CMake refers to these features as **variants**. These variants are defined in the `cmake-variants.yaml` file in the top-level directory of your SUMO repository. This file describes certain features or properties for the CMake configuration process. In Visual Studio Code, you can easily switch between different predefined variants by using the command palette and entering `CMake: Select Variant`. You should use this feature to quickly switch between a `release` and a `debug` build of SUMO. 
 

@@ -9,7 +9,7 @@ permalink: /Data/Scenarios/TAPASCologne/
 
 ![88x31.png](../../images/88x31.png "88x31.png") The data is available under the
 [Creative Commons](http://creativecommons.org/licenses/by-nc-sa/3.0/)
-licence. You **must tell where the data is from**, it is **not allowed
+license. You **must tell where the data is from**, it is **not allowed
 to use it for commercial** purposes, as soon as you use it **we want to
 be informed** about it (use the
 [sumo-user](https://dev.eclipse.org/mailman/listinfo/sumo-user).
@@ -121,10 +121,10 @@ overall simulation quality.
       (automatic joining failed)
   - ![Image:level16px_-3.gif](../../images/Level16px_-3.gif "Image:level16px_-3.gif") Lane Number Information
     - The information about lane numbers is stored via types,
-      mainly. For several roads, an explicite lane number is
+      mainly. For several roads, an explicit lane number is
       given. It can be safely assumed that many turning-lanes are
       missing.
-    - **todo:** evaluate how much information is given explicitely
+    - **todo:** evaluate how much information is given explicitly
     - **todo:** compare to images, write down lane number per
       street
   - ![Image:level16px_-2.gif](../../images/Level16px_-2.gif "Image:level16px_-2.gif") Maximum Speed Information

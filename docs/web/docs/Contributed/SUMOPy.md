@@ -82,7 +82,7 @@ The following packages are optional:
     different file formats.
 2.  basemap or pyproj for geographic coordinate projection
 3.  PIL-1.1.7 or newer and basemap-1.0 (or pyproj) for downloading
-    backround maps from mapservers.
+    background maps from mapservers.
 
 The exact choice of package-versions and installation methods depend on
 the operating system. Below we give short recommendations regarding the

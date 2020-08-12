@@ -156,7 +156,7 @@ If everything is fine:
 
 The trunk is now open for changes again.
 
-- reenable HAVE_VERSION_H in src/config.h.cmake
+- re-enable HAVE_VERSION_H in src/config.h.cmake
 - rename version to "git" in CMakeLists.txt
 - insert a new empty "Git master" section at the top of the [ChangeLog](../ChangeLog.md)
 - commit changes

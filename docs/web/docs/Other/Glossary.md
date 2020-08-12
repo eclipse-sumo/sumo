@@ -84,7 +84,7 @@ The place an edge begins or ends at (same as node)
   
 - **junction logic**:
 The part of a junction which determines the vehicle
-behaviour at the according junction by using certain right-of-way -
+behavior at the according junction by using certain right-of-way -
 rules
 
 ## L

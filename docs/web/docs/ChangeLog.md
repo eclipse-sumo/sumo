@@ -26,7 +26,7 @@ permalink: /ChangeLog/
   - Fixed sublane model issues #7181, #7182, #3681
   - Random departPos for personFlow is now working. Issue #7210
   - CarFollowModel 'KraussPS' no longer stalls at steep inclines. Issue #2849
-  - Fixed discontinuous acceleration profile and usafe driving when passing a minor link. Issue #7213
+  - Fixed discontinuous acceleration profile and unsafe driving when passing a minor link. Issue #7213
   - Fixed unnecessary waiting at roundabout. Issue #1847
   - Fixed issue where persons would prefer long walks over quick taxi rides. Issue #7216
   - Fixed invalid followSpeed computation in carFollowModel 'W99'. Issue #7229
@@ -113,7 +113,7 @@ permalink: /ChangeLog/
   - **summary-output** now includes number of stopped vehicles. Issue #6966
   - Option **--scale** now also applies to persons. Issue #5564
   - Emission-output is now written only for those vehicles that have an emission device. By default all vehicles get the device when option **--emission-output** is set. This default can be changed by standard device assignment options and configurations. Issue #7079
-  - Added option **--device.emissions.period** to control the period in which emission-output is written. Isue #7079
+  - Added option **--device.emissions.period** to control the period in which emission-output is written. Issue #7079
   - Charging stations now work when a vehicle is parking (either with `parking="true"` or when stopped at a parkingArea and a chargingStation simultaneously). Issue #7068
   - The distance at which vehicles react to device.bluelight can now be configured with option **--device.bluelight.reactiondist**. Issue #7112
   - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148  

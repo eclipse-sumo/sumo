@@ -44,7 +44,7 @@ on sidewalks, crossings or the like, it lacks of the capability to model
 pedestrians in true 2d space (e.g. in buildings, on squares, at train
 stations). Instead of reinventing the wheel we decided to team up with
 JuPedSim and develop a hybrid coupling approach that combines the power
-of both frameworks. The coupling is realized using google's [rotocol
+of both frameworks. The coupling is realized using google's [protocol
 buffers](https://github.com/google/protobuf) over
 [gRPC](https://github.com/grpc), a library for \*remote procedure
 calls\*. Currently this coupling approach is provided as a Docker image.

@@ -44,7 +44,7 @@ Explorer [here](https://www.teacherclick.com/winxp/t_4_1.htm) or
 # Running Programs from the Command Line
 
 SUMO consists of many separate programs for different simulation-related
-tasks (a reference to all the seperate programs can be found
+tasks (a reference to all the separate programs can be found
 [here](../SUMO_at_a_Glance.md#included_applications) and a list of the additional Tools [here](../index.md#additional_tools)).
 Only [sumo-gui](../sumo-gui.md) (*sumo-gui.exe*) and [netedit](../netedit.md) (*netedit.exe*) have a
 graphical user interface (GUI). All other programs must be called from
