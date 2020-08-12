@@ -121,9 +121,9 @@ Person::getLanePosition(const std::string& personID) {
     return getPerson(personID)->getEdgePos();
 }
 
-std::vector<TraCIStage>
+std::vector<TraCIReservation>
 Person::getTaxiReservations(int onlyNew) {
-    std::vector<TraCIStage> result;
+    std::vector<TraCIReservation> result;
     MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
     if (dispatcher != nullptr) {
         MSDispatch_TraCI* traciDispatcher = dynamic_cast<MSDispatch_TraCI*>(dispatcher); 
@@ -138,19 +138,19 @@ Person::getTaxiReservations(int onlyNew) {
                 // reservations become the responsibility of the traci client
                 res->recheck = SUMOTime_MAX;
             }
-            result.push_back(TraCIStage(STAGE_DRIVING,
-                        joinNamedToStringSorting(res->persons, " "), // vType
-                        "taxi", // line
-                        traciDispatcher->getReservationID(res), // destStop
-                        std::vector<std::string>({ res->from->getID(), res->to->getID() }), // edges
-                        STEPS2TIME(res->reservationTime), // traveltime
-                        (double)res->persons.size(), // cost
-                        -1, // length
-                        res->group, // intended
-                        STEPS2TIME(res->pickupTime), // depart
-                        res->fromPos, // departPos
-                        res->toPos, // arrivalPos
-                        "" // description
+            std::vector<std::string> personIDs;
+            for (MSTransportable* p : res->persons) {
+                personIDs.push_back(p->getID());
+            }
+            result.push_back(TraCIReservation(traciDispatcher->getReservationID(res),
+                        personIDs,
+                        res->group,
+                        res->from->getID(),
+                        res->to->getID(),
+                        res->fromPos,
+                        res->toPos,
+                        STEPS2TIME(res->pickupTime),
+                        STEPS2TIME(res->reservationTime)
                         ));
         }
     }

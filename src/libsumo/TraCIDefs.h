@@ -424,4 +424,40 @@ public:
     /// @brief arbitrary description string
     std::string description;
 };
+
+
+
+class TraCIReservation {
+public:
+    TraCIReservation() {}
+    TraCIReservation(const std::string& id, 
+               const std::vector<std::string>& persons,
+               const std::string& group,
+               const std::string& fromEdge,
+               const std::string& toEdge,
+               double departPos,
+               double arrivalPos,
+               double depart,
+               double reservationTime) :
+        id(id), persons(persons), group(group), fromEdge(fromEdge), toEdge(toEdge), departPos(departPos), arrivalPos(arrivalPos),
+        depart(depart), reservationTime(reservationTime) {}
+    /// @brief The id of the taxi reservation (usable for traci.vehicle.dispatchTaxi)
+    std::string id;
+    /// @brief The persons ids that are part of this reservation
+    std::vector<std::string> persons;
+    /// @brief The group id of this reservation
+    std::string group;
+    /// @brief The origin edge id
+    std::string fromEdge;
+    /// @brief The destination edge id
+    std::string toEdge;
+    /// @brief pickup position on the origin edge
+    double departPos;
+    /// @brief drop-off position on the destination edge
+    double arrivalPos;
+    /// @brief pickup-time
+    double depart;
+    /// @brief time when the reservation was made
+    double reservationTime;
+};
 }
