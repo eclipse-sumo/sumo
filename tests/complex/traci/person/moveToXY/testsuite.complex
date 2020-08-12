@@ -25,3 +25,6 @@ keepRoute2_junction
 
 # move person within the current route across a walkingarea and crossing
 keepRoute2_junction_offroad
+
+# move person to an edge not on it's route
+leaveRoute

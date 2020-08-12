@@ -28,18 +28,29 @@ import sumolib  # noqa
 sumoBinary = sumolib.checkBinary('sumo')
 cmd = [
     sumoBinary,
-    "-n", "input_net3.net.xml",
+    "-n", "input_net4.net.xml",
     "-r", "input_routes.rou.xml",
     "--fcd-output", "fcd.xml",
     "--no-step-log"]
 traci.start(cmd)
 
+
 p = "p0"
-for i in range(80):
-    t = traci.simulation.getTime()
-    x, y = traci.person.getPosition(p)
-    print("s=%s x=%s y=%s" % (t, x, y))
-    traci.person.moveToXY(p, "", x, y + 1, keepRoute=2)
+traci.simulationStep()
+x, y = traci.person.getPosition(p)
+for i in range(200):
+    traci.person.moveToXY(p, "", x, y, keepRoute=0)
+    traci.simulationStep()
+    print("t=%s requestPos=%s pos=%s edge=%s route=%s" % (
+        traci.simulation.getTime(), (x, y), 
+        traci.person.getPosition(p),
+        traci.person.getRoadID(p),
+        traci.person.getEdges(p)))
+    x += 1
+    y += 1
+
+print("return to sumo control")
+while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 
 traci.close()
