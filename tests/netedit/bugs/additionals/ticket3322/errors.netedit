@@ -11,17 +11,20 @@ Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Debug: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
 Debug: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Adding rerouter 'rerouter_0' in GNEChange_Additional
+Debug: Adding rerouterSymbol 'rerouter_0' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
-Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Removing e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
 Debug: Removing e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
 Debug: Removing instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
@@ -38,10 +41,13 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Removing edge 'gneE0' from net
 Debug: Removing busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Removing laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
+Debug: Removing variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Removing laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
 Debug: Removing containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
+Debug: Removing variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Removing chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
 Debug: Removing calibrator 'calibrator_gneE1_2' in GNEChange_Additional
+Debug: Removing rerouterSymbol 'rerouter_0' in GNEChange_Additional
 Debug: Removing routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Debug: Removing vaporizer 'gneE1' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
@@ -60,10 +66,13 @@ Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Adding vaporizer 'gneE1' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Adding rerouterSymbol 'rerouter_0' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator_gneE1_2' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Adding containerStop 'containerStop_gneE1_1_0' in GNEChange_Additional
 Debug: Adding laneCalibrator 'calibrator_gneE1_1_1' in GNEChange_Additional
+Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
 Debug: Adding edge 'gneE0' from net
@@ -80,21 +89,24 @@ Debug: Created connection 'fromgneE1_2togneE0_2' in retrieveGNEConnection()
 Debug: Adding instantInductionLoop 'instantInductionLoop_1' in GNEChange_Additional
 Debug: Adding e1Detector 'e1Detector_gneE0_2_0' in GNEChange_Additional
 Debug: Adding e2Detector 'e2Detector_gneE0_1_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Opened FXMessageBox Problem deleting junction 'gneJ0'
 Debug: Closed FXMessageBox Problem deleting junction 'gneJ0'
 Debug: Key F5 (Compute) pressed
 Debug: Additionals saved
+Debug: Deleting unreferenced variableSpeedSignSymbol 'variableSpeedSign_0'
+Debug: Deleting unreferenced variableSpeedSignSymbol 'variableSpeedSign_0'
 Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced vaporizer 'gneE1'
 Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
+Debug: Deleting unreferenced rerouterSymbol 'rerouter_0'
 Debug: Deleting unreferenced rerouter 'rerouter_0'
 Debug: Deleting unreferenced instantInductionLoop 'instantInductionLoop_1'
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_1_0'
 Debug: Deleting unreferenced e1Detector 'e1Detector_gneE0_2_0'

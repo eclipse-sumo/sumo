@@ -38,13 +38,19 @@ Debug: Key F5 (Compute) pressed
 Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c4' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
-Debug: Key F5 (Compute) pressed
 Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c5' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
 Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c6' in retrieveGNECrossing()
 Debug: Key F5 (Compute) pressed
+Debug: Adding crossing into junction 'Center'
+Debug: Created crossing ':Center_c7' in retrieveGNECrossing()
+Debug: Key F5 (Compute) pressed
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: removing crossing from junction 'Center'
+Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: removing crossing from junction 'Center'
@@ -74,7 +80,6 @@ Debug: Calling GNEUndoList::undo()
 Debug: removing crossing from junction 'Center'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
 Debug: Changed flag netBuilder::haveNetworkCrossings from 'true' to 'false'
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding crossing into junction 'Center'
@@ -105,6 +110,9 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding crossing into junction 'Center'
 Debug: Created crossing ':Center_c6' in retrieveGNECrossing()
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding crossing into junction 'Center'
+Debug: Created crossing ':Center_c7' in retrieveGNECrossing()
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -153,10 +161,11 @@ Debug: Deleting unreferenced junction 'A' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
-Debug: Deleting unreferenced crossing ':Center_c5' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c4' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':Center_c5' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c2' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c3' in GNEJunction destructor
+Debug: Deleting unreferenced crossing ':Center_c7' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c6' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c1' in GNEJunction destructor
 Debug: Deleting unreferenced crossing ':Center_c0' in GNEJunction destructor

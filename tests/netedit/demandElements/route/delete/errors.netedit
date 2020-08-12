@@ -72,13 +72,16 @@ Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Key ENTER pressed
 Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Removing route 'route_1' in GNEChange_DemandElement
+Debug: Removing route 'route_0' in GNEChange_DemandElement
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding route 'route_1' in GNEChange_DemandElement
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
+Debug: Opened FXMessageBox Problem deleting edge 'gneE2'
+Debug: Closed FXMessageBox Problem deleting edge 'gneE2'
 Debug: Removing route 'route_1' in GNEChange_DemandElement
-Debug: Deleting unreferenced route 'route_1'
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in removeConnection()
 Debug: net has to be saved
@@ -87,7 +90,6 @@ Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in removeConnection()
 Debug: Removing edge 'gneE2' from net
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary 0.00,8.40,80.00,30.00
-Debug: Key ENTER pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding edge 'gneE2' from net
@@ -96,14 +98,16 @@ Debug: Adding connection 'gneE2_0->gneE4_0' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE4_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE2_0->gneE4_1' into edge 'gneE2'
 Debug: Created connection 'fromgneE2_0togneE4_1' in retrieveGNEConnection()
+Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing route 'route_0' in GNEChange_DemandElement
+Debug: Removing route 'route_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding route 'route_0' in GNEChange_DemandElement
+Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
+Debug: Removing route 'route_1' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in removeConnection()
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
@@ -147,6 +151,7 @@ GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.0
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
 Debug: Deleting unreferenced edge 'gneE2' GNEChange_Edge
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced route 'route_1'
 Debug: Deleting unreferenced route 'route_0'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved

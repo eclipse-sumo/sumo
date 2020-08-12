@@ -50,16 +50,16 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 4 with a non valid value (dummy)
-netedit.modifyAttribute(6, "dummyEndOffset", False)
+netedit.modifyAttribute(6, "dummyEndOffset", True)
 
 # Change parameter 4 with a non valid value (emtpy)
-netedit.modifyAttribute(6, "", False)
+netedit.modifyAttribute(6, "", True)
 
 # Change parameter 4 with a non valid value (negative)
-netedit.modifyAttribute(6, "-3", False)
+netedit.modifyAttribute(6, "-3", True)
 
 # Change parameter 4 with a valid value
-netedit.modifyAttribute(6, "12.5", False)
+netedit.modifyAttribute(6, "12.5", True)
 
 # recompute
 netedit.rebuildNetwork()

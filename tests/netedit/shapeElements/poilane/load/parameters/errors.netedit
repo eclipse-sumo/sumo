@@ -13,8 +13,9 @@ Error: Attribute 'key' in definition of a param is empty.
 Debug: Inserting parameter 'key1|value5' into shape poiLane.
 Debug: Inserting parameter 'key2|' into shape poiLane.
 Debug: Inserting parameter 'key2|' into shape poiLane.
+Debug: Inserting parameter 'key3|$$value with spaces%%' into shape poiLane.
 Debug: Inserting parameter 'keyFinal|valueFinal' into shape poiLane.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_24Apr155513.18404\netedit.gui\shapeElements\poilane\load\parameters\input_additionals.add.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug111304.1944\netedit.gui\shapeElements\poilane\load\parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved

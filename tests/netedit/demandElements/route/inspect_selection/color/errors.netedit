@@ -66,13 +66,10 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Edge added in NonConsecutiveEdges mode
-Debug: Edge added in NonConsecutiveEdges mode
 Debug: Key ENTER pressed
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
-Debug: Edge added in NonConsecutiveEdges mode
 Debug: Key ENTER pressed
 Debug: Adding route 'route_1' in GNEChange_DemandElement
 Debug: Value 'dummyColor' for attribute color of route isn't valid

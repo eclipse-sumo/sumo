@@ -18,16 +18,6 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Setting new attribute blockShape '1' into poly 'poly_0'
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,17.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,17.00
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,17.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,17.00
-Debug: Setting new attribute shape '22.00,-4.69 22.00,1.31 17.00,1.31 17.00,-4.69 22.00,-4.69' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,17.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 15.00,-6.69,24.00,3.31
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shape '22.00,9.00 22.00,15.00 17.00,15.00 17.00,9.00 22.00,9.00' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,-6.69,24.00,3.31
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,17.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute blockShape '0' into poly 'poly_0'
@@ -35,6 +25,7 @@ GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,17.00
 Debug: Removing poly 'poly_0' from viewNet
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,17.00
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poly 'poly_0' into viewNet
@@ -43,10 +34,6 @@ Debug: Setting new attribute blockShape '1' into poly 'poly_0'
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,17.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 15.00,7.00,24.00,17.00
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shape '22.00,-4.69 22.00,1.31 17.00,1.31 17.00,-4.69 22.00,-4.69' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,17.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 15.00,-6.69,24.00,3.31
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -63,7 +50,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,-6.69,24.00,3.31
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 15.00,7.00,24.00,17.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
