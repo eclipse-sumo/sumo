@@ -195,7 +195,7 @@ computer, install it before doing anything else\!
 ([get it from here](https://www.python.org/downloads/)) We have to
 include the generated route file `sumolympicWalks.rou.xml` in the config
 file `sumolympic.sumocfg` to let the simulation know about them. Several
-route files can be included by merely seperating them by a comma.
+route files can be included by merely separating them by a comma.
 Therefore, modify the `<route-files .../>`-entry of our config to look
 like this (be sure to put no spaces between the filenames\!):
 

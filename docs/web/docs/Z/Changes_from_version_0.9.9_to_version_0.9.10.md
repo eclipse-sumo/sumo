@@ -31,5 +31,5 @@ permalink: /Z/Changes_from_version_0.9.9_to_version_0.9.10/
       exist
 
 - duarouter
-  - patched behaviour on missing files
+  - patched behavior on missing files
   - debugged [bug 2042630 remove-loops breaks application](http://sourceforge.net/tracker/index.php?func=detail&aid=2042630&group_id=45607&atid=443421)

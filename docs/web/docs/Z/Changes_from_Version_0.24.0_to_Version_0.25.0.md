@@ -122,7 +122,7 @@ permalink: /Z/Changes_from_Version_0.24.0_to_Version_0.25.0/
 
 - Tools
   - [osmWebWizard.py](../Tools/Import/OSM.md) no longer fails
-    when encountering path names with space-charactes in them.
+    when encountering path names with space-characters in them.
   - [osmWebWizard.py](../Tools/Import/OSM.md) no longer nests
     output directories when generating multiple scenarios.
 

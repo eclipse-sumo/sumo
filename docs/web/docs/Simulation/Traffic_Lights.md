@@ -39,8 +39,8 @@ visually in [netedit](../netedit.md#traffic_lights).
   would typically be a left-turning phase). The duration of this phase
   defaults to 6s and can be customized (or disabled) by setting the
   option **--tls.left-green.time**.
-- The generatedd cycle starts at time 0 by default with a green phase for the first main direction 
-  (sorted by road priority, lane count and speed). This can be influnced for a specified list of traffic light ids using the options **--tls.half-offset TLS1,TLS2,..** and **--tls.quarter-offset TLS3,TLS4,...**. (shifting the start of the first phase by the indicated fraction of the cycle time).
+- The generated cycle starts at time 0 by default with a green phase for the first main direction 
+  (sorted by road priority, lane count and speed). This can be influenced for a specified list of traffic light ids using the options **--tls.half-offset TLS1,TLS2,..** and **--tls.quarter-offset TLS3,TLS4,...**. (shifting the start of the first phase by the indicated fraction of the cycle time).
 - In reality there are often phases where all streams have red to
   allow clearing an intersection. SUMO does not build these phases by
   default. To have each green phase preceded by an all-red phase, the
@@ -246,7 +246,7 @@ phases.
 SUMO supports *gap-based* actuated traffic control This control scheme
 is common in Germany and works by prolonging traffic phases whenever a
 continuous stream of traffic is detected. It switches to the next phase
-after detecting a sufficient time gap between sucessive vehicles. This
+after detecting a sufficient time gap between successive vehicles. This
 allows for better distribution of green-time among phases and also
 affects cycle duration in response to dynamic traffic conditions.
 
@@ -288,7 +288,7 @@ Several optional parameters can be used to control the behavior of actuated traf
 
 - **max-gap**: the maximum time gap between successive vehicle that will cause the current phase to be prolonged
 (within maxDur limit)
-- **detector-gap**: determines the time distance between the (automatially generated) detector and the stop line in seconds (at
+- **detector-gap**: determines the time distance between the (automatically generated) detector and the stop line in seconds (at
 each lanes maximum speed). 
 - **passing-time**: estimates the headway between vehicles when passing the stop line. This sets an uppper bound on the distance between detector and stop line according to the formula `(minDur / passingTime + 0.5) / 7.5`. The intent of this bound is to allow all vehicles between the detector and the stop line to pass the intersection within the minDur time. A warning will be issued if the minDur gives insufficient clearing time.
 - **linkMaxDur:X** (where X is a traffic light index): This sets an additional maximum duration criterion based on individual signals rather than phase duration.
@@ -334,7 +334,7 @@ shown/hidden by right-clicking on an actuated traffic light and
 selecting the corresponding menu entry.
 
 The detectors used by an actuated traffic light will be colored to indicate their status:
-- green color indiciates that the detector is used to determine the length of the current phase
+- green color indicates that the detector is used to determine the length of the current phase
 - white color indicates that the detector is not used in the current phase
 - red color indicates that a vehicle was detected since the last time at which the controlled links at that lane had a green light (only if these links are currently red)
 
@@ -468,7 +468,7 @@ programID:
 
 # Controlling multiple Junctions with the same controller
 
-In SUMO, a traffic light controller can controll an arbitary number of
+In SUMO, a traffic light controller can control an arbitrary number of
 junctions simultaneously. This is accomplished by one of the following
 methods:
 
@@ -661,7 +661,7 @@ a program (usually from an
 [additional-file](#defining_new_tls-programs)) where all
 green phases have a long duration (i.e. 1000s) to avoid switching by
 SUMO and then use the **setPhase** function to switch to the next phase
-(typically a yellow phase) whenever the green phasee should end. The
+(typically a yellow phase) whenever the green phase should end. The
 nice thing about this approach is, that yellow phase and all-red phases
 can still be handled automatically by SUMO and the control script simply
 determines the duration of the current green phase.
@@ -704,4 +704,4 @@ using **getCompleteRedYellowGreenDefinition** and then modify it
 
 SUMO can load multiple traffic light programs from the *.net.mxl* file
 and from [additional files](#defining_new_tls-programs). Using
-the traci function **setProgram**, a script can switch between them.
+the TraCI function **setProgram**, a script can switch between them.

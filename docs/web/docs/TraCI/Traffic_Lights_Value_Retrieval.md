@@ -53,7 +53,7 @@ which represents its data type, except "length".
 | :-----: | :--------------: | :-----: | :-: | :-----: |
 | Length  | Number of logics | logic 1 | ... | logic n |
 
-where **logic** is decribed by:
+where **logic** is described by:
 
 | type + string | type + integer | type + compound |   type + integer    |  type + integer  |  phase  | ... |  phase  |
 | :-----------: | :------------: | :-------------: | :-----------------: | :--------------: | :-----: | :-: | :-----: |

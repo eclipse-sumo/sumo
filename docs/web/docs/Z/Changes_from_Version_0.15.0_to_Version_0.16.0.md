@@ -158,7 +158,7 @@ permalink: /Z/Changes_from_Version_0.15.0_to_Version_0.16.0/
   - Vehicles can now be renderd with bitmaps using the new vType
     attribute *imgFile*. This should be a grayscale image with alpha
     channel to allow full recoloring functionality.
-  - Persons can now be rendered with bitmaps when specifing a vType
+  - Persons can now be rendered with bitmaps when specifying a vType
     with attribute *imgFile* just like vehicles (persons bitmaps
     will not be rotated, however).
   - POIs can now be rendered with bitmaps using the new attributes

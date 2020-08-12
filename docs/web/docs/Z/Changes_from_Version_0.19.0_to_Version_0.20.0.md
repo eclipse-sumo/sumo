@@ -123,7 +123,7 @@ permalink: /Z/Changes_from_Version_0.19.0_to_Version_0.20.0/
 - TraCI
   - added method `traci.simulation.convert3D()` which
     converts a road position to either x,y,z or lon,lat,alt
-  - added additonal bits to the traci command [Change Vehicle State/speed mode](../TraCI/Change_Vehicle_State.md) to
+  - added additional bits to the traci command [Change Vehicle State/speed mode](../TraCI/Change_Vehicle_State.md) to
     configure the behavior at intersections. This can be used to
     make vehicles ignore right-of-way rules and also to force them
     to drive across a red light.
@@ -164,7 +164,7 @@ permalink: /Z/Changes_from_Version_0.19.0_to_Version_0.20.0/
     contains only incoming or outgoing connections excepting
     turnarounds). This is important when using the option **--fringe-factor** {{DT_FLOAT}} for
     generating plausible through-traffic in small networks.
-  - added two [tools for visualising emission behaviour](../Tools/Emissions.md)
+  - added two [tools for visualising emission behavior](../Tools/Emissions.md)
   - added some [visualisation tools](../Tools/Visualization.md)
 
 ### Other

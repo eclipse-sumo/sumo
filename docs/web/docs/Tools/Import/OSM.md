@@ -5,7 +5,7 @@ permalink: /Tools/Import/OSM/
 
 # osmWebWizard.py
 
-This script opens a webbrowser and allows selecting a geographic region
+This script opens a web browser and allows selecting a geographic region
 on a map. It also provides some controls for specifying random traffic
 demand for different traffic modes. When clicking the 'Generate'-button,
 the simulation network for the selected area is built based on [OSM data](../../Networks/Import/OpenStreetMap.md), random demand is

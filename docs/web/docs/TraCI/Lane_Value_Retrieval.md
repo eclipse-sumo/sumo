@@ -59,7 +59,7 @@ The respond to a **"Command Get Lane Variable"**.
 ### command *links* 0x33 compound response value
 
 If you request the list of links, an compound object is returned,
-structured as following. Attention, each part is fowarded by a byte
+structured as following. Attention, each part is forwarded by a byte
 which represents its data type, except "length".
 
 | integer | type + integer  |  link  | ... |  link  |
@@ -67,7 +67,7 @@ which represents its data type, except "length".
 | Length  | Number of links | Link 1 | ... | Link n |
 
 where **length** is the total number of following elements -- counting
-each element of **link** separatley -- and **link** is decribed by:
+each element of **link** separately -- and **link** is described by:
 
 |  type + string  | type + string  |  type + ubyte   |   type + ubyte    |  type + ubyte   |   type + string     |      type + string      |     type + double  |
 | :----------: | :-------: | :---------------: | :------------------------: | :------------: | :-----------------------: | :----------------------------: | :----------------: |

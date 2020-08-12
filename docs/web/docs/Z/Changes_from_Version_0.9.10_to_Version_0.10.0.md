@@ -51,9 +51,9 @@ permalink: /Z/Changes_from_Version_0.9.10_to_Version_0.10.0/
   - Now, the node positions are not added to an edge's geometry if
     one exists (if the edge has no explicite geometry, the node
     positions are still used). **--add-node-positions** was added,
-    so that the old behaviour is still available
+    so that the old behavior is still available
   - Changed features of **--plain-outoput**: plain-nodes now contain
-    tls information, addtionally, plain-connections are written
+    tls information, additionally, plain-connections are written
   - changed computation whether a link is a left-mover
   - changed traffic lights computation
   - removed unneeded option **--all-logics**

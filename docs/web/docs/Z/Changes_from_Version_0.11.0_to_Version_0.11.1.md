@@ -14,7 +14,7 @@ permalink: /Z/Changes_from_Version_0.11.0_to_Version_0.11.1/
   - debugged problems when loading TLS definitions with T=0
   - implemented a variable car-following model API; many thanks to Tobias Mayer
     and Christoph Sommer for the collaboration who did most of the work.
-  - debugged occurence of negative vehicle speeds during emit
+  - debugged occurrence of negative vehicle speeds during emit
   - reworked the mean data output (handling multiple lanes
     correctly)
 

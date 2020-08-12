@@ -18,7 +18,7 @@ permalink: /sumo-gui/
 
 ![guisim_empty.png](images/Guisim_empty.png)
 
-*Initial appearence of sumo-gui; may differ from what you see*
+*Initial appearance of sumo-gui; may differ from what you see*
 
 Being a window-based application, sumo-gui is started by a double click
 with the left mouse button on Windows, on Linux probably with a single
@@ -216,7 +216,7 @@ as a group in [netedit](netedit.md).
 All simulation objects can be located based on their ID by using the
 locate dialog ![Image:Locate.png](images/Locate.png "Image:Locate.png"). By
 clicking this button a sub-menu for selecting the object type is
-openend. The following types are available:
+opened. The following types are available:
 
 - [Junction](Networks/PlainXML.md#node_descriptions)
 - [Edge](Networks/PlainXML.md#edge_descriptions)
@@ -406,7 +406,7 @@ intersection, only one arrow will be drawn even though two distinct
 connections exist.
 
 - To see all connections, activate the junction visualization option
-  *Show lane to lane connections*. The collors of the connection lines
+  *Show lane to lane connections*. The colors of the connection lines
   correspond to the
   [\#Right_of_way](#right_of_way)-colors.
 - Each connection at an intersection has a unique index starting at 0

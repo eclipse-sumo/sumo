@@ -13,7 +13,7 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
   - instantInductionLoops no longer miscount vehicles which change
     lanes on the detector edge.
   - instantInductionLoops now write events in the correct order
-  - instantInductionLoops now propperly register vehicles staying on
+  - instantInductionLoops now properly register vehicles staying on
     the detector
   - fixed invalid speeds when running with step-length < 1 (see #1024)
   - the departSpeed value of a vehicle can now be as high as
@@ -118,7 +118,7 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
 
 - sumo-gui
   - now drawing blinkers to visualize a vehicles desire to change
-    lanes (this is only noticable if a vehicle cannot change lanes
+    lanes (this is only noticeable if a vehicle cannot change lanes
     immediately).
   - added vehicle coloring modes *by offset from best lane* and *by
     acceleration*
@@ -130,7 +130,7 @@ permalink: /Z/Changes_from_Version_0.18.0_to_Version_0.19.0/
   - Added a menu for opening the object locator dialogs. Using the
     menu hotkeys allows searching for simulation objects without
     using the mouse.
-  - The vehicle parameter dialog now also contains informations
+  - The vehicle parameter dialog now also contains information
     related to the vehicle type.
 
 - TraCI

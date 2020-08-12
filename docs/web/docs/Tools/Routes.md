@@ -18,7 +18,7 @@ routecheck.py <net> <vehicletypes> [-f|--fix] <routes>+
 routecheck.py <net> <vehicletypes+routes>
 ```
 
-If a route is broken (a diconnected), the tool writes something like the
+If a route is broken (or disconnected), the tool writes something like the
 following to cout:
 
 If **--fix** (**-f**) is given, routes are tried to be repaired
@@ -80,7 +80,7 @@ Attention\! The routes are not sorted in time\!
 # sort_routes.py
 
 This script sorts the vehicles in the given route file by their depart
-time. If the option **--big** is supplied, a slow but memory efficent algorithm
+time. If the option **--big** is supplied, a slow but memory efficient algorithm
 is used.
 
 ```
@@ -97,7 +97,7 @@ the reduced network. Output can be a route file or a trip file.
 Depending on the given options the new departure times can be computed
 from exitTimes (see [sumo](../sumo.md) option **--vehroute-output.exit-times**), extrapolated from
 the original network or simply copied from the original departure times.
-If the option **--big** is supplied, a slow but memory efficent algorithm is used
+If the option **--big** is supplied, a slow but memory efficient algorithm is used
 for sorting the output by departure time. Example usage
 
 ```
@@ -200,7 +200,7 @@ routes.
 <SUMO_HOME>/tools/addStops2Routes.py -r <route-file> -p <parking-areas> -d <duration in seconds> [-o <output-file>]
 ```
 
-Stops in one or more parking areas (seperated by comma) are added to the
+Stops in one or more parking areas (separated by comma) are added to the
 vehicles route, if they are part of the vehicles id. Example:
 
 ```

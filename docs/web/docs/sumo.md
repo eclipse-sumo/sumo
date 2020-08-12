@@ -76,7 +76,7 @@ configuration:
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
-| **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; *default:* **false** |
+| **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **--netstate-dump** {{DT_FILE}} | Save complete network states into FILE |
 | **--netstate-dump.empty-edges** {{DT_BOOL}} | Write also empty edges completely when dumping; *default:* **false** |
 | **--netstate-dump.precision** {{DT_INT}} | Write positions and speeds with the given precision (default 2); *default:* **2** |
@@ -444,7 +444,7 @@ configuration:
 | **--osg-view** {{DT_BOOL}} | Start with an OpenSceneGraph view instead of the regular 2D view; *default:* **false** |
 | **--gui-testing** {{DT_BOOL}} | Enable ovelay for screen recognition; *default:* **false** |
 | **--gui-testing-debug** {{DT_BOOL}} | Enable output messages during GUI-Testing; *default:* **false** |
-| **--gui-testing.setting-output** {{DT_FILE}} | Save gui settings in the given settingsoutput file |
+| **--gui-testing.setting-output** {{DT_FILE}} | Save gui settings in the given settings output file |
 
 # Loading order of input files
 

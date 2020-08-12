@@ -70,7 +70,7 @@ lights. The recommended ways to perform the necessary changes include:
 3.  directly adjust your network with GUI: after opening the program
     [netedit](../netedit.md) you load the network file
     (\*.net.xml)that needs to be modified. Then you choose the
-    respective funtions in netedit to modify e.g. the number of lanes,
+    respective functions in netedit to modify e.g. the number of lanes,
     road shapes, traffic signal plans, intersection geometries, and to
     combine intersections or edges.
 
@@ -123,7 +123,7 @@ yourplain.con.xml
 yourplain.tll.xml
 ```
 
-You can edit these files and then reassamble the network buy loading
+You can edit these files and then reassamble the network by loading
 some or all of them:
 
 ```

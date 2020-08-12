@@ -8,7 +8,7 @@ permalink: /Z/Changes_from_version_0.8.0_to_version_0.8.0.1/
   - The gui now remembers his
   - The instance chooser was reworked and shows now which items are selected
   - An selected-items dialog with the ability to save the names of the selected items was implemented
-  - New colours for aggregated view (aggregated views are still a prototype)
+  - New colors for aggregated view (aggregated views are still a prototype)
   - Fixed a bug at optional texture disabling
   - Update of trackers and tables on simulation steps added
   - About-dialog debugged

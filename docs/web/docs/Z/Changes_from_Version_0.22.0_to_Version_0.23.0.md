@@ -277,7 +277,7 @@ permalink: /Z/Changes_from_Version_0.22.0_to_Version_0.23.0/
   - [server.py](../Tools/Import/OSM.md#serverpy) now starts
     with 'real world' gui settings and initial delay of 20. Also,
     the trip generation settings have been tweaked for realism (i.e.
-    shorter pedestrian trips, longer train troutes)
+    shorter pedestrian trips, longer train routes)
 
 - TraCI
   - Several simulation entities support [named string parameters](../Simulation/GenericParameters.md) in their

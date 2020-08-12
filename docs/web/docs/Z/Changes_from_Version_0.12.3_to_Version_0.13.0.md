@@ -79,13 +79,13 @@ not be loaded into old SUMO versions.
 ### Option Names
 
 Many options have been renamed to increase consistency and to hopefully
-make them easiert to understand and remember. All changes apply to
+make them easier to understand and remember. All changes apply to
 options given via the command line as well as options declared via
 configuration files. The old options still work although some are now
 marked as deprecated.
 
 Call `<APPLICATION> --save-template <filename> --save-commented`
-to get a list of supported options including synonymes.
+to get a list of supported options including synonyms.
 
 ### Application-Specific Changes
 

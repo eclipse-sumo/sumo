@@ -9,9 +9,9 @@ In traffic research, four classes of traffic flow models are
 distinguished according to the level of detail of the simulation. In
 *macroscopic* models traffic flow is the basic entity. *Microscopic*
 models simulate the movement of every single vehicle on the street,
-mostly assuming that the behaviour of the vehicle depends on both, the
+mostly assuming that the behavior of the vehicle depends on both, the
 vehicle's physical abilities to move and the driver's controlling
-behaviour (see
+behavior (see
 [ChowdhurySantenSchadschneider2000](../Publications.md#chowdhurysantenschadschneider2000)).
 Within SUMO, the microscopic model developed by Stefan Krauß is used
 (see [Krauss1998_1](../Publications.md#krauss1998_1),
@@ -46,7 +46,7 @@ cell to another.
 space-discrete (bottom) simulation**
 
 Almost every simulation package uses its own model for vehicle movement.
-Almost all models are so-called *"car-following-models"*: the behaviour
+Almost all models are so-called *"car-following-models"*: the behavior
 of the driver is herein meant to be dependent on his distance to the
 vehicle in front of him and of this leading vehicle's speed.
 

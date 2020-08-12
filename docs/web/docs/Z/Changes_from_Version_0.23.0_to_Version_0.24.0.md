@@ -141,7 +141,7 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
     can now be overridden in a transparent manner and it's easier to
     add additional modes of traffic than ever before [(see documentation)](../Networks/Import/OpenStreetMap.md#recommended_typemaps).
   - Option **--lefthand** now works for generating networks with left-hand
-    traffic. Thansk to Andrea Fuksova for suggesting the
+    traffic. Thanks to Andrea Fuksova for suggesting the
     double-mirroring technique.
   - Edge types can now be used to [define *vClass*-specific speed limits](../Networks/PlainXML.md#vehicle-class_specific_speed_limits). #1800
   - Additional attributes are now supported to specify the node that
@@ -183,7 +183,7 @@ permalink: /Z/Changes_from_Version_0.23.0_to_Version_0.24.0/
     polygons and roads by default to make them always visible. #1771
   - Added option **--poi-layer-offset** {{DT_FLOAT}} to control the layer of pois relative to polygons
     (especially in cases where they have the same type).
-  - **--offset** {{DT_FLOAT}} options are now respeced even when used together with a network.
+  - **--offset** {{DT_FLOAT}} options are now respected even when used together with a network.
 
 - netedit
   - The view can now be moved and zoomed via [keyboard shortcuts](../sumo-gui.md#keyboard_shortcuts).

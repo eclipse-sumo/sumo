@@ -33,7 +33,7 @@ The turn-count data must be provided in the format:
 
 # routeSampler.py
 The script generates routes from turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
-the resulting routes fullfill the turn-count data.
+the resulting routes fulfill the turn-count data.
 
 ```
 <SUMO_HOME>/tools/routeSampler.py -r <input-route-file> -t <turn-files. -o <output-file>
@@ -71,7 +71,7 @@ When setting option **--turn-max-gap 2**, the edgeRelation `<edgeRelation from="
         
 ## Origin-Destination restrictions
 When loading an edgeRelation file with the option **--od-files**, origin-destination counts will be added.
-This can be used to combine (edge-based) OD-relations with other couting data.
+This can be used to combine (edge-based) OD-relations with other counting data.
         
 ## Output Styles
 By default, routeSampler will generate individual vehicles with embedded routes. This can be changed with the following options (which can also be combined):

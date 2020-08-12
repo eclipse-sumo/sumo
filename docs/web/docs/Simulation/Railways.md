@@ -69,24 +69,24 @@ the time.
 Bidirectional track usage is modeled by two edges that have their
 geometries exactly reversed and using the attribute `spreadType="center"`. This will result
 in lane geometries that are overlayed exactly. These edges are referred
-to as *superposed* (alternatively as bidirecticional rail edges). In the
+to as *superposed* (alternatively as bidirectional rail edges). In the
 .net.xml file these edges are marked with `bidi="<REVERSE_EDGE_ID>"` but this is a generated
 attribute and not to be set by the user.
 
-When Rail signals are placed at both ends of a bidrectional track they
+When Rail signals are placed at both ends of a bidirectional track they
 will restrict it's usage to one direction at a time.
 
 ### Bidirectional rails in [sumo-gui](../sumo-gui.md)
 
 sumo-gui automatically shows only one of both edges to avoid duplicate
 drawing of cross-ties. The visualisation option *show lane direction*
-can be used to identifiy superposed edges. (arrows in both directions
+can be used to identify superposed edges. (arrows in both directions
 will be show).
 
 ### Working with bidirectional tracks in [netedit](../netedit.md)
 
 - To show both edges that constitute a bidirectional track, activate
-  edge visualisation otpion *spread superposed*. Both edges will be
+  edge visualisation option *spread superposed*. Both edges will be
   drawn narrower and with a side-offset to make them both visible
   without overlap.
 - To find (and highlight) all bidirectional tracks, use [attribute
@@ -270,7 +270,7 @@ parameters](../Simulation/GenericParameters.md):
 - locomotiveLength
 - carriageGap
 
-# Limitiations
+# Limitations
 
 - Individual rail cars / coupling / uncoupling cannot currently be
   modeled

@@ -125,7 +125,7 @@ The stop flags are a bitset with the following additive components
 
 This command induces a temporary increase of the vehicles desired time
 headway (car-following parameter tau) and specifies a minimal space
-headway to keep, as well. The execution is seperated into an adaptation
+headway to keep, as well. The execution is separated into an adaptation
 phase, where the headways are gradually altered at the specified rate.
 As soon as the desired headways are established they are kept for the
 specified duration. Afterwards they are reset to the original value.
@@ -424,10 +424,10 @@ controlled vehicle (moveToXY).
 
 |         byte          |              int               |        byte         |        string         |        byte         |            string            |        byte         |   string    |        byte         |   string    |        byte         |     string      |        byte         |    string    |        byte         |    string    |        byte         |      string      |        byte         |    string     |        byte         |           string           |        byte         |            string             |        byte         |           string            |         byte         |       int       |         byte         |      int      |
 | :-------------------: | :----------------------------: | :-----------------: | :-------------------: | :-----------------: | :--------------------------: | :-----------------: | :---------: | :-----------------: | :---------: | :-----------------: | :-------------: | :-----------------: | :----------: | :-----------------: | :----------: | :-----------------: | :--------------: | :-----------------: | :-----------: | :-----------------: | :------------------------: | :-----------------: | :---------------------------: | :-----------------: | :-------------------------: | :------------------: | :-------------: | :------------------: | :-----------: |
-| value type *compound* | number of elements (always=14) | value type *string* | route ID (must exist) | value type *string* | vehicle type ID (must exist) | value type *string* | depart time | value type *string* | depart lane | value type *string* | depart position | value type *string* | depart speed | value type *string* | arrival lane | value type *string* | arrival position | value type *string* | arrival speed | value type *string* | from taz (origin district) | value type *string* | to taz (destination district) | value type *string* | line (for public ttansport) | value type *integer* | person capacity | value type *integer* | person number |
+| value type *compound* | number of elements (always=14) | value type *string* | route ID (must exist) | value type *string* | vehicle type ID (must exist) | value type *string* | depart time | value type *string* | depart lane | value type *string* | depart position | value type *string* | depart speed | value type *string* | arrival lane | value type *string* | arrival position | value type *string* | arrival speed | value type *string* | from taz (origin district) | value type *string* | to taz (destination district) | value type *string* | line (for public transport) | value type *integer* | person capacity | value type *integer* | person number |
 
 If an empty routeID is given, the vehicle will be placed on an route
-that consists of a single arbitrary edge (with suitalbe vClass
+that consists of a single arbitrary edge (with suitable vClass
 permissions). This can be used to simply the initialization of remote
 controlled vehicle (moveToXY).
 

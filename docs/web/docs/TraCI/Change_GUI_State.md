@@ -44,7 +44,7 @@ The message contents are as following:
 
 |          ubyte          |    double    |    double    |
 | :---------------------: | :----------: | :----------: |
-| value type *position2D* | x-coordinate | y-ccordinate |
+| value type *position2D* | x-coordinate | y-coordinate |
 
 ### schema (0xa2)
 

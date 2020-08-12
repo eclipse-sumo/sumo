@@ -142,7 +142,7 @@ subscriptions, whose reference object is a vehicle and whose requested
 context objects are vehicles as well) it is possible to request
 additional filters to be applied already on the server side. The general
 procedure is to equip a requested context subscription with the filter
-directly after the call to `subscribeContext()` by a succesive call to
+directly after the call to `subscribeContext()` by a successive call to
 `addSubscriptionFilter<FILTER_ID>()` as for instance in the following
 snippet:
 
@@ -204,7 +204,7 @@ Furthermore the parameter *t* is not the current simulation time but exactly
 the (optional) parameter passed to the simulationStep call (which is 0 by default).
 
 !!! caution
-    A TraCI StepListener cannot be used in the case that one traci client controls several SUMO-instances.
+    A TraCI StepListener cannot be used in the case that one TraCI client controls several SUMO-instances.
 
 ## Controlling parallel simulations from the same TraCI script
 

@@ -703,7 +703,7 @@ call](../TraCI/GenericParameters.md#get_parameter).
   whether a device with DEVICENAME is equipped)
 
 !!! caution
-    If the vehicles does not carry the respective device an error is returned when retrieving parameters with the **device**. prefix. This happens when requestion *device.person.IDList* for a vehicle that has not carried any persons up to that point. Either check for existence or handle the error (i.e. by catching TraCIException in the python client).
+    If the vehicles does not carry the respective device an error is returned when retrieving parameters with the **device**. prefix. This happens when requesting *device.person.IDList* for a vehicle that has not carried any persons up to that point. Either check for existence or handle the error (i.e. by catching TraCIException in the python client).
 
 ### Supported LaneChangeModel Parameters
 

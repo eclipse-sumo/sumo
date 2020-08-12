@@ -129,7 +129,7 @@ permalink: /Z/Changes_from_Version_0.20.0_to_Version_0.21.0/
   - the option **--no-warnings** {{DT_BOOL}} now also applies to the GUI message window
   - Added person coloring scheme *by selection* and *by angle*
   - All person modes now give a waitingTime
-  - Person parameter dialog now inclues attributes 'edge',
+  - Person parameter dialog now includes attributes 'edge',
     'position', 'angle' and 'waitingTime'
   - Pedestrian crossings are now indicated by the typical
     zebra-pattern (light color indicates that pedestrians have

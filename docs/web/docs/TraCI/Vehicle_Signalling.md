@@ -22,8 +22,8 @@ when [trying to avoid jamming on an intersection](../Simulation/Intersections.md
 - **VEH_SIGNAL_BLINKER_RIGHT** and **VEH_SIGNAL_BLINKER_LEFT**:
 The blinker is activated in either of the following conditions
   - The vehicle is about to take a turn at an intersection
-    (activated 7 seconds before reachin the intersection)
-  - Either of the [continous lane-change models](../Simulation/SublaneModel.md) is active
+    (activated 7 seconds before reaching the intersection)
+  - Either of the [continuous lane-change models](../Simulation/SublaneModel.md) is active
   - A desired lane change cannot be executed due to neighboring
     vehicles.
 - **VEH_SIGNAL_EMERGENCY_BLUE**: when switched on, a blinking blue

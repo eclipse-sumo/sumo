@@ -96,8 +96,8 @@ Additional options:
 
 - **--parking-id** defines the name/id of the parking lot
 - **--parking-spaces** defines the number of the parking spaces
-- **--start-position** defines the begin position of the enterance/exit of the parking lot
-- **--end-position** defines the end position of the enterance/exit of the parking lot
+- **--start-position** defines the begin position of the entrance/exit of the parking lot
+- **--end-position** defines the end position of the entrance/exit of the parking lot
 - **--space-length** defines the length of each parking space
 - **--space-angle** defines the angle of the parking spaces
 - **--x-space-distance** defines the lateral distance (x-direction) between the locations of
@@ -127,7 +127,7 @@ python <SUMO_HOME>/tools/generateStationEdges.py rail.net.xml stops.xml
 
 # generateContinuousRerouters.py
 
-This script generates rerouter definitions for a continously running simulation. Rerouters are placed ahead of each intersection with routes leading up to the next intersection and configurable turning ratios. Vehicles that enter the simulation will circulate continuously (unless hitting a dead-end).
+This script generates rerouter definitions for a continuously running simulation. Rerouters are placed ahead of each intersection with routes leading up to the next intersection and configurable turning ratios. Vehicles that enter the simulation will circulate continuously (unless hitting a dead-end).
 
 Example use
 ```
