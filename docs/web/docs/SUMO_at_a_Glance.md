@@ -86,15 +86,7 @@ The package includes:
 | [Additional Tools](Tools.md)           | There are some tasks for which writing a large application is not necessary. Several solutions for different problems may be covered by these tools.            |
 
 Several parties have extended the SUMO package during their work and
-submitted [their code](Contributed.md). If not being a part of
-the release, these contributions are usually not tested frequently and
-may be outdated. The following contributions are included.
-
-| Application Name                                                                      | Short Description                   |
-| ------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
-| [TraCI4Matlab](http://de.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab) | A Matlab interface for connecting and extending information via [TraCI](TraCI.md) Andres Acosta                                                               |
-| [TraaS](TraCI/TraaS.md)                                                       | A SOAP(webservice) interface for connecting and extending information via [TraCI](TraCI.md) by Mario Krumnow, Also a Java TraCI client library.               |
-| [LiSuM](Tools/LiSuM.md)                                                       | LiSuM is a middleware that couples [LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO to execute real-world traffic control software within SUMO. |
+submitted their code. These contributions are usually not tested and may be outdated. Find a list of all Contributions [here](Contributed.md).
 
 ## History
 
