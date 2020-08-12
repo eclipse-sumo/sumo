@@ -815,7 +815,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
     } else {
         double speed = pos.distanceTo2D(p->getPosition()); // !!!veh->getSpeed();
         found = Helper::moveToXYMap(pos, maxRouteDistance, mayLeaveNetwork, edgeID, angle,
-                                    speed, ev, routeIndex, currentLane, p->getEdgePos(), true,
+                                    speed, ev, routeIndex, currentLane, p->getEdgePos(), currentLane != nullptr,
                                     vClass, true,
                                     bestDistance, &lane, lanePos, routeOffset, edges);
     }
@@ -858,7 +858,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
                 MSNet::getInstance()->getPersonControl().forceDeparture();
                 FALLTHROUGH;
             case MSStageType::WAITING: {
-                if (p->getNumRemainingStages() == 0 || p->getStageType(1) != MSStageType::WALKING) {
+                if (p->getNumRemainingStages() <= 1 || p->getStageType(1) != MSStageType::WALKING) {
                     // insert walking stage after the current stage
                     ConstMSEdgeVector route({p->getEdge()});
                     const double departPos = p->getCurrentStage()->getArrivalPos();

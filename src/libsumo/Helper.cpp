@@ -1159,6 +1159,13 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                     }
                 }
             }
+            if (prevEdge == nullptr) {
+                // use arbitrary predecessor
+                prevEdge = e->getPredecessors().front();
+            }
+            if (nextEdge == nullptr) {
+                nextEdge = e->getSuccessors().front();
+            }
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << "walkingarea/crossing:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge) << "\n";
 #endif
