@@ -43,12 +43,14 @@ def step():
 
 p = "p0"
 x, y = traci.person.getPosition(p)
+traci.person.setSpeed(p, 0)
 while traci.person.getLaneID(p) != "CS_0":
     print("%s lane=%s" % (traci.simulation.getTime(), traci.person.getLaneID(p)))
     traci.person.moveToXY(p, "", x - 1, y, keepRoute=2+4)
     traci.simulationStep()
     x, y = traci.person.getPosition(p)
 
+traci.person.setSpeed(p, -1)
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
 traci.close()
