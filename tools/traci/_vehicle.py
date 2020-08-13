@@ -54,6 +54,7 @@ def _readLeader(result):
         return None
     return vehicleID, dist
 
+
 def _readFollower(result):
     # note: merge this with _readLeader once the default of _legacyGetLeader has
     # been changed to False
