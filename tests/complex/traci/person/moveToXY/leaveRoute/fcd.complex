@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 12 16:49:06 2020 by Eclipse SUMO sumo Version v1_6_0+1535-a5b97afb4f
+<!-- generated on Thu Aug 13 10:08:58 2020 by Eclipse SUMO sumo Version v1_6_0+1544-1a36f79bc7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -18,7 +18,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="60207"/>
+        <remote-port value="35833"/>
     </traci_server>
 
 </configuration>
@@ -206,10 +206,10 @@
         <person id="p0" x="103.44" y="55.12" angle="0.00" speed="1.42" pos="50.42" edge="B0B1" slope="0.00"/>
     </timestep>
     <timestep time="60.00">
-        <person id="p0" x="144.30" y="96.56" angle="44.60" speed="1.19" pos="39.60" edge="B1C1" slope="0.00"/>
+        <person id="p0" x="103.44" y="56.12" angle="0.00" speed="1.19" pos="51.42" edge="B0B1" slope="0.00"/>
     </timestep>
     <timestep time="61.00">
-        <person id="p0" x="145.30" y="96.56" angle="90.00" speed="1.42" pos="40.60" edge="B1C1" slope="0.00"/>
+        <person id="p0" x="145.30" y="96.56" angle="45.99" speed="1.42" pos="40.60" edge="B1C1" slope="0.00"/>
     </timestep>
     <timestep time="62.00">
         <person id="p0" x="146.30" y="96.56" angle="90.00" speed="1.28" pos="41.60" edge="B1C1" slope="0.00"/>
