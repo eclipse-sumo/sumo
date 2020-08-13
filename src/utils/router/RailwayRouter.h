@@ -24,6 +24,9 @@
 #include <vector>
 #include <algorithm>
 #include <assert.h>
+#ifdef HAVE_FOX
+#include <fx.h>
+#endif
 #include <utils/common/MsgHandler.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/ToString.h>
@@ -31,6 +34,7 @@
 #include "SUMOAbstractRouter.h"
 #include "DijkstraRouter.h"
 #include "RailEdge.h"
+
 
 //#define RailwayRouter_DEBUG_ROUTES
 
@@ -57,20 +61,12 @@ public:
     RailwayRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation effortOperation,
                   typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr, bool silent = false,
                   const bool havePermissions = false, const bool haveRestrictions = false) :
-        SUMOAbstractRouter<E, V>("RailwayRouter", true, effortOperation, ttOperation, havePermissions, haveRestrictions),
-        myInternalRouter(nullptr) {
+        SUMOAbstractRouter<E, V>("RailwayRouter", unbuildIsWarning, effortOperation, ttOperation, havePermissions, haveRestrictions),
+        myInternalRouter(nullptr), myOriginal(nullptr), mySilent(silent) {
         myStaticOperation = effortOperation;
-        std::vector<_RailEdge*> railEdges1; // a RailEdge for existing edge
-        for (E* edge : edges) {
-            railEdges1.push_back(edge->getRailwayRoutingEdge());
+        for (const E* const edge : edges) {
+            myInitialEdges.push_back(edge->getRailwayRoutingEdge());
         }
-        int numericalID = railEdges1.back()->getNumericalID() + 1;
-        std::vector<_RailEdge*> railEdges2 = railEdges1; // including additional edges for direction reversal
-        for (_RailEdge* railEdge : railEdges1) {
-            railEdge->init(railEdges2, numericalID, myMaxTrainLength);
-        }
-        myInternalRouter = new _InternalDijkstra(railEdges2, unbuildIsWarning, &getTravelTimeStatic, nullptr, silent, nullptr, havePermissions, haveRestrictions);
-
     }
 
     /// Destructor
@@ -85,6 +81,10 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E* from, const E* to, const V* const vehicle, SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
+        if (myInternalRouter == nullptr) {
+            myInternalRouter = new _InternalDijkstra(getRailEdges(), this->myErrorMsgHandler == MsgHandler::getWarningInstance(), &getTravelTimeStatic,
+                                                     nullptr, mySilent, nullptr, myHavePermissions, myHaveRestrictions);
+        }
         // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
         std::vector<double> backLengths;
         double backDist = vehicle->getLength() - from->getLength();
@@ -142,8 +142,27 @@ public:
 private:
     RailwayRouter(RailwayRouter* other) :
         SUMOAbstractRouter<E, V>(other),
-        myInternalRouter(other->myInternalRouter->clone())
+        myInternalRouter(nullptr),
+        myOriginal(other),
+        mySilent(other->mySilent)
     {}
+
+    const std::vector<_RailEdge*>& getRailEdges() {
+        if (myOriginal != nullptr) {
+            return myOriginal->getRailEdges();
+        }
+#ifdef HAVE_FOX
+        FXMutexLock locker(myLock);
+#endif
+        if (myRailEdges.empty()) {
+            myRailEdges = myInitialEdges;
+            int numericalID = myInitialEdges.back()->getNumericalID() + 1;
+            for (_RailEdge* railEdge : myInitialEdges) {
+                railEdge->init(myRailEdges, numericalID, myMaxTrainLength);
+            }
+        }
+        return myRailEdges;
+    }
 
     static inline double getTravelTimeStatic(const RailEdge<E, V>* const edge, const V* const veh, double time) {
         if (edge->getOriginal() != nullptr) {
@@ -193,6 +212,19 @@ private:
 
 private:
     _InternalRouter* myInternalRouter;
+    RailwayRouter<E, V>* const myOriginal;
+    /// @brief a RailEdge for every existing edge, filled on construction (but not in clones)
+    std::vector<_RailEdge*> myInitialEdges;
+    /// @brief complete rail network filled on demand (but not in clones)
+    std::vector<_RailEdge*> myRailEdges;
+
+    /// @brief whether to suppress warning/error if no route was found
+    const bool mySilent;
+
+#ifdef HAVE_FOX
+    /// The mutex used to avoid concurrent updates of myRailEdges
+    mutable FXMutex myLock;
+#endif
 
     /// @brief The object's operation to perform. (hack)
     static typename SUMOAbstractRouter<E, V>::Operation myStaticOperation;
