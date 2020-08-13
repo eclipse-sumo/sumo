@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 13 10:14:49 2020 by Eclipse SUMO sumo Version v1_6_0+1544-1a36f79bc7
+<!-- generated on Thu Aug 13 12:27:59 2020 by Eclipse SUMO sumo Version v1_6_0+1550-df1692c0ae
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -17,7 +17,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="39959"/>
+        <remote-port value="57091"/>
     </traci_server>
 
 </configuration>
@@ -79,189 +79,189 @@
         <person id="p0" x="113.85" y="93.40" angle="0.00" speed="0.00" pos="6.40" edge=":C_w2" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <person id="p0" x="113.84" y="94.40" angle="0.00" speed="0.00" pos="9.28" edge=":C_31" slope="0.00"/>
+        <person id="p0" x="113.85" y="94.40" angle="0.00" speed="0.00" pos="9.28" edge=":C_31" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
-        <person id="p0" x="113.79" y="95.39" angle="0.00" speed="1.21" pos="9.37" edge=":C_31" slope="0.00"/>
+        <person id="p0" x="113.70" y="95.38" angle="0.00" speed="1.21" pos="9.28" edge=":C_31" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
-        <person id="p0" x="113.79" y="96.39" angle="0.00" speed="1.38" pos="4.04" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="113.55" y="96.36" angle="0.00" speed="1.38" pos="9.28" edge=":C_31" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
-        <person id="p0" x="113.79" y="97.39" angle="0.00" speed="1.27" pos="5.04" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="113.55" y="97.36" angle="0.00" speed="1.27" pos="16.33" edge=":C_26" slope="0.00"/>
     </timestep>
     <timestep time="22.00">
-        <person id="p0" x="113.79" y="98.39" angle="0.00" speed="1.46" pos="16.44" edge=":C_26" slope="0.00"/>
+        <person id="p0" x="113.55" y="98.36" angle="0.00" speed="1.46" pos="16.20" edge=":C_26" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
-        <person id="p0" x="113.80" y="99.39" angle="0.00" speed="1.32" pos="16.31" edge=":C_26" slope="0.00"/>
+        <person id="p0" x="113.55" y="99.36" angle="0.00" speed="1.32" pos="16.06" edge=":C_26" slope="0.00"/>
     </timestep>
     <timestep time="24.00">
-        <person id="p0" x="113.80" y="100.39" angle="0.00" speed="1.38" pos="16.18" edge=":C_26" slope="0.00"/>
+        <person id="p0" x="113.55" y="100.36" angle="0.00" speed="1.38" pos="8.01" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="25.00">
-        <person id="p0" x="113.80" y="101.39" angle="0.00" speed="1.29" pos="9.04" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="113.55" y="101.36" angle="0.00" speed="1.29" pos="9.01" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="26.00">
-        <person id="p0" x="113.80" y="102.39" angle="0.00" speed="1.20" pos="10.04" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="113.55" y="102.36" angle="0.00" speed="1.20" pos="10.01" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="27.00">
-        <person id="p0" x="113.80" y="103.39" angle="0.00" speed="1.23" pos="11.04" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="113.55" y="103.36" angle="0.00" speed="1.23" pos="11.01" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="28.00">
-        <person id="p0" x="113.80" y="104.39" angle="0.00" speed="1.21" pos="12.04" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="113.55" y="104.36" angle="0.00" speed="1.21" pos="12.01" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="29.00">
-        <person id="p0" x="113.80" y="105.39" angle="0.00" speed="1.36" pos="13.04" edge=":C_c1" slope="0.00"/>
+        <person id="p0" x="113.55" y="105.36" angle="0.00" speed="1.36" pos="13.01" edge=":C_c1" slope="0.00"/>
     </timestep>
     <timestep time="30.00">
-        <person id="p0" x="113.80" y="106.39" angle="0.00" speed="1.31" pos="14.35" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.55" y="106.36" angle="0.00" speed="1.31" pos="14.32" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="31.00">
-        <person id="p0" x="113.80" y="107.39" angle="0.00" speed="1.31" pos="8.80" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.55" y="107.36" angle="0.00" speed="1.31" pos="8.77" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="32.00">
-        <person id="p0" x="113.80" y="108.39" angle="0.00" speed="1.31" pos="0.74" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.55" y="108.36" angle="0.00" speed="1.31" pos="0.71" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="33.00">
-        <person id="p0" x="113.75" y="109.62" angle="0.00" speed="1.40" pos="1.38" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="109.55" angle="0.00" speed="1.40" pos="1.38" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="34.00">
-        <person id="p0" x="113.75" y="110.62" angle="0.00" speed="1.46" pos="2.34" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="110.55" angle="0.00" speed="1.46" pos="2.34" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="35.00">
-        <person id="p0" x="113.75" y="111.62" angle="0.00" speed="1.38" pos="3.30" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="111.55" angle="0.00" speed="1.38" pos="3.30" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="36.00">
-        <person id="p0" x="113.75" y="112.62" angle="0.00" speed="1.25" pos="5.07" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="112.55" angle="0.00" speed="1.25" pos="5.01" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="37.00">
-        <person id="p0" x="113.75" y="113.62" angle="0.00" speed="0.43" pos="5.50" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="113.55" angle="0.00" speed="0.50" pos="5.50" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="38.00">
-        <person id="p0" x="113.75" y="114.62" angle="0.00" speed="0.43" pos="5.50" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="114.55" angle="0.00" speed="0.50" pos="5.50" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="39.00">
-        <person id="p0" x="113.75" y="115.62" angle="0.00" speed="0.43" pos="5.50" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="115.55" angle="0.00" speed="0.50" pos="2.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="40.00">
-        <person id="p0" x="113.75" y="116.62" angle="0.00" speed="0.43" pos="3.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="116.55" angle="0.00" speed="1.19" pos="3.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="41.00">
-        <person id="p0" x="113.75" y="117.62" angle="0.00" speed="1.19" pos="4.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="117.55" angle="0.00" speed="1.46" pos="4.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="42.00">
-        <person id="p0" x="113.75" y="118.62" angle="0.00" speed="1.46" pos="5.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="118.55" angle="0.00" speed="1.27" pos="5.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="43.00">
-        <person id="p0" x="113.75" y="119.62" angle="0.00" speed="1.27" pos="6.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="119.55" angle="0.00" speed="1.37" pos="6.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="44.00">
-        <person id="p0" x="113.75" y="120.62" angle="0.00" speed="1.37" pos="7.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="120.55" angle="0.00" speed="1.43" pos="7.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="45.00">
-        <person id="p0" x="113.75" y="121.62" angle="0.00" speed="1.43" pos="8.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="121.55" angle="0.00" speed="1.44" pos="8.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="46.00">
-        <person id="p0" x="113.75" y="122.62" angle="0.00" speed="1.44" pos="9.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="122.55" angle="0.00" speed="1.35" pos="9.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="47.00">
-        <person id="p0" x="113.75" y="123.62" angle="0.00" speed="1.35" pos="10.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="123.55" angle="0.00" speed="1.19" pos="10.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="48.00">
-        <person id="p0" x="113.75" y="124.62" angle="0.00" speed="1.19" pos="11.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="124.55" angle="0.00" speed="1.39" pos="11.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="49.00">
-        <person id="p0" x="113.75" y="125.62" angle="0.00" speed="1.39" pos="12.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="125.55" angle="0.00" speed="1.41" pos="12.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="50.00">
-        <person id="p0" x="113.75" y="126.62" angle="0.00" speed="1.41" pos="13.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="126.55" angle="0.00" speed="1.42" pos="13.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="51.00">
-        <person id="p0" x="113.75" y="127.62" angle="0.00" speed="1.42" pos="14.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="127.55" angle="0.00" speed="1.30" pos="14.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="52.00">
-        <person id="p0" x="113.75" y="128.62" angle="0.00" speed="1.30" pos="15.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="128.55" angle="0.00" speed="1.40" pos="15.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="53.00">
-        <person id="p0" x="113.75" y="129.62" angle="0.00" speed="1.40" pos="16.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="129.55" angle="0.00" speed="1.23" pos="16.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="54.00">
-        <person id="p0" x="113.75" y="130.62" angle="0.00" speed="1.23" pos="17.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="130.55" angle="0.00" speed="1.45" pos="17.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="55.00">
-        <person id="p0" x="113.75" y="131.62" angle="0.00" speed="1.45" pos="18.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="131.55" angle="0.00" speed="1.28" pos="18.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="56.00">
-        <person id="p0" x="113.75" y="132.62" angle="0.00" speed="1.28" pos="19.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="132.55" angle="0.00" speed="1.26" pos="19.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="57.00">
-        <person id="p0" x="113.75" y="133.62" angle="0.00" speed="1.26" pos="20.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="133.55" angle="0.00" speed="1.30" pos="20.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="58.00">
-        <person id="p0" x="113.75" y="134.62" angle="0.00" speed="1.30" pos="21.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="134.55" angle="0.00" speed="1.27" pos="21.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="59.00">
-        <person id="p0" x="113.75" y="135.62" angle="0.00" speed="1.27" pos="22.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="135.55" angle="0.00" speed="1.20" pos="22.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="60.00">
-        <person id="p0" x="113.75" y="136.62" angle="0.00" speed="1.20" pos="23.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="136.55" angle="0.00" speed="1.19" pos="23.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="61.00">
-        <person id="p0" x="113.75" y="137.62" angle="0.00" speed="1.19" pos="24.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="137.55" angle="0.00" speed="1.38" pos="24.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="62.00">
-        <person id="p0" x="113.75" y="138.62" angle="0.00" speed="1.38" pos="25.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="138.55" angle="0.00" speed="1.33" pos="25.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="63.00">
-        <person id="p0" x="113.75" y="139.62" angle="0.00" speed="1.33" pos="26.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="139.55" angle="0.00" speed="1.30" pos="26.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="64.00">
-        <person id="p0" x="113.75" y="140.62" angle="0.00" speed="1.30" pos="27.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="140.55" angle="0.00" speed="1.42" pos="27.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="65.00">
-        <person id="p0" x="113.75" y="141.62" angle="0.00" speed="1.42" pos="28.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="141.55" angle="0.00" speed="1.19" pos="28.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="66.00">
-        <person id="p0" x="113.75" y="142.62" angle="0.00" speed="1.19" pos="29.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="142.55" angle="0.00" speed="1.42" pos="29.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="67.00">
-        <person id="p0" x="113.75" y="143.62" angle="0.00" speed="1.42" pos="30.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="143.55" angle="0.00" speed="1.28" pos="30.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="68.00">
-        <person id="p0" x="113.75" y="144.62" angle="0.00" speed="1.28" pos="31.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="144.55" angle="0.00" speed="1.43" pos="31.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="69.00">
-        <person id="p0" x="113.75" y="145.62" angle="0.00" speed="1.43" pos="32.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="145.55" angle="0.00" speed="1.46" pos="32.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="70.00">
-        <person id="p0" x="113.75" y="146.62" angle="0.00" speed="1.46" pos="33.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="146.55" angle="0.00" speed="1.39" pos="33.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="71.00">
-        <person id="p0" x="113.75" y="147.62" angle="0.00" speed="1.39" pos="34.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="147.55" angle="0.00" speed="1.31" pos="34.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="72.00">
-        <person id="p0" x="113.75" y="148.62" angle="0.00" speed="1.31" pos="35.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="148.55" angle="0.00" speed="1.20" pos="35.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="73.00">
-        <person id="p0" x="113.75" y="149.62" angle="0.00" speed="1.20" pos="36.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="149.55" angle="0.00" speed="1.45" pos="36.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="74.00">
-        <person id="p0" x="113.75" y="150.62" angle="0.00" speed="1.45" pos="37.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="150.55" angle="0.00" speed="1.42" pos="37.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="75.00">
-        <person id="p0" x="113.75" y="151.62" angle="0.00" speed="1.42" pos="38.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="151.55" angle="0.00" speed="1.18" pos="38.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="76.00">
-        <person id="p0" x="113.75" y="152.62" angle="0.00" speed="1.18" pos="39.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="152.55" angle="0.00" speed="1.38" pos="39.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="77.00">
-        <person id="p0" x="113.75" y="153.62" angle="0.00" speed="1.38" pos="40.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="153.55" angle="0.00" speed="1.37" pos="40.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="78.00">
-        <person id="p0" x="113.75" y="154.62" angle="0.00" speed="1.37" pos="41.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="154.55" angle="0.00" speed="1.45" pos="41.45" edge=":C_w1" slope="0.00"/>
     </timestep>
     <timestep time="79.00">
-        <person id="p0" x="113.75" y="155.62" angle="0.00" speed="1.45" pos="42.52" edge=":C_w1" slope="0.00"/>
+        <person id="p0" x="113.50" y="155.55" angle="0.00" speed="1.31" pos="42.45" edge=":C_w1" slope="0.00"/>
     </timestep>
 </fcd-export>
