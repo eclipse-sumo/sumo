@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Aug  8 12:30:07 2020 by Eclipse SUMO marouter Version v1_6_0+1462-a775417066
+<!-- generated on Thu Aug 13 12:36:10 2020 by Eclipse SUMO marouter Version v1_6_0+1520-cb474809f6
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -97,7 +97,7 @@
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
-        <xml-validation.routes value="always" type="STR" help="Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
+        <xml-validation.routes value="auto" type="STR" help="Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
         <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>

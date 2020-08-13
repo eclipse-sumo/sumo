@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Aug  8 12:30:07 2020 by Eclipse SUMO marouter Version v1_6_0+1462-a775417066
+<!-- generated on Thu Aug 13 12:36:10 2020 by Eclipse SUMO marouter Version v1_6_0+1520-cb474809f6
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -244,7 +244,7 @@
         <xml-validation.net value="never" type="STR"/>
 
         <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.routes value="always" type="STR"/>
+        <xml-validation.routes value="auto" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
