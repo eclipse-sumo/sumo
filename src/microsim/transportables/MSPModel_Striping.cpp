@@ -462,6 +462,9 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
     MSLink* link = nullptr;
     int nextDir = UNDEFINED_DIRECTION;
 
+    //if DEBUGCOND(ped) {
+    //    std::cout << "  nextRouteLane=" << Named::getIDSecure(nextRouteLane) << " junction=" << junction->getID() << "\n";
+    //}
     if (nextRouteLane == nullptr && nextRouteEdge != nullptr) {
         std::string error = "Person '" + ped.myPerson->getID() + "' could not find sidewalk on edge '" + nextRouteEdge->getID() + "', time="
                             + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".";
@@ -1961,9 +1964,6 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         }
 
         myLane = lane;
-        if (oldLane == nullptr || &oldLane->getEdge() != &myLane->getEdge()) {
-            myNLI = getNextLane(*this, myLane, nullptr);
-        }
         const double lateral_offset = (lane->getWidth() - stripeWidth) * 0.5;
         if (lane->getEdge().isWalkingArea()) {
             if (myWalkingAreaPath == nullptr || myWalkingAreaPath->lane != lane) {
@@ -1991,14 +1991,34 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         }
         // guess direction
         const double angleDiff = GeomHelper::getMinAngleDiff(angle, oldAngle);
-        if (angleDiff <= 90) {
-            // keep direction
-            if (myDir == UNDEFINED_DIRECTION) {
+        if (myStage->getNextRouteEdge() != nullptr) {
+            if (myStage->getEdge()->getToJunction() == myStage->getNextRouteEdge()->getFromJunction() ||
+                    myStage->getEdge()->getToJunction() == myStage->getNextRouteEdge()->getToJunction()) {
                 myDir = FORWARD;
+            } else {
+                myDir = BACKWARD;
             }
         } else {
-            // change direction
-            myDir = (myDir == BACKWARD) ? FORWARD : BACKWARD;
+            // guess from angle
+            if (angleDiff <= 90) {
+                // keep direction
+                if (myDir == UNDEFINED_DIRECTION) {
+                    myDir = FORWARD;
+                }
+            } else {
+                // change direction
+                myDir = (myDir == BACKWARD) ? FORWARD : BACKWARD;
+            }
+        }
+        // update next lane info (after guessing direction)
+        if (oldLane == nullptr || &oldLane->getEdge() != &myLane->getEdge()) {
+            const MSLane* sidewalk = getSidewalk<MSEdge, MSLane>(&myLane->getEdge());
+            // assume that we will eventually move back onto the sidewalk if
+            // there is one
+            myNLI = getNextLane(*this, sidewalk == nullptr ? myLane : sidewalk, nullptr);
+#ifdef DEBUG_MOVETOXY
+            std::cout << " myNLI=" << Named::getIDSecure(myNLI.lane) << " link=" << (myNLI.link == nullptr ? "NULL" : myNLI.link->getDescription()) << " dir=" << myNLI.dir << "\n";
+#endif
         }
 #ifdef DEBUG_MOVETOXY
         std::cout << " newRelPos=" << Position(myRelX, myRelY) << " edge=" << myPerson->getEdge()->getID() << " newPos=" << myPerson->getPosition() 

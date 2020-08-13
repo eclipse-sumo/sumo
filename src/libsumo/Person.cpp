@@ -818,6 +818,35 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
                                     speed, ev, routeIndex, currentLane, p->getEdgePos(), currentLane != nullptr,
                                     vClass, true,
                                     bestDistance, &lane, lanePos, routeOffset, edges);
+        if (edges.size() != 0 && ev.size() > 1) {
+            // try to rebuild the route
+            const MSEdge* origEdge = p->getEdge();
+            assert(lane != nullptr);
+            const MSJunction* originalTarget = nullptr;
+            if (origEdge->isNormal()) {
+                if (routeIndex == 0) {
+                    if (origEdge->getToJunction() == ev[1]->getToJunction() || origEdge->getToJunction() == ev[1]->getFromJunction()) {
+                        originalTarget = origEdge->getToJunction();
+                    } else {
+                        originalTarget = origEdge->getFromJunction();
+                    }
+                } else {
+                    if (origEdge->getToJunction() == ev[routeIndex - 1]->getToJunction() || origEdge->getToJunction() == ev[routeIndex - 1]->getFromJunction()) {
+                        originalTarget = origEdge->getFromJunction();
+                    } else {
+                        originalTarget = origEdge->getToJunction();
+                    }
+                }
+            } else {
+                originalTarget = origEdge->getToJunction();
+                assert(originalTarget == origEdge->getFromJunction());
+            }
+            const MSEdge* newEdge = edges[0];
+            if (edges[0]->getFromJunction() == originalTarget || edges[0]->getToJunction() == originalTarget) {
+                edges = ev;
+                edges[routeIndex] = newEdge;
+            }
+        }
     }
     if ((found && bestDistance <= maxRouteDistance) || mayLeaveNetwork) {
         // compute lateral offset
