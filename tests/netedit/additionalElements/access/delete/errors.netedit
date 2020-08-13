@@ -19,35 +19,35 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'access' in TagSelector
 Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
-Debug: Adding access 'busStop_gneE2_1_0access0' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
-Debug: Adding access 'busStop_gneE2_1_0access1' in GNEChange_Additional
-Debug: Removing access 'busStop_gneE2_1_0access1' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding access 'busStop_gneE2_1_0access1' in GNEChange_Additional
-Debug: Removing access 'busStop_gneE2_1_0access0' in GNEChange_Additional
-Debug: Removing access 'busStop_gneE2_1_0access1' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE2_1_0access1' in GNEChange_Additional
-Debug: Adding access 'busStop_gneE2_1_0access0' in GNEChange_Additional
-Debug: Removing access 'busStop_gneE2_1_0access0' in GNEChange_Additional
-Debug: Removing access 'busStop_gneE2_1_0access1' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding access 'busStop_gneE2_1_0access1' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Adding access 'busStop_gneE2_1_0access0' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing access 'busStop_gneE2_1_0access1' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing access 'busStop_gneE2_1_0access0' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing busStop 'busStop_gneE2_1_0' in GNEChange_Additional
@@ -56,16 +56,16 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding busStop 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding access 'busStop_gneE2_1_0access0' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding access 'busStop_gneE2_1_0access1' in GNEChange_Additional
+Debug: Adding access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing access 'busStop_gneE2_1_0access0' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing access 'busStop_gneE2_1_0access1' in GNEChange_Additional
+Debug: Removing access 'busStop_gneE2_1_0' in GNEChange_Additional
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -95,8 +95,8 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced access 'busStop_gneE2_1_0access1'
-Debug: Deleting unreferenced access 'busStop_gneE2_1_0access0'
+Debug: Deleting unreferenced access 'busStop_gneE2_1_0'
+Debug: Deleting unreferenced access 'busStop_gneE2_1_0'
 Debug: Deleting unreferenced busStop 'busStop_gneE2_1_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved

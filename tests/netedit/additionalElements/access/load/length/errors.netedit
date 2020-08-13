@@ -31,12 +31,12 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding access 'busStop_0access0' in GNEChange_Additional
+Debug: Adding access 'busStop_0' in GNEChange_Additional
 Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be parsed to float; Default value will be used.
-Debug: Adding access 'busStop_0access1' in GNEChange_Additional
+Debug: Adding access 'busStop_0' in GNEChange_Additional
 Debug: Format of optional positive optional float attribute 'length' of access is invalid; Cannot be negative; Default value will be used.
-Debug: Adding access 'busStop_0access2' in GNEChange_Additional
-Debug: Adding access 'busStop_0access3' in GNEChange_Additional
+Debug: Adding access 'busStop_0' in GNEChange_Additional
+Debug: Adding access 'busStop_0' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
@@ -102,13 +102,13 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced access 'busStop_0access3'
+Debug: Deleting unreferenced access 'busStop_0'
+Debug: Deleting unreferenced access 'busStop_0'
+Debug: Deleting unreferenced access 'busStop_0'
+Debug: Deleting unreferenced access 'busStop_0'
+Debug: Deleting unreferenced busStop 'busStop_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced access 'busStop_0access2'
-Debug: Deleting unreferenced access 'busStop_0access1'
-Debug: Deleting unreferenced access 'busStop_0access0'
-Debug: Deleting unreferenced busStop 'busStop_0'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '10' in AttributeCarriers destructor
