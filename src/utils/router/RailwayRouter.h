@@ -43,7 +43,25 @@
 // ===========================================================================
 /**
  * @class RailwayRouter
- * The router for pedestrians (on a bidirectional network of sidewalks and crossings)
+ * The router for rail vehicles for track networks where some sections may be used in both directions
+ * and trains may reverse depending on location and train length length
+ *
+ * Example (assume each track section is 100m long) running from left to right and a negative sign indicates reverse direction
+ *
+ *       A     C      D
+ *   .______.______.______.
+ *   ._____/
+ *       B
+ *
+ * Consider a train of 200m length that enters on B and must move to A (with a reversal):
+ * The necessary route is B C D -D -C -A were D,-D are needed for the train to fully pass the switch
+ *
+ * We shadow the normal edge graph with a railEdge graph to include virtual
+ * turnarounds that look at the train length.
+ * The graph extension takes place via RailEdge::init()
+ * For edge C we create a virtual turnaround (as successor of C) that connectes C with -C and is then expanded to C D -D -C for trains longer than 100m.
+ * The expension takes place via RailEdge::insertOriginalEdges()
+ *
  */
 template<class E, class V>
 class RailwayRouter : public SUMOAbstractRouter<E, V> {
