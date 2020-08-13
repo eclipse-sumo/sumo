@@ -83,7 +83,7 @@ public:
     bool compute(const E* from, const E* to, const V* const vehicle, SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
         if (myInternalRouter == nullptr) {
             myInternalRouter = new _InternalDijkstra(getRailEdges(), this->myErrorMsgHandler == MsgHandler::getWarningInstance(), &getTravelTimeStatic,
-                                                     nullptr, mySilent, nullptr, myHavePermissions, myHaveRestrictions);
+                                                     nullptr, mySilent, nullptr, this->myHavePermissions, this->myHaveRestrictions);
         }
         // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
         std::vector<double> backLengths;
