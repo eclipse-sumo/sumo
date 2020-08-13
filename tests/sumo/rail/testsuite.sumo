@@ -41,5 +41,8 @@ alternativeRoute
 # a train that circles endlessly, switches can be controlled in sumo-gui
 model_railroad
 
+# load a rail_signal where all connections are marked as uncontrolled
+uncontrolled_links
+
 # railway-specific bugs
 bugs
