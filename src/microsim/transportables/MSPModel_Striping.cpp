@@ -1000,6 +1000,9 @@ MSPModel_Striping::arriveAndAdvance(Pedestrians& pedestrians, SUMOTime currentTi
     // can't use iterators because we do concurrent modification
     for (int i = 0; i < (int)pedestrians.size(); i++) {
         PState* const p = pedestrians[i];
+        if (p->isRemoteControlled()) {
+            continue;
+        }
         if (p->myDir == dir && p->distToLaneEnd() < 0) {
             // moveToNextLane may trigger re-insertion (for consecutive
             // walks) so erase must be called first
@@ -2129,6 +2132,12 @@ MSPModel_Striping::PState::getID() const {
 double
 MSPModel_Striping::PState::getWidth() const {
     return myPerson->getVehicleType().getWidth();
+}
+
+
+bool
+MSPModel_Striping::PState::isRemoteControlled() const {
+    return myPerson->hasInfluencer() && myPerson->getInfluencer().isRemoteControlled();
 }
 
 // ===========================================================================

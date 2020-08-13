@@ -361,6 +361,9 @@ protected:
         /// @brief return the person width
         virtual double getWidth() const;
 
+        /// @brief whether the person is currently being controlled via TraCI
+        bool isRemoteControlled() const;
+
     protected:
         /// @brief constructor for PStateVehicle
         PState();
