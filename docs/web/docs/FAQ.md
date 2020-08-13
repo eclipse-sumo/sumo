@@ -1031,12 +1031,14 @@ during the execution, DisplayLink drivers must be uninstalled.
 
 ### How do I upgrade SUMO?
 
-  The easiest way is to download the latest sumo release to a
+  The easiest way is to download the [latest sumo release](https://sumo.dlr.de/docs/Downloads.php) or the [latest development version](https://sumo.dlr.de/docs/Downloads.php#sumo_-_latest_development_version) to a
   directory of your choices and start using it from there. You may
   have to update the environment variables *PATH* and *SUMO_HOME* to
   ensure that the correct version of the application is called from
   the command line (see
   [Basics/Basic_Computer_Skills\#Configuring_Path_Settings](Basics/Basic_Computer_Skills.md#configuring_path_settings)).
+  Confirm that the values are update correctly by calling `echo %SUMO_HOME%` (Linux: `echo $SUMO_HOME`) 
+  from a command line that you wish to use for calling applications and traci scripts.
 
 ### [sumo](sumo.md) warns about deprecated networks or fails to load them
 
