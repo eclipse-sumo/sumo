@@ -1314,7 +1314,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     const LaneUtility& u = lane2utility.find(bestLane)->second;
     bestDistance = u.dist;
     *lane = bestLane;
-    lanePos = bestLane->getShape().nearest_offset_to_point25D(pos, false);
+    lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
+                bestLane->interpolateGeometryPosToLanePos(
+                    bestLane->getShape().nearest_offset_to_point25D(pos, false))));
     const MSEdge* prevEdge = u.prevEdge;
     if (u.onRoute) {
         ConstMSEdgeVector::const_iterator prevEdgePos = std::find(currentRoute.begin(), currentRoute.end(), prevEdge);
